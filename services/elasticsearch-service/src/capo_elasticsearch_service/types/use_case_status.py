@@ -45,7 +45,11 @@ def deserialize_json(data: dict) -> UseCaseStatus:
             )
         )
     else:
-        raise DeserializationError("UseCaseStatus.options required")
+        import typing
+
+        out["options"] = typing.cast(
+            "capo_elasticsearch_service.types.domain_use_case.DomainUseCase", ""
+        )
     if data.get("Status") is not None:
         import capo_elasticsearch_service.types.option_status
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_keyspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_keyspaces.types.auto_scaling_settings
     import capo_keyspaces.types.capacity_units
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_0(data: dict) -> ReplicaSpecification:
     if data.get("region") is not None:
         out["region"] = data["region"]
     else:
-        raise DeserializationError("ReplicaSpecification.region required")
+        out["region"] = ""
     if data.get("readCapacityUnits") is not None:
         out["read_capacity_units"] = data["readCapacityUnits"]
     if data.get("readCapacityAutoScaling") is not None:

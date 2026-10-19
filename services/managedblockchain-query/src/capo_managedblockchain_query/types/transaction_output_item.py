@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_managedblockchain_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -58,13 +56,13 @@ def deserialize_json(data: dict) -> TransactionOutputItem:
     if data.get("transactionHash") is not None:
         out["transaction_hash"] = data["transactionHash"]
     else:
-        raise DeserializationError("TransactionOutputItem.transaction_hash required")
+        out["transaction_hash"] = ""
     if data.get("transactionId") is not None:
         out["transaction_id"] = data["transactionId"]
     if data.get("network") is not None:
         out["network"] = data["network"]
     else:
-        raise DeserializationError("TransactionOutputItem.network required")
+        out["network"] = ""
     if data.get("transactionTimestamp") is not None:
         import capo_managedblockchain_query.types._prelude.timestamp
 
@@ -74,8 +72,10 @@ def deserialize_json(data: dict) -> TransactionOutputItem:
             )
         )
     else:
-        raise DeserializationError(
-            "TransactionOutputItem.transaction_timestamp required"
+        import datetime
+
+        out["transaction_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("confirmationStatus") is not None:
         out["confirmation_status"] = data["confirmationStatus"]

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.authorization_data
     import capo_bedrock_agentcore_control.types.date_timestamp
@@ -122,11 +120,11 @@ def deserialize_json(data: dict) -> TargetSummary:
     if data.get("targetId") is not None:
         out["target_id"] = data["targetId"]
     else:
-        raise DeserializationError("TargetSummary.target_id required")
+        out["target_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("TargetSummary.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.target_status
 
@@ -136,7 +134,11 @@ def deserialize_json(data: dict) -> TargetSummary:
             )
         )
     else:
-        raise DeserializationError("TargetSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.target_status.TargetStatus", ""
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("createdAt") is not None:
@@ -148,7 +150,9 @@ def deserialize_json(data: dict) -> TargetSummary:
             )
         )
     else:
-        raise DeserializationError("TargetSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -158,7 +162,9 @@ def deserialize_json(data: dict) -> TargetSummary:
             )
         )
     else:
-        raise DeserializationError("TargetSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("resourcePriority") is not None:
         out["resource_priority"] = data["resourcePriority"]
     if data.get("lastSynchronizedAt") is not None:

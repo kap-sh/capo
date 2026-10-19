@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.tag_map
 
@@ -31,5 +29,5 @@ def deserialize_json(data: dict) -> ListTagsForResourceResponse:
 
         out["tags"] = capo_cleanroomsml.types.tag_map.deserialize_json(data["tags"])
     else:
-        raise DeserializationError("ListTagsForResourceResponse.tags required")
+        out["tags"] = {}
     return out

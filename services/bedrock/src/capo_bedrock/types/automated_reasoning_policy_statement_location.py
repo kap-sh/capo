@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_line_number_list
 
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyStatementLocation:
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyStatementLocation.lines required"
-        )
+        out["lines"] = []
     return out

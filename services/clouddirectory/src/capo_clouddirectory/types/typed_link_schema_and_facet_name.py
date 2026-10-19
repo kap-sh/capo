@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_clouddirectory.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_clouddirectory.types.arn
     import capo_clouddirectory.types.typed_link_name
@@ -31,11 +29,9 @@ def deserialize_json(data: dict) -> TypedLinkSchemaAndFacetName:
     if data.get("SchemaArn") is not None:
         out["schema_arn"] = data["SchemaArn"]
     else:
-        raise DeserializationError("TypedLinkSchemaAndFacetName.schema_arn required")
+        out["schema_arn"] = ""
     if data.get("TypedLinkName") is not None:
         out["typed_link_name"] = data["TypedLinkName"]
     else:
-        raise DeserializationError(
-            "TypedLinkSchemaAndFacetName.typed_link_name required"
-        )
+        out["typed_link_name"] = ""
     return out

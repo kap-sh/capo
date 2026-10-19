@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.knowledge_base_search_filter_name
     import capo_quicksight.types.knowledge_base_search_operator
@@ -52,7 +50,12 @@ def deserialize_json(data: dict) -> KnowledgeBaseSearchFilter:
             )
         )
     else:
-        raise DeserializationError("KnowledgeBaseSearchFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_quicksight.types.knowledge_base_search_filter_name.KnowledgeBaseSearchFilterName",
+            "",
+        )
     if data.get("operator") is not None:
         import capo_quicksight.types.knowledge_base_search_operator
 
@@ -62,9 +65,14 @@ def deserialize_json(data: dict) -> KnowledgeBaseSearchFilter:
             )
         )
     else:
-        raise DeserializationError("KnowledgeBaseSearchFilter.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_quicksight.types.knowledge_base_search_operator.KnowledgeBaseSearchOperator",
+            "",
+        )
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("KnowledgeBaseSearchFilter.value required")
+        out["value"] = ""
     return out

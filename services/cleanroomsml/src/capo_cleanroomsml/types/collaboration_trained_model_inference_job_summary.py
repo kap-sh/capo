@@ -136,9 +136,7 @@ def deserialize_json(data: dict) -> CollaborationTrainedModelInferenceJobSummary
     if data.get("trainedModelInferenceJobArn") is not None:
         out["trained_model_inference_job_arn"] = data["trainedModelInferenceJobArn"]
     else:
-        raise DeserializationError(
-            "CollaborationTrainedModelInferenceJobSummary.trained_model_inference_job_arn required"
-        )
+        out["trained_model_inference_job_arn"] = ""
     if data.get("configuredModelAlgorithmAssociationArn") is not None:
         out["configured_model_algorithm_association_arn"] = data[
             "configuredModelAlgorithmAssociationArn"
@@ -146,23 +144,17 @@ def deserialize_json(data: dict) -> CollaborationTrainedModelInferenceJobSummary
     if data.get("membershipIdentifier") is not None:
         out["membership_identifier"] = data["membershipIdentifier"]
     else:
-        raise DeserializationError(
-            "CollaborationTrainedModelInferenceJobSummary.membership_identifier required"
-        )
+        out["membership_identifier"] = ""
     if data.get("trainedModelArn") is not None:
         out["trained_model_arn"] = data["trainedModelArn"]
     else:
-        raise DeserializationError(
-            "CollaborationTrainedModelInferenceJobSummary.trained_model_arn required"
-        )
+        out["trained_model_arn"] = ""
     if data.get("trainedModelVersionIdentifier") is not None:
         out["trained_model_version_identifier"] = data["trainedModelVersionIdentifier"]
     if data.get("collaborationIdentifier") is not None:
         out["collaboration_identifier"] = data["collaborationIdentifier"]
     else:
-        raise DeserializationError(
-            "CollaborationTrainedModelInferenceJobSummary.collaboration_identifier required"
-        )
+        out["collaboration_identifier"] = ""
     if data.get("status") is not None:
         import capo_cleanroomsml.types.trained_model_inference_job_status
 
@@ -172,8 +164,11 @@ def deserialize_json(data: dict) -> CollaborationTrainedModelInferenceJobSummary
             )
         )
     else:
-        raise DeserializationError(
-            "CollaborationTrainedModelInferenceJobSummary.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cleanroomsml.types.trained_model_inference_job_status.TrainedModelInferenceJobStatus",
+            "",
         )
     if data.get("outputConfiguration") is not None:
         import capo_cleanroomsml.types.inference_output_configuration
@@ -190,9 +185,7 @@ def deserialize_json(data: dict) -> CollaborationTrainedModelInferenceJobSummary
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "CollaborationTrainedModelInferenceJobSummary.name required"
-        )
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("metricsStatus") is not None:
@@ -222,8 +215,10 @@ def deserialize_json(data: dict) -> CollaborationTrainedModelInferenceJobSummary
             data["createTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "CollaborationTrainedModelInferenceJobSummary.create_time required"
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("updateTime") is not None:
         import datetime
@@ -232,13 +227,13 @@ def deserialize_json(data: dict) -> CollaborationTrainedModelInferenceJobSummary
             data["updateTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "CollaborationTrainedModelInferenceJobSummary.update_time required"
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("creatorAccountId") is not None:
         out["creator_account_id"] = data["creatorAccountId"]
     else:
-        raise DeserializationError(
-            "CollaborationTrainedModelInferenceJobSummary.creator_account_id required"
-        )
+        out["creator_account_id"] = ""
     return out

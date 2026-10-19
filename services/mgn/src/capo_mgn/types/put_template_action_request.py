@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.action_category
     import capo_mgn.types.action_description
@@ -105,27 +103,23 @@ def deserialize_json(data: dict) -> PutTemplateActionRequest:
     if data.get("launchConfigurationTemplateID") is not None:
         out["launch_configuration_template_id"] = data["launchConfigurationTemplateID"]
     else:
-        raise DeserializationError(
-            "PutTemplateActionRequest.launch_configuration_template_id required"
-        )
+        out["launch_configuration_template_id"] = ""
     if data.get("actionName") is not None:
         out["action_name"] = data["actionName"]
     else:
-        raise DeserializationError("PutTemplateActionRequest.action_name required")
+        out["action_name"] = ""
     if data.get("documentIdentifier") is not None:
         out["document_identifier"] = data["documentIdentifier"]
     else:
-        raise DeserializationError(
-            "PutTemplateActionRequest.document_identifier required"
-        )
+        out["document_identifier"] = ""
     if data.get("order") is not None:
         out["order"] = data["order"]
     else:
-        raise DeserializationError("PutTemplateActionRequest.order required")
+        out["order"] = 0
     if data.get("actionID") is not None:
         out["action_id"] = data["actionID"]
     else:
-        raise DeserializationError("PutTemplateActionRequest.action_id required")
+        out["action_id"] = ""
     if data.get("documentVersion") is not None:
         out["document_version"] = data["documentVersion"]
     if data.get("active") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.date_timestamp
     import capo_bedrock_agent.types.host_header
@@ -106,9 +104,7 @@ def deserialize_json(data: dict) -> VpcConfigurationSummary:
     if data.get("vpcConfigurationId") is not None:
         out["vpc_configuration_id"] = data["vpcConfigurationId"]
     else:
-        raise DeserializationError(
-            "VpcConfigurationSummary.vpc_configuration_id required"
-        )
+        out["vpc_configuration_id"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agent.types.vpc_configuration_status
 
@@ -118,21 +114,26 @@ def deserialize_json(data: dict) -> VpcConfigurationSummary:
             )
         )
     else:
-        raise DeserializationError("VpcConfigurationSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agent.types.vpc_configuration_status.VpcConfigurationStatus",
+            "",
+        )
     if data.get("statusMessage") is not None:
         out["status_message"] = data["statusMessage"]
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
     else:
-        raise DeserializationError("VpcConfigurationSummary.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("resourceTarget") is not None:
         out["resource_target"] = data["resourceTarget"]
     else:
-        raise DeserializationError("VpcConfigurationSummary.resource_target required")
+        out["resource_target"] = ""
     if data.get("port") is not None:
         out["port"] = data["port"]
     else:
-        raise DeserializationError("VpcConfigurationSummary.port required")
+        out["port"] = 0
     if data.get("protocol") is not None:
         import capo_bedrock_agent.types.vpc_protocol
 
@@ -140,7 +141,11 @@ def deserialize_json(data: dict) -> VpcConfigurationSummary:
             data["protocol"]
         )
     else:
-        raise DeserializationError("VpcConfigurationSummary.protocol required")
+        import typing
+
+        out["protocol"] = typing.cast(
+            "capo_bedrock_agent.types.vpc_protocol.VpcProtocol", ""
+        )
     if data.get("resolutionMode") is not None:
         import capo_bedrock_agent.types.vpc_resolution_mode
 
@@ -150,7 +155,11 @@ def deserialize_json(data: dict) -> VpcConfigurationSummary:
             )
         )
     else:
-        raise DeserializationError("VpcConfigurationSummary.resolution_mode required")
+        import typing
+
+        out["resolution_mode"] = typing.cast(
+            "capo_bedrock_agent.types.vpc_resolution_mode.VpcResolutionMode", ""
+        )
     if data.get("hostHeader") is not None:
         out["host_header"] = data["hostHeader"]
     if data.get("tlsServerName") is not None:
@@ -166,5 +175,7 @@ def deserialize_json(data: dict) -> VpcConfigurationSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("VpcConfigurationSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

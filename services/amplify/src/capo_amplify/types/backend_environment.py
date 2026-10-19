@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.backend_environment_arn
     import capo_amplify.types.create_time
@@ -61,13 +59,11 @@ def deserialize_json(data: dict) -> BackendEnvironment:
     if data.get("backendEnvironmentArn") is not None:
         out["backend_environment_arn"] = data["backendEnvironmentArn"]
     else:
-        raise DeserializationError(
-            "BackendEnvironment.backend_environment_arn required"
-        )
+        out["backend_environment_arn"] = ""
     if data.get("environmentName") is not None:
         out["environment_name"] = data["environmentName"]
     else:
-        raise DeserializationError("BackendEnvironment.environment_name required")
+        out["environment_name"] = ""
     if data.get("stackName") is not None:
         out["stack_name"] = data["stackName"]
     if data.get("deploymentArtifacts") is not None:
@@ -79,7 +75,11 @@ def deserialize_json(data: dict) -> BackendEnvironment:
             data["createTime"]
         )
     else:
-        raise DeserializationError("BackendEnvironment.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import capo_amplify.types.update_time
 
@@ -87,5 +87,9 @@ def deserialize_json(data: dict) -> BackendEnvironment:
             data["updateTime"]
         )
     else:
-        raise DeserializationError("BackendEnvironment.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

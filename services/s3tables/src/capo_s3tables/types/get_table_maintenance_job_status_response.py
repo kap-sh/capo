@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3tables.types.table_arn
     import capo_s3tables.types.table_maintenance_job_status
@@ -35,9 +33,7 @@ def deserialize_json(data: dict) -> GetTableMaintenanceJobStatusResponse:
     if data.get("tableARN") is not None:
         out["table_arn"] = data["tableARN"]
     else:
-        raise DeserializationError(
-            "GetTableMaintenanceJobStatusResponse.table_arn required"
-        )
+        out["table_arn"] = ""
     if data.get("status") is not None:
         import capo_s3tables.types.table_maintenance_job_status
 
@@ -47,7 +43,5 @@ def deserialize_json(data: dict) -> GetTableMaintenanceJobStatusResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetTableMaintenanceJobStatusResponse.status required"
-        )
+        out["status"] = {}
     return out

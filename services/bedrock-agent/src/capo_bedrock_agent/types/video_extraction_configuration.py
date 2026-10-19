@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.enabled_or_disabled_state
 
@@ -41,7 +39,10 @@ def deserialize_json(data: dict) -> VideoExtractionConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "VideoExtractionConfiguration.video_extraction_status required"
+        import typing
+
+        out["video_extraction_status"] = typing.cast(
+            "capo_bedrock_agent.types.enabled_or_disabled_state.EnabledOrDisabledState",
+            "",
         )
     return out

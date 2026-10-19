@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_reporting.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_reporting.types.dashboard_identifier
     import capo_marketplace_reporting.types.embedding_domains
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> GetBuyerDashboardInput:
     if data.get("dashboardIdentifier") is not None:
         out["dashboard_identifier"] = data["dashboardIdentifier"]
     else:
-        raise DeserializationError(
-            "GetBuyerDashboardInput.dashboard_identifier required"
-        )
+        out["dashboard_identifier"] = ""
     if data.get("embeddingDomains") is not None:
         import capo_marketplace_reporting.types.embedding_domains
 
@@ -53,5 +49,5 @@ def deserialize_json(data: dict) -> GetBuyerDashboardInput:
             )
         )
     else:
-        raise DeserializationError("GetBuyerDashboardInput.embedding_domains required")
+        out["embedding_domains"] = []
     return out

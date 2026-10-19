@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_migrationhubstrategy.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migrationhubstrategy.types.heterogeneous_target_database_engines
 
@@ -39,5 +37,5 @@ def deserialize_json(data: dict) -> Heterogeneous:
             )
         )
     else:
-        raise DeserializationError("Heterogeneous.target_database_engine required")
+        out["target_database_engine"] = []
     return out

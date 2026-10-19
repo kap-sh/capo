@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.boolean
@@ -45,9 +44,7 @@ def deserialize_xml(el: Element) -> QueryArgProfileConfig:
             child_forward_when_query_arg_profile_is_unknown.text or ""
         ).lower() == "true"
     else:
-        raise DeserializationError(
-            "QueryArgProfileConfig.forward_when_query_arg_profile_is_unknown required"
-        )
+        out["forward_when_query_arg_profile_is_unknown"] = False
     child_query_arg_profiles = el.find("QueryArgProfiles")
     if child_query_arg_profiles is not None:
         import capo_cloudfront.types.query_arg_profiles

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.source_auth_type
     import capo_codebuild.types.string
@@ -40,7 +38,11 @@ def deserialize_aws_json_1_1(data: dict) -> SourceAuth:
             data["type"]
         )
     else:
-        raise DeserializationError("SourceAuth.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codebuild.types.source_auth_type.SourceAuthType", ""
+        )
     if data.get("resource") is not None:
         out["resource"] = data["resource"]
     return out

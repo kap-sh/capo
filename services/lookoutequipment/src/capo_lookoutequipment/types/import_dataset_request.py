@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.dataset_arn
     import capo_lookoutequipment.types.dataset_name
@@ -52,13 +50,13 @@ def deserialize_aws_json_1_0(data: dict) -> ImportDatasetRequest:
     if data.get("SourceDatasetArn") is not None:
         out["source_dataset_arn"] = data["SourceDatasetArn"]
     else:
-        raise DeserializationError("ImportDatasetRequest.source_dataset_arn required")
+        out["source_dataset_arn"] = ""
     if data.get("DatasetName") is not None:
         out["dataset_name"] = data["DatasetName"]
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("ImportDatasetRequest.client_token required")
+        out["client_token"] = ""
     if data.get("ServerSideKmsKeyId") is not None:
         out["server_side_kms_key_id"] = data["ServerSideKmsKeyId"]
     if data.get("Tags") is not None:

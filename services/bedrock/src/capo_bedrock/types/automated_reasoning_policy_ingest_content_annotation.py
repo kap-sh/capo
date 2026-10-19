@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_annotation_ingest_content
 
@@ -27,9 +25,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyIngestContentAnnotat
     if data.get("content") is not None:
         out["content"] = data["content"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyIngestContentAnnotation.content required"
-        )
+        out["content"] = ""
     return out
 
 

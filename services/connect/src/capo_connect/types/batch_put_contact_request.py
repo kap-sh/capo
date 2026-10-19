@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.client_token
     import capo_connect.types.contact_data_request_list
@@ -51,7 +49,5 @@ def deserialize_json(data: dict) -> BatchPutContactRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchPutContactRequest.contact_data_request_list required"
-        )
+        out["contact_data_request_list"] = []
     return out

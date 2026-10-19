@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.activation_description
     import capo_ssm.types.default_instance_name
@@ -81,7 +79,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateActivationRequest:
     if data.get("IamRole") is not None:
         out["iam_role"] = data["IamRole"]
     else:
-        raise DeserializationError("CreateActivationRequest.iam_role required")
+        out["iam_role"] = ""
     if data.get("RegistrationLimit") is not None:
         out["registration_limit"] = data["RegistrationLimit"]
     if data.get("ExpirationDate") is not None:

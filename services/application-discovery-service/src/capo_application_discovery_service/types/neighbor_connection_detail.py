@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_discovery_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_discovery_service.types.boxed_integer
     import capo_application_discovery_service.types.configuration_id
@@ -52,13 +50,11 @@ def deserialize_aws_json_1_1(data: dict) -> NeighborConnectionDetail:
     if data.get("sourceServerId") is not None:
         out["source_server_id"] = data["sourceServerId"]
     else:
-        raise DeserializationError("NeighborConnectionDetail.source_server_id required")
+        out["source_server_id"] = ""
     if data.get("destinationServerId") is not None:
         out["destination_server_id"] = data["destinationServerId"]
     else:
-        raise DeserializationError(
-            "NeighborConnectionDetail.destination_server_id required"
-        )
+        out["destination_server_id"] = ""
     if data.get("destinationPort") is not None:
         out["destination_port"] = data["destinationPort"]
     if data.get("transportProtocol") is not None:

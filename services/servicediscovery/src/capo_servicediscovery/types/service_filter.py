@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_servicediscovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_servicediscovery.types.filter_condition
     import capo_servicediscovery.types.filter_values
@@ -60,7 +58,11 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceFilter:
             )
         )
     else:
-        raise DeserializationError("ServiceFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_servicediscovery.types.service_filter_name.ServiceFilterName", ""
+        )
     if data.get("Values") is not None:
         import capo_servicediscovery.types.filter_values
 
@@ -70,7 +72,7 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceFilter:
             )
         )
     else:
-        raise DeserializationError("ServiceFilter.values required")
+        out["values"] = []
     if data.get("Condition") is not None:
         import capo_servicediscovery.types.filter_condition
 

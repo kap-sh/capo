@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.boolean
     import capo_lightsail.types.comparison_operator
@@ -121,7 +119,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutAlarmRequest:
     if data.get("alarmName") is not None:
         out["alarm_name"] = data["alarmName"]
     else:
-        raise DeserializationError("PutAlarmRequest.alarm_name required")
+        out["alarm_name"] = ""
     if data.get("metricName") is not None:
         import capo_lightsail.types.metric_name
 
@@ -129,11 +127,15 @@ def deserialize_aws_json_1_1(data: dict) -> PutAlarmRequest:
             data["metricName"]
         )
     else:
-        raise DeserializationError("PutAlarmRequest.metric_name required")
+        import typing
+
+        out["metric_name"] = typing.cast(
+            "capo_lightsail.types.metric_name.MetricName", ""
+        )
     if data.get("monitoredResourceName") is not None:
         out["monitored_resource_name"] = data["monitoredResourceName"]
     else:
-        raise DeserializationError("PutAlarmRequest.monitored_resource_name required")
+        out["monitored_resource_name"] = ""
     if data.get("comparisonOperator") is not None:
         import capo_lightsail.types.comparison_operator
 
@@ -143,15 +145,19 @@ def deserialize_aws_json_1_1(data: dict) -> PutAlarmRequest:
             )
         )
     else:
-        raise DeserializationError("PutAlarmRequest.comparison_operator required")
+        import typing
+
+        out["comparison_operator"] = typing.cast(
+            "capo_lightsail.types.comparison_operator.ComparisonOperator", ""
+        )
     if data.get("threshold") is not None:
         out["threshold"] = float(data["threshold"])
     else:
-        raise DeserializationError("PutAlarmRequest.threshold required")
+        out["threshold"] = 0.0
     if data.get("evaluationPeriods") is not None:
         out["evaluation_periods"] = data["evaluationPeriods"]
     else:
-        raise DeserializationError("PutAlarmRequest.evaluation_periods required")
+        out["evaluation_periods"] = 0
     if data.get("datapointsToAlarm") is not None:
         out["datapoints_to_alarm"] = data["datapointsToAlarm"]
     if data.get("treatMissingData") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.prompt_metadata_key
     import capo_bedrock_agent.types.prompt_metadata_value
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> PromptMetadataEntry:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("PromptMetadataEntry.key required")
+        out["key"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("PromptMetadataEntry.value required")
+        out["value"] = ""
     return out

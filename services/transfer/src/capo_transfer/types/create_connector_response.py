@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.connector_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreateConnectorResponse:
     if data.get("ConnectorId") is not None:
         out["connector_id"] = data["ConnectorId"]
     else:
-        raise DeserializationError("CreateConnectorResponse.connector_id required")
+        out["connector_id"] = ""
     return out

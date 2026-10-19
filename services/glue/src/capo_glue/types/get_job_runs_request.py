@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.generic_string
     import capo_glue.types.name_string
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetJobRunsRequest:
     if data.get("JobName") is not None:
         out["job_name"] = data["JobName"]
     else:
-        raise DeserializationError("GetJobRunsRequest.job_name required")
+        out["job_name"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

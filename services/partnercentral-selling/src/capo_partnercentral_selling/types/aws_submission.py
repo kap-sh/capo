@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.sales_involvement_type
     import capo_partnercentral_selling.types.visibility
@@ -52,7 +50,12 @@ def deserialize_aws_json_1_0(data: dict) -> AwsSubmission:
             )
         )
     else:
-        raise DeserializationError("AwsSubmission.involvement_type required")
+        import typing
+
+        out["involvement_type"] = typing.cast(
+            "capo_partnercentral_selling.types.sales_involvement_type.SalesInvolvementType",
+            "",
+        )
     if data.get("Visibility") is not None:
         import capo_partnercentral_selling.types.visibility
 

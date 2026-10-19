@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.uuid
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> CreateBillOfMaterialsImportJobResponse:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError(
-            "CreateBillOfMaterialsImportJobResponse.job_id required"
-        )
+        out["job_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.accept_language
     import capo_service_catalog.types.id
@@ -40,13 +38,9 @@ def deserialize_aws_json_1_1(data: dict) -> ExecuteProvisionedProductPlanInput:
     if data.get("PlanId") is not None:
         out["plan_id"] = data["PlanId"]
     else:
-        raise DeserializationError(
-            "ExecuteProvisionedProductPlanInput.plan_id required"
-        )
+        out["plan_id"] = ""
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     else:
-        raise DeserializationError(
-            "ExecuteProvisionedProductPlanInput.idempotency_token required"
-        )
+        out["idempotency_token"] = ""
     return out

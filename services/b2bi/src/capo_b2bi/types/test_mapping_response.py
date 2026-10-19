@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 
 class TestMappingResponse(TypedDict, closed=True):
     mapped_file_content: "str"
@@ -22,5 +20,5 @@ def deserialize_aws_json_1_0(data: dict) -> TestMappingResponse:
     if data.get("mappedFileContent") is not None:
         out["mapped_file_content"] = data["mappedFileContent"]
     else:
-        raise DeserializationError("TestMappingResponse.mapped_file_content required")
+        out["mapped_file_content"] = ""
     return out

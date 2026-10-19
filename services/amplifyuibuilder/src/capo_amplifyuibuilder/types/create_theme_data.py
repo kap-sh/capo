@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.tags
     import capo_amplifyuibuilder.types.theme_name
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> CreateThemeData:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateThemeData.name required")
+        out["name"] = ""
     if data.get("values") is not None:
         import capo_amplifyuibuilder.types.theme_values_list
 
@@ -60,7 +58,7 @@ def deserialize_json(data: dict) -> CreateThemeData:
             data["values"]
         )
     else:
-        raise DeserializationError("CreateThemeData.values required")
+        out["values"] = []
     if data.get("overrides") is not None:
         import capo_amplifyuibuilder.types.theme_values_list
 

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 
 class UsageMetric(TypedDict, closed=True):
     limit: "int"
@@ -33,9 +31,9 @@ def deserialize_json(data: dict) -> UsageMetric:
     if data.get("limit") is not None:
         out["limit"] = data["limit"]
     else:
-        raise DeserializationError("UsageMetric.limit required")
+        out["limit"] = 0
     if data.get("usage") is not None:
         out["usage"] = float(data["usage"])
     else:
-        raise DeserializationError("UsageMetric.usage required")
+        out["usage"] = 0.0
     return out

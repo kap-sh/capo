@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_waf_regional.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf_regional.types.change_token
     import capo_waf_regional.types.resource_id
@@ -51,11 +49,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateWebACLRequest:
     if data.get("WebACLId") is not None:
         out["web_acl_id"] = data["WebACLId"]
     else:
-        raise DeserializationError("UpdateWebACLRequest.web_acl_id required")
+        out["web_acl_id"] = ""
     if data.get("ChangeToken") is not None:
         out["change_token"] = data["ChangeToken"]
     else:
-        raise DeserializationError("UpdateWebACLRequest.change_token required")
+        out["change_token"] = ""
     if data.get("Updates") is not None:
         import capo_waf_regional.types.web_acl_updates
 

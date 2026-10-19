@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.origin_access_control_origin_types
@@ -58,17 +57,17 @@ def deserialize_xml(el: Element) -> OriginAccessControlSummary:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("OriginAccessControlSummary.id required")
+        out["id"] = ""
     child_description = el.find("Description")
     if child_description is not None:
         out["description"] = str(child_description.text or "")
     else:
-        raise DeserializationError("OriginAccessControlSummary.description required")
+        out["description"] = ""
     child_name = el.find("Name")
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("OriginAccessControlSummary.name required")
+        out["name"] = ""
     child_signing_protocol = el.find("SigningProtocol")
     if child_signing_protocol is not None:
         import capo_cloudfront.types.origin_access_control_signing_protocols
@@ -79,8 +78,11 @@ def deserialize_xml(el: Element) -> OriginAccessControlSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "OriginAccessControlSummary.signing_protocol required"
+        import typing
+
+        out["signing_protocol"] = typing.cast(
+            "capo_cloudfront.types.origin_access_control_signing_protocols.OriginAccessControlSigningProtocols",
+            "",
         )
     child_signing_behavior = el.find("SigningBehavior")
     if child_signing_behavior is not None:
@@ -92,8 +94,11 @@ def deserialize_xml(el: Element) -> OriginAccessControlSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "OriginAccessControlSummary.signing_behavior required"
+        import typing
+
+        out["signing_behavior"] = typing.cast(
+            "capo_cloudfront.types.origin_access_control_signing_behaviors.OriginAccessControlSigningBehaviors",
+            "",
         )
     child_origin_access_control_origin_type = el.find("OriginAccessControlOriginType")
     if child_origin_access_control_origin_type is not None:
@@ -105,7 +110,10 @@ def deserialize_xml(el: Element) -> OriginAccessControlSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "OriginAccessControlSummary.origin_access_control_origin_type required"
+        import typing
+
+        out["origin_access_control_origin_type"] = typing.cast(
+            "capo_cloudfront.types.origin_access_control_origin_types.OriginAccessControlOriginTypes",
+            "",
         )
     return out

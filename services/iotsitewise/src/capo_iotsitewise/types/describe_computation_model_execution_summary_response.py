@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.computation_model_execution_summary
     import capo_iotsitewise.types.id
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> DescribeComputationModelExecutionSummaryResp
     if data.get("computationModelId") is not None:
         out["computation_model_id"] = data["computationModelId"]
     else:
-        raise DeserializationError(
-            "DescribeComputationModelExecutionSummaryResponse.computation_model_id required"
-        )
+        out["computation_model_id"] = ""
     if data.get("resolveTo") is not None:
         import capo_iotsitewise.types.resolve_to
 
@@ -64,7 +60,5 @@ def deserialize_json(data: dict) -> DescribeComputationModelExecutionSummaryResp
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeComputationModelExecutionSummaryResponse.computation_model_execution_summary required"
-        )
+        out["computation_model_execution_summary"] = {}
     return out

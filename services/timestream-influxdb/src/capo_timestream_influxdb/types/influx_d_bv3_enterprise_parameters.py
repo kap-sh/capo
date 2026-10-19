@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_influxdb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_influxdb.types.data_fusion_runtime_type
     import capo_timestream_influxdb.types.duration
@@ -630,21 +628,15 @@ def deserialize_aws_json_1_0(data: dict) -> InfluxDBv3EnterpriseParameters:
     if data.get("ingestQueryInstances") is not None:
         out["ingest_query_instances"] = data["ingestQueryInstances"]
     else:
-        raise DeserializationError(
-            "InfluxDBv3EnterpriseParameters.ingest_query_instances required"
-        )
+        out["ingest_query_instances"] = 0
     if data.get("queryOnlyInstances") is not None:
         out["query_only_instances"] = data["queryOnlyInstances"]
     else:
-        raise DeserializationError(
-            "InfluxDBv3EnterpriseParameters.query_only_instances required"
-        )
+        out["query_only_instances"] = 0
     if data.get("dedicatedCompactor") is not None:
         out["dedicated_compactor"] = data["dedicatedCompactor"]
     else:
-        raise DeserializationError(
-            "InfluxDBv3EnterpriseParameters.dedicated_compactor required"
-        )
+        out["dedicated_compactor"] = False
     if data.get("compactionRowLimit") is not None:
         out["compaction_row_limit"] = data["compactionRowLimit"]
     if data.get("compactionMaxNumFilesPerPlan") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudhsm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudhsm.types.client_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteLunaClientRequest:
     if data.get("ClientArn") is not None:
         out["client_arn"] = data["ClientArn"]
     else:
-        raise DeserializationError("DeleteLunaClientRequest.client_arn required")
+        out["client_arn"] = ""
     return out

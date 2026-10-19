@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.destination_type
     import capo_iottwinmaker.types.list_metadata_transfer_jobs_filters
@@ -54,15 +52,11 @@ def deserialize_json(data: dict) -> ListMetadataTransferJobsRequest:
     if data.get("sourceType") is not None:
         out["source_type"] = data["sourceType"]
     else:
-        raise DeserializationError(
-            "ListMetadataTransferJobsRequest.source_type required"
-        )
+        out["source_type"] = ""
     if data.get("destinationType") is not None:
         out["destination_type"] = data["destinationType"]
     else:
-        raise DeserializationError(
-            "ListMetadataTransferJobsRequest.destination_type required"
-        )
+        out["destination_type"] = ""
     if data.get("filters") is not None:
         import capo_iottwinmaker.types.list_metadata_transfer_jobs_filters
 

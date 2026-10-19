@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.metrics_export_status_type
     import capo_resiliencehub.types.s3_location
@@ -51,9 +49,7 @@ def deserialize_json(data: dict) -> DescribeMetricsExportResponse:
     if data.get("metricsExportId") is not None:
         out["metrics_export_id"] = data["metricsExportId"]
     else:
-        raise DeserializationError(
-            "DescribeMetricsExportResponse.metrics_export_id required"
-        )
+        out["metrics_export_id"] = ""
     if data.get("status") is not None:
         import capo_resiliencehub.types.metrics_export_status_type
 
@@ -63,7 +59,12 @@ def deserialize_json(data: dict) -> DescribeMetricsExportResponse:
             )
         )
     else:
-        raise DeserializationError("DescribeMetricsExportResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_resiliencehub.types.metrics_export_status_type.MetricsExportStatusType",
+            "",
+        )
     if data.get("exportLocation") is not None:
         import capo_resiliencehub.types.s3_location
 

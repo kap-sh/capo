@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.sns_topic_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> PublishFindingToSnsParams:
     if data.get("topicArn") is not None:
         out["topic_arn"] = data["topicArn"]
     else:
-        raise DeserializationError("PublishFindingToSnsParams.topic_arn required")
+        out["topic_arn"] = ""
     return out

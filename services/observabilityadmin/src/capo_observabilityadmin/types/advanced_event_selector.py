@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_observabilityadmin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_observabilityadmin.types.field_selectors
 
@@ -45,5 +43,5 @@ def deserialize_json(data: dict) -> AdvancedEventSelector:
             )
         )
     else:
-        raise DeserializationError("AdvancedEventSelector.field_selectors required")
+        out["field_selectors"] = []
     return out

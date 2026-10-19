@@ -73,15 +73,11 @@ def deserialize_json(data: dict) -> BatchDescribeDataTableValueSuccessResult:
     if data.get("RecordId") is not None:
         out["record_id"] = data["RecordId"]
     else:
-        raise DeserializationError(
-            "BatchDescribeDataTableValueSuccessResult.record_id required"
-        )
+        out["record_id"] = ""
     if data.get("AttributeId") is not None:
         out["attribute_id"] = data["AttributeId"]
     else:
-        raise DeserializationError(
-            "BatchDescribeDataTableValueSuccessResult.attribute_id required"
-        )
+        out["attribute_id"] = ""
     if data.get("PrimaryValues") is not None:
         import capo_connect.types.primary_values_response_set
 
@@ -91,15 +87,11 @@ def deserialize_json(data: dict) -> BatchDescribeDataTableValueSuccessResult:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDescribeDataTableValueSuccessResult.primary_values required"
-        )
+        out["primary_values"] = []
     if data.get("AttributeName") is not None:
         out["attribute_name"] = data["AttributeName"]
     else:
-        raise DeserializationError(
-            "BatchDescribeDataTableValueSuccessResult.attribute_name required"
-        )
+        out["attribute_name"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     if data.get("LockVersion") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.field_to_match_data
     import capo_wafv2.types.text_transformations
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> RateLimitQueryArgument:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("RateLimitQueryArgument.name required")
+        out["name"] = ""
     if data.get("TextTransformations") is not None:
         import capo_wafv2.types.text_transformations
 
@@ -47,7 +45,5 @@ def deserialize_aws_json_1_1(data: dict) -> RateLimitQueryArgument:
             )
         )
     else:
-        raise DeserializationError(
-            "RateLimitQueryArgument.text_transformations required"
-        )
+        out["text_transformations"] = []
     return out

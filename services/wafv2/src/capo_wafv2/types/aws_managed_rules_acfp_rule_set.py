@@ -60,13 +60,11 @@ def deserialize_aws_json_1_1(data: dict) -> AWSManagedRulesACFPRuleSet:
     if data.get("CreationPath") is not None:
         out["creation_path"] = data["CreationPath"]
     else:
-        raise DeserializationError("AWSManagedRulesACFPRuleSet.creation_path required")
+        out["creation_path"] = ""
     if data.get("RegistrationPagePath") is not None:
         out["registration_page_path"] = data["RegistrationPagePath"]
     else:
-        raise DeserializationError(
-            "AWSManagedRulesACFPRuleSet.registration_page_path required"
-        )
+        out["registration_page_path"] = ""
     if data.get("RequestInspection") is not None:
         import capo_wafv2.types.request_inspection_acfp
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.downlink_mode
     import capo_iot_wireless.types.gateway_list
@@ -49,7 +47,11 @@ def deserialize_json(data: dict) -> ParticipatingGateways:
             data["DownlinkMode"]
         )
     else:
-        raise DeserializationError("ParticipatingGateways.downlink_mode required")
+        import typing
+
+        out["downlink_mode"] = typing.cast(
+            "capo_iot_wireless.types.downlink_mode.DownlinkMode", ""
+        )
     if data.get("GatewayList") is not None:
         import capo_iot_wireless.types.gateway_list
 
@@ -57,11 +59,9 @@ def deserialize_json(data: dict) -> ParticipatingGateways:
             data["GatewayList"]
         )
     else:
-        raise DeserializationError("ParticipatingGateways.gateway_list required")
+        out["gateway_list"] = []
     if data.get("TransmissionInterval") is not None:
         out["transmission_interval"] = data["TransmissionInterval"]
     else:
-        raise DeserializationError(
-            "ParticipatingGateways.transmission_interval required"
-        )
+        out["transmission_interval"] = 0
     return out

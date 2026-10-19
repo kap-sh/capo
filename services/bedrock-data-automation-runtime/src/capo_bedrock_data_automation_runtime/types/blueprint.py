@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation_runtime.types.blueprint_arn
     import capo_bedrock_data_automation_runtime.types.blueprint_stage
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> Blueprint:
     if data.get("blueprintArn") is not None:
         out["blueprint_arn"] = data["blueprintArn"]
     else:
-        raise DeserializationError("Blueprint.blueprint_arn required")
+        out["blueprint_arn"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     if data.get("stage") is not None:

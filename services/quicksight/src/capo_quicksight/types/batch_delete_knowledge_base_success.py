@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.knowledge_base_arn
     import capo_quicksight.types.knowledge_base_id
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> BatchDeleteKnowledgeBaseSuccess:
     if data.get("KnowledgeBaseId") is not None:
         out["knowledge_base_id"] = data["KnowledgeBaseId"]
     else:
-        raise DeserializationError(
-            "BatchDeleteKnowledgeBaseSuccess.knowledge_base_id required"
-        )
+        out["knowledge_base_id"] = ""
     if data.get("KnowledgeBaseArn") is not None:
         out["knowledge_base_arn"] = data["KnowledgeBaseArn"]
     else:
-        raise DeserializationError(
-            "BatchDeleteKnowledgeBaseSuccess.knowledge_base_arn required"
-        )
+        out["knowledge_base_arn"] = ""
     return out

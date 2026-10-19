@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.catalog_identifier
     import capo_partnercentral_selling.types.client_token
@@ -54,19 +52,15 @@ def deserialize_aws_json_1_0(data: dict) -> CreateEngagementContextRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("CreateEngagementContextRequest.catalog required")
+        out["catalog"] = ""
     if data.get("EngagementIdentifier") is not None:
         out["engagement_identifier"] = data["EngagementIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateEngagementContextRequest.engagement_identifier required"
-        )
+        out["engagement_identifier"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError(
-            "CreateEngagementContextRequest.client_token required"
-        )
+        out["client_token"] = ""
     if data.get("Type") is not None:
         import capo_partnercentral_selling.types.engagement_context_type
 
@@ -76,7 +70,12 @@ def deserialize_aws_json_1_0(data: dict) -> CreateEngagementContextRequest:
             )
         )
     else:
-        raise DeserializationError("CreateEngagementContextRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_partnercentral_selling.types.engagement_context_type.EngagementContextType",
+            "",
+        )
     if data.get("Payload") is not None:
         import capo_partnercentral_selling.types.engagement_context_payload
 
@@ -86,7 +85,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateEngagementContextRequest:
             )
         )
     else:
-        raise DeserializationError("CreateEngagementContextRequest.payload required")
+        import capo_partnercentral_selling.types._unknown
+
+        out["payload"] = capo_partnercentral_selling.types._unknown.UnknownUnionMember(
+            ""
+        )
     return out
 
 

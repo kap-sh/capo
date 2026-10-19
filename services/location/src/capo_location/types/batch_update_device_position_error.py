@@ -41,7 +41,7 @@ def deserialize_json(data: dict) -> BatchUpdateDevicePositionError:
     if data.get("DeviceId") is not None:
         out["device_id"] = data["DeviceId"]
     else:
-        raise DeserializationError("BatchUpdateDevicePositionError.device_id required")
+        out["device_id"] = ""
     if data.get("SampleTime") is not None:
         import capo_location.types.timestamp
 
@@ -49,8 +49,10 @@ def deserialize_json(data: dict) -> BatchUpdateDevicePositionError:
             data["SampleTime"]
         )
     else:
-        raise DeserializationError(
-            "BatchUpdateDevicePositionError.sample_time required"
+        import datetime
+
+        out["sample_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("Error") is not None:
         import capo_location.types.batch_item_error

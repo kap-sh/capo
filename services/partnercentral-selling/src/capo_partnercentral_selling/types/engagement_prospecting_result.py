@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.engagement_identifier
     import capo_partnercentral_selling.types.prospecting_task_status
@@ -51,9 +49,7 @@ def deserialize_aws_json_1_0(data: dict) -> EngagementProspectingResult:
     if data.get("EngagementIdentifier") is not None:
         out["engagement_identifier"] = data["EngagementIdentifier"]
     else:
-        raise DeserializationError(
-            "EngagementProspectingResult.engagement_identifier required"
-        )
+        out["engagement_identifier"] = ""
     if data.get("EngagementContextId") is not None:
         out["engagement_context_id"] = data["EngagementContextId"]
     if data.get("Status") is not None:
@@ -65,7 +61,12 @@ def deserialize_aws_json_1_0(data: dict) -> EngagementProspectingResult:
             )
         )
     else:
-        raise DeserializationError("EngagementProspectingResult.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_partnercentral_selling.types.prospecting_task_status.ProspectingTaskStatus",
+            "",
+        )
     if data.get("ReasonCode") is not None:
         out["reason_code"] = data["ReasonCode"]
     if data.get("Message") is not None:

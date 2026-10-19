@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appintegrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appintegrations.types.description
     import capo_appintegrations.types.event_definition_schema
@@ -36,11 +34,11 @@ def deserialize_json(data: dict) -> Publication:
     if data.get("Event") is not None:
         out["event"] = data["Event"]
     else:
-        raise DeserializationError("Publication.event required")
+        out["event"] = ""
     if data.get("Schema") is not None:
         out["schema"] = data["Schema"]
     else:
-        raise DeserializationError("Publication.schema required")
+        out["schema"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     return out

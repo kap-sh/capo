@@ -70,7 +70,7 @@ def deserialize_json(data: dict) -> PivotOperation:
     if data.get("Alias") is not None:
         out["alias"] = data["Alias"]
     else:
-        raise DeserializationError("PivotOperation.alias required")
+        out["alias"] = ""
     if data.get("Source") is not None:
         import capo_quicksight.types.transform_operation_source
 

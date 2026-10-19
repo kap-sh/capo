@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.container_instance_field_list
     import capo_ecs.types.string
@@ -57,9 +55,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeContainerInstancesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeContainerInstancesRequest.container_instances required"
-        )
+        out["container_instances"] = []
     if data.get("include") is not None:
         import capo_ecs.types.container_instance_field_list
 

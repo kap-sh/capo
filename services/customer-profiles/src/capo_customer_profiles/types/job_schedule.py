@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.job_schedule_day_of_the_week
     import capo_customer_profiles.types.job_schedule_time
@@ -43,9 +41,14 @@ def deserialize_json(data: dict) -> JobSchedule:
             )
         )
     else:
-        raise DeserializationError("JobSchedule.day_of_the_week required")
+        import typing
+
+        out["day_of_the_week"] = typing.cast(
+            "capo_customer_profiles.types.job_schedule_day_of_the_week.JobScheduleDayOfTheWeek",
+            "",
+        )
     if data.get("Time") is not None:
         out["time"] = data["Time"]
     else:
-        raise DeserializationError("JobSchedule.time required")
+        out["time"] = ""
     return out

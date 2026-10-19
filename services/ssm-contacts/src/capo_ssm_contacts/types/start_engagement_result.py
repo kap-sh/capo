@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.ssm_contacts_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> StartEngagementResult:
     if data.get("EngagementArn") is not None:
         out["engagement_arn"] = data["EngagementArn"]
     else:
-        raise DeserializationError("StartEngagementResult.engagement_arn required")
+        out["engagement_arn"] = ""
     return out

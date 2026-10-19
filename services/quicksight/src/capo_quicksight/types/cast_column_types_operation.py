@@ -45,7 +45,7 @@ def deserialize_json(data: dict) -> CastColumnTypesOperation:
     if data.get("Alias") is not None:
         out["alias"] = data["Alias"]
     else:
-        raise DeserializationError("CastColumnTypesOperation.alias required")
+        out["alias"] = ""
     if data.get("Source") is not None:
         import capo_quicksight.types.transform_operation_source
 
@@ -65,7 +65,5 @@ def deserialize_json(data: dict) -> CastColumnTypesOperation:
             )
         )
     else:
-        raise DeserializationError(
-            "CastColumnTypesOperation.cast_column_type_operations required"
-        )
+        out["cast_column_type_operations"] = []
     return out

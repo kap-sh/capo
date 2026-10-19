@@ -78,15 +78,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationFsxOntapRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateLocationFsxOntapRequest.security_group_arns required"
-        )
+        out["security_group_arns"] = []
     if data.get("StorageVirtualMachineArn") is not None:
         out["storage_virtual_machine_arn"] = data["StorageVirtualMachineArn"]
     else:
-        raise DeserializationError(
-            "CreateLocationFsxOntapRequest.storage_virtual_machine_arn required"
-        )
+        out["storage_virtual_machine_arn"] = ""
     if data.get("Subdirectory") is not None:
         out["subdirectory"] = data["Subdirectory"]
     if data.get("Tags") is not None:

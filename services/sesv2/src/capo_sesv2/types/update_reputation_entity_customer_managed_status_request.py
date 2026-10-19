@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.reputation_entity_reference
     import capo_sesv2.types.reputation_entity_type
@@ -45,7 +43,9 @@ def deserialize_json(data: dict) -> UpdateReputationEntityCustomerManagedStatusR
             data["SendingStatus"]
         )
     else:
-        raise DeserializationError(
-            "UpdateReputationEntityCustomerManagedStatusRequest.sending_status required"
+        import typing
+
+        out["sending_status"] = typing.cast(
+            "capo_sesv2.types.sending_status.SendingStatus", ""
         )
     return out

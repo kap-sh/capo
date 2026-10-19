@@ -57,7 +57,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAttackStatisticsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeAttackStatisticsResponse.data_items required"
-        )
+        out["data_items"] = []
     return out

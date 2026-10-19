@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.integration_name
     import capo_cloudwatch_logs.types.integration_type
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutIntegrationRequest:
     if data.get("integrationName") is not None:
         out["integration_name"] = data["integrationName"]
     else:
-        raise DeserializationError("PutIntegrationRequest.integration_name required")
+        out["integration_name"] = ""
     if data.get("resourceConfig") is not None:
         import capo_cloudwatch_logs.types.resource_config
 
@@ -57,7 +55,11 @@ def deserialize_aws_json_1_1(data: dict) -> PutIntegrationRequest:
             )
         )
     else:
-        raise DeserializationError("PutIntegrationRequest.resource_config required")
+        import capo_cloudwatch_logs.types._unknown
+
+        out["resource_config"] = capo_cloudwatch_logs.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("integrationType") is not None:
         import capo_cloudwatch_logs.types.integration_type
 
@@ -67,5 +69,9 @@ def deserialize_aws_json_1_1(data: dict) -> PutIntegrationRequest:
             )
         )
     else:
-        raise DeserializationError("PutIntegrationRequest.integration_type required")
+        import typing
+
+        out["integration_type"] = typing.cast(
+            "capo_cloudwatch_logs.types.integration_type.IntegrationType", ""
+        )
     return out

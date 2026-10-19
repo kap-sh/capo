@@ -41,11 +41,11 @@ def deserialize_json(data: dict) -> AgenticRetrieveTraceEvent:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("AgenticRetrieveTraceEvent.id required")
+        out["id"] = ""
     if data.get("timestamp") is not None:
         out["timestamp"] = data["timestamp"]
     else:
-        raise DeserializationError("AgenticRetrieveTraceEvent.timestamp required")
+        out["timestamp"] = 0
     if data.get("attributes") is not None:
         import capo_bedrock_agent_runtime.types.agentic_retrieve_trace_event_attributes
 

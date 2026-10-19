@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.application_settings_request
     import capo_workspaces.types.bundle_id
@@ -92,7 +90,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateWorkspacesPoolRequest:
     if data.get("PoolId") is not None:
         out["pool_id"] = data["PoolId"]
     else:
-        raise DeserializationError("UpdateWorkspacesPoolRequest.pool_id required")
+        out["pool_id"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("BundleId") is not None:

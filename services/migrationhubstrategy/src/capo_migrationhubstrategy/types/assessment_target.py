@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_migrationhubstrategy.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migrationhubstrategy.types.assessment_target_values
     import capo_migrationhubstrategy.types.condition
@@ -41,11 +39,11 @@ def deserialize_json(data: dict) -> AssessmentTarget:
     if data.get("condition") is not None:
         out["condition"] = data["condition"]
     else:
-        raise DeserializationError("AssessmentTarget.condition required")
+        out["condition"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AssessmentTarget.name required")
+        out["name"] = ""
     if data.get("values") is not None:
         import capo_migrationhubstrategy.types.assessment_target_values
 
@@ -55,5 +53,5 @@ def deserialize_json(data: dict) -> AssessmentTarget:
             )
         )
     else:
-        raise DeserializationError("AssessmentTarget.values required")
+        out["values"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.client_request_token
     import capo_rekognition.types.collection_id
@@ -59,11 +57,11 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateFacesRequest:
     if data.get("CollectionId") is not None:
         out["collection_id"] = data["CollectionId"]
     else:
-        raise DeserializationError("AssociateFacesRequest.collection_id required")
+        out["collection_id"] = ""
     if data.get("UserId") is not None:
         out["user_id"] = data["UserId"]
     else:
-        raise DeserializationError("AssociateFacesRequest.user_id required")
+        out["user_id"] = ""
     if data.get("FaceIds") is not None:
         import capo_rekognition.types.user_face_id_list
 
@@ -73,7 +71,7 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateFacesRequest:
             )
         )
     else:
-        raise DeserializationError("AssociateFacesRequest.face_ids required")
+        out["face_ids"] = []
     if data.get("UserMatchThreshold") is not None:
         out["user_match_threshold"] = float(data["UserMatchThreshold"])
     if data.get("ClientRequestToken") is not None:

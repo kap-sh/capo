@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.ip
     import capo_route53resolver.types.ipv6
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> IpAddressRequest:
     if data.get("SubnetId") is not None:
         out["subnet_id"] = data["SubnetId"]
     else:
-        raise DeserializationError("IpAddressRequest.subnet_id required")
+        out["subnet_id"] = ""
     if data.get("Ip") is not None:
         out["ip"] = data["Ip"]
     if data.get("Ipv6") is not None:

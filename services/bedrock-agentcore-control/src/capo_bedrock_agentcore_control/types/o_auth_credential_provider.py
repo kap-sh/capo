@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.o_auth_credential_provider_arn
     import capo_bedrock_agentcore_control.types.o_auth_custom_parameters
@@ -65,7 +63,7 @@ def deserialize_json(data: dict) -> OAuthCredentialProvider:
     if data.get("providerArn") is not None:
         out["provider_arn"] = data["providerArn"]
     else:
-        raise DeserializationError("OAuthCredentialProvider.provider_arn required")
+        out["provider_arn"] = ""
     if data.get("scopes") is not None:
         import capo_bedrock_agentcore_control.types.o_auth_scopes
 
@@ -75,7 +73,7 @@ def deserialize_json(data: dict) -> OAuthCredentialProvider:
             )
         )
     else:
-        raise DeserializationError("OAuthCredentialProvider.scopes required")
+        out["scopes"] = []
     if data.get("customParameters") is not None:
         import capo_bedrock_agentcore_control.types.o_auth_custom_parameters
 

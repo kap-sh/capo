@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.catalog_id_string
     import capo_glue.types.name_string
@@ -40,19 +38,13 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteColumnStatisticsForTableReques
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError(
-            "DeleteColumnStatisticsForTableRequest.database_name required"
-        )
+        out["database_name"] = ""
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError(
-            "DeleteColumnStatisticsForTableRequest.table_name required"
-        )
+        out["table_name"] = ""
     if data.get("ColumnName") is not None:
         out["column_name"] = data["ColumnName"]
     else:
-        raise DeserializationError(
-            "DeleteColumnStatisticsForTableRequest.column_name required"
-        )
+        out["column_name"] = ""
     return out

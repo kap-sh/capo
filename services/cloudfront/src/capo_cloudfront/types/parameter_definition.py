@@ -38,7 +38,7 @@ def deserialize_xml(el: Element) -> ParameterDefinition:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("ParameterDefinition.name required")
+        out["name"] = ""
     child_definition = el.find("Definition")
     if child_definition is not None:
         import capo_cloudfront.types.parameter_definition_schema

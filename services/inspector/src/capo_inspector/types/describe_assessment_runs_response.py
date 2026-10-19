@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.assessment_run_list
     import capo_inspector.types.failed_items
@@ -47,9 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAssessmentRunsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeAssessmentRunsResponse.assessment_runs required"
-        )
+        out["assessment_runs"] = []
     if data.get("failedItems") is not None:
         import capo_inspector.types.failed_items
 
@@ -59,7 +55,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAssessmentRunsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeAssessmentRunsResponse.failed_items required"
-        )
+        out["failed_items"] = {}
     return out

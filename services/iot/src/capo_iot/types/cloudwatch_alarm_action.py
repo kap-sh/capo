@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.alarm_name
     import capo_iot.types.aws_arn
@@ -39,17 +37,17 @@ def deserialize_json(data: dict) -> CloudwatchAlarmAction:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CloudwatchAlarmAction.role_arn required")
+        out["role_arn"] = ""
     if data.get("alarmName") is not None:
         out["alarm_name"] = data["alarmName"]
     else:
-        raise DeserializationError("CloudwatchAlarmAction.alarm_name required")
+        out["alarm_name"] = ""
     if data.get("stateReason") is not None:
         out["state_reason"] = data["stateReason"]
     else:
-        raise DeserializationError("CloudwatchAlarmAction.state_reason required")
+        out["state_reason"] = ""
     if data.get("stateValue") is not None:
         out["state_value"] = data["stateValue"]
     else:
-        raise DeserializationError("CloudwatchAlarmAction.state_value required")
+        out["state_value"] = ""
     return out

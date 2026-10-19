@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeguruprofiler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguruprofiler.types.action_group
     import capo_codeguruprofiler.types.principals
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> PutPermissionRequest:
             data["principals"]
         )
     else:
-        raise DeserializationError("PutPermissionRequest.principals required")
+        out["principals"] = []
     if data.get("revisionId") is not None:
         out["revision_id"] = data["revisionId"]
     return out

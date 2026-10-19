@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmanager.types.attachment_id
     import capo_networkmanager.types.client_token
@@ -42,21 +40,15 @@ def deserialize_json(data: dict) -> PutAttachmentRoutingPolicyLabelRequest:
     if data.get("CoreNetworkId") is not None:
         out["core_network_id"] = data["CoreNetworkId"]
     else:
-        raise DeserializationError(
-            "PutAttachmentRoutingPolicyLabelRequest.core_network_id required"
-        )
+        out["core_network_id"] = ""
     if data.get("AttachmentId") is not None:
         out["attachment_id"] = data["AttachmentId"]
     else:
-        raise DeserializationError(
-            "PutAttachmentRoutingPolicyLabelRequest.attachment_id required"
-        )
+        out["attachment_id"] = ""
     if data.get("RoutingPolicyLabel") is not None:
         out["routing_policy_label"] = data["RoutingPolicyLabel"]
     else:
-        raise DeserializationError(
-            "PutAttachmentRoutingPolicyLabelRequest.routing_policy_label required"
-        )
+        out["routing_policy_label"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     return out

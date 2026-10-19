@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_keyspaces.errors import DeserializationError
-
 
 class Comment(TypedDict, closed=True):
     message: "str"
@@ -22,5 +20,5 @@ def deserialize_aws_json_1_0(data: dict) -> Comment:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("Comment.message required")
+        out["message"] = ""
     return out

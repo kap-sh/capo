@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.accept_code
     import capo_ssm_contacts.types.accept_code_validation
@@ -63,7 +61,7 @@ def deserialize_aws_json_1_1(data: dict) -> AcceptPageRequest:
     if data.get("PageId") is not None:
         out["page_id"] = data["PageId"]
     else:
-        raise DeserializationError("AcceptPageRequest.page_id required")
+        out["page_id"] = ""
     if data.get("ContactChannelId") is not None:
         out["contact_channel_id"] = data["ContactChannelId"]
     if data.get("AcceptType") is not None:
@@ -75,13 +73,17 @@ def deserialize_aws_json_1_1(data: dict) -> AcceptPageRequest:
             )
         )
     else:
-        raise DeserializationError("AcceptPageRequest.accept_type required")
+        import typing
+
+        out["accept_type"] = typing.cast(
+            "capo_ssm_contacts.types.accept_type.AcceptType", ""
+        )
     if data.get("Note") is not None:
         out["note"] = data["Note"]
     if data.get("AcceptCode") is not None:
         out["accept_code"] = data["AcceptCode"]
     else:
-        raise DeserializationError("AcceptPageRequest.accept_code required")
+        out["accept_code"] = ""
     if data.get("AcceptCodeValidation") is not None:
         import capo_ssm_contacts.types.accept_code_validation
 

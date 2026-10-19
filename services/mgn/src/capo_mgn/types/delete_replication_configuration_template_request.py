@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.replication_configuration_template_id
 
@@ -31,7 +29,5 @@ def deserialize_json(data: dict) -> DeleteReplicationConfigurationTemplateReques
             "replicationConfigurationTemplateID"
         ]
     else:
-        raise DeserializationError(
-            "DeleteReplicationConfigurationTemplateRequest.replication_configuration_template_id required"
-        )
+        out["replication_configuration_template_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.action_failure_policy
     import capo_mailmanager.types.iam_role_arn
@@ -48,5 +46,5 @@ def deserialize_aws_json_1_0(data: dict) -> SendAction:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("SendAction.role_arn required")
+        out["role_arn"] = ""
     return out

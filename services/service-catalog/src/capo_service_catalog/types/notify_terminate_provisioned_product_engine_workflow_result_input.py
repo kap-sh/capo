@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.engine_workflow_failure_reason
     import capo_service_catalog.types.engine_workflow_status
@@ -60,15 +58,11 @@ def deserialize_aws_json_1_1(
     if data.get("WorkflowToken") is not None:
         out["workflow_token"] = data["WorkflowToken"]
     else:
-        raise DeserializationError(
-            "NotifyTerminateProvisionedProductEngineWorkflowResultInput.workflow_token required"
-        )
+        out["workflow_token"] = ""
     if data.get("RecordId") is not None:
         out["record_id"] = data["RecordId"]
     else:
-        raise DeserializationError(
-            "NotifyTerminateProvisionedProductEngineWorkflowResultInput.record_id required"
-        )
+        out["record_id"] = ""
     if data.get("Status") is not None:
         import capo_service_catalog.types.engine_workflow_status
 
@@ -78,15 +72,15 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "NotifyTerminateProvisionedProductEngineWorkflowResultInput.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_service_catalog.types.engine_workflow_status.EngineWorkflowStatus", ""
         )
     if data.get("FailureReason") is not None:
         out["failure_reason"] = data["FailureReason"]
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     else:
-        raise DeserializationError(
-            "NotifyTerminateProvisionedProductEngineWorkflowResultInput.idempotency_token required"
-        )
+        out["idempotency_token"] = ""
     return out

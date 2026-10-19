@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.attributes_data
     import capo_sesv2.types.contact_list_name
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> CreateContactRequest:
     if data.get("EmailAddress") is not None:
         out["email_address"] = data["EmailAddress"]
     else:
-        raise DeserializationError("CreateContactRequest.email_address required")
+        out["email_address"] = ""
     if data.get("TopicPreferences") is not None:
         import capo_sesv2.types.topic_preference_list
 

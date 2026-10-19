@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_managedblockchain_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_managedblockchain_query.types.next_token
     import capo_managedblockchain_query.types.query_network
@@ -54,7 +52,7 @@ def deserialize_json(data: dict) -> ListTransactionEventsInput:
     if data.get("network") is not None:
         out["network"] = data["network"]
     else:
-        raise DeserializationError("ListTransactionEventsInput.network required")
+        out["network"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

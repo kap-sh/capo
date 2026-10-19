@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_support.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support.types.attachment_set_id
     import capo_support.types.category_code
@@ -90,7 +88,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCaseRequest:
     if data.get("subject") is not None:
         out["subject"] = data["subject"]
     else:
-        raise DeserializationError("CreateCaseRequest.subject required")
+        out["subject"] = ""
     if data.get("serviceCode") is not None:
         out["service_code"] = data["serviceCode"]
     if data.get("severityCode") is not None:
@@ -100,7 +98,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCaseRequest:
     if data.get("communicationBody") is not None:
         out["communication_body"] = data["communicationBody"]
     else:
-        raise DeserializationError("CreateCaseRequest.communication_body required")
+        out["communication_body"] = ""
     if data.get("ccEmailAddresses") is not None:
         import capo_support.types.cc_email_address_list
 

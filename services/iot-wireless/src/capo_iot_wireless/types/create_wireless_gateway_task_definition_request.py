@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.auto_create_tasks
     import capo_iot_wireless.types.client_request_token
@@ -61,9 +59,7 @@ def deserialize_json(data: dict) -> CreateWirelessGatewayTaskDefinitionRequest:
     if data.get("AutoCreateTasks") is not None:
         out["auto_create_tasks"] = data["AutoCreateTasks"]
     else:
-        raise DeserializationError(
-            "CreateWirelessGatewayTaskDefinitionRequest.auto_create_tasks required"
-        )
+        out["auto_create_tasks"] = False
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("Update") is not None:

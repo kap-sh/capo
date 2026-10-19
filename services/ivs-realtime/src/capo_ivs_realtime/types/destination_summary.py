@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs_realtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.destination_state
     import capo_ivs_realtime.types.string
@@ -46,11 +44,11 @@ def deserialize_json(data: dict) -> DestinationSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("DestinationSummary.id required")
+        out["id"] = ""
     if data.get("state") is not None:
         out["state"] = data["state"]
     else:
-        raise DeserializationError("DestinationSummary.state required")
+        out["state"] = ""
     if data.get("startTime") is not None:
         import capo_ivs_realtime.types.time
 

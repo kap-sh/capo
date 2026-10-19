@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation_runtime.types.output_configuration
     import capo_bedrock_data_automation_runtime.types.output_segment_list
@@ -72,8 +70,11 @@ def deserialize_aws_json_1_1(data: dict) -> InvokeDataAutomationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "InvokeDataAutomationResponse.semantic_modality required"
+        import typing
+
+        out["semantic_modality"] = typing.cast(
+            "capo_bedrock_data_automation_runtime.types.semantic_modality.SemanticModality",
+            "",
         )
     if data.get("outputSegments") is not None:
         import capo_bedrock_data_automation_runtime.types.output_segment_list

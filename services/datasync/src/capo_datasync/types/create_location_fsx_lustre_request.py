@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.ec2_security_group_arn_list
     import capo_datasync.types.fsx_filesystem_arn
@@ -55,9 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationFsxLustreRequest:
     if data.get("FsxFilesystemArn") is not None:
         out["fsx_filesystem_arn"] = data["FsxFilesystemArn"]
     else:
-        raise DeserializationError(
-            "CreateLocationFsxLustreRequest.fsx_filesystem_arn required"
-        )
+        out["fsx_filesystem_arn"] = ""
     if data.get("SecurityGroupArns") is not None:
         import capo_datasync.types.ec2_security_group_arn_list
 
@@ -67,9 +63,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationFsxLustreRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateLocationFsxLustreRequest.security_group_arns required"
-        )
+        out["security_group_arns"] = []
     if data.get("Subdirectory") is not None:
         out["subdirectory"] = data["Subdirectory"]
     if data.get("Tags") is not None:

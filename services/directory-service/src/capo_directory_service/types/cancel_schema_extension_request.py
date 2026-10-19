@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.directory_id
     import capo_directory_service.types.schema_extension_id
@@ -33,11 +31,9 @@ def deserialize_aws_json_1_1(data: dict) -> CancelSchemaExtensionRequest:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError("CancelSchemaExtensionRequest.directory_id required")
+        out["directory_id"] = ""
     if data.get("SchemaExtensionId") is not None:
         out["schema_extension_id"] = data["SchemaExtensionId"]
     else:
-        raise DeserializationError(
-            "CancelSchemaExtensionRequest.schema_extension_id required"
-        )
+        out["schema_extension_id"] = ""
     return out

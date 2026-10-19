@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_nova_act.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_nova_act.types.uuid_string
     import capo_nova_act.types.workflow_run_status
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> CreateWorkflowRunResponse:
     if data.get("workflowRunId") is not None:
         out["workflow_run_id"] = data["workflowRunId"]
     else:
-        raise DeserializationError("CreateWorkflowRunResponse.workflow_run_id required")
+        out["workflow_run_id"] = ""
     if data.get("status") is not None:
         import capo_nova_act.types.workflow_run_status
 
@@ -43,5 +41,9 @@ def deserialize_json(data: dict) -> CreateWorkflowRunResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("CreateWorkflowRunResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_nova_act.types.workflow_run_status.WorkflowRunStatus", ""
+        )
     return out

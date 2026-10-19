@@ -62,7 +62,7 @@ def deserialize_json(data: dict) -> CreateKeyRequest:
     if data.get("KeyName") is not None:
         out["key_name"] = data["KeyName"]
     else:
-        raise DeserializationError("CreateKeyRequest.key_name required")
+        out["key_name"] = ""
     if data.get("Restrictions") is not None:
         import capo_location.types.api_key_restrictions
 

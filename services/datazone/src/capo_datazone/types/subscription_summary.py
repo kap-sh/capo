@@ -93,17 +93,17 @@ def deserialize_json(data: dict) -> SubscriptionSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("SubscriptionSummary.id required")
+        out["id"] = ""
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("SubscriptionSummary.created_by required")
+        out["created_by"] = ""
     if data.get("updatedBy") is not None:
         out["updated_by"] = data["updatedBy"]
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("SubscriptionSummary.domain_id required")
+        out["domain_id"] = ""
     if data.get("status") is not None:
         import capo_datazone.types.subscription_status
 
@@ -111,7 +111,11 @@ def deserialize_json(data: dict) -> SubscriptionSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("SubscriptionSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_datazone.types.subscription_status.SubscriptionStatus", ""
+        )
     if data.get("createdAt") is not None:
         import capo_datazone.types.created_at
 
@@ -119,7 +123,9 @@ def deserialize_json(data: dict) -> SubscriptionSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("SubscriptionSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_datazone.types.updated_at
 
@@ -127,7 +133,9 @@ def deserialize_json(data: dict) -> SubscriptionSummary:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("SubscriptionSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("subscribedPrincipal") is not None:
         import capo_datazone.types.subscribed_principal
 
@@ -137,7 +145,11 @@ def deserialize_json(data: dict) -> SubscriptionSummary:
             )
         )
     else:
-        raise DeserializationError("SubscriptionSummary.subscribed_principal required")
+        import capo_datazone.types._unknown
+
+        out["subscribed_principal"] = capo_datazone.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("subscribedListing") is not None:
         import capo_datazone.types.subscribed_listing
 

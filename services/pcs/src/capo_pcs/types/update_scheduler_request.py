@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_pcs.errors import DeserializationError
-
 
 class UpdateSchedulerRequest(TypedDict, closed=True):
     version: "str"
@@ -22,5 +20,5 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateSchedulerRequest:
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("UpdateSchedulerRequest.version required")
+        out["version"] = ""
     return out

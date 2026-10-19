@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.variable_name
     import capo_iot_events.types.variable_value
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> SetVariableAction:
     if data.get("variableName") is not None:
         out["variable_name"] = data["variableName"]
     else:
-        raise DeserializationError("SetVariableAction.variable_name required")
+        out["variable_name"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("SetVariableAction.value required")
+        out["value"] = ""
     return out

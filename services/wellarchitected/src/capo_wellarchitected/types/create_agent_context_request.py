@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> CreateAgentContextRequest:
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("CreateAgentContextRequest.title required")
+        out["title"] = ""
     if data.get("contextType") is not None:
         import capo_wellarchitected.types.context_type
 
@@ -60,7 +60,11 @@ def deserialize_json(data: dict) -> CreateAgentContextRequest:
             data["contextType"]
         )
     else:
-        raise DeserializationError("CreateAgentContextRequest.context_type required")
+        import typing
+
+        out["context_type"] = typing.cast(
+            "capo_wellarchitected.types.context_type.ContextType", ""
+        )
     if data.get("content") is not None:
         import capo_wellarchitected.types.context_content
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.organizational_unit_id
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> OrganizationalUnitReference:
     if data.get("ouId") is not None:
         out["ou_id"] = data["ouId"]
     else:
-        raise DeserializationError("OrganizationalUnitReference.ou_id required")
+        out["ou_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.invocation_log_source
     import capo_bedrock.types.request_metadata_filters
@@ -62,8 +60,10 @@ def deserialize_json(data: dict) -> InvocationLogsConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "InvocationLogsConfig.invocation_log_source required"
+        import capo_bedrock.types._unknown
+
+        out["invocation_log_source"] = capo_bedrock.types._unknown.UnknownUnionMember(
+            ""
         )
     if data.get("requestMetadataFilters") is not None:
         import capo_bedrock.types.request_metadata_filters

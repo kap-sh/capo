@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_guardduty.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_guardduty.types.timestamp
 
@@ -47,5 +45,7 @@ def deserialize_json(data: dict) -> ContinuousScanDetails:
             data["endTime"]
         )
     else:
-        raise DeserializationError("ContinuousScanDetails.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

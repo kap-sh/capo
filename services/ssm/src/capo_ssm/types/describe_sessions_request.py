@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.next_token
     import capo_ssm.types.session_filter_list
@@ -52,7 +50,9 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeSessionsRequest:
             data["State"]
         )
     else:
-        raise DeserializationError("DescribeSessionsRequest.state required")
+        import typing
+
+        out["state"] = typing.cast("capo_ssm.types.session_state.SessionState", "")
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

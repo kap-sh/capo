@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codestar_connections.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codestar_connections.types.event
     import capo_codestar_connections.types.external_id
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_0(data: dict) -> RepositorySyncEvent:
     if data.get("Event") is not None:
         out["event"] = data["Event"]
     else:
-        raise DeserializationError("RepositorySyncEvent.event required")
+        out["event"] = ""
     if data.get("ExternalId") is not None:
         out["external_id"] = data["ExternalId"]
     if data.get("Time") is not None:
@@ -56,9 +54,11 @@ def deserialize_aws_json_1_0(data: dict) -> RepositorySyncEvent:
             )
         )
     else:
-        raise DeserializationError("RepositorySyncEvent.time required")
+        import datetime
+
+        out["time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     else:
-        raise DeserializationError("RepositorySyncEvent.type required")
+        out["type"] = ""
     return out

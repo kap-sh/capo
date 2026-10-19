@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.permission_condition_key
     import capo_qbusiness.types.permission_condition_operator
@@ -59,11 +57,16 @@ def deserialize_json(data: dict) -> PermissionCondition:
             )
         )
     else:
-        raise DeserializationError("PermissionCondition.condition_operator required")
+        import typing
+
+        out["condition_operator"] = typing.cast(
+            "capo_qbusiness.types.permission_condition_operator.PermissionConditionOperator",
+            "",
+        )
     if data.get("conditionKey") is not None:
         out["condition_key"] = data["conditionKey"]
     else:
-        raise DeserializationError("PermissionCondition.condition_key required")
+        out["condition_key"] = ""
     if data.get("conditionValues") is not None:
         import capo_qbusiness.types.permission_condition_values
 
@@ -73,5 +76,5 @@ def deserialize_json(data: dict) -> PermissionCondition:
             )
         )
     else:
-        raise DeserializationError("PermissionCondition.condition_values required")
+        out["condition_values"] = []
     return out

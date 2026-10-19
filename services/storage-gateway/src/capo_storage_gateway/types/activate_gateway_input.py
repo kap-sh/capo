@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.activation_key
     import capo_storage_gateway.types.gateway_name
@@ -67,19 +65,19 @@ def deserialize_aws_json_1_1(data: dict) -> ActivateGatewayInput:
     if data.get("ActivationKey") is not None:
         out["activation_key"] = data["ActivationKey"]
     else:
-        raise DeserializationError("ActivateGatewayInput.activation_key required")
+        out["activation_key"] = ""
     if data.get("GatewayName") is not None:
         out["gateway_name"] = data["GatewayName"]
     else:
-        raise DeserializationError("ActivateGatewayInput.gateway_name required")
+        out["gateway_name"] = ""
     if data.get("GatewayTimezone") is not None:
         out["gateway_timezone"] = data["GatewayTimezone"]
     else:
-        raise DeserializationError("ActivateGatewayInput.gateway_timezone required")
+        out["gateway_timezone"] = ""
     if data.get("GatewayRegion") is not None:
         out["gateway_region"] = data["GatewayRegion"]
     else:
-        raise DeserializationError("ActivateGatewayInput.gateway_region required")
+        out["gateway_region"] = ""
     if data.get("GatewayType") is not None:
         out["gateway_type"] = data["GatewayType"]
     if data.get("TapeDriveType") is not None:

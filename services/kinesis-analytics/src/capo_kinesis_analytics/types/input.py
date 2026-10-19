@@ -89,7 +89,7 @@ def deserialize_aws_json_1_1(data: dict) -> Input:
     if data.get("NamePrefix") is not None:
         out["name_prefix"] = data["NamePrefix"]
     else:
-        raise DeserializationError("Input.name_prefix required")
+        out["name_prefix"] = ""
     if data.get("InputProcessingConfiguration") is not None:
         import capo_kinesis_analytics.types.input_processing_configuration
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.ntp_server_list
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> NtpPayload:
             data["NtpServers"]
         )
     else:
-        raise DeserializationError("NtpPayload.ntp_servers required")
+        out["ntp_servers"] = []
     return out

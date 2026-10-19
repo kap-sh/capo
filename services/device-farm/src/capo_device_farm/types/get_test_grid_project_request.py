@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_device_farm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_device_farm.types.device_farm_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetTestGridProjectRequest:
     if data.get("projectArn") is not None:
         out["project_arn"] = data["projectArn"]
     else:
-        raise DeserializationError("GetTestGridProjectRequest.project_arn required")
+        out["project_arn"] = ""
     return out

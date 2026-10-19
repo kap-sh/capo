@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.api_version
     import capo_glue.types.catalog_id_string
@@ -86,7 +84,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetEntityRecordsRequest:
     if data.get("EntityName") is not None:
         out["entity_name"] = data["EntityName"]
     else:
-        raise DeserializationError("GetEntityRecordsRequest.entity_name required")
+        out["entity_name"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("DataStoreApiVersion") is not None:
@@ -104,7 +102,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetEntityRecordsRequest:
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
     else:
-        raise DeserializationError("GetEntityRecordsRequest.limit required")
+        out["limit"] = 0
     if data.get("OrderBy") is not None:
         out["order_by"] = data["OrderBy"]
     if data.get("SelectedFields") is not None:

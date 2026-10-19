@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.trigger_regex_pattern_list
 
@@ -39,5 +37,5 @@ def deserialize_json(data: dict) -> PatternFilter:
             )
         )
     else:
-        raise DeserializationError("PatternFilter.patterns required")
+        out["patterns"] = []
     return out

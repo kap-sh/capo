@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.catalog
     import capo_partnercentral_account.types.date_time
@@ -49,19 +47,19 @@ def deserialize_aws_json_1_0(data: dict) -> PartnerSummary:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("PartnerSummary.catalog required")
+        out["catalog"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("PartnerSummary.arn required")
+        out["arn"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("PartnerSummary.id required")
+        out["id"] = ""
     if data.get("LegalName") is not None:
         out["legal_name"] = data["LegalName"]
     else:
-        raise DeserializationError("PartnerSummary.legal_name required")
+        out["legal_name"] = ""
     if data.get("CreatedAt") is not None:
         import capo_partnercentral_account.types.date_time
 
@@ -71,7 +69,9 @@ def deserialize_aws_json_1_0(data: dict) -> PartnerSummary:
             )
         )
     else:
-        raise DeserializationError("PartnerSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

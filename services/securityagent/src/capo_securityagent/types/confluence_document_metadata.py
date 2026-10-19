@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.provider_resource_id
     import capo_securityagent.types.provider_resource_name
@@ -45,21 +43,19 @@ def deserialize_json(data: dict) -> ConfluenceDocumentMetadata:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ConfluenceDocumentMetadata.name required")
+        out["name"] = ""
     if data.get("providerResourceId") is not None:
         out["provider_resource_id"] = data["providerResourceId"]
     else:
-        raise DeserializationError(
-            "ConfluenceDocumentMetadata.provider_resource_id required"
-        )
+        out["provider_resource_id"] = ""
     if data.get("spaceKey") is not None:
         out["space_key"] = data["spaceKey"]
     else:
-        raise DeserializationError("ConfluenceDocumentMetadata.space_key required")
+        out["space_key"] = ""
     if data.get("pageId") is not None:
         out["page_id"] = data["pageId"]
     else:
-        raise DeserializationError("ConfluenceDocumentMetadata.page_id required")
+        out["page_id"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     if data.get("spaceTitle") is not None:

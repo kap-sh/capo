@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.parent_entity_id
     import capo_iottwinmaker.types.parent_entity_update_type
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> ParentEntityUpdateRequest:
     if data.get("updateType") is not None:
         out["update_type"] = data["updateType"]
     else:
-        raise DeserializationError("ParentEntityUpdateRequest.update_type required")
+        out["update_type"] = ""
     if data.get("parentEntityId") is not None:
         out["parent_entity_id"] = data["parentEntityId"]
     return out

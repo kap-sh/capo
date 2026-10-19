@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.non_empty_string
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> Category:
     if data.get("categoryId") is not None:
         out["category_id"] = data["categoryId"]
     else:
-        raise DeserializationError("Category.category_id required")
+        out["category_id"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("Category.display_name required")
+        out["display_name"] = ""
     return out

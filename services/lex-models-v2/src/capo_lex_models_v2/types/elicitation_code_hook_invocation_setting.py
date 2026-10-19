@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.boxed_boolean
     import capo_lex_models_v2.types.name
@@ -32,9 +30,7 @@ def deserialize_json(data: dict) -> ElicitationCodeHookInvocationSetting:
     if data.get("enableCodeHookInvocation") is not None:
         out["enable_code_hook_invocation"] = data["enableCodeHookInvocation"]
     else:
-        raise DeserializationError(
-            "ElicitationCodeHookInvocationSetting.enable_code_hook_invocation required"
-        )
+        out["enable_code_hook_invocation"] = False
     if data.get("invocationLabel") is not None:
         out["invocation_label"] = data["invocationLabel"]
     return out

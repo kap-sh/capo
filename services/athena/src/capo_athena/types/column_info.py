@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.boolean
     import capo_athena.types.column_nullable
@@ -72,13 +70,13 @@ def deserialize_aws_json_1_1(data: dict) -> ColumnInfo:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ColumnInfo.name required")
+        out["name"] = ""
     if data.get("Label") is not None:
         out["label"] = data["Label"]
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     else:
-        raise DeserializationError("ColumnInfo.type required")
+        out["type"] = ""
     if data.get("Precision") is not None:
         out["precision"] = data["Precision"]
     else:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.clone_type
     import capo_odb.types.resource_id_or_arn
@@ -35,9 +33,7 @@ def deserialize_aws_json_1_0(data: dict) -> DatabaseCloneConfiguration:
     if data.get("sourceAutonomousDatabaseId") is not None:
         out["source_autonomous_database_id"] = data["sourceAutonomousDatabaseId"]
     else:
-        raise DeserializationError(
-            "DatabaseCloneConfiguration.source_autonomous_database_id required"
-        )
+        out["source_autonomous_database_id"] = ""
     if data.get("cloneType") is not None:
         import capo_odb.types.clone_type
 
@@ -45,5 +41,7 @@ def deserialize_aws_json_1_0(data: dict) -> DatabaseCloneConfiguration:
             data["cloneType"]
         )
     else:
-        raise DeserializationError("DatabaseCloneConfiguration.clone_type required")
+        import typing
+
+        out["clone_type"] = typing.cast("capo_odb.types.clone_type.CloneType", "")
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.ingestion_job_filter_attribute
     import capo_bedrock_agent.types.ingestion_job_filter_operator
@@ -59,7 +57,12 @@ def deserialize_json(data: dict) -> IngestionJobFilter:
             )
         )
     else:
-        raise DeserializationError("IngestionJobFilter.attribute required")
+        import typing
+
+        out["attribute"] = typing.cast(
+            "capo_bedrock_agent.types.ingestion_job_filter_attribute.IngestionJobFilterAttribute",
+            "",
+        )
     if data.get("operator") is not None:
         import capo_bedrock_agent.types.ingestion_job_filter_operator
 
@@ -69,7 +72,12 @@ def deserialize_json(data: dict) -> IngestionJobFilter:
             )
         )
     else:
-        raise DeserializationError("IngestionJobFilter.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_bedrock_agent.types.ingestion_job_filter_operator.IngestionJobFilterOperator",
+            "",
+        )
     if data.get("values") is not None:
         import capo_bedrock_agent.types.ingestion_job_filter_values
 
@@ -79,5 +87,5 @@ def deserialize_json(data: dict) -> IngestionJobFilter:
             )
         )
     else:
-        raise DeserializationError("IngestionJobFilter.values required")
+        out["values"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_data_pipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_data_pipeline.types.field_name_string
     import capo_data_pipeline.types.parameter_attribute_list
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> ParameterObject:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ParameterObject.id required")
+        out["id"] = ""
     if data.get("attributes") is not None:
         import capo_data_pipeline.types.parameter_attribute_list
 
@@ -49,5 +47,5 @@ def deserialize_aws_json_1_1(data: dict) -> ParameterObject:
             )
         )
     else:
-        raise DeserializationError("ParameterObject.attributes required")
+        out["attributes"] = []
     return out

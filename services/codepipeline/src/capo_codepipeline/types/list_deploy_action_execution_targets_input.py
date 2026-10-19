@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.action_execution_id
     import capo_codepipeline.types.max_results
@@ -55,9 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListDeployActionExecutionTargetsInpu
     if data.get("actionExecutionId") is not None:
         out["action_execution_id"] = data["actionExecutionId"]
     else:
-        raise DeserializationError(
-            "ListDeployActionExecutionTargetsInput.action_execution_id required"
-        )
+        out["action_execution_id"] = ""
     if data.get("filters") is not None:
         import capo_codepipeline.types.target_filter_list
 

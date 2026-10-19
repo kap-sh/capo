@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.file_extension
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> AllowedExtension:
     if data.get("Extension") is not None:
         out["extension"] = data["Extension"]
     else:
-        raise DeserializationError("AllowedExtension.extension required")
+        out["extension"] = ""
     return out

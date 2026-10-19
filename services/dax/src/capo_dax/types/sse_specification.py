@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dax.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dax.types.sse_enabled
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> SSESpecification:
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
-        raise DeserializationError("SSESpecification.enabled required")
+        out["enabled"] = False
     return out

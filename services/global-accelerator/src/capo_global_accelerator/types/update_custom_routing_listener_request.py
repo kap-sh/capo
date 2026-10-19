@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_global_accelerator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_global_accelerator.types.generic_string
     import capo_global_accelerator.types.port_ranges
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateCustomRoutingListenerRequest:
     if data.get("ListenerArn") is not None:
         out["listener_arn"] = data["ListenerArn"]
     else:
-        raise DeserializationError(
-            "UpdateCustomRoutingListenerRequest.listener_arn required"
-        )
+        out["listener_arn"] = ""
     if data.get("PortRanges") is not None:
         import capo_global_accelerator.types.port_ranges
 
@@ -49,7 +45,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateCustomRoutingListenerRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateCustomRoutingListenerRequest.port_ranges required"
-        )
+        out["port_ranges"] = []
     return out

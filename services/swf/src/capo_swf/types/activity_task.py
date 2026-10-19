@@ -56,11 +56,11 @@ def deserialize_aws_json_1_0(data: dict) -> ActivityTask:
     if data.get("taskToken") is not None:
         out["task_token"] = data["taskToken"]
     else:
-        raise DeserializationError("ActivityTask.task_token required")
+        out["task_token"] = ""
     if data.get("activityId") is not None:
         out["activity_id"] = data["activityId"]
     else:
-        raise DeserializationError("ActivityTask.activity_id required")
+        out["activity_id"] = ""
     if data.get("startedEventId") is not None:
         out["started_event_id"] = data["startedEventId"]
     else:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.geometry_format
     import capo_geo_routes.types.isoline_list
@@ -81,8 +79,10 @@ def deserialize_json(data: dict) -> CalculateIsolinesResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "CalculateIsolinesResponse.isoline_geometry_format required"
+        import typing
+
+        out["isoline_geometry_format"] = typing.cast(
+            "capo_geo_routes.types.geometry_format.GeometryFormat", ""
         )
     if data.get("Isolines") is not None:
         import capo_geo_routes.types.isoline_list
@@ -91,7 +91,7 @@ def deserialize_json(data: dict) -> CalculateIsolinesResponse:
             data["Isolines"]
         )
     else:
-        raise DeserializationError("CalculateIsolinesResponse.isolines required")
+        out["isolines"] = []
     if data.get("SnappedDestination") is not None:
         import capo_geo_routes.types.position
 

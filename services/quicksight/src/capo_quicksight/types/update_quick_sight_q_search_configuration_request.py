@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.q_search_status
@@ -38,7 +36,9 @@ def deserialize_json(data: dict) -> UpdateQuickSightQSearchConfigurationRequest:
             data["QSearchStatus"]
         )
     else:
-        raise DeserializationError(
-            "UpdateQuickSightQSearchConfigurationRequest.q_search_status required"
+        import typing
+
+        out["q_search_status"] = typing.cast(
+            "capo_quicksight.types.q_search_status.QSearchStatus", ""
         )
     return out

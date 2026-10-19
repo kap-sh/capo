@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.description
     import capo_frauddetector.types.event_ingestion
@@ -99,7 +97,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutEventTypeRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("PutEventTypeRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("eventVariables") is not None:
@@ -111,7 +109,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutEventTypeRequest:
             )
         )
     else:
-        raise DeserializationError("PutEventTypeRequest.event_variables required")
+        out["event_variables"] = []
     if data.get("labels") is not None:
         import capo_frauddetector.types.list_of_strings
 
@@ -129,7 +127,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutEventTypeRequest:
             )
         )
     else:
-        raise DeserializationError("PutEventTypeRequest.entity_types required")
+        out["entity_types"] = []
     if data.get("eventIngestion") is not None:
         import capo_frauddetector.types.event_ingestion
 

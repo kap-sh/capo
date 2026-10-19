@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.boolean
     import capo_lightsail.types.ip_address_type
@@ -54,11 +52,15 @@ def deserialize_aws_json_1_1(data: dict) -> SetIpAddressTypeRequest:
             )
         )
     else:
-        raise DeserializationError("SetIpAddressTypeRequest.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_lightsail.types.resource_type.ResourceType", ""
+        )
     if data.get("resourceName") is not None:
         out["resource_name"] = data["resourceName"]
     else:
-        raise DeserializationError("SetIpAddressTypeRequest.resource_name required")
+        out["resource_name"] = ""
     if data.get("ipAddressType") is not None:
         import capo_lightsail.types.ip_address_type
 
@@ -68,7 +70,11 @@ def deserialize_aws_json_1_1(data: dict) -> SetIpAddressTypeRequest:
             )
         )
     else:
-        raise DeserializationError("SetIpAddressTypeRequest.ip_address_type required")
+        import typing
+
+        out["ip_address_type"] = typing.cast(
+            "capo_lightsail.types.ip_address_type.IpAddressType", ""
+        )
     if data.get("acceptBundleUpdate") is not None:
         out["accept_bundle_update"] = data["acceptBundleUpdate"]
     return out

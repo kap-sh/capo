@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backupsearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backupsearch.types.export_job_summaries
 
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> ListSearchResultExportJobsOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListSearchResultExportJobsOutput.export_jobs required"
-        )
+        out["export_jobs"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

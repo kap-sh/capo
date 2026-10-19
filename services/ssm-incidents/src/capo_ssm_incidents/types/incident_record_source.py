@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.arn
     import capo_ssm_incidents.types.incident_source
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> IncidentRecordSource:
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("IncidentRecordSource.created_by required")
+        out["created_by"] = ""
     if data.get("invokedBy") is not None:
         out["invoked_by"] = data["invokedBy"]
     if data.get("resourceArn") is not None:
@@ -50,5 +48,5 @@ def deserialize_json(data: dict) -> IncidentRecordSource:
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("IncidentRecordSource.source required")
+        out["source"] = ""
     return out

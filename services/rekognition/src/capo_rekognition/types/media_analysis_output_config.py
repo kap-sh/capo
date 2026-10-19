@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.media_analysis_s3_key_prefix
     import capo_rekognition.types.s3_bucket
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_1(data: dict) -> MediaAnalysisOutputConfig:
     if data.get("S3Bucket") is not None:
         out["s3_bucket"] = data["S3Bucket"]
     else:
-        raise DeserializationError("MediaAnalysisOutputConfig.s3_bucket required")
+        out["s3_bucket"] = ""
     if data.get("S3KeyPrefix") is not None:
         out["s3_key_prefix"] = data["S3KeyPrefix"]
     return out

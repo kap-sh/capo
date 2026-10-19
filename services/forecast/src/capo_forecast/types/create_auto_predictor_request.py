@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_forecast.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_forecast.types.arn
     import capo_forecast.types.boolean
@@ -136,7 +134,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAutoPredictorRequest:
     if data.get("PredictorName") is not None:
         out["predictor_name"] = data["PredictorName"]
     else:
-        raise DeserializationError("CreateAutoPredictorRequest.predictor_name required")
+        out["predictor_name"] = ""
     if data.get("ForecastHorizon") is not None:
         out["forecast_horizon"] = data["ForecastHorizon"]
     if data.get("ForecastTypes") is not None:

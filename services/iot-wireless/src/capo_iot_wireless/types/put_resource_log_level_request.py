@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.log_level
     import capo_iot_wireless.types.resource_identifier
@@ -41,5 +39,7 @@ def deserialize_json(data: dict) -> PutResourceLogLevelRequest:
             data["LogLevel"]
         )
     else:
-        raise DeserializationError("PutResourceLogLevelRequest.log_level required")
+        import typing
+
+        out["log_level"] = typing.cast("capo_iot_wireless.types.log_level.LogLevel", "")
     return out

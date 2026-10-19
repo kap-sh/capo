@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rum.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rum.types.app_monitor_name
     import capo_rum.types.policy_revision_id
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> PutResourcePolicyRequest:
     if data.get("PolicyDocument") is not None:
         out["policy_document"] = data["PolicyDocument"]
     else:
-        raise DeserializationError("PutResourcePolicyRequest.policy_document required")
+        out["policy_document"] = ""
     if data.get("PolicyRevisionId") is not None:
         out["policy_revision_id"] = data["PolicyRevisionId"]
     return out

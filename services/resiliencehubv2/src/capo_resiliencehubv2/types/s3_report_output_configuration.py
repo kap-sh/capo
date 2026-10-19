@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.aws_account_id
     import capo_resiliencehubv2.types.s3_bucket_path
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> S3ReportOutputConfiguration:
     if data.get("bucketPath") is not None:
         out["bucket_path"] = data["bucketPath"]
     else:
-        raise DeserializationError("S3ReportOutputConfiguration.bucket_path required")
+        out["bucket_path"] = ""
     if data.get("bucketOwner") is not None:
         out["bucket_owner"] = data["bucketOwner"]
     else:
-        raise DeserializationError("S3ReportOutputConfiguration.bucket_owner required")
+        out["bucket_owner"] = ""
     return out

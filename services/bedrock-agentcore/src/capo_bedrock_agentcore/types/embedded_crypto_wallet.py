@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.crypto_wallet_network
     import capo_bedrock_agentcore.types.linked_account_list
@@ -57,7 +55,11 @@ def deserialize_json(data: dict) -> EmbeddedCryptoWallet:
             )
         )
     else:
-        raise DeserializationError("EmbeddedCryptoWallet.network required")
+        import typing
+
+        out["network"] = typing.cast(
+            "capo_bedrock_agentcore.types.crypto_wallet_network.CryptoWalletNetwork", ""
+        )
     if data.get("linkedAccounts") is not None:
         import capo_bedrock_agentcore.types.linked_account_list
 
@@ -67,7 +69,7 @@ def deserialize_json(data: dict) -> EmbeddedCryptoWallet:
             )
         )
     else:
-        raise DeserializationError("EmbeddedCryptoWallet.linked_accounts required")
+        out["linked_accounts"] = []
     if data.get("walletAddress") is not None:
         out["wallet_address"] = data["walletAddress"]
     if data.get("redirectUrl") is not None:

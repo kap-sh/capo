@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_voice_id.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_voice_id.types.score
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> VoiceSpoofingRisk:
     if data.get("RiskScore") is not None:
         out["risk_score"] = data["RiskScore"]
     else:
-        raise DeserializationError("VoiceSpoofingRisk.risk_score required")
+        out["risk_score"] = 0
     return out

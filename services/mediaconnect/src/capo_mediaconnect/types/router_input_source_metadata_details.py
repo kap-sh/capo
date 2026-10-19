@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -63,9 +61,7 @@ def deserialize_json(data: dict) -> RouterInputSourceMetadataDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "RouterInputSourceMetadataDetails.source_metadata_messages required"
-        )
+        out["source_metadata_messages"] = []
     if data.get("timestamp") is not None:
         import datetime
 
@@ -73,9 +69,9 @@ def deserialize_json(data: dict) -> RouterInputSourceMetadataDetails:
             data["timestamp"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "RouterInputSourceMetadataDetails.timestamp required"
-        )
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("routerInputMetadata") is not None:
         import capo_mediaconnect.types.router_input_metadata
 

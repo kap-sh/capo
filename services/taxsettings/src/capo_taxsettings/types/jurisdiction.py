@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_taxsettings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_taxsettings.types.country_code
     import capo_taxsettings.types.state
@@ -34,5 +32,5 @@ def deserialize_json(data: dict) -> Jurisdiction:
     if data.get("countryCode") is not None:
         out["country_code"] = data["countryCode"]
     else:
-        raise DeserializationError("Jurisdiction.country_code required")
+        out["country_code"] = ""
     return out

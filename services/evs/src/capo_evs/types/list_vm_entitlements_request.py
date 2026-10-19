@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_evs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_evs.types.connector_id
     import capo_evs.types.entitlement_type
@@ -53,11 +51,11 @@ def deserialize_aws_json_1_0(data: dict) -> ListVmEntitlementsRequest:
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError("ListVmEntitlementsRequest.environment_id required")
+        out["environment_id"] = ""
     if data.get("connectorId") is not None:
         out["connector_id"] = data["connectorId"]
     else:
-        raise DeserializationError("ListVmEntitlementsRequest.connector_id required")
+        out["connector_id"] = ""
     if data.get("entitlementType") is not None:
         import capo_evs.types.entitlement_type
 
@@ -67,7 +65,9 @@ def deserialize_aws_json_1_0(data: dict) -> ListVmEntitlementsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ListVmEntitlementsRequest.entitlement_type required"
+        import typing
+
+        out["entitlement_type"] = typing.cast(
+            "capo_evs.types.entitlement_type.EntitlementType", ""
         )
     return out

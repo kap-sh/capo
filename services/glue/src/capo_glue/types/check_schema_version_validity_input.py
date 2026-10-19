@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.data_format
     import capo_glue.types.schema_definition_string
@@ -39,13 +37,11 @@ def deserialize_aws_json_1_1(data: dict) -> CheckSchemaVersionValidityInput:
             data["DataFormat"]
         )
     else:
-        raise DeserializationError(
-            "CheckSchemaVersionValidityInput.data_format required"
-        )
+        import typing
+
+        out["data_format"] = typing.cast("capo_glue.types.data_format.DataFormat", "")
     if data.get("SchemaDefinition") is not None:
         out["schema_definition"] = data["SchemaDefinition"]
     else:
-        raise DeserializationError(
-            "CheckSchemaVersionValidityInput.schema_definition required"
-        )
+        out["schema_definition"] = ""
     return out

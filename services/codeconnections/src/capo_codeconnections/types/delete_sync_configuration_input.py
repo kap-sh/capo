@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codeconnections.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeconnections.types.resource_name
     import capo_codeconnections.types.sync_configuration_type
@@ -45,11 +43,14 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteSyncConfigurationInput:
             )
         )
     else:
-        raise DeserializationError("DeleteSyncConfigurationInput.sync_type required")
+        import typing
+
+        out["sync_type"] = typing.cast(
+            "capo_codeconnections.types.sync_configuration_type.SyncConfigurationType",
+            "",
+        )
     if data.get("ResourceName") is not None:
         out["resource_name"] = data["ResourceName"]
     else:
-        raise DeserializationError(
-            "DeleteSyncConfigurationInput.resource_name required"
-        )
+        out["resource_name"] = ""
     return out

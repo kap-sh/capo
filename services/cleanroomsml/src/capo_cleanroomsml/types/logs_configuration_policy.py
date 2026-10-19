@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.account_id_list
     import capo_cleanroomsml.types.log_redaction_configuration
@@ -62,9 +60,7 @@ def deserialize_json(data: dict) -> LogsConfigurationPolicy:
             )
         )
     else:
-        raise DeserializationError(
-            "LogsConfigurationPolicy.allowed_account_ids required"
-        )
+        out["allowed_account_ids"] = []
     if data.get("filterPattern") is not None:
         out["filter_pattern"] = data["filterPattern"]
     if data.get("logType") is not None:

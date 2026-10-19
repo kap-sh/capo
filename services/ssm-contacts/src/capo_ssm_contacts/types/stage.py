@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.stage_duration_in_mins
     import capo_ssm_contacts.types.targets_list
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> Stage:
     if data.get("DurationInMinutes") is not None:
         out["duration_in_minutes"] = data["DurationInMinutes"]
     else:
-        raise DeserializationError("Stage.duration_in_minutes required")
+        out["duration_in_minutes"] = 0
     if data.get("Targets") is not None:
         import capo_ssm_contacts.types.targets_list
 
@@ -45,5 +43,5 @@ def deserialize_aws_json_1_1(data: dict) -> Stage:
             data["Targets"]
         )
     else:
-        raise DeserializationError("Stage.targets required")
+        out["targets"] = []
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.change_status
@@ -47,14 +46,18 @@ def deserialize_xml(el: Element) -> ChangeInfo:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("ChangeInfo.id required")
+        out["id"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         import capo_route_53.types.change_status
 
         out["status"] = capo_route_53.types.change_status.deserialize_xml(child_status)
     else:
-        raise DeserializationError("ChangeInfo.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_route_53.types.change_status.ChangeStatus", ""
+        )
     child_submitted_at = el.find("SubmittedAt")
     if child_submitted_at is not None:
         import capo_route_53.types.time_stamp
@@ -63,7 +66,11 @@ def deserialize_xml(el: Element) -> ChangeInfo:
             child_submitted_at
         )
     else:
-        raise DeserializationError("ChangeInfo.submitted_at required")
+        import datetime
+
+        out["submitted_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_comment = el.find("Comment")
     if child_comment is not None:
         out["comment"] = str(child_comment.text or "")

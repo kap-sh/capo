@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_nova_act.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_nova_act.types.s3_bucket_name
     import capo_nova_act.types.s3_key_prefix
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> WorkflowExportConfig:
     if data.get("s3BucketName") is not None:
         out["s3_bucket_name"] = data["s3BucketName"]
     else:
-        raise DeserializationError("WorkflowExportConfig.s3_bucket_name required")
+        out["s3_bucket_name"] = ""
     if data.get("s3KeyPrefix") is not None:
         out["s3_key_prefix"] = data["s3KeyPrefix"]
     return out

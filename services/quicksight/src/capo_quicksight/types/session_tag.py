@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.session_tag_key
     import capo_quicksight.types.session_tag_value
@@ -31,11 +29,11 @@ def deserialize_json(data: dict) -> SessionTag:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("SessionTag.key required")
+        out["key"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("SessionTag.value required")
+        out["value"] = ""
     return out
 
 

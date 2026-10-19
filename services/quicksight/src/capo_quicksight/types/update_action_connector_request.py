@@ -55,7 +55,7 @@ def deserialize_json(data: dict) -> UpdateActionConnectorRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateActionConnectorRequest.name required")
+        out["name"] = ""
     if data.get("AuthenticationConfig") is not None:
         import capo_quicksight.types.auth_config
 

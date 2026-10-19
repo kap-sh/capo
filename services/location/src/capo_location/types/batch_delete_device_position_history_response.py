@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.batch_delete_device_position_history_error_list
 
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> BatchDeleteDevicePositionHistoryResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDeleteDevicePositionHistoryResponse.errors required"
-        )
+        out["errors"] = []
     return out

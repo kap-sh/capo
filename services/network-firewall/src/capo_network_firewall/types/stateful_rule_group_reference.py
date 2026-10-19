@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.deep_threat_inspection
     import capo_network_firewall.types.priority
@@ -52,7 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> StatefulRuleGroupReference:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("StatefulRuleGroupReference.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("Priority") is not None:
         out["priority"] = data["Priority"]
     if data.get("Override") is not None:

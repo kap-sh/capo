@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.boolean
@@ -83,14 +82,12 @@ def deserialize_xml(el: Element) -> CreateDistributionTenantRequest:
     if child_distribution_id is not None:
         out["distribution_id"] = str(child_distribution_id.text or "")
     else:
-        raise DeserializationError(
-            "CreateDistributionTenantRequest.distribution_id required"
-        )
+        out["distribution_id"] = ""
     child_name = el.find("Name")
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("CreateDistributionTenantRequest.name required")
+        out["name"] = ""
     child_domains = el.find("Domains")
     if child_domains is not None:
         import capo_cloudfront.types.domain_list
@@ -99,7 +96,7 @@ def deserialize_xml(el: Element) -> CreateDistributionTenantRequest:
             child_domains
         )
     else:
-        raise DeserializationError("CreateDistributionTenantRequest.domains required")
+        out["domains"] = []
     child_tags = el.find("Tags")
     if child_tags is not None:
         import capo_cloudfront.types.tags

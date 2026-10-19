@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.date_time
 
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_0(data: dict) -> ProfileNextStepsHistory:
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("ProfileNextStepsHistory.value required")
+        out["value"] = ""
     if data.get("Time") is not None:
         import capo_partnercentral_selling.types.date_time
 
@@ -44,5 +42,7 @@ def deserialize_aws_json_1_0(data: dict) -> ProfileNextStepsHistory:
             )
         )
     else:
-        raise DeserializationError("ProfileNextStepsHistory.time required")
+        import datetime
+
+        out["time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

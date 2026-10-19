@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_video.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_video.types.destination_uri
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> NotificationDestinationConfig:
     if data.get("Uri") is not None:
         out["uri"] = data["Uri"]
     else:
-        raise DeserializationError("NotificationDestinationConfig.uri required")
+        out["uri"] = ""
     return out

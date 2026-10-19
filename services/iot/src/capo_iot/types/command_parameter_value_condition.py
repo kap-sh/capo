@@ -49,8 +49,11 @@ def deserialize_json(data: dict) -> CommandParameterValueCondition:
             )
         )
     else:
-        raise DeserializationError(
-            "CommandParameterValueCondition.comparison_operator required"
+        import typing
+
+        out["comparison_operator"] = typing.cast(
+            "capo_iot.types.command_parameter_value_comparison_operator.CommandParameterValueComparisonOperator",
+            "",
         )
     if data.get("operand") is not None:
         import capo_iot.types.command_parameter_value_comparison_operand

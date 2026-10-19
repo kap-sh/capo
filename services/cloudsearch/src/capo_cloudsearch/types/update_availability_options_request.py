@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudsearch._protocol.xml import Element
-from capo_cloudsearch.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudsearch.types.boolean
@@ -33,12 +32,10 @@ def deserialize_query(el: Element) -> UpdateAvailabilityOptionsRequest:
     if child_domain_name is not None:
         out["domain_name"] = str(child_domain_name.text or "")
     else:
-        raise DeserializationError(
-            "UpdateAvailabilityOptionsRequest.domain_name required"
-        )
+        out["domain_name"] = ""
     child_multi_az = el.find("MultiAZ")
     if child_multi_az is not None:
         out["multi_az"] = (child_multi_az.text or "").lower() == "true"
     else:
-        raise DeserializationError("UpdateAvailabilityOptionsRequest.multi_az required")
+        out["multi_az"] = False
     return out

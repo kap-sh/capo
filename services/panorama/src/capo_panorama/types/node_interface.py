@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.input_port_list
     import capo_panorama.types.output_port_list
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> NodeInterface:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("NodeInterface.inputs required")
+        out["inputs"] = []
     if data.get("Outputs") is not None:
         import capo_panorama.types.output_port_list
 
@@ -49,5 +47,5 @@ def deserialize_json(data: dict) -> NodeInterface:
             data["Outputs"]
         )
     else:
-        raise DeserializationError("NodeInterface.outputs required")
+        out["outputs"] = []
     return out

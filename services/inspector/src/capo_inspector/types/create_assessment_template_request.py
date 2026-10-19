@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.arn
     import capo_inspector.types.assessment_run_duration
@@ -62,21 +60,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAssessmentTemplateRequest:
     if data.get("assessmentTargetArn") is not None:
         out["assessment_target_arn"] = data["assessmentTargetArn"]
     else:
-        raise DeserializationError(
-            "CreateAssessmentTemplateRequest.assessment_target_arn required"
-        )
+        out["assessment_target_arn"] = ""
     if data.get("assessmentTemplateName") is not None:
         out["assessment_template_name"] = data["assessmentTemplateName"]
     else:
-        raise DeserializationError(
-            "CreateAssessmentTemplateRequest.assessment_template_name required"
-        )
+        out["assessment_template_name"] = ""
     if data.get("durationInSeconds") is not None:
         out["duration_in_seconds"] = data["durationInSeconds"]
     else:
-        raise DeserializationError(
-            "CreateAssessmentTemplateRequest.duration_in_seconds required"
-        )
+        out["duration_in_seconds"] = 0
     if data.get("rulesPackageArns") is not None:
         import capo_inspector.types.assessment_template_rules_package_arn_list
 
@@ -86,9 +78,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAssessmentTemplateRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAssessmentTemplateRequest.rules_package_arns required"
-        )
+        out["rules_package_arns"] = []
     if data.get("userAttributesForFindings") is not None:
         import capo_inspector.types.user_attribute_list
 

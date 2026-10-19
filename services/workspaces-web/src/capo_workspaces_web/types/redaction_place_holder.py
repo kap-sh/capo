@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.redaction_place_holder_text
     import capo_workspaces_web.types.redaction_place_holder_type
@@ -36,9 +34,7 @@ def deserialize_json(data: dict) -> RedactionPlaceHolder:
     if data.get("redactionPlaceHolderType") is not None:
         out["redaction_place_holder_type"] = data["redactionPlaceHolderType"]
     else:
-        raise DeserializationError(
-            "RedactionPlaceHolder.redaction_place_holder_type required"
-        )
+        out["redaction_place_holder_type"] = ""
     if data.get("redactionPlaceHolderText") is not None:
         out["redaction_place_holder_text"] = data["redactionPlaceHolderText"]
     return out

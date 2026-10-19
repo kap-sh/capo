@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.connection_type
     import capo_panorama.types.static_ip_connection_info
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> EthernetPayload:
     if data.get("ConnectionType") is not None:
         out["connection_type"] = data["ConnectionType"]
     else:
-        raise DeserializationError("EthernetPayload.connection_type required")
+        out["connection_type"] = ""
     if data.get("StaticIpConnectionInfo") is not None:
         import capo_panorama.types.static_ip_connection_info
 

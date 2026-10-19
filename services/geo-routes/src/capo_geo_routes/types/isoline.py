@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.distance_meters
     import capo_geo_routes.types.duration_seconds
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> Isoline:
             )
         )
     else:
-        raise DeserializationError("Isoline.connections required")
+        out["connections"] = []
     if data.get("DistanceThreshold") is not None:
         out["distance_threshold"] = data["DistanceThreshold"]
     else:
@@ -71,7 +69,7 @@ def deserialize_json(data: dict) -> Isoline:
             )
         )
     else:
-        raise DeserializationError("Isoline.geometries required")
+        out["geometries"] = []
     if data.get("TimeThreshold") is not None:
         out["time_threshold"] = data["TimeThreshold"]
     else:

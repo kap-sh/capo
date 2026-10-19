@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.hash_key
     import capo_kinesis.types.shard_id
@@ -48,11 +46,11 @@ def deserialize_aws_json_1_1(data: dict) -> SplitShardInput:
     if data.get("ShardToSplit") is not None:
         out["shard_to_split"] = data["ShardToSplit"]
     else:
-        raise DeserializationError("SplitShardInput.shard_to_split required")
+        out["shard_to_split"] = ""
     if data.get("NewStartingHashKey") is not None:
         out["new_starting_hash_key"] = data["NewStartingHashKey"]
     else:
-        raise DeserializationError("SplitShardInput.new_starting_hash_key required")
+        out["new_starting_hash_key"] = ""
     if data.get("StreamARN") is not None:
         out["stream_arn"] = data["StreamARN"]
     if data.get("StreamId") is not None:

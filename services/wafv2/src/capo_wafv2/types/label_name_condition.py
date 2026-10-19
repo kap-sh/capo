@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.label_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> LabelNameCondition:
     if data.get("LabelName") is not None:
         out["label_name"] = data["LabelName"]
     else:
-        raise DeserializationError("LabelNameCondition.label_name required")
+        out["label_name"] = ""
     return out

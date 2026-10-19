@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.bot_alias_id
     import capo_lex_models_v2.types.bot_alias_name
@@ -43,21 +41,21 @@ def deserialize_json(data: dict) -> BotMember:
     if data.get("botMemberId") is not None:
         out["bot_member_id"] = data["botMemberId"]
     else:
-        raise DeserializationError("BotMember.bot_member_id required")
+        out["bot_member_id"] = ""
     if data.get("botMemberName") is not None:
         out["bot_member_name"] = data["botMemberName"]
     else:
-        raise DeserializationError("BotMember.bot_member_name required")
+        out["bot_member_name"] = ""
     if data.get("botMemberAliasId") is not None:
         out["bot_member_alias_id"] = data["botMemberAliasId"]
     else:
-        raise DeserializationError("BotMember.bot_member_alias_id required")
+        out["bot_member_alias_id"] = ""
     if data.get("botMemberAliasName") is not None:
         out["bot_member_alias_name"] = data["botMemberAliasName"]
     else:
-        raise DeserializationError("BotMember.bot_member_alias_name required")
+        out["bot_member_alias_name"] = ""
     if data.get("botMemberVersion") is not None:
         out["bot_member_version"] = data["botMemberVersion"]
     else:
-        raise DeserializationError("BotMember.bot_member_version required")
+        out["bot_member_version"] = ""
     return out

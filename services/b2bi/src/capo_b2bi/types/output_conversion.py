@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.advanced_options
     import capo_b2bi.types.format_options
@@ -54,7 +52,9 @@ def deserialize_aws_json_1_0(data: dict) -> OutputConversion:
             data["toFormat"]
         )
     else:
-        raise DeserializationError("OutputConversion.to_format required")
+        import typing
+
+        out["to_format"] = typing.cast("capo_b2bi.types.to_format.ToFormat", "")
     if data.get("formatOptions") is not None:
         import capo_b2bi.types.format_options
 

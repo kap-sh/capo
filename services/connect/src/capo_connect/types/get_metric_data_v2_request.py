@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.filters_v2_list
@@ -78,7 +76,7 @@ def deserialize_json(data: dict) -> GetMetricDataV2Request:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("GetMetricDataV2Request.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("StartTime") is not None:
         import capo_connect.types.timestamp
 
@@ -86,13 +84,17 @@ def deserialize_json(data: dict) -> GetMetricDataV2Request:
             data["StartTime"]
         )
     else:
-        raise DeserializationError("GetMetricDataV2Request.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_connect.types.timestamp
 
         out["end_time"] = capo_connect.types.timestamp.deserialize_json(data["EndTime"])
     else:
-        raise DeserializationError("GetMetricDataV2Request.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Interval") is not None:
         import capo_connect.types.interval_details
 
@@ -106,7 +108,7 @@ def deserialize_json(data: dict) -> GetMetricDataV2Request:
             data["Filters"]
         )
     else:
-        raise DeserializationError("GetMetricDataV2Request.filters required")
+        out["filters"] = []
     if data.get("Groupings") is not None:
         import capo_connect.types.groupings_v2
 
@@ -118,7 +120,7 @@ def deserialize_json(data: dict) -> GetMetricDataV2Request:
 
         out["metrics"] = capo_connect.types.metrics_v2.deserialize_json(data["Metrics"])
     else:
-        raise DeserializationError("GetMetricDataV2Request.metrics required")
+        out["metrics"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

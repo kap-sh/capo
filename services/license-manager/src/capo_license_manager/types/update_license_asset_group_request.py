@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.arn
     import capo_license_manager.types.license_asset_group_configuration_list
@@ -112,9 +110,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLicenseAssetGroupRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateLicenseAssetGroupRequest.associated_license_asset_ruleset_ar_ns required"
-        )
+        out["associated_license_asset_ruleset_ar_ns"] = []
     if data.get("Properties") is not None:
         import capo_license_manager.types.license_asset_group_property_list
 
@@ -126,9 +122,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLicenseAssetGroupRequest:
     if data.get("LicenseAssetGroupArn") is not None:
         out["license_asset_group_arn"] = data["LicenseAssetGroupArn"]
     else:
-        raise DeserializationError(
-            "UpdateLicenseAssetGroupRequest.license_asset_group_arn required"
-        )
+        out["license_asset_group_arn"] = ""
     if data.get("Status") is not None:
         import capo_license_manager.types.license_asset_group_status
 
@@ -140,7 +134,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLicenseAssetGroupRequest:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError(
-            "UpdateLicenseAssetGroupRequest.client_token required"
-        )
+        out["client_token"] = ""
     return out

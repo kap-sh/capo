@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_api_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_api_gateway.types.documentation_part_location_status_code
     import capo_api_gateway.types.documentation_part_type
@@ -55,7 +53,11 @@ def deserialize_json(data: dict) -> DocumentationPartLocation:
             data["type"]
         )
     else:
-        raise DeserializationError("DocumentationPartLocation.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_api_gateway.types.documentation_part_type.DocumentationPartType", ""
+        )
     if data.get("path") is not None:
         out["path"] = data["path"]
     if data.get("method") is not None:

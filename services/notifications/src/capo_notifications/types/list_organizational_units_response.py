@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notifications.types.next_token
     import capo_notifications.types.organizational_units
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> ListOrganizationalUnitsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListOrganizationalUnitsResponse.organizational_units required"
-        )
+        out["organizational_units"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

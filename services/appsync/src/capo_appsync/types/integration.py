@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.lambda_config
     import capo_appsync.types.string
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> Integration:
     if data.get("dataSourceName") is not None:
         out["data_source_name"] = data["dataSourceName"]
     else:
-        raise DeserializationError("Integration.data_source_name required")
+        out["data_source_name"] = ""
     if data.get("lambdaConfig") is not None:
         import capo_appsync.types.lambda_config
 

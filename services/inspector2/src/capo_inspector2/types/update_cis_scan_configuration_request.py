@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.cis_scan_configuration_arn
     import capo_inspector2.types.cis_scan_name
@@ -63,9 +61,7 @@ def deserialize_json(data: dict) -> UpdateCisScanConfigurationRequest:
     if data.get("scanConfigurationArn") is not None:
         out["scan_configuration_arn"] = data["scanConfigurationArn"]
     else:
-        raise DeserializationError(
-            "UpdateCisScanConfigurationRequest.scan_configuration_arn required"
-        )
+        out["scan_configuration_arn"] = ""
     if data.get("scanName") is not None:
         out["scan_name"] = data["scanName"]
     if data.get("securityLevel") is not None:

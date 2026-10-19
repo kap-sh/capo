@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.automation_stream_status
     import capo_bedrock_agentcore.types.browser_stream_endpoint
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> AutomationStream:
     if data.get("streamEndpoint") is not None:
         out["stream_endpoint"] = data["streamEndpoint"]
     else:
-        raise DeserializationError("AutomationStream.stream_endpoint required")
+        out["stream_endpoint"] = ""
     if data.get("streamStatus") is not None:
         import capo_bedrock_agentcore.types.automation_stream_status
 
@@ -51,5 +49,10 @@ def deserialize_json(data: dict) -> AutomationStream:
             )
         )
     else:
-        raise DeserializationError("AutomationStream.stream_status required")
+        import typing
+
+        out["stream_status"] = typing.cast(
+            "capo_bedrock_agentcore.types.automation_stream_status.AutomationStreamStatus",
+            "",
+        )
     return out

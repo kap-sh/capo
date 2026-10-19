@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.asset_description
     import capo_glue.types.asset_form_map
@@ -98,7 +96,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetAssetOutput:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("GetAssetOutput.id required")
+        out["id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("Description") is not None:
@@ -118,7 +116,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetAssetOutput:
     if data.get("AssetTypeId") is not None:
         out["asset_type_id"] = data["AssetTypeId"]
     else:
-        raise DeserializationError("GetAssetOutput.asset_type_id required")
+        out["asset_type_id"] = ""
     if data.get("GlossaryTerms") is not None:
         import capo_glue.types.glossary_term_id_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.sort_direction_type
     import capo_glue.types.transform_sort_column_type
@@ -45,7 +43,11 @@ def deserialize_aws_json_1_1(data: dict) -> TransformSortCriteria:
             )
         )
     else:
-        raise DeserializationError("TransformSortCriteria.column required")
+        import typing
+
+        out["column"] = typing.cast(
+            "capo_glue.types.transform_sort_column_type.TransformSortColumnType", ""
+        )
     if data.get("SortDirection") is not None:
         import capo_glue.types.sort_direction_type
 
@@ -55,5 +57,9 @@ def deserialize_aws_json_1_1(data: dict) -> TransformSortCriteria:
             )
         )
     else:
-        raise DeserializationError("TransformSortCriteria.sort_direction required")
+        import typing
+
+        out["sort_direction"] = typing.cast(
+            "capo_glue.types.sort_direction_type.SortDirectionType", ""
+        )
     return out

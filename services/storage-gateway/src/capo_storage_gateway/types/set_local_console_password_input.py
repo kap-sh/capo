@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.gateway_arn
     import capo_storage_gateway.types.local_console_password
@@ -32,13 +30,11 @@ def deserialize_aws_json_1_1(data: dict) -> SetLocalConsolePasswordInput:
     if data.get("GatewayARN") is not None:
         out["gateway_arn"] = data["GatewayARN"]
     else:
-        raise DeserializationError("SetLocalConsolePasswordInput.gateway_arn required")
+        out["gateway_arn"] = ""
     if data.get("LocalConsolePassword") is not None:
         out["local_console_password"] = data["LocalConsolePassword"]
     else:
-        raise DeserializationError(
-            "SetLocalConsolePasswordInput.local_console_password required"
-        )
+        out["local_console_password"] = ""
     return out
 
 

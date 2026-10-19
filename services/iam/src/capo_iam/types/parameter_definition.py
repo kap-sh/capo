@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.boolean_type
@@ -71,14 +70,18 @@ def deserialize_query(el: Element) -> ParameterDefinition:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("ParameterDefinition.name required")
+        out["name"] = ""
     child_type = el.find("Type")
     if child_type is not None:
         import capo_iam.types.parameter_type_type
 
         out["type"] = capo_iam.types.parameter_type_type.deserialize_query(child_type)
     else:
-        raise DeserializationError("ParameterDefinition.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_iam.types.parameter_type_type.parameterTypeType", ""
+        )
     child_sub_type = el.find("SubType")
     if child_sub_type is not None:
         out["sub_type"] = str(child_sub_type.text or "")

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.arn
     import capo_m2.types.client_token
@@ -63,13 +61,13 @@ def deserialize_json(data: dict) -> CreateApplicationRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateApplicationRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("engineType") is not None:
         out["engine_type"] = data["engineType"]
     else:
-        raise DeserializationError("CreateApplicationRequest.engine_type required")
+        out["engine_type"] = ""
     if data.get("definition") is not None:
         import capo_m2.types.definition
 
@@ -77,7 +75,9 @@ def deserialize_json(data: dict) -> CreateApplicationRequest:
             data["definition"]
         )
     else:
-        raise DeserializationError("CreateApplicationRequest.definition required")
+        import capo_m2.types._unknown
+
+        out["definition"] = capo_m2.types._unknown.UnknownUnionMember("")
     if data.get("tags") is not None:
         import capo_m2.types.tag_map
 

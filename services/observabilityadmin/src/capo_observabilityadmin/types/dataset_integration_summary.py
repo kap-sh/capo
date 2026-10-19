@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_observabilityadmin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> DatasetIntegrationSummary:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("DatasetIntegrationSummary.arn required")
+        out["arn"] = ""
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     if data.get("CreatedAt") is not None:

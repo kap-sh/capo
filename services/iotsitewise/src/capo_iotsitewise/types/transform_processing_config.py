@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.compute_location
     import capo_iotsitewise.types.forwarding_config
@@ -49,8 +47,10 @@ def deserialize_json(data: dict) -> TransformProcessingConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "TransformProcessingConfig.compute_location required"
+        import typing
+
+        out["compute_location"] = typing.cast(
+            "capo_iotsitewise.types.compute_location.ComputeLocation", ""
         )
     if data.get("forwardingConfig") is not None:
         import capo_iotsitewise.types.forwarding_config

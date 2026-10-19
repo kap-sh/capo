@@ -37,13 +37,11 @@ def deserialize_json(data: dict) -> MutationActionSetStateParameter:
     if data.get("componentName") is not None:
         out["component_name"] = data["componentName"]
     else:
-        raise DeserializationError(
-            "MutationActionSetStateParameter.component_name required"
-        )
+        out["component_name"] = ""
     if data.get("property") is not None:
         out["property"] = data["property"]
     else:
-        raise DeserializationError("MutationActionSetStateParameter.property required")
+        out["property"] = ""
     if data.get("set") is not None:
         import capo_amplifyuibuilder.types.component_property
 

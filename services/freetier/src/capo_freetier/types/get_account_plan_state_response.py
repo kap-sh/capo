@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_freetier.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -72,7 +70,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetAccountPlanStateResponse:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("GetAccountPlanStateResponse.account_id required")
+        out["account_id"] = ""
     if data.get("accountPlanType") is not None:
         import capo_freetier.types.account_plan_type
 
@@ -82,8 +80,10 @@ def deserialize_aws_json_1_0(data: dict) -> GetAccountPlanStateResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetAccountPlanStateResponse.account_plan_type required"
+        import typing
+
+        out["account_plan_type"] = typing.cast(
+            "capo_freetier.types.account_plan_type.AccountPlanType", ""
         )
     if data.get("accountPlanStatus") is not None:
         import capo_freetier.types.account_plan_status
@@ -94,8 +94,10 @@ def deserialize_aws_json_1_0(data: dict) -> GetAccountPlanStateResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetAccountPlanStateResponse.account_plan_status required"
+        import typing
+
+        out["account_plan_status"] = typing.cast(
+            "capo_freetier.types.account_plan_status.AccountPlanStatus", ""
         )
     if data.get("accountPlanRemainingCredits") is not None:
         import capo_freetier.types.monetary_amount

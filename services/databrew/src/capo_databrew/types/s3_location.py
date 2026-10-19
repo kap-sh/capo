@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.bucket
     import capo_databrew.types.bucket_owner
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> S3Location:
     if data.get("Bucket") is not None:
         out["bucket"] = data["Bucket"]
     else:
-        raise DeserializationError("S3Location.bucket required")
+        out["bucket"] = ""
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     if data.get("BucketOwner") is not None:

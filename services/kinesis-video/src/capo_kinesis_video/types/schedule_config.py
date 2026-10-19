@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_video.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_video.types.duration_in_seconds
     import capo_kinesis_video.types.schedule_expression
@@ -35,9 +33,9 @@ def deserialize_json(data: dict) -> ScheduleConfig:
     if data.get("ScheduleExpression") is not None:
         out["schedule_expression"] = data["ScheduleExpression"]
     else:
-        raise DeserializationError("ScheduleConfig.schedule_expression required")
+        out["schedule_expression"] = ""
     if data.get("DurationInSeconds") is not None:
         out["duration_in_seconds"] = data["DurationInSeconds"]
     else:
-        raise DeserializationError("ScheduleConfig.duration_in_seconds required")
+        out["duration_in_seconds"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -84,7 +82,9 @@ def deserialize_json(data: dict) -> IngestDataInput:
             data["source"]
         )
     else:
-        raise DeserializationError("IngestDataInput.source required")
+        import capo_bedrock_agentcore.types._unknown
+
+        out["source"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
     if data.get("contentTimestamp") is not None:
         import capo_bedrock_agentcore.types._prelude.timestamp
 
@@ -94,11 +94,15 @@ def deserialize_json(data: dict) -> IngestDataInput:
             )
         )
     else:
-        raise DeserializationError("IngestDataInput.content_timestamp required")
+        import datetime
+
+        out["content_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("actorId") is not None:
         out["actor_id"] = data["actorId"]
     else:
-        raise DeserializationError("IngestDataInput.actor_id required")
+        out["actor_id"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     if data.get("extractionConfig") is not None:

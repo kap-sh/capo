@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_machine_learning.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_machine_learning.types.data_rearrangement
     import capo_machine_learning.types.data_schema
@@ -43,7 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3DataSpec:
     if data.get("DataLocationS3") is not None:
         out["data_location_s3"] = data["DataLocationS3"]
     else:
-        raise DeserializationError("S3DataSpec.data_location_s3 required")
+        out["data_location_s3"] = ""
     if data.get("DataRearrangement") is not None:
         out["data_rearrangement"] = data["DataRearrangement"]
     if data.get("DataSchema") is not None:

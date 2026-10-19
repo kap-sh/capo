@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 
 class GetTableRestoreStatusRequest(TypedDict, closed=True):
     table_restore_request_id: "str"
@@ -22,7 +20,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetTableRestoreStatusRequest:
     if data.get("tableRestoreRequestId") is not None:
         out["table_restore_request_id"] = data["tableRestoreRequestId"]
     else:
-        raise DeserializationError(
-            "GetTableRestoreStatusRequest.table_restore_request_id required"
-        )
+        out["table_restore_request_id"] = ""
     return out

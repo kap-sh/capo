@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.max_results
     import capo_securityagent.types.next_token
@@ -45,15 +43,11 @@ def deserialize_json(data: dict) -> ListDiscoveredEndpointsInput:
     if data.get("pentestJobId") is not None:
         out["pentest_job_id"] = data["pentestJobId"]
     else:
-        raise DeserializationError(
-            "ListDiscoveredEndpointsInput.pentest_job_id required"
-        )
+        out["pentest_job_id"] = ""
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError(
-            "ListDiscoveredEndpointsInput.agent_space_id required"
-        )
+        out["agent_space_id"] = ""
     if data.get("prefix") is not None:
         out["prefix"] = data["prefix"]
     if data.get("nextToken") is not None:

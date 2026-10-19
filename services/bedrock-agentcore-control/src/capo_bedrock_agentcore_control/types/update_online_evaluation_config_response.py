@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -66,15 +64,11 @@ def deserialize_json(data: dict) -> UpdateOnlineEvaluationConfigResponse:
     if data.get("onlineEvaluationConfigArn") is not None:
         out["online_evaluation_config_arn"] = data["onlineEvaluationConfigArn"]
     else:
-        raise DeserializationError(
-            "UpdateOnlineEvaluationConfigResponse.online_evaluation_config_arn required"
-        )
+        out["online_evaluation_config_arn"] = ""
     if data.get("onlineEvaluationConfigId") is not None:
         out["online_evaluation_config_id"] = data["onlineEvaluationConfigId"]
     else:
-        raise DeserializationError(
-            "UpdateOnlineEvaluationConfigResponse.online_evaluation_config_id required"
-        )
+        out["online_evaluation_config_id"] = ""
     if data.get("updatedAt") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
 
@@ -84,9 +78,9 @@ def deserialize_json(data: dict) -> UpdateOnlineEvaluationConfigResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateOnlineEvaluationConfigResponse.updated_at required"
-        )
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.online_evaluation_config_status
 
@@ -96,8 +90,11 @@ def deserialize_json(data: dict) -> UpdateOnlineEvaluationConfigResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateOnlineEvaluationConfigResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.online_evaluation_config_status.OnlineEvaluationConfigStatus",
+            "",
         )
     if data.get("executionStatus") is not None:
         import capo_bedrock_agentcore_control.types.online_evaluation_execution_status
@@ -108,8 +105,11 @@ def deserialize_json(data: dict) -> UpdateOnlineEvaluationConfigResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateOnlineEvaluationConfigResponse.execution_status required"
+        import typing
+
+        out["execution_status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.online_evaluation_execution_status.OnlineEvaluationExecutionStatus",
+            "",
         )
     if data.get("failureReason") is not None:
         out["failure_reason"] = data["failureReason"]

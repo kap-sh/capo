@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_shield.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_shield.types.emergency_contact_list
 
@@ -41,7 +39,5 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateProactiveEngagementDetailsR
             )
         )
     else:
-        raise DeserializationError(
-            "AssociateProactiveEngagementDetailsRequest.emergency_contact_list required"
-        )
+        out["emergency_contact_list"] = []
     return out

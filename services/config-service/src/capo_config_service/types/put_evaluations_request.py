@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.boolean
     import capo_config_service.types.evaluations
@@ -51,7 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutEvaluationsRequest:
     if data.get("ResultToken") is not None:
         out["result_token"] = data["ResultToken"]
     else:
-        raise DeserializationError("PutEvaluationsRequest.result_token required")
+        out["result_token"] = ""
     if data.get("TestMode") is not None:
         out["test_mode"] = data["TestMode"]
     return out

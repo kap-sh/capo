@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -48,11 +46,11 @@ def deserialize_json(data: dict) -> SpanMessage:
     if data.get("messageId") is not None:
         out["message_id"] = data["messageId"]
     else:
-        raise DeserializationError("SpanMessage.message_id required")
+        out["message_id"] = ""
     if data.get("participant") is not None:
         out["participant"] = data["participant"]
     else:
-        raise DeserializationError("SpanMessage.participant required")
+        out["participant"] = ""
     if data.get("timestamp") is not None:
         import capo_qconnect.types._prelude.timestamp
 
@@ -60,7 +58,9 @@ def deserialize_json(data: dict) -> SpanMessage:
             data["timestamp"]
         )
     else:
-        raise DeserializationError("SpanMessage.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("values") is not None:
         import capo_qconnect.types.span_message_value_list
 
@@ -68,7 +68,7 @@ def deserialize_json(data: dict) -> SpanMessage:
             data["values"]
         )
     else:
-        raise DeserializationError("SpanMessage.values required")
+        out["values"] = []
     return out
 
 

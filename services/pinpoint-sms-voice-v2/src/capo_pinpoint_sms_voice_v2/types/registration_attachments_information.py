@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -57,21 +55,15 @@ def deserialize_aws_json_1_0(data: dict) -> RegistrationAttachmentsInformation:
     if data.get("RegistrationAttachmentArn") is not None:
         out["registration_attachment_arn"] = data["RegistrationAttachmentArn"]
     else:
-        raise DeserializationError(
-            "RegistrationAttachmentsInformation.registration_attachment_arn required"
-        )
+        out["registration_attachment_arn"] = ""
     if data.get("RegistrationAttachmentId") is not None:
         out["registration_attachment_id"] = data["RegistrationAttachmentId"]
     else:
-        raise DeserializationError(
-            "RegistrationAttachmentsInformation.registration_attachment_id required"
-        )
+        out["registration_attachment_id"] = ""
     if data.get("AttachmentStatus") is not None:
         out["attachment_status"] = data["AttachmentStatus"]
     else:
-        raise DeserializationError(
-            "RegistrationAttachmentsInformation.attachment_status required"
-        )
+        out["attachment_status"] = ""
     if data.get("AttachmentUploadErrorReason") is not None:
         out["attachment_upload_error_reason"] = data["AttachmentUploadErrorReason"]
     if data.get("CreatedTimestamp") is not None:
@@ -83,8 +75,10 @@ def deserialize_aws_json_1_0(data: dict) -> RegistrationAttachmentsInformation:
             )
         )
     else:
-        raise DeserializationError(
-            "RegistrationAttachmentsInformation.created_timestamp required"
+        import datetime
+
+        out["created_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("AttachmentUrl") is not None:
         out["attachment_url"] = data["AttachmentUrl"]

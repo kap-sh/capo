@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.client_token
     import capo_imagebuilder.types.lifecycle_execution_id
@@ -33,13 +31,9 @@ def deserialize_json(data: dict) -> CancelLifecycleExecutionRequest:
     if data.get("lifecycleExecutionId") is not None:
         out["lifecycle_execution_id"] = data["lifecycleExecutionId"]
     else:
-        raise DeserializationError(
-            "CancelLifecycleExecutionRequest.lifecycle_execution_id required"
-        )
+        out["lifecycle_execution_id"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError(
-            "CancelLifecycleExecutionRequest.client_token required"
-        )
+        out["client_token"] = ""
     return out

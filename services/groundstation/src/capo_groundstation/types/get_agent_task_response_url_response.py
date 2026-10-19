@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.uuid
 
@@ -33,15 +31,13 @@ def deserialize_json(data: dict) -> GetAgentTaskResponseUrlResponse:
     if data.get("agentId") is not None:
         out["agent_id"] = data["agentId"]
     else:
-        raise DeserializationError("GetAgentTaskResponseUrlResponse.agent_id required")
+        out["agent_id"] = ""
     if data.get("taskId") is not None:
         out["task_id"] = data["taskId"]
     else:
-        raise DeserializationError("GetAgentTaskResponseUrlResponse.task_id required")
+        out["task_id"] = ""
     if data.get("presignedLogUrl") is not None:
         out["presigned_log_url"] = data["presignedLogUrl"]
     else:
-        raise DeserializationError(
-            "GetAgentTaskResponseUrlResponse.presigned_log_url required"
-        )
+        out["presigned_log_url"] = ""
     return out

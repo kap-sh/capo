@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.string
 
@@ -30,13 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> FSxWindowsFileServerAuthorizationCon
     if data.get("credentialsParameter") is not None:
         out["credentials_parameter"] = data["credentialsParameter"]
     else:
-        raise DeserializationError(
-            "FSxWindowsFileServerAuthorizationConfig.credentials_parameter required"
-        )
+        out["credentials_parameter"] = ""
     if data.get("domain") is not None:
         out["domain"] = data["domain"]
     else:
-        raise DeserializationError(
-            "FSxWindowsFileServerAuthorizationConfig.domain required"
-        )
+        out["domain"] = ""
     return out

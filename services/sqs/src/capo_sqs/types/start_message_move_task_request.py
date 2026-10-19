@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sqs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sqs.types.nullable_integer
     import capo_sqs.types.string
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_0(data: dict) -> StartMessageMoveTaskRequest:
     if data.get("SourceArn") is not None:
         out["source_arn"] = data["SourceArn"]
     else:
-        raise DeserializationError("StartMessageMoveTaskRequest.source_arn required")
+        out["source_arn"] = ""
     if data.get("DestinationArn") is not None:
         out["destination_arn"] = data["DestinationArn"]
     if data.get("MaxNumberOfMessagesPerSecond") is not None:

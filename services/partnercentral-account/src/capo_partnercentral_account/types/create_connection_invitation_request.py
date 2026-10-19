@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.catalog
     import capo_partnercentral_account.types.client_token
@@ -59,13 +57,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateConnectionInvitationRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("CreateConnectionInvitationRequest.catalog required")
+        out["catalog"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError(
-            "CreateConnectionInvitationRequest.client_token required"
-        )
+        out["client_token"] = ""
     if data.get("ConnectionType") is not None:
         import capo_partnercentral_account.types.connection_type
 
@@ -75,27 +71,27 @@ def deserialize_aws_json_1_0(data: dict) -> CreateConnectionInvitationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateConnectionInvitationRequest.connection_type required"
+        import typing
+
+        out["connection_type"] = typing.cast(
+            "capo_partnercentral_account.types.connection_type.ConnectionType", ""
         )
     if data.get("Email") is not None:
         out["email"] = data["Email"]
     else:
-        raise DeserializationError("CreateConnectionInvitationRequest.email required")
+        out["email"] = ""
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("CreateConnectionInvitationRequest.message required")
+        out["message"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateConnectionInvitationRequest.name required")
+        out["name"] = ""
     if data.get("ReceiverIdentifier") is not None:
         out["receiver_identifier"] = data["ReceiverIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateConnectionInvitationRequest.receiver_identifier required"
-        )
+        out["receiver_identifier"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.as2805_key_variant
     import capo_payment_cryptography.types.key_arn_or_key_alias_type
@@ -40,9 +38,7 @@ def deserialize_aws_json_1_0(data: dict) -> ExportAs2805KeyCryptogram:
     if data.get("WrappingKeyIdentifier") is not None:
         out["wrapping_key_identifier"] = data["WrappingKeyIdentifier"]
     else:
-        raise DeserializationError(
-            "ExportAs2805KeyCryptogram.wrapping_key_identifier required"
-        )
+        out["wrapping_key_identifier"] = ""
     if data.get("As2805KeyVariant") is not None:
         import capo_payment_cryptography.types.as2805_key_variant
 
@@ -52,7 +48,9 @@ def deserialize_aws_json_1_0(data: dict) -> ExportAs2805KeyCryptogram:
             )
         )
     else:
-        raise DeserializationError(
-            "ExportAs2805KeyCryptogram.as2805_key_variant required"
+        import typing
+
+        out["as2805_key_variant"] = typing.cast(
+            "capo_payment_cryptography.types.as2805_key_variant.As2805KeyVariant", ""
         )
     return out

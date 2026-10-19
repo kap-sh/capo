@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_video_webrtc_storage.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_video_webrtc_storage.types.channel_arn
     import capo_kinesis_video_webrtc_storage.types.client_id
@@ -31,11 +29,9 @@ def deserialize_json(data: dict) -> JoinStorageSessionAsViewerInput:
     if data.get("channelArn") is not None:
         out["channel_arn"] = data["channelArn"]
     else:
-        raise DeserializationError(
-            "JoinStorageSessionAsViewerInput.channel_arn required"
-        )
+        out["channel_arn"] = ""
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
     else:
-        raise DeserializationError("JoinStorageSessionAsViewerInput.client_id required")
+        out["client_id"] = ""
     return out

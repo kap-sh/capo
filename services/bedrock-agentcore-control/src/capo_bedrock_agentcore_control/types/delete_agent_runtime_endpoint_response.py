@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.agent_runtime_endpoint_status
     import capo_bedrock_agentcore_control.types.agent_runtime_id
@@ -53,7 +51,12 @@ def deserialize_json(data: dict) -> DeleteAgentRuntimeEndpointResponse:
             )
         )
     else:
-        raise DeserializationError("DeleteAgentRuntimeEndpointResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.agent_runtime_endpoint_status.AgentRuntimeEndpointStatus",
+            "",
+        )
     if data.get("agentRuntimeId") is not None:
         out["agent_runtime_id"] = data["agentRuntimeId"]
     if data.get("endpointName") is not None:

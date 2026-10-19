@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.non_empty_string
 
@@ -44,17 +42,17 @@ def deserialize_json(data: dict) -> CvssScore:
     if data.get("baseScore") is not None:
         out["base_score"] = float(data["baseScore"])
     else:
-        raise DeserializationError("CvssScore.base_score required")
+        out["base_score"] = 0.0
     if data.get("scoringVector") is not None:
         out["scoring_vector"] = data["scoringVector"]
     else:
-        raise DeserializationError("CvssScore.scoring_vector required")
+        out["scoring_vector"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("CvssScore.version required")
+        out["version"] = ""
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("CvssScore.source required")
+        out["source"] = ""
     return out

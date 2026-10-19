@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudhsm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudhsm.types.external_id
     import capo_cloudhsm.types.hsm_arn
@@ -51,7 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyHsmRequest:
     if data.get("HsmArn") is not None:
         out["hsm_arn"] = data["HsmArn"]
     else:
-        raise DeserializationError("ModifyHsmRequest.hsm_arn required")
+        out["hsm_arn"] = ""
     if data.get("SubnetId") is not None:
         out["subnet_id"] = data["SubnetId"]
     if data.get("EniIp") is not None:

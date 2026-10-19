@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_secrets_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_secrets_manager.types.secret_id_type
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteResourcePolicyRequest:
     if data.get("SecretId") is not None:
         out["secret_id"] = data["SecretId"]
     else:
-        raise DeserializationError("DeleteResourcePolicyRequest.secret_id required")
+        out["secret_id"] = ""
     return out

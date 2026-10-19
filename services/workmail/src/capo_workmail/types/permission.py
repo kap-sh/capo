@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.member_type
     import capo_workmail.types.permission_values
@@ -45,7 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> Permission:
     if data.get("GranteeId") is not None:
         out["grantee_id"] = data["GranteeId"]
     else:
-        raise DeserializationError("Permission.grantee_id required")
+        out["grantee_id"] = ""
     if data.get("GranteeType") is not None:
         import capo_workmail.types.member_type
 
@@ -53,7 +51,11 @@ def deserialize_aws_json_1_1(data: dict) -> Permission:
             data["GranteeType"]
         )
     else:
-        raise DeserializationError("Permission.grantee_type required")
+        import typing
+
+        out["grantee_type"] = typing.cast(
+            "capo_workmail.types.member_type.MemberType", ""
+        )
     if data.get("PermissionValues") is not None:
         import capo_workmail.types.permission_values
 
@@ -63,5 +65,5 @@ def deserialize_aws_json_1_1(data: dict) -> Permission:
             )
         )
     else:
-        raise DeserializationError("Permission.permission_values required")
+        out["permission_values"] = []
     return out

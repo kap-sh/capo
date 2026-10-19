@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloud9.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloud9.types.automatic_stop_time_minutes
     import capo_cloud9.types.client_request_token
@@ -89,7 +87,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEnvironmentEC2Request:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateEnvironmentEC2Request.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("clientRequestToken") is not None:
@@ -97,13 +95,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEnvironmentEC2Request:
     if data.get("instanceType") is not None:
         out["instance_type"] = data["instanceType"]
     else:
-        raise DeserializationError("CreateEnvironmentEC2Request.instance_type required")
+        out["instance_type"] = ""
     if data.get("subnetId") is not None:
         out["subnet_id"] = data["subnetId"]
     if data.get("imageId") is not None:
         out["image_id"] = data["imageId"]
     else:
-        raise DeserializationError("CreateEnvironmentEC2Request.image_id required")
+        out["image_id"] = ""
     if data.get("automaticStopTimeMinutes") is not None:
         out["automatic_stop_time_minutes"] = data["automaticStopTimeMinutes"]
     if data.get("ownerArn") is not None:

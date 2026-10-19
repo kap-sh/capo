@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 
 class S3ReportOutput(TypedDict, closed=True):
     s3_object_key: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> S3ReportOutput:
     if data.get("s3ObjectKey") is not None:
         out["s3_object_key"] = data["s3ObjectKey"]
     else:
-        raise DeserializationError("S3ReportOutput.s3_object_key required")
+        out["s3_object_key"] = ""
     return out

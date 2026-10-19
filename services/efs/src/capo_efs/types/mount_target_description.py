@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_efs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_efs.types.availability_zone_id
     import capo_efs.types.availability_zone_name
@@ -86,15 +84,15 @@ def deserialize_json(data: dict) -> MountTargetDescription:
     if data.get("MountTargetId") is not None:
         out["mount_target_id"] = data["MountTargetId"]
     else:
-        raise DeserializationError("MountTargetDescription.mount_target_id required")
+        out["mount_target_id"] = ""
     if data.get("FileSystemId") is not None:
         out["file_system_id"] = data["FileSystemId"]
     else:
-        raise DeserializationError("MountTargetDescription.file_system_id required")
+        out["file_system_id"] = ""
     if data.get("SubnetId") is not None:
         out["subnet_id"] = data["SubnetId"]
     else:
-        raise DeserializationError("MountTargetDescription.subnet_id required")
+        out["subnet_id"] = ""
     if data.get("LifeCycleState") is not None:
         import capo_efs.types.life_cycle_state
 
@@ -102,7 +100,11 @@ def deserialize_json(data: dict) -> MountTargetDescription:
             data["LifeCycleState"]
         )
     else:
-        raise DeserializationError("MountTargetDescription.life_cycle_state required")
+        import typing
+
+        out["life_cycle_state"] = typing.cast(
+            "capo_efs.types.life_cycle_state.LifeCycleState", ""
+        )
     if data.get("IpAddress") is not None:
         out["ip_address"] = data["IpAddress"]
     if data.get("Ipv6Address") is not None:

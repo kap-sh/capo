@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.display_name
     import capo_connect.types.participant_id
@@ -64,15 +62,11 @@ def deserialize_json(data: dict) -> RealTimeContactAnalysisSegmentAttachments:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError(
-            "RealTimeContactAnalysisSegmentAttachments.id required"
-        )
+        out["id"] = ""
     if data.get("ParticipantId") is not None:
         out["participant_id"] = data["ParticipantId"]
     else:
-        raise DeserializationError(
-            "RealTimeContactAnalysisSegmentAttachments.participant_id required"
-        )
+        out["participant_id"] = ""
     if data.get("ParticipantRole") is not None:
         import capo_connect.types.participant_role
 
@@ -80,8 +74,10 @@ def deserialize_json(data: dict) -> RealTimeContactAnalysisSegmentAttachments:
             data["ParticipantRole"]
         )
     else:
-        raise DeserializationError(
-            "RealTimeContactAnalysisSegmentAttachments.participant_role required"
+        import typing
+
+        out["participant_role"] = typing.cast(
+            "capo_connect.types.participant_role.ParticipantRole", ""
         )
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
@@ -94,9 +90,7 @@ def deserialize_json(data: dict) -> RealTimeContactAnalysisSegmentAttachments:
             )
         )
     else:
-        raise DeserializationError(
-            "RealTimeContactAnalysisSegmentAttachments.attachments required"
-        )
+        out["attachments"] = []
     if data.get("Time") is not None:
         import capo_connect.types.real_time_contact_analysis_time_data
 
@@ -106,7 +100,7 @@ def deserialize_json(data: dict) -> RealTimeContactAnalysisSegmentAttachments:
             )
         )
     else:
-        raise DeserializationError(
-            "RealTimeContactAnalysisSegmentAttachments.time required"
-        )
+        import capo_connect.types._unknown
+
+        out["time"] = capo_connect.types._unknown.UnknownUnionMember("")
     return out

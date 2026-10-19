@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.attachments_control_mode
 
@@ -41,7 +39,9 @@ def deserialize_json(data: dict) -> AttachmentsConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "AttachmentsConfiguration.attachments_control_mode required"
+        import typing
+
+        out["attachments_control_mode"] = typing.cast(
+            "capo_qbusiness.types.attachments_control_mode.AttachmentsControlMode", ""
         )
     return out

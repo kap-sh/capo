@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.policy
     import capo_ssm_contacts.types.ssm_contacts_arn
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> PutContactPolicyRequest:
     if data.get("ContactArn") is not None:
         out["contact_arn"] = data["ContactArn"]
     else:
-        raise DeserializationError("PutContactPolicyRequest.contact_arn required")
+        out["contact_arn"] = ""
     if data.get("Policy") is not None:
         out["policy"] = data["Policy"]
     else:
-        raise DeserializationError("PutContactPolicyRequest.policy required")
+        out["policy"] = ""
     return out

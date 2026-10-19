@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.float
 
@@ -46,9 +44,9 @@ def deserialize_aws_json_1_1(data: dict) -> UncertaintyRange:
     if data.get("lowerBoundValue") is not None:
         out["lower_bound_value"] = float(data["lowerBoundValue"])
     else:
-        raise DeserializationError("UncertaintyRange.lower_bound_value required")
+        out["lower_bound_value"] = 0.0
     if data.get("upperBoundValue") is not None:
         out["upper_bound_value"] = float(data["upperBoundValue"])
     else:
-        raise DeserializationError("UncertaintyRange.upper_bound_value required")
+        out["upper_bound_value"] = 0.0
     return out

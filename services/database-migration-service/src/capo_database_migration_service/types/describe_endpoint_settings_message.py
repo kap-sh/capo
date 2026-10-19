@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.integer_optional
     import capo_database_migration_service.types.string
@@ -38,9 +36,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEndpointSettingsMessage:
     if data.get("EngineName") is not None:
         out["engine_name"] = data["EngineName"]
     else:
-        raise DeserializationError(
-            "DescribeEndpointSettingsMessage.engine_name required"
-        )
+        out["engine_name"] = ""
     if data.get("MaxRecords") is not None:
         out["max_records"] = data["MaxRecords"]
     if data.get("Marker") is not None:

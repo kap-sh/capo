@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_xray.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_xray.types.attribute_map
     import capo_xray.types.fixed_rate
@@ -105,11 +103,11 @@ def deserialize_json(data: dict) -> SamplingRule:
     if data.get("ResourceARN") is not None:
         out["resource_arn"] = data["ResourceARN"]
     else:
-        raise DeserializationError("SamplingRule.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("Priority") is not None:
         out["priority"] = data["Priority"]
     else:
-        raise DeserializationError("SamplingRule.priority required")
+        out["priority"] = 0
     if data.get("FixedRate") is not None:
         out["fixed_rate"] = float(data["FixedRate"])
     else:
@@ -121,27 +119,27 @@ def deserialize_json(data: dict) -> SamplingRule:
     if data.get("ServiceName") is not None:
         out["service_name"] = data["ServiceName"]
     else:
-        raise DeserializationError("SamplingRule.service_name required")
+        out["service_name"] = ""
     if data.get("ServiceType") is not None:
         out["service_type"] = data["ServiceType"]
     else:
-        raise DeserializationError("SamplingRule.service_type required")
+        out["service_type"] = ""
     if data.get("Host") is not None:
         out["host"] = data["Host"]
     else:
-        raise DeserializationError("SamplingRule.host required")
+        out["host"] = ""
     if data.get("HTTPMethod") is not None:
         out["http_method"] = data["HTTPMethod"]
     else:
-        raise DeserializationError("SamplingRule.http_method required")
+        out["http_method"] = ""
     if data.get("URLPath") is not None:
         out["url_path"] = data["URLPath"]
     else:
-        raise DeserializationError("SamplingRule.url_path required")
+        out["url_path"] = ""
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     else:
-        raise DeserializationError("SamplingRule.version required")
+        out["version"] = 0
     if data.get("Attributes") is not None:
         import capo_xray.types.attribute_map
 

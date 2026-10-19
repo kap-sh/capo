@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aws_arn
     import capo_iot.types.elasticsearch_endpoint
@@ -43,21 +41,21 @@ def deserialize_json(data: dict) -> ElasticsearchAction:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("ElasticsearchAction.role_arn required")
+        out["role_arn"] = ""
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError("ElasticsearchAction.endpoint required")
+        out["endpoint"] = ""
     if data.get("index") is not None:
         out["index"] = data["index"]
     else:
-        raise DeserializationError("ElasticsearchAction.index required")
+        out["index"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("ElasticsearchAction.type required")
+        out["type"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ElasticsearchAction.id required")
+        out["id"] = ""
     return out

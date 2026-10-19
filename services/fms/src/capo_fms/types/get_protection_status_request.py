@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fms.types.aws_account_id
     import capo_fms.types.pagination_max_results
@@ -61,7 +59,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetProtectionStatusRequest:
     if data.get("PolicyId") is not None:
         out["policy_id"] = data["PolicyId"]
     else:
-        raise DeserializationError("GetProtectionStatusRequest.policy_id required")
+        out["policy_id"] = ""
     if data.get("MemberAccountId") is not None:
         out["member_account_id"] = data["MemberAccountId"]
     if data.get("StartTime") is not None:

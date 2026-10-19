@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.addon_instance_id
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> CreateAddonInstanceResponse:
     if data.get("AddonInstanceId") is not None:
         out["addon_instance_id"] = data["AddonInstanceId"]
     else:
-        raise DeserializationError(
-            "CreateAddonInstanceResponse.addon_instance_id required"
-        )
+        out["addon_instance_id"] = ""
     return out

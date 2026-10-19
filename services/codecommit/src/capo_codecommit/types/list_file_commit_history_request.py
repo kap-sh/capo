@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.commit_name
     import capo_codecommit.types.limit
@@ -46,15 +44,13 @@ def deserialize_aws_json_1_1(data: dict) -> ListFileCommitHistoryRequest:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError(
-            "ListFileCommitHistoryRequest.repository_name required"
-        )
+        out["repository_name"] = ""
     if data.get("commitSpecifier") is not None:
         out["commit_specifier"] = data["commitSpecifier"]
     if data.get("filePath") is not None:
         out["file_path"] = data["filePath"]
     else:
-        raise DeserializationError("ListFileCommitHistoryRequest.file_path required")
+        out["file_path"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

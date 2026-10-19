@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rtbfabric.types.protocol
     import capo_rtbfabric.types.status_code_matcher
@@ -61,11 +59,11 @@ def deserialize_json(data: dict) -> HealthCheckConfig:
     if data.get("port") is not None:
         out["port"] = data["port"]
     else:
-        raise DeserializationError("HealthCheckConfig.port required")
+        out["port"] = 0
     if data.get("path") is not None:
         out["path"] = data["path"]
     else:
-        raise DeserializationError("HealthCheckConfig.path required")
+        out["path"] = ""
     if data.get("protocol") is not None:
         import capo_rtbfabric.types.protocol
 

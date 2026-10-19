@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.asn_list
     import capo_wafv2.types.forwarded_ip_config
@@ -46,7 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> AsnMatchStatement:
             data["AsnList"]
         )
     else:
-        raise DeserializationError("AsnMatchStatement.asn_list required")
+        out["asn_list"] = []
     if data.get("ForwardedIPConfig") is not None:
         import capo_wafv2.types.forwarded_ip_config
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.message_data
 
@@ -31,7 +29,9 @@ def deserialize_json(data: dict) -> MessageInput:
 
         out["value"] = capo_qconnect.types.message_data.deserialize_json(data["value"])
     else:
-        raise DeserializationError("MessageInput.value required")
+        import capo_qconnect.types._unknown
+
+        out["value"] = capo_qconnect.types._unknown.UnknownUnionMember("")
     return out
 
 

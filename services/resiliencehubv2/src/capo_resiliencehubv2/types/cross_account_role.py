@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.iam_role_arn
 
@@ -30,7 +28,7 @@ def deserialize_json(data: dict) -> CrossAccountRole:
     if data.get("crossAccountRoleArn") is not None:
         out["cross_account_role_arn"] = data["crossAccountRoleArn"]
     else:
-        raise DeserializationError("CrossAccountRole.cross_account_role_arn required")
+        out["cross_account_role_arn"] = ""
     if data.get("externalId") is not None:
         out["external_id"] = data["externalId"]
     return out

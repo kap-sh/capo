@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -63,27 +61,19 @@ def deserialize_aws_json_1_0(data: dict) -> CreateVerifiedDestinationNumberResul
     if data.get("VerifiedDestinationNumberArn") is not None:
         out["verified_destination_number_arn"] = data["VerifiedDestinationNumberArn"]
     else:
-        raise DeserializationError(
-            "CreateVerifiedDestinationNumberResult.verified_destination_number_arn required"
-        )
+        out["verified_destination_number_arn"] = ""
     if data.get("VerifiedDestinationNumberId") is not None:
         out["verified_destination_number_id"] = data["VerifiedDestinationNumberId"]
     else:
-        raise DeserializationError(
-            "CreateVerifiedDestinationNumberResult.verified_destination_number_id required"
-        )
+        out["verified_destination_number_id"] = ""
     if data.get("DestinationPhoneNumber") is not None:
         out["destination_phone_number"] = data["DestinationPhoneNumber"]
     else:
-        raise DeserializationError(
-            "CreateVerifiedDestinationNumberResult.destination_phone_number required"
-        )
+        out["destination_phone_number"] = ""
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError(
-            "CreateVerifiedDestinationNumberResult.status required"
-        )
+        out["status"] = ""
     if data.get("RcsAgentId") is not None:
         out["rcs_agent_id"] = data["RcsAgentId"]
     if data.get("Tags") is not None:
@@ -103,7 +93,9 @@ def deserialize_aws_json_1_0(data: dict) -> CreateVerifiedDestinationNumberResul
             )
         )
     else:
-        raise DeserializationError(
-            "CreateVerifiedDestinationNumberResult.created_timestamp required"
+        import datetime
+
+        out["created_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

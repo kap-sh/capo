@@ -51,11 +51,11 @@ def deserialize_json(data: dict) -> GetArtifactOutput:
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError("GetArtifactOutput.agent_space_id required")
+        out["agent_space_id"] = ""
     if data.get("artifactId") is not None:
         out["artifact_id"] = data["artifactId"]
     else:
-        raise DeserializationError("GetArtifactOutput.artifact_id required")
+        out["artifact_id"] = ""
     if data.get("artifact") is not None:
         import capo_securityagent.types.artifact
 
@@ -67,7 +67,7 @@ def deserialize_json(data: dict) -> GetArtifactOutput:
     if data.get("fileName") is not None:
         out["file_name"] = data["fileName"]
     else:
-        raise DeserializationError("GetArtifactOutput.file_name required")
+        out["file_name"] = ""
     if data.get("updatedAt") is not None:
         import datetime
 
@@ -75,5 +75,7 @@ def deserialize_json(data: dict) -> GetArtifactOutput:
             data["updatedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetArtifactOutput.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_apprunner.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_apprunner.types.app_runner_resource_arn
     import capo_apprunner.types.list_operations_max_results
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListOperationsRequest:
     if data.get("ServiceArn") is not None:
         out["service_arn"] = data["ServiceArn"]
     else:
-        raise DeserializationError("ListOperationsRequest.service_arn required")
+        out["service_arn"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

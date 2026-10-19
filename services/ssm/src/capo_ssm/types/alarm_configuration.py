@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.alarm_list
     import capo_ssm.types.boolean
@@ -41,5 +39,5 @@ def deserialize_aws_json_1_1(data: dict) -> AlarmConfiguration:
             data["Alarms"]
         )
     else:
-        raise DeserializationError("AlarmConfiguration.alarms required")
+        out["alarms"] = []
     return out

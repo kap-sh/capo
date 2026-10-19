@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_signer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_signer.types.bucket_name
     import capo_signer.types.key
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> S3Source:
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError("S3Source.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("S3Source.key required")
+        out["key"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("S3Source.version required")
+        out["version"] = ""
     return out

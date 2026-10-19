@@ -37,9 +37,7 @@ def deserialize_json(data: dict) -> CreatePipelineEndpointRequest:
     if data.get("PipelineArn") is not None:
         out["pipeline_arn"] = data["PipelineArn"]
     else:
-        raise DeserializationError(
-            "CreatePipelineEndpointRequest.pipeline_arn required"
-        )
+        out["pipeline_arn"] = ""
     if data.get("VpcOptions") is not None:
         import capo_osis.types.pipeline_endpoint_vpc_options
 

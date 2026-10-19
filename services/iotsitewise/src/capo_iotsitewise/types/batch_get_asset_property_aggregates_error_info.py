@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.batch_get_asset_property_aggregates_error_code
     import capo_iotsitewise.types.timestamp
@@ -47,8 +45,11 @@ def deserialize_json(data: dict) -> BatchGetAssetPropertyAggregatesErrorInfo:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetAssetPropertyAggregatesErrorInfo.error_code required"
+        import typing
+
+        out["error_code"] = typing.cast(
+            "capo_iotsitewise.types.batch_get_asset_property_aggregates_error_code.BatchGetAssetPropertyAggregatesErrorCode",
+            "",
         )
     if data.get("errorTimestamp") is not None:
         import capo_iotsitewise.types.timestamp
@@ -57,7 +58,9 @@ def deserialize_json(data: dict) -> BatchGetAssetPropertyAggregatesErrorInfo:
             data["errorTimestamp"]
         )
     else:
-        raise DeserializationError(
-            "BatchGetAssetPropertyAggregatesErrorInfo.error_timestamp required"
+        import datetime
+
+        out["error_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

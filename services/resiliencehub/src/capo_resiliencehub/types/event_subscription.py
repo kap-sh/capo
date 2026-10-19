@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.arn
     import capo_resiliencehub.types.event_type
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> EventSubscription:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("EventSubscription.name required")
+        out["name"] = ""
     if data.get("eventType") is not None:
         import capo_resiliencehub.types.event_type
 
@@ -48,7 +46,11 @@ def deserialize_json(data: dict) -> EventSubscription:
             data["eventType"]
         )
     else:
-        raise DeserializationError("EventSubscription.event_type required")
+        import typing
+
+        out["event_type"] = typing.cast(
+            "capo_resiliencehub.types.event_type.EventType", ""
+        )
     if data.get("snsTopicArn") is not None:
         out["sns_topic_arn"] = data["snsTopicArn"]
     return out

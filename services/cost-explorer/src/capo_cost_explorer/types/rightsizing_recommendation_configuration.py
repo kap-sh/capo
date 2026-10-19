@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.generic_boolean
     import capo_cost_explorer.types.recommendation_target
@@ -45,8 +43,10 @@ def deserialize_aws_json_1_1(data: dict) -> RightsizingRecommendationConfigurati
             )
         )
     else:
-        raise DeserializationError(
-            "RightsizingRecommendationConfiguration.recommendation_target required"
+        import typing
+
+        out["recommendation_target"] = typing.cast(
+            "capo_cost_explorer.types.recommendation_target.RecommendationTarget", ""
         )
     if data.get("BenefitsConsidered") is not None:
         out["benefits_considered"] = data["BenefitsConsidered"]

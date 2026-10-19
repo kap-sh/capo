@@ -80,15 +80,17 @@ def deserialize_aws_json_1_0(data: dict) -> Environment:
             data["provider"]
         )
     else:
-        raise DeserializationError("Environment.provider required")
+        import capo_interconnect.types._unknown
+
+        out["provider"] = capo_interconnect.types._unknown.UnknownUnionMember("")
     if data.get("location") is not None:
         out["location"] = data["location"]
     else:
-        raise DeserializationError("Environment.location required")
+        out["location"] = ""
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError("Environment.environment_id required")
+        out["environment_id"] = ""
     if data.get("state") is not None:
         import capo_interconnect.types.environment_state
 
@@ -98,7 +100,11 @@ def deserialize_aws_json_1_0(data: dict) -> Environment:
             )
         )
     else:
-        raise DeserializationError("Environment.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_interconnect.types.environment_state.EnvironmentState", ""
+        )
     if data.get("bandwidths") is not None:
         import capo_interconnect.types.bandwidths
 
@@ -110,7 +116,7 @@ def deserialize_aws_json_1_0(data: dict) -> Environment:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("Environment.type required")
+        out["type"] = ""
     if data.get("activationPageUrl") is not None:
         out["activation_page_url"] = data["activationPageUrl"]
     if data.get("remoteIdentifierType") is not None:

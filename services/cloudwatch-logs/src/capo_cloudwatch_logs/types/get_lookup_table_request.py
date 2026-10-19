@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetLookupTableRequest:
     if data.get("lookupTableArn") is not None:
         out["lookup_table_arn"] = data["lookupTableArn"]
     else:
-        raise DeserializationError("GetLookupTableRequest.lookup_table_arn required")
+        out["lookup_table_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.arn_type
     import capo_cognito_identity_provider.types.password_hashing_algorithm_type
@@ -50,17 +48,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateUserImportJobRequest:
     if data.get("JobName") is not None:
         out["job_name"] = data["JobName"]
     else:
-        raise DeserializationError("CreateUserImportJobRequest.job_name required")
+        out["job_name"] = ""
     if data.get("UserPoolId") is not None:
         out["user_pool_id"] = data["UserPoolId"]
     else:
-        raise DeserializationError("CreateUserImportJobRequest.user_pool_id required")
+        out["user_pool_id"] = ""
     if data.get("CloudWatchLogsRoleArn") is not None:
         out["cloud_watch_logs_role_arn"] = data["CloudWatchLogsRoleArn"]
     else:
-        raise DeserializationError(
-            "CreateUserImportJobRequest.cloud_watch_logs_role_arn required"
-        )
+        out["cloud_watch_logs_role_arn"] = ""
     if data.get("PasswordHashingAlgorithm") is not None:
         import capo_cognito_identity_provider.types.password_hashing_algorithm_type
 

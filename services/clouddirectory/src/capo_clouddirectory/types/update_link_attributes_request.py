@@ -68,7 +68,5 @@ def deserialize_json(data: dict) -> UpdateLinkAttributesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateLinkAttributesRequest.attribute_updates required"
-        )
+        out["attribute_updates"] = []
     return out

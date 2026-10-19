@@ -94,7 +94,7 @@ def deserialize_json(data: dict) -> SheetImage:
     if data.get("SheetImageId") is not None:
         out["sheet_image_id"] = data["SheetImageId"]
     else:
-        raise DeserializationError("SheetImage.sheet_image_id required")
+        out["sheet_image_id"] = ""
     if data.get("Source") is not None:
         import capo_quicksight.types.sheet_image_source
 

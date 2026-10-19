@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 
 class BatchDescribeUserLimitsError(TypedDict, closed=True):
     user_name: NotRequired["str"]
@@ -43,9 +41,9 @@ def deserialize_json(data: dict) -> BatchDescribeUserLimitsError:
     if data.get("errorCode") is not None:
         out["error_code"] = data["errorCode"]
     else:
-        raise DeserializationError("BatchDescribeUserLimitsError.error_code required")
+        out["error_code"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("BatchDescribeUserLimitsError.message required")
+        out["message"] = ""
     return out

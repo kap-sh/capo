@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mturk.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mturk.types.entity_id
     import capo_mturk.types.hit_layout_parameter_list
@@ -88,15 +86,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateHITWithHITTypeRequest:
     if data.get("HITTypeId") is not None:
         out["hit_type_id"] = data["HITTypeId"]
     else:
-        raise DeserializationError("CreateHITWithHITTypeRequest.hit_type_id required")
+        out["hit_type_id"] = ""
     if data.get("MaxAssignments") is not None:
         out["max_assignments"] = data["MaxAssignments"]
     if data.get("LifetimeInSeconds") is not None:
         out["lifetime_in_seconds"] = data["LifetimeInSeconds"]
     else:
-        raise DeserializationError(
-            "CreateHITWithHITTypeRequest.lifetime_in_seconds required"
-        )
+        out["lifetime_in_seconds"] = 0
     if data.get("Question") is not None:
         out["question"] = data["Question"]
     if data.get("RequesterAnnotation") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.browser_profile_arn
     import capo_bedrock_agentcore_control.types.browser_profile_id
@@ -55,11 +53,11 @@ def deserialize_json(data: dict) -> CreateBrowserProfileResponse:
     if data.get("profileId") is not None:
         out["profile_id"] = data["profileId"]
     else:
-        raise DeserializationError("CreateBrowserProfileResponse.profile_id required")
+        out["profile_id"] = ""
     if data.get("profileArn") is not None:
         out["profile_arn"] = data["profileArn"]
     else:
-        raise DeserializationError("CreateBrowserProfileResponse.profile_arn required")
+        out["profile_arn"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -69,7 +67,9 @@ def deserialize_json(data: dict) -> CreateBrowserProfileResponse:
             )
         )
     else:
-        raise DeserializationError("CreateBrowserProfileResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.browser_profile_status
 
@@ -79,5 +79,10 @@ def deserialize_json(data: dict) -> CreateBrowserProfileResponse:
             )
         )
     else:
-        raise DeserializationError("CreateBrowserProfileResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.browser_profile_status.BrowserProfileStatus",
+            "",
+        )
     return out

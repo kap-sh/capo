@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rbin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rbin.types.unlock_delay_unit
     import capo_rbin.types.unlock_delay_value
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> UnlockDelay:
     if data.get("UnlockDelayValue") is not None:
         out["unlock_delay_value"] = data["UnlockDelayValue"]
     else:
-        raise DeserializationError("UnlockDelay.unlock_delay_value required")
+        out["unlock_delay_value"] = 0
     if data.get("UnlockDelayUnit") is not None:
         import capo_rbin.types.unlock_delay_unit
 
@@ -43,5 +41,9 @@ def deserialize_json(data: dict) -> UnlockDelay:
             data["UnlockDelayUnit"]
         )
     else:
-        raise DeserializationError("UnlockDelay.unlock_delay_unit required")
+        import typing
+
+        out["unlock_delay_unit"] = typing.cast(
+            "capo_rbin.types.unlock_delay_unit.UnlockDelayUnit", ""
+        )
     return out

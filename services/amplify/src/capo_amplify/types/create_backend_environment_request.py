@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.app_id
     import capo_amplify.types.deployment_artifacts
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> CreateBackendEnvironmentRequest:
     if data.get("environmentName") is not None:
         out["environment_name"] = data["environmentName"]
     else:
-        raise DeserializationError(
-            "CreateBackendEnvironmentRequest.environment_name required"
-        )
+        out["environment_name"] = ""
     if data.get("stackName") is not None:
         out["stack_name"] = data["stackName"]
     if data.get("deploymentArtifacts") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.string
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> WindowsUser:
     if data.get("user") is not None:
         out["user"] = data["user"]
     else:
-        raise DeserializationError("WindowsUser.user required")
+        out["user"] = ""
     if data.get("passwordArn") is not None:
         out["password_arn"] = data["passwordArn"]
     else:
-        raise DeserializationError("WindowsUser.password_arn required")
+        out["password_arn"] = ""
     return out

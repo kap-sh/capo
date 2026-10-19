@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 
 class ConsumedUsages(TypedDict, closed=True):
     approximate_dollar_usage: "float"
@@ -30,5 +28,5 @@ def deserialize_json(data: dict) -> ConsumedUsages:
     if data.get("approximateDollarUsage") is not None:
         out["approximate_dollar_usage"] = float(data["approximateDollarUsage"])
     else:
-        raise DeserializationError("ConsumedUsages.approximate_dollar_usage required")
+        out["approximate_dollar_usage"] = 0.0
     return out

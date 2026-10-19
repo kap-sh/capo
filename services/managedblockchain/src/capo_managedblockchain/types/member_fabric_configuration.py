@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_managedblockchain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_managedblockchain.types.password_string
     import capo_managedblockchain.types.username_string
@@ -31,11 +29,11 @@ def deserialize_json(data: dict) -> MemberFabricConfiguration:
     if data.get("AdminUsername") is not None:
         out["admin_username"] = data["AdminUsername"]
     else:
-        raise DeserializationError("MemberFabricConfiguration.admin_username required")
+        out["admin_username"] = ""
     if data.get("AdminPassword") is not None:
         out["admin_password"] = data["AdminPassword"]
     else:
-        raise DeserializationError("MemberFabricConfiguration.admin_password required")
+        out["admin_password"] = ""
     return out
 
 

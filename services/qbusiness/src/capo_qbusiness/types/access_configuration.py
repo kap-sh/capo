@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.access_controls
     import capo_qbusiness.types.member_relation
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> AccessConfiguration:
             data["accessControls"]
         )
     else:
-        raise DeserializationError("AccessConfiguration.access_controls required")
+        out["access_controls"] = []
     if data.get("memberRelation") is not None:
         import capo_qbusiness.types.member_relation
 

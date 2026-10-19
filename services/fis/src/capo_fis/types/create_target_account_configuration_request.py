@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fis.types.client_token
     import capo_fis.types.experiment_template_id
@@ -47,9 +45,7 @@ def deserialize_json(data: dict) -> CreateTargetAccountConfigurationRequest:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError(
-            "CreateTargetAccountConfigurationRequest.role_arn required"
-        )
+        out["role_arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

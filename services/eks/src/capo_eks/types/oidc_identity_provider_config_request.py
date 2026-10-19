@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eks.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eks.types.required_claims_map
     import capo_eks.types.string
@@ -58,21 +56,15 @@ def deserialize_json(data: dict) -> OidcIdentityProviderConfigRequest:
     if data.get("identityProviderConfigName") is not None:
         out["identity_provider_config_name"] = data["identityProviderConfigName"]
     else:
-        raise DeserializationError(
-            "OidcIdentityProviderConfigRequest.identity_provider_config_name required"
-        )
+        out["identity_provider_config_name"] = ""
     if data.get("issuerUrl") is not None:
         out["issuer_url"] = data["issuerUrl"]
     else:
-        raise DeserializationError(
-            "OidcIdentityProviderConfigRequest.issuer_url required"
-        )
+        out["issuer_url"] = ""
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
     else:
-        raise DeserializationError(
-            "OidcIdentityProviderConfigRequest.client_id required"
-        )
+        out["client_id"] = ""
     if data.get("usernameClaim") is not None:
         out["username_claim"] = data["usernameClaim"]
     if data.get("usernamePrefix") is not None:

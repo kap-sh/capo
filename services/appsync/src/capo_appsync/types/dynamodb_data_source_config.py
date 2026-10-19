@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.boolean
     import capo_appsync.types.delta_sync_config
@@ -48,11 +46,11 @@ def deserialize_json(data: dict) -> DynamodbDataSourceConfig:
     if data.get("tableName") is not None:
         out["table_name"] = data["tableName"]
     else:
-        raise DeserializationError("DynamodbDataSourceConfig.table_name required")
+        out["table_name"] = ""
     if data.get("awsRegion") is not None:
         out["aws_region"] = data["awsRegion"]
     else:
-        raise DeserializationError("DynamodbDataSourceConfig.aws_region required")
+        out["aws_region"] = ""
     if data.get("useCallerCredentials") is not None:
         out["use_caller_credentials"] = data["useCallerCredentials"]
     else:

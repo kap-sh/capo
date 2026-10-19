@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.string
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteInstanceProfileMessage:
     if data.get("InstanceProfileIdentifier") is not None:
         out["instance_profile_identifier"] = data["InstanceProfileIdentifier"]
     else:
-        raise DeserializationError(
-            "DeleteInstanceProfileMessage.instance_profile_identifier required"
-        )
+        out["instance_profile_identifier"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudhsm_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudhsm_v2.types.backup_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> RestoreBackupRequest:
     if data.get("BackupId") is not None:
         out["backup_id"] = data["BackupId"]
     else:
-        raise DeserializationError("RestoreBackupRequest.backup_id required")
+        out["backup_id"] = ""
     return out

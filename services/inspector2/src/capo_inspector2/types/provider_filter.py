@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.connector_cloud_provider
     import capo_inspector2.types.provider_comparison
@@ -43,7 +41,11 @@ def deserialize_json(data: dict) -> ProviderFilter:
             data["comparison"]
         )
     else:
-        raise DeserializationError("ProviderFilter.comparison required")
+        import typing
+
+        out["comparison"] = typing.cast(
+            "capo_inspector2.types.provider_comparison.ProviderComparison", ""
+        )
     if data.get("value") is not None:
         import capo_inspector2.types.connector_cloud_provider
 
@@ -51,5 +53,9 @@ def deserialize_json(data: dict) -> ProviderFilter:
             data["value"]
         )
     else:
-        raise DeserializationError("ProviderFilter.value required")
+        import typing
+
+        out["value"] = typing.cast(
+            "capo_inspector2.types.connector_cloud_provider.ConnectorCloudProvider", ""
+        )
     return out

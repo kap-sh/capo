@@ -84,8 +84,10 @@ def deserialize_aws_json_1_1(data: dict) -> SizeConstraintStatement:
             )
         )
     else:
-        raise DeserializationError(
-            "SizeConstraintStatement.comparison_operator required"
+        import typing
+
+        out["comparison_operator"] = typing.cast(
+            "capo_wafv2.types.comparison_operator.ComparisonOperator", ""
         )
     if data.get("Size") is not None:
         out["size"] = data["Size"]
@@ -100,9 +102,7 @@ def deserialize_aws_json_1_1(data: dict) -> SizeConstraintStatement:
             )
         )
     else:
-        raise DeserializationError(
-            "SizeConstraintStatement.text_transformations required"
-        )
+        out["text_transformations"] = []
     if data.get("PreParseTextTransformations") is not None:
         import capo_wafv2.types.pre_parse_text_transformations
 

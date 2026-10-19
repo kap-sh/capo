@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_api_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_api_gateway.types.string
 
@@ -31,5 +29,5 @@ def deserialize_json(data: dict) -> CreateResourceRequest:
     if data.get("pathPart") is not None:
         out["path_part"] = data["pathPart"]
     else:
-        raise DeserializationError("CreateResourceRequest.path_part required")
+        out["path_part"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.iso8601_datetime_string
     import capo_drs.types.recovery_plan_step_configuration
@@ -51,15 +49,15 @@ def deserialize_json(data: dict) -> RecoveryPlanStep:
     if data.get("recoveryPlanStepArn") is not None:
         out["recovery_plan_step_arn"] = data["recoveryPlanStepArn"]
     else:
-        raise DeserializationError("RecoveryPlanStep.recovery_plan_step_arn required")
+        out["recovery_plan_step_arn"] = ""
     if data.get("stepOrder") is not None:
         out["step_order"] = data["stepOrder"]
     else:
-        raise DeserializationError("RecoveryPlanStep.step_order required")
+        out["step_order"] = 0
     if data.get("stepName") is not None:
         out["step_name"] = data["stepName"]
     else:
-        raise DeserializationError("RecoveryPlanStep.step_name required")
+        out["step_name"] = ""
     if data.get("configuration") is not None:
         import capo_drs.types.recovery_plan_step_configuration
 
@@ -69,13 +67,15 @@ def deserialize_json(data: dict) -> RecoveryPlanStep:
             )
         )
     else:
-        raise DeserializationError("RecoveryPlanStep.configuration required")
+        import capo_drs.types._unknown
+
+        out["configuration"] = capo_drs.types._unknown.UnknownUnionMember("")
     if data.get("createdAt") is not None:
         out["created_at"] = data["createdAt"]
     else:
-        raise DeserializationError("RecoveryPlanStep.created_at required")
+        out["created_at"] = ""
     if data.get("updatedAt") is not None:
         out["updated_at"] = data["updatedAt"]
     else:
-        raise DeserializationError("RecoveryPlanStep.updated_at required")
+        out["updated_at"] = ""
     return out

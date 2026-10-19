@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.algorithm_image
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> InferenceContainerConfig:
     if data.get("imageUri") is not None:
         out["image_uri"] = data["imageUri"]
     else:
-        raise DeserializationError("InferenceContainerConfig.image_uri required")
+        out["image_uri"] = ""
     return out

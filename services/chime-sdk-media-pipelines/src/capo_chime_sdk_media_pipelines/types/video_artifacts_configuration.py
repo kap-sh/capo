@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.artifacts_state
     import capo_chime_sdk_media_pipelines.types.video_mux_type
@@ -50,7 +48,11 @@ def deserialize_json(data: dict) -> VideoArtifactsConfiguration:
             )
         )
     else:
-        raise DeserializationError("VideoArtifactsConfiguration.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.artifacts_state.ArtifactsState", ""
+        )
     if data.get("MuxType") is not None:
         import capo_chime_sdk_media_pipelines.types.video_mux_type
 

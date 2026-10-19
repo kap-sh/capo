@@ -57,15 +57,13 @@ def deserialize_json(data: dict) -> MLSyntheticDataParameters:
     if data.get("epsilon") is not None:
         out["epsilon"] = float(data["epsilon"])
     else:
-        raise DeserializationError("MLSyntheticDataParameters.epsilon required")
+        out["epsilon"] = 0.0
     if data.get("maxMembershipInferenceAttackScore") is not None:
         out["max_membership_inference_attack_score"] = float(
             data["maxMembershipInferenceAttackScore"]
         )
     else:
-        raise DeserializationError(
-            "MLSyntheticDataParameters.max_membership_inference_attack_score required"
-        )
+        out["max_membership_inference_attack_score"] = 0.0
     if data.get("columnClassification") is not None:
         import capo_cleanrooms.types.column_classification_details
 

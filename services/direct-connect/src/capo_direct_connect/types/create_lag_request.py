@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.bandwidth
     import capo_direct_connect.types.connection_id
@@ -88,19 +86,19 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLagRequest:
     if data.get("numberOfConnections") is not None:
         out["number_of_connections"] = data["numberOfConnections"]
     else:
-        raise DeserializationError("CreateLagRequest.number_of_connections required")
+        out["number_of_connections"] = 0
     if data.get("location") is not None:
         out["location"] = data["location"]
     else:
-        raise DeserializationError("CreateLagRequest.location required")
+        out["location"] = ""
     if data.get("connectionsBandwidth") is not None:
         out["connections_bandwidth"] = data["connectionsBandwidth"]
     else:
-        raise DeserializationError("CreateLagRequest.connections_bandwidth required")
+        out["connections_bandwidth"] = ""
     if data.get("lagName") is not None:
         out["lag_name"] = data["lagName"]
     else:
-        raise DeserializationError("CreateLagRequest.lag_name required")
+        out["lag_name"] = ""
     if data.get("connectionId") is not None:
         out["connection_id"] = data["connectionId"]
     if data.get("tags") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.listed_router_network_interface_list
 
@@ -43,9 +41,7 @@ def deserialize_json(data: dict) -> ListRouterNetworkInterfacesResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListRouterNetworkInterfacesResponse.router_network_interfaces required"
-        )
+        out["router_network_interfaces"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

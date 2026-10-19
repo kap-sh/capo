@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.campaign_id
     import capo_connectcampaignsv2.types.outbound_request_list
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> PutOutboundRequestBatchRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "PutOutboundRequestBatchRequest.outbound_requests required"
-        )
+        out["outbound_requests"] = []
     return out
 
 

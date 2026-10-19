@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.arn
     import capo_bedrock_agentcore_control.types.description
@@ -118,7 +116,7 @@ def deserialize_json(data: dict) -> CreateMemoryInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateMemoryInput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("encryptionKeyArn") is not None:
@@ -128,7 +126,7 @@ def deserialize_json(data: dict) -> CreateMemoryInput:
     if data.get("eventExpiryDuration") is not None:
         out["event_expiry_duration"] = data["eventExpiryDuration"]
     else:
-        raise DeserializationError("CreateMemoryInput.event_expiry_duration required")
+        out["event_expiry_duration"] = 0
     if data.get("memoryStrategies") is not None:
         import capo_bedrock_agentcore_control.types.memory_strategy_input_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_endusermessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_endusermessaging.types.attachment_body
     import capo_endusermessaging.types.brand_profile_attribute_category
@@ -71,7 +69,7 @@ def deserialize_json(data: dict) -> BrandProfileAttributeInput:
     if data.get("attributeName") is not None:
         out["attribute_name"] = data["attributeName"]
     else:
-        raise DeserializationError("BrandProfileAttributeInput.attribute_name required")
+        out["attribute_name"] = ""
     if data.get("attributeType") is not None:
         import capo_endusermessaging.types.brand_profile_attribute_type
 
@@ -81,7 +79,12 @@ def deserialize_json(data: dict) -> BrandProfileAttributeInput:
             )
         )
     else:
-        raise DeserializationError("BrandProfileAttributeInput.attribute_type required")
+        import typing
+
+        out["attribute_type"] = typing.cast(
+            "capo_endusermessaging.types.brand_profile_attribute_type.BrandProfileAttributeType",
+            "",
+        )
     if data.get("attributeValue") is not None:
         out["attribute_value"] = data["attributeValue"]
     if data.get("attachmentBody") is not None:

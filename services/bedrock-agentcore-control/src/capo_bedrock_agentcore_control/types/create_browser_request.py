@@ -132,7 +132,7 @@ def deserialize_json(data: dict) -> CreateBrowserRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateBrowserRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("executionRoleArn") is not None:

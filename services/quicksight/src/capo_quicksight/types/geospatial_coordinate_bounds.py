@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.latitude
     import capo_quicksight.types.longitude
@@ -69,17 +67,17 @@ def deserialize_json(data: dict) -> GeospatialCoordinateBounds:
     if data.get("North") is not None:
         out["north"] = float(data["North"])
     else:
-        raise DeserializationError("GeospatialCoordinateBounds.north required")
+        out["north"] = 0.0
     if data.get("South") is not None:
         out["south"] = float(data["South"])
     else:
-        raise DeserializationError("GeospatialCoordinateBounds.south required")
+        out["south"] = 0.0
     if data.get("West") is not None:
         out["west"] = float(data["West"])
     else:
-        raise DeserializationError("GeospatialCoordinateBounds.west required")
+        out["west"] = 0.0
     if data.get("East") is not None:
         out["east"] = float(data["East"])
     else:
-        raise DeserializationError("GeospatialCoordinateBounds.east required")
+        out["east"] = 0.0
     return out

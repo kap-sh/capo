@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.browser_action_result
     import capo_bedrock_agentcore.types.browser_session_id
@@ -40,5 +38,7 @@ def deserialize_json(data: dict) -> InvokeBrowserResponse:
             )
         )
     else:
-        raise DeserializationError("InvokeBrowserResponse.result required")
+        import capo_bedrock_agentcore.types._unknown
+
+        out["result"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
     return out

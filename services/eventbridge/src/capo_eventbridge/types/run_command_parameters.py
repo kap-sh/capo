@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_eventbridge.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridge.types.run_command_targets
 
@@ -39,5 +37,5 @@ def deserialize_aws_json_1_1(data: dict) -> RunCommandParameters:
             )
         )
     else:
-        raise DeserializationError("RunCommandParameters.run_command_targets required")
+        out["run_command_targets"] = []
     return out

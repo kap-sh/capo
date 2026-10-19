@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -102,7 +100,7 @@ def deserialize_json(data: dict) -> CreateEventInput:
     if data.get("actorId") is not None:
         out["actor_id"] = data["actorId"]
     else:
-        raise DeserializationError("CreateEventInput.actor_id required")
+        out["actor_id"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     if data.get("eventTimestamp") is not None:
@@ -114,7 +112,11 @@ def deserialize_json(data: dict) -> CreateEventInput:
             )
         )
     else:
-        raise DeserializationError("CreateEventInput.event_timestamp required")
+        import datetime
+
+        out["event_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("payload") is not None:
         import capo_bedrock_agentcore.types.payload_type_list
 
@@ -124,7 +126,7 @@ def deserialize_json(data: dict) -> CreateEventInput:
             )
         )
     else:
-        raise DeserializationError("CreateEventInput.payload required")
+        out["payload"] = []
     if data.get("branch") is not None:
         import capo_bedrock_agentcore.types.branch
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.accept_language
     import capo_service_catalog.types.add_tags
@@ -62,13 +60,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePortfolioInput:
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     else:
-        raise DeserializationError("CreatePortfolioInput.display_name required")
+        out["display_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("ProviderName") is not None:
         out["provider_name"] = data["ProviderName"]
     else:
-        raise DeserializationError("CreatePortfolioInput.provider_name required")
+        out["provider_name"] = ""
     if data.get("Tags") is not None:
         import capo_service_catalog.types.add_tags
 
@@ -78,5 +76,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePortfolioInput:
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     else:
-        raise DeserializationError("CreatePortfolioInput.idempotency_token required")
+        out["idempotency_token"] = ""
     return out

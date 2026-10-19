@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.dns_name
@@ -54,12 +53,12 @@ def deserialize_xml(el: Element) -> TestDNSAnswerResponse:
     if child_nameserver is not None:
         out["nameserver"] = str(child_nameserver.text or "")
     else:
-        raise DeserializationError("TestDNSAnswerResponse.nameserver required")
+        out["nameserver"] = ""
     child_record_name = el.find("RecordName")
     if child_record_name is not None:
         out["record_name"] = str(child_record_name.text or "")
     else:
-        raise DeserializationError("TestDNSAnswerResponse.record_name required")
+        out["record_name"] = ""
     child_record_type = el.find("RecordType")
     if child_record_type is not None:
         import capo_route_53.types.rr_type
@@ -68,7 +67,9 @@ def deserialize_xml(el: Element) -> TestDNSAnswerResponse:
             child_record_type
         )
     else:
-        raise DeserializationError("TestDNSAnswerResponse.record_type required")
+        import typing
+
+        out["record_type"] = typing.cast("capo_route_53.types.rr_type.RRType", "")
     child_record_data = el.find("RecordData")
     if child_record_data is not None:
         import capo_route_53.types.record_data
@@ -77,15 +78,15 @@ def deserialize_xml(el: Element) -> TestDNSAnswerResponse:
             child_record_data
         )
     else:
-        raise DeserializationError("TestDNSAnswerResponse.record_data required")
+        out["record_data"] = []
     child_response_code = el.find("ResponseCode")
     if child_response_code is not None:
         out["response_code"] = str(child_response_code.text or "")
     else:
-        raise DeserializationError("TestDNSAnswerResponse.response_code required")
+        out["response_code"] = ""
     child_protocol = el.find("Protocol")
     if child_protocol is not None:
         out["protocol"] = str(child_protocol.text or "")
     else:
-        raise DeserializationError("TestDNSAnswerResponse.protocol required")
+        out["protocol"] = ""
     return out

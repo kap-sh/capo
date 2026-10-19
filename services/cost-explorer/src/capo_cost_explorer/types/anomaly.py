@@ -87,7 +87,7 @@ def deserialize_aws_json_1_1(data: dict) -> Anomaly:
     if data.get("AnomalyId") is not None:
         out["anomaly_id"] = data["AnomalyId"]
     else:
-        raise DeserializationError("Anomaly.anomaly_id required")
+        out["anomaly_id"] = ""
     if data.get("AnomalyStartDate") is not None:
         out["anomaly_start_date"] = data["AnomalyStartDate"]
     if data.get("AnomalyEndDate") is not None:
@@ -123,7 +123,7 @@ def deserialize_aws_json_1_1(data: dict) -> Anomaly:
     if data.get("MonitorArn") is not None:
         out["monitor_arn"] = data["MonitorArn"]
     else:
-        raise DeserializationError("Anomaly.monitor_arn required")
+        out["monitor_arn"] = ""
     if data.get("Feedback") is not None:
         import capo_cost_explorer.types.anomaly_feedback_type
 

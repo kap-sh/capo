@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_acm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm.types.arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsForCertificateRequest:
     if data.get("CertificateArn") is not None:
         out["certificate_arn"] = data["CertificateArn"]
     else:
-        raise DeserializationError(
-            "ListTagsForCertificateRequest.certificate_arn required"
-        )
+        out["certificate_arn"] = ""
     return out

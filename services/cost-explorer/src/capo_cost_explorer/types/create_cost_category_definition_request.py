@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.cost_category_name
     import capo_cost_explorer.types.cost_category_rule_version
@@ -86,7 +84,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCostCategoryDefinitionRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateCostCategoryDefinitionRequest.name required")
+        out["name"] = ""
     if data.get("EffectiveStart") is not None:
         out["effective_start"] = data["EffectiveStart"]
     if data.get("RuleVersion") is not None:
@@ -98,8 +96,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCostCategoryDefinitionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateCostCategoryDefinitionRequest.rule_version required"
+        import typing
+
+        out["rule_version"] = typing.cast(
+            "capo_cost_explorer.types.cost_category_rule_version.CostCategoryRuleVersion",
+            "",
         )
     if data.get("Rules") is not None:
         import capo_cost_explorer.types.cost_category_rules_list
@@ -110,7 +111,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCostCategoryDefinitionRequest:
             )
         )
     else:
-        raise DeserializationError("CreateCostCategoryDefinitionRequest.rules required")
+        out["rules"] = []
     if data.get("DefaultValue") is not None:
         out["default_value"] = data["DefaultValue"]
     if data.get("SplitChargeRules") is not None:

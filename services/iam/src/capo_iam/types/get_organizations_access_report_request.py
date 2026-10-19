@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.job_id_type
@@ -51,9 +50,7 @@ def deserialize_query(el: Element) -> GetOrganizationsAccessReportRequest:
     if child_job_id is not None:
         out["job_id"] = str(child_job_id.text or "")
     else:
-        raise DeserializationError(
-            "GetOrganizationsAccessReportRequest.job_id required"
-        )
+        out["job_id"] = ""
     child_max_items = el.find("MaxItems")
     if child_max_items is not None:
         out["max_items"] = int(child_max_items.text or "")

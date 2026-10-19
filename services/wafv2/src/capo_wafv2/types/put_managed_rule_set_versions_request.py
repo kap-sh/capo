@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.entity_id
     import capo_wafv2.types.entity_name
@@ -61,23 +59,23 @@ def deserialize_aws_json_1_1(data: dict) -> PutManagedRuleSetVersionsRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("PutManagedRuleSetVersionsRequest.name required")
+        out["name"] = ""
     if data.get("Scope") is not None:
         import capo_wafv2.types.scope
 
         out["scope"] = capo_wafv2.types.scope.deserialize_aws_json_1_1(data["Scope"])
     else:
-        raise DeserializationError("PutManagedRuleSetVersionsRequest.scope required")
+        import typing
+
+        out["scope"] = typing.cast("capo_wafv2.types.scope.Scope", "")
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("PutManagedRuleSetVersionsRequest.id required")
+        out["id"] = ""
     if data.get("LockToken") is not None:
         out["lock_token"] = data["LockToken"]
     else:
-        raise DeserializationError(
-            "PutManagedRuleSetVersionsRequest.lock_token required"
-        )
+        out["lock_token"] = ""
     if data.get("RecommendedVersion") is not None:
         out["recommended_version"] = data["RecommendedVersion"]
     if data.get("VersionsToPublish") is not None:

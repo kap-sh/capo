@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr.types.signing_repository_filter_type
     import capo_ecr.types.signing_repository_filter_value
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> SigningRepositoryFilter:
     if data.get("filter") is not None:
         out["filter"] = data["filter"]
     else:
-        raise DeserializationError("SigningRepositoryFilter.filter required")
+        out["filter"] = ""
     if data.get("filterType") is not None:
         import capo_ecr.types.signing_repository_filter_type
 
@@ -51,5 +49,10 @@ def deserialize_aws_json_1_1(data: dict) -> SigningRepositoryFilter:
             )
         )
     else:
-        raise DeserializationError("SigningRepositoryFilter.filter_type required")
+        import typing
+
+        out["filter_type"] = typing.cast(
+            "capo_ecr.types.signing_repository_filter_type.SigningRepositoryFilterType",
+            "",
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.addon_name
     import capo_mailmanager.types.idempotency_token
@@ -45,7 +43,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateAddonSubscriptionRequest:
     if data.get("AddonName") is not None:
         out["addon_name"] = data["AddonName"]
     else:
-        raise DeserializationError("CreateAddonSubscriptionRequest.addon_name required")
+        out["addon_name"] = ""
     if data.get("Tags") is not None:
         import capo_mailmanager.types.tag_list
 

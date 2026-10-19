@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.custom_document_enrichment_configuration
     import capo_kendra.types.document_list
@@ -53,7 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchPutDocumentRequest:
     if data.get("IndexId") is not None:
         out["index_id"] = data["IndexId"]
     else:
-        raise DeserializationError("BatchPutDocumentRequest.index_id required")
+        out["index_id"] = ""
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     if data.get("Documents") is not None:
@@ -63,7 +61,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchPutDocumentRequest:
             data["Documents"]
         )
     else:
-        raise DeserializationError("BatchPutDocumentRequest.documents required")
+        out["documents"] = []
     if data.get("CustomDocumentEnrichmentConfiguration") is not None:
         import capo_kendra.types.custom_document_enrichment_configuration
 

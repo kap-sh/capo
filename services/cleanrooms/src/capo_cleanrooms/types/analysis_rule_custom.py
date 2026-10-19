@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.additional_analyses
     import capo_cleanrooms.types.aggregation_threshold_list
@@ -141,7 +139,7 @@ def deserialize_json(data: dict) -> AnalysisRuleCustom:
             )
         )
     else:
-        raise DeserializationError("AnalysisRuleCustom.allowed_analyses required")
+        out["allowed_analyses"] = []
     if data.get("allowedAnalysisProviders") is not None:
         import capo_cleanrooms.types.allowed_analysis_provider_list
 

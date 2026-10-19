@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_xray.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_xray.types.borrow_count
     import capo_xray.types.client_id
@@ -49,17 +47,19 @@ def deserialize_json(data: dict) -> SamplingStatisticsDocument:
     if data.get("RuleName") is not None:
         out["rule_name"] = data["RuleName"]
     else:
-        raise DeserializationError("SamplingStatisticsDocument.rule_name required")
+        out["rule_name"] = ""
     if data.get("ClientID") is not None:
         out["client_id"] = data["ClientID"]
     else:
-        raise DeserializationError("SamplingStatisticsDocument.client_id required")
+        out["client_id"] = ""
     if data.get("Timestamp") is not None:
         import capo_xray.types.timestamp
 
         out["timestamp"] = capo_xray.types.timestamp.deserialize_json(data["Timestamp"])
     else:
-        raise DeserializationError("SamplingStatisticsDocument.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("RequestCount") is not None:
         out["request_count"] = data["RequestCount"]
     else:

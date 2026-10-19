@@ -157,7 +157,7 @@ def deserialize_json(data: dict) -> SendBulkEmailRequest:
             )
         )
     else:
-        raise DeserializationError("SendBulkEmailRequest.bulk_email_entries required")
+        out["bulk_email_entries"] = []
     if data.get("ConfigurationSetName") is not None:
         out["configuration_set_name"] = data["ConfigurationSetName"]
     if data.get("EndpointId") is not None:

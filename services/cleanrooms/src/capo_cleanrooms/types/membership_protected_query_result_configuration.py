@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.membership_protected_query_output_configuration
     import capo_cleanrooms.types.role_arn
@@ -44,8 +42,10 @@ def deserialize_json(data: dict) -> MembershipProtectedQueryResultConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "MembershipProtectedQueryResultConfiguration.output_configuration required"
+        import capo_cleanrooms.types._unknown
+
+        out["output_configuration"] = capo_cleanrooms.types._unknown.UnknownUnionMember(
+            ""
         )
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]

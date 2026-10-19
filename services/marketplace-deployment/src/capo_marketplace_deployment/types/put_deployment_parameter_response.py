@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_deployment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_deployment.types.deployment_parameter_resource_identifier
     import capo_marketplace_deployment.types.resource_arn
@@ -44,21 +42,15 @@ def deserialize_json(data: dict) -> PutDeploymentParameterResponse:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError(
-            "PutDeploymentParameterResponse.resource_arn required"
-        )
+        out["resource_arn"] = ""
     if data.get("agreementId") is not None:
         out["agreement_id"] = data["agreementId"]
     else:
-        raise DeserializationError(
-            "PutDeploymentParameterResponse.agreement_id required"
-        )
+        out["agreement_id"] = ""
     if data.get("deploymentParameterId") is not None:
         out["deployment_parameter_id"] = data["deploymentParameterId"]
     else:
-        raise DeserializationError(
-            "PutDeploymentParameterResponse.deployment_parameter_id required"
-        )
+        out["deployment_parameter_id"] = ""
     if data.get("tags") is not None:
         import capo_marketplace_deployment.types.tags_map
 

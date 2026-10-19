@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 
 class StopThreatModelJobInput(TypedDict, closed=True):
     agent_space_id: "str"
@@ -25,11 +23,9 @@ def deserialize_json(data: dict) -> StopThreatModelJobInput:
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError("StopThreatModelJobInput.agent_space_id required")
+        out["agent_space_id"] = ""
     if data.get("threatModelJobId") is not None:
         out["threat_model_job_id"] = data["threatModelJobId"]
     else:
-        raise DeserializationError(
-            "StopThreatModelJobInput.threat_model_job_id required"
-        )
+        out["threat_model_job_id"] = ""
     return out

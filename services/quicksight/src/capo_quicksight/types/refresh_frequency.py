@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.refresh_interval
     import capo_quicksight.types.schedule_refresh_on_entity
@@ -57,7 +55,11 @@ def deserialize_json(data: dict) -> RefreshFrequency:
             data["Interval"]
         )
     else:
-        raise DeserializationError("RefreshFrequency.interval required")
+        import typing
+
+        out["interval"] = typing.cast(
+            "capo_quicksight.types.refresh_interval.RefreshInterval", ""
+        )
     if data.get("RefreshOnDay") is not None:
         import capo_quicksight.types.schedule_refresh_on_entity
 

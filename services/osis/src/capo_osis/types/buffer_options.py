@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_osis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_osis.types.boolean
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> BufferOptions:
     if data.get("PersistentBufferEnabled") is not None:
         out["persistent_buffer_enabled"] = data["PersistentBufferEnabled"]
     else:
-        raise DeserializationError("BufferOptions.persistent_buffer_enabled required")
+        out["persistent_buffer_enabled"] = False
     return out

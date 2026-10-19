@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.document_classifier_mode
     import capo_comprehend.types.labels_list
@@ -46,7 +44,11 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentClassificationConfig:
             )
         )
     else:
-        raise DeserializationError("DocumentClassificationConfig.mode required")
+        import typing
+
+        out["mode"] = typing.cast(
+            "capo_comprehend.types.document_classifier_mode.DocumentClassifierMode", ""
+        )
     if data.get("Labels") is not None:
         import capo_comprehend.types.labels_list
 

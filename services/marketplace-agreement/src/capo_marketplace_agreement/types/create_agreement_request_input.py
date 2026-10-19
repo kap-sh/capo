@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_agreement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.agreement_proposal_id
     import capo_marketplace_agreement.types.client_token
@@ -85,7 +83,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateAgreementRequestInput:
             )
         )
     else:
-        raise DeserializationError("CreateAgreementRequestInput.intent required")
+        import typing
+
+        out["intent"] = typing.cast(
+            "capo_marketplace_agreement.types.intent.Intent", ""
+        )
     if data.get("requestedTerms") is not None:
         import capo_marketplace_agreement.types.requested_term_list
 
@@ -95,9 +97,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateAgreementRequestInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAgreementRequestInput.requested_terms required"
-        )
+        out["requested_terms"] = []
     if data.get("sourceAgreementIdentifier") is not None:
         out["source_agreement_identifier"] = data["sourceAgreementIdentifier"]
     if data.get("agreementProposalIdentifier") is not None:

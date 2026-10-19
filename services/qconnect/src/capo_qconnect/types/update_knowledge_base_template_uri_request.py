@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.uri
     import capo_qconnect.types.uuid_or_arn
@@ -30,7 +28,5 @@ def deserialize_json(data: dict) -> UpdateKnowledgeBaseTemplateUriRequest:
     if data.get("templateUri") is not None:
         out["template_uri"] = data["templateUri"]
     else:
-        raise DeserializationError(
-            "UpdateKnowledgeBaseTemplateUriRequest.template_uri required"
-        )
+        out["template_uri"] = ""
     return out

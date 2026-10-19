@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_translate.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_translate.types.resource_name
     import capo_translate.types.terminology_data_format
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetTerminologyRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("GetTerminologyRequest.name required")
+        out["name"] = ""
     if data.get("TerminologyDataFormat") is not None:
         import capo_translate.types.terminology_data_format
 

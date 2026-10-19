@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.blueprint_arn
     import capo_bedrock_data_automation.types.blueprint_name
@@ -113,11 +111,11 @@ def deserialize_json(data: dict) -> Blueprint:
     if data.get("blueprintArn") is not None:
         out["blueprint_arn"] = data["blueprintArn"]
     else:
-        raise DeserializationError("Blueprint.blueprint_arn required")
+        out["blueprint_arn"] = ""
     if data.get("schema") is not None:
         out["schema"] = data["schema"]
     else:
-        raise DeserializationError("Blueprint.schema required")
+        out["schema"] = ""
     if data.get("type") is not None:
         import capo_bedrock_data_automation.types.type
 
@@ -125,7 +123,9 @@ def deserialize_json(data: dict) -> Blueprint:
             data["type"]
         )
     else:
-        raise DeserializationError("Blueprint.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_bedrock_data_automation.types.type.Type", "")
     if data.get("creationTime") is not None:
         import capo_bedrock_data_automation.types.date_timestamp
 
@@ -135,7 +135,11 @@ def deserialize_json(data: dict) -> Blueprint:
             )
         )
     else:
-        raise DeserializationError("Blueprint.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastModifiedTime") is not None:
         import capo_bedrock_data_automation.types.date_timestamp
 
@@ -145,11 +149,15 @@ def deserialize_json(data: dict) -> Blueprint:
             )
         )
     else:
-        raise DeserializationError("Blueprint.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("blueprintName") is not None:
         out["blueprint_name"] = data["blueprintName"]
     else:
-        raise DeserializationError("Blueprint.blueprint_name required")
+        out["blueprint_name"] = ""
     if data.get("blueprintVersion") is not None:
         out["blueprint_version"] = data["blueprintVersion"]
     if data.get("blueprintStage") is not None:

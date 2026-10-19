@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.field_values
     import capo_connect.types.template_id
@@ -35,9 +33,9 @@ def deserialize_json(data: dict) -> CreateCaseActionDefinition:
 
         out["fields"] = capo_connect.types.field_values.deserialize_json(data["Fields"])
     else:
-        raise DeserializationError("CreateCaseActionDefinition.fields required")
+        out["fields"] = []
     if data.get("TemplateId") is not None:
         out["template_id"] = data["TemplateId"]
     else:
-        raise DeserializationError("CreateCaseActionDefinition.template_id required")
+        out["template_id"] = ""
     return out

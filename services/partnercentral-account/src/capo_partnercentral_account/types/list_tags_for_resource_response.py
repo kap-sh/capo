@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.tag_list
     import capo_partnercentral_account.types.taggable_resource_arn
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListTagsForResourceResponse:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("ListTagsForResourceResponse.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("Tags") is not None:
         import capo_partnercentral_account.types.tag_list
 

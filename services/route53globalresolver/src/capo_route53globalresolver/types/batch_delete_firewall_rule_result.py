@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.client_token
     import capo_route53globalresolver.types.cr_resource_status
@@ -54,7 +52,7 @@ def deserialize_json(data: dict) -> BatchDeleteFirewallRuleResult:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("BatchDeleteFirewallRuleResult.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("status") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.string
 
@@ -33,13 +31,13 @@ def deserialize_aws_json_1_1(data: dict) -> S3ImportSource:
     if data.get("S3LocationUri") is not None:
         out["s3_location_uri"] = data["S3LocationUri"]
     else:
-        raise DeserializationError("S3ImportSource.s3_location_uri required")
+        out["s3_location_uri"] = ""
     if data.get("S3BucketRegion") is not None:
         out["s3_bucket_region"] = data["S3BucketRegion"]
     else:
-        raise DeserializationError("S3ImportSource.s3_bucket_region required")
+        out["s3_bucket_region"] = ""
     if data.get("S3BucketAccessRoleArn") is not None:
         out["s3_bucket_access_role_arn"] = data["S3BucketAccessRoleArn"]
     else:
-        raise DeserializationError("S3ImportSource.s3_bucket_access_role_arn required")
+        out["s3_bucket_access_role_arn"] = ""
     return out

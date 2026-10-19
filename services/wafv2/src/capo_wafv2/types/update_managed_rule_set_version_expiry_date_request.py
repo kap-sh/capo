@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.entity_id
     import capo_wafv2.types.entity_name
@@ -55,35 +53,27 @@ def deserialize_aws_json_1_1(
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError(
-            "UpdateManagedRuleSetVersionExpiryDateRequest.name required"
-        )
+        out["name"] = ""
     if data.get("Scope") is not None:
         import capo_wafv2.types.scope
 
         out["scope"] = capo_wafv2.types.scope.deserialize_aws_json_1_1(data["Scope"])
     else:
-        raise DeserializationError(
-            "UpdateManagedRuleSetVersionExpiryDateRequest.scope required"
-        )
+        import typing
+
+        out["scope"] = typing.cast("capo_wafv2.types.scope.Scope", "")
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError(
-            "UpdateManagedRuleSetVersionExpiryDateRequest.id required"
-        )
+        out["id"] = ""
     if data.get("LockToken") is not None:
         out["lock_token"] = data["LockToken"]
     else:
-        raise DeserializationError(
-            "UpdateManagedRuleSetVersionExpiryDateRequest.lock_token required"
-        )
+        out["lock_token"] = ""
     if data.get("VersionToExpire") is not None:
         out["version_to_expire"] = data["VersionToExpire"]
     else:
-        raise DeserializationError(
-            "UpdateManagedRuleSetVersionExpiryDateRequest.version_to_expire required"
-        )
+        out["version_to_expire"] = ""
     if data.get("ExpiryTimestamp") is not None:
         import capo_wafv2.types.timestamp
 
@@ -91,7 +81,9 @@ def deserialize_aws_json_1_1(
             data["ExpiryTimestamp"]
         )
     else:
-        raise DeserializationError(
-            "UpdateManagedRuleSetVersionExpiryDateRequest.expiry_timestamp required"
+        import datetime
+
+        out["expiry_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

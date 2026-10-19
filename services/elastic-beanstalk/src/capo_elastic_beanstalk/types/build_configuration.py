@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_elastic_beanstalk._protocol.xml import Element
-from capo_elastic_beanstalk.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_elastic_beanstalk.types.boxed_int
@@ -61,9 +60,7 @@ def deserialize_query(el: Element) -> BuildConfiguration:
     if child_code_build_service_role is not None:
         out["code_build_service_role"] = str(child_code_build_service_role.text or "")
     else:
-        raise DeserializationError(
-            "BuildConfiguration.code_build_service_role required"
-        )
+        out["code_build_service_role"] = ""
     child_compute_type = el.find("ComputeType")
     if child_compute_type is not None:
         import capo_elastic_beanstalk.types.compute_type
@@ -77,7 +74,7 @@ def deserialize_query(el: Element) -> BuildConfiguration:
     if child_image is not None:
         out["image"] = str(child_image.text or "")
     else:
-        raise DeserializationError("BuildConfiguration.image required")
+        out["image"] = ""
     child_timeout_in_minutes = el.find("TimeoutInMinutes")
     if child_timeout_in_minutes is not None:
         out["timeout_in_minutes"] = int(child_timeout_in_minutes.text or "")

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.config_rule_name
     import capo_config_service.types.date
@@ -54,15 +52,15 @@ def deserialize_aws_json_1_1(data: dict) -> RemediationException:
     if data.get("ConfigRuleName") is not None:
         out["config_rule_name"] = data["ConfigRuleName"]
     else:
-        raise DeserializationError("RemediationException.config_rule_name required")
+        out["config_rule_name"] = ""
     if data.get("ResourceType") is not None:
         out["resource_type"] = data["ResourceType"]
     else:
-        raise DeserializationError("RemediationException.resource_type required")
+        out["resource_type"] = ""
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("RemediationException.resource_id required")
+        out["resource_id"] = ""
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     if data.get("ExpirationTime") is not None:

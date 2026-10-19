@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.iam_role_arn
     import capo_frauddetector.types.identifier
@@ -60,39 +58,29 @@ def deserialize_aws_json_1_1(data: dict) -> CreateBatchPredictionJobRequest:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("CreateBatchPredictionJobRequest.job_id required")
+        out["job_id"] = ""
     if data.get("inputPath") is not None:
         out["input_path"] = data["inputPath"]
     else:
-        raise DeserializationError(
-            "CreateBatchPredictionJobRequest.input_path required"
-        )
+        out["input_path"] = ""
     if data.get("outputPath") is not None:
         out["output_path"] = data["outputPath"]
     else:
-        raise DeserializationError(
-            "CreateBatchPredictionJobRequest.output_path required"
-        )
+        out["output_path"] = ""
     if data.get("eventTypeName") is not None:
         out["event_type_name"] = data["eventTypeName"]
     else:
-        raise DeserializationError(
-            "CreateBatchPredictionJobRequest.event_type_name required"
-        )
+        out["event_type_name"] = ""
     if data.get("detectorName") is not None:
         out["detector_name"] = data["detectorName"]
     else:
-        raise DeserializationError(
-            "CreateBatchPredictionJobRequest.detector_name required"
-        )
+        out["detector_name"] = ""
     if data.get("detectorVersion") is not None:
         out["detector_version"] = data["detectorVersion"]
     if data.get("iamRoleArn") is not None:
         out["iam_role_arn"] = data["iamRoleArn"]
     else:
-        raise DeserializationError(
-            "CreateBatchPredictionJobRequest.iam_role_arn required"
-        )
+        out["iam_role_arn"] = ""
     if data.get("tags") is not None:
         import capo_frauddetector.types.tag_list
 

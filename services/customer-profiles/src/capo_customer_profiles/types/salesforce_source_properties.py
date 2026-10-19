@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.boolean
     import capo_customer_profiles.types.object
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> SalesforceSourceProperties:
     if data.get("Object") is not None:
         out["object"] = data["Object"]
     else:
-        raise DeserializationError("SalesforceSourceProperties.object required")
+        out["object"] = ""
     if data.get("EnableDynamicFieldUpdate") is not None:
         out["enable_dynamic_field_update"] = data["EnableDynamicFieldUpdate"]
     else:

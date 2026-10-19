@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_gameliftstreams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_gameliftstreams.types.client_token
     import capo_gameliftstreams.types.identifier
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> CreateStreamSessionConnectionInput:
     if data.get("SignalRequest") is not None:
         out["signal_request"] = data["SignalRequest"]
     else:
-        raise DeserializationError(
-            "CreateStreamSessionConnectionInput.signal_request required"
-        )
+        out["signal_request"] = ""
     return out
 
 

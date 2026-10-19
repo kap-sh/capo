@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.abort_config
     import capo_iot.types.destination_package_versions
@@ -133,7 +131,7 @@ def deserialize_json(data: dict) -> CreateJobTemplateRequest:
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("CreateJobTemplateRequest.description required")
+        out["description"] = ""
     if data.get("presignedUrlConfig") is not None:
         import capo_iot.types.presigned_url_config
 

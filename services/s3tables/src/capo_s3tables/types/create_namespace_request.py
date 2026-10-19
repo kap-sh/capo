@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3tables.types.namespace_list
     import capo_s3tables.types.table_bucket_arn
@@ -38,5 +36,5 @@ def deserialize_json(data: dict) -> CreateNamespaceRequest:
             data["namespace"]
         )
     else:
-        raise DeserializationError("CreateNamespaceRequest.namespace required")
+        out["namespace"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.profile_id_string
     import capo_healthlake.types.transform_input_data
@@ -45,7 +43,7 @@ def deserialize_aws_json_1_0(data: dict) -> TransformDataRequest:
     if data.get("ProfileId") is not None:
         out["profile_id"] = data["ProfileId"]
     else:
-        raise DeserializationError("TransformDataRequest.profile_id required")
+        out["profile_id"] = ""
     if data.get("InputData") is not None:
         import capo_healthlake.types.transform_input_data
 
@@ -55,7 +53,9 @@ def deserialize_aws_json_1_0(data: dict) -> TransformDataRequest:
             )
         )
     else:
-        raise DeserializationError("TransformDataRequest.input_data required")
+        import capo_healthlake.types._unknown
+
+        out["input_data"] = capo_healthlake.types._unknown.UnknownUnionMember("")
     if data.get("DriftDetectionEnabled") is not None:
         out["drift_detection_enabled"] = data["DriftDetectionEnabled"]
     if data.get("ProvenanceEnabled") is not None:

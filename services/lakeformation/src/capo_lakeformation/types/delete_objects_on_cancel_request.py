@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.catalog_id_string
     import capo_lakeformation.types.name_string
@@ -51,19 +49,15 @@ def deserialize_json(data: dict) -> DeleteObjectsOnCancelRequest:
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError(
-            "DeleteObjectsOnCancelRequest.database_name required"
-        )
+        out["database_name"] = ""
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("DeleteObjectsOnCancelRequest.table_name required")
+        out["table_name"] = ""
     if data.get("TransactionId") is not None:
         out["transaction_id"] = data["TransactionId"]
     else:
-        raise DeserializationError(
-            "DeleteObjectsOnCancelRequest.transaction_id required"
-        )
+        out["transaction_id"] = ""
     if data.get("Objects") is not None:
         import capo_lakeformation.types.virtual_object_list
 
@@ -71,5 +65,5 @@ def deserialize_json(data: dict) -> DeleteObjectsOnCancelRequest:
             data["Objects"]
         )
     else:
-        raise DeserializationError("DeleteObjectsOnCancelRequest.objects required")
+        out["objects"] = []
     return out

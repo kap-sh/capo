@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.filter_value_list
     import capo_pinpoint_sms_voice_v2.types.registration_association_filter_name
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> RegistrationAssociationFilter:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("RegistrationAssociationFilter.name required")
+        out["name"] = ""
     if data.get("Values") is not None:
         import capo_pinpoint_sms_voice_v2.types.filter_value_list
 
@@ -47,5 +45,5 @@ def deserialize_aws_json_1_0(data: dict) -> RegistrationAssociationFilter:
             )
         )
     else:
-        raise DeserializationError("RegistrationAssociationFilter.values required")
+        out["values"] = []
     return out

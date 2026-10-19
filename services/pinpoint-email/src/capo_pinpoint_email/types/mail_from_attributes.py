@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_email.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_email.types.behavior_on_mx_failure
     import capo_pinpoint_email.types.mail_from_domain_name
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> MailFromAttributes:
     if data.get("MailFromDomain") is not None:
         out["mail_from_domain"] = data["MailFromDomain"]
     else:
-        raise DeserializationError("MailFromAttributes.mail_from_domain required")
+        out["mail_from_domain"] = ""
     if data.get("MailFromDomainStatus") is not None:
         import capo_pinpoint_email.types.mail_from_domain_status
 
@@ -63,8 +61,10 @@ def deserialize_json(data: dict) -> MailFromAttributes:
             )
         )
     else:
-        raise DeserializationError(
-            "MailFromAttributes.mail_from_domain_status required"
+        import typing
+
+        out["mail_from_domain_status"] = typing.cast(
+            "capo_pinpoint_email.types.mail_from_domain_status.MailFromDomainStatus", ""
         )
     if data.get("BehaviorOnMxFailure") is not None:
         import capo_pinpoint_email.types.behavior_on_mx_failure
@@ -75,5 +75,9 @@ def deserialize_json(data: dict) -> MailFromAttributes:
             )
         )
     else:
-        raise DeserializationError("MailFromAttributes.behavior_on_mx_failure required")
+        import typing
+
+        out["behavior_on_mx_failure"] = typing.cast(
+            "capo_pinpoint_email.types.behavior_on_mx_failure.BehaviorOnMxFailure", ""
+        )
     return out

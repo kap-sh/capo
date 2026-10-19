@@ -36,7 +36,7 @@ def deserialize_json(data: dict) -> GetTableReplicationResponse:
     if data.get("versionToken") is not None:
         out["version_token"] = data["versionToken"]
     else:
-        raise DeserializationError("GetTableReplicationResponse.version_token required")
+        out["version_token"] = ""
     if data.get("configuration") is not None:
         import capo_s3tables.types.table_replication_configuration
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.git_branch_name
     import capo_proton.types.ops_file_path
@@ -43,25 +41,21 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateServiceSyncConfigInput:
     if data.get("serviceName") is not None:
         out["service_name"] = data["serviceName"]
     else:
-        raise DeserializationError("UpdateServiceSyncConfigInput.service_name required")
+        out["service_name"] = ""
     if data.get("repositoryProvider") is not None:
         out["repository_provider"] = data["repositoryProvider"]
     else:
-        raise DeserializationError(
-            "UpdateServiceSyncConfigInput.repository_provider required"
-        )
+        out["repository_provider"] = ""
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError(
-            "UpdateServiceSyncConfigInput.repository_name required"
-        )
+        out["repository_name"] = ""
     if data.get("branch") is not None:
         out["branch"] = data["branch"]
     else:
-        raise DeserializationError("UpdateServiceSyncConfigInput.branch required")
+        out["branch"] = ""
     if data.get("filePath") is not None:
         out["file_path"] = data["filePath"]
     else:
-        raise DeserializationError("UpdateServiceSyncConfigInput.file_path required")
+        out["file_path"] = ""
     return out

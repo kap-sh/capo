@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 
 class RecommendationGoal(TypedDict, closed=True):
     title: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> RecommendationGoal:
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("RecommendationGoal.title required")
+        out["title"] = ""
     return out

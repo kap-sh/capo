@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_support.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support.types.after_time
     import capo_support.types.before_time
@@ -52,7 +50,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeCommunicationsRequest:
     if data.get("caseId") is not None:
         out["case_id"] = data["caseId"]
     else:
-        raise DeserializationError("DescribeCommunicationsRequest.case_id required")
+        out["case_id"] = ""
     if data.get("beforeTime") is not None:
         out["before_time"] = data["beforeTime"]
     if data.get("afterTime") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.secret_manager_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> MicrosoftPurviewCredentials:
     if data.get("SecretArn") is not None:
         out["secret_arn"] = data["SecretArn"]
     else:
-        raise DeserializationError("MicrosoftPurviewCredentials.secret_arn required")
+        out["secret_arn"] = ""
     return out

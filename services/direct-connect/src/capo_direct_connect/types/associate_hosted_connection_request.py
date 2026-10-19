@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.connection_id
 
@@ -30,13 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateHostedConnectionRequest:
     if data.get("connectionId") is not None:
         out["connection_id"] = data["connectionId"]
     else:
-        raise DeserializationError(
-            "AssociateHostedConnectionRequest.connection_id required"
-        )
+        out["connection_id"] = ""
     if data.get("parentConnectionId") is not None:
         out["parent_connection_id"] = data["parentConnectionId"]
     else:
-        raise DeserializationError(
-            "AssociateHostedConnectionRequest.parent_connection_id required"
-        )
+        out["parent_connection_id"] = ""
     return out

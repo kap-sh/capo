@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_video.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_video.types.media_storage_configuration_status
     import capo_kinesis_video.types.resource_arn
@@ -46,5 +44,10 @@ def deserialize_json(data: dict) -> MediaStorageConfiguration:
             )
         )
     else:
-        raise DeserializationError("MediaStorageConfiguration.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_kinesis_video.types.media_storage_configuration_status.MediaStorageConfigurationStatus",
+            "",
+        )
     return out

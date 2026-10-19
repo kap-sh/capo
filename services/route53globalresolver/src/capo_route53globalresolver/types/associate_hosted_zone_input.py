@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.hosted_zone_id
     import capo_route53globalresolver.types.resource_arn
@@ -34,9 +32,9 @@ def deserialize_json(data: dict) -> AssociateHostedZoneInput:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("AssociateHostedZoneInput.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AssociateHostedZoneInput.name required")
+        out["name"] = ""
     return out

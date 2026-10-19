@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.route_signpost_label_list
 
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> RouteSignpost:
             )
         )
     else:
-        raise DeserializationError("RouteSignpost.labels required")
+        out["labels"] = []
     return out
 
 

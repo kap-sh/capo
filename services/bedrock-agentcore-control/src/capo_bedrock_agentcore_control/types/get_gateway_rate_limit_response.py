@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.date_timestamp
     import capo_bedrock_agentcore_control.types.dimension_keys
@@ -89,13 +87,11 @@ def deserialize_json(data: dict) -> GetGatewayRateLimitResponse:
     if data.get("rateLimitId") is not None:
         out["rate_limit_id"] = data["rateLimitId"]
     else:
-        raise DeserializationError("GetGatewayRateLimitResponse.rate_limit_id required")
+        out["rate_limit_id"] = ""
     if data.get("gatewayIdentifier") is not None:
         out["gateway_identifier"] = data["gatewayIdentifier"]
     else:
-        raise DeserializationError(
-            "GetGatewayRateLimitResponse.gateway_identifier required"
-        )
+        out["gateway_identifier"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("dimensionKeys") is not None:
@@ -107,9 +103,7 @@ def deserialize_json(data: dict) -> GetGatewayRateLimitResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetGatewayRateLimitResponse.dimension_keys required"
-        )
+        out["dimension_keys"] = []
     if data.get("entries") is not None:
         import capo_bedrock_agentcore_control.types.limit_entries
 
@@ -119,7 +113,7 @@ def deserialize_json(data: dict) -> GetGatewayRateLimitResponse:
             )
         )
     else:
-        raise DeserializationError("GetGatewayRateLimitResponse.entries required")
+        out["entries"] = []
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.gateway_rate_limit_status
 
@@ -129,7 +123,12 @@ def deserialize_json(data: dict) -> GetGatewayRateLimitResponse:
             )
         )
     else:
-        raise DeserializationError("GetGatewayRateLimitResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.gateway_rate_limit_status.GatewayRateLimitStatus",
+            "",
+        )
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -139,7 +138,9 @@ def deserialize_json(data: dict) -> GetGatewayRateLimitResponse:
             )
         )
     else:
-        raise DeserializationError("GetGatewayRateLimitResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -149,5 +150,7 @@ def deserialize_json(data: dict) -> GetGatewayRateLimitResponse:
             )
         )
     else:
-        raise DeserializationError("GetGatewayRateLimitResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

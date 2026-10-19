@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.logging_level
 
@@ -33,5 +31,9 @@ def deserialize_json(data: dict) -> LoggingOptions:
             data["level"]
         )
     else:
-        raise DeserializationError("LoggingOptions.level required")
+        import typing
+
+        out["level"] = typing.cast(
+            "capo_iotsitewise.types.logging_level.LoggingLevel", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.non_empty_string
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> CvssScoreAdjustment:
     if data.get("metric") is not None:
         out["metric"] = data["metric"]
     else:
-        raise DeserializationError("CvssScoreAdjustment.metric required")
+        out["metric"] = ""
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
     else:
-        raise DeserializationError("CvssScoreAdjustment.reason required")
+        out["reason"] = ""
     return out

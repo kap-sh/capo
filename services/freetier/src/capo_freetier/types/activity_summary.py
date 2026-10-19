@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_freetier.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_freetier.types.activity_id
     import capo_freetier.types.activity_reward
@@ -47,11 +45,11 @@ def deserialize_aws_json_1_0(data: dict) -> ActivitySummary:
     if data.get("activityId") is not None:
         out["activity_id"] = data["activityId"]
     else:
-        raise DeserializationError("ActivitySummary.activity_id required")
+        out["activity_id"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("ActivitySummary.title required")
+        out["title"] = ""
     if data.get("reward") is not None:
         import capo_freetier.types.activity_reward
 
@@ -59,7 +57,9 @@ def deserialize_aws_json_1_0(data: dict) -> ActivitySummary:
             data["reward"]
         )
     else:
-        raise DeserializationError("ActivitySummary.reward required")
+        import capo_freetier.types._unknown
+
+        out["reward"] = capo_freetier.types._unknown.UnknownUnionMember("")
     if data.get("status") is not None:
         import capo_freetier.types.activity_status
 
@@ -67,5 +67,9 @@ def deserialize_aws_json_1_0(data: dict) -> ActivitySummary:
             data["status"]
         )
     else:
-        raise DeserializationError("ActivitySummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_freetier.types.activity_status.ActivityStatus", ""
+        )
     return out

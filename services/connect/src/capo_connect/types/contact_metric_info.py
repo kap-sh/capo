@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.contact_metric_name
 
@@ -33,5 +31,9 @@ def deserialize_json(data: dict) -> ContactMetricInfo:
             data["Name"]
         )
     else:
-        raise DeserializationError("ContactMetricInfo.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_connect.types.contact_metric_name.ContactMetricName", ""
+        )
     return out

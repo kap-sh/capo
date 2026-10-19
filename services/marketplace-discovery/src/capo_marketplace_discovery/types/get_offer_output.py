@@ -119,11 +119,11 @@ def deserialize_json(data: dict) -> GetOfferOutput:
     if data.get("offerId") is not None:
         out["offer_id"] = data["offerId"]
     else:
-        raise DeserializationError("GetOfferOutput.offer_id required")
+        out["offer_id"] = ""
     if data.get("catalog") is not None:
         out["catalog"] = data["catalog"]
     else:
-        raise DeserializationError("GetOfferOutput.catalog required")
+        out["catalog"] = ""
     if data.get("offerName") is not None:
         out["offer_name"] = data["offerName"]
     if data.get("expirationTime") is not None:
@@ -161,11 +161,11 @@ def deserialize_json(data: dict) -> GetOfferOutput:
             )
         )
     else:
-        raise DeserializationError("GetOfferOutput.associated_entities required")
+        out["associated_entities"] = []
     if data.get("agreementProposalId") is not None:
         out["agreement_proposal_id"] = data["agreementProposalId"]
     else:
-        raise DeserializationError("GetOfferOutput.agreement_proposal_id required")
+        out["agreement_proposal_id"] = ""
     if data.get("replacementAgreementId") is not None:
         out["replacement_agreement_id"] = data["replacementAgreementId"]
     if data.get("pricingModel") is not None:
@@ -187,5 +187,5 @@ def deserialize_json(data: dict) -> GetOfferOutput:
             )
         )
     else:
-        raise DeserializationError("GetOfferOutput.badges required")
+        out["badges"] = []
     return out

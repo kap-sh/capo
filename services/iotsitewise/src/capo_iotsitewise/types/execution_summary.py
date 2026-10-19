@@ -80,7 +80,7 @@ def deserialize_json(data: dict) -> ExecutionSummary:
     if data.get("executionId") is not None:
         out["execution_id"] = data["executionId"]
     else:
-        raise DeserializationError("ExecutionSummary.execution_id required")
+        out["execution_id"] = ""
     if data.get("actionType") is not None:
         out["action_type"] = data["actionType"]
     if data.get("targetResource") is not None:
@@ -96,7 +96,7 @@ def deserialize_json(data: dict) -> ExecutionSummary:
     if data.get("targetResourceVersion") is not None:
         out["target_resource_version"] = data["targetResourceVersion"]
     else:
-        raise DeserializationError("ExecutionSummary.target_resource_version required")
+        out["target_resource_version"] = ""
     if data.get("resolveTo") is not None:
         import capo_iotsitewise.types.resolve_to
 
@@ -110,7 +110,11 @@ def deserialize_json(data: dict) -> ExecutionSummary:
             data["executionStartTime"]
         )
     else:
-        raise DeserializationError("ExecutionSummary.execution_start_time required")
+        import datetime
+
+        out["execution_start_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("executionEndTime") is not None:
         import capo_iotsitewise.types.timestamp
 

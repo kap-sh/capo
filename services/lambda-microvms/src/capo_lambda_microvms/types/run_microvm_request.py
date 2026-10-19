@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda_microvms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_microvms.types.idle_policy
     import capo_lambda_microvms.types.logging
@@ -113,7 +111,7 @@ def deserialize_json(data: dict) -> RunMicrovmRequest:
     if data.get("imageIdentifier") is not None:
         out["image_identifier"] = data["imageIdentifier"]
     else:
-        raise DeserializationError("RunMicrovmRequest.image_identifier required")
+        out["image_identifier"] = ""
     if data.get("imageVersion") is not None:
         out["image_version"] = data["imageVersion"]
     if data.get("executionRoleArn") is not None:

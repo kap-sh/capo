@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_auditmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auditmanager.types.account_id
     import capo_auditmanager.types.region
@@ -41,15 +39,11 @@ def deserialize_json(data: dict) -> StartAssessmentFrameworkShareRequest:
     if data.get("destinationAccount") is not None:
         out["destination_account"] = data["destinationAccount"]
     else:
-        raise DeserializationError(
-            "StartAssessmentFrameworkShareRequest.destination_account required"
-        )
+        out["destination_account"] = ""
     if data.get("destinationRegion") is not None:
         out["destination_region"] = data["destinationRegion"]
     else:
-        raise DeserializationError(
-            "StartAssessmentFrameworkShareRequest.destination_region required"
-        )
+        out["destination_region"] = ""
     if data.get("comment") is not None:
         out["comment"] = data["comment"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.email_address
     import capo_sesv2.types.suppressed_destination_attributes
@@ -61,7 +59,7 @@ def deserialize_json(data: dict) -> SuppressedDestination:
     if data.get("EmailAddress") is not None:
         out["email_address"] = data["EmailAddress"]
     else:
-        raise DeserializationError("SuppressedDestination.email_address required")
+        out["email_address"] = ""
     if data.get("Reason") is not None:
         import capo_sesv2.types.suppression_list_reason
 
@@ -69,7 +67,11 @@ def deserialize_json(data: dict) -> SuppressedDestination:
             data["Reason"]
         )
     else:
-        raise DeserializationError("SuppressedDestination.reason required")
+        import typing
+
+        out["reason"] = typing.cast(
+            "capo_sesv2.types.suppression_list_reason.SuppressionListReason", ""
+        )
     if data.get("LastUpdateTime") is not None:
         import capo_sesv2.types.timestamp
 
@@ -77,7 +79,11 @@ def deserialize_json(data: dict) -> SuppressedDestination:
             data["LastUpdateTime"]
         )
     else:
-        raise DeserializationError("SuppressedDestination.last_update_time required")
+        import datetime
+
+        out["last_update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("Attributes") is not None:
         import capo_sesv2.types.suppressed_destination_attributes
 

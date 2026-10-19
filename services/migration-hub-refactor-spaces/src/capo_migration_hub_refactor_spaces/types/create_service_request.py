@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migration_hub_refactor_spaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migration_hub_refactor_spaces.types.application_id
     import capo_migration_hub_refactor_spaces.types.client_token
@@ -95,7 +93,7 @@ def deserialize_json(data: dict) -> CreateServiceRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateServiceRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("VpcId") is not None:
@@ -103,7 +101,7 @@ def deserialize_json(data: dict) -> CreateServiceRequest:
     if data.get("EndpointType") is not None:
         out["endpoint_type"] = data["EndpointType"]
     else:
-        raise DeserializationError("CreateServiceRequest.endpoint_type required")
+        out["endpoint_type"] = ""
     if data.get("UrlEndpoint") is not None:
         import capo_migration_hub_refactor_spaces.types.url_endpoint_input
 

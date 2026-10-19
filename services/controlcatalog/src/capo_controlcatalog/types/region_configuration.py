@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_controlcatalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_controlcatalog.types.control_scope
     import capo_controlcatalog.types.deployable_regions
@@ -48,7 +46,11 @@ def deserialize_json(data: dict) -> RegionConfiguration:
             data["Scope"]
         )
     else:
-        raise DeserializationError("RegionConfiguration.scope required")
+        import typing
+
+        out["scope"] = typing.cast(
+            "capo_controlcatalog.types.control_scope.ControlScope", ""
+        )
     if data.get("DeployableRegions") is not None:
         import capo_controlcatalog.types.deployable_regions
 

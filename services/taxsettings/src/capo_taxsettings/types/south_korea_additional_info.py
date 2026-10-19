@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_taxsettings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_taxsettings.types.business_representative_name
     import capo_taxsettings.types.item_of_business
@@ -37,15 +35,13 @@ def deserialize_json(data: dict) -> SouthKoreaAdditionalInfo:
     if data.get("businessRepresentativeName") is not None:
         out["business_representative_name"] = data["businessRepresentativeName"]
     else:
-        raise DeserializationError(
-            "SouthKoreaAdditionalInfo.business_representative_name required"
-        )
+        out["business_representative_name"] = ""
     if data.get("lineOfBusiness") is not None:
         out["line_of_business"] = data["lineOfBusiness"]
     else:
-        raise DeserializationError("SouthKoreaAdditionalInfo.line_of_business required")
+        out["line_of_business"] = ""
     if data.get("itemOfBusiness") is not None:
         out["item_of_business"] = data["itemOfBusiness"]
     else:
-        raise DeserializationError("SouthKoreaAdditionalInfo.item_of_business required")
+        out["item_of_business"] = ""
     return out

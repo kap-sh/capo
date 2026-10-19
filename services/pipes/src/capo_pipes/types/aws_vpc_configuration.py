@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pipes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pipes.types.assign_public_ip
     import capo_pipes.types.security_groups
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> AwsVpcConfiguration:
 
         out["subnets"] = capo_pipes.types.subnets.deserialize_json(data["Subnets"])
     else:
-        raise DeserializationError("AwsVpcConfiguration.subnets required")
+        out["subnets"] = []
     if data.get("SecurityGroups") is not None:
         import capo_pipes.types.security_groups
 

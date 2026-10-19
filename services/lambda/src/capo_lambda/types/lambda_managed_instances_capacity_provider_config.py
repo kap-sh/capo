@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.capacity_provider_arn
     import capo_lambda.types.execution_environment_memory_gi_b_per_v_cpu
@@ -52,9 +50,7 @@ def deserialize_json(data: dict) -> LambdaManagedInstancesCapacityProviderConfig
     if data.get("CapacityProviderArn") is not None:
         out["capacity_provider_arn"] = data["CapacityProviderArn"]
     else:
-        raise DeserializationError(
-            "LambdaManagedInstancesCapacityProviderConfig.capacity_provider_arn required"
-        )
+        out["capacity_provider_arn"] = ""
     if data.get("PerExecutionEnvironmentMaxConcurrency") is not None:
         out["per_execution_environment_max_concurrency"] = data[
             "PerExecutionEnvironmentMaxConcurrency"

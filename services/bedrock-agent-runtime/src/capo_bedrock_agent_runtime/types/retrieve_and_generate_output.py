@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 
 class RetrieveAndGenerateOutput(TypedDict, closed=True):
     text: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> RetrieveAndGenerateOutput:
     if data.get("text") is not None:
         out["text"] = data["text"]
     else:
-        raise DeserializationError("RetrieveAndGenerateOutput.text required")
+        out["text"] = ""
     return out

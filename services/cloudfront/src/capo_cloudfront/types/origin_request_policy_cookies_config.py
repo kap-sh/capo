@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.cookie_names
@@ -48,8 +47,11 @@ def deserialize_xml(el: Element) -> OriginRequestPolicyCookiesConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "OriginRequestPolicyCookiesConfig.cookie_behavior required"
+        import typing
+
+        out["cookie_behavior"] = typing.cast(
+            "capo_cloudfront.types.origin_request_policy_cookie_behavior.OriginRequestPolicyCookieBehavior",
+            "",
         )
     child_cookies = el.find("Cookies")
     if child_cookies is not None:

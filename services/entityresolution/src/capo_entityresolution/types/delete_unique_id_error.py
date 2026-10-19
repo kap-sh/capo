@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.delete_unique_id_error_type
     import capo_entityresolution.types.header_safe_unique_id
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> DeleteUniqueIdError:
     if data.get("uniqueId") is not None:
         out["unique_id"] = data["uniqueId"]
     else:
-        raise DeserializationError("DeleteUniqueIdError.unique_id required")
+        out["unique_id"] = ""
     if data.get("errorType") is not None:
         import capo_entityresolution.types.delete_unique_id_error_type
 
@@ -47,5 +45,10 @@ def deserialize_json(data: dict) -> DeleteUniqueIdError:
             )
         )
     else:
-        raise DeserializationError("DeleteUniqueIdError.error_type required")
+        import typing
+
+        out["error_type"] = typing.cast(
+            "capo_entityresolution.types.delete_unique_id_error_type.DeleteUniqueIdErrorType",
+            "",
+        )
     return out

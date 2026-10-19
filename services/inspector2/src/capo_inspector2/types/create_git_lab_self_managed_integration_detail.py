@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.git_lab_access_token
     import capo_inspector2.types.instance_url
@@ -31,15 +29,11 @@ def deserialize_json(data: dict) -> CreateGitLabSelfManagedIntegrationDetail:
     if data.get("instanceUrl") is not None:
         out["instance_url"] = data["instanceUrl"]
     else:
-        raise DeserializationError(
-            "CreateGitLabSelfManagedIntegrationDetail.instance_url required"
-        )
+        out["instance_url"] = ""
     if data.get("accessToken") is not None:
         out["access_token"] = data["accessToken"]
     else:
-        raise DeserializationError(
-            "CreateGitLabSelfManagedIntegrationDetail.access_token required"
-        )
+        out["access_token"] = ""
     return out
 
 

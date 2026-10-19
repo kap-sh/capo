@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.instance_id
     import capo_connect.types.traffic_distribution_group_id_or_arn
@@ -34,13 +32,9 @@ def deserialize_json(data: dict) -> AssociateTrafficDistributionGroupUserRequest
     if data.get("UserId") is not None:
         out["user_id"] = data["UserId"]
     else:
-        raise DeserializationError(
-            "AssociateTrafficDistributionGroupUserRequest.user_id required"
-        )
+        out["user_id"] = ""
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError(
-            "AssociateTrafficDistributionGroupUserRequest.instance_id required"
-        )
+        out["instance_id"] = ""
     return out

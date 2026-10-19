@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.string
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> SavedObjectIdentifier:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("SavedObjectIdentifier.type required")
+        out["type"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("SavedObjectIdentifier.id required")
+        out["id"] = ""
     return out

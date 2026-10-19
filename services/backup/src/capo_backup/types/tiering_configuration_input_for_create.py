@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.backup_vault_name_or_wildcard
     import capo_backup.types.resource_selections
@@ -43,15 +41,11 @@ def deserialize_json(data: dict) -> TieringConfigurationInputForCreate:
     if data.get("TieringConfigurationName") is not None:
         out["tiering_configuration_name"] = data["TieringConfigurationName"]
     else:
-        raise DeserializationError(
-            "TieringConfigurationInputForCreate.tiering_configuration_name required"
-        )
+        out["tiering_configuration_name"] = ""
     if data.get("BackupVaultName") is not None:
         out["backup_vault_name"] = data["BackupVaultName"]
     else:
-        raise DeserializationError(
-            "TieringConfigurationInputForCreate.backup_vault_name required"
-        )
+        out["backup_vault_name"] = ""
     if data.get("ResourceSelection") is not None:
         import capo_backup.types.resource_selections
 
@@ -61,7 +55,5 @@ def deserialize_json(data: dict) -> TieringConfigurationInputForCreate:
             )
         )
     else:
-        raise DeserializationError(
-            "TieringConfigurationInputForCreate.resource_selection required"
-        )
+        out["resource_selection"] = []
     return out

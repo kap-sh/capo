@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.child_policy
     import capo_swf.types.workflow_execution_timeout_type
@@ -49,8 +47,11 @@ def deserialize_aws_json_1_0(data: dict) -> WorkflowExecutionTimedOutEventAttrib
             )
         )
     else:
-        raise DeserializationError(
-            "WorkflowExecutionTimedOutEventAttributes.timeout_type required"
+        import typing
+
+        out["timeout_type"] = typing.cast(
+            "capo_swf.types.workflow_execution_timeout_type.WorkflowExecutionTimeoutType",
+            "",
         )
     if data.get("childPolicy") is not None:
         import capo_swf.types.child_policy
@@ -59,7 +60,7 @@ def deserialize_aws_json_1_0(data: dict) -> WorkflowExecutionTimedOutEventAttrib
             data["childPolicy"]
         )
     else:
-        raise DeserializationError(
-            "WorkflowExecutionTimedOutEventAttributes.child_policy required"
-        )
+        import typing
+
+        out["child_policy"] = typing.cast("capo_swf.types.child_policy.ChildPolicy", "")
     return out

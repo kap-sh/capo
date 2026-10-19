@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.batch_delete_error_list
     import capo_application_signals.types.batch_delete_successful_deletion_list
@@ -48,9 +46,7 @@ def deserialize_json(data: dict) -> BatchDeleteInstrumentationConfigurationsResp
     if data.get("DeletedCount") is not None:
         out["deleted_count"] = data["DeletedCount"]
     else:
-        raise DeserializationError(
-            "BatchDeleteInstrumentationConfigurationsResponse.deleted_count required"
-        )
+        out["deleted_count"] = 0
     if data.get("SuccessfulDeletions") is not None:
         import capo_application_signals.types.batch_delete_successful_deletion_list
 
@@ -60,9 +56,7 @@ def deserialize_json(data: dict) -> BatchDeleteInstrumentationConfigurationsResp
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDeleteInstrumentationConfigurationsResponse.successful_deletions required"
-        )
+        out["successful_deletions"] = []
     if data.get("Errors") is not None:
         import capo_application_signals.types.batch_delete_error_list
 
@@ -72,7 +66,5 @@ def deserialize_json(data: dict) -> BatchDeleteInstrumentationConfigurationsResp
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDeleteInstrumentationConfigurationsResponse.errors required"
-        )
+        out["errors"] = []
     return out

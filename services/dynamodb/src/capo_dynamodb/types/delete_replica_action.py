@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.region_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteReplicaAction:
     if data.get("RegionName") is not None:
         out["region_name"] = data["RegionName"]
     else:
-        raise DeserializationError("DeleteReplicaAction.region_name required")
+        out["region_name"] = ""
     return out

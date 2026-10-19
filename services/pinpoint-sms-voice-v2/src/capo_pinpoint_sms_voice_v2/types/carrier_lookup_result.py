@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.carrier_lookup_input_phone_number_type
     import capo_pinpoint_sms_voice_v2.types.dialing_country_code_type
@@ -74,7 +72,7 @@ def deserialize_aws_json_1_0(data: dict) -> CarrierLookupResult:
     if data.get("E164PhoneNumber") is not None:
         out["e164_phone_number"] = data["E164PhoneNumber"]
     else:
-        raise DeserializationError("CarrierLookupResult.e164_phone_number required")
+        out["e164_phone_number"] = ""
     if data.get("DialingCountryCode") is not None:
         out["dialing_country_code"] = data["DialingCountryCode"]
     if data.get("IsoCountryCode") is not None:
@@ -90,7 +88,7 @@ def deserialize_aws_json_1_0(data: dict) -> CarrierLookupResult:
     if data.get("PhoneNumberType") is not None:
         out["phone_number_type"] = data["PhoneNumberType"]
     else:
-        raise DeserializationError("CarrierLookupResult.phone_number_type required")
+        out["phone_number_type"] = ""
     if data.get("OriginalPhoneNumber") is not None:
         out["original_phone_number"] = data["OriginalPhoneNumber"]
     return out

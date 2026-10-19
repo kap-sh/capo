@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces_thin_client.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_thin_client.types.software_set_id
     import capo_workspaces_thin_client.types.software_set_validation_status
@@ -42,7 +40,10 @@ def deserialize_json(data: dict) -> UpdateSoftwareSetRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateSoftwareSetRequest.validation_status required"
+        import typing
+
+        out["validation_status"] = typing.cast(
+            "capo_workspaces_thin_client.types.software_set_validation_status.SoftwareSetValidationStatus",
+            "",
         )
     return out

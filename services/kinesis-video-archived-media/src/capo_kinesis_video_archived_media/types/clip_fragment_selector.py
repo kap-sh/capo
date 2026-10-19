@@ -49,8 +49,11 @@ def deserialize_json(data: dict) -> ClipFragmentSelector:
             )
         )
     else:
-        raise DeserializationError(
-            "ClipFragmentSelector.fragment_selector_type required"
+        import typing
+
+        out["fragment_selector_type"] = typing.cast(
+            "capo_kinesis_video_archived_media.types.clip_fragment_selector_type.ClipFragmentSelectorType",
+            "",
         )
     if data.get("TimestampRange") is not None:
         import capo_kinesis_video_archived_media.types.clip_timestamp_range

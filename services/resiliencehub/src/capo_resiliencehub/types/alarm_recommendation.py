@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.alarm_type
     import capo_resiliencehub.types.app_component_name_list
@@ -94,15 +92,15 @@ def deserialize_json(data: dict) -> AlarmRecommendation:
     if data.get("recommendationId") is not None:
         out["recommendation_id"] = data["recommendationId"]
     else:
-        raise DeserializationError("AlarmRecommendation.recommendation_id required")
+        out["recommendation_id"] = ""
     if data.get("referenceId") is not None:
         out["reference_id"] = data["referenceId"]
     else:
-        raise DeserializationError("AlarmRecommendation.reference_id required")
+        out["reference_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AlarmRecommendation.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("type") is not None:
@@ -110,7 +108,9 @@ def deserialize_json(data: dict) -> AlarmRecommendation:
 
         out["type"] = capo_resiliencehub.types.alarm_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("AlarmRecommendation.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_resiliencehub.types.alarm_type.AlarmType", "")
     if data.get("appComponentName") is not None:
         out["app_component_name"] = data["appComponentName"]
     if data.get("items") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_tnb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_tnb.types.list_sol_function_package_resources
     import capo_tnb.types.pagination_token
@@ -46,7 +44,5 @@ def deserialize_json(data: dict) -> ListSolFunctionPackagesOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListSolFunctionPackagesOutput.function_packages required"
-        )
+        out["function_packages"] = []
     return out

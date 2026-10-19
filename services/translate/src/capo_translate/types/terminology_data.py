@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_translate.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_translate.types.directionality
     import capo_translate.types.terminology_data_format
@@ -54,7 +52,7 @@ def deserialize_aws_json_1_1(data: dict) -> TerminologyData:
             data["File"]
         )
     else:
-        raise DeserializationError("TerminologyData.file required")
+        out["file"] = b""
     if data.get("Format") is not None:
         import capo_translate.types.terminology_data_format
 
@@ -64,7 +62,11 @@ def deserialize_aws_json_1_1(data: dict) -> TerminologyData:
             )
         )
     else:
-        raise DeserializationError("TerminologyData.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_translate.types.terminology_data_format.TerminologyDataFormat", ""
+        )
     if data.get("Directionality") is not None:
         import capo_translate.types.directionality
 

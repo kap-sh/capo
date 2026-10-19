@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_compute_optimizer_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -54,8 +52,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateEnrollmentConfigurationRespons
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateEnrollmentConfigurationResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_compute_optimizer_automation.types.enrollment_status.EnrollmentStatus",
+            "",
         )
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
@@ -68,7 +69,9 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateEnrollmentConfigurationRespons
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateEnrollmentConfigurationResponse.last_updated_timestamp required"
+        import datetime
+
+        out["last_updated_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

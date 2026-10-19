@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.object_identifier_list
@@ -40,7 +39,7 @@ def deserialize_xml(el: Element) -> Delete:
             el, "Object"
         )
     else:
-        raise DeserializationError("Delete.objects required")
+        out["objects"] = []
     child_quiet = el.find("Quiet")
     if child_quiet is not None:
         out["quiet"] = (child_quiet.text or "").lower() == "true"

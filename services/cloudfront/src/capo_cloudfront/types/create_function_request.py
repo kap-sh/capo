@@ -50,7 +50,7 @@ def deserialize_xml(el: Element) -> CreateFunctionRequest:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("CreateFunctionRequest.name required")
+        out["name"] = ""
     child_function_config = el.find("FunctionConfig")
     if child_function_config is not None:
         import capo_cloudfront.types.function_config
@@ -68,7 +68,7 @@ def deserialize_xml(el: Element) -> CreateFunctionRequest:
             child_function_code
         )
     else:
-        raise DeserializationError("CreateFunctionRequest.function_code required")
+        out["function_code"] = b""
     child_tags = el.find("Tags")
     if child_tags is not None:
         import capo_cloudfront.types.tags

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.dynamic_ssm_parameters
     import capo_ssm_incidents.types.role_arn
@@ -63,11 +61,11 @@ def deserialize_json(data: dict) -> SsmAutomation:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("SsmAutomation.role_arn required")
+        out["role_arn"] = ""
     if data.get("documentName") is not None:
         out["document_name"] = data["documentName"]
     else:
-        raise DeserializationError("SsmAutomation.document_name required")
+        out["document_name"] = ""
     if data.get("documentVersion") is not None:
         out["document_version"] = data["documentVersion"]
     if data.get("targetAccount") is not None:

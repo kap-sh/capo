@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_definition
     import capo_bedrock.types.automated_reasoning_policy_description
@@ -66,9 +64,7 @@ def deserialize_json(data: dict) -> CreateAutomatedReasoningPolicyRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "CreateAutomatedReasoningPolicyRequest.name required"
-        )
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("clientRequestToken") is not None:

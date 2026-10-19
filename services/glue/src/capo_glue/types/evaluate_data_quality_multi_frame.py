@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.dq_additional_options
     import capo_glue.types.dq_results_publishing_options
@@ -87,7 +85,7 @@ def deserialize_aws_json_1_1(data: dict) -> EvaluateDataQualityMultiFrame:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("EvaluateDataQualityMultiFrame.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.many_inputs
 
@@ -95,7 +93,7 @@ def deserialize_aws_json_1_1(data: dict) -> EvaluateDataQualityMultiFrame:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("EvaluateDataQualityMultiFrame.inputs required")
+        out["inputs"] = []
     if data.get("AdditionalDataSources") is not None:
         import capo_glue.types.dqdl_aliases
 
@@ -107,7 +105,7 @@ def deserialize_aws_json_1_1(data: dict) -> EvaluateDataQualityMultiFrame:
     if data.get("Ruleset") is not None:
         out["ruleset"] = data["Ruleset"]
     else:
-        raise DeserializationError("EvaluateDataQualityMultiFrame.ruleset required")
+        out["ruleset"] = ""
     if data.get("PublishingOptions") is not None:
         import capo_glue.types.dq_results_publishing_options
 

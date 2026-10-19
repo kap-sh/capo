@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.catalog_id_string
     import capo_lakeformation.types.name_string
@@ -56,11 +54,11 @@ def deserialize_json(data: dict) -> UpdateTableObjectsRequest:
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError("UpdateTableObjectsRequest.database_name required")
+        out["database_name"] = ""
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("UpdateTableObjectsRequest.table_name required")
+        out["table_name"] = ""
     if data.get("TransactionId") is not None:
         out["transaction_id"] = data["TransactionId"]
     if data.get("WriteOperations") is not None:
@@ -72,7 +70,5 @@ def deserialize_json(data: dict) -> UpdateTableObjectsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateTableObjectsRequest.write_operations required"
-        )
+        out["write_operations"] = []
     return out

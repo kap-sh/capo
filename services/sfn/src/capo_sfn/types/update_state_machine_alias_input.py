@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.alias_description
     import capo_sfn.types.arn
@@ -45,9 +43,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateStateMachineAliasInput:
     if data.get("stateMachineAliasArn") is not None:
         out["state_machine_alias_arn"] = data["stateMachineAliasArn"]
     else:
-        raise DeserializationError(
-            "UpdateStateMachineAliasInput.state_machine_alias_arn required"
-        )
+        out["state_machine_alias_arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("routingConfiguration") is not None:

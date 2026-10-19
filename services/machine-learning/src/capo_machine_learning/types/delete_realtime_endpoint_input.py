@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_machine_learning.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_machine_learning.types.entity_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteRealtimeEndpointInput:
     if data.get("MLModelId") is not None:
         out["ml_model_id"] = data["MLModelId"]
     else:
-        raise DeserializationError("DeleteRealtimeEndpointInput.ml_model_id required")
+        out["ml_model_id"] = ""
     return out

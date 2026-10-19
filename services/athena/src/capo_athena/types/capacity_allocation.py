@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.capacity_allocation_status
     import capo_athena.types.string
@@ -60,7 +58,11 @@ def deserialize_aws_json_1_1(data: dict) -> CapacityAllocation:
             )
         )
     else:
-        raise DeserializationError("CapacityAllocation.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_athena.types.capacity_allocation_status.CapacityAllocationStatus", ""
+        )
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
     if data.get("RequestTime") is not None:
@@ -70,7 +72,11 @@ def deserialize_aws_json_1_1(data: dict) -> CapacityAllocation:
             data["RequestTime"]
         )
     else:
-        raise DeserializationError("CapacityAllocation.request_time required")
+        import datetime
+
+        out["request_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("RequestCompletionTime") is not None:
         import capo_athena.types.timestamp
 

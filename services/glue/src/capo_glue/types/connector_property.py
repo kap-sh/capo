@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.bool
     import capo_glue.types.connector_property_key
@@ -74,13 +72,13 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectorProperty:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ConnectorProperty.name required")
+        out["name"] = ""
     if data.get("KeyOverride") is not None:
         out["key_override"] = data["KeyOverride"]
     if data.get("Required") is not None:
         out["required"] = data["Required"]
     else:
-        raise DeserializationError("ConnectorProperty.required required")
+        out["required"] = False
     if data.get("DefaultValue") is not None:
         out["default_value"] = data["DefaultValue"]
     if data.get("AllowedValues") is not None:
@@ -104,7 +102,11 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectorProperty:
             data["PropertyType"]
         )
     else:
-        raise DeserializationError("ConnectorProperty.property_type required")
+        import typing
+
+        out["property_type"] = typing.cast(
+            "capo_glue.types.property_type.PropertyType", ""
+        )
     if data.get("Format") is not None:
         out["format"] = data["Format"]
     return out

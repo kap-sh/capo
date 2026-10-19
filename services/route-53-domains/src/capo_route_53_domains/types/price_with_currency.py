@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route_53_domains.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route_53_domains.types.currency
     import capo_route_53_domains.types.price
@@ -54,7 +52,7 @@ def deserialize_aws_json_1_1(data: dict) -> PriceWithCurrency:
     if data.get("Currency") is not None:
         out["currency"] = data["Currency"]
     else:
-        raise DeserializationError("PriceWithCurrency.currency required")
+        out["currency"] = ""
     if data.get("PriceType") is not None:
         import capo_route_53_domains.types.price_type
 

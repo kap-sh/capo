@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_simpledbv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_simpledbv2.types.export_arn
     import capo_simpledbv2.types.idempotency_token
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> StartDomainExportResponse:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("StartDomainExportResponse.client_token required")
+        out["client_token"] = ""
     if data.get("exportArn") is not None:
         out["export_arn"] = data["exportArn"]
     else:
-        raise DeserializationError("StartDomainExportResponse.export_arn required")
+        out["export_arn"] = ""
     if data.get("requestedAt") is not None:
         import capo_simpledbv2.types.requested_at
 
@@ -51,5 +49,9 @@ def deserialize_json(data: dict) -> StartDomainExportResponse:
             data["requestedAt"]
         )
     else:
-        raise DeserializationError("StartDomainExportResponse.requested_at required")
+        import datetime
+
+        out["requested_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

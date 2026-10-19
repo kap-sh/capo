@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transcribe.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe.types.transcription_job_name
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetMedicalScribeJobRequest:
     if data.get("MedicalScribeJobName") is not None:
         out["medical_scribe_job_name"] = data["MedicalScribeJobName"]
     else:
-        raise DeserializationError(
-            "GetMedicalScribeJobRequest.medical_scribe_job_name required"
-        )
+        out["medical_scribe_job_name"] = ""
     return out

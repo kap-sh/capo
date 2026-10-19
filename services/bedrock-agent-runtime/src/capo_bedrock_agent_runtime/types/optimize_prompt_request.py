@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.input_prompt
 
@@ -38,11 +36,13 @@ def deserialize_json(data: dict) -> OptimizePromptRequest:
             data["input"]
         )
     else:
-        raise DeserializationError("OptimizePromptRequest.input required")
+        import capo_bedrock_agent_runtime.types._unknown
+
+        out["input"] = capo_bedrock_agent_runtime.types._unknown.UnknownUnionMember("")
     if data.get("targetModelId") is not None:
         out["target_model_id"] = data["targetModelId"]
     else:
-        raise DeserializationError("OptimizePromptRequest.target_model_id required")
+        out["target_model_id"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.conversation_level_test_results_filter_by
     import capo_lex_models_v2.types.test_result_type_filter
@@ -54,8 +52,10 @@ def deserialize_json(data: dict) -> TestExecutionResultFilterBy:
             )
         )
     else:
-        raise DeserializationError(
-            "TestExecutionResultFilterBy.result_type_filter required"
+        import typing
+
+        out["result_type_filter"] = typing.cast(
+            "capo_lex_models_v2.types.test_result_type_filter.TestResultTypeFilter", ""
         )
     if data.get("conversationLevelTestResultsFilterBy") is not None:
         import capo_lex_models_v2.types.conversation_level_test_results_filter_by

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.action_failure_policy
     import capo_mailmanager.types.name_or_arn
@@ -48,5 +46,5 @@ def deserialize_aws_json_1_0(data: dict) -> ArchiveAction:
     if data.get("TargetArchive") is not None:
         out["target_archive"] = data["TargetArchive"]
     else:
-        raise DeserializationError("ArchiveAction.target_archive required")
+        out["target_archive"] = ""
     return out

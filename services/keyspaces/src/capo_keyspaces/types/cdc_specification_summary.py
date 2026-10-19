@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_keyspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_keyspaces.types.cdc_status
     import capo_keyspaces.types.view_type
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_0(data: dict) -> CdcSpecificationSummary:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("CdcSpecificationSummary.status required")
+        out["status"] = ""
     if data.get("viewType") is not None:
         out["view_type"] = data["viewType"]
     return out

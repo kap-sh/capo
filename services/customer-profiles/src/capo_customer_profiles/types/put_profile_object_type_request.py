@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.boolean
     import capo_customer_profiles.types.encryption_key
@@ -99,7 +97,7 @@ def deserialize_json(data: dict) -> PutProfileObjectTypeRequest:
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("PutProfileObjectTypeRequest.description required")
+        out["description"] = ""
     if data.get("TemplateId") is not None:
         out["template_id"] = data["TemplateId"]
     if data.get("ExpirationDays") is not None:

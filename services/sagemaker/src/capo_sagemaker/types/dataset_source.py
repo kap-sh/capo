@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sagemaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker.types.hub_data_set_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DatasetSource:
     if data.get("DatasetArn") is not None:
         out["dataset_arn"] = data["DatasetArn"]
     else:
-        raise DeserializationError("DatasetSource.dataset_arn required")
+        out["dataset_arn"] = ""
     return out

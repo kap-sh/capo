@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -78,29 +76,23 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRegistrationResult:
     if data.get("RegistrationArn") is not None:
         out["registration_arn"] = data["RegistrationArn"]
     else:
-        raise DeserializationError("CreateRegistrationResult.registration_arn required")
+        out["registration_arn"] = ""
     if data.get("RegistrationId") is not None:
         out["registration_id"] = data["RegistrationId"]
     else:
-        raise DeserializationError("CreateRegistrationResult.registration_id required")
+        out["registration_id"] = ""
     if data.get("RegistrationType") is not None:
         out["registration_type"] = data["RegistrationType"]
     else:
-        raise DeserializationError(
-            "CreateRegistrationResult.registration_type required"
-        )
+        out["registration_type"] = ""
     if data.get("RegistrationStatus") is not None:
         out["registration_status"] = data["RegistrationStatus"]
     else:
-        raise DeserializationError(
-            "CreateRegistrationResult.registration_status required"
-        )
+        out["registration_status"] = ""
     if data.get("CurrentVersionNumber") is not None:
         out["current_version_number"] = data["CurrentVersionNumber"]
     else:
-        raise DeserializationError(
-            "CreateRegistrationResult.current_version_number required"
-        )
+        out["current_version_number"] = 0
     if data.get("AdditionalAttributes") is not None:
         import capo_pinpoint_sms_voice_v2.types.string_map
 
@@ -126,7 +118,9 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRegistrationResult:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateRegistrationResult.created_timestamp required"
+        import datetime
+
+        out["created_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

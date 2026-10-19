@@ -40,7 +40,11 @@ def deserialize_json(data: dict) -> IPAddressTypeStatus:
             data["Options"]
         )
     else:
-        raise DeserializationError("IPAddressTypeStatus.options required")
+        import typing
+
+        out["options"] = typing.cast(
+            "capo_opensearch.types.ip_address_type.IPAddressType", ""
+        )
     if data.get("Status") is not None:
         import capo_opensearch.types.option_status
 

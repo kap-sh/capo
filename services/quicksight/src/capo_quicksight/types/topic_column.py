@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.author_specified_aggregations
     import capo_quicksight.types.boolean
@@ -176,7 +174,7 @@ def deserialize_json(data: dict) -> TopicColumn:
     if data.get("ColumnName") is not None:
         out["column_name"] = data["ColumnName"]
     else:
-        raise DeserializationError("TopicColumn.column_name required")
+        out["column_name"] = ""
     if data.get("ColumnFriendlyName") is not None:
         out["column_friendly_name"] = data["ColumnFriendlyName"]
     if data.get("ColumnDescription") is not None:

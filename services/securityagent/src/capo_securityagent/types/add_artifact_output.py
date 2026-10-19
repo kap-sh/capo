@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.artifact_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> AddArtifactOutput:
     if data.get("artifactId") is not None:
         out["artifact_id"] = data["artifactId"]
     else:
-        raise DeserializationError("AddArtifactOutput.artifact_id required")
+        out["artifact_id"] = ""
     return out

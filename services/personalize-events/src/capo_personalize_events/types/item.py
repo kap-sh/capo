@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_personalize_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize_events.types.string_type
     import capo_personalize_events.types.synthesized_json_item_properties
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> Item:
     if data.get("itemId") is not None:
         out["item_id"] = data["itemId"]
     else:
-        raise DeserializationError("Item.item_id required")
+        out["item_id"] = ""
     if data.get("properties") is not None:
         out["properties"] = data["properties"]
     return out

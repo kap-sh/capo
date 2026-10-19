@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.analysis_result_list
     import capo_network_firewall.types.description
@@ -160,15 +158,15 @@ def deserialize_aws_json_1_0(data: dict) -> RuleGroupResponse:
     if data.get("RuleGroupArn") is not None:
         out["rule_group_arn"] = data["RuleGroupArn"]
     else:
-        raise DeserializationError("RuleGroupResponse.rule_group_arn required")
+        out["rule_group_arn"] = ""
     if data.get("RuleGroupName") is not None:
         out["rule_group_name"] = data["RuleGroupName"]
     else:
-        raise DeserializationError("RuleGroupResponse.rule_group_name required")
+        out["rule_group_name"] = ""
     if data.get("RuleGroupId") is not None:
         out["rule_group_id"] = data["RuleGroupId"]
     else:
-        raise DeserializationError("RuleGroupResponse.rule_group_id required")
+        out["rule_group_id"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Type") is not None:

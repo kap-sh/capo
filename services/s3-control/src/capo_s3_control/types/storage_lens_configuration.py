@@ -101,7 +101,7 @@ def deserialize_xml(el: Element) -> StorageLensConfiguration:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("StorageLensConfiguration.id required")
+        out["id"] = ""
     child_account_level = el.find("AccountLevel")
     if child_account_level is not None:
         import capo_s3_control.types.account_level

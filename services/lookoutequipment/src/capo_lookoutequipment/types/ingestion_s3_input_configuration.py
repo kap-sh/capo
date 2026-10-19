@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.key_pattern
     import capo_lookoutequipment.types.s3_bucket
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> IngestionS3InputConfiguration:
     if data.get("Bucket") is not None:
         out["bucket"] = data["Bucket"]
     else:
-        raise DeserializationError("IngestionS3InputConfiguration.bucket required")
+        out["bucket"] = ""
     if data.get("Prefix") is not None:
         out["prefix"] = data["Prefix"]
     if data.get("KeyPattern") is not None:

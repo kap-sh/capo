@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.identifier
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteBatchImportJobRequest:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("DeleteBatchImportJobRequest.job_id required")
+        out["job_id"] = ""
     return out

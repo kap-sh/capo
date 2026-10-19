@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.capability_configuration
     import capo_b2bi.types.capability_id
@@ -72,15 +70,15 @@ def deserialize_aws_json_1_0(data: dict) -> CreateCapabilityResponse:
     if data.get("capabilityId") is not None:
         out["capability_id"] = data["capabilityId"]
     else:
-        raise DeserializationError("CreateCapabilityResponse.capability_id required")
+        out["capability_id"] = ""
     if data.get("capabilityArn") is not None:
         out["capability_arn"] = data["capabilityArn"]
     else:
-        raise DeserializationError("CreateCapabilityResponse.capability_arn required")
+        out["capability_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateCapabilityResponse.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         import capo_b2bi.types.capability_type
 
@@ -88,7 +86,9 @@ def deserialize_aws_json_1_0(data: dict) -> CreateCapabilityResponse:
             data["type"]
         )
     else:
-        raise DeserializationError("CreateCapabilityResponse.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_b2bi.types.capability_type.CapabilityType", "")
     if data.get("configuration") is not None:
         import capo_b2bi.types.capability_configuration
 
@@ -98,7 +98,9 @@ def deserialize_aws_json_1_0(data: dict) -> CreateCapabilityResponse:
             )
         )
     else:
-        raise DeserializationError("CreateCapabilityResponse.configuration required")
+        import capo_b2bi.types._unknown
+
+        out["configuration"] = capo_b2bi.types._unknown.UnknownUnionMember("")
     if data.get("instructionsDocuments") is not None:
         import capo_b2bi.types.instructions_documents
 
@@ -114,5 +116,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateCapabilityResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("CreateCapabilityResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

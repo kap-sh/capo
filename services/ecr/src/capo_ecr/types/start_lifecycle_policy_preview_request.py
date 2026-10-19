@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr.types.lifecycle_policy_text
     import capo_ecr.types.registry_id
@@ -41,9 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartLifecyclePolicyPreviewRequest:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError(
-            "StartLifecyclePolicyPreviewRequest.repository_name required"
-        )
+        out["repository_name"] = ""
     if data.get("lifecyclePolicyText") is not None:
         out["lifecycle_policy_text"] = data["lifecyclePolicyText"]
     return out

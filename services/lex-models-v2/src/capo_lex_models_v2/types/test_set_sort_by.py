@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.sort_order
     import capo_lex_models_v2.types.test_set_sort_attribute
@@ -43,7 +41,11 @@ def deserialize_json(data: dict) -> TestSetSortBy:
             )
         )
     else:
-        raise DeserializationError("TestSetSortBy.attribute required")
+        import typing
+
+        out["attribute"] = typing.cast(
+            "capo_lex_models_v2.types.test_set_sort_attribute.TestSetSortAttribute", ""
+        )
     if data.get("order") is not None:
         import capo_lex_models_v2.types.sort_order
 
@@ -51,5 +53,7 @@ def deserialize_json(data: dict) -> TestSetSortBy:
             data["order"]
         )
     else:
-        raise DeserializationError("TestSetSortBy.order required")
+        import typing
+
+        out["order"] = typing.cast("capo_lex_models_v2.types.sort_order.SortOrder", "")
     return out

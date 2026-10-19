@@ -112,7 +112,7 @@ def deserialize_json(data: dict) -> CapacityProvider:
     if data.get("CapacityProviderArn") is not None:
         out["capacity_provider_arn"] = data["CapacityProviderArn"]
     else:
-        raise DeserializationError("CapacityProvider.capacity_provider_arn required")
+        out["capacity_provider_arn"] = ""
     if data.get("State") is not None:
         import capo_lambda.types.capacity_provider_state
 
@@ -120,7 +120,11 @@ def deserialize_json(data: dict) -> CapacityProvider:
             data["State"]
         )
     else:
-        raise DeserializationError("CapacityProvider.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_lambda.types.capacity_provider_state.CapacityProviderState", ""
+        )
     if data.get("VpcConfig") is not None:
         import capo_lambda.types.capacity_provider_vpc_config
 

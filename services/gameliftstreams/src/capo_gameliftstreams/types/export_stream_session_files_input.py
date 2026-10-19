@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_gameliftstreams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_gameliftstreams.types.identifier
     import capo_gameliftstreams.types.output_uri
@@ -32,5 +30,5 @@ def deserialize_json(data: dict) -> ExportStreamSessionFilesInput:
     if data.get("OutputUri") is not None:
         out["output_uri"] = data["OutputUri"]
     else:
-        raise DeserializationError("ExportStreamSessionFilesInput.output_uri required")
+        out["output_uri"] = ""
     return out

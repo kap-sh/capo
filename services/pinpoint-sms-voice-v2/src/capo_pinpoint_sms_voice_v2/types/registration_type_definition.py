@@ -52,9 +52,7 @@ def deserialize_aws_json_1_0(data: dict) -> RegistrationTypeDefinition:
     if data.get("RegistrationType") is not None:
         out["registration_type"] = data["RegistrationType"]
     else:
-        raise DeserializationError(
-            "RegistrationTypeDefinition.registration_type required"
-        )
+        out["registration_type"] = ""
     if data.get("SupportedAssociations") is not None:
         import capo_pinpoint_sms_voice_v2.types.supported_association_list
 

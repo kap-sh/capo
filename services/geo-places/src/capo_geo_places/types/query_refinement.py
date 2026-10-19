@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_geo_places.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_places.types.sensitive_string
 
@@ -36,19 +34,19 @@ def deserialize_json(data: dict) -> QueryRefinement:
     if data.get("RefinedTerm") is not None:
         out["refined_term"] = data["RefinedTerm"]
     else:
-        raise DeserializationError("QueryRefinement.refined_term required")
+        out["refined_term"] = ""
     if data.get("OriginalTerm") is not None:
         out["original_term"] = data["OriginalTerm"]
     else:
-        raise DeserializationError("QueryRefinement.original_term required")
+        out["original_term"] = ""
     if data.get("StartIndex") is not None:
         out["start_index"] = data["StartIndex"]
     else:
-        raise DeserializationError("QueryRefinement.start_index required")
+        out["start_index"] = 0
     if data.get("EndIndex") is not None:
         out["end_index"] = data["EndIndex"]
     else:
-        raise DeserializationError("QueryRefinement.end_index required")
+        out["end_index"] = 0
     return out
 
 

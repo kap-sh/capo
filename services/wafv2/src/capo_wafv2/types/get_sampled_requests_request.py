@@ -49,19 +49,19 @@ def deserialize_aws_json_1_1(data: dict) -> GetSampledRequestsRequest:
     if data.get("WebAclArn") is not None:
         out["web_acl_arn"] = data["WebAclArn"]
     else:
-        raise DeserializationError("GetSampledRequestsRequest.web_acl_arn required")
+        out["web_acl_arn"] = ""
     if data.get("RuleMetricName") is not None:
         out["rule_metric_name"] = data["RuleMetricName"]
     else:
-        raise DeserializationError(
-            "GetSampledRequestsRequest.rule_metric_name required"
-        )
+        out["rule_metric_name"] = ""
     if data.get("Scope") is not None:
         import capo_wafv2.types.scope
 
         out["scope"] = capo_wafv2.types.scope.deserialize_aws_json_1_1(data["Scope"])
     else:
-        raise DeserializationError("GetSampledRequestsRequest.scope required")
+        import typing
+
+        out["scope"] = typing.cast("capo_wafv2.types.scope.Scope", "")
     if data.get("TimeWindow") is not None:
         import capo_wafv2.types.time_window
 
@@ -73,5 +73,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetSampledRequestsRequest:
     if data.get("MaxItems") is not None:
         out["max_items"] = data["MaxItems"]
     else:
-        raise DeserializationError("GetSampledRequestsRequest.max_items required")
+        out["max_items"] = 0
     return out

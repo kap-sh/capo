@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_compute_optimizer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_compute_optimizer.types.instance_arn
     import capo_compute_optimizer.types.metric_statistic
@@ -67,9 +65,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetEC2RecommendationProjectedMetrics
     if data.get("instanceArn") is not None:
         out["instance_arn"] = data["instanceArn"]
     else:
-        raise DeserializationError(
-            "GetEC2RecommendationProjectedMetricsRequest.instance_arn required"
-        )
+        out["instance_arn"] = ""
     if data.get("stat") is not None:
         import capo_compute_optimizer.types.metric_statistic
 
@@ -79,15 +75,15 @@ def deserialize_aws_json_1_0(data: dict) -> GetEC2RecommendationProjectedMetrics
             )
         )
     else:
-        raise DeserializationError(
-            "GetEC2RecommendationProjectedMetricsRequest.stat required"
+        import typing
+
+        out["stat"] = typing.cast(
+            "capo_compute_optimizer.types.metric_statistic.MetricStatistic", ""
         )
     if data.get("period") is not None:
         out["period"] = data["period"]
     else:
-        raise DeserializationError(
-            "GetEC2RecommendationProjectedMetricsRequest.period required"
-        )
+        out["period"] = 0
     if data.get("startTime") is not None:
         import capo_compute_optimizer.types.timestamp
 
@@ -97,9 +93,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetEC2RecommendationProjectedMetrics
             )
         )
     else:
-        raise DeserializationError(
-            "GetEC2RecommendationProjectedMetricsRequest.start_time required"
-        )
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_compute_optimizer.types.timestamp
 
@@ -109,9 +105,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetEC2RecommendationProjectedMetrics
             )
         )
     else:
-        raise DeserializationError(
-            "GetEC2RecommendationProjectedMetricsRequest.end_time required"
-        )
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("recommendationPreferences") is not None:
         import capo_compute_optimizer.types.recommendation_preferences
 

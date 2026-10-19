@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeDatasetExportJobRequest:
     if data.get("datasetExportJobArn") is not None:
         out["dataset_export_job_arn"] = data["datasetExportJobArn"]
     else:
-        raise DeserializationError(
-            "DescribeDatasetExportJobRequest.dataset_export_job_arn required"
-        )
+        out["dataset_export_job_arn"] = ""
     return out

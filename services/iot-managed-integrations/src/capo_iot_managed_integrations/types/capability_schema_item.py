@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.extrinsic_schema_id
     import capo_iot_managed_integrations.types.matter_capability_report_cluster_revision_id
@@ -61,21 +59,26 @@ def deserialize_json(data: dict) -> CapabilitySchemaItem:
             )
         )
     else:
-        raise DeserializationError("CapabilitySchemaItem.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_iot_managed_integrations.types.schema_version_format.SchemaVersionFormat",
+            "",
+        )
     if data.get("CapabilityId") is not None:
         out["capability_id"] = data["CapabilityId"]
     else:
-        raise DeserializationError("CapabilitySchemaItem.capability_id required")
+        out["capability_id"] = ""
     if data.get("ExtrinsicId") is not None:
         out["extrinsic_id"] = data["ExtrinsicId"]
     else:
-        raise DeserializationError("CapabilitySchemaItem.extrinsic_id required")
+        out["extrinsic_id"] = ""
     if data.get("ExtrinsicVersion") is not None:
         out["extrinsic_version"] = data["ExtrinsicVersion"]
     else:
-        raise DeserializationError("CapabilitySchemaItem.extrinsic_version required")
+        out["extrinsic_version"] = 0
     if data.get("Schema") is not None:
         out["schema"] = data["Schema"]
     else:
-        raise DeserializationError("CapabilitySchemaItem.schema required")
+        out["schema"] = None
     return out

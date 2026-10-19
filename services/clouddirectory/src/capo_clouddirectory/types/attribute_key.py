@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_clouddirectory.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_clouddirectory.types.arn
     import capo_clouddirectory.types.attribute_name
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> AttributeKey:
     if data.get("SchemaArn") is not None:
         out["schema_arn"] = data["SchemaArn"]
     else:
-        raise DeserializationError("AttributeKey.schema_arn required")
+        out["schema_arn"] = ""
     if data.get("FacetName") is not None:
         out["facet_name"] = data["FacetName"]
     else:
-        raise DeserializationError("AttributeKey.facet_name required")
+        out["facet_name"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("AttributeKey.name required")
+        out["name"] = ""
     return out

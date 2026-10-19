@@ -62,17 +62,15 @@ def deserialize_aws_json_1_0(data: dict) -> ImportKeyCryptogram:
     if data.get("Exportable") is not None:
         out["exportable"] = data["Exportable"]
     else:
-        raise DeserializationError("ImportKeyCryptogram.exportable required")
+        out["exportable"] = False
     if data.get("WrappedKeyCryptogram") is not None:
         out["wrapped_key_cryptogram"] = data["WrappedKeyCryptogram"]
     else:
-        raise DeserializationError(
-            "ImportKeyCryptogram.wrapped_key_cryptogram required"
-        )
+        out["wrapped_key_cryptogram"] = ""
     if data.get("ImportToken") is not None:
         out["import_token"] = data["ImportToken"]
     else:
-        raise DeserializationError("ImportKeyCryptogram.import_token required")
+        out["import_token"] = ""
     if data.get("WrappingSpec") is not None:
         out["wrapping_spec"] = data["WrappingSpec"]
     return out

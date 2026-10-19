@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.customer_input_string_list
 
@@ -41,9 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDetectDominantLanguageRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDetectDominantLanguageRequest.text_list required"
-        )
+        out["text_list"] = []
     return out
 
 

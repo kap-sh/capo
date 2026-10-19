@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.vector_search_bedrock_reranking_configuration
     import capo_bedrock_agent.types.vector_search_reranking_configuration_type
@@ -52,7 +50,12 @@ def deserialize_json(data: dict) -> VectorSearchRerankingConfiguration:
             )
         )
     else:
-        raise DeserializationError("VectorSearchRerankingConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent.types.vector_search_reranking_configuration_type.VectorSearchRerankingConfigurationType",
+            "",
+        )
     if data.get("bedrockRerankingConfiguration") is not None:
         import capo_bedrock_agent.types.vector_search_bedrock_reranking_configuration
 

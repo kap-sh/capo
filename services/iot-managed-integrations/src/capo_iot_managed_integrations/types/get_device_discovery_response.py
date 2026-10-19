@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.account_association_id
     import capo_iot_managed_integrations.types.connector_association_id
@@ -106,11 +104,11 @@ def deserialize_json(data: dict) -> GetDeviceDiscoveryResponse:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("GetDeviceDiscoveryResponse.id required")
+        out["id"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("GetDeviceDiscoveryResponse.arn required")
+        out["arn"] = ""
     if data.get("DiscoveryType") is not None:
         import capo_iot_managed_integrations.types.discovery_type
 
@@ -120,7 +118,11 @@ def deserialize_json(data: dict) -> GetDeviceDiscoveryResponse:
             )
         )
     else:
-        raise DeserializationError("GetDeviceDiscoveryResponse.discovery_type required")
+        import typing
+
+        out["discovery_type"] = typing.cast(
+            "capo_iot_managed_integrations.types.discovery_type.DiscoveryType", ""
+        )
     if data.get("Status") is not None:
         import capo_iot_managed_integrations.types.device_discovery_status
 
@@ -130,7 +132,12 @@ def deserialize_json(data: dict) -> GetDeviceDiscoveryResponse:
             )
         )
     else:
-        raise DeserializationError("GetDeviceDiscoveryResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_iot_managed_integrations.types.device_discovery_status.DeviceDiscoveryStatus",
+            "",
+        )
     if data.get("StartedAt") is not None:
         import capo_iot_managed_integrations.types.discovery_started_at
 
@@ -140,7 +147,9 @@ def deserialize_json(data: dict) -> GetDeviceDiscoveryResponse:
             )
         )
     else:
-        raise DeserializationError("GetDeviceDiscoveryResponse.started_at required")
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("ControllerId") is not None:
         out["controller_id"] = data["ControllerId"]
     if data.get("ConnectorAssociationId") is not None:

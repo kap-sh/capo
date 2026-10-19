@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.long
 
@@ -32,9 +30,9 @@ def deserialize_json(data: dict) -> InsightTimeRange:
     if data.get("From") is not None:
         out["from"] = data["From"]
     else:
-        raise DeserializationError("InsightTimeRange.from required")
+        out["from"] = 0
     if data.get("To") is not None:
         out["to"] = data["To"]
     else:
-        raise DeserializationError("InsightTimeRange.to required")
+        out["to"] = 0
     return out

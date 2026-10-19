@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_voice_id.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_voice_id.types.domain_id
     import capo_voice_id.types.max_results_for_list
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListSpeakersRequest:
     if data.get("DomainId") is not None:
         out["domain_id"] = data["DomainId"]
     else:
-        raise DeserializationError("ListSpeakersRequest.domain_id required")
+        out["domain_id"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

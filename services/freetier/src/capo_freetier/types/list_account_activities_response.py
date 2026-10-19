@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_freetier.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_freetier.types.activities
     import capo_freetier.types.next_page_token
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListAccountActivitiesResponse:
             data["activities"]
         )
     else:
-        raise DeserializationError("ListAccountActivitiesResponse.activities required")
+        out["activities"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

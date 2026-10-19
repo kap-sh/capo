@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_waf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf.types.ip_set_descriptor_type
     import capo_waf.types.ip_set_descriptor_value
@@ -39,9 +37,13 @@ def deserialize_aws_json_1_1(data: dict) -> IPSetDescriptor:
             data["Type"]
         )
     else:
-        raise DeserializationError("IPSetDescriptor.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_waf.types.ip_set_descriptor_type.IPSetDescriptorType", ""
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("IPSetDescriptor.value required")
+        out["value"] = ""
     return out

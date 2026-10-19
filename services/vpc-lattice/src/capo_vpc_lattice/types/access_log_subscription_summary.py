@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.access_log_destination_arn
     import capo_vpc_lattice.types.access_log_subscription_arn
@@ -67,25 +65,23 @@ def deserialize_json(data: dict) -> AccessLogSubscriptionSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("AccessLogSubscriptionSummary.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("AccessLogSubscriptionSummary.arn required")
+        out["arn"] = ""
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     else:
-        raise DeserializationError("AccessLogSubscriptionSummary.resource_id required")
+        out["resource_id"] = ""
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("AccessLogSubscriptionSummary.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("destinationArn") is not None:
         out["destination_arn"] = data["destinationArn"]
     else:
-        raise DeserializationError(
-            "AccessLogSubscriptionSummary.destination_arn required"
-        )
+        out["destination_arn"] = ""
     if data.get("serviceNetworkLogType") is not None:
         out["service_network_log_type"] = data["serviceNetworkLogType"]
     if data.get("createdAt") is not None:
@@ -95,7 +91,9 @@ def deserialize_json(data: dict) -> AccessLogSubscriptionSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("AccessLogSubscriptionSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastUpdatedAt") is not None:
         import capo_vpc_lattice.types.timestamp
 
@@ -103,7 +101,9 @@ def deserialize_json(data: dict) -> AccessLogSubscriptionSummary:
             data["lastUpdatedAt"]
         )
     else:
-        raise DeserializationError(
-            "AccessLogSubscriptionSummary.last_updated_at required"
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

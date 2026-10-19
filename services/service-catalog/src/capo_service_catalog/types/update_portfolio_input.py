@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.accept_language
     import capo_service_catalog.types.add_tags
@@ -73,7 +71,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdatePortfolioInput:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("UpdatePortfolioInput.id required")
+        out["id"] = ""
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     if data.get("Description") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_savingsplans.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_savingsplans.types.client_token
     import capo_savingsplans.types.savings_plan_id
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> ReturnSavingsPlanRequest:
     if data.get("savingsPlanId") is not None:
         out["savings_plan_id"] = data["savingsPlanId"]
     else:
-        raise DeserializationError("ReturnSavingsPlanRequest.savings_plan_id required")
+        out["savings_plan_id"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

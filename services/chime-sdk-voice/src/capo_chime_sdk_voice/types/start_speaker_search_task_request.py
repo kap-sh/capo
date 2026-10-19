@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.call_leg_type
     import capo_chime_sdk_voice.types.client_request_id
@@ -51,15 +49,11 @@ def deserialize_json(data: dict) -> StartSpeakerSearchTaskRequest:
     if data.get("TransactionId") is not None:
         out["transaction_id"] = data["TransactionId"]
     else:
-        raise DeserializationError(
-            "StartSpeakerSearchTaskRequest.transaction_id required"
-        )
+        out["transaction_id"] = ""
     if data.get("VoiceProfileDomainId") is not None:
         out["voice_profile_domain_id"] = data["VoiceProfileDomainId"]
     else:
-        raise DeserializationError(
-            "StartSpeakerSearchTaskRequest.voice_profile_domain_id required"
-        )
+        out["voice_profile_domain_id"] = ""
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     if data.get("CallLeg") is not None:

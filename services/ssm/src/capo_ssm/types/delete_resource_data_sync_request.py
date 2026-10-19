@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.resource_data_sync_name
     import capo_ssm.types.resource_data_sync_type
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteResourceDataSyncRequest:
     if data.get("SyncName") is not None:
         out["sync_name"] = data["SyncName"]
     else:
-        raise DeserializationError("DeleteResourceDataSyncRequest.sync_name required")
+        out["sync_name"] = ""
     if data.get("SyncType") is not None:
         out["sync_type"] = data["SyncType"]
     return out

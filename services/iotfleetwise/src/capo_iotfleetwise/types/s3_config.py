@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.data_format
     import capo_iotfleetwise.types.prefix
@@ -54,7 +52,7 @@ def deserialize_aws_json_1_0(data: dict) -> S3Config:
     if data.get("bucketArn") is not None:
         out["bucket_arn"] = data["bucketArn"]
     else:
-        raise DeserializationError("S3Config.bucket_arn required")
+        out["bucket_arn"] = ""
     if data.get("dataFormat") is not None:
         import capo_iotfleetwise.types.data_format
 

@@ -45,11 +45,11 @@ def deserialize_json(data: dict) -> CreateMemberInput:
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     else:
-        raise DeserializationError("CreateMemberInput.client_request_token required")
+        out["client_request_token"] = ""
     if data.get("InvitationId") is not None:
         out["invitation_id"] = data["InvitationId"]
     else:
-        raise DeserializationError("CreateMemberInput.invitation_id required")
+        out["invitation_id"] = ""
     if data.get("MemberConfiguration") is not None:
         import capo_managedblockchain.types.member_configuration
 

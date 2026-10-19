@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_waf_regional.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf_regional.types.excluded_rules
     import capo_waf_regional.types.resource_id
@@ -73,11 +71,11 @@ def deserialize_aws_json_1_1(data: dict) -> ActivatedRule:
     if data.get("Priority") is not None:
         out["priority"] = data["Priority"]
     else:
-        raise DeserializationError("ActivatedRule.priority required")
+        out["priority"] = 0
     if data.get("RuleId") is not None:
         out["rule_id"] = data["RuleId"]
     else:
-        raise DeserializationError("ActivatedRule.rule_id required")
+        out["rule_id"] = ""
     if data.get("Action") is not None:
         import capo_waf_regional.types.waf_action
 

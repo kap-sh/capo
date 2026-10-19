@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.enclosed_in_string_property
     import capo_glue.types.recipe_version
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> RecipeReference:
     if data.get("RecipeArn") is not None:
         out["recipe_arn"] = data["RecipeArn"]
     else:
-        raise DeserializationError("RecipeReference.recipe_arn required")
+        out["recipe_arn"] = ""
     if data.get("RecipeVersion") is not None:
         out["recipe_version"] = data["RecipeVersion"]
     else:
-        raise DeserializationError("RecipeReference.recipe_version required")
+        out["recipe_version"] = ""
     return out

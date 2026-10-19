@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.creator_request_id
     import capo_route53resolver.types.mutation_protection_status
@@ -64,29 +62,23 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateFirewallRuleGroupRequest:
     if data.get("CreatorRequestId") is not None:
         out["creator_request_id"] = data["CreatorRequestId"]
     else:
-        raise DeserializationError(
-            "AssociateFirewallRuleGroupRequest.creator_request_id required"
-        )
+        out["creator_request_id"] = ""
     if data.get("FirewallRuleGroupId") is not None:
         out["firewall_rule_group_id"] = data["FirewallRuleGroupId"]
     else:
-        raise DeserializationError(
-            "AssociateFirewallRuleGroupRequest.firewall_rule_group_id required"
-        )
+        out["firewall_rule_group_id"] = ""
     if data.get("VpcId") is not None:
         out["vpc_id"] = data["VpcId"]
     else:
-        raise DeserializationError("AssociateFirewallRuleGroupRequest.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("Priority") is not None:
         out["priority"] = data["Priority"]
     else:
-        raise DeserializationError(
-            "AssociateFirewallRuleGroupRequest.priority required"
-        )
+        out["priority"] = 0
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("AssociateFirewallRuleGroupRequest.name required")
+        out["name"] = ""
     if data.get("MutationProtection") is not None:
         import capo_route53resolver.types.mutation_protection_status
 

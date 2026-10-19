@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.pricing_plan
     import capo_location.types.resource_description
@@ -49,13 +47,11 @@ def deserialize_json(data: dict) -> CreateRouteCalculatorRequest:
     if data.get("CalculatorName") is not None:
         out["calculator_name"] = data["CalculatorName"]
     else:
-        raise DeserializationError(
-            "CreateRouteCalculatorRequest.calculator_name required"
-        )
+        out["calculator_name"] = ""
     if data.get("DataSource") is not None:
         out["data_source"] = data["DataSource"]
     else:
-        raise DeserializationError("CreateRouteCalculatorRequest.data_source required")
+        out["data_source"] = ""
     if data.get("PricingPlan") is not None:
         out["pricing_plan"] = data["PricingPlan"]
     if data.get("Description") is not None:

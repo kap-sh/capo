@@ -134,15 +134,11 @@ def deserialize_aws_json_1_1(data: dict) -> StartTextTranslationJobRequest:
     if data.get("DataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["DataAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "StartTextTranslationJobRequest.data_access_role_arn required"
-        )
+        out["data_access_role_arn"] = ""
     if data.get("SourceLanguageCode") is not None:
         out["source_language_code"] = data["SourceLanguageCode"]
     else:
-        raise DeserializationError(
-            "StartTextTranslationJobRequest.source_language_code required"
-        )
+        out["source_language_code"] = ""
     if data.get("TargetLanguageCodes") is not None:
         import capo_translate.types.target_language_code_string_list
 
@@ -152,9 +148,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartTextTranslationJobRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartTextTranslationJobRequest.target_language_codes required"
-        )
+        out["target_language_codes"] = []
     if data.get("TerminologyNames") is not None:
         import capo_translate.types.resource_name_list
 
@@ -174,9 +168,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartTextTranslationJobRequest:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError(
-            "StartTextTranslationJobRequest.client_token required"
-        )
+        out["client_token"] = ""
     if data.get("Settings") is not None:
         import capo_translate.types.translation_settings
 

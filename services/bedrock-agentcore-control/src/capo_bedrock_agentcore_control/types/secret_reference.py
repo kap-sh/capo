@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.secret_id_type
     import capo_bedrock_agentcore_control.types.secret_json_key_type
@@ -33,9 +31,9 @@ def deserialize_json(data: dict) -> SecretReference:
     if data.get("secretId") is not None:
         out["secret_id"] = data["secretId"]
     else:
-        raise DeserializationError("SecretReference.secret_id required")
+        out["secret_id"] = ""
     if data.get("jsonKey") is not None:
         out["json_key"] = data["jsonKey"]
     else:
-        raise DeserializationError("SecretReference.json_key required")
+        out["json_key"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_endusermessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -85,7 +83,7 @@ def deserialize_json(data: dict) -> JobSummary:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("JobSummary.job_id required")
+        out["job_id"] = ""
     if data.get("status") is not None:
         import capo_endusermessaging.types.job_status
 
@@ -93,11 +91,15 @@ def deserialize_json(data: dict) -> JobSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("JobSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_endusermessaging.types.job_status.JobStatus", ""
+        )
     if data.get("operationType") is not None:
         out["operation_type"] = data["operationType"]
     else:
-        raise DeserializationError("JobSummary.operation_type required")
+        out["operation_type"] = ""
     if data.get("createdAt") is not None:
         import capo_endusermessaging.types._prelude.timestamp
 
@@ -107,7 +109,9 @@ def deserialize_json(data: dict) -> JobSummary:
             )
         )
     else:
-        raise DeserializationError("JobSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_endusermessaging.types._prelude.timestamp
 
@@ -117,7 +121,9 @@ def deserialize_json(data: dict) -> JobSummary:
             )
         )
     else:
-        raise DeserializationError("JobSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("brandProfileId") is not None:
         out["brand_profile_id"] = data["brandProfileId"]
     if data.get("errorCode") is not None:

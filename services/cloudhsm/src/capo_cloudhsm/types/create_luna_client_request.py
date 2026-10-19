@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudhsm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudhsm.types.certificate
     import capo_cloudhsm.types.client_label
@@ -34,5 +32,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLunaClientRequest:
     if data.get("Certificate") is not None:
         out["certificate"] = data["Certificate"]
     else:
-        raise DeserializationError("CreateLunaClientRequest.certificate required")
+        out["certificate"] = ""
     return out

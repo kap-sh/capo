@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.batch_delete_resource_arn_list
     import capo_application_signals.types.instrumentation_type
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> BatchDeleteByResourceArns:
             )
         )
     else:
-        raise DeserializationError("BatchDeleteByResourceArns.resource_arns required")
+        out["resource_arns"] = []
     if data.get("InstrumentationType") is not None:
         import capo_application_signals.types.instrumentation_type
 
@@ -61,7 +59,10 @@ def deserialize_json(data: dict) -> BatchDeleteByResourceArns:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDeleteByResourceArns.instrumentation_type required"
+        import typing
+
+        out["instrumentation_type"] = typing.cast(
+            "capo_application_signals.types.instrumentation_type.InstrumentationType",
+            "",
         )
     return out

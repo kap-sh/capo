@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.ssm_contacts_arn
     import capo_ssm_contacts.types.stop_reason
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> StopEngagementRequest:
     if data.get("EngagementId") is not None:
         out["engagement_id"] = data["EngagementId"]
     else:
-        raise DeserializationError("StopEngagementRequest.engagement_id required")
+        out["engagement_id"] = ""
     if data.get("Reason") is not None:
         out["reason"] = data["Reason"]
     return out

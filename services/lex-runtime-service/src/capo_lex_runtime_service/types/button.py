@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_runtime_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_runtime_service.types.button_text_string_with_length
     import capo_lex_runtime_service.types.button_value_string_with_length
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> Button:
     if data.get("text") is not None:
         out["text"] = data["text"]
     else:
-        raise DeserializationError("Button.text required")
+        out["text"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("Button.value required")
+        out["value"] = ""
     return out

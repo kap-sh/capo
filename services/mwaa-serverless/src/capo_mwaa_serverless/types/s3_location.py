@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mwaa_serverless.errors import DeserializationError
-
 
 class S3Location(TypedDict, closed=True):
     bucket: "str"
@@ -29,11 +27,11 @@ def deserialize_aws_json_1_0(data: dict) -> S3Location:
     if data.get("Bucket") is not None:
         out["bucket"] = data["Bucket"]
     else:
-        raise DeserializationError("S3Location.bucket required")
+        out["bucket"] = ""
     if data.get("ObjectKey") is not None:
         out["object_key"] = data["ObjectKey"]
     else:
-        raise DeserializationError("S3Location.object_key required")
+        out["object_key"] = ""
     if data.get("VersionId") is not None:
         out["version_id"] = data["VersionId"]
     return out

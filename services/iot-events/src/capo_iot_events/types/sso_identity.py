@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.identity_store_id
     import capo_iot_events.types.sso_reference_id
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> SSOIdentity:
     if data.get("identityStoreId") is not None:
         out["identity_store_id"] = data["identityStoreId"]
     else:
-        raise DeserializationError("SSOIdentity.identity_store_id required")
+        out["identity_store_id"] = ""
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
     return out

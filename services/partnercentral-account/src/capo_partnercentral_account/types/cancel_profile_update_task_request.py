@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.catalog
     import capo_partnercentral_account.types.client_token
@@ -42,15 +40,15 @@ def deserialize_aws_json_1_0(data: dict) -> CancelProfileUpdateTaskRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("CancelProfileUpdateTaskRequest.catalog required")
+        out["catalog"] = ""
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("CancelProfileUpdateTaskRequest.identifier required")
+        out["identifier"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("TaskId") is not None:
         out["task_id"] = data["TaskId"]
     else:
-        raise DeserializationError("CancelProfileUpdateTaskRequest.task_id required")
+        out["task_id"] = ""
     return out

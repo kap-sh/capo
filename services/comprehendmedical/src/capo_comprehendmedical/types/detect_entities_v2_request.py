@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_comprehendmedical.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehendmedical.types.bounded_length_string
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DetectEntitiesV2Request:
     if data.get("Text") is not None:
         out["text"] = data["Text"]
     else:
-        raise DeserializationError("DetectEntitiesV2Request.text required")
+        out["text"] = ""
     return out

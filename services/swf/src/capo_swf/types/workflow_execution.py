@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.workflow_id
     import capo_swf.types.workflow_run_id
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> WorkflowExecution:
     if data.get("workflowId") is not None:
         out["workflow_id"] = data["workflowId"]
     else:
-        raise DeserializationError("WorkflowExecution.workflow_id required")
+        out["workflow_id"] = ""
     if data.get("runId") is not None:
         out["run_id"] = data["runId"]
     else:
-        raise DeserializationError("WorkflowExecution.run_id required")
+        out["run_id"] = ""
     return out

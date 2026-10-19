@@ -79,7 +79,7 @@ def deserialize_json(data: dict) -> ConnectorItem:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ConnectorItem.name required")
+        out["name"] = ""
     if data.get("EndpointConfig") is not None:
         import capo_iot_managed_integrations.types.endpoint_config
 

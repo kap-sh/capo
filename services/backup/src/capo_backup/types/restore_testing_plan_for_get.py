@@ -83,7 +83,11 @@ def deserialize_json(data: dict) -> RestoreTestingPlanForGet:
             data["CreationTime"]
         )
     else:
-        raise DeserializationError("RestoreTestingPlanForGet.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("CreatorRequestId") is not None:
         out["creator_request_id"] = data["CreatorRequestId"]
     if data.get("LastExecutionTime") is not None:
@@ -115,21 +119,15 @@ def deserialize_json(data: dict) -> RestoreTestingPlanForGet:
     if data.get("RestoreTestingPlanArn") is not None:
         out["restore_testing_plan_arn"] = data["RestoreTestingPlanArn"]
     else:
-        raise DeserializationError(
-            "RestoreTestingPlanForGet.restore_testing_plan_arn required"
-        )
+        out["restore_testing_plan_arn"] = ""
     if data.get("RestoreTestingPlanName") is not None:
         out["restore_testing_plan_name"] = data["RestoreTestingPlanName"]
     else:
-        raise DeserializationError(
-            "RestoreTestingPlanForGet.restore_testing_plan_name required"
-        )
+        out["restore_testing_plan_name"] = ""
     if data.get("ScheduleExpression") is not None:
         out["schedule_expression"] = data["ScheduleExpression"]
     else:
-        raise DeserializationError(
-            "RestoreTestingPlanForGet.schedule_expression required"
-        )
+        out["schedule_expression"] = ""
     if data.get("ScheduleExpressionTimezone") is not None:
         out["schedule_expression_timezone"] = data["ScheduleExpressionTimezone"]
     if data.get("StartWindowHours") is not None:

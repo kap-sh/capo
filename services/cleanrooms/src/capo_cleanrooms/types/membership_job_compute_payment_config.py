@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 
 class MembershipJobComputePaymentConfig(TypedDict, closed=True):
     is_responsible: "bool"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> MembershipJobComputePaymentConfig:
     if data.get("isResponsible") is not None:
         out["is_responsible"] = data["isResponsible"]
     else:
-        raise DeserializationError(
-            "MembershipJobComputePaymentConfig.is_responsible required"
-        )
+        out["is_responsible"] = False
     return out

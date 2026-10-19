@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_observabilityadmin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_observabilityadmin.types.encryption_conflict_resolution_strategy
     import capo_observabilityadmin.types.encryption_scope
@@ -72,8 +70,10 @@ def deserialize_json(data: dict) -> LogsEncryptionConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "LogsEncryptionConfiguration.encryption_strategy required"
+        import typing
+
+        out["encryption_strategy"] = typing.cast(
+            "capo_observabilityadmin.types.encryption_strategy.EncryptionStrategy", ""
         )
     if data.get("KmsKeyArn") is not None:
         out["kms_key_arn"] = data["KmsKeyArn"]

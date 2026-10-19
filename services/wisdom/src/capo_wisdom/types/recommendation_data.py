@@ -54,7 +54,7 @@ def deserialize_json(data: dict) -> RecommendationData:
     if data.get("recommendationId") is not None:
         out["recommendation_id"] = data["recommendationId"]
     else:
-        raise DeserializationError("RecommendationData.recommendation_id required")
+        out["recommendation_id"] = ""
     if data.get("document") is not None:
         import capo_wisdom.types.document
 

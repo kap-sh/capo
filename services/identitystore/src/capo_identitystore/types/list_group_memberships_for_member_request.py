@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_identitystore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_identitystore.types.identity_store_id
     import capo_identitystore.types.max_results
@@ -45,9 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListGroupMembershipsForMemberRequest
     if data.get("IdentityStoreId") is not None:
         out["identity_store_id"] = data["IdentityStoreId"]
     else:
-        raise DeserializationError(
-            "ListGroupMembershipsForMemberRequest.identity_store_id required"
-        )
+        out["identity_store_id"] = ""
     if data.get("MemberId") is not None:
         import capo_identitystore.types.member_id
 
@@ -55,9 +51,9 @@ def deserialize_aws_json_1_1(data: dict) -> ListGroupMembershipsForMemberRequest
             data["MemberId"]
         )
     else:
-        raise DeserializationError(
-            "ListGroupMembershipsForMemberRequest.member_id required"
-        )
+        import capo_identitystore.types._unknown
+
+        out["member_id"] = capo_identitystore.types._unknown.UnknownUnionMember("")
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

@@ -93,17 +93,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEntityRecognizerRequest:
     if data.get("RecognizerName") is not None:
         out["recognizer_name"] = data["RecognizerName"]
     else:
-        raise DeserializationError(
-            "CreateEntityRecognizerRequest.recognizer_name required"
-        )
+        out["recognizer_name"] = ""
     if data.get("VersionName") is not None:
         out["version_name"] = data["VersionName"]
     if data.get("DataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["DataAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "CreateEntityRecognizerRequest.data_access_role_arn required"
-        )
+        out["data_access_role_arn"] = ""
     if data.get("Tags") is not None:
         import capo_comprehend.types.tag_list
 
@@ -133,8 +129,10 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEntityRecognizerRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateEntityRecognizerRequest.language_code required"
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_comprehend.types.language_code.LanguageCode", ""
         )
     if data.get("VolumeKmsKeyId") is not None:
         out["volume_kms_key_id"] = data["VolumeKmsKeyId"]

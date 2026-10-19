@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.arn
     import capo_inspector.types.resource_group_tags
@@ -43,7 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceGroup:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ResourceGroup.arn required")
+        out["arn"] = ""
     if data.get("tags") is not None:
         import capo_inspector.types.resource_group_tags
 
@@ -51,7 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceGroup:
             data["tags"]
         )
     else:
-        raise DeserializationError("ResourceGroup.tags required")
+        out["tags"] = []
     if data.get("createdAt") is not None:
         import capo_inspector.types.timestamp
 
@@ -59,5 +57,7 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceGroup:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("ResourceGroup.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

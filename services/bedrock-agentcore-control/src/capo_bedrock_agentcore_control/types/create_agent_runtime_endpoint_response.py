@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.agent_runtime_arn
     import capo_bedrock_agentcore_control.types.agent_runtime_endpoint_arn
@@ -73,21 +71,15 @@ def deserialize_json(data: dict) -> CreateAgentRuntimeEndpointResponse:
     if data.get("targetVersion") is not None:
         out["target_version"] = data["targetVersion"]
     else:
-        raise DeserializationError(
-            "CreateAgentRuntimeEndpointResponse.target_version required"
-        )
+        out["target_version"] = ""
     if data.get("agentRuntimeEndpointArn") is not None:
         out["agent_runtime_endpoint_arn"] = data["agentRuntimeEndpointArn"]
     else:
-        raise DeserializationError(
-            "CreateAgentRuntimeEndpointResponse.agent_runtime_endpoint_arn required"
-        )
+        out["agent_runtime_endpoint_arn"] = ""
     if data.get("agentRuntimeArn") is not None:
         out["agent_runtime_arn"] = data["agentRuntimeArn"]
     else:
-        raise DeserializationError(
-            "CreateAgentRuntimeEndpointResponse.agent_runtime_arn required"
-        )
+        out["agent_runtime_arn"] = ""
     if data.get("agentRuntimeId") is not None:
         out["agent_runtime_id"] = data["agentRuntimeId"]
     if data.get("endpointName") is not None:
@@ -101,7 +93,12 @@ def deserialize_json(data: dict) -> CreateAgentRuntimeEndpointResponse:
             )
         )
     else:
-        raise DeserializationError("CreateAgentRuntimeEndpointResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.agent_runtime_endpoint_status.AgentRuntimeEndpointStatus",
+            "",
+        )
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -111,9 +108,9 @@ def deserialize_json(data: dict) -> CreateAgentRuntimeEndpointResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAgentRuntimeEndpointResponse.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

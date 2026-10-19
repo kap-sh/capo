@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.positive_integer_object
     import capo_kinesis.types.scaling_type
@@ -54,7 +52,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateShardCountInput:
     if data.get("TargetShardCount") is not None:
         out["target_shard_count"] = data["TargetShardCount"]
     else:
-        raise DeserializationError("UpdateShardCountInput.target_shard_count required")
+        out["target_shard_count"] = 0
     if data.get("ScalingType") is not None:
         import capo_kinesis.types.scaling_type
 
@@ -62,7 +60,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateShardCountInput:
             data["ScalingType"]
         )
     else:
-        raise DeserializationError("UpdateShardCountInput.scaling_type required")
+        import typing
+
+        out["scaling_type"] = typing.cast(
+            "capo_kinesis.types.scaling_type.ScalingType", ""
+        )
     if data.get("StreamARN") is not None:
         out["stream_arn"] = data["StreamARN"]
     if data.get("StreamId") is not None:

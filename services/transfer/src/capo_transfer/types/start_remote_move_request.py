@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.connector_id
     import capo_transfer.types.file_path
@@ -34,13 +32,13 @@ def deserialize_aws_json_1_1(data: dict) -> StartRemoteMoveRequest:
     if data.get("ConnectorId") is not None:
         out["connector_id"] = data["ConnectorId"]
     else:
-        raise DeserializationError("StartRemoteMoveRequest.connector_id required")
+        out["connector_id"] = ""
     if data.get("SourcePath") is not None:
         out["source_path"] = data["SourcePath"]
     else:
-        raise DeserializationError("StartRemoteMoveRequest.source_path required")
+        out["source_path"] = ""
     if data.get("TargetPath") is not None:
         out["target_path"] = data["TargetPath"]
     else:
-        raise DeserializationError("StartRemoteMoveRequest.target_path required")
+        out["target_path"] = ""
     return out

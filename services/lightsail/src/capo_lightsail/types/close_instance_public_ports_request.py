@@ -43,7 +43,5 @@ def deserialize_aws_json_1_1(data: dict) -> CloseInstancePublicPortsRequest:
     if data.get("instanceName") is not None:
         out["instance_name"] = data["instanceName"]
     else:
-        raise DeserializationError(
-            "CloseInstancePublicPortsRequest.instance_name required"
-        )
+        out["instance_name"] = ""
     return out

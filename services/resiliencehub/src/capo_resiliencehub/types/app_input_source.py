@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.arn
     import capo_resiliencehub.types.eks_source_cluster_namespace
@@ -79,7 +77,11 @@ def deserialize_json(data: dict) -> AppInputSource:
             )
         )
     else:
-        raise DeserializationError("AppInputSource.import_type required")
+        import typing
+
+        out["import_type"] = typing.cast(
+            "capo_resiliencehub.types.resource_mapping_type.ResourceMappingType", ""
+        )
     if data.get("sourceArn") is not None:
         out["source_arn"] = data["sourceArn"]
     if data.get("terraformSource") is not None:

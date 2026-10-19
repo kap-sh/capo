@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.public_key_id_type
@@ -42,19 +41,19 @@ def deserialize_query(el: Element) -> UpdateSSHPublicKeyRequest:
     if child_user_name is not None:
         out["user_name"] = str(child_user_name.text or "")
     else:
-        raise DeserializationError("UpdateSSHPublicKeyRequest.user_name required")
+        out["user_name"] = ""
     child_ssh_public_key_id = el.find("SSHPublicKeyId")
     if child_ssh_public_key_id is not None:
         out["ssh_public_key_id"] = str(child_ssh_public_key_id.text or "")
     else:
-        raise DeserializationError(
-            "UpdateSSHPublicKeyRequest.ssh_public_key_id required"
-        )
+        out["ssh_public_key_id"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         import capo_iam.types.status_type
 
         out["status"] = capo_iam.types.status_type.deserialize_query(child_status)
     else:
-        raise DeserializationError("UpdateSSHPublicKeyRequest.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_iam.types.status_type.statusType", "")
     return out

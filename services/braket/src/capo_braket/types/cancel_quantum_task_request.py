@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_braket.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_braket.types.quantum_task_arn
     import capo_braket.types.string64
@@ -30,5 +28,5 @@ def deserialize_json(data: dict) -> CancelQuantumTaskRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CancelQuantumTaskRequest.client_token required")
+        out["client_token"] = ""
     return out

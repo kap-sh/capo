@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__string
     import capo_mediatailor.types.http_package_configurations
@@ -46,7 +44,5 @@ def deserialize_json(data: dict) -> UpdateVodSourceRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateVodSourceRequest.http_package_configurations required"
-        )
+        out["http_package_configurations"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.application_version_lifecycle
     import capo_m2.types.timestamp
@@ -41,13 +39,11 @@ def deserialize_json(data: dict) -> ApplicationVersionSummary:
     if data.get("applicationVersion") is not None:
         out["application_version"] = data["applicationVersion"]
     else:
-        raise DeserializationError(
-            "ApplicationVersionSummary.application_version required"
-        )
+        out["application_version"] = 0
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("ApplicationVersionSummary.status required")
+        out["status"] = ""
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
     if data.get("creationTime") is not None:
@@ -57,5 +53,9 @@ def deserialize_json(data: dict) -> ApplicationVersionSummary:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("ApplicationVersionSummary.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

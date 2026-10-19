@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_meetings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_meetings.types.attendee_capabilities
     import capo_chime_sdk_meetings.types.external_user_id
@@ -40,9 +38,7 @@ def deserialize_json(data: dict) -> CreateAttendeeRequestItem:
     if data.get("ExternalUserId") is not None:
         out["external_user_id"] = data["ExternalUserId"]
     else:
-        raise DeserializationError(
-            "CreateAttendeeRequestItem.external_user_id required"
-        )
+        out["external_user_id"] = ""
     if data.get("Capabilities") is not None:
         import capo_chime_sdk_meetings.types.attendee_capabilities
 

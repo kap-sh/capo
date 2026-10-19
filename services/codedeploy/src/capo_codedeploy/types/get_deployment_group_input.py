@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codedeploy.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codedeploy.types.application_name
     import capo_codedeploy.types.deployment_group_name
@@ -33,11 +31,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetDeploymentGroupInput:
     if data.get("applicationName") is not None:
         out["application_name"] = data["applicationName"]
     else:
-        raise DeserializationError("GetDeploymentGroupInput.application_name required")
+        out["application_name"] = ""
     if data.get("deploymentGroupName") is not None:
         out["deployment_group_name"] = data["deploymentGroupName"]
     else:
-        raise DeserializationError(
-            "GetDeploymentGroupInput.deployment_group_name required"
-        )
+        out["deployment_group_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloud9.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloud9.types.connection_type
     import capo_cloud9.types.environment_description
@@ -102,7 +100,11 @@ def deserialize_aws_json_1_1(data: dict) -> Environment:
             data["type"]
         )
     else:
-        raise DeserializationError("Environment.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cloud9.types.environment_type.EnvironmentType", ""
+        )
     if data.get("connectionType") is not None:
         import capo_cloud9.types.connection_type
 
@@ -114,11 +116,11 @@ def deserialize_aws_json_1_1(data: dict) -> Environment:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("Environment.arn required")
+        out["arn"] = ""
     if data.get("ownerArn") is not None:
         out["owner_arn"] = data["ownerArn"]
     else:
-        raise DeserializationError("Environment.owner_arn required")
+        out["owner_arn"] = ""
     if data.get("lifecycle") is not None:
         import capo_cloud9.types.environment_lifecycle
 

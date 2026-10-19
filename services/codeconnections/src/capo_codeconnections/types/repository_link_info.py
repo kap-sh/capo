@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeconnections.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeconnections.types.connection_arn
     import capo_codeconnections.types.kms_key_arn
@@ -60,13 +58,13 @@ def deserialize_aws_json_1_0(data: dict) -> RepositoryLinkInfo:
     if data.get("ConnectionArn") is not None:
         out["connection_arn"] = data["ConnectionArn"]
     else:
-        raise DeserializationError("RepositoryLinkInfo.connection_arn required")
+        out["connection_arn"] = ""
     if data.get("EncryptionKeyArn") is not None:
         out["encryption_key_arn"] = data["EncryptionKeyArn"]
     if data.get("OwnerId") is not None:
         out["owner_id"] = data["OwnerId"]
     else:
-        raise DeserializationError("RepositoryLinkInfo.owner_id required")
+        out["owner_id"] = ""
     if data.get("ProviderType") is not None:
         import capo_codeconnections.types.provider_type
 
@@ -76,17 +74,21 @@ def deserialize_aws_json_1_0(data: dict) -> RepositoryLinkInfo:
             )
         )
     else:
-        raise DeserializationError("RepositoryLinkInfo.provider_type required")
+        import typing
+
+        out["provider_type"] = typing.cast(
+            "capo_codeconnections.types.provider_type.ProviderType", ""
+        )
     if data.get("RepositoryLinkArn") is not None:
         out["repository_link_arn"] = data["RepositoryLinkArn"]
     else:
-        raise DeserializationError("RepositoryLinkInfo.repository_link_arn required")
+        out["repository_link_arn"] = ""
     if data.get("RepositoryLinkId") is not None:
         out["repository_link_id"] = data["RepositoryLinkId"]
     else:
-        raise DeserializationError("RepositoryLinkInfo.repository_link_id required")
+        out["repository_link_id"] = ""
     if data.get("RepositoryName") is not None:
         out["repository_name"] = data["RepositoryName"]
     else:
-        raise DeserializationError("RepositoryLinkInfo.repository_name required")
+        out["repository_name"] = ""
     return out

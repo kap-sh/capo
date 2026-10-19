@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.positive_integer
     import capo_iotfleetwise.types.time_unit
@@ -39,9 +37,11 @@ def deserialize_aws_json_1_0(data: dict) -> TimePeriod:
             data["unit"]
         )
     else:
-        raise DeserializationError("TimePeriod.unit required")
+        import typing
+
+        out["unit"] = typing.cast("capo_iotfleetwise.types.time_unit.TimeUnit", "")
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("TimePeriod.value required")
+        out["value"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_supportauthz.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supportauthz.types.next_token
     import capo_supportauthz.types.support_permit_requests
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> ListSupportPermitRequestsOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListSupportPermitRequestsOutput.support_permit_requests required"
-        )
+        out["support_permit_requests"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

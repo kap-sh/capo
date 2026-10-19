@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sqs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sqs.types.string
     import capo_sqs.types.tag_key_list
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_0(data: dict) -> UntagQueueRequest:
     if data.get("QueueUrl") is not None:
         out["queue_url"] = data["QueueUrl"]
     else:
-        raise DeserializationError("UntagQueueRequest.queue_url required")
+        out["queue_url"] = ""
     if data.get("TagKeys") is not None:
         import capo_sqs.types.tag_key_list
 
@@ -43,5 +41,5 @@ def deserialize_aws_json_1_0(data: dict) -> UntagQueueRequest:
             data["TagKeys"]
         )
     else:
-        raise DeserializationError("UntagQueueRequest.tag_keys required")
+        out["tag_keys"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.localized_string_list
     import capo_geo_routes.types.roundabout_angle
@@ -69,9 +67,7 @@ def deserialize_json(data: dict) -> RouteRoundaboutExitStepDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "RouteRoundaboutExitStepDetails.intersection required"
-        )
+        out["intersection"] = []
     if data.get("RelativeExit") is not None:
         out["relative_exit"] = data["RelativeExit"]
     if data.get("RoundaboutAngle") is not None:

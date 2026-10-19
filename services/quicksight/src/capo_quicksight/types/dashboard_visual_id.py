@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.short_restrictive_resource_id
 
@@ -39,13 +37,13 @@ def deserialize_json(data: dict) -> DashboardVisualId:
     if data.get("DashboardId") is not None:
         out["dashboard_id"] = data["DashboardId"]
     else:
-        raise DeserializationError("DashboardVisualId.dashboard_id required")
+        out["dashboard_id"] = ""
     if data.get("SheetId") is not None:
         out["sheet_id"] = data["SheetId"]
     else:
-        raise DeserializationError("DashboardVisualId.sheet_id required")
+        out["sheet_id"] = ""
     if data.get("VisualId") is not None:
         out["visual_id"] = data["VisualId"]
     else:
-        raise DeserializationError("DashboardVisualId.visual_id required")
+        out["visual_id"] = ""
     return out

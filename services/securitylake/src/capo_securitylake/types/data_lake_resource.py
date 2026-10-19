@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securitylake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securitylake.types.amazon_resource_name
     import capo_securitylake.types.data_lake_encryption_configuration
@@ -99,11 +97,11 @@ def deserialize_json(data: dict) -> DataLakeResource:
     if data.get("dataLakeArn") is not None:
         out["data_lake_arn"] = data["dataLakeArn"]
     else:
-        raise DeserializationError("DataLakeResource.data_lake_arn required")
+        out["data_lake_arn"] = ""
     if data.get("region") is not None:
         out["region"] = data["region"]
     else:
-        raise DeserializationError("DataLakeResource.region required")
+        out["region"] = ""
     if data.get("s3BucketArn") is not None:
         out["s3_bucket_arn"] = data["s3BucketArn"]
     if data.get("encryptionConfiguration") is not None:

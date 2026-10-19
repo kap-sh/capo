@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.bot_version
     import capo_lex_models_v2.types.create_custom_vocabulary_items_list
@@ -48,7 +46,5 @@ def deserialize_json(data: dict) -> BatchCreateCustomVocabularyItemRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchCreateCustomVocabularyItemRequest.custom_vocabulary_item_list required"
-        )
+        out["custom_vocabulary_item_list"] = []
     return out

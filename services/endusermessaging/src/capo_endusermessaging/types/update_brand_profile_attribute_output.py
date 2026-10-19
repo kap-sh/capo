@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_endusermessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -82,9 +80,7 @@ def deserialize_json(data: dict) -> UpdateBrandProfileAttributeOutput:
     if data.get("attributeName") is not None:
         out["attribute_name"] = data["attributeName"]
     else:
-        raise DeserializationError(
-            "UpdateBrandProfileAttributeOutput.attribute_name required"
-        )
+        out["attribute_name"] = ""
     if data.get("attributeType") is not None:
         import capo_endusermessaging.types.brand_profile_attribute_type
 
@@ -94,8 +90,11 @@ def deserialize_json(data: dict) -> UpdateBrandProfileAttributeOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateBrandProfileAttributeOutput.attribute_type required"
+        import typing
+
+        out["attribute_type"] = typing.cast(
+            "capo_endusermessaging.types.brand_profile_attribute_type.BrandProfileAttributeType",
+            "",
         )
     if data.get("attributeValue") is not None:
         out["attribute_value"] = data["attributeValue"]
@@ -116,9 +115,9 @@ def deserialize_json(data: dict) -> UpdateBrandProfileAttributeOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateBrandProfileAttributeOutput.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_endusermessaging.types._prelude.timestamp
 
@@ -128,9 +127,9 @@ def deserialize_json(data: dict) -> UpdateBrandProfileAttributeOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateBrandProfileAttributeOutput.updated_at required"
-        )
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

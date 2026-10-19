@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.component_child_list
     import capo_amplifyuibuilder.types.component_events
@@ -63,11 +61,11 @@ def deserialize_json(data: dict) -> ComponentChild:
     if data.get("componentType") is not None:
         out["component_type"] = data["componentType"]
     else:
-        raise DeserializationError("ComponentChild.component_type required")
+        out["component_type"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ComponentChild.name required")
+        out["name"] = ""
     if data.get("properties") is not None:
         import capo_amplifyuibuilder.types.component_properties
 
@@ -77,7 +75,7 @@ def deserialize_json(data: dict) -> ComponentChild:
             )
         )
     else:
-        raise DeserializationError("ComponentChild.properties required")
+        out["properties"] = {}
     if data.get("children") is not None:
         import capo_amplifyuibuilder.types.component_child_list
 

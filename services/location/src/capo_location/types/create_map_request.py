@@ -54,7 +54,7 @@ def deserialize_json(data: dict) -> CreateMapRequest:
     if data.get("MapName") is not None:
         out["map_name"] = data["MapName"]
     else:
-        raise DeserializationError("CreateMapRequest.map_name required")
+        out["map_name"] = ""
     if data.get("Configuration") is not None:
         import capo_location.types.map_configuration
 

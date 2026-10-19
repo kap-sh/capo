@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.access_check_policy_document
     import capo_accessanalyzer.types.access_check_resource_type
@@ -33,13 +31,11 @@ def deserialize_json(data: dict) -> CheckNoPublicAccessRequest:
     if data.get("policyDocument") is not None:
         out["policy_document"] = data["policyDocument"]
     else:
-        raise DeserializationError(
-            "CheckNoPublicAccessRequest.policy_document required"
-        )
+        out["policy_document"] = ""
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError("CheckNoPublicAccessRequest.resource_type required")
+        out["resource_type"] = ""
     return out
 
 

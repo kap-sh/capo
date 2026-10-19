@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.audio_artifacts_concatenation_state
 
@@ -39,5 +37,10 @@ def deserialize_json(data: dict) -> AudioConcatenationConfiguration:
             )
         )
     else:
-        raise DeserializationError("AudioConcatenationConfiguration.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.audio_artifacts_concatenation_state.AudioArtifactsConcatenationState",
+            "",
+        )
     return out

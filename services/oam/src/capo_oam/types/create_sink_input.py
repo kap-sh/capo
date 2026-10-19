@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_oam.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_oam.types.sink_name
     import capo_oam.types.tag_map_input
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> CreateSinkInput:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateSinkInput.name required")
+        out["name"] = ""
     if data.get("Tags") is not None:
         import capo_oam.types.tag_map_input
 

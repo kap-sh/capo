@@ -71,17 +71,17 @@ def deserialize_cbor(data: dict) -> AccessGrantSummary:
     if data.get("grantId") is not None:
         out["grant_id"] = data["grantId"]
     else:
-        raise DeserializationError("AccessGrantSummary.grant_id required")
+        out["grant_id"] = ""
     if data.get("grantArn") is not None:
         out["grant_arn"] = data["grantArn"]
     else:
-        raise DeserializationError("AccessGrantSummary.grant_arn required")
+        out["grant_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("AccessGrantSummary.domain_id required")
+        out["domain_id"] = ""
     if data.get("principal") is not None:
         import capo_cloudwatchomni.types.access_grant_principal
 
@@ -101,7 +101,12 @@ def deserialize_cbor(data: dict) -> AccessGrantSummary:
             )
         )
     else:
-        raise DeserializationError("AccessGrantSummary.permission required")
+        import typing
+
+        out["permission"] = typing.cast(
+            "capo_cloudwatchomni.types.access_grant_permission.AccessGrantPermission",
+            "",
+        )
     if data.get("grantType") is not None:
         import capo_cloudwatchomni.types.access_grant_type
 
@@ -111,9 +116,13 @@ def deserialize_cbor(data: dict) -> AccessGrantSummary:
             )
         )
     else:
-        raise DeserializationError("AccessGrantSummary.grant_type required")
+        import typing
+
+        out["grant_type"] = typing.cast(
+            "capo_cloudwatchomni.types.access_grant_type.AccessGrantType", ""
+        )
     if data.get("spaceId") is not None:
         out["space_id"] = data["spaceId"]
     else:
-        raise DeserializationError("AccessGrantSummary.space_id required")
+        out["space_id"] = ""
     return out

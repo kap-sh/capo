@@ -73,7 +73,7 @@ def deserialize_json(data: dict) -> CreateVirtualClusterRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateVirtualClusterRequest.name required")
+        out["name"] = ""
     if data.get("containerProvider") is not None:
         import capo_emr_containers.types.container_provider
 
@@ -89,7 +89,7 @@ def deserialize_json(data: dict) -> CreateVirtualClusterRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CreateVirtualClusterRequest.client_token required")
+        out["client_token"] = ""
     if data.get("tags") is not None:
         import capo_emr_containers.types.tag_map
 

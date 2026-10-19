@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 
 class SummarizationDimensionDetail(TypedDict, closed=True):
     name: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> SummarizationDimensionDetail:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("SummarizationDimensionDetail.name required")
+        out["name"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("SummarizationDimensionDetail.value required")
+        out["value"] = ""
     return out

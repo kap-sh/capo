@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sso_admin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_admin.types.application_url
     import capo_sso_admin.types.sign_in_origin
@@ -40,7 +38,11 @@ def deserialize_aws_json_1_1(data: dict) -> SignInOptions:
             data["Origin"]
         )
     else:
-        raise DeserializationError("SignInOptions.origin required")
+        import typing
+
+        out["origin"] = typing.cast(
+            "capo_sso_admin.types.sign_in_origin.SignInOrigin", ""
+        )
     if data.get("ApplicationUrl") is not None:
         out["application_url"] = data["ApplicationUrl"]
     return out

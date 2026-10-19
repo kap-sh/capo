@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.dns_name
@@ -65,9 +64,7 @@ def deserialize_xml(el: Element) -> ListHostedZonesByNameResponse:
             child_hosted_zones
         )
     else:
-        raise DeserializationError(
-            "ListHostedZonesByNameResponse.hosted_zones required"
-        )
+        out["hosted_zones"] = []
     child_dns_name = el.find("DNSName")
     if child_dns_name is not None:
         out["dns_name"] = str(child_dns_name.text or "")
@@ -89,5 +86,5 @@ def deserialize_xml(el: Element) -> ListHostedZonesByNameResponse:
     if child_max_items is not None:
         out["max_items"] = int(child_max_items.text or "")
     else:
-        raise DeserializationError("ListHostedZonesByNameResponse.max_items required")
+        out["max_items"] = 0
     return out

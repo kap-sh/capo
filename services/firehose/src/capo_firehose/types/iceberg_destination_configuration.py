@@ -213,7 +213,7 @@ def deserialize_aws_json_1_1(data: dict) -> IcebergDestinationConfiguration:
     if data.get("RoleARN") is not None:
         out["role_arn"] = data["RoleARN"]
     else:
-        raise DeserializationError("IcebergDestinationConfiguration.role_arn required")
+        out["role_arn"] = ""
     if data.get("AppendOnly") is not None:
         out["append_only"] = data["AppendOnly"]
     if data.get("CatalogConfiguration") is not None:

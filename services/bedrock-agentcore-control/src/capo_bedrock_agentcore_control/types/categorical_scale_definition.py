@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 
 class CategoricalScaleDefinition(TypedDict, closed=True):
     definition: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> CategoricalScaleDefinition:
     if data.get("definition") is not None:
         out["definition"] = data["definition"]
     else:
-        raise DeserializationError("CategoricalScaleDefinition.definition required")
+        out["definition"] = ""
     if data.get("label") is not None:
         out["label"] = data["label"]
     else:
-        raise DeserializationError("CategoricalScaleDefinition.label required")
+        out["label"] = ""
     return out

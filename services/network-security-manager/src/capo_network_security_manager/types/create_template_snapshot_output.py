@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.associated_rule_list
     import capo_network_security_manager.types.date_timestamp
@@ -110,17 +108,15 @@ def deserialize_json(data: dict) -> CreateTemplateSnapshotOutput:
     if data.get("templateId") is not None:
         out["template_id"] = data["templateId"]
     else:
-        raise DeserializationError("CreateTemplateSnapshotOutput.template_id required")
+        out["template_id"] = ""
     if data.get("templateArn") is not None:
         out["template_arn"] = data["templateArn"]
     else:
-        raise DeserializationError("CreateTemplateSnapshotOutput.template_arn required")
+        out["template_arn"] = ""
     if data.get("templateName") is not None:
         out["template_name"] = data["templateName"]
     else:
-        raise DeserializationError(
-            "CreateTemplateSnapshotOutput.template_name required"
-        )
+        out["template_name"] = ""
     if data.get("templateDescription") is not None:
         out["template_description"] = data["templateDescription"]
     if data.get("status") is not None:
@@ -132,11 +128,15 @@ def deserialize_json(data: dict) -> CreateTemplateSnapshotOutput:
             )
         )
     else:
-        raise DeserializationError("CreateTemplateSnapshotOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_network_security_manager.types.entity_status.EntityStatus", ""
+        )
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("CreateTemplateSnapshotOutput.version required")
+        out["version"] = ""
     if data.get("associatedRuleList") is not None:
         import capo_network_security_manager.types.associated_rule_list
 
@@ -146,9 +146,7 @@ def deserialize_json(data: dict) -> CreateTemplateSnapshotOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateTemplateSnapshotOutput.associated_rule_list required"
-        )
+        out["associated_rule_list"] = []
     if data.get("updateToken") is not None:
         out["update_token"] = data["updateToken"]
     if data.get("isSnapshot") is not None:
@@ -164,8 +162,11 @@ def deserialize_json(data: dict) -> CreateTemplateSnapshotOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateTemplateSnapshotOutput.firewall_type required"
+        import typing
+
+        out["firewall_type"] = typing.cast(
+            "capo_network_security_manager.types.template_firewall_type.TemplateFirewallType",
+            "",
         )
     if data.get("updatedAt") is not None:
         import capo_network_security_manager.types.date_timestamp

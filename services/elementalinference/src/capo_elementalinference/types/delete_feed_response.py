@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_elementalinference.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elementalinference.types.feed_arn
     import capo_elementalinference.types.feed_id
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> DeleteFeedResponse:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("DeleteFeedResponse.arn required")
+        out["arn"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("DeleteFeedResponse.id required")
+        out["id"] = ""
     if data.get("status") is not None:
         import capo_elementalinference.types.feed_status
 
@@ -51,5 +49,9 @@ def deserialize_json(data: dict) -> DeleteFeedResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("DeleteFeedResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_elementalinference.types.feed_status.FeedStatus", ""
+        )
     return out

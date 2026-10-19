@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.box_integer
     import capo_license_manager.types.string
@@ -39,15 +37,11 @@ def deserialize_aws_json_1_1(data: dict) -> ListAssetsForLicenseAssetGroupReques
     if data.get("LicenseAssetGroupArn") is not None:
         out["license_asset_group_arn"] = data["LicenseAssetGroupArn"]
     else:
-        raise DeserializationError(
-            "ListAssetsForLicenseAssetGroupRequest.license_asset_group_arn required"
-        )
+        out["license_asset_group_arn"] = ""
     if data.get("AssetType") is not None:
         out["asset_type"] = data["AssetType"]
     else:
-        raise DeserializationError(
-            "ListAssetsForLicenseAssetGroupRequest.asset_type required"
-        )
+        out["asset_type"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

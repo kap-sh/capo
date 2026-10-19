@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.custom_actions
     import capo_network_firewall.types.stateless_rules
@@ -52,9 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> StatelessRulesAndCustomActions:
             )
         )
     else:
-        raise DeserializationError(
-            "StatelessRulesAndCustomActions.stateless_rules required"
-        )
+        out["stateless_rules"] = []
     if data.get("CustomActions") is not None:
         import capo_network_firewall.types.custom_actions
 

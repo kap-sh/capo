@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.custom_headers
@@ -107,12 +106,12 @@ def deserialize_xml(el: Element) -> Origin:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("Origin.id required")
+        out["id"] = ""
     child_domain_name = el.find("DomainName")
     if child_domain_name is not None:
         out["domain_name"] = str(child_domain_name.text or "")
     else:
-        raise DeserializationError("Origin.domain_name required")
+        out["domain_name"] = ""
     child_origin_path = el.find("OriginPath")
     if child_origin_path is not None:
         out["origin_path"] = str(child_origin_path.text or "")

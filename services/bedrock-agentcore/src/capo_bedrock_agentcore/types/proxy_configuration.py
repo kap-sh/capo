@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.proxies
     import capo_bedrock_agentcore.types.proxy_bypass
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> ProxyConfiguration:
             data["proxies"]
         )
     else:
-        raise DeserializationError("ProxyConfiguration.proxies required")
+        out["proxies"] = []
     if data.get("bypass") is not None:
         import capo_bedrock_agentcore.types.proxy_bypass
 

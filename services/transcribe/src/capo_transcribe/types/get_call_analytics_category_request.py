@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transcribe.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe.types.category_name
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetCallAnalyticsCategoryRequest:
     if data.get("CategoryName") is not None:
         out["category_name"] = data["CategoryName"]
     else:
-        raise DeserializationError(
-            "GetCallAnalyticsCategoryRequest.category_name required"
-        )
+        out["category_name"] = ""
     return out

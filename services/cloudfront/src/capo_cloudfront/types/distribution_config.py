@@ -216,7 +216,7 @@ def deserialize_xml(el: Element) -> DistributionConfig:
     if child_caller_reference is not None:
         out["caller_reference"] = str(child_caller_reference.text or "")
     else:
-        raise DeserializationError("DistributionConfig.caller_reference required")
+        out["caller_reference"] = ""
     child_aliases = el.find("Aliases")
     if child_aliases is not None:
         import capo_cloudfront.types.aliases
@@ -270,7 +270,7 @@ def deserialize_xml(el: Element) -> DistributionConfig:
     if child_comment is not None:
         out["comment"] = str(child_comment.text or "")
     else:
-        raise DeserializationError("DistributionConfig.comment required")
+        out["comment"] = ""
     child_logging = el.find("Logging")
     if child_logging is not None:
         import capo_cloudfront.types.logging_config
@@ -289,7 +289,7 @@ def deserialize_xml(el: Element) -> DistributionConfig:
     if child_enabled is not None:
         out["enabled"] = (child_enabled.text or "").lower() == "true"
     else:
-        raise DeserializationError("DistributionConfig.enabled required")
+        out["enabled"] = False
     child_viewer_certificate = el.find("ViewerCertificate")
     if child_viewer_certificate is not None:
         import capo_cloudfront.types.viewer_certificate

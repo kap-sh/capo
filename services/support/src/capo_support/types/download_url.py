@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_support.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support.types.https_url
     import capo_support.types.validated_date_time
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DownloadUrl:
     if data.get("url") is not None:
         out["url"] = data["url"]
     else:
-        raise DeserializationError("DownloadUrl.url required")
+        out["url"] = ""
     if data.get("expiryDate") is not None:
         out["expiry_date"] = data["expiryDate"]
     else:
-        raise DeserializationError("DownloadUrl.expiry_date required")
+        out["expiry_date"] = ""
     return out

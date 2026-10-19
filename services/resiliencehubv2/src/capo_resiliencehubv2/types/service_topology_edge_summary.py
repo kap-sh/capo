@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.aws_account_id
     import capo_resiliencehubv2.types.aws_region
@@ -64,15 +62,11 @@ def deserialize_json(data: dict) -> ServiceTopologyEdgeSummary:
     if data.get("sourceResourceIdentifier") is not None:
         out["source_resource_identifier"] = data["sourceResourceIdentifier"]
     else:
-        raise DeserializationError(
-            "ServiceTopologyEdgeSummary.source_resource_identifier required"
-        )
+        out["source_resource_identifier"] = ""
     if data.get("destinationResourceIdentifier") is not None:
         out["destination_resource_identifier"] = data["destinationResourceIdentifier"]
     else:
-        raise DeserializationError(
-            "ServiceTopologyEdgeSummary.destination_resource_identifier required"
-        )
+        out["destination_resource_identifier"] = ""
     if data.get("sourceRegion") is not None:
         out["source_region"] = data["sourceRegion"]
     if data.get("destinationRegion") is not None:

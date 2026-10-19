@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_elastic_beanstalk._protocol.xml import Element
-from capo_elastic_beanstalk.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_elastic_beanstalk.types.application_name
@@ -36,14 +35,10 @@ def deserialize_query(el: Element) -> DeleteEnvironmentConfigurationMessage:
     if child_application_name is not None:
         out["application_name"] = str(child_application_name.text or "")
     else:
-        raise DeserializationError(
-            "DeleteEnvironmentConfigurationMessage.application_name required"
-        )
+        out["application_name"] = ""
     child_environment_name = el.find("EnvironmentName")
     if child_environment_name is not None:
         out["environment_name"] = str(child_environment_name.text or "")
     else:
-        raise DeserializationError(
-            "DeleteEnvironmentConfigurationMessage.environment_name required"
-        )
+        out["environment_name"] = ""
     return out

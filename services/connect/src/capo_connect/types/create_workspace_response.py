@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.workspace_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> CreateWorkspaceResponse:
     if data.get("WorkspaceId") is not None:
         out["workspace_id"] = data["WorkspaceId"]
     else:
-        raise DeserializationError("CreateWorkspaceResponse.workspace_id required")
+        out["workspace_id"] = ""
     if data.get("WorkspaceArn") is not None:
         out["workspace_arn"] = data["WorkspaceArn"]
     else:
-        raise DeserializationError("CreateWorkspaceResponse.workspace_arn required")
+        out["workspace_arn"] = ""
     return out

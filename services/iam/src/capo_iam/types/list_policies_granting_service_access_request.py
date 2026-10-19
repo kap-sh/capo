@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -50,9 +49,7 @@ def deserialize_query(el: Element) -> ListPoliciesGrantingServiceAccessRequest:
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError(
-            "ListPoliciesGrantingServiceAccessRequest.arn required"
-        )
+        out["arn"] = ""
     child_service_namespaces = el.find("ServiceNamespaces")
     if child_service_namespaces is not None:
         import capo_iam.types.service_namespace_list_type
@@ -63,7 +60,5 @@ def deserialize_query(el: Element) -> ListPoliciesGrantingServiceAccessRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ListPoliciesGrantingServiceAccessRequest.service_namespaces required"
-        )
+        out["service_namespaces"] = []
     return out

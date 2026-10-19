@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.account_id
     import capo_cloudwatch_logs.types.kms_key_id
@@ -41,11 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> S3Configuration:
     if data.get("destinationIdentifier") is not None:
         out["destination_identifier"] = data["destinationIdentifier"]
     else:
-        raise DeserializationError("S3Configuration.destination_identifier required")
+        out["destination_identifier"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("S3Configuration.role_arn required")
+        out["role_arn"] = ""
     if data.get("ownerAccountId") is not None:
         out["owner_account_id"] = data["ownerAccountId"]
     if data.get("kmsKeyId") is not None:

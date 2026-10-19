@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.client_token
     import capo_iotsitewise.types.description
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> UpdateProjectRequest:
     if data.get("projectName") is not None:
         out["project_name"] = data["projectName"]
     else:
-        raise DeserializationError("UpdateProjectRequest.project_name required")
+        out["project_name"] = ""
     if data.get("projectDescription") is not None:
         out["project_description"] = data["projectDescription"]
     if data.get("clientToken") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_auto_scaling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_auto_scaling.types.resource_id_max_len1600
     import capo_application_auto_scaling.types.scalable_dimension
@@ -117,11 +115,11 @@ def deserialize_aws_json_1_1(data: dict) -> ScheduledAction:
     if data.get("ScheduledActionName") is not None:
         out["scheduled_action_name"] = data["ScheduledActionName"]
     else:
-        raise DeserializationError("ScheduledAction.scheduled_action_name required")
+        out["scheduled_action_name"] = ""
     if data.get("ScheduledActionARN") is not None:
         out["scheduled_action_arn"] = data["ScheduledActionARN"]
     else:
-        raise DeserializationError("ScheduledAction.scheduled_action_arn required")
+        out["scheduled_action_arn"] = ""
     if data.get("ServiceNamespace") is not None:
         import capo_application_auto_scaling.types.service_namespace
 
@@ -131,17 +129,21 @@ def deserialize_aws_json_1_1(data: dict) -> ScheduledAction:
             )
         )
     else:
-        raise DeserializationError("ScheduledAction.service_namespace required")
+        import typing
+
+        out["service_namespace"] = typing.cast(
+            "capo_application_auto_scaling.types.service_namespace.ServiceNamespace", ""
+        )
     if data.get("Schedule") is not None:
         out["schedule"] = data["Schedule"]
     else:
-        raise DeserializationError("ScheduledAction.schedule required")
+        out["schedule"] = ""
     if data.get("Timezone") is not None:
         out["timezone"] = data["Timezone"]
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("ScheduledAction.resource_id required")
+        out["resource_id"] = ""
     if data.get("ScalableDimension") is not None:
         import capo_application_auto_scaling.types.scalable_dimension
 
@@ -183,5 +185,9 @@ def deserialize_aws_json_1_1(data: dict) -> ScheduledAction:
             )
         )
     else:
-        raise DeserializationError("ScheduledAction.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

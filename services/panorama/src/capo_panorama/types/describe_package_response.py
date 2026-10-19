@@ -82,15 +82,15 @@ def deserialize_json(data: dict) -> DescribePackageResponse:
     if data.get("PackageId") is not None:
         out["package_id"] = data["PackageId"]
     else:
-        raise DeserializationError("DescribePackageResponse.package_id required")
+        out["package_id"] = ""
     if data.get("PackageName") is not None:
         out["package_name"] = data["PackageName"]
     else:
-        raise DeserializationError("DescribePackageResponse.package_name required")
+        out["package_name"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("DescribePackageResponse.arn required")
+        out["arn"] = ""
     if data.get("StorageLocation") is not None:
         import capo_panorama.types.storage_location
 
@@ -122,11 +122,15 @@ def deserialize_json(data: dict) -> DescribePackageResponse:
             data["CreatedTime"]
         )
     else:
-        raise DeserializationError("DescribePackageResponse.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("Tags") is not None:
         import capo_panorama.types.tag_map
 
         out["tags"] = capo_panorama.types.tag_map.deserialize_json(data["Tags"])
     else:
-        raise DeserializationError("DescribePackageResponse.tags required")
+        out["tags"] = {}
     return out

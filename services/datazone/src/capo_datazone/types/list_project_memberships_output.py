@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.pagination_token
     import capo_datazone.types.project_members
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ListProjectMembershipsOutput:
             data["members"]
         )
     else:
-        raise DeserializationError("ListProjectMembershipsOutput.members required")
+        out["members"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

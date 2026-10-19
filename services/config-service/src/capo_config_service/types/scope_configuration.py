@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.boolean
     import capo_config_service.types.included_regions
@@ -55,7 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> ScopeConfiguration:
     if data.get("scopeType") is not None:
         out["scope_type"] = data["scopeType"]
     else:
-        raise DeserializationError("ScopeConfiguration.scope_type required")
+        out["scope_type"] = ""
     if data.get("scopeValues") is not None:
         import capo_config_service.types.scope_values
 

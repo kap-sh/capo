@@ -39,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSecurityConfigurationRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateSecurityConfigurationRequest.name required")
+        out["name"] = ""
     if data.get("EncryptionConfiguration") is not None:
         import capo_glue.types.encryption_configuration
 

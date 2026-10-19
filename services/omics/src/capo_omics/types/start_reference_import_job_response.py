@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -48,21 +46,19 @@ def deserialize_json(data: dict) -> StartReferenceImportJobResponse:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("StartReferenceImportJobResponse.id required")
+        out["id"] = ""
     if data.get("referenceStoreId") is not None:
         out["reference_store_id"] = data["referenceStoreId"]
     else:
-        raise DeserializationError(
-            "StartReferenceImportJobResponse.reference_store_id required"
-        )
+        out["reference_store_id"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("StartReferenceImportJobResponse.role_arn required")
+        out["role_arn"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("StartReferenceImportJobResponse.status required")
+        out["status"] = ""
     if data.get("creationTime") is not None:
         import datetime
 
@@ -70,7 +66,9 @@ def deserialize_json(data: dict) -> StartReferenceImportJobResponse:
             data["creationTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "StartReferenceImportJobResponse.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

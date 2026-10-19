@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.bedrock_model_arn
     import capo_bedrock_agent_runtime.types.generation_configuration
@@ -72,15 +70,11 @@ def deserialize_json(data: dict) -> KnowledgeBaseRetrieveAndGenerateConfiguratio
     if data.get("knowledgeBaseId") is not None:
         out["knowledge_base_id"] = data["knowledgeBaseId"]
     else:
-        raise DeserializationError(
-            "KnowledgeBaseRetrieveAndGenerateConfiguration.knowledge_base_id required"
-        )
+        out["knowledge_base_id"] = ""
     if data.get("modelArn") is not None:
         out["model_arn"] = data["modelArn"]
     else:
-        raise DeserializationError(
-            "KnowledgeBaseRetrieveAndGenerateConfiguration.model_arn required"
-        )
+        out["model_arn"] = ""
     if data.get("retrievalConfiguration") is not None:
         import capo_bedrock_agent_runtime.types.knowledge_base_retrieval_configuration
 

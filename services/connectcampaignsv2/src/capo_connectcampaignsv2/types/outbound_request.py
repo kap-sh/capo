@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.channel_subtype_parameters
     import capo_connectcampaignsv2.types.client_token
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> OutboundRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("OutboundRequest.client_token required")
+        out["client_token"] = ""
     if data.get("expirationTime") is not None:
         import capo_connectcampaignsv2.types.time_stamp
 
@@ -52,7 +50,11 @@ def deserialize_json(data: dict) -> OutboundRequest:
             )
         )
     else:
-        raise DeserializationError("OutboundRequest.expiration_time required")
+        import datetime
+
+        out["expiration_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("channelSubtypeParameters") is not None:
         import capo_connectcampaignsv2.types.channel_subtype_parameters
 
@@ -62,8 +64,10 @@ def deserialize_json(data: dict) -> OutboundRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "OutboundRequest.channel_subtype_parameters required"
+        import capo_connectcampaignsv2.types._unknown
+
+        out["channel_subtype_parameters"] = (
+            capo_connectcampaignsv2.types._unknown.UnknownUnionMember("")
         )
     return out
 

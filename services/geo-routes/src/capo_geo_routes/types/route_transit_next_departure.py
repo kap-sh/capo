@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.duration_seconds
     import capo_geo_routes.types.route_transit_transport_mode_details
@@ -73,7 +71,7 @@ def deserialize_json(data: dict) -> RouteTransitNextDeparture:
     if data.get("Time") is not None:
         out["time"] = data["Time"]
     else:
-        raise DeserializationError("RouteTransitNextDeparture.time required")
+        out["time"] = ""
     if data.get("Transport") is not None:
         import capo_geo_routes.types.route_transit_transport_mode_details
 

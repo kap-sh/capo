@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.event_log_level
     import capo_appsync.types.string
@@ -39,9 +37,13 @@ def deserialize_json(data: dict) -> EventLogConfig:
             data["logLevel"]
         )
     else:
-        raise DeserializationError("EventLogConfig.log_level required")
+        import typing
+
+        out["log_level"] = typing.cast(
+            "capo_appsync.types.event_log_level.EventLogLevel", ""
+        )
     if data.get("cloudWatchLogsRoleArn") is not None:
         out["cloud_watch_logs_role_arn"] = data["cloudWatchLogsRoleArn"]
     else:
-        raise DeserializationError("EventLogConfig.cloud_watch_logs_role_arn required")
+        out["cloud_watch_logs_role_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.contact_protocol
     import capo_lightsail.types.string_max256
@@ -50,13 +48,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateContactMethodRequest:
             )
         )
     else:
-        raise DeserializationError("CreateContactMethodRequest.protocol required")
+        import typing
+
+        out["protocol"] = typing.cast(
+            "capo_lightsail.types.contact_protocol.ContactProtocol", ""
+        )
     if data.get("contactEndpoint") is not None:
         out["contact_endpoint"] = data["contactEndpoint"]
     else:
-        raise DeserializationError(
-            "CreateContactMethodRequest.contact_endpoint required"
-        )
+        out["contact_endpoint"] = ""
     if data.get("tags") is not None:
         import capo_lightsail.types.tag_list
 

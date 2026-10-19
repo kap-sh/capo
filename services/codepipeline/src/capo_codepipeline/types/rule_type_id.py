@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.rule_category
     import capo_codepipeline.types.rule_owner
@@ -55,7 +53,11 @@ def deserialize_aws_json_1_1(data: dict) -> RuleTypeId:
             )
         )
     else:
-        raise DeserializationError("RuleTypeId.category required")
+        import typing
+
+        out["category"] = typing.cast(
+            "capo_codepipeline.types.rule_category.RuleCategory", ""
+        )
     if data.get("owner") is not None:
         import capo_codepipeline.types.rule_owner
 
@@ -65,7 +67,7 @@ def deserialize_aws_json_1_1(data: dict) -> RuleTypeId:
     if data.get("provider") is not None:
         out["provider"] = data["provider"]
     else:
-        raise DeserializationError("RuleTypeId.provider required")
+        out["provider"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     return out

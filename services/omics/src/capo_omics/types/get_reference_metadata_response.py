@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -91,21 +89,19 @@ def deserialize_json(data: dict) -> GetReferenceMetadataResponse:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetReferenceMetadataResponse.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetReferenceMetadataResponse.arn required")
+        out["arn"] = ""
     if data.get("referenceStoreId") is not None:
         out["reference_store_id"] = data["referenceStoreId"]
     else:
-        raise DeserializationError(
-            "GetReferenceMetadataResponse.reference_store_id required"
-        )
+        out["reference_store_id"] = ""
     if data.get("md5") is not None:
         out["md5"] = data["md5"]
     else:
-        raise DeserializationError("GetReferenceMetadataResponse.md5 required")
+        out["md5"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     if data.get("name") is not None:
@@ -119,8 +115,10 @@ def deserialize_json(data: dict) -> GetReferenceMetadataResponse:
             data["creationTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "GetReferenceMetadataResponse.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("updateTime") is not None:
         import datetime
@@ -129,7 +127,11 @@ def deserialize_json(data: dict) -> GetReferenceMetadataResponse:
             data["updateTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetReferenceMetadataResponse.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("files") is not None:
         import capo_omics.types.reference_files
 

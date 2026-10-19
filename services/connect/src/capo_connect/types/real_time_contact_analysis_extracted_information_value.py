@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.real_time_contact_analysis_extracted_information_content
     import capo_connect.types.real_time_contact_analysis_transcript_items_with_character_offsets
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> RealTimeContactAnalysisExtractedInformationV
     if data.get("Content") is not None:
         out["content"] = data["Content"]
     else:
-        raise DeserializationError(
-            "RealTimeContactAnalysisExtractedInformationValue.content required"
-        )
+        out["content"] = ""
     if data.get("PointsOfInterest") is not None:
         import capo_connect.types.real_time_contact_analysis_transcript_items_with_character_offsets
 
@@ -49,7 +45,5 @@ def deserialize_json(data: dict) -> RealTimeContactAnalysisExtractedInformationV
             )
         )
     else:
-        raise DeserializationError(
-            "RealTimeContactAnalysisExtractedInformationValue.points_of_interest required"
-        )
+        out["points_of_interest"] = []
     return out

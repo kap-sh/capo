@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.entity_id
     import capo_kendra.types.persona
@@ -33,7 +31,7 @@ def deserialize_aws_json_1_1(data: dict) -> EntityPersonaConfiguration:
     if data.get("EntityId") is not None:
         out["entity_id"] = data["EntityId"]
     else:
-        raise DeserializationError("EntityPersonaConfiguration.entity_id required")
+        out["entity_id"] = ""
     if data.get("Persona") is not None:
         import capo_kendra.types.persona
 
@@ -41,5 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> EntityPersonaConfiguration:
             data["Persona"]
         )
     else:
-        raise DeserializationError("EntityPersonaConfiguration.persona required")
+        import typing
+
+        out["persona"] = typing.cast("capo_kendra.types.persona.Persona", "")
     return out

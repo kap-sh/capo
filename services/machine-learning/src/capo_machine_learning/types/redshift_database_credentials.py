@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_machine_learning.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_machine_learning.types.redshift_database_password
     import capo_machine_learning.types.redshift_database_username
@@ -29,11 +27,11 @@ def deserialize_aws_json_1_1(data: dict) -> RedshiftDatabaseCredentials:
     if data.get("Username") is not None:
         out["username"] = data["Username"]
     else:
-        raise DeserializationError("RedshiftDatabaseCredentials.username required")
+        out["username"] = ""
     if data.get("Password") is not None:
         out["password"] = data["Password"]
     else:
-        raise DeserializationError("RedshiftDatabaseCredentials.password required")
+        out["password"] = ""
     return out
 
 

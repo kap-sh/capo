@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.recommended_remediation_action
     import capo_accessanalyzer.types.timestamp
@@ -50,9 +48,7 @@ def deserialize_json(data: dict) -> UnusedPermissionsRecommendedStep:
     if data.get("recommendedAction") is not None:
         out["recommended_action"] = data["recommendedAction"]
     else:
-        raise DeserializationError(
-            "UnusedPermissionsRecommendedStep.recommended_action required"
-        )
+        out["recommended_action"] = ""
     if data.get("recommendedPolicy") is not None:
         out["recommended_policy"] = data["recommendedPolicy"]
     if data.get("existingPolicyId") is not None:

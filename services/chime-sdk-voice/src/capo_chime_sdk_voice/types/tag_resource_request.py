@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.arn
     import capo_chime_sdk_voice.types.tag_list
@@ -33,13 +31,13 @@ def deserialize_json(data: dict) -> TagResourceRequest:
     if data.get("ResourceARN") is not None:
         out["resource_arn"] = data["ResourceARN"]
     else:
-        raise DeserializationError("TagResourceRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("Tags") is not None:
         import capo_chime_sdk_voice.types.tag_list
 
         out["tags"] = capo_chime_sdk_voice.types.tag_list.deserialize_json(data["Tags"])
     else:
-        raise DeserializationError("TagResourceRequest.tags required")
+        out["tags"] = []
     return out
 
 

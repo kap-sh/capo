@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_comprehendmedical.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehendmedical.types.s3_bucket
     import capo_comprehendmedical.types.s3_key
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> OutputDataConfig:
     if data.get("S3Bucket") is not None:
         out["s3_bucket"] = data["S3Bucket"]
     else:
-        raise DeserializationError("OutputDataConfig.s3_bucket required")
+        out["s3_bucket"] = ""
     if data.get("S3Key") is not None:
         out["s3_key"] = data["S3Key"]
     return out

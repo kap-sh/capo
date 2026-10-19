@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.boolean_object_type
@@ -47,7 +46,7 @@ def deserialize_query(el: Element) -> UpdateLoginProfileRequest:
     if child_user_name is not None:
         out["user_name"] = str(child_user_name.text or "")
     else:
-        raise DeserializationError("UpdateLoginProfileRequest.user_name required")
+        out["user_name"] = ""
     child_password = el.find("Password")
     if child_password is not None:
         out["password"] = str(child_password.text or "")

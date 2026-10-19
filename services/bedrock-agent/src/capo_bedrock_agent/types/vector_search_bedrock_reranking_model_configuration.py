@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.additional_model_request_fields
     import capo_bedrock_agent.types.bedrock_reranking_model_arn
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> VectorSearchBedrockRerankingModelConfigurati
     if data.get("modelArn") is not None:
         out["model_arn"] = data["modelArn"]
     else:
-        raise DeserializationError(
-            "VectorSearchBedrockRerankingModelConfiguration.model_arn required"
-        )
+        out["model_arn"] = ""
     if data.get("additionalModelRequestFields") is not None:
         import capo_bedrock_agent.types.additional_model_request_fields
 

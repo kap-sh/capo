@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.contact_id
     import capo_connect.types.contact_recording_type
@@ -47,17 +45,15 @@ def deserialize_json(data: dict) -> StopContactRecordingRequest:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("StopContactRecordingRequest.instance_id required")
+        out["instance_id"] = ""
     if data.get("ContactId") is not None:
         out["contact_id"] = data["ContactId"]
     else:
-        raise DeserializationError("StopContactRecordingRequest.contact_id required")
+        out["contact_id"] = ""
     if data.get("InitialContactId") is not None:
         out["initial_contact_id"] = data["InitialContactId"]
     else:
-        raise DeserializationError(
-            "StopContactRecordingRequest.initial_contact_id required"
-        )
+        out["initial_contact_id"] = ""
     if data.get("ContactRecordingType") is not None:
         import capo_connect.types.contact_recording_type
 

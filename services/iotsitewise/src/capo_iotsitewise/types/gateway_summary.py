@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.gateway_capability_summaries
     import capo_iotsitewise.types.gateway_name
@@ -76,11 +74,11 @@ def deserialize_json(data: dict) -> GatewaySummary:
     if data.get("gatewayId") is not None:
         out["gateway_id"] = data["gatewayId"]
     else:
-        raise DeserializationError("GatewaySummary.gateway_id required")
+        out["gateway_id"] = ""
     if data.get("gatewayName") is not None:
         out["gateway_name"] = data["gatewayName"]
     else:
-        raise DeserializationError("GatewaySummary.gateway_name required")
+        out["gateway_name"] = ""
     if data.get("gatewayPlatform") is not None:
         import capo_iotsitewise.types.gateway_platform
 
@@ -106,7 +104,11 @@ def deserialize_json(data: dict) -> GatewaySummary:
             data["creationDate"]
         )
     else:
-        raise DeserializationError("GatewaySummary.creation_date required")
+        import datetime
+
+        out["creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastUpdateDate") is not None:
         import capo_iotsitewise.types.timestamp
 
@@ -114,5 +116,9 @@ def deserialize_json(data: dict) -> GatewaySummary:
             data["lastUpdateDate"]
         )
     else:
-        raise DeserializationError("GatewaySummary.last_update_date required")
+        import datetime
+
+        out["last_update_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

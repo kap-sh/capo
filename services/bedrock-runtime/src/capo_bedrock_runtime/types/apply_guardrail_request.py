@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.guardrail_content_block_list
     import capo_bedrock_runtime.types.guardrail_content_source
@@ -68,7 +66,12 @@ def deserialize_json(data: dict) -> ApplyGuardrailRequest:
             )
         )
     else:
-        raise DeserializationError("ApplyGuardrailRequest.source required")
+        import typing
+
+        out["source"] = typing.cast(
+            "capo_bedrock_runtime.types.guardrail_content_source.GuardrailContentSource",
+            "",
+        )
     if data.get("content") is not None:
         import capo_bedrock_runtime.types.guardrail_content_block_list
 
@@ -78,7 +81,7 @@ def deserialize_json(data: dict) -> ApplyGuardrailRequest:
             )
         )
     else:
-        raise DeserializationError("ApplyGuardrailRequest.content required")
+        out["content"] = []
     if data.get("outputScope") is not None:
         import capo_bedrock_runtime.types.guardrail_output_scope
 

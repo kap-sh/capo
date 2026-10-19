@@ -40,7 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDocumentMetadataRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateDocumentMetadataRequest.name required")
+        out["name"] = ""
     if data.get("DocumentVersion") is not None:
         out["document_version"] = data["DocumentVersion"]
     if data.get("DocumentReviews") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.generic_string
     import capo_wickr.types.uname
@@ -40,5 +38,5 @@ def deserialize_json(data: dict) -> BatchUnameErrorResponseItem:
     if data.get("uname") is not None:
         out["uname"] = data["uname"]
     else:
-        raise DeserializationError("BatchUnameErrorResponseItem.uname required")
+        out["uname"] = ""
     return out

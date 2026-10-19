@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.operator
     import capo_cloudtrail.types.selector_field
@@ -76,7 +74,7 @@ def deserialize_aws_json_1_1(data: dict) -> AdvancedFieldSelector:
     if data.get("Field") is not None:
         out["field"] = data["Field"]
     else:
-        raise DeserializationError("AdvancedFieldSelector.field required")
+        out["field"] = ""
     if data.get("Equals") is not None:
         import capo_cloudtrail.types.operator
 

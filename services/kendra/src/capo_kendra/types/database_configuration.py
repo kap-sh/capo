@@ -99,8 +99,10 @@ def deserialize_aws_json_1_1(data: dict) -> DatabaseConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "DatabaseConfiguration.database_engine_type required"
+        import typing
+
+        out["database_engine_type"] = typing.cast(
+            "capo_kendra.types.database_engine_type.DatabaseEngineType", ""
         )
     if data.get("ConnectionConfiguration") is not None:
         import capo_kendra.types.connection_configuration

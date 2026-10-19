@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.cache_point_block
     import capo_bedrock_agent.types.prompt_input_variables_list
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> TextPromptTemplateConfiguration:
     if data.get("text") is not None:
         out["text"] = data["text"]
     else:
-        raise DeserializationError("TextPromptTemplateConfiguration.text required")
+        out["text"] = ""
     if data.get("cachePoint") is not None:
         import capo_bedrock_agent.types.cache_point_block
 

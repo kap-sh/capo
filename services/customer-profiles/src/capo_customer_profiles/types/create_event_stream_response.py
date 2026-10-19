@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.string1_to255
     import capo_customer_profiles.types.tag_map
@@ -34,9 +32,7 @@ def deserialize_json(data: dict) -> CreateEventStreamResponse:
     if data.get("EventStreamArn") is not None:
         out["event_stream_arn"] = data["EventStreamArn"]
     else:
-        raise DeserializationError(
-            "CreateEventStreamResponse.event_stream_arn required"
-        )
+        out["event_stream_arn"] = ""
     if data.get("Tags") is not None:
         import capo_customer_profiles.types.tag_map
 

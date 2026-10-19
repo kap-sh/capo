@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_signer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_signer.types.hash_algorithm
     import capo_signer.types.hash_algorithms
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> HashAlgorithmOptions:
             data["allowedValues"]
         )
     else:
-        raise DeserializationError("HashAlgorithmOptions.allowed_values required")
+        out["allowed_values"] = []
     if data.get("defaultValue") is not None:
         import capo_signer.types.hash_algorithm
 
@@ -51,5 +49,9 @@ def deserialize_json(data: dict) -> HashAlgorithmOptions:
             data["defaultValue"]
         )
     else:
-        raise DeserializationError("HashAlgorithmOptions.default_value required")
+        import typing
+
+        out["default_value"] = typing.cast(
+            "capo_signer.types.hash_algorithm.HashAlgorithm", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> CrossRegionDataGuardConfiguration:
     if data.get("sourceAutonomousDatabaseArn") is not None:
         out["source_autonomous_database_arn"] = data["sourceAutonomousDatabaseArn"]
     else:
-        raise DeserializationError(
-            "CrossRegionDataGuardConfiguration.source_autonomous_database_arn required"
-        )
+        out["source_autonomous_database_arn"] = ""
     return out

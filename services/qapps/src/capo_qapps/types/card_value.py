@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.submission_mutation
     import capo_qapps.types.uuid
@@ -41,11 +39,11 @@ def deserialize_json(data: dict) -> CardValue:
     if data.get("cardId") is not None:
         out["card_id"] = data["cardId"]
     else:
-        raise DeserializationError("CardValue.card_id required")
+        out["card_id"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("CardValue.value required")
+        out["value"] = ""
     if data.get("submissionMutation") is not None:
         import capo_qapps.types.submission_mutation
 

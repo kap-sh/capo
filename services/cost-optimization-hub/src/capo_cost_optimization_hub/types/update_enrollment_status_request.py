@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cost_optimization_hub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_optimization_hub.types.enrollment_status
 
@@ -43,7 +41,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateEnrollmentStatusRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateEnrollmentStatusRequest.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cost_optimization_hub.types.enrollment_status.EnrollmentStatus", ""
+        )
     if data.get("includeMemberAccounts") is not None:
         out["include_member_accounts"] = data["includeMemberAccounts"]
     return out

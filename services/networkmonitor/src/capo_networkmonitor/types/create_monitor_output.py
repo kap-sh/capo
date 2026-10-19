@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmonitor.types.aggregation_period
     import capo_networkmonitor.types.monitor_arn
@@ -53,11 +51,11 @@ def deserialize_json(data: dict) -> CreateMonitorOutput:
     if data.get("monitorArn") is not None:
         out["monitor_arn"] = data["monitorArn"]
     else:
-        raise DeserializationError("CreateMonitorOutput.monitor_arn required")
+        out["monitor_arn"] = ""
     if data.get("monitorName") is not None:
         out["monitor_name"] = data["monitorName"]
     else:
-        raise DeserializationError("CreateMonitorOutput.monitor_name required")
+        out["monitor_name"] = ""
     if data.get("state") is not None:
         import capo_networkmonitor.types.monitor_state
 
@@ -65,7 +63,11 @@ def deserialize_json(data: dict) -> CreateMonitorOutput:
             data["state"]
         )
     else:
-        raise DeserializationError("CreateMonitorOutput.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_networkmonitor.types.monitor_state.MonitorState", ""
+        )
     if data.get("aggregationPeriod") is not None:
         out["aggregation_period"] = data["aggregationPeriod"]
     if data.get("tags") is not None:

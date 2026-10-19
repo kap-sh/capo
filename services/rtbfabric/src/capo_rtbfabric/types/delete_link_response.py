@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rtbfabric.types.link_id
     import capo_rtbfabric.types.link_status
@@ -33,7 +31,7 @@ def deserialize_json(data: dict) -> DeleteLinkResponse:
     if data.get("linkId") is not None:
         out["link_id"] = data["linkId"]
     else:
-        raise DeserializationError("DeleteLinkResponse.link_id required")
+        out["link_id"] = ""
     if data.get("status") is not None:
         import capo_rtbfabric.types.link_status
 
@@ -41,5 +39,7 @@ def deserialize_json(data: dict) -> DeleteLinkResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("DeleteLinkResponse.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_rtbfabric.types.link_status.LinkStatus", "")
     return out

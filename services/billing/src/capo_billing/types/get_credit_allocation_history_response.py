@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billing.types.credit_allocation_history_list
     import capo_billing.types.failed_months_list
@@ -63,9 +61,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetCreditAllocationHistoryResponse:
     if data.get("partialResults") is not None:
         out["partial_results"] = data["partialResults"]
     else:
-        raise DeserializationError(
-            "GetCreditAllocationHistoryResponse.partial_results required"
-        )
+        out["partial_results"] = False
     if data.get("failedMonths") is not None:
         import capo_billing.types.failed_months_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.domain_associations
     import capo_amplify.types.next_token
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> ListDomainAssociationsResult:
             )
         )
     else:
-        raise DeserializationError(
-            "ListDomainAssociationsResult.domain_associations required"
-        )
+        out["domain_associations"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

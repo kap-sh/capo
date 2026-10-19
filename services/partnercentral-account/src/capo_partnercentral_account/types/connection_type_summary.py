@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.connection_type_status
     import capo_partnercentral_account.types.participant
@@ -51,7 +49,12 @@ def deserialize_aws_json_1_0(data: dict) -> ConnectionTypeSummary:
             )
         )
     else:
-        raise DeserializationError("ConnectionTypeSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_partnercentral_account.types.connection_type_status.ConnectionTypeStatus",
+            "",
+        )
     if data.get("OtherParticipant") is not None:
         import capo_partnercentral_account.types.participant
 
@@ -61,5 +64,9 @@ def deserialize_aws_json_1_0(data: dict) -> ConnectionTypeSummary:
             )
         )
     else:
-        raise DeserializationError("ConnectionTypeSummary.other_participant required")
+        import capo_partnercentral_account.types._unknown
+
+        out["other_participant"] = (
+            capo_partnercentral_account.types._unknown.UnknownUnionMember("")
+        )
     return out

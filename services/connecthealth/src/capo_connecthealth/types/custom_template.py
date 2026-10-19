@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_connecthealth.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connecthealth.types.custom_template_base
     import capo_connecthealth.types.template_instructions
@@ -49,7 +47,11 @@ def deserialize_json(data: dict) -> CustomTemplate:
             )
         )
     else:
-        raise DeserializationError("CustomTemplate.template_type required")
+        import typing
+
+        out["template_type"] = typing.cast(
+            "capo_connecthealth.types.custom_template_base.CustomTemplateBase", ""
+        )
     if data.get("templateInstructions") is not None:
         import capo_connecthealth.types.template_instructions
 
@@ -59,7 +61,7 @@ def deserialize_json(data: dict) -> CustomTemplate:
             )
         )
     else:
-        raise DeserializationError("CustomTemplate.template_instructions required")
+        out["template_instructions"] = []
     return out
 
 

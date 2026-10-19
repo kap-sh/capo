@@ -51,9 +51,9 @@ def deserialize_json(data: dict) -> Aggregation:
     if data.get("NewColumnName") is not None:
         out["new_column_name"] = data["NewColumnName"]
     else:
-        raise DeserializationError("Aggregation.new_column_name required")
+        out["new_column_name"] = ""
     if data.get("NewColumnId") is not None:
         out["new_column_id"] = data["NewColumnId"]
     else:
-        raise DeserializationError("Aggregation.new_column_id required")
+        out["new_column_id"] = ""
     return out

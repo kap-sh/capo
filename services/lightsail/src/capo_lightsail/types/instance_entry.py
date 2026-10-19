@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.non_empty_string
     import capo_lightsail.types.port_info_source_type
@@ -49,11 +47,11 @@ def deserialize_aws_json_1_1(data: dict) -> InstanceEntry:
     if data.get("sourceName") is not None:
         out["source_name"] = data["sourceName"]
     else:
-        raise DeserializationError("InstanceEntry.source_name required")
+        out["source_name"] = ""
     if data.get("instanceType") is not None:
         out["instance_type"] = data["instanceType"]
     else:
-        raise DeserializationError("InstanceEntry.instance_type required")
+        out["instance_type"] = ""
     if data.get("portInfoSource") is not None:
         import capo_lightsail.types.port_info_source_type
 
@@ -63,11 +61,15 @@ def deserialize_aws_json_1_1(data: dict) -> InstanceEntry:
             )
         )
     else:
-        raise DeserializationError("InstanceEntry.port_info_source required")
+        import typing
+
+        out["port_info_source"] = typing.cast(
+            "capo_lightsail.types.port_info_source_type.PortInfoSourceType", ""
+        )
     if data.get("userData") is not None:
         out["user_data"] = data["userData"]
     if data.get("availabilityZone") is not None:
         out["availability_zone"] = data["availabilityZone"]
     else:
-        raise DeserializationError("InstanceEntry.availability_zone required")
+        out["availability_zone"] = ""
     return out

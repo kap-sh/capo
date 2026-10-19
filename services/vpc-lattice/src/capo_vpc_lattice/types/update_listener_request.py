@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.listener_identifier
     import capo_vpc_lattice.types.rule_action
@@ -41,5 +39,7 @@ def deserialize_json(data: dict) -> UpdateListenerRequest:
             data["defaultAction"]
         )
     else:
-        raise DeserializationError("UpdateListenerRequest.default_action required")
+        import capo_vpc_lattice.types._unknown
+
+        out["default_action"] = capo_vpc_lattice.types._unknown.UnknownUnionMember("")
     return out

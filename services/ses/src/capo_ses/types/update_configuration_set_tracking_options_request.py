@@ -41,9 +41,7 @@ def deserialize_query(el: Element) -> UpdateConfigurationSetTrackingOptionsReque
     if child_configuration_set_name is not None:
         out["configuration_set_name"] = str(child_configuration_set_name.text or "")
     else:
-        raise DeserializationError(
-            "UpdateConfigurationSetTrackingOptionsRequest.configuration_set_name required"
-        )
+        out["configuration_set_name"] = ""
     child_tracking_options = el.find("TrackingOptions")
     if child_tracking_options is not None:
         import capo_ses.types.tracking_options

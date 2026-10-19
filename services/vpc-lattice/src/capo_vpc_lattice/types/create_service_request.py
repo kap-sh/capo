@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.auth_type
     import capo_vpc_lattice.types.certificate_arn
@@ -67,7 +65,7 @@ def deserialize_json(data: dict) -> CreateServiceRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateServiceRequest.name required")
+        out["name"] = ""
     if data.get("tags") is not None:
         import capo_vpc_lattice.types.tag_map
 

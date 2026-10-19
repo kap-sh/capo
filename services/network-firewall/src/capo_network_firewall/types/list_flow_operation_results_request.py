@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.availability_zone
     import capo_network_firewall.types.flow_operation_id
@@ -65,15 +63,11 @@ def deserialize_aws_json_1_0(data: dict) -> ListFlowOperationResultsRequest:
     if data.get("FirewallArn") is not None:
         out["firewall_arn"] = data["FirewallArn"]
     else:
-        raise DeserializationError(
-            "ListFlowOperationResultsRequest.firewall_arn required"
-        )
+        out["firewall_arn"] = ""
     if data.get("FlowOperationId") is not None:
         out["flow_operation_id"] = data["FlowOperationId"]
     else:
-        raise DeserializationError(
-            "ListFlowOperationResultsRequest.flow_operation_id required"
-        )
+        out["flow_operation_id"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

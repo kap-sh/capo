@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_ssm_quicksetup.errors import DeserializationError, ServiceError
+from capo_ssm_quicksetup.errors import ServiceError
 
 
 class ThrottlingException_(TypedDict, closed=True):
@@ -22,7 +22,7 @@ def deserialize_json(data: dict) -> ThrottlingException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("ThrottlingException_.message required")
+        out["message"] = ""
     return out
 
 

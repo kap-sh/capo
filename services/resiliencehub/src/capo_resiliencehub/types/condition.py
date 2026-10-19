@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.condition_operator_type
     import capo_resiliencehub.types.string255
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> Condition:
     if data.get("field") is not None:
         out["field"] = data["field"]
     else:
-        raise DeserializationError("Condition.field required")
+        out["field"] = ""
     if data.get("operator") is not None:
         import capo_resiliencehub.types.condition_operator_type
 
@@ -49,7 +47,11 @@ def deserialize_json(data: dict) -> Condition:
             )
         )
     else:
-        raise DeserializationError("Condition.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_resiliencehub.types.condition_operator_type.ConditionOperatorType", ""
+        )
     if data.get("value") is not None:
         out["value"] = data["value"]
     return out

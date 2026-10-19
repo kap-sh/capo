@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_medical_imaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_medical_imaging.types.datastore_id
     import capo_medical_imaging.types.image_set_external_version_id
@@ -54,8 +52,10 @@ def deserialize_json(data: dict) -> UpdateImageSetMetadataRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateImageSetMetadataRequest.update_image_set_metadata_updates required"
+        import capo_medical_imaging.types._unknown
+
+        out["update_image_set_metadata_updates"] = (
+            capo_medical_imaging.types._unknown.UnknownUnionMember("")
         )
     return out
 

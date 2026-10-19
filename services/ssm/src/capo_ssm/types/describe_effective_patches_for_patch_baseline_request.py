@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.baseline_id
     import capo_ssm.types.next_token
@@ -43,9 +41,7 @@ def deserialize_aws_json_1_1(
     if data.get("BaselineId") is not None:
         out["baseline_id"] = data["BaselineId"]
     else:
-        raise DeserializationError(
-            "DescribeEffectivePatchesForPatchBaselineRequest.baseline_id required"
-        )
+        out["baseline_id"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

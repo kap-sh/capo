@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_efs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_efs.types.availability_zone_name
     import capo_efs.types.backup
@@ -90,7 +88,7 @@ def deserialize_json(data: dict) -> CreateFileSystemRequest:
     if data.get("CreationToken") is not None:
         out["creation_token"] = data["CreationToken"]
     else:
-        raise DeserializationError("CreateFileSystemRequest.creation_token required")
+        out["creation_token"] = ""
     if data.get("PerformanceMode") is not None:
         import capo_efs.types.performance_mode
 

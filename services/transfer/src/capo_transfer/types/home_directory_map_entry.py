@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.map_entry
     import capo_transfer.types.map_target
@@ -38,11 +36,11 @@ def deserialize_aws_json_1_1(data: dict) -> HomeDirectoryMapEntry:
     if data.get("Entry") is not None:
         out["entry"] = data["Entry"]
     else:
-        raise DeserializationError("HomeDirectoryMapEntry.entry required")
+        out["entry"] = ""
     if data.get("Target") is not None:
         out["target"] = data["Target"]
     else:
-        raise DeserializationError("HomeDirectoryMapEntry.target required")
+        out["target"] = ""
     if data.get("Type") is not None:
         import capo_transfer.types.map_type
 

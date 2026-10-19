@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.event_trigger_dimensions
     import capo_customer_profiles.types.event_trigger_logical_operator
@@ -51,9 +49,7 @@ def deserialize_json(data: dict) -> EventTriggerCondition:
             )
         )
     else:
-        raise DeserializationError(
-            "EventTriggerCondition.event_trigger_dimensions required"
-        )
+        out["event_trigger_dimensions"] = []
     if data.get("LogicalOperator") is not None:
         import capo_customer_profiles.types.event_trigger_logical_operator
 
@@ -63,5 +59,10 @@ def deserialize_json(data: dict) -> EventTriggerCondition:
             )
         )
     else:
-        raise DeserializationError("EventTriggerCondition.logical_operator required")
+        import typing
+
+        out["logical_operator"] = typing.cast(
+            "capo_customer_profiles.types.event_trigger_logical_operator.EventTriggerLogicalOperator",
+            "",
+        )
     return out

@@ -46,17 +46,15 @@ def deserialize_json(data: dict) -> StartContactRecordingRequest:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("StartContactRecordingRequest.instance_id required")
+        out["instance_id"] = ""
     if data.get("ContactId") is not None:
         out["contact_id"] = data["ContactId"]
     else:
-        raise DeserializationError("StartContactRecordingRequest.contact_id required")
+        out["contact_id"] = ""
     if data.get("InitialContactId") is not None:
         out["initial_contact_id"] = data["InitialContactId"]
     else:
-        raise DeserializationError(
-            "StartContactRecordingRequest.initial_contact_id required"
-        )
+        out["initial_contact_id"] = ""
     if data.get("VoiceRecordingConfiguration") is not None:
         import capo_connect.types.voice_recording_configuration
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.port
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> PortRange:
     if data.get("begin") is not None:
         out["begin"] = data["begin"]
     else:
-        raise DeserializationError("PortRange.begin required")
+        out["begin"] = 0
     if data.get("end") is not None:
         out["end"] = data["end"]
     else:
-        raise DeserializationError("PortRange.end required")
+        out["end"] = 0
     return out

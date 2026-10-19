@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs_realtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.stage_arn
     import capo_ivs_realtime.types.stage_name
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> StageSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("StageSummary.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("activeSessionId") is not None:

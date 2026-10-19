@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.metadata_generation_run_status
     import capo_datazone.types.metadata_generation_run_type
@@ -49,7 +47,12 @@ def deserialize_json(data: dict) -> MetadataGenerationRunTypeStat:
             data["type"]
         )
     else:
-        raise DeserializationError("MetadataGenerationRunTypeStat.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_datazone.types.metadata_generation_run_type.MetadataGenerationRunType",
+            "",
+        )
     if data.get("status") is not None:
         import capo_datazone.types.metadata_generation_run_status
 
@@ -59,7 +62,12 @@ def deserialize_json(data: dict) -> MetadataGenerationRunTypeStat:
             )
         )
     else:
-        raise DeserializationError("MetadataGenerationRunTypeStat.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_datazone.types.metadata_generation_run_status.MetadataGenerationRunStatus",
+            "",
+        )
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     return out

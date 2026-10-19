@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.testing_agent_status
 
@@ -34,11 +32,11 @@ def deserialize_aws_json_1_0(data: dict) -> TestingAgentInformation:
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("TestingAgentInformation.status required")
+        out["status"] = ""
     if data.get("TestingAgentId") is not None:
         out["testing_agent_id"] = data["TestingAgentId"]
     if data.get("RegistrationId") is not None:
         out["registration_id"] = data["RegistrationId"]
     else:
-        raise DeserializationError("TestingAgentInformation.registration_id required")
+        out["registration_id"] = ""
     return out

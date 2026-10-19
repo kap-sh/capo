@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.hex_color
     import capo_geo_routes.types.route_accessibility_availability_details
@@ -90,7 +88,11 @@ def deserialize_json(data: dict) -> RouteTransitTransportModeDetails:
             data["Mode"]
         )
     else:
-        raise DeserializationError("RouteTransitTransportModeDetails.mode required")
+        import typing
+
+        out["mode"] = typing.cast(
+            "capo_geo_routes.types.route_transit_mode.RouteTransitMode", ""
+        )
     if data.get("RouteName") is not None:
         out["route_name"] = data["RouteName"]
     if data.get("ShortRouteName") is not None:

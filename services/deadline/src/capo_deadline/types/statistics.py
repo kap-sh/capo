@@ -121,7 +121,7 @@ def deserialize_json(data: dict) -> Statistics:
     if data.get("count") is not None:
         out["count"] = data["count"]
     else:
-        raise DeserializationError("Statistics.count required")
+        out["count"] = 0
     if data.get("costInUsd") is not None:
         import capo_deadline.types.stats
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_taxsettings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_taxsettings.types.tax_document_access_token
     import capo_taxsettings.types.tax_document_name
@@ -33,11 +31,9 @@ def deserialize_json(data: dict) -> TaxDocumentMetadata:
     if data.get("taxDocumentAccessToken") is not None:
         out["tax_document_access_token"] = data["taxDocumentAccessToken"]
     else:
-        raise DeserializationError(
-            "TaxDocumentMetadata.tax_document_access_token required"
-        )
+        out["tax_document_access_token"] = ""
     if data.get("taxDocumentName") is not None:
         out["tax_document_name"] = data["taxDocumentName"]
     else:
-        raise DeserializationError("TaxDocumentMetadata.tax_document_name required")
+        out["tax_document_name"] = ""
     return out

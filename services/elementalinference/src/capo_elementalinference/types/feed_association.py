@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_elementalinference.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elementalinference.types.associated_resource_name
 
@@ -29,5 +27,5 @@ def deserialize_json(data: dict) -> FeedAssociation:
     if data.get("associatedResourceName") is not None:
         out["associated_resource_name"] = data["associatedResourceName"]
     else:
-        raise DeserializationError("FeedAssociation.associated_resource_name required")
+        out["associated_resource_name"] = ""
     return out

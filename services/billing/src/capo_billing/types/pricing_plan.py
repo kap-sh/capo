@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -117,5 +115,5 @@ def deserialize_aws_json_1_0(data: dict) -> PricingPlan:
             )
         )
     else:
-        raise DeserializationError("PricingPlan.tiers required")
+        out["tiers"] = []
     return out

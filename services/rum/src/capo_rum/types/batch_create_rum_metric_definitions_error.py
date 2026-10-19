@@ -51,13 +51,9 @@ def deserialize_json(data: dict) -> BatchCreateRumMetricDefinitionsError:
     if data.get("ErrorCode") is not None:
         out["error_code"] = data["ErrorCode"]
     else:
-        raise DeserializationError(
-            "BatchCreateRumMetricDefinitionsError.error_code required"
-        )
+        out["error_code"] = ""
     if data.get("ErrorMessage") is not None:
         out["error_message"] = data["ErrorMessage"]
     else:
-        raise DeserializationError(
-            "BatchCreateRumMetricDefinitionsError.error_message required"
-        )
+        out["error_message"] = ""
     return out

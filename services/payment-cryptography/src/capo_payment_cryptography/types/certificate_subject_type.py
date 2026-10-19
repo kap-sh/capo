@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 
 class CertificateSubjectType(TypedDict, closed=True):
     common_name: "str"
@@ -46,7 +44,7 @@ def deserialize_aws_json_1_0(data: dict) -> CertificateSubjectType:
     if data.get("CommonName") is not None:
         out["common_name"] = data["CommonName"]
     else:
-        raise DeserializationError("CertificateSubjectType.common_name required")
+        out["common_name"] = ""
     if data.get("OrganizationUnit") is not None:
         out["organization_unit"] = data["OrganizationUnit"]
     if data.get("Organization") is not None:

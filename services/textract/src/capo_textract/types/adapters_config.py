@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_textract.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_textract.types.adapters
 
@@ -35,5 +33,5 @@ def deserialize_aws_json_1_1(data: dict) -> AdaptersConfig:
             data["Adapters"]
         )
     else:
-        raise DeserializationError("AdaptersConfig.adapters required")
+        out["adapters"] = []
     return out

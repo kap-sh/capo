@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -48,15 +46,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateProtectConfigurationResult:
     if data.get("ProtectConfigurationArn") is not None:
         out["protect_configuration_arn"] = data["ProtectConfigurationArn"]
     else:
-        raise DeserializationError(
-            "UpdateProtectConfigurationResult.protect_configuration_arn required"
-        )
+        out["protect_configuration_arn"] = ""
     if data.get("ProtectConfigurationId") is not None:
         out["protect_configuration_id"] = data["ProtectConfigurationId"]
     else:
-        raise DeserializationError(
-            "UpdateProtectConfigurationResult.protect_configuration_id required"
-        )
+        out["protect_configuration_id"] = ""
     if data.get("CreatedTimestamp") is not None:
         import capo_pinpoint_sms_voice_v2.types._prelude.timestamp
 
@@ -66,8 +60,10 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateProtectConfigurationResult:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateProtectConfigurationResult.created_timestamp required"
+        import datetime
+
+        out["created_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("AccountDefault") is not None:
         out["account_default"] = data["AccountDefault"]

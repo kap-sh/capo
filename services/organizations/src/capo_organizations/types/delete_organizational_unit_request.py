@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_organizations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_organizations.types.organizational_unit_id
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteOrganizationalUnitRequest:
     if data.get("OrganizationalUnitId") is not None:
         out["organizational_unit_id"] = data["OrganizationalUnitId"]
     else:
-        raise DeserializationError(
-            "DeleteOrganizationalUnitRequest.organizational_unit_id required"
-        )
+        out["organizational_unit_id"] = ""
     return out

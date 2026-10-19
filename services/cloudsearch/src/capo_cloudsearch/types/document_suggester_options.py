@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudsearch._protocol.xml import Element
-from capo_cloudsearch.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudsearch.types.field_name
@@ -46,7 +45,7 @@ def deserialize_query(el: Element) -> DocumentSuggesterOptions:
     if child_source_field is not None:
         out["source_field"] = str(child_source_field.text or "")
     else:
-        raise DeserializationError("DocumentSuggesterOptions.source_field required")
+        out["source_field"] = ""
     child_fuzzy_matching = el.find("FuzzyMatching")
     if child_fuzzy_matching is not None:
         import capo_cloudsearch.types.suggester_fuzzy_matching

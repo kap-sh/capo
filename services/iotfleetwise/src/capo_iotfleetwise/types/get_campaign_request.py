@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.campaign_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> GetCampaignRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetCampaignRequest.name required")
+        out["name"] = ""
     return out

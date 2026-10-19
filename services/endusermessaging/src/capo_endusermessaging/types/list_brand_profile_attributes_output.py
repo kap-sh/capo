@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_endusermessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_endusermessaging.types.brand_profile_attribute_summary_list
     import capo_endusermessaging.types.next_token
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> ListBrandProfileAttributesOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListBrandProfileAttributesOutput.brand_profile_attributes required"
-        )
+        out["brand_profile_attributes"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

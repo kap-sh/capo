@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.source_table_config
     import capo_glue.types.string128
@@ -57,11 +55,11 @@ def deserialize_aws_json_1_1(data: dict) -> IntegrationTableProperties:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("IntegrationTableProperties.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("IntegrationTableProperties.table_name required")
+        out["table_name"] = ""
     if data.get("SourceTableConfig") is not None:
         import capo_glue.types.source_table_config
 

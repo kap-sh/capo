@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.mount_path
     import capo_bedrock_agentcore_control.types.s3_files_access_point_arn
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> S3FilesAccessPointConfiguration:
     if data.get("accessPointArn") is not None:
         out["access_point_arn"] = data["accessPointArn"]
     else:
-        raise DeserializationError(
-            "S3FilesAccessPointConfiguration.access_point_arn required"
-        )
+        out["access_point_arn"] = ""
     if data.get("mountPath") is not None:
         out["mount_path"] = data["mountPath"]
     else:
-        raise DeserializationError(
-            "S3FilesAccessPointConfiguration.mount_path required"
-        )
+        out["mount_path"] = ""
     return out

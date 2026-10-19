@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.flow_name
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DescribeFlowRequest:
     if data.get("flowName") is not None:
         out["flow_name"] = data["flowName"]
     else:
-        raise DeserializationError("DescribeFlowRequest.flow_name required")
+        out["flow_name"] = ""
     return out

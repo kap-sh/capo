@@ -80,15 +80,17 @@ def deserialize_json(data: dict) -> SendNotificationActionDefinition:
             )
         )
     else:
-        raise DeserializationError(
-            "SendNotificationActionDefinition.delivery_method required"
+        import typing
+
+        out["delivery_method"] = typing.cast(
+            "capo_connect.types.notification_delivery_type.NotificationDeliveryType", ""
         )
     if data.get("Subject") is not None:
         out["subject"] = data["Subject"]
     if data.get("Content") is not None:
         out["content"] = data["Content"]
     else:
-        raise DeserializationError("SendNotificationActionDefinition.content required")
+        out["content"] = ""
     if data.get("ContentType") is not None:
         import capo_connect.types.notification_content_type
 
@@ -98,8 +100,10 @@ def deserialize_json(data: dict) -> SendNotificationActionDefinition:
             )
         )
     else:
-        raise DeserializationError(
-            "SendNotificationActionDefinition.content_type required"
+        import typing
+
+        out["content_type"] = typing.cast(
+            "capo_connect.types.notification_content_type.NotificationContentType", ""
         )
     if data.get("Recipient") is not None:
         import capo_connect.types.notification_recipient_type

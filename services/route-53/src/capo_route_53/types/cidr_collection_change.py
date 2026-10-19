@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.cidr_collection_change_action
@@ -44,7 +43,7 @@ def deserialize_xml(el: Element) -> CidrCollectionChange:
     if child_location_name is not None:
         out["location_name"] = str(child_location_name.text or "")
     else:
-        raise DeserializationError("CidrCollectionChange.location_name required")
+        out["location_name"] = ""
     child_action = el.find("Action")
     if child_action is not None:
         import capo_route_53.types.cidr_collection_change_action
@@ -55,7 +54,12 @@ def deserialize_xml(el: Element) -> CidrCollectionChange:
             )
         )
     else:
-        raise DeserializationError("CidrCollectionChange.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_route_53.types.cidr_collection_change_action.CidrCollectionChangeAction",
+            "",
+        )
     child_cidr_list = el.find("CidrList")
     if child_cidr_list is not None:
         import capo_route_53.types.cidr_list
@@ -64,5 +68,5 @@ def deserialize_xml(el: Element) -> CidrCollectionChange:
             child_cidr_list
         )
     else:
-        raise DeserializationError("CidrCollectionChange.cidr_list required")
+        out["cidr_list"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.aggregation_threshold_type
     import capo_cleanrooms.types.allowed_aggregate_expression_type
@@ -75,13 +73,11 @@ def deserialize_json(data: dict) -> AggregationThreshold:
             )
         )
     else:
-        raise DeserializationError("AggregationThreshold.identity_columns required")
+        out["identity_columns"] = []
     if data.get("minimumIdentityCount") is not None:
         out["minimum_identity_count"] = data["minimumIdentityCount"]
     else:
-        raise DeserializationError(
-            "AggregationThreshold.minimum_identity_count required"
-        )
+        out["minimum_identity_count"] = 0
     if data.get("type") is not None:
         import capo_cleanrooms.types.aggregation_threshold_type
 
@@ -89,7 +85,12 @@ def deserialize_json(data: dict) -> AggregationThreshold:
             data["type"]
         )
     else:
-        raise DeserializationError("AggregationThreshold.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cleanrooms.types.aggregation_threshold_type.AggregationThresholdType",
+            "",
+        )
     if data.get("outputColumnThresholds") is not None:
         import capo_cleanrooms.types.output_column_threshold_list
 
@@ -107,7 +108,10 @@ def deserialize_json(data: dict) -> AggregationThreshold:
             )
         )
     else:
-        raise DeserializationError(
-            "AggregationThreshold.allowed_aggregate_expression_type required"
+        import typing
+
+        out["allowed_aggregate_expression_type"] = typing.cast(
+            "capo_cleanrooms.types.allowed_aggregate_expression_type.AllowedAggregateExpressionType",
+            "",
         )
     return out

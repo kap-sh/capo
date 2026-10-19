@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.batch_get_metric_data_queries
 
@@ -37,5 +35,5 @@ def deserialize_json(data: dict) -> BatchGetMetricDataRequest:
             )
         )
     else:
-        raise DeserializationError("BatchGetMetricDataRequest.queries required")
+        out["queries"] = []
     return out

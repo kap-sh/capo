@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.name
     import capo_lex_models_v2.types.string
@@ -31,11 +29,9 @@ def deserialize_json(data: dict) -> TestSetIntentDiscrepancyItem:
     if data.get("intentName") is not None:
         out["intent_name"] = data["intentName"]
     else:
-        raise DeserializationError("TestSetIntentDiscrepancyItem.intent_name required")
+        out["intent_name"] = ""
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     else:
-        raise DeserializationError(
-            "TestSetIntentDiscrepancyItem.error_message required"
-        )
+        out["error_message"] = ""
     return out

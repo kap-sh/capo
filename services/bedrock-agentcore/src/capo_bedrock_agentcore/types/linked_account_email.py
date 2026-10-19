@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.email
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> LinkedAccountEmail:
     if data.get("emailAddress") is not None:
         out["email_address"] = data["emailAddress"]
     else:
-        raise DeserializationError("LinkedAccountEmail.email_address required")
+        out["email_address"] = ""
     return out

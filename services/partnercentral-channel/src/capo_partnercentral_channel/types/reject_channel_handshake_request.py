@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_channel.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_channel.types.catalog
     import capo_partnercentral_channel.types.channel_handshake_identifier
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> RejectChannelHandshakeRequest:
     if data.get("catalog") is not None:
         out["catalog"] = data["catalog"]
     else:
-        raise DeserializationError("RejectChannelHandshakeRequest.catalog required")
+        out["catalog"] = ""
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("RejectChannelHandshakeRequest.identifier required")
+        out["identifier"] = ""
     return out

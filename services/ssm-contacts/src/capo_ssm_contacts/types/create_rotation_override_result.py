@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.uuid
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRotationOverrideResult:
     if data.get("RotationOverrideId") is not None:
         out["rotation_override_id"] = data["RotationOverrideId"]
     else:
-        raise DeserializationError(
-            "CreateRotationOverrideResult.rotation_override_id required"
-        )
+        out["rotation_override_id"] = ""
     return out

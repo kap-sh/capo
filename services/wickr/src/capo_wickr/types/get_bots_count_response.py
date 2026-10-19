@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 
 class GetBotsCountResponse(TypedDict, closed=True):
     pending: "int"
@@ -28,13 +26,13 @@ def deserialize_json(data: dict) -> GetBotsCountResponse:
     if data.get("pending") is not None:
         out["pending"] = data["pending"]
     else:
-        raise DeserializationError("GetBotsCountResponse.pending required")
+        out["pending"] = 0
     if data.get("active") is not None:
         out["active"] = data["active"]
     else:
-        raise DeserializationError("GetBotsCountResponse.active required")
+        out["active"] = 0
     if data.get("total") is not None:
         out["total"] = data["total"]
     else:
-        raise DeserializationError("GetBotsCountResponse.total required")
+        out["total"] = 0
     return out

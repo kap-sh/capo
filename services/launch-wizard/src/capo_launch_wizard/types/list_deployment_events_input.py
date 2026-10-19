@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_launch_wizard.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_launch_wizard.types.deployment_id
     import capo_launch_wizard.types.max_deployment_event_results
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> ListDeploymentEventsInput:
     if data.get("deploymentId") is not None:
         out["deployment_id"] = data["deploymentId"]
     else:
-        raise DeserializationError("ListDeploymentEventsInput.deployment_id required")
+        out["deployment_id"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError, ServiceError
+from capo_verifiedpermissions.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.resource_conflict_list
@@ -38,7 +38,7 @@ def deserialize_aws_json_1_0(data: dict) -> ConflictException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ConflictException_.message required")
+        out["message"] = ""
     if data.get("resources") is not None:
         import capo_verifiedpermissions.types.resource_conflict_list
 
@@ -48,7 +48,7 @@ def deserialize_aws_json_1_0(data: dict) -> ConflictException_:
             )
         )
     else:
-        raise DeserializationError("ConflictException_.resources required")
+        out["resources"] = []
     return out
 
 

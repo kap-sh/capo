@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_scheduler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_scheduler.types.assign_public_ip
     import capo_scheduler.types.security_groups
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> AwsVpcConfiguration:
 
         out["subnets"] = capo_scheduler.types.subnets.deserialize_json(data["Subnets"])
     else:
-        raise DeserializationError("AwsVpcConfiguration.subnets required")
+        out["subnets"] = []
     if data.get("SecurityGroups") is not None:
         import capo_scheduler.types.security_groups
 

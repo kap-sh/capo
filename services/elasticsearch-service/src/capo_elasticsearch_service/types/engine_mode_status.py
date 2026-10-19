@@ -45,7 +45,11 @@ def deserialize_json(data: dict) -> EngineModeStatus:
             )
         )
     else:
-        raise DeserializationError("EngineModeStatus.options required")
+        import typing
+
+        out["options"] = typing.cast(
+            "capo_elasticsearch_service.types.domain_engine_mode.DomainEngineMode", ""
+        )
     if data.get("Status") is not None:
         import capo_elasticsearch_service.types.option_status
 

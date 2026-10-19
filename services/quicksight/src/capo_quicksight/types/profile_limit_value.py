@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.limit_unit
     import capo_quicksight.types.profile_limit_value_max_value_long
@@ -33,11 +31,13 @@ def deserialize_json(data: dict) -> ProfileLimitValue:
     if data.get("maxValue") is not None:
         out["max_value"] = data["maxValue"]
     else:
-        raise DeserializationError("ProfileLimitValue.max_value required")
+        out["max_value"] = 0
     if data.get("unit") is not None:
         import capo_quicksight.types.limit_unit
 
         out["unit"] = capo_quicksight.types.limit_unit.deserialize_json(data["unit"])
     else:
-        raise DeserializationError("ProfileLimitValue.unit required")
+        import typing
+
+        out["unit"] = typing.cast("capo_quicksight.types.limit_unit.LimitUnit", "")
     return out

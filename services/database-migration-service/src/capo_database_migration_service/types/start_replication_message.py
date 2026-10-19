@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.string
     import capo_database_migration_service.types.t_stamp
@@ -61,15 +59,11 @@ def deserialize_aws_json_1_1(data: dict) -> StartReplicationMessage:
     if data.get("ReplicationConfigArn") is not None:
         out["replication_config_arn"] = data["ReplicationConfigArn"]
     else:
-        raise DeserializationError(
-            "StartReplicationMessage.replication_config_arn required"
-        )
+        out["replication_config_arn"] = ""
     if data.get("StartReplicationType") is not None:
         out["start_replication_type"] = data["StartReplicationType"]
     else:
-        raise DeserializationError(
-            "StartReplicationMessage.start_replication_type required"
-        )
+        out["start_replication_type"] = ""
     if data.get("PremigrationAssessmentSettings") is not None:
         out["premigration_assessment_settings"] = data["PremigrationAssessmentSettings"]
     if data.get("CdcStartTime") is not None:

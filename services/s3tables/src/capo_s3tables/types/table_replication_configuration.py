@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3tables.types.iam_role
     import capo_s3tables.types.table_replication_rules
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> TableReplicationConfiguration:
     if data.get("role") is not None:
         out["role"] = data["role"]
     else:
-        raise DeserializationError("TableReplicationConfiguration.role required")
+        out["role"] = ""
     if data.get("rules") is not None:
         import capo_s3tables.types.table_replication_rules
 
@@ -43,5 +41,5 @@ def deserialize_json(data: dict) -> TableReplicationConfiguration:
             data["rules"]
         )
     else:
-        raise DeserializationError("TableReplicationConfiguration.rules required")
+        out["rules"] = []
     return out

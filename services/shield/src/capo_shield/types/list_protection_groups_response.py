@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_shield.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_shield.types.protection_groups
     import capo_shield.types.token
@@ -44,9 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListProtectionGroupsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListProtectionGroupsResponse.protection_groups required"
-        )
+        out["protection_groups"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

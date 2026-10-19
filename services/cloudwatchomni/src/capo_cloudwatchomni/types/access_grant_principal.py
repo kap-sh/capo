@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.access_grant_principal_attribute_list
     import capo_cloudwatchomni.types.access_grant_principal_type
@@ -59,7 +57,12 @@ def deserialize_cbor(data: dict) -> AccessGrantPrincipal:
             )
         )
     else:
-        raise DeserializationError("AccessGrantPrincipal.principal_type required")
+        import typing
+
+        out["principal_type"] = typing.cast(
+            "capo_cloudwatchomni.types.access_grant_principal_type.AccessGrantPrincipalType",
+            "",
+        )
     if data.get("principalId") is not None:
         out["principal_id"] = data["principalId"]
     if data.get("principalAttributes") is not None:

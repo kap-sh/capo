@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kms.types.data_key_pair_spec
     import capo_kms.types.encryption_context_type
@@ -79,7 +77,7 @@ def deserialize_aws_json_1_1(data: dict) -> GenerateDataKeyPairRequest:
     if data.get("KeyId") is not None:
         out["key_id"] = data["KeyId"]
     else:
-        raise DeserializationError("GenerateDataKeyPairRequest.key_id required")
+        out["key_id"] = ""
     if data.get("KeyPairSpec") is not None:
         import capo_kms.types.data_key_pair_spec
 
@@ -89,7 +87,11 @@ def deserialize_aws_json_1_1(data: dict) -> GenerateDataKeyPairRequest:
             )
         )
     else:
-        raise DeserializationError("GenerateDataKeyPairRequest.key_pair_spec required")
+        import typing
+
+        out["key_pair_spec"] = typing.cast(
+            "capo_kms.types.data_key_pair_spec.DataKeyPairSpec", ""
+        )
     if data.get("GrantTokens") is not None:
         import capo_kms.types.grant_token_list
 

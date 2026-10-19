@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.region
     import capo_arc_region_switch.types.trigger_condition_list
@@ -60,7 +58,7 @@ def deserialize_aws_json_1_0(data: dict) -> Trigger:
     if data.get("targetRegion") is not None:
         out["target_region"] = data["targetRegion"]
     else:
-        raise DeserializationError("Trigger.target_region required")
+        out["target_region"] = ""
     if data.get("action") is not None:
         import capo_arc_region_switch.types.workflow_target_action
 
@@ -70,7 +68,12 @@ def deserialize_aws_json_1_0(data: dict) -> Trigger:
             )
         )
     else:
-        raise DeserializationError("Trigger.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_arc_region_switch.types.workflow_target_action.WorkflowTargetAction",
+            "",
+        )
     if data.get("conditions") is not None:
         import capo_arc_region_switch.types.trigger_condition_list
 
@@ -80,13 +83,11 @@ def deserialize_aws_json_1_0(data: dict) -> Trigger:
             )
         )
     else:
-        raise DeserializationError("Trigger.conditions required")
+        out["conditions"] = []
     if data.get("minDelayMinutesBetweenExecutions") is not None:
         out["min_delay_minutes_between_executions"] = data[
             "minDelayMinutesBetweenExecutions"
         ]
     else:
-        raise DeserializationError(
-            "Trigger.min_delay_minutes_between_executions required"
-        )
+        out["min_delay_minutes_between_executions"] = 0
     return out

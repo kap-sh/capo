@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.evaluation_form_search_criteria
     import capo_connect.types.evaluation_form_search_filter
@@ -63,7 +61,7 @@ def deserialize_json(data: dict) -> SearchEvaluationFormsRequest:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("SearchEvaluationFormsRequest.instance_id required")
+        out["instance_id"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

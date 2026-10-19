@@ -110,27 +110,19 @@ def deserialize_json(data: dict) -> DescribePipelineExecutionResponse:
     if data.get("pipelineExecutionId") is not None:
         out["pipeline_execution_id"] = data["pipelineExecutionId"]
     else:
-        raise DeserializationError(
-            "DescribePipelineExecutionResponse.pipeline_execution_id required"
-        )
+        out["pipeline_execution_id"] = ""
     if data.get("pipelineName") is not None:
         out["pipeline_name"] = data["pipelineName"]
     else:
-        raise DeserializationError(
-            "DescribePipelineExecutionResponse.pipeline_name required"
-        )
+        out["pipeline_name"] = ""
     if data.get("workspaceName") is not None:
         out["workspace_name"] = data["workspaceName"]
     else:
-        raise DeserializationError(
-            "DescribePipelineExecutionResponse.workspace_name required"
-        )
+        out["workspace_name"] = ""
     if data.get("pipelineVersion") is not None:
         out["pipeline_version"] = data["pipelineVersion"]
     else:
-        raise DeserializationError(
-            "DescribePipelineExecutionResponse.pipeline_version required"
-        )
+        out["pipeline_version"] = ""
     if data.get("status") is not None:
         import capo_iotsitewise.types.pipeline_execution_status
 
@@ -184,9 +176,7 @@ def deserialize_json(data: dict) -> DescribePipelineExecutionResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribePipelineExecutionResponse.compute_node_execution_details required"
-        )
+        out["compute_node_execution_details"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

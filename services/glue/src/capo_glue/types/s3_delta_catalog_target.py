@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.additional_options
     import capo_glue.types.auto_data_quality
@@ -99,7 +97,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3DeltaCatalogTarget:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("S3DeltaCatalogTarget.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.one_input
 
@@ -107,7 +105,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3DeltaCatalogTarget:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("S3DeltaCatalogTarget.inputs required")
+        out["inputs"] = []
     if data.get("PartitionKeys") is not None:
         import capo_glue.types.glue_studio_path_list
 
@@ -119,11 +117,11 @@ def deserialize_aws_json_1_1(data: dict) -> S3DeltaCatalogTarget:
     if data.get("Table") is not None:
         out["table"] = data["Table"]
     else:
-        raise DeserializationError("S3DeltaCatalogTarget.table required")
+        out["table"] = ""
     if data.get("Database") is not None:
         out["database"] = data["Database"]
     else:
-        raise DeserializationError("S3DeltaCatalogTarget.database required")
+        out["database"] = ""
     if data.get("AdditionalOptions") is not None:
         import capo_glue.types.additional_options
 

@@ -86,23 +86,23 @@ def deserialize_json(data: dict) -> DependencySummary:
     if data.get("dependencyId") is not None:
         out["dependency_id"] = data["dependencyId"]
     else:
-        raise DeserializationError("DependencySummary.dependency_id required")
+        out["dependency_id"] = ""
     if data.get("serviceArn") is not None:
         out["service_arn"] = data["serviceArn"]
     else:
-        raise DeserializationError("DependencySummary.service_arn required")
+        out["service_arn"] = ""
     if data.get("dependencyName") is not None:
         out["dependency_name"] = data["dependencyName"]
     else:
-        raise DeserializationError("DependencySummary.dependency_name required")
+        out["dependency_name"] = ""
     if data.get("dnsName") is not None:
         out["dns_name"] = data["dnsName"]
     else:
-        raise DeserializationError("DependencySummary.dns_name required")
+        out["dns_name"] = ""
     if data.get("location") is not None:
         out["location"] = data["location"]
     else:
-        raise DeserializationError("DependencySummary.location required")
+        out["location"] = ""
     if data.get("lastDetectedTime") is not None:
         import capo_resiliencehubv2.types._prelude.timestamp
 
@@ -112,7 +112,11 @@ def deserialize_json(data: dict) -> DependencySummary:
             )
         )
     else:
-        raise DeserializationError("DependencySummary.last_detected_time required")
+        import datetime
+
+        out["last_detected_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("sourceRegions") is not None:
         import capo_resiliencehubv2.types.region_list
 
@@ -120,7 +124,7 @@ def deserialize_json(data: dict) -> DependencySummary:
             data["sourceRegions"]
         )
     else:
-        raise DeserializationError("DependencySummary.source_regions required")
+        out["source_regions"] = []
     if data.get("provider") is not None:
         out["provider"] = data["provider"]
     if data.get("queryRange") is not None:
@@ -140,7 +144,12 @@ def deserialize_json(data: dict) -> DependencySummary:
             )
         )
     else:
-        raise DeserializationError("DependencySummary.criticality required")
+        import typing
+
+        out["criticality"] = typing.cast(
+            "capo_resiliencehubv2.types.dependency_criticality.DependencyCriticality",
+            "",
+        )
     if data.get("comment") is not None:
         out["comment"] = data["comment"]
     return out

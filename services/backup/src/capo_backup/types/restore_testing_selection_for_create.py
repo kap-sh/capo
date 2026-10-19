@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.integer
     import capo_backup.types.protected_resource_conditions
@@ -71,9 +69,7 @@ def deserialize_json(data: dict) -> RestoreTestingSelectionForCreate:
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     else:
-        raise DeserializationError(
-            "RestoreTestingSelectionForCreate.iam_role_arn required"
-        )
+        out["iam_role_arn"] = ""
     if data.get("ProtectedResourceArns") is not None:
         import capo_backup.types.string_list
 
@@ -91,9 +87,7 @@ def deserialize_json(data: dict) -> RestoreTestingSelectionForCreate:
     if data.get("ProtectedResourceType") is not None:
         out["protected_resource_type"] = data["ProtectedResourceType"]
     else:
-        raise DeserializationError(
-            "RestoreTestingSelectionForCreate.protected_resource_type required"
-        )
+        out["protected_resource_type"] = ""
     if data.get("RestoreMetadataOverrides") is not None:
         import capo_backup.types.sensitive_string_map
 
@@ -105,9 +99,7 @@ def deserialize_json(data: dict) -> RestoreTestingSelectionForCreate:
     if data.get("RestoreTestingSelectionName") is not None:
         out["restore_testing_selection_name"] = data["RestoreTestingSelectionName"]
     else:
-        raise DeserializationError(
-            "RestoreTestingSelectionForCreate.restore_testing_selection_name required"
-        )
+        out["restore_testing_selection_name"] = ""
     if data.get("ValidationWindowHours") is not None:
         out["validation_window_hours"] = data["ValidationWindowHours"]
     else:

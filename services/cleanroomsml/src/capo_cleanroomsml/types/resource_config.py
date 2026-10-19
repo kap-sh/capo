@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.instance_type
 
@@ -45,9 +43,13 @@ def deserialize_json(data: dict) -> ResourceConfig:
             data["instanceType"]
         )
     else:
-        raise DeserializationError("ResourceConfig.instance_type required")
+        import typing
+
+        out["instance_type"] = typing.cast(
+            "capo_cleanroomsml.types.instance_type.InstanceType", ""
+        )
     if data.get("volumeSizeInGB") is not None:
         out["volume_size_in_gb"] = data["volumeSizeInGB"]
     else:
-        raise DeserializationError("ResourceConfig.volume_size_in_gb required")
+        out["volume_size_in_gb"] = 0
     return out

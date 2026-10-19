@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.mount_s3_access_point_arn
     import capo_iotsitewise.types.mount_s3_key_prefix
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> S3AccessPointSource:
     if data.get("accessPointArn") is not None:
         out["access_point_arn"] = data["accessPointArn"]
     else:
-        raise DeserializationError("S3AccessPointSource.access_point_arn required")
+        out["access_point_arn"] = ""
     if data.get("prefix") is not None:
         out["prefix"] = data["prefix"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.tag_filter_key
     import capo_cloudwatch_logs.types.tag_filter_values
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_1(data: dict) -> TagFilter:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("TagFilter.key required")
+        out["key"] = ""
     if data.get("values") is not None:
         import capo_cloudwatch_logs.types.tag_filter_values
 

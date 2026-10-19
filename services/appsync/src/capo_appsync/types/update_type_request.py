@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.resource_name
     import capo_appsync.types.string
@@ -47,5 +45,9 @@ def deserialize_json(data: dict) -> UpdateTypeRequest:
             data["format"]
         )
     else:
-        raise DeserializationError("UpdateTypeRequest.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_appsync.types.type_definition_format.TypeDefinitionFormat", ""
+        )
     return out

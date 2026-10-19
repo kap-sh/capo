@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_nova_act.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_nova_act.types.non_blank_string
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> ClientInfo:
     if data.get("compatibilityVersion") is not None:
         out["compatibility_version"] = data["compatibilityVersion"]
     else:
-        raise DeserializationError("ClientInfo.compatibility_version required")
+        out["compatibility_version"] = 0
     if data.get("sdkVersion") is not None:
         out["sdk_version"] = data["sdkVersion"]
     return out

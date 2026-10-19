@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.api_version
     import capo_glue.types.catalog_id_string
@@ -46,13 +44,13 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEntityRequest:
     if data.get("ConnectionName") is not None:
         out["connection_name"] = data["ConnectionName"]
     else:
-        raise DeserializationError("DescribeEntityRequest.connection_name required")
+        out["connection_name"] = ""
     if data.get("CatalogId") is not None:
         out["catalog_id"] = data["CatalogId"]
     if data.get("EntityName") is not None:
         out["entity_name"] = data["EntityName"]
     else:
-        raise DeserializationError("DescribeEntityRequest.entity_name required")
+        out["entity_name"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("DataStoreApiVersion") is not None:

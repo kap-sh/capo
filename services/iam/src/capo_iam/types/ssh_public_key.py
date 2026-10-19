@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.date_type
@@ -59,29 +58,31 @@ def deserialize_query(el: Element) -> SSHPublicKey:
     if child_user_name is not None:
         out["user_name"] = str(child_user_name.text or "")
     else:
-        raise DeserializationError("SSHPublicKey.user_name required")
+        out["user_name"] = ""
     child_ssh_public_key_id = el.find("SSHPublicKeyId")
     if child_ssh_public_key_id is not None:
         out["ssh_public_key_id"] = str(child_ssh_public_key_id.text or "")
     else:
-        raise DeserializationError("SSHPublicKey.ssh_public_key_id required")
+        out["ssh_public_key_id"] = ""
     child_fingerprint = el.find("Fingerprint")
     if child_fingerprint is not None:
         out["fingerprint"] = str(child_fingerprint.text or "")
     else:
-        raise DeserializationError("SSHPublicKey.fingerprint required")
+        out["fingerprint"] = ""
     child_ssh_public_key_body = el.find("SSHPublicKeyBody")
     if child_ssh_public_key_body is not None:
         out["ssh_public_key_body"] = str(child_ssh_public_key_body.text or "")
     else:
-        raise DeserializationError("SSHPublicKey.ssh_public_key_body required")
+        out["ssh_public_key_body"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         import capo_iam.types.status_type
 
         out["status"] = capo_iam.types.status_type.deserialize_query(child_status)
     else:
-        raise DeserializationError("SSHPublicKey.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_iam.types.status_type.statusType", "")
     child_upload_date = el.find("UploadDate")
     if child_upload_date is not None:
         import capo_iam.types.date_type

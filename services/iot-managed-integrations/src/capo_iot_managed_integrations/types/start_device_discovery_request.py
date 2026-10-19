@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.account_association_id
     import capo_iot_managed_integrations.types.client_token
@@ -143,8 +141,10 @@ def deserialize_json(data: dict) -> StartDeviceDiscoveryRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartDeviceDiscoveryRequest.discovery_type required"
+        import typing
+
+        out["discovery_type"] = typing.cast(
+            "capo_iot_managed_integrations.types.discovery_type.DiscoveryType", ""
         )
     if data.get("CustomProtocolDetail") is not None:
         import capo_iot_managed_integrations.types.custom_protocol_detail

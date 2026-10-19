@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.ca_certificate_update_action
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> UpdateCACertificateParams:
             data["action"]
         )
     else:
-        raise DeserializationError("UpdateCACertificateParams.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_iot.types.ca_certificate_update_action.CACertificateUpdateAction", ""
+        )
     return out

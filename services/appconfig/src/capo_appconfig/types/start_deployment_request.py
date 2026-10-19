@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appconfig.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appconfig.types.deployment_strategy_id
     import capo_appconfig.types.description
@@ -79,21 +77,15 @@ def deserialize_json(data: dict) -> StartDeploymentRequest:
     if data.get("DeploymentStrategyId") is not None:
         out["deployment_strategy_id"] = data["DeploymentStrategyId"]
     else:
-        raise DeserializationError(
-            "StartDeploymentRequest.deployment_strategy_id required"
-        )
+        out["deployment_strategy_id"] = ""
     if data.get("ConfigurationProfileId") is not None:
         out["configuration_profile_id"] = data["ConfigurationProfileId"]
     else:
-        raise DeserializationError(
-            "StartDeploymentRequest.configuration_profile_id required"
-        )
+        out["configuration_profile_id"] = ""
     if data.get("ConfigurationVersion") is not None:
         out["configuration_version"] = data["ConfigurationVersion"]
     else:
-        raise DeserializationError(
-            "StartDeploymentRequest.configuration_version required"
-        )
+        out["configuration_version"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Tags") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.flow_connection_name
     import capo_bedrock_agent.types.flow_node_name
@@ -34,19 +32,13 @@ def deserialize_json(data: dict) -> InvalidLoopBoundaryFlowValidationDetails:
     if data.get("connection") is not None:
         out["connection"] = data["connection"]
     else:
-        raise DeserializationError(
-            "InvalidLoopBoundaryFlowValidationDetails.connection required"
-        )
+        out["connection"] = ""
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError(
-            "InvalidLoopBoundaryFlowValidationDetails.source required"
-        )
+        out["source"] = ""
     if data.get("target") is not None:
         out["target"] = data["target"]
     else:
-        raise DeserializationError(
-            "InvalidLoopBoundaryFlowValidationDetails.target required"
-        )
+        out["target"] = ""
     return out

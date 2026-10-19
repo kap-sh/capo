@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -81,7 +79,7 @@ def deserialize_json(data: dict) -> Association:
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError("Association.agent_space_id required")
+        out["agent_space_id"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -89,7 +87,9 @@ def deserialize_json(data: dict) -> Association:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("Association.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import datetime
 
@@ -97,7 +97,9 @@ def deserialize_json(data: dict) -> Association:
             data["updatedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("Association.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         import capo_devops_agent.types.validation_status
 
@@ -107,11 +109,11 @@ def deserialize_json(data: dict) -> Association:
     if data.get("associationId") is not None:
         out["association_id"] = data["associationId"]
     else:
-        raise DeserializationError("Association.association_id required")
+        out["association_id"] = ""
     if data.get("serviceId") is not None:
         out["service_id"] = data["serviceId"]
     else:
-        raise DeserializationError("Association.service_id required")
+        out["service_id"] = ""
     if data.get("configuration") is not None:
         import capo_devops_agent.types.service_configuration
 
@@ -121,7 +123,9 @@ def deserialize_json(data: dict) -> Association:
             )
         )
     else:
-        raise DeserializationError("Association.configuration required")
+        import capo_devops_agent.types._unknown
+
+        out["configuration"] = capo_devops_agent.types._unknown.UnknownUnionMember("")
     if data.get("capabilities") is not None:
         import capo_devops_agent.types.association_capabilities
 

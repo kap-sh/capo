@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_taxsettings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_taxsettings.types.batch_delete_tax_registration_errors
 
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> BatchDeleteTaxRegistrationResponse:
             )
         )
     else:
-        raise DeserializationError("BatchDeleteTaxRegistrationResponse.errors required")
+        out["errors"] = []
     return out
 
 

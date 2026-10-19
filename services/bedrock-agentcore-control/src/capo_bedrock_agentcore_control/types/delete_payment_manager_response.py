@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.payment_manager_id
     import capo_bedrock_agentcore_control.types.payment_manager_status
@@ -46,7 +44,12 @@ def deserialize_json(data: dict) -> DeletePaymentManagerResponse:
             )
         )
     else:
-        raise DeserializationError("DeletePaymentManagerResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.payment_manager_status.PaymentManagerStatus",
+            "",
+        )
     if data.get("paymentManagerId") is not None:
         out["payment_manager_id"] = data["paymentManagerId"]
     return out

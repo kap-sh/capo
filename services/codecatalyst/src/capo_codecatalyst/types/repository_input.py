@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecatalyst.types.source_repository_branch_string
     import capo_codecatalyst.types.source_repository_name_string
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> RepositoryInput:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError("RepositoryInput.repository_name required")
+        out["repository_name"] = ""
     if data.get("branchName") is not None:
         out["branch_name"] = data["branchName"]
     return out

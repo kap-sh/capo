@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.delete_audit_history
     import capo_frauddetector.types.identifier
@@ -37,11 +35,11 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteEventRequest:
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError("DeleteEventRequest.event_id required")
+        out["event_id"] = ""
     if data.get("eventTypeName") is not None:
         out["event_type_name"] = data["eventTypeName"]
     else:
-        raise DeserializationError("DeleteEventRequest.event_type_name required")
+        out["event_type_name"] = ""
     if data.get("deleteAuditHistory") is not None:
         out["delete_audit_history"] = data["deleteAuditHistory"]
     return out

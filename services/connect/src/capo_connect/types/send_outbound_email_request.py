@@ -132,7 +132,11 @@ def deserialize_json(data: dict) -> SendOutboundEmailRequest:
             data["TrafficType"]
         )
     else:
-        raise DeserializationError("SendOutboundEmailRequest.traffic_type required")
+        import typing
+
+        out["traffic_type"] = typing.cast(
+            "capo_connect.types.traffic_type.TrafficType", ""
+        )
     if data.get("SourceCampaign") is not None:
         import capo_connect.types.source_campaign
 

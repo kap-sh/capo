@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_influxdb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_influxdb.types.allocated_storage
     import capo_timestream_influxdb.types.bucket
@@ -207,7 +205,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDbClusterInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateDbClusterInput.name required")
+        out["name"] = ""
     if data.get("username") is not None:
         out["username"] = data["username"]
     if data.get("password") is not None:
@@ -229,7 +227,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDbClusterInput:
             )
         )
     else:
-        raise DeserializationError("CreateDbClusterInput.db_instance_type required")
+        import typing
+
+        out["db_instance_type"] = typing.cast(
+            "capo_timestream_influxdb.types.db_instance_type.DbInstanceType", ""
+        )
     if data.get("dbStorageType") is not None:
         import capo_timestream_influxdb.types.db_storage_type
 
@@ -259,7 +261,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDbClusterInput:
             )
         )
     else:
-        raise DeserializationError("CreateDbClusterInput.vpc_subnet_ids required")
+        out["vpc_subnet_ids"] = []
     if data.get("vpcSecurityGroupIds") is not None:
         import capo_timestream_influxdb.types.vpc_security_group_id_list
 
@@ -269,9 +271,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDbClusterInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDbClusterInput.vpc_security_group_ids required"
-        )
+        out["vpc_security_group_ids"] = []
     if data.get("deploymentType") is not None:
         import capo_timestream_influxdb.types.cluster_deployment_type
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.boolean_optional
     import capo_database_migration_service.types.integer_optional
@@ -64,11 +62,11 @@ def deserialize_aws_json_1_1(data: dict) -> NeptuneSettings:
     if data.get("S3BucketName") is not None:
         out["s3_bucket_name"] = data["S3BucketName"]
     else:
-        raise DeserializationError("NeptuneSettings.s3_bucket_name required")
+        out["s3_bucket_name"] = ""
     if data.get("S3BucketFolder") is not None:
         out["s3_bucket_folder"] = data["S3BucketFolder"]
     else:
-        raise DeserializationError("NeptuneSettings.s3_bucket_folder required")
+        out["s3_bucket_folder"] = ""
     if data.get("ErrorRetryDuration") is not None:
         out["error_retry_duration"] = data["ErrorRetryDuration"]
     if data.get("MaxFileSize") is not None:

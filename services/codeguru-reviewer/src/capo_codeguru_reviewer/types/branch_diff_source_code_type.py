@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codeguru_reviewer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguru_reviewer.types.branch_name
 
@@ -30,13 +28,9 @@ def deserialize_json(data: dict) -> BranchDiffSourceCodeType:
     if data.get("SourceBranchName") is not None:
         out["source_branch_name"] = data["SourceBranchName"]
     else:
-        raise DeserializationError(
-            "BranchDiffSourceCodeType.source_branch_name required"
-        )
+        out["source_branch_name"] = ""
     if data.get("DestinationBranchName") is not None:
         out["destination_branch_name"] = data["DestinationBranchName"]
     else:
-        raise DeserializationError(
-            "BranchDiffSourceCodeType.destination_branch_name required"
-        )
+        out["destination_branch_name"] = ""
     return out

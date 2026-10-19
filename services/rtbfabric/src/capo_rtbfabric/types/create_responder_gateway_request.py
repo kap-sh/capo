@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rtbfabric.types.client_routing_policy
     import capo_rtbfabric.types.domain_name
@@ -131,7 +129,7 @@ def deserialize_json(data: dict) -> CreateResponderGatewayRequest:
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
     else:
-        raise DeserializationError("CreateResponderGatewayRequest.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("subnetIds") is not None:
         import capo_rtbfabric.types.subnet_id_list
 
@@ -139,7 +137,7 @@ def deserialize_json(data: dict) -> CreateResponderGatewayRequest:
             data["subnetIds"]
         )
     else:
-        raise DeserializationError("CreateResponderGatewayRequest.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("securityGroupIds") is not None:
         import capo_rtbfabric.types.security_group_id_list
 
@@ -149,15 +147,13 @@ def deserialize_json(data: dict) -> CreateResponderGatewayRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateResponderGatewayRequest.security_group_ids required"
-        )
+        out["security_group_ids"] = []
     if data.get("domainName") is not None:
         out["domain_name"] = data["domainName"]
     if data.get("port") is not None:
         out["port"] = data["port"]
     else:
-        raise DeserializationError("CreateResponderGatewayRequest.port required")
+        out["port"] = 0
     if data.get("protocol") is not None:
         import capo_rtbfabric.types.protocol
 
@@ -165,7 +161,9 @@ def deserialize_json(data: dict) -> CreateResponderGatewayRequest:
             data["protocol"]
         )
     else:
-        raise DeserializationError("CreateResponderGatewayRequest.protocol required")
+        import typing
+
+        out["protocol"] = typing.cast("capo_rtbfabric.types.protocol.Protocol", "")
     if data.get("listenerConfig") is not None:
         import capo_rtbfabric.types.listener_config
 
@@ -191,9 +189,7 @@ def deserialize_json(data: dict) -> CreateResponderGatewayRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError(
-            "CreateResponderGatewayRequest.client_token required"
-        )
+        out["client_token"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("tags") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.capability_id
     import capo_b2bi.types.capability_name
@@ -54,11 +52,11 @@ def deserialize_aws_json_1_0(data: dict) -> CapabilitySummary:
     if data.get("capabilityId") is not None:
         out["capability_id"] = data["capabilityId"]
     else:
-        raise DeserializationError("CapabilitySummary.capability_id required")
+        out["capability_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CapabilitySummary.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         import capo_b2bi.types.capability_type
 
@@ -66,7 +64,9 @@ def deserialize_aws_json_1_0(data: dict) -> CapabilitySummary:
             data["type"]
         )
     else:
-        raise DeserializationError("CapabilitySummary.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_b2bi.types.capability_type.CapabilityType", "")
     if data.get("createdAt") is not None:
         import capo_b2bi.types.created_date
 
@@ -74,7 +74,9 @@ def deserialize_aws_json_1_0(data: dict) -> CapabilitySummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("CapabilitySummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("modifiedAt") is not None:
         import capo_b2bi.types.modified_date
 

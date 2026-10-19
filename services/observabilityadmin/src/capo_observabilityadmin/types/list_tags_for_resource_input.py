@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_observabilityadmin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_observabilityadmin.types.resource_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> ListTagsForResourceInput:
     if data.get("ResourceARN") is not None:
         out["resource_arn"] = data["ResourceARN"]
     else:
-        raise DeserializationError("ListTagsForResourceInput.resource_arn required")
+        out["resource_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.from_key
     import capo_cloudwatch_logs.types.source
@@ -36,13 +34,13 @@ def deserialize_aws_json_1_1(data: dict) -> SubstituteStringEntry:
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("SubstituteStringEntry.source required")
+        out["source"] = ""
     if data.get("from") is not None:
         out["from"] = data["from"]
     else:
-        raise DeserializationError("SubstituteStringEntry.from required")
+        out["from"] = ""
     if data.get("to") is not None:
         out["to"] = data["to"]
     else:
-        raise DeserializationError("SubstituteStringEntry.to required")
+        out["to"] = ""
     return out

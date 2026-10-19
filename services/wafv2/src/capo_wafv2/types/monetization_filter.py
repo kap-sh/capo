@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.monetization_filter_name
     import capo_wafv2.types.monetization_filter_value_list
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> MonetizationFilter:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("MonetizationFilter.name required")
+        out["name"] = ""
     if data.get("Values") is not None:
         import capo_wafv2.types.monetization_filter_value_list
 
@@ -49,5 +47,5 @@ def deserialize_aws_json_1_1(data: dict) -> MonetizationFilter:
             )
         )
     else:
-        raise DeserializationError("MonetizationFilter.values required")
+        out["values"] = []
     return out

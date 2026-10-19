@@ -64,12 +64,12 @@ def deserialize_xml(el: Element) -> HealthCheck:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("HealthCheck.id required")
+        out["id"] = ""
     child_caller_reference = el.find("CallerReference")
     if child_caller_reference is not None:
         out["caller_reference"] = str(child_caller_reference.text or "")
     else:
-        raise DeserializationError("HealthCheck.caller_reference required")
+        out["caller_reference"] = ""
     child_linked_service = el.find("LinkedService")
     if child_linked_service is not None:
         import capo_route_53.types.linked_service
@@ -92,7 +92,7 @@ def deserialize_xml(el: Element) -> HealthCheck:
     if child_health_check_version is not None:
         out["health_check_version"] = int(child_health_check_version.text or "")
     else:
-        raise DeserializationError("HealthCheck.health_check_version required")
+        out["health_check_version"] = 0
     child_cloud_watch_alarm_configuration = el.find("CloudWatchAlarmConfiguration")
     if child_cloud_watch_alarm_configuration is not None:
         import capo_route_53.types.cloud_watch_alarm_configuration

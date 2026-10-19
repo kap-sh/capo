@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.next_token
     import capo_connect.types.primary_values_list
@@ -44,7 +42,5 @@ def deserialize_json(data: dict) -> ListDataTablePrimaryValuesResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListDataTablePrimaryValuesResponse.primary_values_list required"
-        )
+        out["primary_values_list"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.account_id
     import capo_network_security_manager.types.arn
@@ -115,21 +113,20 @@ def deserialize_json(data: dict) -> ResourceSynchronizationStatusSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "ResourceSynchronizationStatusSummary.synchronization_status required"
+        import typing
+
+        out["synchronization_status"] = typing.cast(
+            "capo_network_security_manager.types.synchronization_status.SynchronizationStatus",
+            "",
         )
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError(
-            "ResourceSynchronizationStatusSummary.account_id required"
-        )
+        out["account_id"] = ""
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError(
-            "ResourceSynchronizationStatusSummary.resource_arn required"
-        )
+        out["resource_arn"] = ""
     if data.get("deploymentArn") is not None:
         out["deployment_arn"] = data["deploymentArn"]
     if data.get("resourceType") is not None:
@@ -149,9 +146,9 @@ def deserialize_json(data: dict) -> ResourceSynchronizationStatusSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "ResourceSynchronizationStatusSummary.updated_at required"
-        )
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("outOfSyncReasons") is not None:
         import capo_network_security_manager.types.out_of_sync_reasons_view
 

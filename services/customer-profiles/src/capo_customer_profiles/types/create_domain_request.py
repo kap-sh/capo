@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.data_store_request
     import capo_customer_profiles.types.encryption_key
@@ -90,9 +88,7 @@ def deserialize_json(data: dict) -> CreateDomainRequest:
     if data.get("DefaultExpirationDays") is not None:
         out["default_expiration_days"] = data["DefaultExpirationDays"]
     else:
-        raise DeserializationError(
-            "CreateDomainRequest.default_expiration_days required"
-        )
+        out["default_expiration_days"] = 0
     if data.get("DefaultEncryptionKey") is not None:
         out["default_encryption_key"] = data["DefaultEncryptionKey"]
     if data.get("DeadLetterQueueUrl") is not None:

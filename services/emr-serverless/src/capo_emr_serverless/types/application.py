@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_serverless.types.application_arn
     import capo_emr_serverless.types.application_id
@@ -261,25 +259,25 @@ def deserialize_json(data: dict) -> Application:
     if data.get("applicationId") is not None:
         out["application_id"] = data["applicationId"]
     else:
-        raise DeserializationError("Application.application_id required")
+        out["application_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("Application.arn required")
+        out["arn"] = ""
     if data.get("releaseLabel") is not None:
         out["release_label"] = data["releaseLabel"]
     else:
-        raise DeserializationError("Application.release_label required")
+        out["release_label"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("Application.type required")
+        out["type"] = ""
     if data.get("state") is not None:
         out["state"] = data["state"]
     else:
-        raise DeserializationError("Application.state required")
+        out["state"] = ""
     if data.get("stateDetails") is not None:
         out["state_details"] = data["stateDetails"]
     if data.get("initialCapacity") is not None:
@@ -305,7 +303,9 @@ def deserialize_json(data: dict) -> Application:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("Application.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_emr_serverless.types.date
 
@@ -313,7 +313,9 @@ def deserialize_json(data: dict) -> Application:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("Application.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("tags") is not None:
         import capo_emr_serverless.types.tag_map
 

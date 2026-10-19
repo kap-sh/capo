@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -137,15 +135,15 @@ def deserialize_json(data: dict) -> ListedRouterOutput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ListedRouterOutput.name required")
+        out["name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ListedRouterOutput.arn required")
+        out["arn"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ListedRouterOutput.id required")
+        out["id"] = ""
     if data.get("outputType") is not None:
         import capo_mediaconnect.types.router_output_type
 
@@ -155,7 +153,11 @@ def deserialize_json(data: dict) -> ListedRouterOutput:
             )
         )
     else:
-        raise DeserializationError("ListedRouterOutput.output_type required")
+        import typing
+
+        out["output_type"] = typing.cast(
+            "capo_mediaconnect.types.router_output_type.RouterOutputType", ""
+        )
     if data.get("state") is not None:
         import capo_mediaconnect.types.router_output_state
 
@@ -163,7 +165,11 @@ def deserialize_json(data: dict) -> ListedRouterOutput:
             data["state"]
         )
     else:
-        raise DeserializationError("ListedRouterOutput.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_mediaconnect.types.router_output_state.RouterOutputState", ""
+        )
     if data.get("routedState") is not None:
         import capo_mediaconnect.types.router_output_routed_state
 
@@ -173,19 +179,24 @@ def deserialize_json(data: dict) -> ListedRouterOutput:
             )
         )
     else:
-        raise DeserializationError("ListedRouterOutput.routed_state required")
+        import typing
+
+        out["routed_state"] = typing.cast(
+            "capo_mediaconnect.types.router_output_routed_state.RouterOutputRoutedState",
+            "",
+        )
     if data.get("regionName") is not None:
         out["region_name"] = data["regionName"]
     else:
-        raise DeserializationError("ListedRouterOutput.region_name required")
+        out["region_name"] = ""
     if data.get("availabilityZone") is not None:
         out["availability_zone"] = data["availabilityZone"]
     else:
-        raise DeserializationError("ListedRouterOutput.availability_zone required")
+        out["availability_zone"] = ""
     if data.get("maximumBitrate") is not None:
         out["maximum_bitrate"] = data["maximumBitrate"]
     else:
-        raise DeserializationError("ListedRouterOutput.maximum_bitrate required")
+        out["maximum_bitrate"] = 0
     if data.get("routingScope") is not None:
         import capo_mediaconnect.types.routing_scope
 
@@ -193,7 +204,11 @@ def deserialize_json(data: dict) -> ListedRouterOutput:
             data["routingScope"]
         )
     else:
-        raise DeserializationError("ListedRouterOutput.routing_scope required")
+        import typing
+
+        out["routing_scope"] = typing.cast(
+            "capo_mediaconnect.types.routing_scope.RoutingScope", ""
+        )
     if data.get("createdAt") is not None:
         import datetime
 
@@ -201,7 +216,9 @@ def deserialize_json(data: dict) -> ListedRouterOutput:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("ListedRouterOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import datetime
 
@@ -209,11 +226,13 @@ def deserialize_json(data: dict) -> ListedRouterOutput:
             data["updatedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("ListedRouterOutput.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("messageCount") is not None:
         out["message_count"] = data["messageCount"]
     else:
-        raise DeserializationError("ListedRouterOutput.message_count required")
+        out["message_count"] = 0
     if data.get("routedInputArn") is not None:
         out["routed_input_arn"] = data["routedInputArn"]
     if data.get("networkInterfaceArn") is not None:

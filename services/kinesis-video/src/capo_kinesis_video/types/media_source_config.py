@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_video.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_video.types.media_uri_secret_arn
     import capo_kinesis_video.types.media_uri_type
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> MediaSourceConfig:
     if data.get("MediaUriSecretArn") is not None:
         out["media_uri_secret_arn"] = data["MediaUriSecretArn"]
     else:
-        raise DeserializationError("MediaSourceConfig.media_uri_secret_arn required")
+        out["media_uri_secret_arn"] = ""
     if data.get("MediaUriType") is not None:
         import capo_kinesis_video.types.media_uri_type
 
@@ -47,7 +45,11 @@ def deserialize_json(data: dict) -> MediaSourceConfig:
             )
         )
     else:
-        raise DeserializationError("MediaSourceConfig.media_uri_type required")
+        import typing
+
+        out["media_uri_type"] = typing.cast(
+            "capo_kinesis_video.types.media_uri_type.MediaUriType", ""
+        )
     return out
 
 

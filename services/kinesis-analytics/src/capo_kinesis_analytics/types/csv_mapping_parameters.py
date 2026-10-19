@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_analytics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics.types.record_column_delimiter
     import capo_kinesis_analytics.types.record_row_delimiter
@@ -35,11 +33,9 @@ def deserialize_aws_json_1_1(data: dict) -> CSVMappingParameters:
     if data.get("RecordRowDelimiter") is not None:
         out["record_row_delimiter"] = data["RecordRowDelimiter"]
     else:
-        raise DeserializationError("CSVMappingParameters.record_row_delimiter required")
+        out["record_row_delimiter"] = ""
     if data.get("RecordColumnDelimiter") is not None:
         out["record_column_delimiter"] = data["RecordColumnDelimiter"]
     else:
-        raise DeserializationError(
-            "CSVMappingParameters.record_column_delimiter required"
-        )
+        out["record_column_delimiter"] = ""
     return out

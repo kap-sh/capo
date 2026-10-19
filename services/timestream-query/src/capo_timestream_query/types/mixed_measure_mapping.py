@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_query.types.measure_value_type
     import capo_timestream_query.types.multi_measure_attribute_mapping_list
@@ -75,7 +73,11 @@ def deserialize_aws_json_1_0(data: dict) -> MixedMeasureMapping:
             )
         )
     else:
-        raise DeserializationError("MixedMeasureMapping.measure_value_type required")
+        import typing
+
+        out["measure_value_type"] = typing.cast(
+            "capo_timestream_query.types.measure_value_type.MeasureValueType", ""
+        )
     if data.get("MultiMeasureAttributeMappings") is not None:
         import capo_timestream_query.types.multi_measure_attribute_mapping_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3tables.types.namespace_summary_list
     import capo_s3tables.types.next_token
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ListNamespacesResponse:
             data["namespaces"]
         )
     else:
-        raise DeserializationError("ListNamespacesResponse.namespaces required")
+        out["namespaces"] = []
     if data.get("continuationToken") is not None:
         out["continuation_token"] = data["continuationToken"]
     return out

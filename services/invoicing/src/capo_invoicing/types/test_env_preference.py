@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_invoicing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_invoicing.types.basic_string_without_space
     import capo_invoicing.types.buyer_domain
@@ -78,11 +76,15 @@ def deserialize_aws_json_1_0(data: dict) -> TestEnvPreference:
             )
         )
     else:
-        raise DeserializationError("TestEnvPreference.buyer_domain required")
+        import typing
+
+        out["buyer_domain"] = typing.cast(
+            "capo_invoicing.types.buyer_domain.BuyerDomain", ""
+        )
     if data.get("BuyerIdentifier") is not None:
         out["buyer_identifier"] = data["BuyerIdentifier"]
     else:
-        raise DeserializationError("TestEnvPreference.buyer_identifier required")
+        out["buyer_identifier"] = ""
     if data.get("SupplierDomain") is not None:
         import capo_invoicing.types.supplier_domain
 
@@ -92,11 +94,15 @@ def deserialize_aws_json_1_0(data: dict) -> TestEnvPreference:
             )
         )
     else:
-        raise DeserializationError("TestEnvPreference.supplier_domain required")
+        import typing
+
+        out["supplier_domain"] = typing.cast(
+            "capo_invoicing.types.supplier_domain.SupplierDomain", ""
+        )
     if data.get("SupplierIdentifier") is not None:
         out["supplier_identifier"] = data["SupplierIdentifier"]
     else:
-        raise DeserializationError("TestEnvPreference.supplier_identifier required")
+        out["supplier_identifier"] = ""
     if data.get("ProcurementPortalSharedSecret") is not None:
         out["procurement_portal_shared_secret"] = data["ProcurementPortalSharedSecret"]
     if data.get("ProcurementPortalInstanceEndpoint") is not None:

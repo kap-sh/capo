@@ -72,7 +72,7 @@ def deserialize_json(data: dict) -> BodySectionConfiguration:
     if data.get("SectionId") is not None:
         out["section_id"] = data["SectionId"]
     else:
-        raise DeserializationError("BodySectionConfiguration.section_id required")
+        out["section_id"] = ""
     if data.get("Content") is not None:
         import capo_quicksight.types.body_section_content
 

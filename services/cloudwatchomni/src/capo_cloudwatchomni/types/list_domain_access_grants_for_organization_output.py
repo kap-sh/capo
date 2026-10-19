@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.next_token
     import capo_cloudwatchomni.types.organization_access_grant_summary_list
@@ -44,9 +42,7 @@ def deserialize_cbor(data: dict) -> ListDomainAccessGrantsForOrganizationOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListDomainAccessGrantsForOrganizationOutput.items required"
-        )
+        out["items"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

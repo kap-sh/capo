@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sso_admin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_admin.types.grant
     import capo_sso_admin.types.grant_type
@@ -41,7 +39,9 @@ def deserialize_aws_json_1_1(data: dict) -> GrantItem:
             data["GrantType"]
         )
     else:
-        raise DeserializationError("GrantItem.grant_type required")
+        import typing
+
+        out["grant_type"] = typing.cast("capo_sso_admin.types.grant_type.GrantType", "")
     if data.get("Grant") is not None:
         import capo_sso_admin.types.grant
 
@@ -49,5 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> GrantItem:
             data["Grant"]
         )
     else:
-        raise DeserializationError("GrantItem.grant required")
+        import capo_sso_admin.types._unknown
+
+        out["grant"] = capo_sso_admin.types._unknown.UnknownUnionMember("")
     return out

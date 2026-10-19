@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.selective_auth
     import capo_directory_service.types.trust_id
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateTrustRequest:
     if data.get("TrustId") is not None:
         out["trust_id"] = data["TrustId"]
     else:
-        raise DeserializationError("UpdateTrustRequest.trust_id required")
+        out["trust_id"] = ""
     if data.get("SelectiveAuth") is not None:
         import capo_directory_service.types.selective_auth
 

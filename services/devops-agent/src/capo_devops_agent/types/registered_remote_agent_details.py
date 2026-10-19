@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.description
     import capo_devops_agent.types.remote_agent_authorization_method
@@ -47,11 +45,11 @@ def deserialize_json(data: dict) -> RegisteredRemoteAgentDetails:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RegisteredRemoteAgentDetails.name required")
+        out["name"] = ""
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError("RegisteredRemoteAgentDetails.endpoint required")
+        out["endpoint"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("authorizationMethod") is not None:
@@ -63,8 +61,11 @@ def deserialize_json(data: dict) -> RegisteredRemoteAgentDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "RegisteredRemoteAgentDetails.authorization_method required"
+        import typing
+
+        out["authorization_method"] = typing.cast(
+            "capo_devops_agent.types.remote_agent_authorization_method.RemoteAgentAuthorizationMethod",
+            "",
         )
     if data.get("apiKeyHeader") is not None:
         out["api_key_header"] = data["apiKeyHeader"]

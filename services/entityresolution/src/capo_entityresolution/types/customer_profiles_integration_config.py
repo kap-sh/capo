@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.customer_profiles_domain_arn
     import capo_entityresolution.types.customer_profiles_object_type_arn
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> CustomerProfilesIntegrationConfig:
     if data.get("domainArn") is not None:
         out["domain_arn"] = data["domainArn"]
     else:
-        raise DeserializationError(
-            "CustomerProfilesIntegrationConfig.domain_arn required"
-        )
+        out["domain_arn"] = ""
     if data.get("objectTypeArn") is not None:
         out["object_type_arn"] = data["objectTypeArn"]
     else:
-        raise DeserializationError(
-            "CustomerProfilesIntegrationConfig.object_type_arn required"
-        )
+        out["object_type_arn"] = ""
     return out

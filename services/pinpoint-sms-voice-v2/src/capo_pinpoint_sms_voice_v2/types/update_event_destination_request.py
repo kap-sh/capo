@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.cloud_watch_logs_destination
     import capo_pinpoint_sms_voice_v2.types.configuration_set_name_or_arn
@@ -89,15 +87,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateEventDestinationRequest:
     if data.get("ConfigurationSetName") is not None:
         out["configuration_set_name"] = data["ConfigurationSetName"]
     else:
-        raise DeserializationError(
-            "UpdateEventDestinationRequest.configuration_set_name required"
-        )
+        out["configuration_set_name"] = ""
     if data.get("EventDestinationName") is not None:
         out["event_destination_name"] = data["EventDestinationName"]
     else:
-        raise DeserializationError(
-            "UpdateEventDestinationRequest.event_destination_name required"
-        )
+        out["event_destination_name"] = ""
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     if data.get("MatchingEventTypes") is not None:

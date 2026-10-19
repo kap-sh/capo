@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backupsearch.errors import DeserializationError
-
 
 class S3ExportSpecification(TypedDict, closed=True):
     destination_bucket: "str"
@@ -26,7 +24,7 @@ def deserialize_json(data: dict) -> S3ExportSpecification:
     if data.get("DestinationBucket") is not None:
         out["destination_bucket"] = data["DestinationBucket"]
     else:
-        raise DeserializationError("S3ExportSpecification.destination_bucket required")
+        out["destination_bucket"] = ""
     if data.get("DestinationPrefix") is not None:
         out["destination_prefix"] = data["DestinationPrefix"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_discovery_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_discovery_service.types.agent_ids
 
@@ -39,7 +37,5 @@ def deserialize_aws_json_1_1(data: dict) -> StopDataCollectionByAgentIdsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StopDataCollectionByAgentIdsRequest.agent_ids required"
-        )
+        out["agent_ids"] = []
     return out

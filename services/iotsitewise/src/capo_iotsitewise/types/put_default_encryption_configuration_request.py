@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.encryption_type
     import capo_iotsitewise.types.kms_key_id
@@ -42,8 +40,10 @@ def deserialize_json(data: dict) -> PutDefaultEncryptionConfigurationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "PutDefaultEncryptionConfigurationRequest.encryption_type required"
+        import typing
+
+        out["encryption_type"] = typing.cast(
+            "capo_iotsitewise.types.encryption_type.EncryptionType", ""
         )
     if data.get("kmsKeyId") is not None:
         out["kms_key_id"] = data["kmsKeyId"]

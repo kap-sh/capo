@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dax.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dax.types.string
     import capo_dax.types.subnet_identifier_list
@@ -42,9 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateSubnetGroupRequest:
     if data.get("SubnetGroupName") is not None:
         out["subnet_group_name"] = data["SubnetGroupName"]
     else:
-        raise DeserializationError(
-            "UpdateSubnetGroupRequest.subnet_group_name required"
-        )
+        out["subnet_group_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("SubnetIds") is not None:

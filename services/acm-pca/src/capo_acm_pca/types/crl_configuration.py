@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_acm_pca.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm_pca.types.boolean
     import capo_acm_pca.types.cname_string
@@ -80,7 +78,7 @@ def deserialize_aws_json_1_1(data: dict) -> CrlConfiguration:
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
-        raise DeserializationError("CrlConfiguration.enabled required")
+        out["enabled"] = False
     if data.get("ExpirationInDays") is not None:
         out["expiration_in_days"] = data["ExpirationInDays"]
     if data.get("CustomCname") is not None:

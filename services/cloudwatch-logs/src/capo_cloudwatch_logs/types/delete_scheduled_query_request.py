@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.scheduled_query_identifier
 
@@ -29,5 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteScheduledQueryRequest:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("DeleteScheduledQueryRequest.identifier required")
+        out["identifier"] = ""
     return out

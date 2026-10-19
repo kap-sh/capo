@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.job_status
     import capo_omics.types.job_status_msg
@@ -36,11 +34,11 @@ def deserialize_json(data: dict) -> VariantImportItemDetail:
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("VariantImportItemDetail.source required")
+        out["source"] = ""
     if data.get("jobStatus") is not None:
         out["job_status"] = data["jobStatus"]
     else:
-        raise DeserializationError("VariantImportItemDetail.job_status required")
+        out["job_status"] = ""
     if data.get("statusMessage") is not None:
         out["status_message"] = data["statusMessage"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.build_status_config
     import capo_codebuild.types.git_clone_depth
@@ -97,7 +95,9 @@ def deserialize_aws_json_1_1(data: dict) -> ProjectSource:
             data["type"]
         )
     else:
-        raise DeserializationError("ProjectSource.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_codebuild.types.source_type.SourceType", "")
     if data.get("location") is not None:
         out["location"] = data["location"]
     if data.get("gitCloneDepth") is not None:

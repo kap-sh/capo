@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.arn
     import capo_resiliencehub.types.eks_namespace
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> EksSourceClusterNamespace:
     if data.get("eksClusterArn") is not None:
         out["eks_cluster_arn"] = data["eksClusterArn"]
     else:
-        raise DeserializationError("EksSourceClusterNamespace.eks_cluster_arn required")
+        out["eks_cluster_arn"] = ""
     if data.get("namespace") is not None:
         out["namespace"] = data["namespace"]
     else:
-        raise DeserializationError("EksSourceClusterNamespace.namespace required")
+        out["namespace"] = ""
     return out

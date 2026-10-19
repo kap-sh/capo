@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.environment_id
     import capo_deadline.types.job_id
@@ -31,11 +29,9 @@ def deserialize_json(data: dict) -> EnvironmentDetailsIdentifiers:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("EnvironmentDetailsIdentifiers.job_id required")
+        out["job_id"] = ""
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError(
-            "EnvironmentDetailsIdentifiers.environment_id required"
-        )
+        out["environment_id"] = ""
     return out

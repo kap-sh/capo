@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_messaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_messaging.types.content_type
     import capo_chime_sdk_messaging.types.message_attribute_map
@@ -77,7 +75,7 @@ def deserialize_json(data: dict) -> ChannelMessageCallback:
     if data.get("MessageId") is not None:
         out["message_id"] = data["MessageId"]
     else:
-        raise DeserializationError("ChannelMessageCallback.message_id required")
+        out["message_id"] = ""
     if data.get("Content") is not None:
         out["content"] = data["Content"]
     if data.get("Metadata") is not None:

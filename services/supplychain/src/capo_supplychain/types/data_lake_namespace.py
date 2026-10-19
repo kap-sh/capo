@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -58,15 +56,15 @@ def deserialize_json(data: dict) -> DataLakeNamespace:
     if data.get("instanceId") is not None:
         out["instance_id"] = data["instanceId"]
     else:
-        raise DeserializationError("DataLakeNamespace.instance_id required")
+        out["instance_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DataLakeNamespace.name required")
+        out["name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("DataLakeNamespace.arn required")
+        out["arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("createdTime") is not None:
@@ -78,7 +76,11 @@ def deserialize_json(data: dict) -> DataLakeNamespace:
             )
         )
     else:
-        raise DeserializationError("DataLakeNamespace.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastModifiedTime") is not None:
         import capo_supplychain.types._prelude.timestamp
 
@@ -88,5 +90,9 @@ def deserialize_json(data: dict) -> DataLakeNamespace:
             )
         )
     else:
-        raise DeserializationError("DataLakeNamespace.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

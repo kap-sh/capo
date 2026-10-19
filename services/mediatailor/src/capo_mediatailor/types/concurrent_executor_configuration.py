@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__integer
     import capo_mediatailor.types.__list_of_functions_ref
@@ -58,7 +56,11 @@ def deserialize_json(data: dict) -> ConcurrentExecutorConfiguration:
             data["Runtime"]
         )
     else:
-        raise DeserializationError("ConcurrentExecutorConfiguration.runtime required")
+        import typing
+
+        out["runtime"] = typing.cast(
+            "capo_mediatailor.types.runtime_type.RuntimeType", ""
+        )
     if data.get("Output") is not None:
         import capo_mediatailor.types.__map_of__string
 
@@ -66,7 +68,7 @@ def deserialize_json(data: dict) -> ConcurrentExecutorConfiguration:
             data["Output"]
         )
     else:
-        raise DeserializationError("ConcurrentExecutorConfiguration.output required")
+        out["output"] = {}
     if data.get("FunctionList") is not None:
         import capo_mediatailor.types.__list_of_functions_ref
 
@@ -76,19 +78,13 @@ def deserialize_json(data: dict) -> ConcurrentExecutorConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ConcurrentExecutorConfiguration.function_list required"
-        )
+        out["function_list"] = []
     if data.get("TimeoutMilliseconds") is not None:
         out["timeout_milliseconds"] = data["TimeoutMilliseconds"]
     else:
-        raise DeserializationError(
-            "ConcurrentExecutorConfiguration.timeout_milliseconds required"
-        )
+        out["timeout_milliseconds"] = 0
     if data.get("MaxConcurrency") is not None:
         out["max_concurrency"] = data["MaxConcurrency"]
     else:
-        raise DeserializationError(
-            "ConcurrentExecutorConfiguration.max_concurrency required"
-        )
+        out["max_concurrency"] = 0
     return out

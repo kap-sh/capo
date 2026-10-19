@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connecthealth.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connecthealth.types.medical_scribe_channel_id
     import capo_connecthealth.types.medical_scribe_participant_role
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> MedicalScribeChannelDefinition:
     if data.get("channelId") is not None:
         out["channel_id"] = data["channelId"]
     else:
-        raise DeserializationError("MedicalScribeChannelDefinition.channel_id required")
+        out["channel_id"] = 0
     if data.get("participantRole") is not None:
         import capo_connecthealth.types.medical_scribe_participant_role
 
@@ -49,7 +47,10 @@ def deserialize_json(data: dict) -> MedicalScribeChannelDefinition:
             )
         )
     else:
-        raise DeserializationError(
-            "MedicalScribeChannelDefinition.participant_role required"
+        import typing
+
+        out["participant_role"] = typing.cast(
+            "capo_connecthealth.types.medical_scribe_participant_role.MedicalScribeParticipantRole",
+            "",
         )
     return out

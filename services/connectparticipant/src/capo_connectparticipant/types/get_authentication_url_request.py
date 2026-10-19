@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectparticipant.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectparticipant.types.participant_token
     import capo_connectparticipant.types.redirect_uri
@@ -34,9 +32,9 @@ def deserialize_json(data: dict) -> GetAuthenticationUrlRequest:
     if data.get("SessionId") is not None:
         out["session_id"] = data["SessionId"]
     else:
-        raise DeserializationError("GetAuthenticationUrlRequest.session_id required")
+        out["session_id"] = ""
     if data.get("RedirectUri") is not None:
         out["redirect_uri"] = data["RedirectUri"]
     else:
-        raise DeserializationError("GetAuthenticationUrlRequest.redirect_uri required")
+        out["redirect_uri"] = ""
     return out

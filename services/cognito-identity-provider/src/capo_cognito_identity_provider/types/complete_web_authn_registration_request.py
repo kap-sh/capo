@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.document
     import capo_cognito_identity_provider.types.token_model_type
@@ -31,15 +29,11 @@ def deserialize_aws_json_1_1(data: dict) -> CompleteWebAuthnRegistrationRequest:
     if data.get("AccessToken") is not None:
         out["access_token"] = data["AccessToken"]
     else:
-        raise DeserializationError(
-            "CompleteWebAuthnRegistrationRequest.access_token required"
-        )
+        out["access_token"] = ""
     if data.get("Credential") is not None:
         out["credential"] = data["Credential"]
     else:
-        raise DeserializationError(
-            "CompleteWebAuthnRegistrationRequest.credential required"
-        )
+        out["credential"] = None
     return out
 
 

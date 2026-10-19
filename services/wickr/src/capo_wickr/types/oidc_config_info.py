@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.generic_string
     import capo_wickr.types.sensitive_string
@@ -82,15 +80,15 @@ def deserialize_json(data: dict) -> OidcConfigInfo:
     if data.get("companyId") is not None:
         out["company_id"] = data["companyId"]
     else:
-        raise DeserializationError("OidcConfigInfo.company_id required")
+        out["company_id"] = ""
     if data.get("scopes") is not None:
         out["scopes"] = data["scopes"]
     else:
-        raise DeserializationError("OidcConfigInfo.scopes required")
+        out["scopes"] = ""
     if data.get("issuer") is not None:
         out["issuer"] = data["issuer"]
     else:
-        raise DeserializationError("OidcConfigInfo.issuer required")
+        out["issuer"] = ""
     if data.get("clientSecret") is not None:
         out["client_secret"] = data["clientSecret"]
     if data.get("secret") is not None:

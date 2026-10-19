@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -84,13 +82,11 @@ def deserialize_json(data: dict) -> StartCodeReviewJobOutput:
     if data.get("codeReviewId") is not None:
         out["code_review_id"] = data["codeReviewId"]
     else:
-        raise DeserializationError("StartCodeReviewJobOutput.code_review_id required")
+        out["code_review_id"] = ""
     if data.get("codeReviewJobId") is not None:
         out["code_review_job_id"] = data["codeReviewJobId"]
     else:
-        raise DeserializationError(
-            "StartCodeReviewJobOutput.code_review_job_id required"
-        )
+        out["code_review_job_id"] = ""
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     return out

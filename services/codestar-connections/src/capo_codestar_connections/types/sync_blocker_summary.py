@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codestar_connections.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codestar_connections.types.latest_sync_blocker_list
     import capo_codestar_connections.types.resource_name
@@ -46,7 +44,7 @@ def deserialize_aws_json_1_0(data: dict) -> SyncBlockerSummary:
     if data.get("ResourceName") is not None:
         out["resource_name"] = data["ResourceName"]
     else:
-        raise DeserializationError("SyncBlockerSummary.resource_name required")
+        out["resource_name"] = ""
     if data.get("ParentResourceName") is not None:
         out["parent_resource_name"] = data["ParentResourceName"]
     if data.get("LatestBlockers") is not None:

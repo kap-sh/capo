@@ -58,7 +58,7 @@ def deserialize_json(data: dict) -> CreateVoiceProfileDomainRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateVoiceProfileDomainRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("ServerSideEncryptionConfiguration") is not None:

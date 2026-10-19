@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.position
     import capo_location.types.positional_accuracy
@@ -68,7 +66,7 @@ def deserialize_json(data: dict) -> InferredState:
     if data.get("ProxyDetected") is not None:
         out["proxy_detected"] = data["ProxyDetected"]
     else:
-        raise DeserializationError("InferredState.proxy_detected required")
+        out["proxy_detected"] = False
     return out
 
 

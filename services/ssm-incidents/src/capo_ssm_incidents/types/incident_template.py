@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.dedupe_string
     import capo_ssm_incidents.types.impact
@@ -63,11 +61,11 @@ def deserialize_json(data: dict) -> IncidentTemplate:
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("IncidentTemplate.title required")
+        out["title"] = ""
     if data.get("impact") is not None:
         out["impact"] = data["impact"]
     else:
-        raise DeserializationError("IncidentTemplate.impact required")
+        out["impact"] = 0
     if data.get("summary") is not None:
         out["summary"] = data["summary"]
     if data.get("dedupeString") is not None:

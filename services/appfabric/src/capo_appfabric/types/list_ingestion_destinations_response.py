@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appfabric.types.ingestion_destination_list
 
@@ -45,9 +43,7 @@ def deserialize_json(data: dict) -> ListIngestionDestinationsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListIngestionDestinationsResponse.ingestion_destinations required"
-        )
+        out["ingestion_destinations"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

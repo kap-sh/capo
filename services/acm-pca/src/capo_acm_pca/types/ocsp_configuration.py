@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_acm_pca.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm_pca.types.boolean
     import capo_acm_pca.types.cname_string
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> OcspConfiguration:
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
-        raise DeserializationError("OcspConfiguration.enabled required")
+        out["enabled"] = False
     if data.get("OcspCustomCname") is not None:
         out["ocsp_custom_cname"] = data["OcspCustomCname"]
     return out

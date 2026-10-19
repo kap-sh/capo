@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.certificate_type
     import capo_payment_cryptography.types.import_token_id
@@ -54,25 +52,19 @@ def deserialize_aws_json_1_0(data: dict) -> GetParametersForImportOutput:
     if data.get("WrappingKeyCertificate") is not None:
         out["wrapping_key_certificate"] = data["WrappingKeyCertificate"]
     else:
-        raise DeserializationError(
-            "GetParametersForImportOutput.wrapping_key_certificate required"
-        )
+        out["wrapping_key_certificate"] = ""
     if data.get("WrappingKeyCertificateChain") is not None:
         out["wrapping_key_certificate_chain"] = data["WrappingKeyCertificateChain"]
     else:
-        raise DeserializationError(
-            "GetParametersForImportOutput.wrapping_key_certificate_chain required"
-        )
+        out["wrapping_key_certificate_chain"] = ""
     if data.get("WrappingKeyAlgorithm") is not None:
         out["wrapping_key_algorithm"] = data["WrappingKeyAlgorithm"]
     else:
-        raise DeserializationError(
-            "GetParametersForImportOutput.wrapping_key_algorithm required"
-        )
+        out["wrapping_key_algorithm"] = ""
     if data.get("ImportToken") is not None:
         out["import_token"] = data["ImportToken"]
     else:
-        raise DeserializationError("GetParametersForImportOutput.import_token required")
+        out["import_token"] = ""
     if data.get("ParametersValidUntilTimestamp") is not None:
         import capo_payment_cryptography.types.timestamp
 
@@ -82,7 +74,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetParametersForImportOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetParametersForImportOutput.parameters_valid_until_timestamp required"
+        import datetime
+
+        out["parameters_valid_until_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

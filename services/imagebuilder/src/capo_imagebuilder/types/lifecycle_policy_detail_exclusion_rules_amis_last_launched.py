@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.lifecycle_policy_detail_exclusion_rules_amis_last_launched_value
     import capo_imagebuilder.types.lifecycle_policy_time_unit
@@ -35,9 +33,7 @@ def deserialize_json(data: dict) -> LifecyclePolicyDetailExclusionRulesAmisLastL
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError(
-            "LifecyclePolicyDetailExclusionRulesAmisLastLaunched.value required"
-        )
+        out["value"] = 0
     if data.get("unit") is not None:
         import capo_imagebuilder.types.lifecycle_policy_time_unit
 
@@ -47,7 +43,10 @@ def deserialize_json(data: dict) -> LifecyclePolicyDetailExclusionRulesAmisLastL
             )
         )
     else:
-        raise DeserializationError(
-            "LifecyclePolicyDetailExclusionRulesAmisLastLaunched.unit required"
+        import typing
+
+        out["unit"] = typing.cast(
+            "capo_imagebuilder.types.lifecycle_policy_time_unit.LifecyclePolicyTimeUnit",
+            "",
         )
     return out

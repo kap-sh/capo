@@ -52,9 +52,7 @@ def deserialize_json(data: dict) -> SelfManagedConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "SelfManagedConfiguration.trigger_conditions required"
-        )
+        out["trigger_conditions"] = []
     if data.get("invocationConfiguration") is not None:
         import capo_bedrock_agentcore_control.types.invocation_configuration
 
@@ -70,7 +68,5 @@ def deserialize_json(data: dict) -> SelfManagedConfiguration:
     if data.get("historicalContextWindowSize") is not None:
         out["historical_context_window_size"] = data["historicalContextWindowSize"]
     else:
-        raise DeserializationError(
-            "SelfManagedConfiguration.historical_context_window_size required"
-        )
+        out["historical_context_window_size"] = 0
     return out

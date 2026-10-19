@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.arn
     import capo_transfer.types.as2_id
@@ -64,7 +62,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribedProfile:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("DescribedProfile.arn required")
+        out["arn"] = ""
     if data.get("ProfileId") is not None:
         out["profile_id"] = data["ProfileId"]
     if data.get("ProfileType") is not None:

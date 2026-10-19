@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.attribute_filter
     import capo_qapps.types.card_output_source
@@ -77,11 +75,11 @@ def deserialize_json(data: dict) -> QQueryCard:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("QQueryCard.id required")
+        out["id"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("QQueryCard.title required")
+        out["title"] = ""
     if data.get("dependencies") is not None:
         import capo_qapps.types.dependency_list
 
@@ -89,17 +87,19 @@ def deserialize_json(data: dict) -> QQueryCard:
             data["dependencies"]
         )
     else:
-        raise DeserializationError("QQueryCard.dependencies required")
+        out["dependencies"] = []
     if data.get("type") is not None:
         import capo_qapps.types.card_type
 
         out["type"] = capo_qapps.types.card_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("QQueryCard.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_qapps.types.card_type.CardType", "")
     if data.get("prompt") is not None:
         out["prompt"] = data["prompt"]
     else:
-        raise DeserializationError("QQueryCard.prompt required")
+        out["prompt"] = ""
     if data.get("outputSource") is not None:
         import capo_qapps.types.card_output_source
 
@@ -107,7 +107,11 @@ def deserialize_json(data: dict) -> QQueryCard:
             data["outputSource"]
         )
     else:
-        raise DeserializationError("QQueryCard.output_source required")
+        import typing
+
+        out["output_source"] = typing.cast(
+            "capo_qapps.types.card_output_source.CardOutputSource", ""
+        )
     if data.get("attributeFilter") is not None:
         import capo_qapps.types.attribute_filter
 

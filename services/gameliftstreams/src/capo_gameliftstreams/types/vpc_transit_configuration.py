@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_gameliftstreams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_gameliftstreams.types.ipv4_cidr_block_list
     import capo_gameliftstreams.types.vpc_id
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> VpcTransitConfiguration:
     if data.get("VpcId") is not None:
         out["vpc_id"] = data["VpcId"]
     else:
-        raise DeserializationError("VpcTransitConfiguration.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("Ipv4CidrBlocks") is not None:
         import capo_gameliftstreams.types.ipv4_cidr_block_list
 
@@ -49,5 +47,5 @@ def deserialize_json(data: dict) -> VpcTransitConfiguration:
             )
         )
     else:
-        raise DeserializationError("VpcTransitConfiguration.ipv4_cidr_blocks required")
+        out["ipv4_cidr_blocks"] = []
     return out

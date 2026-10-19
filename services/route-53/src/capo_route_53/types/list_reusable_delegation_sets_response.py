@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.delegation_sets
@@ -55,14 +54,12 @@ def deserialize_xml(el: Element) -> ListReusableDelegationSetsResponse:
             child_delegation_sets
         )
     else:
-        raise DeserializationError(
-            "ListReusableDelegationSetsResponse.delegation_sets required"
-        )
+        out["delegation_sets"] = []
     child_marker = el.find("Marker")
     if child_marker is not None:
         out["marker"] = str(child_marker.text or "")
     else:
-        raise DeserializationError("ListReusableDelegationSetsResponse.marker required")
+        out["marker"] = ""
     child_is_truncated = el.find("IsTruncated")
     if child_is_truncated is not None:
         out["is_truncated"] = (child_is_truncated.text or "").lower() == "true"
@@ -75,7 +72,5 @@ def deserialize_xml(el: Element) -> ListReusableDelegationSetsResponse:
     if child_max_items is not None:
         out["max_items"] = int(child_max_items.text or "")
     else:
-        raise DeserializationError(
-            "ListReusableDelegationSetsResponse.max_items required"
-        )
+        out["max_items"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.raw_value_type
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> PropertyValueNullValue:
             data["valueType"]
         )
     else:
-        raise DeserializationError("PropertyValueNullValue.value_type required")
+        import typing
+
+        out["value_type"] = typing.cast(
+            "capo_iotsitewise.types.raw_value_type.RawValueType", ""
+        )
     return out

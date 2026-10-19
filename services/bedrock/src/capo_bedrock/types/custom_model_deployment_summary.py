@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.custom_model_deployment_arn
     import capo_bedrock.types.custom_model_deployment_status
@@ -68,19 +66,15 @@ def deserialize_json(data: dict) -> CustomModelDeploymentSummary:
     if data.get("customModelDeploymentArn") is not None:
         out["custom_model_deployment_arn"] = data["customModelDeploymentArn"]
     else:
-        raise DeserializationError(
-            "CustomModelDeploymentSummary.custom_model_deployment_arn required"
-        )
+        out["custom_model_deployment_arn"] = ""
     if data.get("customModelDeploymentName") is not None:
         out["custom_model_deployment_name"] = data["customModelDeploymentName"]
     else:
-        raise DeserializationError(
-            "CustomModelDeploymentSummary.custom_model_deployment_name required"
-        )
+        out["custom_model_deployment_name"] = ""
     if data.get("modelArn") is not None:
         out["model_arn"] = data["modelArn"]
     else:
-        raise DeserializationError("CustomModelDeploymentSummary.model_arn required")
+        out["model_arn"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock.types.timestamp
 
@@ -88,7 +82,9 @@ def deserialize_json(data: dict) -> CustomModelDeploymentSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("CustomModelDeploymentSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         import capo_bedrock.types.custom_model_deployment_status
 
@@ -98,7 +94,12 @@ def deserialize_json(data: dict) -> CustomModelDeploymentSummary:
             )
         )
     else:
-        raise DeserializationError("CustomModelDeploymentSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock.types.custom_model_deployment_status.CustomModelDeploymentStatus",
+            "",
+        )
     if data.get("lastUpdatedAt") is not None:
         import capo_bedrock.types.timestamp
 

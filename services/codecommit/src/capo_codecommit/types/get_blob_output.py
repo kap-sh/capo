@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.blob
 
@@ -33,5 +31,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetBlobOutput:
             data["content"]
         )
     else:
-        raise DeserializationError("GetBlobOutput.content required")
+        out["content"] = b""
     return out

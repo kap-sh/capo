@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_codeguru_security.errors import DeserializationError, ServiceError
+from capo_codeguru_security.errors import ServiceError
 
 
 class ConflictException_(TypedDict, closed=True):
@@ -32,19 +32,19 @@ def deserialize_json(data: dict) -> ConflictException_:
     if data.get("errorCode") is not None:
         out["error_code"] = data["errorCode"]
     else:
-        raise DeserializationError("ConflictException_.error_code required")
+        out["error_code"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ConflictException_.message required")
+        out["message"] = ""
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     else:
-        raise DeserializationError("ConflictException_.resource_id required")
+        out["resource_id"] = ""
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError("ConflictException_.resource_type required")
+        out["resource_type"] = ""
     return out
 
 

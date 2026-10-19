@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.account_id
     import capo_drs.types.aws_region
@@ -42,17 +40,15 @@ def deserialize_json(data: dict) -> CreateSourceNetworkRequest:
     if data.get("vpcID") is not None:
         out["vpc_id"] = data["vpcID"]
     else:
-        raise DeserializationError("CreateSourceNetworkRequest.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("originAccountID") is not None:
         out["origin_account_id"] = data["originAccountID"]
     else:
-        raise DeserializationError(
-            "CreateSourceNetworkRequest.origin_account_id required"
-        )
+        out["origin_account_id"] = ""
     if data.get("originRegion") is not None:
         out["origin_region"] = data["originRegion"]
     else:
-        raise DeserializationError("CreateSourceNetworkRequest.origin_region required")
+        out["origin_region"] = ""
     if data.get("tags") is not None:
         import capo_drs.types.tags_map
 

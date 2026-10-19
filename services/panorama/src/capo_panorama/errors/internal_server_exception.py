@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_panorama.errors import DeserializationError, ServiceError
+from capo_panorama.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_panorama.types.retry_after_seconds
@@ -30,7 +30,7 @@ def deserialize_json(data: dict) -> InternalServerException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("InternalServerException_.message required")
+        out["message"] = ""
     return out
 
 

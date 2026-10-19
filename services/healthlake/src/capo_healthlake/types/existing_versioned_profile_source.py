@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 
 class ExistingVersionedProfileSource(TypedDict, closed=True):
     profile_id: "str"
@@ -25,9 +23,9 @@ def deserialize_aws_json_1_0(data: dict) -> ExistingVersionedProfileSource:
     if data.get("ProfileId") is not None:
         out["profile_id"] = data["ProfileId"]
     else:
-        raise DeserializationError("ExistingVersionedProfileSource.profile_id required")
+        out["profile_id"] = ""
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     else:
-        raise DeserializationError("ExistingVersionedProfileSource.version required")
+        out["version"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.agent_arn_list
     import capo_datasync.types.azure_access_tier
@@ -115,9 +113,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLocationAzureBlobRequest:
     if data.get("LocationArn") is not None:
         out["location_arn"] = data["LocationArn"]
     else:
-        raise DeserializationError(
-            "UpdateLocationAzureBlobRequest.location_arn required"
-        )
+        out["location_arn"] = ""
     if data.get("Subdirectory") is not None:
         out["subdirectory"] = data["Subdirectory"]
     if data.get("AuthenticationType") is not None:

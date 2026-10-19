@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.dataset_parameter_name
     import capo_quicksight.types.new_default_values
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> OverrideDatasetParameterOperation:
     if data.get("ParameterName") is not None:
         out["parameter_name"] = data["ParameterName"]
     else:
-        raise DeserializationError(
-            "OverrideDatasetParameterOperation.parameter_name required"
-        )
+        out["parameter_name"] = ""
     if data.get("NewParameterName") is not None:
         out["new_parameter_name"] = data["NewParameterName"]
     if data.get("NewDefaultValues") is not None:

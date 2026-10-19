@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_support.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support.types.trusted_advisor_check_refresh_status_list
 
@@ -43,7 +41,5 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeTrustedAdvisorCheckRefreshStatusesResponse.statuses required"
-        )
+        out["statuses"] = []
     return out

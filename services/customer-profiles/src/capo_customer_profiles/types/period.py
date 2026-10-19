@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.boolean
     import capo_customer_profiles.types.max_size60
@@ -48,11 +46,15 @@ def deserialize_json(data: dict) -> Period:
             data["Unit"]
         )
     else:
-        raise DeserializationError("Period.unit required")
+        import typing
+
+        out["unit"] = typing.cast(
+            "capo_customer_profiles.types.period_unit.PeriodUnit", ""
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("Period.value required")
+        out["value"] = 0
     if data.get("MaxInvocationsPerProfile") is not None:
         out["max_invocations_per_profile"] = data["MaxInvocationsPerProfile"]
     if data.get("Unlimited") is not None:

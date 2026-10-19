@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.sample_size
     import capo_databrew.types.sample_type
@@ -38,5 +36,7 @@ def deserialize_json(data: dict) -> Sample:
 
         out["type"] = capo_databrew.types.sample_type.deserialize_json(data["Type"])
     else:
-        raise DeserializationError("Sample.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_databrew.types.sample_type.SampleType", "")
     return out

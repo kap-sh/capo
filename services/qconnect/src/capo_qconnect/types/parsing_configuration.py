@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.bedrock_foundation_model_configuration_for_parsing
     import capo_qconnect.types.parsing_strategy
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ParsingConfiguration:
     if data.get("parsingStrategy") is not None:
         out["parsing_strategy"] = data["parsingStrategy"]
     else:
-        raise DeserializationError("ParsingConfiguration.parsing_strategy required")
+        out["parsing_strategy"] = ""
     if data.get("bedrockFoundationModelConfiguration") is not None:
         import capo_qconnect.types.bedrock_foundation_model_configuration_for_parsing
 

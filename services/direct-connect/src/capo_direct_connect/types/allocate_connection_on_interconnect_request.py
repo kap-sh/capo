@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.bandwidth
     import capo_direct_connect.types.connection_name
@@ -43,31 +41,21 @@ def deserialize_aws_json_1_1(data: dict) -> AllocateConnectionOnInterconnectRequ
     if data.get("bandwidth") is not None:
         out["bandwidth"] = data["bandwidth"]
     else:
-        raise DeserializationError(
-            "AllocateConnectionOnInterconnectRequest.bandwidth required"
-        )
+        out["bandwidth"] = ""
     if data.get("connectionName") is not None:
         out["connection_name"] = data["connectionName"]
     else:
-        raise DeserializationError(
-            "AllocateConnectionOnInterconnectRequest.connection_name required"
-        )
+        out["connection_name"] = ""
     if data.get("ownerAccount") is not None:
         out["owner_account"] = data["ownerAccount"]
     else:
-        raise DeserializationError(
-            "AllocateConnectionOnInterconnectRequest.owner_account required"
-        )
+        out["owner_account"] = ""
     if data.get("interconnectId") is not None:
         out["interconnect_id"] = data["interconnectId"]
     else:
-        raise DeserializationError(
-            "AllocateConnectionOnInterconnectRequest.interconnect_id required"
-        )
+        out["interconnect_id"] = ""
     if data.get("vlan") is not None:
         out["vlan"] = data["vlan"]
     else:
-        raise DeserializationError(
-            "AllocateConnectionOnInterconnectRequest.vlan required"
-        )
+        out["vlan"] = 0
     return out

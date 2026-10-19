@@ -70,9 +70,7 @@ def deserialize_json(data: dict) -> SendInAppNotificationActionDefinition:
             data["Content"]
         )
     else:
-        raise DeserializationError(
-            "SendInAppNotificationActionDefinition.content required"
-        )
+        out["content"] = {}
     if data.get("Recipient") is not None:
         import capo_connect.types.notification_recipient_type
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.non_empty_string
     import capo_codebuild.types.report_export_config
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateReportGroupInput:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("UpdateReportGroupInput.arn required")
+        out["arn"] = ""
     if data.get("exportConfig") is not None:
         import capo_codebuild.types.report_export_config
 

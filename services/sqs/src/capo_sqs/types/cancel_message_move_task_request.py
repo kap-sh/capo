@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sqs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sqs.types.string
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> CancelMessageMoveTaskRequest:
     if data.get("TaskHandle") is not None:
         out["task_handle"] = data["TaskHandle"]
     else:
-        raise DeserializationError("CancelMessageMoveTaskRequest.task_handle required")
+        out["task_handle"] = ""
     return out

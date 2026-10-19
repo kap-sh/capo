@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 
 class ViewOffNadirInput(TypedDict, closed=True):
     lower_bound: "float"
@@ -41,9 +39,9 @@ def deserialize_json(data: dict) -> ViewOffNadirInput:
     if data.get("LowerBound") is not None:
         out["lower_bound"] = float(data["LowerBound"])
     else:
-        raise DeserializationError("ViewOffNadirInput.lower_bound required")
+        out["lower_bound"] = 0.0
     if data.get("UpperBound") is not None:
         out["upper_bound"] = float(data["UpperBound"])
     else:
-        raise DeserializationError("ViewOffNadirInput.upper_bound required")
+        out["upper_bound"] = 0.0
     return out

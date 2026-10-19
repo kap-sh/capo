@@ -67,7 +67,7 @@ def deserialize_json(data: dict) -> ExecuteActionRequest:
     if data.get("actionDefinitionId") is not None:
         out["action_definition_id"] = data["actionDefinitionId"]
     else:
-        raise DeserializationError("ExecuteActionRequest.action_definition_id required")
+        out["action_definition_id"] = ""
     if data.get("actionPayload") is not None:
         import capo_iotsitewise.types.action_payload
 

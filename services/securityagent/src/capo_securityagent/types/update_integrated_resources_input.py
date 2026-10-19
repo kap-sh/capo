@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.agent_space_id
     import capo_securityagent.types.integrated_resource_input_item_list
@@ -41,15 +39,11 @@ def deserialize_json(data: dict) -> UpdateIntegratedResourcesInput:
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError(
-            "UpdateIntegratedResourcesInput.agent_space_id required"
-        )
+        out["agent_space_id"] = ""
     if data.get("integrationId") is not None:
         out["integration_id"] = data["integrationId"]
     else:
-        raise DeserializationError(
-            "UpdateIntegratedResourcesInput.integration_id required"
-        )
+        out["integration_id"] = ""
     if data.get("items") is not None:
         import capo_securityagent.types.integrated_resource_input_item_list
 
@@ -59,5 +53,5 @@ def deserialize_json(data: dict) -> UpdateIntegratedResourcesInput:
             )
         )
     else:
-        raise DeserializationError("UpdateIntegratedResourcesInput.items required")
+        out["items"] = []
     return out

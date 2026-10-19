@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 
 class NotVisibleMarker(TypedDict, closed=True):
     reason: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> NotVisibleMarker:
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
     else:
-        raise DeserializationError("NotVisibleMarker.reason required")
+        out["reason"] = ""
     return out

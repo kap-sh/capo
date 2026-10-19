@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.eutran_cell_id
     import capo_location.types.lte_local_id
@@ -89,11 +87,11 @@ def deserialize_json(data: dict) -> LteCellDetails:
     if data.get("Mcc") is not None:
         out["mcc"] = data["Mcc"]
     else:
-        raise DeserializationError("LteCellDetails.mcc required")
+        out["mcc"] = 0
     if data.get("Mnc") is not None:
         out["mnc"] = data["Mnc"]
     else:
-        raise DeserializationError("LteCellDetails.mnc required")
+        out["mnc"] = 0
     if data.get("LocalId") is not None:
         import capo_location.types.lte_local_id
 

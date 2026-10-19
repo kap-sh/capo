@@ -53,7 +53,7 @@ def deserialize_json(data: dict) -> NumericalDimensionField:
     if data.get("FieldId") is not None:
         out["field_id"] = data["FieldId"]
     else:
-        raise DeserializationError("NumericalDimensionField.field_id required")
+        out["field_id"] = ""
     if data.get("Column") is not None:
         import capo_quicksight.types.column_identifier
 

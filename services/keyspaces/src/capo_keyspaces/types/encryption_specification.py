@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_keyspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_keyspaces.types.encryption_type
     import capo_keyspaces.types.kms_key_arn
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_0(data: dict) -> EncryptionSpecification:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("EncryptionSpecification.type required")
+        out["type"] = ""
     if data.get("kmsKeyIdentifier") is not None:
         out["kms_key_identifier"] = data["kmsKeyIdentifier"]
     return out

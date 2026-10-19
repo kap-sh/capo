@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.log_group_name
     import capo_bedrock.types.role_arn
@@ -40,11 +38,11 @@ def deserialize_json(data: dict) -> CloudWatchConfig:
     if data.get("logGroupName") is not None:
         out["log_group_name"] = data["logGroupName"]
     else:
-        raise DeserializationError("CloudWatchConfig.log_group_name required")
+        out["log_group_name"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CloudWatchConfig.role_arn required")
+        out["role_arn"] = ""
     if data.get("largeDataDeliveryS3Config") is not None:
         import capo_bedrock.types.s3_config
 

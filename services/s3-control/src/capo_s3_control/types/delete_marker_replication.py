@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.delete_marker_replication_status
@@ -38,5 +37,10 @@ def deserialize_xml(el: Element) -> DeleteMarkerReplication:
             )
         )
     else:
-        raise DeserializationError("DeleteMarkerReplication.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_s3_control.types.delete_marker_replication_status.DeleteMarkerReplicationStatus",
+            "",
+        )
     return out

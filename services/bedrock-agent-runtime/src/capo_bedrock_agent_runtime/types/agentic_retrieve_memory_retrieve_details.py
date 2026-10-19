@@ -60,9 +60,7 @@ def deserialize_json(data: dict) -> AgenticRetrieveMemoryRetrieveDetails:
     if data.get("memoryId") is not None:
         out["memory_id"] = data["memoryId"]
     else:
-        raise DeserializationError(
-            "AgenticRetrieveMemoryRetrieveDetails.memory_id required"
-        )
+        out["memory_id"] = ""
     if data.get("namespace") is not None:
         out["namespace"] = data["namespace"]
     if data.get("namespacePath") is not None:

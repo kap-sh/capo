@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudsearch._protocol.xml import Element
-from capo_cloudsearch.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudsearch.types.domain_name
@@ -33,14 +32,10 @@ def deserialize_query(el: Element) -> UpdateServiceAccessPoliciesRequest:
     if child_domain_name is not None:
         out["domain_name"] = str(child_domain_name.text or "")
     else:
-        raise DeserializationError(
-            "UpdateServiceAccessPoliciesRequest.domain_name required"
-        )
+        out["domain_name"] = ""
     child_access_policies = el.find("AccessPolicies")
     if child_access_policies is not None:
         out["access_policies"] = str(child_access_policies.text or "")
     else:
-        raise DeserializationError(
-            "UpdateServiceAccessPoliciesRequest.access_policies required"
-        )
+        out["access_policies"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transcribe_streaming.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe_streaming.types.bucket_name
     import capo_transcribe_streaming.types.medical_scribe_note_template
@@ -40,9 +38,7 @@ def deserialize_json(data: dict) -> ClinicalNoteGenerationSettings:
     if data.get("OutputBucketName") is not None:
         out["output_bucket_name"] = data["OutputBucketName"]
     else:
-        raise DeserializationError(
-            "ClinicalNoteGenerationSettings.output_bucket_name required"
-        )
+        out["output_bucket_name"] = ""
     if data.get("NoteTemplate") is not None:
         import capo_transcribe_streaming.types.medical_scribe_note_template
 

@@ -49,9 +49,7 @@ def deserialize_json(data: dict) -> AssetBundleImportJobAnalysisOverridePermissi
             )
         )
     else:
-        raise DeserializationError(
-            "AssetBundleImportJobAnalysisOverridePermissions.analysis_ids required"
-        )
+        out["analysis_ids"] = []
     if data.get("Permissions") is not None:
         import capo_quicksight.types.asset_bundle_resource_permissions
 

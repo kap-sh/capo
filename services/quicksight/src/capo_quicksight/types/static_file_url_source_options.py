@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.string
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> StaticFileUrlSourceOptions:
     if data.get("Url") is not None:
         out["url"] = data["Url"]
     else:
-        raise DeserializationError("StaticFileUrlSourceOptions.url required")
+        out["url"] = ""
     return out

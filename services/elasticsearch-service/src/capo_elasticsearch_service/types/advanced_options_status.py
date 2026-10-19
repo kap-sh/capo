@@ -45,7 +45,7 @@ def deserialize_json(data: dict) -> AdvancedOptionsStatus:
             )
         )
     else:
-        raise DeserializationError("AdvancedOptionsStatus.options required")
+        out["options"] = {}
     if data.get("Status") is not None:
         import capo_elasticsearch_service.types.option_status
 

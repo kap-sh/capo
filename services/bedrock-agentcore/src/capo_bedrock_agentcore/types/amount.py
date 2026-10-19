@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.currency
 
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> Amount:
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("Amount.value required")
+        out["value"] = ""
     if data.get("currency") is not None:
         import capo_bedrock_agentcore.types.currency
 
@@ -42,5 +40,9 @@ def deserialize_json(data: dict) -> Amount:
             data["currency"]
         )
     else:
-        raise DeserializationError("Amount.currency required")
+        import typing
+
+        out["currency"] = typing.cast(
+            "capo_bedrock_agentcore.types.currency.Currency", ""
+        )
     return out

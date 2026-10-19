@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_managedblockchain_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -105,13 +103,13 @@ def deserialize_json(data: dict) -> Transaction:
     if data.get("network") is not None:
         out["network"] = data["network"]
     else:
-        raise DeserializationError("Transaction.network required")
+        out["network"] = ""
     if data.get("blockHash") is not None:
         out["block_hash"] = data["blockHash"]
     if data.get("transactionHash") is not None:
         out["transaction_hash"] = data["transactionHash"]
     else:
-        raise DeserializationError("Transaction.transaction_hash required")
+        out["transaction_hash"] = ""
     if data.get("blockNumber") is not None:
         out["block_number"] = data["blockNumber"]
     if data.get("transactionTimestamp") is not None:
@@ -123,19 +121,23 @@ def deserialize_json(data: dict) -> Transaction:
             )
         )
     else:
-        raise DeserializationError("Transaction.transaction_timestamp required")
+        import datetime
+
+        out["transaction_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("transactionIndex") is not None:
         out["transaction_index"] = data["transactionIndex"]
     else:
-        raise DeserializationError("Transaction.transaction_index required")
+        out["transaction_index"] = 0
     if data.get("numberOfTransactions") is not None:
         out["number_of_transactions"] = data["numberOfTransactions"]
     else:
-        raise DeserializationError("Transaction.number_of_transactions required")
+        out["number_of_transactions"] = 0
     if data.get("to") is not None:
         out["to"] = data["to"]
     else:
-        raise DeserializationError("Transaction.to required")
+        out["to"] = ""
     if data.get("from") is not None:
         out["from"] = data["from"]
     if data.get("contractAddress") is not None:

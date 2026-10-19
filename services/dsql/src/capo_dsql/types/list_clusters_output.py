@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dsql.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dsql.types.cluster_list
     import capo_dsql.types.next_token
@@ -40,5 +38,5 @@ def deserialize_json(data: dict) -> ListClustersOutput:
             data["clusters"]
         )
     else:
-        raise DeserializationError("ListClustersOutput.clusters required")
+        out["clusters"] = []
     return out

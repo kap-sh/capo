@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.application_id
     import capo_qbusiness.types.client_token
@@ -62,11 +60,15 @@ def deserialize_json(data: dict) -> CreateRetrieverRequest:
 
         out["type"] = capo_qbusiness.types.retriever_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("CreateRetrieverRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_qbusiness.types.retriever_type.RetrieverType", ""
+        )
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("CreateRetrieverRequest.display_name required")
+        out["display_name"] = ""
     if data.get("configuration") is not None:
         import capo_qbusiness.types.retriever_configuration
 
@@ -76,7 +78,9 @@ def deserialize_json(data: dict) -> CreateRetrieverRequest:
             )
         )
     else:
-        raise DeserializationError("CreateRetrieverRequest.configuration required")
+        import capo_qbusiness.types._unknown
+
+        out["configuration"] = capo_qbusiness.types._unknown.UnknownUnionMember("")
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     if data.get("clientToken") is not None:

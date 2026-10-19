@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_lex_runtime_v2._protocol.eventstream import HeaderValue, Message
-from capo_lex_runtime_v2.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_lex_runtime_v2.types.boolean
@@ -76,7 +75,7 @@ def deserialize_json(data: dict) -> ConfigurationEvent:
     if data.get("responseContentType") is not None:
         out["response_content_type"] = data["responseContentType"]
     else:
-        raise DeserializationError("ConfigurationEvent.response_content_type required")
+        out["response_content_type"] = ""
     if data.get("sessionState") is not None:
         import capo_lex_runtime_v2.types.session_state
 

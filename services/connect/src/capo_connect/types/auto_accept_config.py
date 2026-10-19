@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.agent_first_callback_auto_accept
     import capo_connect.types.auto_accept
@@ -42,7 +40,9 @@ def deserialize_json(data: dict) -> AutoAcceptConfig:
 
         out["channel"] = capo_connect.types.channel.deserialize_json(data["Channel"])
     else:
-        raise DeserializationError("AutoAcceptConfig.channel required")
+        import typing
+
+        out["channel"] = typing.cast("capo_connect.types.channel.Channel", "")
     if data.get("AutoAccept") is not None:
         out["auto_accept"] = data["AutoAccept"]
     else:

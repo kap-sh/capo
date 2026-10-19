@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.create_snapshot_before_schema_extension
     import capo_directory_service.types.description
@@ -41,21 +39,19 @@ def deserialize_aws_json_1_1(data: dict) -> StartSchemaExtensionRequest:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError("StartSchemaExtensionRequest.directory_id required")
+        out["directory_id"] = ""
     if data.get("CreateSnapshotBeforeSchemaExtension") is not None:
         out["create_snapshot_before_schema_extension"] = data[
             "CreateSnapshotBeforeSchemaExtension"
         ]
     else:
-        raise DeserializationError(
-            "StartSchemaExtensionRequest.create_snapshot_before_schema_extension required"
-        )
+        out["create_snapshot_before_schema_extension"] = False
     if data.get("LdifContent") is not None:
         out["ldif_content"] = data["LdifContent"]
     else:
-        raise DeserializationError("StartSchemaExtensionRequest.ldif_content required")
+        out["ldif_content"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("StartSchemaExtensionRequest.description required")
+        out["description"] = ""
     return out

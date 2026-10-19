@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.aws_account_id
     import capo_datazone.types.aws_account_name
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> AccountInfo:
     if data.get("awsAccountId") is not None:
         out["aws_account_id"] = data["awsAccountId"]
     else:
-        raise DeserializationError("AccountInfo.aws_account_id required")
+        out["aws_account_id"] = ""
     if data.get("supportedRegions") is not None:
         import capo_datazone.types.aws_region_list
 
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> AccountInfo:
             data["supportedRegions"]
         )
     else:
-        raise DeserializationError("AccountInfo.supported_regions required")
+        out["supported_regions"] = []
     if data.get("awsAccountName") is not None:
         out["aws_account_name"] = data["awsAccountName"]
     return out

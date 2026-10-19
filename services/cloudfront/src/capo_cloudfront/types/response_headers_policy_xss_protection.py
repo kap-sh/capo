@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.boolean
@@ -42,16 +41,12 @@ def deserialize_xml(el: Element) -> ResponseHeadersPolicyXSSProtection:
     if child_override is not None:
         out["override"] = (child_override.text or "").lower() == "true"
     else:
-        raise DeserializationError(
-            "ResponseHeadersPolicyXSSProtection.override required"
-        )
+        out["override"] = False
     child_protection = el.find("Protection")
     if child_protection is not None:
         out["protection"] = (child_protection.text or "").lower() == "true"
     else:
-        raise DeserializationError(
-            "ResponseHeadersPolicyXSSProtection.protection required"
-        )
+        out["protection"] = False
     child_mode_block = el.find("ModeBlock")
     if child_mode_block is not None:
         out["mode_block"] = (child_mode_block.text or "").lower() == "true"

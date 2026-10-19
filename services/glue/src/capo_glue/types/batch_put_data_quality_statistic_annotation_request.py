@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.hash_string
     import capo_glue.types.inclusion_annotation_list
@@ -50,9 +48,7 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "BatchPutDataQualityStatisticAnnotationRequest.inclusion_annotations required"
-        )
+        out["inclusion_annotations"] = []
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     return out

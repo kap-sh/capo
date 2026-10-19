@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.max_record_size_in_ki_b
     import capo_kinesis.types.stream_arn
@@ -43,7 +41,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateMaxRecordSizeInput:
     if data.get("MaxRecordSizeInKiB") is not None:
         out["max_record_size_in_ki_b"] = data["MaxRecordSizeInKiB"]
     else:
-        raise DeserializationError(
-            "UpdateMaxRecordSizeInput.max_record_size_in_ki_b required"
-        )
+        out["max_record_size_in_ki_b"] = 0
     return out

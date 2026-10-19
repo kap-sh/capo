@@ -33,7 +33,7 @@ def deserialize_json(data: dict) -> FieldValue:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("FieldValue.id required")
+        out["id"] = ""
     if data.get("Value") is not None:
         import capo_connect.types.field_value_union
 

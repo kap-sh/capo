@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_notifications.errors import DeserializationError, ServiceError
+from capo_notifications.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_notifications.types.error_message
@@ -31,11 +31,11 @@ def deserialize_json(data: dict) -> ConflictException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ConflictException_.message required")
+        out["message"] = ""
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     else:
-        raise DeserializationError("ConflictException_.resource_id required")
+        out["resource_id"] = ""
     return out
 
 

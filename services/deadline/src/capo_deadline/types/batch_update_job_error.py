@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.batch_update_job_error_code
     import capo_deadline.types.farm_id
@@ -47,15 +45,15 @@ def deserialize_json(data: dict) -> BatchUpdateJobError:
     if data.get("farmId") is not None:
         out["farm_id"] = data["farmId"]
     else:
-        raise DeserializationError("BatchUpdateJobError.farm_id required")
+        out["farm_id"] = ""
     if data.get("queueId") is not None:
         out["queue_id"] = data["queueId"]
     else:
-        raise DeserializationError("BatchUpdateJobError.queue_id required")
+        out["queue_id"] = ""
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("BatchUpdateJobError.job_id required")
+        out["job_id"] = ""
     if data.get("code") is not None:
         import capo_deadline.types.batch_update_job_error_code
 
@@ -63,9 +61,14 @@ def deserialize_json(data: dict) -> BatchUpdateJobError:
             data["code"]
         )
     else:
-        raise DeserializationError("BatchUpdateJobError.code required")
+        import typing
+
+        out["code"] = typing.cast(
+            "capo_deadline.types.batch_update_job_error_code.BatchUpdateJobErrorCode",
+            "",
+        )
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("BatchUpdateJobError.message required")
+        out["message"] = ""
     return out

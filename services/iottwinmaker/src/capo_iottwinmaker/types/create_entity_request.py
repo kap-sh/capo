@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.components_map_request
     import capo_iottwinmaker.types.composite_components_map_request
@@ -82,7 +80,7 @@ def deserialize_json(data: dict) -> CreateEntityRequest:
     if data.get("entityName") is not None:
         out["entity_name"] = data["entityName"]
     else:
-        raise DeserializationError("CreateEntityRequest.entity_name required")
+        out["entity_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("components") is not None:

@@ -60,15 +60,15 @@ def deserialize_json(data: dict) -> BotAnalyzerRecommendation:
             data["priority"]
         )
     else:
-        raise DeserializationError("BotAnalyzerRecommendation.priority required")
+        import typing
+
+        out["priority"] = typing.cast("capo_lex_models_v2.types.priority.Priority", "")
     if data.get("issueDescription") is not None:
         out["issue_description"] = data["issueDescription"]
     else:
-        raise DeserializationError(
-            "BotAnalyzerRecommendation.issue_description required"
-        )
+        out["issue_description"] = ""
     if data.get("proposedFix") is not None:
         out["proposed_fix"] = data["proposedFix"]
     else:
-        raise DeserializationError("BotAnalyzerRecommendation.proposed_fix required")
+        out["proposed_fix"] = ""
     return out

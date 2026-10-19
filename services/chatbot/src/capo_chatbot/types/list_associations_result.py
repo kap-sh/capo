@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chatbot.types.association_list
     import capo_chatbot.types.string
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ListAssociationsResult:
             data["Associations"]
         )
     else:
-        raise DeserializationError("ListAssociationsResult.associations required")
+        out["associations"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

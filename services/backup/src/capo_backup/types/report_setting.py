@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.integer
     import capo_backup.types.string
@@ -62,7 +60,7 @@ def deserialize_json(data: dict) -> ReportSetting:
     if data.get("ReportTemplate") is not None:
         out["report_template"] = data["ReportTemplate"]
     else:
-        raise DeserializationError("ReportSetting.report_template required")
+        out["report_template"] = ""
     if data.get("FrameworkArns") is not None:
         import capo_backup.types.string_list
 

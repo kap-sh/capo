@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.capacity_provider_strategy
     import capo_ecs.types.string
@@ -47,9 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutClusterCapacityProvidersRequest:
     if data.get("cluster") is not None:
         out["cluster"] = data["cluster"]
     else:
-        raise DeserializationError(
-            "PutClusterCapacityProvidersRequest.cluster required"
-        )
+        out["cluster"] = ""
     if data.get("capacityProviders") is not None:
         import capo_ecs.types.string_list
 
@@ -57,9 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutClusterCapacityProvidersRequest:
             data["capacityProviders"]
         )
     else:
-        raise DeserializationError(
-            "PutClusterCapacityProvidersRequest.capacity_providers required"
-        )
+        out["capacity_providers"] = []
     if data.get("defaultCapacityProviderStrategy") is not None:
         import capo_ecs.types.capacity_provider_strategy
 
@@ -69,7 +63,5 @@ def deserialize_aws_json_1_1(data: dict) -> PutClusterCapacityProvidersRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "PutClusterCapacityProvidersRequest.default_capacity_provider_strategy required"
-        )
+        out["default_capacity_provider_strategy"] = []
     return out

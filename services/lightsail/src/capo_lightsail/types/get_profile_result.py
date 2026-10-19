@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.partner_info
     import capo_lightsail.types.profile_type
@@ -46,7 +44,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetProfileResult:
             )
         )
     else:
-        raise DeserializationError("GetProfileResult.profile_type required")
+        import typing
+
+        out["profile_type"] = typing.cast(
+            "capo_lightsail.types.profile_type.ProfileType", ""
+        )
     if data.get("partner") is not None:
         import capo_lightsail.types.partner_info
 

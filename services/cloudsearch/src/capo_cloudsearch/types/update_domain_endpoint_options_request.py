@@ -40,9 +40,7 @@ def deserialize_query(el: Element) -> UpdateDomainEndpointOptionsRequest:
     if child_domain_name is not None:
         out["domain_name"] = str(child_domain_name.text or "")
     else:
-        raise DeserializationError(
-            "UpdateDomainEndpointOptionsRequest.domain_name required"
-        )
+        out["domain_name"] = ""
     child_domain_endpoint_options = el.find("DomainEndpointOptions")
     if child_domain_endpoint_options is not None:
         import capo_cloudsearch.types.domain_endpoint_options

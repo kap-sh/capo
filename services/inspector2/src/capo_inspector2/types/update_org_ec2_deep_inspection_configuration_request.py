@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.path_list
 
@@ -35,7 +33,5 @@ def deserialize_json(data: dict) -> UpdateOrgEc2DeepInspectionConfigurationReque
             data["orgPackagePaths"]
         )
     else:
-        raise DeserializationError(
-            "UpdateOrgEc2DeepInspectionConfigurationRequest.org_package_paths required"
-        )
+        out["org_package_paths"] = []
     return out

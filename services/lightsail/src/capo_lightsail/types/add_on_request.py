@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.add_on_type
     import capo_lightsail.types.auto_snapshot_add_on_request
@@ -61,7 +59,11 @@ def deserialize_aws_json_1_1(data: dict) -> AddOnRequest:
             data["addOnType"]
         )
     else:
-        raise DeserializationError("AddOnRequest.add_on_type required")
+        import typing
+
+        out["add_on_type"] = typing.cast(
+            "capo_lightsail.types.add_on_type.AddOnType", ""
+        )
     if data.get("autoSnapshotAddOnRequest") is not None:
         import capo_lightsail.types.auto_snapshot_add_on_request
 

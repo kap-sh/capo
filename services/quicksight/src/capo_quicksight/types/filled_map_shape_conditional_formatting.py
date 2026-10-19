@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.field_id
     import capo_quicksight.types.shape_conditional_format
@@ -38,9 +36,7 @@ def deserialize_json(data: dict) -> FilledMapShapeConditionalFormatting:
     if data.get("FieldId") is not None:
         out["field_id"] = data["FieldId"]
     else:
-        raise DeserializationError(
-            "FilledMapShapeConditionalFormatting.field_id required"
-        )
+        out["field_id"] = ""
     if data.get("Format") is not None:
         import capo_quicksight.types.shape_conditional_format
 

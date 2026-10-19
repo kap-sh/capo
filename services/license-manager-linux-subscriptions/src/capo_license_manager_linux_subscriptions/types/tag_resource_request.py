@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_license_manager_linux_subscriptions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager_linux_subscriptions.types.subscription_provider_arn
     import capo_license_manager_linux_subscriptions.types.tags
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> TagResourceRequest:
             )
         )
     else:
-        raise DeserializationError("TagResourceRequest.tags required")
+        out["tags"] = {}
     return out
 
 

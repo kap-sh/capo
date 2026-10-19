@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.ebs_resource_type
     import capo_ecs.types.propagate_tags
@@ -53,7 +51,11 @@ def deserialize_aws_json_1_1(data: dict) -> EBSTagSpecification:
             )
         )
     else:
-        raise DeserializationError("EBSTagSpecification.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_ecs.types.ebs_resource_type.EBSResourceType", ""
+        )
     if data.get("tags") is not None:
         import capo_ecs.types.tags
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.compliance_execution_id
     import capo_ssm.types.compliance_execution_type
@@ -49,7 +47,11 @@ def deserialize_aws_json_1_1(data: dict) -> ComplianceExecutionSummary:
             data["ExecutionTime"]
         )
     else:
-        raise DeserializationError("ComplianceExecutionSummary.execution_time required")
+        import datetime
+
+        out["execution_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("ExecutionId") is not None:
         out["execution_id"] = data["ExecutionId"]
     if data.get("ExecutionType") is not None:

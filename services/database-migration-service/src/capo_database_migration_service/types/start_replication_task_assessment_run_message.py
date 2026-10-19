@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.exclude_test_list
     import capo_database_migration_service.types.include_test_list
@@ -91,21 +89,15 @@ def deserialize_aws_json_1_1(data: dict) -> StartReplicationTaskAssessmentRunMes
     if data.get("ReplicationTaskArn") is not None:
         out["replication_task_arn"] = data["ReplicationTaskArn"]
     else:
-        raise DeserializationError(
-            "StartReplicationTaskAssessmentRunMessage.replication_task_arn required"
-        )
+        out["replication_task_arn"] = ""
     if data.get("ServiceAccessRoleArn") is not None:
         out["service_access_role_arn"] = data["ServiceAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "StartReplicationTaskAssessmentRunMessage.service_access_role_arn required"
-        )
+        out["service_access_role_arn"] = ""
     if data.get("ResultLocationBucket") is not None:
         out["result_location_bucket"] = data["ResultLocationBucket"]
     else:
-        raise DeserializationError(
-            "StartReplicationTaskAssessmentRunMessage.result_location_bucket required"
-        )
+        out["result_location_bucket"] = ""
     if data.get("ResultLocationFolder") is not None:
         out["result_location_folder"] = data["ResultLocationFolder"]
     if data.get("ResultEncryptionMode") is not None:
@@ -115,9 +107,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartReplicationTaskAssessmentRunMes
     if data.get("AssessmentRunName") is not None:
         out["assessment_run_name"] = data["AssessmentRunName"]
     else:
-        raise DeserializationError(
-            "StartReplicationTaskAssessmentRunMessage.assessment_run_name required"
-        )
+        out["assessment_run_name"] = ""
     if data.get("IncludeOnly") is not None:
         import capo_database_migration_service.types.include_test_list
 

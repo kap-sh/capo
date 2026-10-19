@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.table_arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeTableReplicaAutoScalingInput
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError(
-            "DescribeTableReplicaAutoScalingInput.table_name required"
-        )
+        out["table_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_compute_optimizer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_compute_optimizer.types.resource_arn
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_0(
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError(
-            "GetEffectiveRecommendationPreferencesRequest.resource_arn required"
-        )
+        out["resource_arn"] = ""
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.string_type
@@ -33,10 +32,10 @@ def deserialize_query(el: Element) -> ErrorDetails:
     if child_message is not None:
         out["message"] = str(child_message.text or "")
     else:
-        raise DeserializationError("ErrorDetails.message required")
+        out["message"] = ""
     child_code = el.find("Code")
     if child_code is not None:
         out["code"] = str(child_code.text or "")
     else:
-        raise DeserializationError("ErrorDetails.code required")
+        out["code"] = ""
     return out

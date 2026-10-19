@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.apple_bundle_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> AppleApp:
     if data.get("BundleId") is not None:
         out["bundle_id"] = data["BundleId"]
     else:
-        raise DeserializationError("AppleApp.bundle_id required")
+        out["bundle_id"] = ""
     return out

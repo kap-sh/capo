@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.error_detail
     import capo_drs.types.iso8601_datetime_string
@@ -51,27 +49,23 @@ def deserialize_json(data: dict) -> RecoveryPlanExecutionSummary:
     if data.get("recoveryPlanExecutionArn") is not None:
         out["recovery_plan_execution_arn"] = data["recoveryPlanExecutionArn"]
     else:
-        raise DeserializationError(
-            "RecoveryPlanExecutionSummary.recovery_plan_execution_arn required"
-        )
+        out["recovery_plan_execution_arn"] = ""
     if data.get("recoveryPlanArn") is not None:
         out["recovery_plan_arn"] = data["recoveryPlanArn"]
     else:
-        raise DeserializationError(
-            "RecoveryPlanExecutionSummary.recovery_plan_arn required"
-        )
+        out["recovery_plan_arn"] = ""
     if data.get("mode") is not None:
         out["mode"] = data["mode"]
     else:
-        raise DeserializationError("RecoveryPlanExecutionSummary.mode required")
+        out["mode"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("RecoveryPlanExecutionSummary.status required")
+        out["status"] = ""
     if data.get("startedAt") is not None:
         out["started_at"] = data["startedAt"]
     else:
-        raise DeserializationError("RecoveryPlanExecutionSummary.started_at required")
+        out["started_at"] = ""
     if data.get("errorDetail") is not None:
         import capo_drs.types.error_detail
 

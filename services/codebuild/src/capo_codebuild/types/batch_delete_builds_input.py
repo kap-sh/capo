@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.build_ids
 
@@ -33,5 +31,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDeleteBuildsInput:
             data["ids"]
         )
     else:
-        raise DeserializationError("BatchDeleteBuildsInput.ids required")
+        out["ids"] = []
     return out

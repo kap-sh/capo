@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.arn
     import capo_personalize.types.perform_auto_training
@@ -54,7 +52,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateSolutionRequest:
     if data.get("solutionArn") is not None:
         out["solution_arn"] = data["solutionArn"]
     else:
-        raise DeserializationError("UpdateSolutionRequest.solution_arn required")
+        out["solution_arn"] = ""
     if data.get("performAutoTraining") is not None:
         out["perform_auto_training"] = data["performAutoTraining"]
     if data.get("performIncrementalUpdate") is not None:

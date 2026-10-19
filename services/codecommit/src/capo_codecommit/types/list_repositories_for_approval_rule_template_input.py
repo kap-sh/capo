@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.approval_rule_template_name
     import capo_codecommit.types.max_results
@@ -41,9 +39,7 @@ def deserialize_aws_json_1_1(
     if data.get("approvalRuleTemplateName") is not None:
         out["approval_rule_template_name"] = data["approvalRuleTemplateName"]
     else:
-        raise DeserializationError(
-            "ListRepositoriesForApprovalRuleTemplateInput.approval_rule_template_name required"
-        )
+        out["approval_rule_template_name"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

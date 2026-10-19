@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.account_id
     import capo_inspector2.types.non_empty_string
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> FailedMemberAccountEc2DeepInspectionStatusSt
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError(
-            "FailedMemberAccountEc2DeepInspectionStatusState.account_id required"
-        )
+        out["account_id"] = ""
     if data.get("ec2ScanStatus") is not None:
         out["ec2_scan_status"] = data["ec2ScanStatus"]
     if data.get("errorMessage") is not None:

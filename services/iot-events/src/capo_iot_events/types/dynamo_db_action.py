@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.dynamo_key_field
     import capo_iot_events.types.dynamo_key_type
@@ -73,11 +71,11 @@ def deserialize_json(data: dict) -> DynamoDBAction:
     if data.get("hashKeyField") is not None:
         out["hash_key_field"] = data["hashKeyField"]
     else:
-        raise DeserializationError("DynamoDBAction.hash_key_field required")
+        out["hash_key_field"] = ""
     if data.get("hashKeyValue") is not None:
         out["hash_key_value"] = data["hashKeyValue"]
     else:
-        raise DeserializationError("DynamoDBAction.hash_key_value required")
+        out["hash_key_value"] = ""
     if data.get("rangeKeyType") is not None:
         out["range_key_type"] = data["rangeKeyType"]
     if data.get("rangeKeyField") is not None:
@@ -91,7 +89,7 @@ def deserialize_json(data: dict) -> DynamoDBAction:
     if data.get("tableName") is not None:
         out["table_name"] = data["tableName"]
     else:
-        raise DeserializationError("DynamoDBAction.table_name required")
+        out["table_name"] = ""
     if data.get("payload") is not None:
         import capo_iot_events.types.payload
 

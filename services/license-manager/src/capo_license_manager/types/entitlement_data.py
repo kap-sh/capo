@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.entitlement_data_unit
     import capo_license_manager.types.string
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> EntitlementData:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("EntitlementData.name required")
+        out["name"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     if data.get("Unit") is not None:
@@ -53,5 +51,9 @@ def deserialize_aws_json_1_1(data: dict) -> EntitlementData:
             )
         )
     else:
-        raise DeserializationError("EntitlementData.unit required")
+        import typing
+
+        out["unit"] = typing.cast(
+            "capo_license_manager.types.entitlement_data_unit.EntitlementDataUnit", ""
+        )
     return out

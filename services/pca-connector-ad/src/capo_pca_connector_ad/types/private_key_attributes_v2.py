@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pca_connector_ad.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pca_connector_ad.types.crypto_providers_list
     import capo_pca_connector_ad.types.key_spec
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> PrivateKeyAttributesV2:
     if data.get("MinimalKeyLength") is not None:
         out["minimal_key_length"] = data["MinimalKeyLength"]
     else:
-        raise DeserializationError("PrivateKeyAttributesV2.minimal_key_length required")
+        out["minimal_key_length"] = 0
     if data.get("KeySpec") is not None:
         import capo_pca_connector_ad.types.key_spec
 
@@ -55,7 +53,11 @@ def deserialize_json(data: dict) -> PrivateKeyAttributesV2:
             data["KeySpec"]
         )
     else:
-        raise DeserializationError("PrivateKeyAttributesV2.key_spec required")
+        import typing
+
+        out["key_spec"] = typing.cast(
+            "capo_pca_connector_ad.types.key_spec.KeySpec", ""
+        )
     if data.get("CryptoProviders") is not None:
         import capo_pca_connector_ad.types.crypto_providers_list
 

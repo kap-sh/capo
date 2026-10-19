@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.cost_allocation_tag_status_list
 
@@ -39,7 +37,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateCostAllocationTagsStatusReques
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateCostAllocationTagsStatusRequest.cost_allocation_tags_status required"
-        )
+        out["cost_allocation_tags_status"] = []
     return out

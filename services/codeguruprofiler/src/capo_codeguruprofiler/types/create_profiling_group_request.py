@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeguruprofiler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguruprofiler.types.agent_orchestration_config
     import capo_codeguruprofiler.types.client_token
@@ -59,9 +57,7 @@ def deserialize_json(data: dict) -> CreateProfilingGroupRequest:
     if data.get("profilingGroupName") is not None:
         out["profiling_group_name"] = data["profilingGroupName"]
     else:
-        raise DeserializationError(
-            "CreateProfilingGroupRequest.profiling_group_name required"
-        )
+        out["profiling_group_name"] = ""
     if data.get("computePlatform") is not None:
         out["compute_platform"] = data["computePlatform"]
     if data.get("agentOrchestrationConfig") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.alarm_reference_id_list
     import capo_resiliencehub.types.document_name
@@ -116,7 +114,7 @@ def deserialize_json(data: dict) -> TestRecommendation:
     if data.get("referenceId") is not None:
         out["reference_id"] = data["referenceId"]
     else:
-        raise DeserializationError("TestRecommendation.reference_id required")
+        out["reference_id"] = ""
     if data.get("appComponentId") is not None:
         out["app_component_id"] = data["appComponentId"]
     if data.get("appComponentName") is not None:

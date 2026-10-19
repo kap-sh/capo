@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.audit_event_date_time
     import capo_connectcases.types.audit_event_field_list
@@ -67,11 +65,11 @@ def deserialize_json(data: dict) -> AuditEvent:
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError("AuditEvent.event_id required")
+        out["event_id"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("AuditEvent.type required")
+        out["type"] = ""
     if data.get("relatedItemType") is not None:
         out["related_item_type"] = data["relatedItemType"]
     if data.get("performedTime") is not None:
@@ -83,7 +81,11 @@ def deserialize_json(data: dict) -> AuditEvent:
             )
         )
     else:
-        raise DeserializationError("AuditEvent.performed_time required")
+        import datetime
+
+        out["performed_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("fields") is not None:
         import capo_connectcases.types.audit_event_field_list
 
@@ -91,7 +93,7 @@ def deserialize_json(data: dict) -> AuditEvent:
             data["fields"]
         )
     else:
-        raise DeserializationError("AuditEvent.fields required")
+        out["fields"] = []
     if data.get("performedBy") is not None:
         import capo_connectcases.types.audit_event_performed_by
 

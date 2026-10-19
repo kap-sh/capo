@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.query_capacity_unit
     import capo_kendra.types.storage_capacity_unit
@@ -33,13 +31,9 @@ def deserialize_aws_json_1_1(data: dict) -> CapacityUnitsConfiguration:
     if data.get("StorageCapacityUnits") is not None:
         out["storage_capacity_units"] = data["StorageCapacityUnits"]
     else:
-        raise DeserializationError(
-            "CapacityUnitsConfiguration.storage_capacity_units required"
-        )
+        out["storage_capacity_units"] = 0
     if data.get("QueryCapacityUnits") is not None:
         out["query_capacity_units"] = data["QueryCapacityUnits"]
     else:
-        raise DeserializationError(
-            "CapacityUnitsConfiguration.query_capacity_units required"
-        )
+        out["query_capacity_units"] = 0
     return out

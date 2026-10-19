@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.base_resource_id
     import capo_config_service.types.compliance_type
@@ -59,11 +57,11 @@ def deserialize_aws_json_1_1(data: dict) -> Evaluation:
     if data.get("ComplianceResourceType") is not None:
         out["compliance_resource_type"] = data["ComplianceResourceType"]
     else:
-        raise DeserializationError("Evaluation.compliance_resource_type required")
+        out["compliance_resource_type"] = ""
     if data.get("ComplianceResourceId") is not None:
         out["compliance_resource_id"] = data["ComplianceResourceId"]
     else:
-        raise DeserializationError("Evaluation.compliance_resource_id required")
+        out["compliance_resource_id"] = ""
     if data.get("ComplianceType") is not None:
         import capo_config_service.types.compliance_type
 
@@ -73,7 +71,11 @@ def deserialize_aws_json_1_1(data: dict) -> Evaluation:
             )
         )
     else:
-        raise DeserializationError("Evaluation.compliance_type required")
+        import typing
+
+        out["compliance_type"] = typing.cast(
+            "capo_config_service.types.compliance_type.ComplianceType", ""
+        )
     if data.get("Annotation") is not None:
         out["annotation"] = data["Annotation"]
     if data.get("OrderingTimestamp") is not None:
@@ -85,5 +87,9 @@ def deserialize_aws_json_1_1(data: dict) -> Evaluation:
             )
         )
     else:
-        raise DeserializationError("Evaluation.ordering_timestamp required")
+        import datetime
+
+        out["ordering_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

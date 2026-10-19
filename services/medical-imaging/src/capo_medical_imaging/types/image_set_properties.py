@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_medical_imaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_medical_imaging.types.date
     import capo_medical_imaging.types.image_set_external_version_id
@@ -95,11 +93,11 @@ def deserialize_json(data: dict) -> ImageSetProperties:
     if data.get("imageSetId") is not None:
         out["image_set_id"] = data["imageSetId"]
     else:
-        raise DeserializationError("ImageSetProperties.image_set_id required")
+        out["image_set_id"] = ""
     if data.get("versionId") is not None:
         out["version_id"] = data["versionId"]
     else:
-        raise DeserializationError("ImageSetProperties.version_id required")
+        out["version_id"] = ""
     if data.get("imageSetState") is not None:
         import capo_medical_imaging.types.image_set_state
 
@@ -109,7 +107,11 @@ def deserialize_json(data: dict) -> ImageSetProperties:
             )
         )
     else:
-        raise DeserializationError("ImageSetProperties.image_set_state required")
+        import typing
+
+        out["image_set_state"] = typing.cast(
+            "capo_medical_imaging.types.image_set_state.ImageSetState", ""
+        )
     if data.get("ImageSetWorkflowStatus") is not None:
         import capo_medical_imaging.types.image_set_workflow_status
 

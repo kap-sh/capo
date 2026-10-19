@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.arn
     import capo_transfer.types.web_app_access_endpoint
@@ -56,11 +54,11 @@ def deserialize_aws_json_1_1(data: dict) -> ListedWebApp:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("ListedWebApp.arn required")
+        out["arn"] = ""
     if data.get("WebAppId") is not None:
         out["web_app_id"] = data["WebAppId"]
     else:
-        raise DeserializationError("ListedWebApp.web_app_id required")
+        out["web_app_id"] = ""
     if data.get("AccessEndpoint") is not None:
         out["access_endpoint"] = data["AccessEndpoint"]
     if data.get("WebAppEndpoint") is not None:

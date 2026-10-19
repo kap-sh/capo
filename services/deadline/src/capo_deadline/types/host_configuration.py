@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.host_configuration_script
     import capo_deadline.types.host_configuration_script_timeout_seconds
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> HostConfiguration:
     if data.get("scriptBody") is not None:
         out["script_body"] = data["scriptBody"]
     else:
-        raise DeserializationError("HostConfiguration.script_body required")
+        out["script_body"] = ""
     if data.get("scriptTimeoutSeconds") is not None:
         out["script_timeout_seconds"] = data["scriptTimeoutSeconds"]
     else:

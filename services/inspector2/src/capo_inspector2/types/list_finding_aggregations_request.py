@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.aggregation_request
     import capo_inspector2.types.aggregation_type
@@ -63,9 +61,7 @@ def deserialize_json(data: dict) -> ListFindingAggregationsRequest:
     if data.get("aggregationType") is not None:
         out["aggregation_type"] = data["aggregationType"]
     else:
-        raise DeserializationError(
-            "ListFindingAggregationsRequest.aggregation_type required"
-        )
+        out["aggregation_type"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

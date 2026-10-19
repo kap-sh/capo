@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.device_cgroup_permissions
     import capo_ecs.types.string
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> Device:
     if data.get("hostPath") is not None:
         out["host_path"] = data["hostPath"]
     else:
-        raise DeserializationError("Device.host_path required")
+        out["host_path"] = ""
     if data.get("containerPath") is not None:
         out["container_path"] = data["containerPath"]
     if data.get("permissions") is not None:

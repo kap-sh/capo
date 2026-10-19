@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.definition
     import capo_bedrock_agentcore_control.types.llm_extraction_instruction
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> LlmExtractionConfig:
     if data.get("definition") is not None:
         out["definition"] = data["definition"]
     else:
-        raise DeserializationError("LlmExtractionConfig.definition required")
+        out["definition"] = ""
     if data.get("validation") is not None:
         import capo_bedrock_agentcore_control.types.validation
 

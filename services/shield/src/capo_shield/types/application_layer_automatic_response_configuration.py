@@ -51,8 +51,11 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "ApplicationLayerAutomaticResponseConfiguration.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_shield.types.application_layer_automatic_response_status.ApplicationLayerAutomaticResponseStatus",
+            "",
         )
     if data.get("Action") is not None:
         import capo_shield.types.response_action

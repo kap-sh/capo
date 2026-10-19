@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_security_ir.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_security_ir.types.aws_account_id
 
@@ -33,15 +31,13 @@ def deserialize_json(data: dict) -> GetMembershipAccountDetailError:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError(
-            "GetMembershipAccountDetailError.account_id required"
-        )
+        out["account_id"] = ""
     if data.get("error") is not None:
         out["error"] = data["error"]
     else:
-        raise DeserializationError("GetMembershipAccountDetailError.error required")
+        out["error"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("GetMembershipAccountDetailError.message required")
+        out["message"] = ""
     return out

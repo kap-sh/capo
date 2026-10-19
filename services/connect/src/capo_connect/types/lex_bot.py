@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.bot_name
     import capo_connect.types.lex_region
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> LexBot:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("LexBot.name required")
+        out["name"] = ""
     if data.get("LexRegion") is not None:
         out["lex_region"] = data["LexRegion"]
     else:
-        raise DeserializationError("LexBot.lex_region required")
+        out["lex_region"] = ""
     return out

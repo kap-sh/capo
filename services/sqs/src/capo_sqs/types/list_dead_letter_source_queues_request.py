@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sqs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sqs.types.boxed_integer
     import capo_sqs.types.string
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListDeadLetterSourceQueuesRequest:
     if data.get("QueueUrl") is not None:
         out["queue_url"] = data["QueueUrl"]
     else:
-        raise DeserializationError(
-            "ListDeadLetterSourceQueuesRequest.queue_url required"
-        )
+        out["queue_url"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

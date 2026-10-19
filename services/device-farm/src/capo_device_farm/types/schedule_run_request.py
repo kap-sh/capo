@@ -91,7 +91,7 @@ def deserialize_aws_json_1_1(data: dict) -> ScheduleRunRequest:
     if data.get("projectArn") is not None:
         out["project_arn"] = data["projectArn"]
     else:
-        raise DeserializationError("ScheduleRunRequest.project_arn required")
+        out["project_arn"] = ""
     if data.get("appArn") is not None:
         out["app_arn"] = data["appArn"]
     if data.get("devicePoolArn") is not None:

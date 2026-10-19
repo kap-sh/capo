@@ -61,7 +61,7 @@ def deserialize_json(data: dict) -> CreateIdMappingTableInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateIdMappingTableInput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("inputReferenceConfig") is not None:

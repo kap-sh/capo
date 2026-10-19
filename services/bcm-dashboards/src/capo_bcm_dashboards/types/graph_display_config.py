@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bcm_dashboards.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_dashboards.types.visual_type
 
@@ -37,5 +35,9 @@ def deserialize_aws_json_1_0(data: dict) -> GraphDisplayConfig:
             )
         )
     else:
-        raise DeserializationError("GraphDisplayConfig.visual_type required")
+        import typing
+
+        out["visual_type"] = typing.cast(
+            "capo_bcm_dashboards.types.visual_type.VisualType", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.arn
     import capo_license_manager.types.string
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteLicenseRequest:
     if data.get("LicenseArn") is not None:
         out["license_arn"] = data["LicenseArn"]
     else:
-        raise DeserializationError("DeleteLicenseRequest.license_arn required")
+        out["license_arn"] = ""
     if data.get("SourceVersion") is not None:
         out["source_version"] = data["SourceVersion"]
     else:
-        raise DeserializationError("DeleteLicenseRequest.source_version required")
+        out["source_version"] = ""
     return out

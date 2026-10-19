@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.linked_whats_app_business_account_arn
     import capo_socialmessaging.types.linked_whats_app_business_account_id
@@ -97,15 +95,15 @@ def deserialize_json(data: dict) -> LinkedWhatsAppBusinessAccount:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("LinkedWhatsAppBusinessAccount.arn required")
+        out["arn"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("LinkedWhatsAppBusinessAccount.id required")
+        out["id"] = ""
     if data.get("wabaId") is not None:
         out["waba_id"] = data["wabaId"]
     else:
-        raise DeserializationError("LinkedWhatsAppBusinessAccount.waba_id required")
+        out["waba_id"] = ""
     if data.get("registrationStatus") is not None:
         import capo_socialmessaging.types.registration_status
 
@@ -115,8 +113,10 @@ def deserialize_json(data: dict) -> LinkedWhatsAppBusinessAccount:
             )
         )
     else:
-        raise DeserializationError(
-            "LinkedWhatsAppBusinessAccount.registration_status required"
+        import typing
+
+        out["registration_status"] = typing.cast(
+            "capo_socialmessaging.types.registration_status.RegistrationStatus", ""
         )
     if data.get("linkDate") is not None:
         import capo_socialmessaging.types.whats_app_business_account_link_date
@@ -127,11 +127,13 @@ def deserialize_json(data: dict) -> LinkedWhatsAppBusinessAccount:
             )
         )
     else:
-        raise DeserializationError("LinkedWhatsAppBusinessAccount.link_date required")
+        import datetime
+
+        out["link_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("wabaName") is not None:
         out["waba_name"] = data["wabaName"]
     else:
-        raise DeserializationError("LinkedWhatsAppBusinessAccount.waba_name required")
+        out["waba_name"] = ""
     if data.get("eventDestinations") is not None:
         import capo_socialmessaging.types.whats_app_business_account_event_destinations
 
@@ -141,9 +143,7 @@ def deserialize_json(data: dict) -> LinkedWhatsAppBusinessAccount:
             )
         )
     else:
-        raise DeserializationError(
-            "LinkedWhatsAppBusinessAccount.event_destinations required"
-        )
+        out["event_destinations"] = []
     if data.get("marketingMessagesOnboardingStatus") is not None:
         out["marketing_messages_onboarding_status"] = data[
             "marketingMessagesOnboardingStatus"
@@ -159,7 +159,5 @@ def deserialize_json(data: dict) -> LinkedWhatsAppBusinessAccount:
             )
         )
     else:
-        raise DeserializationError(
-            "LinkedWhatsAppBusinessAccount.phone_numbers required"
-        )
+        out["phone_numbers"] = []
     return out

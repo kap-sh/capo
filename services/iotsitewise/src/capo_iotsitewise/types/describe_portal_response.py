@@ -135,31 +135,29 @@ def deserialize_json(data: dict) -> DescribePortalResponse:
     if data.get("portalId") is not None:
         out["portal_id"] = data["portalId"]
     else:
-        raise DeserializationError("DescribePortalResponse.portal_id required")
+        out["portal_id"] = ""
     if data.get("portalArn") is not None:
         out["portal_arn"] = data["portalArn"]
     else:
-        raise DeserializationError("DescribePortalResponse.portal_arn required")
+        out["portal_arn"] = ""
     if data.get("portalName") is not None:
         out["portal_name"] = data["portalName"]
     else:
-        raise DeserializationError("DescribePortalResponse.portal_name required")
+        out["portal_name"] = ""
     if data.get("portalDescription") is not None:
         out["portal_description"] = data["portalDescription"]
     if data.get("portalClientId") is not None:
         out["portal_client_id"] = data["portalClientId"]
     else:
-        raise DeserializationError("DescribePortalResponse.portal_client_id required")
+        out["portal_client_id"] = ""
     if data.get("portalStartUrl") is not None:
         out["portal_start_url"] = data["portalStartUrl"]
     else:
-        raise DeserializationError("DescribePortalResponse.portal_start_url required")
+        out["portal_start_url"] = ""
     if data.get("portalContactEmail") is not None:
         out["portal_contact_email"] = data["portalContactEmail"]
     else:
-        raise DeserializationError(
-            "DescribePortalResponse.portal_contact_email required"
-        )
+        out["portal_contact_email"] = ""
     if data.get("portalStatus") is not None:
         import capo_iotsitewise.types.portal_status
 
@@ -175,8 +173,10 @@ def deserialize_json(data: dict) -> DescribePortalResponse:
             data["portalCreationDate"]
         )
     else:
-        raise DeserializationError(
-            "DescribePortalResponse.portal_creation_date required"
+        import datetime
+
+        out["portal_creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("portalLastUpdateDate") is not None:
         import capo_iotsitewise.types.timestamp
@@ -187,8 +187,10 @@ def deserialize_json(data: dict) -> DescribePortalResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribePortalResponse.portal_last_update_date required"
+        import datetime
+
+        out["portal_last_update_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("portalLogoImageLocation") is not None:
         import capo_iotsitewise.types.image_location

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_agreement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.batch_create_billing_adjustment_request_entry_list
 
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_0(data: dict) -> BatchCreateBillingAdjustmentRequestI
             )
         )
     else:
-        raise DeserializationError(
-            "BatchCreateBillingAdjustmentRequestInput.billing_adjustment_request_entries required"
-        )
+        out["billing_adjustment_request_entries"] = []
     return out
 
 

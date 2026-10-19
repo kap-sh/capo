@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.identifier
     import capo_frauddetector.types.time
@@ -43,31 +41,21 @@ def deserialize_aws_json_1_1(data: dict) -> GetEventPredictionMetadataRequest:
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError(
-            "GetEventPredictionMetadataRequest.event_id required"
-        )
+        out["event_id"] = ""
     if data.get("eventTypeName") is not None:
         out["event_type_name"] = data["eventTypeName"]
     else:
-        raise DeserializationError(
-            "GetEventPredictionMetadataRequest.event_type_name required"
-        )
+        out["event_type_name"] = ""
     if data.get("detectorId") is not None:
         out["detector_id"] = data["detectorId"]
     else:
-        raise DeserializationError(
-            "GetEventPredictionMetadataRequest.detector_id required"
-        )
+        out["detector_id"] = ""
     if data.get("detectorVersionId") is not None:
         out["detector_version_id"] = data["detectorVersionId"]
     else:
-        raise DeserializationError(
-            "GetEventPredictionMetadataRequest.detector_version_id required"
-        )
+        out["detector_version_id"] = ""
     if data.get("predictionTimestamp") is not None:
         out["prediction_timestamp"] = data["predictionTimestamp"]
     else:
-        raise DeserializationError(
-            "GetEventPredictionMetadataRequest.prediction_timestamp required"
-        )
+        out["prediction_timestamp"] = ""
     return out

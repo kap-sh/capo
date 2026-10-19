@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route_53_domains.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route_53_domains.types.consent
     import capo_route_53_domains.types.current_expiry_year
@@ -49,13 +47,13 @@ def deserialize_aws_json_1_1(data: dict) -> RenewDomainRequest:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("RenewDomainRequest.domain_name required")
+        out["domain_name"] = ""
     if data.get("DurationInYears") is not None:
         out["duration_in_years"] = data["DurationInYears"]
     if data.get("CurrentExpiryYear") is not None:
         out["current_expiry_year"] = data["CurrentExpiryYear"]
     else:
-        raise DeserializationError("RenewDomainRequest.current_expiry_year required")
+        out["current_expiry_year"] = 0
     if data.get("Consent") is not None:
         import capo_route_53_domains.types.consent
 

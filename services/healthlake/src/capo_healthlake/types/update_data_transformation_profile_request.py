@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.change_description
     import capo_healthlake.types.profile_id_string
@@ -44,9 +42,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateDataTransformationProfileReque
     if data.get("ProfileId") is not None:
         out["profile_id"] = data["ProfileId"]
     else:
-        raise DeserializationError(
-            "UpdateDataTransformationProfileRequest.profile_id required"
-        )
+        out["profile_id"] = ""
     if data.get("ProfileMapping") is not None:
         import capo_healthlake.types.profile_mapping
 
@@ -56,9 +52,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateDataTransformationProfileReque
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateDataTransformationProfileRequest.profile_mapping required"
-        )
+        out["profile_mapping"] = {}
     if data.get("ChangeDescription") is not None:
         out["change_description"] = data["ChangeDescription"]
     return out

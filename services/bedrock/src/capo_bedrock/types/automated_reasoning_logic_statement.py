@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_logic_statement_content
     import capo_bedrock.types.automated_reasoning_natural_language_statement_content
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningLogicStatement:
     if data.get("logic") is not None:
         out["logic"] = data["logic"]
     else:
-        raise DeserializationError("AutomatedReasoningLogicStatement.logic required")
+        out["logic"] = ""
     if data.get("naturalLanguage") is not None:
         out["natural_language"] = data["naturalLanguage"]
     return out

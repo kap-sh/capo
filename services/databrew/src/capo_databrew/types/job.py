@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.account_id
     import capo_databrew.types.arn
@@ -219,7 +217,7 @@ def deserialize_json(data: dict) -> Job:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Job.name required")
+        out["name"] = ""
     if data.get("Type") is not None:
         import capo_databrew.types.job_type
 

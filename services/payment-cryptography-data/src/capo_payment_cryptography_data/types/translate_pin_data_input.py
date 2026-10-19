@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.as2805_pek_derivation_attributes
     import capo_payment_cryptography_data.types.dukpt_derivation_attributes
@@ -116,15 +114,11 @@ def deserialize_json(data: dict) -> TranslatePinDataInput:
     if data.get("IncomingKeyIdentifier") is not None:
         out["incoming_key_identifier"] = data["IncomingKeyIdentifier"]
     else:
-        raise DeserializationError(
-            "TranslatePinDataInput.incoming_key_identifier required"
-        )
+        out["incoming_key_identifier"] = ""
     if data.get("OutgoingKeyIdentifier") is not None:
         out["outgoing_key_identifier"] = data["OutgoingKeyIdentifier"]
     else:
-        raise DeserializationError(
-            "TranslatePinDataInput.outgoing_key_identifier required"
-        )
+        out["outgoing_key_identifier"] = ""
     if data.get("IncomingTranslationAttributes") is not None:
         import capo_payment_cryptography_data.types.translation_iso_formats
 
@@ -134,8 +128,10 @@ def deserialize_json(data: dict) -> TranslatePinDataInput:
             )
         )
     else:
-        raise DeserializationError(
-            "TranslatePinDataInput.incoming_translation_attributes required"
+        import capo_payment_cryptography_data.types._unknown
+
+        out["incoming_translation_attributes"] = (
+            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
         )
     if data.get("OutgoingTranslationAttributes") is not None:
         import capo_payment_cryptography_data.types.translation_iso_formats
@@ -146,13 +142,15 @@ def deserialize_json(data: dict) -> TranslatePinDataInput:
             )
         )
     else:
-        raise DeserializationError(
-            "TranslatePinDataInput.outgoing_translation_attributes required"
+        import capo_payment_cryptography_data.types._unknown
+
+        out["outgoing_translation_attributes"] = (
+            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
         )
     if data.get("EncryptedPinBlock") is not None:
         out["encrypted_pin_block"] = data["EncryptedPinBlock"]
     else:
-        raise DeserializationError("TranslatePinDataInput.encrypted_pin_block required")
+        out["encrypted_pin_block"] = ""
     if data.get("IncomingDukptAttributes") is not None:
         import capo_payment_cryptography_data.types.dukpt_derivation_attributes
 

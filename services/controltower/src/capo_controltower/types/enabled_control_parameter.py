@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_controltower.errors import DeserializationError
-
 
 class EnabledControlParameter(TypedDict, closed=True):
     key: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> EnabledControlParameter:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("EnabledControlParameter.key required")
+        out["key"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("EnabledControlParameter.value required")
+        out["value"] = None
     return out

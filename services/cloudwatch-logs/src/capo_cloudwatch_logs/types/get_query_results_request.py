@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.get_query_results_max_items
     import capo_cloudwatch_logs.types.get_query_results_next_token
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetQueryResultsRequest:
     if data.get("queryId") is not None:
         out["query_id"] = data["queryId"]
     else:
-        raise DeserializationError("GetQueryResultsRequest.query_id required")
+        out["query_id"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxItems") is not None:

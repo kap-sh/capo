@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.farm_id
     import capo_deadline.types.job_description_override
@@ -97,15 +95,15 @@ def deserialize_json(data: dict) -> BatchUpdateJobItem:
     if data.get("farmId") is not None:
         out["farm_id"] = data["farmId"]
     else:
-        raise DeserializationError("BatchUpdateJobItem.farm_id required")
+        out["farm_id"] = ""
     if data.get("queueId") is not None:
         out["queue_id"] = data["queueId"]
     else:
-        raise DeserializationError("BatchUpdateJobItem.queue_id required")
+        out["queue_id"] = ""
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("BatchUpdateJobItem.job_id required")
+        out["job_id"] = ""
     if data.get("targetTaskRunStatus") is not None:
         import capo_deadline.types.job_target_task_run_status
 

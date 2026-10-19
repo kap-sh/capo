@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.uuid
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> SendCisSessionHealthRequest:
     if data.get("scanJobId") is not None:
         out["scan_job_id"] = data["scanJobId"]
     else:
-        raise DeserializationError("SendCisSessionHealthRequest.scan_job_id required")
+        out["scan_job_id"] = ""
     if data.get("sessionToken") is not None:
         out["session_token"] = data["sessionToken"]
     else:
-        raise DeserializationError("SendCisSessionHealthRequest.session_token required")
+        out["session_token"] = ""
     return out

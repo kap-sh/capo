@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.next_marker
     import capo_wafv2.types.path_statistics_list
@@ -60,9 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetTopPathStatisticsByTrafficRespons
             )
         )
     else:
-        raise DeserializationError(
-            "GetTopPathStatisticsByTrafficResponse.path_statistics required"
-        )
+        out["path_statistics"] = []
     if data.get("TotalRequestCount") is not None:
         out["total_request_count"] = data["TotalRequestCount"]
     else:

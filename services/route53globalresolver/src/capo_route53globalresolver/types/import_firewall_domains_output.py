@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.cr_resource_status
     import capo_route53globalresolver.types.resource_id
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> ImportFirewallDomainsOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ImportFirewallDomainsOutput.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ImportFirewallDomainsOutput.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         import capo_route53globalresolver.types.cr_resource_status
 
@@ -53,5 +51,9 @@ def deserialize_json(data: dict) -> ImportFirewallDomainsOutput:
             )
         )
     else:
-        raise DeserializationError("ImportFirewallDomainsOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_route53globalresolver.types.cr_resource_status.CRResourceStatus", ""
+        )
     return out

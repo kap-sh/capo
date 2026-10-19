@@ -66,7 +66,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateIcebergTableInput:
     if data.get("Location") is not None:
         out["location"] = data["Location"]
     else:
-        raise DeserializationError("CreateIcebergTableInput.location required")
+        out["location"] = ""
     if data.get("Schema") is not None:
         import capo_glue.types.iceberg_schema
 

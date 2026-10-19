@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeguruprofiler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguruprofiler.types.pagination_token
     import capo_codeguruprofiler.types.profiling_group_descriptions
@@ -61,9 +59,7 @@ def deserialize_json(data: dict) -> ListProfilingGroupsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListProfilingGroupsResponse.profiling_group_names required"
-        )
+        out["profiling_group_names"] = []
     if data.get("profilingGroups") is not None:
         import capo_codeguruprofiler.types.profiling_group_descriptions
 

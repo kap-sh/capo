@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_elastic_transcoder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elastic_transcoder.types.audio_parameters
     import capo_elastic_transcoder.types.description
@@ -63,13 +61,13 @@ def deserialize_json(data: dict) -> CreatePresetRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreatePresetRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Container") is not None:
         out["container"] = data["Container"]
     else:
-        raise DeserializationError("CreatePresetRequest.container required")
+        out["container"] = ""
     if data.get("Video") is not None:
         import capo_elastic_transcoder.types.video_parameters
 

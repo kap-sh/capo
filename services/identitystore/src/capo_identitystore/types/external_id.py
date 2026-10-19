@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_identitystore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_identitystore.types.external_id_identifier
     import capo_identitystore.types.external_id_issuer
@@ -31,11 +29,11 @@ def deserialize_aws_json_1_1(data: dict) -> ExternalId:
     if data.get("Issuer") is not None:
         out["issuer"] = data["Issuer"]
     else:
-        raise DeserializationError("ExternalId.issuer required")
+        out["issuer"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("ExternalId.id required")
+        out["id"] = ""
     return out
 
 

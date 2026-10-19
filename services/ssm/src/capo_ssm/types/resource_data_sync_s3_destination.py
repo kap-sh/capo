@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.resource_data_sync_awskms_key_arn
     import capo_ssm.types.resource_data_sync_destination_data_sharing
@@ -70,7 +68,7 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceDataSyncS3Destination:
     if data.get("BucketName") is not None:
         out["bucket_name"] = data["BucketName"]
     else:
-        raise DeserializationError("ResourceDataSyncS3Destination.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("Prefix") is not None:
         out["prefix"] = data["Prefix"]
     if data.get("SyncFormat") is not None:
@@ -82,11 +80,15 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceDataSyncS3Destination:
             )
         )
     else:
-        raise DeserializationError("ResourceDataSyncS3Destination.sync_format required")
+        import typing
+
+        out["sync_format"] = typing.cast(
+            "capo_ssm.types.resource_data_sync_s3_format.ResourceDataSyncS3Format", ""
+        )
     if data.get("Region") is not None:
         out["region"] = data["Region"]
     else:
-        raise DeserializationError("ResourceDataSyncS3Destination.region required")
+        out["region"] = ""
     if data.get("AWSKMSKeyARN") is not None:
         out["awskms_key_arn"] = data["AWSKMSKeyARN"]
     if data.get("DestinationDataSharing") is not None:

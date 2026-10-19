@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.calculation_configuration
     import capo_athena.types.code_block
@@ -57,9 +55,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartCalculationExecutionRequest:
     if data.get("SessionId") is not None:
         out["session_id"] = data["SessionId"]
     else:
-        raise DeserializationError(
-            "StartCalculationExecutionRequest.session_id required"
-        )
+        out["session_id"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("CalculationConfiguration") is not None:

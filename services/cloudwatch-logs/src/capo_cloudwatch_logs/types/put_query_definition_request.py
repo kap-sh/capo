@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.client_token
     import capo_cloudwatch_logs.types.log_group_names
@@ -90,7 +88,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutQueryDefinitionRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("PutQueryDefinitionRequest.name required")
+        out["name"] = ""
     if data.get("queryDefinitionId") is not None:
         out["query_definition_id"] = data["queryDefinitionId"]
     if data.get("logGroupNames") is not None:
@@ -104,7 +102,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutQueryDefinitionRequest:
     if data.get("queryString") is not None:
         out["query_string"] = data["queryString"]
     else:
-        raise DeserializationError("PutQueryDefinitionRequest.query_string required")
+        out["query_string"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("parameters") is not None:

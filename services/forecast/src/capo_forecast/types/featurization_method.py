@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_forecast.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_forecast.types.featurization_method_name
     import capo_forecast.types.featurization_method_parameters
@@ -54,8 +52,10 @@ def deserialize_aws_json_1_1(data: dict) -> FeaturizationMethod:
             )
         )
     else:
-        raise DeserializationError(
-            "FeaturizationMethod.featurization_method_name required"
+        import typing
+
+        out["featurization_method_name"] = typing.cast(
+            "capo_forecast.types.featurization_method_name.FeaturizationMethodName", ""
         )
     if data.get("FeaturizationMethodParameters") is not None:
         import capo_forecast.types.featurization_method_parameters

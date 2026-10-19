@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.custom_model_deployment_update_status
     import capo_bedrock.types.model_arn
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> CustomModelDeploymentUpdateDetails:
     if data.get("modelArn") is not None:
         out["model_arn"] = data["modelArn"]
     else:
-        raise DeserializationError(
-            "CustomModelDeploymentUpdateDetails.model_arn required"
-        )
+        out["model_arn"] = ""
     if data.get("updateStatus") is not None:
         import capo_bedrock.types.custom_model_deployment_update_status
 
@@ -49,7 +45,10 @@ def deserialize_json(data: dict) -> CustomModelDeploymentUpdateDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "CustomModelDeploymentUpdateDetails.update_status required"
+        import typing
+
+        out["update_status"] = typing.cast(
+            "capo_bedrock.types.custom_model_deployment_update_status.CustomModelDeploymentUpdateStatus",
+            "",
         )
     return out

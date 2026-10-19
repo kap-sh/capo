@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_agent_registry_control.errors import DeserializationError
-
 
 class WorkloadIdentityDetails(TypedDict, closed=True):
     workload_identity_arn: "str"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> WorkloadIdentityDetails:
     if data.get("workloadIdentityArn") is not None:
         out["workload_identity_arn"] = data["workloadIdentityArn"]
     else:
-        raise DeserializationError(
-            "WorkloadIdentityDetails.workload_identity_arn required"
-        )
+        out["workload_identity_arn"] = ""
     return out

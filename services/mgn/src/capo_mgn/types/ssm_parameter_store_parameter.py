@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.ssm_parameter_store_parameter_name
     import capo_mgn.types.ssm_parameter_store_parameter_type
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> SsmParameterStoreParameter:
     if data.get("parameterType") is not None:
         out["parameter_type"] = data["parameterType"]
     else:
-        raise DeserializationError("SsmParameterStoreParameter.parameter_type required")
+        out["parameter_type"] = ""
     if data.get("parameterName") is not None:
         out["parameter_name"] = data["parameterName"]
     else:
-        raise DeserializationError("SsmParameterStoreParameter.parameter_name required")
+        out["parameter_name"] = ""
     return out

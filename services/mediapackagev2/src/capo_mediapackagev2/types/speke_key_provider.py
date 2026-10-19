@@ -88,7 +88,7 @@ def deserialize_json(data: dict) -> SpekeKeyProvider:
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("SpekeKeyProvider.resource_id required")
+        out["resource_id"] = ""
     if data.get("DrmSystems") is not None:
         import capo_mediapackagev2.types.drm_systems
 
@@ -96,15 +96,15 @@ def deserialize_json(data: dict) -> SpekeKeyProvider:
             data["DrmSystems"]
         )
     else:
-        raise DeserializationError("SpekeKeyProvider.drm_systems required")
+        out["drm_systems"] = []
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("SpekeKeyProvider.role_arn required")
+        out["role_arn"] = ""
     if data.get("Url") is not None:
         out["url"] = data["Url"]
     else:
-        raise DeserializationError("SpekeKeyProvider.url required")
+        out["url"] = ""
     if data.get("CertificateArn") is not None:
         out["certificate_arn"] = data["CertificateArn"]
     if data.get("SpekeVersion") is not None:

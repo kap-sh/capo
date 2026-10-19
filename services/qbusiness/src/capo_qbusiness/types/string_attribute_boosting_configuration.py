@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.document_attribute_boosting_level
     import capo_qbusiness.types.string_attribute_value_boosting
@@ -52,8 +50,11 @@ def deserialize_json(data: dict) -> StringAttributeBoostingConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "StringAttributeBoostingConfiguration.boosting_level required"
+        import typing
+
+        out["boosting_level"] = typing.cast(
+            "capo_qbusiness.types.document_attribute_boosting_level.DocumentAttributeBoostingLevel",
+            "",
         )
     if data.get("attributeValueBoosting") is not None:
         import capo_qbusiness.types.string_attribute_value_boosting

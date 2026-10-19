@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kms.types.ciphertext_type
     import capo_kms.types.grant_token_list
@@ -76,7 +74,7 @@ def deserialize_aws_json_1_1(data: dict) -> VerifyRequest:
     if data.get("KeyId") is not None:
         out["key_id"] = data["KeyId"]
     else:
-        raise DeserializationError("VerifyRequest.key_id required")
+        out["key_id"] = ""
     if data.get("Message") is not None:
         import capo_kms.types.plaintext_type
 
@@ -84,7 +82,7 @@ def deserialize_aws_json_1_1(data: dict) -> VerifyRequest:
             data["Message"]
         )
     else:
-        raise DeserializationError("VerifyRequest.message required")
+        out["message"] = b""
     if data.get("MessageType") is not None:
         import capo_kms.types.message_type
 
@@ -98,7 +96,7 @@ def deserialize_aws_json_1_1(data: dict) -> VerifyRequest:
             data["Signature"]
         )
     else:
-        raise DeserializationError("VerifyRequest.signature required")
+        out["signature"] = b""
     if data.get("SigningAlgorithm") is not None:
         import capo_kms.types.signing_algorithm_spec
 
@@ -108,7 +106,11 @@ def deserialize_aws_json_1_1(data: dict) -> VerifyRequest:
             )
         )
     else:
-        raise DeserializationError("VerifyRequest.signing_algorithm required")
+        import typing
+
+        out["signing_algorithm"] = typing.cast(
+            "capo_kms.types.signing_algorithm_spec.SigningAlgorithmSpec", ""
+        )
     if data.get("GrantTokens") is not None:
         import capo_kms.types.grant_token_list
 

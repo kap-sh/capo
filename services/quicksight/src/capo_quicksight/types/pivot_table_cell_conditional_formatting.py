@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.field_id
     import capo_quicksight.types.pivot_table_conditional_formatting_scope
@@ -66,9 +64,7 @@ def deserialize_json(data: dict) -> PivotTableCellConditionalFormatting:
     if data.get("FieldId") is not None:
         out["field_id"] = data["FieldId"]
     else:
-        raise DeserializationError(
-            "PivotTableCellConditionalFormatting.field_id required"
-        )
+        out["field_id"] = ""
     if data.get("TextFormat") is not None:
         import capo_quicksight.types.text_conditional_format
 

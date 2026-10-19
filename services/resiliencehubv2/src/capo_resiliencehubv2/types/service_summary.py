@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -152,11 +150,11 @@ def deserialize_json(data: dict) -> ServiceSummary:
     if data.get("serviceArn") is not None:
         out["service_arn"] = data["serviceArn"]
     else:
-        raise DeserializationError("ServiceSummary.service_arn required")
+        out["service_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ServiceSummary.name required")
+        out["name"] = ""
     if data.get("associatedSystems") is not None:
         import capo_resiliencehubv2.types.associated_system_list
 

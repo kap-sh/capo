@@ -72,7 +72,5 @@ def deserialize_aws_json_1_1(data: dict) -> S3TablesDestinationConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "S3TablesDestinationConfiguration.s3_tables_configuration_list required"
-        )
+        out["s3_tables_configuration_list"] = []
     return out

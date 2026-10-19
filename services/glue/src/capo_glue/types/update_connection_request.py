@@ -42,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateConnectionRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateConnectionRequest.name required")
+        out["name"] = ""
     if data.get("ConnectionInput") is not None:
         import capo_glue.types.connection_input
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.component_parameter_list
     import capo_imagebuilder.types.component_version_arn_or_build_version_arn
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ComponentConfiguration:
     if data.get("componentArn") is not None:
         out["component_arn"] = data["componentArn"]
     else:
-        raise DeserializationError("ComponentConfiguration.component_arn required")
+        out["component_arn"] = ""
     if data.get("parameters") is not None:
         import capo_imagebuilder.types.component_parameter_list
 

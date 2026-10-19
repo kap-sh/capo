@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mpa.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mpa.types.iso_timestamp
     import capo_mpa.types.policy_name
@@ -69,15 +67,15 @@ def deserialize_json(data: dict) -> PolicyVersionSummary:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("PolicyVersionSummary.arn required")
+        out["arn"] = ""
     if data.get("PolicyArn") is not None:
         out["policy_arn"] = data["PolicyArn"]
     else:
-        raise DeserializationError("PolicyVersionSummary.policy_arn required")
+        out["policy_arn"] = ""
     if data.get("VersionId") is not None:
         out["version_id"] = data["VersionId"]
     else:
-        raise DeserializationError("PolicyVersionSummary.version_id required")
+        out["version_id"] = 0
     if data.get("PolicyType") is not None:
         import capo_mpa.types.policy_type
 
@@ -85,21 +83,25 @@ def deserialize_json(data: dict) -> PolicyVersionSummary:
             data["PolicyType"]
         )
     else:
-        raise DeserializationError("PolicyVersionSummary.policy_type required")
+        import typing
+
+        out["policy_type"] = typing.cast("capo_mpa.types.policy_type.PolicyType", "")
     if data.get("IsDefault") is not None:
         out["is_default"] = data["IsDefault"]
     else:
-        raise DeserializationError("PolicyVersionSummary.is_default required")
+        out["is_default"] = False
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("PolicyVersionSummary.name required")
+        out["name"] = ""
     if data.get("Status") is not None:
         import capo_mpa.types.policy_status
 
         out["status"] = capo_mpa.types.policy_status.deserialize_json(data["Status"])
     else:
-        raise DeserializationError("PolicyVersionSummary.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_mpa.types.policy_status.PolicyStatus", "")
     if data.get("CreationTime") is not None:
         import capo_mpa.types.iso_timestamp
 
@@ -107,7 +109,11 @@ def deserialize_json(data: dict) -> PolicyVersionSummary:
             data["CreationTime"]
         )
     else:
-        raise DeserializationError("PolicyVersionSummary.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("LastUpdatedTime") is not None:
         import capo_mpa.types.iso_timestamp
 
@@ -115,5 +121,9 @@ def deserialize_json(data: dict) -> PolicyVersionSummary:
             data["LastUpdatedTime"]
         )
     else:
-        raise DeserializationError("PolicyVersionSummary.last_updated_time required")
+        import datetime
+
+        out["last_updated_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

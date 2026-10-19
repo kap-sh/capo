@@ -90,13 +90,11 @@ def deserialize_json(data: dict) -> CreateMatchingWorkflowOutput:
     if data.get("workflowName") is not None:
         out["workflow_name"] = data["workflowName"]
     else:
-        raise DeserializationError(
-            "CreateMatchingWorkflowOutput.workflow_name required"
-        )
+        out["workflow_name"] = ""
     if data.get("workflowArn") is not None:
         out["workflow_arn"] = data["workflowArn"]
     else:
-        raise DeserializationError("CreateMatchingWorkflowOutput.workflow_arn required")
+        out["workflow_arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("inputSourceConfig") is not None:
@@ -108,9 +106,7 @@ def deserialize_json(data: dict) -> CreateMatchingWorkflowOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateMatchingWorkflowOutput.input_source_config required"
-        )
+        out["input_source_config"] = []
     if data.get("outputSourceConfig") is not None:
         import capo_entityresolution.types.output_source_config
 
@@ -120,9 +116,7 @@ def deserialize_json(data: dict) -> CreateMatchingWorkflowOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateMatchingWorkflowOutput.output_source_config required"
-        )
+        out["output_source_config"] = []
     if data.get("resolutionTechniques") is not None:
         import capo_entityresolution.types.resolution_techniques
 
@@ -146,5 +140,5 @@ def deserialize_json(data: dict) -> CreateMatchingWorkflowOutput:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateMatchingWorkflowOutput.role_arn required")
+        out["role_arn"] = ""
     return out

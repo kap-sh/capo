@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.message_configuration
     import capo_qconnect.types.next_token
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> SendMessageResponse:
     if data.get("requestMessageId") is not None:
         out["request_message_id"] = data["requestMessageId"]
     else:
-        raise DeserializationError("SendMessageResponse.request_message_id required")
+        out["request_message_id"] = ""
     if data.get("configuration") is not None:
         import capo_qconnect.types.message_configuration
 
@@ -54,5 +52,5 @@ def deserialize_json(data: dict) -> SendMessageResponse:
     if data.get("nextMessageToken") is not None:
         out["next_message_token"] = data["nextMessageToken"]
     else:
-        raise DeserializationError("SendMessageResponse.next_message_token required")
+        out["next_message_token"] = ""
     return out

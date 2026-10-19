@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_nova_act.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_nova_act.types.call_id
     import capo_nova_act.types.sensitive_document
@@ -34,15 +32,15 @@ def deserialize_json(data: dict) -> Call:
     if data.get("callId") is not None:
         out["call_id"] = data["callId"]
     else:
-        raise DeserializationError("Call.call_id required")
+        out["call_id"] = ""
     if data.get("input") is not None:
         out["input"] = data["input"]
     else:
-        raise DeserializationError("Call.input required")
+        out["input"] = None
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Call.name required")
+        out["name"] = ""
     return out
 
 

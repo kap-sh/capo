@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.log_object_pointer
     import capo_cloudwatch_logs.types.unmask
@@ -34,5 +32,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetLogObjectRequest:
     if data.get("logObjectPointer") is not None:
         out["log_object_pointer"] = data["logObjectPointer"]
     else:
-        raise DeserializationError("GetLogObjectRequest.log_object_pointer required")
+        out["log_object_pointer"] = ""
     return out

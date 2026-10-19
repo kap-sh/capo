@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connecthealth.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connecthealth.types.s3_uri
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> InsightsOutput:
     if data.get("uri") is not None:
         out["uri"] = data["uri"]
     else:
-        raise DeserializationError("InsightsOutput.uri required")
+        out["uri"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.string
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> InferenceAccelerator:
     if data.get("deviceName") is not None:
         out["device_name"] = data["deviceName"]
     else:
-        raise DeserializationError("InferenceAccelerator.device_name required")
+        out["device_name"] = ""
     if data.get("deviceType") is not None:
         out["device_type"] = data["deviceType"]
     else:
-        raise DeserializationError("InferenceAccelerator.device_type required")
+        out["device_type"] = ""
     return out

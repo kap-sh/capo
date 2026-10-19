@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.arn
     import capo_ssm_incidents.types.chat_channel
@@ -78,7 +76,7 @@ def deserialize_json(data: dict) -> UpdateIncidentRecordInput:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("UpdateIncidentRecordInput.arn required")
+        out["arn"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     if data.get("summary") is not None:

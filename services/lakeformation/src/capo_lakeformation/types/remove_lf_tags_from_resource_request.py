@@ -60,5 +60,5 @@ def deserialize_json(data: dict) -> RemoveLFTagsFromResourceRequest:
             data["LFTags"]
         )
     else:
-        raise DeserializationError("RemoveLFTagsFromResourceRequest.lf_tags required")
+        out["lf_tags"] = []
     return out

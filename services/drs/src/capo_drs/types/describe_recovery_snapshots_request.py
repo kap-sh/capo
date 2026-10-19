@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.describe_recovery_snapshots_request_filters
     import capo_drs.types.pagination_token
@@ -57,9 +55,7 @@ def deserialize_json(data: dict) -> DescribeRecoverySnapshotsRequest:
     if data.get("sourceServerID") is not None:
         out["source_server_id"] = data["sourceServerID"]
     else:
-        raise DeserializationError(
-            "DescribeRecoverySnapshotsRequest.source_server_id required"
-        )
+        out["source_server_id"] = ""
     if data.get("filters") is not None:
         import capo_drs.types.describe_recovery_snapshots_request_filters
 

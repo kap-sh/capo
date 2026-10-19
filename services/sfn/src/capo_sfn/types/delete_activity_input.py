@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteActivityInput:
     if data.get("activityArn") is not None:
         out["activity_arn"] = data["activityArn"]
     else:
-        raise DeserializationError("DeleteActivityInput.activity_arn required")
+        out["activity_arn"] = ""
     return out

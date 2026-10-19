@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.agent_cpu_cores_list
     import capo_groundstation.types.component_version_list
@@ -72,15 +70,15 @@ def deserialize_json(data: dict) -> AgentDetails:
     if data.get("agentVersion") is not None:
         out["agent_version"] = data["agentVersion"]
     else:
-        raise DeserializationError("AgentDetails.agent_version required")
+        out["agent_version"] = ""
     if data.get("instanceId") is not None:
         out["instance_id"] = data["instanceId"]
     else:
-        raise DeserializationError("AgentDetails.instance_id required")
+        out["instance_id"] = ""
     if data.get("instanceType") is not None:
         out["instance_type"] = data["instanceType"]
     else:
-        raise DeserializationError("AgentDetails.instance_type required")
+        out["instance_type"] = ""
     if data.get("reservedCpuCores") is not None:
         import capo_groundstation.types.agent_cpu_cores_list
 
@@ -106,5 +104,5 @@ def deserialize_json(data: dict) -> AgentDetails:
             )
         )
     else:
-        raise DeserializationError("AgentDetails.component_versions required")
+        out["component_versions"] = []
     return out

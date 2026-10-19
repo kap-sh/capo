@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.api_key
     import capo_geo_routes.types.distance_meters
@@ -96,7 +94,7 @@ def deserialize_json(data: dict) -> SnapToRoadsRequest:
             )
         )
     else:
-        raise DeserializationError("SnapToRoadsRequest.trace_points required")
+        out["trace_points"] = []
     if data.get("TravelMode") is not None:
         import capo_geo_routes.types.road_snap_travel_mode
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_secrets_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_secrets_manager.types.client_request_token_type
     import capo_secrets_manager.types.description_type
@@ -71,7 +69,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateSecretRequest:
     if data.get("SecretId") is not None:
         out["secret_id"] = data["SecretId"]
     else:
-        raise DeserializationError("UpdateSecretRequest.secret_id required")
+        out["secret_id"] = ""
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     if data.get("Description") is not None:

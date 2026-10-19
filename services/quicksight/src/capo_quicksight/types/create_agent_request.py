@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.agent_description
     import capo_quicksight.types.agent_id
@@ -126,11 +124,11 @@ def deserialize_json(data: dict) -> CreateAgentRequest:
     if data.get("AgentId") is not None:
         out["agent_id"] = data["AgentId"]
     else:
-        raise DeserializationError("CreateAgentRequest.agent_id required")
+        out["agent_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateAgentRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("IconId") is not None:

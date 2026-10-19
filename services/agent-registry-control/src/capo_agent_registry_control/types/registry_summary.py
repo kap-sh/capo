@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_agent_registry_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_agent_registry_control.types.auto_detection
     import capo_agent_registry_control.types.date_timestamp
@@ -95,17 +93,17 @@ def deserialize_json(data: dict) -> RegistrySummary:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RegistrySummary.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("registryId") is not None:
         out["registry_id"] = data["registryId"]
     else:
-        raise DeserializationError("RegistrySummary.registry_id required")
+        out["registry_id"] = ""
     if data.get("registryArn") is not None:
         out["registry_arn"] = data["registryArn"]
     else:
-        raise DeserializationError("RegistrySummary.registry_arn required")
+        out["registry_arn"] = ""
     if data.get("discoveryConfiguration") is not None:
         import capo_agent_registry_control.types.discovery_configuration
 
@@ -123,7 +121,11 @@ def deserialize_json(data: dict) -> RegistrySummary:
             )
         )
     else:
-        raise DeserializationError("RegistrySummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_agent_registry_control.types.registry_status.RegistryStatus", ""
+        )
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
     if data.get("autoDetection") is not None:
@@ -143,7 +145,9 @@ def deserialize_json(data: dict) -> RegistrySummary:
             )
         )
     else:
-        raise DeserializationError("RegistrySummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_agent_registry_control.types.date_timestamp
 
@@ -153,7 +157,9 @@ def deserialize_json(data: dict) -> RegistrySummary:
             )
         )
     else:
-        raise DeserializationError("RegistrySummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

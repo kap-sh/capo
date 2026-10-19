@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sso_admin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_admin.types.application_arn
     import capo_sso_admin.types.principal_id
@@ -39,11 +37,11 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationAssignment:
     if data.get("ApplicationArn") is not None:
         out["application_arn"] = data["ApplicationArn"]
     else:
-        raise DeserializationError("ApplicationAssignment.application_arn required")
+        out["application_arn"] = ""
     if data.get("PrincipalId") is not None:
         out["principal_id"] = data["PrincipalId"]
     else:
-        raise DeserializationError("ApplicationAssignment.principal_id required")
+        out["principal_id"] = ""
     if data.get("PrincipalType") is not None:
         import capo_sso_admin.types.principal_type
 
@@ -53,5 +51,9 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationAssignment:
             )
         )
     else:
-        raise DeserializationError("ApplicationAssignment.principal_type required")
+        import typing
+
+        out["principal_type"] = typing.cast(
+            "capo_sso_admin.types.principal_type.PrincipalType", ""
+        )
     return out

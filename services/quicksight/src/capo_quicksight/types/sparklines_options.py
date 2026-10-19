@@ -110,7 +110,7 @@ def deserialize_json(data: dict) -> SparklinesOptions:
     if data.get("FieldId") is not None:
         out["field_id"] = data["FieldId"]
     else:
-        raise DeserializationError("SparklinesOptions.field_id required")
+        out["field_id"] = ""
     if data.get("XAxisField") is not None:
         import capo_quicksight.types.dimension_field
 

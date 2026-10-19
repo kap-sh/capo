@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_grafana.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_grafana.types.grafana_version
     import capo_grafana.types.overridable_configuration_json
@@ -34,9 +32,7 @@ def deserialize_json(data: dict) -> DescribeWorkspaceConfigurationResponse:
     if data.get("configuration") is not None:
         out["configuration"] = data["configuration"]
     else:
-        raise DeserializationError(
-            "DescribeWorkspaceConfigurationResponse.configuration required"
-        )
+        out["configuration"] = ""
     if data.get("grafanaVersion") is not None:
         out["grafana_version"] = data["grafanaVersion"]
     return out

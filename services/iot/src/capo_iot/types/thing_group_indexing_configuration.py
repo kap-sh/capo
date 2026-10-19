@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.fields
     import capo_iot.types.thing_group_indexing_mode
@@ -58,8 +56,10 @@ def deserialize_json(data: dict) -> ThingGroupIndexingConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ThingGroupIndexingConfiguration.thing_group_indexing_mode required"
+        import typing
+
+        out["thing_group_indexing_mode"] = typing.cast(
+            "capo_iot.types.thing_group_indexing_mode.ThingGroupIndexingMode", ""
         )
     if data.get("managedFields") is not None:
         import capo_iot.types.fields

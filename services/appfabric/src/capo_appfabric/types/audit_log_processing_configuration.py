@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appfabric.types.format
     import capo_appfabric.types.schema
@@ -37,11 +35,15 @@ def deserialize_json(data: dict) -> AuditLogProcessingConfiguration:
 
         out["schema"] = capo_appfabric.types.schema.deserialize_json(data["schema"])
     else:
-        raise DeserializationError("AuditLogProcessingConfiguration.schema required")
+        import typing
+
+        out["schema"] = typing.cast("capo_appfabric.types.schema.Schema", "")
     if data.get("format") is not None:
         import capo_appfabric.types.format
 
         out["format"] = capo_appfabric.types.format.deserialize_json(data["format"])
     else:
-        raise DeserializationError("AuditLogProcessingConfiguration.format required")
+        import typing
+
+        out["format"] = typing.cast("capo_appfabric.types.format.Format", "")
     return out

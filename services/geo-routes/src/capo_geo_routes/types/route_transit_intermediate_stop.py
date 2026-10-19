@@ -83,7 +83,7 @@ def deserialize_json(data: dict) -> RouteTransitIntermediateStop:
     if data.get("Duration") is not None:
         out["duration"] = data["Duration"]
     else:
-        raise DeserializationError("RouteTransitIntermediateStop.duration required")
+        out["duration"] = 0
     if data.get("GeometryOffset") is not None:
         out["geometry_offset"] = data["GeometryOffset"]
     if data.get("Transport") is not None:

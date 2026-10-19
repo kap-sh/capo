@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.attribute_filter
     import capo_kendra.types.document_attribute_key_list
@@ -86,11 +84,11 @@ def deserialize_aws_json_1_1(data: dict) -> RetrieveRequest:
     if data.get("IndexId") is not None:
         out["index_id"] = data["IndexId"]
     else:
-        raise DeserializationError("RetrieveRequest.index_id required")
+        out["index_id"] = ""
     if data.get("QueryText") is not None:
         out["query_text"] = data["QueryText"]
     else:
-        raise DeserializationError("RetrieveRequest.query_text required")
+        out["query_text"] = ""
     if data.get("AttributeFilter") is not None:
         import capo_kendra.types.attribute_filter
 

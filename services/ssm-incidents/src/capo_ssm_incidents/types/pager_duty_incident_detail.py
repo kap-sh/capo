@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 
 class PagerDutyIncidentDetail(TypedDict, closed=True):
     id: "str"
@@ -30,7 +28,7 @@ def deserialize_json(data: dict) -> PagerDutyIncidentDetail:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("PagerDutyIncidentDetail.id required")
+        out["id"] = ""
     if data.get("autoResolve") is not None:
         out["auto_resolve"] = data["autoResolve"]
     if data.get("secretId") is not None:

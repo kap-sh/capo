@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_mwaa_serverless.errors import DeserializationError
-
 
 class LoggingConfiguration(TypedDict, closed=True):
     log_group_name: "str"
@@ -22,5 +20,5 @@ def deserialize_aws_json_1_0(data: dict) -> LoggingConfiguration:
     if data.get("LogGroupName") is not None:
         out["log_group_name"] = data["LogGroupName"]
     else:
-        raise DeserializationError("LoggingConfiguration.log_group_name required")
+        out["log_group_name"] = ""
     return out

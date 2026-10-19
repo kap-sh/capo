@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.agent_health_code_list
     import capo_inspector.types.agent_health_list
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> AgentFilter:
             )
         )
     else:
-        raise DeserializationError("AgentFilter.agent_healths required")
+        out["agent_healths"] = []
     if data.get("agentHealthCodes") is not None:
         import capo_inspector.types.agent_health_code_list
 
@@ -59,5 +57,5 @@ def deserialize_aws_json_1_1(data: dict) -> AgentFilter:
             )
         )
     else:
-        raise DeserializationError("AgentFilter.agent_health_codes required")
+        out["agent_health_codes"] = []
     return out

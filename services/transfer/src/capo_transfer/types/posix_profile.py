@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.posix_id
     import capo_transfer.types.secondary_gids
@@ -41,11 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> PosixProfile:
     if data.get("Uid") is not None:
         out["uid"] = data["Uid"]
     else:
-        raise DeserializationError("PosixProfile.uid required")
+        out["uid"] = 0
     if data.get("Gid") is not None:
         out["gid"] = data["Gid"]
     else:
-        raise DeserializationError("PosixProfile.gid required")
+        out["gid"] = 0
     if data.get("SecondaryGids") is not None:
         import capo_transfer.types.secondary_gids
 

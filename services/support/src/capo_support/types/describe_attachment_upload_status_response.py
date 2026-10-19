@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_support.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support.types.file_name
     import capo_support.types.upload_progress
@@ -52,15 +50,15 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAttachmentUploadStatusRespon
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeAttachmentUploadStatusResponse.upload_status required"
+        import typing
+
+        out["upload_status"] = typing.cast(
+            "capo_support.types.upload_status.UploadStatus", ""
         )
     if data.get("fileName") is not None:
         out["file_name"] = data["fileName"]
     else:
-        raise DeserializationError(
-            "DescribeAttachmentUploadStatusResponse.file_name required"
-        )
+        out["file_name"] = ""
     if data.get("uploadProgress") is not None:
         import capo_support.types.upload_progress
 

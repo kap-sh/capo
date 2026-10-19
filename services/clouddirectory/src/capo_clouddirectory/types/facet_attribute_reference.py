@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_clouddirectory.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_clouddirectory.types.attribute_name
     import capo_clouddirectory.types.facet_name
@@ -31,11 +29,9 @@ def deserialize_json(data: dict) -> FacetAttributeReference:
     if data.get("TargetFacetName") is not None:
         out["target_facet_name"] = data["TargetFacetName"]
     else:
-        raise DeserializationError("FacetAttributeReference.target_facet_name required")
+        out["target_facet_name"] = ""
     if data.get("TargetAttributeName") is not None:
         out["target_attribute_name"] = data["TargetAttributeName"]
     else:
-        raise DeserializationError(
-            "FacetAttributeReference.target_attribute_name required"
-        )
+        out["target_attribute_name"] = ""
     return out

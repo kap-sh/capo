@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 
 class GenerateRuleConfigurationResponse(TypedDict, closed=True):
     configuration: "str"
@@ -26,9 +24,7 @@ def deserialize_json(data: dict) -> GenerateRuleConfigurationResponse:
     if data.get("configuration") is not None:
         out["configuration"] = data["configuration"]
     else:
-        raise DeserializationError(
-            "GenerateRuleConfigurationResponse.configuration required"
-        )
+        out["configuration"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

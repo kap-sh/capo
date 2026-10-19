@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.configurations
     import capo_datazone.types.connection_id
@@ -97,7 +95,7 @@ def deserialize_json(data: dict) -> CreateConnectionOutput:
     if data.get("connectionId") is not None:
         out["connection_id"] = data["connectionId"]
     else:
-        raise DeserializationError("CreateConnectionOutput.connection_id required")
+        out["connection_id"] = ""
     if data.get("configurations") is not None:
         import capo_datazone.types.configurations
 
@@ -109,17 +107,17 @@ def deserialize_json(data: dict) -> CreateConnectionOutput:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("CreateConnectionOutput.domain_id required")
+        out["domain_id"] = ""
     if data.get("domainUnitId") is not None:
         out["domain_unit_id"] = data["domainUnitId"]
     else:
-        raise DeserializationError("CreateConnectionOutput.domain_unit_id required")
+        out["domain_unit_id"] = ""
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateConnectionOutput.name required")
+        out["name"] = ""
     if data.get("physicalEndpoints") is not None:
         import capo_datazone.types.physical_endpoints
 
@@ -129,7 +127,7 @@ def deserialize_json(data: dict) -> CreateConnectionOutput:
             )
         )
     else:
-        raise DeserializationError("CreateConnectionOutput.physical_endpoints required")
+        out["physical_endpoints"] = []
     if data.get("projectId") is not None:
         out["project_id"] = data["projectId"]
     if data.get("props") is not None:
@@ -145,7 +143,11 @@ def deserialize_json(data: dict) -> CreateConnectionOutput:
 
         out["type"] = capo_datazone.types.connection_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("CreateConnectionOutput.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_datazone.types.connection_type.ConnectionType", ""
+        )
     if data.get("scope") is not None:
         import capo_datazone.types.connection_scope
 

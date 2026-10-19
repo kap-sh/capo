@@ -102,7 +102,7 @@ def deserialize_json(data: dict) -> CreateProgramRequest:
     if data.get("SourceLocationName") is not None:
         out["source_location_name"] = data["SourceLocationName"]
     else:
-        raise DeserializationError("CreateProgramRequest.source_location_name required")
+        out["source_location_name"] = ""
     if data.get("VodSourceName") is not None:
         out["vod_source_name"] = data["VodSourceName"]
     if data.get("AudienceMedia") is not None:

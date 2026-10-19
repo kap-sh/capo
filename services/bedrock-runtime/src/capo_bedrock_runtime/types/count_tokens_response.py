@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 
 class CountTokensResponse(TypedDict, closed=True):
     input_tokens: "int"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> CountTokensResponse:
     if data.get("inputTokens") is not None:
         out["input_tokens"] = data["inputTokens"]
     else:
-        raise DeserializationError("CountTokensResponse.input_tokens required")
+        out["input_tokens"] = 0
     return out

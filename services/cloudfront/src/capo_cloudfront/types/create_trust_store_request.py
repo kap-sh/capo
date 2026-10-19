@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.boolean
@@ -53,7 +52,7 @@ def deserialize_xml(el: Element) -> CreateTrustStoreRequest:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("CreateTrustStoreRequest.name required")
+        out["name"] = ""
     child_ca_certificates_bundle_source = el.find("CaCertificatesBundleSource")
     if child_ca_certificates_bundle_source is not None:
         import capo_cloudfront.types.ca_certificates_bundle_source
@@ -64,8 +63,10 @@ def deserialize_xml(el: Element) -> CreateTrustStoreRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateTrustStoreRequest.ca_certificates_bundle_source required"
+        import capo_cloudfront.types._unknown
+
+        out["ca_certificates_bundle_source"] = (
+            capo_cloudfront.types._unknown.UnknownUnionMember("")
         )
     child_use_client_certificate_ocsp_endpoint = el.find(
         "UseClientCertificateOCSPEndpoint"

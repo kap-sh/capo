@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.boolean
     import capo_quicksight.types.non_empty_string
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> FailedKeyRegistrationEntry:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("FailedKeyRegistrationEntry.message required")
+        out["message"] = ""
     if data.get("StatusCode") is not None:
         out["status_code"] = data["StatusCode"]
     else:

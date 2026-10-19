@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -78,37 +76,27 @@ def deserialize_json(data: dict) -> CollaborationPrivacyBudgetSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CollaborationPrivacyBudgetSummary.id required")
+        out["id"] = ""
     if data.get("privacyBudgetTemplateId") is not None:
         out["privacy_budget_template_id"] = data["privacyBudgetTemplateId"]
     else:
-        raise DeserializationError(
-            "CollaborationPrivacyBudgetSummary.privacy_budget_template_id required"
-        )
+        out["privacy_budget_template_id"] = ""
     if data.get("privacyBudgetTemplateArn") is not None:
         out["privacy_budget_template_arn"] = data["privacyBudgetTemplateArn"]
     else:
-        raise DeserializationError(
-            "CollaborationPrivacyBudgetSummary.privacy_budget_template_arn required"
-        )
+        out["privacy_budget_template_arn"] = ""
     if data.get("collaborationId") is not None:
         out["collaboration_id"] = data["collaborationId"]
     else:
-        raise DeserializationError(
-            "CollaborationPrivacyBudgetSummary.collaboration_id required"
-        )
+        out["collaboration_id"] = ""
     if data.get("collaborationArn") is not None:
         out["collaboration_arn"] = data["collaborationArn"]
     else:
-        raise DeserializationError(
-            "CollaborationPrivacyBudgetSummary.collaboration_arn required"
-        )
+        out["collaboration_arn"] = ""
     if data.get("creatorAccountId") is not None:
         out["creator_account_id"] = data["creatorAccountId"]
     else:
-        raise DeserializationError(
-            "CollaborationPrivacyBudgetSummary.creator_account_id required"
-        )
+        out["creator_account_id"] = ""
     if data.get("type") is not None:
         import capo_cleanrooms.types.privacy_budget_type
 
@@ -116,7 +104,11 @@ def deserialize_json(data: dict) -> CollaborationPrivacyBudgetSummary:
             data["type"]
         )
     else:
-        raise DeserializationError("CollaborationPrivacyBudgetSummary.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cleanrooms.types.privacy_budget_type.PrivacyBudgetType", ""
+        )
     if data.get("createTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -124,8 +116,10 @@ def deserialize_json(data: dict) -> CollaborationPrivacyBudgetSummary:
             data["createTime"]
         )
     else:
-        raise DeserializationError(
-            "CollaborationPrivacyBudgetSummary.create_time required"
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("updateTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
@@ -134,8 +128,10 @@ def deserialize_json(data: dict) -> CollaborationPrivacyBudgetSummary:
             data["updateTime"]
         )
     else:
-        raise DeserializationError(
-            "CollaborationPrivacyBudgetSummary.update_time required"
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("budget") is not None:
         import capo_cleanrooms.types.privacy_budget
@@ -144,5 +140,7 @@ def deserialize_json(data: dict) -> CollaborationPrivacyBudgetSummary:
             data["budget"]
         )
     else:
-        raise DeserializationError("CollaborationPrivacyBudgetSummary.budget required")
+        import capo_cleanrooms.types._unknown
+
+        out["budget"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
     return out

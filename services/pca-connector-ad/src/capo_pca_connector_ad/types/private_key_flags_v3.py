@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pca_connector_ad.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pca_connector_ad.types.client_compatibility_v3
 
@@ -63,5 +61,10 @@ def deserialize_json(data: dict) -> PrivateKeyFlagsV3:
             )
         )
     else:
-        raise DeserializationError("PrivateKeyFlagsV3.client_version required")
+        import typing
+
+        out["client_version"] = typing.cast(
+            "capo_pca_connector_ad.types.client_compatibility_v3.ClientCompatibilityV3",
+            "",
+        )
     return out

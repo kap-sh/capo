@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.behavior_on_mx_failure
@@ -48,9 +47,7 @@ def deserialize_query(el: Element) -> IdentityMailFromDomainAttributes:
     if child_mail_from_domain is not None:
         out["mail_from_domain"] = str(child_mail_from_domain.text or "")
     else:
-        raise DeserializationError(
-            "IdentityMailFromDomainAttributes.mail_from_domain required"
-        )
+        out["mail_from_domain"] = ""
     child_mail_from_domain_status = el.find("MailFromDomainStatus")
     if child_mail_from_domain_status is not None:
         import capo_ses.types.custom_mail_from_status
@@ -61,8 +58,10 @@ def deserialize_query(el: Element) -> IdentityMailFromDomainAttributes:
             )
         )
     else:
-        raise DeserializationError(
-            "IdentityMailFromDomainAttributes.mail_from_domain_status required"
+        import typing
+
+        out["mail_from_domain_status"] = typing.cast(
+            "capo_ses.types.custom_mail_from_status.CustomMailFromStatus", ""
         )
     child_behavior_on_mx_failure = el.find("BehaviorOnMXFailure")
     if child_behavior_on_mx_failure is not None:
@@ -74,7 +73,9 @@ def deserialize_query(el: Element) -> IdentityMailFromDomainAttributes:
             )
         )
     else:
-        raise DeserializationError(
-            "IdentityMailFromDomainAttributes.behavior_on_mx_failure required"
+        import typing
+
+        out["behavior_on_mx_failure"] = typing.cast(
+            "capo_ses.types.behavior_on_mx_failure.BehaviorOnMXFailure", ""
         )
     return out

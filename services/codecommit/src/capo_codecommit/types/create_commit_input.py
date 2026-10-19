@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.branch_name
     import capo_codecommit.types.commit_id
@@ -93,11 +91,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCommitInput:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError("CreateCommitInput.repository_name required")
+        out["repository_name"] = ""
     if data.get("branchName") is not None:
         out["branch_name"] = data["branchName"]
     else:
-        raise DeserializationError("CreateCommitInput.branch_name required")
+        out["branch_name"] = ""
     if data.get("parentCommitId") is not None:
         out["parent_commit_id"] = data["parentCommitId"]
     if data.get("authorName") is not None:

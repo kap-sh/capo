@@ -82,7 +82,7 @@ def deserialize_cbor(data: dict) -> AlertSummary:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AlertSummary.name required")
+        out["name"] = ""
     if data.get("alertId") is not None:
         out["alert_id"] = data["alertId"]
     if data.get("spaceId") is not None:
@@ -114,7 +114,9 @@ def deserialize_cbor(data: dict) -> AlertSummary:
             )
         )
     else:
-        raise DeserializationError("AlertSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_cloudwatchomni.types._prelude.timestamp
 
@@ -124,9 +126,11 @@ def deserialize_cbor(data: dict) -> AlertSummary:
             )
         )
     else:
-        raise DeserializationError("AlertSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("alertArn") is not None:
         out["alert_arn"] = data["alertArn"]
     else:
-        raise DeserializationError("AlertSummary.alert_arn required")
+        out["alert_arn"] = ""
     return out

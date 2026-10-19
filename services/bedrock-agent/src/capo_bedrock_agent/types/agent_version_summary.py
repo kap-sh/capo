@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.agent_status
     import capo_bedrock_agent.types.date_timestamp
@@ -72,7 +70,7 @@ def deserialize_json(data: dict) -> AgentVersionSummary:
     if data.get("agentName") is not None:
         out["agent_name"] = data["agentName"]
     else:
-        raise DeserializationError("AgentVersionSummary.agent_name required")
+        out["agent_name"] = ""
     if data.get("agentStatus") is not None:
         import capo_bedrock_agent.types.agent_status
 
@@ -80,11 +78,15 @@ def deserialize_json(data: dict) -> AgentVersionSummary:
             data["agentStatus"]
         )
     else:
-        raise DeserializationError("AgentVersionSummary.agent_status required")
+        import typing
+
+        out["agent_status"] = typing.cast(
+            "capo_bedrock_agent.types.agent_status.AgentStatus", ""
+        )
     if data.get("agentVersion") is not None:
         out["agent_version"] = data["agentVersion"]
     else:
-        raise DeserializationError("AgentVersionSummary.agent_version required")
+        out["agent_version"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -92,7 +94,9 @@ def deserialize_json(data: dict) -> AgentVersionSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("AgentVersionSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -100,7 +104,9 @@ def deserialize_json(data: dict) -> AgentVersionSummary:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("AgentVersionSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("guardrailConfiguration") is not None:

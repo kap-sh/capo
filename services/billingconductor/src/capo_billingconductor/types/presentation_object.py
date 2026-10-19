@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_billingconductor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billingconductor.types.service
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> PresentationObject:
     if data.get("Service") is not None:
         out["service"] = data["Service"]
     else:
-        raise DeserializationError("PresentationObject.service required")
+        out["service"] = ""
     return out

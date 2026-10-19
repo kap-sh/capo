@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.id
     import capo_lex_models_v2.types.priority_value
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> SlotPriority:
     if data.get("priority") is not None:
         out["priority"] = data["priority"]
     else:
-        raise DeserializationError("SlotPriority.priority required")
+        out["priority"] = 0
     if data.get("slotId") is not None:
         out["slot_id"] = data["slotId"]
     else:
-        raise DeserializationError("SlotPriority.slot_id required")
+        out["slot_id"] = ""
     return out

@@ -40,11 +40,11 @@ def deserialize_json(data: dict) -> InstanceConfig:
     if data.get("connectInstanceId") is not None:
         out["connect_instance_id"] = data["connectInstanceId"]
     else:
-        raise DeserializationError("InstanceConfig.connect_instance_id required")
+        out["connect_instance_id"] = ""
     if data.get("serviceLinkedRoleArn") is not None:
         out["service_linked_role_arn"] = data["serviceLinkedRoleArn"]
     else:
-        raise DeserializationError("InstanceConfig.service_linked_role_arn required")
+        out["service_linked_role_arn"] = ""
     if data.get("encryptionConfig") is not None:
         import capo_connectcampaigns.types.encryption_config
 

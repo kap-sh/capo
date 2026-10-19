@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.ingestion_job_sort_by_attribute
     import capo_bedrock_agent.types.sort_order
@@ -45,7 +43,12 @@ def deserialize_json(data: dict) -> IngestionJobSortBy:
             )
         )
     else:
-        raise DeserializationError("IngestionJobSortBy.attribute required")
+        import typing
+
+        out["attribute"] = typing.cast(
+            "capo_bedrock_agent.types.ingestion_job_sort_by_attribute.IngestionJobSortByAttribute",
+            "",
+        )
     if data.get("order") is not None:
         import capo_bedrock_agent.types.sort_order
 
@@ -53,5 +56,7 @@ def deserialize_json(data: dict) -> IngestionJobSortBy:
             data["order"]
         )
     else:
-        raise DeserializationError("IngestionJobSortBy.order required")
+        import typing
+
+        out["order"] = typing.cast("capo_bedrock_agent.types.sort_order.SortOrder", "")
     return out

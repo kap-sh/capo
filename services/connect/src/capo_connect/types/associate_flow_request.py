@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.flow_association_resource_type
@@ -45,11 +43,11 @@ def deserialize_json(data: dict) -> AssociateFlowRequest:
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("AssociateFlowRequest.resource_id required")
+        out["resource_id"] = ""
     if data.get("FlowId") is not None:
         out["flow_id"] = data["FlowId"]
     else:
-        raise DeserializationError("AssociateFlowRequest.flow_id required")
+        out["flow_id"] = ""
     if data.get("ResourceType") is not None:
         import capo_connect.types.flow_association_resource_type
 
@@ -59,5 +57,10 @@ def deserialize_json(data: dict) -> AssociateFlowRequest:
             )
         )
     else:
-        raise DeserializationError("AssociateFlowRequest.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_connect.types.flow_association_resource_type.FlowAssociationResourceType",
+            "",
+        )
     return out

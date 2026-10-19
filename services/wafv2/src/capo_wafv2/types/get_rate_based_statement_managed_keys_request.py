@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.entity_id
     import capo_wafv2.types.entity_name
@@ -46,27 +44,21 @@ def deserialize_aws_json_1_1(data: dict) -> GetRateBasedStatementManagedKeysRequ
 
         out["scope"] = capo_wafv2.types.scope.deserialize_aws_json_1_1(data["Scope"])
     else:
-        raise DeserializationError(
-            "GetRateBasedStatementManagedKeysRequest.scope required"
-        )
+        import typing
+
+        out["scope"] = typing.cast("capo_wafv2.types.scope.Scope", "")
     if data.get("WebACLName") is not None:
         out["web_acl_name"] = data["WebACLName"]
     else:
-        raise DeserializationError(
-            "GetRateBasedStatementManagedKeysRequest.web_acl_name required"
-        )
+        out["web_acl_name"] = ""
     if data.get("WebACLId") is not None:
         out["web_acl_id"] = data["WebACLId"]
     else:
-        raise DeserializationError(
-            "GetRateBasedStatementManagedKeysRequest.web_acl_id required"
-        )
+        out["web_acl_id"] = ""
     if data.get("RuleGroupRuleName") is not None:
         out["rule_group_rule_name"] = data["RuleGroupRuleName"]
     if data.get("RuleName") is not None:
         out["rule_name"] = data["RuleName"]
     else:
-        raise DeserializationError(
-            "GetRateBasedStatementManagedKeysRequest.rule_name required"
-        )
+        out["rule_name"] = ""
     return out

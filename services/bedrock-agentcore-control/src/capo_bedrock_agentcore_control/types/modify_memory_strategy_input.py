@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.description
     import capo_bedrock_agentcore_control.types.memory_record_schema
@@ -97,9 +95,7 @@ def deserialize_json(data: dict) -> ModifyMemoryStrategyInput:
     if data.get("memoryStrategyId") is not None:
         out["memory_strategy_id"] = data["memoryStrategyId"]
     else:
-        raise DeserializationError(
-            "ModifyMemoryStrategyInput.memory_strategy_id required"
-        )
+        out["memory_strategy_id"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("namespaces") is not None:

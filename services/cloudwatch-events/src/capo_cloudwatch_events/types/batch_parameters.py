@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_events.types.batch_array_properties
     import capo_cloudwatch_events.types.batch_retry_strategy
@@ -56,11 +54,11 @@ def deserialize_aws_json_1_1(data: dict) -> BatchParameters:
     if data.get("JobDefinition") is not None:
         out["job_definition"] = data["JobDefinition"]
     else:
-        raise DeserializationError("BatchParameters.job_definition required")
+        out["job_definition"] = ""
     if data.get("JobName") is not None:
         out["job_name"] = data["JobName"]
     else:
-        raise DeserializationError("BatchParameters.job_name required")
+        out["job_name"] = ""
     if data.get("ArrayProperties") is not None:
         import capo_cloudwatch_events.types.batch_array_properties
 

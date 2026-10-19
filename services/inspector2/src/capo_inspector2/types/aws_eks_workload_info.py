@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 
 class AwsEksWorkloadInfo(TypedDict, closed=True):
     name: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> AwsEksWorkloadInfo:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AwsEksWorkloadInfo.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("AwsEksWorkloadInfo.type required")
+        out["type"] = ""
     return out

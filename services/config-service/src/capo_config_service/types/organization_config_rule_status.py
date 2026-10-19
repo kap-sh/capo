@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.date
     import capo_config_service.types.organization_config_rule_name
@@ -57,9 +55,7 @@ def deserialize_aws_json_1_1(data: dict) -> OrganizationConfigRuleStatus:
     if data.get("OrganizationConfigRuleName") is not None:
         out["organization_config_rule_name"] = data["OrganizationConfigRuleName"]
     else:
-        raise DeserializationError(
-            "OrganizationConfigRuleStatus.organization_config_rule_name required"
-        )
+        out["organization_config_rule_name"] = ""
     if data.get("OrganizationRuleStatus") is not None:
         import capo_config_service.types.organization_rule_status
 
@@ -69,8 +65,11 @@ def deserialize_aws_json_1_1(data: dict) -> OrganizationConfigRuleStatus:
             )
         )
     else:
-        raise DeserializationError(
-            "OrganizationConfigRuleStatus.organization_rule_status required"
+        import typing
+
+        out["organization_rule_status"] = typing.cast(
+            "capo_config_service.types.organization_rule_status.OrganizationRuleStatus",
+            "",
         )
     if data.get("ErrorCode") is not None:
         out["error_code"] = data["ErrorCode"]

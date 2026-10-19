@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.context_words
     import capo_glue.types.name_string
@@ -46,13 +44,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCustomEntityTypeRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateCustomEntityTypeRequest.name required")
+        out["name"] = ""
     if data.get("RegexString") is not None:
         out["regex_string"] = data["RegexString"]
     else:
-        raise DeserializationError(
-            "CreateCustomEntityTypeRequest.regex_string required"
-        )
+        out["regex_string"] = ""
     if data.get("ContextWords") is not None:
         import capo_glue.types.context_words
 

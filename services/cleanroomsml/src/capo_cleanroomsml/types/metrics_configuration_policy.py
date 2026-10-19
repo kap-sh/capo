@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.noise_level_type
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> MetricsConfigurationPolicy:
             data["noiseLevel"]
         )
     else:
-        raise DeserializationError("MetricsConfigurationPolicy.noise_level required")
+        import typing
+
+        out["noise_level"] = typing.cast(
+            "capo_cleanroomsml.types.noise_level_type.NoiseLevelType", ""
+        )
     return out

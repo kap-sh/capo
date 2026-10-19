@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.legal_document_type
     import capo_marketplace_discovery.types.url
@@ -45,11 +43,15 @@ def deserialize_json(data: dict) -> DocumentItem:
             )
         )
     else:
-        raise DeserializationError("DocumentItem.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_marketplace_discovery.types.legal_document_type.LegalDocumentType", ""
+        )
     if data.get("url") is not None:
         out["url"] = data["url"]
     else:
-        raise DeserializationError("DocumentItem.url required")
+        out["url"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     return out

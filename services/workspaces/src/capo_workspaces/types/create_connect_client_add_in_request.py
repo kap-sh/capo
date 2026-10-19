@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.add_in_name
     import capo_workspaces.types.add_in_url
@@ -35,15 +33,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateConnectClientAddInRequest:
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError(
-            "CreateConnectClientAddInRequest.resource_id required"
-        )
+        out["resource_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateConnectClientAddInRequest.name required")
+        out["name"] = ""
     if data.get("URL") is not None:
         out["url"] = data["URL"]
     else:
-        raise DeserializationError("CreateConnectClientAddInRequest.url required")
+        out["url"] = ""
     return out

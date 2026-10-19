@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_agent_registry.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_agent_registry.types.descriptor_source_url
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DescriptorSourceFromUrl:
     if data.get("url") is not None:
         out["url"] = data["url"]
     else:
-        raise DeserializationError("DescriptorSourceFromUrl.url required")
+        out["url"] = ""
     return out

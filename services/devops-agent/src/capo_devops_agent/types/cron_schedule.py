@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.schedule_expression
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CronSchedule:
     if data.get("expression") is not None:
         out["expression"] = data["expression"]
     else:
-        raise DeserializationError("CronSchedule.expression required")
+        out["expression"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ec2_instance_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ec2_instance_connect.types.availability_zone
     import capo_ec2_instance_connect.types.instance_id
@@ -42,15 +40,15 @@ def deserialize_aws_json_1_1(data: dict) -> SendSSHPublicKeyRequest:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("SendSSHPublicKeyRequest.instance_id required")
+        out["instance_id"] = ""
     if data.get("InstanceOSUser") is not None:
         out["instance_os_user"] = data["InstanceOSUser"]
     else:
-        raise DeserializationError("SendSSHPublicKeyRequest.instance_os_user required")
+        out["instance_os_user"] = ""
     if data.get("SSHPublicKey") is not None:
         out["ssh_public_key"] = data["SSHPublicKey"]
     else:
-        raise DeserializationError("SendSSHPublicKeyRequest.ssh_public_key required")
+        out["ssh_public_key"] = ""
     if data.get("AvailabilityZone") is not None:
         out["availability_zone"] = data["AvailabilityZone"]
     return out

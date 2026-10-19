@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -82,15 +80,15 @@ def deserialize_json(data: dict) -> System:
     if data.get("systemArn") is not None:
         out["system_arn"] = data["systemArn"]
     else:
-        raise DeserializationError("System.system_arn required")
+        out["system_arn"] = ""
     if data.get("systemId") is not None:
         out["system_id"] = data["systemId"]
     else:
-        raise DeserializationError("System.system_id required")
+        out["system_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("System.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("sharingEnabled") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aws_arn
     import capo_iot.types.batch_mode
@@ -41,11 +39,11 @@ def deserialize_json(data: dict) -> FirehoseAction:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("FirehoseAction.role_arn required")
+        out["role_arn"] = ""
     if data.get("deliveryStreamName") is not None:
         out["delivery_stream_name"] = data["deliveryStreamName"]
     else:
-        raise DeserializationError("FirehoseAction.delivery_stream_name required")
+        out["delivery_stream_name"] = ""
     if data.get("separator") is not None:
         out["separator"] = data["separator"]
     if data.get("batchMode") is not None:

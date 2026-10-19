@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.filter_string
     import capo_wafv2.types.monetization_amount_value
@@ -67,7 +65,7 @@ def deserialize_aws_json_1_1(data: dict) -> SourceStatistics:
     if data.get("SourceName") is not None:
         out["source_name"] = data["SourceName"]
     else:
-        raise DeserializationError("SourceStatistics.source_name required")
+        out["source_name"] = ""
     if data.get("Percentage") is not None:
         out["percentage"] = float(data["Percentage"])
     else:
@@ -75,7 +73,7 @@ def deserialize_aws_json_1_1(data: dict) -> SourceStatistics:
     if data.get("Amount") is not None:
         out["amount"] = data["Amount"]
     else:
-        raise DeserializationError("SourceStatistics.amount required")
+        out["amount"] = ""
     if data.get("RequestCount") is not None:
         out["request_count"] = data["RequestCount"]
     else:

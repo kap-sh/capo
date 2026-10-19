@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.description
     import capo_datazone.types.domain_id
@@ -54,19 +52,19 @@ def deserialize_json(data: dict) -> CreateFormTypeInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateFormTypeInput.name required")
+        out["name"] = ""
     if data.get("model") is not None:
         import capo_datazone.types.model
 
         out["model"] = capo_datazone.types.model.deserialize_json(data["model"])
     else:
-        raise DeserializationError("CreateFormTypeInput.model required")
+        import capo_datazone.types._unknown
+
+        out["model"] = capo_datazone.types._unknown.UnknownUnionMember("")
     if data.get("owningProjectIdentifier") is not None:
         out["owning_project_identifier"] = data["owningProjectIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateFormTypeInput.owning_project_identifier required"
-        )
+        out["owning_project_identifier"] = ""
     if data.get("status") is not None:
         import capo_datazone.types.form_type_status
 

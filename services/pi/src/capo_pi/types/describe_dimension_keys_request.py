@@ -111,11 +111,13 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeDimensionKeysRequest:
             data["ServiceType"]
         )
     else:
-        raise DeserializationError("DescribeDimensionKeysRequest.service_type required")
+        import typing
+
+        out["service_type"] = typing.cast("capo_pi.types.service_type.ServiceType", "")
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("DescribeDimensionKeysRequest.identifier required")
+        out["identifier"] = ""
     if data.get("StartTime") is not None:
         import capo_pi.types.iso_timestamp
 
@@ -123,7 +125,9 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeDimensionKeysRequest:
             data["StartTime"]
         )
     else:
-        raise DeserializationError("DescribeDimensionKeysRequest.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_pi.types.iso_timestamp
 
@@ -131,11 +135,13 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeDimensionKeysRequest:
             data["EndTime"]
         )
     else:
-        raise DeserializationError("DescribeDimensionKeysRequest.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Metric") is not None:
         out["metric"] = data["Metric"]
     else:
-        raise DeserializationError("DescribeDimensionKeysRequest.metric required")
+        out["metric"] = ""
     if data.get("PeriodInSeconds") is not None:
         out["period_in_seconds"] = data["PeriodInSeconds"]
     if data.get("GroupBy") is not None:

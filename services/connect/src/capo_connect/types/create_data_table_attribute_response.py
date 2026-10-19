@@ -40,7 +40,7 @@ def deserialize_json(data: dict) -> CreateDataTableAttributeResponse:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateDataTableAttributeResponse.name required")
+        out["name"] = ""
     if data.get("AttributeId") is not None:
         out["attribute_id"] = data["AttributeId"]
     if data.get("LockVersion") is not None:

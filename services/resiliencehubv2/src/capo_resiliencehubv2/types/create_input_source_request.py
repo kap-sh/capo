@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.arn
     import capo_resiliencehubv2.types.client_token
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> CreateInputSourceRequest:
     if data.get("serviceArn") is not None:
         out["service_arn"] = data["serviceArn"]
     else:
-        raise DeserializationError("CreateInputSourceRequest.service_arn required")
+        out["service_arn"] = ""
     if data.get("resourceConfiguration") is not None:
         import capo_resiliencehubv2.types.resource_configuration
 
@@ -51,8 +49,10 @@ def deserialize_json(data: dict) -> CreateInputSourceRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateInputSourceRequest.resource_configuration required"
+        import capo_resiliencehubv2.types._unknown
+
+        out["resource_configuration"] = (
+            capo_resiliencehubv2.types._unknown.UnknownUnionMember("")
         )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]

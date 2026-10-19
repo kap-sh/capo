@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.geo_restriction_type
@@ -49,8 +48,10 @@ def deserialize_xml(el: Element) -> GeoRestrictionCustomization:
             )
         )
     else:
-        raise DeserializationError(
-            "GeoRestrictionCustomization.restriction_type required"
+        import typing
+
+        out["restriction_type"] = typing.cast(
+            "capo_cloudfront.types.geo_restriction_type.GeoRestrictionType", ""
         )
     child_locations = el.find("Locations")
     if child_locations is not None:

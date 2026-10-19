@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.session_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> TerminateSessionRequest:
     if data.get("SessionId") is not None:
         out["session_id"] = data["SessionId"]
     else:
-        raise DeserializationError("TerminateSessionRequest.session_id required")
+        out["session_id"] = ""
     return out

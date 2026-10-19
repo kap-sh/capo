@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.batch_get_case_rule_error_list
     import capo_connectcases.types.batch_get_case_rule_list
@@ -60,7 +58,7 @@ def deserialize_json(data: dict) -> BatchGetCaseRuleResponse:
             )
         )
     else:
-        raise DeserializationError("BatchGetCaseRuleResponse.case_rules required")
+        out["case_rules"] = []
     if data.get("errors") is not None:
         import capo_connectcases.types.batch_get_case_rule_error_list
 
@@ -70,7 +68,7 @@ def deserialize_json(data: dict) -> BatchGetCaseRuleResponse:
             )
         )
     else:
-        raise DeserializationError("BatchGetCaseRuleResponse.errors required")
+        out["errors"] = []
     if data.get("unprocessedCaseRules") is not None:
         import capo_connectcases.types.batch_get_case_rule_unprocessed_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_model_building_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_model_building_service.types.content_string
     import capo_lex_model_building_service.types.content_type
@@ -50,11 +48,15 @@ def deserialize_json(data: dict) -> Message:
             )
         )
     else:
-        raise DeserializationError("Message.content_type required")
+        import typing
+
+        out["content_type"] = typing.cast(
+            "capo_lex_model_building_service.types.content_type.ContentType", ""
+        )
     if data.get("content") is not None:
         out["content"] = data["content"]
     else:
-        raise DeserializationError("Message.content required")
+        out["content"] = ""
     if data.get("groupNumber") is not None:
         out["group_number"] = data["groupNumber"]
     return out

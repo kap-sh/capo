@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.meta_flow_asset_list
     import capo_socialmessaging.types.next_token
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> ListWhatsAppFlowAssetsOutput:
             )
         )
     else:
-        raise DeserializationError("ListWhatsAppFlowAssetsOutput.flow_assets required")
+        out["flow_assets"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

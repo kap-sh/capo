@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.vpc_endpoint_id
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> PrivateNetworkConfiguration:
     if data.get("VpcEndpointId") is not None:
         out["vpc_endpoint_id"] = data["VpcEndpointId"]
     else:
-        raise DeserializationError(
-            "PrivateNetworkConfiguration.vpc_endpoint_id required"
-        )
+        out["vpc_endpoint_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mpa.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mpa.types.approval_strategy
     import capo_mpa.types.approval_team_name
@@ -75,9 +73,9 @@ def deserialize_json(data: dict) -> CreateApprovalTeamRequest:
             data["ApprovalStrategy"]
         )
     else:
-        raise DeserializationError(
-            "CreateApprovalTeamRequest.approval_strategy required"
-        )
+        import capo_mpa.types._unknown
+
+        out["approval_strategy"] = capo_mpa.types._unknown.UnknownUnionMember("")
     if data.get("Approvers") is not None:
         import capo_mpa.types.approval_team_request_approvers
 
@@ -87,11 +85,11 @@ def deserialize_json(data: dict) -> CreateApprovalTeamRequest:
             )
         )
     else:
-        raise DeserializationError("CreateApprovalTeamRequest.approvers required")
+        out["approvers"] = []
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("CreateApprovalTeamRequest.description required")
+        out["description"] = ""
     if data.get("Policies") is not None:
         import capo_mpa.types.policies_references
 
@@ -99,11 +97,11 @@ def deserialize_json(data: dict) -> CreateApprovalTeamRequest:
             data["Policies"]
         )
     else:
-        raise DeserializationError("CreateApprovalTeamRequest.policies required")
+        out["policies"] = []
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateApprovalTeamRequest.name required")
+        out["name"] = ""
     if data.get("Tags") is not None:
         import capo_mpa.types.tags
 

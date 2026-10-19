@@ -75,11 +75,11 @@ def deserialize_json(data: dict) -> CreateThemeRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateThemeRequest.name required")
+        out["name"] = ""
     if data.get("BaseThemeId") is not None:
         out["base_theme_id"] = data["BaseThemeId"]
     else:
-        raise DeserializationError("CreateThemeRequest.base_theme_id required")
+        out["base_theme_id"] = ""
     if data.get("VersionDescription") is not None:
         out["version_description"] = data["VersionDescription"]
     if data.get("Configuration") is not None:

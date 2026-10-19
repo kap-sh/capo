@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.storage_flow_node_service_configuration
 
@@ -39,7 +37,9 @@ def deserialize_json(data: dict) -> StorageFlowNodeConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "StorageFlowNodeConfiguration.service_configuration required"
+        import capo_bedrock_agent.types._unknown
+
+        out["service_configuration"] = (
+            capo_bedrock_agent.types._unknown.UnknownUnionMember("")
         )
     return out

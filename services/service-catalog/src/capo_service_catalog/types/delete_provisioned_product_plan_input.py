@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.accept_language
     import capo_service_catalog.types.id
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteProvisionedProductPlanInput:
     if data.get("PlanId") is not None:
         out["plan_id"] = data["PlanId"]
     else:
-        raise DeserializationError("DeleteProvisionedProductPlanInput.plan_id required")
+        out["plan_id"] = ""
     if data.get("IgnoreErrors") is not None:
         out["ignore_errors"] = data["IgnoreErrors"]
     return out

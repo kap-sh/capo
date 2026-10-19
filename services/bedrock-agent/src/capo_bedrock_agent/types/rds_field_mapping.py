@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.column_name
 
@@ -42,19 +40,19 @@ def deserialize_json(data: dict) -> RdsFieldMapping:
     if data.get("primaryKeyField") is not None:
         out["primary_key_field"] = data["primaryKeyField"]
     else:
-        raise DeserializationError("RdsFieldMapping.primary_key_field required")
+        out["primary_key_field"] = ""
     if data.get("vectorField") is not None:
         out["vector_field"] = data["vectorField"]
     else:
-        raise DeserializationError("RdsFieldMapping.vector_field required")
+        out["vector_field"] = ""
     if data.get("textField") is not None:
         out["text_field"] = data["textField"]
     else:
-        raise DeserializationError("RdsFieldMapping.text_field required")
+        out["text_field"] = ""
     if data.get("metadataField") is not None:
         out["metadata_field"] = data["metadataField"]
     else:
-        raise DeserializationError("RdsFieldMapping.metadata_field required")
+        out["metadata_field"] = ""
     if data.get("customMetadataField") is not None:
         out["custom_metadata_field"] = data["customMetadataField"]
     return out

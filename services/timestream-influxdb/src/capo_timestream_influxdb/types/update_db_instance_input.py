@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_influxdb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_influxdb.types.allocated_storage
     import capo_timestream_influxdb.types.db_backup_configuration_input_list
@@ -126,7 +124,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateDbInstanceInput:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("UpdateDbInstanceInput.identifier required")
+        out["identifier"] = ""
     if data.get("logDeliveryConfiguration") is not None:
         import capo_timestream_influxdb.types.log_delivery_configuration
 

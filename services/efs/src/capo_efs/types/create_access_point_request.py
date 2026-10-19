@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_efs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_efs.types.client_token
     import capo_efs.types.file_system_id
@@ -54,7 +52,7 @@ def deserialize_json(data: dict) -> CreateAccessPointRequest:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("CreateAccessPointRequest.client_token required")
+        out["client_token"] = ""
     if data.get("Tags") is not None:
         import capo_efs.types.tags
 
@@ -62,7 +60,7 @@ def deserialize_json(data: dict) -> CreateAccessPointRequest:
     if data.get("FileSystemId") is not None:
         out["file_system_id"] = data["FileSystemId"]
     else:
-        raise DeserializationError("CreateAccessPointRequest.file_system_id required")
+        out["file_system_id"] = ""
     if data.get("PosixUser") is not None:
         import capo_efs.types.posix_user
 

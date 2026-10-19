@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_support.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support.types.attachment_id
     import capo_support.types.nullable_boolean_type
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAttachmentRequest:
     if data.get("attachmentId") is not None:
         out["attachment_id"] = data["attachmentId"]
     else:
-        raise DeserializationError("DescribeAttachmentRequest.attachment_id required")
+        out["attachment_id"] = ""
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
     return out

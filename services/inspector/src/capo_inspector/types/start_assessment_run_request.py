@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.arn
     import capo_inspector.types.assessment_run_name
@@ -34,9 +32,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartAssessmentRunRequest:
     if data.get("assessmentTemplateArn") is not None:
         out["assessment_template_arn"] = data["assessmentTemplateArn"]
     else:
-        raise DeserializationError(
-            "StartAssessmentRunRequest.assessment_template_arn required"
-        )
+        out["assessment_template_arn"] = ""
     if data.get("assessmentRunName") is not None:
         out["assessment_run_name"] = data["assessmentRunName"]
     return out

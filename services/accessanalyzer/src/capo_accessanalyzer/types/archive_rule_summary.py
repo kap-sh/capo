@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.filter_criteria_map
     import capo_accessanalyzer.types.name
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> ArchiveRuleSummary:
     if data.get("ruleName") is not None:
         out["rule_name"] = data["ruleName"]
     else:
-        raise DeserializationError("ArchiveRuleSummary.rule_name required")
+        out["rule_name"] = ""
     if data.get("filter") is not None:
         import capo_accessanalyzer.types.filter_criteria_map
 
@@ -58,7 +56,7 @@ def deserialize_json(data: dict) -> ArchiveRuleSummary:
             data["filter"]
         )
     else:
-        raise DeserializationError("ArchiveRuleSummary.filter required")
+        out["filter"] = {}
     if data.get("createdAt") is not None:
         import capo_accessanalyzer.types.timestamp
 
@@ -66,7 +64,9 @@ def deserialize_json(data: dict) -> ArchiveRuleSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("ArchiveRuleSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_accessanalyzer.types.timestamp
 
@@ -74,5 +74,7 @@ def deserialize_json(data: dict) -> ArchiveRuleSummary:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("ArchiveRuleSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

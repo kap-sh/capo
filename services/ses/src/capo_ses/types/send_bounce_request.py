@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.address
@@ -67,12 +66,12 @@ def deserialize_query(el: Element) -> SendBounceRequest:
     if child_original_message_id is not None:
         out["original_message_id"] = str(child_original_message_id.text or "")
     else:
-        raise DeserializationError("SendBounceRequest.original_message_id required")
+        out["original_message_id"] = ""
     child_bounce_sender = el.find("BounceSender")
     if child_bounce_sender is not None:
         out["bounce_sender"] = str(child_bounce_sender.text or "")
     else:
-        raise DeserializationError("SendBounceRequest.bounce_sender required")
+        out["bounce_sender"] = ""
     child_explanation = el.find("Explanation")
     if child_explanation is not None:
         out["explanation"] = str(child_explanation.text or "")
@@ -93,9 +92,7 @@ def deserialize_query(el: Element) -> SendBounceRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "SendBounceRequest.bounced_recipient_info_list required"
-        )
+        out["bounced_recipient_info_list"] = []
     child_bounce_sender_arn = el.find("BounceSenderArn")
     if child_bounce_sender_arn is not None:
         out["bounce_sender_arn"] = str(child_bounce_sender_arn.text or "")

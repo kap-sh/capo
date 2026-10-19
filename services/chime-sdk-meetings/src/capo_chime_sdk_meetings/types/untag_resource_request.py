@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_meetings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_meetings.types.amazon_resource_name
     import capo_chime_sdk_meetings.types.tag_key_list
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> UntagResourceRequest:
     if data.get("ResourceARN") is not None:
         out["resource_arn"] = data["ResourceARN"]
     else:
-        raise DeserializationError("UntagResourceRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("TagKeys") is not None:
         import capo_chime_sdk_meetings.types.tag_key_list
 
@@ -45,5 +43,5 @@ def deserialize_json(data: dict) -> UntagResourceRequest:
             data["TagKeys"]
         )
     else:
-        raise DeserializationError("UntagResourceRequest.tag_keys required")
+        out["tag_keys"] = []
     return out

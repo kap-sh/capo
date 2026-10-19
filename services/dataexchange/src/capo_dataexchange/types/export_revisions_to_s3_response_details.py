@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.__string
     import capo_dataexchange.types.export_server_side_encryption
@@ -55,9 +53,7 @@ def deserialize_json(data: dict) -> ExportRevisionsToS3ResponseDetails:
     if data.get("DataSetId") is not None:
         out["data_set_id"] = data["DataSetId"]
     else:
-        raise DeserializationError(
-            "ExportRevisionsToS3ResponseDetails.data_set_id required"
-        )
+        out["data_set_id"] = ""
     if data.get("Encryption") is not None:
         import capo_dataexchange.types.export_server_side_encryption
 
@@ -75,9 +71,7 @@ def deserialize_json(data: dict) -> ExportRevisionsToS3ResponseDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "ExportRevisionsToS3ResponseDetails.revision_destinations required"
-        )
+        out["revision_destinations"] = []
     if data.get("EventActionArn") is not None:
         out["event_action_arn"] = data["EventActionArn"]
     return out

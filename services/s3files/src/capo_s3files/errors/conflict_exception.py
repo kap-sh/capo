@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3files.errors import DeserializationError, ServiceError
+from capo_s3files.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_s3files.types.error_code
@@ -39,7 +39,7 @@ def deserialize_json(data: dict) -> ConflictException_:
     if data.get("errorCode") is not None:
         out["error_code"] = data["errorCode"]
     else:
-        raise DeserializationError("ConflictException_.error_code required")
+        out["error_code"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     if data.get("resourceId") is not None:

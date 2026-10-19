@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.domain_id
     import capo_datazone.types.group_identifier
@@ -41,5 +39,9 @@ def deserialize_json(data: dict) -> UpdateGroupProfileInput:
             data["status"]
         )
     else:
-        raise DeserializationError("UpdateGroupProfileInput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_datazone.types.group_profile_status.GroupProfileStatus", ""
+        )
     return out

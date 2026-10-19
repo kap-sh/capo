@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sns.types.string
@@ -38,9 +37,7 @@ def deserialize_query(el: Element) -> ListEndpointsByPlatformApplicationInput:
     if child_platform_application_arn is not None:
         out["platform_application_arn"] = str(child_platform_application_arn.text or "")
     else:
-        raise DeserializationError(
-            "ListEndpointsByPlatformApplicationInput.platform_application_arn required"
-        )
+        out["platform_application_arn"] = ""
     child_next_token = el.find("NextToken")
     if child_next_token is not None:
         out["next_token"] = str(child_next_token.text or "")

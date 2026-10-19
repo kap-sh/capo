@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bcm_dashboards.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_dashboards.types.dashboard_arn
     import capo_bcm_dashboards.types.generic_string
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetResourcePolicyResponse:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("GetResourcePolicyResponse.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("policyDocument") is not None:
         out["policy_document"] = data["policyDocument"]
     else:
-        raise DeserializationError("GetResourcePolicyResponse.policy_document required")
+        out["policy_document"] = ""
     return out

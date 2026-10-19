@@ -94,37 +94,37 @@ def deserialize_json(data: dict) -> DescribeNodeResponse:
     if data.get("NodeId") is not None:
         out["node_id"] = data["NodeId"]
     else:
-        raise DeserializationError("DescribeNodeResponse.node_id required")
+        out["node_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DescribeNodeResponse.name required")
+        out["name"] = ""
     if data.get("Category") is not None:
         out["category"] = data["Category"]
     else:
-        raise DeserializationError("DescribeNodeResponse.category required")
+        out["category"] = ""
     if data.get("OwnerAccount") is not None:
         out["owner_account"] = data["OwnerAccount"]
     else:
-        raise DeserializationError("DescribeNodeResponse.owner_account required")
+        out["owner_account"] = ""
     if data.get("PackageName") is not None:
         out["package_name"] = data["PackageName"]
     else:
-        raise DeserializationError("DescribeNodeResponse.package_name required")
+        out["package_name"] = ""
     if data.get("PackageId") is not None:
         out["package_id"] = data["PackageId"]
     else:
-        raise DeserializationError("DescribeNodeResponse.package_id required")
+        out["package_id"] = ""
     if data.get("PackageArn") is not None:
         out["package_arn"] = data["PackageArn"]
     if data.get("PackageVersion") is not None:
         out["package_version"] = data["PackageVersion"]
     else:
-        raise DeserializationError("DescribeNodeResponse.package_version required")
+        out["package_version"] = ""
     if data.get("PatchVersion") is not None:
         out["patch_version"] = data["PatchVersion"]
     else:
-        raise DeserializationError("DescribeNodeResponse.patch_version required")
+        out["patch_version"] = ""
     if data.get("NodeInterface") is not None:
         import capo_panorama.types.node_interface
 
@@ -138,7 +138,7 @@ def deserialize_json(data: dict) -> DescribeNodeResponse:
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("DescribeNodeResponse.description required")
+        out["description"] = ""
     if data.get("CreatedTime") is not None:
         import capo_panorama.types.time_stamp
 
@@ -146,7 +146,11 @@ def deserialize_json(data: dict) -> DescribeNodeResponse:
             data["CreatedTime"]
         )
     else:
-        raise DeserializationError("DescribeNodeResponse.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("LastUpdatedTime") is not None:
         import capo_panorama.types.time_stamp
 
@@ -154,5 +158,9 @@ def deserialize_json(data: dict) -> DescribeNodeResponse:
             data["LastUpdatedTime"]
         )
     else:
-        raise DeserializationError("DescribeNodeResponse.last_updated_time required")
+        import datetime
+
+        out["last_updated_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

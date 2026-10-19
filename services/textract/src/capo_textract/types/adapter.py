@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_textract.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_textract.types.adapter_id
     import capo_textract.types.adapter_pages
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> Adapter:
     if data.get("AdapterId") is not None:
         out["adapter_id"] = data["AdapterId"]
     else:
-        raise DeserializationError("Adapter.adapter_id required")
+        out["adapter_id"] = ""
     if data.get("Pages") is not None:
         import capo_textract.types.adapter_pages
 
@@ -50,5 +48,5 @@ def deserialize_aws_json_1_1(data: dict) -> Adapter:
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     else:
-        raise DeserializationError("Adapter.version required")
+        out["version"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_polly.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_polly.types.lexicon_content
     import capo_polly.types.lexicon_name
@@ -30,7 +28,7 @@ def deserialize_json(data: dict) -> PutLexiconInput:
     if data.get("Content") is not None:
         out["content"] = data["Content"]
     else:
-        raise DeserializationError("PutLexiconInput.content required")
+        out["content"] = ""
     return out
 
 

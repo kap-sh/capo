@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_model_building_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_model_building_service.types.alias_name
     import capo_lex_model_building_service.types.bot_name
@@ -69,7 +67,7 @@ def deserialize_json(data: dict) -> PutBotAliasRequest:
     if data.get("botVersion") is not None:
         out["bot_version"] = data["botVersion"]
     else:
-        raise DeserializationError("PutBotAliasRequest.bot_version required")
+        out["bot_version"] = ""
     if data.get("checksum") is not None:
         out["checksum"] = data["checksum"]
     if data.get("conversationLogs") is not None:

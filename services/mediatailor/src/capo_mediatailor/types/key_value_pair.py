@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 
 class KeyValuePair(TypedDict, closed=True):
     key: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> KeyValuePair:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("KeyValuePair.key required")
+        out["key"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("KeyValuePair.value required")
+        out["value"] = ""
     return out

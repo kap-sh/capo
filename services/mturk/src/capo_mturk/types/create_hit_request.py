@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mturk.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mturk.types.currency_amount
     import capo_mturk.types.entity_id
@@ -123,27 +121,25 @@ def deserialize_aws_json_1_1(data: dict) -> CreateHITRequest:
     if data.get("LifetimeInSeconds") is not None:
         out["lifetime_in_seconds"] = data["LifetimeInSeconds"]
     else:
-        raise DeserializationError("CreateHITRequest.lifetime_in_seconds required")
+        out["lifetime_in_seconds"] = 0
     if data.get("AssignmentDurationInSeconds") is not None:
         out["assignment_duration_in_seconds"] = data["AssignmentDurationInSeconds"]
     else:
-        raise DeserializationError(
-            "CreateHITRequest.assignment_duration_in_seconds required"
-        )
+        out["assignment_duration_in_seconds"] = 0
     if data.get("Reward") is not None:
         out["reward"] = data["Reward"]
     else:
-        raise DeserializationError("CreateHITRequest.reward required")
+        out["reward"] = ""
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     else:
-        raise DeserializationError("CreateHITRequest.title required")
+        out["title"] = ""
     if data.get("Keywords") is not None:
         out["keywords"] = data["Keywords"]
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("CreateHITRequest.description required")
+        out["description"] = ""
     if data.get("Question") is not None:
         out["question"] = data["Question"]
     if data.get("RequesterAnnotation") is not None:

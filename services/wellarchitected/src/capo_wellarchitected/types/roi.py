@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 
 class Roi(TypedDict, closed=True):
     estimate: NotRequired["str"]
@@ -28,5 +26,5 @@ def deserialize_json(data: dict) -> Roi:
     if data.get("detail") is not None:
         out["detail"] = data["detail"]
     else:
-        raise DeserializationError("Roi.detail required")
+        out["detail"] = ""
     return out

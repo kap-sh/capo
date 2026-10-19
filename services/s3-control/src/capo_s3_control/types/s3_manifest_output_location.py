@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.account_id
@@ -70,7 +69,7 @@ def deserialize_xml(el: Element) -> S3ManifestOutputLocation:
     if child_bucket is not None:
         out["bucket"] = str(child_bucket.text or "")
     else:
-        raise DeserializationError("S3ManifestOutputLocation.bucket required")
+        out["bucket"] = ""
     child_manifest_prefix = el.find("ManifestPrefix")
     if child_manifest_prefix is not None:
         out["manifest_prefix"] = str(child_manifest_prefix.text or "")
@@ -93,5 +92,10 @@ def deserialize_xml(el: Element) -> S3ManifestOutputLocation:
             )
         )
     else:
-        raise DeserializationError("S3ManifestOutputLocation.manifest_format required")
+        import typing
+
+        out["manifest_format"] = typing.cast(
+            "capo_s3_control.types.generated_manifest_format.GeneratedManifestFormat",
+            "",
+        )
     return out

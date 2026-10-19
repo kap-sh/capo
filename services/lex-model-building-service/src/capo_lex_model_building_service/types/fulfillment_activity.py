@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_model_building_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_model_building_service.types.code_hook
     import capo_lex_model_building_service.types.fulfillment_activity_type
@@ -50,7 +48,12 @@ def deserialize_json(data: dict) -> FulfillmentActivity:
             )
         )
     else:
-        raise DeserializationError("FulfillmentActivity.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_lex_model_building_service.types.fulfillment_activity_type.FulfillmentActivityType",
+            "",
+        )
     if data.get("codeHook") is not None:
         import capo_lex_model_building_service.types.code_hook
 

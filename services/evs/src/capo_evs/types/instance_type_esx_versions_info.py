@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_evs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_evs.types.esx_version_list
     import capo_evs.types.instance_type
@@ -43,7 +41,11 @@ def deserialize_aws_json_1_0(data: dict) -> InstanceTypeEsxVersionsInfo:
             data["instanceType"]
         )
     else:
-        raise DeserializationError("InstanceTypeEsxVersionsInfo.instance_type required")
+        import typing
+
+        out["instance_type"] = typing.cast(
+            "capo_evs.types.instance_type.InstanceType", ""
+        )
     if data.get("esxVersions") is not None:
         import capo_evs.types.esx_version_list
 
@@ -51,5 +53,5 @@ def deserialize_aws_json_1_0(data: dict) -> InstanceTypeEsxVersionsInfo:
             data["esxVersions"]
         )
     else:
-        raise DeserializationError("InstanceTypeEsxVersionsInfo.esx_versions required")
+        out["esx_versions"] = []
     return out

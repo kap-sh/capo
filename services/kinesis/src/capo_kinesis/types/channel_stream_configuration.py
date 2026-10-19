@@ -37,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> ChannelStreamConfiguration:
     if data.get("StreamARN") is not None:
         out["stream_arn"] = data["StreamARN"]
     else:
-        raise DeserializationError("ChannelStreamConfiguration.stream_arn required")
+        out["stream_arn"] = ""
     if data.get("RecordConfiguration") is not None:
         import capo_kinesis.types.record_configuration
 

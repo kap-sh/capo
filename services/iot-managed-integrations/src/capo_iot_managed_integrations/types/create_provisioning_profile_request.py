@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.ca_certificate
     import capo_iot_managed_integrations.types.claim_certificate
@@ -78,8 +76,10 @@ def deserialize_json(data: dict) -> CreateProvisioningProfileRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateProvisioningProfileRequest.provisioning_type required"
+        import typing
+
+        out["provisioning_type"] = typing.cast(
+            "capo_iot_managed_integrations.types.provisioning_type.ProvisioningType", ""
         )
     if data.get("CaCertificate") is not None:
         out["ca_certificate"] = data["CaCertificate"]

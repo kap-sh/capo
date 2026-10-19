@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rtbfabric.types.action
     import capo_rtbfabric.types.filter_configuration
@@ -64,8 +62,10 @@ def deserialize_json(data: dict) -> OpenRtbAttributeModuleParameters:
             data["filterType"]
         )
     else:
-        raise DeserializationError(
-            "OpenRtbAttributeModuleParameters.filter_type required"
+        import typing
+
+        out["filter_type"] = typing.cast(
+            "capo_rtbfabric.types.filter_type.FilterType", ""
         )
     if data.get("filterConfiguration") is not None:
         import capo_rtbfabric.types.filter_configuration
@@ -76,19 +76,17 @@ def deserialize_json(data: dict) -> OpenRtbAttributeModuleParameters:
             )
         )
     else:
-        raise DeserializationError(
-            "OpenRtbAttributeModuleParameters.filter_configuration required"
-        )
+        out["filter_configuration"] = []
     if data.get("action") is not None:
         import capo_rtbfabric.types.action
 
         out["action"] = capo_rtbfabric.types.action.deserialize_json(data["action"])
     else:
-        raise DeserializationError("OpenRtbAttributeModuleParameters.action required")
+        import capo_rtbfabric.types._unknown
+
+        out["action"] = capo_rtbfabric.types._unknown.UnknownUnionMember("")
     if data.get("holdbackPercentage") is not None:
         out["holdback_percentage"] = float(data["holdbackPercentage"])
     else:
-        raise DeserializationError(
-            "OpenRtbAttributeModuleParameters.holdback_percentage required"
-        )
+        out["holdback_percentage"] = 0.0
     return out

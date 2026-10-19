@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.boolean
     import capo_workmail.types.organization_id
@@ -51,11 +49,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateResourceRequest:
     if data.get("OrganizationId") is not None:
         out["organization_id"] = data["OrganizationId"]
     else:
-        raise DeserializationError("CreateResourceRequest.organization_id required")
+        out["organization_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateResourceRequest.name required")
+        out["name"] = ""
     if data.get("Type") is not None:
         import capo_workmail.types.resource_type
 
@@ -63,7 +61,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateResourceRequest:
             data["Type"]
         )
     else:
-        raise DeserializationError("CreateResourceRequest.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_workmail.types.resource_type.ResourceType", "")
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("HiddenFromGlobalAddressList") is not None:

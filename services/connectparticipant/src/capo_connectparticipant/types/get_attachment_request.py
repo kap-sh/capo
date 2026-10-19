@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectparticipant.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectparticipant.types.artifact_id
     import capo_connectparticipant.types.participant_token
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> GetAttachmentRequest:
     if data.get("AttachmentId") is not None:
         out["attachment_id"] = data["AttachmentId"]
     else:
-        raise DeserializationError("GetAttachmentRequest.attachment_id required")
+        out["attachment_id"] = ""
     if data.get("UrlExpiryInSeconds") is not None:
         out["url_expiry_in_seconds"] = data["UrlExpiryInSeconds"]
     return out

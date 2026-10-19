@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.boolean
     import capo_lex_models_v2.types.kendra_index_arn
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> QnAKendraConfiguration:
     if data.get("kendraIndex") is not None:
         out["kendra_index"] = data["kendraIndex"]
     else:
-        raise DeserializationError("QnAKendraConfiguration.kendra_index required")
+        out["kendra_index"] = ""
     if data.get("queryFilterStringEnabled") is not None:
         out["query_filter_string_enabled"] = data["queryFilterStringEnabled"]
     else:

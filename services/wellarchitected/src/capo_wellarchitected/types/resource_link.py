@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 
 class ResourceLink(TypedDict, closed=True):
     url: "str"
@@ -26,7 +24,7 @@ def deserialize_json(data: dict) -> ResourceLink:
     if data.get("url") is not None:
         out["url"] = data["url"]
     else:
-        raise DeserializationError("ResourceLink.url required")
+        out["url"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     return out

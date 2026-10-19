@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.recipe_name
     import capo_databrew.types.recipe_version_list
@@ -40,7 +38,5 @@ def deserialize_json(data: dict) -> BatchDeleteRecipeVersionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDeleteRecipeVersionRequest.recipe_versions required"
-        )
+        out["recipe_versions"] = []
     return out

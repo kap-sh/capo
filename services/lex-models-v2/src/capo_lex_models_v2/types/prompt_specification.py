@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.boxed_boolean
     import capo_lex_models_v2.types.message_groups_list
@@ -72,11 +70,11 @@ def deserialize_json(data: dict) -> PromptSpecification:
             )
         )
     else:
-        raise DeserializationError("PromptSpecification.message_groups required")
+        out["message_groups"] = []
     if data.get("maxRetries") is not None:
         out["max_retries"] = data["maxRetries"]
     else:
-        raise DeserializationError("PromptSpecification.max_retries required")
+        out["max_retries"] = 0
     if data.get("allowInterrupt") is not None:
         out["allow_interrupt"] = data["allowInterrupt"]
     if data.get("messageSelectionStrategy") is not None:

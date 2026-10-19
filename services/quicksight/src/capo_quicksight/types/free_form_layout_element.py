@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.border_radius
     import capo_quicksight.types.free_form_layout_element_background_style
@@ -134,7 +132,7 @@ def deserialize_json(data: dict) -> FreeFormLayoutElement:
     if data.get("ElementId") is not None:
         out["element_id"] = data["ElementId"]
     else:
-        raise DeserializationError("FreeFormLayoutElement.element_id required")
+        out["element_id"] = ""
     if data.get("ElementType") is not None:
         import capo_quicksight.types.layout_element_type
 
@@ -144,23 +142,27 @@ def deserialize_json(data: dict) -> FreeFormLayoutElement:
             )
         )
     else:
-        raise DeserializationError("FreeFormLayoutElement.element_type required")
+        import typing
+
+        out["element_type"] = typing.cast(
+            "capo_quicksight.types.layout_element_type.LayoutElementType", ""
+        )
     if data.get("XAxisLocation") is not None:
         out["x_axis_location"] = data["XAxisLocation"]
     else:
-        raise DeserializationError("FreeFormLayoutElement.x_axis_location required")
+        out["x_axis_location"] = ""
     if data.get("YAxisLocation") is not None:
         out["y_axis_location"] = data["YAxisLocation"]
     else:
-        raise DeserializationError("FreeFormLayoutElement.y_axis_location required")
+        out["y_axis_location"] = ""
     if data.get("Width") is not None:
         out["width"] = data["Width"]
     else:
-        raise DeserializationError("FreeFormLayoutElement.width required")
+        out["width"] = ""
     if data.get("Height") is not None:
         out["height"] = data["Height"]
     else:
-        raise DeserializationError("FreeFormLayoutElement.height required")
+        out["height"] = ""
     if data.get("Visibility") is not None:
         import capo_quicksight.types.visibility
 

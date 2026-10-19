@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_backup_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup_gateway.types.iam_role_arn
     import capo_backup_gateway.types.server_arn
@@ -43,9 +41,7 @@ def deserialize_aws_json_1_0(data: dict) -> PutHypervisorPropertyMappingsInput:
     if data.get("HypervisorArn") is not None:
         out["hypervisor_arn"] = data["HypervisorArn"]
     else:
-        raise DeserializationError(
-            "PutHypervisorPropertyMappingsInput.hypervisor_arn required"
-        )
+        out["hypervisor_arn"] = ""
     if data.get("VmwareToAwsTagMappings") is not None:
         import capo_backup_gateway.types.vmware_to_aws_tag_mappings
 
@@ -55,13 +51,9 @@ def deserialize_aws_json_1_0(data: dict) -> PutHypervisorPropertyMappingsInput:
             )
         )
     else:
-        raise DeserializationError(
-            "PutHypervisorPropertyMappingsInput.vmware_to_aws_tag_mappings required"
-        )
+        out["vmware_to_aws_tag_mappings"] = []
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     else:
-        raise DeserializationError(
-            "PutHypervisorPropertyMappingsInput.iam_role_arn required"
-        )
+        out["iam_role_arn"] = ""
     return out

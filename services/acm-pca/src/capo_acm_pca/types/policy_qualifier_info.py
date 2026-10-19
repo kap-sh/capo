@@ -47,7 +47,11 @@ def deserialize_aws_json_1_1(data: dict) -> PolicyQualifierInfo:
             )
         )
     else:
-        raise DeserializationError("PolicyQualifierInfo.policy_qualifier_id required")
+        import typing
+
+        out["policy_qualifier_id"] = typing.cast(
+            "capo_acm_pca.types.policy_qualifier_id.PolicyQualifierId", ""
+        )
     if data.get("Qualifier") is not None:
         import capo_acm_pca.types.qualifier
 

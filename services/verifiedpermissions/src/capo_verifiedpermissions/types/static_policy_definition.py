@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.policy_statement
     import capo_verifiedpermissions.types.static_policy_description
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_0(data: dict) -> StaticPolicyDefinition:
     if data.get("statement") is not None:
         out["statement"] = data["statement"]
     else:
-        raise DeserializationError("StaticPolicyDefinition.statement required")
+        out["statement"] = ""
     return out
 
 

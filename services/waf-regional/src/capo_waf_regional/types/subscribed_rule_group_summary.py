@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_waf_regional.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf_regional.types.metric_name
     import capo_waf_regional.types.resource_id
@@ -35,13 +33,13 @@ def deserialize_aws_json_1_1(data: dict) -> SubscribedRuleGroupSummary:
     if data.get("RuleGroupId") is not None:
         out["rule_group_id"] = data["RuleGroupId"]
     else:
-        raise DeserializationError("SubscribedRuleGroupSummary.rule_group_id required")
+        out["rule_group_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("SubscribedRuleGroupSummary.name required")
+        out["name"] = ""
     if data.get("MetricName") is not None:
         out["metric_name"] = data["MetricName"]
     else:
-        raise DeserializationError("SubscribedRuleGroupSummary.metric_name required")
+        out["metric_name"] = ""
     return out

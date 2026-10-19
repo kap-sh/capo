@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -136,13 +134,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetIngressPointResponse:
     if data.get("IngressPointId") is not None:
         out["ingress_point_id"] = data["IngressPointId"]
     else:
-        raise DeserializationError("GetIngressPointResponse.ingress_point_id required")
+        out["ingress_point_id"] = ""
     if data.get("IngressPointName") is not None:
         out["ingress_point_name"] = data["IngressPointName"]
     else:
-        raise DeserializationError(
-            "GetIngressPointResponse.ingress_point_name required"
-        )
+        out["ingress_point_name"] = ""
     if data.get("IngressPointArn") is not None:
         out["ingress_point_arn"] = data["IngressPointArn"]
     if data.get("Status") is not None:

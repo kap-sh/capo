@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_backupsearch.errors import DeserializationError, ServiceError
+from capo_backupsearch.errors import ServiceError
 
 
 class AccessDeniedException_(TypedDict, closed=True):
@@ -23,7 +23,7 @@ def deserialize_json(data: dict) -> AccessDeniedException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("AccessDeniedException_.message required")
+        out["message"] = ""
     return out
 
 

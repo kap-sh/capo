@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.string_map
 
@@ -37,5 +35,5 @@ def deserialize_aws_json_1_0(data: dict) -> ProfileMappingSource:
             )
         )
     else:
-        raise DeserializationError("ProfileMappingSource.profile_mapping required")
+        out["profile_mapping"] = {}
     return out

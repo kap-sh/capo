@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_agent_registry.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_agent_registry.types.metadata_filter_expression
     import capo_agent_registry.types.registry_id_list
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> SearchDiscoverableRegistryRecordsRequest:
     if data.get("searchQuery") is not None:
         out["search_query"] = data["searchQuery"]
     else:
-        raise DeserializationError(
-            "SearchDiscoverableRegistryRecordsRequest.search_query required"
-        )
+        out["search_query"] = ""
     if data.get("registryIds") is not None:
         import capo_agent_registry.types.registry_id_list
 
@@ -58,9 +54,7 @@ def deserialize_json(data: dict) -> SearchDiscoverableRegistryRecordsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "SearchDiscoverableRegistryRecordsRequest.registry_ids required"
-        )
+        out["registry_ids"] = []
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("filters") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_keyspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_keyspaces.types.clustering_key_list
     import capo_keyspaces.types.column_definition_list
@@ -75,7 +73,7 @@ def deserialize_aws_json_1_0(data: dict) -> SchemaDefinition:
             )
         )
     else:
-        raise DeserializationError("SchemaDefinition.all_columns required")
+        out["all_columns"] = []
     if data.get("partitionKeys") is not None:
         import capo_keyspaces.types.partition_key_list
 
@@ -85,7 +83,7 @@ def deserialize_aws_json_1_0(data: dict) -> SchemaDefinition:
             )
         )
     else:
-        raise DeserializationError("SchemaDefinition.partition_keys required")
+        out["partition_keys"] = []
     if data.get("clusteringKeys") is not None:
         import capo_keyspaces.types.clustering_key_list
 

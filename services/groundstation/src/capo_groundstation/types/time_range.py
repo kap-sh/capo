@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -44,7 +42,9 @@ def deserialize_json(data: dict) -> TimeRange:
             )
         )
     else:
-        raise DeserializationError("TimeRange.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_groundstation.types._prelude.timestamp
 
@@ -52,5 +52,7 @@ def deserialize_json(data: dict) -> TimeRange:
             data["endTime"]
         )
     else:
-        raise DeserializationError("TimeRange.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

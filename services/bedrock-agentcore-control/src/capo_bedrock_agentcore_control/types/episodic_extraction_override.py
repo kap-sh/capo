@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.prompt
 
@@ -30,13 +28,11 @@ def deserialize_json(data: dict) -> EpisodicExtractionOverride:
     if data.get("appendToPrompt") is not None:
         out["append_to_prompt"] = data["appendToPrompt"]
     else:
-        raise DeserializationError(
-            "EpisodicExtractionOverride.append_to_prompt required"
-        )
+        out["append_to_prompt"] = ""
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:
-        raise DeserializationError("EpisodicExtractionOverride.model_id required")
+        out["model_id"] = ""
     return out
 
 

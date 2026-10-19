@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.aws_product_optimizations_list
     import capo_partnercentral_selling.types.monetary_amount
@@ -69,7 +67,7 @@ def deserialize_aws_json_1_0(data: dict) -> AwsProductDetails:
     if data.get("ProductCode") is not None:
         out["product_code"] = data["ProductCode"]
     else:
-        raise DeserializationError("AwsProductDetails.product_code required")
+        out["product_code"] = ""
     if data.get("ServiceCode") is not None:
         out["service_code"] = data["ServiceCode"]
     if data.get("Categories") is not None:
@@ -81,7 +79,7 @@ def deserialize_aws_json_1_0(data: dict) -> AwsProductDetails:
             )
         )
     else:
-        raise DeserializationError("AwsProductDetails.categories required")
+        out["categories"] = []
     if data.get("Amount") is not None:
         out["amount"] = data["Amount"]
     if data.get("OptimizedAmount") is not None:
@@ -97,7 +95,7 @@ def deserialize_aws_json_1_0(data: dict) -> AwsProductDetails:
             )
         )
     else:
-        raise DeserializationError("AwsProductDetails.optimizations required")
+        out["optimizations"] = []
     return out
 
 

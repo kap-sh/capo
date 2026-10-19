@@ -76,7 +76,7 @@ def deserialize_json(data: dict) -> UpdateDetectorModelRequest:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("UpdateDetectorModelRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("evaluationMethod") is not None:
         import capo_iot_events.types.evaluation_method
 

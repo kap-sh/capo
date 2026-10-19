@@ -86,7 +86,7 @@ def deserialize_json(data: dict) -> StripePrivyConfigurationOutput:
     if data.get("appId") is not None:
         out["app_id"] = data["appId"]
     else:
-        raise DeserializationError("StripePrivyConfigurationOutput.app_id required")
+        out["app_id"] = ""
     if data.get("appSecretArn") is not None:
         import capo_bedrock_agentcore_control.types.secret
 
@@ -136,7 +136,5 @@ def deserialize_json(data: dict) -> StripePrivyConfigurationOutput:
     if data.get("authorizationId") is not None:
         out["authorization_id"] = data["authorizationId"]
     else:
-        raise DeserializationError(
-            "StripePrivyConfigurationOutput.authorization_id required"
-        )
+        out["authorization_id"] = ""
     return out

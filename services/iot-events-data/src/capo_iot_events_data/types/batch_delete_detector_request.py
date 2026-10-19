@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_events_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events_data.types.delete_detector_requests
 
@@ -41,5 +39,5 @@ def deserialize_json(data: dict) -> BatchDeleteDetectorRequest:
             )
         )
     else:
-        raise DeserializationError("BatchDeleteDetectorRequest.detectors required")
+        out["detectors"] = []
     return out

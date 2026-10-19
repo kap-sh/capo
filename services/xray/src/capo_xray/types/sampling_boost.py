@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_xray.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_xray.types.double
     import capo_xray.types.timestamp
@@ -51,5 +49,9 @@ def deserialize_json(data: dict) -> SamplingBoost:
             data["BoostRateTTL"]
         )
     else:
-        raise DeserializationError("SamplingBoost.boost_rate_ttl required")
+        import datetime
+
+        out["boost_rate_ttl"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

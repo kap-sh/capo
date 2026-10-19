@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.dlp_action
     import capo_quicksight.types.label_id
@@ -37,11 +35,11 @@ def deserialize_json(data: dict) -> LabelActionMapping:
     if data.get("LabelId") is not None:
         out["label_id"] = data["LabelId"]
     else:
-        raise DeserializationError("LabelActionMapping.label_id required")
+        out["label_id"] = ""
     if data.get("LabelName") is not None:
         out["label_name"] = data["LabelName"]
     else:
-        raise DeserializationError("LabelActionMapping.label_name required")
+        out["label_name"] = ""
     if data.get("Action") is not None:
         import capo_quicksight.types.dlp_action
 
@@ -49,5 +47,7 @@ def deserialize_json(data: dict) -> LabelActionMapping:
             data["Action"]
         )
     else:
-        raise DeserializationError("LabelActionMapping.action required")
+        import typing
+
+        out["action"] = typing.cast("capo_quicksight.types.dlp_action.DlpAction", "")
     return out

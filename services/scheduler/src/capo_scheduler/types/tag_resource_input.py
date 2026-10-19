@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_scheduler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_scheduler.types.tag_list
     import capo_scheduler.types.tag_resource_arn
@@ -34,5 +32,5 @@ def deserialize_json(data: dict) -> TagResourceInput:
 
         out["tags"] = capo_scheduler.types.tag_list.deserialize_json(data["Tags"])
     else:
-        raise DeserializationError("TagResourceInput.tags required")
+        out["tags"] = []
     return out

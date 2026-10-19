@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_outposts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_outposts.types.line_item_request_list_definition
     import capo_outposts.types.outpost_identifier
@@ -71,7 +69,7 @@ def deserialize_json(data: dict) -> CreateOrderInput:
     if data.get("OutpostIdentifier") is not None:
         out["outpost_identifier"] = data["OutpostIdentifier"]
     else:
-        raise DeserializationError("CreateOrderInput.outpost_identifier required")
+        out["outpost_identifier"] = ""
     if data.get("QuoteIdentifier") is not None:
         out["quote_identifier"] = data["QuoteIdentifier"]
     if data.get("QuoteOptionIdentifier") is not None:
@@ -91,7 +89,11 @@ def deserialize_json(data: dict) -> CreateOrderInput:
             data["PaymentOption"]
         )
     else:
-        raise DeserializationError("CreateOrderInput.payment_option required")
+        import typing
+
+        out["payment_option"] = typing.cast(
+            "capo_outposts.types.payment_option.PaymentOption", ""
+        )
     if data.get("PaymentTerm") is not None:
         import capo_outposts.types.payment_term
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rtbfabric.types.responder_error_masking_action
     import capo_rtbfabric.types.responder_error_masking_logging_types
@@ -57,9 +55,7 @@ def deserialize_json(data: dict) -> ResponderErrorMaskingForHttpCode:
     if data.get("httpCode") is not None:
         out["http_code"] = data["httpCode"]
     else:
-        raise DeserializationError(
-            "ResponderErrorMaskingForHttpCode.http_code required"
-        )
+        out["http_code"] = ""
     if data.get("action") is not None:
         import capo_rtbfabric.types.responder_error_masking_action
 
@@ -69,7 +65,12 @@ def deserialize_json(data: dict) -> ResponderErrorMaskingForHttpCode:
             )
         )
     else:
-        raise DeserializationError("ResponderErrorMaskingForHttpCode.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_rtbfabric.types.responder_error_masking_action.ResponderErrorMaskingAction",
+            "",
+        )
     if data.get("loggingTypes") is not None:
         import capo_rtbfabric.types.responder_error_masking_logging_types
 
@@ -79,9 +80,7 @@ def deserialize_json(data: dict) -> ResponderErrorMaskingForHttpCode:
             )
         )
     else:
-        raise DeserializationError(
-            "ResponderErrorMaskingForHttpCode.logging_types required"
-        )
+        out["logging_types"] = []
     if data.get("responseLoggingPercentage") is not None:
         out["response_logging_percentage"] = float(data["responseLoggingPercentage"])
     return out

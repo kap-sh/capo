@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.agent_space_id
     import capo_securityagent.types.artifact_type
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> AddArtifactInput:
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError("AddArtifactInput.agent_space_id required")
+        out["agent_space_id"] = ""
     if data.get("artifactContent") is not None:
         import capo_securityagent.types._prelude.blob
 
@@ -55,7 +53,7 @@ def deserialize_json(data: dict) -> AddArtifactInput:
             )
         )
     else:
-        raise DeserializationError("AddArtifactInput.artifact_content required")
+        out["artifact_content"] = b""
     if data.get("artifactType") is not None:
         import capo_securityagent.types.artifact_type
 
@@ -63,9 +61,13 @@ def deserialize_json(data: dict) -> AddArtifactInput:
             data["artifactType"]
         )
     else:
-        raise DeserializationError("AddArtifactInput.artifact_type required")
+        import typing
+
+        out["artifact_type"] = typing.cast(
+            "capo_securityagent.types.artifact_type.ArtifactType", ""
+        )
     if data.get("fileName") is not None:
         out["file_name"] = data["fileName"]
     else:
-        raise DeserializationError("AddArtifactInput.file_name required")
+        out["file_name"] = ""
     return out

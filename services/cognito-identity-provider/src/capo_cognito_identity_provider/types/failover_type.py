@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.health_check_id_type
     import capo_cognito_identity_provider.types.region_name_type
@@ -35,11 +33,9 @@ def deserialize_aws_json_1_1(data: dict) -> FailoverType:
     if data.get("SecondaryRegion") is not None:
         out["secondary_region"] = data["SecondaryRegion"]
     else:
-        raise DeserializationError("FailoverType.secondary_region required")
+        out["secondary_region"] = ""
     if data.get("PrimaryRoute53HealthCheckId") is not None:
         out["primary_route53_health_check_id"] = data["PrimaryRoute53HealthCheckId"]
     else:
-        raise DeserializationError(
-            "FailoverType.primary_route53_health_check_id required"
-        )
+        out["primary_route53_health_check_id"] = ""
     return out

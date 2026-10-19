@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.custom_actions
     import capo_network_firewall.types.enable_tls_session_holding
@@ -152,7 +150,7 @@ def deserialize_aws_json_1_0(data: dict) -> FirewallPolicy:
             )
         )
     else:
-        raise DeserializationError("FirewallPolicy.stateless_default_actions required")
+        out["stateless_default_actions"] = []
     if data.get("StatelessFragmentDefaultActions") is not None:
         import capo_network_firewall.types.stateless_actions
 
@@ -162,9 +160,7 @@ def deserialize_aws_json_1_0(data: dict) -> FirewallPolicy:
             )
         )
     else:
-        raise DeserializationError(
-            "FirewallPolicy.stateless_fragment_default_actions required"
-        )
+        out["stateless_fragment_default_actions"] = []
     if data.get("StatelessCustomActions") is not None:
         import capo_network_firewall.types.custom_actions
 

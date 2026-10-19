@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_clouddirectory.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_clouddirectory.types.arn
     import capo_clouddirectory.types.schema_name
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> PublishSchemaRequest:
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     else:
-        raise DeserializationError("PublishSchemaRequest.version required")
+        out["version"] = ""
     if data.get("MinorVersion") is not None:
         out["minor_version"] = data["MinorVersion"]
     if data.get("Name") is not None:

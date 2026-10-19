@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.cell_value
     import capo_quicksight.types.column_id
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> PivotedLabel:
     if data.get("LabelName") is not None:
         out["label_name"] = data["LabelName"]
     else:
-        raise DeserializationError("PivotedLabel.label_name required")
+        out["label_name"] = ""
     if data.get("NewColumnName") is not None:
         out["new_column_name"] = data["NewColumnName"]
     else:
-        raise DeserializationError("PivotedLabel.new_column_name required")
+        out["new_column_name"] = ""
     if data.get("NewColumnId") is not None:
         out["new_column_id"] = data["NewColumnId"]
     else:
-        raise DeserializationError("PivotedLabel.new_column_id required")
+        out["new_column_id"] = ""
     return out

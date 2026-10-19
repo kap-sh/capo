@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.list_of_lf_tags
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> TableLFTagPolicy:
             data["Expression"]
         )
     else:
-        raise DeserializationError("TableLFTagPolicy.expression required")
+        out["expression"] = []
     return out

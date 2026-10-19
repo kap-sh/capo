@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.currency
     import capo_wafv2.types.filter_string
@@ -126,7 +124,9 @@ def deserialize_aws_json_1_1(data: dict) -> SettlementRecord:
             data["Timestamp"]
         )
     else:
-        raise DeserializationError("SettlementRecord.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("PayerAddress") is not None:
         out["payer_address"] = data["PayerAddress"]
     if data.get("WalletAddress") is not None:
@@ -138,11 +138,15 @@ def deserialize_aws_json_1_1(data: dict) -> SettlementRecord:
             data["Status"]
         )
     else:
-        raise DeserializationError("SettlementRecord.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_wafv2.types.settlement_status.SettlementStatus", ""
+        )
     if data.get("Amount") is not None:
         out["amount"] = data["Amount"]
     else:
-        raise DeserializationError("SettlementRecord.amount required")
+        out["amount"] = ""
     if data.get("Currency") is not None:
         import capo_wafv2.types.currency
 

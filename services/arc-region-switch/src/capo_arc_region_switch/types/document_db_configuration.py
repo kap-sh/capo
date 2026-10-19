@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.document_db_cluster_arns
     import capo_arc_region_switch.types.document_db_default_behavior
@@ -102,9 +100,7 @@ def deserialize_aws_json_1_0(data: dict) -> DocumentDbConfiguration:
     if data.get("globalClusterIdentifier") is not None:
         out["global_cluster_identifier"] = data["globalClusterIdentifier"]
     else:
-        raise DeserializationError(
-            "DocumentDbConfiguration.global_cluster_identifier required"
-        )
+        out["global_cluster_identifier"] = ""
     if data.get("databaseClusterArns") is not None:
         import capo_arc_region_switch.types.document_db_cluster_arns
 
@@ -114,7 +110,5 @@ def deserialize_aws_json_1_0(data: dict) -> DocumentDbConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "DocumentDbConfiguration.database_cluster_arns required"
-        )
+        out["database_cluster_arns"] = []
     return out

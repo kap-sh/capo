@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.aws_account_id
     import capo_partnercentral_account.types.connection_type_status
@@ -86,15 +84,17 @@ def deserialize_aws_json_1_0(data: dict) -> ConnectionTypeDetail:
             )
         )
     else:
-        raise DeserializationError("ConnectionTypeDetail.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("InviterEmail") is not None:
         out["inviter_email"] = data["InviterEmail"]
     else:
-        raise DeserializationError("ConnectionTypeDetail.inviter_email required")
+        out["inviter_email"] = ""
     if data.get("InviterName") is not None:
         out["inviter_name"] = data["InviterName"]
     else:
-        raise DeserializationError("ConnectionTypeDetail.inviter_name required")
+        out["inviter_name"] = ""
     if data.get("Status") is not None:
         import capo_partnercentral_account.types.connection_type_status
 
@@ -104,7 +104,12 @@ def deserialize_aws_json_1_0(data: dict) -> ConnectionTypeDetail:
             )
         )
     else:
-        raise DeserializationError("ConnectionTypeDetail.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_partnercentral_account.types.connection_type_status.ConnectionTypeStatus",
+            "",
+        )
     if data.get("CanceledAt") is not None:
         import capo_partnercentral_account.types.date_time
 
@@ -124,7 +129,11 @@ def deserialize_aws_json_1_0(data: dict) -> ConnectionTypeDetail:
             )
         )
     else:
-        raise DeserializationError("ConnectionTypeDetail.other_participant required")
+        import capo_partnercentral_account.types._unknown
+
+        out["other_participant"] = (
+            capo_partnercentral_account.types._unknown.UnknownUnionMember("")
+        )
     return out
 
 

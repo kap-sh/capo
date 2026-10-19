@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.description_string
     import capo_bedrock_agent.types.include_exclude
@@ -58,7 +56,7 @@ def deserialize_json(data: dict) -> QueryGenerationTable:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("QueryGenerationTable.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("inclusion") is not None:

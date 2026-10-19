@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resource_groups.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resource_groups.types.group_filter_name
     import capo_resource_groups.types.group_filter_values
@@ -43,7 +41,11 @@ def deserialize_json(data: dict) -> GroupFilter:
             data["Name"]
         )
     else:
-        raise DeserializationError("GroupFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_resource_groups.types.group_filter_name.GroupFilterName", ""
+        )
     if data.get("Values") is not None:
         import capo_resource_groups.types.group_filter_values
 
@@ -51,5 +53,5 @@ def deserialize_json(data: dict) -> GroupFilter:
             data["Values"]
         )
     else:
-        raise DeserializationError("GroupFilter.values required")
+        out["values"] = []
     return out

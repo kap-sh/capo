@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.non_empty_string
     import capo_inspector2.types.tag_comparison
@@ -42,13 +40,17 @@ def deserialize_json(data: dict) -> TagFilter:
             data["comparison"]
         )
     else:
-        raise DeserializationError("TagFilter.comparison required")
+        import typing
+
+        out["comparison"] = typing.cast(
+            "capo_inspector2.types.tag_comparison.TagComparison", ""
+        )
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("TagFilter.key required")
+        out["key"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("TagFilter.value required")
+        out["value"] = ""
     return out

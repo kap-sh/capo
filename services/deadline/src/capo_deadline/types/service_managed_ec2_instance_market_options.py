@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.ec2_market_type
 
@@ -31,7 +29,9 @@ def deserialize_json(data: dict) -> ServiceManagedEc2InstanceMarketOptions:
 
         out["type"] = capo_deadline.types.ec2_market_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError(
-            "ServiceManagedEc2InstanceMarketOptions.type required"
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_deadline.types.ec2_market_type.Ec2MarketType", ""
         )
     return out

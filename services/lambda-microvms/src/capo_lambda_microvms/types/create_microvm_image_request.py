@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda_microvms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_microvms.types.capability_list
     import capo_lambda_microvms.types.code_artifact
@@ -139,13 +137,13 @@ def deserialize_json(data: dict) -> CreateMicrovmImageRequest:
     if data.get("baseImageArn") is not None:
         out["base_image_arn"] = data["baseImageArn"]
     else:
-        raise DeserializationError("CreateMicrovmImageRequest.base_image_arn required")
+        out["base_image_arn"] = ""
     if data.get("baseImageVersion") is not None:
         out["base_image_version"] = data["baseImageVersion"]
     if data.get("buildRoleArn") is not None:
         out["build_role_arn"] = data["buildRoleArn"]
     else:
-        raise DeserializationError("CreateMicrovmImageRequest.build_role_arn required")
+        out["build_role_arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("codeArtifact") is not None:
@@ -157,7 +155,11 @@ def deserialize_json(data: dict) -> CreateMicrovmImageRequest:
             )
         )
     else:
-        raise DeserializationError("CreateMicrovmImageRequest.code_artifact required")
+        import capo_lambda_microvms.types._unknown
+
+        out["code_artifact"] = capo_lambda_microvms.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("logging") is not None:
         import capo_lambda_microvms.types.logging
 
@@ -209,7 +211,7 @@ def deserialize_json(data: dict) -> CreateMicrovmImageRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateMicrovmImageRequest.name required")
+        out["name"] = ""
     if data.get("tags") is not None:
         import capo_lambda_microvms.types.tags
 

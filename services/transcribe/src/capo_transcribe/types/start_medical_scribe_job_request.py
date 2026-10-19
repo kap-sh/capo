@@ -107,9 +107,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartMedicalScribeJobRequest:
     if data.get("MedicalScribeJobName") is not None:
         out["medical_scribe_job_name"] = data["MedicalScribeJobName"]
     else:
-        raise DeserializationError(
-            "StartMedicalScribeJobRequest.medical_scribe_job_name required"
-        )
+        out["medical_scribe_job_name"] = ""
     if data.get("Media") is not None:
         import capo_transcribe.types.media
 
@@ -121,9 +119,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartMedicalScribeJobRequest:
     if data.get("OutputBucketName") is not None:
         out["output_bucket_name"] = data["OutputBucketName"]
     else:
-        raise DeserializationError(
-            "StartMedicalScribeJobRequest.output_bucket_name required"
-        )
+        out["output_bucket_name"] = ""
     if data.get("OutputEncryptionKMSKeyId") is not None:
         out["output_encryption_kms_key_id"] = data["OutputEncryptionKMSKeyId"]
     if data.get("KMSEncryptionContext") is not None:
@@ -137,9 +133,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartMedicalScribeJobRequest:
     if data.get("DataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["DataAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "StartMedicalScribeJobRequest.data_access_role_arn required"
-        )
+        out["data_access_role_arn"] = ""
     if data.get("Settings") is not None:
         import capo_transcribe.types.medical_scribe_settings
 

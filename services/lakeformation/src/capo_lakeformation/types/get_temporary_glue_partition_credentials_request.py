@@ -73,9 +73,7 @@ def deserialize_json(data: dict) -> GetTemporaryGluePartitionCredentialsRequest:
     if data.get("TableArn") is not None:
         out["table_arn"] = data["TableArn"]
     else:
-        raise DeserializationError(
-            "GetTemporaryGluePartitionCredentialsRequest.table_arn required"
-        )
+        out["table_arn"] = ""
     if data.get("Partition") is not None:
         import capo_lakeformation.types.partition_value_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.user_identifier
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> OwnerUserProperties:
     if data.get("userIdentifier") is not None:
         out["user_identifier"] = data["userIdentifier"]
     else:
-        raise DeserializationError("OwnerUserProperties.user_identifier required")
+        out["user_identifier"] = ""
     return out

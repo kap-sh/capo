@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.evaluation_acknowledger_comment_string
@@ -46,13 +44,15 @@ def deserialize_json(data: dict) -> EvaluationAcknowledgement:
             data["AcknowledgedTime"]
         )
     else:
-        raise DeserializationError(
-            "EvaluationAcknowledgement.acknowledged_time required"
+        import datetime
+
+        out["acknowledged_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("AcknowledgedBy") is not None:
         out["acknowledged_by"] = data["AcknowledgedBy"]
     else:
-        raise DeserializationError("EvaluationAcknowledgement.acknowledged_by required")
+        out["acknowledged_by"] = ""
     if data.get("AcknowledgerComment") is not None:
         out["acknowledger_comment"] = data["AcknowledgerComment"]
     return out

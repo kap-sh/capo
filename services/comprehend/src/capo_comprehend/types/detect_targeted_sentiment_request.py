@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.customer_input_string
     import capo_comprehend.types.language_code
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> DetectTargetedSentimentRequest:
     if data.get("Text") is not None:
         out["text"] = data["Text"]
     else:
-        raise DeserializationError("DetectTargetedSentimentRequest.text required")
+        out["text"] = ""
     if data.get("LanguageCode") is not None:
         import capo_comprehend.types.language_code
 
@@ -45,8 +43,10 @@ def deserialize_aws_json_1_1(data: dict) -> DetectTargetedSentimentRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DetectTargetedSentimentRequest.language_code required"
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_comprehend.types.language_code.LanguageCode", ""
         )
     return out
 

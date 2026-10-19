@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.enclosed_in_string_property_with_quote
     import capo_glue.types.node_id
@@ -33,9 +31,9 @@ def deserialize_aws_json_1_1(data: dict) -> SqlAlias:
     if data.get("From") is not None:
         out["from"] = data["From"]
     else:
-        raise DeserializationError("SqlAlias.from required")
+        out["from"] = ""
     if data.get("Alias") is not None:
         out["alias"] = data["Alias"]
     else:
-        raise DeserializationError("SqlAlias.alias required")
+        out["alias"] = ""
     return out

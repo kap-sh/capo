@@ -51,9 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateImageStorageClassRequest:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError(
-            "UpdateImageStorageClassRequest.repository_name required"
-        )
+        out["repository_name"] = ""
     if data.get("imageId") is not None:
         import capo_ecr.types.image_identifier
 
@@ -71,7 +69,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateImageStorageClassRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateImageStorageClassRequest.target_storage_class required"
+        import typing
+
+        out["target_storage_class"] = typing.cast(
+            "capo_ecr.types.target_storage_class.TargetStorageClass", ""
         )
     return out

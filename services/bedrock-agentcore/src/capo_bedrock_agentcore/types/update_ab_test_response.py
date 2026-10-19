@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -60,11 +58,11 @@ def deserialize_json(data: dict) -> UpdateABTestResponse:
     if data.get("abTestId") is not None:
         out["ab_test_id"] = data["abTestId"]
     else:
-        raise DeserializationError("UpdateABTestResponse.ab_test_id required")
+        out["ab_test_id"] = ""
     if data.get("abTestArn") is not None:
         out["ab_test_arn"] = data["abTestArn"]
     else:
-        raise DeserializationError("UpdateABTestResponse.ab_test_arn required")
+        out["ab_test_arn"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore.types.ab_test_status
 
@@ -72,7 +70,11 @@ def deserialize_json(data: dict) -> UpdateABTestResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("UpdateABTestResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore.types.ab_test_status.ABTestStatus", ""
+        )
     if data.get("executionStatus") is not None:
         import capo_bedrock_agentcore.types.ab_test_execution_status
 
@@ -82,7 +84,12 @@ def deserialize_json(data: dict) -> UpdateABTestResponse:
             )
         )
     else:
-        raise DeserializationError("UpdateABTestResponse.execution_status required")
+        import typing
+
+        out["execution_status"] = typing.cast(
+            "capo_bedrock_agentcore.types.ab_test_execution_status.ABTestExecutionStatus",
+            "",
+        )
     if data.get("updatedAt") is not None:
         import capo_bedrock_agentcore.types._prelude.timestamp
 
@@ -92,5 +99,7 @@ def deserialize_json(data: dict) -> UpdateABTestResponse:
             )
         )
     else:
-        raise DeserializationError("UpdateABTestResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

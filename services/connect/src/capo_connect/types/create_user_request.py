@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.after_contact_work_configs
     import capo_connect.types.agent_username
@@ -151,7 +149,7 @@ def deserialize_json(data: dict) -> CreateUserRequest:
     if data.get("Username") is not None:
         out["username"] = data["Username"]
     else:
-        raise DeserializationError("CreateUserRequest.username required")
+        out["username"] = ""
     if data.get("Password") is not None:
         out["password"] = data["Password"]
     if data.get("IdentityInfo") is not None:
@@ -177,11 +175,11 @@ def deserialize_json(data: dict) -> CreateUserRequest:
             )
         )
     else:
-        raise DeserializationError("CreateUserRequest.security_profile_ids required")
+        out["security_profile_ids"] = []
     if data.get("RoutingProfileId") is not None:
         out["routing_profile_id"] = data["RoutingProfileId"]
     else:
-        raise DeserializationError("CreateUserRequest.routing_profile_id required")
+        out["routing_profile_id"] = ""
     if data.get("HierarchyGroupId") is not None:
         out["hierarchy_group_id"] = data["HierarchyGroupId"]
     if data.get("AutoAcceptConfigs") is not None:

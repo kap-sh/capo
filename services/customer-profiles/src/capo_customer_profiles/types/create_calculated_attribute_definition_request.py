@@ -123,8 +123,10 @@ def deserialize_json(data: dict) -> CreateCalculatedAttributeDefinitionRequest:
             data["Statistic"]
         )
     else:
-        raise DeserializationError(
-            "CreateCalculatedAttributeDefinitionRequest.statistic required"
+        import typing
+
+        out["statistic"] = typing.cast(
+            "capo_customer_profiles.types.statistic.Statistic", ""
         )
     if data.get("UseHistoricalData") is not None:
         out["use_historical_data"] = data["UseHistoricalData"]

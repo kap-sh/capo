@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_agreement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.agreement_id
     import capo_marketplace_agreement.types.billing_adjustment_request_id
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetBillingAdjustmentRequestInput:
     if data.get("agreementId") is not None:
         out["agreement_id"] = data["agreementId"]
     else:
-        raise DeserializationError(
-            "GetBillingAdjustmentRequestInput.agreement_id required"
-        )
+        out["agreement_id"] = ""
     if data.get("billingAdjustmentRequestId") is not None:
         out["billing_adjustment_request_id"] = data["billingAdjustmentRequestId"]
     else:
-        raise DeserializationError(
-            "GetBillingAdjustmentRequestInput.billing_adjustment_request_id required"
-        )
+        out["billing_adjustment_request_id"] = ""
     return out

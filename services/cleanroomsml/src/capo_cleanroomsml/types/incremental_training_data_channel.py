@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.model_training_data_channel_name
     import capo_cleanroomsml.types.trained_model_arn
@@ -36,15 +34,11 @@ def deserialize_json(data: dict) -> IncrementalTrainingDataChannel:
     if data.get("trainedModelArn") is not None:
         out["trained_model_arn"] = data["trainedModelArn"]
     else:
-        raise DeserializationError(
-            "IncrementalTrainingDataChannel.trained_model_arn required"
-        )
+        out["trained_model_arn"] = ""
     if data.get("versionIdentifier") is not None:
         out["version_identifier"] = data["versionIdentifier"]
     if data.get("channelName") is not None:
         out["channel_name"] = data["channelName"]
     else:
-        raise DeserializationError(
-            "IncrementalTrainingDataChannel.channel_name required"
-        )
+        out["channel_name"] = ""
     return out

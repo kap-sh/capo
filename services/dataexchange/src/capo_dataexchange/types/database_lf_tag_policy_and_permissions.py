@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.list_of_database_lf_tag_policy_permissions
     import capo_dataexchange.types.list_of_lf_tags
@@ -45,9 +43,7 @@ def deserialize_json(data: dict) -> DatabaseLFTagPolicyAndPermissions:
             data["Expression"]
         )
     else:
-        raise DeserializationError(
-            "DatabaseLFTagPolicyAndPermissions.expression required"
-        )
+        out["expression"] = []
     if data.get("Permissions") is not None:
         import capo_dataexchange.types.list_of_database_lf_tag_policy_permissions
 
@@ -57,7 +53,5 @@ def deserialize_json(data: dict) -> DatabaseLFTagPolicyAndPermissions:
             )
         )
     else:
-        raise DeserializationError(
-            "DatabaseLFTagPolicyAndPermissions.permissions required"
-        )
+        out["permissions"] = []
     return out

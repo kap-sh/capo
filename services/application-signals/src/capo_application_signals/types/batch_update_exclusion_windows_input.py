@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.exclusion_windows
     import capo_application_signals.types.service_level_objective_ids
@@ -64,7 +62,7 @@ def deserialize_json(data: dict) -> BatchUpdateExclusionWindowsInput:
             )
         )
     else:
-        raise DeserializationError("BatchUpdateExclusionWindowsInput.slo_ids required")
+        out["slo_ids"] = []
     if data.get("AddExclusionWindows") is not None:
         import capo_application_signals.types.exclusion_windows
 

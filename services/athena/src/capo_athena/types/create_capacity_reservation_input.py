@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.capacity_reservation_name
     import capo_athena.types.tag_list
@@ -38,13 +36,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCapacityReservationInput:
     if data.get("TargetDpus") is not None:
         out["target_dpus"] = data["TargetDpus"]
     else:
-        raise DeserializationError(
-            "CreateCapacityReservationInput.target_dpus required"
-        )
+        out["target_dpus"] = 0
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateCapacityReservationInput.name required")
+        out["name"] = ""
     if data.get("Tags") is not None:
         import capo_athena.types.tag_list
 

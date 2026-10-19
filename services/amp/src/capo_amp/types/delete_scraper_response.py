@@ -33,7 +33,7 @@ def deserialize_json(data: dict) -> DeleteScraperResponse:
     if data.get("scraperId") is not None:
         out["scraper_id"] = data["scraperId"]
     else:
-        raise DeserializationError("DeleteScraperResponse.scraper_id required")
+        out["scraper_id"] = ""
     if data.get("status") is not None:
         import capo_amp.types.scraper_status
 

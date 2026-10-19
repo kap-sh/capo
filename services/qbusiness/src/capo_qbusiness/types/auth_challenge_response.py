@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.authorization_response_map
 
@@ -39,5 +37,5 @@ def deserialize_json(data: dict) -> AuthChallengeResponse:
             )
         )
     else:
-        raise DeserializationError("AuthChallengeResponse.response_map required")
+        out["response_map"] = {}
     return out

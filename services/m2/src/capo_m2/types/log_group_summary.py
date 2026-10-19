@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.log_group_identifier
     import capo_m2.types.string20
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> LogGroupSummary:
     if data.get("logType") is not None:
         out["log_type"] = data["logType"]
     else:
-        raise DeserializationError("LogGroupSummary.log_type required")
+        out["log_type"] = ""
     if data.get("logGroupName") is not None:
         out["log_group_name"] = data["logGroupName"]
     else:
-        raise DeserializationError("LogGroupSummary.log_group_name required")
+        out["log_group_name"] = ""
     return out

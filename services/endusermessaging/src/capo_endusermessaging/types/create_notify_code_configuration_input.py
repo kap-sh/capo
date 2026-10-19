@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_endusermessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_endusermessaging.types.channel_parameters
     import capo_endusermessaging.types.client_token
@@ -69,9 +67,7 @@ def deserialize_json(data: dict) -> CreateNotifyCodeConfigurationInput:
     if data.get("notifyCodeConfigurationName") is not None:
         out["notify_code_configuration_name"] = data["notifyCodeConfigurationName"]
     else:
-        raise DeserializationError(
-            "CreateNotifyCodeConfigurationInput.notify_code_configuration_name required"
-        )
+        out["notify_code_configuration_name"] = ""
     if data.get("codeConfigurationParameters") is not None:
         import capo_endusermessaging.types.code_configuration_parameters
 

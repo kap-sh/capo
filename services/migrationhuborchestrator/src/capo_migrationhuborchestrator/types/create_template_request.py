@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migrationhuborchestrator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migrationhuborchestrator.types.client_token
     import capo_migrationhuborchestrator.types.tag_map
@@ -58,7 +56,7 @@ def deserialize_json(data: dict) -> CreateTemplateRequest:
     if data.get("templateName") is not None:
         out["template_name"] = data["templateName"]
     else:
-        raise DeserializationError("CreateTemplateRequest.template_name required")
+        out["template_name"] = ""
     if data.get("templateDescription") is not None:
         out["template_description"] = data["templateDescription"]
     if data.get("templateSource") is not None:
@@ -70,7 +68,11 @@ def deserialize_json(data: dict) -> CreateTemplateRequest:
             )
         )
     else:
-        raise DeserializationError("CreateTemplateRequest.template_source required")
+        import capo_migrationhuborchestrator.types._unknown
+
+        out["template_source"] = (
+            capo_migrationhuborchestrator.types._unknown.UnknownUnionMember("")
+        )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

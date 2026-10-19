@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.index_status
 
@@ -33,5 +31,9 @@ def deserialize_json(data: dict) -> DeleteIndexResponse:
             data["Status"]
         )
     else:
-        raise DeserializationError("DeleteIndexResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_opensearch.types.index_status.IndexStatus", ""
+        )
     return out

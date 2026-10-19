@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.additional_analyses
     import capo_cleanrooms.types.inherited_additional_analyses_source_list
@@ -45,7 +43,11 @@ def deserialize_json(data: dict) -> InheritedAdditionalAnalyses:
             data["value"]
         )
     else:
-        raise DeserializationError("InheritedAdditionalAnalyses.value required")
+        import typing
+
+        out["value"] = typing.cast(
+            "capo_cleanrooms.types.additional_analyses.AdditionalAnalyses", ""
+        )
     if data.get("sources") is not None:
         import capo_cleanrooms.types.inherited_additional_analyses_source_list
 
@@ -55,5 +57,5 @@ def deserialize_json(data: dict) -> InheritedAdditionalAnalyses:
             )
         )
     else:
-        raise DeserializationError("InheritedAdditionalAnalyses.sources required")
+        out["sources"] = []
     return out

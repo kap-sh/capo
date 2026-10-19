@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.authentication_types
     import capo_glue.types.compute_environments
@@ -63,9 +61,7 @@ def deserialize_aws_json_1_1(data: dict) -> Capabilities:
             )
         )
     else:
-        raise DeserializationError(
-            "Capabilities.supported_authentication_types required"
-        )
+        out["supported_authentication_types"] = []
     if data.get("SupportedDataOperations") is not None:
         import capo_glue.types.data_operations
 
@@ -75,7 +71,7 @@ def deserialize_aws_json_1_1(data: dict) -> Capabilities:
             )
         )
     else:
-        raise DeserializationError("Capabilities.supported_data_operations required")
+        out["supported_data_operations"] = []
     if data.get("SupportedComputeEnvironments") is not None:
         import capo_glue.types.compute_environments
 
@@ -85,7 +81,5 @@ def deserialize_aws_json_1_1(data: dict) -> Capabilities:
             )
         )
     else:
-        raise DeserializationError(
-            "Capabilities.supported_compute_environments required"
-        )
+        out["supported_compute_environments"] = []
     return out

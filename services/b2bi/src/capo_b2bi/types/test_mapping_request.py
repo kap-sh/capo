@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.file_format
     import capo_b2bi.types.mapping_template
@@ -41,11 +39,11 @@ def deserialize_aws_json_1_0(data: dict) -> TestMappingRequest:
     if data.get("inputFileContent") is not None:
         out["input_file_content"] = data["inputFileContent"]
     else:
-        raise DeserializationError("TestMappingRequest.input_file_content required")
+        out["input_file_content"] = ""
     if data.get("mappingTemplate") is not None:
         out["mapping_template"] = data["mappingTemplate"]
     else:
-        raise DeserializationError("TestMappingRequest.mapping_template required")
+        out["mapping_template"] = ""
     if data.get("fileFormat") is not None:
         import capo_b2bi.types.file_format
 
@@ -53,5 +51,7 @@ def deserialize_aws_json_1_0(data: dict) -> TestMappingRequest:
             data["fileFormat"]
         )
     else:
-        raise DeserializationError("TestMappingRequest.file_format required")
+        import typing
+
+        out["file_format"] = typing.cast("capo_b2bi.types.file_format.FileFormat", "")
     return out

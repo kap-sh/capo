@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.document_attribute_boosting_override_map
     import capo_qbusiness.types.index_id
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> NativeIndexConfiguration:
     if data.get("indexId") is not None:
         out["index_id"] = data["indexId"]
     else:
-        raise DeserializationError("NativeIndexConfiguration.index_id required")
+        out["index_id"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     if data.get("boostingOverride") is not None:

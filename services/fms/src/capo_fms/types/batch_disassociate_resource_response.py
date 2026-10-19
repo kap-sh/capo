@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_fms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fms.types.failed_item_list
     import capo_fms.types.identifier
@@ -35,9 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDisassociateResourceResponse:
     if data.get("ResourceSetIdentifier") is not None:
         out["resource_set_identifier"] = data["ResourceSetIdentifier"]
     else:
-        raise DeserializationError(
-            "BatchDisassociateResourceResponse.resource_set_identifier required"
-        )
+        out["resource_set_identifier"] = ""
     if data.get("FailedItems") is not None:
         import capo_fms.types.failed_item_list
 
@@ -45,7 +41,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDisassociateResourceResponse:
             data["FailedItems"]
         )
     else:
-        raise DeserializationError(
-            "BatchDisassociateResourceResponse.failed_items required"
-        )
+        out["failed_items"] = []
     return out

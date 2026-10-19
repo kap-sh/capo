@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.node_aggregator_list
     import capo_ssm.types.node_aggregator_type
@@ -62,7 +60,11 @@ def deserialize_aws_json_1_1(data: dict) -> NodeAggregator:
             )
         )
     else:
-        raise DeserializationError("NodeAggregator.aggregator_type required")
+        import typing
+
+        out["aggregator_type"] = typing.cast(
+            "capo_ssm.types.node_aggregator_type.NodeAggregatorType", ""
+        )
     if data.get("TypeName") is not None:
         import capo_ssm.types.node_type_name
 
@@ -70,7 +72,9 @@ def deserialize_aws_json_1_1(data: dict) -> NodeAggregator:
             data["TypeName"]
         )
     else:
-        raise DeserializationError("NodeAggregator.type_name required")
+        import typing
+
+        out["type_name"] = typing.cast("capo_ssm.types.node_type_name.NodeTypeName", "")
     if data.get("AttributeName") is not None:
         import capo_ssm.types.node_attribute_name
 
@@ -80,7 +84,11 @@ def deserialize_aws_json_1_1(data: dict) -> NodeAggregator:
             )
         )
     else:
-        raise DeserializationError("NodeAggregator.attribute_name required")
+        import typing
+
+        out["attribute_name"] = typing.cast(
+            "capo_ssm.types.node_attribute_name.NodeAttributeName", ""
+        )
     if data.get("Aggregators") is not None:
         import capo_ssm.types.node_aggregator_list
 

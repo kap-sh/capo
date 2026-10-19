@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.guardrail_image_format
     import capo_bedrock_runtime.types.guardrail_image_source
@@ -45,7 +43,11 @@ def deserialize_json(data: dict) -> GuardrailImageBlock:
             )
         )
     else:
-        raise DeserializationError("GuardrailImageBlock.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_bedrock_runtime.types.guardrail_image_format.GuardrailImageFormat", ""
+        )
     if data.get("source") is not None:
         import capo_bedrock_runtime.types.guardrail_image_source
 
@@ -55,5 +57,7 @@ def deserialize_json(data: dict) -> GuardrailImageBlock:
             )
         )
     else:
-        raise DeserializationError("GuardrailImageBlock.source required")
+        import capo_bedrock_runtime.types._unknown
+
+        out["source"] = capo_bedrock_runtime.types._unknown.UnknownUnionMember("")
     return out

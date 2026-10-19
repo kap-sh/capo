@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.base64
     import capo_lightsail.types.resource_name
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> ImportKeyPairRequest:
     if data.get("keyPairName") is not None:
         out["key_pair_name"] = data["keyPairName"]
     else:
-        raise DeserializationError("ImportKeyPairRequest.key_pair_name required")
+        out["key_pair_name"] = ""
     if data.get("publicKeyBase64") is not None:
         out["public_key_base64"] = data["publicKeyBase64"]
     else:
-        raise DeserializationError("ImportKeyPairRequest.public_key_base64 required")
+        out["public_key_base64"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.channel
     import capo_connect.types.voice_enhancement_mode
@@ -43,7 +41,9 @@ def deserialize_json(data: dict) -> VoiceEnhancementConfig:
 
         out["channel"] = capo_connect.types.channel.deserialize_json(data["Channel"])
     else:
-        raise DeserializationError("VoiceEnhancementConfig.channel required")
+        import typing
+
+        out["channel"] = typing.cast("capo_connect.types.channel.Channel", "")
     if data.get("VoiceEnhancementMode") is not None:
         import capo_connect.types.voice_enhancement_mode
 
@@ -53,7 +53,9 @@ def deserialize_json(data: dict) -> VoiceEnhancementConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "VoiceEnhancementConfig.voice_enhancement_mode required"
+        import typing
+
+        out["voice_enhancement_mode"] = typing.cast(
+            "capo_connect.types.voice_enhancement_mode.VoiceEnhancementMode", ""
         )
     return out

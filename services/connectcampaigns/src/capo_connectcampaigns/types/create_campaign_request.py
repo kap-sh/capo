@@ -53,11 +53,11 @@ def deserialize_json(data: dict) -> CreateCampaignRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateCampaignRequest.name required")
+        out["name"] = ""
     if data.get("connectInstanceId") is not None:
         out["connect_instance_id"] = data["connectInstanceId"]
     else:
-        raise DeserializationError("CreateCampaignRequest.connect_instance_id required")
+        out["connect_instance_id"] = ""
     if data.get("dialerConfig") is not None:
         import capo_connectcampaigns.types.dialer_config
 
@@ -67,7 +67,11 @@ def deserialize_json(data: dict) -> CreateCampaignRequest:
             )
         )
     else:
-        raise DeserializationError("CreateCampaignRequest.dialer_config required")
+        import capo_connectcampaigns.types._unknown
+
+        out["dialer_config"] = capo_connectcampaigns.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("outboundCallConfig") is not None:
         import capo_connectcampaigns.types.outbound_call_config
 

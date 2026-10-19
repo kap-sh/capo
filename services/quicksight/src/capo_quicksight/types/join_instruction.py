@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.join_key_properties
     import capo_quicksight.types.join_type
@@ -65,11 +63,11 @@ def deserialize_json(data: dict) -> JoinInstruction:
     if data.get("LeftOperand") is not None:
         out["left_operand"] = data["LeftOperand"]
     else:
-        raise DeserializationError("JoinInstruction.left_operand required")
+        out["left_operand"] = ""
     if data.get("RightOperand") is not None:
         out["right_operand"] = data["RightOperand"]
     else:
-        raise DeserializationError("JoinInstruction.right_operand required")
+        out["right_operand"] = ""
     if data.get("LeftJoinKeyProperties") is not None:
         import capo_quicksight.types.join_key_properties
 
@@ -91,9 +89,11 @@ def deserialize_json(data: dict) -> JoinInstruction:
 
         out["type"] = capo_quicksight.types.join_type.deserialize_json(data["Type"])
     else:
-        raise DeserializationError("JoinInstruction.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_quicksight.types.join_type.JoinType", "")
     if data.get("OnClause") is not None:
         out["on_clause"] = data["OnClause"]
     else:
-        raise DeserializationError("JoinInstruction.on_clause required")
+        out["on_clause"] = ""
     return out

@@ -37,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartRecommendationsRequest:
     if data.get("DatabaseId") is not None:
         out["database_id"] = data["DatabaseId"]
     else:
-        raise DeserializationError("StartRecommendationsRequest.database_id required")
+        out["database_id"] = ""
     if data.get("Settings") is not None:
         import capo_database_migration_service.types.recommendation_settings
 

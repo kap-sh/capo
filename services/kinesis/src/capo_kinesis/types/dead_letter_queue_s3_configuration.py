@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.bucket_arn
     import capo_kinesis.types.expected_bucket_owner
@@ -40,13 +38,11 @@ def deserialize_aws_json_1_1(data: dict) -> DeadLetterQueueS3Configuration:
     if data.get("BucketARN") is not None:
         out["bucket_arn"] = data["BucketARN"]
     else:
-        raise DeserializationError("DeadLetterQueueS3Configuration.bucket_arn required")
+        out["bucket_arn"] = ""
     if data.get("ExpectedBucketOwner") is not None:
         out["expected_bucket_owner"] = data["ExpectedBucketOwner"]
     else:
-        raise DeserializationError(
-            "DeadLetterQueueS3Configuration.expected_bucket_owner required"
-        )
+        out["expected_bucket_owner"] = ""
     if data.get("ErrorOutputPrefix") is not None:
         out["error_output_prefix"] = data["ErrorOutputPrefix"]
     return out

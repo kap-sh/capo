@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 AutoEnable = TypedDict(
     "AutoEnable",
     {
@@ -36,11 +34,11 @@ def deserialize_json(data: dict) -> AutoEnable:
     if data.get("ec2") is not None:
         out["ec2"] = data["ec2"]
     else:
-        raise DeserializationError("AutoEnable.ec2 required")
+        out["ec2"] = False
     if data.get("ecr") is not None:
         out["ecr"] = data["ecr"]
     else:
-        raise DeserializationError("AutoEnable.ecr required")
+        out["ecr"] = False
     if data.get("lambda") is not None:
         out["lambda"] = data["lambda"]
     if data.get("lambdaCode") is not None:

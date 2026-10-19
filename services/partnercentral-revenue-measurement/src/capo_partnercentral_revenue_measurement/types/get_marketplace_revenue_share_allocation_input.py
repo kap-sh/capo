@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_revenue_measurement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_revenue_measurement.types.catalog_name
     import capo_partnercentral_revenue_measurement.types.marketplace_product_id
@@ -58,23 +56,21 @@ def deserialize_cbor(data: dict) -> GetMarketplaceRevenueShareAllocationInput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetMarketplaceRevenueShareAllocationInput.catalog required"
+        import typing
+
+        out["catalog"] = typing.cast(
+            "capo_partnercentral_revenue_measurement.types.catalog_name.CatalogName", ""
         )
     if data.get("ProductId") is not None:
         out["product_id"] = data["ProductId"]
     else:
-        raise DeserializationError(
-            "GetMarketplaceRevenueShareAllocationInput.product_id required"
-        )
+        out["product_id"] = ""
     if data.get("MarketplaceRevenueShareAllocationId") is not None:
         out["marketplace_revenue_share_allocation_id"] = data[
             "MarketplaceRevenueShareAllocationId"
         ]
     else:
-        raise DeserializationError(
-            "GetMarketplaceRevenueShareAllocationInput.marketplace_revenue_share_allocation_id required"
-        )
+        out["marketplace_revenue_share_allocation_id"] = ""
     if data.get("MarketplaceRevenueShareRevision") is not None:
         out["marketplace_revenue_share_revision"] = data[
             "MarketplaceRevenueShareRevision"

@@ -39,7 +39,7 @@ def deserialize_json(data: dict) -> Topic:
     if data.get("subject") is not None:
         out["subject"] = data["subject"]
     else:
-        raise DeserializationError("Topic.subject required")
+        out["subject"] = ""
     if data.get("resource") is not None:
         import capo_datazone.types.notification_resource
 
@@ -55,5 +55,9 @@ def deserialize_json(data: dict) -> Topic:
             data["role"]
         )
     else:
-        raise DeserializationError("Topic.role required")
+        import typing
+
+        out["role"] = typing.cast(
+            "capo_datazone.types.notification_role.NotificationRole", ""
+        )
     return out

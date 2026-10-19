@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 
 class IsNotNullExpression(TypedDict, closed=True):
     column_name: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> IsNotNullExpression:
     if data.get("columnName") is not None:
         out["column_name"] = data["columnName"]
     else:
-        raise DeserializationError("IsNotNullExpression.column_name required")
+        out["column_name"] = ""
     return out

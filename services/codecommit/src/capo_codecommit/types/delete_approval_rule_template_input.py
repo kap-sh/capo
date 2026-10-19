@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.approval_rule_template_name
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteApprovalRuleTemplateInput:
     if data.get("approvalRuleTemplateName") is not None:
         out["approval_rule_template_name"] = data["approvalRuleTemplateName"]
     else:
-        raise DeserializationError(
-            "DeleteApprovalRuleTemplateInput.approval_rule_template_name required"
-        )
+        out["approval_rule_template_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.feature_status
     import capo_sesv2.types.suppression_confidence_threshold
@@ -50,8 +48,10 @@ def deserialize_json(data: dict) -> SuppressionConditionThreshold:
             )
         )
     else:
-        raise DeserializationError(
-            "SuppressionConditionThreshold.condition_threshold_enabled required"
+        import typing
+
+        out["condition_threshold_enabled"] = typing.cast(
+            "capo_sesv2.types.feature_status.FeatureStatus", ""
         )
     if data.get("OverallConfidenceThreshold") is not None:
         import capo_sesv2.types.suppression_confidence_threshold

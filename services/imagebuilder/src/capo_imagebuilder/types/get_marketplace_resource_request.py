@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.image_builder_arn
     import capo_imagebuilder.types.marketplace_resource_location
@@ -52,15 +50,16 @@ def deserialize_json(data: dict) -> GetMarketplaceResourceRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GetMarketplaceResourceRequest.resource_type required"
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_imagebuilder.types.marketplace_resource_type.MarketplaceResourceType",
+            "",
         )
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError(
-            "GetMarketplaceResourceRequest.resource_arn required"
-        )
+        out["resource_arn"] = ""
     if data.get("resourceLocation") is not None:
         out["resource_location"] = data["resourceLocation"]
     return out

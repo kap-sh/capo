@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_artifact.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_artifact.types.file_section_list
 
@@ -47,5 +45,5 @@ def deserialize_json(data: dict) -> InquiryFileContent:
             data["content"]
         )
     else:
-        raise DeserializationError("InquiryFileContent.content required")
+        out["content"] = b""
     return out

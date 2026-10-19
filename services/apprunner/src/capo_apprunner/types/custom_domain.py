@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_apprunner.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_apprunner.types.certificate_validation_record_list
     import capo_apprunner.types.custom_domain_association_status
@@ -54,11 +52,11 @@ def deserialize_aws_json_1_0(data: dict) -> CustomDomain:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("CustomDomain.domain_name required")
+        out["domain_name"] = ""
     if data.get("EnableWWWSubdomain") is not None:
         out["enable_www_subdomain"] = data["EnableWWWSubdomain"]
     else:
-        raise DeserializationError("CustomDomain.enable_www_subdomain required")
+        out["enable_www_subdomain"] = False
     if data.get("CertificateValidationRecords") is not None:
         import capo_apprunner.types.certificate_validation_record_list
 
@@ -76,5 +74,10 @@ def deserialize_aws_json_1_0(data: dict) -> CustomDomain:
             )
         )
     else:
-        raise DeserializationError("CustomDomain.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_apprunner.types.custom_domain_association_status.CustomDomainAssociationStatus",
+            "",
+        )
     return out

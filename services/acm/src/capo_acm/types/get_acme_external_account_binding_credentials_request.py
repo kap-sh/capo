@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_acm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm.types.acme_external_account_binding_arn
 
@@ -33,7 +31,5 @@ def deserialize_aws_json_1_1(
     if data.get("AcmeExternalAccountBindingArn") is not None:
         out["acme_external_account_binding_arn"] = data["AcmeExternalAccountBindingArn"]
     else:
-        raise DeserializationError(
-            "GetAcmeExternalAccountBindingCredentialsRequest.acme_external_account_binding_arn required"
-        )
+        out["acme_external_account_binding_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.client_token
     import capo_pinpoint_sms_voice_v2.types.iso_country_code
@@ -45,15 +43,11 @@ def deserialize_aws_json_1_0(data: dict) -> DisassociateOriginationIdentityReque
     if data.get("PoolId") is not None:
         out["pool_id"] = data["PoolId"]
     else:
-        raise DeserializationError(
-            "DisassociateOriginationIdentityRequest.pool_id required"
-        )
+        out["pool_id"] = ""
     if data.get("OriginationIdentity") is not None:
         out["origination_identity"] = data["OriginationIdentity"]
     else:
-        raise DeserializationError(
-            "DisassociateOriginationIdentityRequest.origination_identity required"
-        )
+        out["origination_identity"] = ""
     if data.get("IsoCountryCode") is not None:
         out["iso_country_code"] = data["IsoCountryCode"]
     if data.get("ClientToken") is not None:

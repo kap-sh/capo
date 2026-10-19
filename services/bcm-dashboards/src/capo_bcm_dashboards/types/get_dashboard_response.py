@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_dashboards.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_dashboards.types.dashboard_arn
     import capo_bcm_dashboards.types.dashboard_name
@@ -71,11 +69,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetDashboardResponse:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetDashboardResponse.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetDashboardResponse.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("type") is not None:
@@ -85,7 +83,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetDashboardResponse:
             data["type"]
         )
     else:
-        raise DeserializationError("GetDashboardResponse.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bcm_dashboards.types.dashboard_type.DashboardType", ""
+        )
     if data.get("widgets") is not None:
         import capo_bcm_dashboards.types.widget_list
 
@@ -93,7 +95,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetDashboardResponse:
             data["widgets"]
         )
     else:
-        raise DeserializationError("GetDashboardResponse.widgets required")
+        out["widgets"] = []
     if data.get("createdAt") is not None:
         import capo_bcm_dashboards.types.generic_time_stamp
 
@@ -103,7 +105,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetDashboardResponse:
             )
         )
     else:
-        raise DeserializationError("GetDashboardResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bcm_dashboards.types.generic_time_stamp
 
@@ -113,5 +117,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetDashboardResponse:
             )
         )
     else:
-        raise DeserializationError("GetDashboardResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

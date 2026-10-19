@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.data_integration_dataset_arn
     import capo_supplychain.types.data_integration_event_dataset_operation_type
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> DataIntegrationEventDatasetTargetConfigurati
     if data.get("datasetIdentifier") is not None:
         out["dataset_identifier"] = data["datasetIdentifier"]
     else:
-        raise DeserializationError(
-            "DataIntegrationEventDatasetTargetConfiguration.dataset_identifier required"
-        )
+        out["dataset_identifier"] = ""
     if data.get("operationType") is not None:
         import capo_supplychain.types.data_integration_event_dataset_operation_type
 
@@ -51,7 +47,10 @@ def deserialize_json(data: dict) -> DataIntegrationEventDatasetTargetConfigurati
             )
         )
     else:
-        raise DeserializationError(
-            "DataIntegrationEventDatasetTargetConfiguration.operation_type required"
+        import typing
+
+        out["operation_type"] = typing.cast(
+            "capo_supplychain.types.data_integration_event_dataset_operation_type.DataIntegrationEventDatasetOperationType",
+            "",
         )
     return out

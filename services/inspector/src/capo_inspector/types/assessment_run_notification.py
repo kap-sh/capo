@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.arn
     import capo_inspector.types.assessment_run_notification_sns_status_code
@@ -68,7 +66,9 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentRunNotification:
             data["date"]
         )
     else:
-        raise DeserializationError("AssessmentRunNotification.date required")
+        import datetime
+
+        out["date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("event") is not None:
         import capo_inspector.types.inspector_event
 
@@ -76,13 +76,17 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentRunNotification:
             data["event"]
         )
     else:
-        raise DeserializationError("AssessmentRunNotification.event required")
+        import typing
+
+        out["event"] = typing.cast(
+            "capo_inspector.types.inspector_event.InspectorEvent", ""
+        )
     if data.get("message") is not None:
         out["message"] = data["message"]
     if data.get("error") is not None:
         out["error"] = data["error"]
     else:
-        raise DeserializationError("AssessmentRunNotification.error required")
+        out["error"] = False
     if data.get("snsTopicArn") is not None:
         out["sns_topic_arn"] = data["snsTopicArn"]
     if data.get("snsPublishStatusCode") is not None:

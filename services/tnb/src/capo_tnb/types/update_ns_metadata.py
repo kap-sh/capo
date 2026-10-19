@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_tnb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_tnb.types.nsd_info_id
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> UpdateNsMetadata:
     if data.get("nsdInfoId") is not None:
         out["nsd_info_id"] = data["nsdInfoId"]
     else:
-        raise DeserializationError("UpdateNsMetadata.nsd_info_id required")
+        out["nsd_info_id"] = ""
     if data.get("additionalParamsForNs") is not None:
         out["additional_params_for_ns"] = data["additionalParamsForNs"]
     return out

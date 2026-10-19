@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.string
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetResourceDashboardResponse:
     if data.get("Url") is not None:
         out["url"] = data["Url"]
     else:
-        raise DeserializationError("GetResourceDashboardResponse.url required")
+        out["url"] = ""
     return out

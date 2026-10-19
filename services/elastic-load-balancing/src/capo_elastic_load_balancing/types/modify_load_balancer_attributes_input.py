@@ -40,9 +40,7 @@ def deserialize_query(el: Element) -> ModifyLoadBalancerAttributesInput:
     if child_load_balancer_name is not None:
         out["load_balancer_name"] = str(child_load_balancer_name.text or "")
     else:
-        raise DeserializationError(
-            "ModifyLoadBalancerAttributesInput.load_balancer_name required"
-        )
+        out["load_balancer_name"] = ""
     child_load_balancer_attributes = el.find("LoadBalancerAttributes")
     if child_load_balancer_attributes is not None:
         import capo_elastic_load_balancing.types.load_balancer_attributes

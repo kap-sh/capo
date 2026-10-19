@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.client_token
     import capo_cloudwatchomni.types.identity_provider_configuration
@@ -63,7 +61,7 @@ def deserialize_cbor(data: dict) -> CreateDomainInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateDomainInput.name required")
+        out["name"] = ""
     if data.get("identityProviders") is not None:
         import capo_cloudwatchomni.types.identity_provider_list
 
@@ -73,7 +71,7 @@ def deserialize_cbor(data: dict) -> CreateDomainInput:
             )
         )
     else:
-        raise DeserializationError("CreateDomainInput.identity_providers required")
+        out["identity_providers"] = []
     if data.get("identityProviderConfiguration") is not None:
         import capo_cloudwatchomni.types.identity_provider_configuration
 

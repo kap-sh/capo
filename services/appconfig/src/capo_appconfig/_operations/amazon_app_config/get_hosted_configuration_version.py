@@ -58,7 +58,10 @@ def handle_response(
         out["application_id"] = response.headers["Application-Id"]
     if "Configuration-Profile-Id" in response.headers:
         out["configuration_profile_id"] = response.headers["Configuration-Profile-Id"]
-    out["version_number"] = int(response.headers["Version-Number"])
+    if "Version-Number" in response.headers:
+        out["version_number"] = int(response.headers["Version-Number"])
+    else:
+        out["version_number"] = 0
     if "Description" in response.headers:
         out["description"] = response.headers["Description"]
     if "Content-Type" in response.headers:
@@ -80,7 +83,10 @@ async def async_handle_response(
         out["application_id"] = response.headers["Application-Id"]
     if "Configuration-Profile-Id" in response.headers:
         out["configuration_profile_id"] = response.headers["Configuration-Profile-Id"]
-    out["version_number"] = int(response.headers["Version-Number"])
+    if "Version-Number" in response.headers:
+        out["version_number"] = int(response.headers["Version-Number"])
+    else:
+        out["version_number"] = 0
     if "Description" in response.headers:
         out["description"] = response.headers["Description"]
     if "Content-Type" in response.headers:

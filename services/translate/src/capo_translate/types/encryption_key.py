@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_translate.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_translate.types.encryption_key_id
     import capo_translate.types.encryption_key_type
@@ -39,9 +37,13 @@ def deserialize_aws_json_1_1(data: dict) -> EncryptionKey:
             data["Type"]
         )
     else:
-        raise DeserializationError("EncryptionKey.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_translate.types.encryption_key_type.EncryptionKeyType", ""
+        )
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("EncryptionKey.id required")
+        out["id"] = ""
     return out

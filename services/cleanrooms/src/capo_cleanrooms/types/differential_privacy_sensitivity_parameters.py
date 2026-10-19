@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.differential_privacy_aggregation_expression
     import capo_cleanrooms.types.differential_privacy_aggregation_type
@@ -70,21 +68,20 @@ def deserialize_json(data: dict) -> DifferentialPrivacySensitivityParameters:
             )
         )
     else:
-        raise DeserializationError(
-            "DifferentialPrivacySensitivityParameters.aggregation_type required"
+        import typing
+
+        out["aggregation_type"] = typing.cast(
+            "capo_cleanrooms.types.differential_privacy_aggregation_type.DifferentialPrivacyAggregationType",
+            "",
         )
     if data.get("aggregationExpression") is not None:
         out["aggregation_expression"] = data["aggregationExpression"]
     else:
-        raise DeserializationError(
-            "DifferentialPrivacySensitivityParameters.aggregation_expression required"
-        )
+        out["aggregation_expression"] = ""
     if data.get("userContributionLimit") is not None:
         out["user_contribution_limit"] = data["userContributionLimit"]
     else:
-        raise DeserializationError(
-            "DifferentialPrivacySensitivityParameters.user_contribution_limit required"
-        )
+        out["user_contribution_limit"] = 0
     if data.get("minColumnValue") is not None:
         out["min_column_value"] = float(data["minColumnValue"])
     if data.get("maxColumnValue") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.instance_id
     import capo_connect.types.resource_id
@@ -33,7 +31,5 @@ def deserialize_json(data: dict) -> ActivateEvaluationFormRequest:
     if data.get("EvaluationFormVersion") is not None:
         out["evaluation_form_version"] = data["EvaluationFormVersion"]
     else:
-        raise DeserializationError(
-            "ActivateEvaluationFormRequest.evaluation_form_version required"
-        )
+        out["evaluation_form_version"] = 0
     return out

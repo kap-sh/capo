@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -148,7 +146,7 @@ def deserialize_json(data: dict) -> Schema:
             data["columns"]
         )
     else:
-        raise DeserializationError("Schema.columns required")
+        out["columns"] = []
     if data.get("partitionKeys") is not None:
         import capo_cleanrooms.types.column_list
 
@@ -156,7 +154,7 @@ def deserialize_json(data: dict) -> Schema:
             data["partitionKeys"]
         )
     else:
-        raise DeserializationError("Schema.partition_keys required")
+        out["partition_keys"] = []
     if data.get("analysisRuleTypes") is not None:
         import capo_cleanrooms.types.analysis_rule_type_list
 
@@ -166,7 +164,7 @@ def deserialize_json(data: dict) -> Schema:
             )
         )
     else:
-        raise DeserializationError("Schema.analysis_rule_types required")
+        out["analysis_rule_types"] = []
     if data.get("analysisMethod") is not None:
         import capo_cleanrooms.types.analysis_method
 
@@ -184,23 +182,23 @@ def deserialize_json(data: dict) -> Schema:
     if data.get("creatorAccountId") is not None:
         out["creator_account_id"] = data["creatorAccountId"]
     else:
-        raise DeserializationError("Schema.creator_account_id required")
+        out["creator_account_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Schema.name required")
+        out["name"] = ""
     if data.get("collaborationId") is not None:
         out["collaboration_id"] = data["collaborationId"]
     else:
-        raise DeserializationError("Schema.collaboration_id required")
+        out["collaboration_id"] = ""
     if data.get("collaborationArn") is not None:
         out["collaboration_arn"] = data["collaborationArn"]
     else:
-        raise DeserializationError("Schema.collaboration_arn required")
+        out["collaboration_arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("Schema.description required")
+        out["description"] = ""
     if data.get("createTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -208,7 +206,11 @@ def deserialize_json(data: dict) -> Schema:
             data["createTime"]
         )
     else:
-        raise DeserializationError("Schema.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -216,13 +218,19 @@ def deserialize_json(data: dict) -> Schema:
             data["updateTime"]
         )
     else:
-        raise DeserializationError("Schema.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("type") is not None:
         import capo_cleanrooms.types.schema_type
 
         out["type"] = capo_cleanrooms.types.schema_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("Schema.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_cleanrooms.types.schema_type.SchemaType", "")
     if data.get("schemaStatusDetails") is not None:
         import capo_cleanrooms.types.schema_status_detail_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_servicediscovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_servicediscovery.types.failure_threshold
     import capo_servicediscovery.types.health_check_type
@@ -49,7 +47,11 @@ def deserialize_aws_json_1_1(data: dict) -> HealthCheckConfig:
             )
         )
     else:
-        raise DeserializationError("HealthCheckConfig.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_servicediscovery.types.health_check_type.HealthCheckType", ""
+        )
     if data.get("ResourcePath") is not None:
         out["resource_path"] = data["ResourcePath"]
     if data.get("FailureThreshold") is not None:

@@ -47,15 +47,13 @@ def deserialize_json(data: dict) -> ExportVectorEnrichmentJobInput:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("ExportVectorEnrichmentJobInput.arn required")
+        out["arn"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("ExecutionRoleArn") is not None:
         out["execution_role_arn"] = data["ExecutionRoleArn"]
     else:
-        raise DeserializationError(
-            "ExportVectorEnrichmentJobInput.execution_role_arn required"
-        )
+        out["execution_role_arn"] = ""
     if data.get("OutputConfig") is not None:
         import capo_sagemaker_geospatial.types.export_vector_enrichment_job_output_config
 

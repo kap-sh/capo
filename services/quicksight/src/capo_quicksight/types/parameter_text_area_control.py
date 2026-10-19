@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.control_title_format_text
     import capo_quicksight.types.parameter_name
@@ -70,9 +68,7 @@ def deserialize_json(data: dict) -> ParameterTextAreaControl:
     if data.get("ParameterControlId") is not None:
         out["parameter_control_id"] = data["ParameterControlId"]
     else:
-        raise DeserializationError(
-            "ParameterTextAreaControl.parameter_control_id required"
-        )
+        out["parameter_control_id"] = ""
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     else:
@@ -80,9 +76,7 @@ def deserialize_json(data: dict) -> ParameterTextAreaControl:
     if data.get("SourceParameterName") is not None:
         out["source_parameter_name"] = data["SourceParameterName"]
     else:
-        raise DeserializationError(
-            "ParameterTextAreaControl.source_parameter_name required"
-        )
+        out["source_parameter_name"] = ""
     if data.get("Delimiter") is not None:
         out["delimiter"] = data["Delimiter"]
     if data.get("DisplayOptions") is not None:

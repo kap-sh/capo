@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.command_id
     import capo_ssm.types.command_plugin_name
@@ -36,11 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetCommandInvocationRequest:
     if data.get("CommandId") is not None:
         out["command_id"] = data["CommandId"]
     else:
-        raise DeserializationError("GetCommandInvocationRequest.command_id required")
+        out["command_id"] = ""
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("GetCommandInvocationRequest.instance_id required")
+        out["instance_id"] = ""
     if data.get("PluginName") is not None:
         out["plugin_name"] = data["PluginName"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.bcch
     import capo_iot_wireless.types.bsic
@@ -47,11 +45,11 @@ def deserialize_json(data: dict) -> GsmNmrObj:
     if data.get("Bsic") is not None:
         out["bsic"] = data["Bsic"]
     else:
-        raise DeserializationError("GsmNmrObj.bsic required")
+        out["bsic"] = 0
     if data.get("Bcch") is not None:
         out["bcch"] = data["Bcch"]
     else:
-        raise DeserializationError("GsmNmrObj.bcch required")
+        out["bcch"] = 0
     if data.get("RxLevel") is not None:
         out["rx_level"] = data["RxLevel"]
     if data.get("GlobalIdentity") is not None:

@@ -48,11 +48,11 @@ def deserialize_aws_json_1_0(data: dict) -> StartProfileUpdateTaskRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("StartProfileUpdateTaskRequest.catalog required")
+        out["catalog"] = ""
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("StartProfileUpdateTaskRequest.identifier required")
+        out["identifier"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("TaskDetails") is not None:

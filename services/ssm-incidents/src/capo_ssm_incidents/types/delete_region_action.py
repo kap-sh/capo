@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.region_name
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DeleteRegionAction:
     if data.get("regionName") is not None:
         out["region_name"] = data["regionName"]
     else:
-        raise DeserializationError("DeleteRegionAction.region_name required")
+        out["region_name"] = ""
     return out

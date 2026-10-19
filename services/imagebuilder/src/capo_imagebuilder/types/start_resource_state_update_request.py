@@ -81,9 +81,7 @@ def deserialize_json(data: dict) -> StartResourceStateUpdateRequest:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError(
-            "StartResourceStateUpdateRequest.resource_arn required"
-        )
+        out["resource_arn"] = ""
     if data.get("state") is not None:
         import capo_imagebuilder.types.resource_state
 
@@ -119,7 +117,5 @@ def deserialize_json(data: dict) -> StartResourceStateUpdateRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError(
-            "StartResourceStateUpdateRequest.client_token required"
-        )
+        out["client_token"] = ""
     return out

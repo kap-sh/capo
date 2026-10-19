@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__string
     import capo_mediatailor.types.operator
@@ -33,7 +31,7 @@ def deserialize_json(data: dict) -> AvailMatchingCriteria:
     if data.get("DynamicVariable") is not None:
         out["dynamic_variable"] = data["DynamicVariable"]
     else:
-        raise DeserializationError("AvailMatchingCriteria.dynamic_variable required")
+        out["dynamic_variable"] = ""
     if data.get("Operator") is not None:
         import capo_mediatailor.types.operator
 
@@ -41,5 +39,7 @@ def deserialize_json(data: dict) -> AvailMatchingCriteria:
             data["Operator"]
         )
     else:
-        raise DeserializationError("AvailMatchingCriteria.operator required")
+        import typing
+
+        out["operator"] = typing.cast("capo_mediatailor.types.operator.Operator", "")
     return out

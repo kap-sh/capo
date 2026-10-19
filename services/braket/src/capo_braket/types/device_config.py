@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_braket.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_braket.types.string256
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DeviceConfig:
     if data.get("device") is not None:
         out["device"] = data["device"]
     else:
-        raise DeserializationError("DeviceConfig.device required")
+        out["device"] = ""
     return out

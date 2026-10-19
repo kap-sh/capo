@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudhsm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudhsm.types.hsm_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteHsmRequest:
     if data.get("HsmArn") is not None:
         out["hsm_arn"] = data["HsmArn"]
     else:
-        raise DeserializationError("DeleteHsmRequest.hsm_arn required")
+        out["hsm_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.max_files
     import capo_databrew.types.order
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> FilesLimit:
     if data.get("MaxFiles") is not None:
         out["max_files"] = data["MaxFiles"]
     else:
-        raise DeserializationError("FilesLimit.max_files required")
+        out["max_files"] = 0
     if data.get("OrderedBy") is not None:
         import capo_databrew.types.ordered_by
 

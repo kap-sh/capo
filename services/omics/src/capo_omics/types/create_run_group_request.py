@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.run_group_name
     import capo_omics.types.run_group_request_id
@@ -67,7 +65,7 @@ def deserialize_json(data: dict) -> CreateRunGroupRequest:
     if data.get("requestId") is not None:
         out["request_id"] = data["requestId"]
     else:
-        raise DeserializationError("CreateRunGroupRequest.request_id required")
+        out["request_id"] = ""
     if data.get("maxGpus") is not None:
         out["max_gpus"] = data["maxGpus"]
     return out

@@ -177,15 +177,15 @@ def deserialize_aws_json_1_0(data: dict) -> CreditData:
     if data.get("creditId") is not None:
         out["credit_id"] = data["creditId"]
     else:
-        raise DeserializationError("CreditData.credit_id required")
+        out["credit_id"] = ""
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("CreditData.account_id required")
+        out["account_id"] = ""
     if data.get("creditType") is not None:
         out["credit_type"] = data["creditType"]
     else:
-        raise DeserializationError("CreditData.credit_type required")
+        out["credit_type"] = ""
     if data.get("initialAmount") is not None:
         import capo_billing.types.amount
 
@@ -219,7 +219,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreditData:
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("CreditData.description required")
+        out["description"] = ""
     if data.get("startDate") is not None:
         import capo_billing.types._prelude.timestamp
 
@@ -229,7 +229,9 @@ def deserialize_aws_json_1_0(data: dict) -> CreditData:
             )
         )
     else:
-        raise DeserializationError("CreditData.start_date required")
+        import datetime
+
+        out["start_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endDate") is not None:
         import capo_billing.types._prelude.timestamp
 

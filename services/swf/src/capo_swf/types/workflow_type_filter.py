@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.name
     import capo_swf.types.version_optional
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_0(data: dict) -> WorkflowTypeFilter:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("WorkflowTypeFilter.name required")
+        out["name"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     return out

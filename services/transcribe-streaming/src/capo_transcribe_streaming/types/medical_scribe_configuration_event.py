@@ -117,9 +117,7 @@ def deserialize_json(data: dict) -> MedicalScribeConfigurationEvent:
     if data.get("ResourceAccessRoleArn") is not None:
         out["resource_access_role_arn"] = data["ResourceAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "MedicalScribeConfigurationEvent.resource_access_role_arn required"
-        )
+        out["resource_access_role_arn"] = ""
     if data.get("ChannelDefinitions") is not None:
         import capo_transcribe_streaming.types.medical_scribe_channel_definitions
 

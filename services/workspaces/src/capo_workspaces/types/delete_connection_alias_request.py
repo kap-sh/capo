@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.connection_alias_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteConnectionAliasRequest:
     if data.get("AliasId") is not None:
         out["alias_id"] = data["AliasId"]
     else:
-        raise DeserializationError("DeleteConnectionAliasRequest.alias_id required")
+        out["alias_id"] = ""
     return out

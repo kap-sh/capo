@@ -89,25 +89,25 @@ def deserialize_json(data: dict) -> Span:
     if data.get("spanId") is not None:
         out["span_id"] = data["spanId"]
     else:
-        raise DeserializationError("Span.span_id required")
+        out["span_id"] = ""
     if data.get("assistantId") is not None:
         out["assistant_id"] = data["assistantId"]
     else:
-        raise DeserializationError("Span.assistant_id required")
+        out["assistant_id"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("Span.session_id required")
+        out["session_id"] = ""
     if data.get("parentSpanId") is not None:
         out["parent_span_id"] = data["parentSpanId"]
     if data.get("spanName") is not None:
         out["span_name"] = data["spanName"]
     else:
-        raise DeserializationError("Span.span_name required")
+        out["span_name"] = ""
     if data.get("spanType") is not None:
         out["span_type"] = data["spanType"]
     else:
-        raise DeserializationError("Span.span_type required")
+        out["span_type"] = ""
     if data.get("startTimestamp") is not None:
         import capo_qconnect.types._prelude.timestamp
 
@@ -117,7 +117,11 @@ def deserialize_json(data: dict) -> Span:
             )
         )
     else:
-        raise DeserializationError("Span.start_timestamp required")
+        import datetime
+
+        out["start_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("endTimestamp") is not None:
         import capo_qconnect.types._prelude.timestamp
 
@@ -125,17 +129,21 @@ def deserialize_json(data: dict) -> Span:
             data["endTimestamp"]
         )
     else:
-        raise DeserializationError("Span.end_timestamp required")
+        import datetime
+
+        out["end_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("Span.status required")
+        out["status"] = ""
     if data.get("statusDescription") is not None:
         out["status_description"] = data["statusDescription"]
     if data.get("requestId") is not None:
         out["request_id"] = data["requestId"]
     else:
-        raise DeserializationError("Span.request_id required")
+        out["request_id"] = ""
     if data.get("originRequestId") is not None:
         out["origin_request_id"] = data["originRequestId"]
     if data.get("attributes") is not None:

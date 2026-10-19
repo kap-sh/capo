@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.client_token
     import capo_omics.types.reference_store_id
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> StartReferenceImportJobRequest:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("StartReferenceImportJobRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("sources") is not None:
@@ -57,5 +55,5 @@ def deserialize_json(data: dict) -> StartReferenceImportJobRequest:
             )
         )
     else:
-        raise DeserializationError("StartReferenceImportJobRequest.sources required")
+        out["sources"] = []
     return out

@@ -75,17 +75,13 @@ def deserialize_json(data: dict) -> TestSetImportResourceSpecification:
     if data.get("testSetName") is not None:
         out["test_set_name"] = data["testSetName"]
     else:
-        raise DeserializationError(
-            "TestSetImportResourceSpecification.test_set_name required"
-        )
+        out["test_set_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError(
-            "TestSetImportResourceSpecification.role_arn required"
-        )
+        out["role_arn"] = ""
     if data.get("storageLocation") is not None:
         import capo_lex_models_v2.types.test_set_storage_location
 
@@ -117,8 +113,10 @@ def deserialize_json(data: dict) -> TestSetImportResourceSpecification:
             data["modality"]
         )
     else:
-        raise DeserializationError(
-            "TestSetImportResourceSpecification.modality required"
+        import typing
+
+        out["modality"] = typing.cast(
+            "capo_lex_models_v2.types.test_set_modality.TestSetModality", ""
         )
     if data.get("testSetTags") is not None:
         import capo_lex_models_v2.types.tag_map

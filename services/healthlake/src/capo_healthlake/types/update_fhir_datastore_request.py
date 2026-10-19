@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.analytics_configuration
     import capo_healthlake.types.backup_configuration
@@ -97,7 +95,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateFHIRDatastoreRequest:
     if data.get("DatastoreId") is not None:
         out["datastore_id"] = data["DatastoreId"]
     else:
-        raise DeserializationError("UpdateFHIRDatastoreRequest.datastore_id required")
+        out["datastore_id"] = ""
     if data.get("DatastoreName") is not None:
         out["datastore_name"] = data["DatastoreName"]
     if data.get("AnalyticsConfiguration") is not None:

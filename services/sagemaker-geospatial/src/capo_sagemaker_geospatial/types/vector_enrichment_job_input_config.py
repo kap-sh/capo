@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.vector_enrichment_job_data_source_config_input
     import capo_sagemaker_geospatial.types.vector_enrichment_job_document_type
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> VectorEnrichmentJobInputConfig:
     if data.get("DocumentType") is not None:
         out["document_type"] = data["DocumentType"]
     else:
-        raise DeserializationError(
-            "VectorEnrichmentJobInputConfig.document_type required"
-        )
+        out["document_type"] = ""
     if data.get("DataSourceConfig") is not None:
         import capo_sagemaker_geospatial.types.vector_enrichment_job_data_source_config_input
 
@@ -49,7 +45,9 @@ def deserialize_json(data: dict) -> VectorEnrichmentJobInputConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "VectorEnrichmentJobInputConfig.data_source_config required"
+        import capo_sagemaker_geospatial.types._unknown
+
+        out["data_source_config"] = (
+            capo_sagemaker_geospatial.types._unknown.UnknownUnionMember("")
         )
     return out

@@ -61,7 +61,7 @@ def deserialize_json(data: dict) -> CreateMetadataTransferJobRequest:
             data["sources"]
         )
     else:
-        raise DeserializationError("CreateMetadataTransferJobRequest.sources required")
+        out["sources"] = []
     if data.get("destination") is not None:
         import capo_iottwinmaker.types.destination_configuration
 

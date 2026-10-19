@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.collaboration_configured_audience_model_association_summary_list
     import capo_cleanrooms.types.pagination_token
@@ -50,9 +48,7 @@ def deserialize_json(
             )
         )
     else:
-        raise DeserializationError(
-            "ListCollaborationConfiguredAudienceModelAssociationsOutput.collaboration_configured_audience_model_association_summaries required"
-        )
+        out["collaboration_configured_audience_model_association_summaries"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

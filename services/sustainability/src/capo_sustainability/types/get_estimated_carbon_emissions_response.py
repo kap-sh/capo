@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sustainability.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sustainability.types.estimated_carbon_emissions_list
     import capo_sustainability.types.next_token
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> GetEstimatedCarbonEmissionsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetEstimatedCarbonEmissionsResponse.results required"
-        )
+        out["results"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

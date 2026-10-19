@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -121,17 +119,15 @@ def deserialize_json(data: dict) -> GetReadSetMetadataResponse:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetReadSetMetadataResponse.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetReadSetMetadataResponse.arn required")
+        out["arn"] = ""
     if data.get("sequenceStoreId") is not None:
         out["sequence_store_id"] = data["sequenceStoreId"]
     else:
-        raise DeserializationError(
-            "GetReadSetMetadataResponse.sequence_store_id required"
-        )
+        out["sequence_store_id"] = ""
     if data.get("subjectId") is not None:
         out["subject_id"] = data["subjectId"]
     if data.get("sampleId") is not None:
@@ -139,7 +135,7 @@ def deserialize_json(data: dict) -> GetReadSetMetadataResponse:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("GetReadSetMetadataResponse.status required")
+        out["status"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("description") is not None:
@@ -147,7 +143,7 @@ def deserialize_json(data: dict) -> GetReadSetMetadataResponse:
     if data.get("fileType") is not None:
         out["file_type"] = data["fileType"]
     else:
-        raise DeserializationError("GetReadSetMetadataResponse.file_type required")
+        out["file_type"] = ""
     if data.get("creationTime") is not None:
         import datetime
 
@@ -155,7 +151,11 @@ def deserialize_json(data: dict) -> GetReadSetMetadataResponse:
             data["creationTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetReadSetMetadataResponse.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("sequenceInformation") is not None:
         import capo_omics.types.sequence_information
 

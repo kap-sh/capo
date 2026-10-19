@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.non_empty_string
     import capo_qconnect.types.uuid_or_arn_or_either_with_qualifier
@@ -36,7 +34,5 @@ def deserialize_json(data: dict) -> OrchestratorConfigurationEntry:
     if data.get("orchestratorUseCase") is not None:
         out["orchestrator_use_case"] = data["orchestratorUseCase"]
     else:
-        raise DeserializationError(
-            "OrchestratorConfigurationEntry.orchestrator_use_case required"
-        )
+        out["orchestrator_use_case"] = ""
     return out

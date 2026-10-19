@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.data
     import capo_kinesis.types.encryption_type
@@ -60,7 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> Record:
     if data.get("SequenceNumber") is not None:
         out["sequence_number"] = data["SequenceNumber"]
     else:
-        raise DeserializationError("Record.sequence_number required")
+        out["sequence_number"] = ""
     if data.get("ApproximateArrivalTimestamp") is not None:
         import capo_kinesis.types.timestamp
 
@@ -74,7 +72,7 @@ def deserialize_aws_json_1_1(data: dict) -> Record:
 
         out["data"] = capo_kinesis.types.data.deserialize_aws_json_1_1(data["Data"])
     else:
-        raise DeserializationError("Record.data required")
+        out["data"] = b""
     if data.get("PartitionKey") is not None:
         out["partition_key"] = data["PartitionKey"]
     if data.get("EncryptionType") is not None:

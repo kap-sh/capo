@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkflowmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkflowmonitor.types.iso8601_timestamp
     import capo_networkflowmonitor.types.monitor_arn
@@ -87,11 +85,11 @@ def deserialize_json(data: dict) -> UpdateMonitorOutput:
     if data.get("monitorArn") is not None:
         out["monitor_arn"] = data["monitorArn"]
     else:
-        raise DeserializationError("UpdateMonitorOutput.monitor_arn required")
+        out["monitor_arn"] = ""
     if data.get("monitorName") is not None:
         out["monitor_name"] = data["monitorName"]
     else:
-        raise DeserializationError("UpdateMonitorOutput.monitor_name required")
+        out["monitor_name"] = ""
     if data.get("monitorStatus") is not None:
         import capo_networkflowmonitor.types.monitor_status
 
@@ -101,7 +99,11 @@ def deserialize_json(data: dict) -> UpdateMonitorOutput:
             )
         )
     else:
-        raise DeserializationError("UpdateMonitorOutput.monitor_status required")
+        import typing
+
+        out["monitor_status"] = typing.cast(
+            "capo_networkflowmonitor.types.monitor_status.MonitorStatus", ""
+        )
     if data.get("localResources") is not None:
         import capo_networkflowmonitor.types.monitor_local_resources
 
@@ -111,7 +113,7 @@ def deserialize_json(data: dict) -> UpdateMonitorOutput:
             )
         )
     else:
-        raise DeserializationError("UpdateMonitorOutput.local_resources required")
+        out["local_resources"] = []
     if data.get("remoteResources") is not None:
         import capo_networkflowmonitor.types.monitor_remote_resources
 
@@ -121,7 +123,7 @@ def deserialize_json(data: dict) -> UpdateMonitorOutput:
             )
         )
     else:
-        raise DeserializationError("UpdateMonitorOutput.remote_resources required")
+        out["remote_resources"] = []
     if data.get("createdAt") is not None:
         import capo_networkflowmonitor.types.iso8601_timestamp
 
@@ -131,7 +133,9 @@ def deserialize_json(data: dict) -> UpdateMonitorOutput:
             )
         )
     else:
-        raise DeserializationError("UpdateMonitorOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("modifiedAt") is not None:
         import capo_networkflowmonitor.types.iso8601_timestamp
 
@@ -141,7 +145,11 @@ def deserialize_json(data: dict) -> UpdateMonitorOutput:
             )
         )
     else:
-        raise DeserializationError("UpdateMonitorOutput.modified_at required")
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("tags") is not None:
         import capo_networkflowmonitor.types.tag_map
 

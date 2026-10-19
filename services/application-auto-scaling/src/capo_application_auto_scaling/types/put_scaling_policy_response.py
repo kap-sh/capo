@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_auto_scaling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_auto_scaling.types.alarms
     import capo_application_auto_scaling.types.resource_id_max_len1600
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutScalingPolicyResponse:
     if data.get("PolicyARN") is not None:
         out["policy_arn"] = data["PolicyARN"]
     else:
-        raise DeserializationError("PutScalingPolicyResponse.policy_arn required")
+        out["policy_arn"] = ""
     if data.get("Alarms") is not None:
         import capo_application_auto_scaling.types.alarms
 

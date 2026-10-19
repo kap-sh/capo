@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.period
 
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> RateConfig:
     if data.get("rate") is not None:
         out["rate"] = float(data["rate"])
     else:
-        raise DeserializationError("RateConfig.rate required")
+        out["rate"] = 0.0
     if data.get("period") is not None:
         import capo_bedrock_agentcore_control.types.period
 
@@ -50,5 +48,9 @@ def deserialize_json(data: dict) -> RateConfig:
             data["period"]
         )
     else:
-        raise DeserializationError("RateConfig.period required")
+        import typing
+
+        out["period"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.period.Period", ""
+        )
     return out

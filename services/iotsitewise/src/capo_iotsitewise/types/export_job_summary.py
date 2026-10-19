@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -56,7 +54,7 @@ def deserialize_json(data: dict) -> ExportJobSummary:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("ExportJobSummary.job_id required")
+        out["job_id"] = ""
     if data.get("status") is not None:
         import capo_iotsitewise.types.dataset_export_job_status
 
@@ -66,7 +64,12 @@ def deserialize_json(data: dict) -> ExportJobSummary:
             )
         )
     else:
-        raise DeserializationError("ExportJobSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_iotsitewise.types.dataset_export_job_status.DatasetExportJobStatus",
+            "",
+        )
     if data.get("startedAt") is not None:
         import capo_iotsitewise.types._prelude.timestamp
 
@@ -74,7 +77,9 @@ def deserialize_json(data: dict) -> ExportJobSummary:
             data["startedAt"]
         )
     else:
-        raise DeserializationError("ExportJobSummary.started_at required")
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("completedAt") is not None:
         import capo_iotsitewise.types._prelude.timestamp
 
@@ -86,5 +91,5 @@ def deserialize_json(data: dict) -> ExportJobSummary:
     if data.get("destinationS3Uri") is not None:
         out["destination_s3_uri"] = data["destinationS3Uri"]
     else:
-        raise DeserializationError("ExportJobSummary.destination_s3_uri required")
+        out["destination_s3_uri"] = ""
     return out

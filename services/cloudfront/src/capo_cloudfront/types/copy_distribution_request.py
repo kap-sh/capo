@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.boolean
@@ -39,7 +38,7 @@ def deserialize_xml(el: Element) -> CopyDistributionRequest:
     if child_caller_reference is not None:
         out["caller_reference"] = str(child_caller_reference.text or "")
     else:
-        raise DeserializationError("CopyDistributionRequest.caller_reference required")
+        out["caller_reference"] = ""
     child_enabled = el.find("Enabled")
     if child_enabled is not None:
         out["enabled"] = (child_enabled.text or "").lower() == "true"

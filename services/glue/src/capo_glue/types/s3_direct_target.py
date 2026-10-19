@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.auto_data_quality
     import capo_glue.types.direct_schema_change_policy
@@ -104,7 +102,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3DirectTarget:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("S3DirectTarget.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.one_input
 
@@ -112,7 +110,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3DirectTarget:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("S3DirectTarget.inputs required")
+        out["inputs"] = []
     if data.get("PartitionKeys") is not None:
         import capo_glue.types.glue_studio_path_list
 
@@ -124,7 +122,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3DirectTarget:
     if data.get("Path") is not None:
         out["path"] = data["Path"]
     else:
-        raise DeserializationError("S3DirectTarget.path required")
+        out["path"] = ""
     if data.get("Compression") is not None:
         out["compression"] = data["Compression"]
     if data.get("NumberTargetPartitions") is not None:
@@ -136,7 +134,9 @@ def deserialize_aws_json_1_1(data: dict) -> S3DirectTarget:
             data["Format"]
         )
     else:
-        raise DeserializationError("S3DirectTarget.format required")
+        import typing
+
+        out["format"] = typing.cast("capo_glue.types.target_format.TargetFormat", "")
     if data.get("SchemaChangePolicy") is not None:
         import capo_glue.types.direct_schema_change_policy
 

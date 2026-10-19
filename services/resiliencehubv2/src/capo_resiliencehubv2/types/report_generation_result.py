@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -82,7 +80,11 @@ def deserialize_json(data: dict) -> ReportGenerationResult:
             data["reportType"]
         )
     else:
-        raise DeserializationError("ReportGenerationResult.report_type required")
+        import typing
+
+        out["report_type"] = typing.cast(
+            "capo_resiliencehubv2.types.report_type.ReportType", ""
+        )
     if data.get("status") is not None:
         import capo_resiliencehubv2.types.report_generation_status
 
@@ -92,7 +94,12 @@ def deserialize_json(data: dict) -> ReportGenerationResult:
             )
         )
     else:
-        raise DeserializationError("ReportGenerationResult.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_resiliencehubv2.types.report_generation_status.ReportGenerationStatus",
+            "",
+        )
     if data.get("serviceArn") is not None:
         out["service_arn"] = data["serviceArn"]
     if data.get("assessmentId") is not None:

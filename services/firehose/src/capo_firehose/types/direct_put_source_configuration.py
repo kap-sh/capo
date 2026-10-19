@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.throughput_hint_in_m_bs
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> DirectPutSourceConfiguration:
     if data.get("ThroughputHintInMBs") is not None:
         out["throughput_hint_in_m_bs"] = data["ThroughputHintInMBs"]
     else:
-        raise DeserializationError(
-            "DirectPutSourceConfiguration.throughput_hint_in_m_bs required"
-        )
+        out["throughput_hint_in_m_bs"] = 0
     return out

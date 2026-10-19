@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_license_manager_user_subscriptions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager_user_subscriptions.types.security_group
     import capo_license_manager_user_subscriptions.types.subnets
@@ -45,9 +43,9 @@ def deserialize_json(data: dict) -> Settings:
             )
         )
     else:
-        raise DeserializationError("Settings.subnets required")
+        out["subnets"] = []
     if data.get("SecurityGroupId") is not None:
         out["security_group_id"] = data["SecurityGroupId"]
     else:
-        raise DeserializationError("Settings.security_group_id required")
+        out["security_group_id"] = ""
     return out

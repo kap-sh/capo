@@ -102,7 +102,10 @@ def handle_response(
     out: capo_bedrock_agent_runtime.types.retrieve_and_generate_stream_response.RetrieveAndGenerateStreamResponse = {
         "stream": cast(Any, raw_stream_to_events(_iter, _message_decoder, _union_deser))
     }  # type: ignore[reportAssignmentType]
-    out["session_id"] = response.headers["x-amzn-bedrock-knowledge-base-session-id"]
+    if "x-amzn-bedrock-knowledge-base-session-id" in response.headers:
+        out["session_id"] = response.headers["x-amzn-bedrock-knowledge-base-session-id"]
+    else:
+        out["session_id"] = ""
     return out
 
 
@@ -120,7 +123,10 @@ async def async_handle_response(
             Any, async_raw_stream_to_events(_iter, _message_decoder, _union_deser)
         )
     }  # type: ignore[reportAssignmentType]
-    out["session_id"] = response.headers["x-amzn-bedrock-knowledge-base-session-id"]
+    if "x-amzn-bedrock-knowledge-base-session-id" in response.headers:
+        out["session_id"] = response.headers["x-amzn-bedrock-knowledge-base-session-id"]
+    else:
+        out["session_id"] = ""
     return out
 
 

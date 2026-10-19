@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_catalog.types.catalog
     import capo_marketplace_catalog.types.filter_list
@@ -55,7 +53,7 @@ def deserialize_json(data: dict) -> ListChangeSetsRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("ListChangeSetsRequest.catalog required")
+        out["catalog"] = ""
     if data.get("FilterList") is not None:
         import capo_marketplace_catalog.types.filter_list
 

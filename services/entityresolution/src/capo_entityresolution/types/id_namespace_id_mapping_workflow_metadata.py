@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.id_mapping_type
 
@@ -37,7 +35,9 @@ def deserialize_json(data: dict) -> IdNamespaceIdMappingWorkflowMetadata:
             )
         )
     else:
-        raise DeserializationError(
-            "IdNamespaceIdMappingWorkflowMetadata.id_mapping_type required"
+        import typing
+
+        out["id_mapping_type"] = typing.cast(
+            "capo_entityresolution.types.id_mapping_type.IdMappingType", ""
         )
     return out

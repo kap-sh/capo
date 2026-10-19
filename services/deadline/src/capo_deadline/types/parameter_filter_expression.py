@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.comparison_operator
     import capo_deadline.types.parameter_value
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> ParameterFilterExpression:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ParameterFilterExpression.name required")
+        out["name"] = ""
     if data.get("operator") is not None:
         import capo_deadline.types.comparison_operator
 
@@ -47,9 +45,13 @@ def deserialize_json(data: dict) -> ParameterFilterExpression:
             data["operator"]
         )
     else:
-        raise DeserializationError("ParameterFilterExpression.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_deadline.types.comparison_operator.ComparisonOperator", ""
+        )
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("ParameterFilterExpression.value required")
+        out["value"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -102,15 +100,15 @@ def deserialize_aws_json_1_0(data: dict) -> ComponentSummary:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ComponentSummary.name required")
+        out["name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ComponentSummary.arn required")
+        out["arn"] = ""
     if data.get("environmentName") is not None:
         out["environment_name"] = data["environmentName"]
     else:
-        raise DeserializationError("ComponentSummary.environment_name required")
+        out["environment_name"] = ""
     if data.get("serviceName") is not None:
         out["service_name"] = data["serviceName"]
     if data.get("serviceInstanceName") is not None:
@@ -124,7 +122,9 @@ def deserialize_aws_json_1_0(data: dict) -> ComponentSummary:
             )
         )
     else:
-        raise DeserializationError("ComponentSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastModifiedAt") is not None:
         import capo_proton.types._prelude.timestamp
 
@@ -134,7 +134,11 @@ def deserialize_aws_json_1_0(data: dict) -> ComponentSummary:
             )
         )
     else:
-        raise DeserializationError("ComponentSummary.last_modified_at required")
+        import datetime
+
+        out["last_modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastDeploymentAttemptedAt") is not None:
         import capo_proton.types._prelude.timestamp
 
@@ -154,7 +158,7 @@ def deserialize_aws_json_1_0(data: dict) -> ComponentSummary:
     if data.get("deploymentStatus") is not None:
         out["deployment_status"] = data["deploymentStatus"]
     else:
-        raise DeserializationError("ComponentSummary.deployment_status required")
+        out["deployment_status"] = ""
     if data.get("deploymentStatusMessage") is not None:
         out["deployment_status_message"] = data["deploymentStatusMessage"]
     if data.get("lastAttemptedDeploymentId") is not None:

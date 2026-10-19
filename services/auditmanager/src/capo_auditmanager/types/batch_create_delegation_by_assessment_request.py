@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_auditmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auditmanager.types.create_delegation_requests
     import capo_auditmanager.types.uuid
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> BatchCreateDelegationByAssessmentRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchCreateDelegationByAssessmentRequest.create_delegation_requests required"
-        )
+        out["create_delegation_requests"] = []
     return out
 
 

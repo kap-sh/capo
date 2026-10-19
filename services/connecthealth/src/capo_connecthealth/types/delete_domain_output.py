@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connecthealth.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connecthealth.types.domain_arn
     import capo_connecthealth.types.domain_id
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> DeleteDomainOutput:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("DeleteDomainOutput.domain_id required")
+        out["domain_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("DeleteDomainOutput.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_connecthealth.types.domain_status
 
@@ -51,5 +49,9 @@ def deserialize_json(data: dict) -> DeleteDomainOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("DeleteDomainOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_connecthealth.types.domain_status.DomainStatus", ""
+        )
     return out

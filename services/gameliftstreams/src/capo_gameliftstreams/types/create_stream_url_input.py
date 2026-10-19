@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_gameliftstreams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_gameliftstreams.types.client_token
     import capo_gameliftstreams.types.description
@@ -117,9 +115,7 @@ def deserialize_json(data: dict) -> CreateStreamUrlInput:
     if data.get("ApplicationIdentifier") is not None:
         out["application_identifier"] = data["ApplicationIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateStreamUrlInput.application_identifier required"
-        )
+        out["application_identifier"] = ""
     if data.get("Protocol") is not None:
         import capo_gameliftstreams.types.protocol
 
@@ -127,13 +123,15 @@ def deserialize_json(data: dict) -> CreateStreamUrlInput:
             data["Protocol"]
         )
     else:
-        raise DeserializationError("CreateStreamUrlInput.protocol required")
+        import typing
+
+        out["protocol"] = typing.cast(
+            "capo_gameliftstreams.types.protocol.Protocol", ""
+        )
     if data.get("UrlExpiresAfterMinutes") is not None:
         out["url_expires_after_minutes"] = data["UrlExpiresAfterMinutes"]
     else:
-        raise DeserializationError(
-            "CreateStreamUrlInput.url_expires_after_minutes required"
-        )
+        out["url_expires_after_minutes"] = 0
     if data.get("UsageLimit") is not None:
         out["usage_limit"] = data["UsageLimit"]
     if data.get("Description") is not None:
@@ -145,7 +143,7 @@ def deserialize_json(data: dict) -> CreateStreamUrlInput:
             data["Locations"]
         )
     else:
-        raise DeserializationError("CreateStreamUrlInput.locations required")
+        out["locations"] = []
     if data.get("SessionLengthSeconds") is not None:
         out["session_length_seconds"] = data["SessionLengthSeconds"]
     if data.get("AdditionalLaunchArgs") is not None:

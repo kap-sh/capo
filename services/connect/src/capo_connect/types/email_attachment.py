@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.file_name
     import capo_connect.types.pre_signed_attachment_url
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> EmailAttachment:
     if data.get("FileName") is not None:
         out["file_name"] = data["FileName"]
     else:
-        raise DeserializationError("EmailAttachment.file_name required")
+        out["file_name"] = ""
     if data.get("S3Url") is not None:
         out["s3_url"] = data["S3Url"]
     else:
-        raise DeserializationError("EmailAttachment.s3_url required")
+        out["s3_url"] = ""
     return out

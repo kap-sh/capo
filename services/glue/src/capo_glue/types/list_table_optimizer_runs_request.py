@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.catalog_id_string
     import capo_glue.types.list_table_optimizer_runs_token
@@ -56,17 +54,15 @@ def deserialize_aws_json_1_1(data: dict) -> ListTableOptimizerRunsRequest:
     if data.get("CatalogId") is not None:
         out["catalog_id"] = data["CatalogId"]
     else:
-        raise DeserializationError("ListTableOptimizerRunsRequest.catalog_id required")
+        out["catalog_id"] = ""
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError(
-            "ListTableOptimizerRunsRequest.database_name required"
-        )
+        out["database_name"] = ""
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("ListTableOptimizerRunsRequest.table_name required")
+        out["table_name"] = ""
     if data.get("Type") is not None:
         import capo_glue.types.table_optimizer_type
 
@@ -74,7 +70,11 @@ def deserialize_aws_json_1_1(data: dict) -> ListTableOptimizerRunsRequest:
             data["Type"]
         )
     else:
-        raise DeserializationError("ListTableOptimizerRunsRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_glue.types.table_optimizer_type.TableOptimizerType", ""
+        )
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

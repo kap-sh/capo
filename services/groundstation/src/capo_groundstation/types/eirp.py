@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.eirp_units
 
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> Eirp:
     if data.get("value") is not None:
         out["value"] = float(data["value"])
     else:
-        raise DeserializationError("Eirp.value required")
+        out["value"] = 0.0
     if data.get("units") is not None:
         import capo_groundstation.types.eirp_units
 
@@ -48,5 +46,7 @@ def deserialize_json(data: dict) -> Eirp:
             data["units"]
         )
     else:
-        raise DeserializationError("Eirp.units required")
+        import typing
+
+        out["units"] = typing.cast("capo_groundstation.types.eirp_units.EirpUnits", "")
     return out

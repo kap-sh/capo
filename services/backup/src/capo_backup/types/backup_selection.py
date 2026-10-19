@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.backup_selection_name
     import capo_backup.types.conditions
@@ -66,11 +64,11 @@ def deserialize_json(data: dict) -> BackupSelection:
     if data.get("SelectionName") is not None:
         out["selection_name"] = data["SelectionName"]
     else:
-        raise DeserializationError("BackupSelection.selection_name required")
+        out["selection_name"] = ""
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     else:
-        raise DeserializationError("BackupSelection.iam_role_arn required")
+        out["iam_role_arn"] = ""
     if data.get("Resources") is not None:
         import capo_backup.types.resource_arns
 

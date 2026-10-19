@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.position
     import capo_geo_routes.types.sensitive_double
@@ -43,9 +41,9 @@ def deserialize_json(data: dict) -> Circle:
 
         out["center"] = capo_geo_routes.types.position.deserialize_json(data["Center"])
     else:
-        raise DeserializationError("Circle.center required")
+        out["center"] = []
     if data.get("Radius") is not None:
         out["radius"] = float(data["Radius"])
     else:
-        raise DeserializationError("Circle.radius required")
+        out["radius"] = 0.0
     return out

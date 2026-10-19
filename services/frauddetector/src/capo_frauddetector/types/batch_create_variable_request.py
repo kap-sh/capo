@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.tag_list
     import capo_frauddetector.types.variable_entry_list
@@ -48,9 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchCreateVariableRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchCreateVariableRequest.variable_entries required"
-        )
+        out["variable_entries"] = []
     if data.get("tags") is not None:
         import capo_frauddetector.types.tag_list
 

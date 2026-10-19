@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_networkflowmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -70,9 +68,9 @@ def deserialize_json(data: dict) -> StartQueryWorkloadInsightsTopContributorsDat
             data["startTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "StartQueryWorkloadInsightsTopContributorsDataInput.start_time required"
-        )
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import datetime
 
@@ -80,9 +78,9 @@ def deserialize_json(data: dict) -> StartQueryWorkloadInsightsTopContributorsDat
             data["endTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "StartQueryWorkloadInsightsTopContributorsDataInput.end_time required"
-        )
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("metricName") is not None:
         import capo_networkflowmonitor.types.workload_insights_metric
 
@@ -92,8 +90,11 @@ def deserialize_json(data: dict) -> StartQueryWorkloadInsightsTopContributorsDat
             )
         )
     else:
-        raise DeserializationError(
-            "StartQueryWorkloadInsightsTopContributorsDataInput.metric_name required"
+        import typing
+
+        out["metric_name"] = typing.cast(
+            "capo_networkflowmonitor.types.workload_insights_metric.WorkloadInsightsMetric",
+            "",
         )
     if data.get("destinationCategory") is not None:
         import capo_networkflowmonitor.types.destination_category
@@ -104,7 +105,9 @@ def deserialize_json(data: dict) -> StartQueryWorkloadInsightsTopContributorsDat
             )
         )
     else:
-        raise DeserializationError(
-            "StartQueryWorkloadInsightsTopContributorsDataInput.destination_category required"
+        import typing
+
+        out["destination_category"] = typing.cast(
+            "capo_networkflowmonitor.types.destination_category.DestinationCategory", ""
         )
     return out

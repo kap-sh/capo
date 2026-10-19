@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_machine_learning.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_machine_learning.types.entity_id
     import capo_machine_learning.types.entity_name
@@ -44,23 +42,19 @@ def deserialize_aws_json_1_1(data: dict) -> CreateBatchPredictionInput:
     if data.get("BatchPredictionId") is not None:
         out["batch_prediction_id"] = data["BatchPredictionId"]
     else:
-        raise DeserializationError(
-            "CreateBatchPredictionInput.batch_prediction_id required"
-        )
+        out["batch_prediction_id"] = ""
     if data.get("BatchPredictionName") is not None:
         out["batch_prediction_name"] = data["BatchPredictionName"]
     if data.get("MLModelId") is not None:
         out["ml_model_id"] = data["MLModelId"]
     else:
-        raise DeserializationError("CreateBatchPredictionInput.ml_model_id required")
+        out["ml_model_id"] = ""
     if data.get("BatchPredictionDataSourceId") is not None:
         out["batch_prediction_data_source_id"] = data["BatchPredictionDataSourceId"]
     else:
-        raise DeserializationError(
-            "CreateBatchPredictionInput.batch_prediction_data_source_id required"
-        )
+        out["batch_prediction_data_source_id"] = ""
     if data.get("OutputUri") is not None:
         out["output_uri"] = data["OutputUri"]
     else:
-        raise DeserializationError("CreateBatchPredictionInput.output_uri required")
+        out["output_uri"] = ""
     return out

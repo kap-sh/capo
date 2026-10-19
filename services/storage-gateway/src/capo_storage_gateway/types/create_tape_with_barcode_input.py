@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.boolean
     import capo_storage_gateway.types.boolean2
@@ -64,17 +62,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTapeWithBarcodeInput:
     if data.get("GatewayARN") is not None:
         out["gateway_arn"] = data["GatewayARN"]
     else:
-        raise DeserializationError("CreateTapeWithBarcodeInput.gateway_arn required")
+        out["gateway_arn"] = ""
     if data.get("TapeSizeInBytes") is not None:
         out["tape_size_in_bytes"] = data["TapeSizeInBytes"]
     else:
-        raise DeserializationError(
-            "CreateTapeWithBarcodeInput.tape_size_in_bytes required"
-        )
+        out["tape_size_in_bytes"] = 0
     if data.get("TapeBarcode") is not None:
         out["tape_barcode"] = data["TapeBarcode"]
     else:
-        raise DeserializationError("CreateTapeWithBarcodeInput.tape_barcode required")
+        out["tape_barcode"] = ""
     if data.get("KMSEncrypted") is not None:
         out["kms_encrypted"] = data["KMSEncrypted"]
     if data.get("KMSKey") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.rule_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> CreateRuleResponse:
     if data.get("RuleArn") is not None:
         out["rule_arn"] = data["RuleArn"]
     else:
-        raise DeserializationError("CreateRuleResponse.rule_arn required")
+        out["rule_arn"] = ""
     if data.get("RuleId") is not None:
         out["rule_id"] = data["RuleId"]
     else:
-        raise DeserializationError("CreateRuleResponse.rule_id required")
+        out["rule_id"] = ""
     return out

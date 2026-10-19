@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.date_timestamp
     import capo_network_security_manager.types.entity_status
@@ -76,11 +74,11 @@ def deserialize_json(data: dict) -> ScopeSummary:
     if data.get("scopeId") is not None:
         out["scope_id"] = data["scopeId"]
     else:
-        raise DeserializationError("ScopeSummary.scope_id required")
+        out["scope_id"] = ""
     if data.get("scopeArn") is not None:
         out["scope_arn"] = data["scopeArn"]
     else:
-        raise DeserializationError("ScopeSummary.scope_arn required")
+        out["scope_arn"] = ""
     if data.get("scopeName") is not None:
         out["scope_name"] = data["scopeName"]
     if data.get("status") is not None:

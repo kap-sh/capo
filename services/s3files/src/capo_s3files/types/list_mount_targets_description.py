@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3files.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3files.types.availability_zone_id
     import capo_s3files.types.aws_account_id
@@ -99,19 +97,17 @@ def deserialize_json(data: dict) -> ListMountTargetsDescription:
     if data.get("mountTargetId") is not None:
         out["mount_target_id"] = data["mountTargetId"]
     else:
-        raise DeserializationError(
-            "ListMountTargetsDescription.mount_target_id required"
-        )
+        out["mount_target_id"] = ""
     if data.get("networkInterfaceId") is not None:
         out["network_interface_id"] = data["networkInterfaceId"]
     if data.get("ownerId") is not None:
         out["owner_id"] = data["ownerId"]
     else:
-        raise DeserializationError("ListMountTargetsDescription.owner_id required")
+        out["owner_id"] = ""
     if data.get("subnetId") is not None:
         out["subnet_id"] = data["subnetId"]
     else:
-        raise DeserializationError("ListMountTargetsDescription.subnet_id required")
+        out["subnet_id"] = ""
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
     return out

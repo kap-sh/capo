@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_tnb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_tnb.types.lcm_operation_type
     import capo_tnb.types.list_sol_network_operations_metadata
@@ -82,11 +80,11 @@ def deserialize_json(data: dict) -> ListSolNetworkOperationsInfo:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ListSolNetworkOperationsInfo.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ListSolNetworkOperationsInfo.arn required")
+        out["arn"] = ""
     if data.get("operationState") is not None:
         import capo_tnb.types.ns_lcm_operation_state
 
@@ -94,15 +92,15 @@ def deserialize_json(data: dict) -> ListSolNetworkOperationsInfo:
             data["operationState"]
         )
     else:
-        raise DeserializationError(
-            "ListSolNetworkOperationsInfo.operation_state required"
+        import typing
+
+        out["operation_state"] = typing.cast(
+            "capo_tnb.types.ns_lcm_operation_state.NsLcmOperationState", ""
         )
     if data.get("nsInstanceId") is not None:
         out["ns_instance_id"] = data["nsInstanceId"]
     else:
-        raise DeserializationError(
-            "ListSolNetworkOperationsInfo.ns_instance_id required"
-        )
+        out["ns_instance_id"] = ""
     if data.get("lcmOperationType") is not None:
         import capo_tnb.types.lcm_operation_type
 
@@ -110,8 +108,10 @@ def deserialize_json(data: dict) -> ListSolNetworkOperationsInfo:
             data["lcmOperationType"]
         )
     else:
-        raise DeserializationError(
-            "ListSolNetworkOperationsInfo.lcm_operation_type required"
+        import typing
+
+        out["lcm_operation_type"] = typing.cast(
+            "capo_tnb.types.lcm_operation_type.LcmOperationType", ""
         )
     if data.get("updateType") is not None:
         import capo_tnb.types.update_sol_network_type

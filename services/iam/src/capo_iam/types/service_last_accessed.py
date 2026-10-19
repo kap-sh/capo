@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -86,7 +85,7 @@ def deserialize_query(el: Element) -> ServiceLastAccessed:
     if child_service_name is not None:
         out["service_name"] = str(child_service_name.text or "")
     else:
-        raise DeserializationError("ServiceLastAccessed.service_name required")
+        out["service_name"] = ""
     child_last_authenticated = el.find("LastAuthenticated")
     if child_last_authenticated is not None:
         import capo_iam.types.date_type
@@ -98,7 +97,7 @@ def deserialize_query(el: Element) -> ServiceLastAccessed:
     if child_service_namespace is not None:
         out["service_namespace"] = str(child_service_namespace.text or "")
     else:
-        raise DeserializationError("ServiceLastAccessed.service_namespace required")
+        out["service_namespace"] = ""
     child_last_authenticated_entity = el.find("LastAuthenticatedEntity")
     if child_last_authenticated_entity is not None:
         out["last_authenticated_entity"] = str(

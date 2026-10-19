@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_s3vectors.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3vectors.types.tags_map
 
@@ -31,5 +29,5 @@ def deserialize_json(data: dict) -> ListTagsForResourceOutput:
 
         out["tags"] = capo_s3vectors.types.tags_map.deserialize_json(data["tags"])
     else:
-        raise DeserializationError("ListTagsForResourceOutput.tags required")
+        out["tags"] = {}
     return out

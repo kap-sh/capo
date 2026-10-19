@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.instance_id_list
     import capo_ssm.types.next_token
@@ -47,9 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeInstancePatchStatesRequest:
             data["InstanceIds"]
         )
     else:
-        raise DeserializationError(
-            "DescribeInstancePatchStatesRequest.instance_ids required"
-        )
+        out["instance_ids"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

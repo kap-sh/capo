@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sagemaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker.types.batch_add_cluster_nodes_error_list
     import capo_sagemaker.types.node_addition_result_list
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchAddClusterNodesResponse:
             )
         )
     else:
-        raise DeserializationError("BatchAddClusterNodesResponse.successful required")
+        out["successful"] = []
     if data.get("Failed") is not None:
         import capo_sagemaker.types.batch_add_cluster_nodes_error_list
 
@@ -59,5 +57,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchAddClusterNodesResponse:
             )
         )
     else:
-        raise DeserializationError("BatchAddClusterNodesResponse.failed required")
+        out["failed"] = []
     return out

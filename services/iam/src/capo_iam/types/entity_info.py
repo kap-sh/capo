@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -50,12 +49,12 @@ def deserialize_query(el: Element) -> EntityInfo:
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("EntityInfo.arn required")
+        out["arn"] = ""
     child_name = el.find("Name")
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("EntityInfo.name required")
+        out["name"] = ""
     child_type = el.find("Type")
     if child_type is not None:
         import capo_iam.types.policy_owner_entity_type
@@ -64,12 +63,16 @@ def deserialize_query(el: Element) -> EntityInfo:
             child_type
         )
     else:
-        raise DeserializationError("EntityInfo.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_iam.types.policy_owner_entity_type.policyOwnerEntityType", ""
+        )
     child_id = el.find("Id")
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("EntityInfo.id required")
+        out["id"] = ""
     child_path = el.find("Path")
     if child_path is not None:
         out["path"] = str(child_path.text or "")

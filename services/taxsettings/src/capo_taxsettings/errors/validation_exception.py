@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Any
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_taxsettings.errors import DeserializationError, ServiceError
+from capo_taxsettings.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_taxsettings.types.error_message
@@ -50,7 +50,7 @@ def deserialize_json(data: dict) -> ValidationException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ValidationException_.message required")
+        out["message"] = ""
     if data.get("errorCode") is not None:
         import capo_taxsettings.types.validation_exception_error_code
 
@@ -60,7 +60,12 @@ def deserialize_json(data: dict) -> ValidationException_:
             )
         )
     else:
-        raise DeserializationError("ValidationException_.error_code required")
+        import typing
+
+        out["error_code"] = typing.cast(
+            "capo_taxsettings.types.validation_exception_error_code.ValidationExceptionErrorCode",
+            "",
+        )
     if data.get("fieldList") is not None:
         import capo_taxsettings.types.validation_exception_field_list
 

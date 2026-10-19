@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.catalog_identifier
     import capo_partnercentral_selling.types.date_time
@@ -65,19 +63,15 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateEngagementContextRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("UpdateEngagementContextRequest.catalog required")
+        out["catalog"] = ""
     if data.get("EngagementIdentifier") is not None:
         out["engagement_identifier"] = data["EngagementIdentifier"]
     else:
-        raise DeserializationError(
-            "UpdateEngagementContextRequest.engagement_identifier required"
-        )
+        out["engagement_identifier"] = ""
     if data.get("ContextIdentifier") is not None:
         out["context_identifier"] = data["ContextIdentifier"]
     else:
-        raise DeserializationError(
-            "UpdateEngagementContextRequest.context_identifier required"
-        )
+        out["context_identifier"] = ""
     if data.get("EngagementLastModifiedAt") is not None:
         import capo_partnercentral_selling.types.date_time
 
@@ -87,8 +81,10 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateEngagementContextRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateEngagementContextRequest.engagement_last_modified_at required"
+        import datetime
+
+        out["engagement_last_modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("Type") is not None:
         import capo_partnercentral_selling.types.engagement_context_type
@@ -99,7 +95,12 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateEngagementContextRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateEngagementContextRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_partnercentral_selling.types.engagement_context_type.EngagementContextType",
+            "",
+        )
     if data.get("Payload") is not None:
         import capo_partnercentral_selling.types.update_engagement_context_payload
 
@@ -109,7 +110,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateEngagementContextRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateEngagementContextRequest.payload required")
+        import capo_partnercentral_selling.types._unknown
+
+        out["payload"] = capo_partnercentral_selling.types._unknown.UnknownUnionMember(
+            ""
+        )
     return out
 
 

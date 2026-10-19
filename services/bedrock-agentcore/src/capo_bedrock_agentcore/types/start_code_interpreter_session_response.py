@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.code_interpreter_session_id
     import capo_bedrock_agentcore.types.date_timestamp
@@ -38,15 +36,11 @@ def deserialize_json(data: dict) -> StartCodeInterpreterSessionResponse:
     if data.get("codeInterpreterIdentifier") is not None:
         out["code_interpreter_identifier"] = data["codeInterpreterIdentifier"]
     else:
-        raise DeserializationError(
-            "StartCodeInterpreterSessionResponse.code_interpreter_identifier required"
-        )
+        out["code_interpreter_identifier"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError(
-            "StartCodeInterpreterSessionResponse.session_id required"
-        )
+        out["session_id"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore.types.date_timestamp
 
@@ -56,7 +50,7 @@ def deserialize_json(data: dict) -> StartCodeInterpreterSessionResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "StartCodeInterpreterSessionResponse.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

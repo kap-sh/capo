@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecatalyst.types.name_string
     import capo_codecatalyst.types.source_repository_name_string
@@ -34,15 +32,13 @@ def deserialize_json(data: dict) -> DeleteSourceRepositoryResponse:
     if data.get("spaceName") is not None:
         out["space_name"] = data["spaceName"]
     else:
-        raise DeserializationError("DeleteSourceRepositoryResponse.space_name required")
+        out["space_name"] = ""
     if data.get("projectName") is not None:
         out["project_name"] = data["projectName"]
     else:
-        raise DeserializationError(
-            "DeleteSourceRepositoryResponse.project_name required"
-        )
+        out["project_name"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DeleteSourceRepositoryResponse.name required")
+        out["name"] = ""
     return out

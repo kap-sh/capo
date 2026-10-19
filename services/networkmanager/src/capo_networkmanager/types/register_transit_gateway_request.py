@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_networkmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmanager.types.global_network_id
     import capo_networkmanager.types.transit_gateway_arn
@@ -32,7 +30,5 @@ def deserialize_json(data: dict) -> RegisterTransitGatewayRequest:
     if data.get("TransitGatewayArn") is not None:
         out["transit_gateway_arn"] = data["TransitGatewayArn"]
     else:
-        raise DeserializationError(
-            "RegisterTransitGatewayRequest.transit_gateway_arn required"
-        )
+        out["transit_gateway_arn"] = ""
     return out

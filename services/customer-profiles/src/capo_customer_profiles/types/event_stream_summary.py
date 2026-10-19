@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.destination_summary
     import capo_customer_profiles.types.event_stream_state
@@ -71,15 +69,15 @@ def deserialize_json(data: dict) -> EventStreamSummary:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("EventStreamSummary.domain_name required")
+        out["domain_name"] = ""
     if data.get("EventStreamName") is not None:
         out["event_stream_name"] = data["EventStreamName"]
     else:
-        raise DeserializationError("EventStreamSummary.event_stream_name required")
+        out["event_stream_name"] = ""
     if data.get("EventStreamArn") is not None:
         out["event_stream_arn"] = data["EventStreamArn"]
     else:
-        raise DeserializationError("EventStreamSummary.event_stream_arn required")
+        out["event_stream_arn"] = ""
     if data.get("State") is not None:
         import capo_customer_profiles.types.event_stream_state
 
@@ -87,7 +85,11 @@ def deserialize_json(data: dict) -> EventStreamSummary:
             data["State"]
         )
     else:
-        raise DeserializationError("EventStreamSummary.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_customer_profiles.types.event_stream_state.EventStreamState", ""
+        )
     if data.get("StoppedSince") is not None:
         import capo_customer_profiles.types.timestamp
 

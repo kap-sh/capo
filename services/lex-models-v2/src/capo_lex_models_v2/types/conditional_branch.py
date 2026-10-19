@@ -55,7 +55,7 @@ def deserialize_json(data: dict) -> ConditionalBranch:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ConditionalBranch.name required")
+        out["name"] = ""
     if data.get("condition") is not None:
         import capo_lex_models_v2.types.condition
 

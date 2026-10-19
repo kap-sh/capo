@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_account.types.account_id
     import capo_account.types.alternate_contact_type
@@ -34,9 +32,7 @@ def deserialize_json(data: dict) -> DeleteAlternateContactRequest:
     if data.get("AlternateContactType") is not None:
         out["alternate_contact_type"] = data["AlternateContactType"]
     else:
-        raise DeserializationError(
-            "DeleteAlternateContactRequest.alternate_contact_type required"
-        )
+        out["alternate_contact_type"] = ""
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     return out

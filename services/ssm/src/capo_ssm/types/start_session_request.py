@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.document_arn
     import capo_ssm.types.session_manager_parameters
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartSessionRequest:
     if data.get("Target") is not None:
         out["target"] = data["Target"]
     else:
-        raise DeserializationError("StartSessionRequest.target required")
+        out["target"] = ""
     if data.get("DocumentName") is not None:
         out["document_name"] = data["DocumentName"]
     if data.get("Reason") is not None:

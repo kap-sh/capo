@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.arn
     import capo_chime_sdk_media_pipelines.types.chime_sdk_meeting_configuration
@@ -102,15 +100,16 @@ def deserialize_json(data: dict) -> CreateMediaCapturePipelineRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateMediaCapturePipelineRequest.source_type required"
+        import typing
+
+        out["source_type"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.media_pipeline_source_type.MediaPipelineSourceType",
+            "",
         )
     if data.get("SourceArn") is not None:
         out["source_arn"] = data["SourceArn"]
     else:
-        raise DeserializationError(
-            "CreateMediaCapturePipelineRequest.source_arn required"
-        )
+        out["source_arn"] = ""
     if data.get("SinkType") is not None:
         import capo_chime_sdk_media_pipelines.types.media_pipeline_sink_type
 
@@ -120,15 +119,16 @@ def deserialize_json(data: dict) -> CreateMediaCapturePipelineRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateMediaCapturePipelineRequest.sink_type required"
+        import typing
+
+        out["sink_type"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.media_pipeline_sink_type.MediaPipelineSinkType",
+            "",
         )
     if data.get("SinkArn") is not None:
         out["sink_arn"] = data["SinkArn"]
     else:
-        raise DeserializationError(
-            "CreateMediaCapturePipelineRequest.sink_arn required"
-        )
+        out["sink_arn"] = ""
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     if data.get("ChimeSdkMeetingConfiguration") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_annotation_feedback_natural_language
     import capo_bedrock.types.automated_reasoning_policy_definition_rule_id_list
@@ -52,9 +50,7 @@ def deserialize_json(
     if data.get("feedback") is not None:
         out["feedback"] = data["feedback"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyUpdateFromRuleFeedbackAnnotation.feedback required"
-        )
+        out["feedback"] = ""
     return out
 
 

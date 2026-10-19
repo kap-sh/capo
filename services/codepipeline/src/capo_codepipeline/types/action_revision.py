@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.revision
     import capo_codepipeline.types.revision_change_identifier
@@ -41,11 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> ActionRevision:
     if data.get("revisionId") is not None:
         out["revision_id"] = data["revisionId"]
     else:
-        raise DeserializationError("ActionRevision.revision_id required")
+        out["revision_id"] = ""
     if data.get("revisionChangeId") is not None:
         out["revision_change_id"] = data["revisionChangeId"]
     else:
-        raise DeserializationError("ActionRevision.revision_change_id required")
+        out["revision_change_id"] = ""
     if data.get("created") is not None:
         import capo_codepipeline.types.timestamp
 
@@ -53,5 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> ActionRevision:
             data["created"]
         )
     else:
-        raise DeserializationError("ActionRevision.created required")
+        import datetime
+
+        out["created"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

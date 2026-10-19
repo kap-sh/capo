@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -79,7 +77,7 @@ def deserialize_json(data: dict) -> ListAuditFindingsInput:
             )
         )
     else:
-        raise DeserializationError("ListAuditFindingsInput.audit_targets required")
+        out["audit_targets"] = []
     if data.get("DetailLevel") is not None:
         import capo_application_signals.types.detail_level
 

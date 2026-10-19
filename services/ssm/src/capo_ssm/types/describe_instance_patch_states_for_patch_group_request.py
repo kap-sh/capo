@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.instance_patch_state_filter_list
     import capo_ssm.types.next_token
@@ -56,9 +54,7 @@ def deserialize_aws_json_1_1(
     if data.get("PatchGroup") is not None:
         out["patch_group"] = data["PatchGroup"]
     else:
-        raise DeserializationError(
-            "DescribeInstancePatchStatesForPatchGroupRequest.patch_group required"
-        )
+        out["patch_group"] = ""
     if data.get("Filters") is not None:
         import capo_ssm.types.instance_patch_state_filter_list
 

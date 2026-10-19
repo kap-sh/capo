@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.budget_name
     import capo_service_catalog.types.id
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateBudgetWithResourceInput:
     if data.get("BudgetName") is not None:
         out["budget_name"] = data["BudgetName"]
     else:
-        raise DeserializationError(
-            "AssociateBudgetWithResourceInput.budget_name required"
-        )
+        out["budget_name"] = ""
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError(
-            "AssociateBudgetWithResourceInput.resource_id required"
-        )
+        out["resource_id"] = ""
     return out

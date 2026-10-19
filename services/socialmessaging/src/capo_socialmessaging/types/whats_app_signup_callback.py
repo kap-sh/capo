@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 
 class WhatsAppSignupCallback(TypedDict, closed=True):
     access_token: "str"
@@ -26,7 +24,7 @@ def deserialize_json(data: dict) -> WhatsAppSignupCallback:
     if data.get("accessToken") is not None:
         out["access_token"] = data["accessToken"]
     else:
-        raise DeserializationError("WhatsAppSignupCallback.access_token required")
+        out["access_token"] = ""
     if data.get("callbackUrl") is not None:
         out["callback_url"] = data["callbackUrl"]
     return out

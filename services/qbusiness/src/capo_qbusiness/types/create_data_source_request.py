@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.application_id
     import capo_qbusiness.types.client_token
@@ -104,11 +102,11 @@ def deserialize_json(data: dict) -> CreateDataSourceRequest:
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("CreateDataSourceRequest.display_name required")
+        out["display_name"] = ""
     if data.get("configuration") is not None:
         out["configuration"] = data["configuration"]
     else:
-        raise DeserializationError("CreateDataSourceRequest.configuration required")
+        out["configuration"] = None
     if data.get("vpcConfiguration") is not None:
         import capo_qbusiness.types.data_source_vpc_configuration
 

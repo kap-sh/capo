@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_global_accelerator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_global_accelerator.types.generic_boolean
     import capo_global_accelerator.types.generic_string
@@ -46,9 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateAcceleratorAttributesRequest:
     if data.get("AcceleratorArn") is not None:
         out["accelerator_arn"] = data["AcceleratorArn"]
     else:
-        raise DeserializationError(
-            "UpdateAcceleratorAttributesRequest.accelerator_arn required"
-        )
+        out["accelerator_arn"] = ""
     if data.get("FlowLogsEnabled") is not None:
         out["flow_logs_enabled"] = data["FlowLogsEnabled"]
     if data.get("FlowLogsS3Bucket") is not None:

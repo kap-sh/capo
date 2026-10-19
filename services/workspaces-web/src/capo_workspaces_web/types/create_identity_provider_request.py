@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.arn
     import capo_workspaces_web.types.client_token
@@ -63,19 +61,15 @@ def deserialize_json(data: dict) -> CreateIdentityProviderRequest:
     if data.get("portalArn") is not None:
         out["portal_arn"] = data["portalArn"]
     else:
-        raise DeserializationError("CreateIdentityProviderRequest.portal_arn required")
+        out["portal_arn"] = ""
     if data.get("identityProviderName") is not None:
         out["identity_provider_name"] = data["identityProviderName"]
     else:
-        raise DeserializationError(
-            "CreateIdentityProviderRequest.identity_provider_name required"
-        )
+        out["identity_provider_name"] = ""
     if data.get("identityProviderType") is not None:
         out["identity_provider_type"] = data["identityProviderType"]
     else:
-        raise DeserializationError(
-            "CreateIdentityProviderRequest.identity_provider_type required"
-        )
+        out["identity_provider_type"] = ""
     if data.get("identityProviderDetails") is not None:
         import capo_workspaces_web.types.identity_provider_details
 
@@ -85,9 +79,7 @@ def deserialize_json(data: dict) -> CreateIdentityProviderRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateIdentityProviderRequest.identity_provider_details required"
-        )
+        out["identity_provider_details"] = {}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

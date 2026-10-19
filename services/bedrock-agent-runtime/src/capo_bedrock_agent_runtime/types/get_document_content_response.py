@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.presigned_url
 
@@ -34,11 +32,11 @@ def deserialize_json(data: dict) -> GetDocumentContentResponse:
     if data.get("mimeType") is not None:
         out["mime_type"] = data["mimeType"]
     else:
-        raise DeserializationError("GetDocumentContentResponse.mime_type required")
+        out["mime_type"] = ""
     if data.get("presignedUrl") is not None:
         out["presigned_url"] = data["presignedUrl"]
     else:
-        raise DeserializationError("GetDocumentContentResponse.presigned_url required")
+        out["presigned_url"] = ""
     if data.get("documentContentLength") is not None:
         out["document_content_length"] = data["documentContentLength"]
     return out

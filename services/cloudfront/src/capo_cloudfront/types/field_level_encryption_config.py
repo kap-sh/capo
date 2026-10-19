@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.content_type_profile_config
@@ -54,9 +53,7 @@ def deserialize_xml(el: Element) -> FieldLevelEncryptionConfig:
     if child_caller_reference is not None:
         out["caller_reference"] = str(child_caller_reference.text or "")
     else:
-        raise DeserializationError(
-            "FieldLevelEncryptionConfig.caller_reference required"
-        )
+        out["caller_reference"] = ""
     child_comment = el.find("Comment")
     if child_comment is not None:
         out["comment"] = str(child_comment.text or "")

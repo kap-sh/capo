@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.agent_status
     import capo_bedrock_agent.types.id
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> DeleteAgentVersionResponse:
     if data.get("agentId") is not None:
         out["agent_id"] = data["agentId"]
     else:
-        raise DeserializationError("DeleteAgentVersionResponse.agent_id required")
+        out["agent_id"] = ""
     if data.get("agentVersion") is not None:
         out["agent_version"] = data["agentVersion"]
     else:
-        raise DeserializationError("DeleteAgentVersionResponse.agent_version required")
+        out["agent_version"] = ""
     if data.get("agentStatus") is not None:
         import capo_bedrock_agent.types.agent_status
 
@@ -51,5 +49,9 @@ def deserialize_json(data: dict) -> DeleteAgentVersionResponse:
             data["agentStatus"]
         )
     else:
-        raise DeserializationError("DeleteAgentVersionResponse.agent_status required")
+        import typing
+
+        out["agent_status"] = typing.cast(
+            "capo_bedrock_agent.types.agent_status.AgentStatus", ""
+        )
     return out

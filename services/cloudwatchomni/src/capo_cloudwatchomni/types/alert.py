@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -110,7 +108,7 @@ def deserialize_cbor(data: dict) -> Alert:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Alert.name required")
+        out["name"] = ""
     if data.get("alertId") is not None:
         out["alert_id"] = data["alertId"]
     if data.get("description") is not None:
@@ -118,7 +116,7 @@ def deserialize_cbor(data: dict) -> Alert:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("Alert.account_id required")
+        out["account_id"] = ""
     if data.get("spaceId") is not None:
         out["space_id"] = data["spaceId"]
     if data.get("profileId") is not None:
@@ -128,7 +126,9 @@ def deserialize_cbor(data: dict) -> Alert:
 
         out["rule"] = capo_cloudwatchomni.types.rule.deserialize_cbor(data["rule"])
     else:
-        raise DeserializationError("Alert.rule required")
+        import capo_cloudwatchomni.types._unknown
+
+        out["rule"] = capo_cloudwatchomni.types._unknown.UnknownUnionMember("")
     if data.get("notificationStatus") is not None:
         import capo_cloudwatchomni.types.notification_status
 
@@ -160,7 +160,9 @@ def deserialize_cbor(data: dict) -> Alert:
             )
         )
     else:
-        raise DeserializationError("Alert.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_cloudwatchomni.types._prelude.timestamp
 
@@ -170,9 +172,11 @@ def deserialize_cbor(data: dict) -> Alert:
             )
         )
     else:
-        raise DeserializationError("Alert.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("alertArn") is not None:
         out["alert_arn"] = data["alertArn"]
     else:
-        raise DeserializationError("Alert.alert_arn required")
+        out["alert_arn"] = ""
     return out

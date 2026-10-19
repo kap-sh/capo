@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.content_block_type
     import capo_bedrock_agentcore.types.resource_content
@@ -78,7 +76,11 @@ def deserialize_json(data: dict) -> ContentBlock:
             data["type"]
         )
     else:
-        raise DeserializationError("ContentBlock.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agentcore.types.content_block_type.ContentBlockType", ""
+        )
     if data.get("text") is not None:
         out["text"] = data["text"]
     if data.get("data") is not None:

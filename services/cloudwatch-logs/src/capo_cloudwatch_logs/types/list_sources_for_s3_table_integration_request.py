@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.arn
     import capo_cloudwatch_logs.types.list_sources_for_s3_table_integration_max_results
@@ -38,9 +36,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListSourcesForS3TableIntegrationRequ
     if data.get("integrationArn") is not None:
         out["integration_arn"] = data["integrationArn"]
     else:
-        raise DeserializationError(
-            "ListSourcesForS3TableIntegrationRequest.integration_arn required"
-        )
+        out["integration_arn"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

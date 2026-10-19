@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.arn
     import capo_network_security_manager.types.service_resource_type
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> ResourceAssociation:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ResourceAssociation.arn required")
+        out["arn"] = ""
     if data.get("resourceType") is not None:
         import capo_network_security_manager.types.service_resource_type
 
@@ -49,5 +47,10 @@ def deserialize_json(data: dict) -> ResourceAssociation:
             )
         )
     else:
-        raise DeserializationError("ResourceAssociation.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_network_security_manager.types.service_resource_type.ServiceResourceType",
+            "",
+        )
     return out

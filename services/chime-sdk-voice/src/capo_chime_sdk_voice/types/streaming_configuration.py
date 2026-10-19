@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.boolean
     import capo_chime_sdk_voice.types.data_retention_in_hours
@@ -59,13 +57,11 @@ def deserialize_json(data: dict) -> StreamingConfiguration:
     if data.get("DataRetentionInHours") is not None:
         out["data_retention_in_hours"] = data["DataRetentionInHours"]
     else:
-        raise DeserializationError(
-            "StreamingConfiguration.data_retention_in_hours required"
-        )
+        out["data_retention_in_hours"] = 0
     if data.get("Disabled") is not None:
         out["disabled"] = data["Disabled"]
     else:
-        raise DeserializationError("StreamingConfiguration.disabled required")
+        out["disabled"] = False
     if data.get("StreamingNotificationTargets") is not None:
         import capo_chime_sdk_voice.types.streaming_notification_target_list
 

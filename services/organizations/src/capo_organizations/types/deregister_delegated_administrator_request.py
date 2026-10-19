@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_organizations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_organizations.types.account_id
     import capo_organizations.types.service_principal
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeregisterDelegatedAdministratorRequ
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     else:
-        raise DeserializationError(
-            "DeregisterDelegatedAdministratorRequest.account_id required"
-        )
+        out["account_id"] = ""
     if data.get("ServicePrincipal") is not None:
         out["service_principal"] = data["ServicePrincipal"]
     else:
-        raise DeserializationError(
-            "DeregisterDelegatedAdministratorRequest.service_principal required"
-        )
+        out["service_principal"] = ""
     return out

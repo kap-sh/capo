@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_acm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm.types.acme_endpoint_arn
     import capo_acm.types.domain_name
@@ -54,15 +52,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAcmeDomainValidationRequest:
     if data.get("AcmeEndpointArn") is not None:
         out["acme_endpoint_arn"] = data["AcmeEndpointArn"]
     else:
-        raise DeserializationError(
-            "CreateAcmeDomainValidationRequest.acme_endpoint_arn required"
-        )
+        out["acme_endpoint_arn"] = ""
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError(
-            "CreateAcmeDomainValidationRequest.domain_name required"
-        )
+        out["domain_name"] = ""
     if data.get("PrevalidationOptions") is not None:
         import capo_acm.types.prevalidation_options
 
@@ -72,9 +66,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAcmeDomainValidationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAcmeDomainValidationRequest.prevalidation_options required"
-        )
+        import capo_acm.types._unknown
+
+        out["prevalidation_options"] = capo_acm.types._unknown.UnknownUnionMember("")
     if data.get("Tags") is not None:
         import capo_acm.types.tag_list
 

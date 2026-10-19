@@ -160,7 +160,11 @@ def deserialize_json(data: dict) -> RouteLeg:
             )
         )
     else:
-        raise DeserializationError("RouteLeg.travel_mode required")
+        import typing
+
+        out["travel_mode"] = typing.cast(
+            "capo_geo_routes.types.route_leg_travel_mode.RouteLegTravelMode", ""
+        )
     if data.get("Type") is not None:
         import capo_geo_routes.types.route_leg_type
 
@@ -168,7 +172,11 @@ def deserialize_json(data: dict) -> RouteLeg:
             data["Type"]
         )
     else:
-        raise DeserializationError("RouteLeg.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_geo_routes.types.route_leg_type.RouteLegType", ""
+        )
     if data.get("VehicleLegDetails") is not None:
         import capo_geo_routes.types.route_vehicle_leg_details
 

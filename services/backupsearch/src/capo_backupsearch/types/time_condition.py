@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_backupsearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -44,7 +42,9 @@ def deserialize_json(data: dict) -> TimeCondition:
             data["Value"]
         )
     else:
-        raise DeserializationError("TimeCondition.value required")
+        import datetime
+
+        out["value"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Operator") is not None:
         import capo_backupsearch.types.time_condition_operator
 

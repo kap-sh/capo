@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.network_migration_definition_id
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> DeleteNetworkMigrationDefinitionRequest:
     if data.get("networkMigrationDefinitionID") is not None:
         out["network_migration_definition_id"] = data["networkMigrationDefinitionID"]
     else:
-        raise DeserializationError(
-            "DeleteNetworkMigrationDefinitionRequest.network_migration_definition_id required"
-        )
+        out["network_migration_definition_id"] = ""
     return out

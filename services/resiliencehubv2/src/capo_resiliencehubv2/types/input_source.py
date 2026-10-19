@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.input_source_type
 
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> InputSource:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("InputSource.identifier required")
+        out["identifier"] = ""
     if data.get("type") is not None:
         import capo_resiliencehubv2.types.input_source_type
 
@@ -42,5 +40,9 @@ def deserialize_json(data: dict) -> InputSource:
             data["type"]
         )
     else:
-        raise DeserializationError("InputSource.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_resiliencehubv2.types.input_source_type.InputSourceType", ""
+        )
     return out

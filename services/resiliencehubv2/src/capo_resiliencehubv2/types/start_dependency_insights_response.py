@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.dependency_insights_status
 
@@ -41,5 +39,10 @@ def deserialize_json(data: dict) -> StartDependencyInsightsResponse:
             )
         )
     else:
-        raise DeserializationError("StartDependencyInsightsResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_resiliencehubv2.types.dependency_insights_status.DependencyInsightsStatus",
+            "",
+        )
     return out

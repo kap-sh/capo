@@ -55,5 +55,9 @@ def deserialize_aws_json_1_1(data: dict) -> XssMatchTuple:
             )
         )
     else:
-        raise DeserializationError("XssMatchTuple.text_transformation required")
+        import typing
+
+        out["text_transformation"] = typing.cast(
+            "capo_waf.types.text_transformation.TextTransformation", ""
+        )
     return out

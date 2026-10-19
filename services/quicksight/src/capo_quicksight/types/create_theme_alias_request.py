@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.alias_name
     import capo_quicksight.types.aws_account_id
@@ -38,7 +36,5 @@ def deserialize_json(data: dict) -> CreateThemeAliasRequest:
     if data.get("ThemeVersionNumber") is not None:
         out["theme_version_number"] = data["ThemeVersionNumber"]
     else:
-        raise DeserializationError(
-            "CreateThemeAliasRequest.theme_version_number required"
-        )
+        out["theme_version_number"] = 0
     return out

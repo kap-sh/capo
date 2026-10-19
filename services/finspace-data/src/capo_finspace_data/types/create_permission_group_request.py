@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_finspace_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace_data.types.application_permission_list
     import capo_finspace_data.types.client_token
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> CreatePermissionGroupRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreatePermissionGroupRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("applicationPermissions") is not None:
@@ -63,9 +61,7 @@ def deserialize_json(data: dict) -> CreatePermissionGroupRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreatePermissionGroupRequest.application_permissions required"
-        )
+        out["application_permissions"] = []
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

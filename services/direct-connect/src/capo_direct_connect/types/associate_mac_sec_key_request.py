@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.cak
     import capo_direct_connect.types.ckn
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateMacSecKeyRequest:
     if data.get("connectionId") is not None:
         out["connection_id"] = data["connectionId"]
     else:
-        raise DeserializationError("AssociateMacSecKeyRequest.connection_id required")
+        out["connection_id"] = ""
     if data.get("secretARN") is not None:
         out["secret_arn"] = data["secretARN"]
     if data.get("ckn") is not None:

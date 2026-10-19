@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.bucket_arn
     import capo_kinesis_analytics_v2.types.file_key
@@ -38,15 +36,11 @@ def deserialize_aws_json_1_1(data: dict) -> S3ApplicationCodeLocationDescription
     if data.get("BucketARN") is not None:
         out["bucket_arn"] = data["BucketARN"]
     else:
-        raise DeserializationError(
-            "S3ApplicationCodeLocationDescription.bucket_arn required"
-        )
+        out["bucket_arn"] = ""
     if data.get("FileKey") is not None:
         out["file_key"] = data["FileKey"]
     else:
-        raise DeserializationError(
-            "S3ApplicationCodeLocationDescription.file_key required"
-        )
+        out["file_key"] = ""
     if data.get("ObjectVersion") is not None:
         out["object_version"] = data["ObjectVersion"]
     return out

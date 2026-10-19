@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -46,19 +44,19 @@ def deserialize_json(data: dict) -> SuccessCriteriaAlarmSummary:
     if data.get("alarmArn") is not None:
         out["alarm_arn"] = data["alarmArn"]
     else:
-        raise DeserializationError("SuccessCriteriaAlarmSummary.alarm_arn required")
+        out["alarm_arn"] = ""
     if data.get("alarmName") is not None:
         out["alarm_name"] = data["alarmName"]
     else:
-        raise DeserializationError("SuccessCriteriaAlarmSummary.alarm_name required")
+        out["alarm_name"] = ""
     if data.get("region") is not None:
         out["region"] = data["region"]
     else:
-        raise DeserializationError("SuccessCriteriaAlarmSummary.region required")
+        out["region"] = ""
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("SuccessCriteriaAlarmSummary.account_id required")
+        out["account_id"] = ""
     if data.get("createdAt") is not None:
         import capo_resiliencehubv2.types._prelude.timestamp
 

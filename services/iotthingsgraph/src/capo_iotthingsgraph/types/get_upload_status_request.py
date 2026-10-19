@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotthingsgraph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotthingsgraph.types.upload_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetUploadStatusRequest:
     if data.get("uploadId") is not None:
         out["upload_id"] = data["uploadId"]
     else:
-        raise DeserializationError("GetUploadStatusRequest.upload_id required")
+        out["upload_id"] = ""
     return out

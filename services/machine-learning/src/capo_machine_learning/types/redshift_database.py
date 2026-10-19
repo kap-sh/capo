@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_machine_learning.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_machine_learning.types.redshift_cluster_identifier
     import capo_machine_learning.types.redshift_database_name
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> RedshiftDatabase:
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError("RedshiftDatabase.database_name required")
+        out["database_name"] = ""
     if data.get("ClusterIdentifier") is not None:
         out["cluster_identifier"] = data["ClusterIdentifier"]
     else:
-        raise DeserializationError("RedshiftDatabase.cluster_identifier required")
+        out["cluster_identifier"] = ""
     return out

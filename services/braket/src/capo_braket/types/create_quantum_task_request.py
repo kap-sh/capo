@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_braket.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_braket.types.associations
     import capo_braket.types.device_arn
@@ -82,31 +80,29 @@ def deserialize_json(data: dict) -> CreateQuantumTaskRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CreateQuantumTaskRequest.client_token required")
+        out["client_token"] = ""
     if data.get("deviceArn") is not None:
         out["device_arn"] = data["deviceArn"]
     else:
-        raise DeserializationError("CreateQuantumTaskRequest.device_arn required")
+        out["device_arn"] = ""
     if data.get("deviceParameters") is not None:
         out["device_parameters"] = data["deviceParameters"]
     if data.get("shots") is not None:
         out["shots"] = data["shots"]
     else:
-        raise DeserializationError("CreateQuantumTaskRequest.shots required")
+        out["shots"] = 0
     if data.get("outputS3Bucket") is not None:
         out["output_s3_bucket"] = data["outputS3Bucket"]
     else:
-        raise DeserializationError("CreateQuantumTaskRequest.output_s3_bucket required")
+        out["output_s3_bucket"] = ""
     if data.get("outputS3KeyPrefix") is not None:
         out["output_s3_key_prefix"] = data["outputS3KeyPrefix"]
     else:
-        raise DeserializationError(
-            "CreateQuantumTaskRequest.output_s3_key_prefix required"
-        )
+        out["output_s3_key_prefix"] = ""
     if data.get("action") is not None:
         out["action"] = data["action"]
     else:
-        raise DeserializationError("CreateQuantumTaskRequest.action required")
+        out["action"] = ""
     if data.get("tags") is not None:
         import capo_braket.types.tags_map
 

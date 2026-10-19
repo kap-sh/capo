@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.attribute_name_type
     import capo_cognito_identity_provider.types.attribute_value_type
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_1(data: dict) -> AttributeType:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("AttributeType.name required")
+        out["name"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     return out

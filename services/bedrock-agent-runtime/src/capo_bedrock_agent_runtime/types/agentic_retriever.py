@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.retriever_configuration
 
@@ -45,7 +43,11 @@ def deserialize_json(data: dict) -> AgenticRetriever:
             )
         )
     else:
-        raise DeserializationError("AgenticRetriever.configuration required")
+        import capo_bedrock_agent_runtime.types._unknown
+
+        out["configuration"] = (
+            capo_bedrock_agent_runtime.types._unknown.UnknownUnionMember("")
+        )
     return out
 
 

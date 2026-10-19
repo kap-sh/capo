@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.target_name
     import capo_bedrock_agentcore_control.types.traffic_split_metadata_map
@@ -50,15 +48,15 @@ def deserialize_json(data: dict) -> TargetTrafficSplitEntry:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("TargetTrafficSplitEntry.name required")
+        out["name"] = ""
     if data.get("weight") is not None:
         out["weight"] = data["weight"]
     else:
-        raise DeserializationError("TargetTrafficSplitEntry.weight required")
+        out["weight"] = 0
     if data.get("targetName") is not None:
         out["target_name"] = data["targetName"]
     else:
-        raise DeserializationError("TargetTrafficSplitEntry.target_name required")
+        out["target_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("metadata") is not None:

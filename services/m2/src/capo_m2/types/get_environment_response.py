@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.arn
     import capo_m2.types.boolean
@@ -153,37 +151,37 @@ def deserialize_json(data: dict) -> GetEnvironmentResponse:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetEnvironmentResponse.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("environmentArn") is not None:
         out["environment_arn"] = data["environmentArn"]
     else:
-        raise DeserializationError("GetEnvironmentResponse.environment_arn required")
+        out["environment_arn"] = ""
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError("GetEnvironmentResponse.environment_id required")
+        out["environment_id"] = ""
     if data.get("instanceType") is not None:
         out["instance_type"] = data["instanceType"]
     else:
-        raise DeserializationError("GetEnvironmentResponse.instance_type required")
+        out["instance_type"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("GetEnvironmentResponse.status required")
+        out["status"] = ""
     if data.get("engineType") is not None:
         out["engine_type"] = data["engineType"]
     else:
-        raise DeserializationError("GetEnvironmentResponse.engine_type required")
+        out["engine_type"] = ""
     if data.get("engineVersion") is not None:
         out["engine_version"] = data["engineVersion"]
     else:
-        raise DeserializationError("GetEnvironmentResponse.engine_version required")
+        out["engine_version"] = ""
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
     else:
-        raise DeserializationError("GetEnvironmentResponse.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("subnetIds") is not None:
         import capo_m2.types.string50_list
 
@@ -191,7 +189,7 @@ def deserialize_json(data: dict) -> GetEnvironmentResponse:
             data["subnetIds"]
         )
     else:
-        raise DeserializationError("GetEnvironmentResponse.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("securityGroupIds") is not None:
         import capo_m2.types.string50_list
 
@@ -199,7 +197,7 @@ def deserialize_json(data: dict) -> GetEnvironmentResponse:
             data["securityGroupIds"]
         )
     else:
-        raise DeserializationError("GetEnvironmentResponse.security_group_ids required")
+        out["security_group_ids"] = []
     if data.get("creationTime") is not None:
         import capo_m2.types.timestamp
 
@@ -207,7 +205,11 @@ def deserialize_json(data: dict) -> GetEnvironmentResponse:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("GetEnvironmentResponse.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("storageConfigurations") is not None:
         import capo_m2.types.storage_configuration_list
 

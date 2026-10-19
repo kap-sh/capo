@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.listing_mode
     import capo_bedrock_agentcore_control.types.mcp_tool_schema_configuration
@@ -59,7 +57,7 @@ def deserialize_json(data: dict) -> McpServerTargetConfiguration:
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError("McpServerTargetConfiguration.endpoint required")
+        out["endpoint"] = ""
     if data.get("mcpToolSchema") is not None:
         import capo_bedrock_agentcore_control.types.mcp_tool_schema_configuration
 

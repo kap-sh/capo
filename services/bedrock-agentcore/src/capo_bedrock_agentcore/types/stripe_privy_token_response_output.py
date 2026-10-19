@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.stripe_privy_app_id_type
     import capo_bedrock_agentcore.types.stripe_privy_authorization_signature_type
@@ -46,13 +44,11 @@ def deserialize_json(data: dict) -> StripePrivyTokenResponseOutput:
     if data.get("appId") is not None:
         out["app_id"] = data["appId"]
     else:
-        raise DeserializationError("StripePrivyTokenResponseOutput.app_id required")
+        out["app_id"] = ""
     if data.get("basicAuthToken") is not None:
         out["basic_auth_token"] = data["basicAuthToken"]
     else:
-        raise DeserializationError(
-            "StripePrivyTokenResponseOutput.basic_auth_token required"
-        )
+        out["basic_auth_token"] = ""
     return out
 
 

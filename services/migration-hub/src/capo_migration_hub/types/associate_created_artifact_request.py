@@ -50,15 +50,11 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateCreatedArtifactRequest:
     if data.get("ProgressUpdateStream") is not None:
         out["progress_update_stream"] = data["ProgressUpdateStream"]
     else:
-        raise DeserializationError(
-            "AssociateCreatedArtifactRequest.progress_update_stream required"
-        )
+        out["progress_update_stream"] = ""
     if data.get("MigrationTaskName") is not None:
         out["migration_task_name"] = data["MigrationTaskName"]
     else:
-        raise DeserializationError(
-            "AssociateCreatedArtifactRequest.migration_task_name required"
-        )
+        out["migration_task_name"] = ""
     if data.get("CreatedArtifact") is not None:
         import capo_migration_hub.types.created_artifact
 

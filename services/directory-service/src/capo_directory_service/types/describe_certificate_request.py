@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.certificate_id
     import capo_directory_service.types.directory_id
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeCertificateRequest:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError("DescribeCertificateRequest.directory_id required")
+        out["directory_id"] = ""
     if data.get("CertificateId") is not None:
         out["certificate_id"] = data["CertificateId"]
     else:
-        raise DeserializationError("DescribeCertificateRequest.certificate_id required")
+        out["certificate_id"] = ""
     return out

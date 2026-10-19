@@ -61,9 +61,7 @@ def deserialize_json(data: dict) -> CreateCodeSecurityScanConfigurationRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "CreateCodeSecurityScanConfigurationRequest.name required"
-        )
+        out["name"] = ""
     if data.get("level") is not None:
         import capo_inspector2.types.configuration_level
 
@@ -71,8 +69,10 @@ def deserialize_json(data: dict) -> CreateCodeSecurityScanConfigurationRequest:
             data["level"]
         )
     else:
-        raise DeserializationError(
-            "CreateCodeSecurityScanConfigurationRequest.level required"
+        import typing
+
+        out["level"] = typing.cast(
+            "capo_inspector2.types.configuration_level.ConfigurationLevel", ""
         )
     if data.get("configuration") is not None:
         import capo_inspector2.types.code_security_scan_configuration

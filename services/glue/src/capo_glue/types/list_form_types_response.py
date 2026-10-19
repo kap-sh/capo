@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.form_type_item_list
     import capo_glue.types.token
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListFormTypesResponse:
             data["Items"]
         )
     else:
-        raise DeserializationError("ListFormTypesResponse.items required")
+        out["items"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.authentication_types
     import capo_glue.types.bool
@@ -103,13 +101,11 @@ def deserialize_aws_json_1_1(data: dict) -> ComputeEnvironmentConfiguration:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ComputeEnvironmentConfiguration.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError(
-            "ComputeEnvironmentConfiguration.description required"
-        )
+        out["description"] = ""
     if data.get("ComputeEnvironment") is not None:
         import capo_glue.types.compute_environment
 
@@ -119,8 +115,10 @@ def deserialize_aws_json_1_1(data: dict) -> ComputeEnvironmentConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ComputeEnvironmentConfiguration.compute_environment required"
+        import typing
+
+        out["compute_environment"] = typing.cast(
+            "capo_glue.types.compute_environment.ComputeEnvironment", ""
         )
     if data.get("SupportedAuthenticationTypes") is not None:
         import capo_glue.types.authentication_types
@@ -131,9 +129,7 @@ def deserialize_aws_json_1_1(data: dict) -> ComputeEnvironmentConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ComputeEnvironmentConfiguration.supported_authentication_types required"
-        )
+        out["supported_authentication_types"] = []
     if data.get("ConnectionOptions") is not None:
         import capo_glue.types.properties_map
 
@@ -143,9 +139,7 @@ def deserialize_aws_json_1_1(data: dict) -> ComputeEnvironmentConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ComputeEnvironmentConfiguration.connection_options required"
-        )
+        out["connection_options"] = {}
     if data.get("ConnectionPropertyNameOverrides") is not None:
         import capo_glue.types.property_name_overrides
 
@@ -155,9 +149,7 @@ def deserialize_aws_json_1_1(data: dict) -> ComputeEnvironmentConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ComputeEnvironmentConfiguration.connection_property_name_overrides required"
-        )
+        out["connection_property_name_overrides"] = {}
     if data.get("ConnectionOptionNameOverrides") is not None:
         import capo_glue.types.property_name_overrides
 
@@ -167,9 +159,7 @@ def deserialize_aws_json_1_1(data: dict) -> ComputeEnvironmentConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ComputeEnvironmentConfiguration.connection_option_name_overrides required"
-        )
+        out["connection_option_name_overrides"] = {}
     if data.get("ConnectionPropertiesRequiredOverrides") is not None:
         import capo_glue.types.list_of_string
 

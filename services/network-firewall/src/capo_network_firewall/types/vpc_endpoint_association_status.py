@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.association_sync_state
     import capo_network_firewall.types.firewall_status_value
@@ -52,7 +50,11 @@ def deserialize_aws_json_1_0(data: dict) -> VpcEndpointAssociationStatus:
             )
         )
     else:
-        raise DeserializationError("VpcEndpointAssociationStatus.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_network_firewall.types.firewall_status_value.FirewallStatusValue", ""
+        )
     if data.get("AssociationSyncState") is not None:
         import capo_network_firewall.types.association_sync_state
 

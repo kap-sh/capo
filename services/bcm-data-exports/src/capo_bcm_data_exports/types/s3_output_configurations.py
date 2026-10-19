@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bcm_data_exports.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_data_exports.types.compression_option
     import capo_bcm_data_exports.types.format_option
@@ -67,7 +65,11 @@ def deserialize_aws_json_1_1(data: dict) -> S3OutputConfigurations:
             )
         )
     else:
-        raise DeserializationError("S3OutputConfigurations.output_type required")
+        import typing
+
+        out["output_type"] = typing.cast(
+            "capo_bcm_data_exports.types.s3_output_type.S3OutputType", ""
+        )
     if data.get("Format") is not None:
         import capo_bcm_data_exports.types.format_option
 
@@ -77,7 +79,11 @@ def deserialize_aws_json_1_1(data: dict) -> S3OutputConfigurations:
             )
         )
     else:
-        raise DeserializationError("S3OutputConfigurations.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_bcm_data_exports.types.format_option.FormatOption", ""
+        )
     if data.get("Compression") is not None:
         import capo_bcm_data_exports.types.compression_option
 
@@ -87,7 +93,11 @@ def deserialize_aws_json_1_1(data: dict) -> S3OutputConfigurations:
             )
         )
     else:
-        raise DeserializationError("S3OutputConfigurations.compression required")
+        import typing
+
+        out["compression"] = typing.cast(
+            "capo_bcm_data_exports.types.compression_option.CompressionOption", ""
+        )
     if data.get("Overwrite") is not None:
         import capo_bcm_data_exports.types.overwrite_option
 
@@ -97,5 +107,9 @@ def deserialize_aws_json_1_1(data: dict) -> S3OutputConfigurations:
             )
         )
     else:
-        raise DeserializationError("S3OutputConfigurations.overwrite required")
+        import typing
+
+        out["overwrite"] = typing.cast(
+            "capo_bcm_data_exports.types.overwrite_option.OverwriteOption", ""
+        )
     return out

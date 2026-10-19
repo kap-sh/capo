@@ -56,15 +56,15 @@ def deserialize_aws_json_1_1(data: dict) -> TrustedAdvisorCheckSummary:
     if data.get("checkId") is not None:
         out["check_id"] = data["checkId"]
     else:
-        raise DeserializationError("TrustedAdvisorCheckSummary.check_id required")
+        out["check_id"] = ""
     if data.get("timestamp") is not None:
         out["timestamp"] = data["timestamp"]
     else:
-        raise DeserializationError("TrustedAdvisorCheckSummary.timestamp required")
+        out["timestamp"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("TrustedAdvisorCheckSummary.status required")
+        out["status"] = ""
     if data.get("hasFlaggedResources") is not None:
         out["has_flagged_resources"] = data["hasFlaggedResources"]
     else:

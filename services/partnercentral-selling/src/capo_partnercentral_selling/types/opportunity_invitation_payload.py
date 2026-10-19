@@ -80,9 +80,7 @@ def deserialize_aws_json_1_0(data: dict) -> OpportunityInvitationPayload:
             )
         )
     else:
-        raise DeserializationError(
-            "OpportunityInvitationPayload.receiver_responsibilities required"
-        )
+        out["receiver_responsibilities"] = []
     if data.get("Customer") is not None:
         import capo_partnercentral_selling.types.engagement_customer
 

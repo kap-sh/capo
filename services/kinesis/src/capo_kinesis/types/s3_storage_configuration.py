@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.bucket_arn
     import capo_kinesis.types.expected_bucket_owner
@@ -61,13 +59,11 @@ def deserialize_aws_json_1_1(data: dict) -> S3StorageConfiguration:
     if data.get("BucketARN") is not None:
         out["bucket_arn"] = data["BucketARN"]
     else:
-        raise DeserializationError("S3StorageConfiguration.bucket_arn required")
+        out["bucket_arn"] = ""
     if data.get("ExpectedBucketOwner") is not None:
         out["expected_bucket_owner"] = data["ExpectedBucketOwner"]
     else:
-        raise DeserializationError(
-            "S3StorageConfiguration.expected_bucket_owner required"
-        )
+        out["expected_bucket_owner"] = ""
     if data.get("OutputKeyTemplate") is not None:
         out["output_key_template"] = data["OutputKeyTemplate"]
     if data.get("StorageClass") is not None:
@@ -87,5 +83,9 @@ def deserialize_aws_json_1_1(data: dict) -> S3StorageConfiguration:
             )
         )
     else:
-        raise DeserializationError("S3StorageConfiguration.compression_type required")
+        import typing
+
+        out["compression_type"] = typing.cast(
+            "capo_kinesis.types.s3_compression_type.S3CompressionType", ""
+        )
     return out

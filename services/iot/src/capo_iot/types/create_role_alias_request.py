@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.credential_duration_seconds
     import capo_iot.types.role_alias
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> CreateRoleAliasRequest:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateRoleAliasRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("credentialDurationSeconds") is not None:
         out["credential_duration_seconds"] = data["credentialDurationSeconds"]
     if data.get("tags") is not None:

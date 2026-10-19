@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.accept_language
     import capo_service_catalog.types.add_tags
@@ -117,11 +115,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProductInput:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateProductInput.name required")
+        out["name"] = ""
     if data.get("Owner") is not None:
         out["owner"] = data["Owner"]
     else:
-        raise DeserializationError("CreateProductInput.owner required")
+        out["owner"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Distributor") is not None:
@@ -141,7 +139,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProductInput:
             )
         )
     else:
-        raise DeserializationError("CreateProductInput.product_type required")
+        import typing
+
+        out["product_type"] = typing.cast(
+            "capo_service_catalog.types.product_type.ProductType", ""
+        )
     if data.get("Tags") is not None:
         import capo_service_catalog.types.add_tags
 
@@ -159,7 +161,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProductInput:
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     else:
-        raise DeserializationError("CreateProductInput.idempotency_token required")
+        out["idempotency_token"] = ""
     if data.get("SourceConnection") is not None:
         import capo_service_catalog.types.source_connection
 

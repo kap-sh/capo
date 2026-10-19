@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bcm_pricing_calculator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_pricing_calculator.types.batch_delete_workload_estimate_usage_entries
     import capo_bcm_pricing_calculator.types.resource_id
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> BatchDeleteWorkloadEstimateUsageRequ
     if data.get("workloadEstimateId") is not None:
         out["workload_estimate_id"] = data["workloadEstimateId"]
     else:
-        raise DeserializationError(
-            "BatchDeleteWorkloadEstimateUsageRequest.workload_estimate_id required"
-        )
+        out["workload_estimate_id"] = ""
     if data.get("ids") is not None:
         import capo_bcm_pricing_calculator.types.batch_delete_workload_estimate_usage_entries
 
@@ -49,7 +45,5 @@ def deserialize_aws_json_1_0(data: dict) -> BatchDeleteWorkloadEstimateUsageRequ
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDeleteWorkloadEstimateUsageRequest.ids required"
-        )
+        out["ids"] = []
     return out

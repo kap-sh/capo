@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.event_stream_destination_status
     import capo_customer_profiles.types.string1_to255
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> DestinationSummary:
     if data.get("Uri") is not None:
         out["uri"] = data["Uri"]
     else:
-        raise DeserializationError("DestinationSummary.uri required")
+        out["uri"] = ""
     if data.get("Status") is not None:
         import capo_customer_profiles.types.event_stream_destination_status
 
@@ -56,7 +54,12 @@ def deserialize_json(data: dict) -> DestinationSummary:
             )
         )
     else:
-        raise DeserializationError("DestinationSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_customer_profiles.types.event_stream_destination_status.EventStreamDestinationStatus",
+            "",
+        )
     if data.get("UnhealthySince") is not None:
         import capo_customer_profiles.types.timestamp
 

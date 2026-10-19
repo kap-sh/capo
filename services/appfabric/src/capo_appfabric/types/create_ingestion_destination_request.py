@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appfabric.types.destination_configuration
     import capo_appfabric.types.identifier
@@ -70,8 +68,10 @@ def deserialize_json(data: dict) -> CreateIngestionDestinationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateIngestionDestinationRequest.processing_configuration required"
+        import capo_appfabric.types._unknown
+
+        out["processing_configuration"] = (
+            capo_appfabric.types._unknown.UnknownUnionMember("")
         )
     if data.get("destinationConfiguration") is not None:
         import capo_appfabric.types.destination_configuration
@@ -82,8 +82,10 @@ def deserialize_json(data: dict) -> CreateIngestionDestinationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateIngestionDestinationRequest.destination_configuration required"
+        import capo_appfabric.types._unknown
+
+        out["destination_configuration"] = (
+            capo_appfabric.types._unknown.UnknownUnionMember("")
         )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]

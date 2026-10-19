@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sns.types.phone_number
@@ -30,9 +29,7 @@ def deserialize_query(el: Element) -> CheckIfPhoneNumberIsOptedOutInput:
     if child_phone_number is not None:
         out["phone_number"] = str(child_phone_number.text or "")
     else:
-        raise DeserializationError(
-            "CheckIfPhoneNumberIsOptedOutInput.phone_number required"
-        )
+        out["phone_number"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_benefits.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_benefits.types.amendment_list
     import capo_partnercentral_benefits.types.benefit_application_identifier
@@ -50,25 +48,23 @@ def deserialize_aws_json_1_0(data: dict) -> AmendBenefitApplicationInput:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("AmendBenefitApplicationInput.catalog required")
+        out["catalog"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("AmendBenefitApplicationInput.client_token required")
+        out["client_token"] = ""
     if data.get("Revision") is not None:
         out["revision"] = data["Revision"]
     else:
-        raise DeserializationError("AmendBenefitApplicationInput.revision required")
+        out["revision"] = ""
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("AmendBenefitApplicationInput.identifier required")
+        out["identifier"] = ""
     if data.get("AmendmentReason") is not None:
         out["amendment_reason"] = data["AmendmentReason"]
     else:
-        raise DeserializationError(
-            "AmendBenefitApplicationInput.amendment_reason required"
-        )
+        out["amendment_reason"] = ""
     if data.get("Amendments") is not None:
         import capo_partnercentral_benefits.types.amendment_list
 
@@ -78,5 +74,5 @@ def deserialize_aws_json_1_0(data: dict) -> AmendBenefitApplicationInput:
             )
         )
     else:
-        raise DeserializationError("AmendBenefitApplicationInput.amendments required")
+        out["amendments"] = []
     return out

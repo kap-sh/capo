@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_braket.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_braket.types.job_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CreateJobResponse:
     if data.get("jobArn") is not None:
         out["job_arn"] = data["jobArn"]
     else:
-        raise DeserializationError("CreateJobResponse.job_arn required")
+        out["job_arn"] = ""
     return out

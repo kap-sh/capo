@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.memory_id
     import capo_bedrock_agentcore_control.types.memory_status
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> DeleteMemoryOutput:
     if data.get("memoryId") is not None:
         out["memory_id"] = data["memoryId"]
     else:
-        raise DeserializationError("DeleteMemoryOutput.memory_id required")
+        out["memory_id"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.memory_status
 

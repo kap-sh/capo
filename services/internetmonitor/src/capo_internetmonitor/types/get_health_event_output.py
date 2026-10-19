@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_internetmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -111,11 +109,11 @@ def deserialize_json(data: dict) -> GetHealthEventOutput:
     if data.get("EventArn") is not None:
         out["event_arn"] = data["EventArn"]
     else:
-        raise DeserializationError("GetHealthEventOutput.event_arn required")
+        out["event_arn"] = ""
     if data.get("EventId") is not None:
         out["event_id"] = data["EventId"]
     else:
-        raise DeserializationError("GetHealthEventOutput.event_id required")
+        out["event_id"] = ""
     if data.get("StartedAt") is not None:
         import datetime
 
@@ -123,7 +121,9 @@ def deserialize_json(data: dict) -> GetHealthEventOutput:
             data["StartedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetHealthEventOutput.started_at required")
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndedAt") is not None:
         import datetime
 
@@ -143,7 +143,11 @@ def deserialize_json(data: dict) -> GetHealthEventOutput:
             data["LastUpdatedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetHealthEventOutput.last_updated_at required")
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("ImpactedLocations") is not None:
         import capo_internetmonitor.types.impacted_locations_list
 
@@ -153,11 +157,11 @@ def deserialize_json(data: dict) -> GetHealthEventOutput:
             )
         )
     else:
-        raise DeserializationError("GetHealthEventOutput.impacted_locations required")
+        out["impacted_locations"] = []
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("GetHealthEventOutput.status required")
+        out["status"] = ""
     if data.get("PercentOfTotalTrafficImpacted") is not None:
         out["percent_of_total_traffic_impacted"] = float(
             data["PercentOfTotalTrafficImpacted"]
@@ -165,7 +169,7 @@ def deserialize_json(data: dict) -> GetHealthEventOutput:
     if data.get("ImpactType") is not None:
         out["impact_type"] = data["ImpactType"]
     else:
-        raise DeserializationError("GetHealthEventOutput.impact_type required")
+        out["impact_type"] = ""
     if data.get("HealthScoreThreshold") is not None:
         out["health_score_threshold"] = float(data["HealthScoreThreshold"])
     else:

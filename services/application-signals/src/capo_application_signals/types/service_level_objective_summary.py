@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -124,11 +122,11 @@ def deserialize_json(data: dict) -> ServiceLevelObjectiveSummary:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("ServiceLevelObjectiveSummary.arn required")
+        out["arn"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ServiceLevelObjectiveSummary.name required")
+        out["name"] = ""
     if data.get("KeyAttributes") is not None:
         import capo_application_signals.types.attributes
 

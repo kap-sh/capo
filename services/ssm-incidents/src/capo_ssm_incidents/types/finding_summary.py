@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> FindingSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("FindingSummary.id required")
+        out["id"] = ""
     if data.get("lastModifiedTime") is not None:
         import capo_ssm_incidents.types._prelude.timestamp
 
@@ -48,5 +46,9 @@ def deserialize_json(data: dict) -> FindingSummary:
             )
         )
     else:
-        raise DeserializationError("FindingSummary.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

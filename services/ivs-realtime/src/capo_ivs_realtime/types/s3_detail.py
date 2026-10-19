@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ivs_realtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.string
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> S3Detail:
     if data.get("recordingPrefix") is not None:
         out["recording_prefix"] = data["recordingPrefix"]
     else:
-        raise DeserializationError("S3Detail.recording_prefix required")
+        out["recording_prefix"] = ""
     return out

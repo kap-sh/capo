@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.error_info
@@ -108,7 +106,7 @@ def deserialize_json(data: dict) -> Ingestion:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("Ingestion.arn required")
+        out["arn"] = ""
     if data.get("IngestionId") is not None:
         out["ingestion_id"] = data["IngestionId"]
     if data.get("IngestionStatus") is not None:
@@ -120,7 +118,11 @@ def deserialize_json(data: dict) -> Ingestion:
             )
         )
     else:
-        raise DeserializationError("Ingestion.ingestion_status required")
+        import typing
+
+        out["ingestion_status"] = typing.cast(
+            "capo_quicksight.types.ingestion_status.IngestionStatus", ""
+        )
     if data.get("ErrorInfo") is not None:
         import capo_quicksight.types.error_info
 
@@ -146,7 +148,11 @@ def deserialize_json(data: dict) -> Ingestion:
             data["CreatedTime"]
         )
     else:
-        raise DeserializationError("Ingestion.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("IngestionTimeInSeconds") is not None:
         out["ingestion_time_in_seconds"] = data["IngestionTimeInSeconds"]
     if data.get("IngestionSizeInBytes") is not None:

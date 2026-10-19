@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.account_id
     import capo_config_service.types.aws_region
@@ -40,15 +38,11 @@ def deserialize_aws_json_1_1(data: dict) -> PutAggregationAuthorizationRequest:
     if data.get("AuthorizedAccountId") is not None:
         out["authorized_account_id"] = data["AuthorizedAccountId"]
     else:
-        raise DeserializationError(
-            "PutAggregationAuthorizationRequest.authorized_account_id required"
-        )
+        out["authorized_account_id"] = ""
     if data.get("AuthorizedAwsRegion") is not None:
         out["authorized_aws_region"] = data["AuthorizedAwsRegion"]
     else:
-        raise DeserializationError(
-            "PutAggregationAuthorizationRequest.authorized_aws_region required"
-        )
+        out["authorized_aws_region"] = ""
     if data.get("Tags") is not None:
         import capo_config_service.types.tags_list
 

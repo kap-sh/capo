@@ -55,15 +55,11 @@ def deserialize_json(data: dict) -> CreatePracticeRunConfigurationResponse:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError(
-            "CreatePracticeRunConfigurationResponse.arn required"
-        )
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "CreatePracticeRunConfigurationResponse.name required"
-        )
+        out["name"] = ""
     if data.get("zonalAutoshiftStatus") is not None:
         import capo_arc_zonal_shift.types.zonal_autoshift_status
 
@@ -73,8 +69,10 @@ def deserialize_json(data: dict) -> CreatePracticeRunConfigurationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "CreatePracticeRunConfigurationResponse.zonal_autoshift_status required"
+        import typing
+
+        out["zonal_autoshift_status"] = typing.cast(
+            "capo_arc_zonal_shift.types.zonal_autoshift_status.ZonalAutoshiftStatus", ""
         )
     if data.get("practiceRunConfiguration") is not None:
         import capo_arc_zonal_shift.types.practice_run_configuration

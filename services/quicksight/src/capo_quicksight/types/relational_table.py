@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.input_column_list
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> RelationalTable:
     if data.get("DataSourceArn") is not None:
         out["data_source_arn"] = data["DataSourceArn"]
     else:
-        raise DeserializationError("RelationalTable.data_source_arn required")
+        out["data_source_arn"] = ""
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     if data.get("Schema") is not None:
@@ -61,7 +59,7 @@ def deserialize_json(data: dict) -> RelationalTable:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("RelationalTable.name required")
+        out["name"] = ""
     if data.get("InputColumns") is not None:
         import capo_quicksight.types.input_column_list
 
@@ -69,5 +67,5 @@ def deserialize_json(data: dict) -> RelationalTable:
             data["InputColumns"]
         )
     else:
-        raise DeserializationError("RelationalTable.input_columns required")
+        out["input_columns"] = []
     return out

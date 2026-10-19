@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.gateway_arn
     import capo_storage_gateway.types.smb_security_strategy
@@ -38,9 +36,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateSMBSecurityStrategyInput:
     if data.get("GatewayARN") is not None:
         out["gateway_arn"] = data["GatewayARN"]
     else:
-        raise DeserializationError(
-            "UpdateSMBSecurityStrategyInput.gateway_arn required"
-        )
+        out["gateway_arn"] = ""
     if data.get("SMBSecurityStrategy") is not None:
         import capo_storage_gateway.types.smb_security_strategy
 
@@ -50,7 +46,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateSMBSecurityStrategyInput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateSMBSecurityStrategyInput.smb_security_strategy required"
+        import typing
+
+        out["smb_security_strategy"] = typing.cast(
+            "capo_storage_gateway.types.smb_security_strategy.SMBSecurityStrategy", ""
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -62,21 +60,21 @@ def deserialize_json(data: dict) -> SourceEventMetadata:
     if data.get("eventTypeVersion") is not None:
         out["event_type_version"] = data["eventTypeVersion"]
     else:
-        raise DeserializationError("SourceEventMetadata.event_type_version required")
+        out["event_type_version"] = ""
     if data.get("sourceEventId") is not None:
         out["source_event_id"] = data["sourceEventId"]
     else:
-        raise DeserializationError("SourceEventMetadata.source_event_id required")
+        out["source_event_id"] = ""
     if data.get("eventOriginRegion") is not None:
         out["event_origin_region"] = data["eventOriginRegion"]
     if data.get("relatedAccount") is not None:
         out["related_account"] = data["relatedAccount"]
     else:
-        raise DeserializationError("SourceEventMetadata.related_account required")
+        out["related_account"] = ""
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("SourceEventMetadata.source required")
+        out["source"] = ""
     if data.get("eventOccurrenceTime") is not None:
         import datetime
 
@@ -84,11 +82,15 @@ def deserialize_json(data: dict) -> SourceEventMetadata:
             data["eventOccurrenceTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("SourceEventMetadata.event_occurrence_time required")
+        import datetime
+
+        out["event_occurrence_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("eventType") is not None:
         out["event_type"] = data["eventType"]
     else:
-        raise DeserializationError("SourceEventMetadata.event_type required")
+        out["event_type"] = ""
     if data.get("relatedResources") is not None:
         import capo_notifications.types.resources
 
@@ -96,5 +98,5 @@ def deserialize_json(data: dict) -> SourceEventMetadata:
             data["relatedResources"]
         )
     else:
-        raise DeserializationError("SourceEventMetadata.related_resources required")
+        out["related_resources"] = []
     return out

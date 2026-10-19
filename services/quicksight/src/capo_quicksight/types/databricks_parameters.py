@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.authentication_type
     import capo_quicksight.types.host
@@ -59,15 +57,15 @@ def deserialize_json(data: dict) -> DatabricksParameters:
     if data.get("Host") is not None:
         out["host"] = data["Host"]
     else:
-        raise DeserializationError("DatabricksParameters.host required")
+        out["host"] = ""
     if data.get("Port") is not None:
         out["port"] = data["Port"]
     else:
-        raise DeserializationError("DatabricksParameters.port required")
+        out["port"] = 0
     if data.get("SqlEndpointPath") is not None:
         out["sql_endpoint_path"] = data["SqlEndpointPath"]
     else:
-        raise DeserializationError("DatabricksParameters.sql_endpoint_path required")
+        out["sql_endpoint_path"] = ""
     if data.get("AuthenticationType") is not None:
         import capo_quicksight.types.authentication_type
 

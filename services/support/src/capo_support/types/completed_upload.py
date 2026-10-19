@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_support.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support.types.e_tag
     import capo_support.types.field_integer_value
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> CompletedUpload:
     if data.get("partIndex") is not None:
         out["part_index"] = data["partIndex"]
     else:
-        raise DeserializationError("CompletedUpload.part_index required")
+        out["part_index"] = 0
     if data.get("eTag") is not None:
         out["e_tag"] = data["eTag"]
     else:
-        raise DeserializationError("CompletedUpload.e_tag required")
+        out["e_tag"] = ""
     return out

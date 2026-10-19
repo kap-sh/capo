@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.iam_role_arn
     import capo_iotfleetwise.types.mqtt_topic_arn
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> MqttTopicConfig:
     if data.get("mqttTopicArn") is not None:
         out["mqtt_topic_arn"] = data["mqttTopicArn"]
     else:
-        raise DeserializationError("MqttTopicConfig.mqtt_topic_arn required")
+        out["mqtt_topic_arn"] = ""
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:
-        raise DeserializationError("MqttTopicConfig.execution_role_arn required")
+        out["execution_role_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.boolean
     import capo_storage_gateway.types.client_token
@@ -73,31 +71,27 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCachediSCSIVolumeInput:
     if data.get("GatewayARN") is not None:
         out["gateway_arn"] = data["GatewayARN"]
     else:
-        raise DeserializationError("CreateCachediSCSIVolumeInput.gateway_arn required")
+        out["gateway_arn"] = ""
     if data.get("VolumeSizeInBytes") is not None:
         out["volume_size_in_bytes"] = data["VolumeSizeInBytes"]
     else:
-        raise DeserializationError(
-            "CreateCachediSCSIVolumeInput.volume_size_in_bytes required"
-        )
+        out["volume_size_in_bytes"] = 0
     if data.get("SnapshotId") is not None:
         out["snapshot_id"] = data["SnapshotId"]
     if data.get("TargetName") is not None:
         out["target_name"] = data["TargetName"]
     else:
-        raise DeserializationError("CreateCachediSCSIVolumeInput.target_name required")
+        out["target_name"] = ""
     if data.get("SourceVolumeARN") is not None:
         out["source_volume_arn"] = data["SourceVolumeARN"]
     if data.get("NetworkInterfaceId") is not None:
         out["network_interface_id"] = data["NetworkInterfaceId"]
     else:
-        raise DeserializationError(
-            "CreateCachediSCSIVolumeInput.network_interface_id required"
-        )
+        out["network_interface_id"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("CreateCachediSCSIVolumeInput.client_token required")
+        out["client_token"] = ""
     if data.get("KMSEncrypted") is not None:
         out["kms_encrypted"] = data["KMSEncrypted"]
     if data.get("KMSKey") is not None:

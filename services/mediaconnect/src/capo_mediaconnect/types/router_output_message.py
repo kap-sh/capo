@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 
 class RouterOutputMessage(TypedDict, closed=True):
     code: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> RouterOutputMessage:
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("RouterOutputMessage.code required")
+        out["code"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("RouterOutputMessage.message required")
+        out["message"] = ""
     return out

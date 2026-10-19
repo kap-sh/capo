@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_budgets.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_budgets.types.dimension
     import capo_budgets.types.match_options
@@ -46,7 +44,9 @@ def deserialize_aws_json_1_1(data: dict) -> ExpressionDimensionValues:
 
         out["key"] = capo_budgets.types.dimension.deserialize_aws_json_1_1(data["Key"])
     else:
-        raise DeserializationError("ExpressionDimensionValues.key required")
+        import typing
+
+        out["key"] = typing.cast("capo_budgets.types.dimension.Dimension", "")
     if data.get("Values") is not None:
         import capo_budgets.types.values
 
@@ -54,7 +54,7 @@ def deserialize_aws_json_1_1(data: dict) -> ExpressionDimensionValues:
             data["Values"]
         )
     else:
-        raise DeserializationError("ExpressionDimensionValues.values required")
+        out["values"] = []
     if data.get("MatchOptions") is not None:
         import capo_budgets.types.match_options
 

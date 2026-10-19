@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resource_groups.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resource_groups.types.group_string_v2
     import capo_resource_groups.types.list_grouping_statuses_filter_list
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> ListGroupingStatusesInput:
     if data.get("Group") is not None:
         out["group"] = data["Group"]
     else:
-        raise DeserializationError("ListGroupingStatusesInput.group required")
+        out["group"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("Filters") is not None:

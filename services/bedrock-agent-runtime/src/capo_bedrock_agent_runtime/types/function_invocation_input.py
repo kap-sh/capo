@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.action_invocation_type
     import capo_bedrock_agent_runtime.types.function_parameters
@@ -65,7 +63,7 @@ def deserialize_json(data: dict) -> FunctionInvocationInput:
     if data.get("actionGroup") is not None:
         out["action_group"] = data["actionGroup"]
     else:
-        raise DeserializationError("FunctionInvocationInput.action_group required")
+        out["action_group"] = ""
     if data.get("parameters") is not None:
         import capo_bedrock_agent_runtime.types.function_parameters
 

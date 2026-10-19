@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_api_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_api_gateway.types.string
 
@@ -32,9 +30,9 @@ def deserialize_json(data: dict) -> CreateUsagePlanKeyRequest:
     if data.get("keyId") is not None:
         out["key_id"] = data["keyId"]
     else:
-        raise DeserializationError("CreateUsagePlanKeyRequest.key_id required")
+        out["key_id"] = ""
     if data.get("keyType") is not None:
         out["key_type"] = data["keyType"]
     else:
-        raise DeserializationError("CreateUsagePlanKeyRequest.key_type required")
+        out["key_type"] = ""
     return out

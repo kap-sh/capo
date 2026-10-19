@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.retention_configuration_name
     import capo_config_service.types.retention_period_in_days
@@ -33,11 +31,9 @@ def deserialize_aws_json_1_1(data: dict) -> RetentionConfiguration:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("RetentionConfiguration.name required")
+        out["name"] = ""
     if data.get("RetentionPeriodInDays") is not None:
         out["retention_period_in_days"] = data["RetentionPeriodInDays"]
     else:
-        raise DeserializationError(
-            "RetentionConfiguration.retention_period_in_days required"
-        )
+        out["retention_period_in_days"] = 0
     return out

@@ -92,7 +92,9 @@ def deserialize_json(data: dict) -> ConverseResponse:
             data["output"]
         )
     else:
-        raise DeserializationError("ConverseResponse.output required")
+        import capo_bedrock_runtime.types._unknown
+
+        out["output"] = capo_bedrock_runtime.types._unknown.UnknownUnionMember("")
     if data.get("stopReason") is not None:
         import capo_bedrock_runtime.types.stop_reason
 
@@ -100,7 +102,11 @@ def deserialize_json(data: dict) -> ConverseResponse:
             data["stopReason"]
         )
     else:
-        raise DeserializationError("ConverseResponse.stop_reason required")
+        import typing
+
+        out["stop_reason"] = typing.cast(
+            "capo_bedrock_runtime.types.stop_reason.StopReason", ""
+        )
     if data.get("usage") is not None:
         import capo_bedrock_runtime.types.token_usage
 

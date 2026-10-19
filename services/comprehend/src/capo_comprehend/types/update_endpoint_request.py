@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.comprehend_endpoint_arn
     import capo_comprehend.types.comprehend_flywheel_arn
@@ -55,7 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateEndpointRequest:
     if data.get("EndpointArn") is not None:
         out["endpoint_arn"] = data["EndpointArn"]
     else:
-        raise DeserializationError("UpdateEndpointRequest.endpoint_arn required")
+        out["endpoint_arn"] = ""
     if data.get("DesiredModelArn") is not None:
         out["desired_model_arn"] = data["DesiredModelArn"]
     if data.get("DesiredInferenceUnits") is not None:

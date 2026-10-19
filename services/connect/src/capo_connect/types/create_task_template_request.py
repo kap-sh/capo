@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.client_token
     import capo_connect.types.contact_flow_id
@@ -92,7 +90,7 @@ def deserialize_json(data: dict) -> CreateTaskTemplateRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateTaskTemplateRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("ContactFlowId") is not None:
@@ -126,7 +124,7 @@ def deserialize_json(data: dict) -> CreateTaskTemplateRequest:
             data["Fields"]
         )
     else:
-        raise DeserializationError("CreateTaskTemplateRequest.fields required")
+        out["fields"] = []
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.authentication_type
     import capo_quicksight.types.database
@@ -66,15 +64,15 @@ def deserialize_json(data: dict) -> SnowflakeParameters:
     if data.get("Host") is not None:
         out["host"] = data["Host"]
     else:
-        raise DeserializationError("SnowflakeParameters.host required")
+        out["host"] = ""
     if data.get("Database") is not None:
         out["database"] = data["Database"]
     else:
-        raise DeserializationError("SnowflakeParameters.database required")
+        out["database"] = ""
     if data.get("Warehouse") is not None:
         out["warehouse"] = data["Warehouse"]
     else:
-        raise DeserializationError("SnowflakeParameters.warehouse required")
+        out["warehouse"] = ""
     if data.get("AuthenticationType") is not None:
         import capo_quicksight.types.authentication_type
 

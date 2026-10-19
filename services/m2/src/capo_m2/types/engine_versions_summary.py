@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_m2.errors import DeserializationError
-
 
 class EngineVersionsSummary(TypedDict, closed=True):
     engine_type: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> EngineVersionsSummary:
     if data.get("engineType") is not None:
         out["engine_type"] = data["engineType"]
     else:
-        raise DeserializationError("EngineVersionsSummary.engine_type required")
+        out["engine_type"] = ""
     if data.get("engineVersion") is not None:
         out["engine_version"] = data["engineVersion"]
     else:
-        raise DeserializationError("EngineVersionsSummary.engine_version required")
+        out["engine_version"] = ""
     return out

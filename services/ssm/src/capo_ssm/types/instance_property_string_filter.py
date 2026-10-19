@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.instance_property_filter_operator
     import capo_ssm.types.instance_property_filter_value_set
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> InstancePropertyStringFilter:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("InstancePropertyStringFilter.key required")
+        out["key"] = ""
     if data.get("Values") is not None:
         import capo_ssm.types.instance_property_filter_value_set
 
@@ -60,7 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> InstancePropertyStringFilter:
             )
         )
     else:
-        raise DeserializationError("InstancePropertyStringFilter.values required")
+        out["values"] = []
     if data.get("Operator") is not None:
         import capo_ssm.types.instance_property_filter_operator
 

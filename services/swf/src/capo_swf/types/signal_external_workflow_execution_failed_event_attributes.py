@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.data
     import capo_swf.types.event_id
@@ -60,9 +58,7 @@ def deserialize_aws_json_1_0(
     if data.get("workflowId") is not None:
         out["workflow_id"] = data["workflowId"]
     else:
-        raise DeserializationError(
-            "SignalExternalWorkflowExecutionFailedEventAttributes.workflow_id required"
-        )
+        out["workflow_id"] = ""
     if data.get("runId") is not None:
         out["run_id"] = data["runId"]
     if data.get("cause") is not None:
@@ -74,8 +70,11 @@ def deserialize_aws_json_1_0(
             )
         )
     else:
-        raise DeserializationError(
-            "SignalExternalWorkflowExecutionFailedEventAttributes.cause required"
+        import typing
+
+        out["cause"] = typing.cast(
+            "capo_swf.types.signal_external_workflow_execution_failed_cause.SignalExternalWorkflowExecutionFailedCause",
+            "",
         )
     if data.get("initiatedEventId") is not None:
         out["initiated_event_id"] = data["initiatedEventId"]

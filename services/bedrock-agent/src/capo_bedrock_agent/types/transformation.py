@@ -57,5 +57,9 @@ def deserialize_json(data: dict) -> Transformation:
             data["stepToApply"]
         )
     else:
-        raise DeserializationError("Transformation.step_to_apply required")
+        import typing
+
+        out["step_to_apply"] = typing.cast(
+            "capo_bedrock_agent.types.step_type.StepType", ""
+        )
     return out

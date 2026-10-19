@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 
 class ValidationSummary(TypedDict, closed=True):
     error_count: "int"
@@ -25,9 +23,9 @@ def deserialize_aws_json_1_0(data: dict) -> ValidationSummary:
     if data.get("ErrorCount") is not None:
         out["error_count"] = data["ErrorCount"]
     else:
-        raise DeserializationError("ValidationSummary.error_count required")
+        out["error_count"] = 0
     if data.get("WarningCount") is not None:
         out["warning_count"] = data["WarningCount"]
     else:
-        raise DeserializationError("ValidationSummary.warning_count required")
+        out["warning_count"] = 0
     return out

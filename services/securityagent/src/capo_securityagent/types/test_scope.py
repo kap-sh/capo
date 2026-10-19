@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.test_scope_type
 
@@ -33,5 +31,9 @@ def deserialize_json(data: dict) -> TestScope:
             data["type"]
         )
     else:
-        raise DeserializationError("TestScope.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_securityagent.types.test_scope_type.TestScopeType", ""
+        )
     return out

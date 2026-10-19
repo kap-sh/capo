@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.q_apps_control_mode
 
@@ -37,5 +35,9 @@ def deserialize_json(data: dict) -> QAppsConfiguration:
             )
         )
     else:
-        raise DeserializationError("QAppsConfiguration.q_apps_control_mode required")
+        import typing
+
+        out["q_apps_control_mode"] = typing.cast(
+            "capo_qbusiness.types.q_apps_control_mode.QAppsControlMode", ""
+        )
     return out

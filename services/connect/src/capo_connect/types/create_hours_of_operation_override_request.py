@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.common_human_readable_description
     import capo_connect.types.common_human_readable_name
@@ -77,9 +75,7 @@ def deserialize_json(data: dict) -> CreateHoursOfOperationOverrideRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError(
-            "CreateHoursOfOperationOverrideRequest.name required"
-        )
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Config") is not None:
@@ -91,21 +87,15 @@ def deserialize_json(data: dict) -> CreateHoursOfOperationOverrideRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateHoursOfOperationOverrideRequest.config required"
-        )
+        out["config"] = []
     if data.get("EffectiveFrom") is not None:
         out["effective_from"] = data["EffectiveFrom"]
     else:
-        raise DeserializationError(
-            "CreateHoursOfOperationOverrideRequest.effective_from required"
-        )
+        out["effective_from"] = ""
     if data.get("EffectiveTill") is not None:
         out["effective_till"] = data["EffectiveTill"]
     else:
-        raise DeserializationError(
-            "CreateHoursOfOperationOverrideRequest.effective_till required"
-        )
+        out["effective_till"] = ""
     if data.get("RecurrenceConfig") is not None:
         import capo_connect.types.recurrence_config
 

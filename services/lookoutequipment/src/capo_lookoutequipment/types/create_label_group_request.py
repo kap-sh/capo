@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.fault_codes
     import capo_lookoutequipment.types.idempotence_token
@@ -51,7 +49,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateLabelGroupRequest:
     if data.get("LabelGroupName") is not None:
         out["label_group_name"] = data["LabelGroupName"]
     else:
-        raise DeserializationError("CreateLabelGroupRequest.label_group_name required")
+        out["label_group_name"] = ""
     if data.get("FaultCodes") is not None:
         import capo_lookoutequipment.types.fault_codes
 
@@ -63,7 +61,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateLabelGroupRequest:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("CreateLabelGroupRequest.client_token required")
+        out["client_token"] = ""
     if data.get("Tags") is not None:
         import capo_lookoutequipment.types.tag_list
 

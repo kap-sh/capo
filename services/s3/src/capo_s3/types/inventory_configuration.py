@@ -81,7 +81,7 @@ def deserialize_xml(el: Element) -> InventoryConfiguration:
     if child_is_enabled is not None:
         out["is_enabled"] = (child_is_enabled.text or "").lower() == "true"
     else:
-        raise DeserializationError("InventoryConfiguration.is_enabled required")
+        out["is_enabled"] = False
     child_filter = el.find("Filter")
     if child_filter is not None:
         import capo_s3.types.inventory_filter
@@ -91,7 +91,7 @@ def deserialize_xml(el: Element) -> InventoryConfiguration:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("InventoryConfiguration.id required")
+        out["id"] = ""
     child_included_object_versions = el.find("IncludedObjectVersions")
     if child_included_object_versions is not None:
         import capo_s3.types.inventory_included_object_versions
@@ -102,8 +102,11 @@ def deserialize_xml(el: Element) -> InventoryConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "InventoryConfiguration.included_object_versions required"
+        import typing
+
+        out["included_object_versions"] = typing.cast(
+            "capo_s3.types.inventory_included_object_versions.InventoryIncludedObjectVersions",
+            "",
         )
     child_optional_fields = el.find("OptionalFields")
     if child_optional_fields is not None:

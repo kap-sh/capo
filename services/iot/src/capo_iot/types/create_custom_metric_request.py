@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.client_request_token
     import capo_iot.types.custom_metric_display_name
@@ -58,7 +56,11 @@ def deserialize_json(data: dict) -> CreateCustomMetricRequest:
             data["metricType"]
         )
     else:
-        raise DeserializationError("CreateCustomMetricRequest.metric_type required")
+        import typing
+
+        out["metric_type"] = typing.cast(
+            "capo_iot.types.custom_metric_type.CustomMetricType", ""
+        )
     if data.get("tags") is not None:
         import capo_iot.types.tag_list
 
@@ -66,7 +68,5 @@ def deserialize_json(data: dict) -> CreateCustomMetricRequest:
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     else:
-        raise DeserializationError(
-            "CreateCustomMetricRequest.client_request_token required"
-        )
+        out["client_request_token"] = ""
     return out

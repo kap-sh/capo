@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.integer
@@ -36,7 +35,7 @@ def deserialize_xml(el: Element) -> IpamConfig:
     if child_quantity is not None:
         out["quantity"] = int(child_quantity.text or "")
     else:
-        raise DeserializationError("IpamConfig.quantity required")
+        out["quantity"] = 0
     child_ipam_cidr_configs = el.find("IpamCidrConfigs")
     if child_ipam_cidr_configs is not None:
         import capo_cloudfront.types.ipam_cidr_config_list
@@ -47,5 +46,5 @@ def deserialize_xml(el: Element) -> IpamConfig:
             )
         )
     else:
-        raise DeserializationError("IpamConfig.ipam_cidr_configs required")
+        out["ipam_cidr_configs"] = []
     return out

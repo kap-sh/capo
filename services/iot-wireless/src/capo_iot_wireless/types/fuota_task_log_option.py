@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.fuota_task_event_log_option_list
     import capo_iot_wireless.types.fuota_task_type
@@ -52,7 +50,11 @@ def deserialize_json(data: dict) -> FuotaTaskLogOption:
             data["Type"]
         )
     else:
-        raise DeserializationError("FuotaTaskLogOption.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_iot_wireless.types.fuota_task_type.FuotaTaskType", ""
+        )
     if data.get("LogLevel") is not None:
         import capo_iot_wireless.types.log_level
 
@@ -60,7 +62,9 @@ def deserialize_json(data: dict) -> FuotaTaskLogOption:
             data["LogLevel"]
         )
     else:
-        raise DeserializationError("FuotaTaskLogOption.log_level required")
+        import typing
+
+        out["log_level"] = typing.cast("capo_iot_wireless.types.log_level.LogLevel", "")
     if data.get("Events") is not None:
         import capo_iot_wireless.types.fuota_task_event_log_option_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotthingsgraph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotthingsgraph.types.definition_language
     import capo_iotthingsgraph.types.definition_text
@@ -43,9 +41,13 @@ def deserialize_aws_json_1_1(data: dict) -> DefinitionDocument:
             )
         )
     else:
-        raise DeserializationError("DefinitionDocument.language required")
+        import typing
+
+        out["language"] = typing.cast(
+            "capo_iotthingsgraph.types.definition_language.DefinitionLanguage", ""
+        )
     if data.get("text") is not None:
         out["text"] = data["text"]
     else:
-        raise DeserializationError("DefinitionDocument.text required")
+        out["text"] = ""
     return out

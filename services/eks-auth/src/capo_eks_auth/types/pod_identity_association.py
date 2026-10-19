@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_eks_auth.errors import DeserializationError
-
 
 class PodIdentityAssociation(TypedDict, closed=True):
     association_arn: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> PodIdentityAssociation:
     if data.get("associationArn") is not None:
         out["association_arn"] = data["associationArn"]
     else:
-        raise DeserializationError("PodIdentityAssociation.association_arn required")
+        out["association_arn"] = ""
     if data.get("associationId") is not None:
         out["association_id"] = data["associationId"]
     else:
-        raise DeserializationError("PodIdentityAssociation.association_id required")
+        out["association_id"] = ""
     return out

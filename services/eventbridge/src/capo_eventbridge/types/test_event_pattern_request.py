@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_eventbridge.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridge.types.event_pattern
     import capo_eventbridge.types.string
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> TestEventPatternRequest:
     if data.get("EventPattern") is not None:
         out["event_pattern"] = data["EventPattern"]
     else:
-        raise DeserializationError("TestEventPatternRequest.event_pattern required")
+        out["event_pattern"] = ""
     if data.get("Event") is not None:
         out["event"] = data["Event"]
     else:
-        raise DeserializationError("TestEventPatternRequest.event required")
+        out["event"] = ""
     return out

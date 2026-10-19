@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.client_token
     import capo_connect.types.directory_alias
@@ -73,8 +71,10 @@ def deserialize_json(data: dict) -> CreateInstanceRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateInstanceRequest.identity_management_type required"
+        import typing
+
+        out["identity_management_type"] = typing.cast(
+            "capo_connect.types.directory_type.DirectoryType", ""
         )
     if data.get("InstanceAlias") is not None:
         out["instance_alias"] = data["InstanceAlias"]
@@ -83,15 +83,11 @@ def deserialize_json(data: dict) -> CreateInstanceRequest:
     if data.get("InboundCallsEnabled") is not None:
         out["inbound_calls_enabled"] = data["InboundCallsEnabled"]
     else:
-        raise DeserializationError(
-            "CreateInstanceRequest.inbound_calls_enabled required"
-        )
+        out["inbound_calls_enabled"] = False
     if data.get("OutboundCallsEnabled") is not None:
         out["outbound_calls_enabled"] = data["OutboundCallsEnabled"]
     else:
-        raise DeserializationError(
-            "CreateInstanceRequest.outbound_calls_enabled required"
-        )
+        out["outbound_calls_enabled"] = False
     if data.get("Tags") is not None:
         import capo_connect.types.tag_map
 

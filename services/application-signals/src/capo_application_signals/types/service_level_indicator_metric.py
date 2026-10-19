@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.attributes
     import capo_application_signals.types.composite_sli_config
@@ -127,9 +125,7 @@ def deserialize_json(data: dict) -> ServiceLevelIndicatorMetric:
             )
         )
     else:
-        raise DeserializationError(
-            "ServiceLevelIndicatorMetric.metric_data_queries required"
-        )
+        out["metric_data_queries"] = []
     if data.get("DependencyConfig") is not None:
         import capo_application_signals.types.dependency_config
 

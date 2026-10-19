@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.action_invocation_type
     import capo_bedrock_agent_runtime.types.api_parameters
@@ -83,7 +81,7 @@ def deserialize_json(data: dict) -> ApiInvocationInput:
     if data.get("actionGroup") is not None:
         out["action_group"] = data["actionGroup"]
     else:
-        raise DeserializationError("ApiInvocationInput.action_group required")
+        out["action_group"] = ""
     if data.get("httpMethod") is not None:
         out["http_method"] = data["httpMethod"]
     if data.get("apiPath") is not None:

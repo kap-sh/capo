@@ -51,7 +51,7 @@ def deserialize_json(data: dict) -> EventDetection:
     if data.get("datasetId") is not None:
         out["dataset_id"] = data["datasetId"]
     else:
-        raise DeserializationError("EventDetection.dataset_id required")
+        out["dataset_id"] = ""
     if data.get("timeSeriesId") is not None:
         out["time_series_id"] = data["timeSeriesId"]
     if data.get("propertyAlias") is not None:

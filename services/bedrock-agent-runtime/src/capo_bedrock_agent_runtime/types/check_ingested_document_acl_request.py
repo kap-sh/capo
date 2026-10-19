@@ -41,9 +41,7 @@ def deserialize_json(data: dict) -> CheckIngestedDocumentAclRequest:
     if data.get("documentId") is not None:
         out["document_id"] = data["documentId"]
     else:
-        raise DeserializationError(
-            "CheckIngestedDocumentAclRequest.document_id required"
-        )
+        out["document_id"] = ""
     if data.get("userContext") is not None:
         import capo_bedrock_agent_runtime.types.user_context
 

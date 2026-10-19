@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.arn
     import capo_ssm_incidents.types.policy_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> DeleteResourcePolicyInput:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("DeleteResourcePolicyInput.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("policyId") is not None:
         out["policy_id"] = data["policyId"]
     else:
-        raise DeserializationError("DeleteResourcePolicyInput.policy_id required")
+        out["policy_id"] = ""
     return out

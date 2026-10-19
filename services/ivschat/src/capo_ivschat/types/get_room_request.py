@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ivschat.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivschat.types.room_identifier
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> GetRoomRequest:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("GetRoomRequest.identifier required")
+        out["identifier"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_guardduty.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_guardduty.types.account_ids
     import capo_guardduty.types.detector_id
@@ -38,7 +36,5 @@ def deserialize_json(data: dict) -> GetRemainingFreeTrialDaysRequest:
             data["accountIds"]
         )
     else:
-        raise DeserializationError(
-            "GetRemainingFreeTrialDaysRequest.account_ids required"
-        )
+        out["account_ids"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.debug_log_delivery_accounts
     import capo_config_service.types.maximum_execution_frequency
@@ -152,15 +150,11 @@ def deserialize_aws_json_1_1(data: dict) -> OrganizationCustomPolicyRuleMetadata
     if data.get("PolicyRuntime") is not None:
         out["policy_runtime"] = data["PolicyRuntime"]
     else:
-        raise DeserializationError(
-            "OrganizationCustomPolicyRuleMetadata.policy_runtime required"
-        )
+        out["policy_runtime"] = ""
     if data.get("PolicyText") is not None:
         out["policy_text"] = data["PolicyText"]
     else:
-        raise DeserializationError(
-            "OrganizationCustomPolicyRuleMetadata.policy_text required"
-        )
+        out["policy_text"] = ""
     if data.get("DebugLogDeliveryAccounts") is not None:
         import capo_config_service.types.debug_log_delivery_accounts
 

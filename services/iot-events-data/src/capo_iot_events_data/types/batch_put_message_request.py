@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_events_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events_data.types.messages
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> BatchPutMessageRequest:
             data["messages"]
         )
     else:
-        raise DeserializationError("BatchPutMessageRequest.messages required")
+        out["messages"] = []
     return out

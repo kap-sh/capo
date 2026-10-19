@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.route_ferry_notice_code
     import capo_geo_routes.types.route_notice_impact
@@ -44,7 +42,11 @@ def deserialize_json(data: dict) -> RouteFerryNotice:
             data["Code"]
         )
     else:
-        raise DeserializationError("RouteFerryNotice.code required")
+        import typing
+
+        out["code"] = typing.cast(
+            "capo_geo_routes.types.route_ferry_notice_code.RouteFerryNoticeCode", ""
+        )
     if data.get("Impact") is not None:
         import capo_geo_routes.types.route_notice_impact
 

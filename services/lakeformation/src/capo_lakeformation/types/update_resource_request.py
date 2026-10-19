@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.account_id_string
     import capo_lakeformation.types.iam_role_arn
@@ -51,11 +49,11 @@ def deserialize_json(data: dict) -> UpdateResourceRequest:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("UpdateResourceRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("UpdateResourceRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("WithFederation") is not None:
         out["with_federation"] = data["WithFederation"]
     if data.get("HybridAccessEnabled") is not None:

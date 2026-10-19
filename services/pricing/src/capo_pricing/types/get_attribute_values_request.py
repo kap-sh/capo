@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pricing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pricing.types.get_attribute_values_max_results
     import capo_pricing.types.string
@@ -41,11 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetAttributeValuesRequest:
     if data.get("ServiceCode") is not None:
         out["service_code"] = data["ServiceCode"]
     else:
-        raise DeserializationError("GetAttributeValuesRequest.service_code required")
+        out["service_code"] = ""
     if data.get("AttributeName") is not None:
         out["attribute_name"] = data["AttributeName"]
     else:
-        raise DeserializationError("GetAttributeValuesRequest.attribute_name required")
+        out["attribute_name"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

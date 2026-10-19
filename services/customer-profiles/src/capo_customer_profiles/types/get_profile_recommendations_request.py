@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.candidate_id_list
     import capo_customer_profiles.types.max_size500
@@ -115,9 +113,7 @@ def deserialize_json(data: dict) -> GetProfileRecommendationsRequest:
     if data.get("RecommenderName") is not None:
         out["recommender_name"] = data["RecommenderName"]
     else:
-        raise DeserializationError(
-            "GetProfileRecommendationsRequest.recommender_name required"
-        )
+        out["recommender_name"] = ""
     if data.get("Context") is not None:
         import capo_customer_profiles.types.recommender_context
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.client_token
     import capo_bedrock_agentcore_control.types.description
@@ -82,7 +80,7 @@ def deserialize_json(data: dict) -> CreatePolicyRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreatePolicyRequest.name required")
+        out["name"] = ""
     if data.get("definition") is not None:
         import capo_bedrock_agentcore_control.types.policy_definition
 
@@ -92,7 +90,11 @@ def deserialize_json(data: dict) -> CreatePolicyRequest:
             )
         )
     else:
-        raise DeserializationError("CreatePolicyRequest.definition required")
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["definition"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("validationMode") is not None:

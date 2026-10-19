@@ -69,7 +69,7 @@ def deserialize_json(data: dict) -> CreateExtractionDefinitionRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateExtractionDefinitionRequest.name required")
+        out["name"] = ""
     if data.get("ExtractionConfiguration") is not None:
         import capo_connect.types.extraction_configuration
 

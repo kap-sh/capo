@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_organizations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_organizations.types.create_account_request_id
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeCreateAccountStatusRequest:
     if data.get("CreateAccountRequestId") is not None:
         out["create_account_request_id"] = data["CreateAccountRequestId"]
     else:
-        raise DeserializationError(
-            "DescribeCreateAccountStatusRequest.create_account_request_id required"
-        )
+        out["create_account_request_id"] = ""
     return out

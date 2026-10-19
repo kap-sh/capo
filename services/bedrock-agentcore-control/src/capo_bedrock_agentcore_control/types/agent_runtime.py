@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.agent_runtime_arn
     import capo_bedrock_agentcore_control.types.agent_runtime_id
@@ -73,23 +71,23 @@ def deserialize_json(data: dict) -> AgentRuntime:
     if data.get("agentRuntimeArn") is not None:
         out["agent_runtime_arn"] = data["agentRuntimeArn"]
     else:
-        raise DeserializationError("AgentRuntime.agent_runtime_arn required")
+        out["agent_runtime_arn"] = ""
     if data.get("agentRuntimeId") is not None:
         out["agent_runtime_id"] = data["agentRuntimeId"]
     else:
-        raise DeserializationError("AgentRuntime.agent_runtime_id required")
+        out["agent_runtime_id"] = ""
     if data.get("agentRuntimeVersion") is not None:
         out["agent_runtime_version"] = data["agentRuntimeVersion"]
     else:
-        raise DeserializationError("AgentRuntime.agent_runtime_version required")
+        out["agent_runtime_version"] = ""
     if data.get("agentRuntimeName") is not None:
         out["agent_runtime_name"] = data["agentRuntimeName"]
     else:
-        raise DeserializationError("AgentRuntime.agent_runtime_name required")
+        out["agent_runtime_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("AgentRuntime.description required")
+        out["description"] = ""
     if data.get("lastUpdatedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -99,7 +97,11 @@ def deserialize_json(data: dict) -> AgentRuntime:
             )
         )
     else:
-        raise DeserializationError("AgentRuntime.last_updated_at required")
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.agent_runtime_status
 
@@ -109,7 +111,12 @@ def deserialize_json(data: dict) -> AgentRuntime:
             )
         )
     else:
-        raise DeserializationError("AgentRuntime.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.agent_runtime_status.AgentRuntimeStatus",
+            "",
+        )
     return out
 
 

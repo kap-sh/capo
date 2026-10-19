@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.boolean
     import capo_kendra.types.data_source_inclusions_exclusions_strings
@@ -125,11 +123,11 @@ def deserialize_aws_json_1_1(data: dict) -> QuipConfiguration:
     if data.get("Domain") is not None:
         out["domain"] = data["Domain"]
     else:
-        raise DeserializationError("QuipConfiguration.domain required")
+        out["domain"] = ""
     if data.get("SecretArn") is not None:
         out["secret_arn"] = data["SecretArn"]
     else:
-        raise DeserializationError("QuipConfiguration.secret_arn required")
+        out["secret_arn"] = ""
     if data.get("CrawlFileComments") is not None:
         out["crawl_file_comments"] = data["CrawlFileComments"]
     else:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.case_id
     import capo_connectcases.types.domain_id
@@ -57,7 +55,9 @@ def deserialize_json(data: dict) -> UpdateRelatedItemRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateRelatedItemRequest.content required")
+        import capo_connectcases.types._unknown
+
+        out["content"] = capo_connectcases.types._unknown.UnknownUnionMember("")
     if data.get("performedBy") is not None:
         import capo_connectcases.types.user_union
 

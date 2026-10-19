@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.max_size100
     import capo_customer_profiles.types.optional_boolean
@@ -38,5 +36,5 @@ def deserialize_json(data: dict) -> ListAccountIntegrationsRequest:
     if data.get("Uri") is not None:
         out["uri"] = data["Uri"]
     else:
-        raise DeserializationError("ListAccountIntegrationsRequest.uri required")
+        out["uri"] = ""
     return out

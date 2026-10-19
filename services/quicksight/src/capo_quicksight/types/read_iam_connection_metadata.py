@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.resource_arn
     import capo_quicksight.types.role_arn
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> ReadIamConnectionMetadata:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("ReadIamConnectionMetadata.role_arn required")
+        out["role_arn"] = ""
     if data.get("SourceArn") is not None:
         out["source_arn"] = data["SourceArn"]
     else:
-        raise DeserializationError("ReadIamConnectionMetadata.source_arn required")
+        out["source_arn"] = ""
     return out

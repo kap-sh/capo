@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_shield.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_shield.types.string
     import capo_shield.types.summarized_counter_list
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> SummarizedAttackVector:
     if data.get("VectorType") is not None:
         out["vector_type"] = data["VectorType"]
     else:
-        raise DeserializationError("SummarizedAttackVector.vector_type required")
+        out["vector_type"] = ""
     if data.get("VectorCounters") is not None:
         import capo_shield.types.summarized_counter_list
 

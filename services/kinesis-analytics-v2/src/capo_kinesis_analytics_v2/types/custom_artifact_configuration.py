@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.artifact_type
     import capo_kinesis_analytics_v2.types.maven_reference
@@ -64,7 +62,11 @@ def deserialize_aws_json_1_1(data: dict) -> CustomArtifactConfiguration:
             )
         )
     else:
-        raise DeserializationError("CustomArtifactConfiguration.artifact_type required")
+        import typing
+
+        out["artifact_type"] = typing.cast(
+            "capo_kinesis_analytics_v2.types.artifact_type.ArtifactType", ""
+        )
     if data.get("S3ContentLocation") is not None:
         import capo_kinesis_analytics_v2.types.s3_content_location
 

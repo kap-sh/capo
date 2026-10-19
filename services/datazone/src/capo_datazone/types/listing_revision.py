@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.listing_id
     import capo_datazone.types.revision
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> ListingRevision:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ListingRevision.id required")
+        out["id"] = ""
     if data.get("revision") is not None:
         out["revision"] = data["revision"]
     else:
-        raise DeserializationError("ListingRevision.revision required")
+        out["revision"] = ""
     return out

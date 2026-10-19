@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.resource_oauth2_return_url_list_type
     import capo_bedrock_agentcore_control.types.tags_map
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> CreateWorkloadIdentityRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateWorkloadIdentityRequest.name required")
+        out["name"] = ""
     if data.get("allowedResourceOauth2ReturnUrls") is not None:
         import capo_bedrock_agentcore_control.types.resource_oauth2_return_url_list_type
 

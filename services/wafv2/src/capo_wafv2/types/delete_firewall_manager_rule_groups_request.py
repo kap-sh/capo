@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.lock_token
     import capo_wafv2.types.resource_arn
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteFirewallManagerRuleGroupsReque
     if data.get("WebACLArn") is not None:
         out["web_acl_arn"] = data["WebACLArn"]
     else:
-        raise DeserializationError(
-            "DeleteFirewallManagerRuleGroupsRequest.web_acl_arn required"
-        )
+        out["web_acl_arn"] = ""
     if data.get("WebACLLockToken") is not None:
         out["web_acl_lock_token"] = data["WebACLLockToken"]
     else:
-        raise DeserializationError(
-            "DeleteFirewallManagerRuleGroupsRequest.web_acl_lock_token required"
-        )
+        out["web_acl_lock_token"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.personalization_control_mode
 
@@ -41,7 +39,10 @@ def deserialize_json(data: dict) -> PersonalizationConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "PersonalizationConfiguration.personalization_control_mode required"
+        import typing
+
+        out["personalization_control_mode"] = typing.cast(
+            "capo_qbusiness.types.personalization_control_mode.PersonalizationControlMode",
+            "",
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.positive_long
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> TimeBasedSignalFetchConfig:
     if data.get("executionFrequencyMs") is not None:
         out["execution_frequency_ms"] = data["executionFrequencyMs"]
     else:
-        raise DeserializationError(
-            "TimeBasedSignalFetchConfig.execution_frequency_ms required"
-        )
+        out["execution_frequency_ms"] = 0
     return out

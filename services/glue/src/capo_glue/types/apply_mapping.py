@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.mappings
     import capo_glue.types.node_name
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> ApplyMapping:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ApplyMapping.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.one_input
 
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> ApplyMapping:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("ApplyMapping.inputs required")
+        out["inputs"] = []
     if data.get("Mapping") is not None:
         import capo_glue.types.mappings
 
@@ -55,5 +53,5 @@ def deserialize_aws_json_1_1(data: dict) -> ApplyMapping:
             data["Mapping"]
         )
     else:
-        raise DeserializationError("ApplyMapping.mapping required")
+        out["mapping"] = []
     return out

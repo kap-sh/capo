@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.bucket_owner_account_id
     import capo_bedrock_agent.types.s3_object_uri
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> CustomS3Location:
     if data.get("uri") is not None:
         out["uri"] = data["uri"]
     else:
-        raise DeserializationError("CustomS3Location.uri required")
+        out["uri"] = ""
     if data.get("bucketOwnerAccountId") is not None:
         out["bucket_owner_account_id"] = data["bucketOwnerAccountId"]
     return out

@@ -44,7 +44,11 @@ def deserialize_json(data: dict) -> UpdateSiteAddressInput:
             data["AddressType"]
         )
     else:
-        raise DeserializationError("UpdateSiteAddressInput.address_type required")
+        import typing
+
+        out["address_type"] = typing.cast(
+            "capo_outposts.types.address_type.AddressType", ""
+        )
     if data.get("Address") is not None:
         import capo_outposts.types.address
 

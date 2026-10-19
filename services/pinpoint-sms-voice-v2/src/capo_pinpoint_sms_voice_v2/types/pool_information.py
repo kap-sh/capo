@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -80,19 +78,19 @@ def deserialize_aws_json_1_0(data: dict) -> PoolInformation:
     if data.get("PoolArn") is not None:
         out["pool_arn"] = data["PoolArn"]
     else:
-        raise DeserializationError("PoolInformation.pool_arn required")
+        out["pool_arn"] = ""
     if data.get("PoolId") is not None:
         out["pool_id"] = data["PoolId"]
     else:
-        raise DeserializationError("PoolInformation.pool_id required")
+        out["pool_id"] = ""
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("PoolInformation.status required")
+        out["status"] = ""
     if data.get("MessageType") is not None:
         out["message_type"] = data["MessageType"]
     else:
-        raise DeserializationError("PoolInformation.message_type required")
+        out["message_type"] = ""
     if data.get("TwoWayEnabled") is not None:
         out["two_way_enabled"] = data["TwoWayEnabled"]
     else:
@@ -108,7 +106,7 @@ def deserialize_aws_json_1_0(data: dict) -> PoolInformation:
     if data.get("OptOutListName") is not None:
         out["opt_out_list_name"] = data["OptOutListName"]
     else:
-        raise DeserializationError("PoolInformation.opt_out_list_name required")
+        out["opt_out_list_name"] = ""
     if data.get("SharedRoutesEnabled") is not None:
         out["shared_routes_enabled"] = data["SharedRoutesEnabled"]
     else:
@@ -126,5 +124,9 @@ def deserialize_aws_json_1_0(data: dict) -> PoolInformation:
             )
         )
     else:
-        raise DeserializationError("PoolInformation.created_timestamp required")
+        import datetime
+
+        out["created_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.harness_allowed_tools
     import capo_bedrock_agentcore.types.harness_arn
@@ -131,7 +129,7 @@ def deserialize_json(data: dict) -> InvokeHarnessRequest:
             )
         )
     else:
-        raise DeserializationError("InvokeHarnessRequest.messages required")
+        out["messages"] = []
     if data.get("model") is not None:
         import capo_bedrock_agentcore.types.harness_model_configuration
 

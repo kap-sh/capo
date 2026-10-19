@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.client_token
     import capo_route53globalresolver.types.cr_resource_status
@@ -86,13 +84,11 @@ def deserialize_json(data: dict) -> GetFirewallDomainListOutput:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetFirewallDomainListOutput.arn required")
+        out["arn"] = ""
     if data.get("globalResolverId") is not None:
         out["global_resolver_id"] = data["globalResolverId"]
     else:
-        raise DeserializationError(
-            "GetFirewallDomainListOutput.global_resolver_id required"
-        )
+        out["global_resolver_id"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("createdAt") is not None:
@@ -104,21 +100,23 @@ def deserialize_json(data: dict) -> GetFirewallDomainListOutput:
             )
         )
     else:
-        raise DeserializationError("GetFirewallDomainListOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("domainCount") is not None:
         out["domain_count"] = data["domainCount"]
     else:
-        raise DeserializationError("GetFirewallDomainListOutput.domain_count required")
+        out["domain_count"] = 0
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetFirewallDomainListOutput.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetFirewallDomainListOutput.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         import capo_route53globalresolver.types.cr_resource_status
 
@@ -128,7 +126,11 @@ def deserialize_json(data: dict) -> GetFirewallDomainListOutput:
             )
         )
     else:
-        raise DeserializationError("GetFirewallDomainListOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_route53globalresolver.types.cr_resource_status.CRResourceStatus", ""
+        )
     if data.get("statusMessage") is not None:
         out["status_message"] = data["statusMessage"]
     if data.get("updatedAt") is not None:
@@ -140,5 +142,7 @@ def deserialize_json(data: dict) -> GetFirewallDomainListOutput:
             )
         )
     else:
-        raise DeserializationError("GetFirewallDomainListOutput.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

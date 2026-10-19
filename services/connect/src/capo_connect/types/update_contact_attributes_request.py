@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.attributes
     import capo_connect.types.contact_id
@@ -39,15 +37,11 @@ def deserialize_json(data: dict) -> UpdateContactAttributesRequest:
     if data.get("InitialContactId") is not None:
         out["initial_contact_id"] = data["InitialContactId"]
     else:
-        raise DeserializationError(
-            "UpdateContactAttributesRequest.initial_contact_id required"
-        )
+        out["initial_contact_id"] = ""
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError(
-            "UpdateContactAttributesRequest.instance_id required"
-        )
+        out["instance_id"] = ""
     if data.get("Attributes") is not None:
         import capo_connect.types.attributes
 
@@ -55,5 +49,5 @@ def deserialize_json(data: dict) -> UpdateContactAttributesRequest:
             data["Attributes"]
         )
     else:
-        raise DeserializationError("UpdateContactAttributesRequest.attributes required")
+        out["attributes"] = {}
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notifications.types.media_element_type
     import capo_notifications.types.media_id
@@ -39,17 +37,17 @@ def deserialize_json(data: dict) -> MediaElement:
     if data.get("mediaId") is not None:
         out["media_id"] = data["mediaId"]
     else:
-        raise DeserializationError("MediaElement.media_id required")
+        out["media_id"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("MediaElement.type required")
+        out["type"] = ""
     if data.get("url") is not None:
         out["url"] = data["url"]
     else:
-        raise DeserializationError("MediaElement.url required")
+        out["url"] = ""
     if data.get("caption") is not None:
         out["caption"] = data["caption"]
     else:
-        raise DeserializationError("MediaElement.caption required")
+        out["caption"] = ""
     return out

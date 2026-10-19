@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -56,15 +54,15 @@ def deserialize_json(data: dict) -> ResourceMetadata:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ResourceMetadata.arn required")
+        out["arn"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("ResourceMetadata.version required")
+        out["version"] = 0
     if data.get("uid") is not None:
         out["uid"] = data["uid"]
     else:
-        raise DeserializationError("ResourceMetadata.uid required")
+        out["uid"] = ""
     if data.get("createdAt") is not None:
         import capo_app_mesh.types._prelude.timestamp
 
@@ -72,7 +70,9 @@ def deserialize_json(data: dict) -> ResourceMetadata:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("ResourceMetadata.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastUpdatedAt") is not None:
         import capo_app_mesh.types._prelude.timestamp
 
@@ -82,13 +82,17 @@ def deserialize_json(data: dict) -> ResourceMetadata:
             )
         )
     else:
-        raise DeserializationError("ResourceMetadata.last_updated_at required")
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("meshOwner") is not None:
         out["mesh_owner"] = data["meshOwner"]
     else:
-        raise DeserializationError("ResourceMetadata.mesh_owner required")
+        out["mesh_owner"] = ""
     if data.get("resourceOwner") is not None:
         out["resource_owner"] = data["resourceOwner"]
     else:
-        raise DeserializationError("ResourceMetadata.resource_owner required")
+        out["resource_owner"] = ""
     return out

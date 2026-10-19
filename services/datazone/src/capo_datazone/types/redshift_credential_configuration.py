@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 
 class RedshiftCredentialConfiguration(TypedDict, closed=True):
     secret_manager_arn: "str"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> RedshiftCredentialConfiguration:
     if data.get("secretManagerArn") is not None:
         out["secret_manager_arn"] = data["secretManagerArn"]
     else:
-        raise DeserializationError(
-            "RedshiftCredentialConfiguration.secret_manager_arn required"
-        )
+        out["secret_manager_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.callback_token
     import capo_transfer.types.custom_step_status
@@ -43,15 +41,15 @@ def deserialize_aws_json_1_1(data: dict) -> SendWorkflowStepStateRequest:
     if data.get("WorkflowId") is not None:
         out["workflow_id"] = data["WorkflowId"]
     else:
-        raise DeserializationError("SendWorkflowStepStateRequest.workflow_id required")
+        out["workflow_id"] = ""
     if data.get("ExecutionId") is not None:
         out["execution_id"] = data["ExecutionId"]
     else:
-        raise DeserializationError("SendWorkflowStepStateRequest.execution_id required")
+        out["execution_id"] = ""
     if data.get("Token") is not None:
         out["token"] = data["Token"]
     else:
-        raise DeserializationError("SendWorkflowStepStateRequest.token required")
+        out["token"] = ""
     if data.get("Status") is not None:
         import capo_transfer.types.custom_step_status
 
@@ -59,5 +57,9 @@ def deserialize_aws_json_1_1(data: dict) -> SendWorkflowStepStateRequest:
             data["Status"]
         )
     else:
-        raise DeserializationError("SendWorkflowStepStateRequest.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_transfer.types.custom_step_status.CustomStepStatus", ""
+        )
     return out

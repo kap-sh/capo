@@ -7,7 +7,7 @@ import zapros
 from typing_extensions import TypedDict
 
 from capo_polly._protocol.eventstream import HeaderValue, Message
-from capo_polly.errors import DeserializationError, ServiceError
+from capo_polly.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_polly.types.error_message
@@ -43,7 +43,7 @@ def deserialize_json(data: dict) -> ServiceQuotaExceededException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ServiceQuotaExceededException_.message required")
+        out["message"] = ""
     if data.get("quotaCode") is not None:
         import capo_polly.types.quota_code
 
@@ -51,7 +51,9 @@ def deserialize_json(data: dict) -> ServiceQuotaExceededException_:
             data["quotaCode"]
         )
     else:
-        raise DeserializationError("ServiceQuotaExceededException_.quota_code required")
+        import typing
+
+        out["quota_code"] = typing.cast("capo_polly.types.quota_code.QuotaCode", "")
     if data.get("serviceCode") is not None:
         import capo_polly.types.service_code
 
@@ -59,8 +61,10 @@ def deserialize_json(data: dict) -> ServiceQuotaExceededException_:
             data["serviceCode"]
         )
     else:
-        raise DeserializationError(
-            "ServiceQuotaExceededException_.service_code required"
+        import typing
+
+        out["service_code"] = typing.cast(
+            "capo_polly.types.service_code.ServiceCode", ""
         )
     return out
 

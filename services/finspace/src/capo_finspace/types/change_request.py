@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_finspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace.types.change_type
     import capo_finspace.types.db_path
@@ -44,11 +42,15 @@ def deserialize_json(data: dict) -> ChangeRequest:
             data["changeType"]
         )
     else:
-        raise DeserializationError("ChangeRequest.change_type required")
+        import typing
+
+        out["change_type"] = typing.cast(
+            "capo_finspace.types.change_type.ChangeType", ""
+        )
     if data.get("s3Path") is not None:
         out["s3_path"] = data["s3Path"]
     if data.get("dbPath") is not None:
         out["db_path"] = data["dbPath"]
     else:
-        raise DeserializationError("ChangeRequest.db_path required")
+        out["db_path"] = ""
     return out

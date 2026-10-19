@@ -6,7 +6,7 @@ import zapros
 from typing_extensions import TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError, ServiceError
+from capo_sns.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_sns.types.string
@@ -33,12 +33,12 @@ def deserialize_query(el: Element) -> VerificationException_:
     if child_message is not None:
         out["message"] = str(child_message.text or "")
     else:
-        raise DeserializationError("VerificationException_.message required")
+        out["message"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         out["status"] = str(child_status.text or "")
     else:
-        raise DeserializationError("VerificationException_.status required")
+        out["status"] = ""
     return out
 
 

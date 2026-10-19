@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.access_profile_name
     import capo_cloudwatchomni.types.client_token
@@ -47,11 +45,11 @@ def deserialize_cbor(data: dict) -> CreateAccessProfileInput:
     if data.get("spaceId") is not None:
         out["space_id"] = data["spaceId"]
     else:
-        raise DeserializationError("CreateAccessProfileInput.space_id required")
+        out["space_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateAccessProfileInput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("tags") is not None:

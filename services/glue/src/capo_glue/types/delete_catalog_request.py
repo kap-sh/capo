@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.catalog_id_string
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteCatalogRequest:
     if data.get("CatalogId") is not None:
         out["catalog_id"] = data["CatalogId"]
     else:
-        raise DeserializationError("DeleteCatalogRequest.catalog_id required")
+        out["catalog_id"] = ""
     return out

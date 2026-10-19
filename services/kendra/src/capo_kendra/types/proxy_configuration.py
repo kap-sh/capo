@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.host
     import capo_kendra.types.port
@@ -36,11 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> ProxyConfiguration:
     if data.get("Host") is not None:
         out["host"] = data["Host"]
     else:
-        raise DeserializationError("ProxyConfiguration.host required")
+        out["host"] = ""
     if data.get("Port") is not None:
         out["port"] = data["Port"]
     else:
-        raise DeserializationError("ProxyConfiguration.port required")
+        out["port"] = 0
     if data.get("Credentials") is not None:
         out["credentials"] = data["Credentials"]
     return out

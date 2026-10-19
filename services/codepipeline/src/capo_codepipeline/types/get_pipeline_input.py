@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.pipeline_name
     import capo_codepipeline.types.pipeline_version
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetPipelineInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetPipelineInput.name required")
+        out["name"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     return out

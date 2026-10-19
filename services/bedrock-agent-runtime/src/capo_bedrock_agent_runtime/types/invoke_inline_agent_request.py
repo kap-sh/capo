@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.agent_action_groups
     import capo_bedrock_agent_runtime.types.agent_collaboration
@@ -239,11 +237,11 @@ def deserialize_json(data: dict) -> InvokeInlineAgentRequest:
     if data.get("foundationModel") is not None:
         out["foundation_model"] = data["foundationModel"]
     else:
-        raise DeserializationError("InvokeInlineAgentRequest.foundation_model required")
+        out["foundation_model"] = ""
     if data.get("instruction") is not None:
         out["instruction"] = data["instruction"]
     else:
-        raise DeserializationError("InvokeInlineAgentRequest.instruction required")
+        out["instruction"] = ""
     if data.get("idleSessionTTLInSeconds") is not None:
         out["idle_session_ttl_in_seconds"] = data["idleSessionTTLInSeconds"]
     if data.get("actionGroups") is not None:

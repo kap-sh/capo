@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_video.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_video.types.destination_region
     import capo_kinesis_video.types.destination_uri
@@ -31,11 +29,9 @@ def deserialize_json(data: dict) -> ImageGenerationDestinationConfig:
     if data.get("Uri") is not None:
         out["uri"] = data["Uri"]
     else:
-        raise DeserializationError("ImageGenerationDestinationConfig.uri required")
+        out["uri"] = ""
     if data.get("DestinationRegion") is not None:
         out["destination_region"] = data["DestinationRegion"]
     else:
-        raise DeserializationError(
-            "ImageGenerationDestinationConfig.destination_region required"
-        )
+        out["destination_region"] = ""
     return out

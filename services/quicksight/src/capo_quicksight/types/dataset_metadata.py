@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.data_aggregation
@@ -93,7 +91,7 @@ def deserialize_json(data: dict) -> DatasetMetadata:
     if data.get("DatasetArn") is not None:
         out["dataset_arn"] = data["DatasetArn"]
     else:
-        raise DeserializationError("DatasetMetadata.dataset_arn required")
+        out["dataset_arn"] = ""
     if data.get("DatasetName") is not None:
         out["dataset_name"] = data["DatasetName"]
     if data.get("DatasetDescription") is not None:

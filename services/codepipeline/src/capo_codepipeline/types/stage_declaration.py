@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.before_entry_conditions
     import capo_codepipeline.types.failure_conditions
@@ -89,7 +87,7 @@ def deserialize_aws_json_1_1(data: dict) -> StageDeclaration:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("StageDeclaration.name required")
+        out["name"] = ""
     if data.get("blockers") is not None:
         import capo_codepipeline.types.stage_blocker_declaration_list
 
@@ -107,7 +105,7 @@ def deserialize_aws_json_1_1(data: dict) -> StageDeclaration:
             )
         )
     else:
-        raise DeserializationError("StageDeclaration.actions required")
+        out["actions"] = []
     if data.get("onFailure") is not None:
         import capo_codepipeline.types.failure_conditions
 

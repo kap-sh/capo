@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3tables.types.last_successful_replicated_update
     import capo_s3tables.types.replication_status
@@ -63,15 +61,15 @@ def deserialize_json(data: dict) -> ReplicationDestinationStatusModel:
             )
         )
     else:
-        raise DeserializationError(
-            "ReplicationDestinationStatusModel.replication_status required"
+        import typing
+
+        out["replication_status"] = typing.cast(
+            "capo_s3tables.types.replication_status.ReplicationStatus", ""
         )
     if data.get("destinationTableBucketArn") is not None:
         out["destination_table_bucket_arn"] = data["destinationTableBucketArn"]
     else:
-        raise DeserializationError(
-            "ReplicationDestinationStatusModel.destination_table_bucket_arn required"
-        )
+        out["destination_table_bucket_arn"] = ""
     if data.get("destinationTableArn") is not None:
         out["destination_table_arn"] = data["destinationTableArn"]
     if data.get("lastSuccessfulReplicatedUpdate") is not None:

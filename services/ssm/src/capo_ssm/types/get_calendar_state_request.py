@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.calendar_name_or_arn_list
     import capo_ssm.types.iso8601_string
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetCalendarStateRequest:
             )
         )
     else:
-        raise DeserializationError("GetCalendarStateRequest.calendar_names required")
+        out["calendar_names"] = []
     if data.get("AtTime") is not None:
         out["at_time"] = data["AtTime"]
     return out

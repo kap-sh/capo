@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.component_deployment_id_list
     import capo_proton.types.deployment_id
@@ -72,23 +70,19 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceInstanceState:
     if data.get("spec") is not None:
         out["spec"] = data["spec"]
     else:
-        raise DeserializationError("ServiceInstanceState.spec required")
+        out["spec"] = ""
     if data.get("templateName") is not None:
         out["template_name"] = data["templateName"]
     else:
-        raise DeserializationError("ServiceInstanceState.template_name required")
+        out["template_name"] = ""
     if data.get("templateMajorVersion") is not None:
         out["template_major_version"] = data["templateMajorVersion"]
     else:
-        raise DeserializationError(
-            "ServiceInstanceState.template_major_version required"
-        )
+        out["template_major_version"] = ""
     if data.get("templateMinorVersion") is not None:
         out["template_minor_version"] = data["templateMinorVersion"]
     else:
-        raise DeserializationError(
-            "ServiceInstanceState.template_minor_version required"
-        )
+        out["template_minor_version"] = ""
     if data.get("lastSuccessfulComponentDeploymentIds") is not None:
         import capo_proton.types.component_deployment_id_list
 

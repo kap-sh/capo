@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.action_configuration_key
     import capo_codepipeline.types.boolean
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> ActionTypeProperty:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ActionTypeProperty.name required")
+        out["name"] = ""
     if data.get("optional") is not None:
         out["optional"] = data["optional"]
     else:

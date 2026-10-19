@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 
 class AgenticRetrieveCitationReference(TypedDict, closed=True):
     result_index: "int"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> AgenticRetrieveCitationReference:
     if data.get("resultIndex") is not None:
         out["result_index"] = data["resultIndex"]
     else:
-        raise DeserializationError(
-            "AgenticRetrieveCitationReference.result_index required"
-        )
+        out["result_index"] = 0
     return out

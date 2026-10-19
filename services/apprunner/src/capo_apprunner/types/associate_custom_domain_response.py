@@ -49,11 +49,11 @@ def deserialize_aws_json_1_0(data: dict) -> AssociateCustomDomainResponse:
     if data.get("DNSTarget") is not None:
         out["dns_target"] = data["DNSTarget"]
     else:
-        raise DeserializationError("AssociateCustomDomainResponse.dns_target required")
+        out["dns_target"] = ""
     if data.get("ServiceArn") is not None:
         out["service_arn"] = data["ServiceArn"]
     else:
-        raise DeserializationError("AssociateCustomDomainResponse.service_arn required")
+        out["service_arn"] = ""
     if data.get("CustomDomain") is not None:
         import capo_apprunner.types.custom_domain
 
@@ -75,7 +75,5 @@ def deserialize_aws_json_1_0(data: dict) -> AssociateCustomDomainResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "AssociateCustomDomainResponse.vpc_dns_targets required"
-        )
+        out["vpc_dns_targets"] = []
     return out

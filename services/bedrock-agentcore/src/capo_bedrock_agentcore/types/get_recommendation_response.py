@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -106,19 +104,15 @@ def deserialize_json(data: dict) -> GetRecommendationResponse:
     if data.get("recommendationId") is not None:
         out["recommendation_id"] = data["recommendationId"]
     else:
-        raise DeserializationError(
-            "GetRecommendationResponse.recommendation_id required"
-        )
+        out["recommendation_id"] = ""
     if data.get("recommendationArn") is not None:
         out["recommendation_arn"] = data["recommendationArn"]
     else:
-        raise DeserializationError(
-            "GetRecommendationResponse.recommendation_arn required"
-        )
+        out["recommendation_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetRecommendationResponse.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("type") is not None:
@@ -128,7 +122,11 @@ def deserialize_json(data: dict) -> GetRecommendationResponse:
             data["type"]
         )
     else:
-        raise DeserializationError("GetRecommendationResponse.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agentcore.types.recommendation_type.RecommendationType", ""
+        )
     if data.get("recommendationConfig") is not None:
         import capo_bedrock_agentcore.types.recommendation_config
 
@@ -138,8 +136,10 @@ def deserialize_json(data: dict) -> GetRecommendationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetRecommendationResponse.recommendation_config required"
+        import capo_bedrock_agentcore.types._unknown
+
+        out["recommendation_config"] = (
+            capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
         )
     if data.get("status") is not None:
         import capo_bedrock_agentcore.types.recommendation_status
@@ -150,7 +150,12 @@ def deserialize_json(data: dict) -> GetRecommendationResponse:
             )
         )
     else:
-        raise DeserializationError("GetRecommendationResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore.types.recommendation_status.RecommendationStatus",
+            "",
+        )
     if data.get("createdAt") is not None:
         import datetime
 
@@ -158,7 +163,9 @@ def deserialize_json(data: dict) -> GetRecommendationResponse:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetRecommendationResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import datetime
 
@@ -166,7 +173,9 @@ def deserialize_json(data: dict) -> GetRecommendationResponse:
             data["updatedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetRecommendationResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("recommendationResult") is not None:
         import capo_bedrock_agentcore.types.recommendation_result
 

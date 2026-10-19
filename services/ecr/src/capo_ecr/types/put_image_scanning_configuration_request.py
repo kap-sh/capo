@@ -46,9 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutImageScanningConfigurationRequest
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError(
-            "PutImageScanningConfigurationRequest.repository_name required"
-        )
+        out["repository_name"] = ""
     if data.get("imageScanningConfiguration") is not None:
         import capo_ecr.types.image_scanning_configuration
 

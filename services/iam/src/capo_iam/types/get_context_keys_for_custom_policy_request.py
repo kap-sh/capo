@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.simulation_policy_list_type
@@ -44,7 +43,5 @@ def deserialize_query(el: Element) -> GetContextKeysForCustomPolicyRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GetContextKeysForCustomPolicyRequest.policy_input_list required"
-        )
+        out["policy_input_list"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.num_values
     import capo_amplifyuibuilder.types.str_values
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> FieldValidationConfiguration:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("FieldValidationConfiguration.type required")
+        out["type"] = ""
     if data.get("strValues") is not None:
         import capo_amplifyuibuilder.types.str_values
 

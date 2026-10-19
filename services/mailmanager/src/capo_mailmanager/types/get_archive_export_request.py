@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.export_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> GetArchiveExportRequest:
     if data.get("ExportId") is not None:
         out["export_id"] = data["ExportId"]
     else:
-        raise DeserializationError("GetArchiveExportRequest.export_id required")
+        out["export_id"] = ""
     return out

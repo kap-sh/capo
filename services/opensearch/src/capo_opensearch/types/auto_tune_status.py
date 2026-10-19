@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.auto_tune_state
     import capo_opensearch.types.boolean
@@ -62,7 +60,11 @@ def deserialize_json(data: dict) -> AutoTuneStatus:
             data["CreationDate"]
         )
     else:
-        raise DeserializationError("AutoTuneStatus.creation_date required")
+        import datetime
+
+        out["creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("UpdateDate") is not None:
         import capo_opensearch.types.update_timestamp
 
@@ -70,7 +72,11 @@ def deserialize_json(data: dict) -> AutoTuneStatus:
             data["UpdateDate"]
         )
     else:
-        raise DeserializationError("AutoTuneStatus.update_date required")
+        import datetime
+
+        out["update_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("UpdateVersion") is not None:
         out["update_version"] = data["UpdateVersion"]
     else:
@@ -82,7 +88,11 @@ def deserialize_json(data: dict) -> AutoTuneStatus:
             data["State"]
         )
     else:
-        raise DeserializationError("AutoTuneStatus.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_opensearch.types.auto_tune_state.AutoTuneState", ""
+        )
     if data.get("ErrorMessage") is not None:
         out["error_message"] = data["ErrorMessage"]
     if data.get("PendingDeletion") is not None:

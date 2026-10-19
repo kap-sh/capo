@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.inference_operation_path
     import capo_bedrock_agentcore_control.types.model_entries
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> InferenceOperationConfiguration:
     if data.get("path") is not None:
         out["path"] = data["path"]
     else:
-        raise DeserializationError("InferenceOperationConfiguration.path required")
+        out["path"] = ""
     if data.get("providerPath") is not None:
         out["provider_path"] = data["providerPath"]
     if data.get("models") is not None:

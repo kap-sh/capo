@@ -97,9 +97,7 @@ def deserialize_json(data: dict) -> InvokeBlueprintOptimizationAsyncRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "InvokeBlueprintOptimizationAsyncRequest.samples required"
-        )
+        out["samples"] = []
     if data.get("outputConfiguration") is not None:
         import capo_bedrock_data_automation.types.blueprint_optimization_output_configuration
 
@@ -115,9 +113,7 @@ def deserialize_json(data: dict) -> InvokeBlueprintOptimizationAsyncRequest:
     if data.get("dataAutomationProfileArn") is not None:
         out["data_automation_profile_arn"] = data["dataAutomationProfileArn"]
     else:
-        raise DeserializationError(
-            "InvokeBlueprintOptimizationAsyncRequest.data_automation_profile_arn required"
-        )
+        out["data_automation_profile_arn"] = ""
     if data.get("encryptionConfiguration") is not None:
         import capo_bedrock_data_automation.types.encryption_configuration
 

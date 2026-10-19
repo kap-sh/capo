@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.ended_at
     import capo_deadline.types.job_id
@@ -75,15 +73,15 @@ def deserialize_json(data: dict) -> WorkerSessionSummary:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("WorkerSessionSummary.session_id required")
+        out["session_id"] = ""
     if data.get("queueId") is not None:
         out["queue_id"] = data["queueId"]
     else:
-        raise DeserializationError("WorkerSessionSummary.queue_id required")
+        out["queue_id"] = ""
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("WorkerSessionSummary.job_id required")
+        out["job_id"] = ""
     if data.get("startedAt") is not None:
         import capo_deadline.types.started_at
 
@@ -91,7 +89,9 @@ def deserialize_json(data: dict) -> WorkerSessionSummary:
             data["startedAt"]
         )
     else:
-        raise DeserializationError("WorkerSessionSummary.started_at required")
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lifecycleStatus") is not None:
         import capo_deadline.types.session_lifecycle_status
 
@@ -101,7 +101,11 @@ def deserialize_json(data: dict) -> WorkerSessionSummary:
             )
         )
     else:
-        raise DeserializationError("WorkerSessionSummary.lifecycle_status required")
+        import typing
+
+        out["lifecycle_status"] = typing.cast(
+            "capo_deadline.types.session_lifecycle_status.SessionLifecycleStatus", ""
+        )
     if data.get("endedAt") is not None:
         import capo_deadline.types.ended_at
 

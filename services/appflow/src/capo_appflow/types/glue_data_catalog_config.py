@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.glue_data_catalog_database_name
     import capo_appflow.types.glue_data_catalog_iam_role
@@ -39,13 +37,13 @@ def deserialize_json(data: dict) -> GlueDataCatalogConfig:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("GlueDataCatalogConfig.role_arn required")
+        out["role_arn"] = ""
     if data.get("databaseName") is not None:
         out["database_name"] = data["databaseName"]
     else:
-        raise DeserializationError("GlueDataCatalogConfig.database_name required")
+        out["database_name"] = ""
     if data.get("tablePrefix") is not None:
         out["table_prefix"] = data["tablePrefix"]
     else:
-        raise DeserializationError("GlueDataCatalogConfig.table_prefix required")
+        out["table_prefix"] = ""
     return out

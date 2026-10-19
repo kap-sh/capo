@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appintegrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appintegrations.types.source
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> EventFilter:
     if data.get("Source") is not None:
         out["source"] = data["Source"]
     else:
-        raise DeserializationError("EventFilter.source required")
+        out["source"] = ""
     return out

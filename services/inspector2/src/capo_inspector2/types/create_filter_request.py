@@ -58,7 +58,7 @@ def deserialize_json(data: dict) -> CreateFilterRequest:
     if data.get("action") is not None:
         out["action"] = data["action"]
     else:
-        raise DeserializationError("CreateFilterRequest.action required")
+        out["action"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("filterCriteria") is not None:
@@ -72,7 +72,7 @@ def deserialize_json(data: dict) -> CreateFilterRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateFilterRequest.name required")
+        out["name"] = ""
     if data.get("tags") is not None:
         import capo_inspector2.types.tag_map
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.data_integration_flow_field_priority_dedupe_field_list
 
@@ -45,7 +43,5 @@ def deserialize_json(
             )
         )
     else:
-        raise DeserializationError(
-            "DataIntegrationFlowFieldPriorityDedupeStrategyConfiguration.fields required"
-        )
+        out["fields"] = []
     return out

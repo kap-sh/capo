@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_evs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_evs.types.allocation_id
     import capo_evs.types.client_token
@@ -41,13 +39,13 @@ def deserialize_aws_json_1_0(data: dict) -> AssociateEipToVlanRequest:
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError("AssociateEipToVlanRequest.environment_id required")
+        out["environment_id"] = ""
     if data.get("vlanName") is not None:
         out["vlan_name"] = data["vlanName"]
     else:
-        raise DeserializationError("AssociateEipToVlanRequest.vlan_name required")
+        out["vlan_name"] = ""
     if data.get("allocationId") is not None:
         out["allocation_id"] = data["allocationId"]
     else:
-        raise DeserializationError("AssociateEipToVlanRequest.allocation_id required")
+        out["allocation_id"] = ""
     return out

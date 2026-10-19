@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.associated_transcript_filter_name
     import capo_lex_models_v2.types.filter_values
@@ -47,7 +45,12 @@ def deserialize_json(data: dict) -> AssociatedTranscriptFilter:
             )
         )
     else:
-        raise DeserializationError("AssociatedTranscriptFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_lex_models_v2.types.associated_transcript_filter_name.AssociatedTranscriptFilterName",
+            "",
+        )
     if data.get("values") is not None:
         import capo_lex_models_v2.types.filter_values
 
@@ -55,5 +58,5 @@ def deserialize_json(data: dict) -> AssociatedTranscriptFilter:
             data["values"]
         )
     else:
-        raise DeserializationError("AssociatedTranscriptFilter.values required")
+        out["values"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.configuration_aggregator_name
     import capo_config_service.types.expression
@@ -45,15 +43,11 @@ def deserialize_aws_json_1_1(data: dict) -> SelectAggregateResourceConfigRequest
     if data.get("Expression") is not None:
         out["expression"] = data["Expression"]
     else:
-        raise DeserializationError(
-            "SelectAggregateResourceConfigRequest.expression required"
-        )
+        out["expression"] = ""
     if data.get("ConfigurationAggregatorName") is not None:
         out["configuration_aggregator_name"] = data["ConfigurationAggregatorName"]
     else:
-        raise DeserializationError(
-            "SelectAggregateResourceConfigRequest.configuration_aggregator_name required"
-        )
+        out["configuration_aggregator_name"] = ""
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
     if data.get("MaxResults") is not None:

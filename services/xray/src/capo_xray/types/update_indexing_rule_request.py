@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_xray.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_xray.types.indexing_rule_value_update
     import capo_xray.types.string
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> UpdateIndexingRuleRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateIndexingRuleRequest.name required")
+        out["name"] = ""
     if data.get("Rule") is not None:
         import capo_xray.types.indexing_rule_value_update
 
@@ -43,5 +41,7 @@ def deserialize_json(data: dict) -> UpdateIndexingRuleRequest:
             data["Rule"]
         )
     else:
-        raise DeserializationError("UpdateIndexingRuleRequest.rule required")
+        import capo_xray.types._unknown
+
+        out["rule"] = capo_xray.types._unknown.UnknownUnionMember("")
     return out

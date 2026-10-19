@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.resource_name
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> VirtualNodeServiceProvider:
     if data.get("virtualNodeName") is not None:
         out["virtual_node_name"] = data["virtualNodeName"]
     else:
-        raise DeserializationError(
-            "VirtualNodeServiceProvider.virtual_node_name required"
-        )
+        out["virtual_node_name"] = ""
     return out

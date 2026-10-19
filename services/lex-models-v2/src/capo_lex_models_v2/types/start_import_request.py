@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> StartImportRequest:
     if data.get("importId") is not None:
         out["import_id"] = data["importId"]
     else:
-        raise DeserializationError("StartImportRequest.import_id required")
+        out["import_id"] = ""
     if data.get("resourceSpecification") is not None:
         import capo_lex_models_v2.types.import_resource_specification
 
@@ -72,7 +72,11 @@ def deserialize_json(data: dict) -> StartImportRequest:
             )
         )
     else:
-        raise DeserializationError("StartImportRequest.merge_strategy required")
+        import typing
+
+        out["merge_strategy"] = typing.cast(
+            "capo_lex_models_v2.types.merge_strategy.MergeStrategy", ""
+        )
     if data.get("filePassword") is not None:
         out["file_password"] = data["filePassword"]
     return out

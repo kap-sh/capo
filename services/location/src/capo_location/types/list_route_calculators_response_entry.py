@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.pricing_plan
     import capo_location.types.resource_description
@@ -54,21 +52,15 @@ def deserialize_json(data: dict) -> ListRouteCalculatorsResponseEntry:
     if data.get("CalculatorName") is not None:
         out["calculator_name"] = data["CalculatorName"]
     else:
-        raise DeserializationError(
-            "ListRouteCalculatorsResponseEntry.calculator_name required"
-        )
+        out["calculator_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError(
-            "ListRouteCalculatorsResponseEntry.description required"
-        )
+        out["description"] = ""
     if data.get("DataSource") is not None:
         out["data_source"] = data["DataSource"]
     else:
-        raise DeserializationError(
-            "ListRouteCalculatorsResponseEntry.data_source required"
-        )
+        out["data_source"] = ""
     if data.get("PricingPlan") is not None:
         out["pricing_plan"] = data["PricingPlan"]
     if data.get("CreateTime") is not None:
@@ -78,8 +70,10 @@ def deserialize_json(data: dict) -> ListRouteCalculatorsResponseEntry:
             data["CreateTime"]
         )
     else:
-        raise DeserializationError(
-            "ListRouteCalculatorsResponseEntry.create_time required"
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("UpdateTime") is not None:
         import capo_location.types.timestamp
@@ -88,8 +82,10 @@ def deserialize_json(data: dict) -> ListRouteCalculatorsResponseEntry:
             data["UpdateTime"]
         )
     else:
-        raise DeserializationError(
-            "ListRouteCalculatorsResponseEntry.update_time required"
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out
 

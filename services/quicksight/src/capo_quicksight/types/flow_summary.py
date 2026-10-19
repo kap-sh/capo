@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.flow_description
     import capo_quicksight.types.flow_id
@@ -93,15 +91,15 @@ def deserialize_json(data: dict) -> FlowSummary:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("FlowSummary.arn required")
+        out["arn"] = ""
     if data.get("FlowId") is not None:
         out["flow_id"] = data["FlowId"]
     else:
-        raise DeserializationError("FlowSummary.flow_id required")
+        out["flow_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("FlowSummary.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("CreatedTime") is not None:
@@ -111,7 +109,11 @@ def deserialize_json(data: dict) -> FlowSummary:
             data["CreatedTime"]
         )
     else:
-        raise DeserializationError("FlowSummary.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("CreatedBy") is not None:
         out["created_by"] = data["CreatedBy"]
     if data.get("LastUpdatedTime") is not None:

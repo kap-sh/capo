@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 
 class ProtectedQueryError(TypedDict, closed=True):
     message: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> ProtectedQueryError:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ProtectedQueryError.message required")
+        out["message"] = ""
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("ProtectedQueryError.code required")
+        out["code"] = ""
     return out

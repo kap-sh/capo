@@ -71,7 +71,7 @@ def deserialize_json(data: dict) -> CreateScopeInput:
     if data.get("scopeName") is not None:
         out["scope_name"] = data["scopeName"]
     else:
-        raise DeserializationError("CreateScopeInput.scope_name required")
+        out["scope_name"] = ""
     if data.get("scopeDescription") is not None:
         out["scope_description"] = data["scopeDescription"]
     if data.get("scopeConfiguration") is not None:

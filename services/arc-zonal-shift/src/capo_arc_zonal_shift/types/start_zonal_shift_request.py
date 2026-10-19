@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_arc_zonal_shift.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_zonal_shift.types.availability_zone
     import capo_arc_zonal_shift.types.expires_in
@@ -41,19 +39,17 @@ def deserialize_json(data: dict) -> StartZonalShiftRequest:
     if data.get("resourceIdentifier") is not None:
         out["resource_identifier"] = data["resourceIdentifier"]
     else:
-        raise DeserializationError(
-            "StartZonalShiftRequest.resource_identifier required"
-        )
+        out["resource_identifier"] = ""
     if data.get("awayFrom") is not None:
         out["away_from"] = data["awayFrom"]
     else:
-        raise DeserializationError("StartZonalShiftRequest.away_from required")
+        out["away_from"] = ""
     if data.get("expiresIn") is not None:
         out["expires_in"] = data["expiresIn"]
     else:
-        raise DeserializationError("StartZonalShiftRequest.expires_in required")
+        out["expires_in"] = ""
     if data.get("comment") is not None:
         out["comment"] = data["comment"]
     else:
-        raise DeserializationError("StartZonalShiftRequest.comment required")
+        out["comment"] = ""
     return out

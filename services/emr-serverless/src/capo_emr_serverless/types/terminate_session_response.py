@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_emr_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_serverless.types.application_id
     import capo_emr_serverless.types.session_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> TerminateSessionResponse:
     if data.get("applicationId") is not None:
         out["application_id"] = data["applicationId"]
     else:
-        raise DeserializationError("TerminateSessionResponse.application_id required")
+        out["application_id"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("TerminateSessionResponse.session_id required")
+        out["session_id"] = ""
     return out

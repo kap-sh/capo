@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.tag_list
 
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListTagsForResourceOutput:
 
         out["tags"] = capo_proton.types.tag_list.deserialize_aws_json_1_0(data["tags"])
     else:
-        raise DeserializationError("ListTagsForResourceOutput.tags required")
+        out["tags"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

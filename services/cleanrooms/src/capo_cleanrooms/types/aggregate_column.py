@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.aggregate_function_name
     import capo_cleanrooms.types.analysis_rule_column_name_list
@@ -43,9 +41,9 @@ def deserialize_json(data: dict) -> AggregateColumn:
             )
         )
     else:
-        raise DeserializationError("AggregateColumn.column_names required")
+        out["column_names"] = []
     if data.get("function") is not None:
         out["function"] = data["function"]
     else:
-        raise DeserializationError("AggregateColumn.function required")
+        out["function"] = ""
     return out

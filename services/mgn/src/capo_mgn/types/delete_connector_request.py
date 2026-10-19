@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.connector_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DeleteConnectorRequest:
     if data.get("connectorID") is not None:
         out["connector_id"] = data["connectorID"]
     else:
-        raise DeserializationError("DeleteConnectorRequest.connector_id required")
+        out["connector_id"] = ""
     return out

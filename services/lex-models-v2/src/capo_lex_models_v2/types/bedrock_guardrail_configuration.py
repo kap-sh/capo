@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.bedrock_guardrail_identifier
     import capo_lex_models_v2.types.bedrock_guardrail_version
@@ -33,9 +31,9 @@ def deserialize_json(data: dict) -> BedrockGuardrailConfiguration:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("BedrockGuardrailConfiguration.identifier required")
+        out["identifier"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("BedrockGuardrailConfiguration.version required")
+        out["version"] = ""
     return out

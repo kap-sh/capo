@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bcm_dashboards.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_dashboards.types.resource_tag_key
     import capo_bcm_dashboards.types.resource_tag_value
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceTag:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("ResourceTag.key required")
+        out["key"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("ResourceTag.value required")
+        out["value"] = ""
     return out

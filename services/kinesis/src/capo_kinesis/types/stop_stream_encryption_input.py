@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.encryption_type
     import capo_kinesis.types.key_id
@@ -58,11 +56,15 @@ def deserialize_aws_json_1_1(data: dict) -> StopStreamEncryptionInput:
             )
         )
     else:
-        raise DeserializationError("StopStreamEncryptionInput.encryption_type required")
+        import typing
+
+        out["encryption_type"] = typing.cast(
+            "capo_kinesis.types.encryption_type.EncryptionType", ""
+        )
     if data.get("KeyId") is not None:
         out["key_id"] = data["KeyId"]
     else:
-        raise DeserializationError("StopStreamEncryptionInput.key_id required")
+        out["key_id"] = ""
     if data.get("StreamARN") is not None:
         out["stream_arn"] = data["StreamARN"]
     if data.get("StreamId") is not None:

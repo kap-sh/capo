@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.arn
     import capo_resiliencehubv2.types.entity_description
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> UpdateSystemRequest:
     if data.get("systemArn") is not None:
         out["system_arn"] = data["systemArn"]
     else:
-        raise DeserializationError("UpdateSystemRequest.system_arn required")
+        out["system_arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("sharingEnabled") is not None:

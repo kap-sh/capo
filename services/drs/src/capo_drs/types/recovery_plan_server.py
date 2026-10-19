@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.recovery_plan_server_impact_level
     import capo_drs.types.source_server_arn
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> RecoveryPlanServer:
     if data.get("serverArn") is not None:
         out["server_arn"] = data["serverArn"]
     else:
-        raise DeserializationError("RecoveryPlanServer.server_arn required")
+        out["server_arn"] = ""
     if data.get("impactLevel") is not None:
         out["impact_level"] = data["impactLevel"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mpa.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mpa.types.policy_document
     import capo_mpa.types.policy_name
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> GetResourcePolicyResponse:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("GetResourcePolicyResponse.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("PolicyType") is not None:
         import capo_mpa.types.policy_type
 
@@ -53,17 +51,19 @@ def deserialize_json(data: dict) -> GetResourcePolicyResponse:
             data["PolicyType"]
         )
     else:
-        raise DeserializationError("GetResourcePolicyResponse.policy_type required")
+        import typing
+
+        out["policy_type"] = typing.cast("capo_mpa.types.policy_type.PolicyType", "")
     if data.get("PolicyVersionArn") is not None:
         out["policy_version_arn"] = data["PolicyVersionArn"]
     if data.get("PolicyName") is not None:
         out["policy_name"] = data["PolicyName"]
     else:
-        raise DeserializationError("GetResourcePolicyResponse.policy_name required")
+        out["policy_name"] = ""
     if data.get("PolicyDocument") is not None:
         out["policy_document"] = data["PolicyDocument"]
     else:
-        raise DeserializationError("GetResourcePolicyResponse.policy_document required")
+        out["policy_document"] = ""
     return out
 
 

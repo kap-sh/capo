@@ -71,7 +71,7 @@ def deserialize_json(data: dict) -> MemberConfiguration:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("MemberConfiguration.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("FrameworkConfiguration") is not None:

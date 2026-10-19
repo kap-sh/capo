@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.automation_execution_id
     import capo_ssm.types.automation_parameter_map
@@ -48,9 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> SendAutomationSignalRequest:
     if data.get("AutomationExecutionId") is not None:
         out["automation_execution_id"] = data["AutomationExecutionId"]
     else:
-        raise DeserializationError(
-            "SendAutomationSignalRequest.automation_execution_id required"
-        )
+        out["automation_execution_id"] = ""
     if data.get("SignalType") is not None:
         import capo_ssm.types.signal_type
 
@@ -58,7 +54,9 @@ def deserialize_aws_json_1_1(data: dict) -> SendAutomationSignalRequest:
             data["SignalType"]
         )
     else:
-        raise DeserializationError("SendAutomationSignalRequest.signal_type required")
+        import typing
+
+        out["signal_type"] = typing.cast("capo_ssm.types.signal_type.SignalType", "")
     if data.get("Payload") is not None:
         import capo_ssm.types.automation_parameter_map
 

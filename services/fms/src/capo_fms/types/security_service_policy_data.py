@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fms.types.managed_service_data
     import capo_fms.types.policy_option
@@ -51,7 +49,11 @@ def deserialize_aws_json_1_1(data: dict) -> SecurityServicePolicyData:
             data["Type"]
         )
     else:
-        raise DeserializationError("SecurityServicePolicyData.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_fms.types.security_service_type.SecurityServiceType", ""
+        )
     if data.get("ManagedServiceData") is not None:
         out["managed_service_data"] = data["ManagedServiceData"]
     if data.get("PolicyOption") is not None:

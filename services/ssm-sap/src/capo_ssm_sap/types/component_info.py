@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_sap.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_sap.types.component_type
     import capo_ssm_sap.types.instance_id
@@ -43,13 +41,17 @@ def deserialize_json(data: dict) -> ComponentInfo:
             data["ComponentType"]
         )
     else:
-        raise DeserializationError("ComponentInfo.component_type required")
+        import typing
+
+        out["component_type"] = typing.cast(
+            "capo_ssm_sap.types.component_type.ComponentType", ""
+        )
     if data.get("Sid") is not None:
         out["sid"] = data["Sid"]
     else:
-        raise DeserializationError("ComponentInfo.sid required")
+        out["sid"] = ""
     if data.get("Ec2InstanceId") is not None:
         out["ec2_instance_id"] = data["Ec2InstanceId"]
     else:
-        raise DeserializationError("ComponentInfo.ec2_instance_id required")
+        out["ec2_instance_id"] = ""
     return out

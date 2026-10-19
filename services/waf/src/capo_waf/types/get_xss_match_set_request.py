@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_waf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf.types.resource_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetXssMatchSetRequest:
     if data.get("XssMatchSetId") is not None:
         out["xss_match_set_id"] = data["XssMatchSetId"]
     else:
-        raise DeserializationError("GetXssMatchSetRequest.xss_match_set_id required")
+        out["xss_match_set_id"] = ""
     return out

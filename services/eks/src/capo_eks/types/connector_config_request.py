@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_eks.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eks.types.connector_config_provider
     import capo_eks.types.string
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> ConnectorConfigRequest:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("ConnectorConfigRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("provider") is not None:
         import capo_eks.types.connector_config_provider
 
@@ -43,5 +41,9 @@ def deserialize_json(data: dict) -> ConnectorConfigRequest:
             data["provider"]
         )
     else:
-        raise DeserializationError("ConnectorConfigRequest.provider required")
+        import typing
+
+        out["provider"] = typing.cast(
+            "capo_eks.types.connector_config_provider.ConnectorConfigProvider", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.next_token
     import capo_proton.types.repository_summary_list
@@ -46,5 +44,5 @@ def deserialize_aws_json_1_0(data: dict) -> ListRepositoriesOutput:
             )
         )
     else:
-        raise DeserializationError("ListRepositoriesOutput.repositories required")
+        out["repositories"] = []
     return out

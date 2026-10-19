@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.client_token
     import capo_iot_managed_integrations.types.destination_name
@@ -59,15 +57,15 @@ def deserialize_json(data: dict) -> CreateNotificationConfigurationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateNotificationConfigurationRequest.event_type required"
+        import typing
+
+        out["event_type"] = typing.cast(
+            "capo_iot_managed_integrations.types.event_type.EventType", ""
         )
     if data.get("DestinationName") is not None:
         out["destination_name"] = data["DestinationName"]
     else:
-        raise DeserializationError(
-            "CreateNotificationConfigurationRequest.destination_name required"
-        )
+        out["destination_name"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("Tags") is not None:

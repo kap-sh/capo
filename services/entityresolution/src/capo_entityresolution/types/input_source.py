@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.entity_name
     import capo_entityresolution.types.input_source_arn
@@ -35,11 +33,11 @@ def deserialize_json(data: dict) -> InputSource:
     if data.get("inputSourceARN") is not None:
         out["input_source_arn"] = data["inputSourceARN"]
     else:
-        raise DeserializationError("InputSource.input_source_arn required")
+        out["input_source_arn"] = ""
     if data.get("schemaName") is not None:
         out["schema_name"] = data["schemaName"]
     else:
-        raise DeserializationError("InputSource.schema_name required")
+        out["schema_name"] = ""
     if data.get("applyNormalization") is not None:
         out["apply_normalization"] = data["applyNormalization"]
     return out

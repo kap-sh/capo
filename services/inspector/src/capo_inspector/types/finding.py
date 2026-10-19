@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.arn
     import capo_inspector.types.asset_attributes
@@ -152,7 +150,7 @@ def deserialize_aws_json_1_1(data: dict) -> Finding:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("Finding.arn required")
+        out["arn"] = ""
     if data.get("schemaVersion") is not None:
         out["schema_version"] = data["schemaVersion"]
     else:
@@ -214,7 +212,7 @@ def deserialize_aws_json_1_1(data: dict) -> Finding:
             )
         )
     else:
-        raise DeserializationError("Finding.attributes required")
+        out["attributes"] = []
     if data.get("userAttributes") is not None:
         import capo_inspector.types.user_attribute_list
 
@@ -224,7 +222,7 @@ def deserialize_aws_json_1_1(data: dict) -> Finding:
             )
         )
     else:
-        raise DeserializationError("Finding.user_attributes required")
+        out["user_attributes"] = []
     if data.get("createdAt") is not None:
         import capo_inspector.types.timestamp
 
@@ -232,7 +230,9 @@ def deserialize_aws_json_1_1(data: dict) -> Finding:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("Finding.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_inspector.types.timestamp
 
@@ -240,5 +240,7 @@ def deserialize_aws_json_1_1(data: dict) -> Finding:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("Finding.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

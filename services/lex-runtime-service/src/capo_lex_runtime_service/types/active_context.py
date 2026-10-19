@@ -47,7 +47,7 @@ def deserialize_json(data: dict) -> ActiveContext:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ActiveContext.name required")
+        out["name"] = ""
     if data.get("timeToLive") is not None:
         import capo_lex_runtime_service.types.active_context_time_to_live
 
@@ -67,7 +67,7 @@ def deserialize_json(data: dict) -> ActiveContext:
             )
         )
     else:
-        raise DeserializationError("ActiveContext.parameters required")
+        out["parameters"] = {}
     return out
 
 

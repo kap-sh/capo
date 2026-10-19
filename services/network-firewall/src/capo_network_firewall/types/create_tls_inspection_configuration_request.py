@@ -67,9 +67,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateTLSInspectionConfigurationRequ
             "TLSInspectionConfigurationName"
         ]
     else:
-        raise DeserializationError(
-            "CreateTLSInspectionConfigurationRequest.tls_inspection_configuration_name required"
-        )
+        out["tls_inspection_configuration_name"] = ""
     if data.get("TLSInspectionConfiguration") is not None:
         import capo_network_firewall.types.tls_inspection_configuration
 

@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_networkmanager.errors import DeserializationError, ServiceError
+from capo_networkmanager.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_networkmanager.types.server_side_string
@@ -27,7 +27,7 @@ def deserialize_json(data: dict) -> AccessDeniedException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("AccessDeniedException_.message required")
+        out["message"] = ""
     return out
 
 

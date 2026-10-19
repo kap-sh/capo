@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amp.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amp.types.cluster_arn
     import capo_amp.types.security_group_ids
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> EksConfiguration:
     if data.get("clusterArn") is not None:
         out["cluster_arn"] = data["clusterArn"]
     else:
-        raise DeserializationError("EksConfiguration.cluster_arn required")
+        out["cluster_arn"] = ""
     if data.get("securityGroupIds") is not None:
         import capo_amp.types.security_group_ids
 
@@ -58,5 +56,5 @@ def deserialize_json(data: dict) -> EksConfiguration:
             data["subnetIds"]
         )
     else:
-        raise DeserializationError("EksConfiguration.subnet_ids required")
+        out["subnet_ids"] = []
     return out

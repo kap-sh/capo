@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.entity_name
     import capo_entityresolution.types.record_attribute_map
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> GetMatchIdInput:
             )
         )
     else:
-        raise DeserializationError("GetMatchIdInput.record required")
+        out["record"] = {}
     if data.get("applyNormalization") is not None:
         out["apply_normalization"] = data["applyNormalization"]
     return out

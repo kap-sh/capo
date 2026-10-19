@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_revenue_measurement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -52,11 +50,11 @@ def deserialize_cbor(data: dict) -> UpdateRevenueAttributionOutput:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("UpdateRevenueAttributionOutput.id required")
+        out["id"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("UpdateRevenueAttributionOutput.arn required")
+        out["arn"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("LastModifiedDate") is not None:
@@ -68,8 +66,10 @@ def deserialize_cbor(data: dict) -> UpdateRevenueAttributionOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateRevenueAttributionOutput.last_modified_date required"
+        import datetime
+
+        out["last_modified_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("LatestRevision") is not None:
         out["latest_revision"] = data["LatestRevision"]

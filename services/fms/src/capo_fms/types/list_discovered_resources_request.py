@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fms.types.aws_account_id_list
     import capo_fms.types.pagination_max_results
@@ -53,15 +51,11 @@ def deserialize_aws_json_1_1(data: dict) -> ListDiscoveredResourcesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ListDiscoveredResourcesRequest.member_account_ids required"
-        )
+        out["member_account_ids"] = []
     if data.get("ResourceType") is not None:
         out["resource_type"] = data["ResourceType"]
     else:
-        raise DeserializationError(
-            "ListDiscoveredResourcesRequest.resource_type required"
-        )
+        out["resource_type"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

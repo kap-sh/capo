@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.gateway_policy_engine_arn
     import capo_bedrock_agentcore_control.types.gateway_policy_engine_mode
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> GatewayPolicyEngineConfiguration:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GatewayPolicyEngineConfiguration.arn required")
+        out["arn"] = ""
     if data.get("mode") is not None:
         import capo_bedrock_agentcore_control.types.gateway_policy_engine_mode
 
@@ -47,5 +45,10 @@ def deserialize_json(data: dict) -> GatewayPolicyEngineConfiguration:
             )
         )
     else:
-        raise DeserializationError("GatewayPolicyEngineConfiguration.mode required")
+        import typing
+
+        out["mode"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.gateway_policy_engine_mode.GatewayPolicyEngineMode",
+            "",
+        )
     return out

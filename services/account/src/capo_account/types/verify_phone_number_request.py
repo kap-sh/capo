@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_account.types.account_id
     import capo_account.types.otp
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> VerifyPhoneNumberRequest:
     if data.get("Otp") is not None:
         out["otp"] = data["Otp"]
     else:
-        raise DeserializationError("VerifyPhoneNumberRequest.otp required")
+        out["otp"] = ""
     return out
 
 

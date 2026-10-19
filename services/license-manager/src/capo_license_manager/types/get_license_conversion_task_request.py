@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.license_conversion_task_id
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetLicenseConversionTaskRequest:
     if data.get("LicenseConversionTaskId") is not None:
         out["license_conversion_task_id"] = data["LicenseConversionTaskId"]
     else:
-        raise DeserializationError(
-            "GetLicenseConversionTaskRequest.license_conversion_task_id required"
-        )
+        out["license_conversion_task_id"] = ""
     return out

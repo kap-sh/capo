@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kms.types.algorithm_spec
     import capo_kms.types.key_id_type
@@ -43,7 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetParametersForImportRequest:
     if data.get("KeyId") is not None:
         out["key_id"] = data["KeyId"]
     else:
-        raise DeserializationError("GetParametersForImportRequest.key_id required")
+        out["key_id"] = ""
     if data.get("WrappingAlgorithm") is not None:
         import capo_kms.types.algorithm_spec
 
@@ -53,8 +51,10 @@ def deserialize_aws_json_1_1(data: dict) -> GetParametersForImportRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GetParametersForImportRequest.wrapping_algorithm required"
+        import typing
+
+        out["wrapping_algorithm"] = typing.cast(
+            "capo_kms.types.algorithm_spec.AlgorithmSpec", ""
         )
     if data.get("WrappingKeySpec") is not None:
         import capo_kms.types.wrapping_key_spec
@@ -65,7 +65,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetParametersForImportRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GetParametersForImportRequest.wrapping_key_spec required"
+        import typing
+
+        out["wrapping_key_spec"] = typing.cast(
+            "capo_kms.types.wrapping_key_spec.WrappingKeySpec", ""
         )
     return out

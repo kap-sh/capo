@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.harness_remote_mcp_url
     import capo_bedrock_agentcore_control.types.http_headers_map
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> HarnessRemoteMcpConfig:
     if data.get("url") is not None:
         out["url"] = data["url"]
     else:
-        raise DeserializationError("HarnessRemoteMcpConfig.url required")
+        out["url"] = ""
     if data.get("headers") is not None:
         import capo_bedrock_agentcore_control.types.http_headers_map
 

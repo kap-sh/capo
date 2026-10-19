@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.next_token
     import capo_devops_agent.types.trigger_list
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> ListTriggersResponse:
             data["items"]
         )
     else:
-        raise DeserializationError("ListTriggersResponse.items required")
+        out["items"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

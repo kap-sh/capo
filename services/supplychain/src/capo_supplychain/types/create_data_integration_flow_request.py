@@ -72,7 +72,7 @@ def deserialize_json(data: dict) -> CreateDataIntegrationFlowRequest:
             )
         )
     else:
-        raise DeserializationError("CreateDataIntegrationFlowRequest.sources required")
+        out["sources"] = []
     if data.get("transformation") is not None:
         import capo_supplychain.types.data_integration_flow_transformation
 

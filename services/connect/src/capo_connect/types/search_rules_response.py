@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.approximate_total_count
     import capo_connect.types.next_token2500
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> SearchRulesResponse:
             data["Rules"]
         )
     else:
-        raise DeserializationError("SearchRulesResponse.rules required")
+        out["rules"] = []
     if data.get("ApproximateTotalCount") is not None:
         out["approximate_total_count"] = data["ApproximateTotalCount"]
     if data.get("NextToken") is not None:

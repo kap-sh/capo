@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_events.types.event_source_name
     import capo_cloudwatch_events.types.limit_max100
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListPartnerEventSourceAccountsReques
     if data.get("EventSourceName") is not None:
         out["event_source_name"] = data["EventSourceName"]
     else:
-        raise DeserializationError(
-            "ListPartnerEventSourceAccountsRequest.event_source_name required"
-        )
+        out["event_source_name"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("Limit") is not None:

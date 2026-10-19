@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__integer
     import capo_mediatailor.types.__list_of_logging_strategies
@@ -74,9 +72,7 @@ def deserialize_json(data: dict) -> ConfigureLogsForPlaybackConfigurationRequest
     if data.get("PlaybackConfigurationName") is not None:
         out["playback_configuration_name"] = data["PlaybackConfigurationName"]
     else:
-        raise DeserializationError(
-            "ConfigureLogsForPlaybackConfigurationRequest.playback_configuration_name required"
-        )
+        out["playback_configuration_name"] = ""
     if data.get("EnabledLoggingStrategies") is not None:
         import capo_mediatailor.types.__list_of_logging_strategies
 

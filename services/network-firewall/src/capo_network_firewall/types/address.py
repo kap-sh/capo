@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.address_definition
 
@@ -29,5 +27,5 @@ def deserialize_aws_json_1_0(data: dict) -> Address:
     if data.get("AddressDefinition") is not None:
         out["address_definition"] = data["AddressDefinition"]
     else:
-        raise DeserializationError("Address.address_definition required")
+        out["address_definition"] = ""
     return out

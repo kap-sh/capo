@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.identity_center_application_arn
     import capo_deadline.types.monitor_id
@@ -31,11 +29,9 @@ def deserialize_json(data: dict) -> CreateMonitorResponse:
     if data.get("monitorId") is not None:
         out["monitor_id"] = data["monitorId"]
     else:
-        raise DeserializationError("CreateMonitorResponse.monitor_id required")
+        out["monitor_id"] = ""
     if data.get("identityCenterApplicationArn") is not None:
         out["identity_center_application_arn"] = data["identityCenterApplicationArn"]
     else:
-        raise DeserializationError(
-            "CreateMonitorResponse.identity_center_application_arn required"
-        )
+        out["identity_center_application_arn"] = ""
     return out

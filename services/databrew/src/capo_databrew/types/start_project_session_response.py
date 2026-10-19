@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.client_session_id
     import capo_databrew.types.project_name
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> StartProjectSessionResponse:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("StartProjectSessionResponse.name required")
+        out["name"] = ""
     if data.get("ClientSessionId") is not None:
         out["client_session_id"] = data["ClientSessionId"]
     return out

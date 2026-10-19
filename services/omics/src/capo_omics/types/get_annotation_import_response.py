@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.annotation_field_map
     import capo_omics.types.annotation_import_item_details
@@ -103,31 +101,27 @@ def deserialize_json(data: dict) -> GetAnnotationImportResponse:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetAnnotationImportResponse.id required")
+        out["id"] = ""
     if data.get("destinationName") is not None:
         out["destination_name"] = data["destinationName"]
     else:
-        raise DeserializationError(
-            "GetAnnotationImportResponse.destination_name required"
-        )
+        out["destination_name"] = ""
     if data.get("versionName") is not None:
         out["version_name"] = data["versionName"]
     else:
-        raise DeserializationError("GetAnnotationImportResponse.version_name required")
+        out["version_name"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("GetAnnotationImportResponse.role_arn required")
+        out["role_arn"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("GetAnnotationImportResponse.status required")
+        out["status"] = ""
     if data.get("statusMessage") is not None:
         out["status_message"] = data["statusMessage"]
     else:
-        raise DeserializationError(
-            "GetAnnotationImportResponse.status_message required"
-        )
+        out["status_message"] = ""
     if data.get("creationTime") is not None:
         import capo_omics.types.creation_time
 
@@ -135,7 +129,11 @@ def deserialize_json(data: dict) -> GetAnnotationImportResponse:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("GetAnnotationImportResponse.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import capo_omics.types.update_time
 
@@ -143,7 +141,11 @@ def deserialize_json(data: dict) -> GetAnnotationImportResponse:
             data["updateTime"]
         )
     else:
-        raise DeserializationError("GetAnnotationImportResponse.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("completionTime") is not None:
         import capo_omics.types.completion_time
 
@@ -151,8 +153,10 @@ def deserialize_json(data: dict) -> GetAnnotationImportResponse:
             data["completionTime"]
         )
     else:
-        raise DeserializationError(
-            "GetAnnotationImportResponse.completion_time required"
+        import datetime
+
+        out["completion_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("items") is not None:
         import capo_omics.types.annotation_import_item_details
@@ -161,7 +165,7 @@ def deserialize_json(data: dict) -> GetAnnotationImportResponse:
             data["items"]
         )
     else:
-        raise DeserializationError("GetAnnotationImportResponse.items required")
+        out["items"] = []
     if data.get("runLeftNormalization") is not None:
         out["run_left_normalization"] = data["runLeftNormalization"]
     else:
@@ -173,9 +177,9 @@ def deserialize_json(data: dict) -> GetAnnotationImportResponse:
             data["formatOptions"]
         )
     else:
-        raise DeserializationError(
-            "GetAnnotationImportResponse.format_options required"
-        )
+        import capo_omics.types._unknown
+
+        out["format_options"] = capo_omics.types._unknown.UnknownUnionMember("")
     if data.get("annotationFields") is not None:
         import capo_omics.types.annotation_field_map
 

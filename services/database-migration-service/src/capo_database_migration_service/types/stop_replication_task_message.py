@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.string
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> StopReplicationTaskMessage:
     if data.get("ReplicationTaskArn") is not None:
         out["replication_task_arn"] = data["ReplicationTaskArn"]
     else:
-        raise DeserializationError(
-            "StopReplicationTaskMessage.replication_task_arn required"
-        )
+        out["replication_task_arn"] = ""
     return out

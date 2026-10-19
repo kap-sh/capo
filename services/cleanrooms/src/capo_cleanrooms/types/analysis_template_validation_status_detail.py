@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.analysis_template_validation_status
     import capo_cleanrooms.types.analysis_template_validation_status_reason_list
@@ -62,8 +60,11 @@ def deserialize_json(data: dict) -> AnalysisTemplateValidationStatusDetail:
             )
         )
     else:
-        raise DeserializationError(
-            "AnalysisTemplateValidationStatusDetail.type required"
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cleanrooms.types.analysis_template_validation_type.AnalysisTemplateValidationType",
+            "",
         )
     if data.get("status") is not None:
         import capo_cleanrooms.types.analysis_template_validation_status
@@ -74,8 +75,11 @@ def deserialize_json(data: dict) -> AnalysisTemplateValidationStatusDetail:
             )
         )
     else:
-        raise DeserializationError(
-            "AnalysisTemplateValidationStatusDetail.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cleanrooms.types.analysis_template_validation_status.AnalysisTemplateValidationStatus",
+            "",
         )
     if data.get("reasons") is not None:
         import capo_cleanrooms.types.analysis_template_validation_status_reason_list

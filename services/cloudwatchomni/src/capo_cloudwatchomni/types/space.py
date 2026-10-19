@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -93,29 +91,29 @@ def deserialize_cbor(data: dict) -> Space:
     if data.get("spaceId") is not None:
         out["space_id"] = data["spaceId"]
     else:
-        raise DeserializationError("Space.space_id required")
+        out["space_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Space.name required")
+        out["name"] = ""
     if data.get("spaceArn") is not None:
         out["space_arn"] = data["spaceArn"]
     else:
-        raise DeserializationError("Space.space_arn required")
+        out["space_arn"] = ""
     if data.get("domainArn") is not None:
         out["domain_arn"] = data["domainArn"]
     if data.get("region") is not None:
         out["region"] = data["region"]
     else:
-        raise DeserializationError("Space.region required")
+        out["region"] = ""
     if data.get("ownerAccountId") is not None:
         out["owner_account_id"] = data["ownerAccountId"]
     else:
-        raise DeserializationError("Space.owner_account_id required")
+        out["owner_account_id"] = ""
     if data.get("dataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["dataAccessRoleArn"]
     else:
-        raise DeserializationError("Space.data_access_role_arn required")
+        out["data_access_role_arn"] = ""
     if data.get("createdAt") is not None:
         import capo_cloudwatchomni.types._prelude.timestamp
 
@@ -125,7 +123,9 @@ def deserialize_cbor(data: dict) -> Space:
             )
         )
     else:
-        raise DeserializationError("Space.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_cloudwatchomni.types._prelude.timestamp
 
@@ -135,7 +135,9 @@ def deserialize_cbor(data: dict) -> Space:
             )
         )
     else:
-        raise DeserializationError("Space.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("agentCoreEvaluationRoleArn") is not None:
         out["agent_core_evaluation_role_arn"] = data["agentCoreEvaluationRoleArn"]
     if data.get("status") is not None:
@@ -145,7 +147,11 @@ def deserialize_cbor(data: dict) -> Space:
             data["status"]
         )
     else:
-        raise DeserializationError("Space.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cloudwatchomni.types.space_status.SpaceStatus", ""
+        )
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
     if data.get("encryptionConfiguration") is not None:

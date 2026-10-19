@@ -46,7 +46,7 @@ def deserialize_json(data: dict) -> EvaluatorMetric:
     if data.get("evaluatorArn") is not None:
         out["evaluator_arn"] = data["evaluatorArn"]
     else:
-        raise DeserializationError("EvaluatorMetric.evaluator_arn required")
+        out["evaluator_arn"] = ""
     if data.get("controlStats") is not None:
         import capo_bedrock_agentcore.types.control_stats
 
@@ -66,5 +66,5 @@ def deserialize_json(data: dict) -> EvaluatorMetric:
             )
         )
     else:
-        raise DeserializationError("EvaluatorMetric.variant_results required")
+        out["variant_results"] = []
     return out

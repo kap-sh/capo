@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3tables.types.sse_algorithm
 
@@ -39,7 +37,11 @@ def deserialize_json(data: dict) -> EncryptionConfiguration:
             data["sseAlgorithm"]
         )
     else:
-        raise DeserializationError("EncryptionConfiguration.sse_algorithm required")
+        import typing
+
+        out["sse_algorithm"] = typing.cast(
+            "capo_s3tables.types.sse_algorithm.SSEAlgorithm", ""
+        )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     return out

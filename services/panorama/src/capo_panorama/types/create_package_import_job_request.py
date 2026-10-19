@@ -60,7 +60,7 @@ def deserialize_json(data: dict) -> CreatePackageImportJobRequest:
     if data.get("JobType") is not None:
         out["job_type"] = data["JobType"]
     else:
-        raise DeserializationError("CreatePackageImportJobRequest.job_type required")
+        out["job_type"] = ""
     if data.get("InputConfig") is not None:
         import capo_panorama.types.package_import_job_input_config
 
@@ -88,9 +88,7 @@ def deserialize_json(data: dict) -> CreatePackageImportJobRequest:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError(
-            "CreatePackageImportJobRequest.client_token required"
-        )
+        out["client_token"] = ""
     if data.get("JobTags") is not None:
         import capo_panorama.types.job_tags_list
 

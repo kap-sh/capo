@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.attributes
     import capo_connect.types.client_token
@@ -112,7 +110,7 @@ def deserialize_json(data: dict) -> StartTaskContactRequest:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("StartTaskContactRequest.instance_id required")
+        out["instance_id"] = ""
     if data.get("PreviousContactId") is not None:
         out["previous_contact_id"] = data["PreviousContactId"]
     if data.get("ContactFlowId") is not None:
@@ -126,7 +124,7 @@ def deserialize_json(data: dict) -> StartTaskContactRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("StartTaskContactRequest.name required")
+        out["name"] = ""
     if data.get("References") is not None:
         import capo_connect.types.contact_references
 

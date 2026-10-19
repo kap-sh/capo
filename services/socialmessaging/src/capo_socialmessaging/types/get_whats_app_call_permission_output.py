@@ -63,5 +63,5 @@ def deserialize_json(data: dict) -> GetWhatsAppCallPermissionOutput:
             )
         )
     else:
-        raise DeserializationError("GetWhatsAppCallPermissionOutput.actions required")
+        out["actions"] = []
     return out

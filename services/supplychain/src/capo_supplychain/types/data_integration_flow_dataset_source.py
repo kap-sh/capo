@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.data_integration_dataset_arn
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> DataIntegrationFlowDatasetSource:
     if data.get("datasetIdentifier") is not None:
         out["dataset_identifier"] = data["datasetIdentifier"]
     else:
-        raise DeserializationError(
-            "DataIntegrationFlowDatasetSource.dataset_identifier required"
-        )
+        out["dataset_identifier"] = ""
     return out

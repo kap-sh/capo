@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.effective_limit_limit_value_long
     import capo_quicksight.types.limit_source
@@ -57,11 +55,15 @@ def deserialize_json(data: dict) -> EffectiveLimit:
             data["resourceType"]
         )
     else:
-        raise DeserializationError("EffectiveLimit.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_quicksight.types.resource_type.ResourceType", ""
+        )
     if data.get("limitValue") is not None:
         out["limit_value"] = data["limitValue"]
     else:
-        raise DeserializationError("EffectiveLimit.limit_value required")
+        out["limit_value"] = 0
     if data.get("limitUnit") is not None:
         import capo_quicksight.types.limit_unit
 
@@ -69,7 +71,11 @@ def deserialize_json(data: dict) -> EffectiveLimit:
             data["limitUnit"]
         )
     else:
-        raise DeserializationError("EffectiveLimit.limit_unit required")
+        import typing
+
+        out["limit_unit"] = typing.cast(
+            "capo_quicksight.types.limit_unit.LimitUnit", ""
+        )
     if data.get("source") is not None:
         import capo_quicksight.types.limit_source
 
@@ -77,9 +83,13 @@ def deserialize_json(data: dict) -> EffectiveLimit:
             data["source"]
         )
     else:
-        raise DeserializationError("EffectiveLimit.source required")
+        import typing
+
+        out["source"] = typing.cast(
+            "capo_quicksight.types.limit_source.LimitSource", ""
+        )
     if data.get("profileId") is not None:
         out["profile_id"] = data["profileId"]
     else:
-        raise DeserializationError("EffectiveLimit.profile_id required")
+        out["profile_id"] = ""
     return out

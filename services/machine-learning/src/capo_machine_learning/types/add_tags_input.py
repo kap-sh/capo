@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_machine_learning.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_machine_learning.types.entity_id
     import capo_machine_learning.types.tag_list
@@ -51,11 +49,11 @@ def deserialize_aws_json_1_1(data: dict) -> AddTagsInput:
             data["Tags"]
         )
     else:
-        raise DeserializationError("AddTagsInput.tags required")
+        out["tags"] = []
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("AddTagsInput.resource_id required")
+        out["resource_id"] = ""
     if data.get("ResourceType") is not None:
         import capo_machine_learning.types.taggable_resource_type
 
@@ -65,5 +63,10 @@ def deserialize_aws_json_1_1(data: dict) -> AddTagsInput:
             )
         )
     else:
-        raise DeserializationError("AddTagsInput.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_machine_learning.types.taggable_resource_type.TaggableResourceType",
+            "",
+        )
     return out

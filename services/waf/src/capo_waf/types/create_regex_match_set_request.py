@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_waf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf.types.change_token
     import capo_waf.types.resource_name
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRegexMatchSetRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateRegexMatchSetRequest.name required")
+        out["name"] = ""
     if data.get("ChangeToken") is not None:
         out["change_token"] = data["ChangeToken"]
     else:
-        raise DeserializationError("CreateRegexMatchSetRequest.change_token required")
+        out["change_token"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.bundle_information
     import capo_iottwinmaker.types.long
@@ -78,11 +76,15 @@ def deserialize_json(data: dict) -> PricingPlan:
             data["effectiveDateTime"]
         )
     else:
-        raise DeserializationError("PricingPlan.effective_date_time required")
+        import datetime
+
+        out["effective_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("pricingMode") is not None:
         out["pricing_mode"] = data["pricingMode"]
     else:
-        raise DeserializationError("PricingPlan.pricing_mode required")
+        out["pricing_mode"] = ""
     if data.get("updateDateTime") is not None:
         import capo_iottwinmaker.types.timestamp
 
@@ -90,9 +92,13 @@ def deserialize_json(data: dict) -> PricingPlan:
             data["updateDateTime"]
         )
     else:
-        raise DeserializationError("PricingPlan.update_date_time required")
+        import datetime
+
+        out["update_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateReason") is not None:
         out["update_reason"] = data["updateReason"]
     else:
-        raise DeserializationError("PricingPlan.update_reason required")
+        out["update_reason"] = ""
     return out

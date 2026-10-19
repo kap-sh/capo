@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.data
     import capo_swf.types.duration_in_seconds_optional
@@ -54,13 +52,11 @@ def deserialize_aws_json_1_0(data: dict) -> LambdaFunctionScheduledEventAttribut
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("LambdaFunctionScheduledEventAttributes.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "LambdaFunctionScheduledEventAttributes.name required"
-        )
+        out["name"] = ""
     if data.get("control") is not None:
         out["control"] = data["control"]
     if data.get("input") is not None:

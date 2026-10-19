@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_appfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appfabric.types.redirect_uri
     import capo_appfabric.types.sensitive_string2048
@@ -31,11 +29,11 @@ def deserialize_json(data: dict) -> AuthRequest:
     if data.get("redirectUri") is not None:
         out["redirect_uri"] = data["redirectUri"]
     else:
-        raise DeserializationError("AuthRequest.redirect_uri required")
+        out["redirect_uri"] = ""
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("AuthRequest.code required")
+        out["code"] = ""
     return out
 
 

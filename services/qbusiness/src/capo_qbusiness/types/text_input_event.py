@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_qbusiness._protocol.eventstream import HeaderValue, Message
-from capo_qbusiness.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_qbusiness.types.user_message
@@ -29,7 +28,7 @@ def deserialize_json(data: dict) -> TextInputEvent:
     if data.get("userMessage") is not None:
         out["user_message"] = data["userMessage"]
     else:
-        raise DeserializationError("TextInputEvent.user_message required")
+        out["user_message"] = ""
     return out
 
 

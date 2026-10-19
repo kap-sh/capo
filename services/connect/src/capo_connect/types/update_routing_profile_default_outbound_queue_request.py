@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.instance_id
     import capo_connect.types.queue_id
@@ -33,7 +31,5 @@ def deserialize_json(data: dict) -> UpdateRoutingProfileDefaultOutboundQueueRequ
     if data.get("DefaultOutboundQueueId") is not None:
         out["default_outbound_queue_id"] = data["DefaultOutboundQueueId"]
     else:
-        raise DeserializationError(
-            "UpdateRoutingProfileDefaultOutboundQueueRequest.default_outbound_queue_id required"
-        )
+        out["default_outbound_queue_id"] = ""
     return out

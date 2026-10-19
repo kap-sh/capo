@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.end_point_list
@@ -52,24 +51,22 @@ def deserialize_xml(el: Element) -> CreateRealtimeLogConfigRequest:
             child_end_points
         )
     else:
-        raise DeserializationError("CreateRealtimeLogConfigRequest.end_points required")
+        out["end_points"] = []
     child_fields = el.find("Fields")
     if child_fields is not None:
         import capo_cloudfront.types.field_list
 
         out["fields"] = capo_cloudfront.types.field_list.deserialize_xml(child_fields)
     else:
-        raise DeserializationError("CreateRealtimeLogConfigRequest.fields required")
+        out["fields"] = []
     child_name = el.find("Name")
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("CreateRealtimeLogConfigRequest.name required")
+        out["name"] = ""
     child_sampling_rate = el.find("SamplingRate")
     if child_sampling_rate is not None:
         out["sampling_rate"] = int(child_sampling_rate.text or "")
     else:
-        raise DeserializationError(
-            "CreateRealtimeLogConfigRequest.sampling_rate required"
-        )
+        out["sampling_rate"] = 0
     return out

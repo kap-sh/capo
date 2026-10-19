@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.resource_server_scope_description_type
     import capo_cognito_identity_provider.types.resource_server_scope_name_type
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceServerScopeType:
     if data.get("ScopeName") is not None:
         out["scope_name"] = data["ScopeName"]
     else:
-        raise DeserializationError("ResourceServerScopeType.scope_name required")
+        out["scope_name"] = ""
     if data.get("ScopeDescription") is not None:
         out["scope_description"] = data["ScopeDescription"]
     else:
-        raise DeserializationError("ResourceServerScopeType.scope_description required")
+        out["scope_description"] = ""
     return out

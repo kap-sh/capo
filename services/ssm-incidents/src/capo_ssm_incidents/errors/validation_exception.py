@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError, ServiceError
+from capo_ssm_incidents.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.exception_message
@@ -27,7 +27,7 @@ def deserialize_json(data: dict) -> ValidationException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ValidationException_.message required")
+        out["message"] = ""
     return out
 
 

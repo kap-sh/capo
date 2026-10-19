@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.policy
     import capo_ssm_incidents.types.policy_id
@@ -34,13 +32,13 @@ def deserialize_json(data: dict) -> ResourcePolicy:
     if data.get("policyDocument") is not None:
         out["policy_document"] = data["policyDocument"]
     else:
-        raise DeserializationError("ResourcePolicy.policy_document required")
+        out["policy_document"] = ""
     if data.get("policyId") is not None:
         out["policy_id"] = data["policyId"]
     else:
-        raise DeserializationError("ResourcePolicy.policy_id required")
+        out["policy_id"] = ""
     if data.get("ramResourceShareRegion") is not None:
         out["ram_resource_share_region"] = data["ramResourceShareRegion"]
     else:
-        raise DeserializationError("ResourcePolicy.ram_resource_share_region required")
+        out["ram_resource_share_region"] = ""
     return out

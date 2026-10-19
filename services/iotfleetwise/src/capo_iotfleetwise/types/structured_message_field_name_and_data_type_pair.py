@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.structure_message_name
     import capo_iotfleetwise.types.structured_message
@@ -35,9 +33,7 @@ def deserialize_aws_json_1_0(data: dict) -> StructuredMessageFieldNameAndDataTyp
     if data.get("fieldName") is not None:
         out["field_name"] = data["fieldName"]
     else:
-        raise DeserializationError(
-            "StructuredMessageFieldNameAndDataTypePair.field_name required"
-        )
+        out["field_name"] = ""
     if data.get("dataType") is not None:
         import capo_iotfleetwise.types.structured_message
 
@@ -47,7 +43,7 @@ def deserialize_aws_json_1_0(data: dict) -> StructuredMessageFieldNameAndDataTyp
             )
         )
     else:
-        raise DeserializationError(
-            "StructuredMessageFieldNameAndDataTypePair.data_type required"
-        )
+        import capo_iotfleetwise.types._unknown
+
+        out["data_type"] = capo_iotfleetwise.types._unknown.UnknownUnionMember("")
     return out

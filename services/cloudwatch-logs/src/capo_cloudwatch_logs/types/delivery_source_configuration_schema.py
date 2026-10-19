@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.delivery_source_configuration_numeric_value
     import capo_cloudwatch_logs.types.delivery_source_configuration_schema_field
@@ -82,9 +80,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeliverySourceConfigurationSchema:
     if data.get("keyName") is not None:
         out["key_name"] = data["keyName"]
     else:
-        raise DeserializationError(
-            "DeliverySourceConfigurationSchema.key_name required"
-        )
+        out["key_name"] = ""
     if data.get("valueType") is not None:
         import capo_cloudwatch_logs.types.delivery_source_configuration_schema_value_type
 
@@ -94,15 +90,16 @@ def deserialize_aws_json_1_1(data: dict) -> DeliverySourceConfigurationSchema:
             )
         )
     else:
-        raise DeserializationError(
-            "DeliverySourceConfigurationSchema.value_type required"
+        import typing
+
+        out["value_type"] = typing.cast(
+            "capo_cloudwatch_logs.types.delivery_source_configuration_schema_value_type.DeliverySourceConfigurationSchemaValueType",
+            "",
         )
     if data.get("defaultValue") is not None:
         out["default_value"] = data["defaultValue"]
     else:
-        raise DeserializationError(
-            "DeliverySourceConfigurationSchema.default_value required"
-        )
+        out["default_value"] = ""
     if data.get("supportedValues") is not None:
         import capo_cloudwatch_logs.types.delivery_source_configuration_supported_values
 

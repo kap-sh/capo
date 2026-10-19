@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pipes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pipes.types.s3_output_format
     import capo_pipes.types.string
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> S3LogDestinationParameters:
     if data.get("BucketName") is not None:
         out["bucket_name"] = data["BucketName"]
     else:
-        raise DeserializationError("S3LogDestinationParameters.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("BucketOwner") is not None:
         out["bucket_owner"] = data["BucketOwner"]
     else:
-        raise DeserializationError("S3LogDestinationParameters.bucket_owner required")
+        out["bucket_owner"] = ""
     if data.get("OutputFormat") is not None:
         out["output_format"] = data["OutputFormat"]
     if data.get("Prefix") is not None:

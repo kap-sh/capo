@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3files.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3files.types.file_systems
 
@@ -41,5 +39,5 @@ def deserialize_json(data: dict) -> ListFileSystemsResponse:
             data["fileSystems"]
         )
     else:
-        raise DeserializationError("ListFileSystemsResponse.file_systems required")
+        out["file_systems"] = []
     return out

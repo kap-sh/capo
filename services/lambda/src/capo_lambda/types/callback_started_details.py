@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.callback_id
     import capo_lambda.types.duration_seconds
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> CallbackStartedDetails:
     if data.get("CallbackId") is not None:
         out["callback_id"] = data["CallbackId"]
     else:
-        raise DeserializationError("CallbackStartedDetails.callback_id required")
+        out["callback_id"] = ""
     if data.get("HeartbeatTimeout") is not None:
         out["heartbeat_timeout"] = data["HeartbeatTimeout"]
     if data.get("Timeout") is not None:

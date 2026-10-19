@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.conformance_pack_compliance_scores
     import capo_config_service.types.next_token
@@ -46,7 +44,5 @@ def deserialize_aws_json_1_1(data: dict) -> ListConformancePackComplianceScoresR
             )
         )
     else:
-        raise DeserializationError(
-            "ListConformancePackComplianceScoresResponse.conformance_pack_compliance_scores required"
-        )
+        out["conformance_pack_compliance_scores"] = []
     return out

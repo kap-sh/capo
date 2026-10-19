@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 
 class ExtractionJob(TypedDict, closed=True):
     job_id: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> ExtractionJob:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("ExtractionJob.job_id required")
+        out["job_id"] = ""
     return out

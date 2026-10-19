@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_gameliftstreams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_gameliftstreams.types.resolution_height
     import capo_gameliftstreams.types.resolution_width
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> Resolution:
     if data.get("Width") is not None:
         out["width"] = data["Width"]
     else:
-        raise DeserializationError("Resolution.width required")
+        out["width"] = 0
     if data.get("Height") is not None:
         out["height"] = data["Height"]
     else:
-        raise DeserializationError("Resolution.height required")
+        out["height"] = 0
     return out

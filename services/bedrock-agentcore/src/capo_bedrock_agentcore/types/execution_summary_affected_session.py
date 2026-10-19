@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 
 class ExecutionSummaryAffectedSession(TypedDict, closed=True):
     session_id: "str"
@@ -28,19 +26,13 @@ def deserialize_json(data: dict) -> ExecutionSummaryAffectedSession:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError(
-            "ExecutionSummaryAffectedSession.session_id required"
-        )
+        out["session_id"] = ""
     if data.get("approachTaken") is not None:
         out["approach_taken"] = data["approachTaken"]
     else:
-        raise DeserializationError(
-            "ExecutionSummaryAffectedSession.approach_taken required"
-        )
+        out["approach_taken"] = ""
     if data.get("finalOutcome") is not None:
         out["final_outcome"] = data["finalOutcome"]
     else:
-        raise DeserializationError(
-            "ExecutionSummaryAffectedSession.final_outcome required"
-        )
+        out["final_outcome"] = ""
     return out

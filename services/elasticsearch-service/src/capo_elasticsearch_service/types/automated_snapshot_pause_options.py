@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_elasticsearch_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elasticsearch_service.types.boolean
     import capo_elasticsearch_service.types.pause_state
@@ -61,7 +59,7 @@ def deserialize_json(data: dict) -> AutomatedSnapshotPauseOptions:
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
-        raise DeserializationError("AutomatedSnapshotPauseOptions.enabled required")
+        out["enabled"] = False
     if data.get("StartTime") is not None:
         import capo_elasticsearch_service.types.update_timestamp
 

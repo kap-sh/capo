@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_greengrassv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_greengrassv2.types.component_configuration_update
     import capo_greengrassv2.types.component_run_with
@@ -51,9 +49,7 @@ def deserialize_json(data: dict) -> ComponentDeploymentSpecification:
     if data.get("componentVersion") is not None:
         out["component_version"] = data["componentVersion"]
     else:
-        raise DeserializationError(
-            "ComponentDeploymentSpecification.component_version required"
-        )
+        out["component_version"] = ""
     if data.get("configurationUpdate") is not None:
         import capo_greengrassv2.types.component_configuration_update
 

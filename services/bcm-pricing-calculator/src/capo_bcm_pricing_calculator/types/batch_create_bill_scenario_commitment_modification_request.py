@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_pricing_calculator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_pricing_calculator.types.batch_create_bill_scenario_commitment_modification_entries
     import capo_bcm_pricing_calculator.types.client_token
@@ -48,9 +46,7 @@ def deserialize_aws_json_1_0(
     if data.get("billScenarioId") is not None:
         out["bill_scenario_id"] = data["billScenarioId"]
     else:
-        raise DeserializationError(
-            "BatchCreateBillScenarioCommitmentModificationRequest.bill_scenario_id required"
-        )
+        out["bill_scenario_id"] = ""
     if data.get("commitmentModifications") is not None:
         import capo_bcm_pricing_calculator.types.batch_create_bill_scenario_commitment_modification_entries
 
@@ -60,9 +56,7 @@ def deserialize_aws_json_1_0(
             )
         )
     else:
-        raise DeserializationError(
-            "BatchCreateBillScenarioCommitmentModificationRequest.commitment_modifications required"
-        )
+        out["commitment_modifications"] = []
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

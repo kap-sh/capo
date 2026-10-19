@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.boolean
     import capo_lightsail.types.cache_behavior
@@ -123,9 +121,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDistributionRequest:
     if data.get("distributionName") is not None:
         out["distribution_name"] = data["distributionName"]
     else:
-        raise DeserializationError(
-            "UpdateDistributionRequest.distribution_name required"
-        )
+        out["distribution_name"] = ""
     if data.get("origin") is not None:
         import capo_lightsail.types.input_origin
 

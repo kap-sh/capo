@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wellarchitected.types.pillar
     import capo_wellarchitected.types.risk_rating
@@ -52,15 +50,17 @@ def deserialize_json(data: dict) -> TradeOff:
             data["pillar"]
         )
     else:
-        raise DeserializationError("TradeOff.pillar required")
+        import typing
+
+        out["pillar"] = typing.cast("capo_wellarchitected.types.pillar.Pillar", "")
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("TradeOff.title required")
+        out["title"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("TradeOff.description required")
+        out["description"] = ""
     if data.get("risk") is not None:
         import capo_wellarchitected.types.risk_rating
 
@@ -68,11 +68,15 @@ def deserialize_json(data: dict) -> TradeOff:
             data["risk"]
         )
     else:
-        raise DeserializationError("TradeOff.risk required")
+        import typing
+
+        out["risk"] = typing.cast(
+            "capo_wellarchitected.types.risk_rating.RiskRating", ""
+        )
     if data.get("mitigation") is not None:
         out["mitigation"] = data["mitigation"]
     else:
-        raise DeserializationError("TradeOff.mitigation required")
+        out["mitigation"] = ""
     if data.get("riskExplanation") is not None:
         out["risk_explanation"] = data["riskExplanation"]
     return out

@@ -84,9 +84,7 @@ def deserialize_json(data: dict) -> CreateConnectorDestinationRequest:
     if data.get("CloudConnectorId") is not None:
         out["cloud_connector_id"] = data["CloudConnectorId"]
     else:
-        raise DeserializationError(
-            "CreateConnectorDestinationRequest.cloud_connector_id required"
-        )
+        out["cloud_connector_id"] = ""
     if data.get("AuthType") is not None:
         import capo_iot_managed_integrations.types.auth_type
 

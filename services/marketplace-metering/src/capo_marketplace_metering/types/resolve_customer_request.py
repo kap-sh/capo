@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_metering.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_metering.types.non_empty_string
 
@@ -29,5 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> ResolveCustomerRequest:
     if data.get("RegistrationToken") is not None:
         out["registration_token"] = data["RegistrationToken"]
     else:
-        raise DeserializationError("ResolveCustomerRequest.registration_token required")
+        out["registration_token"] = ""
     return out

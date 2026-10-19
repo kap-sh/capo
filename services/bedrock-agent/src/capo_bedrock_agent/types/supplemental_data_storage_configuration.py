@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.supplemental_data_storage_locations
 
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> SupplementalDataStorageConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "SupplementalDataStorageConfiguration.storage_locations required"
-        )
+        out["storage_locations"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_health.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_health.types.event_arn
     import capo_health.types.max_results
@@ -41,9 +39,7 @@ def deserialize_aws_json_1_1(
     if data.get("eventArn") is not None:
         out["event_arn"] = data["eventArn"]
     else:
-        raise DeserializationError(
-            "DescribeAffectedAccountsForOrganizationRequest.event_arn required"
-        )
+        out["event_arn"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

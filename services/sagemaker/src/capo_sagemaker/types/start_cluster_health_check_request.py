@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sagemaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker.types.cluster_name_or_arn
     import capo_sagemaker.types.deep_health_check_configurations
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartClusterHealthCheckRequest:
     if data.get("ClusterName") is not None:
         out["cluster_name"] = data["ClusterName"]
     else:
-        raise DeserializationError(
-            "StartClusterHealthCheckRequest.cluster_name required"
-        )
+        out["cluster_name"] = ""
     if data.get("DeepHealthCheckConfigurations") is not None:
         import capo_sagemaker.types.deep_health_check_configurations
 
@@ -49,7 +45,5 @@ def deserialize_aws_json_1_1(data: dict) -> StartClusterHealthCheckRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartClusterHealthCheckRequest.deep_health_check_configurations required"
-        )
+        out["deep_health_check_configurations"] = []
     return out

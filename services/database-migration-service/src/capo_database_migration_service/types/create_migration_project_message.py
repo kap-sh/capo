@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.data_provider_descriptor_definition_list
     import capo_database_migration_service.types.sc_application_attributes
@@ -94,9 +92,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMigrationProjectMessage:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateMigrationProjectMessage.source_data_provider_descriptors required"
-        )
+        out["source_data_provider_descriptors"] = []
     if data.get("TargetDataProviderDescriptors") is not None:
         import capo_database_migration_service.types.data_provider_descriptor_definition_list
 
@@ -106,15 +102,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMigrationProjectMessage:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateMigrationProjectMessage.target_data_provider_descriptors required"
-        )
+        out["target_data_provider_descriptors"] = []
     if data.get("InstanceProfileIdentifier") is not None:
         out["instance_profile_identifier"] = data["InstanceProfileIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateMigrationProjectMessage.instance_profile_identifier required"
-        )
+        out["instance_profile_identifier"] = ""
     if data.get("TransformationRules") is not None:
         out["transformation_rules"] = data["TransformationRules"]
     if data.get("Description") is not None:

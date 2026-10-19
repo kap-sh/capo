@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.psc
     import capo_iot_wireless.types.uarfcndl
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> WcdmaLocalId:
     if data.get("Uarfcndl") is not None:
         out["uarfcndl"] = data["Uarfcndl"]
     else:
-        raise DeserializationError("WcdmaLocalId.uarfcndl required")
+        out["uarfcndl"] = 0
     if data.get("Psc") is not None:
         out["psc"] = data["Psc"]
     else:
-        raise DeserializationError("WcdmaLocalId.psc required")
+        out["psc"] = 0
     return out

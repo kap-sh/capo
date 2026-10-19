@@ -93,7 +93,7 @@ def deserialize_json(data: dict) -> CreateFormData:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateFormData.name required")
+        out["name"] = ""
     if data.get("dataType") is not None:
         import capo_amplifyuibuilder.types.form_data_type_config
 
@@ -113,7 +113,11 @@ def deserialize_json(data: dict) -> CreateFormData:
             )
         )
     else:
-        raise DeserializationError("CreateFormData.form_action_type required")
+        import typing
+
+        out["form_action_type"] = typing.cast(
+            "capo_amplifyuibuilder.types.form_action_type.FormActionType", ""
+        )
     if data.get("fields") is not None:
         import capo_amplifyuibuilder.types.fields_map
 
@@ -121,7 +125,7 @@ def deserialize_json(data: dict) -> CreateFormData:
             data["fields"]
         )
     else:
-        raise DeserializationError("CreateFormData.fields required")
+        out["fields"] = {}
     if data.get("style") is not None:
         import capo_amplifyuibuilder.types.form_style
 
@@ -139,11 +143,11 @@ def deserialize_json(data: dict) -> CreateFormData:
             )
         )
     else:
-        raise DeserializationError("CreateFormData.sectional_elements required")
+        out["sectional_elements"] = {}
     if data.get("schemaVersion") is not None:
         out["schema_version"] = data["schemaVersion"]
     else:
-        raise DeserializationError("CreateFormData.schema_version required")
+        out["schema_version"] = ""
     if data.get("cta") is not None:
         import capo_amplifyuibuilder.types.form_cta
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudtrail_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail_data.types.uuid
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> AuditEventResultEntry:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("AuditEventResultEntry.id required")
+        out["id"] = ""
     if data.get("eventID") is not None:
         out["event_id"] = data["eventID"]
     else:
-        raise DeserializationError("AuditEventResultEntry.event_id required")
+        out["event_id"] = ""
     return out

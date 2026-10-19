@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotthingsgraph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotthingsgraph.types.flow_execution_id
     import capo_iotthingsgraph.types.max_results
@@ -61,9 +59,7 @@ def deserialize_aws_json_1_1(data: dict) -> SearchFlowExecutionsRequest:
     if data.get("systemInstanceId") is not None:
         out["system_instance_id"] = data["systemInstanceId"]
     else:
-        raise DeserializationError(
-            "SearchFlowExecutionsRequest.system_instance_id required"
-        )
+        out["system_instance_id"] = ""
     if data.get("flowExecutionId") is not None:
         out["flow_execution_id"] = data["flowExecutionId"]
     if data.get("startTime") is not None:

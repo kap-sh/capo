@@ -124,9 +124,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartDocumentClassificationJobReques
     if data.get("DataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["DataAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "StartDocumentClassificationJobRequest.data_access_role_arn required"
-        )
+        out["data_access_role_arn"] = ""
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     if data.get("VolumeKmsKeyId") is not None:

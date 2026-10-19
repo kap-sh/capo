@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appfabric.types.arn
     import capo_appfabric.types.date_time
@@ -67,19 +65,19 @@ def deserialize_json(data: dict) -> Ingestion:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("Ingestion.arn required")
+        out["arn"] = ""
     if data.get("appBundleArn") is not None:
         out["app_bundle_arn"] = data["appBundleArn"]
     else:
-        raise DeserializationError("Ingestion.app_bundle_arn required")
+        out["app_bundle_arn"] = ""
     if data.get("app") is not None:
         out["app"] = data["app"]
     else:
-        raise DeserializationError("Ingestion.app required")
+        out["app"] = ""
     if data.get("tenantId") is not None:
         out["tenant_id"] = data["tenantId"]
     else:
-        raise DeserializationError("Ingestion.tenant_id required")
+        out["tenant_id"] = ""
     if data.get("createdAt") is not None:
         import capo_appfabric.types.date_time
 
@@ -87,7 +85,9 @@ def deserialize_json(data: dict) -> Ingestion:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("Ingestion.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_appfabric.types.date_time
 
@@ -95,7 +95,9 @@ def deserialize_json(data: dict) -> Ingestion:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("Ingestion.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("state") is not None:
         import capo_appfabric.types.ingestion_state
 
@@ -103,7 +105,11 @@ def deserialize_json(data: dict) -> Ingestion:
             data["state"]
         )
     else:
-        raise DeserializationError("Ingestion.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_appfabric.types.ingestion_state.IngestionState", ""
+        )
     if data.get("ingestionType") is not None:
         import capo_appfabric.types.ingestion_type
 
@@ -111,5 +117,9 @@ def deserialize_json(data: dict) -> Ingestion:
             data["ingestionType"]
         )
     else:
-        raise DeserializationError("Ingestion.ingestion_type required")
+        import typing
+
+        out["ingestion_type"] = typing.cast(
+            "capo_appfabric.types.ingestion_type.IngestionType", ""
+        )
     return out

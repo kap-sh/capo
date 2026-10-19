@@ -111,7 +111,11 @@ def deserialize_xml(el: Element) -> ReplicationRule:
             child_status
         )
     else:
-        raise DeserializationError("ReplicationRule.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_s3.types.replication_rule_status.ReplicationRuleStatus", ""
+        )
     child_source_selection_criteria = el.find("SourceSelectionCriteria")
     if child_source_selection_criteria is not None:
         import capo_s3.types.source_selection_criteria

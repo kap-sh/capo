@@ -52,13 +52,9 @@ def deserialize_json(data: dict) -> CreateS3DataAccessFromS3BucketRequestDetails
     if data.get("DataSetId") is not None:
         out["data_set_id"] = data["DataSetId"]
     else:
-        raise DeserializationError(
-            "CreateS3DataAccessFromS3BucketRequestDetails.data_set_id required"
-        )
+        out["data_set_id"] = ""
     if data.get("RevisionId") is not None:
         out["revision_id"] = data["RevisionId"]
     else:
-        raise DeserializationError(
-            "CreateS3DataAccessFromS3BucketRequestDetails.revision_id required"
-        )
+        out["revision_id"] = ""
     return out

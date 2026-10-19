@@ -85,7 +85,7 @@ def deserialize_json(data: dict) -> CreateRuleRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateRuleRequest.name required")
+        out["name"] = ""
     if data.get("TriggerEventSource") is not None:
         import capo_connect.types.rule_trigger_event_source
 
@@ -99,7 +99,7 @@ def deserialize_json(data: dict) -> CreateRuleRequest:
     if data.get("Function") is not None:
         out["function"] = data["Function"]
     else:
-        raise DeserializationError("CreateRuleRequest.function required")
+        out["function"] = ""
     if data.get("Actions") is not None:
         import capo_connect.types.rule_actions
 
@@ -107,7 +107,7 @@ def deserialize_json(data: dict) -> CreateRuleRequest:
             data["Actions"]
         )
     else:
-        raise DeserializationError("CreateRuleRequest.actions required")
+        out["actions"] = []
     if data.get("PublishStatus") is not None:
         import capo_connect.types.rule_publish_status
 
@@ -115,7 +115,11 @@ def deserialize_json(data: dict) -> CreateRuleRequest:
             data["PublishStatus"]
         )
     else:
-        raise DeserializationError("CreateRuleRequest.publish_status required")
+        import typing
+
+        out["publish_status"] = typing.cast(
+            "capo_connect.types.rule_publish_status.RulePublishStatus", ""
+        )
     if data.get("PreEvaluationFilters") is not None:
         import capo_connect.types.pre_evaluation_filters
 

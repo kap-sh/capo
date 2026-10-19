@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_xray.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_xray.types.insight_id
     import capo_xray.types.timestamp
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> GetInsightImpactGraphRequest:
     if data.get("InsightId") is not None:
         out["insight_id"] = data["InsightId"]
     else:
-        raise DeserializationError("GetInsightImpactGraphRequest.insight_id required")
+        out["insight_id"] = ""
     if data.get("StartTime") is not None:
         import capo_xray.types.timestamp
 
@@ -51,13 +49,17 @@ def deserialize_json(data: dict) -> GetInsightImpactGraphRequest:
             data["StartTime"]
         )
     else:
-        raise DeserializationError("GetInsightImpactGraphRequest.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_xray.types.timestamp
 
         out["end_time"] = capo_xray.types.timestamp.deserialize_json(data["EndTime"])
     else:
-        raise DeserializationError("GetInsightImpactGraphRequest.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

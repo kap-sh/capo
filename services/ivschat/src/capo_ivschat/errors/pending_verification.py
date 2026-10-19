@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_ivschat.errors import DeserializationError, ServiceError
+from capo_ivschat.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_ivschat.types.error_message
@@ -27,7 +27,7 @@ def deserialize_json(data: dict) -> PendingVerification_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("PendingVerification_.message required")
+        out["message"] = ""
     return out
 
 

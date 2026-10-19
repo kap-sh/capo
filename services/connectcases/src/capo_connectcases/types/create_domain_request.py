@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.domain_name
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CreateDomainRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateDomainRequest.name required")
+        out["name"] = ""
     return out

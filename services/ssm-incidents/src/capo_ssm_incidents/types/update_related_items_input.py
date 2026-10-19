@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.arn
     import capo_ssm_incidents.types.client_token
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> UpdateRelatedItemsInput:
     if data.get("incidentRecordArn") is not None:
         out["incident_record_arn"] = data["incidentRecordArn"]
     else:
-        raise DeserializationError(
-            "UpdateRelatedItemsInput.incident_record_arn required"
-        )
+        out["incident_record_arn"] = ""
     if data.get("relatedItemsUpdate") is not None:
         import capo_ssm_incidents.types.related_items_update
 
@@ -58,7 +54,9 @@ def deserialize_json(data: dict) -> UpdateRelatedItemsInput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateRelatedItemsInput.related_items_update required"
+        import capo_ssm_incidents.types._unknown
+
+        out["related_items_update"] = (
+            capo_ssm_incidents.types._unknown.UnknownUnionMember("")
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.string255
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> DescribeMetricsExportRequest:
     if data.get("metricsExportId") is not None:
         out["metrics_export_id"] = data["metricsExportId"]
     else:
-        raise DeserializationError(
-            "DescribeMetricsExportRequest.metrics_export_id required"
-        )
+        out["metrics_export_id"] = ""
     return out

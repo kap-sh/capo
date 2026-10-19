@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.client_request_token
     import capo_iot_wireless.types.description
@@ -98,7 +96,11 @@ def deserialize_json(data: dict) -> CreateWirelessDeviceRequest:
             data["Type"]
         )
     else:
-        raise DeserializationError("CreateWirelessDeviceRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_iot_wireless.types.wireless_device_type.WirelessDeviceType", ""
+        )
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("Description") is not None:
@@ -106,9 +108,7 @@ def deserialize_json(data: dict) -> CreateWirelessDeviceRequest:
     if data.get("DestinationName") is not None:
         out["destination_name"] = data["DestinationName"]
     else:
-        raise DeserializationError(
-            "CreateWirelessDeviceRequest.destination_name required"
-        )
+        out["destination_name"] = ""
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     if data.get("LoRaWAN") is not None:

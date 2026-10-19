@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda_microvms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_microvms.types.microvm_image_summaries
     import capo_lambda_microvms.types.string
@@ -44,5 +42,5 @@ def deserialize_json(data: dict) -> ListMicrovmImagesResponse:
             )
         )
     else:
-        raise DeserializationError("ListMicrovmImagesResponse.items required")
+        out["items"] = []
     return out

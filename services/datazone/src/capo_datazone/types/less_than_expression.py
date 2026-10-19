@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 
 class LessThanExpression(TypedDict, closed=True):
     column_name: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> LessThanExpression:
     if data.get("columnName") is not None:
         out["column_name"] = data["columnName"]
     else:
-        raise DeserializationError("LessThanExpression.column_name required")
+        out["column_name"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("LessThanExpression.value required")
+        out["value"] = ""
     return out

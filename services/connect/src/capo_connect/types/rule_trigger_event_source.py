@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.event_source_name
     import capo_connect.types.integration_association_id
@@ -44,7 +42,11 @@ def deserialize_json(data: dict) -> RuleTriggerEventSource:
             )
         )
     else:
-        raise DeserializationError("RuleTriggerEventSource.event_source_name required")
+        import typing
+
+        out["event_source_name"] = typing.cast(
+            "capo_connect.types.event_source_name.EventSourceName", ""
+        )
     if data.get("IntegrationAssociationId") is not None:
         out["integration_association_id"] = data["IntegrationAssociationId"]
     return out

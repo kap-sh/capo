@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.access_control_rule_description
     import capo_workmail.types.access_control_rule_effect
@@ -121,7 +119,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutAccessControlRuleRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("PutAccessControlRuleRequest.name required")
+        out["name"] = ""
     if data.get("Effect") is not None:
         import capo_workmail.types.access_control_rule_effect
 
@@ -131,11 +129,15 @@ def deserialize_aws_json_1_1(data: dict) -> PutAccessControlRuleRequest:
             )
         )
     else:
-        raise DeserializationError("PutAccessControlRuleRequest.effect required")
+        import typing
+
+        out["effect"] = typing.cast(
+            "capo_workmail.types.access_control_rule_effect.AccessControlRuleEffect", ""
+        )
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("PutAccessControlRuleRequest.description required")
+        out["description"] = ""
     if data.get("IpRanges") is not None:
         import capo_workmail.types.ip_range_list
 
@@ -177,9 +179,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutAccessControlRuleRequest:
     if data.get("OrganizationId") is not None:
         out["organization_id"] = data["OrganizationId"]
     else:
-        raise DeserializationError(
-            "PutAccessControlRuleRequest.organization_id required"
-        )
+        out["organization_id"] = ""
     if data.get("ImpersonationRoleIds") is not None:
         import capo_workmail.types.impersonation_role_id_list
 

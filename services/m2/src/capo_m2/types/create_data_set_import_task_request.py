@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.client_token
     import capo_m2.types.data_set_import_config
@@ -43,9 +41,9 @@ def deserialize_json(data: dict) -> CreateDataSetImportTaskRequest:
             data["importConfig"]
         )
     else:
-        raise DeserializationError(
-            "CreateDataSetImportTaskRequest.import_config required"
-        )
+        import capo_m2.types._unknown
+
+        out["import_config"] = capo_m2.types._unknown.UnknownUnionMember("")
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

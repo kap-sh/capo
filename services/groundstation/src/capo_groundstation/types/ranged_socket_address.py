@@ -35,7 +35,7 @@ def deserialize_json(data: dict) -> RangedSocketAddress:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RangedSocketAddress.name required")
+        out["name"] = ""
     if data.get("portRange") is not None:
         import capo_groundstation.types.integer_range
 

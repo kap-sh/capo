@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.integration_additional_encryption_context_map
     import capo_glue.types.integration_config
@@ -85,15 +83,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateIntegrationRequest:
     if data.get("IntegrationName") is not None:
         out["integration_name"] = data["IntegrationName"]
     else:
-        raise DeserializationError("CreateIntegrationRequest.integration_name required")
+        out["integration_name"] = ""
     if data.get("SourceArn") is not None:
         out["source_arn"] = data["SourceArn"]
     else:
-        raise DeserializationError("CreateIntegrationRequest.source_arn required")
+        out["source_arn"] = ""
     if data.get("TargetArn") is not None:
         out["target_arn"] = data["TargetArn"]
     else:
-        raise DeserializationError("CreateIntegrationRequest.target_arn required")
+        out["target_arn"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("DataFilter") is not None:

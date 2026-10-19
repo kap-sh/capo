@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.dashboard_name
     import capo_cloudtrail.types.refresh_schedule
@@ -66,7 +64,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDashboardRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateDashboardRequest.name required")
+        out["name"] = ""
     if data.get("RefreshSchedule") is not None:
         import capo_cloudtrail.types.refresh_schedule
 

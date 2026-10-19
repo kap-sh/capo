@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.column_list
     import capo_lakeformation.types.name_string
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> CreateRLSPolicyRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateRLSPolicyRequest.name required")
+        out["name"] = ""
     if data.get("AttachmentColumns") is not None:
         import capo_lakeformation.types.column_list
 
@@ -49,9 +47,9 @@ def deserialize_json(data: dict) -> CreateRLSPolicyRequest:
             )
         )
     else:
-        raise DeserializationError("CreateRLSPolicyRequest.attachment_columns required")
+        out["attachment_columns"] = []
     if data.get("FilterExpression") is not None:
         out["filter_expression"] = data["FilterExpression"]
     else:
-        raise DeserializationError("CreateRLSPolicyRequest.filter_expression required")
+        out["filter_expression"] = ""
     return out

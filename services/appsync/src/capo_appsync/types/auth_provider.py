@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.authentication_type
     import capo_appsync.types.cognito_config
@@ -68,7 +66,11 @@ def deserialize_json(data: dict) -> AuthProvider:
             data["authType"]
         )
     else:
-        raise DeserializationError("AuthProvider.auth_type required")
+        import typing
+
+        out["auth_type"] = typing.cast(
+            "capo_appsync.types.authentication_type.AuthenticationType", ""
+        )
     if data.get("cognitoConfig") is not None:
         import capo_appsync.types.cognito_config
 

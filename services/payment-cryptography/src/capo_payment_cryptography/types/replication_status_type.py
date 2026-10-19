@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.key_replication_state
 
@@ -31,7 +29,7 @@ def deserialize_aws_json_1_0(data: dict) -> ReplicationStatusType:
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("ReplicationStatusType.status required")
+        out["status"] = ""
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
     return out

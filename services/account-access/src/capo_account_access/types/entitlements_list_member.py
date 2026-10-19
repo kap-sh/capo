@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_account_access.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_account_access.types.date_time
     import capo_account_access.types.entitlement_summary
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> EntitlementsListMember:
     if data.get("entitlementId") is not None:
         out["entitlement_id"] = data["entitlementId"]
     else:
-        raise DeserializationError("EntitlementsListMember.entitlement_id required")
+        out["entitlement_id"] = ""
     if data.get("entitlement") is not None:
         import capo_account_access.types.entitlement_summary
 
@@ -52,7 +50,9 @@ def deserialize_json(data: dict) -> EntitlementsListMember:
             )
         )
     else:
-        raise DeserializationError("EntitlementsListMember.entitlement required")
+        import capo_account_access.types._unknown
+
+        out["entitlement"] = capo_account_access.types._unknown.UnknownUnionMember("")
     if data.get("createdAt") is not None:
         import capo_account_access.types.date_time
 
@@ -60,5 +60,7 @@ def deserialize_json(data: dict) -> EntitlementsListMember:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("EntitlementsListMember.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

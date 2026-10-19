@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.action_type
     import capo_customer_profiles.types.string1_to255
@@ -66,11 +64,11 @@ def deserialize_json(data: dict) -> ProfileHistoryRecord:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("ProfileHistoryRecord.id required")
+        out["id"] = ""
     if data.get("ObjectTypeName") is not None:
         out["object_type_name"] = data["ObjectTypeName"]
     else:
-        raise DeserializationError("ProfileHistoryRecord.object_type_name required")
+        out["object_type_name"] = ""
     if data.get("CreatedAt") is not None:
         import capo_customer_profiles.types.timestamp
 
@@ -78,7 +76,9 @@ def deserialize_json(data: dict) -> ProfileHistoryRecord:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("ProfileHistoryRecord.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("LastUpdatedAt") is not None:
         import capo_customer_profiles.types.timestamp
 
@@ -94,7 +94,11 @@ def deserialize_json(data: dict) -> ProfileHistoryRecord:
             data["ActionType"]
         )
     else:
-        raise DeserializationError("ProfileHistoryRecord.action_type required")
+        import typing
+
+        out["action_type"] = typing.cast(
+            "capo_customer_profiles.types.action_type.ActionType", ""
+        )
     if data.get("ProfileObjectUniqueKey") is not None:
         out["profile_object_unique_key"] = data["ProfileObjectUniqueKey"]
     if data.get("PerformedBy") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_catalog.types.assessment_target_filter
     import capo_marketplace_catalog.types.catalog
@@ -70,7 +68,7 @@ def deserialize_json(data: dict) -> ListAssessmentsRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("ListAssessmentsRequest.catalog required")
+        out["catalog"] = ""
     if data.get("FrameworkId") is not None:
         out["framework_id"] = data["FrameworkId"]
     if data.get("AssessmentTargetFilter") is not None:

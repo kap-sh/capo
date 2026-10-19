@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.event_error
     import capo_lambda.types.execution_timestamp
@@ -53,8 +51,10 @@ def deserialize_json(data: dict) -> InvocationCompletedDetails:
             data["StartTimestamp"]
         )
     else:
-        raise DeserializationError(
-            "InvocationCompletedDetails.start_timestamp required"
+        import datetime
+
+        out["start_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("EndTimestamp") is not None:
         import capo_lambda.types.execution_timestamp
@@ -63,11 +63,15 @@ def deserialize_json(data: dict) -> InvocationCompletedDetails:
             data["EndTimestamp"]
         )
     else:
-        raise DeserializationError("InvocationCompletedDetails.end_timestamp required")
+        import datetime
+
+        out["end_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("RequestId") is not None:
         out["request_id"] = data["RequestId"]
     else:
-        raise DeserializationError("InvocationCompletedDetails.request_id required")
+        out["request_id"] = ""
     if data.get("Error") is not None:
         import capo_lambda.types.event_error
 

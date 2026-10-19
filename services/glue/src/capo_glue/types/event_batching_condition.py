@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.batch_size
     import capo_glue.types.batch_window
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> EventBatchingCondition:
     if data.get("BatchSize") is not None:
         out["batch_size"] = data["BatchSize"]
     else:
-        raise DeserializationError("EventBatchingCondition.batch_size required")
+        out["batch_size"] = 0
     if data.get("BatchWindow") is not None:
         out["batch_window"] = data["BatchWindow"]
     return out

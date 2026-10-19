@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rum.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rum.types.metric_definition_id
 
@@ -33,19 +31,13 @@ def deserialize_json(data: dict) -> BatchDeleteRumMetricDefinitionsError:
     if data.get("MetricDefinitionId") is not None:
         out["metric_definition_id"] = data["MetricDefinitionId"]
     else:
-        raise DeserializationError(
-            "BatchDeleteRumMetricDefinitionsError.metric_definition_id required"
-        )
+        out["metric_definition_id"] = ""
     if data.get("ErrorCode") is not None:
         out["error_code"] = data["ErrorCode"]
     else:
-        raise DeserializationError(
-            "BatchDeleteRumMetricDefinitionsError.error_code required"
-        )
+        out["error_code"] = ""
     if data.get("ErrorMessage") is not None:
         out["error_message"] = data["ErrorMessage"]
     else:
-        raise DeserializationError(
-            "BatchDeleteRumMetricDefinitionsError.error_message required"
-        )
+        out["error_message"] = ""
     return out

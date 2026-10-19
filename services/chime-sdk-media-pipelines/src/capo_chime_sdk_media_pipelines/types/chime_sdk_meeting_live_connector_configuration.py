@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.arn
     import capo_chime_sdk_media_pipelines.types.composited_video_artifacts_configuration
@@ -63,9 +61,7 @@ def deserialize_json(data: dict) -> ChimeSdkMeetingLiveConnectorConfiguration:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError(
-            "ChimeSdkMeetingLiveConnectorConfiguration.arn required"
-        )
+        out["arn"] = ""
     if data.get("MuxType") is not None:
         import capo_chime_sdk_media_pipelines.types.live_connector_mux_type
 
@@ -75,8 +71,11 @@ def deserialize_json(data: dict) -> ChimeSdkMeetingLiveConnectorConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ChimeSdkMeetingLiveConnectorConfiguration.mux_type required"
+        import typing
+
+        out["mux_type"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.live_connector_mux_type.LiveConnectorMuxType",
+            "",
         )
     if data.get("CompositedVideo") is not None:
         import capo_chime_sdk_media_pipelines.types.composited_video_artifacts_configuration

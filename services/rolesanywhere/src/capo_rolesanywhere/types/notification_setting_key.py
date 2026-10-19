@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rolesanywhere.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rolesanywhere.types.notification_channel
     import capo_rolesanywhere.types.notification_event
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> NotificationSettingKey:
     if data.get("event") is not None:
         out["event"] = data["event"]
     else:
-        raise DeserializationError("NotificationSettingKey.event required")
+        out["event"] = ""
     if data.get("channel") is not None:
         out["channel"] = data["channel"]
     return out

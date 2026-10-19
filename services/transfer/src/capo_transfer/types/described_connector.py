@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.arn
     import capo_transfer.types.as2_connector_config
@@ -150,7 +148,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribedConnector:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("DescribedConnector.arn required")
+        out["arn"] = ""
     if data.get("ConnectorId") is not None:
         out["connector_id"] = data["ConnectorId"]
     if data.get("Url") is not None:

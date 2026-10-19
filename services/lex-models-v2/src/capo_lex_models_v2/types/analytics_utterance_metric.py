@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.analytics_metric_statistic
     import capo_lex_models_v2.types.analytics_sort_order
@@ -62,7 +60,12 @@ def deserialize_json(data: dict) -> AnalyticsUtteranceMetric:
             )
         )
     else:
-        raise DeserializationError("AnalyticsUtteranceMetric.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_lex_models_v2.types.analytics_utterance_metric_name.AnalyticsUtteranceMetricName",
+            "",
+        )
     if data.get("statistic") is not None:
         import capo_lex_models_v2.types.analytics_metric_statistic
 
@@ -72,7 +75,12 @@ def deserialize_json(data: dict) -> AnalyticsUtteranceMetric:
             )
         )
     else:
-        raise DeserializationError("AnalyticsUtteranceMetric.statistic required")
+        import typing
+
+        out["statistic"] = typing.cast(
+            "capo_lex_models_v2.types.analytics_metric_statistic.AnalyticsMetricStatistic",
+            "",
+        )
     if data.get("order") is not None:
         import capo_lex_models_v2.types.analytics_sort_order
 

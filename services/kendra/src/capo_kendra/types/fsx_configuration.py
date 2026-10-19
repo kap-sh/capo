@@ -92,7 +92,7 @@ def deserialize_aws_json_1_1(data: dict) -> FsxConfiguration:
     if data.get("FileSystemId") is not None:
         out["file_system_id"] = data["FileSystemId"]
     else:
-        raise DeserializationError("FsxConfiguration.file_system_id required")
+        out["file_system_id"] = ""
     if data.get("FileSystemType") is not None:
         import capo_kendra.types.fsx_file_system_type
 
@@ -102,7 +102,11 @@ def deserialize_aws_json_1_1(data: dict) -> FsxConfiguration:
             )
         )
     else:
-        raise DeserializationError("FsxConfiguration.file_system_type required")
+        import typing
+
+        out["file_system_type"] = typing.cast(
+            "capo_kendra.types.fsx_file_system_type.FsxFileSystemType", ""
+        )
     if data.get("VpcConfiguration") is not None:
         import capo_kendra.types.data_source_vpc_configuration
 

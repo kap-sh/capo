@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.client_request_token
     import capo_chime_sdk_media_pipelines.types.kinesis_video_stream_source_task_configuration
@@ -62,8 +60,11 @@ def deserialize_json(data: dict) -> StartVoiceToneAnalysisTaskRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartVoiceToneAnalysisTaskRequest.language_code required"
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.voice_analytics_language_code.VoiceAnalyticsLanguageCode",
+            "",
         )
     if data.get("KinesisVideoStreamSourceTaskConfiguration") is not None:
         import capo_chime_sdk_media_pipelines.types.kinesis_video_stream_source_task_configuration

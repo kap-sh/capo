@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.resource_name
 
@@ -35,9 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> StopRelationalDatabaseRequest:
     if data.get("relationalDatabaseName") is not None:
         out["relational_database_name"] = data["relationalDatabaseName"]
     else:
-        raise DeserializationError(
-            "StopRelationalDatabaseRequest.relational_database_name required"
-        )
+        out["relational_database_name"] = ""
     if data.get("relationalDatabaseSnapshotName") is not None:
         out["relational_database_snapshot_name"] = data[
             "relationalDatabaseSnapshotName"

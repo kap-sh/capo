@@ -45,7 +45,7 @@ def deserialize_json(data: dict) -> CreateMitigationActionRequest:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateMitigationActionRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("actionParams") is not None:
         import capo_iot.types.mitigation_action_params
 

@@ -46,9 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutRepositoryCatalogDataRequest:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError(
-            "PutRepositoryCatalogDataRequest.repository_name required"
-        )
+        out["repository_name"] = ""
     if data.get("catalogData") is not None:
         import capo_ecr_public.types.repository_catalog_data_input
 

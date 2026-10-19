@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.log_group_identifier
     import capo_cloudwatch_logs.types.vpc_endpoint_id
@@ -36,9 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteSyslogConfigurationRequest:
     if data.get("logGroupIdentifier") is not None:
         out["log_group_identifier"] = data["logGroupIdentifier"]
     else:
-        raise DeserializationError(
-            "DeleteSyslogConfigurationRequest.log_group_identifier required"
-        )
+        out["log_group_identifier"] = ""
     if data.get("vpcEndpointId") is not None:
         out["vpc_endpoint_id"] = data["vpcEndpointId"]
     return out

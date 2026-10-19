@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pca_connector_scep.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pca_connector_scep.types.client_token
     import capo_pca_connector_scep.types.connector_arn
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> CreateChallengeRequest:
     if data.get("ConnectorArn") is not None:
         out["connector_arn"] = data["ConnectorArn"]
     else:
-        raise DeserializationError("CreateChallengeRequest.connector_arn required")
+        out["connector_arn"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("Tags") is not None:

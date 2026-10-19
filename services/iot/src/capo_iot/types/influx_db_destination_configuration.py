@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.influx_db_secret_id
     import capo_iot.types.influx_db_secret_key
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> InfluxDBDestinationConfiguration:
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError("InfluxDBDestinationConfiguration.endpoint required")
+        out["endpoint"] = ""
     if data.get("influxDBVersion") is not None:
         import capo_iot.types.influx_db_version
 
@@ -61,15 +59,15 @@ def deserialize_json(data: dict) -> InfluxDBDestinationConfiguration:
             data["influxDBVersion"]
         )
     else:
-        raise DeserializationError(
-            "InfluxDBDestinationConfiguration.influx_db_version required"
+        import typing
+
+        out["influx_db_version"] = typing.cast(
+            "capo_iot.types.influx_db_version.InfluxDBVersion", ""
         )
     if data.get("secretId") is not None:
         out["secret_id"] = data["secretId"]
     else:
-        raise DeserializationError(
-            "InfluxDBDestinationConfiguration.secret_id required"
-        )
+        out["secret_id"] = ""
     if data.get("secretType") is not None:
         import capo_iot.types.influx_db_secret_type
 

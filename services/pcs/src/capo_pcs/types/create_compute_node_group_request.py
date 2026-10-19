@@ -136,15 +136,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateComputeNodeGroupRequest:
     if data.get("clusterIdentifier") is not None:
         out["cluster_identifier"] = data["clusterIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateComputeNodeGroupRequest.cluster_identifier required"
-        )
+        out["cluster_identifier"] = ""
     if data.get("computeNodeGroupName") is not None:
         out["compute_node_group_name"] = data["computeNodeGroupName"]
     else:
-        raise DeserializationError(
-            "CreateComputeNodeGroupRequest.compute_node_group_name required"
-        )
+        out["compute_node_group_name"] = ""
     if data.get("amiId") is not None:
         out["ami_id"] = data["amiId"]
     if data.get("subnetIds") is not None:
@@ -154,7 +150,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateComputeNodeGroupRequest:
             data["subnetIds"]
         )
     else:
-        raise DeserializationError("CreateComputeNodeGroupRequest.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("purchaseOption") is not None:
         import capo_pcs.types.purchase_option
 
@@ -178,9 +174,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateComputeNodeGroupRequest:
     if data.get("iamInstanceProfileArn") is not None:
         out["iam_instance_profile_arn"] = data["iamInstanceProfileArn"]
     else:
-        raise DeserializationError(
-            "CreateComputeNodeGroupRequest.iam_instance_profile_arn required"
-        )
+        out["iam_instance_profile_arn"] = ""
     if data.get("scalingConfiguration") is not None:
         import capo_pcs.types.scaling_configuration_request
 
@@ -200,9 +194,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateComputeNodeGroupRequest:
             data["instanceConfigs"]
         )
     else:
-        raise DeserializationError(
-            "CreateComputeNodeGroupRequest.instance_configs required"
-        )
+        out["instance_configs"] = []
     if data.get("spotOptions") is not None:
         import capo_pcs.types.spot_options
 

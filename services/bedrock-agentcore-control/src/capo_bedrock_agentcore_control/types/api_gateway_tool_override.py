@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.rest_api_method
 
@@ -41,13 +39,13 @@ def deserialize_json(data: dict) -> ApiGatewayToolOverride:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ApiGatewayToolOverride.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("path") is not None:
         out["path"] = data["path"]
     else:
-        raise DeserializationError("ApiGatewayToolOverride.path required")
+        out["path"] = ""
     if data.get("method") is not None:
         import capo_bedrock_agentcore_control.types.rest_api_method
 
@@ -57,5 +55,9 @@ def deserialize_json(data: dict) -> ApiGatewayToolOverride:
             )
         )
     else:
-        raise DeserializationError("ApiGatewayToolOverride.method required")
+        import typing
+
+        out["method"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.rest_api_method.RestApiMethod", ""
+        )
     return out

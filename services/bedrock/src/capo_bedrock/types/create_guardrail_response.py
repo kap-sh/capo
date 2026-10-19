@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.guardrail_arn
     import capo_bedrock.types.guardrail_draft_version
@@ -41,15 +39,15 @@ def deserialize_json(data: dict) -> CreateGuardrailResponse:
     if data.get("guardrailId") is not None:
         out["guardrail_id"] = data["guardrailId"]
     else:
-        raise DeserializationError("CreateGuardrailResponse.guardrail_id required")
+        out["guardrail_id"] = ""
     if data.get("guardrailArn") is not None:
         out["guardrail_arn"] = data["guardrailArn"]
     else:
-        raise DeserializationError("CreateGuardrailResponse.guardrail_arn required")
+        out["guardrail_arn"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("CreateGuardrailResponse.version required")
+        out["version"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock.types.timestamp
 
@@ -57,5 +55,7 @@ def deserialize_json(data: dict) -> CreateGuardrailResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("CreateGuardrailResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

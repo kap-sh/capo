@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.job_name
     import capo_glue.types.run_id
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> ResetJobBookmarkRequest:
     if data.get("JobName") is not None:
         out["job_name"] = data["JobName"]
     else:
-        raise DeserializationError("ResetJobBookmarkRequest.job_name required")
+        out["job_name"] = ""
     if data.get("RunId") is not None:
         out["run_id"] = data["RunId"]
     return out

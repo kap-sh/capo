@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -37,7 +36,5 @@ def deserialize_query(el: Element) -> GetOpenIDConnectProviderRequest:
             child_open_id_connect_provider_arn.text or ""
         )
     else:
-        raise DeserializationError(
-            "GetOpenIDConnectProviderRequest.open_id_connect_provider_arn required"
-        )
+        out["open_id_connect_provider_arn"] = ""
     return out

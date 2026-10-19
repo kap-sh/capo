@@ -110,7 +110,10 @@ def handle_response(
     out: capo_bedrock_runtime.types.invoke_model_with_response_stream_response.InvokeModelWithResponseStreamResponse = {
         "body": cast(Any, raw_stream_to_events(_iter, _message_decoder, _union_deser))
     }  # type: ignore[reportAssignmentType]
-    out["content_type"] = response.headers["X-Amzn-Bedrock-Content-Type"]
+    if "X-Amzn-Bedrock-Content-Type" in response.headers:
+        out["content_type"] = response.headers["X-Amzn-Bedrock-Content-Type"]
+    else:
+        out["content_type"] = ""
     if "X-Amzn-Bedrock-PerformanceConfig-Latency" in response.headers:
         out["performance_config_latency"] = (
             capo_bedrock_runtime.types.performance_config_latency.deserialize_json(
@@ -140,7 +143,10 @@ async def async_handle_response(
             Any, async_raw_stream_to_events(_iter, _message_decoder, _union_deser)
         )
     }  # type: ignore[reportAssignmentType]
-    out["content_type"] = response.headers["X-Amzn-Bedrock-Content-Type"]
+    if "X-Amzn-Bedrock-Content-Type" in response.headers:
+        out["content_type"] = response.headers["X-Amzn-Bedrock-Content-Type"]
+    else:
+        out["content_type"] = ""
     if "X-Amzn-Bedrock-PerformanceConfig-Latency" in response.headers:
         out["performance_config_latency"] = (
             capo_bedrock_runtime.types.performance_config_latency.deserialize_json(

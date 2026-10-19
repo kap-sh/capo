@@ -71,7 +71,9 @@ def deserialize_json(data: dict) -> RecurringPrefetchConfiguration:
             data["EndTime"]
         )
     else:
-        raise DeserializationError("RecurringPrefetchConfiguration.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("RecurringConsumption") is not None:
         import capo_mediatailor.types.recurring_consumption
 

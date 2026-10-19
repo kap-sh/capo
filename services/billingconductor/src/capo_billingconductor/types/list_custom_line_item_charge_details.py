@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billingconductor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billingconductor.types.custom_line_item_type
     import capo_billingconductor.types.line_item_filters_list
@@ -92,7 +90,11 @@ def deserialize_json(data: dict) -> ListCustomLineItemChargeDetails:
             )
         )
     else:
-        raise DeserializationError("ListCustomLineItemChargeDetails.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_billingconductor.types.custom_line_item_type.CustomLineItemType", ""
+        )
     if data.get("LineItemFilters") is not None:
         import capo_billingconductor.types.line_item_filters_list
 

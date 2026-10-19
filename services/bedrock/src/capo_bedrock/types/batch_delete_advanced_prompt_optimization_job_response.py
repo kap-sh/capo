@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.batch_delete_advanced_prompt_optimization_job_errors
     import capo_bedrock.types.batch_delete_advanced_prompt_optimization_job_items
@@ -49,9 +47,7 @@ def deserialize_json(data: dict) -> BatchDeleteAdvancedPromptOptimizationJobResp
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDeleteAdvancedPromptOptimizationJobResponse.errors required"
-        )
+        out["errors"] = []
     if data.get("advancedPromptOptimizationJobs") is not None:
         import capo_bedrock.types.batch_delete_advanced_prompt_optimization_job_items
 
@@ -61,7 +57,5 @@ def deserialize_json(data: dict) -> BatchDeleteAdvancedPromptOptimizationJobResp
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDeleteAdvancedPromptOptimizationJobResponse.advanced_prompt_optimization_jobs required"
-        )
+        out["advanced_prompt_optimization_jobs"] = []
     return out

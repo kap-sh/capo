@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.date_time
     import capo_ssm_contacts.types.shift_details
@@ -83,7 +81,9 @@ def deserialize_aws_json_1_1(data: dict) -> RotationShift:
             data["StartTime"]
         )
     else:
-        raise DeserializationError("RotationShift.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_ssm_contacts.types.date_time
 
@@ -91,7 +91,9 @@ def deserialize_aws_json_1_1(data: dict) -> RotationShift:
             data["EndTime"]
         )
     else:
-        raise DeserializationError("RotationShift.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Type") is not None:
         import capo_ssm_contacts.types.shift_type
 

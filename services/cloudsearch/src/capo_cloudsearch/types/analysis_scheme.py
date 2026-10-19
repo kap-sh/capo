@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudsearch._protocol.xml import Element
-from capo_cloudsearch.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudsearch.types.analysis_options
@@ -50,7 +49,7 @@ def deserialize_query(el: Element) -> AnalysisScheme:
     if child_analysis_scheme_name is not None:
         out["analysis_scheme_name"] = str(child_analysis_scheme_name.text or "")
     else:
-        raise DeserializationError("AnalysisScheme.analysis_scheme_name required")
+        out["analysis_scheme_name"] = ""
     child_analysis_scheme_language = el.find("AnalysisSchemeLanguage")
     if child_analysis_scheme_language is not None:
         import capo_cloudsearch.types.analysis_scheme_language
@@ -61,7 +60,11 @@ def deserialize_query(el: Element) -> AnalysisScheme:
             )
         )
     else:
-        raise DeserializationError("AnalysisScheme.analysis_scheme_language required")
+        import typing
+
+        out["analysis_scheme_language"] = typing.cast(
+            "capo_cloudsearch.types.analysis_scheme_language.AnalysisSchemeLanguage", ""
+        )
     child_analysis_options = el.find("AnalysisOptions")
     if child_analysis_options is not None:
         import capo_cloudsearch.types.analysis_options

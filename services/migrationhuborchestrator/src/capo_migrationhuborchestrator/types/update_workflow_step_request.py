@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migrationhuborchestrator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migrationhuborchestrator.types.migration_workflow_id
     import capo_migrationhuborchestrator.types.step_action_type
@@ -117,11 +115,11 @@ def deserialize_json(data: dict) -> UpdateWorkflowStepRequest:
     if data.get("stepGroupId") is not None:
         out["step_group_id"] = data["stepGroupId"]
     else:
-        raise DeserializationError("UpdateWorkflowStepRequest.step_group_id required")
+        out["step_group_id"] = ""
     if data.get("workflowId") is not None:
         out["workflow_id"] = data["workflowId"]
     else:
-        raise DeserializationError("UpdateWorkflowStepRequest.workflow_id required")
+        out["workflow_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("description") is not None:

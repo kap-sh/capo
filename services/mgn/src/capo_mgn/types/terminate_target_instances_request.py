@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.account_id
     import capo_mgn.types.tags_map
@@ -51,9 +49,7 @@ def deserialize_json(data: dict) -> TerminateTargetInstancesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "TerminateTargetInstancesRequest.source_server_i_ds required"
-        )
+        out["source_server_i_ds"] = []
     if data.get("tags") is not None:
         import capo_mgn.types.tags_map
 

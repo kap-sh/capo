@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.pricing_plan
 
@@ -31,5 +29,7 @@ def deserialize_json(data: dict) -> PutAccountPricingAttributesRequest:
 
         out["plan"] = capo_sesv2.types.pricing_plan.deserialize_json(data["Plan"])
     else:
-        raise DeserializationError("PutAccountPricingAttributesRequest.plan required")
+        import typing
+
+        out["plan"] = typing.cast("capo_sesv2.types.pricing_plan.PricingPlan", "")
     return out

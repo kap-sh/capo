@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_influxdb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_influxdb.types.db_instance_identifier
 
@@ -33,7 +31,7 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteDbInstanceInput:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("DeleteDbInstanceInput.identifier required")
+        out["identifier"] = ""
     if data.get("retainAutomatedBackups") is not None:
         out["retain_automated_backups"] = data["retainAutomatedBackups"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.password
     import capo_appflow.types.username
@@ -31,11 +29,11 @@ def deserialize_json(data: dict) -> VeevaConnectorProfileCredentials:
     if data.get("username") is not None:
         out["username"] = data["username"]
     else:
-        raise DeserializationError("VeevaConnectorProfileCredentials.username required")
+        out["username"] = ""
     if data.get("password") is not None:
         out["password"] = data["password"]
     else:
-        raise DeserializationError("VeevaConnectorProfileCredentials.password required")
+        out["password"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.job_identifier
 
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> S3BatchJobIdentifier:
     if data.get("bucket") is not None:
         out["bucket"] = data["bucket"]
     else:
-        raise DeserializationError("S3BatchJobIdentifier.bucket required")
+        out["bucket"] = ""
     if data.get("keyPrefix") is not None:
         out["key_prefix"] = data["keyPrefix"]
     if data.get("identifier") is not None:
@@ -46,5 +44,7 @@ def deserialize_json(data: dict) -> S3BatchJobIdentifier:
             data["identifier"]
         )
     else:
-        raise DeserializationError("S3BatchJobIdentifier.identifier required")
+        import capo_m2.types._unknown
+
+        out["identifier"] = capo_m2.types._unknown.UnknownUnionMember("")
     return out

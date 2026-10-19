@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_device_farm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_device_farm.types.double
 
@@ -46,9 +44,9 @@ def deserialize_aws_json_1_1(data: dict) -> Location:
     if data.get("latitude") is not None:
         out["latitude"] = float(data["latitude"])
     else:
-        raise DeserializationError("Location.latitude required")
+        out["latitude"] = 0.0
     if data.get("longitude") is not None:
         out["longitude"] = float(data["longitude"])
     else:
-        raise DeserializationError("Location.longitude required")
+        out["longitude"] = 0.0
     return out

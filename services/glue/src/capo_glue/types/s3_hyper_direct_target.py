@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.auto_data_quality
     import capo_glue.types.direct_schema_change_policy
@@ -105,7 +103,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3HyperDirectTarget:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("S3HyperDirectTarget.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.one_input
 
@@ -113,7 +111,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3HyperDirectTarget:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("S3HyperDirectTarget.inputs required")
+        out["inputs"] = []
     if data.get("Format") is not None:
         import capo_glue.types.target_format
 
@@ -131,7 +129,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3HyperDirectTarget:
     if data.get("Path") is not None:
         out["path"] = data["Path"]
     else:
-        raise DeserializationError("S3HyperDirectTarget.path required")
+        out["path"] = ""
     if data.get("Compression") is not None:
         import capo_glue.types.hyper_target_compression_type
 

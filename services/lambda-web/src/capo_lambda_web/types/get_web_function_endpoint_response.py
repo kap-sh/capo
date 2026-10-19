@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_web.types.auth_type
     import capo_lambda_web.types.auto_deployment_mode
@@ -145,21 +143,15 @@ def deserialize_json(data: dict) -> GetWebFunctionEndpointResponse:
     if data.get("functionArn") is not None:
         out["function_arn"] = data["functionArn"]
     else:
-        raise DeserializationError(
-            "GetWebFunctionEndpointResponse.function_arn required"
-        )
+        out["function_arn"] = ""
     if data.get("endpointArn") is not None:
         out["endpoint_arn"] = data["endpointArn"]
     else:
-        raise DeserializationError(
-            "GetWebFunctionEndpointResponse.endpoint_arn required"
-        )
+        out["endpoint_arn"] = ""
     if data.get("endpointName") is not None:
         out["endpoint_name"] = data["endpointName"]
     else:
-        raise DeserializationError(
-            "GetWebFunctionEndpointResponse.endpoint_name required"
-        )
+        out["endpoint_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("endpointType") is not None:
@@ -169,15 +161,15 @@ def deserialize_json(data: dict) -> GetWebFunctionEndpointResponse:
             data["endpointType"]
         )
     else:
-        raise DeserializationError(
-            "GetWebFunctionEndpointResponse.endpoint_type required"
+        import typing
+
+        out["endpoint_type"] = typing.cast(
+            "capo_lambda_web.types.endpoint_type.EndpointType", ""
         )
     if data.get("domainName") is not None:
         out["domain_name"] = data["domainName"]
     else:
-        raise DeserializationError(
-            "GetWebFunctionEndpointResponse.domain_name required"
-        )
+        out["domain_name"] = ""
     if data.get("authType") is not None:
         import capo_lambda_web.types.auth_type
 
@@ -185,7 +177,9 @@ def deserialize_json(data: dict) -> GetWebFunctionEndpointResponse:
             data["authType"]
         )
     else:
-        raise DeserializationError("GetWebFunctionEndpointResponse.auth_type required")
+        import typing
+
+        out["auth_type"] = typing.cast("capo_lambda_web.types.auth_type.AuthType", "")
     if data.get("autoDeploymentMode") is not None:
         import capo_lambda_web.types.auto_deployment_mode
 
@@ -195,8 +189,10 @@ def deserialize_json(data: dict) -> GetWebFunctionEndpointResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetWebFunctionEndpointResponse.auto_deployment_mode required"
+        import typing
+
+        out["auto_deployment_mode"] = typing.cast(
+            "capo_lambda_web.types.auto_deployment_mode.AutoDeploymentMode", ""
         )
     if data.get("revisionWeights") is not None:
         import capo_lambda_web.types.revision_weight_list
@@ -207,9 +203,7 @@ def deserialize_json(data: dict) -> GetWebFunctionEndpointResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetWebFunctionEndpointResponse.revision_weights required"
-        )
+        out["revision_weights"] = []
     if data.get("regions") is not None:
         import capo_lambda_web.types.region_list
 
@@ -217,7 +211,7 @@ def deserialize_json(data: dict) -> GetWebFunctionEndpointResponse:
             data["regions"]
         )
     else:
-        raise DeserializationError("GetWebFunctionEndpointResponse.regions required")
+        out["regions"] = []
     if data.get("scalingConfig") is not None:
         import capo_lambda_web.types.scaling_config
 
@@ -237,13 +231,15 @@ def deserialize_json(data: dict) -> GetWebFunctionEndpointResponse:
             data["state"]
         )
     else:
-        raise DeserializationError("GetWebFunctionEndpointResponse.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_lambda_web.types.endpoint_state.EndpointState", ""
+        )
     if data.get("stateReason") is not None:
         out["state_reason"] = data["stateReason"]
     else:
-        raise DeserializationError(
-            "GetWebFunctionEndpointResponse.state_reason required"
-        )
+        out["state_reason"] = ""
     if data.get("updateStatus") is not None:
         import capo_lambda_web.types.endpoint_update_status
 
@@ -263,9 +259,7 @@ def deserialize_json(data: dict) -> GetWebFunctionEndpointResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetWebFunctionEndpointResponse.regional_endpoints required"
-        )
+        out["regional_endpoints"] = {}
     if data.get("createdAt") is not None:
         import capo_lambda_web.types.date_time
 
@@ -273,7 +267,9 @@ def deserialize_json(data: dict) -> GetWebFunctionEndpointResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("GetWebFunctionEndpointResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_lambda_web.types.date_time
 
@@ -281,5 +277,7 @@ def deserialize_json(data: dict) -> GetWebFunctionEndpointResponse:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("GetWebFunctionEndpointResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

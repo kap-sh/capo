@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.namespace
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> UpdateSelfUpgradeRequest:
     if data.get("UpgradeRequestId") is not None:
         out["upgrade_request_id"] = data["UpgradeRequestId"]
     else:
-        raise DeserializationError(
-            "UpdateSelfUpgradeRequest.upgrade_request_id required"
-        )
+        out["upgrade_request_id"] = ""
     if data.get("Action") is not None:
         import capo_quicksight.types.self_upgrade_admin_action
 
@@ -53,5 +49,9 @@ def deserialize_json(data: dict) -> UpdateSelfUpgradeRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateSelfUpgradeRequest.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_quicksight.types.self_upgrade_admin_action.SelfUpgradeAdminAction", ""
+        )
     return out

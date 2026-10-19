@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr.types.registry_policy_text
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> PutRegistryPolicyRequest:
     if data.get("policyText") is not None:
         out["policy_text"] = data["policyText"]
     else:
-        raise DeserializationError("PutRegistryPolicyRequest.policy_text required")
+        out["policy_text"] = ""
     return out

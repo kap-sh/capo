@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.credential_provider_type
     import capo_codebuild.types.non_empty_string
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> RegistryCredential:
     if data.get("credential") is not None:
         out["credential"] = data["credential"]
     else:
-        raise DeserializationError("RegistryCredential.credential required")
+        out["credential"] = ""
     if data.get("credentialProvider") is not None:
         import capo_codebuild.types.credential_provider_type
 
@@ -49,5 +47,9 @@ def deserialize_aws_json_1_1(data: dict) -> RegistryCredential:
             )
         )
     else:
-        raise DeserializationError("RegistryCredential.credential_provider required")
+        import typing
+
+        out["credential_provider"] = typing.cast(
+            "capo_codebuild.types.credential_provider_type.CredentialProviderType", ""
+        )
     return out

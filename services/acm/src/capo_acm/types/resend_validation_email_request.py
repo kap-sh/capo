@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_acm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm.types.arn
     import capo_acm.types.domain_name_string
@@ -34,17 +32,13 @@ def deserialize_aws_json_1_1(data: dict) -> ResendValidationEmailRequest:
     if data.get("CertificateArn") is not None:
         out["certificate_arn"] = data["CertificateArn"]
     else:
-        raise DeserializationError(
-            "ResendValidationEmailRequest.certificate_arn required"
-        )
+        out["certificate_arn"] = ""
     if data.get("Domain") is not None:
         out["domain"] = data["Domain"]
     else:
-        raise DeserializationError("ResendValidationEmailRequest.domain required")
+        out["domain"] = ""
     if data.get("ValidationDomain") is not None:
         out["validation_domain"] = data["ValidationDomain"]
     else:
-        raise DeserializationError(
-            "ResendValidationEmailRequest.validation_domain required"
-        )
+        out["validation_domain"] = ""
     return out

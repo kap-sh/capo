@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.client_token
     import capo_omics.types.file_type
@@ -71,21 +69,15 @@ def deserialize_json(data: dict) -> CreateMultipartReadSetUploadRequest:
     if data.get("sourceFileType") is not None:
         out["source_file_type"] = data["sourceFileType"]
     else:
-        raise DeserializationError(
-            "CreateMultipartReadSetUploadRequest.source_file_type required"
-        )
+        out["source_file_type"] = ""
     if data.get("subjectId") is not None:
         out["subject_id"] = data["subjectId"]
     else:
-        raise DeserializationError(
-            "CreateMultipartReadSetUploadRequest.subject_id required"
-        )
+        out["subject_id"] = ""
     if data.get("sampleId") is not None:
         out["sample_id"] = data["sampleId"]
     else:
-        raise DeserializationError(
-            "CreateMultipartReadSetUploadRequest.sample_id required"
-        )
+        out["sample_id"] = ""
     if data.get("generatedFrom") is not None:
         out["generated_from"] = data["generatedFrom"]
     if data.get("referenceArn") is not None:
@@ -93,7 +85,7 @@ def deserialize_json(data: dict) -> CreateMultipartReadSetUploadRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateMultipartReadSetUploadRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("tags") is not None:

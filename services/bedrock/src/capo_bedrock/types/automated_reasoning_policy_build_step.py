@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_build_step_context
     import capo_bedrock.types.automated_reasoning_policy_build_step_message_list
@@ -62,7 +60,9 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildStep:
             )
         )
     else:
-        raise DeserializationError("AutomatedReasoningPolicyBuildStep.context required")
+        import capo_bedrock.types._unknown
+
+        out["context"] = capo_bedrock.types._unknown.UnknownUnionMember("")
     if data.get("priorElement") is not None:
         import capo_bedrock.types.automated_reasoning_policy_definition_element
 
@@ -80,9 +80,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildStep:
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyBuildStep.messages required"
-        )
+        out["messages"] = []
     return out
 
 

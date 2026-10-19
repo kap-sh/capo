@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.attribute_definitions
     import capo_dynamodb.types.billing_mode
@@ -211,7 +209,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateTableInput:
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("CreateTableInput.table_name required")
+        out["table_name"] = ""
     if data.get("KeySchema") is not None:
         import capo_dynamodb.types.key_schema
 

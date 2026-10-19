@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.bounded_string
     import capo_marketplace_discovery.types.dimension_label_type
@@ -51,11 +49,16 @@ def deserialize_json(data: dict) -> DimensionLabel:
             )
         )
     else:
-        raise DeserializationError("DimensionLabel.label_type required")
+        import typing
+
+        out["label_type"] = typing.cast(
+            "capo_marketplace_discovery.types.dimension_label_type.DimensionLabelType",
+            "",
+        )
     if data.get("labelValue") is not None:
         out["label_value"] = data["labelValue"]
     else:
-        raise DeserializationError("DimensionLabel.label_value required")
+        out["label_value"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     return out

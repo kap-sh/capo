@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.account_id
     import capo_mgn.types.max_results_type
@@ -55,9 +53,7 @@ def deserialize_json(data: dict) -> ListSourceServerActionsRequest:
     if data.get("sourceServerID") is not None:
         out["source_server_id"] = data["sourceServerID"]
     else:
-        raise DeserializationError(
-            "ListSourceServerActionsRequest.source_server_id required"
-        )
+        out["source_server_id"] = ""
     if data.get("filters") is not None:
         import capo_mgn.types.source_server_actions_request_filters
 

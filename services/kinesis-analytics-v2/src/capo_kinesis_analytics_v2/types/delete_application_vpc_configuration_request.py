@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.application_name
     import capo_kinesis_analytics_v2.types.application_version_id
@@ -45,17 +43,13 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteApplicationVpcConfigurationReq
     if data.get("ApplicationName") is not None:
         out["application_name"] = data["ApplicationName"]
     else:
-        raise DeserializationError(
-            "DeleteApplicationVpcConfigurationRequest.application_name required"
-        )
+        out["application_name"] = ""
     if data.get("CurrentApplicationVersionId") is not None:
         out["current_application_version_id"] = data["CurrentApplicationVersionId"]
     if data.get("VpcConfigurationId") is not None:
         out["vpc_configuration_id"] = data["VpcConfigurationId"]
     else:
-        raise DeserializationError(
-            "DeleteApplicationVpcConfigurationRequest.vpc_configuration_id required"
-        )
+        out["vpc_configuration_id"] = ""
     if data.get("ConditionalToken") is not None:
         out["conditional_token"] = data["ConditionalToken"]
     return out

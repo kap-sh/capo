@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.home_directory
 
@@ -39,29 +37,21 @@ def deserialize_aws_json_1_1(data: dict) -> CustomDirectoriesType:
     if data.get("FailedFilesDirectory") is not None:
         out["failed_files_directory"] = data["FailedFilesDirectory"]
     else:
-        raise DeserializationError(
-            "CustomDirectoriesType.failed_files_directory required"
-        )
+        out["failed_files_directory"] = ""
     if data.get("MdnFilesDirectory") is not None:
         out["mdn_files_directory"] = data["MdnFilesDirectory"]
     else:
-        raise DeserializationError("CustomDirectoriesType.mdn_files_directory required")
+        out["mdn_files_directory"] = ""
     if data.get("PayloadFilesDirectory") is not None:
         out["payload_files_directory"] = data["PayloadFilesDirectory"]
     else:
-        raise DeserializationError(
-            "CustomDirectoriesType.payload_files_directory required"
-        )
+        out["payload_files_directory"] = ""
     if data.get("StatusFilesDirectory") is not None:
         out["status_files_directory"] = data["StatusFilesDirectory"]
     else:
-        raise DeserializationError(
-            "CustomDirectoriesType.status_files_directory required"
-        )
+        out["status_files_directory"] = ""
     if data.get("TemporaryFilesDirectory") is not None:
         out["temporary_files_directory"] = data["TemporaryFilesDirectory"]
     else:
-        raise DeserializationError(
-            "CustomDirectoriesType.temporary_files_directory required"
-        )
+        out["temporary_files_directory"] = ""
     return out

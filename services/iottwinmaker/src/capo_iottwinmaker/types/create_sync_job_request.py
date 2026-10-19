@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.id
     import capo_iottwinmaker.types.role_arn
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> CreateSyncJobRequest:
     if data.get("syncRole") is not None:
         out["sync_role"] = data["syncRole"]
     else:
-        raise DeserializationError("CreateSyncJobRequest.sync_role required")
+        out["sync_role"] = ""
     if data.get("tags") is not None:
         import capo_iottwinmaker.types.tag_map
 

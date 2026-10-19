@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.bounded_string
     import capo_marketplace_discovery.types.selector_type
@@ -39,9 +37,13 @@ def deserialize_json(data: dict) -> Selector:
             data["type"]
         )
     else:
-        raise DeserializationError("Selector.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_marketplace_discovery.types.selector_type.SelectorType", ""
+        )
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("Selector.value required")
+        out["value"] = ""
     return out

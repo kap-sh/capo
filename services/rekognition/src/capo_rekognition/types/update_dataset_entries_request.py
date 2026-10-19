@@ -35,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDatasetEntriesRequest:
     if data.get("DatasetArn") is not None:
         out["dataset_arn"] = data["DatasetArn"]
     else:
-        raise DeserializationError("UpdateDatasetEntriesRequest.dataset_arn required")
+        out["dataset_arn"] = ""
     if data.get("Changes") is not None:
         import capo_rekognition.types.dataset_changes
 

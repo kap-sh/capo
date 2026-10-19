@@ -76,17 +76,17 @@ def deserialize_json(data: dict) -> PortalSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("PortalSummary.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("PortalSummary.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("startUrl") is not None:
         out["start_url"] = data["startUrl"]
     else:
-        raise DeserializationError("PortalSummary.start_url required")
+        out["start_url"] = ""
     if data.get("creationDate") is not None:
         import capo_iotsitewise.types.timestamp
 

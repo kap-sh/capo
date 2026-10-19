@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.client_id
     import capo_devops_agent.types.client_secret
@@ -70,7 +68,7 @@ def deserialize_json(data: dict) -> MCPServerOAuth3LOConfig:
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
     else:
-        raise DeserializationError("MCPServerOAuth3LOConfig.client_id required")
+        out["client_id"] = ""
     if data.get("exchangeParameters") is not None:
         import capo_devops_agent.types.exchange_parameters
 
@@ -82,17 +80,15 @@ def deserialize_json(data: dict) -> MCPServerOAuth3LOConfig:
     if data.get("returnToEndpoint") is not None:
         out["return_to_endpoint"] = data["returnToEndpoint"]
     else:
-        raise DeserializationError(
-            "MCPServerOAuth3LOConfig.return_to_endpoint required"
-        )
+        out["return_to_endpoint"] = ""
     if data.get("authorizationUrl") is not None:
         out["authorization_url"] = data["authorizationUrl"]
     else:
-        raise DeserializationError("MCPServerOAuth3LOConfig.authorization_url required")
+        out["authorization_url"] = ""
     if data.get("exchangeUrl") is not None:
         out["exchange_url"] = data["exchangeUrl"]
     else:
-        raise DeserializationError("MCPServerOAuth3LOConfig.exchange_url required")
+        out["exchange_url"] = ""
     if data.get("clientSecret") is not None:
         out["client_secret"] = data["clientSecret"]
     if data.get("supportCodeChallenge") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.boolean
     import capo_m2.types.client_token
@@ -118,17 +116,17 @@ def deserialize_json(data: dict) -> CreateEnvironmentRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateEnvironmentRequest.name required")
+        out["name"] = ""
     if data.get("instanceType") is not None:
         out["instance_type"] = data["instanceType"]
     else:
-        raise DeserializationError("CreateEnvironmentRequest.instance_type required")
+        out["instance_type"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("engineType") is not None:
         out["engine_type"] = data["engineType"]
     else:
-        raise DeserializationError("CreateEnvironmentRequest.engine_type required")
+        out["engine_type"] = ""
     if data.get("engineVersion") is not None:
         out["engine_version"] = data["engineVersion"]
     if data.get("subnetIds") is not None:

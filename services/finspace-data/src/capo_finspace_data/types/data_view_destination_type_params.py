@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_finspace_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace_data.types.data_view_destination_type
     import capo_finspace_data.types.export_file_format
@@ -55,9 +53,7 @@ def deserialize_json(data: dict) -> DataViewDestinationTypeParams:
     if data.get("destinationType") is not None:
         out["destination_type"] = data["destinationType"]
     else:
-        raise DeserializationError(
-            "DataViewDestinationTypeParams.destination_type required"
-        )
+        out["destination_type"] = ""
     if data.get("s3DestinationExportFileFormat") is not None:
         import capo_finspace_data.types.export_file_format
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudcontrol.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudcontrol.types.client_token
     import capo_cloudcontrol.types.properties
@@ -48,7 +46,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateResourceInput:
     if data.get("TypeName") is not None:
         out["type_name"] = data["TypeName"]
     else:
-        raise DeserializationError("CreateResourceInput.type_name required")
+        out["type_name"] = ""
     if data.get("TypeVersionId") is not None:
         out["type_version_id"] = data["TypeVersionId"]
     if data.get("RoleArn") is not None:
@@ -58,7 +56,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateResourceInput:
     if data.get("DesiredState") is not None:
         out["desired_state"] = data["DesiredState"]
     else:
-        raise DeserializationError("CreateResourceInput.desired_state required")
+        out["desired_state"] = ""
     return out
 
 

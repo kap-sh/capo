@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent_runtime._protocol.eventstream import HeaderValue, Message
-from capo_bedrock_agent_runtime.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.flow_completion_reason
@@ -43,7 +42,12 @@ def deserialize_json(data: dict) -> FlowCompletionEvent:
             )
         )
     else:
-        raise DeserializationError("FlowCompletionEvent.completion_reason required")
+        import typing
+
+        out["completion_reason"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.flow_completion_reason.FlowCompletionReason",
+            "",
+        )
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_elasticsearch_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elasticsearch_service.types.domain_name_list
 
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> DescribeElasticsearchDomainsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeElasticsearchDomainsRequest.domain_names required"
-        )
+        out["domain_names"] = []
     return out

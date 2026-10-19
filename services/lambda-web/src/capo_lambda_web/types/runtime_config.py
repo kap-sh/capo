@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_lambda_web.errors import DeserializationError
-
 
 class RuntimeConfig(TypedDict, closed=True):
     runtime: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> RuntimeConfig:
     if data.get("runtime") is not None:
         out["runtime"] = data["runtime"]
     else:
-        raise DeserializationError("RuntimeConfig.runtime required")
+        out["runtime"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.client_request_token_string
     import capo_comprehend.types.comprehend_flywheel_arn
@@ -34,9 +32,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartFlywheelIterationRequest:
     if data.get("FlywheelArn") is not None:
         out["flywheel_arn"] = data["FlywheelArn"]
     else:
-        raise DeserializationError(
-            "StartFlywheelIterationRequest.flywheel_arn required"
-        )
+        out["flywheel_arn"] = ""
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.mime_type
 
@@ -51,5 +49,5 @@ def deserialize_json(data: dict) -> RetrievalContent:
     if data.get("mimeType") is not None:
         out["mime_type"] = data["mimeType"]
     else:
-        raise DeserializationError("RetrievalContent.mime_type required")
+        out["mime_type"] = ""
     return out

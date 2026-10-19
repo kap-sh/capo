@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.whats_app_dataset_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CreateWhatsAppDatasetOutput:
     if data.get("datasetId") is not None:
         out["dataset_id"] = data["datasetId"]
     else:
-        raise DeserializationError("CreateWhatsAppDatasetOutput.dataset_id required")
+        out["dataset_id"] = ""
     return out

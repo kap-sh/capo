@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.rule_project_identifier_list
     import capo_datazone.types.rule_scope_selection_mode
@@ -52,7 +50,11 @@ def deserialize_json(data: dict) -> ProjectsForRule:
             )
         )
     else:
-        raise DeserializationError("ProjectsForRule.selection_mode required")
+        import typing
+
+        out["selection_mode"] = typing.cast(
+            "capo_datazone.types.rule_scope_selection_mode.RuleScopeSelectionMode", ""
+        )
     if data.get("specificProjects") is not None:
         import capo_datazone.types.rule_project_identifier_list
 

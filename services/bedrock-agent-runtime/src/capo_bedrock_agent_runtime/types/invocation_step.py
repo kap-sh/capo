@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.date_timestamp
     import capo_bedrock_agent_runtime.types.invocation_step_payload
@@ -57,15 +55,15 @@ def deserialize_json(data: dict) -> InvocationStep:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("InvocationStep.session_id required")
+        out["session_id"] = ""
     if data.get("invocationId") is not None:
         out["invocation_id"] = data["invocationId"]
     else:
-        raise DeserializationError("InvocationStep.invocation_id required")
+        out["invocation_id"] = ""
     if data.get("invocationStepId") is not None:
         out["invocation_step_id"] = data["invocationStepId"]
     else:
-        raise DeserializationError("InvocationStep.invocation_step_id required")
+        out["invocation_step_id"] = ""
     if data.get("invocationStepTime") is not None:
         import capo_bedrock_agent_runtime.types.date_timestamp
 
@@ -75,7 +73,11 @@ def deserialize_json(data: dict) -> InvocationStep:
             )
         )
     else:
-        raise DeserializationError("InvocationStep.invocation_step_time required")
+        import datetime
+
+        out["invocation_step_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("payload") is not None:
         import capo_bedrock_agent_runtime.types.invocation_step_payload
 
@@ -85,7 +87,11 @@ def deserialize_json(data: dict) -> InvocationStep:
             )
         )
     else:
-        raise DeserializationError("InvocationStep.payload required")
+        import capo_bedrock_agent_runtime.types._unknown
+
+        out["payload"] = capo_bedrock_agent_runtime.types._unknown.UnknownUnionMember(
+            ""
+        )
     return out
 
 

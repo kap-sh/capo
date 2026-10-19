@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.compute_configuration
     import capo_cleanroomsml.types.iam_role_arn
@@ -67,7 +65,7 @@ def deserialize_json(data: dict) -> AudienceGenerationJobDataSource:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("AudienceGenerationJobDataSource.role_arn required")
+        out["role_arn"] = ""
     if data.get("sqlParameters") is not None:
         import capo_cleanroomsml.types.protected_query_sql_parameters
 

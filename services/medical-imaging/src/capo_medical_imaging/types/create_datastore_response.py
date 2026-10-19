@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_medical_imaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_medical_imaging.types.datastore_id
     import capo_medical_imaging.types.datastore_status
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> CreateDatastoreResponse:
     if data.get("datastoreId") is not None:
         out["datastore_id"] = data["datastoreId"]
     else:
-        raise DeserializationError("CreateDatastoreResponse.datastore_id required")
+        out["datastore_id"] = ""
     if data.get("datastoreStatus") is not None:
         import capo_medical_imaging.types.datastore_status
 
@@ -45,5 +43,9 @@ def deserialize_json(data: dict) -> CreateDatastoreResponse:
             )
         )
     else:
-        raise DeserializationError("CreateDatastoreResponse.datastore_status required")
+        import typing
+
+        out["datastore_status"] = typing.cast(
+            "capo_medical_imaging.types.datastore_status.DatastoreStatus", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.entity_name
     import capo_resiliencehub.types.string255
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> LogicalResourceId:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("LogicalResourceId.identifier required")
+        out["identifier"] = ""
     if data.get("logicalStackName") is not None:
         out["logical_stack_name"] = data["logicalStackName"]
     if data.get("resourceGroupName") is not None:

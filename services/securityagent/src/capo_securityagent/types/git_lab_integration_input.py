@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.access_token
     import capo_securityagent.types.git_lab_token_type
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> GitLabIntegrationInput:
     if data.get("accessToken") is not None:
         out["access_token"] = data["accessToken"]
     else:
-        raise DeserializationError("GitLabIntegrationInput.access_token required")
+        out["access_token"] = ""
     if data.get("targetUrl") is not None:
         out["target_url"] = data["targetUrl"]
     if data.get("tokenType") is not None:
@@ -56,7 +54,11 @@ def deserialize_json(data: dict) -> GitLabIntegrationInput:
             )
         )
     else:
-        raise DeserializationError("GitLabIntegrationInput.token_type required")
+        import typing
+
+        out["token_type"] = typing.cast(
+            "capo_securityagent.types.git_lab_token_type.GitLabTokenType", ""
+        )
     if data.get("groupId") is not None:
         out["group_id"] = data["groupId"]
     return out

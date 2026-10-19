@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.iso8601_duration
     import capo_connectcampaignsv2.types.time_stamp
@@ -46,7 +44,9 @@ def deserialize_json(data: dict) -> Schedule:
             data["startTime"]
         )
     else:
-        raise DeserializationError("Schedule.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_connectcampaignsv2.types.time_stamp
 
@@ -54,7 +54,9 @@ def deserialize_json(data: dict) -> Schedule:
             data["endTime"]
         )
     else:
-        raise DeserializationError("Schedule.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("refreshFrequency") is not None:
         out["refresh_frequency"] = data["refreshFrequency"]
     return out

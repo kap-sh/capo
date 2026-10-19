@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.client_id_type
     import capo_cognito_identity_provider.types.links_type
@@ -70,15 +68,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTermsRequest:
     if data.get("UserPoolId") is not None:
         out["user_pool_id"] = data["UserPoolId"]
     else:
-        raise DeserializationError("CreateTermsRequest.user_pool_id required")
+        out["user_pool_id"] = ""
     if data.get("ClientId") is not None:
         out["client_id"] = data["ClientId"]
     else:
-        raise DeserializationError("CreateTermsRequest.client_id required")
+        out["client_id"] = ""
     if data.get("TermsName") is not None:
         out["terms_name"] = data["TermsName"]
     else:
-        raise DeserializationError("CreateTermsRequest.terms_name required")
+        out["terms_name"] = ""
     if data.get("TermsSource") is not None:
         import capo_cognito_identity_provider.types.terms_source_type
 
@@ -88,7 +86,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTermsRequest:
             )
         )
     else:
-        raise DeserializationError("CreateTermsRequest.terms_source required")
+        import typing
+
+        out["terms_source"] = typing.cast(
+            "capo_cognito_identity_provider.types.terms_source_type.TermsSourceType", ""
+        )
     if data.get("Enforcement") is not None:
         import capo_cognito_identity_provider.types.terms_enforcement_type
 
@@ -98,7 +100,12 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTermsRequest:
             )
         )
     else:
-        raise DeserializationError("CreateTermsRequest.enforcement required")
+        import typing
+
+        out["enforcement"] = typing.cast(
+            "capo_cognito_identity_provider.types.terms_enforcement_type.TermsEnforcementType",
+            "",
+        )
     if data.get("Links") is not None:
         import capo_cognito_identity_provider.types.links_type
 

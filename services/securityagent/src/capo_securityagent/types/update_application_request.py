@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.application_id
     import capo_securityagent.types.default_kms_key_id
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> UpdateApplicationRequest:
     if data.get("applicationId") is not None:
         out["application_id"] = data["applicationId"]
     else:
-        raise DeserializationError("UpdateApplicationRequest.application_id required")
+        out["application_id"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     if data.get("defaultKmsKeyId") is not None:

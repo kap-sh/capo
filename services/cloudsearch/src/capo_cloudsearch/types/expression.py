@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudsearch._protocol.xml import Element
-from capo_cloudsearch.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudsearch.types.expression_value
@@ -32,10 +31,10 @@ def deserialize_query(el: Element) -> Expression:
     if child_expression_name is not None:
         out["expression_name"] = str(child_expression_name.text or "")
     else:
-        raise DeserializationError("Expression.expression_name required")
+        out["expression_name"] = ""
     child_expression_value = el.find("ExpressionValue")
     if child_expression_value is not None:
         out["expression_value"] = str(child_expression_value.text or "")
     else:
-        raise DeserializationError("Expression.expression_value required")
+        out["expression_value"] = ""
     return out

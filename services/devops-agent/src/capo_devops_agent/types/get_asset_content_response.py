@@ -42,5 +42,5 @@ def deserialize_json(data: dict) -> GetAssetContentResponse:
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("GetAssetContentResponse.version required")
+        out["version"] = 0
     return out

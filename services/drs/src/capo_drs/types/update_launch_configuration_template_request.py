@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.arn
     import capo_drs.types.launch_configuration_template_id
@@ -78,9 +76,7 @@ def deserialize_json(data: dict) -> UpdateLaunchConfigurationTemplateRequest:
     if data.get("launchConfigurationTemplateID") is not None:
         out["launch_configuration_template_id"] = data["launchConfigurationTemplateID"]
     else:
-        raise DeserializationError(
-            "UpdateLaunchConfigurationTemplateRequest.launch_configuration_template_id required"
-        )
+        out["launch_configuration_template_id"] = ""
     if data.get("launchDisposition") is not None:
         out["launch_disposition"] = data["launchDisposition"]
     if data.get("targetInstanceTypeRightSizingMethod") is not None:

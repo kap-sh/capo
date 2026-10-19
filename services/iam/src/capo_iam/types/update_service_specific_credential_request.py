@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.service_specific_credential_id
@@ -57,16 +56,14 @@ def deserialize_query(el: Element) -> UpdateServiceSpecificCredentialRequest:
             child_service_specific_credential_id.text or ""
         )
     else:
-        raise DeserializationError(
-            "UpdateServiceSpecificCredentialRequest.service_specific_credential_id required"
-        )
+        out["service_specific_credential_id"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         import capo_iam.types.status_type
 
         out["status"] = capo_iam.types.status_type.deserialize_query(child_status)
     else:
-        raise DeserializationError(
-            "UpdateServiceSpecificCredentialRequest.status required"
-        )
+        import typing
+
+        out["status"] = typing.cast("capo_iam.types.status_type.statusType", "")
     return out

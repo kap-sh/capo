@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudhsm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudhsm.types.client_token
     import capo_cloudhsm.types.external_id
@@ -63,17 +61,17 @@ def deserialize_aws_json_1_1(data: dict) -> CreateHsmRequest:
     if data.get("SubnetId") is not None:
         out["subnet_id"] = data["SubnetId"]
     else:
-        raise DeserializationError("CreateHsmRequest.subnet_id required")
+        out["subnet_id"] = ""
     if data.get("SshKey") is not None:
         out["ssh_key"] = data["SshKey"]
     else:
-        raise DeserializationError("CreateHsmRequest.ssh_key required")
+        out["ssh_key"] = ""
     if data.get("EniIp") is not None:
         out["eni_ip"] = data["EniIp"]
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     else:
-        raise DeserializationError("CreateHsmRequest.iam_role_arn required")
+        out["iam_role_arn"] = ""
     if data.get("ExternalId") is not None:
         out["external_id"] = data["ExternalId"]
     if data.get("SubscriptionType") is not None:
@@ -85,7 +83,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateHsmRequest:
             )
         )
     else:
-        raise DeserializationError("CreateHsmRequest.subscription_type required")
+        import typing
+
+        out["subscription_type"] = typing.cast(
+            "capo_cloudhsm.types.subscription_type.SubscriptionType", ""
+        )
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("SyslogIp") is not None:

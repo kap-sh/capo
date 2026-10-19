@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.arn
     import capo_cloudwatchomni.types.notification_target_metadata
@@ -54,11 +52,16 @@ def deserialize_cbor(data: dict) -> NotificationTarget:
             )
         )
     else:
-        raise DeserializationError("NotificationTarget.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cloudwatchomni.types.notification_target_type.NotificationTargetType",
+            "",
+        )
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("NotificationTarget.arn required")
+        out["arn"] = ""
     if data.get("metadata") is not None:
         import capo_cloudwatchomni.types.notification_target_metadata
 

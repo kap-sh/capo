@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 
 class AzureConfiguration(TypedDict, closed=True):
     subscription_id: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> AzureConfiguration:
     if data.get("subscriptionId") is not None:
         out["subscription_id"] = data["subscriptionId"]
     else:
-        raise DeserializationError("AzureConfiguration.subscription_id required")
+        out["subscription_id"] = ""
     return out

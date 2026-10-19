@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.long
     import capo_customer_profiles.types.name
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> GetAutoMergingPreviewResponse:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("GetAutoMergingPreviewResponse.domain_name required")
+        out["domain_name"] = ""
     if data.get("NumberOfMatchesInSample") is not None:
         out["number_of_matches_in_sample"] = data["NumberOfMatchesInSample"]
     else:

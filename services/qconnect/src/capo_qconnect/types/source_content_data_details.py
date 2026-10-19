@@ -54,11 +54,11 @@ def deserialize_json(data: dict) -> SourceContentDataDetails:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("SourceContentDataDetails.id required")
+        out["id"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("SourceContentDataDetails.type required")
+        out["type"] = ""
     if data.get("textData") is not None:
         import capo_qconnect.types.text_data
 

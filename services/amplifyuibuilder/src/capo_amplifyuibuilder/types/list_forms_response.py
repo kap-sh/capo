@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.form_summary_list
 
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> ListFormsResponse:
             )
         )
     else:
-        raise DeserializationError("ListFormsResponse.entities required")
+        out["entities"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

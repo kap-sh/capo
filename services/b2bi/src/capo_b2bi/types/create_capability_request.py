@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.capability_configuration
     import capo_b2bi.types.capability_name
@@ -67,7 +65,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateCapabilityRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateCapabilityRequest.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         import capo_b2bi.types.capability_type
 
@@ -75,7 +73,9 @@ def deserialize_aws_json_1_0(data: dict) -> CreateCapabilityRequest:
             data["type"]
         )
     else:
-        raise DeserializationError("CreateCapabilityRequest.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_b2bi.types.capability_type.CapabilityType", "")
     if data.get("configuration") is not None:
         import capo_b2bi.types.capability_configuration
 
@@ -85,7 +85,9 @@ def deserialize_aws_json_1_0(data: dict) -> CreateCapabilityRequest:
             )
         )
     else:
-        raise DeserializationError("CreateCapabilityRequest.configuration required")
+        import capo_b2bi.types._unknown
+
+        out["configuration"] = capo_b2bi.types._unknown.UnknownUnionMember("")
     if data.get("instructionsDocuments") is not None:
         import capo_b2bi.types.instructions_documents
 

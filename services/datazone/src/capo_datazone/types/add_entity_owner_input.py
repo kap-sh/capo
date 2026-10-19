@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.client_token
     import capo_datazone.types.data_zone_entity_type
@@ -46,7 +44,9 @@ def deserialize_json(data: dict) -> AddEntityOwnerInput:
             data["owner"]
         )
     else:
-        raise DeserializationError("AddEntityOwnerInput.owner required")
+        import capo_datazone.types._unknown
+
+        out["owner"] = capo_datazone.types._unknown.UnknownUnionMember("")
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

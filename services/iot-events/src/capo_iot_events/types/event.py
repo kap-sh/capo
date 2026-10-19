@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.actions
     import capo_iot_events.types.condition
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> Event:
     if data.get("eventName") is not None:
         out["event_name"] = data["eventName"]
     else:
-        raise DeserializationError("Event.event_name required")
+        out["event_name"] = ""
     if data.get("condition") is not None:
         out["condition"] = data["condition"]
     if data.get("actions") is not None:

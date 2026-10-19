@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aggregation_field
     import capo_iot.types.aggregation_type
@@ -94,7 +92,7 @@ def deserialize_json(data: dict) -> UpdateFleetMetricRequest:
     if data.get("indexName") is not None:
         out["index_name"] = data["indexName"]
     else:
-        raise DeserializationError("UpdateFleetMetricRequest.index_name required")
+        out["index_name"] = ""
     if data.get("unit") is not None:
         import capo_iot.types.fleet_metric_unit
 

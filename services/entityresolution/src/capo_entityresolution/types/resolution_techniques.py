@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.provider_properties
     import capo_entityresolution.types.resolution_type
@@ -80,7 +78,11 @@ def deserialize_json(data: dict) -> ResolutionTechniques:
             )
         )
     else:
-        raise DeserializationError("ResolutionTechniques.resolution_type required")
+        import typing
+
+        out["resolution_type"] = typing.cast(
+            "capo_entityresolution.types.resolution_type.ResolutionType", ""
+        )
     if data.get("ruleBasedProperties") is not None:
         import capo_entityresolution.types.rule_based_properties
 

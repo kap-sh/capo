@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.email_notification_body_type
     import capo_cognito_identity_provider.types.email_notification_subject_type
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> NotifyEmailType:
     if data.get("Subject") is not None:
         out["subject"] = data["Subject"]
     else:
-        raise DeserializationError("NotifyEmailType.subject required")
+        out["subject"] = ""
     if data.get("HtmlBody") is not None:
         out["html_body"] = data["HtmlBody"]
     if data.get("TextBody") is not None:

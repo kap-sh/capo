@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_discovery_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_discovery_service.types.configuration_item_type
     import capo_application_discovery_service.types.filters
@@ -75,8 +73,11 @@ def deserialize_aws_json_1_1(data: dict) -> ListConfigurationsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ListConfigurationsRequest.configuration_type required"
+        import typing
+
+        out["configuration_type"] = typing.cast(
+            "capo_application_discovery_service.types.configuration_item_type.ConfigurationItemType",
+            "",
         )
     if data.get("filters") is not None:
         import capo_application_discovery_service.types.filters

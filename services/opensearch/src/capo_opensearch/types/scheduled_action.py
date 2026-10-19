@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.action_severity
     import capo_opensearch.types.action_status
@@ -76,13 +74,15 @@ def deserialize_json(data: dict) -> ScheduledAction:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("ScheduledAction.id required")
+        out["id"] = ""
     if data.get("Type") is not None:
         import capo_opensearch.types.action_type
 
         out["type"] = capo_opensearch.types.action_type.deserialize_json(data["Type"])
     else:
-        raise DeserializationError("ScheduledAction.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_opensearch.types.action_type.ActionType", "")
     if data.get("Severity") is not None:
         import capo_opensearch.types.action_severity
 
@@ -90,11 +90,15 @@ def deserialize_json(data: dict) -> ScheduledAction:
             data["Severity"]
         )
     else:
-        raise DeserializationError("ScheduledAction.severity required")
+        import typing
+
+        out["severity"] = typing.cast(
+            "capo_opensearch.types.action_severity.ActionSeverity", ""
+        )
     if data.get("ScheduledTime") is not None:
         out["scheduled_time"] = data["ScheduledTime"]
     else:
-        raise DeserializationError("ScheduledAction.scheduled_time required")
+        out["scheduled_time"] = 0
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("ScheduledBy") is not None:

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.receipt_rule_set_name
@@ -30,5 +29,5 @@ def deserialize_query(el: Element) -> DeleteReceiptRuleSetRequest:
     if child_rule_set_name is not None:
         out["rule_set_name"] = str(child_rule_set_name.text or "")
     else:
-        raise DeserializationError("DeleteReceiptRuleSetRequest.rule_set_name required")
+        out["rule_set_name"] = ""
     return out

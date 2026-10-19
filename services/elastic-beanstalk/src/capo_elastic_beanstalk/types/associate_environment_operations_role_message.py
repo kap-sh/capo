@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_elastic_beanstalk._protocol.xml import Element
-from capo_elastic_beanstalk.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_elastic_beanstalk.types.environment_name
@@ -36,14 +35,10 @@ def deserialize_query(el: Element) -> AssociateEnvironmentOperationsRoleMessage:
     if child_environment_name is not None:
         out["environment_name"] = str(child_environment_name.text or "")
     else:
-        raise DeserializationError(
-            "AssociateEnvironmentOperationsRoleMessage.environment_name required"
-        )
+        out["environment_name"] = ""
     child_operations_role = el.find("OperationsRole")
     if child_operations_role is not None:
         out["operations_role"] = str(child_operations_role.text or "")
     else:
-        raise DeserializationError(
-            "AssociateEnvironmentOperationsRoleMessage.operations_role required"
-        )
+        out["operations_role"] = ""
     return out

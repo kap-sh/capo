@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_clouddirectory.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_clouddirectory.types.range_mode
     import capo_clouddirectory.types.typed_attribute_value
@@ -67,7 +65,11 @@ def deserialize_json(data: dict) -> TypedAttributeValueRange:
             data["StartMode"]
         )
     else:
-        raise DeserializationError("TypedAttributeValueRange.start_mode required")
+        import typing
+
+        out["start_mode"] = typing.cast(
+            "capo_clouddirectory.types.range_mode.RangeMode", ""
+        )
     if data.get("StartValue") is not None:
         import capo_clouddirectory.types.typed_attribute_value
 
@@ -83,7 +85,11 @@ def deserialize_json(data: dict) -> TypedAttributeValueRange:
             data["EndMode"]
         )
     else:
-        raise DeserializationError("TypedAttributeValueRange.end_mode required")
+        import typing
+
+        out["end_mode"] = typing.cast(
+            "capo_clouddirectory.types.range_mode.RangeMode", ""
+        )
     if data.get("EndValue") is not None:
         import capo_clouddirectory.types.typed_attribute_value
 

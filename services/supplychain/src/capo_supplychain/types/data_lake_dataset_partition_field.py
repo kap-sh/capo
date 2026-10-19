@@ -37,7 +37,7 @@ def deserialize_json(data: dict) -> DataLakeDatasetPartitionField:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DataLakeDatasetPartitionField.name required")
+        out["name"] = ""
     if data.get("transform") is not None:
         import capo_supplychain.types.data_lake_dataset_partition_field_transform
 

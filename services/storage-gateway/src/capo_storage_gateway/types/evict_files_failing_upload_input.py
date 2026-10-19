@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.boolean2
     import capo_storage_gateway.types.file_share_arn
@@ -32,9 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> EvictFilesFailingUploadInput:
     if data.get("FileShareARN") is not None:
         out["file_share_arn"] = data["FileShareARN"]
     else:
-        raise DeserializationError(
-            "EvictFilesFailingUploadInput.file_share_arn required"
-        )
+        out["file_share_arn"] = ""
     if data.get("ForceRemove") is not None:
         out["force_remove"] = data["ForceRemove"]
     return out

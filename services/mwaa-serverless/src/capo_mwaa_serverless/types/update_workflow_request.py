@@ -103,7 +103,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateWorkflowRequest:
     if data.get("WorkflowArn") is not None:
         out["workflow_arn"] = data["WorkflowArn"]
     else:
-        raise DeserializationError("UpdateWorkflowRequest.workflow_arn required")
+        out["workflow_arn"] = ""
     if data.get("DefinitionS3Location") is not None:
         import capo_mwaa_serverless.types.definition_s3_location
 
@@ -125,7 +125,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateWorkflowRequest:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("UpdateWorkflowRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("LoggingConfiguration") is not None:

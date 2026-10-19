@@ -59,7 +59,7 @@ def deserialize_aws_json_1_1(data: dict) -> FirewallManagerRuleGroup:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("FirewallManagerRuleGroup.name required")
+        out["name"] = ""
     if data.get("Priority") is not None:
         out["priority"] = data["Priority"]
     else:

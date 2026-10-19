@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.description
     import capo_iottwinmaker.types.generated_scene_metadata_map
@@ -104,19 +102,19 @@ def deserialize_json(data: dict) -> GetSceneResponse:
     if data.get("workspaceId") is not None:
         out["workspace_id"] = data["workspaceId"]
     else:
-        raise DeserializationError("GetSceneResponse.workspace_id required")
+        out["workspace_id"] = ""
     if data.get("sceneId") is not None:
         out["scene_id"] = data["sceneId"]
     else:
-        raise DeserializationError("GetSceneResponse.scene_id required")
+        out["scene_id"] = ""
     if data.get("contentLocation") is not None:
         out["content_location"] = data["contentLocation"]
     else:
-        raise DeserializationError("GetSceneResponse.content_location required")
+        out["content_location"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetSceneResponse.arn required")
+        out["arn"] = ""
     if data.get("creationDateTime") is not None:
         import capo_iottwinmaker.types.timestamp
 
@@ -124,7 +122,11 @@ def deserialize_json(data: dict) -> GetSceneResponse:
             data["creationDateTime"]
         )
     else:
-        raise DeserializationError("GetSceneResponse.creation_date_time required")
+        import datetime
+
+        out["creation_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateDateTime") is not None:
         import capo_iottwinmaker.types.timestamp
 
@@ -132,7 +134,11 @@ def deserialize_json(data: dict) -> GetSceneResponse:
             data["updateDateTime"]
         )
     else:
-        raise DeserializationError("GetSceneResponse.update_date_time required")
+        import datetime
+
+        out["update_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("capabilities") is not None:

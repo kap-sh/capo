@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sqs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sqs.types.string
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteMessageBatchResultEntry:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("DeleteMessageBatchResultEntry.id required")
+        out["id"] = ""
     return out

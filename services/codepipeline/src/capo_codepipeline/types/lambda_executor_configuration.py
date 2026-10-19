@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.lambda_function_arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> LambdaExecutorConfiguration:
     if data.get("lambdaFunctionArn") is not None:
         out["lambda_function_arn"] = data["lambdaFunctionArn"]
     else:
-        raise DeserializationError(
-            "LambdaExecutorConfiguration.lambda_function_arn required"
-        )
+        out["lambda_function_arn"] = ""
     return out

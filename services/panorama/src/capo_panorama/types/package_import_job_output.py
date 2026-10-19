@@ -45,15 +45,15 @@ def deserialize_json(data: dict) -> PackageImportJobOutput:
     if data.get("PackageId") is not None:
         out["package_id"] = data["PackageId"]
     else:
-        raise DeserializationError("PackageImportJobOutput.package_id required")
+        out["package_id"] = ""
     if data.get("PackageVersion") is not None:
         out["package_version"] = data["PackageVersion"]
     else:
-        raise DeserializationError("PackageImportJobOutput.package_version required")
+        out["package_version"] = ""
     if data.get("PatchVersion") is not None:
         out["patch_version"] = data["PatchVersion"]
     else:
-        raise DeserializationError("PackageImportJobOutput.patch_version required")
+        out["patch_version"] = ""
     if data.get("OutputS3Location") is not None:
         import capo_panorama.types.out_put_s3_location
 

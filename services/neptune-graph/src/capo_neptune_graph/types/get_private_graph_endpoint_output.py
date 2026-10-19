@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptune_graph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_neptune_graph.types.private_graph_endpoint_status
     import capo_neptune_graph.types.subnet_ids
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> GetPrivateGraphEndpointOutput:
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
     else:
-        raise DeserializationError("GetPrivateGraphEndpointOutput.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("subnetIds") is not None:
         import capo_neptune_graph.types.subnet_ids
 
@@ -60,7 +58,7 @@ def deserialize_json(data: dict) -> GetPrivateGraphEndpointOutput:
             data["subnetIds"]
         )
     else:
-        raise DeserializationError("GetPrivateGraphEndpointOutput.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("status") is not None:
         import capo_neptune_graph.types.private_graph_endpoint_status
 
@@ -70,7 +68,12 @@ def deserialize_json(data: dict) -> GetPrivateGraphEndpointOutput:
             )
         )
     else:
-        raise DeserializationError("GetPrivateGraphEndpointOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_neptune_graph.types.private_graph_endpoint_status.PrivateGraphEndpointStatus",
+            "",
+        )
     if data.get("vpcEndpointId") is not None:
         out["vpc_endpoint_id"] = data["vpcEndpointId"]
     return out

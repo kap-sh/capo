@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.batch_job_execution_status
     import capo_m2.types.batch_job_identifier
@@ -96,13 +94,11 @@ def deserialize_json(data: dict) -> GetBatchJobExecutionResponse:
     if data.get("executionId") is not None:
         out["execution_id"] = data["executionId"]
     else:
-        raise DeserializationError("GetBatchJobExecutionResponse.execution_id required")
+        out["execution_id"] = ""
     if data.get("applicationId") is not None:
         out["application_id"] = data["applicationId"]
     else:
-        raise DeserializationError(
-            "GetBatchJobExecutionResponse.application_id required"
-        )
+        out["application_id"] = ""
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     if data.get("jobName") is not None:
@@ -114,13 +110,15 @@ def deserialize_json(data: dict) -> GetBatchJobExecutionResponse:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("GetBatchJobExecutionResponse.status required")
+        out["status"] = ""
     if data.get("startTime") is not None:
         import capo_m2.types.timestamp
 
         out["start_time"] = capo_m2.types.timestamp.deserialize_json(data["startTime"])
     else:
-        raise DeserializationError("GetBatchJobExecutionResponse.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_m2.types.timestamp
 

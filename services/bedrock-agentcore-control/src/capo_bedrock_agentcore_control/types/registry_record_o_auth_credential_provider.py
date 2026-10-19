@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.credential_provider_arn
     import capo_bedrock_agentcore_control.types.custom_parameter_map
@@ -62,9 +60,7 @@ def deserialize_json(data: dict) -> RegistryRecordOAuthCredentialProvider:
     if data.get("providerArn") is not None:
         out["provider_arn"] = data["providerArn"]
     else:
-        raise DeserializationError(
-            "RegistryRecordOAuthCredentialProvider.provider_arn required"
-        )
+        out["provider_arn"] = ""
     if data.get("grantType") is not None:
         import capo_bedrock_agentcore_control.types.registry_record_o_auth_grant_type
 

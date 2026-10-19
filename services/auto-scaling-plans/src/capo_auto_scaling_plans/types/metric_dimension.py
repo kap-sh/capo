@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_auto_scaling_plans.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auto_scaling_plans.types.metric_dimension_name
     import capo_auto_scaling_plans.types.metric_dimension_value
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> MetricDimension:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("MetricDimension.name required")
+        out["name"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("MetricDimension.value required")
+        out["value"] = ""
     return out

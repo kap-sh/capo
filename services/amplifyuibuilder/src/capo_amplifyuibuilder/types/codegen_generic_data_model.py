@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.codegen_generic_data_fields
     import capo_amplifyuibuilder.types.codegen_primary_keys_list
@@ -55,7 +53,7 @@ def deserialize_json(data: dict) -> CodegenGenericDataModel:
             )
         )
     else:
-        raise DeserializationError("CodegenGenericDataModel.fields required")
+        out["fields"] = {}
     if data.get("isJoinTable") is not None:
         out["is_join_table"] = data["isJoinTable"]
     if data.get("primaryKeys") is not None:
@@ -67,5 +65,5 @@ def deserialize_json(data: dict) -> CodegenGenericDataModel:
             )
         )
     else:
-        raise DeserializationError("CodegenGenericDataModel.primary_keys required")
+        out["primary_keys"] = []
     return out

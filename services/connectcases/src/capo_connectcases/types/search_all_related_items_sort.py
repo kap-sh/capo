@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.order
     import capo_connectcases.types.search_all_related_items_sort_property
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> SearchAllRelatedItemsSort:
     if data.get("sortProperty") is not None:
         out["sort_property"] = data["sortProperty"]
     else:
-        raise DeserializationError("SearchAllRelatedItemsSort.sort_property required")
+        out["sort_property"] = ""
     if data.get("sortOrder") is not None:
         out["sort_order"] = data["sortOrder"]
     else:
-        raise DeserializationError("SearchAllRelatedItemsSort.sort_order required")
+        out["sort_order"] = ""
     return out

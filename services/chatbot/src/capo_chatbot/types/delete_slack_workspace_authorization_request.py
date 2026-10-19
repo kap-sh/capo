@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chatbot.types.slack_team_id
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> DeleteSlackWorkspaceAuthorizationRequest:
     if data.get("SlackTeamId") is not None:
         out["slack_team_id"] = data["SlackTeamId"]
     else:
-        raise DeserializationError(
-            "DeleteSlackWorkspaceAuthorizationRequest.slack_team_id required"
-        )
+        out["slack_team_id"] = ""
     return out

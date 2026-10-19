@@ -88,21 +88,21 @@ def deserialize_json(data: dict) -> DescribePipelineResponse:
     if data.get("pipelineName") is not None:
         out["pipeline_name"] = data["pipelineName"]
     else:
-        raise DeserializationError("DescribePipelineResponse.pipeline_name required")
+        out["pipeline_name"] = ""
     if data.get("workspaceName") is not None:
         out["workspace_name"] = data["workspaceName"]
     else:
-        raise DeserializationError("DescribePipelineResponse.workspace_name required")
+        out["workspace_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("pipelineArn") is not None:
         out["pipeline_arn"] = data["pipelineArn"]
     else:
-        raise DeserializationError("DescribePipelineResponse.pipeline_arn required")
+        out["pipeline_arn"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("DescribePipelineResponse.version required")
+        out["version"] = ""
     if data.get("environmentVariables") is not None:
         import capo_iotsitewise.types.environment_variables_map
 
@@ -118,7 +118,7 @@ def deserialize_json(data: dict) -> DescribePipelineResponse:
             data["computations"]
         )
     else:
-        raise DeserializationError("DescribePipelineResponse.computations required")
+        out["computations"] = []
     if data.get("status") is not None:
         import capo_iotsitewise.types.resource_status
 
@@ -134,7 +134,9 @@ def deserialize_json(data: dict) -> DescribePipelineResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("DescribePipelineResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_iotsitewise.types.timestamp
 
@@ -142,7 +144,9 @@ def deserialize_json(data: dict) -> DescribePipelineResponse:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("DescribePipelineResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

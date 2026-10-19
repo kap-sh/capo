@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_runtime_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_runtime_service.types.active_contexts_list
     import capo_lex_runtime_service.types.bot_alias
@@ -90,7 +88,7 @@ def deserialize_json(data: dict) -> PostTextRequest:
     if data.get("inputText") is not None:
         out["input_text"] = data["inputText"]
     else:
-        raise DeserializationError("PostTextRequest.input_text required")
+        out["input_text"] = ""
     if data.get("activeContexts") is not None:
         import capo_lex_runtime_service.types.active_contexts_list
 

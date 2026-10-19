@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.flex_component_list
 
@@ -43,5 +41,5 @@ def deserialize_aws_json_1_0(data: dict) -> ListFlexComponentsOutput:
             )
         )
     else:
-        raise DeserializationError("ListFlexComponentsOutput.flex_components required")
+        out["flex_components"] = []
     return out

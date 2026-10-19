@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_secrets_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_secrets_manager.types.add_replica_region_list_type
     import capo_secrets_manager.types.boolean_type
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> ReplicateSecretToRegionsRequest:
     if data.get("SecretId") is not None:
         out["secret_id"] = data["SecretId"]
     else:
-        raise DeserializationError("ReplicateSecretToRegionsRequest.secret_id required")
+        out["secret_id"] = ""
     if data.get("AddReplicaRegions") is not None:
         import capo_secrets_manager.types.add_replica_region_list_type
 
@@ -54,9 +52,7 @@ def deserialize_aws_json_1_1(data: dict) -> ReplicateSecretToRegionsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ReplicateSecretToRegionsRequest.add_replica_regions required"
-        )
+        out["add_replica_regions"] = []
     if data.get("ForceOverwriteReplicaSecret") is not None:
         out["force_overwrite_replica_secret"] = data["ForceOverwriteReplicaSecret"]
     return out

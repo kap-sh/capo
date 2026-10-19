@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.policy_store_id
     import capo_verifiedpermissions.types.policy_template_id
@@ -33,9 +31,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetPolicyTemplateInput:
     if data.get("policyStoreId") is not None:
         out["policy_store_id"] = data["policyStoreId"]
     else:
-        raise DeserializationError("GetPolicyTemplateInput.policy_store_id required")
+        out["policy_store_id"] = ""
     if data.get("policyTemplateId") is not None:
         out["policy_template_id"] = data["policyTemplateId"]
     else:
-        raise DeserializationError("GetPolicyTemplateInput.policy_template_id required")
+        out["policy_template_id"] = ""
     return out

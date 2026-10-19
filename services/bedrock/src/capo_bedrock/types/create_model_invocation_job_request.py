@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.model_id
     import capo_bedrock.types.model_invocation_idempotency_token
@@ -98,17 +96,17 @@ def deserialize_json(data: dict) -> CreateModelInvocationJobRequest:
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError("CreateModelInvocationJobRequest.job_name required")
+        out["job_name"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateModelInvocationJobRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:
-        raise DeserializationError("CreateModelInvocationJobRequest.model_id required")
+        out["model_id"] = ""
     if data.get("inputDataConfig") is not None:
         import capo_bedrock.types.model_invocation_job_input_data_config
 
@@ -118,9 +116,9 @@ def deserialize_json(data: dict) -> CreateModelInvocationJobRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateModelInvocationJobRequest.input_data_config required"
-        )
+        import capo_bedrock.types._unknown
+
+        out["input_data_config"] = capo_bedrock.types._unknown.UnknownUnionMember("")
     if data.get("outputDataConfig") is not None:
         import capo_bedrock.types.model_invocation_job_output_data_config
 
@@ -130,9 +128,9 @@ def deserialize_json(data: dict) -> CreateModelInvocationJobRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateModelInvocationJobRequest.output_data_config required"
-        )
+        import capo_bedrock.types._unknown
+
+        out["output_data_config"] = capo_bedrock.types._unknown.UnknownUnionMember("")
     if data.get("vpcConfig") is not None:
         import capo_bedrock.types.vpc_config
 

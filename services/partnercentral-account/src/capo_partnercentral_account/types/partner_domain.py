@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.date_time
     import capo_partnercentral_account.types.domain_name
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> PartnerDomain:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("PartnerDomain.domain_name required")
+        out["domain_name"] = ""
     if data.get("RegisteredAt") is not None:
         import capo_partnercentral_account.types.date_time
 
@@ -47,5 +45,9 @@ def deserialize_aws_json_1_0(data: dict) -> PartnerDomain:
             )
         )
     else:
-        raise DeserializationError("PartnerDomain.registered_at required")
+        import datetime
+
+        out["registered_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_pcs.errors import DeserializationError
-
 
 class CustomLaunchTemplate(TypedDict, closed=True):
     id: "str"
@@ -25,9 +23,9 @@ def deserialize_aws_json_1_0(data: dict) -> CustomLaunchTemplate:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CustomLaunchTemplate.id required")
+        out["id"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("CustomLaunchTemplate.version required")
+        out["version"] = ""
     return out

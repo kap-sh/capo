@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.calculated_column_list
     import capo_quicksight.types.transform_operation_alias
@@ -63,7 +61,7 @@ def deserialize_json(data: dict) -> CreateColumnsOperation:
             data["Columns"]
         )
     else:
-        raise DeserializationError("CreateColumnsOperation.columns required")
+        out["columns"] = []
     return out
 
 

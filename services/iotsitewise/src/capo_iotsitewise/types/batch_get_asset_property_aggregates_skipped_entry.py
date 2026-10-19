@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.batch_entry_completion_status
     import capo_iotsitewise.types.batch_get_asset_property_aggregates_error_info
@@ -50,9 +48,7 @@ def deserialize_json(data: dict) -> BatchGetAssetPropertyAggregatesSkippedEntry:
     if data.get("entryId") is not None:
         out["entry_id"] = data["entryId"]
     else:
-        raise DeserializationError(
-            "BatchGetAssetPropertyAggregatesSkippedEntry.entry_id required"
-        )
+        out["entry_id"] = ""
     if data.get("completionStatus") is not None:
         import capo_iotsitewise.types.batch_entry_completion_status
 
@@ -62,8 +58,11 @@ def deserialize_json(data: dict) -> BatchGetAssetPropertyAggregatesSkippedEntry:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetAssetPropertyAggregatesSkippedEntry.completion_status required"
+        import typing
+
+        out["completion_status"] = typing.cast(
+            "capo_iotsitewise.types.batch_entry_completion_status.BatchEntryCompletionStatus",
+            "",
         )
     if data.get("errorInfo") is not None:
         import capo_iotsitewise.types.batch_get_asset_property_aggregates_error_info

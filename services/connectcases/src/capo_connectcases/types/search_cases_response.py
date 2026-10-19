@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.next_token
     import capo_connectcases.types.search_cases_response_item_list
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> SearchCasesResponse:
             )
         )
     else:
-        raise DeserializationError("SearchCasesResponse.cases required")
+        out["cases"] = []
     if data.get("totalCount") is not None:
         out["total_count"] = data["totalCount"]
     else:

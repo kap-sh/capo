@@ -96,7 +96,9 @@ def deserialize_aws_json_1_1(data: dict) -> ListSettlementRecordsRequest:
 
         out["scope"] = capo_wafv2.types.scope.deserialize_aws_json_1_1(data["Scope"])
     else:
-        raise DeserializationError("ListSettlementRecordsRequest.scope required")
+        import typing
+
+        out["scope"] = typing.cast("capo_wafv2.types.scope.Scope", "")
     if data.get("Currency") is not None:
         import capo_wafv2.types.currency
 
@@ -104,7 +106,9 @@ def deserialize_aws_json_1_1(data: dict) -> ListSettlementRecordsRequest:
             data["Currency"]
         )
     else:
-        raise DeserializationError("ListSettlementRecordsRequest.currency required")
+        import typing
+
+        out["currency"] = typing.cast("capo_wafv2.types.currency.Currency", "")
     if data.get("Filters") is not None:
         import capo_wafv2.types.monetization_filter_list
 

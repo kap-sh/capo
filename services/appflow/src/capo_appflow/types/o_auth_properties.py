@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.auth_code_url
     import capo_appflow.types.o_auth_scope_list
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> OAuthProperties:
     if data.get("tokenUrl") is not None:
         out["token_url"] = data["tokenUrl"]
     else:
-        raise DeserializationError("OAuthProperties.token_url required")
+        out["token_url"] = ""
     if data.get("authCodeUrl") is not None:
         out["auth_code_url"] = data["authCodeUrl"]
     else:
-        raise DeserializationError("OAuthProperties.auth_code_url required")
+        out["auth_code_url"] = ""
     if data.get("oAuthScopes") is not None:
         import capo_appflow.types.o_auth_scope_list
 
@@ -51,5 +49,5 @@ def deserialize_json(data: dict) -> OAuthProperties:
             data["oAuthScopes"]
         )
     else:
-        raise DeserializationError("OAuthProperties.o_auth_scopes required")
+        out["o_auth_scopes"] = []
     return out

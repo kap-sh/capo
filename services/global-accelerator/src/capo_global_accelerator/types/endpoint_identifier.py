@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_global_accelerator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_global_accelerator.types.generic_boolean
     import capo_global_accelerator.types.generic_string
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_1(data: dict) -> EndpointIdentifier:
     if data.get("EndpointId") is not None:
         out["endpoint_id"] = data["EndpointId"]
     else:
-        raise DeserializationError("EndpointIdentifier.endpoint_id required")
+        out["endpoint_id"] = ""
     if data.get("ClientIPPreservationEnabled") is not None:
         out["client_ip_preservation_enabled"] = data["ClientIPPreservationEnabled"]
     return out

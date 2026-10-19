@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.access_check_policy_document
     import capo_accessanalyzer.types.access_check_policy_type
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> CheckAccessNotGrantedRequest:
     if data.get("policyDocument") is not None:
         out["policy_document"] = data["policyDocument"]
     else:
-        raise DeserializationError(
-            "CheckAccessNotGrantedRequest.policy_document required"
-        )
+        out["policy_document"] = ""
     if data.get("access") is not None:
         import capo_accessanalyzer.types.access_list
 
@@ -51,11 +47,11 @@ def deserialize_json(data: dict) -> CheckAccessNotGrantedRequest:
             data["access"]
         )
     else:
-        raise DeserializationError("CheckAccessNotGrantedRequest.access required")
+        out["access"] = []
     if data.get("policyType") is not None:
         out["policy_type"] = data["policyType"]
     else:
-        raise DeserializationError("CheckAccessNotGrantedRequest.policy_type required")
+        out["policy_type"] = ""
     return out
 
 

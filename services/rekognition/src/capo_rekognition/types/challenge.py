@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.challenge_type
     import capo_rekognition.types.version
@@ -39,9 +37,13 @@ def deserialize_aws_json_1_1(data: dict) -> Challenge:
             data["Type"]
         )
     else:
-        raise DeserializationError("Challenge.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_rekognition.types.challenge_type.ChallengeType", ""
+        )
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     else:
-        raise DeserializationError("Challenge.version required")
+        out["version"] = ""
     return out

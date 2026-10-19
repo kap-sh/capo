@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.bounded_string
     import capo_marketplace_discovery.types.currency_code
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> VariablePaymentTerm:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("VariablePaymentTerm.id required")
+        out["id"] = ""
     if data.get("type") is not None:
         import capo_marketplace_discovery.types.term_type
 
@@ -53,15 +51,17 @@ def deserialize_json(data: dict) -> VariablePaymentTerm:
             data["type"]
         )
     else:
-        raise DeserializationError("VariablePaymentTerm.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_marketplace_discovery.types.term_type.TermType", ""
+        )
     if data.get("currencyCode") is not None:
         out["currency_code"] = data["currencyCode"]
     else:
-        raise DeserializationError("VariablePaymentTerm.currency_code required")
+        out["currency_code"] = ""
     if data.get("maxTotalChargeAmount") is not None:
         out["max_total_charge_amount"] = data["maxTotalChargeAmount"]
     else:
-        raise DeserializationError(
-            "VariablePaymentTerm.max_total_charge_amount required"
-        )
+        out["max_total_charge_amount"] = ""
     return out

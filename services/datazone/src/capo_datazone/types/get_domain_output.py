@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.created_at
     import capo_datazone.types.delete_progress
@@ -130,7 +128,7 @@ def deserialize_json(data: dict) -> GetDomainOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetDomainOutput.id required")
+        out["id"] = ""
     if data.get("rootDomainUnitId") is not None:
         out["root_domain_unit_id"] = data["rootDomainUnitId"]
     if data.get("name") is not None:
@@ -146,7 +144,7 @@ def deserialize_json(data: dict) -> GetDomainOutput:
     if data.get("domainExecutionRole") is not None:
         out["domain_execution_role"] = data["domainExecutionRole"]
     else:
-        raise DeserializationError("GetDomainOutput.domain_execution_role required")
+        out["domain_execution_role"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     if data.get("kmsKeyIdentifier") is not None:
@@ -158,7 +156,11 @@ def deserialize_json(data: dict) -> GetDomainOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("GetDomainOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_datazone.types.domain_status.DomainStatus", ""
+        )
     if data.get("portalUrl") is not None:
         out["portal_url"] = data["portalUrl"]
     if data.get("createdAt") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecatalyst.types.name_string
     import capo_codecatalyst.types.timestamp
@@ -57,7 +55,9 @@ def deserialize_json(data: dict) -> ListEventLogsRequest:
             data["startTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("ListEventLogsRequest.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import datetime
 
@@ -65,7 +65,9 @@ def deserialize_json(data: dict) -> ListEventLogsRequest:
             data["endTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("ListEventLogsRequest.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("eventName") is not None:
         out["event_name"] = data["eventName"]
     if data.get("nextToken") is not None:

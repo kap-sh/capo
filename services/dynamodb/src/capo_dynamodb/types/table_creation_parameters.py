@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.attribute_definitions
     import capo_dynamodb.types.billing_mode
@@ -116,7 +114,7 @@ def deserialize_aws_json_1_0(data: dict) -> TableCreationParameters:
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("TableCreationParameters.table_name required")
+        out["table_name"] = ""
     if data.get("AttributeDefinitions") is not None:
         import capo_dynamodb.types.attribute_definitions
 
@@ -126,9 +124,7 @@ def deserialize_aws_json_1_0(data: dict) -> TableCreationParameters:
             )
         )
     else:
-        raise DeserializationError(
-            "TableCreationParameters.attribute_definitions required"
-        )
+        out["attribute_definitions"] = []
     if data.get("KeySchema") is not None:
         import capo_dynamodb.types.key_schema
 
@@ -136,7 +132,7 @@ def deserialize_aws_json_1_0(data: dict) -> TableCreationParameters:
             data["KeySchema"]
         )
     else:
-        raise DeserializationError("TableCreationParameters.key_schema required")
+        out["key_schema"] = []
     if data.get("BillingMode") is not None:
         import capo_dynamodb.types.billing_mode
 

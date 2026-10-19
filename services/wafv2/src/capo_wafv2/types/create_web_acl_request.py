@@ -175,13 +175,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateWebACLRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateWebACLRequest.name required")
+        out["name"] = ""
     if data.get("Scope") is not None:
         import capo_wafv2.types.scope
 
         out["scope"] = capo_wafv2.types.scope.deserialize_aws_json_1_1(data["Scope"])
     else:
-        raise DeserializationError("CreateWebACLRequest.scope required")
+        import typing
+
+        out["scope"] = typing.cast("capo_wafv2.types.scope.Scope", "")
     if data.get("DefaultAction") is not None:
         import capo_wafv2.types.default_action
 

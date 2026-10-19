@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.attachment_id
     import capo_qbusiness.types.conversation_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> ConversationSource:
     if data.get("conversationId") is not None:
         out["conversation_id"] = data["conversationId"]
     else:
-        raise DeserializationError("ConversationSource.conversation_id required")
+        out["conversation_id"] = ""
     if data.get("attachmentId") is not None:
         out["attachment_id"] = data["attachmentId"]
     else:
-        raise DeserializationError("ConversationSource.attachment_id required")
+        out["attachment_id"] = ""
     return out

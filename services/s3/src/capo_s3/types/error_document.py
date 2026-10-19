@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.object_key
@@ -28,5 +27,5 @@ def deserialize_xml(el: Element) -> ErrorDocument:
     if child_key is not None:
         out["key"] = str(child_key.text or "")
     else:
-        raise DeserializationError("ErrorDocument.key required")
+        out["key"] = ""
     return out

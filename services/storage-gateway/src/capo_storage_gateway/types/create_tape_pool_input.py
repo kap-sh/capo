@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.pool_name
     import capo_storage_gateway.types.retention_lock_time_in_days
@@ -66,7 +64,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTapePoolInput:
     if data.get("PoolName") is not None:
         out["pool_name"] = data["PoolName"]
     else:
-        raise DeserializationError("CreateTapePoolInput.pool_name required")
+        out["pool_name"] = ""
     if data.get("StorageClass") is not None:
         import capo_storage_gateway.types.tape_storage_class
 
@@ -76,7 +74,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTapePoolInput:
             )
         )
     else:
-        raise DeserializationError("CreateTapePoolInput.storage_class required")
+        import typing
+
+        out["storage_class"] = typing.cast(
+            "capo_storage_gateway.types.tape_storage_class.TapeStorageClass", ""
+        )
     if data.get("RetentionLockType") is not None:
         import capo_storage_gateway.types.retention_lock_type
 

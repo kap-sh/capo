@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_nova_act.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_nova_act.types.model_status
 
@@ -33,5 +31,7 @@ def deserialize_json(data: dict) -> ModelLifecycle:
             data["status"]
         )
     else:
-        raise DeserializationError("ModelLifecycle.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_nova_act.types.model_status.ModelStatus", "")
     return out

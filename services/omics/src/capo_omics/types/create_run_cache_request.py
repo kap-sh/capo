@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.aws_account_id
     import capo_omics.types.cache_behavior
@@ -64,7 +62,7 @@ def deserialize_json(data: dict) -> CreateRunCacheRequest:
     if data.get("cacheS3Location") is not None:
         out["cache_s3_location"] = data["cacheS3Location"]
     else:
-        raise DeserializationError("CreateRunCacheRequest.cache_s3_location required")
+        out["cache_s3_location"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("name") is not None:
@@ -72,7 +70,7 @@ def deserialize_json(data: dict) -> CreateRunCacheRequest:
     if data.get("requestId") is not None:
         out["request_id"] = data["requestId"]
     else:
-        raise DeserializationError("CreateRunCacheRequest.request_id required")
+        out["request_id"] = ""
     if data.get("tags") is not None:
         import capo_omics.types.tag_map
 

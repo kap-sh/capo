@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.ephemeral_storage_size
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> EphemeralStorage:
     if data.get("Size") is not None:
         out["size"] = data["Size"]
     else:
-        raise DeserializationError("EphemeralStorage.size required")
+        out["size"] = 0
     return out

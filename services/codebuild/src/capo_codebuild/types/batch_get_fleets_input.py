@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.fleet_names
 
@@ -35,5 +33,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetFleetsInput:
             data["names"]
         )
     else:
-        raise DeserializationError("BatchGetFleetsInput.names required")
+        out["names"] = []
     return out

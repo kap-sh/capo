@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudhsm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudhsm.types.string
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteHapgResponse:
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("DeleteHapgResponse.status required")
+        out["status"] = ""
     return out

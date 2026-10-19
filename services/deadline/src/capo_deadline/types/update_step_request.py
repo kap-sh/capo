@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.client_token
     import capo_deadline.types.farm_id
@@ -56,5 +54,10 @@ def deserialize_json(data: dict) -> UpdateStepRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateStepRequest.target_task_run_status required")
+        import typing
+
+        out["target_task_run_status"] = typing.cast(
+            "capo_deadline.types.step_target_task_run_status.StepTargetTaskRunStatus",
+            "",
+        )
     return out

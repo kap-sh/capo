@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.date_timestamp
     import capo_bedrock_agent_runtime.types.uuid
@@ -38,11 +36,11 @@ def deserialize_json(data: dict) -> CreateInvocationResponse:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("CreateInvocationResponse.session_id required")
+        out["session_id"] = ""
     if data.get("invocationId") is not None:
         out["invocation_id"] = data["invocationId"]
     else:
-        raise DeserializationError("CreateInvocationResponse.invocation_id required")
+        out["invocation_id"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock_agent_runtime.types.date_timestamp
 
@@ -52,5 +50,7 @@ def deserialize_json(data: dict) -> CreateInvocationResponse:
             )
         )
     else:
-        raise DeserializationError("CreateInvocationResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

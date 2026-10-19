@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.non_empty_string
     import capo_chime_sdk_voice.types.sma_update_call_arguments_map
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> UpdateSipMediaApplicationCallRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateSipMediaApplicationCallRequest.arguments required"
-        )
+        out["arguments"] = {}
     return out
 
 

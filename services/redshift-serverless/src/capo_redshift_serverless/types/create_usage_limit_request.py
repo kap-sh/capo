@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.usage_limit_breach_action
     import capo_redshift_serverless.types.usage_limit_period
@@ -49,15 +47,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateUsageLimitRequest:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("CreateUsageLimitRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("usageType") is not None:
         out["usage_type"] = data["usageType"]
     else:
-        raise DeserializationError("CreateUsageLimitRequest.usage_type required")
+        out["usage_type"] = ""
     if data.get("amount") is not None:
         out["amount"] = data["amount"]
     else:
-        raise DeserializationError("CreateUsageLimitRequest.amount required")
+        out["amount"] = 0
     if data.get("period") is not None:
         out["period"] = data["period"]
     if data.get("breachAction") is not None:

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.s3_tables_bucket_arn
@@ -32,10 +31,10 @@ def deserialize_xml(el: Element) -> S3TablesDestination:
     if child_table_bucket_arn is not None:
         out["table_bucket_arn"] = str(child_table_bucket_arn.text or "")
     else:
-        raise DeserializationError("S3TablesDestination.table_bucket_arn required")
+        out["table_bucket_arn"] = ""
     child_table_name = el.find("TableName")
     if child_table_name is not None:
         out["table_name"] = str(child_table_name.text or "")
     else:
-        raise DeserializationError("S3TablesDestination.table_name required")
+        out["table_name"] = ""
     return out

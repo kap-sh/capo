@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.finding_summary_list
     import capo_ssm_incidents.types.next_token
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> ListIncidentFindingsOutput:
             )
         )
     else:
-        raise DeserializationError("ListIncidentFindingsOutput.findings required")
+        out["findings"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

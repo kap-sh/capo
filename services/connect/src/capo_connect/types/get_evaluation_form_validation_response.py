@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.evaluation_form_validation_failure_reason
     import capo_connect.types.evaluation_form_validation_finding_list
@@ -73,17 +71,18 @@ def deserialize_json(data: dict) -> GetEvaluationFormValidationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetEvaluationFormValidationResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_connect.types.evaluation_form_validation_status.EvaluationFormValidationStatus",
+            "",
         )
     if data.get("FailureReason") is not None:
         out["failure_reason"] = data["FailureReason"]
     if data.get("EvaluationFormId") is not None:
         out["evaluation_form_id"] = data["EvaluationFormId"]
     else:
-        raise DeserializationError(
-            "GetEvaluationFormValidationResponse.evaluation_form_id required"
-        )
+        out["evaluation_form_id"] = ""
     if data.get("EvaluationFormVersion") is not None:
         out["evaluation_form_version"] = data["EvaluationFormVersion"]
     else:
@@ -95,8 +94,10 @@ def deserialize_json(data: dict) -> GetEvaluationFormValidationResponse:
             data["StartedTime"]
         )
     else:
-        raise DeserializationError(
-            "GetEvaluationFormValidationResponse.started_time required"
+        import datetime
+
+        out["started_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("Findings") is not None:
         import capo_connect.types.evaluation_form_validation_finding_list

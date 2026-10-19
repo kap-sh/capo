@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_trustedadvisor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_trustedadvisor.types.organization_recommendation_identifier
     import capo_trustedadvisor.types.recommendation_update_reason
@@ -62,8 +60,11 @@ def deserialize_json(data: dict) -> UpdateOrganizationRecommendationLifecycleReq
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateOrganizationRecommendationLifecycleRequest.lifecycle_stage required"
+        import typing
+
+        out["lifecycle_stage"] = typing.cast(
+            "capo_trustedadvisor.types.update_recommendation_lifecycle_stage.UpdateRecommendationLifecycleStage",
+            "",
         )
     if data.get("updateReason") is not None:
         out["update_reason"] = data["updateReason"]

@@ -56,7 +56,7 @@ def deserialize_json(data: dict) -> ExportVectorEnrichmentJobOutput:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("ExportVectorEnrichmentJobOutput.arn required")
+        out["arn"] = ""
     if data.get("CreationTime") is not None:
         import datetime
 
@@ -64,21 +64,19 @@ def deserialize_json(data: dict) -> ExportVectorEnrichmentJobOutput:
             data["CreationTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "ExportVectorEnrichmentJobOutput.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("ExecutionRoleArn") is not None:
         out["execution_role_arn"] = data["ExecutionRoleArn"]
     else:
-        raise DeserializationError(
-            "ExportVectorEnrichmentJobOutput.execution_role_arn required"
-        )
+        out["execution_role_arn"] = ""
     if data.get("ExportStatus") is not None:
         out["export_status"] = data["ExportStatus"]
     else:
-        raise DeserializationError(
-            "ExportVectorEnrichmentJobOutput.export_status required"
-        )
+        out["export_status"] = ""
     if data.get("OutputConfig") is not None:
         import capo_sagemaker_geospatial.types.export_vector_enrichment_job_output_config
 

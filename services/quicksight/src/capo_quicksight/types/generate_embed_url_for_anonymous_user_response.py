@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.embedding_url
@@ -38,21 +36,15 @@ def deserialize_json(data: dict) -> GenerateEmbedUrlForAnonymousUserResponse:
     if data.get("EmbedUrl") is not None:
         out["embed_url"] = data["EmbedUrl"]
     else:
-        raise DeserializationError(
-            "GenerateEmbedUrlForAnonymousUserResponse.embed_url required"
-        )
+        out["embed_url"] = ""
     if data.get("RequestId") is not None:
         out["request_id"] = data["RequestId"]
     else:
-        raise DeserializationError(
-            "GenerateEmbedUrlForAnonymousUserResponse.request_id required"
-        )
+        out["request_id"] = ""
     if data.get("AnonymousUserArn") is not None:
         out["anonymous_user_arn"] = data["AnonymousUserArn"]
     else:
-        raise DeserializationError(
-            "GenerateEmbedUrlForAnonymousUserResponse.anonymous_user_arn required"
-        )
+        out["anonymous_user_arn"] = ""
     return out
 
 

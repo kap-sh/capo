@@ -71,9 +71,7 @@ def deserialize_json(data: dict) -> EvaluationFormItemEnablementExpression:
             )
         )
     else:
-        raise DeserializationError(
-            "EvaluationFormItemEnablementExpression.values required"
-        )
+        out["values"] = []
     if data.get("Comparator") is not None:
         import capo_connect.types.evaluation_form_item_source_values_comparator
 
@@ -83,7 +81,10 @@ def deserialize_json(data: dict) -> EvaluationFormItemEnablementExpression:
             )
         )
     else:
-        raise DeserializationError(
-            "EvaluationFormItemEnablementExpression.comparator required"
+        import typing
+
+        out["comparator"] = typing.cast(
+            "capo_connect.types.evaluation_form_item_source_values_comparator.EvaluationFormItemSourceValuesComparator",
+            "",
         )
     return out

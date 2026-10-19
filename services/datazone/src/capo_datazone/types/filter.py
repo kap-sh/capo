@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.attribute
     import capo_datazone.types.filter_operator
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> Filter:
     if data.get("attribute") is not None:
         out["attribute"] = data["attribute"]
     else:
-        raise DeserializationError("Filter.attribute required")
+        out["attribute"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:

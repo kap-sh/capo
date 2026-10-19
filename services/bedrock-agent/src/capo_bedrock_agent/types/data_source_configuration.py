@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.confluence_data_source_configuration
     import capo_bedrock_agent.types.data_source_type
@@ -113,7 +111,11 @@ def deserialize_json(data: dict) -> DataSourceConfiguration:
             data["type"]
         )
     else:
-        raise DeserializationError("DataSourceConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent.types.data_source_type.DataSourceType", ""
+        )
     if data.get("managedKnowledgeBaseConnectorConfiguration") is not None:
         import capo_bedrock_agent.types.managed_knowledge_base_connector_configuration
 

@@ -39,7 +39,7 @@ def deserialize_json(data: dict) -> SourceConfiguration:
     if data.get("sourceEnvironment") is not None:
         out["source_environment"] = data["sourceEnvironment"]
     else:
-        raise DeserializationError("SourceConfiguration.source_environment required")
+        out["source_environment"] = ""
     if data.get("sourceS3Configuration") is not None:
         import capo_mgn.types.source_s3_configuration
 

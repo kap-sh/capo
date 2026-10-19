@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_finspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace.types.availability_zone_id
     import capo_finspace.types.client_token
@@ -49,23 +47,19 @@ def deserialize_json(data: dict) -> CreateKxScalingGroupRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CreateKxScalingGroupRequest.client_token required")
+        out["client_token"] = ""
     if data.get("scalingGroupName") is not None:
         out["scaling_group_name"] = data["scalingGroupName"]
     else:
-        raise DeserializationError(
-            "CreateKxScalingGroupRequest.scaling_group_name required"
-        )
+        out["scaling_group_name"] = ""
     if data.get("hostType") is not None:
         out["host_type"] = data["hostType"]
     else:
-        raise DeserializationError("CreateKxScalingGroupRequest.host_type required")
+        out["host_type"] = ""
     if data.get("availabilityZoneId") is not None:
         out["availability_zone_id"] = data["availabilityZoneId"]
     else:
-        raise DeserializationError(
-            "CreateKxScalingGroupRequest.availability_zone_id required"
-        )
+        out["availability_zone_id"] = ""
     if data.get("tags") is not None:
         import capo_finspace.types.tag_map
 

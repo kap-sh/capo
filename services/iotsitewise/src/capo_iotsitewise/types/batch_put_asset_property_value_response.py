@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.batch_put_asset_property_error_entries
 
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> BatchPutAssetPropertyValueResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchPutAssetPropertyValueResponse.error_entries required"
-        )
+        out["error_entries"] = []
     return out

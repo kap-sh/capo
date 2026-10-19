@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.cloud_watch_filter_config
     import capo_bedrock_agentcore.types.evaluation_string_list
@@ -77,7 +75,7 @@ def deserialize_json(data: dict) -> CloudWatchLogsSource:
             )
         )
     else:
-        raise DeserializationError("CloudWatchLogsSource.service_names required")
+        out["service_names"] = []
     if data.get("logGroupNames") is not None:
         import capo_bedrock_agentcore.types.log_group_name_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.line_string
 
@@ -38,9 +36,9 @@ def deserialize_json(data: dict) -> Corridor:
             data["LineString"]
         )
     else:
-        raise DeserializationError("Corridor.line_string required")
+        out["line_string"] = []
     if data.get("Radius") is not None:
         out["radius"] = data["Radius"]
     else:
-        raise DeserializationError("Corridor.radius required")
+        out["radius"] = 0
     return out

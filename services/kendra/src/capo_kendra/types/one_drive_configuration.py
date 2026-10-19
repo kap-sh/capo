@@ -81,11 +81,11 @@ def deserialize_aws_json_1_1(data: dict) -> OneDriveConfiguration:
     if data.get("TenantDomain") is not None:
         out["tenant_domain"] = data["TenantDomain"]
     else:
-        raise DeserializationError("OneDriveConfiguration.tenant_domain required")
+        out["tenant_domain"] = ""
     if data.get("SecretArn") is not None:
         out["secret_arn"] = data["SecretArn"]
     else:
-        raise DeserializationError("OneDriveConfiguration.secret_arn required")
+        out["secret_arn"] = ""
     if data.get("OneDriveUsers") is not None:
         import capo_kendra.types.one_drive_users
 

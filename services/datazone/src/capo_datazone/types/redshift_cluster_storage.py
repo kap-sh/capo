@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 
 class RedshiftClusterStorage(TypedDict, closed=True):
     cluster_name: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> RedshiftClusterStorage:
     if data.get("clusterName") is not None:
         out["cluster_name"] = data["clusterName"]
     else:
-        raise DeserializationError("RedshiftClusterStorage.cluster_name required")
+        out["cluster_name"] = ""
     return out

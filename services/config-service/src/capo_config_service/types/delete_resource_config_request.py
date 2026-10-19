@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.resource_id
     import capo_config_service.types.resource_type_string
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteResourceConfigRequest:
     if data.get("ResourceType") is not None:
         out["resource_type"] = data["ResourceType"]
     else:
-        raise DeserializationError("DeleteResourceConfigRequest.resource_type required")
+        out["resource_type"] = ""
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("DeleteResourceConfigRequest.resource_id required")
+        out["resource_id"] = ""
     return out

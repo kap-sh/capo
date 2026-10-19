@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.account_id
     import capo_mgn.types.s3_bucket_name
@@ -35,15 +33,13 @@ def deserialize_json(data: dict) -> EnrichmentTargetS3Configuration:
     if data.get("s3Bucket") is not None:
         out["s3_bucket"] = data["s3Bucket"]
     else:
-        raise DeserializationError("EnrichmentTargetS3Configuration.s3_bucket required")
+        out["s3_bucket"] = ""
     if data.get("s3BucketOwner") is not None:
         out["s3_bucket_owner"] = data["s3BucketOwner"]
     else:
-        raise DeserializationError(
-            "EnrichmentTargetS3Configuration.s3_bucket_owner required"
-        )
+        out["s3_bucket_owner"] = ""
     if data.get("s3Key") is not None:
         out["s3_key"] = data["s3Key"]
     else:
-        raise DeserializationError("EnrichmentTargetS3Configuration.s3_key required")
+        out["s3_key"] = ""
     return out

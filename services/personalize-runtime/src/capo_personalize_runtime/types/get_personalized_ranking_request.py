@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_personalize_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize_runtime.types.arn
     import capo_personalize_runtime.types.context
@@ -78,9 +76,7 @@ def deserialize_json(data: dict) -> GetPersonalizedRankingRequest:
     if data.get("campaignArn") is not None:
         out["campaign_arn"] = data["campaignArn"]
     else:
-        raise DeserializationError(
-            "GetPersonalizedRankingRequest.campaign_arn required"
-        )
+        out["campaign_arn"] = ""
     if data.get("inputList") is not None:
         import capo_personalize_runtime.types.input_list
 
@@ -88,11 +84,11 @@ def deserialize_json(data: dict) -> GetPersonalizedRankingRequest:
             data["inputList"]
         )
     else:
-        raise DeserializationError("GetPersonalizedRankingRequest.input_list required")
+        out["input_list"] = []
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
     else:
-        raise DeserializationError("GetPersonalizedRankingRequest.user_id required")
+        out["user_id"] = ""
     if data.get("context") is not None:
         import capo_personalize_runtime.types.context
 

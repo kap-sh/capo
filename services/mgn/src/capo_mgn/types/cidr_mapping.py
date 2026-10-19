@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.cidr
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> CidrMapping:
     if data.get("originalCidr") is not None:
         out["original_cidr"] = data["originalCidr"]
     else:
-        raise DeserializationError("CidrMapping.original_cidr required")
+        out["original_cidr"] = ""
     if data.get("updatedCidr") is not None:
         out["updated_cidr"] = data["updatedCidr"]
     else:
-        raise DeserializationError("CidrMapping.updated_cidr required")
+        out["updated_cidr"] = ""
     return out

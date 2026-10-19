@@ -71,11 +71,11 @@ def deserialize_json(data: dict) -> SpendingLimitSummary:
     if data.get("spendingLimitArn") is not None:
         out["spending_limit_arn"] = data["spendingLimitArn"]
     else:
-        raise DeserializationError("SpendingLimitSummary.spending_limit_arn required")
+        out["spending_limit_arn"] = ""
     if data.get("deviceArn") is not None:
         out["device_arn"] = data["deviceArn"]
     else:
-        raise DeserializationError("SpendingLimitSummary.device_arn required")
+        out["device_arn"] = ""
     if data.get("timePeriod") is not None:
         import capo_braket.types.time_period
 
@@ -87,15 +87,15 @@ def deserialize_json(data: dict) -> SpendingLimitSummary:
     if data.get("spendingLimit") is not None:
         out["spending_limit"] = data["spendingLimit"]
     else:
-        raise DeserializationError("SpendingLimitSummary.spending_limit required")
+        out["spending_limit"] = ""
     if data.get("queuedSpend") is not None:
         out["queued_spend"] = data["queuedSpend"]
     else:
-        raise DeserializationError("SpendingLimitSummary.queued_spend required")
+        out["queued_spend"] = ""
     if data.get("totalSpend") is not None:
         out["total_spend"] = data["totalSpend"]
     else:
-        raise DeserializationError("SpendingLimitSummary.total_spend required")
+        out["total_spend"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -103,7 +103,9 @@ def deserialize_json(data: dict) -> SpendingLimitSummary:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("SpendingLimitSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import datetime
 
@@ -111,7 +113,9 @@ def deserialize_json(data: dict) -> SpendingLimitSummary:
             data["updatedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("SpendingLimitSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("tags") is not None:
         import capo_braket.types.tags_map
 

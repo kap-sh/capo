@@ -112,13 +112,11 @@ def deserialize_json(data: dict) -> ManagedNotificationChildEvent:
     if data.get("schemaVersion") is not None:
         out["schema_version"] = data["schemaVersion"]
     else:
-        raise DeserializationError(
-            "ManagedNotificationChildEvent.schema_version required"
-        )
+        out["schema_version"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ManagedNotificationChildEvent.id required")
+        out["id"] = ""
     if data.get("messageComponents") is not None:
         import capo_notifications.types.message_components
 
@@ -140,9 +138,7 @@ def deserialize_json(data: dict) -> ManagedNotificationChildEvent:
     if data.get("notificationType") is not None:
         out["notification_type"] = data["notificationType"]
     else:
-        raise DeserializationError(
-            "ManagedNotificationChildEvent.notification_type required"
-        )
+        out["notification_type"] = ""
     if data.get("eventStatus") is not None:
         out["event_status"] = data["eventStatus"]
     if data.get("aggregateManagedNotificationEventArn") is not None:
@@ -150,9 +146,7 @@ def deserialize_json(data: dict) -> ManagedNotificationChildEvent:
             "aggregateManagedNotificationEventArn"
         ]
     else:
-        raise DeserializationError(
-            "ManagedNotificationChildEvent.aggregate_managed_notification_event_arn required"
-        )
+        out["aggregate_managed_notification_event_arn"] = ""
     if data.get("startTime") is not None:
         import datetime
 
@@ -172,7 +166,7 @@ def deserialize_json(data: dict) -> ManagedNotificationChildEvent:
             data["textParts"]
         )
     else:
-        raise DeserializationError("ManagedNotificationChildEvent.text_parts required")
+        out["text_parts"] = {}
     if data.get("organizationalUnitId") is not None:
         out["organizational_unit_id"] = data["organizationalUnitId"]
     if data.get("aggregationDetail") is not None:

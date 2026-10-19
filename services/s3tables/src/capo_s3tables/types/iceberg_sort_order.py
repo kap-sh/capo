@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3tables.types.iceberg_sort_field_list
 
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> IcebergSortOrder:
     if data.get("order-id") is not None:
         out["order_id"] = data["order-id"]
     else:
-        raise DeserializationError("IcebergSortOrder.order_id required")
+        out["order_id"] = 0
     if data.get("fields") is not None:
         import capo_s3tables.types.iceberg_sort_field_list
 
@@ -42,5 +40,5 @@ def deserialize_json(data: dict) -> IcebergSortOrder:
             data["fields"]
         )
     else:
-        raise DeserializationError("IcebergSortOrder.fields required")
+        out["fields"] = []
     return out

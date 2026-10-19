@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.string
 
@@ -30,13 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> ExpressGatewayServiceAwsLogsConfigur
     if data.get("logGroup") is not None:
         out["log_group"] = data["logGroup"]
     else:
-        raise DeserializationError(
-            "ExpressGatewayServiceAwsLogsConfiguration.log_group required"
-        )
+        out["log_group"] = ""
     if data.get("logStreamPrefix") is not None:
         out["log_stream_prefix"] = data["logStreamPrefix"]
     else:
-        raise DeserializationError(
-            "ExpressGatewayServiceAwsLogsConfiguration.log_stream_prefix required"
-        )
+        out["log_stream_prefix"] = ""
     return out

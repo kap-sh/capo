@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.condition
 
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> Filter:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("Filter.key required")
+        out["key"] = ""
     if data.get("condition") is not None:
         import capo_ssm_incidents.types.condition
 
@@ -42,5 +40,7 @@ def deserialize_json(data: dict) -> Filter:
             data["condition"]
         )
     else:
-        raise DeserializationError("Filter.condition required")
+        import capo_ssm_incidents.types._unknown
+
+        out["condition"] = capo_ssm_incidents.types._unknown.UnknownUnionMember("")
     return out

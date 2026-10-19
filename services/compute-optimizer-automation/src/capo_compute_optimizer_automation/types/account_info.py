@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_compute_optimizer_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -62,7 +60,7 @@ def deserialize_aws_json_1_0(data: dict) -> AccountInfo:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("AccountInfo.account_id required")
+        out["account_id"] = ""
     if data.get("status") is not None:
         import capo_compute_optimizer_automation.types.enrollment_status
 
@@ -72,7 +70,12 @@ def deserialize_aws_json_1_0(data: dict) -> AccountInfo:
             )
         )
     else:
-        raise DeserializationError("AccountInfo.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_compute_optimizer_automation.types.enrollment_status.EnrollmentStatus",
+            "",
+        )
     if data.get("organizationRuleMode") is not None:
         import capo_compute_optimizer_automation.types.organization_rule_mode
 
@@ -82,7 +85,12 @@ def deserialize_aws_json_1_0(data: dict) -> AccountInfo:
             )
         )
     else:
-        raise DeserializationError("AccountInfo.organization_rule_mode required")
+        import typing
+
+        out["organization_rule_mode"] = typing.cast(
+            "capo_compute_optimizer_automation.types.organization_rule_mode.OrganizationRuleMode",
+            "",
+        )
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
     if data.get("lastUpdatedTimestamp") is not None:
@@ -94,5 +102,9 @@ def deserialize_aws_json_1_0(data: dict) -> AccountInfo:
             )
         )
     else:
-        raise DeserializationError("AccountInfo.last_updated_timestamp required")
+        import datetime
+
+        out["last_updated_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

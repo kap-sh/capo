@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appconfig.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appconfig.types.configuration_profile_type
     import capo_appconfig.types.description
@@ -74,15 +72,13 @@ def deserialize_json(data: dict) -> CreateConfigurationProfileRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateConfigurationProfileRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("LocationUri") is not None:
         out["location_uri"] = data["LocationUri"]
     else:
-        raise DeserializationError(
-            "CreateConfigurationProfileRequest.location_uri required"
-        )
+        out["location_uri"] = ""
     if data.get("RetrievalRoleArn") is not None:
         out["retrieval_role_arn"] = data["RetrievalRoleArn"]
     if data.get("Validators") is not None:

@@ -60,11 +60,11 @@ def deserialize_json(data: dict) -> CodeSigningConfig:
     if data.get("CodeSigningConfigId") is not None:
         out["code_signing_config_id"] = data["CodeSigningConfigId"]
     else:
-        raise DeserializationError("CodeSigningConfig.code_signing_config_id required")
+        out["code_signing_config_id"] = ""
     if data.get("CodeSigningConfigArn") is not None:
         out["code_signing_config_arn"] = data["CodeSigningConfigArn"]
     else:
-        raise DeserializationError("CodeSigningConfig.code_signing_config_arn required")
+        out["code_signing_config_arn"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("AllowedPublishers") is not None:
@@ -90,5 +90,5 @@ def deserialize_json(data: dict) -> CodeSigningConfig:
     if data.get("LastModified") is not None:
         out["last_modified"] = data["LastModified"]
     else:
-        raise DeserializationError("CodeSigningConfig.last_modified required")
+        out["last_modified"] = ""
     return out

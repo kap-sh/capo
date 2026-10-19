@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.interceptor_payload_filter
 
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> InterceptorInputConfiguration:
     if data.get("passRequestHeaders") is not None:
         out["pass_request_headers"] = data["passRequestHeaders"]
     else:
-        raise DeserializationError(
-            "InterceptorInputConfiguration.pass_request_headers required"
-        )
+        out["pass_request_headers"] = False
     if data.get("payloadFilter") is not None:
         import capo_bedrock_agentcore_control.types.interceptor_payload_filter
 

@@ -163,15 +163,15 @@ def deserialize_aws_json_1_0(data: dict) -> ScheduledQueryDescription:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("ScheduledQueryDescription.arn required")
+        out["arn"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ScheduledQueryDescription.name required")
+        out["name"] = ""
     if data.get("QueryString") is not None:
         out["query_string"] = data["QueryString"]
     else:
-        raise DeserializationError("ScheduledQueryDescription.query_string required")
+        out["query_string"] = ""
     if data.get("CreationTime") is not None:
         import capo_timestream_query.types.time
 
@@ -189,7 +189,11 @@ def deserialize_aws_json_1_0(data: dict) -> ScheduledQueryDescription:
             )
         )
     else:
-        raise DeserializationError("ScheduledQueryDescription.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_timestream_query.types.scheduled_query_state.ScheduledQueryState", ""
+        )
     if data.get("PreviousInvocationTime") is not None:
         import capo_timestream_query.types.time
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.searchable_contact_attribute_key
     import capo_connect.types.searchable_contact_attribute_value_list
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> SearchableContactAttributesCriteria:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("SearchableContactAttributesCriteria.key required")
+        out["key"] = ""
     if data.get("Values") is not None:
         import capo_connect.types.searchable_contact_attribute_value_list
 
@@ -47,9 +45,7 @@ def deserialize_json(data: dict) -> SearchableContactAttributesCriteria:
             )
         )
     else:
-        raise DeserializationError(
-            "SearchableContactAttributesCriteria.values required"
-        )
+        out["values"] = []
     return out
 
 

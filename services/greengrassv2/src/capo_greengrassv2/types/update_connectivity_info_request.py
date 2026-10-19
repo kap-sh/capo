@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_greengrassv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_greengrassv2.types.connectivity_info_list
     import capo_greengrassv2.types.core_device_thing_name
@@ -44,7 +42,5 @@ def deserialize_json(data: dict) -> UpdateConnectivityInfoRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateConnectivityInfoRequest.connectivity_info required"
-        )
+        out["connectivity_info"] = []
     return out

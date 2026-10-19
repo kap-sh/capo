@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 
 class KeyPressArguments(TypedDict, closed=True):
     key: "str"
@@ -26,7 +24,7 @@ def deserialize_json(data: dict) -> KeyPressArguments:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("KeyPressArguments.key required")
+        out["key"] = ""
     if data.get("presses") is not None:
         out["presses"] = data["presses"]
     return out

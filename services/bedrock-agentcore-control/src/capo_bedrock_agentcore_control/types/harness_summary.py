@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.date_timestamp
     import capo_bedrock_agentcore_control.types.harness_arn
@@ -69,15 +67,15 @@ def deserialize_json(data: dict) -> HarnessSummary:
     if data.get("harnessId") is not None:
         out["harness_id"] = data["harnessId"]
     else:
-        raise DeserializationError("HarnessSummary.harness_id required")
+        out["harness_id"] = ""
     if data.get("harnessName") is not None:
         out["harness_name"] = data["harnessName"]
     else:
-        raise DeserializationError("HarnessSummary.harness_name required")
+        out["harness_name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("HarnessSummary.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.harness_status
 
@@ -87,7 +85,11 @@ def deserialize_json(data: dict) -> HarnessSummary:
             )
         )
     else:
-        raise DeserializationError("HarnessSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.harness_status.HarnessStatus", ""
+        )
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -97,7 +99,9 @@ def deserialize_json(data: dict) -> HarnessSummary:
             )
         )
     else:
-        raise DeserializationError("HarnessSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -107,7 +111,9 @@ def deserialize_json(data: dict) -> HarnessSummary:
             )
         )
     else:
-        raise DeserializationError("HarnessSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("harnessVersion") is not None:
         out["harness_version"] = data["harnessVersion"]
     return out

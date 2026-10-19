@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chatbot.types.chat_configuration_arn
     import capo_chatbot.types.uuid
@@ -33,13 +31,9 @@ def deserialize_json(data: dict) -> DeleteMicrosoftTeamsUserIdentityRequest:
     if data.get("ChatConfigurationArn") is not None:
         out["chat_configuration_arn"] = data["ChatConfigurationArn"]
     else:
-        raise DeserializationError(
-            "DeleteMicrosoftTeamsUserIdentityRequest.chat_configuration_arn required"
-        )
+        out["chat_configuration_arn"] = ""
     if data.get("UserId") is not None:
         out["user_id"] = data["UserId"]
     else:
-        raise DeserializationError(
-            "DeleteMicrosoftTeamsUserIdentityRequest.user_id required"
-        )
+        out["user_id"] = ""
     return out

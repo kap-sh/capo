@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ram.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ram.types.max_results
     import capo_ram.types.string
@@ -36,9 +34,7 @@ def deserialize_json(data: dict) -> ListResourceSharePermissionsRequest:
     if data.get("resourceShareArn") is not None:
         out["resource_share_arn"] = data["resourceShareArn"]
     else:
-        raise DeserializationError(
-            "ListResourceSharePermissionsRequest.resource_share_arn required"
-        )
+        out["resource_share_arn"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

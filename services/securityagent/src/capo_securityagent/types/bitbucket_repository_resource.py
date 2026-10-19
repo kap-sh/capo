@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.bitbucket_workspace
     import capo_securityagent.types.provider_resource_name
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> BitbucketRepositoryResource:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("BitbucketRepositoryResource.name required")
+        out["name"] = ""
     if data.get("workspace") is not None:
         out["workspace"] = data["workspace"]
     else:
-        raise DeserializationError("BitbucketRepositoryResource.workspace required")
+        out["workspace"] = ""
     return out

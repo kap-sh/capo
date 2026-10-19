@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr.types.credential_arn
     import capo_ecr.types.custom_role_arn
@@ -63,15 +61,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePullThroughCacheRuleRequest:
     if data.get("ecrRepositoryPrefix") is not None:
         out["ecr_repository_prefix"] = data["ecrRepositoryPrefix"]
     else:
-        raise DeserializationError(
-            "CreatePullThroughCacheRuleRequest.ecr_repository_prefix required"
-        )
+        out["ecr_repository_prefix"] = ""
     if data.get("upstreamRegistryUrl") is not None:
         out["upstream_registry_url"] = data["upstreamRegistryUrl"]
     else:
-        raise DeserializationError(
-            "CreatePullThroughCacheRuleRequest.upstream_registry_url required"
-        )
+        out["upstream_registry_url"] = ""
     if data.get("registryId") is not None:
         out["registry_id"] = data["registryId"]
     if data.get("upstreamRegistry") is not None:

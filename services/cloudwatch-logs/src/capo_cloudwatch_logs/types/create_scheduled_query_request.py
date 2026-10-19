@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.destination_configuration
     import capo_cloudwatch_logs.types.end_time_offset
@@ -136,7 +134,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateScheduledQueryRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateScheduledQueryRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("queryLanguage") is not None:
@@ -148,13 +146,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateScheduledQueryRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateScheduledQueryRequest.query_language required"
+        import typing
+
+        out["query_language"] = typing.cast(
+            "capo_cloudwatch_logs.types.query_language.QueryLanguage", ""
         )
     if data.get("queryString") is not None:
         out["query_string"] = data["queryString"]
     else:
-        raise DeserializationError("CreateScheduledQueryRequest.query_string required")
+        out["query_string"] = ""
     if data.get("logGroupIdentifiers") is not None:
         import capo_cloudwatch_logs.types.scheduled_query_log_group_identifiers
 
@@ -166,9 +166,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateScheduledQueryRequest:
     if data.get("scheduleExpression") is not None:
         out["schedule_expression"] = data["scheduleExpression"]
     else:
-        raise DeserializationError(
-            "CreateScheduledQueryRequest.schedule_expression required"
-        )
+        out["schedule_expression"] = ""
     if data.get("timezone") is not None:
         out["timezone"] = data["timezone"]
     if data.get("startTimeOffset") is not None:
@@ -190,9 +188,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateScheduledQueryRequest:
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:
-        raise DeserializationError(
-            "CreateScheduledQueryRequest.execution_role_arn required"
-        )
+        out["execution_role_arn"] = ""
     if data.get("state") is not None:
         import capo_cloudwatch_logs.types.scheduled_query_state
 

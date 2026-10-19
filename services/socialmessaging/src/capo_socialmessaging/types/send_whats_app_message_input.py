@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.whats_app_message_blob
     import capo_socialmessaging.types.whats_app_phone_number_id
@@ -40,9 +38,7 @@ def deserialize_json(data: dict) -> SendWhatsAppMessageInput:
     if data.get("originationPhoneNumberId") is not None:
         out["origination_phone_number_id"] = data["originationPhoneNumberId"]
     else:
-        raise DeserializationError(
-            "SendWhatsAppMessageInput.origination_phone_number_id required"
-        )
+        out["origination_phone_number_id"] = ""
     if data.get("message") is not None:
         import capo_socialmessaging.types.whats_app_message_blob
 
@@ -52,11 +48,11 @@ def deserialize_json(data: dict) -> SendWhatsAppMessageInput:
             )
         )
     else:
-        raise DeserializationError("SendWhatsAppMessageInput.message required")
+        out["message"] = b""
     if data.get("metaApiVersion") is not None:
         out["meta_api_version"] = data["metaApiVersion"]
     else:
-        raise DeserializationError("SendWhatsAppMessageInput.meta_api_version required")
+        out["meta_api_version"] = ""
     return out
 
 

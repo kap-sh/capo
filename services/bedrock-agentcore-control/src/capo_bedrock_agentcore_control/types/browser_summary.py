@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.browser_arn
     import capo_bedrock_agentcore_control.types.browser_id
@@ -73,11 +71,11 @@ def deserialize_json(data: dict) -> BrowserSummary:
     if data.get("browserId") is not None:
         out["browser_id"] = data["browserId"]
     else:
-        raise DeserializationError("BrowserSummary.browser_id required")
+        out["browser_id"] = ""
     if data.get("browserArn") is not None:
         out["browser_arn"] = data["browserArn"]
     else:
-        raise DeserializationError("BrowserSummary.browser_arn required")
+        out["browser_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("description") is not None:
@@ -91,7 +89,11 @@ def deserialize_json(data: dict) -> BrowserSummary:
             )
         )
     else:
-        raise DeserializationError("BrowserSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.browser_status.BrowserStatus", ""
+        )
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -101,7 +103,9 @@ def deserialize_json(data: dict) -> BrowserSummary:
             )
         )
     else:
-        raise DeserializationError("BrowserSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastUpdatedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 

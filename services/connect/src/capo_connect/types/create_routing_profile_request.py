@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.agent_availability_timer
     import capo_connect.types.instance_id
@@ -94,17 +92,15 @@ def deserialize_json(data: dict) -> CreateRoutingProfileRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateRoutingProfileRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("CreateRoutingProfileRequest.description required")
+        out["description"] = ""
     if data.get("DefaultOutboundQueueId") is not None:
         out["default_outbound_queue_id"] = data["DefaultOutboundQueueId"]
     else:
-        raise DeserializationError(
-            "CreateRoutingProfileRequest.default_outbound_queue_id required"
-        )
+        out["default_outbound_queue_id"] = ""
     if data.get("QueueConfigs") is not None:
         import capo_connect.types.routing_profile_queue_config_list
 
@@ -130,9 +126,7 @@ def deserialize_json(data: dict) -> CreateRoutingProfileRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateRoutingProfileRequest.media_concurrencies required"
-        )
+        out["media_concurrencies"] = []
     if data.get("Tags") is not None:
         import capo_connect.types.tag_map
 

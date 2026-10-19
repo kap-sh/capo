@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.execution_id
     import capo_transfer.types.workflow_id
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeExecutionRequest:
     if data.get("ExecutionId") is not None:
         out["execution_id"] = data["ExecutionId"]
     else:
-        raise DeserializationError("DescribeExecutionRequest.execution_id required")
+        out["execution_id"] = ""
     if data.get("WorkflowId") is not None:
         out["workflow_id"] = data["WorkflowId"]
     else:
-        raise DeserializationError("DescribeExecutionRequest.workflow_id required")
+        out["workflow_id"] = ""
     return out

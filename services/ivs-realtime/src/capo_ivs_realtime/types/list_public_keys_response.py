@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs_realtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.pagination_token
     import capo_ivs_realtime.types.public_key_list
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ListPublicKeysResponse:
             data["publicKeys"]
         )
     else:
-        raise DeserializationError("ListPublicKeysResponse.public_keys required")
+        out["public_keys"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

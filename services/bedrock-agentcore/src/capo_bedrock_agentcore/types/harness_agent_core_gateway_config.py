@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.gateway_arn
     import capo_bedrock_agentcore.types.harness_gateway_outbound_auth
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> HarnessAgentCoreGatewayConfig:
     if data.get("gatewayArn") is not None:
         out["gateway_arn"] = data["gatewayArn"]
     else:
-        raise DeserializationError("HarnessAgentCoreGatewayConfig.gateway_arn required")
+        out["gateway_arn"] = ""
     if data.get("outboundAuth") is not None:
         import capo_bedrock_agentcore.types.harness_gateway_outbound_auth
 

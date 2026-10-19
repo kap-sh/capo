@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.table_name
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeGlobalTableInput:
     if data.get("GlobalTableName") is not None:
         out["global_table_name"] = data["GlobalTableName"]
     else:
-        raise DeserializationError(
-            "DescribeGlobalTableInput.global_table_name required"
-        )
+        out["global_table_name"] = ""
     return out

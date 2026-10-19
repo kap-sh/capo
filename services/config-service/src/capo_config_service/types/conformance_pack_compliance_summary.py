@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.conformance_pack_compliance_type
     import capo_config_service.types.conformance_pack_name
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> ConformancePackComplianceSummary:
     if data.get("ConformancePackName") is not None:
         out["conformance_pack_name"] = data["ConformancePackName"]
     else:
-        raise DeserializationError(
-            "ConformancePackComplianceSummary.conformance_pack_name required"
-        )
+        out["conformance_pack_name"] = ""
     if data.get("ConformancePackComplianceStatus") is not None:
         import capo_config_service.types.conformance_pack_compliance_type
 
@@ -51,7 +47,10 @@ def deserialize_aws_json_1_1(data: dict) -> ConformancePackComplianceSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "ConformancePackComplianceSummary.conformance_pack_compliance_status required"
+        import typing
+
+        out["conformance_pack_compliance_status"] = typing.cast(
+            "capo_config_service.types.conformance_pack_compliance_type.ConformancePackComplianceType",
+            "",
         )
     return out

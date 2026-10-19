@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.s3_bucket_name
     import capo_deadline.types.s3_key
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> S3Location:
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError("S3Location.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("S3Location.key required")
+        out["key"] = ""
     return out

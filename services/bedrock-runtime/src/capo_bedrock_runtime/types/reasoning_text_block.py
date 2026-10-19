@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 
 class ReasoningTextBlock(TypedDict, closed=True):
     text: "str"
@@ -26,7 +24,7 @@ def deserialize_json(data: dict) -> ReasoningTextBlock:
     if data.get("text") is not None:
         out["text"] = data["text"]
     else:
-        raise DeserializationError("ReasoningTextBlock.text required")
+        out["text"] = ""
     if data.get("signature") is not None:
         out["signature"] = data["signature"]
     return out

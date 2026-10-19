@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eks.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eks.types.boxed_boolean
     import capo_eks.types.string
@@ -59,21 +57,15 @@ def deserialize_json(data: dict) -> CreatePodIdentityAssociationRequest:
     if data.get("namespace") is not None:
         out["namespace"] = data["namespace"]
     else:
-        raise DeserializationError(
-            "CreatePodIdentityAssociationRequest.namespace required"
-        )
+        out["namespace"] = ""
     if data.get("serviceAccount") is not None:
         out["service_account"] = data["serviceAccount"]
     else:
-        raise DeserializationError(
-            "CreatePodIdentityAssociationRequest.service_account required"
-        )
+        out["service_account"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError(
-            "CreatePodIdentityAssociationRequest.role_arn required"
-        )
+        out["role_arn"] = ""
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     if data.get("tags") is not None:

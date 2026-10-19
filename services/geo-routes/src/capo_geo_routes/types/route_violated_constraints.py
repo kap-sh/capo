@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.dimension_centimeters
     import capo_geo_routes.types.route_hazardous_cargo_type_list
@@ -171,7 +169,7 @@ def deserialize_json(data: dict) -> RouteViolatedConstraints:
             )
         )
     else:
-        raise DeserializationError("RouteViolatedConstraints.hazardous_cargos required")
+        out["hazardous_cargos"] = []
     if data.get("MaxHeight") is not None:
         out["max_height"] = data["MaxHeight"]
     else:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -165,19 +163,19 @@ def deserialize_json(data: dict) -> GetNotebookOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetNotebookOutput.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetNotebookOutput.name required")
+        out["name"] = ""
     if data.get("owningProjectId") is not None:
         out["owning_project_id"] = data["owningProjectId"]
     else:
-        raise DeserializationError("GetNotebookOutput.owning_project_id required")
+        out["owning_project_id"] = ""
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("GetNotebookOutput.domain_id required")
+        out["domain_id"] = ""
     if data.get("cellOrder") is not None:
         import capo_datazone.types.cell_order
 
@@ -185,7 +183,7 @@ def deserialize_json(data: dict) -> GetNotebookOutput:
             data["cellOrder"]
         )
     else:
-        raise DeserializationError("GetNotebookOutput.cell_order required")
+        out["cell_order"] = []
     if data.get("status") is not None:
         import capo_datazone.types.notebook_status
 
@@ -193,7 +191,11 @@ def deserialize_json(data: dict) -> GetNotebookOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("GetNotebookOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_datazone.types.notebook_status.NotebookStatus", ""
+        )
     if data.get("type") is not None:
         import capo_datazone.types.notebook_type
 

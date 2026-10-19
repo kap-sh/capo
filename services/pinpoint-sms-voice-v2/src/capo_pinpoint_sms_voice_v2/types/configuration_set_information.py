@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -80,15 +78,11 @@ def deserialize_aws_json_1_0(data: dict) -> ConfigurationSetInformation:
     if data.get("ConfigurationSetArn") is not None:
         out["configuration_set_arn"] = data["ConfigurationSetArn"]
     else:
-        raise DeserializationError(
-            "ConfigurationSetInformation.configuration_set_arn required"
-        )
+        out["configuration_set_arn"] = ""
     if data.get("ConfigurationSetName") is not None:
         out["configuration_set_name"] = data["ConfigurationSetName"]
     else:
-        raise DeserializationError(
-            "ConfigurationSetInformation.configuration_set_name required"
-        )
+        out["configuration_set_name"] = ""
     if data.get("EventDestinations") is not None:
         import capo_pinpoint_sms_voice_v2.types.event_destination_list
 
@@ -98,9 +92,7 @@ def deserialize_aws_json_1_0(data: dict) -> ConfigurationSetInformation:
             )
         )
     else:
-        raise DeserializationError(
-            "ConfigurationSetInformation.event_destinations required"
-        )
+        out["event_destinations"] = []
     if data.get("DefaultMessageType") is not None:
         out["default_message_type"] = data["DefaultMessageType"]
     if data.get("DefaultSenderId") is not None:
@@ -116,8 +108,10 @@ def deserialize_aws_json_1_0(data: dict) -> ConfigurationSetInformation:
             )
         )
     else:
-        raise DeserializationError(
-            "ConfigurationSetInformation.created_timestamp required"
+        import datetime
+
+        out["created_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("ProtectConfigurationId") is not None:
         out["protect_configuration_id"] = data["ProtectConfigurationId"]

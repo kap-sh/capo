@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_elementalinference.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -57,11 +55,11 @@ def deserialize_json(data: dict) -> GetFixtureResponse:
     if data.get("fixtureId") is not None:
         out["fixture_id"] = data["fixtureId"]
     else:
-        raise DeserializationError("GetFixtureResponse.fixture_id required")
+        out["fixture_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetFixtureResponse.name required")
+        out["name"] = ""
     if data.get("fixtureGroup") is not None:
         out["fixture_group"] = data["fixtureGroup"]
     if data.get("scheduledStart") is not None:
@@ -73,7 +71,7 @@ def deserialize_json(data: dict) -> GetFixtureResponse:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("GetFixtureResponse.status required")
+        out["status"] = ""
     if data.get("competitors") is not None:
         import capo_elementalinference.types.competitor_list
 
@@ -83,5 +81,5 @@ def deserialize_json(data: dict) -> GetFixtureResponse:
             )
         )
     else:
-        raise DeserializationError("GetFixtureResponse.competitors required")
+        out["competitors"] = []
     return out

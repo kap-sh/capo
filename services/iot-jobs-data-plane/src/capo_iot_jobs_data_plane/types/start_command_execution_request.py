@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_jobs_data_plane.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_jobs_data_plane.types.client_request_token_v2
     import capo_iot_jobs_data_plane.types.command_arn
@@ -58,11 +56,11 @@ def deserialize_json(data: dict) -> StartCommandExecutionRequest:
     if data.get("targetArn") is not None:
         out["target_arn"] = data["targetArn"]
     else:
-        raise DeserializationError("StartCommandExecutionRequest.target_arn required")
+        out["target_arn"] = ""
     if data.get("commandArn") is not None:
         out["command_arn"] = data["commandArn"]
     else:
-        raise DeserializationError("StartCommandExecutionRequest.command_arn required")
+        out["command_arn"] = ""
     if data.get("parameters") is not None:
         import capo_iot_jobs_data_plane.types.command_execution_parameter_map
 

@@ -68,7 +68,7 @@ def deserialize_json(data: dict) -> CreateReportPlanInput:
     if data.get("ReportPlanName") is not None:
         out["report_plan_name"] = data["ReportPlanName"]
     else:
-        raise DeserializationError("CreateReportPlanInput.report_plan_name required")
+        out["report_plan_name"] = ""
     if data.get("ReportPlanDescription") is not None:
         out["report_plan_description"] = data["ReportPlanDescription"]
     if data.get("ReportDeliveryChannel") is not None:

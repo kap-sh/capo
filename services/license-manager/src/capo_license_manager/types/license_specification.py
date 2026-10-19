@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.string
 
@@ -31,9 +29,7 @@ def deserialize_aws_json_1_1(data: dict) -> LicenseSpecification:
     if data.get("LicenseConfigurationArn") is not None:
         out["license_configuration_arn"] = data["LicenseConfigurationArn"]
     else:
-        raise DeserializationError(
-            "LicenseSpecification.license_configuration_arn required"
-        )
+        out["license_configuration_arn"] = ""
     if data.get("AmiAssociationScope") is not None:
         out["ami_association_scope"] = data["AmiAssociationScope"]
     return out

@@ -53,7 +53,7 @@ def deserialize_json(data: dict) -> Processor:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Processor.name required")
+        out["name"] = ""
     if data.get("Configuration") is not None:
         import capo_chime_sdk_messaging.types.processor_configuration
 
@@ -67,7 +67,7 @@ def deserialize_json(data: dict) -> Processor:
     if data.get("ExecutionOrder") is not None:
         out["execution_order"] = data["ExecutionOrder"]
     else:
-        raise DeserializationError("Processor.execution_order required")
+        out["execution_order"] = 0
     if data.get("FallbackAction") is not None:
         import capo_chime_sdk_messaging.types.fallback_action
 
@@ -77,7 +77,11 @@ def deserialize_json(data: dict) -> Processor:
             )
         )
     else:
-        raise DeserializationError("Processor.fallback_action required")
+        import typing
+
+        out["fallback_action"] = typing.cast(
+            "capo_chime_sdk_messaging.types.fallback_action.FallbackAction", ""
+        )
     return out
 
 

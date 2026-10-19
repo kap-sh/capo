@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rtbfabric.types.flow_module_name
     import capo_rtbfabric.types.flow_module_name_list
@@ -56,7 +54,7 @@ def deserialize_json(data: dict) -> ModuleConfiguration:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ModuleConfiguration.name required")
+        out["name"] = ""
     if data.get("dependsOn") is not None:
         import capo_rtbfabric.types.flow_module_name_list
 

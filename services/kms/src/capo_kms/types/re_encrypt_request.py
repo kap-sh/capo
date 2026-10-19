@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kms.types.ciphertext_type
     import capo_kms.types.dry_run_modifier_list
@@ -135,7 +133,7 @@ def deserialize_aws_json_1_1(data: dict) -> ReEncryptRequest:
     if data.get("DestinationKeyId") is not None:
         out["destination_key_id"] = data["DestinationKeyId"]
     else:
-        raise DeserializationError("ReEncryptRequest.destination_key_id required")
+        out["destination_key_id"] = ""
     if data.get("DestinationEncryptionContext") is not None:
         import capo_kms.types.encryption_context_type
 

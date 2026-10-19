@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.iso_country_code
     import capo_socialmessaging.types.linked_whats_app_phone_number_arn
@@ -64,39 +62,31 @@ def deserialize_json(data: dict) -> WhatsAppPhoneNumberSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("WhatsAppPhoneNumberSummary.arn required")
+        out["arn"] = ""
     if data.get("phoneNumber") is not None:
         out["phone_number"] = data["phoneNumber"]
     else:
-        raise DeserializationError("WhatsAppPhoneNumberSummary.phone_number required")
+        out["phone_number"] = ""
     if data.get("phoneNumberId") is not None:
         out["phone_number_id"] = data["phoneNumberId"]
     else:
-        raise DeserializationError(
-            "WhatsAppPhoneNumberSummary.phone_number_id required"
-        )
+        out["phone_number_id"] = ""
     if data.get("metaPhoneNumberId") is not None:
         out["meta_phone_number_id"] = data["metaPhoneNumberId"]
     else:
-        raise DeserializationError(
-            "WhatsAppPhoneNumberSummary.meta_phone_number_id required"
-        )
+        out["meta_phone_number_id"] = ""
     if data.get("displayPhoneNumberName") is not None:
         out["display_phone_number_name"] = data["displayPhoneNumberName"]
     else:
-        raise DeserializationError(
-            "WhatsAppPhoneNumberSummary.display_phone_number_name required"
-        )
+        out["display_phone_number_name"] = ""
     if data.get("displayPhoneNumber") is not None:
         out["display_phone_number"] = data["displayPhoneNumber"]
     else:
-        raise DeserializationError(
-            "WhatsAppPhoneNumberSummary.display_phone_number required"
-        )
+        out["display_phone_number"] = ""
     if data.get("qualityRating") is not None:
         out["quality_rating"] = data["qualityRating"]
     else:
-        raise DeserializationError("WhatsAppPhoneNumberSummary.quality_rating required")
+        out["quality_rating"] = ""
     if data.get("dataLocalizationRegion") is not None:
         out["data_localization_region"] = data["dataLocalizationRegion"]
     return out

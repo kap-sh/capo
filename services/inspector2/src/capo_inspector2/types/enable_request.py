@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.account_id_set
     import capo_inspector2.types.client_token
@@ -61,7 +59,7 @@ def deserialize_json(data: dict) -> EnableRequest:
             )
         )
     else:
-        raise DeserializationError("EnableRequest.resource_types required")
+        out["resource_types"] = []
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

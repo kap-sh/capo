@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError, ServiceError
+from capo_connect.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_connect.types.message
@@ -39,7 +39,7 @@ def deserialize_json(data: dict) -> PropertyValidationException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("PropertyValidationException_.message required")
+        out["message"] = ""
     if data.get("PropertyList") is not None:
         import capo_connect.types.property_validation_exception_property_list
 

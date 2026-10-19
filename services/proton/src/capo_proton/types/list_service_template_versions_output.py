@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.next_token
     import capo_proton.types.service_template_version_summary_list
@@ -46,9 +44,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListServiceTemplateVersionsOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListServiceTemplateVersionsOutput.template_versions required"
-        )
+        out["template_versions"] = []
     return out
 
 

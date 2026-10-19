@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -61,15 +59,15 @@ def deserialize_aws_json_1_0(data: dict) -> GetRuleSetResponse:
     if data.get("RuleSetId") is not None:
         out["rule_set_id"] = data["RuleSetId"]
     else:
-        raise DeserializationError("GetRuleSetResponse.rule_set_id required")
+        out["rule_set_id"] = ""
     if data.get("RuleSetArn") is not None:
         out["rule_set_arn"] = data["RuleSetArn"]
     else:
-        raise DeserializationError("GetRuleSetResponse.rule_set_arn required")
+        out["rule_set_arn"] = ""
     if data.get("RuleSetName") is not None:
         out["rule_set_name"] = data["RuleSetName"]
     else:
-        raise DeserializationError("GetRuleSetResponse.rule_set_name required")
+        out["rule_set_name"] = ""
     if data.get("CreatedDate") is not None:
         import capo_mailmanager.types._prelude.timestamp
 
@@ -79,7 +77,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetRuleSetResponse:
             )
         )
     else:
-        raise DeserializationError("GetRuleSetResponse.created_date required")
+        import datetime
+
+        out["created_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("LastModificationDate") is not None:
         import capo_mailmanager.types._prelude.timestamp
 
@@ -89,7 +91,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetRuleSetResponse:
             )
         )
     else:
-        raise DeserializationError("GetRuleSetResponse.last_modification_date required")
+        import datetime
+
+        out["last_modification_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("Rules") is not None:
         import capo_mailmanager.types.rules
 
@@ -97,7 +103,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetRuleSetResponse:
             data["Rules"]
         )
     else:
-        raise DeserializationError("GetRuleSetResponse.rules required")
+        out["rules"] = []
     return out
 
 

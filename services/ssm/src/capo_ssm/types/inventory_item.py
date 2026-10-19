@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.inventory_item_capture_time
     import capo_ssm.types.inventory_item_content_context
@@ -70,15 +68,15 @@ def deserialize_aws_json_1_1(data: dict) -> InventoryItem:
     if data.get("TypeName") is not None:
         out["type_name"] = data["TypeName"]
     else:
-        raise DeserializationError("InventoryItem.type_name required")
+        out["type_name"] = ""
     if data.get("SchemaVersion") is not None:
         out["schema_version"] = data["SchemaVersion"]
     else:
-        raise DeserializationError("InventoryItem.schema_version required")
+        out["schema_version"] = ""
     if data.get("CaptureTime") is not None:
         out["capture_time"] = data["CaptureTime"]
     else:
-        raise DeserializationError("InventoryItem.capture_time required")
+        out["capture_time"] = ""
     if data.get("ContentHash") is not None:
         out["content_hash"] = data["ContentHash"]
     if data.get("Content") is not None:

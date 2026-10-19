@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.flow_description
     import capo_quicksight.types.flow_id
@@ -84,15 +82,15 @@ def deserialize_json(data: dict) -> FlowDetail:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("FlowDetail.arn required")
+        out["arn"] = ""
     if data.get("FlowId") is not None:
         out["flow_id"] = data["FlowId"]
     else:
-        raise DeserializationError("FlowDetail.flow_id required")
+        out["flow_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("FlowDetail.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("PublishState") is not None:
@@ -104,7 +102,11 @@ def deserialize_json(data: dict) -> FlowDetail:
             )
         )
     else:
-        raise DeserializationError("FlowDetail.publish_state required")
+        import typing
+
+        out["publish_state"] = typing.cast(
+            "capo_quicksight.types.flow_publish_state.FlowPublishState", ""
+        )
     if data.get("CreatedTime") is not None:
         import capo_quicksight.types.timestamp
 
@@ -112,7 +114,11 @@ def deserialize_json(data: dict) -> FlowDetail:
             data["CreatedTime"]
         )
     else:
-        raise DeserializationError("FlowDetail.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("CreatedBy") is not None:
         out["created_by"] = data["CreatedBy"]
     if data.get("LastUpdatedTime") is not None:
@@ -126,7 +132,7 @@ def deserialize_json(data: dict) -> FlowDetail:
     if data.get("FlowDefinition") is not None:
         out["flow_definition"] = data["FlowDefinition"]
     else:
-        raise DeserializationError("FlowDetail.flow_definition required")
+        out["flow_definition"] = None
     if data.get("StepAliases") is not None:
         import capo_quicksight.types.step_alias_list
 

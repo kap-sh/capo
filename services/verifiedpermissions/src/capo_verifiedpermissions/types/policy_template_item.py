@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.policy_store_id
     import capo_verifiedpermissions.types.policy_template_description
@@ -66,11 +64,11 @@ def deserialize_aws_json_1_0(data: dict) -> PolicyTemplateItem:
     if data.get("policyStoreId") is not None:
         out["policy_store_id"] = data["policyStoreId"]
     else:
-        raise DeserializationError("PolicyTemplateItem.policy_store_id required")
+        out["policy_store_id"] = ""
     if data.get("policyTemplateId") is not None:
         out["policy_template_id"] = data["policyTemplateId"]
     else:
-        raise DeserializationError("PolicyTemplateItem.policy_template_id required")
+        out["policy_template_id"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("createdDate") is not None:
@@ -82,7 +80,11 @@ def deserialize_aws_json_1_0(data: dict) -> PolicyTemplateItem:
             )
         )
     else:
-        raise DeserializationError("PolicyTemplateItem.created_date required")
+        import datetime
+
+        out["created_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastUpdatedDate") is not None:
         import capo_verifiedpermissions.types.timestamp_format
 
@@ -92,7 +94,11 @@ def deserialize_aws_json_1_0(data: dict) -> PolicyTemplateItem:
             )
         )
     else:
-        raise DeserializationError("PolicyTemplateItem.last_updated_date required")
+        import datetime
+
+        out["last_updated_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("name") is not None:
         out["name"] = data["name"]
     return out

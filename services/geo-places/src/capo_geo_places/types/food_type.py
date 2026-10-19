@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_places.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_places.types.sensitive_boolean
     import capo_geo_places.types.sensitive_string
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> FoodType:
     if data.get("LocalizedName") is not None:
         out["localized_name"] = data["LocalizedName"]
     else:
-        raise DeserializationError("FoodType.localized_name required")
+        out["localized_name"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     if data.get("Primary") is not None:

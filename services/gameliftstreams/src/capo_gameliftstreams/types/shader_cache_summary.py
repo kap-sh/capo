@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_gameliftstreams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -69,11 +67,11 @@ def deserialize_json(data: dict) -> ShaderCacheSummary:
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("ShaderCacheSummary.identifier required")
+        out["identifier"] = ""
     if data.get("ApplicationArn") is not None:
         out["application_arn"] = data["ApplicationArn"]
     else:
-        raise DeserializationError("ShaderCacheSummary.application_arn required")
+        out["application_arn"] = ""
     if data.get("Status") is not None:
         import capo_gameliftstreams.types.shader_cache_status
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.capability_options
     import capo_b2bi.types.created_date
@@ -91,15 +89,15 @@ def deserialize_aws_json_1_0(data: dict) -> CreatePartnershipResponse:
     if data.get("profileId") is not None:
         out["profile_id"] = data["profileId"]
     else:
-        raise DeserializationError("CreatePartnershipResponse.profile_id required")
+        out["profile_id"] = ""
     if data.get("partnershipId") is not None:
         out["partnership_id"] = data["partnershipId"]
     else:
-        raise DeserializationError("CreatePartnershipResponse.partnership_id required")
+        out["partnership_id"] = ""
     if data.get("partnershipArn") is not None:
         out["partnership_arn"] = data["partnershipArn"]
     else:
-        raise DeserializationError("CreatePartnershipResponse.partnership_arn required")
+        out["partnership_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("email") is not None:
@@ -131,7 +129,9 @@ def deserialize_aws_json_1_0(data: dict) -> CreatePartnershipResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("CreatePartnershipResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

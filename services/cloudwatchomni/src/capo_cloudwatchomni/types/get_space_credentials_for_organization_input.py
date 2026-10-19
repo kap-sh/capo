@@ -61,7 +61,10 @@ def deserialize_cbor(data: dict) -> GetSpaceCredentialsForOrganizationInput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetSpaceCredentialsForOrganizationInput.credential_type required"
+        import typing
+
+        out["credential_type"] = typing.cast(
+            "capo_cloudwatchomni.types.organization_credential_type.OrganizationCredentialType",
+            "",
         )
     return out

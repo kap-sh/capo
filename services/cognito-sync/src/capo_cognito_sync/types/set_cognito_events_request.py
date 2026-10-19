@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cognito_sync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_sync.types.events
     import capo_cognito_sync.types.identity_pool_id
@@ -34,5 +32,5 @@ def deserialize_json(data: dict) -> SetCognitoEventsRequest:
 
         out["events"] = capo_cognito_sync.types.events.deserialize_json(data["Events"])
     else:
-        raise DeserializationError("SetCognitoEventsRequest.events required")
+        out["events"] = {}
     return out

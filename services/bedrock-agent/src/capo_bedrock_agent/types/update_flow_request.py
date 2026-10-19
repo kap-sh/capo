@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.flow_definition
     import capo_bedrock_agent.types.flow_description
@@ -59,13 +57,13 @@ def deserialize_json(data: dict) -> UpdateFlowRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateFlowRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:
-        raise DeserializationError("UpdateFlowRequest.execution_role_arn required")
+        out["execution_role_arn"] = ""
     if data.get("customerEncryptionKeyArn") is not None:
         out["customer_encryption_key_arn"] = data["customerEncryptionKeyArn"]
     if data.get("definition") is not None:

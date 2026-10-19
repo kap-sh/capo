@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.label_match_key
     import capo_wafv2.types.label_match_scope
@@ -39,9 +37,13 @@ def deserialize_aws_json_1_1(data: dict) -> LabelMatchStatement:
             data["Scope"]
         )
     else:
-        raise DeserializationError("LabelMatchStatement.scope required")
+        import typing
+
+        out["scope"] = typing.cast(
+            "capo_wafv2.types.label_match_scope.LabelMatchScope", ""
+        )
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("LabelMatchStatement.key required")
+        out["key"] = ""
     return out

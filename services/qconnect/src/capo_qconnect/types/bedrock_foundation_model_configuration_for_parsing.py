@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.bedrock_model_arn_for_parsing
     import capo_qconnect.types.parsing_prompt
@@ -38,9 +36,7 @@ def deserialize_json(data: dict) -> BedrockFoundationModelConfigurationForParsin
     if data.get("modelArn") is not None:
         out["model_arn"] = data["modelArn"]
     else:
-        raise DeserializationError(
-            "BedrockFoundationModelConfigurationForParsing.model_arn required"
-        )
+        out["model_arn"] = ""
     if data.get("parsingPrompt") is not None:
         import capo_qconnect.types.parsing_prompt
 

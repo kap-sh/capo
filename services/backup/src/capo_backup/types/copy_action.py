@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.arn
     import capo_backup.types.lifecycle
@@ -41,5 +39,5 @@ def deserialize_json(data: dict) -> CopyAction:
     if data.get("DestinationBackupVaultArn") is not None:
         out["destination_backup_vault_arn"] = data["DestinationBackupVaultArn"]
     else:
-        raise DeserializationError("CopyAction.destination_backup_vault_arn required")
+        out["destination_backup_vault_arn"] = ""
     return out

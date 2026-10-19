@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_acm_pca.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm_pca.types.positive_long
     import capo_acm_pca.types.validity_period_type
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> Validity:
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("Validity.value required")
+        out["value"] = 0
     if data.get("Type") is not None:
         import capo_acm_pca.types.validity_period_type
 
@@ -43,5 +41,9 @@ def deserialize_aws_json_1_1(data: dict) -> Validity:
             data["Type"]
         )
     else:
-        raise DeserializationError("Validity.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_acm_pca.types.validity_period_type.ValidityPeriodType", ""
+        )
     return out

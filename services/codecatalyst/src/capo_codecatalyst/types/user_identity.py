@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecatalyst.types.user_type
 
@@ -38,11 +36,11 @@ def deserialize_json(data: dict) -> UserIdentity:
     if data.get("userType") is not None:
         out["user_type"] = data["userType"]
     else:
-        raise DeserializationError("UserIdentity.user_type required")
+        out["user_type"] = ""
     if data.get("principalId") is not None:
         out["principal_id"] = data["principalId"]
     else:
-        raise DeserializationError("UserIdentity.principal_id required")
+        out["principal_id"] = ""
     if data.get("userName") is not None:
         out["user_name"] = data["userName"]
     if data.get("awsAccountId") is not None:

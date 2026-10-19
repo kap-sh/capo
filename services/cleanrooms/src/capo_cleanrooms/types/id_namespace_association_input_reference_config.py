@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.id_namespace_association_input_reference_arn
 
@@ -30,13 +28,9 @@ def deserialize_json(data: dict) -> IdNamespaceAssociationInputReferenceConfig:
     if data.get("inputReferenceArn") is not None:
         out["input_reference_arn"] = data["inputReferenceArn"]
     else:
-        raise DeserializationError(
-            "IdNamespaceAssociationInputReferenceConfig.input_reference_arn required"
-        )
+        out["input_reference_arn"] = ""
     if data.get("manageResourcePolicies") is not None:
         out["manage_resource_policies"] = data["manageResourcePolicies"]
     else:
-        raise DeserializationError(
-            "IdNamespaceAssociationInputReferenceConfig.manage_resource_policies required"
-        )
+        out["manage_resource_policies"] = False
     return out

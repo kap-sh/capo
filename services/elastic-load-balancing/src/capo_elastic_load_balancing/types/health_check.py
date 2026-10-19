@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_elastic_load_balancing._protocol.xml import Element
-from capo_elastic_load_balancing.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_elastic_load_balancing.types.health_check_interval
@@ -52,25 +51,25 @@ def deserialize_query(el: Element) -> HealthCheck:
     if child_target is not None:
         out["target"] = str(child_target.text or "")
     else:
-        raise DeserializationError("HealthCheck.target required")
+        out["target"] = ""
     child_interval = el.find("Interval")
     if child_interval is not None:
         out["interval"] = int(child_interval.text or "")
     else:
-        raise DeserializationError("HealthCheck.interval required")
+        out["interval"] = 0
     child_timeout = el.find("Timeout")
     if child_timeout is not None:
         out["timeout"] = int(child_timeout.text or "")
     else:
-        raise DeserializationError("HealthCheck.timeout required")
+        out["timeout"] = 0
     child_unhealthy_threshold = el.find("UnhealthyThreshold")
     if child_unhealthy_threshold is not None:
         out["unhealthy_threshold"] = int(child_unhealthy_threshold.text or "")
     else:
-        raise DeserializationError("HealthCheck.unhealthy_threshold required")
+        out["unhealthy_threshold"] = 0
     child_healthy_threshold = el.find("HealthyThreshold")
     if child_healthy_threshold is not None:
         out["healthy_threshold"] = int(child_healthy_threshold.text or "")
     else:
-        raise DeserializationError("HealthCheck.healthy_threshold required")
+        out["healthy_threshold"] = 0
     return out

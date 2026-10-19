@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_simpledbv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_simpledbv2.types.export_summaries
     import capo_simpledbv2.types.next_token
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> ListExportsResponse:
             )
         )
     else:
-        raise DeserializationError("ListExportsResponse.export_summaries required")
+        out["export_summaries"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.string
@@ -34,7 +33,5 @@ def deserialize_xml(el: Element) -> AssociateDistributionWebACLRequest:
     if child_web_acl_arn is not None:
         out["web_acl_arn"] = str(child_web_acl_arn.text or "")
     else:
-        raise DeserializationError(
-            "AssociateDistributionWebACLRequest.web_acl_arn required"
-        )
+        out["web_acl_arn"] = ""
     return out

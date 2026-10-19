@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_detective.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_detective.types.datasource_package_list
     import capo_detective.types.graph_arn
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> UpdateDatasourcePackagesRequest:
     if data.get("GraphArn") is not None:
         out["graph_arn"] = data["GraphArn"]
     else:
-        raise DeserializationError("UpdateDatasourcePackagesRequest.graph_arn required")
+        out["graph_arn"] = ""
     if data.get("DatasourcePackages") is not None:
         import capo_detective.types.datasource_package_list
 
@@ -49,7 +47,5 @@ def deserialize_json(data: dict) -> UpdateDatasourcePackagesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateDatasourcePackagesRequest.datasource_packages required"
-        )
+        out["datasource_packages"] = []
     return out

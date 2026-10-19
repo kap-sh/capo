@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.annotation_field_map
     import capo_omics.types.annotation_import_item_sources
@@ -71,13 +69,11 @@ def deserialize_json(data: dict) -> StartAnnotationImportRequest:
     if data.get("destinationName") is not None:
         out["destination_name"] = data["destinationName"]
     else:
-        raise DeserializationError(
-            "StartAnnotationImportRequest.destination_name required"
-        )
+        out["destination_name"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("StartAnnotationImportRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("items") is not None:
         import capo_omics.types.annotation_import_item_sources
 
@@ -85,7 +81,7 @@ def deserialize_json(data: dict) -> StartAnnotationImportRequest:
             data["items"]
         )
     else:
-        raise DeserializationError("StartAnnotationImportRequest.items required")
+        out["items"] = []
     if data.get("versionName") is not None:
         out["version_name"] = data["versionName"]
     if data.get("formatOptions") is not None:

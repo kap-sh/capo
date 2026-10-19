@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.attributes
     import capo_application_signals.types.operation_name
@@ -45,13 +43,9 @@ def deserialize_json(data: dict) -> DependencyConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "DependencyConfig.dependency_key_attributes required"
-        )
+        out["dependency_key_attributes"] = {}
     if data.get("DependencyOperationName") is not None:
         out["dependency_operation_name"] = data["DependencyOperationName"]
     else:
-        raise DeserializationError(
-            "DependencyConfig.dependency_operation_name required"
-        )
+        out["dependency_operation_name"] = ""
     return out

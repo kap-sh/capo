@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pricing_plan_manager.errors import DeserializationError, ServiceError
+from capo_pricing_plan_manager.errors import ServiceError
 
 
 class ValidationException_(TypedDict, closed=True):
@@ -26,7 +26,7 @@ def deserialize_json(data: dict) -> ValidationException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ValidationException_.message required")
+        out["message"] = ""
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     return out

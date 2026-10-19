@@ -61,7 +61,5 @@ def deserialize_json(data: dict) -> TrainedModelExportsConfigurationPolicy:
             )
         )
     else:
-        raise DeserializationError(
-            "TrainedModelExportsConfigurationPolicy.files_to_export required"
-        )
+        out["files_to_export"] = []
     return out

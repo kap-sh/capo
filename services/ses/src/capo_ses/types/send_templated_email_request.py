@@ -92,7 +92,7 @@ def deserialize_query(el: Element) -> SendTemplatedEmailRequest:
     if child_source is not None:
         out["source"] = str(child_source.text or "")
     else:
-        raise DeserializationError("SendTemplatedEmailRequest.source required")
+        out["source"] = ""
     child_destination = el.find("Destination")
     if child_destination is not None:
         import capo_ses.types.destination
@@ -130,7 +130,7 @@ def deserialize_query(el: Element) -> SendTemplatedEmailRequest:
     if child_template is not None:
         out["template"] = str(child_template.text or "")
     else:
-        raise DeserializationError("SendTemplatedEmailRequest.template required")
+        out["template"] = ""
     child_template_arn = el.find("TemplateArn")
     if child_template_arn is not None:
         out["template_arn"] = str(child_template_arn.text or "")
@@ -138,5 +138,5 @@ def deserialize_query(el: Element) -> SendTemplatedEmailRequest:
     if child_template_data is not None:
         out["template_data"] = str(child_template_data.text or "")
     else:
-        raise DeserializationError("SendTemplatedEmailRequest.template_data required")
+        out["template_data"] = ""
     return out

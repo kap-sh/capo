@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aws_arn
     import capo_iot.types.partition_key
@@ -36,11 +34,11 @@ def deserialize_json(data: dict) -> KinesisAction:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("KinesisAction.role_arn required")
+        out["role_arn"] = ""
     if data.get("streamName") is not None:
         out["stream_name"] = data["streamName"]
     else:
-        raise DeserializationError("KinesisAction.stream_name required")
+        out["stream_name"] = ""
     if data.get("partitionKey") is not None:
         out["partition_key"] = data["partitionKey"]
     return out

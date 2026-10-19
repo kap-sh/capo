@@ -112,9 +112,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetCostAndUsageComparisonsRequest:
     if data.get("MetricForComparison") is not None:
         out["metric_for_comparison"] = data["MetricForComparison"]
     else:
-        raise DeserializationError(
-            "GetCostAndUsageComparisonsRequest.metric_for_comparison required"
-        )
+        out["metric_for_comparison"] = ""
     if data.get("Filter") is not None:
         import capo_cost_explorer.types.expression
 

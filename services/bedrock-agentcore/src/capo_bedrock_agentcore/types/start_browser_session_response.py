@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.browser_session_id
     import capo_bedrock_agentcore.types.browser_session_stream
@@ -51,13 +49,11 @@ def deserialize_json(data: dict) -> StartBrowserSessionResponse:
     if data.get("browserIdentifier") is not None:
         out["browser_identifier"] = data["browserIdentifier"]
     else:
-        raise DeserializationError(
-            "StartBrowserSessionResponse.browser_identifier required"
-        )
+        out["browser_identifier"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("StartBrowserSessionResponse.session_id required")
+        out["session_id"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore.types.date_timestamp
 
@@ -67,7 +63,9 @@ def deserialize_json(data: dict) -> StartBrowserSessionResponse:
             )
         )
     else:
-        raise DeserializationError("StartBrowserSessionResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("streams") is not None:
         import capo_bedrock_agentcore.types.browser_session_stream
 

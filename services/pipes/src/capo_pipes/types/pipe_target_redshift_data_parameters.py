@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pipes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pipes.types.boolean
     import capo_pipes.types.database
@@ -56,7 +54,7 @@ def deserialize_json(data: dict) -> PipeTargetRedshiftDataParameters:
     if data.get("Database") is not None:
         out["database"] = data["Database"]
     else:
-        raise DeserializationError("PipeTargetRedshiftDataParameters.database required")
+        out["database"] = ""
     if data.get("DbUser") is not None:
         out["db_user"] = data["DbUser"]
     if data.get("StatementName") is not None:
@@ -70,7 +68,7 @@ def deserialize_json(data: dict) -> PipeTargetRedshiftDataParameters:
 
         out["sqls"] = capo_pipes.types.sqls.deserialize_json(data["Sqls"])
     else:
-        raise DeserializationError("PipeTargetRedshiftDataParameters.sqls required")
+        out["sqls"] = []
     return out
 
 

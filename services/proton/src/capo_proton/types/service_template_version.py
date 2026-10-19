@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -102,21 +100,21 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceTemplateVersion:
     if data.get("templateName") is not None:
         out["template_name"] = data["templateName"]
     else:
-        raise DeserializationError("ServiceTemplateVersion.template_name required")
+        out["template_name"] = ""
     if data.get("majorVersion") is not None:
         out["major_version"] = data["majorVersion"]
     else:
-        raise DeserializationError("ServiceTemplateVersion.major_version required")
+        out["major_version"] = ""
     if data.get("minorVersion") is not None:
         out["minor_version"] = data["minorVersion"]
     else:
-        raise DeserializationError("ServiceTemplateVersion.minor_version required")
+        out["minor_version"] = ""
     if data.get("recommendedMinorVersion") is not None:
         out["recommended_minor_version"] = data["recommendedMinorVersion"]
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("ServiceTemplateVersion.status required")
+        out["status"] = ""
     if data.get("statusMessage") is not None:
         out["status_message"] = data["statusMessage"]
     if data.get("description") is not None:
@@ -124,7 +122,7 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceTemplateVersion:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ServiceTemplateVersion.arn required")
+        out["arn"] = ""
     if data.get("createdAt") is not None:
         import capo_proton.types._prelude.timestamp
 
@@ -134,7 +132,9 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceTemplateVersion:
             )
         )
     else:
-        raise DeserializationError("ServiceTemplateVersion.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastModifiedAt") is not None:
         import capo_proton.types._prelude.timestamp
 
@@ -144,7 +144,11 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceTemplateVersion:
             )
         )
     else:
-        raise DeserializationError("ServiceTemplateVersion.last_modified_at required")
+        import datetime
+
+        out["last_modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("compatibleEnvironmentTemplates") is not None:
         import capo_proton.types.compatible_environment_template_list
 
@@ -154,9 +158,7 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceTemplateVersion:
             )
         )
     else:
-        raise DeserializationError(
-            "ServiceTemplateVersion.compatible_environment_templates required"
-        )
+        out["compatible_environment_templates"] = []
     if data.get("schema") is not None:
         out["schema"] = data["schema"]
     if data.get("supportedComponentSources") is not None:

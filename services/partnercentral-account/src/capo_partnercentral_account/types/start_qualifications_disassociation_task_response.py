@@ -73,27 +73,19 @@ def deserialize_aws_json_1_0(
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError(
-            "StartQualificationsDisassociationTaskResponse.catalog required"
-        )
+        out["catalog"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError(
-            "StartQualificationsDisassociationTaskResponse.arn required"
-        )
+        out["arn"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError(
-            "StartQualificationsDisassociationTaskResponse.id required"
-        )
+        out["id"] = ""
     if data.get("TaskId") is not None:
         out["task_id"] = data["TaskId"]
     else:
-        raise DeserializationError(
-            "StartQualificationsDisassociationTaskResponse.task_id required"
-        )
+        out["task_id"] = ""
     if data.get("Status") is not None:
         import capo_partnercentral_account.types.qualifications_disassociation_task_status
 
@@ -103,8 +95,11 @@ def deserialize_aws_json_1_0(
             )
         )
     else:
-        raise DeserializationError(
-            "StartQualificationsDisassociationTaskResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_partnercentral_account.types.qualifications_disassociation_task_status.QualificationsDisassociationTaskStatus",
+            "",
         )
     if data.get("AssociatedPartner") is not None:
         import capo_partnercentral_account.types.qualifications_association_partner
@@ -127,7 +122,7 @@ def deserialize_aws_json_1_0(
             )
         )
     else:
-        raise DeserializationError(
-            "StartQualificationsDisassociationTaskResponse.started_at required"
-        )
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

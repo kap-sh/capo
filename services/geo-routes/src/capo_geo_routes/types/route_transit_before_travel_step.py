@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.duration_seconds
     import capo_geo_routes.types.route_transit_before_travel_step_type
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> RouteTransitBeforeTravelStep:
     if data.get("Duration") is not None:
         out["duration"] = data["Duration"]
     else:
-        raise DeserializationError("RouteTransitBeforeTravelStep.duration required")
+        out["duration"] = 0
     if data.get("Instruction") is not None:
         out["instruction"] = data["Instruction"]
     if data.get("Type") is not None:
@@ -54,7 +52,12 @@ def deserialize_json(data: dict) -> RouteTransitBeforeTravelStep:
             )
         )
     else:
-        raise DeserializationError("RouteTransitBeforeTravelStep.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_geo_routes.types.route_transit_before_travel_step_type.RouteTransitBeforeTravelStepType",
+            "",
+        )
     return out
 
 

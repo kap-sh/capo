@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.acl_grantee
     import capo_accessanalyzer.types.acl_permission
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> S3BucketAclGrantConfiguration:
     if data.get("permission") is not None:
         out["permission"] = data["permission"]
     else:
-        raise DeserializationError("S3BucketAclGrantConfiguration.permission required")
+        out["permission"] = ""
     if data.get("grantee") is not None:
         import capo_accessanalyzer.types.acl_grantee
 
@@ -43,5 +41,7 @@ def deserialize_json(data: dict) -> S3BucketAclGrantConfiguration:
             data["grantee"]
         )
     else:
-        raise DeserializationError("S3BucketAclGrantConfiguration.grantee required")
+        import capo_accessanalyzer.types._unknown
+
+        out["grantee"] = capo_accessanalyzer.types._unknown.UnknownUnionMember("")
     return out

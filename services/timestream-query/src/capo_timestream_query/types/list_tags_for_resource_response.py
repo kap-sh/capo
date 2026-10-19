@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_query.types.next_tags_for_resource_results_token
     import capo_timestream_query.types.tag_list
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListTagsForResourceResponse:
             data["Tags"]
         )
     else:
-        raise DeserializationError("ListTagsForResourceResponse.tags required")
+        out["tags"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

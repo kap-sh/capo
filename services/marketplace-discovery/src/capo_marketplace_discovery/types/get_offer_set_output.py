@@ -106,11 +106,11 @@ def deserialize_json(data: dict) -> GetOfferSetOutput:
     if data.get("offerSetId") is not None:
         out["offer_set_id"] = data["offerSetId"]
     else:
-        raise DeserializationError("GetOfferSetOutput.offer_set_id required")
+        out["offer_set_id"] = ""
     if data.get("catalog") is not None:
         out["catalog"] = data["catalog"]
     else:
-        raise DeserializationError("GetOfferSetOutput.catalog required")
+        out["catalog"] = ""
     if data.get("offerSetName") is not None:
         out["offer_set_name"] = data["offerSetName"]
     if data.get("availableFromTime") is not None:
@@ -150,7 +150,7 @@ def deserialize_json(data: dict) -> GetOfferSetOutput:
             )
         )
     else:
-        raise DeserializationError("GetOfferSetOutput.badges required")
+        out["badges"] = []
     if data.get("associatedEntities") is not None:
         import capo_marketplace_discovery.types.offer_set_associated_entity_list
 
@@ -160,5 +160,5 @@ def deserialize_json(data: dict) -> GetOfferSetOutput:
             )
         )
     else:
-        raise DeserializationError("GetOfferSetOutput.associated_entities required")
+        out["associated_entities"] = []
     return out

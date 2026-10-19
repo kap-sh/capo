@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.service_setting_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetServiceSettingRequest:
     if data.get("SettingId") is not None:
         out["setting_id"] = data["SettingId"]
     else:
-        raise DeserializationError("GetServiceSettingRequest.setting_id required")
+        out["setting_id"] = ""
     return out

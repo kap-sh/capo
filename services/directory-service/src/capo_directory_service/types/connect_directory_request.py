@@ -81,13 +81,13 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectDirectoryRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ConnectDirectoryRequest.name required")
+        out["name"] = ""
     if data.get("ShortName") is not None:
         out["short_name"] = data["ShortName"]
     if data.get("Password") is not None:
         out["password"] = data["Password"]
     else:
-        raise DeserializationError("ConnectDirectoryRequest.password required")
+        out["password"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Size") is not None:
@@ -99,7 +99,11 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectDirectoryRequest:
             )
         )
     else:
-        raise DeserializationError("ConnectDirectoryRequest.size required")
+        import typing
+
+        out["size"] = typing.cast(
+            "capo_directory_service.types.directory_size.DirectorySize", ""
+        )
     if data.get("ConnectSettings") is not None:
         import capo_directory_service.types.directory_connect_settings
 

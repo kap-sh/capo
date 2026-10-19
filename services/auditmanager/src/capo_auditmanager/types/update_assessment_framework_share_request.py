@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_auditmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auditmanager.types.share_request_action
     import capo_auditmanager.types.share_request_type
@@ -48,8 +46,10 @@ def deserialize_json(data: dict) -> UpdateAssessmentFrameworkShareRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateAssessmentFrameworkShareRequest.request_type required"
+        import typing
+
+        out["request_type"] = typing.cast(
+            "capo_auditmanager.types.share_request_type.ShareRequestType", ""
         )
     if data.get("action") is not None:
         import capo_auditmanager.types.share_request_action
@@ -58,7 +58,9 @@ def deserialize_json(data: dict) -> UpdateAssessmentFrameworkShareRequest:
             data["action"]
         )
     else:
-        raise DeserializationError(
-            "UpdateAssessmentFrameworkShareRequest.action required"
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_auditmanager.types.share_request_action.ShareRequestAction", ""
         )
     return out

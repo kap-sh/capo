@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.actions_list
     import capo_quicksight.types.permission_principal_string
@@ -39,9 +37,9 @@ def deserialize_json(data: dict) -> Permission:
             data["Actions"]
         )
     else:
-        raise DeserializationError("Permission.actions required")
+        out["actions"] = []
     if data.get("Principal") is not None:
         out["principal"] = data["Principal"]
     else:
-        raise DeserializationError("Permission.principal required")
+        out["principal"] = ""
     return out

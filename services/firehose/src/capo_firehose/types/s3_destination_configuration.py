@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.bucket_arn
     import capo_firehose.types.buffering_hints
@@ -93,11 +91,11 @@ def deserialize_aws_json_1_1(data: dict) -> S3DestinationConfiguration:
     if data.get("RoleARN") is not None:
         out["role_arn"] = data["RoleARN"]
     else:
-        raise DeserializationError("S3DestinationConfiguration.role_arn required")
+        out["role_arn"] = ""
     if data.get("BucketARN") is not None:
         out["bucket_arn"] = data["BucketARN"]
     else:
-        raise DeserializationError("S3DestinationConfiguration.bucket_arn required")
+        out["bucket_arn"] = ""
     if data.get("Prefix") is not None:
         out["prefix"] = data["Prefix"]
     if data.get("ErrorOutputPrefix") is not None:

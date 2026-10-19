@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.idempotency_token
     import capo_network_security_manager.types.rule_firewall_type
@@ -71,7 +69,7 @@ def deserialize_json(data: dict) -> GenerateRuleConfigurationRequest:
     if data.get("prompt") is not None:
         out["prompt"] = data["prompt"]
     else:
-        raise DeserializationError("GenerateRuleConfigurationRequest.prompt required")
+        out["prompt"] = ""
     if data.get("ruleFirewallType") is not None:
         import capo_network_security_manager.types.rule_firewall_type
 
@@ -81,8 +79,11 @@ def deserialize_json(data: dict) -> GenerateRuleConfigurationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GenerateRuleConfigurationRequest.rule_firewall_type required"
+        import typing
+
+        out["rule_firewall_type"] = typing.cast(
+            "capo_network_security_manager.types.rule_firewall_type.RuleFirewallType",
+            "",
         )
     if data.get("ruleType") is not None:
         import capo_network_security_manager.types.rule_type
@@ -93,8 +94,10 @@ def deserialize_json(data: dict) -> GenerateRuleConfigurationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GenerateRuleConfigurationRequest.rule_type required"
+        import typing
+
+        out["rule_type"] = typing.cast(
+            "capo_network_security_manager.types.rule_type.RuleType", ""
         )
     if data.get("wafConfigDataType") is not None:
         import capo_network_security_manager.types.waf_config_data_type

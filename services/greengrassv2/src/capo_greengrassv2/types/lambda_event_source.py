@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_greengrassv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_greengrassv2.types.lambda_event_source_type
     import capo_greengrassv2.types.topic_string
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> LambdaEventSource:
     if data.get("topic") is not None:
         out["topic"] = data["topic"]
     else:
-        raise DeserializationError("LambdaEventSource.topic required")
+        out["topic"] = ""
     if data.get("type") is not None:
         import capo_greengrassv2.types.lambda_event_source_type
 
@@ -43,5 +41,9 @@ def deserialize_json(data: dict) -> LambdaEventSource:
             data["type"]
         )
     else:
-        raise DeserializationError("LambdaEventSource.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_greengrassv2.types.lambda_event_source_type.LambdaEventSourceType", ""
+        )
     return out

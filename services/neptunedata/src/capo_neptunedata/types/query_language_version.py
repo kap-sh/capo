@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_neptunedata.errors import DeserializationError
-
 
 class QueryLanguageVersion(TypedDict, closed=True):
     version: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> QueryLanguageVersion:
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("QueryLanguageVersion.version required")
+        out["version"] = ""
     return out

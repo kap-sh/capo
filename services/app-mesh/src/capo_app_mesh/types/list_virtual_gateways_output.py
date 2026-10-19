@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.virtual_gateway_list
 
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> ListVirtualGatewaysOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListVirtualGatewaysOutput.virtual_gateways required"
-        )
+        out["virtual_gateways"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

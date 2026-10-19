@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.instance_information_filter_key
     import capo_ssm.types.instance_information_filter_value_set
@@ -47,7 +45,12 @@ def deserialize_aws_json_1_1(data: dict) -> InstanceInformationFilter:
             )
         )
     else:
-        raise DeserializationError("InstanceInformationFilter.key required")
+        import typing
+
+        out["key"] = typing.cast(
+            "capo_ssm.types.instance_information_filter_key.InstanceInformationFilterKey",
+            "",
+        )
     if data.get("valueSet") is not None:
         import capo_ssm.types.instance_information_filter_value_set
 
@@ -57,5 +60,5 @@ def deserialize_aws_json_1_1(data: dict) -> InstanceInformationFilter:
             )
         )
     else:
-        raise DeserializationError("InstanceInformationFilter.value_set required")
+        out["value_set"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.email_address
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> GetEmailAddressInsightsRequest:
     if data.get("EmailAddress") is not None:
         out["email_address"] = data["EmailAddress"]
     else:
-        raise DeserializationError(
-            "GetEmailAddressInsightsRequest.email_address required"
-        )
+        out["email_address"] = ""
     return out

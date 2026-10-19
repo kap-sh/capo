@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sagemaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker.types.cluster_arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> StartClusterHealthCheckResponse:
     if data.get("ClusterArn") is not None:
         out["cluster_arn"] = data["ClusterArn"]
     else:
-        raise DeserializationError(
-            "StartClusterHealthCheckResponse.cluster_arn required"
-        )
+        out["cluster_arn"] = ""
     return out

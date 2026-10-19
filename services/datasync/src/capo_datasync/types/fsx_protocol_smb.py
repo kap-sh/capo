@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.cmk_secret_config
     import capo_datasync.types.custom_secret_config
@@ -99,7 +97,7 @@ def deserialize_aws_json_1_1(data: dict) -> FsxProtocolSmb:
     if data.get("User") is not None:
         out["user"] = data["User"]
     else:
-        raise DeserializationError("FsxProtocolSmb.user required")
+        out["user"] = ""
     if data.get("ManagedSecretConfig") is not None:
         import capo_datasync.types.managed_secret_config
 

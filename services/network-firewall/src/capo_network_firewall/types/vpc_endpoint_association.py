@@ -66,17 +66,15 @@ def deserialize_aws_json_1_0(data: dict) -> VpcEndpointAssociation:
     if data.get("VpcEndpointAssociationArn") is not None:
         out["vpc_endpoint_association_arn"] = data["VpcEndpointAssociationArn"]
     else:
-        raise DeserializationError(
-            "VpcEndpointAssociation.vpc_endpoint_association_arn required"
-        )
+        out["vpc_endpoint_association_arn"] = ""
     if data.get("FirewallArn") is not None:
         out["firewall_arn"] = data["FirewallArn"]
     else:
-        raise DeserializationError("VpcEndpointAssociation.firewall_arn required")
+        out["firewall_arn"] = ""
     if data.get("VpcId") is not None:
         out["vpc_id"] = data["VpcId"]
     else:
-        raise DeserializationError("VpcEndpointAssociation.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("SubnetMapping") is not None:
         import capo_network_firewall.types.subnet_mapping
 

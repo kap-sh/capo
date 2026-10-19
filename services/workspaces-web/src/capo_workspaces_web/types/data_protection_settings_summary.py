@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.arn
     import capo_workspaces_web.types.description_safe
@@ -50,9 +48,7 @@ def deserialize_json(data: dict) -> DataProtectionSettingsSummary:
     if data.get("dataProtectionSettingsArn") is not None:
         out["data_protection_settings_arn"] = data["dataProtectionSettingsArn"]
     else:
-        raise DeserializationError(
-            "DataProtectionSettingsSummary.data_protection_settings_arn required"
-        )
+        out["data_protection_settings_arn"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     if data.get("description") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.finding_status
     import capo_securityagent.types.risk_level
@@ -75,11 +73,11 @@ def deserialize_json(data: dict) -> UpdateFindingInput:
     if data.get("findingId") is not None:
         out["finding_id"] = data["findingId"]
     else:
-        raise DeserializationError("UpdateFindingInput.finding_id required")
+        out["finding_id"] = ""
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError("UpdateFindingInput.agent_space_id required")
+        out["agent_space_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("description") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.name
     import capo_route53resolver.types.resource_id
@@ -35,13 +33,11 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateResolverRuleRequest:
     if data.get("ResolverRuleId") is not None:
         out["resolver_rule_id"] = data["ResolverRuleId"]
     else:
-        raise DeserializationError(
-            "AssociateResolverRuleRequest.resolver_rule_id required"
-        )
+        out["resolver_rule_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("VPCId") is not None:
         out["vpc_id"] = data["VPCId"]
     else:
-        raise DeserializationError("AssociateResolverRuleRequest.vpc_id required")
+        out["vpc_id"] = ""
     return out

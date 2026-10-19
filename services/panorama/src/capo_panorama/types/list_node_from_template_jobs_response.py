@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.next_token
     import capo_panorama.types.node_from_template_job_list
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> ListNodeFromTemplateJobsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListNodeFromTemplateJobsResponse.node_from_template_jobs required"
-        )
+        out["node_from_template_jobs"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

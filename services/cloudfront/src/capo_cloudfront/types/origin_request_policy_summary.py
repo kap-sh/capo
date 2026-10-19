@@ -46,7 +46,12 @@ def deserialize_xml(el: Element) -> OriginRequestPolicySummary:
             child_type
         )
     else:
-        raise DeserializationError("OriginRequestPolicySummary.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cloudfront.types.origin_request_policy_type.OriginRequestPolicyType",
+            "",
+        )
     child_origin_request_policy = el.find("OriginRequestPolicy")
     if child_origin_request_policy is not None:
         import capo_cloudfront.types.origin_request_policy

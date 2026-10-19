@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eventbridgev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.deduplication_configuration
     import capo_eventbridgev2.types.event_bus_arn
@@ -48,7 +46,7 @@ def deserialize_cbor(data: dict) -> PutEventsRequest:
     if data.get("EventBusArn") is not None:
         out["event_bus_arn"] = data["EventBusArn"]
     else:
-        raise DeserializationError("PutEventsRequest.event_bus_arn required")
+        out["event_bus_arn"] = ""
     if data.get("Entries") is not None:
         import capo_eventbridgev2.types.put_events_request_entry_list
 
@@ -58,7 +56,7 @@ def deserialize_cbor(data: dict) -> PutEventsRequest:
             )
         )
     else:
-        raise DeserializationError("PutEventsRequest.entries required")
+        out["entries"] = []
     if data.get("DeduplicationConfiguration") is not None:
         import capo_eventbridgev2.types.deduplication_configuration
 

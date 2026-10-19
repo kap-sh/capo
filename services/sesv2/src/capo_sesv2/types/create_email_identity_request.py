@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.configuration_set_name
     import capo_sesv2.types.dkim_signing_attributes
@@ -54,7 +52,7 @@ def deserialize_json(data: dict) -> CreateEmailIdentityRequest:
     if data.get("EmailIdentity") is not None:
         out["email_identity"] = data["EmailIdentity"]
     else:
-        raise DeserializationError("CreateEmailIdentityRequest.email_identity required")
+        out["email_identity"] = ""
     if data.get("Tags") is not None:
         import capo_sesv2.types.tag_list
 

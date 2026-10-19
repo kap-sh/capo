@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_data_automation_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation_runtime.types.tag_list
     import capo_bedrock_data_automation_runtime.types.taggable_resource_arn
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> TagResourceRequest:
     if data.get("resourceARN") is not None:
         out["resource_arn"] = data["resourceARN"]
     else:
-        raise DeserializationError("TagResourceRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("tags") is not None:
         import capo_bedrock_data_automation_runtime.types.tag_list
 
@@ -45,5 +43,5 @@ def deserialize_aws_json_1_1(data: dict) -> TagResourceRequest:
             )
         )
     else:
-        raise DeserializationError("TagResourceRequest.tags required")
+        out["tags"] = []
     return out

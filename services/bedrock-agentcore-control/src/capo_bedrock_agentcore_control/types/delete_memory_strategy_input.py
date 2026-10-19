@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 
 class DeleteMemoryStrategyInput(TypedDict, closed=True):
     memory_strategy_id: "str"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> DeleteMemoryStrategyInput:
     if data.get("memoryStrategyId") is not None:
         out["memory_strategy_id"] = data["memoryStrategyId"]
     else:
-        raise DeserializationError(
-            "DeleteMemoryStrategyInput.memory_strategy_id required"
-        )
+        out["memory_strategy_id"] = ""
     return out

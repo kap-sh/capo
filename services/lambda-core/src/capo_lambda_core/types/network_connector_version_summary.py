@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda_core.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_core.types.core_timestamp
     import capo_lambda_core.types.network_connector_arn
@@ -77,25 +75,23 @@ def deserialize_json(data: dict) -> NetworkConnectorVersionSummary:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("NetworkConnectorVersionSummary.arn required")
+        out["arn"] = ""
     if data.get("VersionArn") is not None:
         out["version_arn"] = data["VersionArn"]
     else:
-        raise DeserializationError(
-            "NetworkConnectorVersionSummary.version_arn required"
-        )
+        out["version_arn"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("NetworkConnectorVersionSummary.name required")
+        out["name"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("NetworkConnectorVersionSummary.id required")
+        out["id"] = ""
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     else:
-        raise DeserializationError("NetworkConnectorVersionSummary.version required")
+        out["version"] = 0
     if data.get("State") is not None:
         import capo_lambda_core.types.network_connector_state
 
@@ -103,7 +99,11 @@ def deserialize_json(data: dict) -> NetworkConnectorVersionSummary:
             data["State"]
         )
     else:
-        raise DeserializationError("NetworkConnectorVersionSummary.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_lambda_core.types.network_connector_state.NetworkConnectorState", ""
+        )
     if data.get("StateReason") is not None:
         out["state_reason"] = data["StateReason"]
     if data.get("StateReasonCode") is not None:

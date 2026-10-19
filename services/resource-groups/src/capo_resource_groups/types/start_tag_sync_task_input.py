@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resource_groups.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resource_groups.types.group_string_v2
     import capo_resource_groups.types.resource_query
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> StartTagSyncTaskInput:
     if data.get("Group") is not None:
         out["group"] = data["Group"]
     else:
-        raise DeserializationError("StartTagSyncTaskInput.group required")
+        out["group"] = ""
     if data.get("TagKey") is not None:
         out["tag_key"] = data["TagKey"]
     if data.get("TagValue") is not None:
@@ -68,5 +66,5 @@ def deserialize_json(data: dict) -> StartTagSyncTaskInput:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("StartTagSyncTaskInput.role_arn required")
+        out["role_arn"] = ""
     return out

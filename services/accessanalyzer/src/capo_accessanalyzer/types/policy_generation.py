@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.job_id
     import capo_accessanalyzer.types.job_status
@@ -51,15 +49,15 @@ def deserialize_json(data: dict) -> PolicyGeneration:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("PolicyGeneration.job_id required")
+        out["job_id"] = ""
     if data.get("principalArn") is not None:
         out["principal_arn"] = data["principalArn"]
     else:
-        raise DeserializationError("PolicyGeneration.principal_arn required")
+        out["principal_arn"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("PolicyGeneration.status required")
+        out["status"] = ""
     if data.get("startedOn") is not None:
         import capo_accessanalyzer.types.timestamp
 
@@ -67,7 +65,9 @@ def deserialize_json(data: dict) -> PolicyGeneration:
             data["startedOn"]
         )
     else:
-        raise DeserializationError("PolicyGeneration.started_on required")
+        import datetime
+
+        out["started_on"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("completedOn") is not None:
         import capo_accessanalyzer.types.timestamp
 

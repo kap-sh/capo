@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.domain_name
     import capo_lightsail.types.domain_name_list
@@ -56,21 +54,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLoadBalancerTlsCertificateRequ
     if data.get("loadBalancerName") is not None:
         out["load_balancer_name"] = data["loadBalancerName"]
     else:
-        raise DeserializationError(
-            "CreateLoadBalancerTlsCertificateRequest.load_balancer_name required"
-        )
+        out["load_balancer_name"] = ""
     if data.get("certificateName") is not None:
         out["certificate_name"] = data["certificateName"]
     else:
-        raise DeserializationError(
-            "CreateLoadBalancerTlsCertificateRequest.certificate_name required"
-        )
+        out["certificate_name"] = ""
     if data.get("certificateDomainName") is not None:
         out["certificate_domain_name"] = data["certificateDomainName"]
     else:
-        raise DeserializationError(
-            "CreateLoadBalancerTlsCertificateRequest.certificate_domain_name required"
-        )
+        out["certificate_domain_name"] = ""
     if data.get("certificateAlternativeNames") is not None:
         import capo_lightsail.types.domain_name_list
 

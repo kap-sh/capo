@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_check_result
     import capo_bedrock.types.automated_reasoning_check_translation_confidence
@@ -71,9 +69,7 @@ def deserialize_json(data: dict) -> CreateAutomatedReasoningPolicyTestCaseReques
     if data.get("guardContent") is not None:
         out["guard_content"] = data["guardContent"]
     else:
-        raise DeserializationError(
-            "CreateAutomatedReasoningPolicyTestCaseRequest.guard_content required"
-        )
+        out["guard_content"] = ""
     if data.get("queryContent") is not None:
         out["query_content"] = data["queryContent"]
     if data.get("expectedAggregatedFindingsResult") is not None:
@@ -85,8 +81,11 @@ def deserialize_json(data: dict) -> CreateAutomatedReasoningPolicyTestCaseReques
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAutomatedReasoningPolicyTestCaseRequest.expected_aggregated_findings_result required"
+        import typing
+
+        out["expected_aggregated_findings_result"] = typing.cast(
+            "capo_bedrock.types.automated_reasoning_check_result.AutomatedReasoningCheckResult",
+            "",
         )
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]

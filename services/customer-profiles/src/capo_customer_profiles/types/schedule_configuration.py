@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.interval_value
     import capo_customer_profiles.types.schedule_configuration_unit
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ScheduleConfiguration:
     if data.get("Interval") is not None:
         out["interval"] = data["Interval"]
     else:
-        raise DeserializationError("ScheduleConfiguration.interval required")
+        out["interval"] = 0
     if data.get("Unit") is not None:
         import capo_customer_profiles.types.schedule_configuration_unit
 

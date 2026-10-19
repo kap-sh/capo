@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_forecast.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_forecast.types.arn
     import capo_forecast.types.name
@@ -38,11 +36,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMonitorRequest:
     if data.get("MonitorName") is not None:
         out["monitor_name"] = data["MonitorName"]
     else:
-        raise DeserializationError("CreateMonitorRequest.monitor_name required")
+        out["monitor_name"] = ""
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("CreateMonitorRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("Tags") is not None:
         import capo_forecast.types.tags
 

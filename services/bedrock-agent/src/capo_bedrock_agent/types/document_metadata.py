@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.custom_s3_location
     import capo_bedrock_agent.types.document_access_control_list
@@ -72,7 +70,11 @@ def deserialize_json(data: dict) -> DocumentMetadata:
             data["type"]
         )
     else:
-        raise DeserializationError("DocumentMetadata.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent.types.metadata_source_type.MetadataSourceType", ""
+        )
     if data.get("inlineAttributes") is not None:
         import capo_bedrock_agent.types.metadata_attributes
 

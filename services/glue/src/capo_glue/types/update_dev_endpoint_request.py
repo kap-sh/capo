@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.boolean_value
     import capo_glue.types.dev_endpoint_custom_libraries
@@ -86,7 +84,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDevEndpointRequest:
     if data.get("EndpointName") is not None:
         out["endpoint_name"] = data["EndpointName"]
     else:
-        raise DeserializationError("UpdateDevEndpointRequest.endpoint_name required")
+        out["endpoint_name"] = ""
     if data.get("PublicKey") is not None:
         out["public_key"] = data["PublicKey"]
     if data.get("AddPublicKeys") is not None:

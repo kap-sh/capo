@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.arn
     import capo_bedrock.types.endpoint_config
@@ -70,13 +68,11 @@ def deserialize_json(data: dict) -> MarketplaceModelEndpoint:
     if data.get("endpointArn") is not None:
         out["endpoint_arn"] = data["endpointArn"]
     else:
-        raise DeserializationError("MarketplaceModelEndpoint.endpoint_arn required")
+        out["endpoint_arn"] = ""
     if data.get("modelSourceIdentifier") is not None:
         out["model_source_identifier"] = data["modelSourceIdentifier"]
     else:
-        raise DeserializationError(
-            "MarketplaceModelEndpoint.model_source_identifier required"
-        )
+        out["model_source_identifier"] = ""
     if data.get("status") is not None:
         import capo_bedrock.types.status
 
@@ -90,7 +86,9 @@ def deserialize_json(data: dict) -> MarketplaceModelEndpoint:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("MarketplaceModelEndpoint.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock.types.timestamp
 
@@ -98,7 +96,9 @@ def deserialize_json(data: dict) -> MarketplaceModelEndpoint:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("MarketplaceModelEndpoint.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endpointConfig") is not None:
         import capo_bedrock.types.endpoint_config
 
@@ -106,11 +106,13 @@ def deserialize_json(data: dict) -> MarketplaceModelEndpoint:
             data["endpointConfig"]
         )
     else:
-        raise DeserializationError("MarketplaceModelEndpoint.endpoint_config required")
+        import capo_bedrock.types._unknown
+
+        out["endpoint_config"] = capo_bedrock.types._unknown.UnknownUnionMember("")
     if data.get("endpointStatus") is not None:
         out["endpoint_status"] = data["endpointStatus"]
     else:
-        raise DeserializationError("MarketplaceModelEndpoint.endpoint_status required")
+        out["endpoint_status"] = ""
     if data.get("endpointStatusMessage") is not None:
         out["endpoint_status_message"] = data["endpointStatusMessage"]
     return out

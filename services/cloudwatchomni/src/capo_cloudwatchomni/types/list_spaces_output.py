@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.next_token
     import capo_cloudwatchomni.types.space_summary_list
@@ -40,7 +38,7 @@ def deserialize_cbor(data: dict) -> ListSpacesOutput:
             data["items"]
         )
     else:
-        raise DeserializationError("ListSpacesOutput.items required")
+        out["items"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

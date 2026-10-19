@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.arn
     import capo_connectcampaignsv2.types.campaign_id
@@ -28,7 +26,5 @@ def deserialize_json(data: dict) -> UpdateCampaignFlowAssociationRequest:
     if data.get("connectCampaignFlowArn") is not None:
         out["connect_campaign_flow_arn"] = data["connectCampaignFlowArn"]
     else:
-        raise DeserializationError(
-            "UpdateCampaignFlowAssociationRequest.connect_campaign_flow_arn required"
-        )
+        out["connect_campaign_flow_arn"] = ""
     return out

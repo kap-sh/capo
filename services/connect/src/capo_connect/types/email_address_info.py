@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.email_address
     import capo_connect.types.email_address_display_name
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> EmailAddressInfo:
     if data.get("EmailAddress") is not None:
         out["email_address"] = data["EmailAddress"]
     else:
-        raise DeserializationError("EmailAddressInfo.email_address required")
+        out["email_address"] = ""
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     return out

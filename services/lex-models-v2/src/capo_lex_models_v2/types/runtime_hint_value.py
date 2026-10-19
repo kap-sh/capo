@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.runtime_hint_phrase
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> RuntimeHintValue:
     if data.get("phrase") is not None:
         out["phrase"] = data["phrase"]
     else:
-        raise DeserializationError("RuntimeHintValue.phrase required")
+        out["phrase"] = ""
     return out

@@ -96,7 +96,7 @@ def deserialize_json(data: dict) -> CreateFlowRequest:
     if data.get("flowName") is not None:
         out["flow_name"] = data["flowName"]
     else:
-        raise DeserializationError("CreateFlowRequest.flow_name required")
+        out["flow_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("kmsArn") is not None:
@@ -128,15 +128,13 @@ def deserialize_json(data: dict) -> CreateFlowRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateFlowRequest.destination_flow_config_list required"
-        )
+        out["destination_flow_config_list"] = []
     if data.get("tasks") is not None:
         import capo_appflow.types.tasks
 
         out["tasks"] = capo_appflow.types.tasks.deserialize_json(data["tasks"])
     else:
-        raise DeserializationError("CreateFlowRequest.tasks required")
+        out["tasks"] = []
     if data.get("tags") is not None:
         import capo_appflow.types.tag_map
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kms.types.grant_token_list
     import capo_kms.types.key_id_type
@@ -68,7 +66,7 @@ def deserialize_aws_json_1_1(data: dict) -> SignRequest:
     if data.get("KeyId") is not None:
         out["key_id"] = data["KeyId"]
     else:
-        raise DeserializationError("SignRequest.key_id required")
+        out["key_id"] = ""
     if data.get("Message") is not None:
         import capo_kms.types.plaintext_type
 
@@ -76,7 +74,7 @@ def deserialize_aws_json_1_1(data: dict) -> SignRequest:
             data["Message"]
         )
     else:
-        raise DeserializationError("SignRequest.message required")
+        out["message"] = b""
     if data.get("MessageType") is not None:
         import capo_kms.types.message_type
 
@@ -98,7 +96,11 @@ def deserialize_aws_json_1_1(data: dict) -> SignRequest:
             )
         )
     else:
-        raise DeserializationError("SignRequest.signing_algorithm required")
+        import typing
+
+        out["signing_algorithm"] = typing.cast(
+            "capo_kms.types.signing_algorithm_spec.SigningAlgorithmSpec", ""
+        )
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
     return out

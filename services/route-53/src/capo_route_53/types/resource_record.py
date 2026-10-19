@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.r_data
@@ -28,5 +27,5 @@ def deserialize_xml(el: Element) -> ResourceRecord:
     if child_value is not None:
         out["value"] = str(child_value.text or "")
     else:
-        raise DeserializationError("ResourceRecord.value required")
+        out["value"] = ""
     return out

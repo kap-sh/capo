@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.ai_agent_configuration
     import capo_qconnect.types.client_token
@@ -58,7 +56,7 @@ def deserialize_json(data: dict) -> UpdateAIAgentRequest:
     if data.get("visibilityStatus") is not None:
         out["visibility_status"] = data["visibilityStatus"]
     else:
-        raise DeserializationError("UpdateAIAgentRequest.visibility_status required")
+        out["visibility_status"] = ""
     if data.get("configuration") is not None:
         import capo_qconnect.types.ai_agent_configuration
 

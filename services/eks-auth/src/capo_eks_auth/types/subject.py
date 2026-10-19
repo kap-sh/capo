@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_eks_auth.errors import DeserializationError
-
 
 class Subject(TypedDict, closed=True):
     namespace: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> Subject:
     if data.get("namespace") is not None:
         out["namespace"] = data["namespace"]
     else:
-        raise DeserializationError("Subject.namespace required")
+        out["namespace"] = ""
     if data.get("serviceAccount") is not None:
         out["service_account"] = data["serviceAccount"]
     else:
-        raise DeserializationError("Subject.service_account required")
+        out["service_account"] = ""
     return out

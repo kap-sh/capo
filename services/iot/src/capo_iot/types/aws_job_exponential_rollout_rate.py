@@ -55,9 +55,7 @@ def deserialize_json(data: dict) -> AwsJobExponentialRolloutRate:
     if data.get("baseRatePerMinute") is not None:
         out["base_rate_per_minute"] = data["baseRatePerMinute"]
     else:
-        raise DeserializationError(
-            "AwsJobExponentialRolloutRate.base_rate_per_minute required"
-        )
+        out["base_rate_per_minute"] = 0
     if data.get("incrementFactor") is not None:
         out["increment_factor"] = float(data["incrementFactor"])
     else:

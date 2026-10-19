@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_acm_pca.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm_pca.types.custom_object_identifier
     import capo_acm_pca.types.policy_qualifier_info_list
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> PolicyInformation:
     if data.get("CertPolicyId") is not None:
         out["cert_policy_id"] = data["CertPolicyId"]
     else:
-        raise DeserializationError("PolicyInformation.cert_policy_id required")
+        out["cert_policy_id"] = ""
     if data.get("PolicyQualifiers") is not None:
         import capo_acm_pca.types.policy_qualifier_info_list
 

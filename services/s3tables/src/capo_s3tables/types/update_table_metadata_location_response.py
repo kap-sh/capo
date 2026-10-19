@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3tables.types.metadata_location
     import capo_s3tables.types.namespace_list
@@ -47,13 +45,11 @@ def deserialize_json(data: dict) -> UpdateTableMetadataLocationResponse:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateTableMetadataLocationResponse.name required")
+        out["name"] = ""
     if data.get("tableARN") is not None:
         out["table_arn"] = data["tableARN"]
     else:
-        raise DeserializationError(
-            "UpdateTableMetadataLocationResponse.table_arn required"
-        )
+        out["table_arn"] = ""
     if data.get("namespace") is not None:
         import capo_s3tables.types.namespace_list
 
@@ -61,19 +57,13 @@ def deserialize_json(data: dict) -> UpdateTableMetadataLocationResponse:
             data["namespace"]
         )
     else:
-        raise DeserializationError(
-            "UpdateTableMetadataLocationResponse.namespace required"
-        )
+        out["namespace"] = []
     if data.get("versionToken") is not None:
         out["version_token"] = data["versionToken"]
     else:
-        raise DeserializationError(
-            "UpdateTableMetadataLocationResponse.version_token required"
-        )
+        out["version_token"] = ""
     if data.get("metadataLocation") is not None:
         out["metadata_location"] = data["metadataLocation"]
     else:
-        raise DeserializationError(
-            "UpdateTableMetadataLocationResponse.metadata_location required"
-        )
+        out["metadata_location"] = ""
     return out

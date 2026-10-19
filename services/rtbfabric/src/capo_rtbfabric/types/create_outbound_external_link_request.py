@@ -57,9 +57,7 @@ def deserialize_json(data: dict) -> CreateOutboundExternalLinkRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError(
-            "CreateOutboundExternalLinkRequest.client_token required"
-        )
+        out["client_token"] = ""
     if data.get("attributes") is not None:
         import capo_rtbfabric.types.link_attributes
 
@@ -69,9 +67,7 @@ def deserialize_json(data: dict) -> CreateOutboundExternalLinkRequest:
     if data.get("publicEndpoint") is not None:
         out["public_endpoint"] = data["publicEndpoint"]
     else:
-        raise DeserializationError(
-            "CreateOutboundExternalLinkRequest.public_endpoint required"
-        )
+        out["public_endpoint"] = ""
     if data.get("logSettings") is not None:
         import capo_rtbfabric.types.link_log_settings
 

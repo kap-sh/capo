@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.geo_arn
     import capo_location.types.job_id
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> CancelJobResponse:
     if data.get("JobArn") is not None:
         out["job_arn"] = data["JobArn"]
     else:
-        raise DeserializationError("CancelJobResponse.job_arn required")
+        out["job_arn"] = ""
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError("CancelJobResponse.job_id required")
+        out["job_id"] = ""
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("CancelJobResponse.status required")
+        out["status"] = ""
     return out

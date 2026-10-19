@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.device_position_update_list
     import capo_location.types.resource_name
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> BatchEvaluateGeofencesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchEvaluateGeofencesRequest.device_position_updates required"
-        )
+        out["device_position_updates"] = []
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.next_token
     import capo_vpc_lattice.types.service_network_vpc_endpoint_association_list
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> ListServiceNetworkVpcEndpointAssociationsRes
             )
         )
     else:
-        raise DeserializationError(
-            "ListServiceNetworkVpcEndpointAssociationsResponse.items required"
-        )
+        out["items"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.additional_parameter_map
     import capo_iot.types.aws_job_abort_config
@@ -139,7 +137,7 @@ def deserialize_json(data: dict) -> CreateOTAUpdateRequest:
 
         out["targets"] = capo_iot.types.targets.deserialize_json(data["targets"])
     else:
-        raise DeserializationError("CreateOTAUpdateRequest.targets required")
+        out["targets"] = []
     if data.get("protocols") is not None:
         import capo_iot.types.protocols
 
@@ -187,11 +185,11 @@ def deserialize_json(data: dict) -> CreateOTAUpdateRequest:
 
         out["files"] = capo_iot.types.ota_update_files.deserialize_json(data["files"])
     else:
-        raise DeserializationError("CreateOTAUpdateRequest.files required")
+        out["files"] = []
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateOTAUpdateRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("additionalParameters") is not None:
         import capo_iot.types.additional_parameter_map
 

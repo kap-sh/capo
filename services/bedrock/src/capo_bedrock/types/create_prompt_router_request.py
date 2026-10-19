@@ -76,9 +76,7 @@ def deserialize_json(data: dict) -> CreatePromptRouterRequest:
     if data.get("promptRouterName") is not None:
         out["prompt_router_name"] = data["promptRouterName"]
     else:
-        raise DeserializationError(
-            "CreatePromptRouterRequest.prompt_router_name required"
-        )
+        out["prompt_router_name"] = ""
     if data.get("models") is not None:
         import capo_bedrock.types.prompt_router_target_models
 
@@ -86,7 +84,7 @@ def deserialize_json(data: dict) -> CreatePromptRouterRequest:
             data["models"]
         )
     else:
-        raise DeserializationError("CreatePromptRouterRequest.models required")
+        out["models"] = []
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("routingCriteria") is not None:

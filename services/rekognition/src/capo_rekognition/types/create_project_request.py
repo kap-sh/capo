@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.customization_feature
     import capo_rekognition.types.project_auto_update
@@ -62,7 +60,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProjectRequest:
     if data.get("ProjectName") is not None:
         out["project_name"] = data["ProjectName"]
     else:
-        raise DeserializationError("CreateProjectRequest.project_name required")
+        out["project_name"] = ""
     if data.get("Feature") is not None:
         import capo_rekognition.types.customization_feature
 

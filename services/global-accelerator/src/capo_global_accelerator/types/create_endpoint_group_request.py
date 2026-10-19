@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_global_accelerator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_global_accelerator.types.endpoint_configurations
     import capo_global_accelerator.types.generic_string
@@ -118,13 +116,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEndpointGroupRequest:
     if data.get("ListenerArn") is not None:
         out["listener_arn"] = data["ListenerArn"]
     else:
-        raise DeserializationError("CreateEndpointGroupRequest.listener_arn required")
+        out["listener_arn"] = ""
     if data.get("EndpointGroupRegion") is not None:
         out["endpoint_group_region"] = data["EndpointGroupRegion"]
     else:
-        raise DeserializationError(
-            "CreateEndpointGroupRequest.endpoint_group_region required"
-        )
+        out["endpoint_group_region"] = ""
     if data.get("EndpointConfigurations") is not None:
         import capo_global_accelerator.types.endpoint_configurations
 
@@ -154,9 +150,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEndpointGroupRequest:
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     else:
-        raise DeserializationError(
-            "CreateEndpointGroupRequest.idempotency_token required"
-        )
+        out["idempotency_token"] = ""
     if data.get("PortOverrides") is not None:
         import capo_global_accelerator.types.port_overrides
 

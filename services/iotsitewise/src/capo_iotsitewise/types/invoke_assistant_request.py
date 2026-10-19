@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.conversation_id
     import capo_iotsitewise.types.message_input
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> InvokeAssistantRequest:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("InvokeAssistantRequest.message required")
+        out["message"] = ""
     if data.get("enableTrace") is not None:
         out["enable_trace"] = data["enableTrace"]
     return out

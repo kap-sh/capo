@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -76,19 +74,19 @@ def deserialize_json(data: dict) -> Event:
     if data.get("memoryId") is not None:
         out["memory_id"] = data["memoryId"]
     else:
-        raise DeserializationError("Event.memory_id required")
+        out["memory_id"] = ""
     if data.get("actorId") is not None:
         out["actor_id"] = data["actorId"]
     else:
-        raise DeserializationError("Event.actor_id required")
+        out["actor_id"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("Event.session_id required")
+        out["session_id"] = ""
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError("Event.event_id required")
+        out["event_id"] = ""
     if data.get("eventTimestamp") is not None:
         import capo_bedrock_agentcore.types._prelude.timestamp
 
@@ -98,7 +96,11 @@ def deserialize_json(data: dict) -> Event:
             )
         )
     else:
-        raise DeserializationError("Event.event_timestamp required")
+        import datetime
+
+        out["event_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("payload") is not None:
         import capo_bedrock_agentcore.types.payload_type_list
 
@@ -108,7 +110,7 @@ def deserialize_json(data: dict) -> Event:
             )
         )
     else:
-        raise DeserializationError("Event.payload required")
+        out["payload"] = []
     if data.get("branch") is not None:
         import capo_bedrock_agentcore.types.branch
 

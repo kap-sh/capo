@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.dns_name
     import capo_deadline.types.license_endpoint_id
@@ -71,9 +69,7 @@ def deserialize_json(data: dict) -> GetLicenseEndpointResponse:
     if data.get("licenseEndpointId") is not None:
         out["license_endpoint_id"] = data["licenseEndpointId"]
     else:
-        raise DeserializationError(
-            "GetLicenseEndpointResponse.license_endpoint_id required"
-        )
+        out["license_endpoint_id"] = ""
     if data.get("status") is not None:
         import capo_deadline.types.license_endpoint_status
 
@@ -81,11 +77,15 @@ def deserialize_json(data: dict) -> GetLicenseEndpointResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("GetLicenseEndpointResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_deadline.types.license_endpoint_status.LicenseEndpointStatus", ""
+        )
     if data.get("statusMessage") is not None:
         out["status_message"] = data["statusMessage"]
     else:
-        raise DeserializationError("GetLicenseEndpointResponse.status_message required")
+        out["status_message"] = ""
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
     if data.get("dnsName") is not None:

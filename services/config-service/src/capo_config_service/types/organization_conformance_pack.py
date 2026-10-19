@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.conformance_pack_input_parameters
     import capo_config_service.types.date
@@ -83,17 +81,13 @@ def deserialize_aws_json_1_1(data: dict) -> OrganizationConformancePack:
             "OrganizationConformancePackName"
         ]
     else:
-        raise DeserializationError(
-            "OrganizationConformancePack.organization_conformance_pack_name required"
-        )
+        out["organization_conformance_pack_name"] = ""
     if data.get("OrganizationConformancePackArn") is not None:
         out["organization_conformance_pack_arn"] = data[
             "OrganizationConformancePackArn"
         ]
     else:
-        raise DeserializationError(
-            "OrganizationConformancePack.organization_conformance_pack_arn required"
-        )
+        out["organization_conformance_pack_arn"] = ""
     if data.get("DeliveryS3Bucket") is not None:
         out["delivery_s3_bucket"] = data["DeliveryS3Bucket"]
     if data.get("DeliveryS3KeyPrefix") is not None:
@@ -123,7 +117,9 @@ def deserialize_aws_json_1_1(data: dict) -> OrganizationConformancePack:
             )
         )
     else:
-        raise DeserializationError(
-            "OrganizationConformancePack.last_update_time required"
+        import datetime
+
+        out["last_update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

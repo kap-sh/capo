@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.boolean_optional
     import capo_database_migration_service.types.data_provider_settings
@@ -69,7 +67,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDataProviderMessage:
     if data.get("Engine") is not None:
         out["engine"] = data["Engine"]
     else:
-        raise DeserializationError("CreateDataProviderMessage.engine required")
+        out["engine"] = ""
     if data.get("Virtual") is not None:
         out["virtual"] = data["Virtual"]
     if data.get("Settings") is not None:
@@ -81,7 +79,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDataProviderMessage:
             )
         )
     else:
-        raise DeserializationError("CreateDataProviderMessage.settings required")
+        import capo_database_migration_service.types._unknown
+
+        out["settings"] = (
+            capo_database_migration_service.types._unknown.UnknownUnionMember("")
+        )
     if data.get("Tags") is not None:
         import capo_database_migration_service.types.tag_list
 

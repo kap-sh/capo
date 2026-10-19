@@ -79,9 +79,7 @@ def deserialize_json(data: dict) -> CreateAdvancedPromptOptimizationJobRequest:
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError(
-            "CreateAdvancedPromptOptimizationJobRequest.job_name required"
-        )
+        out["job_name"] = ""
     if data.get("jobDescription") is not None:
         out["job_description"] = data["jobDescription"]
     if data.get("clientToken") is not None:
@@ -125,7 +123,5 @@ def deserialize_json(data: dict) -> CreateAdvancedPromptOptimizationJobRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAdvancedPromptOptimizationJobRequest.model_configurations required"
-        )
+        out["model_configurations"] = []
     return out

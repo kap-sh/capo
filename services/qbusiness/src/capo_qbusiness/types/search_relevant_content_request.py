@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.application_id
     import capo_qbusiness.types.attribute_filter
@@ -58,7 +56,7 @@ def deserialize_json(data: dict) -> SearchRelevantContentRequest:
     if data.get("queryText") is not None:
         out["query_text"] = data["queryText"]
     else:
-        raise DeserializationError("SearchRelevantContentRequest.query_text required")
+        out["query_text"] = ""
     if data.get("contentSource") is not None:
         import capo_qbusiness.types.content_source
 
@@ -66,9 +64,9 @@ def deserialize_json(data: dict) -> SearchRelevantContentRequest:
             data["contentSource"]
         )
     else:
-        raise DeserializationError(
-            "SearchRelevantContentRequest.content_source required"
-        )
+        import capo_qbusiness.types._unknown
+
+        out["content_source"] = capo_qbusiness.types._unknown.UnknownUnionMember("")
     if data.get("attributeFilter") is not None:
         import capo_qbusiness.types.attribute_filter
 

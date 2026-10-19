@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.role_arn
     import capo_devops_agent.types.source_account_type
@@ -59,7 +57,7 @@ def deserialize_json(data: dict) -> SourceAwsConfiguration:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("SourceAwsConfiguration.account_id required")
+        out["account_id"] = ""
     if data.get("accountType") is not None:
         import capo_devops_agent.types.source_account_type
 
@@ -69,11 +67,15 @@ def deserialize_json(data: dict) -> SourceAwsConfiguration:
             )
         )
     else:
-        raise DeserializationError("SourceAwsConfiguration.account_type required")
+        import typing
+
+        out["account_type"] = typing.cast(
+            "capo_devops_agent.types.source_account_type.SourceAccountType", ""
+        )
     if data.get("assumableRoleArn") is not None:
         out["assumable_role_arn"] = data["assumableRoleArn"]
     else:
-        raise DeserializationError("SourceAwsConfiguration.assumable_role_arn required")
+        out["assumable_role_arn"] = ""
     if data.get("externalId") is not None:
         out["external_id"] = data["externalId"]
     if data.get("agentElevatedRoleArn") is not None:

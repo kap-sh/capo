@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_agent_registry_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_agent_registry_control.types.auto_detection_scope
 
@@ -42,9 +40,14 @@ def deserialize_json(data: dict) -> AutoDetectionConfiguration:
             )
         )
     else:
-        raise DeserializationError("AutoDetectionConfiguration.scope required")
+        import typing
+
+        out["scope"] = typing.cast(
+            "capo_agent_registry_control.types.auto_detection_scope.AutoDetectionScope",
+            "",
+        )
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     else:
-        raise DeserializationError("AutoDetectionConfiguration.enabled required")
+        out["enabled"] = False
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecatalyst.types.name_string
     import capo_codecatalyst.types.uuid
@@ -37,23 +35,17 @@ def deserialize_json(data: dict) -> StopDevEnvironmentSessionResponse:
     if data.get("spaceName") is not None:
         out["space_name"] = data["spaceName"]
     else:
-        raise DeserializationError(
-            "StopDevEnvironmentSessionResponse.space_name required"
-        )
+        out["space_name"] = ""
     if data.get("projectName") is not None:
         out["project_name"] = data["projectName"]
     else:
-        raise DeserializationError(
-            "StopDevEnvironmentSessionResponse.project_name required"
-        )
+        out["project_name"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("StopDevEnvironmentSessionResponse.id required")
+        out["id"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError(
-            "StopDevEnvironmentSessionResponse.session_id required"
-        )
+        out["session_id"] = ""
     return out

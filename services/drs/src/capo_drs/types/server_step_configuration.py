@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.recovery_plan_servers
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> ServerStepConfiguration:
             data["servers"]
         )
     else:
-        raise DeserializationError("ServerStepConfiguration.servers required")
+        out["servers"] = []
     return out

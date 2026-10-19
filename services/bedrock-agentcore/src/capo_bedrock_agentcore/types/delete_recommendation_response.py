@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.recommendation_id
     import capo_bedrock_agentcore.types.recommendation_status
@@ -35,9 +33,7 @@ def deserialize_json(data: dict) -> DeleteRecommendationResponse:
     if data.get("recommendationId") is not None:
         out["recommendation_id"] = data["recommendationId"]
     else:
-        raise DeserializationError(
-            "DeleteRecommendationResponse.recommendation_id required"
-        )
+        out["recommendation_id"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore.types.recommendation_status
 
@@ -47,5 +43,10 @@ def deserialize_json(data: dict) -> DeleteRecommendationResponse:
             )
         )
     else:
-        raise DeserializationError("DeleteRecommendationResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore.types.recommendation_status.RecommendationStatus",
+            "",
+        )
     return out

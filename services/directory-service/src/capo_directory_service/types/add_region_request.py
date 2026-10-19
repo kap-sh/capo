@@ -42,11 +42,11 @@ def deserialize_aws_json_1_1(data: dict) -> AddRegionRequest:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError("AddRegionRequest.directory_id required")
+        out["directory_id"] = ""
     if data.get("RegionName") is not None:
         out["region_name"] = data["RegionName"]
     else:
-        raise DeserializationError("AddRegionRequest.region_name required")
+        out["region_name"] = ""
     if data.get("VPCSettings") is not None:
         import capo_directory_service.types.directory_vpc_settings
 

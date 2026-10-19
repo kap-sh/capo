@@ -162,23 +162,21 @@ def deserialize_json(data: dict) -> AgentRecommendationSummary:
     if data.get("recommendationArn") is not None:
         out["recommendation_arn"] = data["recommendationArn"]
     else:
-        raise DeserializationError(
-            "AgentRecommendationSummary.recommendation_arn required"
-        )
+        out["recommendation_arn"] = ""
     if data.get("profileArn") is not None:
         out["profile_arn"] = data["profileArn"]
     else:
-        raise DeserializationError("AgentRecommendationSummary.profile_arn required")
+        out["profile_arn"] = ""
     if data.get("generationId") is not None:
         out["generation_id"] = data["generationId"]
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("AgentRecommendationSummary.title required")
+        out["title"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("AgentRecommendationSummary.description required")
+        out["description"] = ""
     if data.get("type") is not None:
         import capo_wellarchitected.types.recommendation_type
 
@@ -186,7 +184,11 @@ def deserialize_json(data: dict) -> AgentRecommendationSummary:
             data["type"]
         )
     else:
-        raise DeserializationError("AgentRecommendationSummary.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_wellarchitected.types.recommendation_type.RecommendationType", ""
+        )
     if data.get("pillar") is not None:
         import capo_wellarchitected.types.pillar
 
@@ -194,7 +196,9 @@ def deserialize_json(data: dict) -> AgentRecommendationSummary:
             data["pillar"]
         )
     else:
-        raise DeserializationError("AgentRecommendationSummary.pillar required")
+        import typing
+
+        out["pillar"] = typing.cast("capo_wellarchitected.types.pillar.Pillar", "")
     if data.get("priority") is not None:
         import capo_wellarchitected.types.priority
 
@@ -202,7 +206,11 @@ def deserialize_json(data: dict) -> AgentRecommendationSummary:
             data["priority"]
         )
     else:
-        raise DeserializationError("AgentRecommendationSummary.priority required")
+        import typing
+
+        out["priority"] = typing.cast(
+            "capo_wellarchitected.types.priority.Priority", ""
+        )
     if data.get("effort") is not None:
         import capo_wellarchitected.types.effort
 
@@ -210,7 +218,9 @@ def deserialize_json(data: dict) -> AgentRecommendationSummary:
             data["effort"]
         )
     else:
-        raise DeserializationError("AgentRecommendationSummary.effort required")
+        import typing
+
+        out["effort"] = typing.cast("capo_wellarchitected.types.effort.Effort", "")
     if data.get("status") is not None:
         import capo_wellarchitected.types.recommendation_status
 
@@ -220,7 +230,11 @@ def deserialize_json(data: dict) -> AgentRecommendationSummary:
             )
         )
     else:
-        raise DeserializationError("AgentRecommendationSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_wellarchitected.types.recommendation_status.RecommendationStatus", ""
+        )
     if data.get("state") is not None:
         import capo_wellarchitected.types.recommendation_state
 
@@ -228,7 +242,11 @@ def deserialize_json(data: dict) -> AgentRecommendationSummary:
             data["state"]
         )
     else:
-        raise DeserializationError("AgentRecommendationSummary.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_wellarchitected.types.recommendation_state.RecommendationState", ""
+        )
     if data.get("updateReason") is not None:
         out["update_reason"] = data["updateReason"]
     if data.get("impact") is not None:
@@ -238,7 +256,11 @@ def deserialize_json(data: dict) -> AgentRecommendationSummary:
             data["impact"]
         )
     else:
-        raise DeserializationError("AgentRecommendationSummary.impact required")
+        import typing
+
+        out["impact"] = typing.cast(
+            "capo_wellarchitected.types.impact_category.ImpactCategory", ""
+        )
     if data.get("roi") is not None:
         import capo_wellarchitected.types.roi
 
@@ -268,7 +290,7 @@ def deserialize_json(data: dict) -> AgentRecommendationSummary:
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("AgentRecommendationSummary.created_by required")
+        out["created_by"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -276,7 +298,9 @@ def deserialize_json(data: dict) -> AgentRecommendationSummary:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("AgentRecommendationSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastModifiedBy") is not None:
         out["last_modified_by"] = data["lastModifiedBy"]
     if data.get("lastModifiedAt") is not None:

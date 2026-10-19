@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resource_explorer_2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resource_explorer_2.types.aws_service_access_status
 
@@ -31,9 +29,7 @@ def deserialize_json(data: dict) -> OrgConfiguration:
     if data.get("AWSServiceAccessStatus") is not None:
         out["aws_service_access_status"] = data["AWSServiceAccessStatus"]
     else:
-        raise DeserializationError(
-            "OrgConfiguration.aws_service_access_status required"
-        )
+        out["aws_service_access_status"] = ""
     if data.get("ServiceLinkedRole") is not None:
         out["service_linked_role"] = data["ServiceLinkedRole"]
     return out

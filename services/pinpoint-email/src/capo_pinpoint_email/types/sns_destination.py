@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_email.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_email.types.amazon_resource_name
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> SnsDestination:
     if data.get("TopicArn") is not None:
         out["topic_arn"] = data["TopicArn"]
     else:
-        raise DeserializationError("SnsDestination.topic_arn required")
+        out["topic_arn"] = ""
     return out

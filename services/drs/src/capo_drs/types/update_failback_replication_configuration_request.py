@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.bounded_string
     import capo_drs.types.internet_protocol
@@ -45,9 +43,7 @@ def deserialize_json(data: dict) -> UpdateFailbackReplicationConfigurationReques
     if data.get("recoveryInstanceID") is not None:
         out["recovery_instance_id"] = data["recoveryInstanceID"]
     else:
-        raise DeserializationError(
-            "UpdateFailbackReplicationConfigurationRequest.recovery_instance_id required"
-        )
+        out["recovery_instance_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("bandwidthThrottling") is not None:

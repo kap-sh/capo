@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_controlcatalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_controlcatalog.types.implementation_identifier
     import capo_controlcatalog.types.implementation_type
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> ImplementationDetails:
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     else:
-        raise DeserializationError("ImplementationDetails.type required")
+        out["type"] = ""
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     return out

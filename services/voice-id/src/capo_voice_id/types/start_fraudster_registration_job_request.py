@@ -80,15 +80,11 @@ def deserialize_aws_json_1_0(data: dict) -> StartFraudsterRegistrationJobRequest
     if data.get("DomainId") is not None:
         out["domain_id"] = data["DomainId"]
     else:
-        raise DeserializationError(
-            "StartFraudsterRegistrationJobRequest.domain_id required"
-        )
+        out["domain_id"] = ""
     if data.get("DataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["DataAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "StartFraudsterRegistrationJobRequest.data_access_role_arn required"
-        )
+        out["data_access_role_arn"] = ""
     if data.get("RegistrationConfig") is not None:
         import capo_voice_id.types.registration_config
 

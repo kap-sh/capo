@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codestar_connections.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codestar_connections.types.host_name
     import capo_codestar_connections.types.provider_type
@@ -63,7 +61,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateHostInput:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateHostInput.name required")
+        out["name"] = ""
     if data.get("ProviderType") is not None:
         import capo_codestar_connections.types.provider_type
 
@@ -73,11 +71,15 @@ def deserialize_aws_json_1_0(data: dict) -> CreateHostInput:
             )
         )
     else:
-        raise DeserializationError("CreateHostInput.provider_type required")
+        import typing
+
+        out["provider_type"] = typing.cast(
+            "capo_codestar_connections.types.provider_type.ProviderType", ""
+        )
     if data.get("ProviderEndpoint") is not None:
         out["provider_endpoint"] = data["ProviderEndpoint"]
     else:
-        raise DeserializationError("CreateHostInput.provider_endpoint required")
+        out["provider_endpoint"] = ""
     if data.get("VpcConfiguration") is not None:
         import capo_codestar_connections.types.vpc_configuration
 

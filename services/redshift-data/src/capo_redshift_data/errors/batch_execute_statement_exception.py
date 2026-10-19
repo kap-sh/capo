@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_redshift_data.errors import DeserializationError, ServiceError
+from capo_redshift_data.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_redshift_data.types.string
@@ -30,13 +30,11 @@ def deserialize_aws_json_1_1(data: dict) -> BatchExecuteStatementException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("BatchExecuteStatementException_.message required")
+        out["message"] = ""
     if data.get("StatementId") is not None:
         out["statement_id"] = data["StatementId"]
     else:
-        raise DeserializationError(
-            "BatchExecuteStatementException_.statement_id required"
-        )
+        out["statement_id"] = ""
     return out
 
 

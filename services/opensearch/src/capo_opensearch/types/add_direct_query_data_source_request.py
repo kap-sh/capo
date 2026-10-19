@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.direct_query_data_source_description
     import capo_opensearch.types.direct_query_data_source_name
@@ -76,9 +74,7 @@ def deserialize_json(data: dict) -> AddDirectQueryDataSourceRequest:
     if data.get("DataSourceName") is not None:
         out["data_source_name"] = data["DataSourceName"]
     else:
-        raise DeserializationError(
-            "AddDirectQueryDataSourceRequest.data_source_name required"
-        )
+        out["data_source_name"] = ""
     if data.get("DataSourceType") is not None:
         import capo_opensearch.types.direct_query_data_source_type
 
@@ -88,9 +84,9 @@ def deserialize_json(data: dict) -> AddDirectQueryDataSourceRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "AddDirectQueryDataSourceRequest.data_source_type required"
-        )
+        import capo_opensearch.types._unknown
+
+        out["data_source_type"] = capo_opensearch.types._unknown.UnknownUnionMember("")
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("OpenSearchArns") is not None:

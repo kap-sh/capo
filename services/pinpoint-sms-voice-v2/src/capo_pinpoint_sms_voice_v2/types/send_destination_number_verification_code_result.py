@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 
 class SendDestinationNumberVerificationCodeResult(TypedDict, closed=True):
     message_id: "str"
@@ -22,7 +20,5 @@ def deserialize_aws_json_1_0(data: dict) -> SendDestinationNumberVerificationCod
     if data.get("MessageId") is not None:
         out["message_id"] = data["MessageId"]
     else:
-        raise DeserializationError(
-            "SendDestinationNumberVerificationCodeResult.message_id required"
-        )
+        out["message_id"] = ""
     return out

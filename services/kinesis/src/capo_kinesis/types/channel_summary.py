@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.channel_arn
     import capo_kinesis.types.channel_destination_type
@@ -84,15 +82,15 @@ def deserialize_aws_json_1_1(data: dict) -> ChannelSummary:
     if data.get("ChannelName") is not None:
         out["channel_name"] = data["ChannelName"]
     else:
-        raise DeserializationError("ChannelSummary.channel_name required")
+        out["channel_name"] = ""
     if data.get("ChannelARN") is not None:
         out["channel_arn"] = data["ChannelARN"]
     else:
-        raise DeserializationError("ChannelSummary.channel_arn required")
+        out["channel_arn"] = ""
     if data.get("ChannelId") is not None:
         out["channel_id"] = data["ChannelId"]
     else:
-        raise DeserializationError("ChannelSummary.channel_id required")
+        out["channel_id"] = ""
     if data.get("ChannelStatus") is not None:
         import capo_kinesis.types.channel_status
 
@@ -102,7 +100,11 @@ def deserialize_aws_json_1_1(data: dict) -> ChannelSummary:
             )
         )
     else:
-        raise DeserializationError("ChannelSummary.channel_status required")
+        import typing
+
+        out["channel_status"] = typing.cast(
+            "capo_kinesis.types.channel_status.ChannelStatus", ""
+        )
     if data.get("ChannelStatusReason") is not None:
         out["channel_status_reason"] = data["ChannelStatusReason"]
     if data.get("ChannelCreationTimestamp") is not None:
@@ -114,7 +116,11 @@ def deserialize_aws_json_1_1(data: dict) -> ChannelSummary:
             )
         )
     else:
-        raise DeserializationError("ChannelSummary.channel_creation_timestamp required")
+        import datetime
+
+        out["channel_creation_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("ChannelDestinationType") is not None:
         import capo_kinesis.types.channel_destination_type
 
@@ -124,7 +130,11 @@ def deserialize_aws_json_1_1(data: dict) -> ChannelSummary:
             )
         )
     else:
-        raise DeserializationError("ChannelSummary.channel_destination_type required")
+        import typing
+
+        out["channel_destination_type"] = typing.cast(
+            "capo_kinesis.types.channel_destination_type.ChannelDestinationType", ""
+        )
     if data.get("Streams") is not None:
         import capo_kinesis.types.channel_stream_identifier_list
 
@@ -134,5 +144,5 @@ def deserialize_aws_json_1_1(data: dict) -> ChannelSummary:
             )
         )
     else:
-        raise DeserializationError("ChannelSummary.streams required")
+        out["streams"] = []
     return out

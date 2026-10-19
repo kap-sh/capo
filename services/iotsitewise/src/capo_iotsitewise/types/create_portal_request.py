@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.alarms
     import capo_iotsitewise.types.auth_mode
@@ -103,13 +101,13 @@ def deserialize_json(data: dict) -> CreatePortalRequest:
     if data.get("portalName") is not None:
         out["portal_name"] = data["portalName"]
     else:
-        raise DeserializationError("CreatePortalRequest.portal_name required")
+        out["portal_name"] = ""
     if data.get("portalDescription") is not None:
         out["portal_description"] = data["portalDescription"]
     if data.get("portalContactEmail") is not None:
         out["portal_contact_email"] = data["portalContactEmail"]
     else:
-        raise DeserializationError("CreatePortalRequest.portal_contact_email required")
+        out["portal_contact_email"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("portalLogoImageFile") is not None:
@@ -123,7 +121,7 @@ def deserialize_json(data: dict) -> CreatePortalRequest:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreatePortalRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("tags") is not None:
         import capo_iotsitewise.types.tag_map
 

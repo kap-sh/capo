@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.kms_key_id
     import capo_securityagent.types.private_connection_name
@@ -65,7 +63,9 @@ def deserialize_json(data: dict) -> CreateIntegrationInput:
             data["provider"]
         )
     else:
-        raise DeserializationError("CreateIntegrationInput.provider required")
+        import typing
+
+        out["provider"] = typing.cast("capo_securityagent.types.provider.Provider", "")
     if data.get("input") is not None:
         import capo_securityagent.types.provider_input
 
@@ -73,13 +73,13 @@ def deserialize_json(data: dict) -> CreateIntegrationInput:
             data["input"]
         )
     else:
-        raise DeserializationError("CreateIntegrationInput.input required")
+        import capo_securityagent.types._unknown
+
+        out["input"] = capo_securityagent.types._unknown.UnknownUnionMember("")
     if data.get("integrationDisplayName") is not None:
         out["integration_display_name"] = data["integrationDisplayName"]
     else:
-        raise DeserializationError(
-            "CreateIntegrationInput.integration_display_name required"
-        )
+        out["integration_display_name"] = ""
     if data.get("kmsKeyId") is not None:
         out["kms_key_id"] = data["kmsKeyId"]
     if data.get("tags") is not None:

@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_snow_device_management.errors import DeserializationError
-
 
 class ResourceSummary(TypedDict, closed=True):
     resource_type: "str"
@@ -30,7 +28,7 @@ def deserialize_json(data: dict) -> ResourceSummary:
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError("ResourceSummary.resource_type required")
+        out["resource_type"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     if data.get("id") is not None:

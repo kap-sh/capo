@@ -39,5 +39,5 @@ def deserialize_json(data: dict) -> PermissionEntry:
     if data.get("role") is not None:
         out["role"] = data["role"]
     else:
-        raise DeserializationError("PermissionEntry.role required")
+        out["role"] = ""
     return out

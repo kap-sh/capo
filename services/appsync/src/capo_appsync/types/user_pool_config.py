@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.default_action
     import capo_appsync.types.string
@@ -42,11 +40,11 @@ def deserialize_json(data: dict) -> UserPoolConfig:
     if data.get("userPoolId") is not None:
         out["user_pool_id"] = data["userPoolId"]
     else:
-        raise DeserializationError("UserPoolConfig.user_pool_id required")
+        out["user_pool_id"] = ""
     if data.get("awsRegion") is not None:
         out["aws_region"] = data["awsRegion"]
     else:
-        raise DeserializationError("UserPoolConfig.aws_region required")
+        out["aws_region"] = ""
     if data.get("defaultAction") is not None:
         import capo_appsync.types.default_action
 
@@ -54,7 +52,11 @@ def deserialize_json(data: dict) -> UserPoolConfig:
             data["defaultAction"]
         )
     else:
-        raise DeserializationError("UserPoolConfig.default_action required")
+        import typing
+
+        out["default_action"] = typing.cast(
+            "capo_appsync.types.default_action.DefaultAction", ""
+        )
     if data.get("appIdClientRegex") is not None:
         out["app_id_client_regex"] = data["appIdClientRegex"]
     return out

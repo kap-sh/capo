@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.client_token
     import capo_bedrock_agentcore.types.payment_agent_name
@@ -70,17 +68,15 @@ def deserialize_json(data: dict) -> ProcessPaymentRequest:
     if data.get("paymentManagerArn") is not None:
         out["payment_manager_arn"] = data["paymentManagerArn"]
     else:
-        raise DeserializationError("ProcessPaymentRequest.payment_manager_arn required")
+        out["payment_manager_arn"] = ""
     if data.get("paymentSessionId") is not None:
         out["payment_session_id"] = data["paymentSessionId"]
     else:
-        raise DeserializationError("ProcessPaymentRequest.payment_session_id required")
+        out["payment_session_id"] = ""
     if data.get("paymentInstrumentId") is not None:
         out["payment_instrument_id"] = data["paymentInstrumentId"]
     else:
-        raise DeserializationError(
-            "ProcessPaymentRequest.payment_instrument_id required"
-        )
+        out["payment_instrument_id"] = ""
     if data.get("paymentType") is not None:
         import capo_bedrock_agentcore.types.payment_type
 
@@ -90,7 +86,11 @@ def deserialize_json(data: dict) -> ProcessPaymentRequest:
             )
         )
     else:
-        raise DeserializationError("ProcessPaymentRequest.payment_type required")
+        import typing
+
+        out["payment_type"] = typing.cast(
+            "capo_bedrock_agentcore.types.payment_type.PaymentType", ""
+        )
     if data.get("paymentInput") is not None:
         import capo_bedrock_agentcore.types.payment_input
 
@@ -100,7 +100,11 @@ def deserialize_json(data: dict) -> ProcessPaymentRequest:
             )
         )
     else:
-        raise DeserializationError("ProcessPaymentRequest.payment_input required")
+        import capo_bedrock_agentcore.types._unknown
+
+        out["payment_input"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

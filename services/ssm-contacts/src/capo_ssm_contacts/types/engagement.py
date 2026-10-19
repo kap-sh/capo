@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.date_time
     import capo_ssm_contacts.types.incident_id
@@ -56,15 +54,15 @@ def deserialize_aws_json_1_1(data: dict) -> Engagement:
     if data.get("EngagementArn") is not None:
         out["engagement_arn"] = data["EngagementArn"]
     else:
-        raise DeserializationError("Engagement.engagement_arn required")
+        out["engagement_arn"] = ""
     if data.get("ContactArn") is not None:
         out["contact_arn"] = data["ContactArn"]
     else:
-        raise DeserializationError("Engagement.contact_arn required")
+        out["contact_arn"] = ""
     if data.get("Sender") is not None:
         out["sender"] = data["Sender"]
     else:
-        raise DeserializationError("Engagement.sender required")
+        out["sender"] = ""
     if data.get("IncidentId") is not None:
         out["incident_id"] = data["IncidentId"]
     if data.get("StartTime") is not None:

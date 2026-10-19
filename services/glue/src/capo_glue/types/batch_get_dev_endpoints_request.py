@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.dev_endpoint_names
 
@@ -37,7 +35,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetDevEndpointsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetDevEndpointsRequest.dev_endpoint_names required"
-        )
+        out["dev_endpoint_names"] = []
     return out

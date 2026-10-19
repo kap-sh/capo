@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.action_name
     import capo_codepipeline.types.git_pull_request_filter_list
@@ -51,7 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> GitConfiguration:
     if data.get("sourceActionName") is not None:
         out["source_action_name"] = data["sourceActionName"]
     else:
-        raise DeserializationError("GitConfiguration.source_action_name required")
+        out["source_action_name"] = ""
     if data.get("push") is not None:
         import capo_codepipeline.types.git_push_filter_list
 

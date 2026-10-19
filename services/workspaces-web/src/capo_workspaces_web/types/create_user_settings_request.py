@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.branding_configuration_create_input
     import capo_workspaces_web.types.client_token
@@ -132,25 +130,23 @@ def deserialize_json(data: dict) -> CreateUserSettingsRequest:
     if data.get("copyAllowed") is not None:
         out["copy_allowed"] = data["copyAllowed"]
     else:
-        raise DeserializationError("CreateUserSettingsRequest.copy_allowed required")
+        out["copy_allowed"] = ""
     if data.get("pasteAllowed") is not None:
         out["paste_allowed"] = data["pasteAllowed"]
     else:
-        raise DeserializationError("CreateUserSettingsRequest.paste_allowed required")
+        out["paste_allowed"] = ""
     if data.get("downloadAllowed") is not None:
         out["download_allowed"] = data["downloadAllowed"]
     else:
-        raise DeserializationError(
-            "CreateUserSettingsRequest.download_allowed required"
-        )
+        out["download_allowed"] = ""
     if data.get("uploadAllowed") is not None:
         out["upload_allowed"] = data["uploadAllowed"]
     else:
-        raise DeserializationError("CreateUserSettingsRequest.upload_allowed required")
+        out["upload_allowed"] = ""
     if data.get("printAllowed") is not None:
         out["print_allowed"] = data["printAllowed"]
     else:
-        raise DeserializationError("CreateUserSettingsRequest.print_allowed required")
+        out["print_allowed"] = ""
     if data.get("tags") is not None:
         import capo_workspaces_web.types.tag_list
 

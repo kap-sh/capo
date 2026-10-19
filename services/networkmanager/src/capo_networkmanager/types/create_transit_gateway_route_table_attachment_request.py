@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmanager.types.client_token
     import capo_networkmanager.types.constrained_string
@@ -50,15 +48,11 @@ def deserialize_json(data: dict) -> CreateTransitGatewayRouteTableAttachmentRequ
     if data.get("PeeringId") is not None:
         out["peering_id"] = data["PeeringId"]
     else:
-        raise DeserializationError(
-            "CreateTransitGatewayRouteTableAttachmentRequest.peering_id required"
-        )
+        out["peering_id"] = ""
     if data.get("TransitGatewayRouteTableArn") is not None:
         out["transit_gateway_route_table_arn"] = data["TransitGatewayRouteTableArn"]
     else:
-        raise DeserializationError(
-            "CreateTransitGatewayRouteTableAttachmentRequest.transit_gateway_route_table_arn required"
-        )
+        out["transit_gateway_route_table_arn"] = ""
     if data.get("RoutingPolicyLabel") is not None:
         out["routing_policy_label"] = data["RoutingPolicyLabel"]
     if data.get("Tags") is not None:

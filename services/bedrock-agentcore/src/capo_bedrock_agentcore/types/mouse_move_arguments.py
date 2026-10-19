@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 
 class MouseMoveArguments(TypedDict, closed=True):
     x: "int"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> MouseMoveArguments:
     if data.get("x") is not None:
         out["x"] = data["x"]
     else:
-        raise DeserializationError("MouseMoveArguments.x required")
+        out["x"] = 0
     if data.get("y") is not None:
         out["y"] = data["y"]
     else:
-        raise DeserializationError("MouseMoveArguments.y required")
+        out["y"] = 0
     return out

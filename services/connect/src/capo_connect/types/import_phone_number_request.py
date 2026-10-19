@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.client_token
@@ -50,13 +48,11 @@ def deserialize_json(data: dict) -> ImportPhoneNumberRequest:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("ImportPhoneNumberRequest.instance_id required")
+        out["instance_id"] = ""
     if data.get("SourcePhoneNumberArn") is not None:
         out["source_phone_number_arn"] = data["SourcePhoneNumberArn"]
     else:
-        raise DeserializationError(
-            "ImportPhoneNumberRequest.source_phone_number_arn required"
-        )
+        out["source_phone_number_arn"] = ""
     if data.get("PhoneNumberDescription") is not None:
         out["phone_number_description"] = data["PhoneNumberDescription"]
     if data.get("Tags") is not None:

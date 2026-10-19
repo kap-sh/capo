@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.artifact_store_location
     import capo_codepipeline.types.artifact_store_type
@@ -52,11 +50,15 @@ def deserialize_aws_json_1_1(data: dict) -> ArtifactStore:
             )
         )
     else:
-        raise DeserializationError("ArtifactStore.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codepipeline.types.artifact_store_type.ArtifactStoreType", ""
+        )
     if data.get("location") is not None:
         out["location"] = data["location"]
     else:
-        raise DeserializationError("ArtifactStore.location required")
+        out["location"] = ""
     if data.get("encryptionKey") is not None:
         import capo_codepipeline.types.encryption_key
 

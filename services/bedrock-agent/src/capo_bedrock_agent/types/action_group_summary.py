@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.action_group_state
     import capo_bedrock_agent.types.date_timestamp
@@ -54,11 +52,11 @@ def deserialize_json(data: dict) -> ActionGroupSummary:
     if data.get("actionGroupId") is not None:
         out["action_group_id"] = data["actionGroupId"]
     else:
-        raise DeserializationError("ActionGroupSummary.action_group_id required")
+        out["action_group_id"] = ""
     if data.get("actionGroupName") is not None:
         out["action_group_name"] = data["actionGroupName"]
     else:
-        raise DeserializationError("ActionGroupSummary.action_group_name required")
+        out["action_group_name"] = ""
     if data.get("actionGroupState") is not None:
         import capo_bedrock_agent.types.action_group_state
 
@@ -68,7 +66,11 @@ def deserialize_json(data: dict) -> ActionGroupSummary:
             )
         )
     else:
-        raise DeserializationError("ActionGroupSummary.action_group_state required")
+        import typing
+
+        out["action_group_state"] = typing.cast(
+            "capo_bedrock_agent.types.action_group_state.ActionGroupState", ""
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("updatedAt") is not None:
@@ -78,5 +80,7 @@ def deserialize_json(data: dict) -> ActionGroupSummary:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("ActionGroupSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

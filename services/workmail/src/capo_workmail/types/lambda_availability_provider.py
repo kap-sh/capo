@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.lambda_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> LambdaAvailabilityProvider:
     if data.get("LambdaArn") is not None:
         out["lambda_arn"] = data["LambdaArn"]
     else:
-        raise DeserializationError("LambdaAvailabilityProvider.lambda_arn required")
+        out["lambda_arn"] = ""
     return out

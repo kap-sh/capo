@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.cost_category_names_list
     import capo_cost_explorer.types.cost_category_values_list
@@ -81,9 +79,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetCostCategoriesResponse:
     if data.get("ReturnSize") is not None:
         out["return_size"] = data["ReturnSize"]
     else:
-        raise DeserializationError("GetCostCategoriesResponse.return_size required")
+        out["return_size"] = 0
     if data.get("TotalSize") is not None:
         out["total_size"] = data["TotalSize"]
     else:
-        raise DeserializationError("GetCostCategoriesResponse.total_size required")
+        out["total_size"] = 0
     return out

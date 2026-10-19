@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeguru_security.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -82,11 +80,11 @@ def deserialize_json(data: dict) -> GetScanResponse:
     if data.get("scanName") is not None:
         out["scan_name"] = data["scanName"]
     else:
-        raise DeserializationError("GetScanResponse.scan_name required")
+        out["scan_name"] = ""
     if data.get("runId") is not None:
         out["run_id"] = data["runId"]
     else:
-        raise DeserializationError("GetScanResponse.run_id required")
+        out["run_id"] = ""
     if data.get("scanState") is not None:
         import capo_codeguru_security.types.scan_state
 
@@ -94,7 +92,11 @@ def deserialize_json(data: dict) -> GetScanResponse:
             data["scanState"]
         )
     else:
-        raise DeserializationError("GetScanResponse.scan_state required")
+        import typing
+
+        out["scan_state"] = typing.cast(
+            "capo_codeguru_security.types.scan_state.ScanState", ""
+        )
     if data.get("createdAt") is not None:
         import capo_codeguru_security.types._prelude.timestamp
 
@@ -104,7 +106,9 @@ def deserialize_json(data: dict) -> GetScanResponse:
             )
         )
     else:
-        raise DeserializationError("GetScanResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("analysisType") is not None:
         import capo_codeguru_security.types.analysis_type
 
@@ -114,7 +118,11 @@ def deserialize_json(data: dict) -> GetScanResponse:
             )
         )
     else:
-        raise DeserializationError("GetScanResponse.analysis_type required")
+        import typing
+
+        out["analysis_type"] = typing.cast(
+            "capo_codeguru_security.types.analysis_type.AnalysisType", ""
+        )
     if data.get("updatedAt") is not None:
         import capo_codeguru_security.types._prelude.timestamp
 

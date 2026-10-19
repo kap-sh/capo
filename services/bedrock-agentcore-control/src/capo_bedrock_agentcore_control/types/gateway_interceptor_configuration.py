@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.gateway_interception_points
     import capo_bedrock_agentcore_control.types.interceptor_configuration
@@ -62,8 +60,10 @@ def deserialize_json(data: dict) -> GatewayInterceptorConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "GatewayInterceptorConfiguration.interceptor required"
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["interceptor"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
         )
     if data.get("interceptionPoints") is not None:
         import capo_bedrock_agentcore_control.types.gateway_interception_points
@@ -74,9 +74,7 @@ def deserialize_json(data: dict) -> GatewayInterceptorConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "GatewayInterceptorConfiguration.interception_points required"
-        )
+        out["interception_points"] = []
     if data.get("inputConfiguration") is not None:
         import capo_bedrock_agentcore_control.types.interceptor_input_configuration
 

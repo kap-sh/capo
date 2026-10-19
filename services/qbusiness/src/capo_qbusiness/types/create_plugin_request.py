@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.application_id
     import capo_qbusiness.types.client_token
@@ -77,13 +75,15 @@ def deserialize_json(data: dict) -> CreatePluginRequest:
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("CreatePluginRequest.display_name required")
+        out["display_name"] = ""
     if data.get("type") is not None:
         import capo_qbusiness.types.plugin_type
 
         out["type"] = capo_qbusiness.types.plugin_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("CreatePluginRequest.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_qbusiness.types.plugin_type.PluginType", "")
     if data.get("authConfiguration") is not None:
         import capo_qbusiness.types.plugin_auth_configuration
 
@@ -93,7 +93,9 @@ def deserialize_json(data: dict) -> CreatePluginRequest:
             )
         )
     else:
-        raise DeserializationError("CreatePluginRequest.auth_configuration required")
+        import capo_qbusiness.types._unknown
+
+        out["auth_configuration"] = capo_qbusiness.types._unknown.UnknownUnionMember("")
     if data.get("serverUrl") is not None:
         out["server_url"] = data["serverUrl"]
     if data.get("customPluginConfiguration") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker.types.accept_eula
     import capo_sagemaker.types.customization_technique
@@ -83,7 +81,7 @@ def deserialize_aws_json_1_1(data: dict) -> ServerlessJobConfig:
     if data.get("BaseModelArn") is not None:
         out["base_model_arn"] = data["BaseModelArn"]
     else:
-        raise DeserializationError("ServerlessJobConfig.base_model_arn required")
+        out["base_model_arn"] = ""
     if data.get("AcceptEula") is not None:
         out["accept_eula"] = data["AcceptEula"]
     if data.get("JobType") is not None:
@@ -95,7 +93,11 @@ def deserialize_aws_json_1_1(data: dict) -> ServerlessJobConfig:
             )
         )
     else:
-        raise DeserializationError("ServerlessJobConfig.job_type required")
+        import typing
+
+        out["job_type"] = typing.cast(
+            "capo_sagemaker.types.serverless_job_type.ServerlessJobType", ""
+        )
     if data.get("CustomizationTechnique") is not None:
         import capo_sagemaker.types.customization_technique
 

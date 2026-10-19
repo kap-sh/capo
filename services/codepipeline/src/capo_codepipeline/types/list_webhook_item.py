@@ -88,7 +88,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListWebhookItem:
     if data.get("url") is not None:
         out["url"] = data["url"]
     else:
-        raise DeserializationError("ListWebhookItem.url required")
+        out["url"] = ""
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     if data.get("errorCode") is not None:

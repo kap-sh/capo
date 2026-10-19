@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.count
     import capo_lex_models_v2.types.test_result_match_status_count_map
@@ -49,9 +47,7 @@ def deserialize_json(data: dict) -> IntentClassificationTestResultItemCounts:
     if data.get("totalResultCount") is not None:
         out["total_result_count"] = data["totalResultCount"]
     else:
-        raise DeserializationError(
-            "IntentClassificationTestResultItemCounts.total_result_count required"
-        )
+        out["total_result_count"] = 0
     if data.get("speechTranscriptionResultCounts") is not None:
         import capo_lex_models_v2.types.test_result_match_status_count_map
 
@@ -69,7 +65,5 @@ def deserialize_json(data: dict) -> IntentClassificationTestResultItemCounts:
             )
         )
     else:
-        raise DeserializationError(
-            "IntentClassificationTestResultItemCounts.intent_match_result_counts required"
-        )
+        out["intent_match_result_counts"] = {}
     return out

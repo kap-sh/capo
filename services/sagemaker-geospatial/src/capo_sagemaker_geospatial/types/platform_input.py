@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.comparison_operator
 
@@ -33,7 +31,7 @@ def deserialize_json(data: dict) -> PlatformInput:
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("PlatformInput.value required")
+        out["value"] = ""
     if data.get("ComparisonOperator") is not None:
         out["comparison_operator"] = data["ComparisonOperator"]
     return out

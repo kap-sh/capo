@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.client_request_token_string
     import capo_comprehend.types.comprehend_endpoint_name
@@ -70,15 +68,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEndpointRequest:
     if data.get("EndpointName") is not None:
         out["endpoint_name"] = data["EndpointName"]
     else:
-        raise DeserializationError("CreateEndpointRequest.endpoint_name required")
+        out["endpoint_name"] = ""
     if data.get("ModelArn") is not None:
         out["model_arn"] = data["ModelArn"]
     if data.get("DesiredInferenceUnits") is not None:
         out["desired_inference_units"] = data["DesiredInferenceUnits"]
     else:
-        raise DeserializationError(
-            "CreateEndpointRequest.desired_inference_units required"
-        )
+        out["desired_inference_units"] = 0
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     if data.get("Tags") is not None:

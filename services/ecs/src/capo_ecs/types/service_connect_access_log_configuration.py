@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.service_connect_access_logging_format
     import capo_ecs.types.service_connect_include_query_parameters
@@ -52,8 +50,11 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceConnectAccessLogConfiguration
             )
         )
     else:
-        raise DeserializationError(
-            "ServiceConnectAccessLogConfiguration.format required"
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_ecs.types.service_connect_access_logging_format.ServiceConnectAccessLoggingFormat",
+            "",
         )
     if data.get("includeQueryParameters") is not None:
         import capo_ecs.types.service_connect_include_query_parameters

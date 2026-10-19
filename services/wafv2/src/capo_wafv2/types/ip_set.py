@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.entity_description
     import capo_wafv2.types.entity_id
@@ -58,15 +56,15 @@ def deserialize_aws_json_1_1(data: dict) -> IPSet:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("IPSet.name required")
+        out["name"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("IPSet.id required")
+        out["id"] = ""
     if data.get("ARN") is not None:
         out["arn"] = data["ARN"]
     else:
-        raise DeserializationError("IPSet.arn required")
+        out["arn"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("IPAddressVersion") is not None:
@@ -78,7 +76,11 @@ def deserialize_aws_json_1_1(data: dict) -> IPSet:
             )
         )
     else:
-        raise DeserializationError("IPSet.ip_address_version required")
+        import typing
+
+        out["ip_address_version"] = typing.cast(
+            "capo_wafv2.types.ip_address_version.IPAddressVersion", ""
+        )
     if data.get("Addresses") is not None:
         import capo_wafv2.types.ip_addresses
 
@@ -86,5 +88,5 @@ def deserialize_aws_json_1_1(data: dict) -> IPSet:
             data["Addresses"]
         )
     else:
-        raise DeserializationError("IPSet.addresses required")
+        out["addresses"] = []
     return out

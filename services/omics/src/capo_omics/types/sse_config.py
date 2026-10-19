@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.encryption_type
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> SseConfig:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("SseConfig.type required")
+        out["type"] = ""
     if data.get("keyArn") is not None:
         out["key_arn"] = data["keyArn"]
     return out

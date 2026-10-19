@@ -72,27 +72,23 @@ def deserialize_json(data: dict) -> MongoDbAtlasConfiguration:
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError("MongoDbAtlasConfiguration.endpoint required")
+        out["endpoint"] = ""
     if data.get("databaseName") is not None:
         out["database_name"] = data["databaseName"]
     else:
-        raise DeserializationError("MongoDbAtlasConfiguration.database_name required")
+        out["database_name"] = ""
     if data.get("collectionName") is not None:
         out["collection_name"] = data["collectionName"]
     else:
-        raise DeserializationError("MongoDbAtlasConfiguration.collection_name required")
+        out["collection_name"] = ""
     if data.get("vectorIndexName") is not None:
         out["vector_index_name"] = data["vectorIndexName"]
     else:
-        raise DeserializationError(
-            "MongoDbAtlasConfiguration.vector_index_name required"
-        )
+        out["vector_index_name"] = ""
     if data.get("credentialsSecretArn") is not None:
         out["credentials_secret_arn"] = data["credentialsSecretArn"]
     else:
-        raise DeserializationError(
-            "MongoDbAtlasConfiguration.credentials_secret_arn required"
-        )
+        out["credentials_secret_arn"] = ""
     if data.get("fieldMapping") is not None:
         import capo_bedrock_agent.types.mongo_db_atlas_field_mapping
 

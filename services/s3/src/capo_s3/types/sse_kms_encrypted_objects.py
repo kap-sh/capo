@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.sse_kms_encrypted_objects_status
@@ -38,5 +37,10 @@ def deserialize_xml(el: Element) -> SseKmsEncryptedObjects:
             child_status
         )
     else:
-        raise DeserializationError("SseKmsEncryptedObjects.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_s3.types.sse_kms_encrypted_objects_status.SseKmsEncryptedObjectsStatus",
+            "",
+        )
     return out

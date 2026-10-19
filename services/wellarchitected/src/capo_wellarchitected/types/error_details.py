@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 
 class ErrorDetails(TypedDict, closed=True):
     code: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> ErrorDetails:
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("ErrorDetails.code required")
+        out["code"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ErrorDetails.message required")
+        out["message"] = ""
     return out

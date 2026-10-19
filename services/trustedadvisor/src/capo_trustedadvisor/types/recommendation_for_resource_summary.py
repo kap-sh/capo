@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_trustedadvisor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -82,21 +80,15 @@ def deserialize_json(data: dict) -> RecommendationForResourceSummary:
     if data.get("checkArn") is not None:
         out["check_arn"] = data["checkArn"]
     else:
-        raise DeserializationError(
-            "RecommendationForResourceSummary.check_arn required"
-        )
+        out["check_arn"] = ""
     if data.get("recommendationArn") is not None:
         out["recommendation_arn"] = data["recommendationArn"]
     else:
-        raise DeserializationError(
-            "RecommendationForResourceSummary.recommendation_arn required"
-        )
+        out["recommendation_arn"] = ""
     if data.get("awsResourceArn") is not None:
         out["aws_resource_arn"] = data["awsResourceArn"]
     else:
-        raise DeserializationError(
-            "RecommendationForResourceSummary.aws_resource_arn required"
-        )
+        out["aws_resource_arn"] = ""
     if data.get("status") is not None:
         import capo_trustedadvisor.types.resource_status
 
@@ -104,7 +96,11 @@ def deserialize_json(data: dict) -> RecommendationForResourceSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("RecommendationForResourceSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_trustedadvisor.types.resource_status.ResourceStatus", ""
+        )
     if data.get("lastUpdatedAt") is not None:
         import datetime
 
@@ -112,8 +108,10 @@ def deserialize_json(data: dict) -> RecommendationForResourceSummary:
             data["lastUpdatedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "RecommendationForResourceSummary.last_updated_at required"
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("exclusionStatus") is not None:
         import capo_trustedadvisor.types.exclusion_status
@@ -124,8 +122,10 @@ def deserialize_json(data: dict) -> RecommendationForResourceSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "RecommendationForResourceSummary.exclusion_status required"
+        import typing
+
+        out["exclusion_status"] = typing.cast(
+            "capo_trustedadvisor.types.exclusion_status.ExclusionStatus", ""
         )
     if data.get("metadata") is not None:
         import capo_trustedadvisor.types.string_map
@@ -134,7 +134,7 @@ def deserialize_json(data: dict) -> RecommendationForResourceSummary:
             data["metadata"]
         )
     else:
-        raise DeserializationError("RecommendationForResourceSummary.metadata required")
+        out["metadata"] = {}
     if data.get("pillars") is not None:
         import capo_trustedadvisor.types.recommendation_pillar_list
 
@@ -144,5 +144,5 @@ def deserialize_json(data: dict) -> RecommendationForResourceSummary:
             )
         )
     else:
-        raise DeserializationError("RecommendationForResourceSummary.pillars required")
+        out["pillars"] = []
     return out

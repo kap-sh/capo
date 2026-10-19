@@ -78,7 +78,7 @@ def deserialize_json(data: dict) -> AggregationSummary:
     if data.get("eventCount") is not None:
         out["event_count"] = data["eventCount"]
     else:
-        raise DeserializationError("AggregationSummary.event_count required")
+        out["event_count"] = 0
     if data.get("aggregatedBy") is not None:
         import capo_notifications.types.aggregation_keys
 
@@ -88,7 +88,7 @@ def deserialize_json(data: dict) -> AggregationSummary:
             )
         )
     else:
-        raise DeserializationError("AggregationSummary.aggregated_by required")
+        out["aggregated_by"] = []
     if data.get("aggregatedAccounts") is not None:
         import capo_notifications.types.summarization_dimension_overview
 

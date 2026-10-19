@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_device_farm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_device_farm.types.device_farm_arn
     import capo_device_farm.types.test_grid_url_expires_in_seconds_input
@@ -31,11 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTestGridUrlRequest:
     if data.get("projectArn") is not None:
         out["project_arn"] = data["projectArn"]
     else:
-        raise DeserializationError("CreateTestGridUrlRequest.project_arn required")
+        out["project_arn"] = ""
     if data.get("expiresInSeconds") is not None:
         out["expires_in_seconds"] = data["expiresInSeconds"]
     else:
-        raise DeserializationError(
-            "CreateTestGridUrlRequest.expires_in_seconds required"
-        )
+        out["expires_in_seconds"] = 0
     return out

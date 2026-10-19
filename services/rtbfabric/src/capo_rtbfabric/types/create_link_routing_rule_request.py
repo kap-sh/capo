@@ -51,11 +51,11 @@ def deserialize_json(data: dict) -> CreateLinkRoutingRuleRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CreateLinkRoutingRuleRequest.client_token required")
+        out["client_token"] = ""
     if data.get("priority") is not None:
         out["priority"] = data["priority"]
     else:
-        raise DeserializationError("CreateLinkRoutingRuleRequest.priority required")
+        out["priority"] = 0
     if data.get("conditions") is not None:
         import capo_rtbfabric.types.rule_condition
 

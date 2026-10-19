@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.programming_language
 
@@ -58,7 +56,12 @@ def deserialize_json(data: dict) -> CodeLocation:
             )
         )
     else:
-        raise DeserializationError("CodeLocation.language required")
+        import typing
+
+        out["language"] = typing.cast(
+            "capo_application_signals.types.programming_language.ProgrammingLanguage",
+            "",
+        )
     if data.get("CodeUnit") is not None:
         out["code_unit"] = data["CodeUnit"]
     if data.get("ClassName") is not None:
@@ -68,7 +71,7 @@ def deserialize_json(data: dict) -> CodeLocation:
     if data.get("FilePath") is not None:
         out["file_path"] = data["FilePath"]
     else:
-        raise DeserializationError("CodeLocation.file_path required")
+        out["file_path"] = ""
     if data.get("LineNumber") is not None:
         out["line_number"] = data["LineNumber"]
     return out

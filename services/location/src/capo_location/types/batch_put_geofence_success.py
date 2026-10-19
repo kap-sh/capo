@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.id
     import capo_location.types.timestamp
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> BatchPutGeofenceSuccess:
     if data.get("GeofenceId") is not None:
         out["geofence_id"] = data["GeofenceId"]
     else:
-        raise DeserializationError("BatchPutGeofenceSuccess.geofence_id required")
+        out["geofence_id"] = ""
     if data.get("CreateTime") is not None:
         import capo_location.types.timestamp
 
@@ -50,7 +48,11 @@ def deserialize_json(data: dict) -> BatchPutGeofenceSuccess:
             data["CreateTime"]
         )
     else:
-        raise DeserializationError("BatchPutGeofenceSuccess.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("UpdateTime") is not None:
         import capo_location.types.timestamp
 
@@ -58,7 +60,11 @@ def deserialize_json(data: dict) -> BatchPutGeofenceSuccess:
             data["UpdateTime"]
         )
     else:
-        raise DeserializationError("BatchPutGeofenceSuccess.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out
 
 

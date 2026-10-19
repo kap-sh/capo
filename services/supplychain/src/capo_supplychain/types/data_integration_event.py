@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -68,11 +66,11 @@ def deserialize_json(data: dict) -> DataIntegrationEvent:
     if data.get("instanceId") is not None:
         out["instance_id"] = data["instanceId"]
     else:
-        raise DeserializationError("DataIntegrationEvent.instance_id required")
+        out["instance_id"] = ""
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError("DataIntegrationEvent.event_id required")
+        out["event_id"] = ""
     if data.get("eventType") is not None:
         import capo_supplychain.types.data_integration_event_type
 
@@ -82,11 +80,16 @@ def deserialize_json(data: dict) -> DataIntegrationEvent:
             )
         )
     else:
-        raise DeserializationError("DataIntegrationEvent.event_type required")
+        import typing
+
+        out["event_type"] = typing.cast(
+            "capo_supplychain.types.data_integration_event_type.DataIntegrationEventType",
+            "",
+        )
     if data.get("eventGroupId") is not None:
         out["event_group_id"] = data["eventGroupId"]
     else:
-        raise DeserializationError("DataIntegrationEvent.event_group_id required")
+        out["event_group_id"] = ""
     if data.get("eventTimestamp") is not None:
         import capo_supplychain.types._prelude.timestamp
 
@@ -96,7 +99,11 @@ def deserialize_json(data: dict) -> DataIntegrationEvent:
             )
         )
     else:
-        raise DeserializationError("DataIntegrationEvent.event_timestamp required")
+        import datetime
+
+        out["event_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("datasetTargetDetails") is not None:
         import capo_supplychain.types.data_integration_event_dataset_target_details
 

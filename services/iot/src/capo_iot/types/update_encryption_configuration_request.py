@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.encryption_type
     import capo_iot.types.kms_access_role_arn
@@ -47,8 +45,10 @@ def deserialize_json(data: dict) -> UpdateEncryptionConfigurationRequest:
             data["encryptionType"]
         )
     else:
-        raise DeserializationError(
-            "UpdateEncryptionConfigurationRequest.encryption_type required"
+        import typing
+
+        out["encryption_type"] = typing.cast(
+            "capo_iot.types.encryption_type.EncryptionType", ""
         )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]

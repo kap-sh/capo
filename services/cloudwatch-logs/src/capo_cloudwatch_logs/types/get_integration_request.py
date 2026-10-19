@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.integration_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetIntegrationRequest:
     if data.get("integrationName") is not None:
         out["integration_name"] = data["integrationName"]
     else:
-        raise DeserializationError("GetIntegrationRequest.integration_name required")
+        out["integration_name"] = ""
     return out

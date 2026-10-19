@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmanager.types.client_token
     import capo_networkmanager.types.constrained_string
@@ -40,21 +38,15 @@ def deserialize_json(data: dict) -> CreateCoreNetworkPrefixListAssociationReques
     if data.get("CoreNetworkId") is not None:
         out["core_network_id"] = data["CoreNetworkId"]
     else:
-        raise DeserializationError(
-            "CreateCoreNetworkPrefixListAssociationRequest.core_network_id required"
-        )
+        out["core_network_id"] = ""
     if data.get("PrefixListArn") is not None:
         out["prefix_list_arn"] = data["PrefixListArn"]
     else:
-        raise DeserializationError(
-            "CreateCoreNetworkPrefixListAssociationRequest.prefix_list_arn required"
-        )
+        out["prefix_list_arn"] = ""
     if data.get("PrefixListAlias") is not None:
         out["prefix_list_alias"] = data["PrefixListAlias"]
     else:
-        raise DeserializationError(
-            "CreateCoreNetworkPrefixListAssociationRequest.prefix_list_alias required"
-        )
+        out["prefix_list_alias"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     return out

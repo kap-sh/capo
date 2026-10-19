@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ivschat.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivschat.types.delivery_stream_name
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> FirehoseDestinationConfiguration:
     if data.get("deliveryStreamName") is not None:
         out["delivery_stream_name"] = data["deliveryStreamName"]
     else:
-        raise DeserializationError(
-            "FirehoseDestinationConfiguration.delivery_stream_name required"
-        )
+        out["delivery_stream_name"] = ""
     return out

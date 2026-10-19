@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aws_arn
     import capo_iot.types.string
@@ -44,23 +42,23 @@ def deserialize_json(data: dict) -> CloudwatchMetricAction:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CloudwatchMetricAction.role_arn required")
+        out["role_arn"] = ""
     if data.get("metricNamespace") is not None:
         out["metric_namespace"] = data["metricNamespace"]
     else:
-        raise DeserializationError("CloudwatchMetricAction.metric_namespace required")
+        out["metric_namespace"] = ""
     if data.get("metricName") is not None:
         out["metric_name"] = data["metricName"]
     else:
-        raise DeserializationError("CloudwatchMetricAction.metric_name required")
+        out["metric_name"] = ""
     if data.get("metricValue") is not None:
         out["metric_value"] = data["metricValue"]
     else:
-        raise DeserializationError("CloudwatchMetricAction.metric_value required")
+        out["metric_value"] = ""
     if data.get("metricUnit") is not None:
         out["metric_unit"] = data["metricUnit"]
     else:
-        raise DeserializationError("CloudwatchMetricAction.metric_unit required")
+        out["metric_unit"] = ""
     if data.get("metricTimestamp") is not None:
         out["metric_timestamp"] = data["metricTimestamp"]
     return out

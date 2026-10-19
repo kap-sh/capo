@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notifications.types.event_rule_arn
     import capo_notifications.types.notification_configuration_arn
@@ -43,13 +41,11 @@ def deserialize_json(data: dict) -> CreateEventRuleResponse:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CreateEventRuleResponse.arn required")
+        out["arn"] = ""
     if data.get("notificationConfigurationArn") is not None:
         out["notification_configuration_arn"] = data["notificationConfigurationArn"]
     else:
-        raise DeserializationError(
-            "CreateEventRuleResponse.notification_configuration_arn required"
-        )
+        out["notification_configuration_arn"] = ""
     if data.get("statusSummaryByRegion") is not None:
         import capo_notifications.types.status_summary_by_region
 
@@ -59,7 +55,5 @@ def deserialize_json(data: dict) -> CreateEventRuleResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateEventRuleResponse.status_summary_by_region required"
-        )
+        out["status_summary_by_region"] = {}
     return out

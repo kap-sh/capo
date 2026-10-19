@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.address
@@ -55,7 +54,7 @@ def deserialize_query(el: Element) -> BouncedRecipientInfo:
     if child_recipient is not None:
         out["recipient"] = str(child_recipient.text or "")
     else:
-        raise DeserializationError("BouncedRecipientInfo.recipient required")
+        out["recipient"] = ""
     child_recipient_arn = el.find("RecipientArn")
     if child_recipient_arn is not None:
         out["recipient_arn"] = str(child_recipient_arn.text or "")

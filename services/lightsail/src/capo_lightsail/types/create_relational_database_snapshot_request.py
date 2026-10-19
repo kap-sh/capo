@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.resource_name
     import capo_lightsail.types.tag_list
@@ -39,17 +37,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRelationalDatabaseSnapshotRequ
     if data.get("relationalDatabaseName") is not None:
         out["relational_database_name"] = data["relationalDatabaseName"]
     else:
-        raise DeserializationError(
-            "CreateRelationalDatabaseSnapshotRequest.relational_database_name required"
-        )
+        out["relational_database_name"] = ""
     if data.get("relationalDatabaseSnapshotName") is not None:
         out["relational_database_snapshot_name"] = data[
             "relationalDatabaseSnapshotName"
         ]
     else:
-        raise DeserializationError(
-            "CreateRelationalDatabaseSnapshotRequest.relational_database_snapshot_name required"
-        )
+        out["relational_database_snapshot_name"] = ""
     if data.get("tags") is not None:
         import capo_lightsail.types.tag_list
 

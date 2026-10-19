@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.list_protect_configuration_rule_set_number_override_filter
     import capo_pinpoint_sms_voice_v2.types.max_results
@@ -54,9 +52,7 @@ def deserialize_aws_json_1_0(
     if data.get("ProtectConfigurationId") is not None:
         out["protect_configuration_id"] = data["ProtectConfigurationId"]
     else:
-        raise DeserializationError(
-            "ListProtectConfigurationRuleSetNumberOverridesRequest.protect_configuration_id required"
-        )
+        out["protect_configuration_id"] = ""
     if data.get("Filters") is not None:
         import capo_pinpoint_sms_voice_v2.types.list_protect_configuration_rule_set_number_override_filter
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.boolean
     import capo_appflow.types.connector_profile_name
@@ -34,9 +32,7 @@ def deserialize_json(data: dict) -> DeleteConnectorProfileRequest:
     if data.get("connectorProfileName") is not None:
         out["connector_profile_name"] = data["connectorProfileName"]
     else:
-        raise DeserializationError(
-            "DeleteConnectorProfileRequest.connector_profile_name required"
-        )
+        out["connector_profile_name"] = ""
     if data.get("forceDelete") is not None:
         out["force_delete"] = data["forceDelete"]
     return out

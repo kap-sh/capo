@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_inspector.errors import DeserializationError, ServiceError
+from capo_inspector.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_inspector.types.agent_already_running_assessment_list
@@ -45,9 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> AgentsAlreadyRunningAssessmentExcept
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError(
-            "AgentsAlreadyRunningAssessmentException_.message required"
-        )
+        out["message"] = ""
     if data.get("agents") is not None:
         import capo_inspector.types.agent_already_running_assessment_list
 
@@ -57,21 +55,15 @@ def deserialize_aws_json_1_1(data: dict) -> AgentsAlreadyRunningAssessmentExcept
             )
         )
     else:
-        raise DeserializationError(
-            "AgentsAlreadyRunningAssessmentException_.agents required"
-        )
+        out["agents"] = []
     if data.get("agentsTruncated") is not None:
         out["agents_truncated"] = data["agentsTruncated"]
     else:
-        raise DeserializationError(
-            "AgentsAlreadyRunningAssessmentException_.agents_truncated required"
-        )
+        out["agents_truncated"] = False
     if data.get("canRetry") is not None:
         out["can_retry"] = data["canRetry"]
     else:
-        raise DeserializationError(
-            "AgentsAlreadyRunningAssessmentException_.can_retry required"
-        )
+        out["can_retry"] = False
     return out
 
 

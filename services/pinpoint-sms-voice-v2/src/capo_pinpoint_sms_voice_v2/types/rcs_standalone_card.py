@@ -40,7 +40,7 @@ def deserialize_aws_json_1_0(data: dict) -> RcsStandaloneCard:
     if data.get("CardOrientation") is not None:
         out["card_orientation"] = data["CardOrientation"]
     else:
-        raise DeserializationError("RcsStandaloneCard.card_orientation required")
+        out["card_orientation"] = ""
     if data.get("ThumbnailImageAlignment") is not None:
         out["thumbnail_image_alignment"] = data["ThumbnailImageAlignment"]
     if data.get("CardContent") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.email_address
     import capo_workmail.types.organization_id
@@ -35,13 +33,13 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteAliasRequest:
     if data.get("OrganizationId") is not None:
         out["organization_id"] = data["OrganizationId"]
     else:
-        raise DeserializationError("DeleteAliasRequest.organization_id required")
+        out["organization_id"] = ""
     if data.get("EntityId") is not None:
         out["entity_id"] = data["EntityId"]
     else:
-        raise DeserializationError("DeleteAliasRequest.entity_id required")
+        out["entity_id"] = ""
     if data.get("Alias") is not None:
         out["alias"] = data["Alias"]
     else:
-        raise DeserializationError("DeleteAliasRequest.alias required")
+        out["alias"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> VpcConnectionProperties:
     if data.get("VpcConnectionArn") is not None:
         out["vpc_connection_arn"] = data["VpcConnectionArn"]
     else:
-        raise DeserializationError(
-            "VpcConnectionProperties.vpc_connection_arn required"
-        )
+        out["vpc_connection_arn"] = ""
     return out

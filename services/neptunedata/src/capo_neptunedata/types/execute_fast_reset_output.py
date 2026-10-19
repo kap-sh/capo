@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptunedata.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_neptunedata.types.fast_reset_token
 
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> ExecuteFastResetOutput:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("ExecuteFastResetOutput.status required")
+        out["status"] = ""
     if data.get("payload") is not None:
         import capo_neptunedata.types.fast_reset_token
 

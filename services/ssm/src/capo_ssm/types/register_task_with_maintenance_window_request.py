@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.alarm_configuration
     import capo_ssm.types.client_token
@@ -148,9 +146,7 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterTaskWithMaintenanceWindowReq
     if data.get("WindowId") is not None:
         out["window_id"] = data["WindowId"]
     else:
-        raise DeserializationError(
-            "RegisterTaskWithMaintenanceWindowRequest.window_id required"
-        )
+        out["window_id"] = ""
     if data.get("Targets") is not None:
         import capo_ssm.types.targets
 
@@ -160,9 +156,7 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterTaskWithMaintenanceWindowReq
     if data.get("TaskArn") is not None:
         out["task_arn"] = data["TaskArn"]
     else:
-        raise DeserializationError(
-            "RegisterTaskWithMaintenanceWindowRequest.task_arn required"
-        )
+        out["task_arn"] = ""
     if data.get("ServiceRoleArn") is not None:
         out["service_role_arn"] = data["ServiceRoleArn"]
     if data.get("TaskType") is not None:
@@ -174,8 +168,10 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterTaskWithMaintenanceWindowReq
             )
         )
     else:
-        raise DeserializationError(
-            "RegisterTaskWithMaintenanceWindowRequest.task_type required"
+        import typing
+
+        out["task_type"] = typing.cast(
+            "capo_ssm.types.maintenance_window_task_type.MaintenanceWindowTaskType", ""
         )
     if data.get("TaskParameters") is not None:
         import capo_ssm.types.maintenance_window_task_parameters

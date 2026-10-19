@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mpa.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mpa.types.policy_name
     import capo_mpa.types.policy_type
@@ -41,11 +39,11 @@ def deserialize_json(data: dict) -> Policy:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("Policy.arn required")
+        out["arn"] = ""
     if data.get("DefaultVersion") is not None:
         out["default_version"] = data["DefaultVersion"]
     else:
-        raise DeserializationError("Policy.default_version required")
+        out["default_version"] = 0
     if data.get("PolicyType") is not None:
         import capo_mpa.types.policy_type
 
@@ -53,9 +51,11 @@ def deserialize_json(data: dict) -> Policy:
             data["PolicyType"]
         )
     else:
-        raise DeserializationError("Policy.policy_type required")
+        import typing
+
+        out["policy_type"] = typing.cast("capo_mpa.types.policy_type.PolicyType", "")
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Policy.name required")
+        out["name"] = ""
     return out

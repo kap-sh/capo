@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.exadb_vm_cluster_list
 
@@ -45,7 +43,5 @@ def deserialize_aws_json_1_0(data: dict) -> ListExadbVmClustersOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListExadbVmClustersOutput.exadb_vm_clusters required"
-        )
+        out["exadb_vm_clusters"] = []
     return out

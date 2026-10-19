@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.folder_configurations
     import capo_workmail.types.organization_id
@@ -52,13 +50,13 @@ def deserialize_aws_json_1_1(data: dict) -> PutRetentionPolicyRequest:
     if data.get("OrganizationId") is not None:
         out["organization_id"] = data["OrganizationId"]
     else:
-        raise DeserializationError("PutRetentionPolicyRequest.organization_id required")
+        out["organization_id"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("PutRetentionPolicyRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("FolderConfigurations") is not None:
@@ -70,9 +68,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutRetentionPolicyRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "PutRetentionPolicyRequest.folder_configurations required"
-        )
+        out["folder_configurations"] = []
     return out
 
 

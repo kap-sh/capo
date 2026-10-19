@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codeguru_security.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguru_security.types.scan_name
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CreateUploadUrlRequest:
     if data.get("scanName") is not None:
         out["scan_name"] = data["scanName"]
     else:
-        raise DeserializationError("CreateUploadUrlRequest.scan_name required")
+        out["scan_name"] = ""
     return out

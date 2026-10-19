@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.batch_delete_partition_value_list
     import capo_glue.types.catalog_id_string
@@ -47,11 +45,11 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDeletePartitionRequest:
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError("BatchDeletePartitionRequest.database_name required")
+        out["database_name"] = ""
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("BatchDeletePartitionRequest.table_name required")
+        out["table_name"] = ""
     if data.get("PartitionsToDelete") is not None:
         import capo_glue.types.batch_delete_partition_value_list
 
@@ -61,7 +59,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDeletePartitionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDeletePartitionRequest.partitions_to_delete required"
-        )
+        out["partitions_to_delete"] = []
     return out

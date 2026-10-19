@@ -39,11 +39,11 @@ def deserialize_json(data: dict) -> CreateWorkspaceResponse:
     if data.get("workspaceName") is not None:
         out["workspace_name"] = data["workspaceName"]
     else:
-        raise DeserializationError("CreateWorkspaceResponse.workspace_name required")
+        out["workspace_name"] = ""
     if data.get("workspaceArn") is not None:
         out["workspace_arn"] = data["workspaceArn"]
     else:
-        raise DeserializationError("CreateWorkspaceResponse.workspace_arn required")
+        out["workspace_arn"] = ""
     if data.get("workspaceStatus") is not None:
         import capo_iotsitewise.types.workspace_status
 

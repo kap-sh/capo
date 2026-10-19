@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.application_encryption_configuration_description
     import capo_kinesis_analytics_v2.types.application_version_id
@@ -82,7 +80,7 @@ def deserialize_aws_json_1_1(data: dict) -> SnapshotDetails:
     if data.get("SnapshotName") is not None:
         out["snapshot_name"] = data["SnapshotName"]
     else:
-        raise DeserializationError("SnapshotDetails.snapshot_name required")
+        out["snapshot_name"] = ""
     if data.get("SnapshotStatus") is not None:
         import capo_kinesis_analytics_v2.types.snapshot_status
 
@@ -92,11 +90,15 @@ def deserialize_aws_json_1_1(data: dict) -> SnapshotDetails:
             )
         )
     else:
-        raise DeserializationError("SnapshotDetails.snapshot_status required")
+        import typing
+
+        out["snapshot_status"] = typing.cast(
+            "capo_kinesis_analytics_v2.types.snapshot_status.SnapshotStatus", ""
+        )
     if data.get("ApplicationVersionId") is not None:
         out["application_version_id"] = data["ApplicationVersionId"]
     else:
-        raise DeserializationError("SnapshotDetails.application_version_id required")
+        out["application_version_id"] = 0
     if data.get("SnapshotCreationTimestamp") is not None:
         import capo_kinesis_analytics_v2.types.timestamp
 

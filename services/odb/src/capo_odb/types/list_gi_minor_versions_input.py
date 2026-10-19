@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 
 class ListGiMinorVersionsInput(TypedDict, closed=True):
     gi_version: "str"
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListGiMinorVersionsInput:
     if data.get("giVersion") is not None:
         out["gi_version"] = data["giVersion"]
     else:
-        raise DeserializationError("ListGiMinorVersionsInput.gi_version required")
+        out["gi_version"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

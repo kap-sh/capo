@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.resource_id
     import capo_ssm.types.resource_type_for_tagging
@@ -43,9 +41,13 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsForResourceRequest:
             )
         )
     else:
-        raise DeserializationError("ListTagsForResourceRequest.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_ssm.types.resource_type_for_tagging.ResourceTypeForTagging", ""
+        )
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("ListTagsForResourceRequest.resource_id required")
+        out["resource_id"] = ""
     return out

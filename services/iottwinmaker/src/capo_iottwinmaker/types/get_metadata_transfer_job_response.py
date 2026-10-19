@@ -103,13 +103,11 @@ def deserialize_json(data: dict) -> GetMetadataTransferJobResponse:
     if data.get("metadataTransferJobId") is not None:
         out["metadata_transfer_job_id"] = data["metadataTransferJobId"]
     else:
-        raise DeserializationError(
-            "GetMetadataTransferJobResponse.metadata_transfer_job_id required"
-        )
+        out["metadata_transfer_job_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetMetadataTransferJobResponse.arn required")
+        out["arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("sources") is not None:
@@ -119,7 +117,7 @@ def deserialize_json(data: dict) -> GetMetadataTransferJobResponse:
             data["sources"]
         )
     else:
-        raise DeserializationError("GetMetadataTransferJobResponse.sources required")
+        out["sources"] = []
     if data.get("destination") is not None:
         import capo_iottwinmaker.types.destination_configuration
 
@@ -135,9 +133,7 @@ def deserialize_json(data: dict) -> GetMetadataTransferJobResponse:
     if data.get("metadataTransferJobRole") is not None:
         out["metadata_transfer_job_role"] = data["metadataTransferJobRole"]
     else:
-        raise DeserializationError(
-            "GetMetadataTransferJobResponse.metadata_transfer_job_role required"
-        )
+        out["metadata_transfer_job_role"] = ""
     if data.get("reportUrl") is not None:
         out["report_url"] = data["reportUrl"]
     if data.get("creationDateTime") is not None:
@@ -147,8 +143,10 @@ def deserialize_json(data: dict) -> GetMetadataTransferJobResponse:
             data["creationDateTime"]
         )
     else:
-        raise DeserializationError(
-            "GetMetadataTransferJobResponse.creation_date_time required"
+        import datetime
+
+        out["creation_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("updateDateTime") is not None:
         import capo_iottwinmaker.types.timestamp
@@ -157,8 +155,10 @@ def deserialize_json(data: dict) -> GetMetadataTransferJobResponse:
             data["updateDateTime"]
         )
     else:
-        raise DeserializationError(
-            "GetMetadataTransferJobResponse.update_date_time required"
+        import datetime
+
+        out["update_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("status") is not None:
         import capo_iottwinmaker.types.metadata_transfer_job_status

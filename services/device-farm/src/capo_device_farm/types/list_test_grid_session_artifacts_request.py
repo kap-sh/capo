@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_device_farm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_device_farm.types.device_farm_arn
     import capo_device_farm.types.max_page_size
@@ -50,9 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListTestGridSessionArtifactsRequest:
     if data.get("sessionArn") is not None:
         out["session_arn"] = data["sessionArn"]
     else:
-        raise DeserializationError(
-            "ListTestGridSessionArtifactsRequest.session_arn required"
-        )
+        out["session_arn"] = ""
     if data.get("type") is not None:
         import capo_device_farm.types.test_grid_session_artifact_category
 

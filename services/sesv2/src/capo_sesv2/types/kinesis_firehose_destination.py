@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.amazon_resource_name
 
@@ -30,11 +28,9 @@ def deserialize_json(data: dict) -> KinesisFirehoseDestination:
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     else:
-        raise DeserializationError("KinesisFirehoseDestination.iam_role_arn required")
+        out["iam_role_arn"] = ""
     if data.get("DeliveryStreamArn") is not None:
         out["delivery_stream_arn"] = data["DeliveryStreamArn"]
     else:
-        raise DeserializationError(
-            "KinesisFirehoseDestination.delivery_stream_arn required"
-        )
+        out["delivery_stream_arn"] = ""
     return out

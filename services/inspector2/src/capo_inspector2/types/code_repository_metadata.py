@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.code_repository_integration_arn
     import capo_inspector2.types.code_repository_on_demand_scan
@@ -70,19 +68,17 @@ def deserialize_json(data: dict) -> CodeRepositoryMetadata:
     if data.get("projectName") is not None:
         out["project_name"] = data["projectName"]
     else:
-        raise DeserializationError("CodeRepositoryMetadata.project_name required")
+        out["project_name"] = ""
     if data.get("integrationArn") is not None:
         out["integration_arn"] = data["integrationArn"]
     if data.get("providerType") is not None:
         out["provider_type"] = data["providerType"]
     else:
-        raise DeserializationError("CodeRepositoryMetadata.provider_type required")
+        out["provider_type"] = ""
     if data.get("providerTypeVisibility") is not None:
         out["provider_type_visibility"] = data["providerTypeVisibility"]
     else:
-        raise DeserializationError(
-            "CodeRepositoryMetadata.provider_type_visibility required"
-        )
+        out["provider_type_visibility"] = ""
     if data.get("lastScannedCommitId") is not None:
         out["last_scanned_commit_id"] = data["lastScannedCommitId"]
     if data.get("scanConfiguration") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.bool
     import capo_inspector.types.failed_item_error_code
@@ -43,9 +41,13 @@ def deserialize_aws_json_1_1(data: dict) -> FailedItemDetails:
             )
         )
     else:
-        raise DeserializationError("FailedItemDetails.failure_code required")
+        import typing
+
+        out["failure_code"] = typing.cast(
+            "capo_inspector.types.failed_item_error_code.FailedItemErrorCode", ""
+        )
     if data.get("retryable") is not None:
         out["retryable"] = data["retryable"]
     else:
-        raise DeserializationError("FailedItemDetails.retryable required")
+        out["retryable"] = False
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.document_attribute_key
     import capo_kendra.types.sort_order
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> SortingConfiguration:
     if data.get("DocumentAttributeKey") is not None:
         out["document_attribute_key"] = data["DocumentAttributeKey"]
     else:
-        raise DeserializationError(
-            "SortingConfiguration.document_attribute_key required"
-        )
+        out["document_attribute_key"] = ""
     if data.get("SortOrder") is not None:
         import capo_kendra.types.sort_order
 
@@ -47,5 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> SortingConfiguration:
             data["SortOrder"]
         )
     else:
-        raise DeserializationError("SortingConfiguration.sort_order required")
+        import typing
+
+        out["sort_order"] = typing.cast("capo_kendra.types.sort_order.SortOrder", "")
     return out

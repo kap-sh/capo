@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.capability_name
     import capo_iot_managed_integrations.types.cluster_id
@@ -118,11 +116,11 @@ def deserialize_json(data: dict) -> MatterCapabilityReportCluster:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("MatterCapabilityReportCluster.id required")
+        out["id"] = ""
     if data.get("revision") is not None:
         out["revision"] = data["revision"]
     else:
-        raise DeserializationError("MatterCapabilityReportCluster.revision required")
+        out["revision"] = 0
     if data.get("publicId") is not None:
         out["public_id"] = data["publicId"]
     if data.get("name") is not None:

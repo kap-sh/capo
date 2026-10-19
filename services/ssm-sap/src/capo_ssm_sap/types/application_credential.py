@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_ssm_sap.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_sap.types.credential_type
     import capo_ssm_sap.types.database_name
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> ApplicationCredential:
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError("ApplicationCredential.database_name required")
+        out["database_name"] = ""
     if data.get("CredentialType") is not None:
         import capo_ssm_sap.types.credential_type
 
@@ -47,11 +45,15 @@ def deserialize_json(data: dict) -> ApplicationCredential:
             data["CredentialType"]
         )
     else:
-        raise DeserializationError("ApplicationCredential.credential_type required")
+        import typing
+
+        out["credential_type"] = typing.cast(
+            "capo_ssm_sap.types.credential_type.CredentialType", ""
+        )
     if data.get("SecretId") is not None:
         out["secret_id"] = data["SecretId"]
     else:
-        raise DeserializationError("ApplicationCredential.secret_id required")
+        out["secret_id"] = ""
     return out
 
 

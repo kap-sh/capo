@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError, ServiceError
+from capo_cloudwatchomni.errors import ServiceError
 
 
 class ValidationException_(TypedDict, closed=True):
@@ -26,7 +26,7 @@ def deserialize_cbor(data: dict) -> ValidationException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ValidationException_.message required")
+        out["message"] = ""
     if data.get("errorCode") is not None:
         out["error_code"] = data["errorCode"]
     return out

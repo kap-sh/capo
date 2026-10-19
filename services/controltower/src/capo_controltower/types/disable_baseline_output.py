@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_controltower.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_controltower.types.operation_identifier
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> DisableBaselineOutput:
     if data.get("operationIdentifier") is not None:
         out["operation_identifier"] = data["operationIdentifier"]
     else:
-        raise DeserializationError(
-            "DisableBaselineOutput.operation_identifier required"
-        )
+        out["operation_identifier"] = ""
     return out

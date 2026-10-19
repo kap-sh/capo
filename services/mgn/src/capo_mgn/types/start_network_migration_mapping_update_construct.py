@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.construct_id
     import capo_mgn.types.network_migration_mapper_segment_construct_type
@@ -44,21 +42,15 @@ def deserialize_json(data: dict) -> StartNetworkMigrationMappingUpdateConstruct:
     if data.get("segmentID") is not None:
         out["segment_id"] = data["segmentID"]
     else:
-        raise DeserializationError(
-            "StartNetworkMigrationMappingUpdateConstruct.segment_id required"
-        )
+        out["segment_id"] = ""
     if data.get("constructID") is not None:
         out["construct_id"] = data["constructID"]
     else:
-        raise DeserializationError(
-            "StartNetworkMigrationMappingUpdateConstruct.construct_id required"
-        )
+        out["construct_id"] = ""
     if data.get("constructType") is not None:
         out["construct_type"] = data["constructType"]
     else:
-        raise DeserializationError(
-            "StartNetworkMigrationMappingUpdateConstruct.construct_type required"
-        )
+        out["construct_type"] = ""
     if data.get("operation") is not None:
         import capo_mgn.types.operation_union
 

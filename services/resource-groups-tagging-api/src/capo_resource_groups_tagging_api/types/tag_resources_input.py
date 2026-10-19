@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resource_groups_tagging_api.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resource_groups_tagging_api.types.resource_arn_list_for_tag_untag
     import capo_resource_groups_tagging_api.types.tag_map
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> TagResourcesInput:
             )
         )
     else:
-        raise DeserializationError("TagResourcesInput.resource_arn_list required")
+        out["resource_arn_list"] = []
     if data.get("Tags") is not None:
         import capo_resource_groups_tagging_api.types.tag_map
 
@@ -57,5 +55,5 @@ def deserialize_aws_json_1_1(data: dict) -> TagResourcesInput:
             )
         )
     else:
-        raise DeserializationError("TagResourcesInput.tags required")
+        out["tags"] = {}
     return out

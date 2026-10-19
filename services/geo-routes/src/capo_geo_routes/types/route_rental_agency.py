@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.sensitive_string
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> RouteRentalAgency:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("RouteRentalAgency.name required")
+        out["name"] = ""
     if data.get("Url") is not None:
         out["url"] = data["Url"]
     return out

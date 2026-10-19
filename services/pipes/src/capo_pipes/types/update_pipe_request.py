@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pipes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pipes.types.arn
     import capo_pipes.types.kms_key_identifier
@@ -143,7 +141,7 @@ def deserialize_json(data: dict) -> UpdatePipeRequest:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("UpdatePipeRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("LogConfiguration") is not None:
         import capo_pipes.types.pipe_log_configuration_parameters
 

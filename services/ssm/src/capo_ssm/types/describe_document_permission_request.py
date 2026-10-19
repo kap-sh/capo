@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.document_name
     import capo_ssm.types.document_permission_max_results
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeDocumentPermissionRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DescribeDocumentPermissionRequest.name required")
+        out["name"] = ""
     if data.get("PermissionType") is not None:
         import capo_ssm.types.document_permission_type
 
@@ -59,8 +57,10 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeDocumentPermissionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeDocumentPermissionRequest.permission_type required"
+        import typing
+
+        out["permission_type"] = typing.cast(
+            "capo_ssm.types.document_permission_type.DocumentPermissionType", ""
         )
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]

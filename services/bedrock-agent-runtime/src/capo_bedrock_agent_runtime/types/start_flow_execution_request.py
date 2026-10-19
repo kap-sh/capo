@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.flow_alias_identifier
     import capo_bedrock_agent_runtime.types.flow_execution_name
@@ -65,7 +63,7 @@ def deserialize_json(data: dict) -> StartFlowExecutionRequest:
             data["inputs"]
         )
     else:
-        raise DeserializationError("StartFlowExecutionRequest.inputs required")
+        out["inputs"] = []
     if data.get("modelPerformanceConfiguration") is not None:
         import capo_bedrock_agent_runtime.types.model_performance_configuration
 

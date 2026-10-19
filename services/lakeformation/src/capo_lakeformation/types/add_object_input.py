@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.e_tag_string
     import capo_lakeformation.types.object_size
@@ -48,11 +46,11 @@ def deserialize_json(data: dict) -> AddObjectInput:
     if data.get("Uri") is not None:
         out["uri"] = data["Uri"]
     else:
-        raise DeserializationError("AddObjectInput.uri required")
+        out["uri"] = ""
     if data.get("ETag") is not None:
         out["e_tag"] = data["ETag"]
     else:
-        raise DeserializationError("AddObjectInput.e_tag required")
+        out["e_tag"] = ""
     if data.get("Size") is not None:
         out["size"] = data["Size"]
     else:

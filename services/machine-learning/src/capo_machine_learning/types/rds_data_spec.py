@@ -105,7 +105,7 @@ def deserialize_aws_json_1_1(data: dict) -> RDSDataSpec:
     if data.get("SelectSqlQuery") is not None:
         out["select_sql_query"] = data["SelectSqlQuery"]
     else:
-        raise DeserializationError("RDSDataSpec.select_sql_query required")
+        out["select_sql_query"] = ""
     if data.get("DatabaseCredentials") is not None:
         import capo_machine_learning.types.rds_database_credentials
 
@@ -119,7 +119,7 @@ def deserialize_aws_json_1_1(data: dict) -> RDSDataSpec:
     if data.get("S3StagingLocation") is not None:
         out["s3_staging_location"] = data["S3StagingLocation"]
     else:
-        raise DeserializationError("RDSDataSpec.s3_staging_location required")
+        out["s3_staging_location"] = ""
     if data.get("DataRearrangement") is not None:
         out["data_rearrangement"] = data["DataRearrangement"]
     if data.get("DataSchema") is not None:
@@ -129,15 +129,15 @@ def deserialize_aws_json_1_1(data: dict) -> RDSDataSpec:
     if data.get("ResourceRole") is not None:
         out["resource_role"] = data["ResourceRole"]
     else:
-        raise DeserializationError("RDSDataSpec.resource_role required")
+        out["resource_role"] = ""
     if data.get("ServiceRole") is not None:
         out["service_role"] = data["ServiceRole"]
     else:
-        raise DeserializationError("RDSDataSpec.service_role required")
+        out["service_role"] = ""
     if data.get("SubnetId") is not None:
         out["subnet_id"] = data["SubnetId"]
     else:
-        raise DeserializationError("RDSDataSpec.subnet_id required")
+        out["subnet_id"] = ""
     if data.get("SecurityGroupIds") is not None:
         import capo_machine_learning.types.edp_security_group_ids
 
@@ -147,7 +147,7 @@ def deserialize_aws_json_1_1(data: dict) -> RDSDataSpec:
             )
         )
     else:
-        raise DeserializationError("RDSDataSpec.security_group_ids required")
+        out["security_group_ids"] = []
     return out
 
 

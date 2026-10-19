@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.metadata_files_location
     import capo_quicksight.types.role_arn
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> S3KnowledgeBaseParameters:
     if data.get("BucketUrl") is not None:
         out["bucket_url"] = data["BucketUrl"]
     else:
-        raise DeserializationError("S3KnowledgeBaseParameters.bucket_url required")
+        out["bucket_url"] = ""
     if data.get("MetadataFilesLocation") is not None:
         out["metadata_files_location"] = data["MetadataFilesLocation"]
     return out

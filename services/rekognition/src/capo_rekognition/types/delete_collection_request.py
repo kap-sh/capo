@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.collection_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteCollectionRequest:
     if data.get("CollectionId") is not None:
         out["collection_id"] = data["CollectionId"]
     else:
-        raise DeserializationError("DeleteCollectionRequest.collection_id required")
+        out["collection_id"] = ""
     return out

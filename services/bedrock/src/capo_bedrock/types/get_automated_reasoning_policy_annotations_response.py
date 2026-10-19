@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_annotation_list
     import capo_bedrock.types.automated_reasoning_policy_arn
@@ -57,21 +55,15 @@ def deserialize_json(data: dict) -> GetAutomatedReasoningPolicyAnnotationsRespon
     if data.get("policyArn") is not None:
         out["policy_arn"] = data["policyArn"]
     else:
-        raise DeserializationError(
-            "GetAutomatedReasoningPolicyAnnotationsResponse.policy_arn required"
-        )
+        out["policy_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "GetAutomatedReasoningPolicyAnnotationsResponse.name required"
-        )
+        out["name"] = ""
     if data.get("buildWorkflowId") is not None:
         out["build_workflow_id"] = data["buildWorkflowId"]
     else:
-        raise DeserializationError(
-            "GetAutomatedReasoningPolicyAnnotationsResponse.build_workflow_id required"
-        )
+        out["build_workflow_id"] = ""
     if data.get("annotations") is not None:
         import capo_bedrock.types.automated_reasoning_policy_annotation_list
 
@@ -81,15 +73,11 @@ def deserialize_json(data: dict) -> GetAutomatedReasoningPolicyAnnotationsRespon
             )
         )
     else:
-        raise DeserializationError(
-            "GetAutomatedReasoningPolicyAnnotationsResponse.annotations required"
-        )
+        out["annotations"] = []
     if data.get("annotationSetHash") is not None:
         out["annotation_set_hash"] = data["annotationSetHash"]
     else:
-        raise DeserializationError(
-            "GetAutomatedReasoningPolicyAnnotationsResponse.annotation_set_hash required"
-        )
+        out["annotation_set_hash"] = ""
     if data.get("updatedAt") is not None:
         import capo_bedrock.types.timestamp
 
@@ -97,9 +85,9 @@ def deserialize_json(data: dict) -> GetAutomatedReasoningPolicyAnnotationsRespon
             data["updatedAt"]
         )
     else:
-        raise DeserializationError(
-            "GetAutomatedReasoningPolicyAnnotationsResponse.updated_at required"
-        )
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

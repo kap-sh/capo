@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_elementalinference.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elementalinference.types.filter_name
     import capo_elementalinference.types.filter_value_list
@@ -43,7 +41,11 @@ def deserialize_json(data: dict) -> SearchFilter:
             data["name"]
         )
     else:
-        raise DeserializationError("SearchFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_elementalinference.types.filter_name.FilterName", ""
+        )
     if data.get("values") is not None:
         import capo_elementalinference.types.filter_value_list
 
@@ -53,5 +55,5 @@ def deserialize_json(data: dict) -> SearchFilter:
             )
         )
     else:
-        raise DeserializationError("SearchFilter.values required")
+        out["values"] = []
     return out

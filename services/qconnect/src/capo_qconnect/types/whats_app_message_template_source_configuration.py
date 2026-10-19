@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.whats_app_business_account_id
     import capo_qconnect.types.whats_app_message_template_components
@@ -48,15 +46,11 @@ def deserialize_json(data: dict) -> WhatsAppMessageTemplateSourceConfiguration:
     if data.get("businessAccountId") is not None:
         out["business_account_id"] = data["businessAccountId"]
     else:
-        raise DeserializationError(
-            "WhatsAppMessageTemplateSourceConfiguration.business_account_id required"
-        )
+        out["business_account_id"] = ""
     if data.get("templateId") is not None:
         out["template_id"] = data["templateId"]
     else:
-        raise DeserializationError(
-            "WhatsAppMessageTemplateSourceConfiguration.template_id required"
-        )
+        out["template_id"] = ""
     if data.get("components") is not None:
         import capo_qconnect.types.whats_app_message_template_components
 

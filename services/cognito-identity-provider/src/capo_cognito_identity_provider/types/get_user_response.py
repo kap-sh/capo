@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.attribute_list_type
     import capo_cognito_identity_provider.types.mfa_option_list_type
@@ -72,7 +70,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetUserResponse:
     if data.get("Username") is not None:
         out["username"] = data["Username"]
     else:
-        raise DeserializationError("GetUserResponse.username required")
+        out["username"] = ""
     if data.get("UserAttributes") is not None:
         import capo_cognito_identity_provider.types.attribute_list_type
 
@@ -82,7 +80,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetUserResponse:
             )
         )
     else:
-        raise DeserializationError("GetUserResponse.user_attributes required")
+        out["user_attributes"] = []
     if data.get("MFAOptions") is not None:
         import capo_cognito_identity_provider.types.mfa_option_list_type
 

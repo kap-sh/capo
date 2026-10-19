@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 
 class UpdateSnapshotRequest(TypedDict, closed=True):
     snapshot_name: "str"
@@ -26,7 +24,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateSnapshotRequest:
     if data.get("snapshotName") is not None:
         out["snapshot_name"] = data["snapshotName"]
     else:
-        raise DeserializationError("UpdateSnapshotRequest.snapshot_name required")
+        out["snapshot_name"] = ""
     if data.get("retentionPeriod") is not None:
         out["retention_period"] = data["retentionPeriod"]
     return out

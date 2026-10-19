@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.auto_scaling_group_provider
     import capo_ecs.types.create_managed_instances_provider_configuration
@@ -64,7 +62,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCapacityProviderRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateCapacityProviderRequest.name required")
+        out["name"] = ""
     if data.get("cluster") is not None:
         out["cluster"] = data["cluster"]
     if data.get("autoScalingGroupProvider") is not None:

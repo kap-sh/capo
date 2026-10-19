@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_forecast.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_forecast.types.arn
     import capo_forecast.types.arn_list
@@ -35,9 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDatasetGroupRequest:
     if data.get("DatasetGroupArn") is not None:
         out["dataset_group_arn"] = data["DatasetGroupArn"]
     else:
-        raise DeserializationError(
-            "UpdateDatasetGroupRequest.dataset_group_arn required"
-        )
+        out["dataset_group_arn"] = ""
     if data.get("DatasetArns") is not None:
         import capo_forecast.types.arn_list
 
@@ -45,5 +41,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDatasetGroupRequest:
             data["DatasetArns"]
         )
     else:
-        raise DeserializationError("UpdateDatasetGroupRequest.dataset_arns required")
+        out["dataset_arns"] = []
     return out

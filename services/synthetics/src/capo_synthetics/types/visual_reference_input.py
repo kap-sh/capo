@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_synthetics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_synthetics.types.base_screenshots
     import capo_synthetics.types.browser_type
@@ -55,7 +53,7 @@ def deserialize_json(data: dict) -> VisualReferenceInput:
     if data.get("BaseCanaryRunId") is not None:
         out["base_canary_run_id"] = data["BaseCanaryRunId"]
     else:
-        raise DeserializationError("VisualReferenceInput.base_canary_run_id required")
+        out["base_canary_run_id"] = ""
     if data.get("BrowserType") is not None:
         import capo_synthetics.types.browser_type
 

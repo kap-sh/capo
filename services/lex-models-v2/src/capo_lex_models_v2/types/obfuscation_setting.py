@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.obfuscation_setting_type
 
@@ -41,7 +39,10 @@ def deserialize_json(data: dict) -> ObfuscationSetting:
             )
         )
     else:
-        raise DeserializationError(
-            "ObfuscationSetting.obfuscation_setting_type required"
+        import typing
+
+        out["obfuscation_setting_type"] = typing.cast(
+            "capo_lex_models_v2.types.obfuscation_setting_type.ObfuscationSettingType",
+            "",
         )
     return out

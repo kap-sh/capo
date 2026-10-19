@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.redshift_credential_configuration
     import capo_datazone.types.redshift_storage
@@ -76,9 +74,7 @@ def deserialize_json(data: dict) -> RedshiftRunConfigurationOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "RedshiftRunConfigurationOutput.relational_filter_configurations required"
-        )
+        out["relational_filter_configurations"] = []
     if data.get("redshiftCredentialConfiguration") is not None:
         import capo_datazone.types.redshift_credential_configuration
 
@@ -94,7 +90,7 @@ def deserialize_json(data: dict) -> RedshiftRunConfigurationOutput:
             data["redshiftStorage"]
         )
     else:
-        raise DeserializationError(
-            "RedshiftRunConfigurationOutput.redshift_storage required"
-        )
+        import capo_datazone.types._unknown
+
+        out["redshift_storage"] = capo_datazone.types._unknown.UnknownUnionMember("")
     return out

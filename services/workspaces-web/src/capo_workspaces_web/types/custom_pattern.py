@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.description_safe
     import capo_workspaces_web.types.pattern_name
@@ -42,11 +40,11 @@ def deserialize_json(data: dict) -> CustomPattern:
     if data.get("patternName") is not None:
         out["pattern_name"] = data["patternName"]
     else:
-        raise DeserializationError("CustomPattern.pattern_name required")
+        out["pattern_name"] = ""
     if data.get("patternRegex") is not None:
         out["pattern_regex"] = data["patternRegex"]
     else:
-        raise DeserializationError("CustomPattern.pattern_regex required")
+        out["pattern_regex"] = ""
     if data.get("patternDescription") is not None:
         out["pattern_description"] = data["patternDescription"]
     if data.get("keywordRegex") is not None:

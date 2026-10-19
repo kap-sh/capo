@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.bucket_name
@@ -48,7 +47,5 @@ def deserialize_xml(el: Element) -> MultiRegionAccessPointRoute:
     if child_traffic_dial_percentage is not None:
         out["traffic_dial_percentage"] = int(child_traffic_dial_percentage.text or "")
     else:
-        raise DeserializationError(
-            "MultiRegionAccessPointRoute.traffic_dial_percentage required"
-        )
+        out["traffic_dial_percentage"] = 0
     return out

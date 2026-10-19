@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_signin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_signin.types.target_id
 
@@ -33,19 +31,13 @@ def deserialize_json(data: dict) -> PutConsoleAuthorizationConfigurationOutput:
     if data.get("targetId") is not None:
         out["target_id"] = data["targetId"]
     else:
-        raise DeserializationError(
-            "PutConsoleAuthorizationConfigurationOutput.target_id required"
-        )
+        out["target_id"] = ""
     if data.get("scope") is not None:
         out["scope"] = data["scope"]
     else:
-        raise DeserializationError(
-            "PutConsoleAuthorizationConfigurationOutput.scope required"
-        )
+        out["scope"] = ""
     if data.get("consoleAuthorizationEnabled") is not None:
         out["console_authorization_enabled"] = data["consoleAuthorizationEnabled"]
     else:
-        raise DeserializationError(
-            "PutConsoleAuthorizationConfigurationOutput.console_authorization_enabled required"
-        )
+        out["console_authorization_enabled"] = False
     return out

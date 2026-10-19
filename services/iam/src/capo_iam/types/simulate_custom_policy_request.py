@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.action_name_list_type
@@ -135,9 +134,7 @@ def deserialize_query(el: Element) -> SimulateCustomPolicyRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "SimulateCustomPolicyRequest.policy_input_list required"
-        )
+        out["policy_input_list"] = []
     child_permissions_boundary_policy_input_list = el.find(
         "PermissionsBoundaryPolicyInputList"
     )
@@ -168,7 +165,7 @@ def deserialize_query(el: Element) -> SimulateCustomPolicyRequest:
             child_action_names
         )
     else:
-        raise DeserializationError("SimulateCustomPolicyRequest.action_names required")
+        out["action_names"] = []
     child_resource_arns = el.find("ResourceArns")
     if child_resource_arns is not None:
         import capo_iam.types.resource_name_list_type

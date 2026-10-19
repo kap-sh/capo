@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.virtual_gateway_backend_defaults
     import capo_app_mesh.types.virtual_gateway_listeners
@@ -68,7 +66,7 @@ def deserialize_json(data: dict) -> VirtualGatewaySpec:
             )
         )
     else:
-        raise DeserializationError("VirtualGatewaySpec.listeners required")
+        out["listeners"] = []
     if data.get("logging") is not None:
         import capo_app_mesh.types.virtual_gateway_logging
 

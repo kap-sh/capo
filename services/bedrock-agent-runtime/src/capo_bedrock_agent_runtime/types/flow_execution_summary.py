@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.date_timestamp
     import capo_bedrock_agent_runtime.types.flow_alias_identifier
@@ -69,21 +67,19 @@ def deserialize_json(data: dict) -> FlowExecutionSummary:
     if data.get("executionArn") is not None:
         out["execution_arn"] = data["executionArn"]
     else:
-        raise DeserializationError("FlowExecutionSummary.execution_arn required")
+        out["execution_arn"] = ""
     if data.get("flowAliasIdentifier") is not None:
         out["flow_alias_identifier"] = data["flowAliasIdentifier"]
     else:
-        raise DeserializationError(
-            "FlowExecutionSummary.flow_alias_identifier required"
-        )
+        out["flow_alias_identifier"] = ""
     if data.get("flowIdentifier") is not None:
         out["flow_identifier"] = data["flowIdentifier"]
     else:
-        raise DeserializationError("FlowExecutionSummary.flow_identifier required")
+        out["flow_identifier"] = ""
     if data.get("flowVersion") is not None:
         out["flow_version"] = data["flowVersion"]
     else:
-        raise DeserializationError("FlowExecutionSummary.flow_version required")
+        out["flow_version"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agent_runtime.types.flow_execution_status
 
@@ -93,7 +89,12 @@ def deserialize_json(data: dict) -> FlowExecutionSummary:
             )
         )
     else:
-        raise DeserializationError("FlowExecutionSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.flow_execution_status.FlowExecutionStatus",
+            "",
+        )
     if data.get("createdAt") is not None:
         import capo_bedrock_agent_runtime.types.date_timestamp
 
@@ -103,7 +104,9 @@ def deserialize_json(data: dict) -> FlowExecutionSummary:
             )
         )
     else:
-        raise DeserializationError("FlowExecutionSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endedAt") is not None:
         import capo_bedrock_agent_runtime.types.date_timestamp
 

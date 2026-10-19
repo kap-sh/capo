@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_keyspacesstreams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_keyspacesstreams.types.keyspace_name
     import capo_keyspacesstreams.types.stream_arn
@@ -38,17 +36,17 @@ def deserialize_aws_json_1_0(data: dict) -> Stream:
     if data.get("streamArn") is not None:
         out["stream_arn"] = data["streamArn"]
     else:
-        raise DeserializationError("Stream.stream_arn required")
+        out["stream_arn"] = ""
     if data.get("keyspaceName") is not None:
         out["keyspace_name"] = data["keyspaceName"]
     else:
-        raise DeserializationError("Stream.keyspace_name required")
+        out["keyspace_name"] = ""
     if data.get("tableName") is not None:
         out["table_name"] = data["tableName"]
     else:
-        raise DeserializationError("Stream.table_name required")
+        out["table_name"] = ""
     if data.get("streamLabel") is not None:
         out["stream_label"] = data["streamLabel"]
     else:
-        raise DeserializationError("Stream.stream_label required")
+        out["stream_label"] = ""
     return out

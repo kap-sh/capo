@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.query_transformation_type
 
@@ -39,5 +37,10 @@ def deserialize_json(data: dict) -> QueryTransformationConfiguration:
             )
         )
     else:
-        raise DeserializationError("QueryTransformationConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.query_transformation_type.QueryTransformationType",
+            "",
+        )
     return out

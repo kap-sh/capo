@@ -51,11 +51,11 @@ def deserialize_json(data: dict) -> CreateJobTemplateRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateJobTemplateRequest.name required")
+        out["name"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CreateJobTemplateRequest.client_token required")
+        out["client_token"] = ""
     if data.get("jobTemplateData") is not None:
         import capo_emr_containers.types.job_template_data
 

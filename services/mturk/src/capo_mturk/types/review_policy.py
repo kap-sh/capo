@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mturk.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mturk.types.policy_parameter_list
     import capo_mturk.types.string
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> ReviewPolicy:
     if data.get("PolicyName") is not None:
         out["policy_name"] = data["PolicyName"]
     else:
-        raise DeserializationError("ReviewPolicy.policy_name required")
+        out["policy_name"] = ""
     if data.get("Parameters") is not None:
         import capo_mturk.types.policy_parameter_list
 

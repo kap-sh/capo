@@ -86,11 +86,11 @@ def deserialize_aws_json_1_1(data: dict) -> S3DestinationDescription:
     if data.get("RoleARN") is not None:
         out["role_arn"] = data["RoleARN"]
     else:
-        raise DeserializationError("S3DestinationDescription.role_arn required")
+        out["role_arn"] = ""
     if data.get("BucketARN") is not None:
         out["bucket_arn"] = data["BucketARN"]
     else:
-        raise DeserializationError("S3DestinationDescription.bucket_arn required")
+        out["bucket_arn"] = ""
     if data.get("Prefix") is not None:
         out["prefix"] = data["Prefix"]
     if data.get("ErrorOutputPrefix") is not None:
@@ -114,8 +114,10 @@ def deserialize_aws_json_1_1(data: dict) -> S3DestinationDescription:
             )
         )
     else:
-        raise DeserializationError(
-            "S3DestinationDescription.compression_format required"
+        import typing
+
+        out["compression_format"] = typing.cast(
+            "capo_firehose.types.compression_format.CompressionFormat", ""
         )
     if data.get("EncryptionConfiguration") is not None:
         import capo_firehose.types.encryption_configuration

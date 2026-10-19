@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fis.types.action_id
     import capo_fis.types.experiment_template_action_description
@@ -73,9 +71,7 @@ def deserialize_json(data: dict) -> CreateExperimentTemplateActionInput:
     if data.get("actionId") is not None:
         out["action_id"] = data["actionId"]
     else:
-        raise DeserializationError(
-            "CreateExperimentTemplateActionInput.action_id required"
-        )
+        out["action_id"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("parameters") is not None:

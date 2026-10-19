@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.boolean
@@ -51,7 +50,7 @@ def deserialize_xml(el: Element) -> RealtimeLogConfigs:
     if child_max_items is not None:
         out["max_items"] = int(child_max_items.text or "")
     else:
-        raise DeserializationError("RealtimeLogConfigs.max_items required")
+        out["max_items"] = 0
     child_items = el.find("Items")
     if child_items is not None:
         import capo_cloudfront.types.realtime_log_config_list
@@ -63,12 +62,12 @@ def deserialize_xml(el: Element) -> RealtimeLogConfigs:
     if child_is_truncated is not None:
         out["is_truncated"] = (child_is_truncated.text or "").lower() == "true"
     else:
-        raise DeserializationError("RealtimeLogConfigs.is_truncated required")
+        out["is_truncated"] = False
     child_marker = el.find("Marker")
     if child_marker is not None:
         out["marker"] = str(child_marker.text or "")
     else:
-        raise DeserializationError("RealtimeLogConfigs.marker required")
+        out["marker"] = ""
     child_next_marker = el.find("NextMarker")
     if child_next_marker is not None:
         out["next_marker"] = str(child_next_marker.text or "")

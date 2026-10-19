@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.s3_bucket_name
     import capo_datazone.types.s3_file_list
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> S3FilesLocation:
     if data.get("bucket") is not None:
         out["bucket"] = data["bucket"]
     else:
-        raise DeserializationError("S3FilesLocation.bucket required")
+        out["bucket"] = ""
     if data.get("fileList") is not None:
         import capo_datazone.types.s3_file_list
 
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> S3FilesLocation:
             data["fileList"]
         )
     else:
-        raise DeserializationError("S3FilesLocation.file_list required")
+        out["file_list"] = []
     return out
 
 

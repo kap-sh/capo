@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeguruprofiler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguruprofiler.types.channel_id
     import capo_codeguruprofiler.types.channel_uri
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> Channel:
     if data.get("uri") is not None:
         out["uri"] = data["uri"]
     else:
-        raise DeserializationError("Channel.uri required")
+        out["uri"] = ""
     if data.get("eventPublishers") is not None:
         import capo_codeguruprofiler.types.event_publishers
 
@@ -54,5 +52,5 @@ def deserialize_json(data: dict) -> Channel:
             )
         )
     else:
-        raise DeserializationError("Channel.event_publishers required")
+        out["event_publishers"] = []
     return out

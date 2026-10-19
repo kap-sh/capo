@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.double
     import capo_iotfleetwise.types.non_negative_integer
@@ -91,7 +89,7 @@ def deserialize_aws_json_1_0(data: dict) -> ObdSignal:
     if data.get("pidResponseLength") is not None:
         out["pid_response_length"] = data["pidResponseLength"]
     else:
-        raise DeserializationError("ObdSignal.pid_response_length required")
+        out["pid_response_length"] = 0
     if data.get("serviceMode") is not None:
         out["service_mode"] = data["serviceMode"]
     else:
@@ -103,11 +101,11 @@ def deserialize_aws_json_1_0(data: dict) -> ObdSignal:
     if data.get("scaling") is not None:
         out["scaling"] = float(data["scaling"])
     else:
-        raise DeserializationError("ObdSignal.scaling required")
+        out["scaling"] = 0.0
     if data.get("offset") is not None:
         out["offset"] = float(data["offset"])
     else:
-        raise DeserializationError("ObdSignal.offset required")
+        out["offset"] = 0.0
     if data.get("startByte") is not None:
         out["start_byte"] = data["startByte"]
     else:
@@ -115,7 +113,7 @@ def deserialize_aws_json_1_0(data: dict) -> ObdSignal:
     if data.get("byteLength") is not None:
         out["byte_length"] = data["byteLength"]
     else:
-        raise DeserializationError("ObdSignal.byte_length required")
+        out["byte_length"] = 0
     if data.get("bitRightShift") is not None:
         out["bit_right_shift"] = data["bitRightShift"]
     else:

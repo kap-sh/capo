@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.connector_device_id
     import capo_iot_managed_integrations.types.connector_event_message
@@ -113,7 +111,12 @@ def deserialize_json(data: dict) -> SendConnectorEventRequest:
             )
         )
     else:
-        raise DeserializationError("SendConnectorEventRequest.operation required")
+        import typing
+
+        out["operation"] = typing.cast(
+            "capo_iot_managed_integrations.types.connector_event_operation.ConnectorEventOperation",
+            "",
+        )
     if data.get("OperationVersion") is not None:
         out["operation_version"] = data["OperationVersion"]
     if data.get("StatusCode") is not None:

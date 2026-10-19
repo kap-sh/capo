@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.input_arn
     import capo_iot_events.types.input_description
@@ -59,13 +57,13 @@ def deserialize_json(data: dict) -> InputConfiguration:
     if data.get("inputName") is not None:
         out["input_name"] = data["inputName"]
     else:
-        raise DeserializationError("InputConfiguration.input_name required")
+        out["input_name"] = ""
     if data.get("inputDescription") is not None:
         out["input_description"] = data["inputDescription"]
     if data.get("inputArn") is not None:
         out["input_arn"] = data["inputArn"]
     else:
-        raise DeserializationError("InputConfiguration.input_arn required")
+        out["input_arn"] = ""
     if data.get("creationTime") is not None:
         import capo_iot_events.types.timestamp
 
@@ -73,7 +71,11 @@ def deserialize_json(data: dict) -> InputConfiguration:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("InputConfiguration.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastUpdateTime") is not None:
         import capo_iot_events.types.timestamp
 
@@ -81,7 +83,11 @@ def deserialize_json(data: dict) -> InputConfiguration:
             data["lastUpdateTime"]
         )
     else:
-        raise DeserializationError("InputConfiguration.last_update_time required")
+        import datetime
+
+        out["last_update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("status") is not None:
         import capo_iot_events.types.input_status
 
@@ -89,5 +95,9 @@ def deserialize_json(data: dict) -> InputConfiguration:
             data["status"]
         )
     else:
-        raise DeserializationError("InputConfiguration.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_iot_events.types.input_status.InputStatus", ""
+        )
     return out

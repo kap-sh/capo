@@ -90,17 +90,19 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRuleGroupRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateRuleGroupRequest.name required")
+        out["name"] = ""
     if data.get("Scope") is not None:
         import capo_wafv2.types.scope
 
         out["scope"] = capo_wafv2.types.scope.deserialize_aws_json_1_1(data["Scope"])
     else:
-        raise DeserializationError("CreateRuleGroupRequest.scope required")
+        import typing
+
+        out["scope"] = typing.cast("capo_wafv2.types.scope.Scope", "")
     if data.get("Capacity") is not None:
         out["capacity"] = data["Capacity"]
     else:
-        raise DeserializationError("CreateRuleGroupRequest.capacity required")
+        out["capacity"] = 0
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Rules") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -69,19 +67,19 @@ def deserialize_aws_json_1_0(data: dict) -> SyncBlocker:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("SyncBlocker.id required")
+        out["id"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("SyncBlocker.type required")
+        out["type"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("SyncBlocker.status required")
+        out["status"] = ""
     if data.get("createdReason") is not None:
         out["created_reason"] = data["createdReason"]
     else:
-        raise DeserializationError("SyncBlocker.created_reason required")
+        out["created_reason"] = ""
     if data.get("createdAt") is not None:
         import capo_proton.types._prelude.timestamp
 
@@ -91,7 +89,9 @@ def deserialize_aws_json_1_0(data: dict) -> SyncBlocker:
             )
         )
     else:
-        raise DeserializationError("SyncBlocker.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("contexts") is not None:
         import capo_proton.types.sync_blocker_contexts
 

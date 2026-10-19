@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.certificate
     import capo_transfer.types.endpoint_details
@@ -233,7 +231,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateServerRequest:
     if data.get("ServerId") is not None:
         out["server_id"] = data["ServerId"]
     else:
-        raise DeserializationError("UpdateServerRequest.server_id required")
+        out["server_id"] = ""
     if data.get("WorkflowDetails") is not None:
         import capo_transfer.types.workflow_details
 

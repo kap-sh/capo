@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.arn
     import capo_transfer.types.date_imported
@@ -85,7 +83,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribedHostKey:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("DescribedHostKey.arn required")
+        out["arn"] = ""
     if data.get("HostKeyId") is not None:
         out["host_key_id"] = data["HostKeyId"]
     if data.get("HostKeyFingerprint") is not None:

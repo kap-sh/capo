@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.storage_access_level
     import capo_amplifyuibuilder.types.str_values
@@ -63,7 +61,11 @@ def deserialize_json(data: dict) -> FileUploaderFieldConfig:
             )
         )
     else:
-        raise DeserializationError("FileUploaderFieldConfig.access_level required")
+        import typing
+
+        out["access_level"] = typing.cast(
+            "capo_amplifyuibuilder.types.storage_access_level.StorageAccessLevel", ""
+        )
     if data.get("acceptedFileTypes") is not None:
         import capo_amplifyuibuilder.types.str_values
 
@@ -73,9 +75,7 @@ def deserialize_json(data: dict) -> FileUploaderFieldConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "FileUploaderFieldConfig.accepted_file_types required"
-        )
+        out["accepted_file_types"] = []
     if data.get("showThumbnails") is not None:
         out["show_thumbnails"] = data["showThumbnails"]
     if data.get("isResumable") is not None:

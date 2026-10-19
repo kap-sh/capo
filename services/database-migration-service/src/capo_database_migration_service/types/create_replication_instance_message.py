@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.boolean_optional
     import capo_database_migration_service.types.integer_optional
@@ -138,17 +136,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateReplicationInstanceMessage:
     if data.get("ReplicationInstanceIdentifier") is not None:
         out["replication_instance_identifier"] = data["ReplicationInstanceIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateReplicationInstanceMessage.replication_instance_identifier required"
-        )
+        out["replication_instance_identifier"] = ""
     if data.get("AllocatedStorage") is not None:
         out["allocated_storage"] = data["AllocatedStorage"]
     if data.get("ReplicationInstanceClass") is not None:
         out["replication_instance_class"] = data["ReplicationInstanceClass"]
     else:
-        raise DeserializationError(
-            "CreateReplicationInstanceMessage.replication_instance_class required"
-        )
+        out["replication_instance_class"] = ""
     if data.get("VpcSecurityGroupIds") is not None:
         import capo_database_migration_service.types.vpc_security_group_id_list
 

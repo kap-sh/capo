@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_migrationhubstrategy.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migrationhubstrategy.types.interface_name
     import capo_migrationhubstrategy.types.ip_address
@@ -39,17 +37,17 @@ def deserialize_json(data: dict) -> NetworkInfo:
     if data.get("interfaceName") is not None:
         out["interface_name"] = data["interfaceName"]
     else:
-        raise DeserializationError("NetworkInfo.interface_name required")
+        out["interface_name"] = ""
     if data.get("ipAddress") is not None:
         out["ip_address"] = data["ipAddress"]
     else:
-        raise DeserializationError("NetworkInfo.ip_address required")
+        out["ip_address"] = ""
     if data.get("macAddress") is not None:
         out["mac_address"] = data["macAddress"]
     else:
-        raise DeserializationError("NetworkInfo.mac_address required")
+        out["mac_address"] = ""
     if data.get("netMask") is not None:
         out["net_mask"] = data["netMask"]
     else:
-        raise DeserializationError("NetworkInfo.net_mask required")
+        out["net_mask"] = ""
     return out

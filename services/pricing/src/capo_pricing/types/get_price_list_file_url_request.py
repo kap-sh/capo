@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pricing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pricing.types.file_format
     import capo_pricing.types.price_list_arn
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetPriceListFileUrlRequest:
     if data.get("PriceListArn") is not None:
         out["price_list_arn"] = data["PriceListArn"]
     else:
-        raise DeserializationError("GetPriceListFileUrlRequest.price_list_arn required")
+        out["price_list_arn"] = ""
     if data.get("FileFormat") is not None:
         out["file_format"] = data["FileFormat"]
     else:
-        raise DeserializationError("GetPriceListFileUrlRequest.file_format required")
+        out["file_format"] = ""
     return out

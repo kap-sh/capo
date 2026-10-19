@@ -73,21 +73,17 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeMergeConflictsOutput:
             data["mergeHunks"]
         )
     else:
-        raise DeserializationError("DescribeMergeConflictsOutput.merge_hunks required")
+        out["merge_hunks"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("destinationCommitId") is not None:
         out["destination_commit_id"] = data["destinationCommitId"]
     else:
-        raise DeserializationError(
-            "DescribeMergeConflictsOutput.destination_commit_id required"
-        )
+        out["destination_commit_id"] = ""
     if data.get("sourceCommitId") is not None:
         out["source_commit_id"] = data["sourceCommitId"]
     else:
-        raise DeserializationError(
-            "DescribeMergeConflictsOutput.source_commit_id required"
-        )
+        out["source_commit_id"] = ""
     if data.get("baseCommitId") is not None:
         out["base_commit_id"] = data["baseCommitId"]
     return out

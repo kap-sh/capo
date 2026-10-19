@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_api_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_api_gateway.types.string
 
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> CreateDocumentationVersionRequest:
     if data.get("documentationVersion") is not None:
         out["documentation_version"] = data["documentationVersion"]
     else:
-        raise DeserializationError(
-            "CreateDocumentationVersionRequest.documentation_version required"
-        )
+        out["documentation_version"] = ""
     if data.get("stageName") is not None:
         out["stage_name"] = data["stageName"]
     if data.get("description") is not None:

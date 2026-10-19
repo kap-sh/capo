@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.priority_type
     import capo_cognito_identity_provider.types.recovery_option_name_type
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> RecoveryOptionType:
     if data.get("Priority") is not None:
         out["priority"] = data["Priority"]
     else:
-        raise DeserializationError("RecoveryOptionType.priority required")
+        out["priority"] = 0
     if data.get("Name") is not None:
         import capo_cognito_identity_provider.types.recovery_option_name_type
 
@@ -47,5 +45,10 @@ def deserialize_aws_json_1_1(data: dict) -> RecoveryOptionType:
             )
         )
     else:
-        raise DeserializationError("RecoveryOptionType.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_cognito_identity_provider.types.recovery_option_name_type.RecoveryOptionNameType",
+            "",
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.json_path
     import capo_codepipeline.types.match_equals
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> WebhookFilterRule:
     if data.get("jsonPath") is not None:
         out["json_path"] = data["jsonPath"]
     else:
-        raise DeserializationError("WebhookFilterRule.json_path required")
+        out["json_path"] = ""
     if data.get("matchEquals") is not None:
         out["match_equals"] = data["matchEquals"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.data_source_type
@@ -106,13 +104,11 @@ def deserialize_json(data: dict) -> CreateOAuthClientApplicationRequest:
     if data.get("OAuthClientApplicationId") is not None:
         out["o_auth_client_application_id"] = data["OAuthClientApplicationId"]
     else:
-        raise DeserializationError(
-            "CreateOAuthClientApplicationRequest.o_auth_client_application_id required"
-        )
+        out["o_auth_client_application_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateOAuthClientApplicationRequest.name required")
+        out["name"] = ""
     if data.get("OAuthClientAuthenticationType") is not None:
         import capo_quicksight.types.o_auth_client_authentication_type
 
@@ -122,27 +118,24 @@ def deserialize_json(data: dict) -> CreateOAuthClientApplicationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateOAuthClientApplicationRequest.o_auth_client_authentication_type required"
+        import typing
+
+        out["o_auth_client_authentication_type"] = typing.cast(
+            "capo_quicksight.types.o_auth_client_authentication_type.OAuthClientAuthenticationType",
+            "",
         )
     if data.get("ClientId") is not None:
         out["client_id"] = data["ClientId"]
     else:
-        raise DeserializationError(
-            "CreateOAuthClientApplicationRequest.client_id required"
-        )
+        out["client_id"] = ""
     if data.get("ClientSecret") is not None:
         out["client_secret"] = data["ClientSecret"]
     else:
-        raise DeserializationError(
-            "CreateOAuthClientApplicationRequest.client_secret required"
-        )
+        out["client_secret"] = ""
     if data.get("OAuthTokenEndpointUrl") is not None:
         out["o_auth_token_endpoint_url"] = data["OAuthTokenEndpointUrl"]
     else:
-        raise DeserializationError(
-            "CreateOAuthClientApplicationRequest.o_auth_token_endpoint_url required"
-        )
+        out["o_auth_token_endpoint_url"] = ""
     if data.get("OAuthAuthorizationEndpointUrl") is not None:
         out["o_auth_authorization_endpoint_url"] = data["OAuthAuthorizationEndpointUrl"]
     if data.get("OAuthScopes") is not None:

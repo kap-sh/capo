@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.contact_fields
     import capo_connect.types.contact_id
@@ -41,5 +39,5 @@ def deserialize_json(data: dict) -> DeleteContactDataRequest:
             data["ContactFields"]
         )
     else:
-        raise DeserializationError("DeleteContactDataRequest.contact_fields required")
+        out["contact_fields"] = []
     return out

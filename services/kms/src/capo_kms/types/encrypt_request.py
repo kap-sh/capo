@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kms.types.encryption_algorithm_spec
     import capo_kms.types.encryption_context_type
@@ -75,7 +73,7 @@ def deserialize_aws_json_1_1(data: dict) -> EncryptRequest:
     if data.get("KeyId") is not None:
         out["key_id"] = data["KeyId"]
     else:
-        raise DeserializationError("EncryptRequest.key_id required")
+        out["key_id"] = ""
     if data.get("Plaintext") is not None:
         import capo_kms.types.plaintext_type
 
@@ -83,7 +81,7 @@ def deserialize_aws_json_1_1(data: dict) -> EncryptRequest:
             data["Plaintext"]
         )
     else:
-        raise DeserializationError("EncryptRequest.plaintext required")
+        out["plaintext"] = b""
     if data.get("EncryptionContext") is not None:
         import capo_kms.types.encryption_context_type
 

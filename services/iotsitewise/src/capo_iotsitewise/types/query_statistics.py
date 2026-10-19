@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 
 class QueryStatistics(TypedDict, closed=True):
     row_count: "int"
@@ -28,13 +26,13 @@ def deserialize_json(data: dict) -> QueryStatistics:
     if data.get("rowCount") is not None:
         out["row_count"] = data["rowCount"]
     else:
-        raise DeserializationError("QueryStatistics.row_count required")
+        out["row_count"] = 0
     if data.get("bytesScanned") is not None:
         out["bytes_scanned"] = data["bytesScanned"]
     else:
-        raise DeserializationError("QueryStatistics.bytes_scanned required")
+        out["bytes_scanned"] = 0
     if data.get("executionTimeInMillis") is not None:
         out["execution_time_in_millis"] = data["executionTimeInMillis"]
     else:
-        raise DeserializationError("QueryStatistics.execution_time_in_millis required")
+        out["execution_time_in_millis"] = 0
     return out

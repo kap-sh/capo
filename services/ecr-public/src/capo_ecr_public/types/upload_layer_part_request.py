@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecr_public.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr_public.types.layer_part_blob
     import capo_ecr_public.types.part_size
@@ -55,19 +53,19 @@ def deserialize_aws_json_1_1(data: dict) -> UploadLayerPartRequest:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError("UploadLayerPartRequest.repository_name required")
+        out["repository_name"] = ""
     if data.get("uploadId") is not None:
         out["upload_id"] = data["uploadId"]
     else:
-        raise DeserializationError("UploadLayerPartRequest.upload_id required")
+        out["upload_id"] = ""
     if data.get("partFirstByte") is not None:
         out["part_first_byte"] = data["partFirstByte"]
     else:
-        raise DeserializationError("UploadLayerPartRequest.part_first_byte required")
+        out["part_first_byte"] = 0
     if data.get("partLastByte") is not None:
         out["part_last_byte"] = data["partLastByte"]
     else:
-        raise DeserializationError("UploadLayerPartRequest.part_last_byte required")
+        out["part_last_byte"] = 0
     if data.get("layerPartBlob") is not None:
         import capo_ecr_public.types.layer_part_blob
 
@@ -77,5 +75,5 @@ def deserialize_aws_json_1_1(data: dict) -> UploadLayerPartRequest:
             )
         )
     else:
-        raise DeserializationError("UploadLayerPartRequest.layer_part_blob required")
+        out["layer_part_blob"] = b""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -119,15 +117,11 @@ def deserialize_json(data: dict) -> AmazonMachineImageFulfillmentOption:
     if data.get("fulfillmentOptionId") is not None:
         out["fulfillment_option_id"] = data["fulfillmentOptionId"]
     else:
-        raise DeserializationError(
-            "AmazonMachineImageFulfillmentOption.fulfillment_option_id required"
-        )
+        out["fulfillment_option_id"] = ""
     if data.get("fulfillmentOptionName") is not None:
         out["fulfillment_option_name"] = data["fulfillmentOptionName"]
     else:
-        raise DeserializationError(
-            "AmazonMachineImageFulfillmentOption.fulfillment_option_name required"
-        )
+        out["fulfillment_option_name"] = ""
     if data.get("fulfillmentOptionVersion") is not None:
         out["fulfillment_option_version"] = data["fulfillmentOptionVersion"]
     if data.get("fulfillmentOptionType") is not None:
@@ -139,15 +133,16 @@ def deserialize_json(data: dict) -> AmazonMachineImageFulfillmentOption:
             )
         )
     else:
-        raise DeserializationError(
-            "AmazonMachineImageFulfillmentOption.fulfillment_option_type required"
+        import typing
+
+        out["fulfillment_option_type"] = typing.cast(
+            "capo_marketplace_discovery.types.fulfillment_option_type.FulfillmentOptionType",
+            "",
         )
     if data.get("fulfillmentOptionDisplayName") is not None:
         out["fulfillment_option_display_name"] = data["fulfillmentOptionDisplayName"]
     else:
-        raise DeserializationError(
-            "AmazonMachineImageFulfillmentOption.fulfillment_option_display_name required"
-        )
+        out["fulfillment_option_display_name"] = ""
     if data.get("operatingSystems") is not None:
         import capo_marketplace_discovery.types.amazon_machine_image_operating_system_list
 
@@ -157,9 +152,7 @@ def deserialize_json(data: dict) -> AmazonMachineImageFulfillmentOption:
             )
         )
     else:
-        raise DeserializationError(
-            "AmazonMachineImageFulfillmentOption.operating_systems required"
-        )
+        out["operating_systems"] = []
     if data.get("recommendation") is not None:
         import capo_marketplace_discovery.types.amazon_machine_image_recommendation
 
@@ -185,9 +178,7 @@ def deserialize_json(data: dict) -> AmazonMachineImageFulfillmentOption:
     if data.get("architecture") is not None:
         out["architecture"] = data["architecture"]
     else:
-        raise DeserializationError(
-            "AmazonMachineImageFulfillmentOption.architecture required"
-        )
+        out["architecture"] = ""
     if data.get("amiAlias") is not None:
         out["ami_alias"] = data["amiAlias"]
     if data.get("ebsVolume") is not None:

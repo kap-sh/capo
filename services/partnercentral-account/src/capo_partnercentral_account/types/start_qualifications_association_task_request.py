@@ -48,15 +48,11 @@ def deserialize_aws_json_1_0(data: dict) -> StartQualificationsAssociationTaskRe
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError(
-            "StartQualificationsAssociationTaskRequest.catalog required"
-        )
+        out["catalog"] = ""
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError(
-            "StartQualificationsAssociationTaskRequest.identifier required"
-        )
+        out["identifier"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("PrimaryPartner") is not None:

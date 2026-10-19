@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.batch_id
     import capo_cloudwatch_logs.types.error_message
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> ImportBatch:
     if data.get("batchId") is not None:
         out["batch_id"] = data["batchId"]
     else:
-        raise DeserializationError("ImportBatch.batch_id required")
+        out["batch_id"] = ""
     if data.get("status") is not None:
         import capo_cloudwatch_logs.types.import_status
 
@@ -50,7 +48,11 @@ def deserialize_aws_json_1_1(data: dict) -> ImportBatch:
             )
         )
     else:
-        raise DeserializationError("ImportBatch.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cloudwatch_logs.types.import_status.ImportStatus", ""
+        )
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     return out

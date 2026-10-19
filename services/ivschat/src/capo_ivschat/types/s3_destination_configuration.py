@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ivschat.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivschat.types.bucket_name
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> S3DestinationConfiguration:
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError("S3DestinationConfiguration.bucket_name required")
+        out["bucket_name"] = ""
     return out

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_evs.errors import DeserializationError
-
 
 class GetDepotUrlResponse(TypedDict, closed=True):
     depot_url: "str"
@@ -25,9 +23,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetDepotUrlResponse:
     if data.get("depotUrl") is not None:
         out["depot_url"] = data["depotUrl"]
     else:
-        raise DeserializationError("GetDepotUrlResponse.depot_url required")
+        out["depot_url"] = ""
     if data.get("token") is not None:
         out["token"] = data["token"]
     else:
-        raise DeserializationError("GetDepotUrlResponse.token required")
+        out["token"] = ""
     return out

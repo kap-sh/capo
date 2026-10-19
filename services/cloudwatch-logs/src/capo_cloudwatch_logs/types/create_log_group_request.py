@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.deletion_protection_enabled
     import capo_cloudwatch_logs.types.kms_key_id
@@ -61,7 +59,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLogGroupRequest:
     if data.get("logGroupName") is not None:
         out["log_group_name"] = data["logGroupName"]
     else:
-        raise DeserializationError("CreateLogGroupRequest.log_group_name required")
+        out["log_group_name"] = ""
     if data.get("kmsKeyId") is not None:
         out["kms_key_id"] = data["kmsKeyId"]
     if data.get("tags") is not None:

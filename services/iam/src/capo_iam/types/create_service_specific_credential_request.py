@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.credential_age_days
@@ -45,16 +44,12 @@ def deserialize_query(el: Element) -> CreateServiceSpecificCredentialRequest:
     if child_user_name is not None:
         out["user_name"] = str(child_user_name.text or "")
     else:
-        raise DeserializationError(
-            "CreateServiceSpecificCredentialRequest.user_name required"
-        )
+        out["user_name"] = ""
     child_service_name = el.find("ServiceName")
     if child_service_name is not None:
         out["service_name"] = str(child_service_name.text or "")
     else:
-        raise DeserializationError(
-            "CreateServiceSpecificCredentialRequest.service_name required"
-        )
+        out["service_name"] = ""
     child_credential_age_days = el.find("CredentialAgeDays")
     if child_credential_age_days is not None:
         out["credential_age_days"] = int(child_credential_age_days.text or "")

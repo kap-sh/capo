@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.data_replication
     import capo_workspaces.types.directory_id
@@ -60,13 +58,13 @@ def deserialize_aws_json_1_1(data: dict) -> StandbyWorkspace:
     if data.get("PrimaryWorkspaceId") is not None:
         out["primary_workspace_id"] = data["PrimaryWorkspaceId"]
     else:
-        raise DeserializationError("StandbyWorkspace.primary_workspace_id required")
+        out["primary_workspace_id"] = ""
     if data.get("VolumeEncryptionKey") is not None:
         out["volume_encryption_key"] = data["VolumeEncryptionKey"]
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError("StandbyWorkspace.directory_id required")
+        out["directory_id"] = ""
     if data.get("Tags") is not None:
         import capo_workspaces.types.tag_list
 

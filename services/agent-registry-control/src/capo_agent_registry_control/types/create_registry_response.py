@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_agent_registry_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_agent_registry_control.types.registry_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CreateRegistryResponse:
     if data.get("registryArn") is not None:
         out["registry_arn"] = data["registryArn"]
     else:
-        raise DeserializationError("CreateRegistryResponse.registry_arn required")
+        out["registry_arn"] = ""
     return out

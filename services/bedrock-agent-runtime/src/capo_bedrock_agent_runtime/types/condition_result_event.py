@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.date_timestamp
     import capo_bedrock_agent_runtime.types.node_name
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> ConditionResultEvent:
     if data.get("nodeName") is not None:
         out["node_name"] = data["nodeName"]
     else:
-        raise DeserializationError("ConditionResultEvent.node_name required")
+        out["node_name"] = ""
     if data.get("timestamp") is not None:
         import capo_bedrock_agent_runtime.types.date_timestamp
 
@@ -57,7 +55,9 @@ def deserialize_json(data: dict) -> ConditionResultEvent:
             )
         )
     else:
-        raise DeserializationError("ConditionResultEvent.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("satisfiedConditions") is not None:
         import capo_bedrock_agent_runtime.types.satisfied_conditions
 
@@ -67,5 +67,5 @@ def deserialize_json(data: dict) -> ConditionResultEvent:
             )
         )
     else:
-        raise DeserializationError("ConditionResultEvent.satisfied_conditions required")
+        out["satisfied_conditions"] = []
     return out

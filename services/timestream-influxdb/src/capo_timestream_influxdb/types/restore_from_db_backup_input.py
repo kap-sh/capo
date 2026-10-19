@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_influxdb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -168,11 +166,11 @@ def deserialize_aws_json_1_0(data: dict) -> RestoreFromDbBackupInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RestoreFromDbBackupInput.name required")
+        out["name"] = ""
     if data.get("dbBackupId") is not None:
         out["db_backup_id"] = data["dbBackupId"]
     else:
-        raise DeserializationError("RestoreFromDbBackupInput.db_backup_id required")
+        out["db_backup_id"] = ""
     if data.get("restoreToTime") is not None:
         import datetime
 

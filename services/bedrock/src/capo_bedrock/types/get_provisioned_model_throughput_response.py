@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.commitment_duration
     import capo_bedrock.types.error_message
@@ -102,45 +100,31 @@ def deserialize_json(data: dict) -> GetProvisionedModelThroughputResponse:
     if data.get("modelUnits") is not None:
         out["model_units"] = data["modelUnits"]
     else:
-        raise DeserializationError(
-            "GetProvisionedModelThroughputResponse.model_units required"
-        )
+        out["model_units"] = 0
     if data.get("desiredModelUnits") is not None:
         out["desired_model_units"] = data["desiredModelUnits"]
     else:
-        raise DeserializationError(
-            "GetProvisionedModelThroughputResponse.desired_model_units required"
-        )
+        out["desired_model_units"] = 0
     if data.get("provisionedModelName") is not None:
         out["provisioned_model_name"] = data["provisionedModelName"]
     else:
-        raise DeserializationError(
-            "GetProvisionedModelThroughputResponse.provisioned_model_name required"
-        )
+        out["provisioned_model_name"] = ""
     if data.get("provisionedModelArn") is not None:
         out["provisioned_model_arn"] = data["provisionedModelArn"]
     else:
-        raise DeserializationError(
-            "GetProvisionedModelThroughputResponse.provisioned_model_arn required"
-        )
+        out["provisioned_model_arn"] = ""
     if data.get("modelArn") is not None:
         out["model_arn"] = data["modelArn"]
     else:
-        raise DeserializationError(
-            "GetProvisionedModelThroughputResponse.model_arn required"
-        )
+        out["model_arn"] = ""
     if data.get("desiredModelArn") is not None:
         out["desired_model_arn"] = data["desiredModelArn"]
     else:
-        raise DeserializationError(
-            "GetProvisionedModelThroughputResponse.desired_model_arn required"
-        )
+        out["desired_model_arn"] = ""
     if data.get("foundationModelArn") is not None:
         out["foundation_model_arn"] = data["foundationModelArn"]
     else:
-        raise DeserializationError(
-            "GetProvisionedModelThroughputResponse.foundation_model_arn required"
-        )
+        out["foundation_model_arn"] = ""
     if data.get("status") is not None:
         import capo_bedrock.types.provisioned_model_status
 
@@ -148,8 +132,10 @@ def deserialize_json(data: dict) -> GetProvisionedModelThroughputResponse:
             data["status"]
         )
     else:
-        raise DeserializationError(
-            "GetProvisionedModelThroughputResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock.types.provisioned_model_status.ProvisionedModelStatus", ""
         )
     if data.get("creationTime") is not None:
         import capo_bedrock.types.timestamp
@@ -158,8 +144,10 @@ def deserialize_json(data: dict) -> GetProvisionedModelThroughputResponse:
             data["creationTime"]
         )
     else:
-        raise DeserializationError(
-            "GetProvisionedModelThroughputResponse.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("lastModifiedTime") is not None:
         import capo_bedrock.types.timestamp
@@ -168,8 +156,10 @@ def deserialize_json(data: dict) -> GetProvisionedModelThroughputResponse:
             data["lastModifiedTime"]
         )
     else:
-        raise DeserializationError(
-            "GetProvisionedModelThroughputResponse.last_modified_time required"
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("failureMessage") is not None:
         out["failure_message"] = data["failureMessage"]

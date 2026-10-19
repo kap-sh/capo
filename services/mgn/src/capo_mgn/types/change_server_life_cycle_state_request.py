@@ -42,9 +42,7 @@ def deserialize_json(data: dict) -> ChangeServerLifeCycleStateRequest:
     if data.get("sourceServerID") is not None:
         out["source_server_id"] = data["sourceServerID"]
     else:
-        raise DeserializationError(
-            "ChangeServerLifeCycleStateRequest.source_server_id required"
-        )
+        out["source_server_id"] = ""
     if data.get("lifeCycle") is not None:
         import capo_mgn.types.change_server_life_cycle_state_source_server_lifecycle
 

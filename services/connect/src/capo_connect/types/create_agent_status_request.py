@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.agent_status_description
     import capo_connect.types.agent_status_name
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> CreateAgentStatusRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateAgentStatusRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("State") is not None:
@@ -67,7 +65,11 @@ def deserialize_json(data: dict) -> CreateAgentStatusRequest:
             data["State"]
         )
     else:
-        raise DeserializationError("CreateAgentStatusRequest.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_connect.types.agent_status_state.AgentStatusState", ""
+        )
     if data.get("DisplayOrder") is not None:
         out["display_order"] = data["DisplayOrder"]
     if data.get("Tags") is not None:

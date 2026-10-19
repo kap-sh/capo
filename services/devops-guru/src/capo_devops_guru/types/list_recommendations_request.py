@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_guru.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_guru.types.aws_account_id
     import capo_devops_guru.types.insight_id
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> ListRecommendationsRequest:
     if data.get("InsightId") is not None:
         out["insight_id"] = data["InsightId"]
     else:
-        raise DeserializationError("ListRecommendationsRequest.insight_id required")
+        out["insight_id"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("Locale") is not None:

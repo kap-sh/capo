@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eks.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eks.types.addon_namespace_config_request
     import capo_eks.types.addon_pod_identity_associations_list
@@ -89,7 +87,7 @@ def deserialize_json(data: dict) -> CreateAddonRequest:
     if data.get("addonName") is not None:
         out["addon_name"] = data["addonName"]
     else:
-        raise DeserializationError("CreateAddonRequest.addon_name required")
+        out["addon_name"] = ""
     if data.get("addonVersion") is not None:
         out["addon_version"] = data["addonVersion"]
     if data.get("serviceAccountRoleArn") is not None:

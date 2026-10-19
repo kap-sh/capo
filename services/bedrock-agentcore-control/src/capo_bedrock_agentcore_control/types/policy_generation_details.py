@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.resource_id
 
@@ -32,13 +30,9 @@ def deserialize_json(data: dict) -> PolicyGenerationDetails:
     if data.get("policyGenerationId") is not None:
         out["policy_generation_id"] = data["policyGenerationId"]
     else:
-        raise DeserializationError(
-            "PolicyGenerationDetails.policy_generation_id required"
-        )
+        out["policy_generation_id"] = ""
     if data.get("policyGenerationAssetId") is not None:
         out["policy_generation_asset_id"] = data["policyGenerationAssetId"]
     else:
-        raise DeserializationError(
-            "PolicyGenerationDetails.policy_generation_asset_id required"
-        )
+        out["policy_generation_asset_id"] = ""
     return out

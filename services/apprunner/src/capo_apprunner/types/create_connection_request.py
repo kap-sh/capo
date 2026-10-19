@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_apprunner.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_apprunner.types.connection_name
     import capo_apprunner.types.provider_type
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateConnectionRequest:
     if data.get("ConnectionName") is not None:
         out["connection_name"] = data["ConnectionName"]
     else:
-        raise DeserializationError("CreateConnectionRequest.connection_name required")
+        out["connection_name"] = ""
     if data.get("ProviderType") is not None:
         import capo_apprunner.types.provider_type
 
@@ -54,7 +52,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateConnectionRequest:
             )
         )
     else:
-        raise DeserializationError("CreateConnectionRequest.provider_type required")
+        import typing
+
+        out["provider_type"] = typing.cast(
+            "capo_apprunner.types.provider_type.ProviderType", ""
+        )
     if data.get("Tags") is not None:
         import capo_apprunner.types.tag_list
 

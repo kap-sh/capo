@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.audio_format
     import capo_bedrock_runtime.types.audio_source
@@ -52,7 +50,11 @@ def deserialize_json(data: dict) -> AudioBlock:
             data["format"]
         )
     else:
-        raise DeserializationError("AudioBlock.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_bedrock_runtime.types.audio_format.AudioFormat", ""
+        )
     if data.get("source") is not None:
         import capo_bedrock_runtime.types.audio_source
 
@@ -60,7 +62,9 @@ def deserialize_json(data: dict) -> AudioBlock:
             data["source"]
         )
     else:
-        raise DeserializationError("AudioBlock.source required")
+        import capo_bedrock_runtime.types._unknown
+
+        out["source"] = capo_bedrock_runtime.types._unknown.UnknownUnionMember("")
     if data.get("error") is not None:
         import capo_bedrock_runtime.types.error_block
 

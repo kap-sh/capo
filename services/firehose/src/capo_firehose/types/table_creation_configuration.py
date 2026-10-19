@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.boolean_object
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> TableCreationConfiguration:
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
-        raise DeserializationError("TableCreationConfiguration.enabled required")
+        out["enabled"] = False
     return out

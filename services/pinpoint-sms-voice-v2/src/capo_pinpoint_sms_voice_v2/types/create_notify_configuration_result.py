@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -116,25 +114,19 @@ def deserialize_aws_json_1_0(data: dict) -> CreateNotifyConfigurationResult:
     if data.get("NotifyConfigurationArn") is not None:
         out["notify_configuration_arn"] = data["NotifyConfigurationArn"]
     else:
-        raise DeserializationError(
-            "CreateNotifyConfigurationResult.notify_configuration_arn required"
-        )
+        out["notify_configuration_arn"] = ""
     if data.get("NotifyConfigurationId") is not None:
         out["notify_configuration_id"] = data["NotifyConfigurationId"]
     else:
-        raise DeserializationError(
-            "CreateNotifyConfigurationResult.notify_configuration_id required"
-        )
+        out["notify_configuration_id"] = ""
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     else:
-        raise DeserializationError(
-            "CreateNotifyConfigurationResult.display_name required"
-        )
+        out["display_name"] = ""
     if data.get("UseCase") is not None:
         out["use_case"] = data["UseCase"]
     else:
-        raise DeserializationError("CreateNotifyConfigurationResult.use_case required")
+        out["use_case"] = ""
     if data.get("DefaultTemplateId") is not None:
         out["default_template_id"] = data["DefaultTemplateId"]
     if data.get("PoolId") is not None:
@@ -156,23 +148,19 @@ def deserialize_aws_json_1_0(data: dict) -> CreateNotifyConfigurationResult:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateNotifyConfigurationResult.enabled_channels required"
-        )
+        out["enabled_channels"] = []
     if data.get("Tier") is not None:
         out["tier"] = data["Tier"]
     else:
-        raise DeserializationError("CreateNotifyConfigurationResult.tier required")
+        out["tier"] = ""
     if data.get("TierUpgradeStatus") is not None:
         out["tier_upgrade_status"] = data["TierUpgradeStatus"]
     else:
-        raise DeserializationError(
-            "CreateNotifyConfigurationResult.tier_upgrade_status required"
-        )
+        out["tier_upgrade_status"] = ""
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("CreateNotifyConfigurationResult.status required")
+        out["status"] = ""
     if data.get("RejectionReason") is not None:
         out["rejection_reason"] = data["RejectionReason"]
     if data.get("DeletionProtectionEnabled") is not None:
@@ -196,7 +184,9 @@ def deserialize_aws_json_1_0(data: dict) -> CreateNotifyConfigurationResult:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateNotifyConfigurationResult.created_timestamp required"
+        import datetime
+
+        out["created_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

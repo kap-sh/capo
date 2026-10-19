@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.coinbase_cdp_payment_request_body_type
     import capo_bedrock_agentcore.types.payment_http_method_type
@@ -64,15 +62,18 @@ def deserialize_json(data: dict) -> CoinbaseCdpTokenRequestInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CoinbaseCdpTokenRequestInput.request_method required"
+        import typing
+
+        out["request_method"] = typing.cast(
+            "capo_bedrock_agentcore.types.payment_http_method_type.PaymentHttpMethodType",
+            "",
         )
     if data.get("requestHost") is not None:
         out["request_host"] = data["requestHost"]
     if data.get("requestPath") is not None:
         out["request_path"] = data["requestPath"]
     else:
-        raise DeserializationError("CoinbaseCdpTokenRequestInput.request_path required")
+        out["request_path"] = ""
     if data.get("includeWalletAuthToken") is not None:
         out["include_wallet_auth_token"] = data["includeWalletAuthToken"]
     else:

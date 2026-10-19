@@ -58,11 +58,11 @@ def deserialize_json(data: dict) -> AssignedSession:
     if data.get("queueId") is not None:
         out["queue_id"] = data["queueId"]
     else:
-        raise DeserializationError("AssignedSession.queue_id required")
+        out["queue_id"] = ""
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("AssignedSession.job_id required")
+        out["job_id"] = ""
     if data.get("sessionActions") is not None:
         import capo_deadline.types.assigned_session_actions
 
@@ -72,7 +72,7 @@ def deserialize_json(data: dict) -> AssignedSession:
             )
         )
     else:
-        raise DeserializationError("AssignedSession.session_actions required")
+        out["session_actions"] = []
     if data.get("logConfiguration") is not None:
         import capo_deadline.types.log_configuration
 

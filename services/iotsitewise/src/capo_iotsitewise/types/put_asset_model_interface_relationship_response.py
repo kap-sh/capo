@@ -41,21 +41,15 @@ def deserialize_json(data: dict) -> PutAssetModelInterfaceRelationshipResponse:
     if data.get("assetModelId") is not None:
         out["asset_model_id"] = data["assetModelId"]
     else:
-        raise DeserializationError(
-            "PutAssetModelInterfaceRelationshipResponse.asset_model_id required"
-        )
+        out["asset_model_id"] = ""
     if data.get("interfaceAssetModelId") is not None:
         out["interface_asset_model_id"] = data["interfaceAssetModelId"]
     else:
-        raise DeserializationError(
-            "PutAssetModelInterfaceRelationshipResponse.interface_asset_model_id required"
-        )
+        out["interface_asset_model_id"] = ""
     if data.get("assetModelArn") is not None:
         out["asset_model_arn"] = data["assetModelArn"]
     else:
-        raise DeserializationError(
-            "PutAssetModelInterfaceRelationshipResponse.asset_model_arn required"
-        )
+        out["asset_model_arn"] = ""
     if data.get("assetModelStatus") is not None:
         import capo_iotsitewise.types.asset_model_status
 

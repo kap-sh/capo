@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.allowed_access_control_tags
     import capo_connect.types.allowed_ai_agents
@@ -149,9 +147,7 @@ def deserialize_json(data: dict) -> CreateSecurityProfileRequest:
     if data.get("SecurityProfileName") is not None:
         out["security_profile_name"] = data["SecurityProfileName"]
     else:
-        raise DeserializationError(
-            "CreateSecurityProfileRequest.security_profile_name required"
-        )
+        out["security_profile_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Permissions") is not None:

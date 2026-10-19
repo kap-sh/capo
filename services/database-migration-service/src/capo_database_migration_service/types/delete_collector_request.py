@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.string
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteCollectorRequest:
     if data.get("CollectorReferencedId") is not None:
         out["collector_referenced_id"] = data["CollectorReferencedId"]
     else:
-        raise DeserializationError(
-            "DeleteCollectorRequest.collector_referenced_id required"
-        )
+        out["collector_referenced_id"] = ""
     return out

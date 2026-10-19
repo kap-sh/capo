@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.user_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> MemberUser:
     if data.get("UserId") is not None:
         out["user_id"] = data["UserId"]
     else:
-        raise DeserializationError("MemberUser.user_id required")
+        out["user_id"] = ""
     return out

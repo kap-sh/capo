@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.ca_certificate_source
 
@@ -35,5 +33,7 @@ def deserialize_json(data: dict) -> TrustedCaCertificate:
             data["source"]
         )
     else:
-        raise DeserializationError("TrustedCaCertificate.source required")
+        import capo_securityagent.types._unknown
+
+        out["source"] = capo_securityagent.types._unknown.UnknownUnionMember("")
     return out

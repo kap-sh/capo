@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.o_auth2_grant_type
     import capo_appflow.types.token_url
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> OAuth2Properties:
     if data.get("tokenUrl") is not None:
         out["token_url"] = data["tokenUrl"]
     else:
-        raise DeserializationError("OAuth2Properties.token_url required")
+        out["token_url"] = ""
     if data.get("oAuth2GrantType") is not None:
         import capo_appflow.types.o_auth2_grant_type
 
@@ -58,7 +56,11 @@ def deserialize_json(data: dict) -> OAuth2Properties:
             )
         )
     else:
-        raise DeserializationError("OAuth2Properties.o_auth2_grant_type required")
+        import typing
+
+        out["o_auth2_grant_type"] = typing.cast(
+            "capo_appflow.types.o_auth2_grant_type.OAuth2GrantType", ""
+        )
     if data.get("tokenUrlCustomProperties") is not None:
         import capo_appflow.types.token_url_custom_properties
 

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 
 class EventBridgeConfiguration(TypedDict, closed=True):
     event_bridge_enabled: "bool"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> EventBridgeConfiguration:
     if data.get("eventBridgeEnabled") is not None:
         out["event_bridge_enabled"] = data["eventBridgeEnabled"]
     else:
-        raise DeserializationError(
-            "EventBridgeConfiguration.event_bridge_enabled required"
-        )
+        out["event_bridge_enabled"] = False
     return out

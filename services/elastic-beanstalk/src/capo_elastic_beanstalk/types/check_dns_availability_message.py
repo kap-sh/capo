@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_elastic_beanstalk._protocol.xml import Element
-from capo_elastic_beanstalk.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_elastic_beanstalk.types.dns_cname_prefix
@@ -30,5 +29,5 @@ def deserialize_query(el: Element) -> CheckDNSAvailabilityMessage:
     if child_cname_prefix is not None:
         out["cname_prefix"] = str(child_cname_prefix.text or "")
     else:
-        raise DeserializationError("CheckDNSAvailabilityMessage.cname_prefix required")
+        out["cname_prefix"] = ""
     return out

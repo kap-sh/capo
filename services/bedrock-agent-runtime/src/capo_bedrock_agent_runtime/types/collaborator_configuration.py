@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.agent_alias_arn
     import capo_bedrock_agent_runtime.types.collaboration_instruction
@@ -51,15 +49,11 @@ def deserialize_json(data: dict) -> CollaboratorConfiguration:
     if data.get("collaboratorName") is not None:
         out["collaborator_name"] = data["collaboratorName"]
     else:
-        raise DeserializationError(
-            "CollaboratorConfiguration.collaborator_name required"
-        )
+        out["collaborator_name"] = ""
     if data.get("collaboratorInstruction") is not None:
         out["collaborator_instruction"] = data["collaboratorInstruction"]
     else:
-        raise DeserializationError(
-            "CollaboratorConfiguration.collaborator_instruction required"
-        )
+        out["collaborator_instruction"] = ""
     if data.get("agentAliasArn") is not None:
         out["agent_alias_arn"] = data["agentAliasArn"]
     if data.get("relayConversationHistory") is not None:

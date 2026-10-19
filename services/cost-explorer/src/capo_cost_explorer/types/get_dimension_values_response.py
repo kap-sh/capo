@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.dimension_values_with_attributes_list
     import capo_cost_explorer.types.next_page_token
@@ -53,17 +51,15 @@ def deserialize_aws_json_1_1(data: dict) -> GetDimensionValuesResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetDimensionValuesResponse.dimension_values required"
-        )
+        out["dimension_values"] = []
     if data.get("ReturnSize") is not None:
         out["return_size"] = data["ReturnSize"]
     else:
-        raise DeserializationError("GetDimensionValuesResponse.return_size required")
+        out["return_size"] = 0
     if data.get("TotalSize") is not None:
         out["total_size"] = data["TotalSize"]
     else:
-        raise DeserializationError("GetDimensionValuesResponse.total_size required")
+        out["total_size"] = 0
     if data.get("NextPageToken") is not None:
         out["next_page_token"] = data["NextPageToken"]
     return out

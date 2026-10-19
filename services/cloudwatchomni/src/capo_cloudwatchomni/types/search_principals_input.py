@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.domain_id
     import capo_cloudwatchomni.types.search_principals_next_token
@@ -41,11 +39,11 @@ def deserialize_cbor(data: dict) -> SearchPrincipalsInput:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("SearchPrincipalsInput.domain_id required")
+        out["domain_id"] = ""
     if data.get("searchQuery") is not None:
         out["search_query"] = data["searchQuery"]
     else:
-        raise DeserializationError("SearchPrincipalsInput.search_query required")
+        out["search_query"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

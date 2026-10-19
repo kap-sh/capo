@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.q_app_session_data_list
     import capo_qapps.types.uuid
@@ -45,11 +43,11 @@ def deserialize_json(data: dict) -> ListQAppSessionDataOutput:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("ListQAppSessionDataOutput.session_id required")
+        out["session_id"] = ""
     if data.get("sessionArn") is not None:
         out["session_arn"] = data["sessionArn"]
     else:
-        raise DeserializationError("ListQAppSessionDataOutput.session_arn required")
+        out["session_arn"] = ""
     if data.get("sessionData") is not None:
         import capo_qapps.types.q_app_session_data_list
 

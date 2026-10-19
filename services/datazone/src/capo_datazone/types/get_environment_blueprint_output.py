@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -117,17 +115,17 @@ def deserialize_json(data: dict) -> GetEnvironmentBlueprintOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetEnvironmentBlueprintOutput.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetEnvironmentBlueprintOutput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("provider") is not None:
         out["provider"] = data["provider"]
     else:
-        raise DeserializationError("GetEnvironmentBlueprintOutput.provider required")
+        out["provider"] = ""
     if data.get("provisioningProperties") is not None:
         import capo_datazone.types.provisioning_properties
 
@@ -137,8 +135,10 @@ def deserialize_json(data: dict) -> GetEnvironmentBlueprintOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetEnvironmentBlueprintOutput.provisioning_properties required"
+        import capo_datazone.types._unknown
+
+        out["provisioning_properties"] = (
+            capo_datazone.types._unknown.UnknownUnionMember("")
         )
     if data.get("deploymentProperties") is not None:
         import capo_datazone.types.deployment_properties

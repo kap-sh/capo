@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.flow_id
     import capo_bedrock_agent.types.flow_status
@@ -33,7 +31,7 @@ def deserialize_json(data: dict) -> PrepareFlowResponse:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("PrepareFlowResponse.id required")
+        out["id"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agent.types.flow_status
 
@@ -41,5 +39,9 @@ def deserialize_json(data: dict) -> PrepareFlowResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("PrepareFlowResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agent.types.flow_status.FlowStatus", ""
+        )
     return out

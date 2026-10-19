@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.allowed_accounts
 
@@ -39,5 +37,5 @@ def deserialize_aws_json_1_1(data: dict) -> ActionTypePermissions:
             )
         )
     else:
-        raise DeserializationError("ActionTypePermissions.allowed_accounts required")
+        out["allowed_accounts"] = []
     return out

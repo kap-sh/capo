@@ -49,9 +49,7 @@ def deserialize_json(data: dict) -> UpdateRumMetricDefinitionRequest:
     if data.get("Destination") is not None:
         out["destination"] = data["Destination"]
     else:
-        raise DeserializationError(
-            "UpdateRumMetricDefinitionRequest.destination required"
-        )
+        out["destination"] = ""
     if data.get("DestinationArn") is not None:
         out["destination_arn"] = data["DestinationArn"]
     if data.get("MetricDefinition") is not None:
@@ -69,7 +67,5 @@ def deserialize_json(data: dict) -> UpdateRumMetricDefinitionRequest:
     if data.get("MetricDefinitionId") is not None:
         out["metric_definition_id"] = data["MetricDefinitionId"]
     else:
-        raise DeserializationError(
-            "UpdateRumMetricDefinitionRequest.metric_definition_id required"
-        )
+        out["metric_definition_id"] = ""
     return out

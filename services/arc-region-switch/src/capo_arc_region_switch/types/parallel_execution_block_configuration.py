@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.steps
 
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_0(data: dict) -> ParallelExecutionBlockConfiguration:
             data["steps"]
         )
     else:
-        raise DeserializationError("ParallelExecutionBlockConfiguration.steps required")
+        out["steps"] = []
     return out
 
 

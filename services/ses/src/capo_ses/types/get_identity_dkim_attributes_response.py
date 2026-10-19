@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.dkim_attributes
@@ -38,7 +37,5 @@ def deserialize_query(el: Element) -> GetIdentityDkimAttributesResponse:
             child_dkim_attributes
         )
     else:
-        raise DeserializationError(
-            "GetIdentityDkimAttributesResponse.dkim_attributes required"
-        )
+        out["dkim_attributes"] = {}
     return out

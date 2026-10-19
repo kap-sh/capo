@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_directory_service_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service_data.types.attributes
     import capo_directory_service_data.types.client_token
@@ -78,7 +76,7 @@ def deserialize_json(data: dict) -> UpdateUserRequest:
     if data.get("SAMAccountName") is not None:
         out["sam_account_name"] = data["SAMAccountName"]
     else:
-        raise DeserializationError("UpdateUserRequest.sam_account_name required")
+        out["sam_account_name"] = ""
     if data.get("EmailAddress") is not None:
         out["email_address"] = data["EmailAddress"]
     if data.get("GivenName") is not None:

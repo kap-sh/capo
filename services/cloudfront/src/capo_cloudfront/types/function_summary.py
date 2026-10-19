@@ -49,7 +49,7 @@ def deserialize_xml(el: Element) -> FunctionSummary:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("FunctionSummary.name required")
+        out["name"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         out["status"] = str(child_status.text or "")

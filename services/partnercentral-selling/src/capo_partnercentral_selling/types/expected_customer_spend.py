@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.amount
     import capo_partnercentral_selling.types.currency_code
@@ -67,7 +65,11 @@ def deserialize_aws_json_1_0(data: dict) -> ExpectedCustomerSpend:
             )
         )
     else:
-        raise DeserializationError("ExpectedCustomerSpend.currency_code required")
+        import typing
+
+        out["currency_code"] = typing.cast(
+            "capo_partnercentral_selling.types.currency_code.CurrencyCode", ""
+        )
     if data.get("Frequency") is not None:
         import capo_partnercentral_selling.types.payment_frequency
 
@@ -77,11 +79,15 @@ def deserialize_aws_json_1_0(data: dict) -> ExpectedCustomerSpend:
             )
         )
     else:
-        raise DeserializationError("ExpectedCustomerSpend.frequency required")
+        import typing
+
+        out["frequency"] = typing.cast(
+            "capo_partnercentral_selling.types.payment_frequency.PaymentFrequency", ""
+        )
     if data.get("TargetCompany") is not None:
         out["target_company"] = data["TargetCompany"]
     else:
-        raise DeserializationError("ExpectedCustomerSpend.target_company required")
+        out["target_company"] = ""
     if data.get("EstimationUrl") is not None:
         out["estimation_url"] = data["EstimationUrl"]
     return out

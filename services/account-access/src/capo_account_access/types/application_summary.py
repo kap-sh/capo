@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_account_access.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_account_access.types.application_arn
     import capo_account_access.types.date_time
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> ApplicationSummary:
     if data.get("applicationArn") is not None:
         out["application_arn"] = data["applicationArn"]
     else:
-        raise DeserializationError("ApplicationSummary.application_arn required")
+        out["application_arn"] = ""
     if data.get("tenantId") is not None:
         out["tenant_id"] = data["tenantId"]
     if data.get("createdAt") is not None:
@@ -56,7 +54,9 @@ def deserialize_json(data: dict) -> ApplicationSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("ApplicationSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_account_access.types.date_time
 
@@ -64,5 +64,7 @@ def deserialize_json(data: dict) -> ApplicationSummary:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("ApplicationSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

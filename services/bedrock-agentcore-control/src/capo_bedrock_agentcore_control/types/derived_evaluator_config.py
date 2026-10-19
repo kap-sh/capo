@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.evaluator_id
     import capo_bedrock_agentcore_control.types.evaluator_model_config
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> DerivedEvaluatorConfig:
     if data.get("baseEvaluatorId") is not None:
         out["base_evaluator_id"] = data["baseEvaluatorId"]
     else:
-        raise DeserializationError("DerivedEvaluatorConfig.base_evaluator_id required")
+        out["base_evaluator_id"] = ""
     if data.get("modelConfig") is not None:
         import capo_bedrock_agentcore_control.types.evaluator_model_config
 
@@ -47,5 +45,9 @@ def deserialize_json(data: dict) -> DerivedEvaluatorConfig:
             )
         )
     else:
-        raise DeserializationError("DerivedEvaluatorConfig.model_config required")
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["model_config"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
+        )
     return out

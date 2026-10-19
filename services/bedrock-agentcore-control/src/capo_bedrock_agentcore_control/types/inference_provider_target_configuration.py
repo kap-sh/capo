@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.inference_operation_configurations
     import capo_bedrock_agentcore_control.types.model_mapping
@@ -55,9 +53,7 @@ def deserialize_json(data: dict) -> InferenceProviderTargetConfiguration:
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError(
-            "InferenceProviderTargetConfiguration.endpoint required"
-        )
+        out["endpoint"] = ""
     if data.get("modelMapping") is not None:
         import capo_bedrock_agentcore_control.types.model_mapping
 

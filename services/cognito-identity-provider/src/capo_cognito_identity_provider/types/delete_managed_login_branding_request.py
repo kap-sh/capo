@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.managed_login_branding_id_type
     import capo_cognito_identity_provider.types.user_pool_id_type
@@ -33,13 +31,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteManagedLoginBrandingRequest:
     if data.get("ManagedLoginBrandingId") is not None:
         out["managed_login_branding_id"] = data["ManagedLoginBrandingId"]
     else:
-        raise DeserializationError(
-            "DeleteManagedLoginBrandingRequest.managed_login_branding_id required"
-        )
+        out["managed_login_branding_id"] = ""
     if data.get("UserPoolId") is not None:
         out["user_pool_id"] = data["UserPoolId"]
     else:
-        raise DeserializationError(
-            "DeleteManagedLoginBrandingRequest.user_pool_id required"
-        )
+        out["user_pool_id"] = ""
     return out

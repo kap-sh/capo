@@ -55,13 +55,11 @@ def deserialize_json(data: dict) -> SendChatIntegrationEventRequest:
     if data.get("SourceId") is not None:
         out["source_id"] = data["SourceId"]
     else:
-        raise DeserializationError("SendChatIntegrationEventRequest.source_id required")
+        out["source_id"] = ""
     if data.get("DestinationId") is not None:
         out["destination_id"] = data["DestinationId"]
     else:
-        raise DeserializationError(
-            "SendChatIntegrationEventRequest.destination_id required"
-        )
+        out["destination_id"] = ""
     if data.get("Subtype") is not None:
         out["subtype"] = data["Subtype"]
     if data.get("Event") is not None:

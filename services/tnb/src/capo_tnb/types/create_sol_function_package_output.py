@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_tnb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_tnb.types.onboarding_state
     import capo_tnb.types.operational_state
@@ -60,11 +58,11 @@ def deserialize_json(data: dict) -> CreateSolFunctionPackageOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CreateSolFunctionPackageOutput.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CreateSolFunctionPackageOutput.arn required")
+        out["arn"] = ""
     if data.get("onboardingState") is not None:
         import capo_tnb.types.onboarding_state
 
@@ -72,8 +70,10 @@ def deserialize_json(data: dict) -> CreateSolFunctionPackageOutput:
             data["onboardingState"]
         )
     else:
-        raise DeserializationError(
-            "CreateSolFunctionPackageOutput.onboarding_state required"
+        import typing
+
+        out["onboarding_state"] = typing.cast(
+            "capo_tnb.types.onboarding_state.OnboardingState", ""
         )
     if data.get("operationalState") is not None:
         import capo_tnb.types.operational_state
@@ -82,8 +82,10 @@ def deserialize_json(data: dict) -> CreateSolFunctionPackageOutput:
             data["operationalState"]
         )
     else:
-        raise DeserializationError(
-            "CreateSolFunctionPackageOutput.operational_state required"
+        import typing
+
+        out["operational_state"] = typing.cast(
+            "capo_tnb.types.operational_state.OperationalState", ""
         )
     if data.get("usageState") is not None:
         import capo_tnb.types.usage_state
@@ -92,9 +94,9 @@ def deserialize_json(data: dict) -> CreateSolFunctionPackageOutput:
             data["usageState"]
         )
     else:
-        raise DeserializationError(
-            "CreateSolFunctionPackageOutput.usage_state required"
-        )
+        import typing
+
+        out["usage_state"] = typing.cast("capo_tnb.types.usage_state.UsageState", "")
     if data.get("tags") is not None:
         import capo_tnb.types.tag_map
 

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_internetmonitor.errors import DeserializationError
-
 
 class Network(TypedDict, closed=True):
     as_name: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> Network:
     if data.get("ASName") is not None:
         out["as_name"] = data["ASName"]
     else:
-        raise DeserializationError("Network.as_name required")
+        out["as_name"] = ""
     if data.get("ASNumber") is not None:
         out["as_number"] = data["ASNumber"]
     else:
-        raise DeserializationError("Network.as_number required")
+        out["as_number"] = 0
     return out

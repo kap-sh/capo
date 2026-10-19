@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.read_set_part_source
 
@@ -33,19 +31,13 @@ def deserialize_json(data: dict) -> CompleteReadSetUploadPartListItem:
     if data.get("partNumber") is not None:
         out["part_number"] = data["partNumber"]
     else:
-        raise DeserializationError(
-            "CompleteReadSetUploadPartListItem.part_number required"
-        )
+        out["part_number"] = 0
     if data.get("partSource") is not None:
         out["part_source"] = data["partSource"]
     else:
-        raise DeserializationError(
-            "CompleteReadSetUploadPartListItem.part_source required"
-        )
+        out["part_source"] = ""
     if data.get("checksum") is not None:
         out["checksum"] = data["checksum"]
     else:
-        raise DeserializationError(
-            "CompleteReadSetUploadPartListItem.checksum required"
-        )
+        out["checksum"] = ""
     return out

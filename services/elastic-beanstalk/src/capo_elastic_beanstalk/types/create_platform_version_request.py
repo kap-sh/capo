@@ -71,16 +71,12 @@ def deserialize_query(el: Element) -> CreatePlatformVersionRequest:
     if child_platform_name is not None:
         out["platform_name"] = str(child_platform_name.text or "")
     else:
-        raise DeserializationError(
-            "CreatePlatformVersionRequest.platform_name required"
-        )
+        out["platform_name"] = ""
     child_platform_version = el.find("PlatformVersion")
     if child_platform_version is not None:
         out["platform_version"] = str(child_platform_version.text or "")
     else:
-        raise DeserializationError(
-            "CreatePlatformVersionRequest.platform_version required"
-        )
+        out["platform_version"] = ""
     child_platform_definition_bundle = el.find("PlatformDefinitionBundle")
     if child_platform_definition_bundle is not None:
         import capo_elastic_beanstalk.types.s3_location

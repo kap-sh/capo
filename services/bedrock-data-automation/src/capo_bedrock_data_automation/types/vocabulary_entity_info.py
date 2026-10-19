@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.entity_description
     import capo_bedrock_data_automation.types.entity_id
@@ -55,7 +53,11 @@ def deserialize_json(data: dict) -> VocabularyEntityInfo:
             data["language"]
         )
     else:
-        raise DeserializationError("VocabularyEntityInfo.language required")
+        import typing
+
+        out["language"] = typing.cast(
+            "capo_bedrock_data_automation.types.language.Language", ""
+        )
     if data.get("phrases") is not None:
         import capo_bedrock_data_automation.types.phrase_list
 
@@ -65,7 +67,7 @@ def deserialize_json(data: dict) -> VocabularyEntityInfo:
             )
         )
     else:
-        raise DeserializationError("VocabularyEntityInfo.phrases required")
+        out["phrases"] = []
     return out
 
 

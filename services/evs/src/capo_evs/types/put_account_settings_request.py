@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_evs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_evs.types.account_setting_list
 
@@ -35,5 +33,5 @@ def deserialize_aws_json_1_0(data: dict) -> PutAccountSettingsRequest:
             data["settings"]
         )
     else:
-        raise DeserializationError("PutAccountSettingsRequest.settings required")
+        out["settings"] = []
     return out

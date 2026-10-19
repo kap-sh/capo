@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.resource_id_list
     import capo_odb.types.resource_id_or_arn
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_0(
     if data.get("exadbVmClusterId") is not None:
         out["exadb_vm_cluster_id"] = data["exadbVmClusterId"]
     else:
-        raise DeserializationError(
-            "DisassociateVirtualMachinesFromExadbVmClusterInput.exadb_vm_cluster_id required"
-        )
+        out["exadb_vm_cluster_id"] = ""
     if data.get("dbNodeIds") is not None:
         import capo_odb.types.resource_id_list
 
@@ -49,7 +45,5 @@ def deserialize_aws_json_1_0(
             data["dbNodeIds"]
         )
     else:
-        raise DeserializationError(
-            "DisassociateVirtualMachinesFromExadbVmClusterInput.db_node_ids required"
-        )
+        out["db_node_ids"] = []
     return out

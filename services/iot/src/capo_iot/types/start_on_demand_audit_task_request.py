@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.target_audit_check_names
 
@@ -37,7 +35,5 @@ def deserialize_json(data: dict) -> StartOnDemandAuditTaskRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartOnDemandAuditTaskRequest.target_check_names required"
-        )
+        out["target_check_names"] = []
     return out

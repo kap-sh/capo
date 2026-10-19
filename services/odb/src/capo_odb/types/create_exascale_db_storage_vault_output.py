@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.resource_status
 
@@ -53,7 +51,5 @@ def deserialize_aws_json_1_0(data: dict) -> CreateExascaleDbStorageVaultOutput:
     if data.get("exascaleDbStorageVaultId") is not None:
         out["exascale_db_storage_vault_id"] = data["exascaleDbStorageVaultId"]
     else:
-        raise DeserializationError(
-            "CreateExascaleDbStorageVaultOutput.exascale_db_storage_vault_id required"
-        )
+        out["exascale_db_storage_vault_id"] = ""
     return out

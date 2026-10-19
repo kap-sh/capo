@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.account_id
     import capo_cloudtrail.types.query_status
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> CancelQueryResponse:
     if data.get("QueryId") is not None:
         out["query_id"] = data["QueryId"]
     else:
-        raise DeserializationError("CancelQueryResponse.query_id required")
+        out["query_id"] = ""
     if data.get("QueryStatus") is not None:
         import capo_cloudtrail.types.query_status
 
@@ -52,7 +50,11 @@ def deserialize_aws_json_1_1(data: dict) -> CancelQueryResponse:
             )
         )
     else:
-        raise DeserializationError("CancelQueryResponse.query_status required")
+        import typing
+
+        out["query_status"] = typing.cast(
+            "capo_cloudtrail.types.query_status.QueryStatus", ""
+        )
     if data.get("EventDataStoreOwnerAccountId") is not None:
         out["event_data_store_owner_account_id"] = data["EventDataStoreOwnerAccountId"]
     return out

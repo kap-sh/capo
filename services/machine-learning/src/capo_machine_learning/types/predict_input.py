@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_machine_learning.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_machine_learning.types.entity_id
     import capo_machine_learning.types.record
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> PredictInput:
     if data.get("MLModelId") is not None:
         out["ml_model_id"] = data["MLModelId"]
     else:
-        raise DeserializationError("PredictInput.ml_model_id required")
+        out["ml_model_id"] = ""
     if data.get("Record") is not None:
         import capo_machine_learning.types.record
 
@@ -45,9 +43,9 @@ def deserialize_aws_json_1_1(data: dict) -> PredictInput:
             data["Record"]
         )
     else:
-        raise DeserializationError("PredictInput.record required")
+        out["record"] = {}
     if data.get("PredictEndpoint") is not None:
         out["predict_endpoint"] = data["PredictEndpoint"]
     else:
-        raise DeserializationError("PredictInput.predict_endpoint required")
+        out["predict_endpoint"] = ""
     return out

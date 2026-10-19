@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.metrics_filter
@@ -35,7 +34,7 @@ def deserialize_xml(el: Element) -> MetricsConfiguration:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("MetricsConfiguration.id required")
+        out["id"] = ""
     child_filter = el.find("Filter")
     if child_filter is not None:
         import capo_s3.types.metrics_filter

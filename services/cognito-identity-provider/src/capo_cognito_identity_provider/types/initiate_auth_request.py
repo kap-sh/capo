@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.analytics_metadata_type
     import capo_cognito_identity_provider.types.auth_flow_type
@@ -102,7 +100,11 @@ def deserialize_aws_json_1_1(data: dict) -> InitiateAuthRequest:
             )
         )
     else:
-        raise DeserializationError("InitiateAuthRequest.auth_flow required")
+        import typing
+
+        out["auth_flow"] = typing.cast(
+            "capo_cognito_identity_provider.types.auth_flow_type.AuthFlowType", ""
+        )
     if data.get("AuthParameters") is not None:
         import capo_cognito_identity_provider.types.auth_parameters_type
 
@@ -122,7 +124,7 @@ def deserialize_aws_json_1_1(data: dict) -> InitiateAuthRequest:
     if data.get("ClientId") is not None:
         out["client_id"] = data["ClientId"]
     else:
-        raise DeserializationError("InitiateAuthRequest.client_id required")
+        out["client_id"] = ""
     if data.get("AnalyticsMetadata") is not None:
         import capo_cognito_identity_provider.types.analytics_metadata_type
 

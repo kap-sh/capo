@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotthingsgraph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotthingsgraph.types.flow_execution_id
     import capo_iotthingsgraph.types.max_results
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListFlowExecutionMessagesRequest:
     if data.get("flowExecutionId") is not None:
         out["flow_execution_id"] = data["flowExecutionId"]
     else:
-        raise DeserializationError(
-            "ListFlowExecutionMessagesRequest.flow_execution_id required"
-        )
+        out["flow_execution_id"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

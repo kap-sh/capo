@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.resource_arn
     import capo_network_firewall.types.resource_name
@@ -47,7 +45,5 @@ def deserialize_aws_json_1_0(data: dict) -> AssociateFirewallPolicyRequest:
     if data.get("FirewallPolicyArn") is not None:
         out["firewall_policy_arn"] = data["FirewallPolicyArn"]
     else:
-        raise DeserializationError(
-            "AssociateFirewallPolicyRequest.firewall_policy_arn required"
-        )
+        out["firewall_policy_arn"] = ""
     return out

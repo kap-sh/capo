@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.connector_cloud_provider
     import capo_inspector2.types.connector_description
@@ -65,7 +63,7 @@ def deserialize_json(data: dict) -> CreateConnectorRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateConnectorRequest.name required")
+        out["name"] = ""
     if data.get("provider") is not None:
         import capo_inspector2.types.connector_cloud_provider
 
@@ -75,7 +73,11 @@ def deserialize_json(data: dict) -> CreateConnectorRequest:
             )
         )
     else:
-        raise DeserializationError("CreateConnectorRequest.provider required")
+        import typing
+
+        out["provider"] = typing.cast(
+            "capo_inspector2.types.connector_cloud_provider.ConnectorCloudProvider", ""
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("providerDetail") is not None:
@@ -87,7 +89,9 @@ def deserialize_json(data: dict) -> CreateConnectorRequest:
             )
         )
     else:
-        raise DeserializationError("CreateConnectorRequest.provider_detail required")
+        import capo_inspector2.types._unknown
+
+        out["provider_detail"] = capo_inspector2.types._unknown.UnknownUnionMember("")
     if data.get("tags") is not None:
         import capo_inspector2.types.connector_tag_map
 

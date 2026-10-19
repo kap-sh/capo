@@ -50,13 +50,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDataDeletionJobRequest:
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError("CreateDataDeletionJobRequest.job_name required")
+        out["job_name"] = ""
     if data.get("datasetGroupArn") is not None:
         out["dataset_group_arn"] = data["datasetGroupArn"]
     else:
-        raise DeserializationError(
-            "CreateDataDeletionJobRequest.dataset_group_arn required"
-        )
+        out["dataset_group_arn"] = ""
     if data.get("dataSource") is not None:
         import capo_personalize.types.data_source
 
@@ -70,7 +68,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDataDeletionJobRequest:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateDataDeletionJobRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("tags") is not None:
         import capo_personalize.types.tags
 

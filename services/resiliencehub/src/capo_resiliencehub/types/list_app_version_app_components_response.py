@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.app_component_list
     import capo_resiliencehub.types.arn
@@ -49,15 +47,11 @@ def deserialize_json(data: dict) -> ListAppVersionAppComponentsResponse:
     if data.get("appArn") is not None:
         out["app_arn"] = data["appArn"]
     else:
-        raise DeserializationError(
-            "ListAppVersionAppComponentsResponse.app_arn required"
-        )
+        out["app_arn"] = ""
     if data.get("appVersion") is not None:
         out["app_version"] = data["appVersion"]
     else:
-        raise DeserializationError(
-            "ListAppVersionAppComponentsResponse.app_version required"
-        )
+        out["app_version"] = ""
     if data.get("appComponents") is not None:
         import capo_resiliencehub.types.app_component_list
 

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.intelligent_tiering_access_tier
@@ -38,7 +37,7 @@ def deserialize_xml(el: Element) -> Tiering:
     if child_days is not None:
         out["days"] = int(child_days.text or "")
     else:
-        raise DeserializationError("Tiering.days required")
+        out["days"] = 0
     child_access_tier = el.find("AccessTier")
     if child_access_tier is not None:
         import capo_s3.types.intelligent_tiering_access_tier
@@ -49,5 +48,10 @@ def deserialize_xml(el: Element) -> Tiering:
             )
         )
     else:
-        raise DeserializationError("Tiering.access_tier required")
+        import typing
+
+        out["access_tier"] = typing.cast(
+            "capo_s3.types.intelligent_tiering_access_tier.IntelligentTieringAccessTier",
+            "",
+        )
     return out

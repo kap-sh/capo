@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.guardrail_content_filter_type
     import capo_qconnect.types.guardrail_filter_strength
@@ -38,19 +36,15 @@ def deserialize_json(data: dict) -> GuardrailContentFilterConfig:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("GuardrailContentFilterConfig.type required")
+        out["type"] = ""
     if data.get("inputStrength") is not None:
         out["input_strength"] = data["inputStrength"]
     else:
-        raise DeserializationError(
-            "GuardrailContentFilterConfig.input_strength required"
-        )
+        out["input_strength"] = ""
     if data.get("outputStrength") is not None:
         out["output_strength"] = data["outputStrength"]
     else:
-        raise DeserializationError(
-            "GuardrailContentFilterConfig.output_strength required"
-        )
+        out["output_strength"] = ""
     return out
 
 

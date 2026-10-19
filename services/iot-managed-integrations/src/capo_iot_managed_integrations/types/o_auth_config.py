@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.auth_url
     import capo_iot_managed_integrations.types.proactive_refresh_token_renewal
@@ -62,11 +60,11 @@ def deserialize_json(data: dict) -> OAuthConfig:
     if data.get("authUrl") is not None:
         out["auth_url"] = data["authUrl"]
     else:
-        raise DeserializationError("OAuthConfig.auth_url required")
+        out["auth_url"] = ""
     if data.get("tokenUrl") is not None:
         out["token_url"] = data["tokenUrl"]
     else:
-        raise DeserializationError("OAuthConfig.token_url required")
+        out["token_url"] = ""
     if data.get("scope") is not None:
         out["scope"] = data["scope"]
     if data.get("tokenEndpointAuthenticationScheme") is not None:
@@ -78,8 +76,11 @@ def deserialize_json(data: dict) -> OAuthConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "OAuthConfig.token_endpoint_authentication_scheme required"
+        import typing
+
+        out["token_endpoint_authentication_scheme"] = typing.cast(
+            "capo_iot_managed_integrations.types.token_endpoint_authentication_scheme.TokenEndpointAuthenticationScheme",
+            "",
         )
     if data.get("oAuthCompleteRedirectUrl") is not None:
         out["o_auth_complete_redirect_url"] = data["oAuthCompleteRedirectUrl"]

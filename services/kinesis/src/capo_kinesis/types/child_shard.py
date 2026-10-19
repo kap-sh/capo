@@ -42,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> ChildShard:
     if data.get("ShardId") is not None:
         out["shard_id"] = data["ShardId"]
     else:
-        raise DeserializationError("ChildShard.shard_id required")
+        out["shard_id"] = ""
     if data.get("ParentShards") is not None:
         import capo_kinesis.types.shard_id_list
 
@@ -52,7 +52,7 @@ def deserialize_aws_json_1_1(data: dict) -> ChildShard:
             )
         )
     else:
-        raise DeserializationError("ChildShard.parent_shards required")
+        out["parent_shards"] = []
     if data.get("HashKeyRange") is not None:
         import capo_kinesis.types.hash_key_range
 

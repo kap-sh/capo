@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.policy_name
     import capo_cloudwatch_logs.types.policy_type
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteAccountPolicyRequest:
     if data.get("policyName") is not None:
         out["policy_name"] = data["policyName"]
     else:
-        raise DeserializationError("DeleteAccountPolicyRequest.policy_name required")
+        out["policy_name"] = ""
     if data.get("policyType") is not None:
         import capo_cloudwatch_logs.types.policy_type
 
@@ -45,5 +43,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteAccountPolicyRequest:
             )
         )
     else:
-        raise DeserializationError("DeleteAccountPolicyRequest.policy_type required")
+        import typing
+
+        out["policy_type"] = typing.cast(
+            "capo_cloudwatch_logs.types.policy_type.PolicyType", ""
+        )
     return out

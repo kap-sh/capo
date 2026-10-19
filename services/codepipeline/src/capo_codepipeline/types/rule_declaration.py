@@ -85,7 +85,7 @@ def deserialize_aws_json_1_1(data: dict) -> RuleDeclaration:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RuleDeclaration.name required")
+        out["name"] = ""
     if data.get("ruleTypeId") is not None:
         import capo_codepipeline.types.rule_type_id
 

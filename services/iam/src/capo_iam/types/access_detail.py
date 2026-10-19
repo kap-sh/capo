@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.date_type
@@ -67,12 +66,12 @@ def deserialize_query(el: Element) -> AccessDetail:
     if child_service_name is not None:
         out["service_name"] = str(child_service_name.text or "")
     else:
-        raise DeserializationError("AccessDetail.service_name required")
+        out["service_name"] = ""
     child_service_namespace = el.find("ServiceNamespace")
     if child_service_namespace is not None:
         out["service_namespace"] = str(child_service_namespace.text or "")
     else:
-        raise DeserializationError("AccessDetail.service_namespace required")
+        out["service_namespace"] = ""
     child_region = el.find("Region")
     if child_region is not None:
         out["region"] = str(child_region.text or "")

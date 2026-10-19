@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -48,7 +47,7 @@ def deserialize_query(el: Element) -> AcquireRoleRequest:
     if child_template_arn is not None:
         out["template_arn"] = str(child_template_arn.text or "")
     else:
-        raise DeserializationError("AcquireRoleRequest.template_arn required")
+        out["template_arn"] = ""
     child_template_minor_version = el.find("TemplateMinorVersion")
     if child_template_minor_version is not None:
         out["template_minor_version"] = int(child_template_minor_version.text or "")

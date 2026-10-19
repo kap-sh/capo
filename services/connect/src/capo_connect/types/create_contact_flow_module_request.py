@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.client_token
     import capo_connect.types.contact_flow_module_content
@@ -71,13 +69,13 @@ def deserialize_json(data: dict) -> CreateContactFlowModuleRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateContactFlowModuleRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Content") is not None:
         out["content"] = data["Content"]
     else:
-        raise DeserializationError("CreateContactFlowModuleRequest.content required")
+        out["content"] = ""
     if data.get("Tags") is not None:
         import capo_connect.types.tag_map
 

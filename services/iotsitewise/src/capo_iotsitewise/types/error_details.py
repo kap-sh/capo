@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.detailed_errors
     import capo_iotsitewise.types.error_code
@@ -44,11 +42,13 @@ def deserialize_json(data: dict) -> ErrorDetails:
 
         out["code"] = capo_iotsitewise.types.error_code.deserialize_json(data["code"])
     else:
-        raise DeserializationError("ErrorDetails.code required")
+        import typing
+
+        out["code"] = typing.cast("capo_iotsitewise.types.error_code.ErrorCode", "")
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ErrorDetails.message required")
+        out["message"] = ""
     if data.get("details") is not None:
         import capo_iotsitewise.types.detailed_errors
 

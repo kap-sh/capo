@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_backup.errors import DeserializationError
-
 
 class ScanJobCreator(TypedDict, closed=True):
     backup_plan_arn: "str"
@@ -31,17 +29,17 @@ def deserialize_json(data: dict) -> ScanJobCreator:
     if data.get("BackupPlanArn") is not None:
         out["backup_plan_arn"] = data["BackupPlanArn"]
     else:
-        raise DeserializationError("ScanJobCreator.backup_plan_arn required")
+        out["backup_plan_arn"] = ""
     if data.get("BackupPlanId") is not None:
         out["backup_plan_id"] = data["BackupPlanId"]
     else:
-        raise DeserializationError("ScanJobCreator.backup_plan_id required")
+        out["backup_plan_id"] = ""
     if data.get("BackupPlanVersion") is not None:
         out["backup_plan_version"] = data["BackupPlanVersion"]
     else:
-        raise DeserializationError("ScanJobCreator.backup_plan_version required")
+        out["backup_plan_version"] = ""
     if data.get("BackupRuleId") is not None:
         out["backup_rule_id"] = data["BackupRuleId"]
     else:
-        raise DeserializationError("ScanJobCreator.backup_rule_id required")
+        out["backup_rule_id"] = ""
     return out

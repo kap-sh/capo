@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.data_table_name
     import capo_connect.types.value_list
@@ -33,13 +31,11 @@ def deserialize_json(data: dict) -> PrimaryAttributeValueFilter:
     if data.get("AttributeName") is not None:
         out["attribute_name"] = data["AttributeName"]
     else:
-        raise DeserializationError(
-            "PrimaryAttributeValueFilter.attribute_name required"
-        )
+        out["attribute_name"] = ""
     if data.get("Values") is not None:
         import capo_connect.types.value_list
 
         out["values"] = capo_connect.types.value_list.deserialize_json(data["Values"])
     else:
-        raise DeserializationError("PrimaryAttributeValueFilter.values required")
+        out["values"] = []
     return out

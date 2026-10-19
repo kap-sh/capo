@@ -113,7 +113,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMLTransformRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateMLTransformRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("InputRecordTables") is not None:
@@ -125,9 +125,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMLTransformRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateMLTransformRequest.input_record_tables required"
-        )
+        out["input_record_tables"] = []
     if data.get("Parameters") is not None:
         import capo_glue.types.transform_parameters
 
@@ -141,7 +139,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMLTransformRequest:
     if data.get("Role") is not None:
         out["role"] = data["Role"]
     else:
-        raise DeserializationError("CreateMLTransformRequest.role required")
+        out["role"] = ""
     if data.get("GlueVersion") is not None:
         out["glue_version"] = data["GlueVersion"]
     if data.get("MaxCapacity") is not None:

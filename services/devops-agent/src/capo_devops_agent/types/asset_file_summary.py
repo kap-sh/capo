@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -50,13 +48,13 @@ def deserialize_json(data: dict) -> AssetFileSummary:
     if data.get("path") is not None:
         out["path"] = data["path"]
     else:
-        raise DeserializationError("AssetFileSummary.path required")
+        out["path"] = ""
     if data.get("metadata") is not None:
         out["metadata"] = data["metadata"]
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("AssetFileSummary.version required")
+        out["version"] = 0
     if data.get("createdAt") is not None:
         import capo_devops_agent.types._prelude.timestamp
 
@@ -64,7 +62,9 @@ def deserialize_json(data: dict) -> AssetFileSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("AssetFileSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_devops_agent.types._prelude.timestamp
 
@@ -72,5 +72,7 @@ def deserialize_json(data: dict) -> AssetFileSummary:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("AssetFileSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

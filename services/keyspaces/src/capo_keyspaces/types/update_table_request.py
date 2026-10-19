@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_keyspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_keyspaces.types.auto_scaling_specification
     import capo_keyspaces.types.capacity_specification
@@ -164,11 +162,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateTableRequest:
     if data.get("keyspaceName") is not None:
         out["keyspace_name"] = data["keyspaceName"]
     else:
-        raise DeserializationError("UpdateTableRequest.keyspace_name required")
+        out["keyspace_name"] = ""
     if data.get("tableName") is not None:
         out["table_name"] = data["tableName"]
     else:
-        raise DeserializationError("UpdateTableRequest.table_name required")
+        out["table_name"] = ""
     if data.get("addColumns") is not None:
         import capo_keyspaces.types.column_definition_list
 

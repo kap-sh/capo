@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation_runtime.types.asset_processing_configuration
     import capo_bedrock_data_automation_runtime.types.s3_uri
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> InputConfiguration:
     if data.get("s3Uri") is not None:
         out["s3_uri"] = data["s3Uri"]
     else:
-        raise DeserializationError("InputConfiguration.s3_uri required")
+        out["s3_uri"] = ""
     if data.get("assetProcessingConfiguration") is not None:
         import capo_bedrock_data_automation_runtime.types.asset_processing_configuration
 

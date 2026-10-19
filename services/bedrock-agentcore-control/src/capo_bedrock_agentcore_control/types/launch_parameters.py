@@ -130,7 +130,11 @@ def deserialize_json(data: dict) -> LaunchParameters:
             )
         )
     else:
-        raise DeserializationError("LaunchParameters.operating_system required")
+        import typing
+
+        out["operating_system"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.operating_system.OperatingSystem", ""
+        )
     if data.get("instanceRequirements") is not None:
         import capo_bedrock_agentcore_control.types.instance_requirements
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billingconductor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billingconductor.types.custom_tier_begin_range_inclusive
     import capo_billingconductor.types.custom_tier_end_range_exclusive
@@ -62,11 +60,11 @@ def deserialize_json(data: dict) -> CustomTier:
     if data.get("BeginRangeInclusive") is not None:
         out["begin_range_inclusive"] = float(data["BeginRangeInclusive"])
     else:
-        raise DeserializationError("CustomTier.begin_range_inclusive required")
+        out["begin_range_inclusive"] = 0.0
     if data.get("EndRangeExclusive") is not None:
         out["end_range_exclusive"] = float(data["EndRangeExclusive"])
     if data.get("RateValue") is not None:
         out["rate_value"] = float(data["RateValue"])
     else:
-        raise DeserializationError("CustomTier.rate_value required")
+        out["rate_value"] = 0.0
     return out

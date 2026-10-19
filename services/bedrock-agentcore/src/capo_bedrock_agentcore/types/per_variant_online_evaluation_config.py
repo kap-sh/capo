@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.online_evaluation_config_arn
     import capo_bedrock_agentcore.types.variant_name
@@ -31,11 +29,9 @@ def deserialize_json(data: dict) -> PerVariantOnlineEvaluationConfig:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("PerVariantOnlineEvaluationConfig.name required")
+        out["name"] = ""
     if data.get("onlineEvaluationConfigArn") is not None:
         out["online_evaluation_config_arn"] = data["onlineEvaluationConfigArn"]
     else:
-        raise DeserializationError(
-            "PerVariantOnlineEvaluationConfig.online_evaluation_config_arn required"
-        )
+        out["online_evaluation_config_arn"] = ""
     return out

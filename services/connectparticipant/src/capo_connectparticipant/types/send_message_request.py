@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectparticipant.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectparticipant.types.chat_content
     import capo_connectparticipant.types.chat_content_type
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> SendMessageRequest:
     if data.get("ContentType") is not None:
         out["content_type"] = data["ContentType"]
     else:
-        raise DeserializationError("SendMessageRequest.content_type required")
+        out["content_type"] = ""
     if data.get("Content") is not None:
         out["content"] = data["Content"]
     else:
-        raise DeserializationError("SendMessageRequest.content required")
+        out["content"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     return out

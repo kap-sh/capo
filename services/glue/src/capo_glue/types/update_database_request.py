@@ -42,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDatabaseRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateDatabaseRequest.name required")
+        out["name"] = ""
     if data.get("DatabaseInput") is not None:
         import capo_glue.types.database_input
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.bucket_cors_allowed_headers
     import capo_lightsail.types.bucket_cors_allowed_methods
@@ -91,7 +89,7 @@ def deserialize_aws_json_1_1(data: dict) -> BucketCorsRule:
             )
         )
     else:
-        raise DeserializationError("BucketCorsRule.allowed_methods required")
+        out["allowed_methods"] = []
     if data.get("allowedOrigins") is not None:
         import capo_lightsail.types.bucket_cors_allowed_origins
 
@@ -101,7 +99,7 @@ def deserialize_aws_json_1_1(data: dict) -> BucketCorsRule:
             )
         )
     else:
-        raise DeserializationError("BucketCorsRule.allowed_origins required")
+        out["allowed_origins"] = []
     if data.get("allowedHeaders") is not None:
         import capo_lightsail.types.bucket_cors_allowed_headers
 

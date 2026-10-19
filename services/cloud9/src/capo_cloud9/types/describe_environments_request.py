@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloud9.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloud9.types.bounded_environment_id_list
 
@@ -41,7 +39,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEnvironmentsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeEnvironmentsRequest.environment_ids required"
-        )
+        out["environment_ids"] = []
     return out

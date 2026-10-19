@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.fetch_config_event_expression
     import capo_iotfleetwise.types.trigger_mode
@@ -35,9 +33,7 @@ def deserialize_aws_json_1_0(data: dict) -> ConditionBasedSignalFetchConfig:
     if data.get("conditionExpression") is not None:
         out["condition_expression"] = data["conditionExpression"]
     else:
-        raise DeserializationError(
-            "ConditionBasedSignalFetchConfig.condition_expression required"
-        )
+        out["condition_expression"] = ""
     if data.get("triggerMode") is not None:
         import capo_iotfleetwise.types.trigger_mode
 
@@ -47,8 +43,10 @@ def deserialize_aws_json_1_0(data: dict) -> ConditionBasedSignalFetchConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "ConditionBasedSignalFetchConfig.trigger_mode required"
+        import typing
+
+        out["trigger_mode"] = typing.cast(
+            "capo_iotfleetwise.types.trigger_mode.TriggerMode", ""
         )
     return out
 

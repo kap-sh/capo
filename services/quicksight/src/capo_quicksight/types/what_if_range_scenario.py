@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.double
     import capo_quicksight.types.timestamp
@@ -52,7 +50,9 @@ def deserialize_json(data: dict) -> WhatIfRangeScenario:
             data["StartDate"]
         )
     else:
-        raise DeserializationError("WhatIfRangeScenario.start_date required")
+        import datetime
+
+        out["start_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndDate") is not None:
         import capo_quicksight.types.timestamp
 
@@ -60,7 +60,9 @@ def deserialize_json(data: dict) -> WhatIfRangeScenario:
             data["EndDate"]
         )
     else:
-        raise DeserializationError("WhatIfRangeScenario.end_date required")
+        import datetime
+
+        out["end_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Value") is not None:
         out["value"] = float(data["Value"])
     else:

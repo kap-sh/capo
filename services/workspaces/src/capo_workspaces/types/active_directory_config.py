@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.domain_name
     import capo_workspaces.types.secrets_manager_arn
@@ -33,11 +31,9 @@ def deserialize_aws_json_1_1(data: dict) -> ActiveDirectoryConfig:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("ActiveDirectoryConfig.domain_name required")
+        out["domain_name"] = ""
     if data.get("ServiceAccountSecretArn") is not None:
         out["service_account_secret_arn"] = data["ServiceAccountSecretArn"]
     else:
-        raise DeserializationError(
-            "ActiveDirectoryConfig.service_account_secret_arn required"
-        )
+        out["service_account_secret_arn"] = ""
     return out

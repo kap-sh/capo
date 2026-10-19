@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.arn
     import capo_workspaces_web.types.portal_endpoint
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> CreatePortalResponse:
     if data.get("portalArn") is not None:
         out["portal_arn"] = data["portalArn"]
     else:
-        raise DeserializationError("CreatePortalResponse.portal_arn required")
+        out["portal_arn"] = ""
     if data.get("portalEndpoint") is not None:
         out["portal_endpoint"] = data["portalEndpoint"]
     else:
-        raise DeserializationError("CreatePortalResponse.portal_endpoint required")
+        out["portal_endpoint"] = ""
     return out

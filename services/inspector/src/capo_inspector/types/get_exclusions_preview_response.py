@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.exclusion_preview_list
     import capo_inspector.types.pagination_token
@@ -55,8 +53,10 @@ def deserialize_aws_json_1_1(data: dict) -> GetExclusionsPreviewResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetExclusionsPreviewResponse.preview_status required"
+        import typing
+
+        out["preview_status"] = typing.cast(
+            "capo_inspector.types.preview_status.PreviewStatus", ""
         )
     if data.get("exclusionPreviews") is not None:
         import capo_inspector.types.exclusion_preview_list

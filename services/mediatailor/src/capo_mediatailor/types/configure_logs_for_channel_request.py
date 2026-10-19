@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__string
     import capo_mediatailor.types.log_types
@@ -35,9 +33,7 @@ def deserialize_json(data: dict) -> ConfigureLogsForChannelRequest:
     if data.get("ChannelName") is not None:
         out["channel_name"] = data["ChannelName"]
     else:
-        raise DeserializationError(
-            "ConfigureLogsForChannelRequest.channel_name required"
-        )
+        out["channel_name"] = ""
     if data.get("LogTypes") is not None:
         import capo_mediatailor.types.log_types
 
@@ -45,5 +41,5 @@ def deserialize_json(data: dict) -> ConfigureLogsForChannelRequest:
             data["LogTypes"]
         )
     else:
-        raise DeserializationError("ConfigureLogsForChannelRequest.log_types required")
+        out["log_types"] = []
     return out

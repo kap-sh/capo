@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmanager.types.constrained_string
     import capo_networkmanager.types.constrained_string_list
@@ -98,15 +96,11 @@ def deserialize_json(data: dict) -> ListCoreNetworkRoutingInformationRequest:
     if data.get("SegmentName") is not None:
         out["segment_name"] = data["SegmentName"]
     else:
-        raise DeserializationError(
-            "ListCoreNetworkRoutingInformationRequest.segment_name required"
-        )
+        out["segment_name"] = ""
     if data.get("EdgeLocation") is not None:
         out["edge_location"] = data["EdgeLocation"]
     else:
-        raise DeserializationError(
-            "ListCoreNetworkRoutingInformationRequest.edge_location required"
-        )
+        out["edge_location"] = ""
     if data.get("NextHopFilters") is not None:
         import capo_networkmanager.types.filter_map
 

@@ -70,7 +70,7 @@ def deserialize_json(data: dict) -> CalculateRouteMatrixResponse:
             data["RouteMatrix"]
         )
     else:
-        raise DeserializationError("CalculateRouteMatrixResponse.route_matrix required")
+        out["route_matrix"] = []
     if data.get("SnappedDeparturePositions") is not None:
         import capo_location.types.position_list
 

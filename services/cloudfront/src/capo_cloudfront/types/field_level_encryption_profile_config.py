@@ -45,14 +45,12 @@ def deserialize_xml(el: Element) -> FieldLevelEncryptionProfileConfig:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("FieldLevelEncryptionProfileConfig.name required")
+        out["name"] = ""
     child_caller_reference = el.find("CallerReference")
     if child_caller_reference is not None:
         out["caller_reference"] = str(child_caller_reference.text or "")
     else:
-        raise DeserializationError(
-            "FieldLevelEncryptionProfileConfig.caller_reference required"
-        )
+        out["caller_reference"] = ""
     child_comment = el.find("Comment")
     if child_comment is not None:
         out["comment"] = str(child_comment.text or "")

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aggregation_field
     import capo_iot.types.index_name
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> GetPercentilesRequest:
     if data.get("queryString") is not None:
         out["query_string"] = data["queryString"]
     else:
-        raise DeserializationError("GetPercentilesRequest.query_string required")
+        out["query_string"] = ""
     if data.get("aggregationField") is not None:
         out["aggregation_field"] = data["aggregationField"]
     if data.get("queryVersion") is not None:

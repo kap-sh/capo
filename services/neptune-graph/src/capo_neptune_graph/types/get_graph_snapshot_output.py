@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptune_graph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -65,15 +63,15 @@ def deserialize_json(data: dict) -> GetGraphSnapshotOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetGraphSnapshotOutput.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetGraphSnapshotOutput.name required")
+        out["name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetGraphSnapshotOutput.arn required")
+        out["arn"] = ""
     if data.get("sourceGraphId") is not None:
         out["source_graph_id"] = data["sourceGraphId"]
     if data.get("snapshotCreateTime") is not None:

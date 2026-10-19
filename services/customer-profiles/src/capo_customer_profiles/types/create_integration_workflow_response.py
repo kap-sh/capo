@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.string1_to255
     import capo_customer_profiles.types.uuid
@@ -31,11 +29,9 @@ def deserialize_json(data: dict) -> CreateIntegrationWorkflowResponse:
     if data.get("WorkflowId") is not None:
         out["workflow_id"] = data["WorkflowId"]
     else:
-        raise DeserializationError(
-            "CreateIntegrationWorkflowResponse.workflow_id required"
-        )
+        out["workflow_id"] = ""
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("CreateIntegrationWorkflowResponse.message required")
+        out["message"] = ""
     return out

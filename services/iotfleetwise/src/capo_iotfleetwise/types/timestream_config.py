@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.iam_role_arn
     import capo_iotfleetwise.types.timestream_table_arn
@@ -33,9 +31,9 @@ def deserialize_aws_json_1_0(data: dict) -> TimestreamConfig:
     if data.get("timestreamTableArn") is not None:
         out["timestream_table_arn"] = data["timestreamTableArn"]
     else:
-        raise DeserializationError("TimestreamConfig.timestream_table_arn required")
+        out["timestream_table_arn"] = ""
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:
-        raise DeserializationError("TimestreamConfig.execution_role_arn required")
+        out["execution_role_arn"] = ""
     return out

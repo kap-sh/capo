@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.comment_id
     import capo_codecommit.types.content
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateCommentInput:
     if data.get("commentId") is not None:
         out["comment_id"] = data["commentId"]
     else:
-        raise DeserializationError("UpdateCommentInput.comment_id required")
+        out["comment_id"] = ""
     if data.get("content") is not None:
         out["content"] = data["content"]
     else:
-        raise DeserializationError("UpdateCommentInput.content required")
+        out["content"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -61,7 +59,7 @@ def deserialize_json(data: dict) -> NamespaceSummary:
             data["namespace"]
         )
     else:
-        raise DeserializationError("NamespaceSummary.namespace required")
+        out["namespace"] = []
     if data.get("createdAt") is not None:
         import datetime
 
@@ -69,15 +67,17 @@ def deserialize_json(data: dict) -> NamespaceSummary:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("NamespaceSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("NamespaceSummary.created_by required")
+        out["created_by"] = ""
     if data.get("ownerAccountId") is not None:
         out["owner_account_id"] = data["ownerAccountId"]
     else:
-        raise DeserializationError("NamespaceSummary.owner_account_id required")
+        out["owner_account_id"] = ""
     if data.get("namespaceId") is not None:
         out["namespace_id"] = data["namespaceId"]
     if data.get("tableBucketId") is not None:

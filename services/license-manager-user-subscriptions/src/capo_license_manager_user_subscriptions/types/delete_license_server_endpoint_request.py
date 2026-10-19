@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_license_manager_user_subscriptions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager_user_subscriptions.types.arn
     import capo_license_manager_user_subscriptions.types.server_type
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> DeleteLicenseServerEndpointRequest:
     if data.get("LicenseServerEndpointArn") is not None:
         out["license_server_endpoint_arn"] = data["LicenseServerEndpointArn"]
     else:
-        raise DeserializationError(
-            "DeleteLicenseServerEndpointRequest.license_server_endpoint_arn required"
-        )
+        out["license_server_endpoint_arn"] = ""
     if data.get("ServerType") is not None:
         out["server_type"] = data["ServerType"]
     else:
-        raise DeserializationError(
-            "DeleteLicenseServerEndpointRequest.server_type required"
-        )
+        out["server_type"] = ""
     return out

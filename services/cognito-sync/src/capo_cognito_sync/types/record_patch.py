@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_sync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_sync.types.date
     import capo_cognito_sync.types.long
@@ -53,17 +51,19 @@ def deserialize_json(data: dict) -> RecordPatch:
 
         out["op"] = capo_cognito_sync.types.operation.deserialize_json(data["Op"])
     else:
-        raise DeserializationError("RecordPatch.op required")
+        import typing
+
+        out["op"] = typing.cast("capo_cognito_sync.types.operation.Operation", "")
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("RecordPatch.key required")
+        out["key"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     if data.get("SyncCount") is not None:
         out["sync_count"] = data["SyncCount"]
     else:
-        raise DeserializationError("RecordPatch.sync_count required")
+        out["sync_count"] = 0
     if data.get("DeviceLastModifiedDate") is not None:
         import capo_cognito_sync.types.date
 

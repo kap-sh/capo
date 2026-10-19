@@ -36,9 +36,7 @@ def deserialize_json(data: dict) -> SetParameterValueConfiguration:
     if data.get("DestinationParameterName") is not None:
         out["destination_parameter_name"] = data["DestinationParameterName"]
     else:
-        raise DeserializationError(
-            "SetParameterValueConfiguration.destination_parameter_name required"
-        )
+        out["destination_parameter_name"] = ""
     if data.get("Value") is not None:
         import capo_quicksight.types.destination_parameter_value_configuration
 

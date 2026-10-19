@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.execution_status
     import capo_qapps.types.submission_list
@@ -47,11 +45,15 @@ def deserialize_json(data: dict) -> CardStatus:
             data["currentState"]
         )
     else:
-        raise DeserializationError("CardStatus.current_state required")
+        import typing
+
+        out["current_state"] = typing.cast(
+            "capo_qapps.types.execution_status.ExecutionStatus", ""
+        )
     if data.get("currentValue") is not None:
         out["current_value"] = data["currentValue"]
     else:
-        raise DeserializationError("CardStatus.current_value required")
+        out["current_value"] = ""
     if data.get("submissions") is not None:
         import capo_qapps.types.submission_list
 

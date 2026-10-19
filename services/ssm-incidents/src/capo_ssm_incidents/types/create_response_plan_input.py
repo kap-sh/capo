@@ -92,7 +92,7 @@ def deserialize_json(data: dict) -> CreateResponsePlanInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateResponsePlanInput.name required")
+        out["name"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     if data.get("incidentTemplate") is not None:

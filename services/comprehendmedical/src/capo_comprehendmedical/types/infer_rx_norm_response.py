@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_comprehendmedical.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehendmedical.types.rx_norm_entity_list
     import capo_comprehendmedical.types.string
@@ -48,7 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> InferRxNormResponse:
             )
         )
     else:
-        raise DeserializationError("InferRxNormResponse.entities required")
+        out["entities"] = []
     if data.get("PaginationToken") is not None:
         out["pagination_token"] = data["PaginationToken"]
     if data.get("ModelVersion") is not None:

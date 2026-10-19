@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.domain_name_list
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> DescribeDomainsRequest:
             data["DomainNames"]
         )
     else:
-        raise DeserializationError("DescribeDomainsRequest.domain_names required")
+        out["domain_names"] = []
     return out

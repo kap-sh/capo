@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 
 class RedshiftServerlessStorage(TypedDict, closed=True):
     workgroup_name: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> RedshiftServerlessStorage:
     if data.get("workgroupName") is not None:
         out["workgroup_name"] = data["workgroupName"]
     else:
-        raise DeserializationError("RedshiftServerlessStorage.workgroup_name required")
+        out["workgroup_name"] = ""
     return out

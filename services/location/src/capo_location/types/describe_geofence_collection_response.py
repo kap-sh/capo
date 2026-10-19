@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.arn
     import capo_location.types.kms_key_id
@@ -75,21 +73,15 @@ def deserialize_json(data: dict) -> DescribeGeofenceCollectionResponse:
     if data.get("CollectionName") is not None:
         out["collection_name"] = data["CollectionName"]
     else:
-        raise DeserializationError(
-            "DescribeGeofenceCollectionResponse.collection_name required"
-        )
+        out["collection_name"] = ""
     if data.get("CollectionArn") is not None:
         out["collection_arn"] = data["CollectionArn"]
     else:
-        raise DeserializationError(
-            "DescribeGeofenceCollectionResponse.collection_arn required"
-        )
+        out["collection_arn"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError(
-            "DescribeGeofenceCollectionResponse.description required"
-        )
+        out["description"] = ""
     if data.get("PricingPlan") is not None:
         out["pricing_plan"] = data["PricingPlan"]
     if data.get("PricingPlanDataSource") is not None:
@@ -107,8 +99,10 @@ def deserialize_json(data: dict) -> DescribeGeofenceCollectionResponse:
             data["CreateTime"]
         )
     else:
-        raise DeserializationError(
-            "DescribeGeofenceCollectionResponse.create_time required"
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("UpdateTime") is not None:
         import capo_location.types.timestamp
@@ -117,8 +111,10 @@ def deserialize_json(data: dict) -> DescribeGeofenceCollectionResponse:
             data["UpdateTime"]
         )
     else:
-        raise DeserializationError(
-            "DescribeGeofenceCollectionResponse.update_time required"
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("GeofenceCount") is not None:
         out["geofence_count"] = data["GeofenceCount"]

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.iam_role_arn_list
     import capo_resiliencehub.types.iam_role_name
@@ -53,7 +51,11 @@ def deserialize_json(data: dict) -> PermissionModel:
             data["type"]
         )
     else:
-        raise DeserializationError("PermissionModel.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_resiliencehub.types.permission_model_type.PermissionModelType", ""
+        )
     if data.get("invokerRoleName") is not None:
         out["invoker_role_name"] = data["invokerRoleName"]
     if data.get("crossAccountRoleArns") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.generic_string
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteDevEndpointRequest:
     if data.get("EndpointName") is not None:
         out["endpoint_name"] = data["EndpointName"]
     else:
-        raise DeserializationError("DeleteDevEndpointRequest.endpoint_name required")
+        out["endpoint_name"] = ""
     return out

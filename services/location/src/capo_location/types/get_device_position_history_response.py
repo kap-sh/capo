@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.device_position_list
     import capo_location.types.token
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> GetDevicePositionHistoryResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetDevicePositionHistoryResponse.device_positions required"
-        )
+        out["device_positions"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

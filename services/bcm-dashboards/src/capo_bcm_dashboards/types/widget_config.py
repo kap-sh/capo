@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bcm_dashboards.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_dashboards.types.display_config
     import capo_bcm_dashboards.types.query_parameters
@@ -49,7 +47,11 @@ def deserialize_aws_json_1_0(data: dict) -> WidgetConfig:
             )
         )
     else:
-        raise DeserializationError("WidgetConfig.query_parameters required")
+        import capo_bcm_dashboards.types._unknown
+
+        out["query_parameters"] = capo_bcm_dashboards.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("displayConfig") is not None:
         import capo_bcm_dashboards.types.display_config
 
@@ -59,5 +61,9 @@ def deserialize_aws_json_1_0(data: dict) -> WidgetConfig:
             )
         )
     else:
-        raise DeserializationError("WidgetConfig.display_config required")
+        import capo_bcm_dashboards.types._unknown
+
+        out["display_config"] = capo_bcm_dashboards.types._unknown.UnknownUnionMember(
+            ""
+        )
     return out

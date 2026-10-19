@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_detective.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_detective.types.ai_pagination_token
     import capo_detective.types.filter_criteria
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> ListInvestigationsRequest:
     if data.get("GraphArn") is not None:
         out["graph_arn"] = data["GraphArn"]
     else:
-        raise DeserializationError("ListInvestigationsRequest.graph_arn required")
+        out["graph_arn"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

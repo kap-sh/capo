@@ -34,7 +34,7 @@ def deserialize_json(data: dict) -> ListLoaderJobsOutput:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("ListLoaderJobsOutput.status required")
+        out["status"] = ""
     if data.get("payload") is not None:
         import capo_neptunedata.types.loader_id_result
 

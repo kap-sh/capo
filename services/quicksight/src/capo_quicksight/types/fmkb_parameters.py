@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.fmkb_knowledge_base_arn
     import capo_quicksight.types.linked_data_source_ids
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> FMKBParameters:
     if data.get("KnowledgeBaseArn") is not None:
         out["knowledge_base_arn"] = data["KnowledgeBaseArn"]
     else:
-        raise DeserializationError("FMKBParameters.knowledge_base_arn required")
+        out["knowledge_base_arn"] = ""
     if data.get("LinkedDataSourceIds") is not None:
         import capo_quicksight.types.linked_data_source_ids
 

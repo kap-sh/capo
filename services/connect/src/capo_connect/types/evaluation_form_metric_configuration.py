@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.evaluation_form_metric_name
     import capo_connect.types.evaluation_form_metric_type
@@ -45,13 +43,14 @@ def deserialize_json(data: dict) -> EvaluationFormMetricConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "EvaluationFormMetricConfiguration.metric_type required"
+        import typing
+
+        out["metric_type"] = typing.cast(
+            "capo_connect.types.evaluation_form_metric_type.EvaluationFormMetricType",
+            "",
         )
     if data.get("MetricName") is not None:
         out["metric_name"] = data["MetricName"]
     else:
-        raise DeserializationError(
-            "EvaluationFormMetricConfiguration.metric_name required"
-        )
+        out["metric_name"] = ""
     return out

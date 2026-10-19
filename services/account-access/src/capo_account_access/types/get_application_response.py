@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_account_access.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_account_access.types.date_time
     import capo_account_access.types.error_details
@@ -82,7 +80,11 @@ def deserialize_json(data: dict) -> GetApplicationResponse:
             )
         )
     else:
-        raise DeserializationError("GetApplicationResponse.identity_source required")
+        import capo_account_access.types._unknown
+
+        out["identity_source"] = capo_account_access.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("status") is not None:
         import capo_account_access.types.status
 
@@ -90,7 +92,9 @@ def deserialize_json(data: dict) -> GetApplicationResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("GetApplicationResponse.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_account_access.types.status.Status", "")
     if data.get("tenantId") is not None:
         out["tenant_id"] = data["tenantId"]
     if data.get("createdAt") is not None:
@@ -100,7 +104,9 @@ def deserialize_json(data: dict) -> GetApplicationResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("GetApplicationResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_account_access.types.date_time
 
@@ -108,7 +114,9 @@ def deserialize_json(data: dict) -> GetApplicationResponse:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("GetApplicationResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("tags") is not None:
         import capo_account_access.types.tags_map
 

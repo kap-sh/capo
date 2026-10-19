@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_nova_act.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_nova_act.types.act_status
     import capo_nova_act.types.uuid_string
@@ -33,11 +31,13 @@ def deserialize_json(data: dict) -> CreateActResponse:
     if data.get("actId") is not None:
         out["act_id"] = data["actId"]
     else:
-        raise DeserializationError("CreateActResponse.act_id required")
+        out["act_id"] = ""
     if data.get("status") is not None:
         import capo_nova_act.types.act_status
 
         out["status"] = capo_nova_act.types.act_status.deserialize_json(data["status"])
     else:
-        raise DeserializationError("CreateActResponse.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_nova_act.types.act_status.ActStatus", "")
     return out

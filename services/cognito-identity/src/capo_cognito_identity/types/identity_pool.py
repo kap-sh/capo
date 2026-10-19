@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity.types.classic_flow
     import capo_cognito_identity.types.cognito_identity_provider_list
@@ -118,11 +116,11 @@ def deserialize_aws_json_1_1(data: dict) -> IdentityPool:
     if data.get("IdentityPoolId") is not None:
         out["identity_pool_id"] = data["IdentityPoolId"]
     else:
-        raise DeserializationError("IdentityPool.identity_pool_id required")
+        out["identity_pool_id"] = ""
     if data.get("IdentityPoolName") is not None:
         out["identity_pool_name"] = data["IdentityPoolName"]
     else:
-        raise DeserializationError("IdentityPool.identity_pool_name required")
+        out["identity_pool_name"] = ""
     if data.get("AllowUnauthenticatedIdentities") is not None:
         out["allow_unauthenticated_identities"] = data["AllowUnauthenticatedIdentities"]
     else:

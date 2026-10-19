@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_voice_id.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_voice_id.types.kms_key_id
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> ServerSideEncryptionConfiguration:
     if data.get("KmsKeyId") is not None:
         out["kms_key_id"] = data["KmsKeyId"]
     else:
-        raise DeserializationError(
-            "ServerSideEncryptionConfiguration.kms_key_id required"
-        )
+        out["kms_key_id"] = ""
     return out

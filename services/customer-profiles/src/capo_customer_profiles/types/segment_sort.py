@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.sort_attribute_list
 
@@ -37,5 +35,5 @@ def deserialize_json(data: dict) -> SegmentSort:
             )
         )
     else:
-        raise DeserializationError("SegmentSort.attributes required")
+        out["attributes"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.attributes
 
@@ -67,15 +65,15 @@ def deserialize_json(data: dict) -> Node:
             )
         )
     else:
-        raise DeserializationError("Node.key_attributes required")
+        out["key_attributes"] = {}
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Node.name required")
+        out["name"] = ""
     if data.get("NodeId") is not None:
         out["node_id"] = data["NodeId"]
     else:
-        raise DeserializationError("Node.node_id required")
+        out["node_id"] = ""
     if data.get("Operation") is not None:
         out["operation"] = data["Operation"]
     if data.get("Type") is not None:

@@ -59,15 +59,11 @@ def deserialize_json(data: dict) -> KnowledgeBaseDocumentDetail:
     if data.get("knowledgeBaseId") is not None:
         out["knowledge_base_id"] = data["knowledgeBaseId"]
     else:
-        raise DeserializationError(
-            "KnowledgeBaseDocumentDetail.knowledge_base_id required"
-        )
+        out["knowledge_base_id"] = ""
     if data.get("dataSourceId") is not None:
         out["data_source_id"] = data["dataSourceId"]
     else:
-        raise DeserializationError(
-            "KnowledgeBaseDocumentDetail.data_source_id required"
-        )
+        out["data_source_id"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agent.types.document_status
 
@@ -75,7 +71,11 @@ def deserialize_json(data: dict) -> KnowledgeBaseDocumentDetail:
             data["status"]
         )
     else:
-        raise DeserializationError("KnowledgeBaseDocumentDetail.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agent.types.document_status.DocumentStatus", ""
+        )
     if data.get("identifier") is not None:
         import capo_bedrock_agent.types.document_identifier
 

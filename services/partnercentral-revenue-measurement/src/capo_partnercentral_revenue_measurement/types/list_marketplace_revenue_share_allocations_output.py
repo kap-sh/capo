@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_revenue_measurement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_revenue_measurement.types.marketplace_revenue_share_allocation_summary_list
     import capo_partnercentral_revenue_measurement.types.next_token
@@ -46,9 +44,7 @@ def deserialize_cbor(data: dict) -> ListMarketplaceRevenueShareAllocationsOutput
             )
         )
     else:
-        raise DeserializationError(
-            "ListMarketplaceRevenueShareAllocationsOutput.marketplace_revenue_share_allocation_summaries required"
-        )
+        out["marketplace_revenue_share_allocation_summaries"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.max_prepared_statements_count
     import capo_athena.types.token
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListPreparedStatementsInput:
     if data.get("WorkGroup") is not None:
         out["work_group"] = data["WorkGroup"]
     else:
-        raise DeserializationError("ListPreparedStatementsInput.work_group required")
+        out["work_group"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

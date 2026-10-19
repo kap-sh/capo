@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_sso_oidc.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_oidc.types.client_id
     import capo_sso_oidc.types.client_secret
@@ -35,17 +33,15 @@ def deserialize_json(data: dict) -> StartDeviceAuthorizationRequest:
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
     else:
-        raise DeserializationError("StartDeviceAuthorizationRequest.client_id required")
+        out["client_id"] = ""
     if data.get("clientSecret") is not None:
         out["client_secret"] = data["clientSecret"]
     else:
-        raise DeserializationError(
-            "StartDeviceAuthorizationRequest.client_secret required"
-        )
+        out["client_secret"] = ""
     if data.get("startUrl") is not None:
         out["start_url"] = data["startUrl"]
     else:
-        raise DeserializationError("StartDeviceAuthorizationRequest.start_url required")
+        out["start_url"] = ""
     return out
 
 

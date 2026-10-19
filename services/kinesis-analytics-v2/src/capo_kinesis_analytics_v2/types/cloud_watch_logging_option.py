@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.log_stream_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> CloudWatchLoggingOption:
     if data.get("LogStreamARN") is not None:
         out["log_stream_arn"] = data["LogStreamARN"]
     else:
-        raise DeserializationError("CloudWatchLoggingOption.log_stream_arn required")
+        out["log_stream_arn"] = ""
     return out

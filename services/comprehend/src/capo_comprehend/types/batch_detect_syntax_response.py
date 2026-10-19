@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.batch_item_error_list
     import capo_comprehend.types.list_of_detect_syntax_result
@@ -51,7 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDetectSyntaxResponse:
             )
         )
     else:
-        raise DeserializationError("BatchDetectSyntaxResponse.result_list required")
+        out["result_list"] = []
     if data.get("ErrorList") is not None:
         import capo_comprehend.types.batch_item_error_list
 
@@ -61,5 +59,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDetectSyntaxResponse:
             )
         )
     else:
-        raise DeserializationError("BatchDetectSyntaxResponse.error_list required")
+        out["error_list"] = []
     return out

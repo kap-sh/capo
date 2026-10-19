@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.create_integration_detail
     import capo_inspector2.types.integration_name
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> CreateCodeSecurityIntegrationRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateCodeSecurityIntegrationRequest.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         import capo_inspector2.types.integration_type
 
@@ -59,7 +57,11 @@ def deserialize_json(data: dict) -> CreateCodeSecurityIntegrationRequest:
             data["type"]
         )
     else:
-        raise DeserializationError("CreateCodeSecurityIntegrationRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_inspector2.types.integration_type.IntegrationType", ""
+        )
     if data.get("details") is not None:
         import capo_inspector2.types.create_integration_detail
 

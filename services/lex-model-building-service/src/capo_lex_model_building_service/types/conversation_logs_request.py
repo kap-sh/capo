@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_model_building_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_model_building_service.types.iam_role_arn
     import capo_lex_model_building_service.types.log_settings_request_list
@@ -43,9 +41,9 @@ def deserialize_json(data: dict) -> ConversationLogsRequest:
             )
         )
     else:
-        raise DeserializationError("ConversationLogsRequest.log_settings required")
+        out["log_settings"] = []
     if data.get("iamRoleArn") is not None:
         out["iam_role_arn"] = data["iamRoleArn"]
     else:
-        raise DeserializationError("ConversationLogsRequest.iam_role_arn required")
+        out["iam_role_arn"] = ""
     return out

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_resource_explorer_2.errors import DeserializationError
-
 
 class DeleteResourceExplorerSetupOutput(TypedDict, closed=True):
     task_id: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> DeleteResourceExplorerSetupOutput:
     if data.get("TaskId") is not None:
         out["task_id"] = data["TaskId"]
     else:
-        raise DeserializationError("DeleteResourceExplorerSetupOutput.task_id required")
+        out["task_id"] = ""
     return out

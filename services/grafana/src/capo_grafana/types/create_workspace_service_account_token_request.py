@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_grafana.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_grafana.types.service_account_token_name
     import capo_grafana.types.workspace_id
@@ -35,13 +33,9 @@ def deserialize_json(data: dict) -> CreateWorkspaceServiceAccountTokenRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "CreateWorkspaceServiceAccountTokenRequest.name required"
-        )
+        out["name"] = ""
     if data.get("secondsToLive") is not None:
         out["seconds_to_live"] = data["secondsToLive"]
     else:
-        raise DeserializationError(
-            "CreateWorkspaceServiceAccountTokenRequest.seconds_to_live required"
-        )
+        out["seconds_to_live"] = 0
     return out

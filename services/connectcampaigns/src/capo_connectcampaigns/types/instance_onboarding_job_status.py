@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcampaigns.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaigns.types.instance_id
     import capo_connectcampaigns.types.instance_onboarding_job_failure_code
@@ -35,13 +33,11 @@ def deserialize_json(data: dict) -> InstanceOnboardingJobStatus:
     if data.get("connectInstanceId") is not None:
         out["connect_instance_id"] = data["connectInstanceId"]
     else:
-        raise DeserializationError(
-            "InstanceOnboardingJobStatus.connect_instance_id required"
-        )
+        out["connect_instance_id"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("InstanceOnboardingJobStatus.status required")
+        out["status"] = ""
     if data.get("failureCode") is not None:
         out["failure_code"] = data["failureCode"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.arn
 
@@ -30,11 +28,9 @@ def deserialize_json(data: dict) -> AssociateSessionLoggerResponse:
     if data.get("portalArn") is not None:
         out["portal_arn"] = data["portalArn"]
     else:
-        raise DeserializationError("AssociateSessionLoggerResponse.portal_arn required")
+        out["portal_arn"] = ""
     if data.get("sessionLoggerArn") is not None:
         out["session_logger_arn"] = data["sessionLoggerArn"]
     else:
-        raise DeserializationError(
-            "AssociateSessionLoggerResponse.session_logger_arn required"
-        )
+        out["session_logger_arn"] = ""
     return out

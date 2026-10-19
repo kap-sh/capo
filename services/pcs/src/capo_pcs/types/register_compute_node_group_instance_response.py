@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pcs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pcs.types.endpoints
     import capo_pcs.types.node_lifecycle_actions
@@ -67,15 +65,11 @@ def deserialize_aws_json_1_0(data: dict) -> RegisterComputeNodeGroupInstanceResp
     if data.get("nodeID") is not None:
         out["node_id"] = data["nodeID"]
     else:
-        raise DeserializationError(
-            "RegisterComputeNodeGroupInstanceResponse.node_id required"
-        )
+        out["node_id"] = ""
     if data.get("sharedSecret") is not None:
         out["shared_secret"] = data["sharedSecret"]
     else:
-        raise DeserializationError(
-            "RegisterComputeNodeGroupInstanceResponse.shared_secret required"
-        )
+        out["shared_secret"] = ""
     if data.get("endpoints") is not None:
         import capo_pcs.types.endpoints
 
@@ -83,9 +77,7 @@ def deserialize_aws_json_1_0(data: dict) -> RegisterComputeNodeGroupInstanceResp
             data["endpoints"]
         )
     else:
-        raise DeserializationError(
-            "RegisterComputeNodeGroupInstanceResponse.endpoints required"
-        )
+        out["endpoints"] = []
     if data.get("clusterName") is not None:
         out["cluster_name"] = data["clusterName"]
     if data.get("computeNodeGroupId") is not None:

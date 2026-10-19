@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearchserverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearchserverless.types.lifecycle_policy_type
     import capo_opensearchserverless.types.resource_name
@@ -31,11 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> LifecyclePolicyResourceIdentifier:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("LifecyclePolicyResourceIdentifier.type required")
+        out["type"] = ""
     if data.get("resource") is not None:
         out["resource"] = data["resource"]
     else:
-        raise DeserializationError(
-            "LifecyclePolicyResourceIdentifier.resource required"
-        )
+        out["resource"] = ""
     return out

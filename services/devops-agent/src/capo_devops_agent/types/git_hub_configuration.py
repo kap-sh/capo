@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.association_id
     import capo_devops_agent.types.github_repo_owner_type
@@ -57,15 +55,15 @@ def deserialize_json(data: dict) -> GitHubConfiguration:
     if data.get("repoName") is not None:
         out["repo_name"] = data["repoName"]
     else:
-        raise DeserializationError("GitHubConfiguration.repo_name required")
+        out["repo_name"] = ""
     if data.get("repoId") is not None:
         out["repo_id"] = data["repoId"]
     else:
-        raise DeserializationError("GitHubConfiguration.repo_id required")
+        out["repo_id"] = ""
     if data.get("owner") is not None:
         out["owner"] = data["owner"]
     else:
-        raise DeserializationError("GitHubConfiguration.owner required")
+        out["owner"] = ""
     if data.get("ownerType") is not None:
         import capo_devops_agent.types.github_repo_owner_type
 
@@ -75,7 +73,11 @@ def deserialize_json(data: dict) -> GitHubConfiguration:
             )
         )
     else:
-        raise DeserializationError("GitHubConfiguration.owner_type required")
+        import typing
+
+        out["owner_type"] = typing.cast(
+            "capo_devops_agent.types.github_repo_owner_type.GithubRepoOwnerType", ""
+        )
     if data.get("instanceIdentifier") is not None:
         out["instance_identifier"] = data["instanceIdentifier"]
     if data.get("runtimeRoleArn") is not None:

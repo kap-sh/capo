@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appconfig.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appconfig.types.actions_map
     import capo_appconfig.types.description
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> CreateExtensionRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateExtensionRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Actions") is not None:
@@ -67,7 +65,7 @@ def deserialize_json(data: dict) -> CreateExtensionRequest:
             data["Actions"]
         )
     else:
-        raise DeserializationError("CreateExtensionRequest.actions required")
+        out["actions"] = {}
     if data.get("Parameters") is not None:
         import capo_appconfig.types.parameter_map
 

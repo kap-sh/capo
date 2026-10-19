@@ -122,11 +122,11 @@ def deserialize_json(data: dict) -> ListingSummary:
     if data.get("listingId") is not None:
         out["listing_id"] = data["listingId"]
     else:
-        raise DeserializationError("ListingSummary.listing_id required")
+        out["listing_id"] = ""
     if data.get("listingName") is not None:
         out["listing_name"] = data["listingName"]
     else:
-        raise DeserializationError("ListingSummary.listing_name required")
+        out["listing_name"] = ""
     if data.get("publisher") is not None:
         import capo_marketplace_discovery.types.seller_information
 
@@ -146,21 +146,19 @@ def deserialize_json(data: dict) -> ListingSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "ListingSummary.fulfillment_option_summaries required"
-        )
+        out["fulfillment_option_summaries"] = []
     if data.get("catalog") is not None:
         out["catalog"] = data["catalog"]
     else:
-        raise DeserializationError("ListingSummary.catalog required")
+        out["catalog"] = ""
     if data.get("shortDescription") is not None:
         out["short_description"] = data["shortDescription"]
     else:
-        raise DeserializationError("ListingSummary.short_description required")
+        out["short_description"] = ""
     if data.get("logoThumbnailUrl") is not None:
         out["logo_thumbnail_url"] = data["logoThumbnailUrl"]
     else:
-        raise DeserializationError("ListingSummary.logo_thumbnail_url required")
+        out["logo_thumbnail_url"] = ""
     if data.get("categories") is not None:
         import capo_marketplace_discovery.types.category_list
 
@@ -170,7 +168,7 @@ def deserialize_json(data: dict) -> ListingSummary:
             )
         )
     else:
-        raise DeserializationError("ListingSummary.categories required")
+        out["categories"] = []
     if data.get("badges") is not None:
         import capo_marketplace_discovery.types.listing_badge_list
 
@@ -180,7 +178,7 @@ def deserialize_json(data: dict) -> ListingSummary:
             )
         )
     else:
-        raise DeserializationError("ListingSummary.badges required")
+        out["badges"] = []
     if data.get("reviewSummary") is not None:
         import capo_marketplace_discovery.types.review_summary
 
@@ -200,7 +198,7 @@ def deserialize_json(data: dict) -> ListingSummary:
             )
         )
     else:
-        raise DeserializationError("ListingSummary.pricing_models required")
+        out["pricing_models"] = []
     if data.get("pricingUnits") is not None:
         import capo_marketplace_discovery.types.pricing_unit_list
 
@@ -210,7 +208,7 @@ def deserialize_json(data: dict) -> ListingSummary:
             )
         )
     else:
-        raise DeserializationError("ListingSummary.pricing_units required")
+        out["pricing_units"] = []
     if data.get("associatedEntities") is not None:
         import capo_marketplace_discovery.types.listing_summary_associated_entity_list
 
@@ -220,5 +218,5 @@ def deserialize_json(data: dict) -> ListingSummary:
             )
         )
     else:
-        raise DeserializationError("ListingSummary.associated_entities required")
+        out["associated_entities"] = []
     return out

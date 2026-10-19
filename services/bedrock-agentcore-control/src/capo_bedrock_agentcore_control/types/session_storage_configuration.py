@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.mount_path
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> SessionStorageConfiguration:
     if data.get("mountPath") is not None:
         out["mount_path"] = data["mountPath"]
     else:
-        raise DeserializationError("SessionStorageConfiguration.mount_path required")
+        out["mount_path"] = ""
     return out

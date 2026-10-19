@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_finspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace.types.db_paths
     import capo_finspace.types.kx_cache_storage_type
@@ -38,13 +36,13 @@ def deserialize_json(data: dict) -> KxDatabaseCacheConfiguration:
     if data.get("cacheType") is not None:
         out["cache_type"] = data["cacheType"]
     else:
-        raise DeserializationError("KxDatabaseCacheConfiguration.cache_type required")
+        out["cache_type"] = ""
     if data.get("dbPaths") is not None:
         import capo_finspace.types.db_paths
 
         out["db_paths"] = capo_finspace.types.db_paths.deserialize_json(data["dbPaths"])
     else:
-        raise DeserializationError("KxDatabaseCacheConfiguration.db_paths required")
+        out["db_paths"] = []
     if data.get("dataviewName") is not None:
         out["dataview_name"] = data["dataviewName"]
     return out

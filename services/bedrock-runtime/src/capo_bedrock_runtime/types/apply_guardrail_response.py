@@ -90,7 +90,11 @@ def deserialize_json(data: dict) -> ApplyGuardrailResponse:
             data["action"]
         )
     else:
-        raise DeserializationError("ApplyGuardrailResponse.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_bedrock_runtime.types.guardrail_action.GuardrailAction", ""
+        )
     if data.get("actionReason") is not None:
         out["action_reason"] = data["actionReason"]
     if data.get("outputs") is not None:
@@ -102,7 +106,7 @@ def deserialize_json(data: dict) -> ApplyGuardrailResponse:
             )
         )
     else:
-        raise DeserializationError("ApplyGuardrailResponse.outputs required")
+        out["outputs"] = []
     if data.get("assessments") is not None:
         import capo_bedrock_runtime.types.guardrail_assessment_list
 
@@ -112,7 +116,7 @@ def deserialize_json(data: dict) -> ApplyGuardrailResponse:
             )
         )
     else:
-        raise DeserializationError("ApplyGuardrailResponse.assessments required")
+        out["assessments"] = []
     if data.get("guardrailCoverage") is not None:
         import capo_bedrock_runtime.types.guardrail_coverage
 

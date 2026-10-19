@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sso_admin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_admin.types.actor_policy_document
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> IamAuthenticationMethod:
     if data.get("ActorPolicy") is not None:
         out["actor_policy"] = data["ActorPolicy"]
     else:
-        raise DeserializationError("IamAuthenticationMethod.actor_policy required")
+        out["actor_policy"] = None
     return out

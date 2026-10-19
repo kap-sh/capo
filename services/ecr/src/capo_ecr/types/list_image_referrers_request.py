@@ -65,7 +65,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListImageReferrersRequest:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError("ListImageReferrersRequest.repository_name required")
+        out["repository_name"] = ""
     if data.get("subjectId") is not None:
         import capo_ecr.types.subject_identifier
 

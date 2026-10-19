@@ -44,7 +44,7 @@ def deserialize_xml(el: Element) -> PublicKey:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("PublicKey.id required")
+        out["id"] = ""
     child_created_time = el.find("CreatedTime")
     if child_created_time is not None:
         import capo_cloudfront.types.timestamp
@@ -53,7 +53,11 @@ def deserialize_xml(el: Element) -> PublicKey:
             child_created_time
         )
     else:
-        raise DeserializationError("PublicKey.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_public_key_config = el.find("PublicKeyConfig")
     if child_public_key_config is not None:
         import capo_cloudfront.types.public_key_config

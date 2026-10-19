@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notifications.types.text_part_reference
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> Dimension:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Dimension.name required")
+        out["name"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("Dimension.value required")
+        out["value"] = ""
     return out

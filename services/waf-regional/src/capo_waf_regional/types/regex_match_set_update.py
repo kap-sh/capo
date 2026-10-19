@@ -45,7 +45,11 @@ def deserialize_aws_json_1_1(data: dict) -> RegexMatchSetUpdate:
             data["Action"]
         )
     else:
-        raise DeserializationError("RegexMatchSetUpdate.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_waf_regional.types.change_action.ChangeAction", ""
+        )
     if data.get("RegexMatchTuple") is not None:
         import capo_waf_regional.types.regex_match_tuple
 

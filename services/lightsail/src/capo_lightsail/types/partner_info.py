@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.iso_date
     import capo_lightsail.types.partner_status
@@ -52,7 +50,11 @@ def deserialize_aws_json_1_1(data: dict) -> PartnerInfo:
             data["enrolledAt"]
         )
     else:
-        raise DeserializationError("PartnerInfo.enrolled_at required")
+        import datetime
+
+        out["enrolled_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("tierName") is not None:
         import capo_lightsail.types.tier_name
 
@@ -66,5 +68,9 @@ def deserialize_aws_json_1_1(data: dict) -> PartnerInfo:
             data["status"]
         )
     else:
-        raise DeserializationError("PartnerInfo.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_lightsail.types.partner_status.PartnerStatus", ""
+        )
     return out

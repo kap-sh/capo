@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_sap.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_sap.types.max_results
     import capo_ssm_sap.types.next_token
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> ListSubCheckResultsInput:
     if data.get("OperationId") is not None:
         out["operation_id"] = data["OperationId"]
     else:
-        raise DeserializationError("ListSubCheckResultsInput.operation_id required")
+        out["operation_id"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

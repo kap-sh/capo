@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kafkaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kafkaconnect.types.__list_of__string
 
@@ -55,5 +53,5 @@ def deserialize_json(data: dict) -> Vpc:
             data["subnets"]
         )
     else:
-        raise DeserializationError("Vpc.subnets required")
+        out["subnets"] = []
     return out

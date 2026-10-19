@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.description
     import capo_iottwinmaker.types.id
@@ -72,11 +70,11 @@ def deserialize_json(data: dict) -> GetWorkspaceResponse:
     if data.get("workspaceId") is not None:
         out["workspace_id"] = data["workspaceId"]
     else:
-        raise DeserializationError("GetWorkspaceResponse.workspace_id required")
+        out["workspace_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetWorkspaceResponse.arn required")
+        out["arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("linkedServices") is not None:
@@ -98,7 +96,11 @@ def deserialize_json(data: dict) -> GetWorkspaceResponse:
             data["creationDateTime"]
         )
     else:
-        raise DeserializationError("GetWorkspaceResponse.creation_date_time required")
+        import datetime
+
+        out["creation_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateDateTime") is not None:
         import capo_iottwinmaker.types.timestamp
 
@@ -106,5 +108,9 @@ def deserialize_json(data: dict) -> GetWorkspaceResponse:
             data["updateDateTime"]
         )
     else:
-        raise DeserializationError("GetWorkspaceResponse.update_date_time required")
+        import datetime
+
+        out["update_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

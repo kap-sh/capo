@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.deployment_list
     import capo_m2.types.next_token
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ListDeploymentsResponse:
             data["deployments"]
         )
     else:
-        raise DeserializationError("ListDeploymentsResponse.deployments required")
+        out["deployments"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

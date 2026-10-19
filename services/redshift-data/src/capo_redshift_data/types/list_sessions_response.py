@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_data.types.session_list
     import capo_redshift_data.types.string
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListSessionsResponse:
             )
         )
     else:
-        raise DeserializationError("ListSessionsResponse.sessions required")
+        out["sessions"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

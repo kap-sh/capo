@@ -117,9 +117,7 @@ def deserialize_aws_json_1_1(data: dict) -> InvokeDataAutomationRequest:
     if data.get("dataAutomationProfileArn") is not None:
         out["data_automation_profile_arn"] = data["dataAutomationProfileArn"]
     else:
-        raise DeserializationError(
-            "InvokeDataAutomationRequest.data_automation_profile_arn required"
-        )
+        out["data_automation_profile_arn"] = ""
     if data.get("encryptionConfiguration") is not None:
         import capo_bedrock_data_automation_runtime.types.encryption_configuration
 

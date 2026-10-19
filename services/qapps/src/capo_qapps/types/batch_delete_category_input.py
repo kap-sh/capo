@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.delete_category_input_list
     import capo_qapps.types.instance_id
@@ -40,5 +38,5 @@ def deserialize_json(data: dict) -> BatchDeleteCategoryInput:
             )
         )
     else:
-        raise DeserializationError("BatchDeleteCategoryInput.categories required")
+        out["categories"] = []
     return out

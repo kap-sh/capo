@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.whats_app_business_scoped_user_id
     import capo_socialmessaging.types.whats_app_destination_phone_number
@@ -43,9 +41,7 @@ def deserialize_json(data: dict) -> GetWhatsAppCallPermissionInput:
     if data.get("originationPhoneNumberId") is not None:
         out["origination_phone_number_id"] = data["originationPhoneNumberId"]
     else:
-        raise DeserializationError(
-            "GetWhatsAppCallPermissionInput.origination_phone_number_id required"
-        )
+        out["origination_phone_number_id"] = ""
     if data.get("destinationPhoneNumber") is not None:
         out["destination_phone_number"] = data["destinationPhoneNumber"]
     if data.get("endUserBsuid") is not None:

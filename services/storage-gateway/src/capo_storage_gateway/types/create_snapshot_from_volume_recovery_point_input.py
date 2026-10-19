@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.snapshot_description
     import capo_storage_gateway.types.tags
@@ -42,15 +40,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSnapshotFromVolumeRecoveryPoin
     if data.get("VolumeARN") is not None:
         out["volume_arn"] = data["VolumeARN"]
     else:
-        raise DeserializationError(
-            "CreateSnapshotFromVolumeRecoveryPointInput.volume_arn required"
-        )
+        out["volume_arn"] = ""
     if data.get("SnapshotDescription") is not None:
         out["snapshot_description"] = data["SnapshotDescription"]
     else:
-        raise DeserializationError(
-            "CreateSnapshotFromVolumeRecoveryPointInput.snapshot_description required"
-        )
+        out["snapshot_description"] = ""
     if data.get("Tags") is not None:
         import capo_storage_gateway.types.tags
 

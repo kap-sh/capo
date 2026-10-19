@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.batch_config
     import capo_iot.types.enable_batching
@@ -59,7 +57,7 @@ def deserialize_json(data: dict) -> HttpAction:
     if data.get("url") is not None:
         out["url"] = data["url"]
     else:
-        raise DeserializationError("HttpAction.url required")
+        out["url"] = ""
     if data.get("confirmationUrl") is not None:
         out["confirmation_url"] = data["confirmationUrl"]
     if data.get("headers") is not None:

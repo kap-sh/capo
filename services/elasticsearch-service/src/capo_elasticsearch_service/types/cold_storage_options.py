@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_elasticsearch_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elasticsearch_service.types.boolean
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> ColdStorageOptions:
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
-        raise DeserializationError("ColdStorageOptions.enabled required")
+        out["enabled"] = False
     return out

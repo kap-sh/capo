@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.x12_split_by
 
@@ -35,5 +33,7 @@ def deserialize_aws_json_1_0(data: dict) -> X12SplitOptions:
             data["splitBy"]
         )
     else:
-        raise DeserializationError("X12SplitOptions.split_by required")
+        import typing
+
+        out["split_by"] = typing.cast("capo_b2bi.types.x12_split_by.X12SplitBy", "")
     return out

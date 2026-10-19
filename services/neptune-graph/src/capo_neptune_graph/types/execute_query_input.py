@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptune_graph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_neptune_graph.types.document_valued_map
     import capo_neptune_graph.types.explain_mode
@@ -70,7 +68,7 @@ def deserialize_json(data: dict) -> ExecuteQueryInput:
     if data.get("query") is not None:
         out["query_string"] = data["query"]
     else:
-        raise DeserializationError("ExecuteQueryInput.query_string required")
+        out["query_string"] = ""
     if data.get("language") is not None:
         import capo_neptune_graph.types.query_language
 
@@ -78,7 +76,11 @@ def deserialize_json(data: dict) -> ExecuteQueryInput:
             data["language"]
         )
     else:
-        raise DeserializationError("ExecuteQueryInput.language required")
+        import typing
+
+        out["language"] = typing.cast(
+            "capo_neptune_graph.types.query_language.QueryLanguage", ""
+        )
     if data.get("parameters") is not None:
         import capo_neptune_graph.types.document_valued_map
 

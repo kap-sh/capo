@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notifications.types.channel_arn
     import capo_notifications.types.managed_notification_configuration_os_arn
@@ -38,7 +36,5 @@ def deserialize_json(
             "managedNotificationConfigurationArn"
         ]
     else:
-        raise DeserializationError(
-            "DisassociateManagedNotificationAdditionalChannelRequest.managed_notification_configuration_arn required"
-        )
+        out["managed_notification_configuration_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_global_accelerator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_global_accelerator.types.generic_string
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> CidrAuthorizationContext:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("CidrAuthorizationContext.message required")
+        out["message"] = ""
     if data.get("Signature") is not None:
         out["signature"] = data["Signature"]
     else:
-        raise DeserializationError("CidrAuthorizationContext.signature required")
+        out["signature"] = ""
     return out

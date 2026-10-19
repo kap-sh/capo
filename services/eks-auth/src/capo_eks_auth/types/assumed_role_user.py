@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_eks_auth.errors import DeserializationError
-
 
 class AssumedRoleUser(TypedDict, closed=True):
     arn: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> AssumedRoleUser:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("AssumedRoleUser.arn required")
+        out["arn"] = ""
     if data.get("assumeRoleId") is not None:
         out["assume_role_id"] = data["assumeRoleId"]
     else:
-        raise DeserializationError("AssumedRoleUser.assume_role_id required")
+        out["assume_role_id"] = ""
     return out

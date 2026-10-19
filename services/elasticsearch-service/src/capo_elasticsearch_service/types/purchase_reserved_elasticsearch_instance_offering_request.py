@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_elasticsearch_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elasticsearch_service.types.guid
     import capo_elasticsearch_service.types.instance_count
@@ -48,15 +46,11 @@ def deserialize_json(
             "ReservedElasticsearchInstanceOfferingId"
         ]
     else:
-        raise DeserializationError(
-            "PurchaseReservedElasticsearchInstanceOfferingRequest.reserved_elasticsearch_instance_offering_id required"
-        )
+        out["reserved_elasticsearch_instance_offering_id"] = ""
     if data.get("ReservationName") is not None:
         out["reservation_name"] = data["ReservationName"]
     else:
-        raise DeserializationError(
-            "PurchaseReservedElasticsearchInstanceOfferingRequest.reservation_name required"
-        )
+        out["reservation_name"] = ""
     if data.get("InstanceCount") is not None:
         out["instance_count"] = data["InstanceCount"]
     return out

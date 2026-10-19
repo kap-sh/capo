@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.id
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> StartPipelineExecutionResponse:
     if data.get("pipelineExecutionId") is not None:
         out["pipeline_execution_id"] = data["pipelineExecutionId"]
     else:
-        raise DeserializationError(
-            "StartPipelineExecutionResponse.pipeline_execution_id required"
-        )
+        out["pipeline_execution_id"] = ""
     return out

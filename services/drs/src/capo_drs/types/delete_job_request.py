@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.job_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DeleteJobRequest:
     if data.get("jobID") is not None:
         out["job_id"] = data["jobID"]
     else:
-        raise DeserializationError("DeleteJobRequest.job_id required")
+        out["job_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -69,21 +67,19 @@ def deserialize_json(data: dict) -> GetReadSetImportJobResponse:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetReadSetImportJobResponse.id required")
+        out["id"] = ""
     if data.get("sequenceStoreId") is not None:
         out["sequence_store_id"] = data["sequenceStoreId"]
     else:
-        raise DeserializationError(
-            "GetReadSetImportJobResponse.sequence_store_id required"
-        )
+        out["sequence_store_id"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("GetReadSetImportJobResponse.role_arn required")
+        out["role_arn"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("GetReadSetImportJobResponse.status required")
+        out["status"] = ""
     if data.get("statusMessage") is not None:
         out["status_message"] = data["statusMessage"]
     if data.get("creationTime") is not None:
@@ -93,7 +89,11 @@ def deserialize_json(data: dict) -> GetReadSetImportJobResponse:
             data["creationTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetReadSetImportJobResponse.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("completionTime") is not None:
         import datetime
 
@@ -107,5 +107,5 @@ def deserialize_json(data: dict) -> GetReadSetImportJobResponse:
             data["sources"]
         )
     else:
-        raise DeserializationError("GetReadSetImportJobResponse.sources required")
+        out["sources"] = []
     return out

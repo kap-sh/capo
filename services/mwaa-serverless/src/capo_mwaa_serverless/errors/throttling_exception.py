@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mwaa_serverless.errors import DeserializationError, ServiceError
+from capo_mwaa_serverless.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_mwaa_serverless.types.error_message
@@ -37,15 +37,15 @@ def deserialize_aws_json_1_0(data: dict) -> ThrottlingException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("ThrottlingException_.message required")
+        out["message"] = ""
     if data.get("ServiceCode") is not None:
         out["service_code"] = data["ServiceCode"]
     else:
-        raise DeserializationError("ThrottlingException_.service_code required")
+        out["service_code"] = ""
     if data.get("QuotaCode") is not None:
         out["quota_code"] = data["QuotaCode"]
     else:
-        raise DeserializationError("ThrottlingException_.quota_code required")
+        out["quota_code"] = ""
     if data.get("RetryAfterSeconds") is not None:
         out["retry_after_seconds"] = data["RetryAfterSeconds"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.access_preview_id
     import capo_accessanalyzer.types.access_preview_status
@@ -64,11 +62,11 @@ def deserialize_json(data: dict) -> AccessPreview:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("AccessPreview.id required")
+        out["id"] = ""
     if data.get("analyzerArn") is not None:
         out["analyzer_arn"] = data["analyzerArn"]
     else:
-        raise DeserializationError("AccessPreview.analyzer_arn required")
+        out["analyzer_arn"] = ""
     if data.get("configurations") is not None:
         import capo_accessanalyzer.types.configurations_map
 
@@ -78,7 +76,7 @@ def deserialize_json(data: dict) -> AccessPreview:
             )
         )
     else:
-        raise DeserializationError("AccessPreview.configurations required")
+        out["configurations"] = {}
     if data.get("createdAt") is not None:
         import capo_accessanalyzer.types.timestamp
 
@@ -86,11 +84,13 @@ def deserialize_json(data: dict) -> AccessPreview:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("AccessPreview.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("AccessPreview.status required")
+        out["status"] = ""
     if data.get("statusReason") is not None:
         import capo_accessanalyzer.types.access_preview_status_reason
 

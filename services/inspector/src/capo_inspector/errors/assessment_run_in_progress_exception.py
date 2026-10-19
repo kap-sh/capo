@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_inspector.errors import DeserializationError, ServiceError
+from capo_inspector.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_inspector.types.assessment_run_in_progress_arn_list
@@ -45,7 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentRunInProgressException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("AssessmentRunInProgressException_.message required")
+        out["message"] = ""
     if data.get("assessmentRunArns") is not None:
         import capo_inspector.types.assessment_run_in_progress_arn_list
 
@@ -55,21 +55,15 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentRunInProgressException_:
             )
         )
     else:
-        raise DeserializationError(
-            "AssessmentRunInProgressException_.assessment_run_arns required"
-        )
+        out["assessment_run_arns"] = []
     if data.get("assessmentRunArnsTruncated") is not None:
         out["assessment_run_arns_truncated"] = data["assessmentRunArnsTruncated"]
     else:
-        raise DeserializationError(
-            "AssessmentRunInProgressException_.assessment_run_arns_truncated required"
-        )
+        out["assessment_run_arns_truncated"] = False
     if data.get("canRetry") is not None:
         out["can_retry"] = data["canRetry"]
     else:
-        raise DeserializationError(
-            "AssessmentRunInProgressException_.can_retry required"
-        )
+        out["can_retry"] = False
     return out
 
 

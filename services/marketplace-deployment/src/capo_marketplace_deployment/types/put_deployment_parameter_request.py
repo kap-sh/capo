@@ -70,9 +70,7 @@ def deserialize_json(data: dict) -> PutDeploymentParameterRequest:
     if data.get("agreementId") is not None:
         out["agreement_id"] = data["agreementId"]
     else:
-        raise DeserializationError(
-            "PutDeploymentParameterRequest.agreement_id required"
-        )
+        out["agreement_id"] = ""
     if data.get("deploymentParameter") is not None:
         import capo_marketplace_deployment.types.deployment_parameter_input
 

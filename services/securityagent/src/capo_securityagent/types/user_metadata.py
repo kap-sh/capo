@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.sensitive_email
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> UserMetadata:
     if data.get("username") is not None:
         out["username"] = data["username"]
     else:
-        raise DeserializationError("UserMetadata.username required")
+        out["username"] = ""
     if data.get("email") is not None:
         out["email"] = data["email"]
     else:
-        raise DeserializationError("UserMetadata.email required")
+        out["email"] = ""
     return out

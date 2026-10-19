@@ -124,8 +124,10 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCertificateAuthorityRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateCertificateAuthorityRequest.certificate_authority_type required"
+        import typing
+
+        out["certificate_authority_type"] = typing.cast(
+            "capo_acm_pca.types.certificate_authority_type.CertificateAuthorityType", ""
         )
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]

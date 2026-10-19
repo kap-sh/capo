@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ram.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ram.types.policy
     import capo_ram.types.string
@@ -35,15 +33,11 @@ def deserialize_json(data: dict) -> CreatePermissionVersionRequest:
     if data.get("permissionArn") is not None:
         out["permission_arn"] = data["permissionArn"]
     else:
-        raise DeserializationError(
-            "CreatePermissionVersionRequest.permission_arn required"
-        )
+        out["permission_arn"] = ""
     if data.get("policyTemplate") is not None:
         out["policy_template"] = data["policyTemplate"]
     else:
-        raise DeserializationError(
-            "CreatePermissionVersionRequest.policy_template required"
-        )
+        out["policy_template"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

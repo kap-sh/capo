@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.arn
     import capo_proton.types.description
@@ -73,23 +71,23 @@ def deserialize_aws_json_1_0(data: dict) -> CreateServiceInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateServiceInput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("templateName") is not None:
         out["template_name"] = data["templateName"]
     else:
-        raise DeserializationError("CreateServiceInput.template_name required")
+        out["template_name"] = ""
     if data.get("templateMajorVersion") is not None:
         out["template_major_version"] = data["templateMajorVersion"]
     else:
-        raise DeserializationError("CreateServiceInput.template_major_version required")
+        out["template_major_version"] = ""
     if data.get("templateMinorVersion") is not None:
         out["template_minor_version"] = data["templateMinorVersion"]
     if data.get("spec") is not None:
         out["spec"] = data["spec"]
     else:
-        raise DeserializationError("CreateServiceInput.spec required")
+        out["spec"] = ""
     if data.get("repositoryConnectionArn") is not None:
         out["repository_connection_arn"] = data["repositoryConnectionArn"]
     if data.get("repositoryId") is not None:

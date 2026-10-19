@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_messaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_messaging.types.chime_arn
     import capo_chime_sdk_messaging.types.messaging_data_type
@@ -41,9 +39,13 @@ def deserialize_json(data: dict) -> StreamingConfiguration:
             )
         )
     else:
-        raise DeserializationError("StreamingConfiguration.data_type required")
+        import typing
+
+        out["data_type"] = typing.cast(
+            "capo_chime_sdk_messaging.types.messaging_data_type.MessagingDataType", ""
+        )
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("StreamingConfiguration.resource_arn required")
+        out["resource_arn"] = ""
     return out

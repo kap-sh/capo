@@ -35,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> RuleActionOverride:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("RuleActionOverride.name required")
+        out["name"] = ""
     if data.get("ActionToUse") is not None:
         import capo_wafv2.types.rule_action
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.recommendation_tool_name
 
@@ -32,11 +30,9 @@ def deserialize_json(data: dict) -> ConfigurationBundleToolEntry:
     if data.get("toolName") is not None:
         out["tool_name"] = data["toolName"]
     else:
-        raise DeserializationError("ConfigurationBundleToolEntry.tool_name required")
+        out["tool_name"] = ""
     if data.get("toolDescriptionJsonPath") is not None:
         out["tool_description_json_path"] = data["toolDescriptionJsonPath"]
     else:
-        raise DeserializationError(
-            "ConfigurationBundleToolEntry.tool_description_json_path required"
-        )
+        out["tool_description_json_path"] = ""
     return out

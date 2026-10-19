@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.client_token_string
     import capo_glue.types.data_quality_aggregated_metrics
@@ -203,9 +201,7 @@ def deserialize_aws_json_1_1(data: dict) -> PublishDataQualityResultV2Request:
             )
         )
     else:
-        raise DeserializationError(
-            "PublishDataQualityResultV2Request.dimensions required"
-        )
+        out["dimensions"] = {}
     if data.get("Tags") is not None:
         import capo_glue.types.publish_data_quality_result_tags
 
@@ -233,7 +229,7 @@ def deserialize_aws_json_1_1(data: dict) -> PublishDataQualityResultV2Request:
     if data.get("Score") is not None:
         out["score"] = float(data["Score"])
     else:
-        raise DeserializationError("PublishDataQualityResultV2Request.score required")
+        out["score"] = 0.0
     if data.get("RuleResults") is not None:
         import capo_glue.types.data_quality_rule_results
 
@@ -243,9 +239,7 @@ def deserialize_aws_json_1_1(data: dict) -> PublishDataQualityResultV2Request:
             )
         )
     else:
-        raise DeserializationError(
-            "PublishDataQualityResultV2Request.rule_results required"
-        )
+        out["rule_results"] = []
     if data.get("AnalyzerResults") is not None:
         import capo_glue.types.data_quality_analyzer_results
 
@@ -291,9 +285,7 @@ def deserialize_aws_json_1_1(data: dict) -> PublishDataQualityResultV2Request:
     if data.get("EvaluationContext") is not None:
         out["evaluation_context"] = data["EvaluationContext"]
     else:
-        raise DeserializationError(
-            "PublishDataQualityResultV2Request.evaluation_context required"
-        )
+        out["evaluation_context"] = ""
     if data.get("Descriptors") is not None:
         import capo_glue.types.publish_data_quality_result_descriptors
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.anomaly_subscriptions
     import capo_cost_explorer.types.next_page_token
@@ -48,9 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetAnomalySubscriptionsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetAnomalySubscriptionsResponse.anomaly_subscriptions required"
-        )
+        out["anomaly_subscriptions"] = []
     if data.get("NextPageToken") is not None:
         out["next_page_token"] = data["NextPageToken"]
     return out

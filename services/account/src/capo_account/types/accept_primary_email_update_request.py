@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_account.types.account_id
     import capo_account.types.otp
@@ -35,19 +33,15 @@ def deserialize_json(data: dict) -> AcceptPrimaryEmailUpdateRequest:
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     else:
-        raise DeserializationError(
-            "AcceptPrimaryEmailUpdateRequest.account_id required"
-        )
+        out["account_id"] = ""
     if data.get("PrimaryEmail") is not None:
         out["primary_email"] = data["PrimaryEmail"]
     else:
-        raise DeserializationError(
-            "AcceptPrimaryEmailUpdateRequest.primary_email required"
-        )
+        out["primary_email"] = ""
     if data.get("Otp") is not None:
         out["otp"] = data["Otp"]
     else:
-        raise DeserializationError("AcceptPrimaryEmailUpdateRequest.otp required")
+        out["otp"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_catalog.types.catalog
     import capo_marketplace_catalog.types.entity_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> EntityRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("EntityRequest.catalog required")
+        out["catalog"] = ""
     if data.get("EntityId") is not None:
         out["entity_id"] = data["EntityId"]
     else:
-        raise DeserializationError("EntityRequest.entity_id required")
+        out["entity_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.resources_grouping_rec_gen_status_type
     import capo_resiliencehub.types.string255
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> DescribeResourceGroupingRecommendationTaskRe
     if data.get("groupingId") is not None:
         out["grouping_id"] = data["groupingId"]
     else:
-        raise DeserializationError(
-            "DescribeResourceGroupingRecommendationTaskResponse.grouping_id required"
-        )
+        out["grouping_id"] = ""
     if data.get("status") is not None:
         import capo_resiliencehub.types.resources_grouping_rec_gen_status_type
 
@@ -54,8 +50,11 @@ def deserialize_json(data: dict) -> DescribeResourceGroupingRecommendationTaskRe
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeResourceGroupingRecommendationTaskResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_resiliencehub.types.resources_grouping_rec_gen_status_type.ResourcesGroupingRecGenStatusType",
+            "",
         )
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.q_in_connect_assistant_arn
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> QInConnectAssistantConfiguration:
     if data.get("assistantArn") is not None:
         out["assistant_arn"] = data["assistantArn"]
     else:
-        raise DeserializationError(
-            "QInConnectAssistantConfiguration.assistant_arn required"
-        )
+        out["assistant_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_s3files.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3files.types.owner_gid
     import capo_s3files.types.owner_uid
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> CreationPermissions:
     if data.get("ownerUid") is not None:
         out["owner_uid"] = data["ownerUid"]
     else:
-        raise DeserializationError("CreationPermissions.owner_uid required")
+        out["owner_uid"] = 0
     if data.get("ownerGid") is not None:
         out["owner_gid"] = data["ownerGid"]
     else:
-        raise DeserializationError("CreationPermissions.owner_gid required")
+        out["owner_gid"] = 0
     if data.get("permissions") is not None:
         out["permissions"] = data["permissions"]
     else:
-        raise DeserializationError("CreationPermissions.permissions required")
+        out["permissions"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.key_summary_list
     import capo_payment_cryptography.types.next_token
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListKeysOutput:
             )
         )
     else:
-        raise DeserializationError("ListKeysOutput.keys required")
+        out["keys"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

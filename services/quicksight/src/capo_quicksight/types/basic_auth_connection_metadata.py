@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.action_password
     import capo_quicksight.types.action_user_name
@@ -35,15 +33,15 @@ def deserialize_json(data: dict) -> BasicAuthConnectionMetadata:
     if data.get("BaseEndpoint") is not None:
         out["base_endpoint"] = data["BaseEndpoint"]
     else:
-        raise DeserializationError("BasicAuthConnectionMetadata.base_endpoint required")
+        out["base_endpoint"] = ""
     if data.get("Username") is not None:
         out["username"] = data["Username"]
     else:
-        raise DeserializationError("BasicAuthConnectionMetadata.username required")
+        out["username"] = ""
     if data.get("Password") is not None:
         out["password"] = data["Password"]
     else:
-        raise DeserializationError("BasicAuthConnectionMetadata.password required")
+        out["password"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.set_parameter_value_configuration_list
 
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> CustomActionSetParametersOperation:
             )
         )
     else:
-        raise DeserializationError(
-            "CustomActionSetParametersOperation.parameter_value_configurations required"
-        )
+        out["parameter_value_configurations"] = []
     return out
 
 

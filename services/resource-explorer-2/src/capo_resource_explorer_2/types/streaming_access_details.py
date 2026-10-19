@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resource_explorer_2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> StreamingAccessDetails:
     if data.get("ServicePrincipal") is not None:
         out["service_principal"] = data["ServicePrincipal"]
     else:
-        raise DeserializationError("StreamingAccessDetails.service_principal required")
+        out["service_principal"] = ""
     if data.get("CreatedAt") is not None:
         import datetime
 
@@ -42,5 +40,7 @@ def deserialize_json(data: dict) -> StreamingAccessDetails:
             data["CreatedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("StreamingAccessDetails.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

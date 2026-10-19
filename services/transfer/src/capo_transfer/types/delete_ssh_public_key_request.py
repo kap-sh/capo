@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.server_id
     import capo_transfer.types.ssh_public_key_id
@@ -35,15 +33,13 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteSshPublicKeyRequest:
     if data.get("ServerId") is not None:
         out["server_id"] = data["ServerId"]
     else:
-        raise DeserializationError("DeleteSshPublicKeyRequest.server_id required")
+        out["server_id"] = ""
     if data.get("SshPublicKeyId") is not None:
         out["ssh_public_key_id"] = data["SshPublicKeyId"]
     else:
-        raise DeserializationError(
-            "DeleteSshPublicKeyRequest.ssh_public_key_id required"
-        )
+        out["ssh_public_key_id"] = ""
     if data.get("UserName") is not None:
         out["user_name"] = data["UserName"]
     else:
-        raise DeserializationError("DeleteSshPublicKeyRequest.user_name required")
+        out["user_name"] = ""
     return out

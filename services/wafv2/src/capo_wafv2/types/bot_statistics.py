@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.filter_string
     import capo_wafv2.types.percentage_value
@@ -43,7 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> BotStatistics:
     if data.get("BotName") is not None:
         out["bot_name"] = data["BotName"]
     else:
-        raise DeserializationError("BotStatistics.bot_name required")
+        out["bot_name"] = ""
     if data.get("RequestCount") is not None:
         out["request_count"] = data["RequestCount"]
     else:

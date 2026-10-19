@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_interconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_interconnect.types.activation_key
 
@@ -27,9 +25,7 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeConnectionProposalRequest:
     if data.get("activationKey") is not None:
         out["activation_key"] = data["activationKey"]
     else:
-        raise DeserializationError(
-            "DescribeConnectionProposalRequest.activation_key required"
-        )
+        out["activation_key"] = ""
     return out
 
 

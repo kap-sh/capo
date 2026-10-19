@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.forward_error_correction_state
 
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> RtpRouterInputConfiguration:
     if data.get("port") is not None:
         out["port"] = data["port"]
     else:
-        raise DeserializationError("RtpRouterInputConfiguration.port required")
+        out["port"] = 0
     if data.get("forwardErrorCorrection") is not None:
         import capo_mediaconnect.types.forward_error_correction_state
 

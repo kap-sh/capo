@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_auto_scaling_plans.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auto_scaling_plans.types.resource_id_max_len1600
     import capo_auto_scaling_plans.types.scalable_dimension
@@ -95,11 +93,11 @@ def deserialize_aws_json_1_1(data: dict) -> ScalingPlanResource:
     if data.get("ScalingPlanName") is not None:
         out["scaling_plan_name"] = data["ScalingPlanName"]
     else:
-        raise DeserializationError("ScalingPlanResource.scaling_plan_name required")
+        out["scaling_plan_name"] = ""
     if data.get("ScalingPlanVersion") is not None:
         out["scaling_plan_version"] = data["ScalingPlanVersion"]
     else:
-        raise DeserializationError("ScalingPlanResource.scaling_plan_version required")
+        out["scaling_plan_version"] = 0
     if data.get("ServiceNamespace") is not None:
         import capo_auto_scaling_plans.types.service_namespace
 
@@ -109,11 +107,15 @@ def deserialize_aws_json_1_1(data: dict) -> ScalingPlanResource:
             )
         )
     else:
-        raise DeserializationError("ScalingPlanResource.service_namespace required")
+        import typing
+
+        out["service_namespace"] = typing.cast(
+            "capo_auto_scaling_plans.types.service_namespace.ServiceNamespace", ""
+        )
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("ScalingPlanResource.resource_id required")
+        out["resource_id"] = ""
     if data.get("ScalableDimension") is not None:
         import capo_auto_scaling_plans.types.scalable_dimension
 
@@ -123,7 +125,11 @@ def deserialize_aws_json_1_1(data: dict) -> ScalingPlanResource:
             )
         )
     else:
-        raise DeserializationError("ScalingPlanResource.scalable_dimension required")
+        import typing
+
+        out["scalable_dimension"] = typing.cast(
+            "capo_auto_scaling_plans.types.scalable_dimension.ScalableDimension", ""
+        )
     if data.get("ScalingPolicies") is not None:
         import capo_auto_scaling_plans.types.scaling_policies
 
@@ -141,7 +147,11 @@ def deserialize_aws_json_1_1(data: dict) -> ScalingPlanResource:
             )
         )
     else:
-        raise DeserializationError("ScalingPlanResource.scaling_status_code required")
+        import typing
+
+        out["scaling_status_code"] = typing.cast(
+            "capo_auto_scaling_plans.types.scaling_status_code.ScalingStatusCode", ""
+        )
     if data.get("ScalingStatusMessage") is not None:
         out["scaling_status_message"] = data["ScalingStatusMessage"]
     return out

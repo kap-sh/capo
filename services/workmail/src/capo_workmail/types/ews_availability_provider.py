@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.external_user_name
     import capo_workmail.types.password
@@ -35,15 +33,15 @@ def deserialize_aws_json_1_1(data: dict) -> EwsAvailabilityProvider:
     if data.get("EwsEndpoint") is not None:
         out["ews_endpoint"] = data["EwsEndpoint"]
     else:
-        raise DeserializationError("EwsAvailabilityProvider.ews_endpoint required")
+        out["ews_endpoint"] = ""
     if data.get("EwsUsername") is not None:
         out["ews_username"] = data["EwsUsername"]
     else:
-        raise DeserializationError("EwsAvailabilityProvider.ews_username required")
+        out["ews_username"] = ""
     if data.get("EwsPassword") is not None:
         out["ews_password"] = data["EwsPassword"]
     else:
-        raise DeserializationError("EwsAvailabilityProvider.ews_password required")
+        out["ews_password"] = ""
     return out
 
 

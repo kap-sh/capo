@@ -57,9 +57,7 @@ def deserialize_json(
             )
         )
     else:
-        raise DeserializationError(
-            "KinesisVideoStreamRecordingSourceRuntimeConfiguration.streams required"
-        )
+        out["streams"] = []
     if data.get("FragmentSelector") is not None:
         import capo_chime_sdk_media_pipelines.types.fragment_selector
 

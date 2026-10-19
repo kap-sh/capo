@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.security_requirement_artifact_format
     import capo_securityagent.types.security_requirement_artifact_name
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> SecurityRequirementArtifact:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("SecurityRequirementArtifact.name required")
+        out["name"] = ""
     if data.get("format") is not None:
         import capo_securityagent.types.security_requirement_artifact_format
 
@@ -57,7 +55,12 @@ def deserialize_json(data: dict) -> SecurityRequirementArtifact:
             )
         )
     else:
-        raise DeserializationError("SecurityRequirementArtifact.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_securityagent.types.security_requirement_artifact_format.SecurityRequirementArtifactFormat",
+            "",
+        )
     if data.get("content") is not None:
         import capo_securityagent.types.security_requirement_document_content
 
@@ -67,7 +70,7 @@ def deserialize_json(data: dict) -> SecurityRequirementArtifact:
             )
         )
     else:
-        raise DeserializationError("SecurityRequirementArtifact.content required")
+        out["content"] = b""
     return out
 
 

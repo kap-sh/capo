@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_device_farm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_device_farm.types.non_empty_string
     import capo_device_farm.types.vpc_security_group_ids
@@ -53,7 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> VpcConfig:
             )
         )
     else:
-        raise DeserializationError("VpcConfig.security_group_ids required")
+        out["security_group_ids"] = []
     if data.get("subnetIds") is not None:
         import capo_device_farm.types.vpc_subnet_ids
 
@@ -63,9 +61,9 @@ def deserialize_aws_json_1_1(data: dict) -> VpcConfig:
             )
         )
     else:
-        raise DeserializationError("VpcConfig.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
     else:
-        raise DeserializationError("VpcConfig.vpc_id required")
+        out["vpc_id"] = ""
     return out

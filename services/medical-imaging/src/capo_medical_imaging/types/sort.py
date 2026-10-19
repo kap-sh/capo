@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_medical_imaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_medical_imaging.types.sort_field
     import capo_medical_imaging.types.sort_order
@@ -43,7 +41,11 @@ def deserialize_json(data: dict) -> Sort:
             data["sortOrder"]
         )
     else:
-        raise DeserializationError("Sort.sort_order required")
+        import typing
+
+        out["sort_order"] = typing.cast(
+            "capo_medical_imaging.types.sort_order.SortOrder", ""
+        )
     if data.get("sortField") is not None:
         import capo_medical_imaging.types.sort_field
 
@@ -51,5 +53,9 @@ def deserialize_json(data: dict) -> Sort:
             data["sortField"]
         )
     else:
-        raise DeserializationError("Sort.sort_field required")
+        import typing
+
+        out["sort_field"] = typing.cast(
+            "capo_medical_imaging.types.sort_field.SortField", ""
+        )
     return out

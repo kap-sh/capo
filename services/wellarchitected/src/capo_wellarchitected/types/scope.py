@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wellarchitected.types.goal_id_list
     import capo_wellarchitected.types.pillar_items
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> Scope:
             data["pillars"]
         )
     else:
-        raise DeserializationError("Scope.pillars required")
+        out["pillars"] = []
     if data.get("goalIds") is not None:
         import capo_wellarchitected.types.goal_id_list
 

@@ -75,7 +75,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateRuleVersionRequest:
     if data.get("expression") is not None:
         out["expression"] = data["expression"]
     else:
-        raise DeserializationError("UpdateRuleVersionRequest.expression required")
+        out["expression"] = ""
     if data.get("language") is not None:
         import capo_frauddetector.types.language
 
@@ -83,7 +83,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateRuleVersionRequest:
             data["language"]
         )
     else:
-        raise DeserializationError("UpdateRuleVersionRequest.language required")
+        import typing
+
+        out["language"] = typing.cast("capo_frauddetector.types.language.Language", "")
     if data.get("outcomes") is not None:
         import capo_frauddetector.types.non_empty_list_of_strings
 
@@ -93,7 +95,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateRuleVersionRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateRuleVersionRequest.outcomes required")
+        out["outcomes"] = []
     if data.get("tags") is not None:
         import capo_frauddetector.types.tag_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.data_integration_s3_object_key
     import capo_supplychain.types.s3_bucket_name
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> DataIntegrationFlowS3Source:
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError("DataIntegrationFlowS3Source.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("DataIntegrationFlowS3Source.key required")
+        out["key"] = ""
     return out

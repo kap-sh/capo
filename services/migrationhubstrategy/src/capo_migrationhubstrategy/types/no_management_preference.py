@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_migrationhubstrategy.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migrationhubstrategy.types.no_preference_target_destinations
 
@@ -39,5 +37,5 @@ def deserialize_json(data: dict) -> NoManagementPreference:
             )
         )
     else:
-        raise DeserializationError("NoManagementPreference.target_destination required")
+        out["target_destination"] = []
     return out

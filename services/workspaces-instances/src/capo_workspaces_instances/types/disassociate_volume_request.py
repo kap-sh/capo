@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_instances.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_instances.types.device_name
     import capo_workspaces_instances.types.disassociate_mode_enum
@@ -51,13 +49,11 @@ def deserialize_aws_json_1_0(data: dict) -> DisassociateVolumeRequest:
     if data.get("WorkspaceInstanceId") is not None:
         out["workspace_instance_id"] = data["WorkspaceInstanceId"]
     else:
-        raise DeserializationError(
-            "DisassociateVolumeRequest.workspace_instance_id required"
-        )
+        out["workspace_instance_id"] = ""
     if data.get("VolumeId") is not None:
         out["volume_id"] = data["VolumeId"]
     else:
-        raise DeserializationError("DisassociateVolumeRequest.volume_id required")
+        out["volume_id"] = ""
     if data.get("Device") is not None:
         out["device"] = data["Device"]
     if data.get("DisassociateMode") is not None:

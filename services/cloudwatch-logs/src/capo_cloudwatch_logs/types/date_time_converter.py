@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.locale
     import capo_cloudwatch_logs.types.match_patterns
@@ -65,11 +63,11 @@ def deserialize_aws_json_1_1(data: dict) -> DateTimeConverter:
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("DateTimeConverter.source required")
+        out["source"] = ""
     if data.get("target") is not None:
         out["target"] = data["target"]
     else:
-        raise DeserializationError("DateTimeConverter.target required")
+        out["target"] = ""
     if data.get("targetFormat") is not None:
         out["target_format"] = data["targetFormat"]
     if data.get("matchPatterns") is not None:
@@ -81,7 +79,7 @@ def deserialize_aws_json_1_1(data: dict) -> DateTimeConverter:
             )
         )
     else:
-        raise DeserializationError("DateTimeConverter.match_patterns required")
+        out["match_patterns"] = []
     if data.get("sourceTimezone") is not None:
         out["source_timezone"] = data["sourceTimezone"]
     if data.get("targetTimezone") is not None:

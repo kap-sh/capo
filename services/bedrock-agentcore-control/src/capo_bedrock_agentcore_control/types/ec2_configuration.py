@@ -90,7 +90,11 @@ def deserialize_json(data: dict) -> Ec2Configuration:
             )
         )
     else:
-        raise DeserializationError("Ec2Configuration.launch_template_source required")
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["launch_template_source"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
+        )
     if data.get("vpcConfiguration") is not None:
         import capo_bedrock_agentcore_control.types.vpc_configuration
 

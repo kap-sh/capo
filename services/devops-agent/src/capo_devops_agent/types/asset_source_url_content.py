@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.asset_content_url
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> AssetSourceUrlContent:
     if data.get("url") is not None:
         out["url"] = data["url"]
     else:
-        raise DeserializationError("AssetSourceUrlContent.url required")
+        out["url"] = ""
     return out

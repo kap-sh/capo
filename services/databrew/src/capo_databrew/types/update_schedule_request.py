@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.cron_expression
     import capo_databrew.types.job_name_list
@@ -45,5 +43,5 @@ def deserialize_json(data: dict) -> UpdateScheduleRequest:
     if data.get("CronExpression") is not None:
         out["cron_expression"] = data["CronExpression"]
     else:
-        raise DeserializationError("UpdateScheduleRequest.cron_expression required")
+        out["cron_expression"] = ""
     return out

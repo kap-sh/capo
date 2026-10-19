@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.dynatrace_resource_list
 
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> DynatraceConfiguration:
     if data.get("envId") is not None:
         out["env_id"] = data["envId"]
     else:
-        raise DeserializationError("DynatraceConfiguration.env_id required")
+        out["env_id"] = ""
     if data.get("resources") is not None:
         import capo_devops_agent.types.dynatrace_resource_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_xray.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_xray.types.nullable_double
 
@@ -50,9 +48,7 @@ def deserialize_json(data: dict) -> ProbabilisticRuleValue:
     if data.get("DesiredSamplingPercentage") is not None:
         out["desired_sampling_percentage"] = float(data["DesiredSamplingPercentage"])
     else:
-        raise DeserializationError(
-            "ProbabilisticRuleValue.desired_sampling_percentage required"
-        )
+        out["desired_sampling_percentage"] = 0.0
     if data.get("ActualSamplingPercentage") is not None:
         out["actual_sampling_percentage"] = float(data["ActualSamplingPercentage"])
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -56,9 +54,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetCreditAllocationHistoryRequest:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError(
-            "GetCreditAllocationHistoryRequest.account_id required"
-        )
+        out["account_id"] = ""
     if data.get("creditId") is not None:
         out["credit_id"] = data["creditId"]
     if data.get("startDate") is not None:
@@ -70,9 +66,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetCreditAllocationHistoryRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GetCreditAllocationHistoryRequest.start_date required"
-        )
+        import datetime
+
+        out["start_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endDate") is not None:
         import capo_billing.types._prelude.timestamp
 
@@ -82,9 +78,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetCreditAllocationHistoryRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GetCreditAllocationHistoryRequest.end_date required"
-        )
+        import datetime
+
+        out["end_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dax.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dax.types.string
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> RebootNodeRequest:
     if data.get("ClusterName") is not None:
         out["cluster_name"] = data["ClusterName"]
     else:
-        raise DeserializationError("RebootNodeRequest.cluster_name required")
+        out["cluster_name"] = ""
     if data.get("NodeId") is not None:
         out["node_id"] = data["NodeId"]
     else:
-        raise DeserializationError("RebootNodeRequest.node_id required")
+        out["node_id"] = ""
     return out

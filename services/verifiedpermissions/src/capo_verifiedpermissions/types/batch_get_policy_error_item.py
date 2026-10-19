@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.batch_get_policy_error_code
 
@@ -48,17 +46,22 @@ def deserialize_aws_json_1_0(data: dict) -> BatchGetPolicyErrorItem:
             )
         )
     else:
-        raise DeserializationError("BatchGetPolicyErrorItem.code required")
+        import typing
+
+        out["code"] = typing.cast(
+            "capo_verifiedpermissions.types.batch_get_policy_error_code.BatchGetPolicyErrorCode",
+            "",
+        )
     if data.get("policyStoreId") is not None:
         out["policy_store_id"] = data["policyStoreId"]
     else:
-        raise DeserializationError("BatchGetPolicyErrorItem.policy_store_id required")
+        out["policy_store_id"] = ""
     if data.get("policyId") is not None:
         out["policy_id"] = data["policyId"]
     else:
-        raise DeserializationError("BatchGetPolicyErrorItem.policy_id required")
+        out["policy_id"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("BatchGetPolicyErrorItem.message required")
+        out["message"] = ""
     return out

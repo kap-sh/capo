@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.boolean
     import capo_kendra.types.data_source_inclusions_exclusions_strings
@@ -112,11 +110,11 @@ def deserialize_aws_json_1_1(data: dict) -> SalesforceConfiguration:
     if data.get("ServerUrl") is not None:
         out["server_url"] = data["ServerUrl"]
     else:
-        raise DeserializationError("SalesforceConfiguration.server_url required")
+        out["server_url"] = ""
     if data.get("SecretArn") is not None:
         out["secret_arn"] = data["SecretArn"]
     else:
-        raise DeserializationError("SalesforceConfiguration.secret_arn required")
+        out["secret_arn"] = ""
     if data.get("StandardObjectConfigurations") is not None:
         import capo_kendra.types.salesforce_standard_object_configuration_list
 

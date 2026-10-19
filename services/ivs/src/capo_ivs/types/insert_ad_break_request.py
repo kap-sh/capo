@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ivs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs.types.ad_duration_seconds
     import capo_ivs.types.channel_arn
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> InsertAdBreakRequest:
     if data.get("channelArn") is not None:
         out["channel_arn"] = data["channelArn"]
     else:
-        raise DeserializationError("InsertAdBreakRequest.channel_arn required")
+        out["channel_arn"] = ""
     if data.get("durationSeconds") is not None:
         out["duration_seconds"] = data["durationSeconds"]
     else:
-        raise DeserializationError("InsertAdBreakRequest.duration_seconds required")
+        out["duration_seconds"] = 0
     return out

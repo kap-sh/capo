@@ -39,7 +39,7 @@ def deserialize_json(data: dict) -> KinesisVideoStreamConfig:
     if data.get("Prefix") is not None:
         out["prefix"] = data["Prefix"]
     else:
-        raise DeserializationError("KinesisVideoStreamConfig.prefix required")
+        out["prefix"] = ""
     if data.get("RetentionPeriodHours") is not None:
         out["retention_period_hours"] = data["RetentionPeriodHours"]
     else:

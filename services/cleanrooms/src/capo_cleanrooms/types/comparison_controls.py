@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.analysis_rule_column_list
 
@@ -52,9 +50,7 @@ def deserialize_json(data: dict) -> ComparisonControls:
             )
         )
     else:
-        raise DeserializationError(
-            "ComparisonControls.allowed_literal_comparison_columns required"
-        )
+        out["allowed_literal_comparison_columns"] = []
     if data.get("allowedColumnComparisonColumns") is not None:
         import capo_cleanrooms.types.analysis_rule_column_list
 
@@ -64,7 +60,5 @@ def deserialize_json(data: dict) -> ComparisonControls:
             )
         )
     else:
-        raise DeserializationError(
-            "ComparisonControls.allowed_column_comparison_columns required"
-        )
+        out["allowed_column_comparison_columns"] = []
     return out

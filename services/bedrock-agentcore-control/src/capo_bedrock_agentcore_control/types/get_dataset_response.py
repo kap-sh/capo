@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -138,19 +136,19 @@ def deserialize_json(data: dict) -> GetDatasetResponse:
     if data.get("datasetArn") is not None:
         out["dataset_arn"] = data["datasetArn"]
     else:
-        raise DeserializationError("GetDatasetResponse.dataset_arn required")
+        out["dataset_arn"] = ""
     if data.get("datasetId") is not None:
         out["dataset_id"] = data["datasetId"]
     else:
-        raise DeserializationError("GetDatasetResponse.dataset_id required")
+        out["dataset_id"] = ""
     if data.get("datasetVersion") is not None:
         out["dataset_version"] = data["datasetVersion"]
     else:
-        raise DeserializationError("GetDatasetResponse.dataset_version required")
+        out["dataset_version"] = ""
     if data.get("datasetName") is not None:
         out["dataset_name"] = data["datasetName"]
     else:
-        raise DeserializationError("GetDatasetResponse.dataset_name required")
+        out["dataset_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("status") is not None:
@@ -162,7 +160,11 @@ def deserialize_json(data: dict) -> GetDatasetResponse:
             )
         )
     else:
-        raise DeserializationError("GetDatasetResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.dataset_status.DatasetStatus", ""
+        )
     if data.get("draftStatus") is not None:
         import capo_bedrock_agentcore_control.types.draft_status
 
@@ -182,13 +184,18 @@ def deserialize_json(data: dict) -> GetDatasetResponse:
             )
         )
     else:
-        raise DeserializationError("GetDatasetResponse.schema_type required")
+        import typing
+
+        out["schema_type"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.dataset_schema_type.DatasetSchemaType",
+            "",
+        )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     if data.get("exampleCount") is not None:
         out["example_count"] = data["exampleCount"]
     else:
-        raise DeserializationError("GetDatasetResponse.example_count required")
+        out["example_count"] = 0
     if data.get("downloadUrl") is not None:
         out["download_url"] = data["downloadUrl"]
     if data.get("downloadUrlExpiresAt") is not None:
@@ -208,7 +215,9 @@ def deserialize_json(data: dict) -> GetDatasetResponse:
             )
         )
     else:
-        raise DeserializationError("GetDatasetResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
 
@@ -218,7 +227,9 @@ def deserialize_json(data: dict) -> GetDatasetResponse:
             )
         )
     else:
-        raise DeserializationError("GetDatasetResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("tags") is not None:
         import capo_bedrock_agentcore_control.types.tags_map
 

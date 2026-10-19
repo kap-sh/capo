@@ -58,7 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> RegexPatternSetReferenceStatement:
     if data.get("ARN") is not None:
         out["arn"] = data["ARN"]
     else:
-        raise DeserializationError("RegexPatternSetReferenceStatement.arn required")
+        out["arn"] = ""
     if data.get("FieldToMatch") is not None:
         import capo_wafv2.types.field_to_match
 
@@ -80,9 +80,7 @@ def deserialize_aws_json_1_1(data: dict) -> RegexPatternSetReferenceStatement:
             )
         )
     else:
-        raise DeserializationError(
-            "RegexPatternSetReferenceStatement.text_transformations required"
-        )
+        out["text_transformations"] = []
     if data.get("PreParseTextTransformations") is not None:
         import capo_wafv2.types.pre_parse_text_transformations
 

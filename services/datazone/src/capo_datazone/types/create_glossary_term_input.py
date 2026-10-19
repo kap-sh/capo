@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.client_token
     import capo_datazone.types.domain_id
@@ -71,13 +69,11 @@ def deserialize_json(data: dict) -> CreateGlossaryTermInput:
     if data.get("glossaryIdentifier") is not None:
         out["glossary_identifier"] = data["glossaryIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateGlossaryTermInput.glossary_identifier required"
-        )
+        out["glossary_identifier"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateGlossaryTermInput.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         import capo_datazone.types.glossary_term_status
 

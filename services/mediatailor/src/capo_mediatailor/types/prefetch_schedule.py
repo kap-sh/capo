@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__map_of__string
     import capo_mediatailor.types.__string
@@ -94,7 +92,7 @@ def deserialize_json(data: dict) -> PrefetchSchedule:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("PrefetchSchedule.arn required")
+        out["arn"] = ""
     if data.get("Consumption") is not None:
         import capo_mediatailor.types.prefetch_consumption
 
@@ -106,13 +104,11 @@ def deserialize_json(data: dict) -> PrefetchSchedule:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("PrefetchSchedule.name required")
+        out["name"] = ""
     if data.get("PlaybackConfigurationName") is not None:
         out["playback_configuration_name"] = data["PlaybackConfigurationName"]
     else:
-        raise DeserializationError(
-            "PrefetchSchedule.playback_configuration_name required"
-        )
+        out["playback_configuration_name"] = ""
     if data.get("Retrieval") is not None:
         import capo_mediatailor.types.prefetch_retrieval
 

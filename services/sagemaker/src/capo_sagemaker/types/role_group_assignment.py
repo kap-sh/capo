@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sagemaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker.types.group_patterns_list
     import capo_sagemaker.types.non_empty_string256
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> RoleGroupAssignment:
     if data.get("RoleName") is not None:
         out["role_name"] = data["RoleName"]
     else:
-        raise DeserializationError("RoleGroupAssignment.role_name required")
+        out["role_name"] = ""
     if data.get("GroupPatterns") is not None:
         import capo_sagemaker.types.group_patterns_list
 
@@ -47,5 +45,5 @@ def deserialize_aws_json_1_1(data: dict) -> RoleGroupAssignment:
             )
         )
     else:
-        raise DeserializationError("RoleGroupAssignment.group_patterns required")
+        out["group_patterns"] = []
     return out

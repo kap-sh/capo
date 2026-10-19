@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sso_admin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_admin.types.application_arn
     import capo_sso_admin.types.scope
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutApplicationAccessScopeRequest:
     if data.get("Scope") is not None:
         out["scope"] = data["Scope"]
     else:
-        raise DeserializationError("PutApplicationAccessScopeRequest.scope required")
+        out["scope"] = ""
     if data.get("AuthorizedTargets") is not None:
         import capo_sso_admin.types.scope_targets
 
@@ -54,7 +52,5 @@ def deserialize_aws_json_1_1(data: dict) -> PutApplicationAccessScopeRequest:
     if data.get("ApplicationArn") is not None:
         out["application_arn"] = data["ApplicationArn"]
     else:
-        raise DeserializationError(
-            "PutApplicationAccessScopeRequest.application_arn required"
-        )
+        out["application_arn"] = ""
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.group_name_type
@@ -40,7 +39,7 @@ def deserialize_query(el: Element) -> GetGroupRequest:
     if child_group_name is not None:
         out["group_name"] = str(child_group_name.text or "")
     else:
-        raise DeserializationError("GetGroupRequest.group_name required")
+        out["group_name"] = ""
     child_marker = el.find("Marker")
     if child_marker is not None:
         out["marker"] = str(child_marker.text or "")

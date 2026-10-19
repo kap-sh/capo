@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_arc_zonal_shift.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_zonal_shift.types.availability_zone
     import capo_arc_zonal_shift.types.resource_identifier
@@ -37,15 +35,13 @@ def deserialize_json(data: dict) -> StartPracticeRunRequest:
     if data.get("resourceIdentifier") is not None:
         out["resource_identifier"] = data["resourceIdentifier"]
     else:
-        raise DeserializationError(
-            "StartPracticeRunRequest.resource_identifier required"
-        )
+        out["resource_identifier"] = ""
     if data.get("awayFrom") is not None:
         out["away_from"] = data["awayFrom"]
     else:
-        raise DeserializationError("StartPracticeRunRequest.away_from required")
+        out["away_from"] = ""
     if data.get("comment") is not None:
         out["comment"] = data["comment"]
     else:
-        raise DeserializationError("StartPracticeRunRequest.comment required")
+        out["comment"] = ""
     return out

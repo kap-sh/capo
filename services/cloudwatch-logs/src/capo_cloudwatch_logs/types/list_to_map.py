@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.flatten
     import capo_cloudwatch_logs.types.flattened_element
@@ -58,11 +56,11 @@ def deserialize_aws_json_1_1(data: dict) -> ListToMap:
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("ListToMap.source required")
+        out["source"] = ""
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("ListToMap.key required")
+        out["key"] = ""
     if data.get("valueKey") is not None:
         out["value_key"] = data["valueKey"]
     if data.get("target") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.data_quality_aggregated_metrics
     import capo_glue.types.data_quality_analyzer_results
@@ -174,7 +172,7 @@ def deserialize_aws_json_1_1(data: dict) -> DataQualityResultV2Item:
     if data.get("ResultId") is not None:
         out["result_id"] = data["ResultId"]
     else:
-        raise DeserializationError("DataQualityResultV2Item.result_id required")
+        out["result_id"] = ""
     if data.get("DataSource") is not None:
         import capo_glue.types.data_source
 

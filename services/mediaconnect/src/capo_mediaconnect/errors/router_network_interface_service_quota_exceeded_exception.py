@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_mediaconnect.errors import DeserializationError, ServiceError
+from capo_mediaconnect.errors import ServiceError
 
 
 class RouterNetworkInterfaceServiceQuotaExceededException_(TypedDict, closed=True):
@@ -24,9 +24,7 @@ def deserialize_json(
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError(
-            "RouterNetworkInterfaceServiceQuotaExceededException_.message required"
-        )
+        out["message"] = ""
     return out
 
 

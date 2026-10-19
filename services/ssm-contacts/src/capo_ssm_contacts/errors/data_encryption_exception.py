@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError, ServiceError
+from capo_ssm_contacts.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.string
@@ -27,7 +27,7 @@ def deserialize_aws_json_1_1(data: dict) -> DataEncryptionException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("DataEncryptionException_.message required")
+        out["message"] = ""
     return out
 
 

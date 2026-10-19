@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.entitlement_data_unit
     import capo_license_manager.types.string
@@ -44,11 +42,11 @@ def deserialize_aws_json_1_1(data: dict) -> EntitlementUsage:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("EntitlementUsage.name required")
+        out["name"] = ""
     if data.get("ConsumedValue") is not None:
         out["consumed_value"] = data["ConsumedValue"]
     else:
-        raise DeserializationError("EntitlementUsage.consumed_value required")
+        out["consumed_value"] = ""
     if data.get("MaxCount") is not None:
         out["max_count"] = data["MaxCount"]
     if data.get("Unit") is not None:
@@ -60,5 +58,9 @@ def deserialize_aws_json_1_1(data: dict) -> EntitlementUsage:
             )
         )
     else:
-        raise DeserializationError("EntitlementUsage.unit required")
+        import typing
+
+        out["unit"] = typing.cast(
+            "capo_license_manager.types.entitlement_data_unit.EntitlementDataUnit", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notifications.types.creation_time
     import capo_notifications.types.event_rule_arn
@@ -79,13 +77,11 @@ def deserialize_json(data: dict) -> EventRuleStructure:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("EventRuleStructure.arn required")
+        out["arn"] = ""
     if data.get("notificationConfigurationArn") is not None:
         out["notification_configuration_arn"] = data["notificationConfigurationArn"]
     else:
-        raise DeserializationError(
-            "EventRuleStructure.notification_configuration_arn required"
-        )
+        out["notification_configuration_arn"] = ""
     if data.get("creationTime") is not None:
         import capo_notifications.types.creation_time
 
@@ -93,19 +89,23 @@ def deserialize_json(data: dict) -> EventRuleStructure:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("EventRuleStructure.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("EventRuleStructure.source required")
+        out["source"] = ""
     if data.get("eventType") is not None:
         out["event_type"] = data["eventType"]
     else:
-        raise DeserializationError("EventRuleStructure.event_type required")
+        out["event_type"] = ""
     if data.get("eventPattern") is not None:
         out["event_pattern"] = data["eventPattern"]
     else:
-        raise DeserializationError("EventRuleStructure.event_pattern required")
+        out["event_pattern"] = ""
     if data.get("regions") is not None:
         import capo_notifications.types.regions
 
@@ -113,7 +113,7 @@ def deserialize_json(data: dict) -> EventRuleStructure:
             data["regions"]
         )
     else:
-        raise DeserializationError("EventRuleStructure.regions required")
+        out["regions"] = []
     if data.get("managedRules") is not None:
         import capo_notifications.types.managed_rule_arns
 
@@ -123,7 +123,7 @@ def deserialize_json(data: dict) -> EventRuleStructure:
             )
         )
     else:
-        raise DeserializationError("EventRuleStructure.managed_rules required")
+        out["managed_rules"] = []
     if data.get("statusSummaryByRegion") is not None:
         import capo_notifications.types.status_summary_by_region
 
@@ -133,7 +133,5 @@ def deserialize_json(data: dict) -> EventRuleStructure:
             )
         )
     else:
-        raise DeserializationError(
-            "EventRuleStructure.status_summary_by_region required"
-        )
+        out["status_summary_by_region"] = {}
     return out

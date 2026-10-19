@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotthingsgraph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotthingsgraph.types.entity_type
     import capo_iotthingsgraph.types.thing_name
@@ -35,9 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> DissociateEntityFromThingRequest:
     if data.get("thingName") is not None:
         out["thing_name"] = data["thingName"]
     else:
-        raise DeserializationError(
-            "DissociateEntityFromThingRequest.thing_name required"
-        )
+        out["thing_name"] = ""
     if data.get("entityType") is not None:
         import capo_iotthingsgraph.types.entity_type
 
@@ -47,7 +43,9 @@ def deserialize_aws_json_1_1(data: dict) -> DissociateEntityFromThingRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DissociateEntityFromThingRequest.entity_type required"
+        import typing
+
+        out["entity_type"] = typing.cast(
+            "capo_iotthingsgraph.types.entity_type.EntityType", ""
         )
     return out

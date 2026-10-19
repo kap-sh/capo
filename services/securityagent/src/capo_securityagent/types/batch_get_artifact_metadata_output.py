@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.artifact_metadata_list
 
@@ -41,7 +39,5 @@ def deserialize_json(data: dict) -> BatchGetArtifactMetadataOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetArtifactMetadataOutput.artifact_metadata_list required"
-        )
+        out["artifact_metadata_list"] = []
     return out

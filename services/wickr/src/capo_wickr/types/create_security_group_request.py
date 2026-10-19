@@ -45,7 +45,7 @@ def deserialize_json(data: dict) -> CreateSecurityGroupRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateSecurityGroupRequest.name required")
+        out["name"] = ""
     if data.get("securityGroupSettings") is not None:
         import capo_wickr.types.security_group_settings_request
 

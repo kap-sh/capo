@@ -40,7 +40,7 @@ def deserialize_json(data: dict) -> InputFileConfig:
     if data.get("channelName") is not None:
         out["channel_name"] = data["channelName"]
     else:
-        raise DeserializationError("InputFileConfig.channel_name required")
+        out["channel_name"] = ""
     if data.get("contentType") is not None:
         out["content_type"] = data["contentType"]
     if data.get("dataSource") is not None:

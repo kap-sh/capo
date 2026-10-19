@@ -103,19 +103,19 @@ def deserialize_json(data: dict) -> Form:
     if data.get("appId") is not None:
         out["app_id"] = data["appId"]
     else:
-        raise DeserializationError("Form.app_id required")
+        out["app_id"] = ""
     if data.get("environmentName") is not None:
         out["environment_name"] = data["environmentName"]
     else:
-        raise DeserializationError("Form.environment_name required")
+        out["environment_name"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("Form.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Form.name required")
+        out["name"] = ""
     if data.get("formActionType") is not None:
         import capo_amplifyuibuilder.types.form_action_type
 
@@ -125,7 +125,11 @@ def deserialize_json(data: dict) -> Form:
             )
         )
     else:
-        raise DeserializationError("Form.form_action_type required")
+        import typing
+
+        out["form_action_type"] = typing.cast(
+            "capo_amplifyuibuilder.types.form_action_type.FormActionType", ""
+        )
     if data.get("style") is not None:
         import capo_amplifyuibuilder.types.form_style
 
@@ -151,7 +155,7 @@ def deserialize_json(data: dict) -> Form:
             data["fields"]
         )
     else:
-        raise DeserializationError("Form.fields required")
+        out["fields"] = {}
     if data.get("sectionalElements") is not None:
         import capo_amplifyuibuilder.types.sectional_element_map
 
@@ -161,11 +165,11 @@ def deserialize_json(data: dict) -> Form:
             )
         )
     else:
-        raise DeserializationError("Form.sectional_elements required")
+        out["sectional_elements"] = {}
     if data.get("schemaVersion") is not None:
         out["schema_version"] = data["schemaVersion"]
     else:
-        raise DeserializationError("Form.schema_version required")
+        out["schema_version"] = ""
     if data.get("tags") is not None:
         import capo_amplifyuibuilder.types.tags
 

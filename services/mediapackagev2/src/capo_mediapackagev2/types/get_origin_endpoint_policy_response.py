@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediapackagev2.types.cdn_auth_configuration
     import capo_mediapackagev2.types.policy_text
@@ -50,25 +48,19 @@ def deserialize_json(data: dict) -> GetOriginEndpointPolicyResponse:
     if data.get("ChannelGroupName") is not None:
         out["channel_group_name"] = data["ChannelGroupName"]
     else:
-        raise DeserializationError(
-            "GetOriginEndpointPolicyResponse.channel_group_name required"
-        )
+        out["channel_group_name"] = ""
     if data.get("ChannelName") is not None:
         out["channel_name"] = data["ChannelName"]
     else:
-        raise DeserializationError(
-            "GetOriginEndpointPolicyResponse.channel_name required"
-        )
+        out["channel_name"] = ""
     if data.get("OriginEndpointName") is not None:
         out["origin_endpoint_name"] = data["OriginEndpointName"]
     else:
-        raise DeserializationError(
-            "GetOriginEndpointPolicyResponse.origin_endpoint_name required"
-        )
+        out["origin_endpoint_name"] = ""
     if data.get("Policy") is not None:
         out["policy"] = data["Policy"]
     else:
-        raise DeserializationError("GetOriginEndpointPolicyResponse.policy required")
+        out["policy"] = ""
     if data.get("CdnAuthConfiguration") is not None:
         import capo_mediapackagev2.types.cdn_auth_configuration
 

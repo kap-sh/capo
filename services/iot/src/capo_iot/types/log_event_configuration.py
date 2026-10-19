@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.log_destination
     import capo_iot.types.log_event_type
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> LogEventConfiguration:
     if data.get("eventType") is not None:
         out["event_type"] = data["eventType"]
     else:
-        raise DeserializationError("LogEventConfiguration.event_type required")
+        out["event_type"] = ""
     if data.get("logLevel") is not None:
         import capo_iot.types.log_level
 

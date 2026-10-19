@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.accept_language
     import capo_service_catalog.types.id
@@ -50,9 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateProvisionedProductPropertiesIn
     if data.get("ProvisionedProductId") is not None:
         out["provisioned_product_id"] = data["ProvisionedProductId"]
     else:
-        raise DeserializationError(
-            "UpdateProvisionedProductPropertiesInput.provisioned_product_id required"
-        )
+        out["provisioned_product_id"] = ""
     if data.get("ProvisionedProductProperties") is not None:
         import capo_service_catalog.types.provisioned_product_properties
 
@@ -62,13 +58,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateProvisionedProductPropertiesIn
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateProvisionedProductPropertiesInput.provisioned_product_properties required"
-        )
+        out["provisioned_product_properties"] = {}
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     else:
-        raise DeserializationError(
-            "UpdateProvisionedProductPropertiesInput.idempotency_token required"
-        )
+        out["idempotency_token"] = ""
     return out

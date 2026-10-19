@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.target_bucket
@@ -52,7 +51,7 @@ def deserialize_xml(el: Element) -> LoggingEnabled:
     if child_target_bucket is not None:
         out["target_bucket"] = str(child_target_bucket.text or "")
     else:
-        raise DeserializationError("LoggingEnabled.target_bucket required")
+        out["target_bucket"] = ""
     child_target_grants = el.find("TargetGrants")
     if child_target_grants is not None:
         import capo_s3.types.target_grants
@@ -64,7 +63,7 @@ def deserialize_xml(el: Element) -> LoggingEnabled:
     if child_target_prefix is not None:
         out["target_prefix"] = str(child_target_prefix.text or "")
     else:
-        raise DeserializationError("LoggingEnabled.target_prefix required")
+        out["target_prefix"] = ""
     child_target_object_key_format = el.find("TargetObjectKeyFormat")
     if child_target_object_key_format is not None:
         import capo_s3.types.target_object_key_format

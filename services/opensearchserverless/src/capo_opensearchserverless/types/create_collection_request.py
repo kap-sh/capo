@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearchserverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearchserverless.types.client_token
     import capo_opensearchserverless.types.collection_group_name
@@ -99,7 +97,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateCollectionRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateCollectionRequest.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     if data.get("description") is not None:

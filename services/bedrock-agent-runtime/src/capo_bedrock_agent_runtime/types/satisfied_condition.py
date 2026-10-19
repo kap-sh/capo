@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 
 class SatisfiedCondition(TypedDict, closed=True):
     condition_name: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> SatisfiedCondition:
     if data.get("conditionName") is not None:
         out["condition_name"] = data["conditionName"]
     else:
-        raise DeserializationError("SatisfiedCondition.condition_name required")
+        out["condition_name"] = ""
     return out

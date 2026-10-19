@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.string_map
 
@@ -35,7 +33,5 @@ def deserialize_json(data: dict) -> GetRestoreTestingInferredMetadataOutput:
             data["InferredMetadata"]
         )
     else:
-        raise DeserializationError(
-            "GetRestoreTestingInferredMetadataOutput.inferred_metadata required"
-        )
+        out["inferred_metadata"] = {}
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.catalog_id_string
     import capo_lakeformation.types.expression
@@ -57,7 +55,11 @@ def deserialize_json(data: dict) -> LFTagPolicyResource:
             data["ResourceType"]
         )
     else:
-        raise DeserializationError("LFTagPolicyResource.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_lakeformation.types.resource_type.ResourceType", ""
+        )
     if data.get("Expression") is not None:
         import capo_lakeformation.types.expression
 

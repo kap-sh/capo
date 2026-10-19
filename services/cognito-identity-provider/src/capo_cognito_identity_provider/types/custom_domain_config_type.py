@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.arn_type
     import capo_cognito_identity_provider.types.security_policy_type
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> CustomDomainConfigType:
     if data.get("CertificateArn") is not None:
         out["certificate_arn"] = data["CertificateArn"]
     else:
-        raise DeserializationError("CustomDomainConfigType.certificate_arn required")
+        out["certificate_arn"] = ""
     if data.get("SecurityPolicy") is not None:
         import capo_cognito_identity_provider.types.security_policy_type
 

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 
 class OAuthAdditionalStepDetails(TypedDict, closed=True):
     authorization_url: "str"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> OAuthAdditionalStepDetails:
     if data.get("authorizationUrl") is not None:
         out["authorization_url"] = data["authorizationUrl"]
     else:
-        raise DeserializationError(
-            "OAuthAdditionalStepDetails.authorization_url required"
-        )
+        out["authorization_url"] = ""
     return out

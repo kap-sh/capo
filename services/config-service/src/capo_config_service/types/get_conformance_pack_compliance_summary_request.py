@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.conformance_pack_names_to_summarize_list
     import capo_config_service.types.next_token
@@ -49,9 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetConformancePackComplianceSummaryR
             )
         )
     else:
-        raise DeserializationError(
-            "GetConformancePackComplianceSummaryRequest.conformance_pack_names required"
-        )
+        out["conformance_pack_names"] = []
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
     if data.get("NextToken") is not None:

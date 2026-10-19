@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.vpc_endpoint_error_list
     import capo_opensearch.types.vpc_endpoints
@@ -47,9 +45,7 @@ def deserialize_json(data: dict) -> DescribeVpcEndpointsResponse:
             data["VpcEndpoints"]
         )
     else:
-        raise DeserializationError(
-            "DescribeVpcEndpointsResponse.vpc_endpoints required"
-        )
+        out["vpc_endpoints"] = []
     if data.get("VpcEndpointErrors") is not None:
         import capo_opensearch.types.vpc_endpoint_error_list
 
@@ -59,7 +55,5 @@ def deserialize_json(data: dict) -> DescribeVpcEndpointsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeVpcEndpointsResponse.vpc_endpoint_errors required"
-        )
+        out["vpc_endpoint_errors"] = []
     return out

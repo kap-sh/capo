@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.kms_key_id
     import capo_location.types.pricing_plan
@@ -55,9 +53,7 @@ def deserialize_json(data: dict) -> CreateGeofenceCollectionRequest:
     if data.get("CollectionName") is not None:
         out["collection_name"] = data["CollectionName"]
     else:
-        raise DeserializationError(
-            "CreateGeofenceCollectionRequest.collection_name required"
-        )
+        out["collection_name"] = ""
     if data.get("PricingPlan") is not None:
         out["pricing_plan"] = data["PricingPlan"]
     if data.get("PricingPlanDataSource") is not None:

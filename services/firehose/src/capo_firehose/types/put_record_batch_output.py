@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.boolean_object
     import capo_firehose.types.non_negative_integer_object
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutRecordBatchOutput:
     if data.get("FailedPutCount") is not None:
         out["failed_put_count"] = data["FailedPutCount"]
     else:
-        raise DeserializationError("PutRecordBatchOutput.failed_put_count required")
+        out["failed_put_count"] = 0
     if data.get("Encrypted") is not None:
         out["encrypted"] = data["Encrypted"]
     if data.get("RequestResponses") is not None:
@@ -56,5 +54,5 @@ def deserialize_aws_json_1_1(data: dict) -> PutRecordBatchOutput:
             )
         )
     else:
-        raise DeserializationError("PutRecordBatchOutput.request_responses required")
+        out["request_responses"] = []
     return out

@@ -63,7 +63,7 @@ def deserialize_query(el: Element) -> GetGroupResponse:
 
         out["users"] = capo_iam.types.user_list_type.deserialize_query(child_users)
     else:
-        raise DeserializationError("GetGroupResponse.users required")
+        out["users"] = []
     child_is_truncated = el.find("IsTruncated")
     if child_is_truncated is not None:
         out["is_truncated"] = (child_is_truncated.text or "").lower() == "true"

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_gameliftstreams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_gameliftstreams.types.client_token
     import capo_gameliftstreams.types.connection_timeout_seconds
@@ -144,17 +142,19 @@ def deserialize_json(data: dict) -> StartStreamSessionInput:
             data["Protocol"]
         )
     else:
-        raise DeserializationError("StartStreamSessionInput.protocol required")
+        import typing
+
+        out["protocol"] = typing.cast(
+            "capo_gameliftstreams.types.protocol.Protocol", ""
+        )
     if data.get("SignalRequest") is not None:
         out["signal_request"] = data["SignalRequest"]
     else:
-        raise DeserializationError("StartStreamSessionInput.signal_request required")
+        out["signal_request"] = ""
     if data.get("ApplicationIdentifier") is not None:
         out["application_identifier"] = data["ApplicationIdentifier"]
     else:
-        raise DeserializationError(
-            "StartStreamSessionInput.application_identifier required"
-        )
+        out["application_identifier"] = ""
     if data.get("UserId") is not None:
         out["user_id"] = data["UserId"]
     if data.get("Locations") is not None:

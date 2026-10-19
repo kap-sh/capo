@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.status
 
@@ -41,11 +39,11 @@ def deserialize_json(data: dict) -> ResourceStatus:
     if data.get("ec2") is not None:
         out["ec2"] = data["ec2"]
     else:
-        raise DeserializationError("ResourceStatus.ec2 required")
+        out["ec2"] = ""
     if data.get("ecr") is not None:
         out["ecr"] = data["ecr"]
     else:
-        raise DeserializationError("ResourceStatus.ecr required")
+        out["ecr"] = ""
     if data.get("lambda") is not None:
         out["lambda"] = data["lambda"]
     if data.get("lambdaCode") is not None:

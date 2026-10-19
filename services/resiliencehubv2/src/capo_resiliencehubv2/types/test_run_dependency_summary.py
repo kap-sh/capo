@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.dependency_criticality
     import capo_resiliencehubv2.types.region_list
@@ -77,11 +75,11 @@ def deserialize_json(data: dict) -> TestRunDependencySummary:
     if data.get("dependencyName") is not None:
         out["dependency_name"] = data["dependencyName"]
     else:
-        raise DeserializationError("TestRunDependencySummary.dependency_name required")
+        out["dependency_name"] = ""
     if data.get("dnsName") is not None:
         out["dns_name"] = data["dnsName"]
     else:
-        raise DeserializationError("TestRunDependencySummary.dns_name required")
+        out["dns_name"] = ""
     if data.get("criticality") is not None:
         import capo_resiliencehubv2.types.dependency_criticality
 
@@ -91,7 +89,12 @@ def deserialize_json(data: dict) -> TestRunDependencySummary:
             )
         )
     else:
-        raise DeserializationError("TestRunDependencySummary.criticality required")
+        import typing
+
+        out["criticality"] = typing.cast(
+            "capo_resiliencehubv2.types.dependency_criticality.DependencyCriticality",
+            "",
+        )
     if data.get("source") is not None:
         import capo_resiliencehubv2.types.test_run_dependency_source
 
@@ -101,7 +104,12 @@ def deserialize_json(data: dict) -> TestRunDependencySummary:
             )
         )
     else:
-        raise DeserializationError("TestRunDependencySummary.source required")
+        import typing
+
+        out["source"] = typing.cast(
+            "capo_resiliencehubv2.types.test_run_dependency_source.TestRunDependencySource",
+            "",
+        )
     if data.get("location") is not None:
         out["location"] = data["location"]
     if data.get("sourceRegions") is not None:

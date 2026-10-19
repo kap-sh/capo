@@ -45,5 +45,7 @@ def deserialize_json(data: dict) -> SetV2LoggingLevelRequest:
 
         out["log_level"] = capo_iot.types.log_level.deserialize_json(data["logLevel"])
     else:
-        raise DeserializationError("SetV2LoggingLevelRequest.log_level required")
+        import typing
+
+        out["log_level"] = typing.cast("capo_iot.types.log_level.LogLevel", "")
     return out

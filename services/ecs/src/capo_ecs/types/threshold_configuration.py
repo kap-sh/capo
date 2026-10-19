@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.integer
     import capo_ecs.types.threshold_type
@@ -37,7 +35,9 @@ def deserialize_aws_json_1_1(data: dict) -> ThresholdConfiguration:
             data["type"]
         )
     else:
-        raise DeserializationError("ThresholdConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_ecs.types.threshold_type.ThresholdType", "")
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:

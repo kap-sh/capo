@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediapackagev2.types.policy_text
 
@@ -33,15 +31,13 @@ def deserialize_json(data: dict) -> GetChannelPolicyResponse:
     if data.get("ChannelGroupName") is not None:
         out["channel_group_name"] = data["ChannelGroupName"]
     else:
-        raise DeserializationError(
-            "GetChannelPolicyResponse.channel_group_name required"
-        )
+        out["channel_group_name"] = ""
     if data.get("ChannelName") is not None:
         out["channel_name"] = data["ChannelName"]
     else:
-        raise DeserializationError("GetChannelPolicyResponse.channel_name required")
+        out["channel_name"] = ""
     if data.get("Policy") is not None:
         out["policy"] = data["Policy"]
     else:
-        raise DeserializationError("GetChannelPolicyResponse.policy required")
+        out["policy"] = ""
     return out

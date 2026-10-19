@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_supportauthz.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supportauthz.types.action_summaries
     import capo_supportauthz.types.next_token
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> ListActionsOutput:
             )
         )
     else:
-        raise DeserializationError("ListActionsOutput.action_summaries required")
+        out["action_summaries"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

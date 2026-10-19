@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.boolean
     import capo_kendra.types.data_source_inclusions_exclusions_strings
@@ -174,11 +172,11 @@ def deserialize_aws_json_1_1(data: dict) -> JiraConfiguration:
     if data.get("JiraAccountUrl") is not None:
         out["jira_account_url"] = data["JiraAccountUrl"]
     else:
-        raise DeserializationError("JiraConfiguration.jira_account_url required")
+        out["jira_account_url"] = ""
     if data.get("SecretArn") is not None:
         out["secret_arn"] = data["SecretArn"]
     else:
-        raise DeserializationError("JiraConfiguration.secret_arn required")
+        out["secret_arn"] = ""
     if data.get("UseChangeLog") is not None:
         out["use_change_log"] = data["UseChangeLog"]
     else:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pca_connector_ad.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pca_connector_ad.types.application_policy_list
 
@@ -47,5 +45,5 @@ def deserialize_json(data: dict) -> ApplicationPolicies:
             )
         )
     else:
-        raise DeserializationError("ApplicationPolicies.policies required")
+        out["policies"] = []
     return out

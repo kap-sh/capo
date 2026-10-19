@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.kms_context
@@ -46,7 +45,11 @@ def deserialize_xml(el: Element) -> Encryption:
             child_encryption_type
         )
     else:
-        raise DeserializationError("Encryption.encryption_type required")
+        import typing
+
+        out["encryption_type"] = typing.cast(
+            "capo_s3.types.server_side_encryption.ServerSideEncryption", ""
+        )
     child_kms_key_id = el.find("KMSKeyId")
     if child_kms_key_id is not None:
         out["kms_key_id"] = str(child_kms_key_id.text or "")

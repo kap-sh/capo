@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_migrationhubstrategy.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migrationhubstrategy.types.async_task_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> StopAssessmentRequest:
     if data.get("assessmentId") is not None:
         out["assessment_id"] = data["assessmentId"]
     else:
-        raise DeserializationError("StopAssessmentRequest.assessment_id required")
+        out["assessment_id"] = ""
     return out

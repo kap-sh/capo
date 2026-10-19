@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -115,21 +113,20 @@ def deserialize_json(data: dict) -> CreateInstrumentationConfigurationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateInstrumentationConfigurationRequest.instrumentation_type required"
+        import typing
+
+        out["instrumentation_type"] = typing.cast(
+            "capo_application_signals.types.instrumentation_type.InstrumentationType",
+            "",
         )
     if data.get("Service") is not None:
         out["service"] = data["Service"]
     else:
-        raise DeserializationError(
-            "CreateInstrumentationConfigurationRequest.service required"
-        )
+        out["service"] = ""
     if data.get("Environment") is not None:
         out["environment"] = data["Environment"]
     else:
-        raise DeserializationError(
-            "CreateInstrumentationConfigurationRequest.environment required"
-        )
+        out["environment"] = ""
     if data.get("SignalType") is not None:
         import capo_application_signals.types.dynamic_instrumentation_signal_type
 
@@ -139,8 +136,11 @@ def deserialize_json(data: dict) -> CreateInstrumentationConfigurationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateInstrumentationConfigurationRequest.signal_type required"
+        import typing
+
+        out["signal_type"] = typing.cast(
+            "capo_application_signals.types.dynamic_instrumentation_signal_type.DynamicInstrumentationSignalType",
+            "",
         )
     if data.get("Location") is not None:
         import capo_application_signals.types.location
@@ -149,9 +149,9 @@ def deserialize_json(data: dict) -> CreateInstrumentationConfigurationRequest:
             data["Location"]
         )
     else:
-        raise DeserializationError(
-            "CreateInstrumentationConfigurationRequest.location required"
-        )
+        import capo_application_signals.types._unknown
+
+        out["location"] = capo_application_signals.types._unknown.UnknownUnionMember("")
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("ExpiresAt") is not None:
@@ -179,8 +179,10 @@ def deserialize_json(data: dict) -> CreateInstrumentationConfigurationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateInstrumentationConfigurationRequest.capture_configuration required"
+        import capo_application_signals.types._unknown
+
+        out["capture_configuration"] = (
+            capo_application_signals.types._unknown.UnknownUnionMember("")
         )
     if data.get("Tags") is not None:
         import capo_application_signals.types.tag_list

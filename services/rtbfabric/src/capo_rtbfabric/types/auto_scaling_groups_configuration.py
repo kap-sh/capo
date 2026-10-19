@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rtbfabric.types.auto_scaling_group_name_list
     import capo_rtbfabric.types.health_check_config
@@ -57,13 +55,11 @@ def deserialize_json(data: dict) -> AutoScalingGroupsConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "AutoScalingGroupsConfiguration.auto_scaling_group_names required"
-        )
+        out["auto_scaling_group_names"] = []
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("AutoScalingGroupsConfiguration.role_arn required")
+        out["role_arn"] = ""
     if data.get("healthCheckConfig") is not None:
         import capo_rtbfabric.types.health_check_config
 

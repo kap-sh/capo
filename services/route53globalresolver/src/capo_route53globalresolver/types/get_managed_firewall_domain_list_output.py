@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.resource_description
     import capo_route53globalresolver.types.resource_id
@@ -43,15 +41,13 @@ def deserialize_json(data: dict) -> GetManagedFirewallDomainListOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetManagedFirewallDomainListOutput.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetManagedFirewallDomainListOutput.name required")
+        out["name"] = ""
     if data.get("managedListType") is not None:
         out["managed_list_type"] = data["managedListType"]
     else:
-        raise DeserializationError(
-            "GetManagedFirewallDomainListOutput.managed_list_type required"
-        )
+        out["managed_list_type"] = ""
     return out

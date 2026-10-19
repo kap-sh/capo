@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsecuretunneling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsecuretunneling.types.service_list
     import capo_iotsecuretunneling.types.thing_name
@@ -44,5 +42,5 @@ def deserialize_aws_json_1_1(data: dict) -> DestinationConfig:
             )
         )
     else:
-        raise DeserializationError("DestinationConfig.services required")
+        out["services"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.conflict_detail_level_type_enum
     import capo_codecommit.types.conflict_resolution
@@ -97,15 +95,11 @@ def deserialize_aws_json_1_1(data: dict) -> MergePullRequestBySquashInput:
     if data.get("pullRequestId") is not None:
         out["pull_request_id"] = data["pullRequestId"]
     else:
-        raise DeserializationError(
-            "MergePullRequestBySquashInput.pull_request_id required"
-        )
+        out["pull_request_id"] = ""
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError(
-            "MergePullRequestBySquashInput.repository_name required"
-        )
+        out["repository_name"] = ""
     if data.get("sourceCommitId") is not None:
         out["source_commit_id"] = data["sourceCommitId"]
     if data.get("conflictDetailLevel") is not None:

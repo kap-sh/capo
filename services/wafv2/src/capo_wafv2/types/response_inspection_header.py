@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.response_inspection_header_failure_values
     import capo_wafv2.types.response_inspection_header_name
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> ResponseInspectionHeader:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ResponseInspectionHeader.name required")
+        out["name"] = ""
     if data.get("SuccessValues") is not None:
         import capo_wafv2.types.response_inspection_header_success_values
 
@@ -59,7 +57,7 @@ def deserialize_aws_json_1_1(data: dict) -> ResponseInspectionHeader:
             )
         )
     else:
-        raise DeserializationError("ResponseInspectionHeader.success_values required")
+        out["success_values"] = []
     if data.get("FailureValues") is not None:
         import capo_wafv2.types.response_inspection_header_failure_values
 
@@ -69,5 +67,5 @@ def deserialize_aws_json_1_1(data: dict) -> ResponseInspectionHeader:
             )
         )
     else:
-        raise DeserializationError("ResponseInspectionHeader.failure_values required")
+        out["failure_values"] = []
     return out

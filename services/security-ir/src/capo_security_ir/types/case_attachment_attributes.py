@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_security_ir.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -56,11 +54,11 @@ def deserialize_json(data: dict) -> CaseAttachmentAttributes:
     if data.get("attachmentId") is not None:
         out["attachment_id"] = data["attachmentId"]
     else:
-        raise DeserializationError("CaseAttachmentAttributes.attachment_id required")
+        out["attachment_id"] = ""
     if data.get("fileName") is not None:
         out["file_name"] = data["fileName"]
     else:
-        raise DeserializationError("CaseAttachmentAttributes.file_name required")
+        out["file_name"] = ""
     if data.get("attachmentStatus") is not None:
         import capo_security_ir.types.case_attachment_status
 
@@ -70,13 +68,15 @@ def deserialize_json(data: dict) -> CaseAttachmentAttributes:
             )
         )
     else:
-        raise DeserializationError(
-            "CaseAttachmentAttributes.attachment_status required"
+        import typing
+
+        out["attachment_status"] = typing.cast(
+            "capo_security_ir.types.case_attachment_status.CaseAttachmentStatus", ""
         )
     if data.get("creator") is not None:
         out["creator"] = data["creator"]
     else:
-        raise DeserializationError("CaseAttachmentAttributes.creator required")
+        out["creator"] = ""
     if data.get("createdDate") is not None:
         import capo_security_ir.types._prelude.timestamp
 
@@ -86,7 +86,11 @@ def deserialize_json(data: dict) -> CaseAttachmentAttributes:
             )
         )
     else:
-        raise DeserializationError("CaseAttachmentAttributes.created_date required")
+        import datetime
+
+        out["created_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out
 
 

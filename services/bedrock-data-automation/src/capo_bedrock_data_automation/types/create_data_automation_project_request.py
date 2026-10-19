@@ -127,9 +127,7 @@ def deserialize_json(data: dict) -> CreateDataAutomationProjectRequest:
     if data.get("projectName") is not None:
         out["project_name"] = data["projectName"]
     else:
-        raise DeserializationError(
-            "CreateDataAutomationProjectRequest.project_name required"
-        )
+        out["project_name"] = ""
     if data.get("projectDescription") is not None:
         out["project_description"] = data["projectDescription"]
     if data.get("projectStage") is not None:

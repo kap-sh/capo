@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_observabilityadmin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_observabilityadmin.types.string_list
 
@@ -75,7 +73,7 @@ def deserialize_json(data: dict) -> AdvancedFieldSelector:
     if data.get("Field") is not None:
         out["field"] = data["Field"]
     else:
-        raise DeserializationError("AdvancedFieldSelector.field required")
+        out["field"] = ""
     if data.get("Equals") is not None:
         import capo_observabilityadmin.types.string_list
 

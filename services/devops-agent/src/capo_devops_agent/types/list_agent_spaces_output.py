@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.agent_space_list
     import capo_devops_agent.types.next_token
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> ListAgentSpacesOutput:
             data["agentSpaces"]
         )
     else:
-        raise DeserializationError("ListAgentSpacesOutput.agent_spaces required")
+        out["agent_spaces"] = []
     return out
 
 

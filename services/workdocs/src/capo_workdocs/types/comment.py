@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workdocs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workdocs.types.comment_id_type
     import capo_workdocs.types.comment_status_type
@@ -83,7 +81,7 @@ def deserialize_json(data: dict) -> Comment:
     if data.get("CommentId") is not None:
         out["comment_id"] = data["CommentId"]
     else:
-        raise DeserializationError("Comment.comment_id required")
+        out["comment_id"] = ""
     if data.get("ParentId") is not None:
         out["parent_id"] = data["ParentId"]
     if data.get("ThreadId") is not None:

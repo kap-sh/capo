@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.group_search_filter_list
@@ -49,5 +47,5 @@ def deserialize_json(data: dict) -> SearchGroupsRequest:
             )
         )
     else:
-        raise DeserializationError("SearchGroupsRequest.filters required")
+        out["filters"] = []
     return out

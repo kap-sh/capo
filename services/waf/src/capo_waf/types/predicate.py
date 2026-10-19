@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_waf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf.types.negated
     import capo_waf.types.predicate_type
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> Predicate:
     if data.get("Negated") is not None:
         out["negated"] = data["Negated"]
     else:
-        raise DeserializationError("Predicate.negated required")
+        out["negated"] = False
     if data.get("Type") is not None:
         import capo_waf.types.predicate_type
 
@@ -45,9 +43,11 @@ def deserialize_aws_json_1_1(data: dict) -> Predicate:
             data["Type"]
         )
     else:
-        raise DeserializationError("Predicate.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_waf.types.predicate_type.PredicateType", "")
     if data.get("DataId") is not None:
         out["data_id"] = data["DataId"]
     else:
-        raise DeserializationError("Predicate.data_id required")
+        out["data_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wisdom.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -121,31 +119,31 @@ def deserialize_json(data: dict) -> QuickResponseData:
     if data.get("quickResponseArn") is not None:
         out["quick_response_arn"] = data["quickResponseArn"]
     else:
-        raise DeserializationError("QuickResponseData.quick_response_arn required")
+        out["quick_response_arn"] = ""
     if data.get("quickResponseId") is not None:
         out["quick_response_id"] = data["quickResponseId"]
     else:
-        raise DeserializationError("QuickResponseData.quick_response_id required")
+        out["quick_response_id"] = ""
     if data.get("knowledgeBaseArn") is not None:
         out["knowledge_base_arn"] = data["knowledgeBaseArn"]
     else:
-        raise DeserializationError("QuickResponseData.knowledge_base_arn required")
+        out["knowledge_base_arn"] = ""
     if data.get("knowledgeBaseId") is not None:
         out["knowledge_base_id"] = data["knowledgeBaseId"]
     else:
-        raise DeserializationError("QuickResponseData.knowledge_base_id required")
+        out["knowledge_base_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("QuickResponseData.name required")
+        out["name"] = ""
     if data.get("contentType") is not None:
         out["content_type"] = data["contentType"]
     else:
-        raise DeserializationError("QuickResponseData.content_type required")
+        out["content_type"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("QuickResponseData.status required")
+        out["status"] = ""
     if data.get("createdTime") is not None:
         import datetime
 
@@ -153,7 +151,11 @@ def deserialize_json(data: dict) -> QuickResponseData:
             float(data["createdTime"]), tz=datetime.timezone.utc
         )
     else:
-        raise DeserializationError("QuickResponseData.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastModifiedTime") is not None:
         import datetime
 
@@ -161,7 +163,11 @@ def deserialize_json(data: dict) -> QuickResponseData:
             float(data["lastModifiedTime"]), tz=datetime.timezone.utc
         )
     else:
-        raise DeserializationError("QuickResponseData.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("contents") is not None:
         import capo_wisdom.types.quick_response_contents
 

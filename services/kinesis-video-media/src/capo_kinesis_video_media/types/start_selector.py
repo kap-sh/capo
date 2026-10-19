@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_video_media.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_video_media.types.continuation_token
     import capo_kinesis_video_media.types.fragment_number_string
@@ -64,7 +62,11 @@ def deserialize_json(data: dict) -> StartSelector:
             )
         )
     else:
-        raise DeserializationError("StartSelector.start_selector_type required")
+        import typing
+
+        out["start_selector_type"] = typing.cast(
+            "capo_kinesis_video_media.types.start_selector_type.StartSelectorType", ""
+        )
     if data.get("AfterFragmentNumber") is not None:
         out["after_fragment_number"] = data["AfterFragmentNumber"]
     if data.get("StartTimestamp") is not None:

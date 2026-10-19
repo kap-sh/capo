@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.resource_status
 
@@ -53,7 +51,5 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateExadbVmClusterOutput:
     if data.get("exadbVmClusterId") is not None:
         out["exadb_vm_cluster_id"] = data["exadbVmClusterId"]
     else:
-        raise DeserializationError(
-            "UpdateExadbVmClusterOutput.exadb_vm_cluster_id required"
-        )
+        out["exadb_vm_cluster_id"] = ""
     return out

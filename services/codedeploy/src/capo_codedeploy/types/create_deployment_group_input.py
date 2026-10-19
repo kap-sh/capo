@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codedeploy.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codedeploy.types.alarm_configuration
     import capo_codedeploy.types.application_name
@@ -223,15 +221,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDeploymentGroupInput:
     if data.get("applicationName") is not None:
         out["application_name"] = data["applicationName"]
     else:
-        raise DeserializationError(
-            "CreateDeploymentGroupInput.application_name required"
-        )
+        out["application_name"] = ""
     if data.get("deploymentGroupName") is not None:
         out["deployment_group_name"] = data["deploymentGroupName"]
     else:
-        raise DeserializationError(
-            "CreateDeploymentGroupInput.deployment_group_name required"
-        )
+        out["deployment_group_name"] = ""
     if data.get("deploymentConfigName") is not None:
         out["deployment_config_name"] = data["deploymentConfigName"]
     if data.get("ec2TagFilters") is not None:
@@ -261,9 +255,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDeploymentGroupInput:
     if data.get("serviceRoleArn") is not None:
         out["service_role_arn"] = data["serviceRoleArn"]
     else:
-        raise DeserializationError(
-            "CreateDeploymentGroupInput.service_role_arn required"
-        )
+        out["service_role_arn"] = ""
     if data.get("triggerConfigurations") is not None:
         import capo_codedeploy.types.trigger_config_list
 

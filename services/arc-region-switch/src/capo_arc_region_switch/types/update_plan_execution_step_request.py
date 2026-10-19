@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.execution_comment
     import capo_arc_region_switch.types.execution_id
@@ -48,21 +46,19 @@ def deserialize_aws_json_1_0(data: dict) -> UpdatePlanExecutionStepRequest:
     if data.get("planArn") is not None:
         out["plan_arn"] = data["planArn"]
     else:
-        raise DeserializationError("UpdatePlanExecutionStepRequest.plan_arn required")
+        out["plan_arn"] = ""
     if data.get("executionId") is not None:
         out["execution_id"] = data["executionId"]
     else:
-        raise DeserializationError(
-            "UpdatePlanExecutionStepRequest.execution_id required"
-        )
+        out["execution_id"] = ""
     if data.get("comment") is not None:
         out["comment"] = data["comment"]
     else:
-        raise DeserializationError("UpdatePlanExecutionStepRequest.comment required")
+        out["comment"] = ""
     if data.get("stepName") is not None:
         out["step_name"] = data["stepName"]
     else:
-        raise DeserializationError("UpdatePlanExecutionStepRequest.step_name required")
+        out["step_name"] = ""
     if data.get("actionToTake") is not None:
         import capo_arc_region_switch.types.update_plan_execution_step_action
 
@@ -72,7 +68,10 @@ def deserialize_aws_json_1_0(data: dict) -> UpdatePlanExecutionStepRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdatePlanExecutionStepRequest.action_to_take required"
+        import typing
+
+        out["action_to_take"] = typing.cast(
+            "capo_arc_region_switch.types.update_plan_execution_step_action.UpdatePlanExecutionStepAction",
+            "",
         )
     return out

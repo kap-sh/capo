@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53profiles.errors import DeserializationError, ServiceError
+from capo_route53profiles.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_route53profiles.types.exception_message
@@ -32,7 +32,7 @@ def deserialize_json(data: dict) -> InvalidParameterException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("InvalidParameterException_.message required")
+        out["message"] = ""
     if data.get("FieldName") is not None:
         out["field_name"] = data["FieldName"]
     return out

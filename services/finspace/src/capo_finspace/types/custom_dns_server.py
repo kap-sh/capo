@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_finspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace.types.valid_hostname
     import capo_finspace.types.valid_ip_address
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> CustomDNSServer:
     if data.get("customDNSServerName") is not None:
         out["custom_dns_server_name"] = data["customDNSServerName"]
     else:
-        raise DeserializationError("CustomDNSServer.custom_dns_server_name required")
+        out["custom_dns_server_name"] = ""
     if data.get("customDNSServerIP") is not None:
         out["custom_dns_server_ip"] = data["customDNSServerIP"]
     else:
-        raise DeserializationError("CustomDNSServer.custom_dns_server_ip required")
+        out["custom_dns_server_ip"] = ""
     return out

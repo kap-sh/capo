@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.telemetry_sink_data
     import capo_groundstation.types.telemetry_sink_type
@@ -53,7 +51,11 @@ def deserialize_json(data: dict) -> TelemetrySinkConfig:
             )
         )
     else:
-        raise DeserializationError("TelemetrySinkConfig.telemetry_sink_type required")
+        import typing
+
+        out["telemetry_sink_type"] = typing.cast(
+            "capo_groundstation.types.telemetry_sink_type.TelemetrySinkType", ""
+        )
     if data.get("telemetrySinkData") is not None:
         import capo_groundstation.types.telemetry_sink_data
 
@@ -63,5 +65,9 @@ def deserialize_json(data: dict) -> TelemetrySinkConfig:
             )
         )
     else:
-        raise DeserializationError("TelemetrySinkConfig.telemetry_sink_data required")
+        import capo_groundstation.types._unknown
+
+        out["telemetry_sink_data"] = (
+            capo_groundstation.types._unknown.UnknownUnionMember("")
+        )
     return out

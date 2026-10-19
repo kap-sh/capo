@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.bandwidth
     import capo_direct_connect.types.connection_id
@@ -52,29 +50,23 @@ def deserialize_aws_json_1_1(data: dict) -> AllocateHostedConnectionRequest:
     if data.get("connectionId") is not None:
         out["connection_id"] = data["connectionId"]
     else:
-        raise DeserializationError(
-            "AllocateHostedConnectionRequest.connection_id required"
-        )
+        out["connection_id"] = ""
     if data.get("ownerAccount") is not None:
         out["owner_account"] = data["ownerAccount"]
     else:
-        raise DeserializationError(
-            "AllocateHostedConnectionRequest.owner_account required"
-        )
+        out["owner_account"] = ""
     if data.get("bandwidth") is not None:
         out["bandwidth"] = data["bandwidth"]
     else:
-        raise DeserializationError("AllocateHostedConnectionRequest.bandwidth required")
+        out["bandwidth"] = ""
     if data.get("connectionName") is not None:
         out["connection_name"] = data["connectionName"]
     else:
-        raise DeserializationError(
-            "AllocateHostedConnectionRequest.connection_name required"
-        )
+        out["connection_name"] = ""
     if data.get("vlan") is not None:
         out["vlan"] = data["vlan"]
     else:
-        raise DeserializationError("AllocateHostedConnectionRequest.vlan required")
+        out["vlan"] = 0
     if data.get("tags") is not None:
         import capo_direct_connect.types.tag_list
 

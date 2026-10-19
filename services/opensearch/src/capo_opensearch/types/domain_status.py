@@ -377,15 +377,15 @@ def deserialize_json(data: dict) -> DomainStatus:
     if data.get("DomainId") is not None:
         out["domain_id"] = data["DomainId"]
     else:
-        raise DeserializationError("DomainStatus.domain_id required")
+        out["domain_id"] = ""
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("DomainStatus.domain_name required")
+        out["domain_name"] = ""
     if data.get("ARN") is not None:
         out["arn"] = data["ARN"]
     else:
-        raise DeserializationError("DomainStatus.arn required")
+        out["arn"] = ""
     if data.get("Created") is not None:
         out["created"] = data["Created"]
     if data.get("Deleted") is not None:

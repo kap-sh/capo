@@ -72,7 +72,7 @@ def deserialize_json(data: dict) -> AssetEntry:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("AssetEntry.arn required")
+        out["arn"] = ""
     if data.get("AssetDetails") is not None:
         import capo_dataexchange.types.asset_details
 
@@ -84,7 +84,7 @@ def deserialize_json(data: dict) -> AssetEntry:
     if data.get("AssetType") is not None:
         out["asset_type"] = data["AssetType"]
     else:
-        raise DeserializationError("AssetEntry.asset_type required")
+        out["asset_type"] = ""
     if data.get("CreatedAt") is not None:
         import capo_dataexchange.types.timestamp
 
@@ -92,23 +92,25 @@ def deserialize_json(data: dict) -> AssetEntry:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("AssetEntry.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("DataSetId") is not None:
         out["data_set_id"] = data["DataSetId"]
     else:
-        raise DeserializationError("AssetEntry.data_set_id required")
+        out["data_set_id"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("AssetEntry.id required")
+        out["id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("AssetEntry.name required")
+        out["name"] = ""
     if data.get("RevisionId") is not None:
         out["revision_id"] = data["RevisionId"]
     else:
-        raise DeserializationError("AssetEntry.revision_id required")
+        out["revision_id"] = ""
     if data.get("SourceId") is not None:
         out["source_id"] = data["SourceId"]
     if data.get("UpdatedAt") is not None:
@@ -118,5 +120,7 @@ def deserialize_json(data: dict) -> AssetEntry:
             data["UpdatedAt"]
         )
     else:
-        raise DeserializationError("AssetEntry.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

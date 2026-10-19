@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.batch_get_blueprint_names
     import capo_glue.types.nullable_boolean
@@ -48,7 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetBlueprintsRequest:
             )
         )
     else:
-        raise DeserializationError("BatchGetBlueprintsRequest.names required")
+        out["names"] = []
     if data.get("IncludeBlueprint") is not None:
         out["include_blueprint"] = data["IncludeBlueprint"]
     if data.get("IncludeParameterSpec") is not None:

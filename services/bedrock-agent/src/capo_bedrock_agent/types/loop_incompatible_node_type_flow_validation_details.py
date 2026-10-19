@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.flow_node_name
     import capo_bedrock_agent.types.incompatible_loop_node_type
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> LoopIncompatibleNodeTypeFlowValidationDetail
     if data.get("node") is not None:
         out["node"] = data["node"]
     else:
-        raise DeserializationError(
-            "LoopIncompatibleNodeTypeFlowValidationDetails.node required"
-        )
+        out["node"] = ""
     if data.get("incompatibleNodeType") is not None:
         import capo_bedrock_agent.types.incompatible_loop_node_type
 
@@ -54,13 +50,14 @@ def deserialize_json(data: dict) -> LoopIncompatibleNodeTypeFlowValidationDetail
             )
         )
     else:
-        raise DeserializationError(
-            "LoopIncompatibleNodeTypeFlowValidationDetails.incompatible_node_type required"
+        import typing
+
+        out["incompatible_node_type"] = typing.cast(
+            "capo_bedrock_agent.types.incompatible_loop_node_type.IncompatibleLoopNodeType",
+            "",
         )
     if data.get("incompatibleNodeName") is not None:
         out["incompatible_node_name"] = data["incompatibleNodeName"]
     else:
-        raise DeserializationError(
-            "LoopIncompatibleNodeTypeFlowValidationDetails.incompatible_node_name required"
-        )
+        out["incompatible_node_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sso_admin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_admin.types.grant
 
@@ -33,5 +31,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetApplicationGrantResponse:
             data["Grant"]
         )
     else:
-        raise DeserializationError("GetApplicationGrantResponse.grant required")
+        import capo_sso_admin.types._unknown
+
+        out["grant"] = capo_sso_admin.types._unknown.UnknownUnionMember("")
     return out

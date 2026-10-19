@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.empty_next_token
     import capo_proton.types.repository_sync_definition_list
@@ -48,7 +46,5 @@ def deserialize_aws_json_1_0(data: dict) -> ListRepositorySyncDefinitionsOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListRepositorySyncDefinitionsOutput.sync_definitions required"
-        )
+        out["sync_definitions"] = []
     return out

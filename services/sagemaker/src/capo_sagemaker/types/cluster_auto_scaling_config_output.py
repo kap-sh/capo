@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker.types.cluster_auto_scaler_type
     import capo_sagemaker.types.cluster_auto_scaling_mode
@@ -64,7 +62,11 @@ def deserialize_aws_json_1_1(data: dict) -> ClusterAutoScalingConfigOutput:
             )
         )
     else:
-        raise DeserializationError("ClusterAutoScalingConfigOutput.mode required")
+        import typing
+
+        out["mode"] = typing.cast(
+            "capo_sagemaker.types.cluster_auto_scaling_mode.ClusterAutoScalingMode", ""
+        )
     if data.get("AutoScalerType") is not None:
         import capo_sagemaker.types.cluster_auto_scaler_type
 
@@ -82,7 +84,12 @@ def deserialize_aws_json_1_1(data: dict) -> ClusterAutoScalingConfigOutput:
             )
         )
     else:
-        raise DeserializationError("ClusterAutoScalingConfigOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_sagemaker.types.cluster_auto_scaling_status.ClusterAutoScalingStatus",
+            "",
+        )
     if data.get("FailureMessage") is not None:
         out["failure_message"] = data["FailureMessage"]
     return out

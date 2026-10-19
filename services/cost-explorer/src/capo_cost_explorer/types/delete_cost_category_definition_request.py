@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteCostCategoryDefinitionRequest:
     if data.get("CostCategoryArn") is not None:
         out["cost_category_arn"] = data["CostCategoryArn"]
     else:
-        raise DeserializationError(
-            "DeleteCostCategoryDefinitionRequest.cost_category_arn required"
-        )
+        out["cost_category_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.snowflake_private_link_vpce_id
 
@@ -29,9 +27,7 @@ def deserialize_aws_json_1_1(data: dict) -> SnowflakeVpcConfiguration:
     if data.get("PrivateLinkVpceId") is not None:
         out["private_link_vpce_id"] = data["PrivateLinkVpceId"]
     else:
-        raise DeserializationError(
-            "SnowflakeVpcConfiguration.private_link_vpce_id required"
-        )
+        out["private_link_vpce_id"] = ""
     return out
 
 

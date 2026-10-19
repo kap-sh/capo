@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.bucket_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreateBucketAccessKeyRequest:
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError("CreateBucketAccessKeyRequest.bucket_name required")
+        out["bucket_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.s3_table_integration_source_identifier
 
@@ -31,7 +29,5 @@ def deserialize_aws_json_1_1(
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError(
-            "DisassociateSourceFromS3TableIntegrationRequest.identifier required"
-        )
+        out["identifier"] = ""
     return out

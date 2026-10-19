@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.data_integration_flow_s3_options
     import capo_supplychain.types.data_integration_flow_s3_prefix
@@ -44,15 +42,11 @@ def deserialize_json(data: dict) -> DataIntegrationFlowS3TargetConfiguration:
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError(
-            "DataIntegrationFlowS3TargetConfiguration.bucket_name required"
-        )
+        out["bucket_name"] = ""
     if data.get("prefix") is not None:
         out["prefix"] = data["prefix"]
     else:
-        raise DeserializationError(
-            "DataIntegrationFlowS3TargetConfiguration.prefix required"
-        )
+        out["prefix"] = ""
     if data.get("options") is not None:
         import capo_supplychain.types.data_integration_flow_s3_options
 

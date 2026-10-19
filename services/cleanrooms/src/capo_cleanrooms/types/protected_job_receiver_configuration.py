@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.protected_job_analysis_type
     import capo_cleanrooms.types.protected_job_configuration_details
@@ -54,8 +52,11 @@ def deserialize_json(data: dict) -> ProtectedJobReceiverConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ProtectedJobReceiverConfiguration.analysis_type required"
+        import typing
+
+        out["analysis_type"] = typing.cast(
+            "capo_cleanrooms.types.protected_job_analysis_type.ProtectedJobAnalysisType",
+            "",
         )
     if data.get("configurationDetails") is not None:
         import capo_cleanrooms.types.protected_job_configuration_details

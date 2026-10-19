@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.pull_request_id
     import capo_codecommit.types.pull_request_status_enum
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdatePullRequestStatusInput:
     if data.get("pullRequestId") is not None:
         out["pull_request_id"] = data["pullRequestId"]
     else:
-        raise DeserializationError(
-            "UpdatePullRequestStatusInput.pull_request_id required"
-        )
+        out["pull_request_id"] = ""
     if data.get("pullRequestStatus") is not None:
         import capo_codecommit.types.pull_request_status_enum
 
@@ -51,7 +47,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdatePullRequestStatusInput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdatePullRequestStatusInput.pull_request_status required"
+        import typing
+
+        out["pull_request_status"] = typing.cast(
+            "capo_codecommit.types.pull_request_status_enum.PullRequestStatusEnum", ""
         )
     return out

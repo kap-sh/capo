@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_serverless.types.application_arn
     import capo_emr_serverless.types.application_id
@@ -36,11 +34,11 @@ def deserialize_json(data: dict) -> CreateApplicationResponse:
     if data.get("applicationId") is not None:
         out["application_id"] = data["applicationId"]
     else:
-        raise DeserializationError("CreateApplicationResponse.application_id required")
+        out["application_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CreateApplicationResponse.arn required")
+        out["arn"] = ""
     return out

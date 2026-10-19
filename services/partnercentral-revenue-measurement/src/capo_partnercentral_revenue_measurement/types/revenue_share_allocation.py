@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_revenue_measurement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_revenue_measurement.types.allocation_effective_date_string
     import capo_partnercentral_revenue_measurement.types.allocation_status
@@ -90,7 +88,12 @@ def deserialize_cbor(data: dict) -> RevenueShareAllocation:
             )
         )
     else:
-        raise DeserializationError("RevenueShareAllocation.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_partnercentral_revenue_measurement.types.revenue_attribution_allocation_action.RevenueAttributionAllocationAction",
+            "",
+        )
     if data.get("RevenueAttributionAllocationId") is not None:
         out["revenue_attribution_allocation_id"] = data[
             "RevenueAttributionAllocationId"
@@ -104,31 +107,31 @@ def deserialize_cbor(data: dict) -> RevenueShareAllocation:
             )
         )
     else:
-        raise DeserializationError("RevenueShareAllocation.entity_type required")
+        import typing
+
+        out["entity_type"] = typing.cast(
+            "capo_partnercentral_revenue_measurement.types.entity_type.EntityType", ""
+        )
     if data.get("EntityIdentifier") is not None:
         out["entity_identifier"] = data["EntityIdentifier"]
     else:
-        raise DeserializationError("RevenueShareAllocation.entity_identifier required")
+        out["entity_identifier"] = ""
     if data.get("CustomerAwsAccountId") is not None:
         out["customer_aws_account_id"] = data["CustomerAwsAccountId"]
     else:
-        raise DeserializationError(
-            "RevenueShareAllocation.customer_aws_account_id required"
-        )
+        out["customer_aws_account_id"] = ""
     if data.get("RevenueSharePercent") is not None:
         out["revenue_share_percent"] = data["RevenueSharePercent"]
     else:
-        raise DeserializationError(
-            "RevenueShareAllocation.revenue_share_percent required"
-        )
+        out["revenue_share_percent"] = ""
     if data.get("EffectiveFrom") is not None:
         out["effective_from"] = data["EffectiveFrom"]
     else:
-        raise DeserializationError("RevenueShareAllocation.effective_from required")
+        out["effective_from"] = ""
     if data.get("EffectiveUntil") is not None:
         out["effective_until"] = data["EffectiveUntil"]
     else:
-        raise DeserializationError("RevenueShareAllocation.effective_until required")
+        out["effective_until"] = ""
     if data.get("Status") is not None:
         import capo_partnercentral_revenue_measurement.types.allocation_status
 

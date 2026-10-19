@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.position
     import capo_geo_routes.types.waypoint_id
@@ -49,13 +47,11 @@ def deserialize_json(data: dict) -> WaypointOptimizationImpedingWaypoint:
             )
         )
     else:
-        raise DeserializationError(
-            "WaypointOptimizationImpedingWaypoint.failed_constraints required"
-        )
+        out["failed_constraints"] = []
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("WaypointOptimizationImpedingWaypoint.id required")
+        out["id"] = ""
     if data.get("Position") is not None:
         import capo_geo_routes.types.position
 
@@ -63,9 +59,7 @@ def deserialize_json(data: dict) -> WaypointOptimizationImpedingWaypoint:
             data["Position"]
         )
     else:
-        raise DeserializationError(
-            "WaypointOptimizationImpedingWaypoint.position required"
-        )
+        out["position"] = []
     return out
 
 

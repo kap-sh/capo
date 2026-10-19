@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.uuid
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> SendDataIntegrationEventResponse:
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError("SendDataIntegrationEventResponse.event_id required")
+        out["event_id"] = ""
     return out

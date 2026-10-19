@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -69,7 +67,7 @@ def deserialize_json(data: dict) -> StartScanJobInput:
     if data.get("BackupVaultName") is not None:
         out["backup_vault_name"] = data["BackupVaultName"]
     else:
-        raise DeserializationError("StartScanJobInput.backup_vault_name required")
+        out["backup_vault_name"] = ""
     if data.get("ContinuousScanEndTime") is not None:
         import capo_backup.types._prelude.timestamp
 
@@ -81,7 +79,7 @@ def deserialize_json(data: dict) -> StartScanJobInput:
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     else:
-        raise DeserializationError("StartScanJobInput.iam_role_arn required")
+        out["iam_role_arn"] = ""
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     if data.get("MalwareScanner") is not None:
@@ -91,11 +89,15 @@ def deserialize_json(data: dict) -> StartScanJobInput:
             data["MalwareScanner"]
         )
     else:
-        raise DeserializationError("StartScanJobInput.malware_scanner required")
+        import typing
+
+        out["malware_scanner"] = typing.cast(
+            "capo_backup.types.malware_scanner.MalwareScanner", ""
+        )
     if data.get("RecoveryPointArn") is not None:
         out["recovery_point_arn"] = data["RecoveryPointArn"]
     else:
-        raise DeserializationError("StartScanJobInput.recovery_point_arn required")
+        out["recovery_point_arn"] = ""
     if data.get("ScanBaseRecoveryPointArn") is not None:
         out["scan_base_recovery_point_arn"] = data["ScanBaseRecoveryPointArn"]
     if data.get("ScanMode") is not None:
@@ -105,9 +107,11 @@ def deserialize_json(data: dict) -> StartScanJobInput:
             data["ScanMode"]
         )
     else:
-        raise DeserializationError("StartScanJobInput.scan_mode required")
+        import typing
+
+        out["scan_mode"] = typing.cast("capo_backup.types.scan_mode.ScanMode", "")
     if data.get("ScannerRoleArn") is not None:
         out["scanner_role_arn"] = data["ScannerRoleArn"]
     else:
-        raise DeserializationError("StartScanJobInput.scanner_role_arn required")
+        out["scanner_role_arn"] = ""
     return out

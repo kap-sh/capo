@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.created_at
     import capo_deadline.types.created_by
@@ -113,7 +111,7 @@ def deserialize_json(data: dict) -> GetTaskResponse:
     if data.get("taskId") is not None:
         out["task_id"] = data["taskId"]
     else:
-        raise DeserializationError("GetTaskResponse.task_id required")
+        out["task_id"] = ""
     if data.get("createdAt") is not None:
         import capo_deadline.types.created_at
 
@@ -121,11 +119,13 @@ def deserialize_json(data: dict) -> GetTaskResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("GetTaskResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("GetTaskResponse.created_by required")
+        out["created_by"] = ""
     if data.get("runStatus") is not None:
         import capo_deadline.types.task_run_status
 
@@ -133,7 +133,11 @@ def deserialize_json(data: dict) -> GetTaskResponse:
             data["runStatus"]
         )
     else:
-        raise DeserializationError("GetTaskResponse.run_status required")
+        import typing
+
+        out["run_status"] = typing.cast(
+            "capo_deadline.types.task_run_status.TaskRunStatus", ""
+        )
     if data.get("targetRunStatus") is not None:
         import capo_deadline.types.task_target_run_status
 

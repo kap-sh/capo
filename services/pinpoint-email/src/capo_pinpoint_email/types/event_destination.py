@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_email.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_email.types.cloud_watch_destination
     import capo_pinpoint_email.types.enabled
@@ -91,7 +89,7 @@ def deserialize_json(data: dict) -> EventDestination:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("EventDestination.name required")
+        out["name"] = ""
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
@@ -105,7 +103,7 @@ def deserialize_json(data: dict) -> EventDestination:
             )
         )
     else:
-        raise DeserializationError("EventDestination.matching_event_types required")
+        out["matching_event_types"] = []
     if data.get("KinesisFirehoseDestination") is not None:
         import capo_pinpoint_email.types.kinesis_firehose_destination
 

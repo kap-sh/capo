@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.general_input_string
     import capo_odb.types.resource_id_or_arn
@@ -72,9 +70,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateAutonomousDatabaseWalletInput:
     if data.get("autonomousDatabaseId") is not None:
         out["autonomous_database_id"] = data["autonomousDatabaseId"]
     else:
-        raise DeserializationError(
-            "CreateAutonomousDatabaseWalletInput.autonomous_database_id required"
-        )
+        out["autonomous_database_id"] = ""
     if data.get("walletType") is not None:
         import capo_odb.types.wallet_type
 

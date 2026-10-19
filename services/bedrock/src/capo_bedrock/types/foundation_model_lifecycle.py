@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.foundation_model_lifecycle_status
     import capo_bedrock.types.timestamp
@@ -70,7 +68,12 @@ def deserialize_json(data: dict) -> FoundationModelLifecycle:
             )
         )
     else:
-        raise DeserializationError("FoundationModelLifecycle.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock.types.foundation_model_lifecycle_status.FoundationModelLifecycleStatus",
+            "",
+        )
     if data.get("startOfLifeTime") is not None:
         import capo_bedrock.types.timestamp
 

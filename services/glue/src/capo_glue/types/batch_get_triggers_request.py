@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.trigger_name_list
 
@@ -37,5 +35,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetTriggersRequest:
             )
         )
     else:
-        raise DeserializationError("BatchGetTriggersRequest.trigger_names required")
+        out["trigger_names"] = []
     return out

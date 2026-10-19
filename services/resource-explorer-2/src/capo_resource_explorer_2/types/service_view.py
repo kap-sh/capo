@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resource_explorer_2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resource_explorer_2.types.included_property_list
     import capo_resource_explorer_2.types.search_filter
@@ -75,7 +73,7 @@ def deserialize_json(data: dict) -> ServiceView:
     if data.get("ServiceViewArn") is not None:
         out["service_view_arn"] = data["ServiceViewArn"]
     else:
-        raise DeserializationError("ServiceView.service_view_arn required")
+        out["service_view_arn"] = ""
     if data.get("ServiceViewName") is not None:
         out["service_view_name"] = data["ServiceViewName"]
     if data.get("Filters") is not None:

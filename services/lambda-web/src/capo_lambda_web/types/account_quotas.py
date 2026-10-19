@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_lambda_web.errors import DeserializationError
-
 
 class AccountQuotas(TypedDict, closed=True):
     max_total_arm_v_cpus: "int"
@@ -31,17 +29,17 @@ def deserialize_json(data: dict) -> AccountQuotas:
     if data.get("maxTotalArmVCpus") is not None:
         out["max_total_arm_v_cpus"] = data["maxTotalArmVCpus"]
     else:
-        raise DeserializationError("AccountQuotas.max_total_arm_v_cpus required")
+        out["max_total_arm_v_cpus"] = 0
     if data.get("maxTotalRateLimit") is not None:
         out["max_total_rate_limit"] = data["maxTotalRateLimit"]
     else:
-        raise DeserializationError("AccountQuotas.max_total_rate_limit required")
+        out["max_total_rate_limit"] = 0
     if data.get("maxRevisionsPerFunction") is not None:
         out["max_revisions_per_function"] = data["maxRevisionsPerFunction"]
     else:
-        raise DeserializationError("AccountQuotas.max_revisions_per_function required")
+        out["max_revisions_per_function"] = 0
     if data.get("maxEndpointsPerFunction") is not None:
         out["max_endpoints_per_function"] = data["maxEndpointsPerFunction"]
     else:
-        raise DeserializationError("AccountQuotas.max_endpoints_per_function required")
+        out["max_endpoints_per_function"] = 0
     return out

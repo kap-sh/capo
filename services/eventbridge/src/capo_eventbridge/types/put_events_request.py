@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eventbridge.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridge.types.endpoint_id
     import capo_eventbridge.types.put_events_request_entry_list
@@ -46,7 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutEventsRequest:
             )
         )
     else:
-        raise DeserializationError("PutEventsRequest.entries required")
+        out["entries"] = []
     if data.get("EndpointId") is not None:
         out["endpoint_id"] = data["EndpointId"]
     return out

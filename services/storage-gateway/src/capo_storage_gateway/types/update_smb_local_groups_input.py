@@ -36,7 +36,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateSMBLocalGroupsInput:
     if data.get("GatewayARN") is not None:
         out["gateway_arn"] = data["GatewayARN"]
     else:
-        raise DeserializationError("UpdateSMBLocalGroupsInput.gateway_arn required")
+        out["gateway_arn"] = ""
     if data.get("SMBLocalGroups") is not None:
         import capo_storage_gateway.types.smb_local_groups
 

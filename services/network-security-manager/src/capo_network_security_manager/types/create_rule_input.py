@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.description
     import capo_network_security_manager.types.idempotency_token
@@ -83,7 +81,7 @@ def deserialize_json(data: dict) -> CreateRuleInput:
     if data.get("ruleName") is not None:
         out["rule_name"] = data["ruleName"]
     else:
-        raise DeserializationError("CreateRuleInput.rule_name required")
+        out["rule_name"] = ""
     if data.get("firewallType") is not None:
         import capo_network_security_manager.types.rule_firewall_type
 
@@ -93,7 +91,12 @@ def deserialize_json(data: dict) -> CreateRuleInput:
             )
         )
     else:
-        raise DeserializationError("CreateRuleInput.firewall_type required")
+        import typing
+
+        out["firewall_type"] = typing.cast(
+            "capo_network_security_manager.types.rule_firewall_type.RuleFirewallType",
+            "",
+        )
     if data.get("ruleType") is not None:
         import capo_network_security_manager.types.rule_type
 
@@ -103,13 +106,17 @@ def deserialize_json(data: dict) -> CreateRuleInput:
             )
         )
     else:
-        raise DeserializationError("CreateRuleInput.rule_type required")
+        import typing
+
+        out["rule_type"] = typing.cast(
+            "capo_network_security_manager.types.rule_type.RuleType", ""
+        )
     if data.get("ruleDescription") is not None:
         out["rule_description"] = data["ruleDescription"]
     if data.get("configuration") is not None:
         out["configuration"] = data["configuration"]
     else:
-        raise DeserializationError("CreateRuleInput.configuration required")
+        out["configuration"] = None
     if data.get("isPublished") is not None:
         out["is_published"] = data["isPublished"]
     if data.get("tags") is not None:

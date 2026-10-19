@@ -77,15 +77,11 @@ def deserialize_json(data: dict) -> StartOutboundEmailContactRequest:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError(
-            "StartOutboundEmailContactRequest.instance_id required"
-        )
+        out["instance_id"] = ""
     if data.get("ContactId") is not None:
         out["contact_id"] = data["ContactId"]
     else:
-        raise DeserializationError(
-            "StartOutboundEmailContactRequest.contact_id required"
-        )
+        out["contact_id"] = ""
     if data.get("FromEmailAddress") is not None:
         import capo_connect.types.email_address_info
 

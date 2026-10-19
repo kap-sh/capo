@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 
 class SpanContext(TypedDict, closed=True):
     session_id: "str"
@@ -30,7 +28,7 @@ def deserialize_json(data: dict) -> SpanContext:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("SpanContext.session_id required")
+        out["session_id"] = ""
     if data.get("traceId") is not None:
         out["trace_id"] = data["traceId"]
     if data.get("spanId") is not None:

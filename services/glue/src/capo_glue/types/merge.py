@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.glue_studio_path_list
     import capo_glue.types.node_id
@@ -45,7 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> Merge:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Merge.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.two_inputs
 
@@ -53,11 +51,11 @@ def deserialize_aws_json_1_1(data: dict) -> Merge:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("Merge.inputs required")
+        out["inputs"] = []
     if data.get("Source") is not None:
         out["source"] = data["Source"]
     else:
-        raise DeserializationError("Merge.source required")
+        out["source"] = ""
     if data.get("PrimaryKeys") is not None:
         import capo_glue.types.glue_studio_path_list
 
@@ -67,5 +65,5 @@ def deserialize_aws_json_1_1(data: dict) -> Merge:
             )
         )
     else:
-        raise DeserializationError("Merge.primary_keys required")
+        out["primary_keys"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.api_key
     import capo_appflow.types.application_key
@@ -31,15 +29,11 @@ def deserialize_json(data: dict) -> DatadogConnectorProfileCredentials:
     if data.get("apiKey") is not None:
         out["api_key"] = data["apiKey"]
     else:
-        raise DeserializationError(
-            "DatadogConnectorProfileCredentials.api_key required"
-        )
+        out["api_key"] = ""
     if data.get("applicationKey") is not None:
         out["application_key"] = data["applicationKey"]
     else:
-        raise DeserializationError(
-            "DatadogConnectorProfileCredentials.application_key required"
-        )
+        out["application_key"] = ""
     return out
 
 

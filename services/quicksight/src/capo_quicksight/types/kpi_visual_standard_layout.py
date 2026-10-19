@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.kpi_visual_standard_layout_type
 
@@ -37,5 +35,10 @@ def deserialize_json(data: dict) -> KPIVisualStandardLayout:
             )
         )
     else:
-        raise DeserializationError("KPIVisualStandardLayout.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_quicksight.types.kpi_visual_standard_layout_type.KPIVisualStandardLayoutType",
+            "",
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.agent_traces_config
     import capo_bedrock_agentcore.types.recommendation_evaluation_config
@@ -64,8 +62,10 @@ def deserialize_json(data: dict) -> SystemPromptRecommendationConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "SystemPromptRecommendationConfig.system_prompt required"
+        import capo_bedrock_agentcore.types._unknown
+
+        out["system_prompt"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember(
+            ""
         )
     if data.get("agentTraces") is not None:
         import capo_bedrock_agentcore.types.agent_traces_config
@@ -76,8 +76,10 @@ def deserialize_json(data: dict) -> SystemPromptRecommendationConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "SystemPromptRecommendationConfig.agent_traces required"
+        import capo_bedrock_agentcore.types._unknown
+
+        out["agent_traces"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember(
+            ""
         )
     if data.get("evaluationConfig") is not None:
         import capo_bedrock_agentcore.types.recommendation_evaluation_config

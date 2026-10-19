@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmonitor.types.monitor_list
 
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> ListMonitorsOutput:
             data["monitors"]
         )
     else:
-        raise DeserializationError("ListMonitorsOutput.monitors required")
+        out["monitors"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

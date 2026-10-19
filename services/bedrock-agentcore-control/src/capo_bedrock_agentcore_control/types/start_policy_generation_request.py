@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.client_token
     import capo_bedrock_agentcore_control.types.content
@@ -59,7 +57,11 @@ def deserialize_json(data: dict) -> StartPolicyGenerationRequest:
             )
         )
     else:
-        raise DeserializationError("StartPolicyGenerationRequest.resource required")
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["resource"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
+        )
     if data.get("content") is not None:
         import capo_bedrock_agentcore_control.types.content
 
@@ -67,11 +69,15 @@ def deserialize_json(data: dict) -> StartPolicyGenerationRequest:
             data["content"]
         )
     else:
-        raise DeserializationError("StartPolicyGenerationRequest.content required")
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["content"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
+        )
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("StartPolicyGenerationRequest.name required")
+        out["name"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

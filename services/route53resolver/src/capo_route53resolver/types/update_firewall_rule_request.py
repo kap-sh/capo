@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.action
     import capo_route53resolver.types.block_override_dns_type
@@ -155,9 +153,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateFirewallRuleRequest:
     if data.get("FirewallRuleGroupId") is not None:
         out["firewall_rule_group_id"] = data["FirewallRuleGroupId"]
     else:
-        raise DeserializationError(
-            "UpdateFirewallRuleRequest.firewall_rule_group_id required"
-        )
+        out["firewall_rule_group_id"] = ""
     if data.get("FirewallDomainListId") is not None:
         out["firewall_domain_list_id"] = data["FirewallDomainListId"]
     if data.get("FirewallThreatProtectionId") is not None:

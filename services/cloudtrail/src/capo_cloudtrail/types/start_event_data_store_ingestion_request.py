@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.event_data_store_arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> StartEventDataStoreIngestionRequest:
     if data.get("EventDataStore") is not None:
         out["event_data_store"] = data["EventDataStore"]
     else:
-        raise DeserializationError(
-            "StartEventDataStoreIngestionRequest.event_data_store required"
-        )
+        out["event_data_store"] = ""
     return out

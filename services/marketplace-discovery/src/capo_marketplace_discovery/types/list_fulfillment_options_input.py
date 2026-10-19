@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.locale
     import capo_marketplace_discovery.types.next_token
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> ListFulfillmentOptionsInput:
     if data.get("productId") is not None:
         out["product_id"] = data["productId"]
     else:
-        raise DeserializationError("ListFulfillmentOptionsInput.product_id required")
+        out["product_id"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

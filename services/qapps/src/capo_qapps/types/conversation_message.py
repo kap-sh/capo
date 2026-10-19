@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.sender
 
@@ -32,11 +30,13 @@ def deserialize_json(data: dict) -> ConversationMessage:
     if data.get("body") is not None:
         out["body"] = data["body"]
     else:
-        raise DeserializationError("ConversationMessage.body required")
+        out["body"] = ""
     if data.get("type") is not None:
         import capo_qapps.types.sender
 
         out["type"] = capo_qapps.types.sender.deserialize_json(data["type"])
     else:
-        raise DeserializationError("ConversationMessage.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_qapps.types.sender.Sender", "")
     return out

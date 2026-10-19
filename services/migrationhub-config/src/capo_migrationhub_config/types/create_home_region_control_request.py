@@ -40,9 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateHomeRegionControlRequest:
     if data.get("HomeRegion") is not None:
         out["home_region"] = data["HomeRegion"]
     else:
-        raise DeserializationError(
-            "CreateHomeRegionControlRequest.home_region required"
-        )
+        out["home_region"] = ""
     if data.get("Target") is not None:
         import capo_migrationhub_config.types.target
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.private_endpoint
     import capo_bedrock_agentcore_control.types.private_endpoint_override_domain
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> PrivateEndpointOverride:
     if data.get("domain") is not None:
         out["domain"] = data["domain"]
     else:
-        raise DeserializationError("PrivateEndpointOverride.domain required")
+        out["domain"] = ""
     if data.get("privateEndpoint") is not None:
         import capo_bedrock_agentcore_control.types.private_endpoint
 
@@ -49,5 +47,9 @@ def deserialize_json(data: dict) -> PrivateEndpointOverride:
             )
         )
     else:
-        raise DeserializationError("PrivateEndpointOverride.private_endpoint required")
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["private_endpoint"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
+        )
     return out

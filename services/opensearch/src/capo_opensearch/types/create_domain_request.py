@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.advanced_options
     import capo_opensearch.types.advanced_security_options_input
@@ -285,7 +283,7 @@ def deserialize_json(data: dict) -> CreateDomainRequest:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("CreateDomainRequest.domain_name required")
+        out["domain_name"] = ""
     if data.get("EngineVersion") is not None:
         out["engine_version"] = data["EngineVersion"]
     if data.get("ClusterConfig") is not None:

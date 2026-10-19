@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeFeatureTransformationRequest
     if data.get("featureTransformationArn") is not None:
         out["feature_transformation_arn"] = data["featureTransformationArn"]
     else:
-        raise DeserializationError(
-            "DescribeFeatureTransformationRequest.feature_transformation_arn required"
-        )
+        out["feature_transformation_arn"] = ""
     return out

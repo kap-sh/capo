@@ -40,7 +40,7 @@ def deserialize_json(data: dict) -> StartMigrationRequest:
     if data.get("applicationId") is not None:
         out["application_id"] = data["applicationId"]
     else:
-        raise DeserializationError("StartMigrationRequest.application_id required")
+        out["application_id"] = ""
     if data.get("migrationOptions") is not None:
         import capo_opensearch.types.migration_options
 

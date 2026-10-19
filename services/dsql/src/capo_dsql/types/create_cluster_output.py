@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dsql.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dsql.types.cluster_arn
     import capo_dsql.types.cluster_creation_time
@@ -80,17 +78,19 @@ def deserialize_json(data: dict) -> CreateClusterOutput:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("CreateClusterOutput.identifier required")
+        out["identifier"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CreateClusterOutput.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_dsql.types.cluster_status
 
         out["status"] = capo_dsql.types.cluster_status.deserialize_json(data["status"])
     else:
-        raise DeserializationError("CreateClusterOutput.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_dsql.types.cluster_status.ClusterStatus", "")
     if data.get("creationTime") is not None:
         import capo_dsql.types.cluster_creation_time
 
@@ -98,7 +98,11 @@ def deserialize_json(data: dict) -> CreateClusterOutput:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("CreateClusterOutput.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("multiRegionProperties") is not None:
         import capo_dsql.types.multi_region_properties
 
@@ -116,9 +120,7 @@ def deserialize_json(data: dict) -> CreateClusterOutput:
     if data.get("deletionProtectionEnabled") is not None:
         out["deletion_protection_enabled"] = data["deletionProtectionEnabled"]
     else:
-        raise DeserializationError(
-            "CreateClusterOutput.deletion_protection_enabled required"
-        )
+        out["deletion_protection_enabled"] = False
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     return out

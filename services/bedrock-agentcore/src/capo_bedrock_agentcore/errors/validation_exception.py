@@ -7,7 +7,7 @@ import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_bedrock_agentcore._protocol.eventstream import HeaderValue, Message
-from capo_bedrock_agentcore.errors import DeserializationError, ServiceError
+from capo_bedrock_agentcore.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.validation_exception_field_list
@@ -49,7 +49,7 @@ def deserialize_json(data: dict) -> ValidationException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ValidationException_.message required")
+        out["message"] = ""
     if data.get("reason") is not None:
         import capo_bedrock_agentcore.types.validation_exception_reason
 
@@ -59,7 +59,12 @@ def deserialize_json(data: dict) -> ValidationException_:
             )
         )
     else:
-        raise DeserializationError("ValidationException_.reason required")
+        import typing
+
+        out["reason"] = typing.cast(
+            "capo_bedrock_agentcore.types.validation_exception_reason.ValidationExceptionReason",
+            "",
+        )
     if data.get("fieldList") is not None:
         import capo_bedrock_agentcore.types.validation_exception_field_list
 

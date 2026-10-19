@@ -49,9 +49,7 @@ def deserialize_json(data: dict) -> DataIntegrationEventDatasetTargetDetails:
     if data.get("datasetIdentifier") is not None:
         out["dataset_identifier"] = data["datasetIdentifier"]
     else:
-        raise DeserializationError(
-            "DataIntegrationEventDatasetTargetDetails.dataset_identifier required"
-        )
+        out["dataset_identifier"] = ""
     if data.get("operationType") is not None:
         import capo_supplychain.types.data_integration_event_dataset_operation_type
 
@@ -61,8 +59,11 @@ def deserialize_json(data: dict) -> DataIntegrationEventDatasetTargetDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "DataIntegrationEventDatasetTargetDetails.operation_type required"
+        import typing
+
+        out["operation_type"] = typing.cast(
+            "capo_supplychain.types.data_integration_event_dataset_operation_type.DataIntegrationEventDatasetOperationType",
+            "",
         )
     if data.get("datasetLoadExecution") is not None:
         import capo_supplychain.types.data_integration_event_dataset_load_execution_details

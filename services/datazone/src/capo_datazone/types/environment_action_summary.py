@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.action_parameters
     import capo_datazone.types.domain_id
@@ -50,19 +48,19 @@ def deserialize_json(data: dict) -> EnvironmentActionSummary:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("EnvironmentActionSummary.domain_id required")
+        out["domain_id"] = ""
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError("EnvironmentActionSummary.environment_id required")
+        out["environment_id"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("EnvironmentActionSummary.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("EnvironmentActionSummary.name required")
+        out["name"] = ""
     if data.get("parameters") is not None:
         import capo_datazone.types.action_parameters
 
@@ -70,7 +68,9 @@ def deserialize_json(data: dict) -> EnvironmentActionSummary:
             data["parameters"]
         )
     else:
-        raise DeserializationError("EnvironmentActionSummary.parameters required")
+        import capo_datazone.types._unknown
+
+        out["parameters"] = capo_datazone.types._unknown.UnknownUnionMember("")
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

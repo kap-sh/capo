@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudsearch._protocol.xml import Element
-from capo_cloudsearch.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudsearch.types.arn
@@ -113,12 +112,12 @@ def deserialize_query(el: Element) -> DomainStatus:
     if child_domain_id is not None:
         out["domain_id"] = str(child_domain_id.text or "")
     else:
-        raise DeserializationError("DomainStatus.domain_id required")
+        out["domain_id"] = ""
     child_domain_name = el.find("DomainName")
     if child_domain_name is not None:
         out["domain_name"] = str(child_domain_name.text or "")
     else:
-        raise DeserializationError("DomainStatus.domain_name required")
+        out["domain_name"] = ""
     child_arn = el.find("ARN")
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
@@ -150,7 +149,7 @@ def deserialize_query(el: Element) -> DomainStatus:
             child_requires_index_documents.text or ""
         ).lower() == "true"
     else:
-        raise DeserializationError("DomainStatus.requires_index_documents required")
+        out["requires_index_documents"] = False
     child_processing = el.find("Processing")
     if child_processing is not None:
         out["processing"] = (child_processing.text or "").lower() == "true"

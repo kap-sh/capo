@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_cloudfront_keyvaluestore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudfront_keyvaluestore.types.etag
     import capo_cloudfront_keyvaluestore.types.key
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> PutKeyRequest:
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("PutKeyRequest.value required")
+        out["value"] = ""
     return out
 
 

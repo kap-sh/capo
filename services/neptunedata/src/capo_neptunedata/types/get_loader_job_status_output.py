@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_neptunedata.errors import DeserializationError
-
 
 class GetLoaderJobStatusOutput(TypedDict, closed=True):
     status: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> GetLoaderJobStatusOutput:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("GetLoaderJobStatusOutput.status required")
+        out["status"] = ""
     if data.get("payload") is not None:
         out["payload"] = data["payload"]
     else:
-        raise DeserializationError("GetLoaderJobStatusOutput.payload required")
+        out["payload"] = None
     return out

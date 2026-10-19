@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_acm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm.types.acme_authorization_behavior
     import capo_acm.types.acme_contact
@@ -81,8 +79,10 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAcmeEndpointRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAcmeEndpointRequest.authorization_behavior required"
+        import typing
+
+        out["authorization_behavior"] = typing.cast(
+            "capo_acm.types.acme_authorization_behavior.AcmeAuthorizationBehavior", ""
         )
     if data.get("Contact") is not None:
         import capo_acm.types.acme_contact
@@ -99,9 +99,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAcmeEndpointRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAcmeEndpointRequest.certificate_authority required"
-        )
+        import capo_acm.types._unknown
+
+        out["certificate_authority"] = capo_acm.types._unknown.UnknownUnionMember("")
     if data.get("Tags") is not None:
         import capo_acm.types.tag_list
 

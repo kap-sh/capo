@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.codegen_generic_data_enum_values_list
 
@@ -39,5 +37,5 @@ def deserialize_json(data: dict) -> CodegenGenericDataEnum:
             )
         )
     else:
-        raise DeserializationError("CodegenGenericDataEnum.values required")
+        out["values"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.json_path_string
 
@@ -31,7 +29,7 @@ def deserialize_aws_json_1_1(data: dict) -> ResponseConfiguration:
     if data.get("ResultPath") is not None:
         out["result_path"] = data["ResultPath"]
     else:
-        raise DeserializationError("ResponseConfiguration.result_path required")
+        out["result_path"] = ""
     if data.get("ErrorPath") is not None:
         out["error_path"] = data["ErrorPath"]
     return out

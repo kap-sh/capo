@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> CreateQuickConnectRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateQuickConnectRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("QuickConnectConfig") is not None:

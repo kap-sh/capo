@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.profile_validation_error_reason
 
@@ -39,11 +37,11 @@ def deserialize_aws_json_1_0(data: dict) -> ErrorDetail:
     if data.get("Locale") is not None:
         out["locale"] = data["Locale"]
     else:
-        raise DeserializationError("ErrorDetail.locale required")
+        out["locale"] = ""
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("ErrorDetail.message required")
+        out["message"] = ""
     if data.get("Reason") is not None:
         import capo_partnercentral_account.types.profile_validation_error_reason
 
@@ -53,5 +51,10 @@ def deserialize_aws_json_1_0(data: dict) -> ErrorDetail:
             )
         )
     else:
-        raise DeserializationError("ErrorDetail.reason required")
+        import typing
+
+        out["reason"] = typing.cast(
+            "capo_partnercentral_account.types.profile_validation_error_reason.ProfileValidationErrorReason",
+            "",
+        )
     return out

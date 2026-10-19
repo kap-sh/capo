@@ -150,19 +150,19 @@ def deserialize_aws_json_1_0(data: dict) -> ComputeNodeGroup:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ComputeNodeGroup.name required")
+        out["name"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ComputeNodeGroup.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ComputeNodeGroup.arn required")
+        out["arn"] = ""
     if data.get("clusterId") is not None:
         out["cluster_id"] = data["clusterId"]
     else:
-        raise DeserializationError("ComputeNodeGroup.cluster_id required")
+        out["cluster_id"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -170,7 +170,9 @@ def deserialize_aws_json_1_0(data: dict) -> ComputeNodeGroup:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("ComputeNodeGroup.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("modifiedAt") is not None:
         import datetime
 
@@ -178,7 +180,11 @@ def deserialize_aws_json_1_0(data: dict) -> ComputeNodeGroup:
             data["modifiedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("ComputeNodeGroup.modified_at required")
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("status") is not None:
         import capo_pcs.types.compute_node_group_status
 
@@ -188,7 +194,11 @@ def deserialize_aws_json_1_0(data: dict) -> ComputeNodeGroup:
             )
         )
     else:
-        raise DeserializationError("ComputeNodeGroup.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_pcs.types.compute_node_group_status.ComputeNodeGroupStatus", ""
+        )
     if data.get("amiId") is not None:
         out["ami_id"] = data["amiId"]
     if data.get("subnetIds") is not None:
@@ -198,7 +208,7 @@ def deserialize_aws_json_1_0(data: dict) -> ComputeNodeGroup:
             data["subnetIds"]
         )
     else:
-        raise DeserializationError("ComputeNodeGroup.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("purchaseOption") is not None:
         import capo_pcs.types.purchase_option
 
@@ -220,7 +230,7 @@ def deserialize_aws_json_1_0(data: dict) -> ComputeNodeGroup:
     if data.get("iamInstanceProfileArn") is not None:
         out["iam_instance_profile_arn"] = data["iamInstanceProfileArn"]
     else:
-        raise DeserializationError("ComputeNodeGroup.iam_instance_profile_arn required")
+        out["iam_instance_profile_arn"] = ""
     if data.get("scalingConfiguration") is not None:
         import capo_pcs.types.scaling_configuration
 
@@ -238,7 +248,7 @@ def deserialize_aws_json_1_0(data: dict) -> ComputeNodeGroup:
             data["instanceConfigs"]
         )
     else:
-        raise DeserializationError("ComputeNodeGroup.instance_configs required")
+        out["instance_configs"] = []
     if data.get("spotOptions") is not None:
         import capo_pcs.types.spot_options
 

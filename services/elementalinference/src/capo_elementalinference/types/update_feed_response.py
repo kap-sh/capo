@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_elementalinference.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elementalinference.types.feed_arn
     import capo_elementalinference.types.feed_association
@@ -88,15 +86,15 @@ def deserialize_json(data: dict) -> UpdateFeedResponse:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("UpdateFeedResponse.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateFeedResponse.name required")
+        out["name"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("UpdateFeedResponse.id required")
+        out["id"] = ""
     if data.get("dataEndpoints") is not None:
         import capo_elementalinference.types.string_list
 
@@ -106,7 +104,7 @@ def deserialize_json(data: dict) -> UpdateFeedResponse:
             )
         )
     else:
-        raise DeserializationError("UpdateFeedResponse.data_endpoints required")
+        out["data_endpoints"] = []
     if data.get("outputs") is not None:
         import capo_elementalinference.types.get_output_list
 
@@ -114,7 +112,7 @@ def deserialize_json(data: dict) -> UpdateFeedResponse:
             data["outputs"]
         )
     else:
-        raise DeserializationError("UpdateFeedResponse.outputs required")
+        out["outputs"] = []
     if data.get("accessRoleArn") is not None:
         out["access_role_arn"] = data["accessRoleArn"]
     if data.get("status") is not None:
@@ -124,7 +122,11 @@ def deserialize_json(data: dict) -> UpdateFeedResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("UpdateFeedResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_elementalinference.types.feed_status.FeedStatus", ""
+        )
     if data.get("association") is not None:
         import capo_elementalinference.types.feed_association
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billing.types.billing_view_list
     import capo_billing.types.page_token
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListBillingViewsResponse:
             )
         )
     else:
-        raise DeserializationError("ListBillingViewsResponse.billing_views required")
+        out["billing_views"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

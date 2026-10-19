@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.deliverability_test_status
     import capo_sesv2.types.report_id
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> CreateDeliverabilityTestReportResponse:
     if data.get("ReportId") is not None:
         out["report_id"] = data["ReportId"]
     else:
-        raise DeserializationError(
-            "CreateDeliverabilityTestReportResponse.report_id required"
-        )
+        out["report_id"] = ""
     if data.get("DeliverabilityTestStatus") is not None:
         import capo_sesv2.types.deliverability_test_status
 
@@ -51,7 +47,9 @@ def deserialize_json(data: dict) -> CreateDeliverabilityTestReportResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDeliverabilityTestReportResponse.deliverability_test_status required"
+        import typing
+
+        out["deliverability_test_status"] = typing.cast(
+            "capo_sesv2.types.deliverability_test_status.DeliverabilityTestStatus", ""
         )
     return out

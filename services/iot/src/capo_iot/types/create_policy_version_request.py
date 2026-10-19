@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.policy_document
     import capo_iot.types.policy_name
@@ -33,7 +31,5 @@ def deserialize_json(data: dict) -> CreatePolicyVersionRequest:
     if data.get("policyDocument") is not None:
         out["policy_document"] = data["policyDocument"]
     else:
-        raise DeserializationError(
-            "CreatePolicyVersionRequest.policy_document required"
-        )
+        out["policy_document"] = ""
     return out

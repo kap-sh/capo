@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.bundle_id
     import capo_workspaces.types.workspace_id
@@ -31,11 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> MigrateWorkspaceRequest:
     if data.get("SourceWorkspaceId") is not None:
         out["source_workspace_id"] = data["SourceWorkspaceId"]
     else:
-        raise DeserializationError(
-            "MigrateWorkspaceRequest.source_workspace_id required"
-        )
+        out["source_workspace_id"] = ""
     if data.get("BundleId") is not None:
         out["bundle_id"] = data["BundleId"]
     else:
-        raise DeserializationError("MigrateWorkspaceRequest.bundle_id required")
+        out["bundle_id"] = ""
     return out

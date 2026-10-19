@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.search_attribute
     import capo_glue.types.search_filter_operator
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> SearchAttributeFilter:
     if data.get("Attribute") is not None:
         out["attribute"] = data["Attribute"]
     else:
-        raise DeserializationError("SearchAttributeFilter.attribute required")
+        out["attribute"] = ""
     if data.get("Operator") is not None:
         import capo_glue.types.search_filter_operator
 
@@ -54,7 +52,11 @@ def deserialize_aws_json_1_1(data: dict) -> SearchAttributeFilter:
             )
         )
     else:
-        raise DeserializationError("SearchAttributeFilter.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_glue.types.search_filter_operator.SearchFilterOperator", ""
+        )
     if data.get("Value") is not None:
         import capo_glue.types.search_filter_value
 

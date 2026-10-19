@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_nova_act.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_nova_act.types.date_timestamp
     import capo_nova_act.types.workflow_definition_arn
@@ -51,15 +49,11 @@ def deserialize_json(data: dict) -> WorkflowDefinitionSummary:
     if data.get("workflowDefinitionArn") is not None:
         out["workflow_definition_arn"] = data["workflowDefinitionArn"]
     else:
-        raise DeserializationError(
-            "WorkflowDefinitionSummary.workflow_definition_arn required"
-        )
+        out["workflow_definition_arn"] = ""
     if data.get("workflowDefinitionName") is not None:
         out["workflow_definition_name"] = data["workflowDefinitionName"]
     else:
-        raise DeserializationError(
-            "WorkflowDefinitionSummary.workflow_definition_name required"
-        )
+        out["workflow_definition_name"] = ""
     if data.get("createdAt") is not None:
         import capo_nova_act.types.date_timestamp
 
@@ -67,7 +61,9 @@ def deserialize_json(data: dict) -> WorkflowDefinitionSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("WorkflowDefinitionSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         import capo_nova_act.types.workflow_definition_status
 
@@ -75,5 +71,10 @@ def deserialize_json(data: dict) -> WorkflowDefinitionSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("WorkflowDefinitionSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_nova_act.types.workflow_definition_status.WorkflowDefinitionStatus",
+            "",
+        )
     return out

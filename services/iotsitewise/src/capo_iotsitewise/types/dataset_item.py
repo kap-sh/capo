@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.dataset_id
     import capo_iotsitewise.types.export_data_type_list
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> DatasetItem:
     if data.get("datasetId") is not None:
         out["dataset_id"] = data["datasetId"]
     else:
-        raise DeserializationError("DatasetItem.dataset_id required")
+        out["dataset_id"] = ""
     if data.get("trimSettings") is not None:
         import capo_iotsitewise.types.trim_settings
 

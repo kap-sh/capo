@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.created_time
     import capo_connectcases.types.domain_arn
@@ -54,15 +52,15 @@ def deserialize_json(data: dict) -> GetDomainResponse:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("GetDomainResponse.domain_id required")
+        out["domain_id"] = ""
     if data.get("domainArn") is not None:
         out["domain_arn"] = data["domainArn"]
     else:
-        raise DeserializationError("GetDomainResponse.domain_arn required")
+        out["domain_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetDomainResponse.name required")
+        out["name"] = ""
     if data.get("createdTime") is not None:
         import capo_connectcases.types.created_time
 
@@ -70,11 +68,15 @@ def deserialize_json(data: dict) -> GetDomainResponse:
             data["createdTime"]
         )
     else:
-        raise DeserializationError("GetDomainResponse.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("domainStatus") is not None:
         out["domain_status"] = data["domainStatus"]
     else:
-        raise DeserializationError("GetDomainResponse.domain_status required")
+        out["domain_status"] = ""
     if data.get("tags") is not None:
         import capo_connectcases.types.tags
 

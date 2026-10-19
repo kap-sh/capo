@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.enclosed_in_string_property
     import capo_glue.types.node_name
@@ -34,13 +32,13 @@ def deserialize_aws_json_1_1(data: dict) -> RelationalCatalogSource:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("RelationalCatalogSource.name required")
+        out["name"] = ""
     if data.get("Database") is not None:
         out["database"] = data["Database"]
     else:
-        raise DeserializationError("RelationalCatalogSource.database required")
+        out["database"] = ""
     if data.get("Table") is not None:
         out["table"] = data["Table"]
     else:
-        raise DeserializationError("RelationalCatalogSource.table required")
+        out["table"] = ""
     return out

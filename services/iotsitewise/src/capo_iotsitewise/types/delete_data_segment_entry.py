@@ -42,7 +42,7 @@ def deserialize_json(data: dict) -> DeleteDataSegmentEntry:
     if data.get("timeSeriesId") is not None:
         out["time_series_id"] = data["timeSeriesId"]
     else:
-        raise DeserializationError("DeleteDataSegmentEntry.time_series_id required")
+        out["time_series_id"] = ""
     if data.get("startTimestamp") is not None:
         import capo_iotsitewise.types.time_in_nanos
 

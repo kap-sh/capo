@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.listed_certificates
     import capo_transfer.types.next_token
@@ -46,5 +44,5 @@ def deserialize_aws_json_1_1(data: dict) -> ListCertificatesResponse:
             )
         )
     else:
-        raise DeserializationError("ListCertificatesResponse.certificates required")
+        out["certificates"] = []
     return out

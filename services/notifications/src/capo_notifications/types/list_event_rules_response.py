@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notifications.types.event_rules
     import capo_notifications.types.next_token
@@ -42,5 +40,5 @@ def deserialize_json(data: dict) -> ListEventRulesResponse:
             data["eventRules"]
         )
     else:
-        raise DeserializationError("ListEventRulesResponse.event_rules required")
+        out["event_rules"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_controlcatalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_controlcatalog.types.control_arn
     import capo_controlcatalog.types.mapping
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> ControlMapping:
     if data.get("ControlArn") is not None:
         out["control_arn"] = data["ControlArn"]
     else:
-        raise DeserializationError("ControlMapping.control_arn required")
+        out["control_arn"] = ""
     if data.get("MappingType") is not None:
         import capo_controlcatalog.types.mapping_type
 
@@ -49,7 +47,11 @@ def deserialize_json(data: dict) -> ControlMapping:
             data["MappingType"]
         )
     else:
-        raise DeserializationError("ControlMapping.mapping_type required")
+        import typing
+
+        out["mapping_type"] = typing.cast(
+            "capo_controlcatalog.types.mapping_type.MappingType", ""
+        )
     if data.get("Mapping") is not None:
         import capo_controlcatalog.types.mapping
 
@@ -57,5 +59,7 @@ def deserialize_json(data: dict) -> ControlMapping:
             data["Mapping"]
         )
     else:
-        raise DeserializationError("ControlMapping.mapping required")
+        import capo_controlcatalog.types._unknown
+
+        out["mapping"] = capo_controlcatalog.types._unknown.UnknownUnionMember("")
     return out

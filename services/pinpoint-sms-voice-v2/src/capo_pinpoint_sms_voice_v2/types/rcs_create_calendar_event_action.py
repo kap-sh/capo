@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -62,17 +60,15 @@ def deserialize_aws_json_1_0(data: dict) -> RcsCreateCalendarEventAction:
     if data.get("Text") is not None:
         out["text"] = data["Text"]
     else:
-        raise DeserializationError("RcsCreateCalendarEventAction.text required")
+        out["text"] = ""
     if data.get("PostbackData") is not None:
         out["postback_data"] = data["PostbackData"]
     else:
-        raise DeserializationError(
-            "RcsCreateCalendarEventAction.postback_data required"
-        )
+        out["postback_data"] = ""
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     else:
-        raise DeserializationError("RcsCreateCalendarEventAction.title required")
+        out["title"] = ""
     if data.get("StartTime") is not None:
         import capo_pinpoint_sms_voice_v2.types._prelude.timestamp
 
@@ -82,7 +78,9 @@ def deserialize_aws_json_1_0(data: dict) -> RcsCreateCalendarEventAction:
             )
         )
     else:
-        raise DeserializationError("RcsCreateCalendarEventAction.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_pinpoint_sms_voice_v2.types._prelude.timestamp
 
@@ -92,7 +90,9 @@ def deserialize_aws_json_1_0(data: dict) -> RcsCreateCalendarEventAction:
             )
         )
     else:
-        raise DeserializationError("RcsCreateCalendarEventAction.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     return out

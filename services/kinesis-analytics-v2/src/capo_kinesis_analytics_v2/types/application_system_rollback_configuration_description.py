@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.boolean_object
 
@@ -31,7 +29,5 @@ def deserialize_aws_json_1_1(
     if data.get("RollbackEnabled") is not None:
         out["rollback_enabled"] = data["RollbackEnabled"]
     else:
-        raise DeserializationError(
-            "ApplicationSystemRollbackConfigurationDescription.rollback_enabled required"
-        )
+        out["rollback_enabled"] = False
     return out

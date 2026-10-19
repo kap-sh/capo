@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.celebrity_recognition_sort_by
     import capo_rekognition.types.job_id
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetCelebrityRecognitionRequest:
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError("GetCelebrityRecognitionRequest.job_id required")
+        out["job_id"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

@@ -100,7 +100,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetSchemaVersionsDiffInput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetSchemaVersionsDiffInput.schema_diff_type required"
+        import typing
+
+        out["schema_diff_type"] = typing.cast(
+            "capo_glue.types.schema_diff_type.SchemaDiffType", ""
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.s3_location_list
     import capo_b2bi.types.transformer_job_status
@@ -48,7 +46,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetTransformerJobResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("GetTransformerJobResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_b2bi.types.transformer_job_status.TransformerJobStatus", ""
+        )
     if data.get("outputFiles") is not None:
         import capo_b2bi.types.s3_location_list
 

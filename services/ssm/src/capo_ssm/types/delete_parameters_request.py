@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.parameter_name_list
 
@@ -35,5 +33,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteParametersRequest:
             data["Names"]
         )
     else:
-        raise DeserializationError("DeleteParametersRequest.names required")
+        out["names"] = []
     return out

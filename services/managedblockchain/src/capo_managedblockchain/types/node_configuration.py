@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_managedblockchain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_managedblockchain.types.availability_zone_string
     import capo_managedblockchain.types.instance_type_string
@@ -58,7 +56,7 @@ def deserialize_json(data: dict) -> NodeConfiguration:
     if data.get("InstanceType") is not None:
         out["instance_type"] = data["InstanceType"]
     else:
-        raise DeserializationError("NodeConfiguration.instance_type required")
+        out["instance_type"] = ""
     if data.get("AvailabilityZone") is not None:
         out["availability_zone"] = data["AvailabilityZone"]
     if data.get("LogPublishingConfiguration") is not None:

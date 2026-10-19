@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_build_document_blob
     import capo_bedrock.types.automated_reasoning_policy_build_document_content_type
@@ -60,9 +58,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildWorkflowDocumen
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyBuildWorkflowDocument.document required"
-        )
+        out["document"] = b""
     if data.get("documentContentType") is not None:
         import capo_bedrock.types.automated_reasoning_policy_build_document_content_type
 
@@ -72,15 +68,16 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildWorkflowDocumen
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyBuildWorkflowDocument.document_content_type required"
+        import typing
+
+        out["document_content_type"] = typing.cast(
+            "capo_bedrock.types.automated_reasoning_policy_build_document_content_type.AutomatedReasoningPolicyBuildDocumentContentType",
+            "",
         )
     if data.get("documentName") is not None:
         out["document_name"] = data["documentName"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyBuildWorkflowDocument.document_name required"
-        )
+        out["document_name"] = ""
     if data.get("documentDescription") is not None:
         out["document_description"] = data["documentDescription"]
     return out

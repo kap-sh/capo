@@ -144,21 +144,21 @@ def deserialize_json(data: dict) -> CreateContainerRecipeRequest:
             data["containerType"]
         )
     else:
-        raise DeserializationError(
-            "CreateContainerRecipeRequest.container_type required"
+        import typing
+
+        out["container_type"] = typing.cast(
+            "capo_imagebuilder.types.container_type.ContainerType", ""
         )
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateContainerRecipeRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("semanticVersion") is not None:
         out["semantic_version"] = data["semanticVersion"]
     else:
-        raise DeserializationError(
-            "CreateContainerRecipeRequest.semantic_version required"
-        )
+        out["semantic_version"] = ""
     if data.get("components") is not None:
         import capo_imagebuilder.types.component_configuration_list
 
@@ -190,7 +190,7 @@ def deserialize_json(data: dict) -> CreateContainerRecipeRequest:
     if data.get("parentImage") is not None:
         out["parent_image"] = data["parentImage"]
     else:
-        raise DeserializationError("CreateContainerRecipeRequest.parent_image required")
+        out["parent_image"] = ""
     if data.get("tags") is not None:
         import capo_imagebuilder.types.tag_map
 
@@ -214,7 +214,7 @@ def deserialize_json(data: dict) -> CreateContainerRecipeRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CreateContainerRecipeRequest.client_token required")
+        out["client_token"] = ""
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.attribute_list_type
     import capo_cognito_identity_provider.types.boolean_type
@@ -115,7 +113,7 @@ def deserialize_aws_json_1_1(data: dict) -> AdminGetUserResponse:
     if data.get("Username") is not None:
         out["username"] = data["Username"]
     else:
-        raise DeserializationError("AdminGetUserResponse.username required")
+        out["username"] = ""
     if data.get("UserAttributes") is not None:
         import capo_cognito_identity_provider.types.attribute_list_type
 

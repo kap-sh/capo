@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.date_time
     import capo_ssm_contacts.types.receipt_info
@@ -59,7 +57,11 @@ def deserialize_aws_json_1_1(data: dict) -> Receipt:
             )
         )
     else:
-        raise DeserializationError("Receipt.receipt_type required")
+        import typing
+
+        out["receipt_type"] = typing.cast(
+            "capo_ssm_contacts.types.receipt_type.ReceiptType", ""
+        )
     if data.get("ReceiptInfo") is not None:
         out["receipt_info"] = data["ReceiptInfo"]
     if data.get("ReceiptTime") is not None:
@@ -71,5 +73,9 @@ def deserialize_aws_json_1_1(data: dict) -> Receipt:
             )
         )
     else:
-        raise DeserializationError("Receipt.receipt_time required")
+        import datetime
+
+        out["receipt_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

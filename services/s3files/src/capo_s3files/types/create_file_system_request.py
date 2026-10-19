@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3files.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3files.types.bucket_arn
     import capo_s3files.types.creation_token
@@ -56,7 +54,7 @@ def deserialize_json(data: dict) -> CreateFileSystemRequest:
     if data.get("bucket") is not None:
         out["bucket"] = data["bucket"]
     else:
-        raise DeserializationError("CreateFileSystemRequest.bucket required")
+        out["bucket"] = ""
     if data.get("prefix") is not None:
         out["prefix"] = data["prefix"]
     if data.get("clientToken") is not None:
@@ -66,7 +64,7 @@ def deserialize_json(data: dict) -> CreateFileSystemRequest:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateFileSystemRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("tags") is not None:
         import capo_s3files.types.tag_list
 

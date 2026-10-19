@@ -53,5 +53,5 @@ def deserialize_json(data: dict) -> CategoryDrillDownFilter:
             )
         )
     else:
-        raise DeserializationError("CategoryDrillDownFilter.category_values required")
+        out["category_values"] = []
     return out

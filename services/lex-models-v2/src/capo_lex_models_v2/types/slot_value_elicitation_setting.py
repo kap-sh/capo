@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.prompt_specification
     import capo_lex_models_v2.types.sample_utterances_list
@@ -122,8 +120,10 @@ def deserialize_json(data: dict) -> SlotValueElicitationSetting:
             )
         )
     else:
-        raise DeserializationError(
-            "SlotValueElicitationSetting.slot_constraint required"
+        import typing
+
+        out["slot_constraint"] = typing.cast(
+            "capo_lex_models_v2.types.slot_constraint.SlotConstraint", ""
         )
     if data.get("promptSpecification") is not None:
         import capo_lex_models_v2.types.prompt_specification

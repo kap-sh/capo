@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.next_token
     import capo_resiliencehubv2.types.test_run_source_summary_list
@@ -43,9 +41,7 @@ def deserialize_json(data: dict) -> ListTestRunSourcesResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListTestRunSourcesResponse.test_run_sources required"
-        )
+        out["test_run_sources"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

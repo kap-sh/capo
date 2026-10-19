@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.account_id
     import capo_cleanrooms.types.account_id_list
@@ -49,13 +47,11 @@ def deserialize_json(data: dict) -> InheritedAllowedResultReceiversSource:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "InheritedAllowedResultReceiversSource.name required"
-        )
+        out["name"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("InheritedAllowedResultReceiversSource.id required")
+        out["id"] = ""
     if data.get("type") is not None:
         import capo_cleanrooms.types.base_table_dependency_type
 
@@ -63,8 +59,11 @@ def deserialize_json(data: dict) -> InheritedAllowedResultReceiversSource:
             data["type"]
         )
     else:
-        raise DeserializationError(
-            "InheritedAllowedResultReceiversSource.type required"
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cleanrooms.types.base_table_dependency_type.BaseTableDependencyType",
+            "",
         )
     if data.get("value") is not None:
         import capo_cleanrooms.types.account_id_list
@@ -73,13 +72,9 @@ def deserialize_json(data: dict) -> InheritedAllowedResultReceiversSource:
             data["value"]
         )
     else:
-        raise DeserializationError(
-            "InheritedAllowedResultReceiversSource.value required"
-        )
+        out["value"] = []
     if data.get("sourceAccountId") is not None:
         out["source_account_id"] = data["sourceAccountId"]
     else:
-        raise DeserializationError(
-            "InheritedAllowedResultReceiversSource.source_account_id required"
-        )
+        out["source_account_id"] = ""
     return out

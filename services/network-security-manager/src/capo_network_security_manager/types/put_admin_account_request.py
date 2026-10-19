@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.account_id
     import capo_network_security_manager.types.admin_priority
@@ -44,11 +42,11 @@ def deserialize_json(data: dict) -> PutAdminAccountRequest:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("PutAdminAccountRequest.account_id required")
+        out["account_id"] = ""
     if data.get("priority") is not None:
         out["priority"] = data["priority"]
     else:
-        raise DeserializationError("PutAdminAccountRequest.priority required")
+        out["priority"] = 0
     if data.get("adminScope") is not None:
         import capo_network_security_manager.types.admin_scope_input
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_personalize_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize_events.types.event_attribution_source
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> MetricAttribution:
     if data.get("eventAttributionSource") is not None:
         out["event_attribution_source"] = data["eventAttributionSource"]
     else:
-        raise DeserializationError(
-            "MetricAttribution.event_attribution_source required"
-        )
+        out["event_attribution_source"] = ""
     return out

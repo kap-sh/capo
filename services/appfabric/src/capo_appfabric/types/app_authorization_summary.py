@@ -56,17 +56,15 @@ def deserialize_json(data: dict) -> AppAuthorizationSummary:
     if data.get("appAuthorizationArn") is not None:
         out["app_authorization_arn"] = data["appAuthorizationArn"]
     else:
-        raise DeserializationError(
-            "AppAuthorizationSummary.app_authorization_arn required"
-        )
+        out["app_authorization_arn"] = ""
     if data.get("appBundleArn") is not None:
         out["app_bundle_arn"] = data["appBundleArn"]
     else:
-        raise DeserializationError("AppAuthorizationSummary.app_bundle_arn required")
+        out["app_bundle_arn"] = ""
     if data.get("app") is not None:
         out["app"] = data["app"]
     else:
-        raise DeserializationError("AppAuthorizationSummary.app required")
+        out["app"] = ""
     if data.get("tenant") is not None:
         import capo_appfabric.types.tenant
 
@@ -80,7 +78,11 @@ def deserialize_json(data: dict) -> AppAuthorizationSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("AppAuthorizationSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_appfabric.types.app_authorization_status.AppAuthorizationStatus", ""
+        )
     if data.get("updatedAt") is not None:
         import capo_appfabric.types.date_time
 
@@ -88,5 +90,7 @@ def deserialize_json(data: dict) -> AppAuthorizationSummary:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("AppAuthorizationSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

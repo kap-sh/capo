@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.monitor_account_type
     import capo_devops_agent.types.role_arn
@@ -55,11 +53,11 @@ def deserialize_json(data: dict) -> AWSConfiguration:
     if data.get("assumableRoleArn") is not None:
         out["assumable_role_arn"] = data["assumableRoleArn"]
     else:
-        raise DeserializationError("AWSConfiguration.assumable_role_arn required")
+        out["assumable_role_arn"] = ""
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("AWSConfiguration.account_id required")
+        out["account_id"] = ""
     if data.get("accountType") is not None:
         import capo_devops_agent.types.monitor_account_type
 
@@ -69,7 +67,11 @@ def deserialize_json(data: dict) -> AWSConfiguration:
             )
         )
     else:
-        raise DeserializationError("AWSConfiguration.account_type required")
+        import typing
+
+        out["account_type"] = typing.cast(
+            "capo_devops_agent.types.monitor_account_type.MonitorAccountType", ""
+        )
     if data.get("agentElevatedRoleArn") is not None:
         out["agent_elevated_role_arn"] = data["agentElevatedRoleArn"]
     if data.get("agentElevatedRoleArnStatus") is not None:

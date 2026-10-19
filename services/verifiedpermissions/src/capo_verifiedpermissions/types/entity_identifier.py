@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.entity_id
     import capo_verifiedpermissions.types.entity_type
@@ -31,11 +29,11 @@ def deserialize_aws_json_1_0(data: dict) -> EntityIdentifier:
     if data.get("entityType") is not None:
         out["entity_type"] = data["entityType"]
     else:
-        raise DeserializationError("EntityIdentifier.entity_type required")
+        out["entity_type"] = ""
     if data.get("entityId") is not None:
         out["entity_id"] = data["entityId"]
     else:
-        raise DeserializationError("EntityIdentifier.entity_id required")
+        out["entity_id"] = ""
     return out
 
 

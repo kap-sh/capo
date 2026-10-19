@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.condition_operator
     import capo_kendra.types.document_attribute_key
@@ -50,9 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentAttributeCondition:
     if data.get("ConditionDocumentAttributeKey") is not None:
         out["condition_document_attribute_key"] = data["ConditionDocumentAttributeKey"]
     else:
-        raise DeserializationError(
-            "DocumentAttributeCondition.condition_document_attribute_key required"
-        )
+        out["condition_document_attribute_key"] = ""
     if data.get("Operator") is not None:
         import capo_kendra.types.condition_operator
 
@@ -60,7 +56,11 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentAttributeCondition:
             data["Operator"]
         )
     else:
-        raise DeserializationError("DocumentAttributeCondition.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_kendra.types.condition_operator.ConditionOperator", ""
+        )
     if data.get("ConditionOnValue") is not None:
         import capo_kendra.types.document_attribute_value
 

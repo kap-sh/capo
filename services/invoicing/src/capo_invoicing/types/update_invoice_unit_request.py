@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_invoicing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_invoicing.types.basic_string_without_space
     import capo_invoicing.types.description_string
@@ -59,7 +57,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateInvoiceUnitRequest:
     if data.get("InvoiceUnitArn") is not None:
         out["invoice_unit_arn"] = data["InvoiceUnitArn"]
     else:
-        raise DeserializationError("UpdateInvoiceUnitRequest.invoice_unit_arn required")
+        out["invoice_unit_arn"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("TaxInheritanceDisabled") is not None:

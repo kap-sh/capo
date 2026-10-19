@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.data_integration_flow_name
     import capo_supplychain.types.uuid
@@ -31,11 +29,9 @@ def deserialize_json(data: dict) -> CreateDataIntegrationFlowResponse:
     if data.get("instanceId") is not None:
         out["instance_id"] = data["instanceId"]
     else:
-        raise DeserializationError(
-            "CreateDataIntegrationFlowResponse.instance_id required"
-        )
+        out["instance_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateDataIntegrationFlowResponse.name required")
+        out["name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.arn
     import capo_odb.types.disaster_recovery_type
@@ -43,9 +41,7 @@ def deserialize_aws_json_1_0(data: dict) -> CrossRegionDisasterRecoveryConfigura
     if data.get("sourceAutonomousDatabaseArn") is not None:
         out["source_autonomous_database_arn"] = data["sourceAutonomousDatabaseArn"]
     else:
-        raise DeserializationError(
-            "CrossRegionDisasterRecoveryConfiguration.source_autonomous_database_arn required"
-        )
+        out["source_autonomous_database_arn"] = ""
     if data.get("remoteDisasterRecoveryType") is not None:
         import capo_odb.types.disaster_recovery_type
 
@@ -55,8 +51,10 @@ def deserialize_aws_json_1_0(data: dict) -> CrossRegionDisasterRecoveryConfigura
             )
         )
     else:
-        raise DeserializationError(
-            "CrossRegionDisasterRecoveryConfiguration.remote_disaster_recovery_type required"
+        import typing
+
+        out["remote_disaster_recovery_type"] = typing.cast(
+            "capo_odb.types.disaster_recovery_type.DisasterRecoveryType", ""
         )
     if data.get("isReplicateAutomaticBackups") is not None:
         out["is_replicate_automatic_backups"] = data["isReplicateAutomaticBackups"]

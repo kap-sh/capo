@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.client_namespace
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> QuickSightConfiguration:
     if data.get("clientNamespace") is not None:
         out["client_namespace"] = data["clientNamespace"]
     else:
-        raise DeserializationError("QuickSightConfiguration.client_namespace required")
+        out["client_namespace"] = ""
     return out

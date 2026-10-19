@@ -69,7 +69,11 @@ def deserialize_json(data: dict) -> StartTestExecutionRequest:
             )
         )
     else:
-        raise DeserializationError("StartTestExecutionRequest.api_mode required")
+        import typing
+
+        out["api_mode"] = typing.cast(
+            "capo_lex_models_v2.types.test_execution_api_mode.TestExecutionApiMode", ""
+        )
     if data.get("testExecutionModality") is not None:
         import capo_lex_models_v2.types.test_execution_modality
 

@@ -63,7 +63,10 @@ def handle_response(
     out: capo_codeguruprofiler.types.get_profile_response.GetProfileResponse = {
         "profile": b"".join(response.iter_raw())
     }  # type: ignore[typeddict-item]
-    out["content_type"] = response.headers["Content-Type"]
+    if "Content-Type" in response.headers:
+        out["content_type"] = response.headers["Content-Type"]
+    else:
+        out["content_type"] = ""
     if "Content-Encoding" in response.headers:
         out["content_encoding"] = response.headers["Content-Encoding"]
     return out
@@ -75,7 +78,10 @@ async def async_handle_response(
     out: capo_codeguruprofiler.types.get_profile_response.GetProfileResponse = {
         "profile": b"".join([chunk async for chunk in response.async_iter_raw()])
     }  # type: ignore[typeddict-item]
-    out["content_type"] = response.headers["Content-Type"]
+    if "Content-Type" in response.headers:
+        out["content_type"] = response.headers["Content-Type"]
+    else:
+        out["content_type"] = ""
     if "Content-Encoding" in response.headers:
         out["content_encoding"] = response.headers["Content-Encoding"]
     return out

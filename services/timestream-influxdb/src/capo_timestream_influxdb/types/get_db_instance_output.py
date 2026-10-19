@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_influxdb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -257,15 +255,15 @@ def deserialize_aws_json_1_0(data: dict) -> GetDbInstanceOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetDbInstanceOutput.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetDbInstanceOutput.name required")
+        out["name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetDbInstanceOutput.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_timestream_influxdb.types.status
 
@@ -319,7 +317,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetDbInstanceOutput:
             )
         )
     else:
-        raise DeserializationError("GetDbInstanceOutput.vpc_subnet_ids required")
+        out["vpc_subnet_ids"] = []
     if data.get("publiclyAccessible") is not None:
         out["publicly_accessible"] = data["publiclyAccessible"]
     if data.get("vpcSecurityGroupIds") is not None:

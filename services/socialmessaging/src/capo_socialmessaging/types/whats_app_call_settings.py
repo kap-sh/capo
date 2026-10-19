@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.whats_app_call_hours
     import capo_socialmessaging.types.whats_app_call_icon_visibility
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> WhatsAppCallSettings:
     if data.get("callEnabled") is not None:
         out["call_enabled"] = data["callEnabled"]
     else:
-        raise DeserializationError("WhatsAppCallSettings.call_enabled required")
+        out["call_enabled"] = False
     if data.get("callHours") is not None:
         import capo_socialmessaging.types.whats_app_call_hours
 

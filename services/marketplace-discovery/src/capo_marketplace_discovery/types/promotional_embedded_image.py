@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.non_empty_string
     import capo_marketplace_discovery.types.nullable_string
@@ -38,11 +36,11 @@ def deserialize_json(data: dict) -> PromotionalEmbeddedImage:
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("PromotionalEmbeddedImage.title required")
+        out["title"] = ""
     if data.get("url") is not None:
         out["url"] = data["url"]
     else:
-        raise DeserializationError("PromotionalEmbeddedImage.url required")
+        out["url"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

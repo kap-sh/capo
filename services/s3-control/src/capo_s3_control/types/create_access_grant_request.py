@@ -87,9 +87,7 @@ def deserialize_xml(el: Element) -> CreateAccessGrantRequest:
             child_access_grants_location_id.text or ""
         )
     else:
-        raise DeserializationError(
-            "CreateAccessGrantRequest.access_grants_location_id required"
-        )
+        out["access_grants_location_id"] = ""
     child_access_grants_location_configuration = el.find(
         "AccessGrantsLocationConfiguration"
     )
@@ -116,7 +114,11 @@ def deserialize_xml(el: Element) -> CreateAccessGrantRequest:
             child_permission
         )
     else:
-        raise DeserializationError("CreateAccessGrantRequest.permission required")
+        import typing
+
+        out["permission"] = typing.cast(
+            "capo_s3_control.types.permission.Permission", ""
+        )
     child_application_arn = el.find("ApplicationArn")
     if child_application_arn is not None:
         out["application_arn"] = str(child_application_arn.text or "")

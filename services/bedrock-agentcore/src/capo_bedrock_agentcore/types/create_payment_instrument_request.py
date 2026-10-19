@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.client_token
     import capo_bedrock_agentcore.types.payment_agent_name
@@ -70,15 +68,11 @@ def deserialize_json(data: dict) -> CreatePaymentInstrumentRequest:
     if data.get("paymentManagerArn") is not None:
         out["payment_manager_arn"] = data["paymentManagerArn"]
     else:
-        raise DeserializationError(
-            "CreatePaymentInstrumentRequest.payment_manager_arn required"
-        )
+        out["payment_manager_arn"] = ""
     if data.get("paymentConnectorId") is not None:
         out["payment_connector_id"] = data["paymentConnectorId"]
     else:
-        raise DeserializationError(
-            "CreatePaymentInstrumentRequest.payment_connector_id required"
-        )
+        out["payment_connector_id"] = ""
     if data.get("paymentInstrumentType") is not None:
         import capo_bedrock_agentcore.types.payment_instrument_type
 
@@ -88,8 +82,11 @@ def deserialize_json(data: dict) -> CreatePaymentInstrumentRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreatePaymentInstrumentRequest.payment_instrument_type required"
+        import typing
+
+        out["payment_instrument_type"] = typing.cast(
+            "capo_bedrock_agentcore.types.payment_instrument_type.PaymentInstrumentType",
+            "",
         )
     if data.get("paymentInstrumentDetails") is not None:
         import capo_bedrock_agentcore.types.payment_instrument_details
@@ -100,8 +97,10 @@ def deserialize_json(data: dict) -> CreatePaymentInstrumentRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreatePaymentInstrumentRequest.payment_instrument_details required"
+        import capo_bedrock_agentcore.types._unknown
+
+        out["payment_instrument_details"] = (
+            capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
         )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]

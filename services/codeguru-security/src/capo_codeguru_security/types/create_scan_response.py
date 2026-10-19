@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeguru_security.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguru_security.types.resource_id
     import capo_codeguru_security.types.scan_name
@@ -52,11 +50,11 @@ def deserialize_json(data: dict) -> CreateScanResponse:
     if data.get("scanName") is not None:
         out["scan_name"] = data["scanName"]
     else:
-        raise DeserializationError("CreateScanResponse.scan_name required")
+        out["scan_name"] = ""
     if data.get("runId") is not None:
         out["run_id"] = data["runId"]
     else:
-        raise DeserializationError("CreateScanResponse.run_id required")
+        out["run_id"] = ""
     if data.get("resourceId") is not None:
         import capo_codeguru_security.types.resource_id
 
@@ -64,7 +62,11 @@ def deserialize_json(data: dict) -> CreateScanResponse:
             data["resourceId"]
         )
     else:
-        raise DeserializationError("CreateScanResponse.resource_id required")
+        import capo_codeguru_security.types._unknown
+
+        out["resource_id"] = capo_codeguru_security.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("scanState") is not None:
         import capo_codeguru_security.types.scan_state
 
@@ -72,7 +74,11 @@ def deserialize_json(data: dict) -> CreateScanResponse:
             data["scanState"]
         )
     else:
-        raise DeserializationError("CreateScanResponse.scan_state required")
+        import typing
+
+        out["scan_state"] = typing.cast(
+            "capo_codeguru_security.types.scan_state.ScanState", ""
+        )
     if data.get("scanNameArn") is not None:
         out["scan_name_arn"] = data["scanNameArn"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.string
 
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateVariableRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateVariableRequest.name required")
+        out["name"] = ""
     if data.get("defaultValue") is not None:
         out["default_value"] = data["defaultValue"]
     if data.get("description") is not None:

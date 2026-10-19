@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.arn
     import capo_proton.types.description
@@ -94,17 +92,15 @@ def deserialize_aws_json_1_0(data: dict) -> CreateEnvironmentInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateEnvironmentInput.name required")
+        out["name"] = ""
     if data.get("templateName") is not None:
         out["template_name"] = data["templateName"]
     else:
-        raise DeserializationError("CreateEnvironmentInput.template_name required")
+        out["template_name"] = ""
     if data.get("templateMajorVersion") is not None:
         out["template_major_version"] = data["templateMajorVersion"]
     else:
-        raise DeserializationError(
-            "CreateEnvironmentInput.template_major_version required"
-        )
+        out["template_major_version"] = ""
     if data.get("templateMinorVersion") is not None:
         out["template_minor_version"] = data["templateMinorVersion"]
     if data.get("description") is not None:
@@ -112,7 +108,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateEnvironmentInput:
     if data.get("spec") is not None:
         out["spec"] = data["spec"]
     else:
-        raise DeserializationError("CreateEnvironmentInput.spec required")
+        out["spec"] = ""
     if data.get("protonServiceRoleArn") is not None:
         out["proton_service_role_arn"] = data["protonServiceRoleArn"]
     if data.get("environmentAccountConnectionId") is not None:

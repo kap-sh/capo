@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.event_parameters_list
 
@@ -41,5 +39,5 @@ def deserialize_json(data: dict) -> EventsConfig:
             )
         )
     else:
-        raise DeserializationError("EventsConfig.event_parameters_list required")
+        out["event_parameters_list"] = []
     return out

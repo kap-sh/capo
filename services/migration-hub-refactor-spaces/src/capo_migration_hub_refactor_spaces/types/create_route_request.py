@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migration_hub_refactor_spaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migration_hub_refactor_spaces.types.application_id
     import capo_migration_hub_refactor_spaces.types.client_token
@@ -83,11 +81,11 @@ def deserialize_json(data: dict) -> CreateRouteRequest:
     if data.get("ServiceIdentifier") is not None:
         out["service_identifier"] = data["ServiceIdentifier"]
     else:
-        raise DeserializationError("CreateRouteRequest.service_identifier required")
+        out["service_identifier"] = ""
     if data.get("RouteType") is not None:
         out["route_type"] = data["RouteType"]
     else:
-        raise DeserializationError("CreateRouteRequest.route_type required")
+        out["route_type"] = ""
     if data.get("DefaultRoute") is not None:
         import capo_migration_hub_refactor_spaces.types.default_route_input
 

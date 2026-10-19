@@ -67,15 +67,15 @@ def deserialize_aws_json_1_1(data: dict) -> WebhookDefinition:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("WebhookDefinition.name required")
+        out["name"] = ""
     if data.get("targetPipeline") is not None:
         out["target_pipeline"] = data["targetPipeline"]
     else:
-        raise DeserializationError("WebhookDefinition.target_pipeline required")
+        out["target_pipeline"] = ""
     if data.get("targetAction") is not None:
         out["target_action"] = data["targetAction"]
     else:
-        raise DeserializationError("WebhookDefinition.target_action required")
+        out["target_action"] = ""
     if data.get("filters") is not None:
         import capo_codepipeline.types.webhook_filters
 
@@ -85,7 +85,7 @@ def deserialize_aws_json_1_1(data: dict) -> WebhookDefinition:
             )
         )
     else:
-        raise DeserializationError("WebhookDefinition.filters required")
+        out["filters"] = []
     if data.get("authentication") is not None:
         import capo_codepipeline.types.webhook_authentication_type
 
@@ -95,7 +95,12 @@ def deserialize_aws_json_1_1(data: dict) -> WebhookDefinition:
             )
         )
     else:
-        raise DeserializationError("WebhookDefinition.authentication required")
+        import typing
+
+        out["authentication"] = typing.cast(
+            "capo_codepipeline.types.webhook_authentication_type.WebhookAuthenticationType",
+            "",
+        )
     if data.get("authenticationConfiguration") is not None:
         import capo_codepipeline.types.webhook_auth_configuration
 

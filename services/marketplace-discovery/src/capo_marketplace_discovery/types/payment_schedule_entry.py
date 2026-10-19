@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.bounded_string
 
@@ -34,11 +32,11 @@ def deserialize_json(data: dict) -> PaymentScheduleEntry:
     if data.get("chargeDateOffset") is not None:
         out["charge_date_offset"] = data["chargeDateOffset"]
     else:
-        raise DeserializationError("PaymentScheduleEntry.charge_date_offset required")
+        out["charge_date_offset"] = ""
     if data.get("chargePercentage") is not None:
         out["charge_percentage"] = data["chargePercentage"]
     else:
-        raise DeserializationError("PaymentScheduleEntry.charge_percentage required")
+        out["charge_percentage"] = ""
     if data.get("dayOfMonth") is not None:
         out["day_of_month"] = data["dayOfMonth"]
     return out

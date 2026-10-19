@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.long
     import capo_config_service.types.string_with_char_limit256
@@ -33,7 +31,7 @@ def deserialize_aws_json_1_1(data: dict) -> GroupedResourceCount:
     if data.get("GroupName") is not None:
         out["group_name"] = data["GroupName"]
     else:
-        raise DeserializationError("GroupedResourceCount.group_name required")
+        out["group_name"] = ""
     if data.get("ResourceCount") is not None:
         out["resource_count"] = data["ResourceCount"]
     else:

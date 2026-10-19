@@ -90,8 +90,11 @@ def deserialize_aws_json_1_0(
             )
         )
     else:
-        raise DeserializationError(
-            "ChildWorkflowExecutionTimedOutEventAttributes.timeout_type required"
+        import typing
+
+        out["timeout_type"] = typing.cast(
+            "capo_swf.types.workflow_execution_timeout_type.WorkflowExecutionTimeoutType",
+            "",
         )
     if data.get("initiatedEventId") is not None:
         out["initiated_event_id"] = data["initiatedEventId"]

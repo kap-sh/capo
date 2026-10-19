@@ -50,15 +50,11 @@ def deserialize_aws_json_1_0(
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError(
-            "StartQualificationsDisassociationTaskRequest.catalog required"
-        )
+        out["catalog"] = ""
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError(
-            "StartQualificationsDisassociationTaskRequest.identifier required"
-        )
+        out["identifier"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("AssociatedPartner") is not None:

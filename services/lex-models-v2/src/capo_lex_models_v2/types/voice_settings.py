@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.voice_engine
     import capo_lex_models_v2.types.voice_id
@@ -42,5 +40,5 @@ def deserialize_json(data: dict) -> VoiceSettings:
     if data.get("voiceId") is not None:
         out["voice_id"] = data["voiceId"]
     else:
-        raise DeserializationError("VoiceSettings.voice_id required")
+        out["voice_id"] = ""
     return out

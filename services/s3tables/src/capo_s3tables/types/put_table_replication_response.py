@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 
 class PutTableReplicationResponse(TypedDict, closed=True):
     version_token: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> PutTableReplicationResponse:
     if data.get("versionToken") is not None:
         out["version_token"] = data["versionToken"]
     else:
-        raise DeserializationError("PutTableReplicationResponse.version_token required")
+        out["version_token"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("PutTableReplicationResponse.status required")
+        out["status"] = ""
     return out

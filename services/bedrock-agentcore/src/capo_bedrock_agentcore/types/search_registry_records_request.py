@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.metadata_filter_expression
     import capo_bedrock_agentcore.types.registry_id_list
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> SearchRegistryRecordsRequest:
     if data.get("searchQuery") is not None:
         out["search_query"] = data["searchQuery"]
     else:
-        raise DeserializationError("SearchRegistryRecordsRequest.search_query required")
+        out["search_query"] = ""
     if data.get("registryIds") is not None:
         import capo_bedrock_agentcore.types.registry_id_list
 
@@ -55,7 +53,7 @@ def deserialize_json(data: dict) -> SearchRegistryRecordsRequest:
             )
         )
     else:
-        raise DeserializationError("SearchRegistryRecordsRequest.registry_ids required")
+        out["registry_ids"] = []
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("filters") is not None:

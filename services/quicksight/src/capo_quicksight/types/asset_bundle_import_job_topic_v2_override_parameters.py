@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.resource_id
     import capo_quicksight.types.resource_name
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> AssetBundleImportJobTopicV2OverrideParameter
     if data.get("TopicId") is not None:
         out["topic_id"] = data["TopicId"]
     else:
-        raise DeserializationError(
-            "AssetBundleImportJobTopicV2OverrideParameters.topic_id required"
-        )
+        out["topic_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("Description") is not None:

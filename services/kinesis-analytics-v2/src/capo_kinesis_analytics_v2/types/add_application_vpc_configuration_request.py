@@ -53,9 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> AddApplicationVpcConfigurationReques
     if data.get("ApplicationName") is not None:
         out["application_name"] = data["ApplicationName"]
     else:
-        raise DeserializationError(
-            "AddApplicationVpcConfigurationRequest.application_name required"
-        )
+        out["application_name"] = ""
     if data.get("CurrentApplicationVersionId") is not None:
         out["current_application_version_id"] = data["CurrentApplicationVersionId"]
     if data.get("VpcConfiguration") is not None:

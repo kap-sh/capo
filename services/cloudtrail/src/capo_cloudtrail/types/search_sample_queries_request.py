@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.pagination_token
     import capo_cloudtrail.types.search_sample_queries_max_results
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> SearchSampleQueriesRequest:
     if data.get("SearchPhrase") is not None:
         out["search_phrase"] = data["SearchPhrase"]
     else:
-        raise DeserializationError("SearchSampleQueriesRequest.search_phrase required")
+        out["search_phrase"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

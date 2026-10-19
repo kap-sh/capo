@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_eventbridgev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.deduplication_type
 
@@ -38,7 +36,9 @@ def deserialize_cbor(data: dict) -> DeduplicationConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "DeduplicationConfiguration.deduplication_type required"
+        import typing
+
+        out["deduplication_type"] = typing.cast(
+            "capo_eventbridgev2.types.deduplication_type.DeduplicationType", ""
         )
     return out

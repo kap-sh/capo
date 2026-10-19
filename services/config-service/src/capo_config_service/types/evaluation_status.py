@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.resource_evaluation_status
     import capo_config_service.types.string_with_char_limit1024
@@ -48,7 +46,12 @@ def deserialize_aws_json_1_1(data: dict) -> EvaluationStatus:
             )
         )
     else:
-        raise DeserializationError("EvaluationStatus.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_config_service.types.resource_evaluation_status.ResourceEvaluationStatus",
+            "",
+        )
     if data.get("FailureReason") is not None:
         out["failure_reason"] = data["FailureReason"]
     return out

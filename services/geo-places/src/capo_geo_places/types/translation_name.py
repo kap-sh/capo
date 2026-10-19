@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_places.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_places.types.language_tag
     import capo_geo_places.types.sensitive_boolean
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> TranslationName:
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("TranslationName.value required")
+        out["value"] = ""
     if data.get("Language") is not None:
         out["language"] = data["Language"]
     if data.get("Type") is not None:
@@ -61,7 +59,11 @@ def deserialize_json(data: dict) -> TranslationName:
             data["Type"]
         )
     else:
-        raise DeserializationError("TranslationName.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_geo_places.types.translation_name_type.TranslationNameType", ""
+        )
     if data.get("Primary") is not None:
         out["primary"] = data["Primary"]
     if data.get("Transliterated") is not None:

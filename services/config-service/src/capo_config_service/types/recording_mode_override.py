@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.description
     import capo_config_service.types.recording_frequency
@@ -58,7 +56,7 @@ def deserialize_aws_json_1_1(data: dict) -> RecordingModeOverride:
             )
         )
     else:
-        raise DeserializationError("RecordingModeOverride.resource_types required")
+        out["resource_types"] = []
     if data.get("recordingFrequency") is not None:
         import capo_config_service.types.recording_frequency
 
@@ -68,5 +66,9 @@ def deserialize_aws_json_1_1(data: dict) -> RecordingModeOverride:
             )
         )
     else:
-        raise DeserializationError("RecordingModeOverride.recording_frequency required")
+        import typing
+
+        out["recording_frequency"] = typing.cast(
+            "capo_config_service.types.recording_frequency.RecordingFrequency", ""
+        )
     return out

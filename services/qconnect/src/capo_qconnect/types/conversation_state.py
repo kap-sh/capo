@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.conversation_status
     import capo_qconnect.types.conversation_status_reason
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> ConversationState:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("ConversationState.status required")
+        out["status"] = ""
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
     return out

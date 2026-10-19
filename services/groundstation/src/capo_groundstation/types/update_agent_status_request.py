@@ -49,7 +49,7 @@ def deserialize_json(data: dict) -> UpdateAgentStatusRequest:
     if data.get("taskId") is not None:
         out["task_id"] = data["taskId"]
     else:
-        raise DeserializationError("UpdateAgentStatusRequest.task_id required")
+        out["task_id"] = ""
     if data.get("aggregateStatus") is not None:
         import capo_groundstation.types.aggregate_status
 
@@ -69,7 +69,5 @@ def deserialize_json(data: dict) -> UpdateAgentStatusRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateAgentStatusRequest.component_statuses required"
-        )
+        out["component_statuses"] = []
     return out

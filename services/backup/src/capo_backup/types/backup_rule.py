@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.arn
     import capo_backup.types.backup_rule_name
@@ -116,11 +114,11 @@ def deserialize_json(data: dict) -> BackupRule:
     if data.get("RuleName") is not None:
         out["rule_name"] = data["RuleName"]
     else:
-        raise DeserializationError("BackupRule.rule_name required")
+        out["rule_name"] = ""
     if data.get("TargetBackupVaultName") is not None:
         out["target_backup_vault_name"] = data["TargetBackupVaultName"]
     else:
-        raise DeserializationError("BackupRule.target_backup_vault_name required")
+        out["target_backup_vault_name"] = ""
     if data.get("TargetLogicallyAirGappedBackupVaultArn") is not None:
         out["target_logically_air_gapped_backup_vault_arn"] = data[
             "TargetLogicallyAirGappedBackupVaultArn"

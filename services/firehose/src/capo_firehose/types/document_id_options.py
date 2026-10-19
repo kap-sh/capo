@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.default_document_id_format
 
@@ -41,7 +39,9 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentIdOptions:
             )
         )
     else:
-        raise DeserializationError(
-            "DocumentIdOptions.default_document_id_format required"
+        import typing
+
+        out["default_document_id_format"] = typing.cast(
+            "capo_firehose.types.default_document_id_format.DefaultDocumentIdFormat", ""
         )
     return out

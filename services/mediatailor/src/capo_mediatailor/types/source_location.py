@@ -117,7 +117,7 @@ def deserialize_json(data: dict) -> SourceLocation:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("SourceLocation.arn required")
+        out["arn"] = ""
     if data.get("CreationTime") is not None:
         import capo_mediatailor.types.__timestamp_unix
 
@@ -161,7 +161,7 @@ def deserialize_json(data: dict) -> SourceLocation:
     if data.get("SourceLocationName") is not None:
         out["source_location_name"] = data["SourceLocationName"]
     else:
-        raise DeserializationError("SourceLocation.source_location_name required")
+        out["source_location_name"] = ""
     if data.get("tags") is not None:
         import capo_mediatailor.types.__map_of__string
 

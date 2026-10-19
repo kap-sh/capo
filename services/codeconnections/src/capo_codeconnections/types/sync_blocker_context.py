@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codeconnections.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeconnections.types.sync_blocker_context_key
     import capo_codeconnections.types.sync_blocker_context_value
@@ -33,9 +31,9 @@ def deserialize_aws_json_1_0(data: dict) -> SyncBlockerContext:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("SyncBlockerContext.key required")
+        out["key"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("SyncBlockerContext.value required")
+        out["value"] = ""
     return out

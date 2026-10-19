@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError, ServiceError
+from capo_lookoutequipment.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.bounded_length_string
@@ -27,7 +27,7 @@ def deserialize_aws_json_1_0(data: dict) -> InternalServerException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("InternalServerException_.message required")
+        out["message"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fms.types.boolean_object
     import capo_fms.types.length_bounded_non_empty_string
@@ -82,7 +80,7 @@ def deserialize_aws_json_1_1(data: dict) -> NetworkAclEntry:
     if data.get("Protocol") is not None:
         out["protocol"] = data["Protocol"]
     else:
-        raise DeserializationError("NetworkAclEntry.protocol required")
+        out["protocol"] = ""
     if data.get("PortRange") is not None:
         import capo_fms.types.network_acl_port_range
 
@@ -104,9 +102,13 @@ def deserialize_aws_json_1_1(data: dict) -> NetworkAclEntry:
             )
         )
     else:
-        raise DeserializationError("NetworkAclEntry.rule_action required")
+        import typing
+
+        out["rule_action"] = typing.cast(
+            "capo_fms.types.network_acl_rule_action.NetworkAclRuleAction", ""
+        )
     if data.get("Egress") is not None:
         out["egress"] = data["Egress"]
     else:
-        raise DeserializationError("NetworkAclEntry.egress required")
+        out["egress"] = False
     return out

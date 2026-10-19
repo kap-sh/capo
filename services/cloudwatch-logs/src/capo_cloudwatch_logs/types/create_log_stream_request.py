@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.log_group_name
     import capo_cloudwatch_logs.types.log_stream_name
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLogStreamRequest:
     if data.get("logGroupName") is not None:
         out["log_group_name"] = data["logGroupName"]
     else:
-        raise DeserializationError("CreateLogStreamRequest.log_group_name required")
+        out["log_group_name"] = ""
     if data.get("logStreamName") is not None:
         out["log_stream_name"] = data["logStreamName"]
     else:
-        raise DeserializationError("CreateLogStreamRequest.log_stream_name required")
+        out["log_stream_name"] = ""
     return out

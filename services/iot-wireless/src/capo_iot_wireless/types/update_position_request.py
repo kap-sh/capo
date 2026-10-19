@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.position_coordinate
     import capo_iot_wireless.types.position_resource_identifier
@@ -41,5 +39,5 @@ def deserialize_json(data: dict) -> UpdatePositionRequest:
             data["Position"]
         )
     else:
-        raise DeserializationError("UpdatePositionRequest.position required")
+        out["position"] = []
     return out

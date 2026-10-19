@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.client_token
     import capo_iot_managed_integrations.types.delivery_destination_arn
@@ -68,9 +66,7 @@ def deserialize_json(data: dict) -> CreateDestinationRequest:
     if data.get("DeliveryDestinationArn") is not None:
         out["delivery_destination_arn"] = data["DeliveryDestinationArn"]
     else:
-        raise DeserializationError(
-            "CreateDestinationRequest.delivery_destination_arn required"
-        )
+        out["delivery_destination_arn"] = ""
     if data.get("DeliveryDestinationType") is not None:
         import capo_iot_managed_integrations.types.delivery_destination_type
 
@@ -80,17 +76,20 @@ def deserialize_json(data: dict) -> CreateDestinationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDestinationRequest.delivery_destination_type required"
+        import typing
+
+        out["delivery_destination_type"] = typing.cast(
+            "capo_iot_managed_integrations.types.delivery_destination_type.DeliveryDestinationType",
+            "",
         )
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateDestinationRequest.name required")
+        out["name"] = ""
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("CreateDestinationRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("Description") is not None:

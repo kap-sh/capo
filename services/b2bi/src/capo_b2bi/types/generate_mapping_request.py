@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.generate_mapping_input_file_content
     import capo_b2bi.types.generate_mapping_output_file_content
@@ -39,13 +37,11 @@ def deserialize_aws_json_1_0(data: dict) -> GenerateMappingRequest:
     if data.get("inputFileContent") is not None:
         out["input_file_content"] = data["inputFileContent"]
     else:
-        raise DeserializationError("GenerateMappingRequest.input_file_content required")
+        out["input_file_content"] = ""
     if data.get("outputFileContent") is not None:
         out["output_file_content"] = data["outputFileContent"]
     else:
-        raise DeserializationError(
-            "GenerateMappingRequest.output_file_content required"
-        )
+        out["output_file_content"] = ""
     if data.get("mappingType") is not None:
         import capo_b2bi.types.mapping_type
 
@@ -53,5 +49,9 @@ def deserialize_aws_json_1_0(data: dict) -> GenerateMappingRequest:
             data["mappingType"]
         )
     else:
-        raise DeserializationError("GenerateMappingRequest.mapping_type required")
+        import typing
+
+        out["mapping_type"] = typing.cast(
+            "capo_b2bi.types.mapping_type.MappingType", ""
+        )
     return out

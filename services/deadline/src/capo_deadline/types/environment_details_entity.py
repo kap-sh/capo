@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.document
     import capo_deadline.types.environment_id
@@ -59,19 +57,19 @@ def deserialize_json(data: dict) -> EnvironmentDetailsEntity:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("EnvironmentDetailsEntity.job_id required")
+        out["job_id"] = ""
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError("EnvironmentDetailsEntity.environment_id required")
+        out["environment_id"] = ""
     if data.get("schemaVersion") is not None:
         out["schema_version"] = data["schemaVersion"]
     else:
-        raise DeserializationError("EnvironmentDetailsEntity.schema_version required")
+        out["schema_version"] = ""
     if data.get("template") is not None:
         out["template"] = data["template"]
     else:
-        raise DeserializationError("EnvironmentDetailsEntity.template required")
+        out["template"] = None
     if data.get("extensions") is not None:
         import capo_deadline.types.openjd_extension_name_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.knowledge_base_search_type
     import capo_qconnect.types.knowledge_source
@@ -61,7 +59,9 @@ def deserialize_json(data: dict) -> RetrievalConfiguration:
             data["knowledgeSource"]
         )
     else:
-        raise DeserializationError("RetrievalConfiguration.knowledge_source required")
+        import capo_qconnect.types._unknown
+
+        out["knowledge_source"] = capo_qconnect.types._unknown.UnknownUnionMember("")
     if data.get("filter") is not None:
         import capo_qconnect.types.retrieval_filter_configuration
 

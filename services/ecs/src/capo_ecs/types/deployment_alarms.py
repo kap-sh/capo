@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.boolean
     import capo_ecs.types.string_list
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeploymentAlarms:
             data["alarmNames"]
         )
     else:
-        raise DeserializationError("DeploymentAlarms.alarm_names required")
+        out["alarm_names"] = []
     if data.get("rollback") is not None:
         out["rollback"] = data["rollback"]
     else:

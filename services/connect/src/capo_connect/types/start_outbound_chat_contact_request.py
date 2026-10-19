@@ -143,9 +143,7 @@ def deserialize_json(data: dict) -> StartOutboundChatContactRequest:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError(
-            "StartOutboundChatContactRequest.instance_id required"
-        )
+        out["instance_id"] = ""
     if data.get("SegmentAttributes") is not None:
         import capo_connect.types.segment_attributes
 
@@ -155,9 +153,7 @@ def deserialize_json(data: dict) -> StartOutboundChatContactRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartOutboundChatContactRequest.segment_attributes required"
-        )
+        out["segment_attributes"] = {}
     if data.get("Attributes") is not None:
         import capo_connect.types.attributes
 
@@ -167,9 +163,7 @@ def deserialize_json(data: dict) -> StartOutboundChatContactRequest:
     if data.get("ContactFlowId") is not None:
         out["contact_flow_id"] = data["ContactFlowId"]
     else:
-        raise DeserializationError(
-            "StartOutboundChatContactRequest.contact_flow_id required"
-        )
+        out["contact_flow_id"] = ""
     if data.get("ChatDurationInMinutes") is not None:
         out["chat_duration_in_minutes"] = data["ChatDurationInMinutes"]
     if data.get("ParticipantDetails") is not None:

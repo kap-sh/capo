@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.cipher_text_type
     import capo_payment_cryptography_data.types.key_arn
@@ -37,15 +35,15 @@ def deserialize_json(data: dict) -> ReEncryptDataOutput:
     if data.get("KeyArn") is not None:
         out["key_arn"] = data["KeyArn"]
     else:
-        raise DeserializationError("ReEncryptDataOutput.key_arn required")
+        out["key_arn"] = ""
     if data.get("KeyCheckValue") is not None:
         out["key_check_value"] = data["KeyCheckValue"]
     else:
-        raise DeserializationError("ReEncryptDataOutput.key_check_value required")
+        out["key_check_value"] = ""
     if data.get("CipherText") is not None:
         out["cipher_text"] = data["CipherText"]
     else:
-        raise DeserializationError("ReEncryptDataOutput.cipher_text required")
+        out["cipher_text"] = ""
     return out
 
 

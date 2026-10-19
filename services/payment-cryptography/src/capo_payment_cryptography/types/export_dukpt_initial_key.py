@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.hex_length20_or24
 
@@ -29,5 +27,5 @@ def deserialize_aws_json_1_0(data: dict) -> ExportDukptInitialKey:
     if data.get("KeySerialNumber") is not None:
         out["key_serial_number"] = data["KeySerialNumber"]
     else:
-        raise DeserializationError("ExportDukptInitialKey.key_serial_number required")
+        out["key_serial_number"] = ""
     return out

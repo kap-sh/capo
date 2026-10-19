@@ -50,17 +50,17 @@ def deserialize_aws_json_1_1(data: dict) -> S3Destination:
     if data.get("S3Bucket") is not None:
         out["s3_bucket"] = data["S3Bucket"]
     else:
-        raise DeserializationError("S3Destination.s3_bucket required")
+        out["s3_bucket"] = ""
     if data.get("S3BucketOwner") is not None:
         out["s3_bucket_owner"] = data["S3BucketOwner"]
     if data.get("S3Prefix") is not None:
         out["s3_prefix"] = data["S3Prefix"]
     else:
-        raise DeserializationError("S3Destination.s3_prefix required")
+        out["s3_prefix"] = ""
     if data.get("S3Region") is not None:
         out["s3_region"] = data["S3Region"]
     else:
-        raise DeserializationError("S3Destination.s3_region required")
+        out["s3_region"] = ""
     if data.get("S3OutputConfigurations") is not None:
         import capo_bcm_data_exports.types.s3_output_configurations
 

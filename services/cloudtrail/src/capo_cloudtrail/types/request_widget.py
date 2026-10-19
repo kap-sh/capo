@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.query_parameters
     import capo_cloudtrail.types.query_statement
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> RequestWidget:
     if data.get("QueryStatement") is not None:
         out["query_statement"] = data["QueryStatement"]
     else:
-        raise DeserializationError("RequestWidget.query_statement required")
+        out["query_statement"] = ""
     if data.get("QueryParameters") is not None:
         import capo_cloudtrail.types.query_parameters
 
@@ -68,5 +66,5 @@ def deserialize_aws_json_1_1(data: dict) -> RequestWidget:
             )
         )
     else:
-        raise DeserializationError("RequestWidget.view_properties required")
+        out["view_properties"] = {}
     return out

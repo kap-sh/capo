@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codedeploy.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codedeploy.types.arn
     import capo_codedeploy.types.next_token
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsForResourceInput:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("ListTagsForResourceInput.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.add_on_request_list
     import capo_lightsail.types.ip_address_type
@@ -90,21 +88,21 @@ def deserialize_aws_json_1_1(data: dict) -> CreateInstancesRequest:
             )
         )
     else:
-        raise DeserializationError("CreateInstancesRequest.instance_names required")
+        out["instance_names"] = []
     if data.get("availabilityZone") is not None:
         out["availability_zone"] = data["availabilityZone"]
     else:
-        raise DeserializationError("CreateInstancesRequest.availability_zone required")
+        out["availability_zone"] = ""
     if data.get("customImageName") is not None:
         out["custom_image_name"] = data["customImageName"]
     if data.get("blueprintId") is not None:
         out["blueprint_id"] = data["blueprintId"]
     else:
-        raise DeserializationError("CreateInstancesRequest.blueprint_id required")
+        out["blueprint_id"] = ""
     if data.get("bundleId") is not None:
         out["bundle_id"] = data["bundleId"]
     else:
-        raise DeserializationError("CreateInstancesRequest.bundle_id required")
+        out["bundle_id"] = ""
     if data.get("userData") is not None:
         out["user_data"] = data["userData"]
     if data.get("keyPairName") is not None:

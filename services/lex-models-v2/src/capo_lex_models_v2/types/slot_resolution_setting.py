@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.slot_resolution_strategy
 
@@ -41,7 +39,10 @@ def deserialize_json(data: dict) -> SlotResolutionSetting:
             )
         )
     else:
-        raise DeserializationError(
-            "SlotResolutionSetting.slot_resolution_strategy required"
+        import typing
+
+        out["slot_resolution_strategy"] = typing.cast(
+            "capo_lex_models_v2.types.slot_resolution_strategy.SlotResolutionStrategy",
+            "",
         )
     return out

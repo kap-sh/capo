@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_meetings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_meetings.types.string
     import capo_chime_sdk_meetings.types.transcribe_medical_content_identification_type
@@ -88,8 +86,11 @@ def deserialize_json(data: dict) -> EngineTranscribeMedicalSettings:
             )
         )
     else:
-        raise DeserializationError(
-            "EngineTranscribeMedicalSettings.language_code required"
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_chime_sdk_meetings.types.transcribe_medical_language_code.TranscribeMedicalLanguageCode",
+            "",
         )
     if data.get("Specialty") is not None:
         import capo_chime_sdk_meetings.types.transcribe_medical_specialty
@@ -100,7 +101,12 @@ def deserialize_json(data: dict) -> EngineTranscribeMedicalSettings:
             )
         )
     else:
-        raise DeserializationError("EngineTranscribeMedicalSettings.specialty required")
+        import typing
+
+        out["specialty"] = typing.cast(
+            "capo_chime_sdk_meetings.types.transcribe_medical_specialty.TranscribeMedicalSpecialty",
+            "",
+        )
     if data.get("Type") is not None:
         import capo_chime_sdk_meetings.types.transcribe_medical_type
 
@@ -110,7 +116,12 @@ def deserialize_json(data: dict) -> EngineTranscribeMedicalSettings:
             )
         )
     else:
-        raise DeserializationError("EngineTranscribeMedicalSettings.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_chime_sdk_meetings.types.transcribe_medical_type.TranscribeMedicalType",
+            "",
+        )
     if data.get("VocabularyName") is not None:
         out["vocabulary_name"] = data["VocabularyName"]
     if data.get("Region") is not None:

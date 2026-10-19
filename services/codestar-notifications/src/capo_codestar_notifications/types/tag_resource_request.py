@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codestar_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codestar_notifications.types.notification_rule_arn
     import capo_codestar_notifications.types.tags
@@ -33,7 +31,7 @@ def deserialize_json(data: dict) -> TagResourceRequest:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("TagResourceRequest.arn required")
+        out["arn"] = ""
     if data.get("Tags") is not None:
         import capo_codestar_notifications.types.tags
 
@@ -41,5 +39,5 @@ def deserialize_json(data: dict) -> TagResourceRequest:
             data["Tags"]
         )
     else:
-        raise DeserializationError("TagResourceRequest.tags required")
+        out["tags"] = {}
     return out

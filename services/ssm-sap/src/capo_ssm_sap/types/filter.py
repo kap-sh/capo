@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_sap.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_sap.types.filter_name
     import capo_ssm_sap.types.filter_operator
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> Filter:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Filter.name required")
+        out["name"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("Filter.value required")
+        out["value"] = ""
     if data.get("Operator") is not None:
         import capo_ssm_sap.types.filter_operator
 
@@ -51,5 +49,9 @@ def deserialize_json(data: dict) -> Filter:
             data["Operator"]
         )
     else:
-        raise DeserializationError("Filter.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_ssm_sap.types.filter_operator.FilterOperator", ""
+        )
     return out

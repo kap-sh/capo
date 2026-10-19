@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_directory_service_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service_data.types.directory_id
     import capo_directory_service_data.types.group_name
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> ListGroupMembersRequest:
     if data.get("SAMAccountName") is not None:
         out["sam_account_name"] = data["SAMAccountName"]
     else:
-        raise DeserializationError("ListGroupMembersRequest.sam_account_name required")
+        out["sam_account_name"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

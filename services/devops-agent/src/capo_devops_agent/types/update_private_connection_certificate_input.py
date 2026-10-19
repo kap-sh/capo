@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.certificate_string
     import capo_devops_agent.types.private_connection_name
@@ -30,7 +28,5 @@ def deserialize_json(data: dict) -> UpdatePrivateConnectionCertificateInput:
     if data.get("certificate") is not None:
         out["certificate"] = data["certificate"]
     else:
-        raise DeserializationError(
-            "UpdatePrivateConnectionCertificateInput.certificate required"
-        )
+        out["certificate"] = ""
     return out

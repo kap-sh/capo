@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeartifact.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeartifact.types.account_id
     import capo_codeartifact.types.description
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> UpdatePackageGroupRequest:
     if data.get("packageGroup") is not None:
         out["package_group"] = data["packageGroup"]
     else:
-        raise DeserializationError("UpdatePackageGroupRequest.package_group required")
+        out["package_group"] = ""
     if data.get("contactInfo") is not None:
         out["contact_info"] = data["contactInfo"]
     if data.get("description") is not None:

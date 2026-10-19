@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.resource_id_list
 
@@ -37,7 +35,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeClientPropertiesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeClientPropertiesRequest.resource_ids required"
-        )
+        out["resource_ids"] = []
     return out

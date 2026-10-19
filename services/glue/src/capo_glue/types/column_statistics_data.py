@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.binary_column_statistics_data
     import capo_glue.types.boolean_column_statistics_data
@@ -126,7 +124,11 @@ def deserialize_aws_json_1_1(data: dict) -> ColumnStatisticsData:
             data["Type"]
         )
     else:
-        raise DeserializationError("ColumnStatisticsData.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_glue.types.column_statistics_type.ColumnStatisticsType", ""
+        )
     if data.get("BooleanColumnStatisticsData") is not None:
         import capo_glue.types.boolean_column_statistics_data
 

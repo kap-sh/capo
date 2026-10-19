@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.cache_config_type
 
@@ -33,5 +31,9 @@ def deserialize_json(data: dict) -> CacheConfig:
             data["type"]
         )
     else:
-        raise DeserializationError("CacheConfig.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_amplify.types.cache_config_type.CacheConfigType", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_identitystore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_identitystore.types.identity_store_id
     import capo_identitystore.types.resource_arn
@@ -35,19 +33,13 @@ def deserialize_aws_json_1_1(data: dict) -> GetGroupMembershipIdResponse:
     if data.get("IdentityStoreId") is not None:
         out["identity_store_id"] = data["IdentityStoreId"]
     else:
-        raise DeserializationError(
-            "GetGroupMembershipIdResponse.identity_store_id required"
-        )
+        out["identity_store_id"] = ""
     if data.get("MembershipId") is not None:
         out["membership_id"] = data["MembershipId"]
     else:
-        raise DeserializationError(
-            "GetGroupMembershipIdResponse.membership_id required"
-        )
+        out["membership_id"] = ""
     if data.get("MembershipArn") is not None:
         out["membership_arn"] = data["MembershipArn"]
     else:
-        raise DeserializationError(
-            "GetGroupMembershipIdResponse.membership_arn required"
-        )
+        out["membership_arn"] = ""
     return out

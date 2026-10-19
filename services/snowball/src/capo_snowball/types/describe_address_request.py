@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_snowball.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_snowball.types.address_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAddressRequest:
     if data.get("AddressId") is not None:
         out["address_id"] = data["AddressId"]
     else:
-        raise DeserializationError("DescribeAddressRequest.address_id required")
+        out["address_id"] = ""
     return out

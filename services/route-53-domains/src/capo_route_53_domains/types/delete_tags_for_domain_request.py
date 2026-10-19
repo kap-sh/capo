@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route_53_domains.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route_53_domains.types.domain_name
     import capo_route_53_domains.types.tag_key_list
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteTagsForDomainRequest:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("DeleteTagsForDomainRequest.domain_name required")
+        out["domain_name"] = ""
     if data.get("TagsToDelete") is not None:
         import capo_route_53_domains.types.tag_key_list
 
@@ -47,5 +45,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteTagsForDomainRequest:
             )
         )
     else:
-        raise DeserializationError("DeleteTagsForDomainRequest.tags_to_delete required")
+        out["tags_to_delete"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.processors
     import capo_cloudwatch_logs.types.test_event_messages
@@ -51,7 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> TestTransformerRequest:
             )
         )
     else:
-        raise DeserializationError("TestTransformerRequest.transformer_config required")
+        out["transformer_config"] = []
     if data.get("logEventMessages") is not None:
         import capo_cloudwatch_logs.types.test_event_messages
 
@@ -61,5 +59,5 @@ def deserialize_aws_json_1_1(data: dict) -> TestTransformerRequest:
             )
         )
     else:
-        raise DeserializationError("TestTransformerRequest.log_event_messages required")
+        out["log_event_messages"] = []
     return out

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 
 class EksResourceScalingUngraceful(TypedDict, closed=True):
     minimum_success_percentage: "int"
@@ -22,7 +20,5 @@ def deserialize_aws_json_1_0(data: dict) -> EksResourceScalingUngraceful:
     if data.get("minimumSuccessPercentage") is not None:
         out["minimum_success_percentage"] = data["minimumSuccessPercentage"]
     else:
-        raise DeserializationError(
-            "EksResourceScalingUngraceful.minimum_success_percentage required"
-        )
+        out["minimum_success_percentage"] = 0
     return out

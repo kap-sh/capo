@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_budgets.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_budgets.types.subscriber_address
     import capo_budgets.types.subscription_type
@@ -43,11 +41,15 @@ def deserialize_aws_json_1_1(data: dict) -> Subscriber:
             )
         )
     else:
-        raise DeserializationError("Subscriber.subscription_type required")
+        import typing
+
+        out["subscription_type"] = typing.cast(
+            "capo_budgets.types.subscription_type.SubscriptionType", ""
+        )
     if data.get("Address") is not None:
         out["address"] = data["Address"]
     else:
-        raise DeserializationError("Subscriber.address required")
+        out["address"] = ""
     return out
 
 

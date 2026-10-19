@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.batch_evaluation_arn
     import capo_bedrock_agentcore.types.batch_evaluation_description
@@ -50,15 +48,11 @@ def deserialize_json(data: dict) -> StopBatchEvaluationResponse:
     if data.get("batchEvaluationId") is not None:
         out["batch_evaluation_id"] = data["batchEvaluationId"]
     else:
-        raise DeserializationError(
-            "StopBatchEvaluationResponse.batch_evaluation_id required"
-        )
+        out["batch_evaluation_id"] = ""
     if data.get("batchEvaluationArn") is not None:
         out["batch_evaluation_arn"] = data["batchEvaluationArn"]
     else:
-        raise DeserializationError(
-            "StopBatchEvaluationResponse.batch_evaluation_arn required"
-        )
+        out["batch_evaluation_arn"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore.types.batch_evaluation_status
 
@@ -68,7 +62,12 @@ def deserialize_json(data: dict) -> StopBatchEvaluationResponse:
             )
         )
     else:
-        raise DeserializationError("StopBatchEvaluationResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore.types.batch_evaluation_status.BatchEvaluationStatus",
+            "",
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

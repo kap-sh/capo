@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.extraction_job_metadata_list
     import capo_bedrock_agentcore.types.pagination_token
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> ListMemoryExtractionJobsOutput:
             )
         )
     else:
-        raise DeserializationError("ListMemoryExtractionJobsOutput.jobs required")
+        out["jobs"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

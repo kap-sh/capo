@@ -46,7 +46,9 @@ def deserialize_json(data: dict) -> AssetPropertyValue:
             data["value"]
         )
     else:
-        raise DeserializationError("AssetPropertyValue.value required")
+        import capo_iot.types._unknown
+
+        out["value"] = capo_iot.types._unknown.UnknownUnionMember("")
     if data.get("timestamp") is not None:
         import capo_iot.types.asset_property_timestamp
 

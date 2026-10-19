@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.guardrail_action
     import capo_qconnect.types.guardrail_policy_result_list
@@ -51,19 +49,19 @@ def deserialize_json(data: dict) -> SpanGuardrailAssessment:
     if data.get("guardrailId") is not None:
         out["guardrail_id"] = data["guardrailId"]
     else:
-        raise DeserializationError("SpanGuardrailAssessment.guardrail_id required")
+        out["guardrail_id"] = ""
     if data.get("guardrailName") is not None:
         out["guardrail_name"] = data["guardrailName"]
     else:
-        raise DeserializationError("SpanGuardrailAssessment.guardrail_name required")
+        out["guardrail_name"] = ""
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("SpanGuardrailAssessment.source required")
+        out["source"] = ""
     if data.get("action") is not None:
         out["action"] = data["action"]
     else:
-        raise DeserializationError("SpanGuardrailAssessment.action required")
+        out["action"] = ""
     if data.get("policies") is not None:
         import capo_qconnect.types.guardrail_policy_result_list
 

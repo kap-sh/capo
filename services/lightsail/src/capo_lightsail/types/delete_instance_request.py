@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.boolean
     import capo_lightsail.types.resource_name
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteInstanceRequest:
     if data.get("instanceName") is not None:
         out["instance_name"] = data["instanceName"]
     else:
-        raise DeserializationError("DeleteInstanceRequest.instance_name required")
+        out["instance_name"] = ""
     if data.get("forceDeleteAddOns") is not None:
         out["force_delete_add_ons"] = data["forceDeleteAddOns"]
     return out

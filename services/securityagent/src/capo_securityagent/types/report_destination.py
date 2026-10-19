@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 
 class ReportDestination(TypedDict, closed=True):
     integration_id: "str"
@@ -33,11 +31,11 @@ def deserialize_json(data: dict) -> ReportDestination:
     if data.get("integrationId") is not None:
         out["integration_id"] = data["integrationId"]
     else:
-        raise DeserializationError("ReportDestination.integration_id required")
+        out["integration_id"] = ""
     if data.get("containerId") is not None:
         out["container_id"] = data["containerId"]
     else:
-        raise DeserializationError("ReportDestination.container_id required")
+        out["container_id"] = ""
     if data.get("parentId") is not None:
         out["parent_id"] = data["parentId"]
     if data.get("documentId") is not None:

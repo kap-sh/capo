@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.directory_id
     import capo_directory_service.types.remote_domain_name
@@ -33,13 +31,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteConditionalForwarderRequest:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError(
-            "DeleteConditionalForwarderRequest.directory_id required"
-        )
+        out["directory_id"] = ""
     if data.get("RemoteDomainName") is not None:
         out["remote_domain_name"] = data["RemoteDomainName"]
     else:
-        raise DeserializationError(
-            "DeleteConditionalForwarderRequest.remote_domain_name required"
-        )
+        out["remote_domain_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_artifact.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_artifact.types.citation_list
     import capo_artifact.types.long_string_attribute
@@ -89,11 +87,11 @@ def deserialize_json(data: dict) -> QuerySummary:
     if data.get("queryIdentifier") is not None:
         out["query_identifier"] = data["queryIdentifier"]
     else:
-        raise DeserializationError("QuerySummary.query_identifier required")
+        out["query_identifier"] = 0
     if data.get("query") is not None:
         out["query"] = data["query"]
     else:
-        raise DeserializationError("QuerySummary.query required")
+        out["query"] = ""
     if data.get("response") is not None:
         out["response"] = data["response"]
     if data.get("reviewType") is not None:
@@ -115,7 +113,9 @@ def deserialize_json(data: dict) -> QuerySummary:
             data["status"]
         )
     else:
-        raise DeserializationError("QuerySummary.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_artifact.types.query_status.QueryStatus", "")
     if data.get("statusMessage") is not None:
         import capo_artifact.types.query_status_message
 
@@ -125,7 +125,11 @@ def deserialize_json(data: dict) -> QuerySummary:
             )
         )
     else:
-        raise DeserializationError("QuerySummary.status_message required")
+        import typing
+
+        out["status_message"] = typing.cast(
+            "capo_artifact.types.query_status_message.QueryStatusMessage", ""
+        )
     if data.get("createdAt") is not None:
         import capo_artifact.types.timestamp_attribute
 
@@ -133,7 +137,9 @@ def deserialize_json(data: dict) -> QuerySummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("QuerySummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedResponseVersions") is not None:
         import capo_artifact.types.response_version_list
 

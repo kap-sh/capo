@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.data_automation_library_arn
     import capo_bedrock_data_automation.types.data_automation_library_name
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> DataAutomationLibrarySummary:
     if data.get("libraryArn") is not None:
         out["library_arn"] = data["libraryArn"]
     else:
-        raise DeserializationError("DataAutomationLibrarySummary.library_arn required")
+        out["library_arn"] = ""
     if data.get("libraryName") is not None:
         out["library_name"] = data["libraryName"]
     if data.get("creationTime") is not None:
@@ -53,8 +51,10 @@ def deserialize_json(data: dict) -> DataAutomationLibrarySummary:
             )
         )
     else:
-        raise DeserializationError(
-            "DataAutomationLibrarySummary.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out
 

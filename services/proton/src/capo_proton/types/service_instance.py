@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -111,11 +109,11 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceInstance:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ServiceInstance.name required")
+        out["name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ServiceInstance.arn required")
+        out["arn"] = ""
     if data.get("createdAt") is not None:
         import capo_proton.types._prelude.timestamp
 
@@ -125,7 +123,9 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceInstance:
             )
         )
     else:
-        raise DeserializationError("ServiceInstance.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastDeploymentAttemptedAt") is not None:
         import capo_proton.types._prelude.timestamp
 
@@ -135,8 +135,10 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceInstance:
             )
         )
     else:
-        raise DeserializationError(
-            "ServiceInstance.last_deployment_attempted_at required"
+        import datetime
+
+        out["last_deployment_attempted_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("lastDeploymentSucceededAt") is not None:
         import capo_proton.types._prelude.timestamp
@@ -147,33 +149,35 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceInstance:
             )
         )
     else:
-        raise DeserializationError(
-            "ServiceInstance.last_deployment_succeeded_at required"
+        import datetime
+
+        out["last_deployment_succeeded_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("serviceName") is not None:
         out["service_name"] = data["serviceName"]
     else:
-        raise DeserializationError("ServiceInstance.service_name required")
+        out["service_name"] = ""
     if data.get("environmentName") is not None:
         out["environment_name"] = data["environmentName"]
     else:
-        raise DeserializationError("ServiceInstance.environment_name required")
+        out["environment_name"] = ""
     if data.get("templateName") is not None:
         out["template_name"] = data["templateName"]
     else:
-        raise DeserializationError("ServiceInstance.template_name required")
+        out["template_name"] = ""
     if data.get("templateMajorVersion") is not None:
         out["template_major_version"] = data["templateMajorVersion"]
     else:
-        raise DeserializationError("ServiceInstance.template_major_version required")
+        out["template_major_version"] = ""
     if data.get("templateMinorVersion") is not None:
         out["template_minor_version"] = data["templateMinorVersion"]
     else:
-        raise DeserializationError("ServiceInstance.template_minor_version required")
+        out["template_minor_version"] = ""
     if data.get("deploymentStatus") is not None:
         out["deployment_status"] = data["deploymentStatus"]
     else:
-        raise DeserializationError("ServiceInstance.deployment_status required")
+        out["deployment_status"] = ""
     if data.get("deploymentStatusMessage") is not None:
         out["deployment_status_message"] = data["deploymentStatusMessage"]
     if data.get("spec") is not None:

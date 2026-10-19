@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity.types.arn_string
     import capo_cognito_identity.types.claim_name
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> MappingRule:
     if data.get("Claim") is not None:
         out["claim"] = data["Claim"]
     else:
-        raise DeserializationError("MappingRule.claim required")
+        out["claim"] = ""
     if data.get("MatchType") is not None:
         import capo_cognito_identity.types.mapping_rule_match_type
 
@@ -57,13 +55,18 @@ def deserialize_aws_json_1_1(data: dict) -> MappingRule:
             )
         )
     else:
-        raise DeserializationError("MappingRule.match_type required")
+        import typing
+
+        out["match_type"] = typing.cast(
+            "capo_cognito_identity.types.mapping_rule_match_type.MappingRuleMatchType",
+            "",
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("MappingRule.value required")
+        out["value"] = ""
     if data.get("RoleARN") is not None:
         out["role_arn"] = data["RoleARN"]
     else:
-        raise DeserializationError("MappingRule.role_arn required")
+        out["role_arn"] = ""
     return out

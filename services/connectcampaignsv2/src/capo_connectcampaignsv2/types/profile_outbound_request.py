@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.client_token
     import capo_connectcampaignsv2.types.event_trigger_context
@@ -49,11 +47,11 @@ def deserialize_json(data: dict) -> ProfileOutboundRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("ProfileOutboundRequest.client_token required")
+        out["client_token"] = ""
     if data.get("profileId") is not None:
         out["profile_id"] = data["profileId"]
     else:
-        raise DeserializationError("ProfileOutboundRequest.profile_id required")
+        out["profile_id"] = ""
     if data.get("expirationTime") is not None:
         import capo_connectcampaignsv2.types.time_stamp
 

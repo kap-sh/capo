@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.__string
     import capo_dataexchange.types.__string_min24_max24_pattern_a_za_z094_a_za_z092_a_za_z093
@@ -61,45 +59,31 @@ def deserialize_json(data: dict) -> ImportAssetFromApiGatewayApiRequestDetails:
     if data.get("ApiId") is not None:
         out["api_id"] = data["ApiId"]
     else:
-        raise DeserializationError(
-            "ImportAssetFromApiGatewayApiRequestDetails.api_id required"
-        )
+        out["api_id"] = ""
     if data.get("ApiKey") is not None:
         out["api_key"] = data["ApiKey"]
     if data.get("ApiName") is not None:
         out["api_name"] = data["ApiName"]
     else:
-        raise DeserializationError(
-            "ImportAssetFromApiGatewayApiRequestDetails.api_name required"
-        )
+        out["api_name"] = ""
     if data.get("ApiSpecificationMd5Hash") is not None:
         out["api_specification_md5_hash"] = data["ApiSpecificationMd5Hash"]
     else:
-        raise DeserializationError(
-            "ImportAssetFromApiGatewayApiRequestDetails.api_specification_md5_hash required"
-        )
+        out["api_specification_md5_hash"] = ""
     if data.get("DataSetId") is not None:
         out["data_set_id"] = data["DataSetId"]
     else:
-        raise DeserializationError(
-            "ImportAssetFromApiGatewayApiRequestDetails.data_set_id required"
-        )
+        out["data_set_id"] = ""
     if data.get("ProtocolType") is not None:
         out["protocol_type"] = data["ProtocolType"]
     else:
-        raise DeserializationError(
-            "ImportAssetFromApiGatewayApiRequestDetails.protocol_type required"
-        )
+        out["protocol_type"] = ""
     if data.get("RevisionId") is not None:
         out["revision_id"] = data["RevisionId"]
     else:
-        raise DeserializationError(
-            "ImportAssetFromApiGatewayApiRequestDetails.revision_id required"
-        )
+        out["revision_id"] = ""
     if data.get("Stage") is not None:
         out["stage"] = data["Stage"]
     else:
-        raise DeserializationError(
-            "ImportAssetFromApiGatewayApiRequestDetails.stage required"
-        )
+        out["stage"] = ""
     return out

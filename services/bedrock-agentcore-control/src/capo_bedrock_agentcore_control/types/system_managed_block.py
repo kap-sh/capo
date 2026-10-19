@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 
 class SystemManagedBlock(TypedDict, closed=True):
     managed_by: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> SystemManagedBlock:
     if data.get("managedBy") is not None:
         out["managed_by"] = data["managedBy"]
     else:
-        raise DeserializationError("SystemManagedBlock.managed_by required")
+        out["managed_by"] = ""
     return out

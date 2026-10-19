@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.cost_category_split_charge_method
     import capo_cost_explorer.types.cost_category_split_charge_rule_parameters_list
@@ -60,7 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> CostCategorySplitChargeRule:
     if data.get("Source") is not None:
         out["source"] = data["Source"]
     else:
-        raise DeserializationError("CostCategorySplitChargeRule.source required")
+        out["source"] = ""
     if data.get("Targets") is not None:
         import capo_cost_explorer.types.cost_category_split_charge_rule_targets_list
 
@@ -70,7 +68,7 @@ def deserialize_aws_json_1_1(data: dict) -> CostCategorySplitChargeRule:
             )
         )
     else:
-        raise DeserializationError("CostCategorySplitChargeRule.targets required")
+        out["targets"] = []
     if data.get("Method") is not None:
         import capo_cost_explorer.types.cost_category_split_charge_method
 
@@ -80,7 +78,12 @@ def deserialize_aws_json_1_1(data: dict) -> CostCategorySplitChargeRule:
             )
         )
     else:
-        raise DeserializationError("CostCategorySplitChargeRule.method required")
+        import typing
+
+        out["method"] = typing.cast(
+            "capo_cost_explorer.types.cost_category_split_charge_method.CostCategorySplitChargeMethod",
+            "",
+        )
     if data.get("Parameters") is not None:
         import capo_cost_explorer.types.cost_category_split_charge_rule_parameters_list
 

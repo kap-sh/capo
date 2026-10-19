@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.connector_file_transfer_results
     import capo_transfer.types.next_token
@@ -44,9 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListFileTransferResultsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListFileTransferResultsResponse.file_transfer_results required"
-        )
+        out["file_transfer_results"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

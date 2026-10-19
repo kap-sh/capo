@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53profiles.types.creator_request_id
     import capo_route53profiles.types.name
@@ -38,11 +36,11 @@ def deserialize_json(data: dict) -> CreateProfileRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateProfileRequest.name required")
+        out["name"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("CreateProfileRequest.client_token required")
+        out["client_token"] = ""
     if data.get("Tags") is not None:
         import capo_route53profiles.types.tag_list
 

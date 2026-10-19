@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_clouddirectory.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_clouddirectory.types.arn
     import capo_clouddirectory.types.directory_name
@@ -30,5 +28,5 @@ def deserialize_json(data: dict) -> CreateDirectoryRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateDirectoryRequest.name required")
+        out["name"] = ""
     return out

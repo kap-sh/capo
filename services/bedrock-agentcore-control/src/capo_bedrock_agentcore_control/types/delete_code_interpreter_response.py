@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.code_interpreter_id
     import capo_bedrock_agentcore_control.types.code_interpreter_status
@@ -49,9 +47,7 @@ def deserialize_json(data: dict) -> DeleteCodeInterpreterResponse:
     if data.get("codeInterpreterId") is not None:
         out["code_interpreter_id"] = data["codeInterpreterId"]
     else:
-        raise DeserializationError(
-            "DeleteCodeInterpreterResponse.code_interpreter_id required"
-        )
+        out["code_interpreter_id"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.code_interpreter_status
 
@@ -61,7 +57,12 @@ def deserialize_json(data: dict) -> DeleteCodeInterpreterResponse:
             )
         )
     else:
-        raise DeserializationError("DeleteCodeInterpreterResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.code_interpreter_status.CodeInterpreterStatus",
+            "",
+        )
     if data.get("lastUpdatedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -71,7 +72,9 @@ def deserialize_json(data: dict) -> DeleteCodeInterpreterResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DeleteCodeInterpreterResponse.last_updated_at required"
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

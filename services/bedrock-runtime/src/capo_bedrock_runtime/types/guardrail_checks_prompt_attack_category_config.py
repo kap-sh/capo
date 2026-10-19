@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.guardrail_checks_prompt_attack_category
 
@@ -39,7 +37,10 @@ def deserialize_json(data: dict) -> GuardrailChecksPromptAttackCategoryConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "GuardrailChecksPromptAttackCategoryConfig.category required"
+        import typing
+
+        out["category"] = typing.cast(
+            "capo_bedrock_runtime.types.guardrail_checks_prompt_attack_category.GuardrailChecksPromptAttackCategory",
+            "",
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.resource_arns
     import capo_backup.types.resource_type
@@ -45,15 +43,13 @@ def deserialize_json(data: dict) -> ResourceSelection:
             data["Resources"]
         )
     else:
-        raise DeserializationError("ResourceSelection.resources required")
+        out["resources"] = []
     if data.get("TieringDownSettingsInDays") is not None:
         out["tiering_down_settings_in_days"] = data["TieringDownSettingsInDays"]
     else:
-        raise DeserializationError(
-            "ResourceSelection.tiering_down_settings_in_days required"
-        )
+        out["tiering_down_settings_in_days"] = 0
     if data.get("ResourceType") is not None:
         out["resource_type"] = data["ResourceType"]
     else:
-        raise DeserializationError("ResourceSelection.resource_type required")
+        out["resource_type"] = ""
     return out

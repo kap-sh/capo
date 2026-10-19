@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.consent_portal_identifier
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> DeleteConsentPortalRequest:
     if data.get("consentPortalIdentifier") is not None:
         out["consent_portal_identifier"] = data["consentPortalIdentifier"]
     else:
-        raise DeserializationError(
-            "DeleteConsentPortalRequest.consent_portal_identifier required"
-        )
+        out["consent_portal_identifier"] = ""
     return out

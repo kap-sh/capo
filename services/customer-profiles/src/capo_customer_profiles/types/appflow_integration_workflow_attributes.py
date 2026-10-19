@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.connector_profile_name
     import capo_customer_profiles.types.source_connector_type
@@ -52,15 +50,15 @@ def deserialize_json(data: dict) -> AppflowIntegrationWorkflowAttributes:
             )
         )
     else:
-        raise DeserializationError(
-            "AppflowIntegrationWorkflowAttributes.source_connector_type required"
+        import typing
+
+        out["source_connector_type"] = typing.cast(
+            "capo_customer_profiles.types.source_connector_type.SourceConnectorType", ""
         )
     if data.get("ConnectorProfileName") is not None:
         out["connector_profile_name"] = data["ConnectorProfileName"]
     else:
-        raise DeserializationError(
-            "AppflowIntegrationWorkflowAttributes.connector_profile_name required"
-        )
+        out["connector_profile_name"] = ""
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     return out

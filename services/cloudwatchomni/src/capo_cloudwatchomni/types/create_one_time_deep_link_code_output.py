@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -40,13 +38,11 @@ def deserialize_cbor(data: dict) -> CreateOneTimeDeepLinkCodeOutput:
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("CreateOneTimeDeepLinkCodeOutput.code required")
+        out["code"] = ""
     if data.get("deepLinkUrl") is not None:
         out["deep_link_url"] = data["deepLinkUrl"]
     else:
-        raise DeserializationError(
-            "CreateOneTimeDeepLinkCodeOutput.deep_link_url required"
-        )
+        out["deep_link_url"] = ""
     if data.get("expiresAt") is not None:
         import capo_cloudwatchomni.types._prelude.timestamp
 
@@ -56,9 +52,9 @@ def deserialize_cbor(data: dict) -> CreateOneTimeDeepLinkCodeOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateOneTimeDeepLinkCodeOutput.expires_at required"
-        )
+        import datetime
+
+        out["expires_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

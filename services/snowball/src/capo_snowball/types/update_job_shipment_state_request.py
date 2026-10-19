@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_snowball.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_snowball.types.job_id
     import capo_snowball.types.shipment_state
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateJobShipmentStateRequest:
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError("UpdateJobShipmentStateRequest.job_id required")
+        out["job_id"] = ""
     if data.get("ShipmentState") is not None:
         import capo_snowball.types.shipment_state
 
@@ -45,7 +43,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateJobShipmentStateRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateJobShipmentStateRequest.shipment_state required"
+        import typing
+
+        out["shipment_state"] = typing.cast(
+            "capo_snowball.types.shipment_state.ShipmentState", ""
         )
     return out

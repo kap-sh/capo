@@ -58,7 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> WebACL:
     if data.get("WebACLId") is not None:
         out["web_acl_id"] = data["WebACLId"]
     else:
-        raise DeserializationError("WebACL.web_acl_id required")
+        out["web_acl_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("MetricName") is not None:
@@ -80,7 +80,7 @@ def deserialize_aws_json_1_1(data: dict) -> WebACL:
             data["Rules"]
         )
     else:
-        raise DeserializationError("WebACL.rules required")
+        out["rules"] = []
     if data.get("WebACLArn") is not None:
         out["web_acl_arn"] = data["WebACLArn"]
     return out

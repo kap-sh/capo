@@ -59,11 +59,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationNfsRequest:
     if data.get("Subdirectory") is not None:
         out["subdirectory"] = data["Subdirectory"]
     else:
-        raise DeserializationError("CreateLocationNfsRequest.subdirectory required")
+        out["subdirectory"] = ""
     if data.get("ServerHostname") is not None:
         out["server_hostname"] = data["ServerHostname"]
     else:
-        raise DeserializationError("CreateLocationNfsRequest.server_hostname required")
+        out["server_hostname"] = ""
     if data.get("OnPremConfig") is not None:
         import capo_datasync.types.on_prem_config
 

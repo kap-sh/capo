@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.email
     import capo_partnercentral_account.types.sensitive_unicode_string
@@ -37,19 +35,19 @@ def deserialize_aws_json_1_0(data: dict) -> AllianceLeadContact:
     if data.get("FirstName") is not None:
         out["first_name"] = data["FirstName"]
     else:
-        raise DeserializationError("AllianceLeadContact.first_name required")
+        out["first_name"] = ""
     if data.get("LastName") is not None:
         out["last_name"] = data["LastName"]
     else:
-        raise DeserializationError("AllianceLeadContact.last_name required")
+        out["last_name"] = ""
     if data.get("Email") is not None:
         out["email"] = data["Email"]
     else:
-        raise DeserializationError("AllianceLeadContact.email required")
+        out["email"] = ""
     if data.get("BusinessTitle") is not None:
         out["business_title"] = data["BusinessTitle"]
     else:
-        raise DeserializationError("AllianceLeadContact.business_title required")
+        out["business_title"] = ""
     return out
 
 

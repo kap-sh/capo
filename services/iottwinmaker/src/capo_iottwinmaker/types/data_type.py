@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.data_type
     import capo_iottwinmaker.types.data_value_list
@@ -59,7 +57,7 @@ def deserialize_json(data: dict) -> DataType:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("DataType.type required")
+        out["type"] = ""
     if data.get("nestedType") is not None:
         import capo_iottwinmaker.types.data_type
 

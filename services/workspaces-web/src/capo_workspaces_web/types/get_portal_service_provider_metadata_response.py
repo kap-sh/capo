@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.arn
     import capo_workspaces_web.types.saml_metadata
@@ -34,9 +32,7 @@ def deserialize_json(data: dict) -> GetPortalServiceProviderMetadataResponse:
     if data.get("portalArn") is not None:
         out["portal_arn"] = data["portalArn"]
     else:
-        raise DeserializationError(
-            "GetPortalServiceProviderMetadataResponse.portal_arn required"
-        )
+        out["portal_arn"] = ""
     if data.get("serviceProviderSamlMetadata") is not None:
         out["service_provider_saml_metadata"] = data["serviceProviderSamlMetadata"]
     return out

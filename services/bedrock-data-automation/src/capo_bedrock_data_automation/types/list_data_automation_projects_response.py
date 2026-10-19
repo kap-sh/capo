@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.data_automation_project_summaries
     import capo_bedrock_data_automation.types.next_token
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> ListDataAutomationProjectsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListDataAutomationProjectsResponse.projects required"
-        )
+        out["projects"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

@@ -40,9 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeImageSigningStatusRequest:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError(
-            "DescribeImageSigningStatusRequest.repository_name required"
-        )
+        out["repository_name"] = ""
     if data.get("imageId") is not None:
         import capo_ecr.types.image_identifier
 

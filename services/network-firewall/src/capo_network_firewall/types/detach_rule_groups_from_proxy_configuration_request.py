@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.resource_arn
     import capo_network_firewall.types.resource_arn_list
@@ -91,7 +89,5 @@ def deserialize_aws_json_1_0(
     if data.get("UpdateToken") is not None:
         out["update_token"] = data["UpdateToken"]
     else:
-        raise DeserializationError(
-            "DetachRuleGroupsFromProxyConfigurationRequest.update_token required"
-        )
+        out["update_token"] = ""
     return out

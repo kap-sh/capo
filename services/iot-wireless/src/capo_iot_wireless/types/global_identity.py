@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.geran_cid
     import capo_iot_wireless.types.lac
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> GlobalIdentity:
     if data.get("Lac") is not None:
         out["lac"] = data["Lac"]
     else:
-        raise DeserializationError("GlobalIdentity.lac required")
+        out["lac"] = 0
     if data.get("GeranCid") is not None:
         out["geran_cid"] = data["GeranCid"]
     else:
-        raise DeserializationError("GlobalIdentity.geran_cid required")
+        out["geran_cid"] = 0
     return out

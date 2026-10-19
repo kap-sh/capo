@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.deployment_id
     import capo_proton.types.empty_next_token
@@ -40,15 +38,11 @@ def deserialize_aws_json_1_0(data: dict) -> ListServiceInstanceOutputsInput:
     if data.get("serviceInstanceName") is not None:
         out["service_instance_name"] = data["serviceInstanceName"]
     else:
-        raise DeserializationError(
-            "ListServiceInstanceOutputsInput.service_instance_name required"
-        )
+        out["service_instance_name"] = ""
     if data.get("serviceName") is not None:
         out["service_name"] = data["serviceName"]
     else:
-        raise DeserializationError(
-            "ListServiceInstanceOutputsInput.service_name required"
-        )
+        out["service_name"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("deploymentId") is not None:

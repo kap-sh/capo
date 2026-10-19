@@ -72,9 +72,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateConnectionOAuthRequestParamete
     if data.get("AuthorizationEndpoint") is not None:
         out["authorization_endpoint"] = data["AuthorizationEndpoint"]
     else:
-        raise DeserializationError(
-            "CreateConnectionOAuthRequestParameters.authorization_endpoint required"
-        )
+        out["authorization_endpoint"] = ""
     if data.get("HttpMethod") is not None:
         import capo_cloudwatch_events.types.connection_o_auth_http_method
 
@@ -84,8 +82,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateConnectionOAuthRequestParamete
             )
         )
     else:
-        raise DeserializationError(
-            "CreateConnectionOAuthRequestParameters.http_method required"
+        import typing
+
+        out["http_method"] = typing.cast(
+            "capo_cloudwatch_events.types.connection_o_auth_http_method.ConnectionOAuthHttpMethod",
+            "",
         )
     if data.get("OAuthHttpParameters") is not None:
         import capo_cloudwatch_events.types.connection_http_parameters

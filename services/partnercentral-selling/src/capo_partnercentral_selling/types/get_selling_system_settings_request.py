@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.catalog_identifier
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> GetSellingSystemSettingsRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("GetSellingSystemSettingsRequest.catalog required")
+        out["catalog"] = ""
     return out

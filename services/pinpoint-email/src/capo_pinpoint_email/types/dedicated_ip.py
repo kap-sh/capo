@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_email.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_email.types.ip
     import capo_pinpoint_email.types.percentage100_wrapper
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> DedicatedIp:
     if data.get("Ip") is not None:
         out["ip"] = data["Ip"]
     else:
-        raise DeserializationError("DedicatedIp.ip required")
+        out["ip"] = ""
     if data.get("WarmupStatus") is not None:
         import capo_pinpoint_email.types.warmup_status
 
@@ -54,11 +52,15 @@ def deserialize_json(data: dict) -> DedicatedIp:
             data["WarmupStatus"]
         )
     else:
-        raise DeserializationError("DedicatedIp.warmup_status required")
+        import typing
+
+        out["warmup_status"] = typing.cast(
+            "capo_pinpoint_email.types.warmup_status.WarmupStatus", ""
+        )
     if data.get("WarmupPercentage") is not None:
         out["warmup_percentage"] = data["WarmupPercentage"]
     else:
-        raise DeserializationError("DedicatedIp.warmup_percentage required")
+        out["warmup_percentage"] = 0
     if data.get("PoolName") is not None:
         out["pool_name"] = data["PoolName"]
     return out

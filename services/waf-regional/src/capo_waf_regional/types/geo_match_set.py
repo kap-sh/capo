@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_waf_regional.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf_regional.types.geo_match_constraints
     import capo_waf_regional.types.resource_id
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> GeoMatchSet:
     if data.get("GeoMatchSetId") is not None:
         out["geo_match_set_id"] = data["GeoMatchSetId"]
     else:
-        raise DeserializationError("GeoMatchSet.geo_match_set_id required")
+        out["geo_match_set_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("GeoMatchConstraints") is not None:
@@ -56,5 +54,5 @@ def deserialize_aws_json_1_1(data: dict) -> GeoMatchSet:
             )
         )
     else:
-        raise DeserializationError("GeoMatchSet.geo_match_constraints required")
+        out["geo_match_constraints"] = []
     return out

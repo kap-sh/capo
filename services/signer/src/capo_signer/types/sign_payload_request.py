@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_signer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_signer.types.account_id
     import capo_signer.types.payload
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> SignPayloadRequest:
     if data.get("profileName") is not None:
         out["profile_name"] = data["profileName"]
     else:
-        raise DeserializationError("SignPayloadRequest.profile_name required")
+        out["profile_name"] = ""
     if data.get("profileOwner") is not None:
         out["profile_owner"] = data["profileOwner"]
     if data.get("payload") is not None:
@@ -50,9 +48,9 @@ def deserialize_json(data: dict) -> SignPayloadRequest:
 
         out["payload"] = capo_signer.types.payload.deserialize_json(data["payload"])
     else:
-        raise DeserializationError("SignPayloadRequest.payload required")
+        out["payload"] = b""
     if data.get("payloadFormat") is not None:
         out["payload_format"] = data["payloadFormat"]
     else:
-        raise DeserializationError("SignPayloadRequest.payload_format required")
+        out["payload_format"] = ""
     return out

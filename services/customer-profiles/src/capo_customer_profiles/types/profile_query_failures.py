@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.get_segment_membership_message
     import capo_customer_profiles.types.get_segment_membership_status
@@ -38,11 +36,11 @@ def deserialize_json(data: dict) -> ProfileQueryFailures:
     if data.get("ProfileId") is not None:
         out["profile_id"] = data["ProfileId"]
     else:
-        raise DeserializationError("ProfileQueryFailures.profile_id required")
+        out["profile_id"] = ""
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("ProfileQueryFailures.message required")
+        out["message"] = ""
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     return out

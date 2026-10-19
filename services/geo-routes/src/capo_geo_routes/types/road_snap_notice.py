@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.road_snap_notice_code
     import capo_geo_routes.types.road_snap_trace_point_index_list
@@ -49,11 +47,15 @@ def deserialize_json(data: dict) -> RoadSnapNotice:
             data["Code"]
         )
     else:
-        raise DeserializationError("RoadSnapNotice.code required")
+        import typing
+
+        out["code"] = typing.cast(
+            "capo_geo_routes.types.road_snap_notice_code.RoadSnapNoticeCode", ""
+        )
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     else:
-        raise DeserializationError("RoadSnapNotice.title required")
+        out["title"] = ""
     if data.get("TracePointIndexes") is not None:
         import capo_geo_routes.types.road_snap_trace_point_index_list
 
@@ -63,7 +65,7 @@ def deserialize_json(data: dict) -> RoadSnapNotice:
             )
         )
     else:
-        raise DeserializationError("RoadSnapNotice.trace_point_indexes required")
+        out["trace_point_indexes"] = []
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ram.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ram.types.max_results
     import capo_ram.types.resource_region_scope_filter
@@ -49,9 +47,7 @@ def deserialize_json(data: dict) -> ListPendingInvitationResourcesRequest:
     if data.get("resourceShareInvitationArn") is not None:
         out["resource_share_invitation_arn"] = data["resourceShareInvitationArn"]
     else:
-        raise DeserializationError(
-            "ListPendingInvitationResourcesRequest.resource_share_invitation_arn required"
-        )
+        out["resource_share_invitation_arn"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

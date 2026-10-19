@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.consent_portal_source_identifier_type
     import capo_bedrock_agentcore_control.types.consent_portal_source_type
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> ConsentPortalSource:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("ConsentPortalSource.identifier required")
+        out["identifier"] = ""
     if data.get("type") is not None:
         import capo_bedrock_agentcore_control.types.consent_portal_source_type
 
@@ -47,5 +45,10 @@ def deserialize_json(data: dict) -> ConsentPortalSource:
             )
         )
     else:
-        raise DeserializationError("ConsentPortalSource.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.consent_portal_source_type.ConsentPortalSourceType",
+            "",
+        )
     return out

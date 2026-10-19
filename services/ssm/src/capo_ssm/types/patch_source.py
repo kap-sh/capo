@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.patch_source_configuration
     import capo_ssm.types.patch_source_name
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> PatchSource:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("PatchSource.name required")
+        out["name"] = ""
     if data.get("Products") is not None:
         import capo_ssm.types.patch_source_product_list
 
@@ -49,11 +47,11 @@ def deserialize_aws_json_1_1(data: dict) -> PatchSource:
             )
         )
     else:
-        raise DeserializationError("PatchSource.products required")
+        out["products"] = []
     if data.get("Configuration") is not None:
         out["configuration"] = data["Configuration"]
     else:
-        raise DeserializationError("PatchSource.configuration required")
+        out["configuration"] = ""
     return out
 
 

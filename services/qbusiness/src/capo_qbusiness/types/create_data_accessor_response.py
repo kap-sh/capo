@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.data_accessor_arn
     import capo_qbusiness.types.data_accessor_id
@@ -35,19 +33,13 @@ def deserialize_json(data: dict) -> CreateDataAccessorResponse:
     if data.get("dataAccessorId") is not None:
         out["data_accessor_id"] = data["dataAccessorId"]
     else:
-        raise DeserializationError(
-            "CreateDataAccessorResponse.data_accessor_id required"
-        )
+        out["data_accessor_id"] = ""
     if data.get("idcApplicationArn") is not None:
         out["idc_application_arn"] = data["idcApplicationArn"]
     else:
-        raise DeserializationError(
-            "CreateDataAccessorResponse.idc_application_arn required"
-        )
+        out["idc_application_arn"] = ""
     if data.get("dataAccessorArn") is not None:
         out["data_accessor_arn"] = data["dataAccessorArn"]
     else:
-        raise DeserializationError(
-            "CreateDataAccessorResponse.data_accessor_arn required"
-        )
+        out["data_accessor_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.axis_binding
     import capo_quicksight.types.field_id
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> FieldSeriesItem:
     if data.get("FieldId") is not None:
         out["field_id"] = data["FieldId"]
     else:
-        raise DeserializationError("FieldSeriesItem.field_id required")
+        out["field_id"] = ""
     if data.get("AxisBinding") is not None:
         import capo_quicksight.types.axis_binding
 
@@ -56,7 +54,11 @@ def deserialize_json(data: dict) -> FieldSeriesItem:
             data["AxisBinding"]
         )
     else:
-        raise DeserializationError("FieldSeriesItem.axis_binding required")
+        import typing
+
+        out["axis_binding"] = typing.cast(
+            "capo_quicksight.types.axis_binding.AxisBinding", ""
+        )
     if data.get("Settings") is not None:
         import capo_quicksight.types.line_chart_series_settings
 

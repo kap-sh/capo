@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ivs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs.types.ad_duration_seconds
     import capo_ivs.types.boolean
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> PostRollConfiguration:
     if data.get("durationSeconds") is not None:
         out["duration_seconds"] = data["durationSeconds"]
     else:
-        raise DeserializationError("PostRollConfiguration.duration_seconds required")
+        out["duration_seconds"] = 0
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     else:

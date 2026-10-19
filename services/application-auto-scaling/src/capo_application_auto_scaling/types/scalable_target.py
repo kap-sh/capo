@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_auto_scaling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_auto_scaling.types.resource_capacity
     import capo_application_auto_scaling.types.resource_id_max_len1600
@@ -107,11 +105,15 @@ def deserialize_aws_json_1_1(data: dict) -> ScalableTarget:
             )
         )
     else:
-        raise DeserializationError("ScalableTarget.service_namespace required")
+        import typing
+
+        out["service_namespace"] = typing.cast(
+            "capo_application_auto_scaling.types.service_namespace.ServiceNamespace", ""
+        )
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("ScalableTarget.resource_id required")
+        out["resource_id"] = ""
     if data.get("ScalableDimension") is not None:
         import capo_application_auto_scaling.types.scalable_dimension
 
@@ -121,21 +123,26 @@ def deserialize_aws_json_1_1(data: dict) -> ScalableTarget:
             )
         )
     else:
-        raise DeserializationError("ScalableTarget.scalable_dimension required")
+        import typing
+
+        out["scalable_dimension"] = typing.cast(
+            "capo_application_auto_scaling.types.scalable_dimension.ScalableDimension",
+            "",
+        )
     if data.get("MinCapacity") is not None:
         out["min_capacity"] = data["MinCapacity"]
     else:
-        raise DeserializationError("ScalableTarget.min_capacity required")
+        out["min_capacity"] = 0
     if data.get("MaxCapacity") is not None:
         out["max_capacity"] = data["MaxCapacity"]
     else:
-        raise DeserializationError("ScalableTarget.max_capacity required")
+        out["max_capacity"] = 0
     if data.get("PredictedCapacity") is not None:
         out["predicted_capacity"] = data["PredictedCapacity"]
     if data.get("RoleARN") is not None:
         out["role_arn"] = data["RoleARN"]
     else:
-        raise DeserializationError("ScalableTarget.role_arn required")
+        out["role_arn"] = ""
     if data.get("CreationTime") is not None:
         import capo_application_auto_scaling.types.timestamp_type
 
@@ -145,7 +152,11 @@ def deserialize_aws_json_1_1(data: dict) -> ScalableTarget:
             )
         )
     else:
-        raise DeserializationError("ScalableTarget.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("SuspendedState") is not None:
         import capo_application_auto_scaling.types.suspended_state
 

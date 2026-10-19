@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.runtime_name
     import capo_appsync.types.string
@@ -35,9 +33,11 @@ def deserialize_json(data: dict) -> AppSyncRuntime:
 
         out["name"] = capo_appsync.types.runtime_name.deserialize_json(data["name"])
     else:
-        raise DeserializationError("AppSyncRuntime.name required")
+        import typing
+
+        out["name"] = typing.cast("capo_appsync.types.runtime_name.RuntimeName", "")
     if data.get("runtimeVersion") is not None:
         out["runtime_version"] = data["runtimeVersion"]
     else:
-        raise DeserializationError("AppSyncRuntime.runtime_version required")
+        out["runtime_version"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.earfcn
     import capo_iot_wireless.types.pci
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> LteLocalId:
     if data.get("Pci") is not None:
         out["pci"] = data["Pci"]
     else:
-        raise DeserializationError("LteLocalId.pci required")
+        out["pci"] = 0
     if data.get("Earfcn") is not None:
         out["earfcn"] = data["Earfcn"]
     else:
-        raise DeserializationError("LteLocalId.earfcn required")
+        out["earfcn"] = 0
     return out

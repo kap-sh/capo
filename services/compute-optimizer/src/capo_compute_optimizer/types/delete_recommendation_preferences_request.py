@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_compute_optimizer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_compute_optimizer.types.recommendation_preference_names
     import capo_compute_optimizer.types.resource_type
@@ -58,8 +56,10 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteRecommendationPreferencesReque
             )
         )
     else:
-        raise DeserializationError(
-            "DeleteRecommendationPreferencesRequest.resource_type required"
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_compute_optimizer.types.resource_type.ResourceType", ""
         )
     if data.get("scope") is not None:
         import capo_compute_optimizer.types.scope
@@ -76,7 +76,5 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteRecommendationPreferencesReque
             )
         )
     else:
-        raise DeserializationError(
-            "DeleteRecommendationPreferencesRequest.recommendation_preference_names required"
-        )
+        out["recommendation_preference_names"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.sensitive_string
 
@@ -27,5 +25,5 @@ def deserialize_cbor(data: dict) -> ApiKeyCredential:
     if data.get("apiKeyValue") is not None:
         out["api_key_value"] = data["apiKeyValue"]
     else:
-        raise DeserializationError("ApiKeyCredential.api_key_value required")
+        out["api_key_value"] = ""
     return out

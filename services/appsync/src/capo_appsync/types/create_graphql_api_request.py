@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.additional_authentication_providers
     import capo_appsync.types.authentication_type
@@ -172,7 +170,7 @@ def deserialize_json(data: dict) -> CreateGraphqlApiRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateGraphqlApiRequest.name required")
+        out["name"] = ""
     if data.get("logConfig") is not None:
         import capo_appsync.types.log_config
 
@@ -188,8 +186,10 @@ def deserialize_json(data: dict) -> CreateGraphqlApiRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateGraphqlApiRequest.authentication_type required"
+        import typing
+
+        out["authentication_type"] = typing.cast(
+            "capo_appsync.types.authentication_type.AuthenticationType", ""
         )
     if data.get("userPoolConfig") is not None:
         import capo_appsync.types.user_pool_config

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.account_id
     import capo_cloudtrail.types.event_data_store_arn
@@ -43,7 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> CancelQueryRequest:
     if data.get("QueryId") is not None:
         out["query_id"] = data["QueryId"]
     else:
-        raise DeserializationError("CancelQueryRequest.query_id required")
+        out["query_id"] = ""
     if data.get("EventDataStoreOwnerAccountId") is not None:
         out["event_data_store_owner_account_id"] = data["EventDataStoreOwnerAccountId"]
     return out

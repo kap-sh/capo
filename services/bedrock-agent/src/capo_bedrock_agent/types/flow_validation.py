@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.flow_validation_details
     import capo_bedrock_agent.types.flow_validation_severity
@@ -59,7 +57,7 @@ def deserialize_json(data: dict) -> FlowValidation:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("FlowValidation.message required")
+        out["message"] = ""
     if data.get("severity") is not None:
         import capo_bedrock_agent.types.flow_validation_severity
 
@@ -69,7 +67,12 @@ def deserialize_json(data: dict) -> FlowValidation:
             )
         )
     else:
-        raise DeserializationError("FlowValidation.severity required")
+        import typing
+
+        out["severity"] = typing.cast(
+            "capo_bedrock_agent.types.flow_validation_severity.FlowValidationSeverity",
+            "",
+        )
     if data.get("details") is not None:
         import capo_bedrock_agent.types.flow_validation_details
 

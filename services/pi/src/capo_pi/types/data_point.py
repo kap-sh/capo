@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pi.types.double
     import capo_pi.types.iso_timestamp
@@ -47,9 +45,11 @@ def deserialize_aws_json_1_1(data: dict) -> DataPoint:
             data["Timestamp"]
         )
     else:
-        raise DeserializationError("DataPoint.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Value") is not None:
         out["value"] = float(data["Value"])
     else:
-        raise DeserializationError("DataPoint.value required")
+        out["value"] = 0.0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.processor_parameter_list
     import capo_firehose.types.processor_type
@@ -48,7 +46,11 @@ def deserialize_aws_json_1_1(data: dict) -> Processor:
             data["Type"]
         )
     else:
-        raise DeserializationError("Processor.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_firehose.types.processor_type.ProcessorType", ""
+        )
     if data.get("Parameters") is not None:
         import capo_firehose.types.processor_parameter_list
 

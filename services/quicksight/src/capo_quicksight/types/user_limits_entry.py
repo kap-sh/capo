@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 
 class UserLimitsEntry(TypedDict, closed=True):
     user_name: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> UserLimitsEntry:
     if data.get("userName") is not None:
         out["user_name"] = data["userName"]
     else:
-        raise DeserializationError("UserLimitsEntry.user_name required")
+        out["user_name"] = ""
     if data.get("namespace") is not None:
         out["namespace"] = data["namespace"]
     else:
-        raise DeserializationError("UserLimitsEntry.namespace required")
+        out["namespace"] = ""
     return out

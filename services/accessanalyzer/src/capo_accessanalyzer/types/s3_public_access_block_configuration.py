@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 
 class S3PublicAccessBlockConfiguration(TypedDict, closed=True):
     ignore_public_acls: "bool"
@@ -25,13 +23,9 @@ def deserialize_json(data: dict) -> S3PublicAccessBlockConfiguration:
     if data.get("ignorePublicAcls") is not None:
         out["ignore_public_acls"] = data["ignorePublicAcls"]
     else:
-        raise DeserializationError(
-            "S3PublicAccessBlockConfiguration.ignore_public_acls required"
-        )
+        out["ignore_public_acls"] = False
     if data.get("restrictPublicBuckets") is not None:
         out["restrict_public_buckets"] = data["restrictPublicBuckets"]
     else:
-        raise DeserializationError(
-            "S3PublicAccessBlockConfiguration.restrict_public_buckets required"
-        )
+        out["restrict_public_buckets"] = False
     return out

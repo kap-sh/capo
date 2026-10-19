@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.expression
     import capo_cost_explorer.types.generic_string
@@ -88,7 +86,7 @@ def deserialize_aws_json_1_1(data: dict) -> AnomalyMonitor:
     if data.get("MonitorName") is not None:
         out["monitor_name"] = data["MonitorName"]
     else:
-        raise DeserializationError("AnomalyMonitor.monitor_name required")
+        out["monitor_name"] = ""
     if data.get("CreationDate") is not None:
         out["creation_date"] = data["CreationDate"]
     if data.get("LastUpdatedDate") is not None:
@@ -104,7 +102,11 @@ def deserialize_aws_json_1_1(data: dict) -> AnomalyMonitor:
             )
         )
     else:
-        raise DeserializationError("AnomalyMonitor.monitor_type required")
+        import typing
+
+        out["monitor_type"] = typing.cast(
+            "capo_cost_explorer.types.monitor_type.MonitorType", ""
+        )
     if data.get("MonitorDimension") is not None:
         import capo_cost_explorer.types.monitor_dimension
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda_microvms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> MicrovmItem:
     if data.get("microvmId") is not None:
         out["microvm_id"] = data["microvmId"]
     else:
-        raise DeserializationError("MicrovmItem.microvm_id required")
+        out["microvm_id"] = ""
     if data.get("state") is not None:
         import capo_lambda_microvms.types.microvm_state
 
@@ -60,15 +58,19 @@ def deserialize_json(data: dict) -> MicrovmItem:
             data["state"]
         )
     else:
-        raise DeserializationError("MicrovmItem.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_lambda_microvms.types.microvm_state.MicrovmState", ""
+        )
     if data.get("imageArn") is not None:
         out["image_arn"] = data["imageArn"]
     else:
-        raise DeserializationError("MicrovmItem.image_arn required")
+        out["image_arn"] = ""
     if data.get("imageVersion") is not None:
         out["image_version"] = data["imageVersion"]
     else:
-        raise DeserializationError("MicrovmItem.image_version required")
+        out["image_version"] = ""
     if data.get("startedAt") is not None:
         import capo_lambda_microvms.types._prelude.timestamp
 
@@ -78,5 +80,7 @@ def deserialize_json(data: dict) -> MicrovmItem:
             )
         )
     else:
-        raise DeserializationError("MicrovmItem.started_at required")
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

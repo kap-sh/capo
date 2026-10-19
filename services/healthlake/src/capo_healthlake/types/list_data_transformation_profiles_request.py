@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.data_transformation_next_token
     import capo_healthlake.types.max_results
@@ -49,8 +47,10 @@ def deserialize_aws_json_1_0(data: dict) -> ListDataTransformationProfilesReques
             )
         )
     else:
-        raise DeserializationError(
-            "ListDataTransformationProfilesRequest.source_format required"
+        import typing
+
+        out["source_format"] = typing.cast(
+            "capo_healthlake.types.source_format.SourceFormat", ""
         )
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]

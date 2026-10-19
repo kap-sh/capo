@@ -47,15 +47,11 @@ def deserialize_aws_json_1_1(
     if data.get("InstanceArn") is not None:
         out["instance_arn"] = data["InstanceArn"]
     else:
-        raise DeserializationError(
-            "DetachCustomerManagedPolicyReferenceFromPermissionSetRequest.instance_arn required"
-        )
+        out["instance_arn"] = ""
     if data.get("PermissionSetArn") is not None:
         out["permission_set_arn"] = data["PermissionSetArn"]
     else:
-        raise DeserializationError(
-            "DetachCustomerManagedPolicyReferenceFromPermissionSetRequest.permission_set_arn required"
-        )
+        out["permission_set_arn"] = ""
     if data.get("CustomerManagedPolicyReference") is not None:
         import capo_sso_admin.types.customer_managed_policy_reference
 

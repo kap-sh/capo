@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appfabric.types.string2048
     import capo_appfabric.types.tenant_identifier
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> Tenant:
     if data.get("tenantIdentifier") is not None:
         out["tenant_identifier"] = data["tenantIdentifier"]
     else:
-        raise DeserializationError("Tenant.tenant_identifier required")
+        out["tenant_identifier"] = ""
     if data.get("tenantDisplayName") is not None:
         out["tenant_display_name"] = data["tenantDisplayName"]
     else:
-        raise DeserializationError("Tenant.tenant_display_name required")
+        out["tenant_display_name"] = ""
     return out

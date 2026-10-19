@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_forecast.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_forecast.types.name
     import capo_forecast.types.values
@@ -33,7 +31,7 @@ def deserialize_aws_json_1_1(data: dict) -> CategoricalParameterRange:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CategoricalParameterRange.name required")
+        out["name"] = ""
     if data.get("Values") is not None:
         import capo_forecast.types.values
 
@@ -41,5 +39,5 @@ def deserialize_aws_json_1_1(data: dict) -> CategoricalParameterRange:
             data["Values"]
         )
     else:
-        raise DeserializationError("CategoricalParameterRange.values required")
+        out["values"] = []
     return out

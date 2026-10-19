@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_controlcatalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_controlcatalog.types.control_arn
     import capo_controlcatalog.types.control_relation_type
@@ -46,7 +44,9 @@ def deserialize_json(data: dict) -> RelatedControlMappingDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "RelatedControlMappingDetails.relation_type required"
+        import typing
+
+        out["relation_type"] = typing.cast(
+            "capo_controlcatalog.types.control_relation_type.ControlRelationType", ""
         )
     return out

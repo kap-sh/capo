@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.applicable_asset_types
     import capo_datazone.types.authorized_principal_identifiers
@@ -127,7 +125,7 @@ def deserialize_json(data: dict) -> UpdateSubscriptionTargetOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("UpdateSubscriptionTargetOutput.id required")
+        out["id"] = ""
     if data.get("authorizedPrincipals") is not None:
         import capo_datazone.types.authorized_principal_identifiers
 
@@ -137,35 +135,31 @@ def deserialize_json(data: dict) -> UpdateSubscriptionTargetOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateSubscriptionTargetOutput.authorized_principals required"
-        )
+        out["authorized_principals"] = []
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("UpdateSubscriptionTargetOutput.domain_id required")
+        out["domain_id"] = ""
     if data.get("projectId") is not None:
         out["project_id"] = data["projectId"]
     else:
-        raise DeserializationError("UpdateSubscriptionTargetOutput.project_id required")
+        out["project_id"] = ""
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError(
-            "UpdateSubscriptionTargetOutput.environment_id required"
-        )
+        out["environment_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateSubscriptionTargetOutput.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("UpdateSubscriptionTargetOutput.type required")
+        out["type"] = ""
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("UpdateSubscriptionTargetOutput.created_by required")
+        out["created_by"] = ""
     if data.get("updatedBy") is not None:
         out["updated_by"] = data["updatedBy"]
     if data.get("createdAt") is not None:
@@ -175,7 +169,9 @@ def deserialize_json(data: dict) -> UpdateSubscriptionTargetOutput:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("UpdateSubscriptionTargetOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_datazone.types.updated_at
 
@@ -193,9 +189,7 @@ def deserialize_json(data: dict) -> UpdateSubscriptionTargetOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateSubscriptionTargetOutput.applicable_asset_types required"
-        )
+        out["applicable_asset_types"] = []
     if data.get("subscriptionTargetConfig") is not None:
         import capo_datazone.types.subscription_target_forms
 
@@ -205,13 +199,11 @@ def deserialize_json(data: dict) -> UpdateSubscriptionTargetOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateSubscriptionTargetOutput.subscription_target_config required"
-        )
+        out["subscription_target_config"] = []
     if data.get("provider") is not None:
         out["provider"] = data["provider"]
     else:
-        raise DeserializationError("UpdateSubscriptionTargetOutput.provider required")
+        out["provider"] = ""
     if data.get("subscriptionGrantCreationMode") is not None:
         import capo_datazone.types.subscription_grant_creation_mode
 

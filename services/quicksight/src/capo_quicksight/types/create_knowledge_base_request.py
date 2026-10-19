@@ -106,19 +106,15 @@ def deserialize_json(data: dict) -> CreateKnowledgeBaseRequest:
     if data.get("KnowledgeBaseId") is not None:
         out["knowledge_base_id"] = data["KnowledgeBaseId"]
     else:
-        raise DeserializationError(
-            "CreateKnowledgeBaseRequest.knowledge_base_id required"
-        )
+        out["knowledge_base_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateKnowledgeBaseRequest.name required")
+        out["name"] = ""
     if data.get("DataSourceArn") is not None:
         out["data_source_arn"] = data["DataSourceArn"]
     else:
-        raise DeserializationError(
-            "CreateKnowledgeBaseRequest.data_source_arn required"
-        )
+        out["data_source_arn"] = ""
     if data.get("KnowledgeBaseConfiguration") is not None:
         import capo_quicksight.types.knowledge_base_configuration
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.iam_role_arn
     import capo_deadline.types.job_details_job_attachment_settings
@@ -94,7 +92,7 @@ def deserialize_json(data: dict) -> JobDetailsEntity:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("JobDetailsEntity.job_id required")
+        out["job_id"] = ""
     if data.get("jobAttachmentSettings") is not None:
         import capo_deadline.types.job_details_job_attachment_settings
 
@@ -112,7 +110,7 @@ def deserialize_json(data: dict) -> JobDetailsEntity:
     if data.get("logGroupName") is not None:
         out["log_group_name"] = data["logGroupName"]
     else:
-        raise DeserializationError("JobDetailsEntity.log_group_name required")
+        out["log_group_name"] = ""
     if data.get("queueRoleArn") is not None:
         out["queue_role_arn"] = data["queueRoleArn"]
     if data.get("parameters") is not None:
@@ -124,7 +122,7 @@ def deserialize_json(data: dict) -> JobDetailsEntity:
     if data.get("schemaVersion") is not None:
         out["schema_version"] = data["schemaVersion"]
     else:
-        raise DeserializationError("JobDetailsEntity.schema_version required")
+        out["schema_version"] = ""
     if data.get("extensions") is not None:
         import capo_deadline.types.openjd_extension_name_list
 

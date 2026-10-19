@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -80,13 +78,11 @@ def deserialize_json(data: dict) -> GetCodeSecurityIntegrationResponse:
     if data.get("integrationArn") is not None:
         out["integration_arn"] = data["integrationArn"]
     else:
-        raise DeserializationError(
-            "GetCodeSecurityIntegrationResponse.integration_arn required"
-        )
+        out["integration_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetCodeSecurityIntegrationResponse.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         import capo_inspector2.types.integration_type
 
@@ -94,7 +90,11 @@ def deserialize_json(data: dict) -> GetCodeSecurityIntegrationResponse:
             data["type"]
         )
     else:
-        raise DeserializationError("GetCodeSecurityIntegrationResponse.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_inspector2.types.integration_type.IntegrationType", ""
+        )
     if data.get("status") is not None:
         import capo_inspector2.types.integration_status
 
@@ -102,13 +102,15 @@ def deserialize_json(data: dict) -> GetCodeSecurityIntegrationResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("GetCodeSecurityIntegrationResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_inspector2.types.integration_status.IntegrationStatus", ""
+        )
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
     else:
-        raise DeserializationError(
-            "GetCodeSecurityIntegrationResponse.status_reason required"
-        )
+        out["status_reason"] = ""
     if data.get("createdOn") is not None:
         import capo_inspector2.types._prelude.timestamp
 
@@ -116,9 +118,9 @@ def deserialize_json(data: dict) -> GetCodeSecurityIntegrationResponse:
             data["createdOn"]
         )
     else:
-        raise DeserializationError(
-            "GetCodeSecurityIntegrationResponse.created_on required"
-        )
+        import datetime
+
+        out["created_on"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastUpdateOn") is not None:
         import capo_inspector2.types._prelude.timestamp
 
@@ -128,8 +130,10 @@ def deserialize_json(data: dict) -> GetCodeSecurityIntegrationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetCodeSecurityIntegrationResponse.last_update_on required"
+        import datetime
+
+        out["last_update_on"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("authorizationUrl") is not None:
         out["authorization_url"] = data["authorizationUrl"]

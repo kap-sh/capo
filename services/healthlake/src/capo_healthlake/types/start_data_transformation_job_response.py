@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.data_transformation_job_id
     import capo_healthlake.types.transformation_job_status
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_0(data: dict) -> StartDataTransformationJobResponse:
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError("StartDataTransformationJobResponse.job_id required")
+        out["job_id"] = ""
     if data.get("JobStatus") is not None:
         import capo_healthlake.types.transformation_job_status
 
@@ -49,7 +47,10 @@ def deserialize_aws_json_1_0(data: dict) -> StartDataTransformationJobResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "StartDataTransformationJobResponse.job_status required"
+        import typing
+
+        out["job_status"] = typing.cast(
+            "capo_healthlake.types.transformation_job_status.TransformationJobStatus",
+            "",
         )
     return out

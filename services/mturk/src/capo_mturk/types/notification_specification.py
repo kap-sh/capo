@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mturk.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mturk.types.event_type_list
     import capo_mturk.types.notification_transport
@@ -46,7 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> NotificationSpecification:
     if data.get("Destination") is not None:
         out["destination"] = data["Destination"]
     else:
-        raise DeserializationError("NotificationSpecification.destination required")
+        out["destination"] = ""
     if data.get("Transport") is not None:
         import capo_mturk.types.notification_transport
 
@@ -56,11 +54,15 @@ def deserialize_aws_json_1_1(data: dict) -> NotificationSpecification:
             )
         )
     else:
-        raise DeserializationError("NotificationSpecification.transport required")
+        import typing
+
+        out["transport"] = typing.cast(
+            "capo_mturk.types.notification_transport.NotificationTransport", ""
+        )
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     else:
-        raise DeserializationError("NotificationSpecification.version required")
+        out["version"] = ""
     if data.get("EventTypes") is not None:
         import capo_mturk.types.event_type_list
 
@@ -68,5 +70,5 @@ def deserialize_aws_json_1_1(data: dict) -> NotificationSpecification:
             data["EventTypes"]
         )
     else:
-        raise DeserializationError("NotificationSpecification.event_types required")
+        out["event_types"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resource_explorer_2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resource_explorer_2.types.included_property_list
     import capo_resource_explorer_2.types.search_filter
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> UpdateViewInput:
     if data.get("ViewArn") is not None:
         out["view_arn"] = data["ViewArn"]
     else:
-        raise DeserializationError("UpdateViewInput.view_arn required")
+        out["view_arn"] = ""
     if data.get("IncludedProperties") is not None:
         import capo_resource_explorer_2.types.included_property_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.matched_records_list
 
@@ -43,13 +41,13 @@ def deserialize_json(data: dict) -> MatchGroup:
             )
         )
     else:
-        raise DeserializationError("MatchGroup.records required")
+        out["records"] = []
     if data.get("matchId") is not None:
         out["match_id"] = data["matchId"]
     else:
-        raise DeserializationError("MatchGroup.match_id required")
+        out["match_id"] = ""
     if data.get("matchRule") is not None:
         out["match_rule"] = data["matchRule"]
     else:
-        raise DeserializationError("MatchGroup.match_rule required")
+        out["match_rule"] = ""
     return out

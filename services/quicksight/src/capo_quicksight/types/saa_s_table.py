@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.input_column_list
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> SaaSTable:
     if data.get("DataSourceArn") is not None:
         out["data_source_arn"] = data["DataSourceArn"]
     else:
-        raise DeserializationError("SaaSTable.data_source_arn required")
+        out["data_source_arn"] = ""
     if data.get("TablePath") is not None:
         import capo_quicksight.types.table_path_element_list
 
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> SaaSTable:
             )
         )
     else:
-        raise DeserializationError("SaaSTable.table_path required")
+        out["table_path"] = []
     if data.get("InputColumns") is not None:
         import capo_quicksight.types.input_column_list
 
@@ -61,5 +59,5 @@ def deserialize_json(data: dict) -> SaaSTable:
             data["InputColumns"]
         )
     else:
-        raise DeserializationError("SaaSTable.input_columns required")
+        out["input_columns"] = []
     return out

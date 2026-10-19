@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.import_id
     import capo_mgn.types.max_results_type
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> ListImportErrorsRequest:
     if data.get("importID") is not None:
         out["import_id"] = data["importID"]
     else:
-        raise DeserializationError("ListImportErrorsRequest.import_id required")
+        out["import_id"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

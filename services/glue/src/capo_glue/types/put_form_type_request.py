@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.form_type_name
     import capo_glue.types.form_type_schema
@@ -36,11 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> PutFormTypeRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("PutFormTypeRequest.name required")
+        out["name"] = ""
     if data.get("Schema") is not None:
         out["schema"] = data["Schema"]
     else:
-        raise DeserializationError("PutFormTypeRequest.schema required")
+        out["schema"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     return out

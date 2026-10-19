@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_snowball.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_snowball.types.ami_id
     import capo_snowball.types.string
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> Ec2AmiResource:
     if data.get("AmiId") is not None:
         out["ami_id"] = data["AmiId"]
     else:
-        raise DeserializationError("Ec2AmiResource.ami_id required")
+        out["ami_id"] = ""
     if data.get("SnowballAmiId") is not None:
         out["snowball_ami_id"] = data["SnowballAmiId"]
     return out

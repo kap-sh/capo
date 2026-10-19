@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_channel.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_channel.types.associated_resource_identifier_list
     import capo_partnercentral_channel.types.catalog
@@ -116,13 +114,15 @@ def deserialize_aws_json_1_0(data: dict) -> ListChannelHandshakesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ListChannelHandshakesRequest.handshake_type required"
+        import typing
+
+        out["handshake_type"] = typing.cast(
+            "capo_partnercentral_channel.types.handshake_type.HandshakeType", ""
         )
     if data.get("catalog") is not None:
         out["catalog"] = data["catalog"]
     else:
-        raise DeserializationError("ListChannelHandshakesRequest.catalog required")
+        out["catalog"] = ""
     if data.get("participantType") is not None:
         import capo_partnercentral_channel.types.participant_type
 
@@ -132,8 +132,10 @@ def deserialize_aws_json_1_0(data: dict) -> ListChannelHandshakesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ListChannelHandshakesRequest.participant_type required"
+        import typing
+
+        out["participant_type"] = typing.cast(
+            "capo_partnercentral_channel.types.participant_type.ParticipantType", ""
         )
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]

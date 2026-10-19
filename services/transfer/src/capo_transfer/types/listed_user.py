@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.arn
     import capo_transfer.types.home_directory
@@ -62,7 +60,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListedUser:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("ListedUser.arn required")
+        out["arn"] = ""
     if data.get("HomeDirectory") is not None:
         out["home_directory"] = data["HomeDirectory"]
     if data.get("HomeDirectoryType") is not None:

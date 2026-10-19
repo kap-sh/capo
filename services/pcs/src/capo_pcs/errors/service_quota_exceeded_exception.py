@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pcs.errors import DeserializationError, ServiceError
+from capo_pcs.errors import ServiceError
 
 
 class ServiceQuotaExceededException_(TypedDict, closed=True):
@@ -37,13 +37,11 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceQuotaExceededException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ServiceQuotaExceededException_.message required")
+        out["message"] = ""
     if data.get("serviceCode") is not None:
         out["service_code"] = data["serviceCode"]
     else:
-        raise DeserializationError(
-            "ServiceQuotaExceededException_.service_code required"
-        )
+        out["service_code"] = ""
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     if data.get("resourceType") is not None:

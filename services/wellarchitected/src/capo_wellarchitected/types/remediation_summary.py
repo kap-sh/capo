@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wellarchitected.types.recommended_fix_steps
 
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> RemediationSummary:
     if data.get("recommendation") is not None:
         out["recommendation"] = data["recommendation"]
     else:
-        raise DeserializationError("RemediationSummary.recommendation required")
+        out["recommendation"] = ""
     if data.get("steps") is not None:
         import capo_wellarchitected.types.recommended_fix_steps
 
@@ -44,5 +42,5 @@ def deserialize_json(data: dict) -> RemediationSummary:
             )
         )
     else:
-        raise DeserializationError("RemediationSummary.steps required")
+        out["steps"] = []
     return out

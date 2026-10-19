@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -49,7 +47,7 @@ def deserialize_cbor(data: dict) -> SessionSummary:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("SessionSummary.session_id required")
+        out["session_id"] = ""
     if data.get("createdAt") is not None:
         import capo_cloudwatchomni.types._prelude.timestamp
 

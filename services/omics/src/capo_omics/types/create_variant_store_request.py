@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.description
     import capo_omics.types.reference_item
@@ -61,7 +59,9 @@ def deserialize_json(data: dict) -> CreateVariantStoreRequest:
             data["reference"]
         )
     else:
-        raise DeserializationError("CreateVariantStoreRequest.reference required")
+        import capo_omics.types._unknown
+
+        out["reference"] = capo_omics.types._unknown.UnknownUnionMember("")
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("description") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_runtime_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_runtime_v2.types.bot_identifier
     import capo_lex_runtime_v2.types.name
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> RecognizedBotMember:
     if data.get("botId") is not None:
         out["bot_id"] = data["botId"]
     else:
-        raise DeserializationError("RecognizedBotMember.bot_id required")
+        out["bot_id"] = ""
     if data.get("botName") is not None:
         out["bot_name"] = data["botName"]
     return out

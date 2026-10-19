@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -105,7 +103,7 @@ def deserialize_json(data: dict) -> DeletePrivateConnectionOutput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DeletePrivateConnectionOutput.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         import capo_securityagent.types.private_connection_type
 
@@ -113,7 +111,11 @@ def deserialize_json(data: dict) -> DeletePrivateConnectionOutput:
             data["type"]
         )
     else:
-        raise DeserializationError("DeletePrivateConnectionOutput.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_securityagent.types.private_connection_type.PrivateConnectionType", ""
+        )
     if data.get("status") is not None:
         import capo_securityagent.types.private_connection_status
 
@@ -123,7 +125,12 @@ def deserialize_json(data: dict) -> DeletePrivateConnectionOutput:
             )
         )
     else:
-        raise DeserializationError("DeletePrivateConnectionOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_securityagent.types.private_connection_status.PrivateConnectionStatus",
+            "",
+        )
     if data.get("resourceGatewayId") is not None:
         out["resource_gateway_id"] = data["resourceGatewayId"]
     if data.get("hostAddress") is not None:

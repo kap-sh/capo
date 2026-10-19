@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.mark_latest_patch
     import capo_panorama.types.node_package_name
@@ -35,13 +33,11 @@ def deserialize_json(data: dict) -> PackageVersionOutputConfig:
     if data.get("PackageName") is not None:
         out["package_name"] = data["PackageName"]
     else:
-        raise DeserializationError("PackageVersionOutputConfig.package_name required")
+        out["package_name"] = ""
     if data.get("PackageVersion") is not None:
         out["package_version"] = data["PackageVersion"]
     else:
-        raise DeserializationError(
-            "PackageVersionOutputConfig.package_version required"
-        )
+        out["package_version"] = ""
     if data.get("MarkLatest") is not None:
         out["mark_latest"] = data["MarkLatest"]
     else:

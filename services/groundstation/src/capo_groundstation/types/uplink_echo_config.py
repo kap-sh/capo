@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.config_arn
 
@@ -30,11 +28,9 @@ def deserialize_json(data: dict) -> UplinkEchoConfig:
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     else:
-        raise DeserializationError("UplinkEchoConfig.enabled required")
+        out["enabled"] = False
     if data.get("antennaUplinkConfigArn") is not None:
         out["antenna_uplink_config_arn"] = data["antennaUplinkConfigArn"]
     else:
-        raise DeserializationError(
-            "UplinkEchoConfig.antenna_uplink_config_arn required"
-        )
+        out["antenna_uplink_config_arn"] = ""
     return out

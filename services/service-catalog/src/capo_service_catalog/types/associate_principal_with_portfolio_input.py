@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.accept_language
     import capo_service_catalog.types.id
@@ -50,15 +48,11 @@ def deserialize_aws_json_1_1(data: dict) -> AssociatePrincipalWithPortfolioInput
     if data.get("PortfolioId") is not None:
         out["portfolio_id"] = data["PortfolioId"]
     else:
-        raise DeserializationError(
-            "AssociatePrincipalWithPortfolioInput.portfolio_id required"
-        )
+        out["portfolio_id"] = ""
     if data.get("PrincipalARN") is not None:
         out["principal_arn"] = data["PrincipalARN"]
     else:
-        raise DeserializationError(
-            "AssociatePrincipalWithPortfolioInput.principal_arn required"
-        )
+        out["principal_arn"] = ""
     if data.get("PrincipalType") is not None:
         import capo_service_catalog.types.principal_type
 
@@ -68,7 +62,9 @@ def deserialize_aws_json_1_1(data: dict) -> AssociatePrincipalWithPortfolioInput
             )
         )
     else:
-        raise DeserializationError(
-            "AssociatePrincipalWithPortfolioInput.principal_type required"
+        import typing
+
+        out["principal_type"] = typing.cast(
+            "capo_service_catalog.types.principal_type.PrincipalType", ""
         )
     return out

@@ -89,9 +89,7 @@ def deserialize_json(data: dict) -> CreateMLInputChannelRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateMLInputChannelRequest.configured_model_algorithm_associations required"
-        )
+        out["configured_model_algorithm_associations"] = []
     if data.get("inputChannel") is not None:
         import capo_cleanroomsml.types.input_channel
 
@@ -103,13 +101,11 @@ def deserialize_json(data: dict) -> CreateMLInputChannelRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateMLInputChannelRequest.name required")
+        out["name"] = ""
     if data.get("retentionInDays") is not None:
         out["retention_in_days"] = data["retentionInDays"]
     else:
-        raise DeserializationError(
-            "CreateMLInputChannelRequest.retention_in_days required"
-        )
+        out["retention_in_days"] = 0
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("kmsKeyArn") is not None:

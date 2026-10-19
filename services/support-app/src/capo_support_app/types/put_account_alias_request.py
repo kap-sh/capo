@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_support_app.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support_app.types.aws_account_alias
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> PutAccountAliasRequest:
     if data.get("accountAlias") is not None:
         out["account_alias"] = data["accountAlias"]
     else:
-        raise DeserializationError("PutAccountAliasRequest.account_alias required")
+        out["account_alias"] = ""
     return out

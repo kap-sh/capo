@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_support.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support.types.attachment_set_id
     import capo_support.types.attachments
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> AddAttachmentsToSetRequest:
             data["attachments"]
         )
     else:
-        raise DeserializationError("AddAttachmentsToSetRequest.attachments required")
+        out["attachments"] = []
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_thin_client.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_thin_client.types.arn
     import capo_workspaces_thin_client.types.client_token
@@ -123,7 +121,7 @@ def deserialize_json(data: dict) -> CreateEnvironmentRequest:
     if data.get("desktopArn") is not None:
         out["desktop_arn"] = data["desktopArn"]
     else:
-        raise DeserializationError("CreateEnvironmentRequest.desktop_arn required")
+        out["desktop_arn"] = ""
     if data.get("desktopEndpoint") is not None:
         out["desktop_endpoint"] = data["desktopEndpoint"]
     if data.get("softwareSetUpdateSchedule") is not None:

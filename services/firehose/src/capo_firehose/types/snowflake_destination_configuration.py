@@ -202,9 +202,7 @@ def deserialize_aws_json_1_1(data: dict) -> SnowflakeDestinationConfiguration:
     if data.get("AccountUrl") is not None:
         out["account_url"] = data["AccountUrl"]
     else:
-        raise DeserializationError(
-            "SnowflakeDestinationConfiguration.account_url required"
-        )
+        out["account_url"] = ""
     if data.get("PrivateKey") is not None:
         out["private_key"] = data["PrivateKey"]
     if data.get("KeyPassphrase") is not None:
@@ -214,17 +212,15 @@ def deserialize_aws_json_1_1(data: dict) -> SnowflakeDestinationConfiguration:
     if data.get("Database") is not None:
         out["database"] = data["Database"]
     else:
-        raise DeserializationError(
-            "SnowflakeDestinationConfiguration.database required"
-        )
+        out["database"] = ""
     if data.get("Schema") is not None:
         out["schema"] = data["Schema"]
     else:
-        raise DeserializationError("SnowflakeDestinationConfiguration.schema required")
+        out["schema"] = ""
     if data.get("Table") is not None:
         out["table"] = data["Table"]
     else:
-        raise DeserializationError("SnowflakeDestinationConfiguration.table required")
+        out["table"] = ""
     if data.get("SnowflakeRoleConfiguration") is not None:
         import capo_firehose.types.snowflake_role_configuration
 
@@ -272,9 +268,7 @@ def deserialize_aws_json_1_1(data: dict) -> SnowflakeDestinationConfiguration:
     if data.get("RoleARN") is not None:
         out["role_arn"] = data["RoleARN"]
     else:
-        raise DeserializationError(
-            "SnowflakeDestinationConfiguration.role_arn required"
-        )
+        out["role_arn"] = ""
     if data.get("RetryOptions") is not None:
         import capo_firehose.types.snowflake_retry_options
 

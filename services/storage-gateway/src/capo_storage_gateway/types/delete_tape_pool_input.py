@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.pool_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteTapePoolInput:
     if data.get("PoolARN") is not None:
         out["pool_arn"] = data["PoolARN"]
     else:
-        raise DeserializationError("DeleteTapePoolInput.pool_arn required")
+        out["pool_arn"] = ""
     return out

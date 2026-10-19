@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.block_override_dns_query_type
     import capo_route53globalresolver.types.block_override_ttl
@@ -154,7 +152,7 @@ def deserialize_json(data: dict) -> UpdateFirewallRuleInput:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("UpdateFirewallRuleInput.client_token required")
+        out["client_token"] = ""
     if data.get("confidenceThreshold") is not None:
         import capo_route53globalresolver.types.confidence_threshold
 

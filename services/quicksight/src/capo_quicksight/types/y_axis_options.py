@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.single_y_axis_option
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> YAxisOptions:
             data["YAxis"]
         )
     else:
-        raise DeserializationError("YAxisOptions.y_axis required")
+        import typing
+
+        out["y_axis"] = typing.cast(
+            "capo_quicksight.types.single_y_axis_option.SingleYAxisOption", ""
+        )
     return out

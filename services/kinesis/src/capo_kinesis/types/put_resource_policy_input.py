@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.policy
     import capo_kinesis.types.resource_arn
@@ -36,11 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> PutResourcePolicyInput:
     if data.get("ResourceARN") is not None:
         out["resource_arn"] = data["ResourceARN"]
     else:
-        raise DeserializationError("PutResourcePolicyInput.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("StreamId") is not None:
         out["stream_id"] = data["StreamId"]
     if data.get("Policy") is not None:
         out["policy"] = data["Policy"]
     else:
-        raise DeserializationError("PutResourcePolicyInput.policy required")
+        out["policy"] = ""
     return out

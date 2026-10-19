@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.allow_full_table_external_data_access_enum
     import capo_glue.types.catalog_id_string
@@ -145,7 +143,7 @@ def deserialize_aws_json_1_1(data: dict) -> Catalog:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Catalog.name required")
+        out["name"] = ""
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     if data.get("Description") is not None:

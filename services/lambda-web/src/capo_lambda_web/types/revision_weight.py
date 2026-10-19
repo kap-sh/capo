@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_web.types.revision_id
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> RevisionWeight:
     if data.get("revisionId") is not None:
         out["revision_id"] = data["revisionId"]
     else:
-        raise DeserializationError("RevisionWeight.revision_id required")
+        out["revision_id"] = ""
     if data.get("weight") is not None:
         out["weight"] = data["weight"]
     else:
-        raise DeserializationError("RevisionWeight.weight required")
+        out["weight"] = 0
     return out

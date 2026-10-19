@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.command_list
     import capo_iotsitewise.types.ecr_uri
@@ -98,13 +96,11 @@ def deserialize_json(data: dict) -> ContainerTaskConfiguration:
     if data.get("ecrUri") is not None:
         out["ecr_uri"] = data["ecrUri"]
     else:
-        raise DeserializationError("ContainerTaskConfiguration.ecr_uri required")
+        out["ecr_uri"] = ""
     if data.get("taskExecutionRole") is not None:
         out["task_execution_role"] = data["taskExecutionRole"]
     else:
-        raise DeserializationError(
-            "ContainerTaskConfiguration.task_execution_role required"
-        )
+        out["task_execution_role"] = ""
     if data.get("processingType") is not None:
         import capo_iotsitewise.types.processing_type
 
@@ -114,8 +110,10 @@ def deserialize_json(data: dict) -> ContainerTaskConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ContainerTaskConfiguration.processing_type required"
+        import typing
+
+        out["processing_type"] = typing.cast(
+            "capo_iotsitewise.types.processing_type.ProcessingType", ""
         )
     if data.get("processingUnit") is not None:
         import capo_iotsitewise.types.processing_unit
@@ -126,8 +124,10 @@ def deserialize_json(data: dict) -> ContainerTaskConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ContainerTaskConfiguration.processing_unit required"
+        import typing
+
+        out["processing_unit"] = typing.cast(
+            "capo_iotsitewise.types.processing_unit.ProcessingUnit", ""
         )
     if data.get("ephemeralStorageConfiguration") is not None:
         import capo_iotsitewise.types.ephemeral_storage_configuration

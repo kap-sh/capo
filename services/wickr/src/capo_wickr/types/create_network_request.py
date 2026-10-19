@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.access_level
     import capo_wickr.types.generic_string
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> CreateNetworkRequest:
     if data.get("networkName") is not None:
         out["network_name"] = data["networkName"]
     else:
-        raise DeserializationError("CreateNetworkRequest.network_name required")
+        out["network_name"] = ""
     if data.get("accessLevel") is not None:
         import capo_wickr.types.access_level
 
@@ -51,7 +49,11 @@ def deserialize_json(data: dict) -> CreateNetworkRequest:
             data["accessLevel"]
         )
     else:
-        raise DeserializationError("CreateNetworkRequest.access_level required")
+        import typing
+
+        out["access_level"] = typing.cast(
+            "capo_wickr.types.access_level.AccessLevel", ""
+        )
     if data.get("enablePremiumFreeTrial") is not None:
         out["enable_premium_free_trial"] = data["enablePremiumFreeTrial"]
     if data.get("encryptionKeyArn") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.cron_expression
     import capo_iot.types.duration_in_minutes
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> MaintenanceWindow:
     if data.get("startTime") is not None:
         out["start_time"] = data["startTime"]
     else:
-        raise DeserializationError("MaintenanceWindow.start_time required")
+        out["start_time"] = ""
     if data.get("durationInMinutes") is not None:
         out["duration_in_minutes"] = data["durationInMinutes"]
     else:
-        raise DeserializationError("MaintenanceWindow.duration_in_minutes required")
+        out["duration_in_minutes"] = 0
     return out

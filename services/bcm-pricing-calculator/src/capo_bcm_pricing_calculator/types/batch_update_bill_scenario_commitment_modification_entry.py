@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_pricing_calculator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_pricing_calculator.types.resource_id
     import capo_bcm_pricing_calculator.types.usage_group
@@ -36,9 +34,7 @@ def deserialize_aws_json_1_0(
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError(
-            "BatchUpdateBillScenarioCommitmentModificationEntry.id required"
-        )
+        out["id"] = ""
     if data.get("group") is not None:
         out["group"] = data["group"]
     return out

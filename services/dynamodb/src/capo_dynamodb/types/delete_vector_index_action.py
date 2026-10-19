@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.index_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteVectorIndexAction:
     if data.get("IndexName") is not None:
         out["index_name"] = data["IndexName"]
     else:
-        raise DeserializationError("DeleteVectorIndexAction.index_name required")
+        out["index_name"] = ""
     return out

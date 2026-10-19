@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_insights.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_insights.types.component_name
     import capo_application_insights.types.recommendation_type
@@ -65,15 +63,11 @@ def deserialize_aws_json_1_1(
     if data.get("ResourceGroupName") is not None:
         out["resource_group_name"] = data["ResourceGroupName"]
     else:
-        raise DeserializationError(
-            "DescribeComponentConfigurationRecommendationRequest.resource_group_name required"
-        )
+        out["resource_group_name"] = ""
     if data.get("ComponentName") is not None:
         out["component_name"] = data["ComponentName"]
     else:
-        raise DeserializationError(
-            "DescribeComponentConfigurationRecommendationRequest.component_name required"
-        )
+        out["component_name"] = ""
     if data.get("Tier") is not None:
         import capo_application_insights.types.tier
 
@@ -81,9 +75,9 @@ def deserialize_aws_json_1_1(
             data["Tier"]
         )
     else:
-        raise DeserializationError(
-            "DescribeComponentConfigurationRecommendationRequest.tier required"
-        )
+        import typing
+
+        out["tier"] = typing.cast("capo_application_insights.types.tier.Tier", "")
     if data.get("WorkloadName") is not None:
         out["workload_name"] = data["WorkloadName"]
     if data.get("RecommendationType") is not None:

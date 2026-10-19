@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.input_source_arn
     import capo_entityresolution.types.record_attribute_map_string255
@@ -41,11 +39,11 @@ def deserialize_json(data: dict) -> Record:
     if data.get("inputSourceARN") is not None:
         out["input_source_arn"] = data["inputSourceARN"]
     else:
-        raise DeserializationError("Record.input_source_arn required")
+        out["input_source_arn"] = ""
     if data.get("uniqueId") is not None:
         out["unique_id"] = data["uniqueId"]
     else:
-        raise DeserializationError("Record.unique_id required")
+        out["unique_id"] = ""
     if data.get("recordAttributeMap") is not None:
         import capo_entityresolution.types.record_attribute_map_string255
 
@@ -55,7 +53,7 @@ def deserialize_json(data: dict) -> Record:
             )
         )
     else:
-        raise DeserializationError("Record.record_attribute_map required")
+        out["record_attribute_map"] = {}
     return out
 
 

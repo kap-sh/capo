@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securitylake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securitylake.types.notification_configuration
     import capo_securitylake.types.uuid
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> CreateSubscriberNotificationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateSubscriberNotificationRequest.configuration required"
-        )
+        import capo_securitylake.types._unknown
+
+        out["configuration"] = capo_securitylake.types._unknown.UnknownUnionMember("")
     return out

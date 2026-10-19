@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager_user_subscriptions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager_user_subscriptions.types.arn
     import capo_license_manager_user_subscriptions.types.identity_provider
@@ -65,11 +63,11 @@ def deserialize_json(data: dict) -> InstanceUserSummary:
     if data.get("Username") is not None:
         out["username"] = data["Username"]
     else:
-        raise DeserializationError("InstanceUserSummary.username required")
+        out["username"] = ""
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("InstanceUserSummary.instance_id required")
+        out["instance_id"] = ""
     if data.get("IdentityProvider") is not None:
         import capo_license_manager_user_subscriptions.types.identity_provider
 
@@ -79,11 +77,17 @@ def deserialize_json(data: dict) -> InstanceUserSummary:
             )
         )
     else:
-        raise DeserializationError("InstanceUserSummary.identity_provider required")
+        import capo_license_manager_user_subscriptions.types._unknown
+
+        out["identity_provider"] = (
+            capo_license_manager_user_subscriptions.types._unknown.UnknownUnionMember(
+                ""
+            )
+        )
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("InstanceUserSummary.status required")
+        out["status"] = ""
     if data.get("InstanceUserArn") is not None:
         out["instance_user_arn"] = data["InstanceUserArn"]
     if data.get("StatusMessage") is not None:

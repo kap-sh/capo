@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs_realtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.composition_thumbnail_configuration_list
     import capo_ivs_realtime.types.encoder_configuration_arn_list
@@ -65,9 +63,7 @@ def deserialize_json(data: dict) -> S3DestinationConfiguration:
     if data.get("storageConfigurationArn") is not None:
         out["storage_configuration_arn"] = data["storageConfigurationArn"]
     else:
-        raise DeserializationError(
-            "S3DestinationConfiguration.storage_configuration_arn required"
-        )
+        out["storage_configuration_arn"] = ""
     if data.get("encoderConfigurationArns") is not None:
         import capo_ivs_realtime.types.encoder_configuration_arn_list
 
@@ -77,9 +73,7 @@ def deserialize_json(data: dict) -> S3DestinationConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "S3DestinationConfiguration.encoder_configuration_arns required"
-        )
+        out["encoder_configuration_arns"] = []
     if data.get("recordingConfiguration") is not None:
         import capo_ivs_realtime.types.recording_configuration
 

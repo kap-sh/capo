@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.boolean_optional
     import capo_database_migration_service.types.data_provider_settings
@@ -67,9 +65,7 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyDataProviderMessage:
     if data.get("DataProviderIdentifier") is not None:
         out["data_provider_identifier"] = data["DataProviderIdentifier"]
     else:
-        raise DeserializationError(
-            "ModifyDataProviderMessage.data_provider_identifier required"
-        )
+        out["data_provider_identifier"] = ""
     if data.get("DataProviderName") is not None:
         out["data_provider_name"] = data["DataProviderName"]
     if data.get("Description") is not None:

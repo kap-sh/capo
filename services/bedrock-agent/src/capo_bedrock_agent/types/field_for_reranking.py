@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 
 class FieldForReranking(TypedDict, closed=True):
     field_name: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> FieldForReranking:
     if data.get("fieldName") is not None:
         out["field_name"] = data["fieldName"]
     else:
-        raise DeserializationError("FieldForReranking.field_name required")
+        out["field_name"] = ""
     return out

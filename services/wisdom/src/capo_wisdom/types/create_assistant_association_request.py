@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wisdom.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wisdom.types.assistant_association_input_data
     import capo_wisdom.types.association_type
@@ -52,9 +50,7 @@ def deserialize_json(data: dict) -> CreateAssistantAssociationRequest:
     if data.get("associationType") is not None:
         out["association_type"] = data["associationType"]
     else:
-        raise DeserializationError(
-            "CreateAssistantAssociationRequest.association_type required"
-        )
+        out["association_type"] = ""
     if data.get("association") is not None:
         import capo_wisdom.types.assistant_association_input_data
 
@@ -64,9 +60,9 @@ def deserialize_json(data: dict) -> CreateAssistantAssociationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAssistantAssociationRequest.association required"
-        )
+        import capo_wisdom.types._unknown
+
+        out["association"] = capo_wisdom.types._unknown.UnknownUnionMember("")
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

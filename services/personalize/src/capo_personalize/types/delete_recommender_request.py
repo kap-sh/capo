@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteRecommenderRequest:
     if data.get("recommenderArn") is not None:
         out["recommender_arn"] = data["recommenderArn"]
     else:
-        raise DeserializationError("DeleteRecommenderRequest.recommender_arn required")
+        out["recommender_arn"] = ""
     return out

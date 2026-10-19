@@ -69,11 +69,11 @@ def deserialize_json(data: dict) -> SupportPermitSummary:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("SupportPermitSummary.name required")
+        out["name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("SupportPermitSummary.arn required")
+        out["arn"] = ""
     if data.get("permit") is not None:
         import capo_supportauthz.types.permit
 
@@ -87,7 +87,11 @@ def deserialize_json(data: dict) -> SupportPermitSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("SupportPermitSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_supportauthz.types.support_permit_status.SupportPermitStatus", ""
+        )
     if data.get("signingKeyInfo") is not None:
         import capo_supportauthz.types.signing_key_info
 
@@ -97,7 +101,11 @@ def deserialize_json(data: dict) -> SupportPermitSummary:
             )
         )
     else:
-        raise DeserializationError("SupportPermitSummary.signing_key_info required")
+        import capo_supportauthz.types._unknown
+
+        out["signing_key_info"] = capo_supportauthz.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("createdAt") is not None:
         import capo_supportauthz.types._prelude.timestamp
 
@@ -105,7 +113,9 @@ def deserialize_json(data: dict) -> SupportPermitSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("SupportPermitSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("supportCaseDisplayId") is not None:
         out["support_case_display_id"] = data["supportCaseDisplayId"]
     return out

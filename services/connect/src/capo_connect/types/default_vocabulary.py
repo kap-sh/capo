@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.instance_id
     import capo_connect.types.vocabulary_id
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> DefaultVocabulary:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("DefaultVocabulary.instance_id required")
+        out["instance_id"] = ""
     if data.get("LanguageCode") is not None:
         import capo_connect.types.vocabulary_language_code
 
@@ -53,13 +51,17 @@ def deserialize_json(data: dict) -> DefaultVocabulary:
             )
         )
     else:
-        raise DeserializationError("DefaultVocabulary.language_code required")
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_connect.types.vocabulary_language_code.VocabularyLanguageCode", ""
+        )
     if data.get("VocabularyId") is not None:
         out["vocabulary_id"] = data["VocabularyId"]
     else:
-        raise DeserializationError("DefaultVocabulary.vocabulary_id required")
+        out["vocabulary_id"] = ""
     if data.get("VocabularyName") is not None:
         out["vocabulary_name"] = data["VocabularyName"]
     else:
-        raise DeserializationError("DefaultVocabulary.vocabulary_name required")
+        out["vocabulary_name"] = ""
     return out

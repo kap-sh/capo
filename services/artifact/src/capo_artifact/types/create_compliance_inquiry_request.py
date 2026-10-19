@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_artifact.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_artifact.types.idempotent_client_token
     import capo_artifact.types.inquiry_content
@@ -60,7 +58,7 @@ def deserialize_json(data: dict) -> CreateComplianceInquiryRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateComplianceInquiryRequest.name required")
+        out["name"] = ""
     if data.get("inquiryContent") is not None:
         import capo_artifact.types.inquiry_content
 
@@ -68,9 +66,9 @@ def deserialize_json(data: dict) -> CreateComplianceInquiryRequest:
             data["inquiryContent"]
         )
     else:
-        raise DeserializationError(
-            "CreateComplianceInquiryRequest.inquiry_content required"
-        )
+        import capo_artifact.types._unknown
+
+        out["inquiry_content"] = capo_artifact.types._unknown.UnknownUnionMember("")
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("supportMode") is not None:

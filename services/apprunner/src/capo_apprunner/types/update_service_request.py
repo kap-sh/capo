@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_apprunner.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_apprunner.types.app_runner_resource_arn
     import capo_apprunner.types.health_check_configuration
@@ -98,7 +96,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateServiceRequest:
     if data.get("ServiceArn") is not None:
         out["service_arn"] = data["ServiceArn"]
     else:
-        raise DeserializationError("UpdateServiceRequest.service_arn required")
+        out["service_arn"] = ""
     if data.get("SourceConfiguration") is not None:
         import capo_apprunner.types.source_configuration
 

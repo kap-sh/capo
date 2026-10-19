@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 
 class SelectOptionDescription(TypedDict, closed=True):
     option: "str"
@@ -30,7 +28,7 @@ def deserialize_aws_json_1_0(data: dict) -> SelectOptionDescription:
     if data.get("Option") is not None:
         out["option"] = data["Option"]
     else:
-        raise DeserializationError("SelectOptionDescription.option required")
+        out["option"] = ""
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     if data.get("Description") is not None:

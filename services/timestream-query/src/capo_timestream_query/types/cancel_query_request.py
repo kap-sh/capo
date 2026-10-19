@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_timestream_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_query.types.query_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> CancelQueryRequest:
     if data.get("QueryId") is not None:
         out["query_id"] = data["QueryId"]
     else:
-        raise DeserializationError("CancelQueryRequest.query_id required")
+        out["query_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.docker_uri
     import capo_personalize.types.name
@@ -34,5 +32,5 @@ def deserialize_aws_json_1_1(data: dict) -> AlgorithmImage:
     if data.get("dockerURI") is not None:
         out["docker_uri"] = data["dockerURI"]
     else:
-        raise DeserializationError("AlgorithmImage.docker_uri required")
+        out["docker_uri"] = ""
     return out

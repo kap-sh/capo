@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.instance_id
     import capo_connectcampaignsv2.types.integration_identifier
@@ -42,7 +40,9 @@ def deserialize_json(data: dict) -> DeleteConnectInstanceIntegrationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DeleteConnectInstanceIntegrationRequest.integration_identifier required"
+        import capo_connectcampaignsv2.types._unknown
+
+        out["integration_identifier"] = (
+            capo_connectcampaignsv2.types._unknown.UnknownUnionMember("")
         )
     return out

@@ -39,9 +39,7 @@ def deserialize_json(data: dict) -> RedshiftProvisionedConfiguration:
     if data.get("clusterIdentifier") is not None:
         out["cluster_identifier"] = data["clusterIdentifier"]
     else:
-        raise DeserializationError(
-            "RedshiftProvisionedConfiguration.cluster_identifier required"
-        )
+        out["cluster_identifier"] = ""
     if data.get("authConfiguration") is not None:
         import capo_bedrock_agent.types.redshift_provisioned_auth_configuration
 

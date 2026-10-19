@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.dashboards_qa_status
@@ -44,7 +42,9 @@ def deserialize_json(data: dict) -> UpdateDashboardsQAConfigurationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateDashboardsQAConfigurationRequest.dashboards_qa_status required"
+        import typing
+
+        out["dashboards_qa_status"] = typing.cast(
+            "capo_quicksight.types.dashboards_qa_status.DashboardsQAStatus", ""
         )
     return out

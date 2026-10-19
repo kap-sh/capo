@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.arn
     import capo_mgn.types.initiated_by
@@ -80,7 +78,7 @@ def deserialize_json(data: dict) -> Job:
     if data.get("jobID") is not None:
         out["job_id"] = data["jobID"]
     else:
-        raise DeserializationError("Job.job_id required")
+        out["job_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     if data.get("type") is not None:

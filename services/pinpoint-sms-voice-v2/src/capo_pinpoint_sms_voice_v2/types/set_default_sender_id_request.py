@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.configuration_set_name_or_arn
     import capo_pinpoint_sms_voice_v2.types.sender_id
@@ -31,11 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> SetDefaultSenderIdRequest:
     if data.get("ConfigurationSetName") is not None:
         out["configuration_set_name"] = data["ConfigurationSetName"]
     else:
-        raise DeserializationError(
-            "SetDefaultSenderIdRequest.configuration_set_name required"
-        )
+        out["configuration_set_name"] = ""
     if data.get("SenderId") is not None:
         out["sender_id"] = data["SenderId"]
     else:
-        raise DeserializationError("SetDefaultSenderIdRequest.sender_id required")
+        out["sender_id"] = ""
     return out

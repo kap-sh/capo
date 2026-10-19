@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> FreeTrialInfo:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("FreeTrialInfo.type required")
+        out["type"] = ""
     if data.get("start") is not None:
         import capo_inspector2.types._prelude.timestamp
 
@@ -58,7 +56,9 @@ def deserialize_json(data: dict) -> FreeTrialInfo:
             data["start"]
         )
     else:
-        raise DeserializationError("FreeTrialInfo.start required")
+        import datetime
+
+        out["start"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("end") is not None:
         import capo_inspector2.types._prelude.timestamp
 
@@ -66,11 +66,13 @@ def deserialize_json(data: dict) -> FreeTrialInfo:
             data["end"]
         )
     else:
-        raise DeserializationError("FreeTrialInfo.end required")
+        import datetime
+
+        out["end"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("FreeTrialInfo.status required")
+        out["status"] = ""
     if data.get("cloudProvider") is not None:
         out["cloud_provider"] = data["cloudProvider"]
     return out

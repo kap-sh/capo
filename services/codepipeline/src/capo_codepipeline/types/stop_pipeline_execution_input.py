@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.boolean
     import capo_codepipeline.types.pipeline_execution_id
@@ -45,13 +43,11 @@ def deserialize_aws_json_1_1(data: dict) -> StopPipelineExecutionInput:
     if data.get("pipelineName") is not None:
         out["pipeline_name"] = data["pipelineName"]
     else:
-        raise DeserializationError("StopPipelineExecutionInput.pipeline_name required")
+        out["pipeline_name"] = ""
     if data.get("pipelineExecutionId") is not None:
         out["pipeline_execution_id"] = data["pipelineExecutionId"]
     else:
-        raise DeserializationError(
-            "StopPipelineExecutionInput.pipeline_execution_id required"
-        )
+        out["pipeline_execution_id"] = ""
     if data.get("abandon") is not None:
         out["abandon"] = data["abandon"]
     if data.get("reason") is not None:

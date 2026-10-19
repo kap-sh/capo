@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.entity_id
     import capo_iottwinmaker.types.state
@@ -43,11 +41,11 @@ def deserialize_json(data: dict) -> CreateEntityResponse:
     if data.get("entityId") is not None:
         out["entity_id"] = data["entityId"]
     else:
-        raise DeserializationError("CreateEntityResponse.entity_id required")
+        out["entity_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CreateEntityResponse.arn required")
+        out["arn"] = ""
     if data.get("creationDateTime") is not None:
         import capo_iottwinmaker.types.timestamp
 
@@ -55,9 +53,13 @@ def deserialize_json(data: dict) -> CreateEntityResponse:
             data["creationDateTime"]
         )
     else:
-        raise DeserializationError("CreateEntityResponse.creation_date_time required")
+        import datetime
+
+        out["creation_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("state") is not None:
         out["state"] = data["state"]
     else:
-        raise DeserializationError("CreateEntityResponse.state required")
+        out["state"] = ""
     return out

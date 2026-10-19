@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.resolved_target_information
 
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> ResolvedTargetResource:
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError("ResolvedTargetResource.resource_type required")
+        out["resource_type"] = ""
     if data.get("targetName") is not None:
         out["target_name"] = data["targetName"]
     else:
-        raise DeserializationError("ResolvedTargetResource.target_name required")
+        out["target_name"] = ""
     if data.get("targetInformation") is not None:
         import capo_resiliencehubv2.types.resolved_target_information
 
@@ -53,5 +51,5 @@ def deserialize_json(data: dict) -> ResolvedTargetResource:
             )
         )
     else:
-        raise DeserializationError("ResolvedTargetResource.target_information required")
+        out["target_information"] = {}
     return out

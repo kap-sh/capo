@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_secrets_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_secrets_manager.types.boolean_type
     import capo_secrets_manager.types.max_results_type
@@ -46,7 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListSecretVersionIdsRequest:
     if data.get("SecretId") is not None:
         out["secret_id"] = data["SecretId"]
     else:
-        raise DeserializationError("ListSecretVersionIdsRequest.secret_id required")
+        out["secret_id"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pcs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pcs.types.ami_id
     import capo_pcs.types.cluster_identifier
@@ -127,15 +125,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateComputeNodeGroupRequest:
     if data.get("clusterIdentifier") is not None:
         out["cluster_identifier"] = data["clusterIdentifier"]
     else:
-        raise DeserializationError(
-            "UpdateComputeNodeGroupRequest.cluster_identifier required"
-        )
+        out["cluster_identifier"] = ""
     if data.get("computeNodeGroupIdentifier") is not None:
         out["compute_node_group_identifier"] = data["computeNodeGroupIdentifier"]
     else:
-        raise DeserializationError(
-            "UpdateComputeNodeGroupRequest.compute_node_group_identifier required"
-        )
+        out["compute_node_group_identifier"] = ""
     if data.get("amiId") is not None:
         out["ami_id"] = data["amiId"]
     if data.get("subnetIds") is not None:

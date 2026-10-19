@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.confidence_level
     import capo_workspaces_web.types.global_inline_redaction_urls
@@ -73,9 +71,7 @@ def deserialize_json(data: dict) -> InlineRedactionConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "InlineRedactionConfiguration.inline_redaction_patterns required"
-        )
+        out["inline_redaction_patterns"] = []
     if data.get("globalEnforcedUrls") is not None:
         import capo_workspaces_web.types.global_inline_redaction_urls
 

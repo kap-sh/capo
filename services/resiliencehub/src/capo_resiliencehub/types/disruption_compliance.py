@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.compliance_status
     import capo_resiliencehub.types.seconds
@@ -91,7 +89,11 @@ def deserialize_json(data: dict) -> DisruptionCompliance:
             )
         )
     else:
-        raise DeserializationError("DisruptionCompliance.compliance_status required")
+        import typing
+
+        out["compliance_status"] = typing.cast(
+            "capo_resiliencehub.types.compliance_status.ComplianceStatus", ""
+        )
     if data.get("achievableRpoInSecs") is not None:
         out["achievable_rpo_in_secs"] = data["achievableRpoInSecs"]
     else:

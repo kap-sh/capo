@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.nat_gateway_id
     import capo_network_firewall.types.resource_arn
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteProxyRequest:
     if data.get("NatGatewayId") is not None:
         out["nat_gateway_id"] = data["NatGatewayId"]
     else:
-        raise DeserializationError("DeleteProxyRequest.nat_gateway_id required")
+        out["nat_gateway_id"] = ""
     if data.get("ProxyName") is not None:
         out["proxy_name"] = data["ProxyName"]
     if data.get("ProxyArn") is not None:

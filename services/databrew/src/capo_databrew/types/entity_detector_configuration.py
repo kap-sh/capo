@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.allowed_statistic_list
     import capo_databrew.types.entity_type_list
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> EntityDetectorConfiguration:
             data["EntityTypes"]
         )
     else:
-        raise DeserializationError("EntityDetectorConfiguration.entity_types required")
+        out["entity_types"] = []
     if data.get("AllowedStatistics") is not None:
         import capo_databrew.types.allowed_statistic_list
 

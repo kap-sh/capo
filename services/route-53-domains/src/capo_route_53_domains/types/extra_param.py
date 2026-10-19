@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_route_53_domains.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route_53_domains.types.extra_param_name
     import capo_route_53_domains.types.extra_param_value
@@ -41,11 +39,15 @@ def deserialize_aws_json_1_1(data: dict) -> ExtraParam:
             )
         )
     else:
-        raise DeserializationError("ExtraParam.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_route_53_domains.types.extra_param_name.ExtraParamName", ""
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("ExtraParam.value required")
+        out["value"] = ""
     return out
 
 

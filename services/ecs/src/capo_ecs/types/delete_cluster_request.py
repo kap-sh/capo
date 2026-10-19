@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.string
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteClusterRequest:
     if data.get("cluster") is not None:
         out["cluster"] = data["cluster"]
     else:
-        raise DeserializationError("DeleteClusterRequest.cluster required")
+        out["cluster"] = ""
     return out

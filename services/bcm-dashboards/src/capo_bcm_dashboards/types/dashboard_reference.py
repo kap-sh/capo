@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_dashboards.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_dashboards.types.dashboard_arn
     import capo_bcm_dashboards.types.dashboard_name
@@ -63,11 +61,11 @@ def deserialize_aws_json_1_0(data: dict) -> DashboardReference:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("DashboardReference.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DashboardReference.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("type") is not None:
@@ -77,7 +75,11 @@ def deserialize_aws_json_1_0(data: dict) -> DashboardReference:
             data["type"]
         )
     else:
-        raise DeserializationError("DashboardReference.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bcm_dashboards.types.dashboard_type.DashboardType", ""
+        )
     if data.get("createdAt") is not None:
         import capo_bcm_dashboards.types.generic_time_stamp
 
@@ -87,7 +89,9 @@ def deserialize_aws_json_1_0(data: dict) -> DashboardReference:
             )
         )
     else:
-        raise DeserializationError("DashboardReference.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bcm_dashboards.types.generic_time_stamp
 
@@ -97,5 +101,7 @@ def deserialize_aws_json_1_0(data: dict) -> DashboardReference:
             )
         )
     else:
-        raise DeserializationError("DashboardReference.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

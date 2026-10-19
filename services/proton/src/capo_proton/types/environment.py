@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -152,7 +150,7 @@ def deserialize_aws_json_1_0(data: dict) -> Environment:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Environment.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("createdAt") is not None:
@@ -164,7 +162,9 @@ def deserialize_aws_json_1_0(data: dict) -> Environment:
             )
         )
     else:
-        raise DeserializationError("Environment.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastDeploymentAttemptedAt") is not None:
         import capo_proton.types._prelude.timestamp
 
@@ -174,7 +174,11 @@ def deserialize_aws_json_1_0(data: dict) -> Environment:
             )
         )
     else:
-        raise DeserializationError("Environment.last_deployment_attempted_at required")
+        import datetime
+
+        out["last_deployment_attempted_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastDeploymentSucceededAt") is not None:
         import capo_proton.types._prelude.timestamp
 
@@ -184,27 +188,31 @@ def deserialize_aws_json_1_0(data: dict) -> Environment:
             )
         )
     else:
-        raise DeserializationError("Environment.last_deployment_succeeded_at required")
+        import datetime
+
+        out["last_deployment_succeeded_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("Environment.arn required")
+        out["arn"] = ""
     if data.get("templateName") is not None:
         out["template_name"] = data["templateName"]
     else:
-        raise DeserializationError("Environment.template_name required")
+        out["template_name"] = ""
     if data.get("templateMajorVersion") is not None:
         out["template_major_version"] = data["templateMajorVersion"]
     else:
-        raise DeserializationError("Environment.template_major_version required")
+        out["template_major_version"] = ""
     if data.get("templateMinorVersion") is not None:
         out["template_minor_version"] = data["templateMinorVersion"]
     else:
-        raise DeserializationError("Environment.template_minor_version required")
+        out["template_minor_version"] = ""
     if data.get("deploymentStatus") is not None:
         out["deployment_status"] = data["deploymentStatus"]
     else:
-        raise DeserializationError("Environment.deployment_status required")
+        out["deployment_status"] = ""
     if data.get("deploymentStatusMessage") is not None:
         out["deployment_status_message"] = data["deploymentStatusMessage"]
     if data.get("protonServiceRoleArn") is not None:

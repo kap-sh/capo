@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_elementalinference.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elementalinference.types.resource_name
     import capo_elementalinference.types.template_uri_list
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> TemplateGroup:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("TemplateGroup.name required")
+        out["name"] = ""
     if data.get("templateUris") is not None:
         import capo_elementalinference.types.template_uri_list
 
@@ -47,5 +45,5 @@ def deserialize_json(data: dict) -> TemplateGroup:
             )
         )
     else:
-        raise DeserializationError("TemplateGroup.template_uris required")
+        out["template_uris"] = []
     return out

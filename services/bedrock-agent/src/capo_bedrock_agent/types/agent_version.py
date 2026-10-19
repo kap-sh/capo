@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.agent_arn
     import capo_bedrock_agent.types.agent_collaboration
@@ -170,19 +168,19 @@ def deserialize_json(data: dict) -> AgentVersion:
     if data.get("agentId") is not None:
         out["agent_id"] = data["agentId"]
     else:
-        raise DeserializationError("AgentVersion.agent_id required")
+        out["agent_id"] = ""
     if data.get("agentName") is not None:
         out["agent_name"] = data["agentName"]
     else:
-        raise DeserializationError("AgentVersion.agent_name required")
+        out["agent_name"] = ""
     if data.get("agentArn") is not None:
         out["agent_arn"] = data["agentArn"]
     else:
-        raise DeserializationError("AgentVersion.agent_arn required")
+        out["agent_arn"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("AgentVersion.version required")
+        out["version"] = ""
     if data.get("instruction") is not None:
         out["instruction"] = data["instruction"]
     if data.get("agentStatus") is not None:
@@ -192,7 +190,11 @@ def deserialize_json(data: dict) -> AgentVersion:
             data["agentStatus"]
         )
     else:
-        raise DeserializationError("AgentVersion.agent_status required")
+        import typing
+
+        out["agent_status"] = typing.cast(
+            "capo_bedrock_agent.types.agent_status.AgentStatus", ""
+        )
     if data.get("foundationModel") is not None:
         out["foundation_model"] = data["foundationModel"]
     if data.get("description") is not None:
@@ -200,11 +202,11 @@ def deserialize_json(data: dict) -> AgentVersion:
     if data.get("idleSessionTTLInSeconds") is not None:
         out["idle_session_ttl_in_seconds"] = data["idleSessionTTLInSeconds"]
     else:
-        raise DeserializationError("AgentVersion.idle_session_ttl_in_seconds required")
+        out["idle_session_ttl_in_seconds"] = 0
     if data.get("agentResourceRoleArn") is not None:
         out["agent_resource_role_arn"] = data["agentResourceRoleArn"]
     else:
-        raise DeserializationError("AgentVersion.agent_resource_role_arn required")
+        out["agent_resource_role_arn"] = ""
     if data.get("customerEncryptionKeyArn") is not None:
         out["customer_encryption_key_arn"] = data["customerEncryptionKeyArn"]
     if data.get("createdAt") is not None:
@@ -214,7 +216,9 @@ def deserialize_json(data: dict) -> AgentVersion:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("AgentVersion.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -222,7 +226,9 @@ def deserialize_json(data: dict) -> AgentVersion:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("AgentVersion.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("failureReasons") is not None:
         import capo_bedrock_agent.types.failure_reasons
 

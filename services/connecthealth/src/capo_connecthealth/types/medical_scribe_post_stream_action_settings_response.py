@@ -37,9 +37,7 @@ def deserialize_json(data: dict) -> MedicalScribePostStreamActionSettingsRespons
     if data.get("outputS3Uri") is not None:
         out["output_s3_uri"] = data["outputS3Uri"]
     else:
-        raise DeserializationError(
-            "MedicalScribePostStreamActionSettingsResponse.output_s3_uri required"
-        )
+        out["output_s3_uri"] = ""
     if data.get("clinicalNoteGenerationSettings") is not None:
         import capo_connecthealth.types.clinical_note_generation_settings_response
 

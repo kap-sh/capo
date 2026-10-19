@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.flow_node_name
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> UnreachableNodeFlowValidationDetails:
     if data.get("node") is not None:
         out["node"] = data["node"]
     else:
-        raise DeserializationError("UnreachableNodeFlowValidationDetails.node required")
+        out["node"] = ""
     return out

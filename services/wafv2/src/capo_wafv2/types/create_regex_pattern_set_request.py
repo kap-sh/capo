@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.entity_description
     import capo_wafv2.types.entity_name
@@ -57,13 +55,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRegexPatternSetRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateRegexPatternSetRequest.name required")
+        out["name"] = ""
     if data.get("Scope") is not None:
         import capo_wafv2.types.scope
 
         out["scope"] = capo_wafv2.types.scope.deserialize_aws_json_1_1(data["Scope"])
     else:
-        raise DeserializationError("CreateRegexPatternSetRequest.scope required")
+        import typing
+
+        out["scope"] = typing.cast("capo_wafv2.types.scope.Scope", "")
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("RegularExpressionList") is not None:
@@ -75,9 +75,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRegexPatternSetRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateRegexPatternSetRequest.regular_expression_list required"
-        )
+        out["regular_expression_list"] = []
     if data.get("Tags") is not None:
         import capo_wafv2.types.tag_list
 

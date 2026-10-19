@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_s3vectors.errors import DeserializationError, ServiceError
+from capo_s3vectors.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_s3vectors.types.exception_message
@@ -27,7 +27,7 @@ def deserialize_json(data: dict) -> TooManyRequestsException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("TooManyRequestsException_.message required")
+        out["message"] = ""
     return out
 
 

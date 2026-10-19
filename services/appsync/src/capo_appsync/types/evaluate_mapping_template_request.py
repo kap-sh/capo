@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.context
     import capo_appsync.types.template
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> EvaluateMappingTemplateRequest:
     if data.get("template") is not None:
         out["template"] = data["template"]
     else:
-        raise DeserializationError("EvaluateMappingTemplateRequest.template required")
+        out["template"] = ""
     if data.get("context") is not None:
         out["context"] = data["context"]
     else:
-        raise DeserializationError("EvaluateMappingTemplateRequest.context required")
+        out["context"] = ""
     return out

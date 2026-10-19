@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.object_lambda_content_transformation
@@ -48,9 +47,7 @@ def deserialize_xml(el: Element) -> ObjectLambdaTransformationConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ObjectLambdaTransformationConfiguration.actions required"
-        )
+        out["actions"] = []
     child_content_transformation = el.find("ContentTransformation")
     if child_content_transformation is not None:
         import capo_s3_control.types.object_lambda_content_transformation
@@ -61,7 +58,9 @@ def deserialize_xml(el: Element) -> ObjectLambdaTransformationConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ObjectLambdaTransformationConfiguration.content_transformation required"
+        import capo_s3_control.types._unknown
+
+        out["content_transformation"] = (
+            capo_s3_control.types._unknown.UnknownUnionMember("")
         )
     return out

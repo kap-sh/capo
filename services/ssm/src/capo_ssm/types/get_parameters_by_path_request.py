@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.boolean
     import capo_ssm.types.get_parameters_by_path_max_results
@@ -61,7 +59,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetParametersByPathRequest:
     if data.get("Path") is not None:
         out["path"] = data["Path"]
     else:
-        raise DeserializationError("GetParametersByPathRequest.path required")
+        out["path"] = ""
     if data.get("Recursive") is not None:
         out["recursive"] = data["Recursive"]
     if data.get("ParameterFilters") is not None:

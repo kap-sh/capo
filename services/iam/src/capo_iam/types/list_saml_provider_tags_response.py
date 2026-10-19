@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.boolean_type
@@ -50,7 +49,7 @@ def deserialize_query(el: Element) -> ListSAMLProviderTagsResponse:
 
         out["tags"] = capo_iam.types.tag_list_type.deserialize_query(child_tags)
     else:
-        raise DeserializationError("ListSAMLProviderTagsResponse.tags required")
+        out["tags"] = []
     child_is_truncated = el.find("IsTruncated")
     if child_is_truncated is not None:
         out["is_truncated"] = (child_is_truncated.text or "").lower() == "true"

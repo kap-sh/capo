@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_apprunner.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_apprunner.types.uuid
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> StartDeploymentResponse:
     if data.get("OperationId") is not None:
         out["operation_id"] = data["OperationId"]
     else:
-        raise DeserializationError("StartDeploymentResponse.operation_id required")
+        out["operation_id"] = ""
     return out

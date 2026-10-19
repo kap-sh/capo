@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -84,9 +82,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateScheduledActionRequest:
     if data.get("scheduledActionName") is not None:
         out["scheduled_action_name"] = data["scheduledActionName"]
     else:
-        raise DeserializationError(
-            "CreateScheduledActionRequest.scheduled_action_name required"
-        )
+        out["scheduled_action_name"] = ""
     if data.get("targetAction") is not None:
         import capo_redshift_serverless.types.target_action
 
@@ -96,8 +92,10 @@ def deserialize_aws_json_1_1(data: dict) -> CreateScheduledActionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateScheduledActionRequest.target_action required"
+        import capo_redshift_serverless.types._unknown
+
+        out["target_action"] = (
+            capo_redshift_serverless.types._unknown.UnknownUnionMember("")
         )
     if data.get("schedule") is not None:
         import capo_redshift_serverless.types.schedule
@@ -108,17 +106,17 @@ def deserialize_aws_json_1_1(data: dict) -> CreateScheduledActionRequest:
             )
         )
     else:
-        raise DeserializationError("CreateScheduledActionRequest.schedule required")
+        import capo_redshift_serverless.types._unknown
+
+        out["schedule"] = capo_redshift_serverless.types._unknown.UnknownUnionMember("")
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateScheduledActionRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("namespaceName") is not None:
         out["namespace_name"] = data["namespaceName"]
     else:
-        raise DeserializationError(
-            "CreateScheduledActionRequest.namespace_name required"
-        )
+        out["namespace_name"] = ""
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     if data.get("scheduledActionDescription") is not None:

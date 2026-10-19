@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.annotation_field_map
     import capo_omics.types.arn
@@ -79,19 +77,19 @@ def deserialize_json(data: dict) -> VariantImportJobItem:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("VariantImportJobItem.id required")
+        out["id"] = ""
     if data.get("destinationName") is not None:
         out["destination_name"] = data["destinationName"]
     else:
-        raise DeserializationError("VariantImportJobItem.destination_name required")
+        out["destination_name"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("VariantImportJobItem.role_arn required")
+        out["role_arn"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("VariantImportJobItem.status required")
+        out["status"] = ""
     if data.get("creationTime") is not None:
         import capo_omics.types.creation_time
 
@@ -99,7 +97,11 @@ def deserialize_json(data: dict) -> VariantImportJobItem:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("VariantImportJobItem.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import capo_omics.types.update_time
 
@@ -107,7 +109,11 @@ def deserialize_json(data: dict) -> VariantImportJobItem:
             data["updateTime"]
         )
     else:
-        raise DeserializationError("VariantImportJobItem.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("completionTime") is not None:
         import capo_omics.types.completion_time
 

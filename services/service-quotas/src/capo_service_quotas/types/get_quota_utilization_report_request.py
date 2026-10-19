@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_quotas.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_quotas.types.max_results_utilization
     import capo_service_quotas.types.next_token
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetQuotaUtilizationReportRequest:
     if data.get("ReportId") is not None:
         out["report_id"] = data["ReportId"]
     else:
-        raise DeserializationError(
-            "GetQuotaUtilizationReportRequest.report_id required"
-        )
+        out["report_id"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

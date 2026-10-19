@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_elastic_beanstalk._protocol.xml import Element
-from capo_elastic_beanstalk.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_elastic_beanstalk.types.environment_id
@@ -60,5 +59,9 @@ def deserialize_query(el: Element) -> RequestEnvironmentInfoMessage:
             )
         )
     else:
-        raise DeserializationError("RequestEnvironmentInfoMessage.info_type required")
+        import typing
+
+        out["info_type"] = typing.cast(
+            "capo_elastic_beanstalk.types.environment_info_type.EnvironmentInfoType", ""
+        )
     return out

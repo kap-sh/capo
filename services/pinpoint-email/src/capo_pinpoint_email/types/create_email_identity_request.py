@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_email.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_email.types.identity
     import capo_pinpoint_email.types.tag_list
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> CreateEmailIdentityRequest:
     if data.get("EmailIdentity") is not None:
         out["email_identity"] = data["EmailIdentity"]
     else:
-        raise DeserializationError("CreateEmailIdentityRequest.email_identity required")
+        out["email_identity"] = ""
     if data.get("Tags") is not None:
         import capo_pinpoint_email.types.tag_list
 

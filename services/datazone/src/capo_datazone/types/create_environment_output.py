@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -194,17 +192,17 @@ def deserialize_json(data: dict) -> CreateEnvironmentOutput:
     if data.get("projectId") is not None:
         out["project_id"] = data["projectId"]
     else:
-        raise DeserializationError("CreateEnvironmentOutput.project_id required")
+        out["project_id"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("CreateEnvironmentOutput.domain_id required")
+        out["domain_id"] = ""
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("CreateEnvironmentOutput.created_by required")
+        out["created_by"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -220,7 +218,7 @@ def deserialize_json(data: dict) -> CreateEnvironmentOutput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateEnvironmentOutput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("environmentProfileId") is not None:
@@ -234,7 +232,7 @@ def deserialize_json(data: dict) -> CreateEnvironmentOutput:
     if data.get("provider") is not None:
         out["provider"] = data["provider"]
     else:
-        raise DeserializationError("CreateEnvironmentOutput.provider required")
+        out["provider"] = ""
     if data.get("provisionedResources") is not None:
         import capo_datazone.types.resource_list
 

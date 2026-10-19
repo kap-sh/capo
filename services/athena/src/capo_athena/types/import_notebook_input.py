@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.client_request_token
     import capo_athena.types.notebook_name
@@ -54,11 +52,11 @@ def deserialize_aws_json_1_1(data: dict) -> ImportNotebookInput:
     if data.get("WorkGroup") is not None:
         out["work_group"] = data["WorkGroup"]
     else:
-        raise DeserializationError("ImportNotebookInput.work_group required")
+        out["work_group"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ImportNotebookInput.name required")
+        out["name"] = ""
     if data.get("Payload") is not None:
         out["payload"] = data["Payload"]
     if data.get("Type") is not None:
@@ -68,7 +66,9 @@ def deserialize_aws_json_1_1(data: dict) -> ImportNotebookInput:
             data["Type"]
         )
     else:
-        raise DeserializationError("ImportNotebookInput.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_athena.types.notebook_type.NotebookType", "")
     if data.get("NotebookS3LocationUri") is not None:
         out["notebook_s3_location_uri"] = data["NotebookS3LocationUri"]
     if data.get("ClientRequestToken") is not None:

@@ -99,9 +99,7 @@ def deserialize_json(data: dict) -> TaxRegistrationWithJurisdiction:
     if data.get("registrationId") is not None:
         out["registration_id"] = data["registrationId"]
     else:
-        raise DeserializationError(
-            "TaxRegistrationWithJurisdiction.registration_id required"
-        )
+        out["registration_id"] = ""
     if data.get("registrationType") is not None:
         import capo_taxsettings.types.tax_registration_type
 
@@ -111,15 +109,15 @@ def deserialize_json(data: dict) -> TaxRegistrationWithJurisdiction:
             )
         )
     else:
-        raise DeserializationError(
-            "TaxRegistrationWithJurisdiction.registration_type required"
+        import typing
+
+        out["registration_type"] = typing.cast(
+            "capo_taxsettings.types.tax_registration_type.TaxRegistrationType", ""
         )
     if data.get("legalName") is not None:
         out["legal_name"] = data["legalName"]
     else:
-        raise DeserializationError(
-            "TaxRegistrationWithJurisdiction.legal_name required"
-        )
+        out["legal_name"] = ""
     if data.get("status") is not None:
         import capo_taxsettings.types.tax_registration_status
 
@@ -127,7 +125,11 @@ def deserialize_json(data: dict) -> TaxRegistrationWithJurisdiction:
             data["status"]
         )
     else:
-        raise DeserializationError("TaxRegistrationWithJurisdiction.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_taxsettings.types.tax_registration_status.TaxRegistrationStatus", ""
+        )
     if data.get("sector") is not None:
         import capo_taxsettings.types.sector
 

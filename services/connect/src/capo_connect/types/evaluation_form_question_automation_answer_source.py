@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.evaluation_form_question_automation_answer_source_type
 
@@ -39,7 +37,10 @@ def deserialize_json(data: dict) -> EvaluationFormQuestionAutomationAnswerSource
             )
         )
     else:
-        raise DeserializationError(
-            "EvaluationFormQuestionAutomationAnswerSource.source_type required"
+        import typing
+
+        out["source_type"] = typing.cast(
+            "capo_connect.types.evaluation_form_question_automation_answer_source_type.EvaluationFormQuestionAutomationAnswerSourceType",
+            "",
         )
     return out

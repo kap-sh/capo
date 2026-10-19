@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -115,11 +113,11 @@ def deserialize_json(data: dict) -> ActionConnector:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("ActionConnector.arn required")
+        out["arn"] = ""
     if data.get("ActionConnectorId") is not None:
         out["action_connector_id"] = data["ActionConnectorId"]
     else:
-        raise DeserializationError("ActionConnector.action_connector_id required")
+        out["action_connector_id"] = ""
     if data.get("Type") is not None:
         import capo_quicksight.types.action_connector_type
 
@@ -127,11 +125,15 @@ def deserialize_json(data: dict) -> ActionConnector:
             data["Type"]
         )
     else:
-        raise DeserializationError("ActionConnector.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_quicksight.types.action_connector_type.ActionConnectorType", ""
+        )
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ActionConnector.name required")
+        out["name"] = ""
     if data.get("CreatedTime") is not None:
         import capo_quicksight.types._prelude.timestamp
 
@@ -147,7 +149,11 @@ def deserialize_json(data: dict) -> ActionConnector:
             )
         )
     else:
-        raise DeserializationError("ActionConnector.last_updated_time required")
+        import datetime
+
+        out["last_updated_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("Status") is not None:
         import capo_quicksight.types.resource_status
 

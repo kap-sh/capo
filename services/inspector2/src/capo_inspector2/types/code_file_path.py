@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.non_empty_string
 
@@ -36,17 +34,17 @@ def deserialize_json(data: dict) -> CodeFilePath:
     if data.get("fileName") is not None:
         out["file_name"] = data["fileName"]
     else:
-        raise DeserializationError("CodeFilePath.file_name required")
+        out["file_name"] = ""
     if data.get("filePath") is not None:
         out["file_path"] = data["filePath"]
     else:
-        raise DeserializationError("CodeFilePath.file_path required")
+        out["file_path"] = ""
     if data.get("startLine") is not None:
         out["start_line"] = data["startLine"]
     else:
-        raise DeserializationError("CodeFilePath.start_line required")
+        out["start_line"] = 0
     if data.get("endLine") is not None:
         out["end_line"] = data["endLine"]
     else:
-        raise DeserializationError("CodeFilePath.end_line required")
+        out["end_line"] = 0
     return out

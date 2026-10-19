@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_apprunner.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_apprunner.types.app_runner_resource_arn
     import capo_apprunner.types.max_results
@@ -43,9 +41,7 @@ def deserialize_aws_json_1_0(
     if data.get("AutoScalingConfigurationArn") is not None:
         out["auto_scaling_configuration_arn"] = data["AutoScalingConfigurationArn"]
     else:
-        raise DeserializationError(
-            "ListServicesForAutoScalingConfigurationRequest.auto_scaling_configuration_arn required"
-        )
+        out["auto_scaling_configuration_arn"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

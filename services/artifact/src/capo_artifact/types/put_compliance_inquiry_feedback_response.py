@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_artifact.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_artifact.types.timestamp_attribute
 
@@ -35,7 +33,9 @@ def deserialize_json(data: dict) -> PutComplianceInquiryFeedbackResponse:
             data["submittedAt"]
         )
     else:
-        raise DeserializationError(
-            "PutComplianceInquiryFeedbackResponse.submitted_at required"
+        import datetime
+
+        out["submitted_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

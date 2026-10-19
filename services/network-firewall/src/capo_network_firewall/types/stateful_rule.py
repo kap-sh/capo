@@ -55,7 +55,11 @@ def deserialize_aws_json_1_0(data: dict) -> StatefulRule:
             )
         )
     else:
-        raise DeserializationError("StatefulRule.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_network_firewall.types.stateful_action.StatefulAction", ""
+        )
     if data.get("Header") is not None:
         import capo_network_firewall.types.header
 
@@ -73,5 +77,5 @@ def deserialize_aws_json_1_0(data: dict) -> StatefulRule:
             )
         )
     else:
-        raise DeserializationError("StatefulRule.rule_options required")
+        out["rule_options"] = []
     return out

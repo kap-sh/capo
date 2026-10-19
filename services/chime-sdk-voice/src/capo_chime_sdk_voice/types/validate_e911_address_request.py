@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.non_empty_string
     import capo_chime_sdk_voice.types.sensitive_non_empty_string
@@ -58,31 +56,31 @@ def deserialize_json(data: dict) -> ValidateE911AddressRequest:
     if data.get("AwsAccountId") is not None:
         out["aws_account_id"] = data["AwsAccountId"]
     else:
-        raise DeserializationError("ValidateE911AddressRequest.aws_account_id required")
+        out["aws_account_id"] = ""
     if data.get("StreetNumber") is not None:
         out["street_number"] = data["StreetNumber"]
     else:
-        raise DeserializationError("ValidateE911AddressRequest.street_number required")
+        out["street_number"] = ""
     if data.get("StreetInfo") is not None:
         out["street_info"] = data["StreetInfo"]
     else:
-        raise DeserializationError("ValidateE911AddressRequest.street_info required")
+        out["street_info"] = ""
     if data.get("City") is not None:
         out["city"] = data["City"]
     else:
-        raise DeserializationError("ValidateE911AddressRequest.city required")
+        out["city"] = ""
     if data.get("State") is not None:
         out["state"] = data["State"]
     else:
-        raise DeserializationError("ValidateE911AddressRequest.state required")
+        out["state"] = ""
     if data.get("Country") is not None:
         out["country"] = data["Country"]
     else:
-        raise DeserializationError("ValidateE911AddressRequest.country required")
+        out["country"] = ""
     if data.get("PostalCode") is not None:
         out["postal_code"] = data["PostalCode"]
     else:
-        raise DeserializationError("ValidateE911AddressRequest.postal_code required")
+        out["postal_code"] = ""
     return out
 
 

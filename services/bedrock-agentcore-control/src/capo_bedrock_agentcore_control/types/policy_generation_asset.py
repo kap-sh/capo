@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.findings
     import capo_bedrock_agentcore_control.types.natural_language
@@ -55,9 +53,7 @@ def deserialize_json(data: dict) -> PolicyGenerationAsset:
     if data.get("policyGenerationAssetId") is not None:
         out["policy_generation_asset_id"] = data["policyGenerationAssetId"]
     else:
-        raise DeserializationError(
-            "PolicyGenerationAsset.policy_generation_asset_id required"
-        )
+        out["policy_generation_asset_id"] = ""
     if data.get("definition") is not None:
         import capo_bedrock_agentcore_control.types.policy_definition
 
@@ -69,7 +65,7 @@ def deserialize_json(data: dict) -> PolicyGenerationAsset:
     if data.get("rawTextFragment") is not None:
         out["raw_text_fragment"] = data["rawTextFragment"]
     else:
-        raise DeserializationError("PolicyGenerationAsset.raw_text_fragment required")
+        out["raw_text_fragment"] = ""
     if data.get("findings") is not None:
         import capo_bedrock_agentcore_control.types.findings
 
@@ -79,5 +75,5 @@ def deserialize_json(data: dict) -> PolicyGenerationAsset:
             )
         )
     else:
-        raise DeserializationError("PolicyGenerationAsset.findings required")
+        out["findings"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.directory_configuration_status
     import capo_directory_service.types.directory_id
@@ -45,7 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeSettingsRequest:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError("DescribeSettingsRequest.directory_id required")
+        out["directory_id"] = ""
     if data.get("Status") is not None:
         import capo_directory_service.types.directory_configuration_status
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eventbridgev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.confluent_public_registry_configuration
     import capo_eventbridgev2.types.schema_registry_uri
@@ -40,7 +38,7 @@ def deserialize_cbor(data: dict) -> SchemaRegistryConfiguration:
     if data.get("RegistryUri") is not None:
         out["registry_uri"] = data["RegistryUri"]
     else:
-        raise DeserializationError("SchemaRegistryConfiguration.registry_uri required")
+        out["registry_uri"] = ""
     if data.get("ConfluentPublicRegistryConfiguration") is not None:
         import capo_eventbridgev2.types.confluent_public_registry_configuration
 

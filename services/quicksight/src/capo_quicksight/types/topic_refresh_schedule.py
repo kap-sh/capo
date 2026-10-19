@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.boolean
     import capo_quicksight.types.limited_string
@@ -62,7 +60,7 @@ def deserialize_json(data: dict) -> TopicRefreshSchedule:
     if data.get("IsEnabled") is not None:
         out["is_enabled"] = data["IsEnabled"]
     else:
-        raise DeserializationError("TopicRefreshSchedule.is_enabled required")
+        out["is_enabled"] = False
     if data.get("BasedOnSpiceSchedule") is not None:
         out["based_on_spice_schedule"] = data["BasedOnSpiceSchedule"]
     else:

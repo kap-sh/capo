@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3files.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3files.types.gid
     import capo_s3files.types.secondary_gids
@@ -40,11 +38,11 @@ def deserialize_json(data: dict) -> PosixUser:
     if data.get("uid") is not None:
         out["uid"] = data["uid"]
     else:
-        raise DeserializationError("PosixUser.uid required")
+        out["uid"] = 0
     if data.get("gid") is not None:
         out["gid"] = data["gid"]
     else:
-        raise DeserializationError("PosixUser.gid required")
+        out["gid"] = 0
     if data.get("secondaryGids") is not None:
         import capo_s3files.types.secondary_gids
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.application_associated_resource_type_list
     import capo_workspaces.types.limit
@@ -53,9 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeApplicationAssociationsReque
     if data.get("ApplicationId") is not None:
         out["application_id"] = data["ApplicationId"]
     else:
-        raise DeserializationError(
-            "DescribeApplicationAssociationsRequest.application_id required"
-        )
+        out["application_id"] = ""
     if data.get("AssociatedResourceTypes") is not None:
         import capo_workspaces.types.application_associated_resource_type_list
 
@@ -65,7 +61,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeApplicationAssociationsReque
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeApplicationAssociationsRequest.associated_resource_types required"
-        )
+        out["associated_resource_types"] = []
     return out

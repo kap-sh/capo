@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.s3_bucket_name
     import capo_kendra.types.s3_object_key
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> S3Path:
     if data.get("Bucket") is not None:
         out["bucket"] = data["Bucket"]
     else:
-        raise DeserializationError("S3Path.bucket required")
+        out["bucket"] = ""
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("S3Path.key required")
+        out["key"] = ""
     return out

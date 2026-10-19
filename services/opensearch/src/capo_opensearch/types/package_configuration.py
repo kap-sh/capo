@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.boolean
     import capo_opensearch.types.license_filepath
@@ -64,7 +62,11 @@ def deserialize_json(data: dict) -> PackageConfiguration:
             )
         )
     else:
-        raise DeserializationError("PackageConfiguration.license_requirement required")
+        import typing
+
+        out["license_requirement"] = typing.cast(
+            "capo_opensearch.types.requirement_level.RequirementLevel", ""
+        )
     if data.get("LicenseFilepath") is not None:
         out["license_filepath"] = data["LicenseFilepath"]
     if data.get("ConfigurationRequirement") is not None:
@@ -76,8 +78,10 @@ def deserialize_json(data: dict) -> PackageConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "PackageConfiguration.configuration_requirement required"
+        import typing
+
+        out["configuration_requirement"] = typing.cast(
+            "capo_opensearch.types.requirement_level.RequirementLevel", ""
         )
     if data.get("RequiresRestartForConfigurationUpdate") is not None:
         out["requires_restart_for_configuration_update"] = data[

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securitylake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securitylake.types.http_method
     import capo_securitylake.types.role_arn
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> HttpsNotificationConfiguration:
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError("HttpsNotificationConfiguration.endpoint required")
+        out["endpoint"] = ""
     if data.get("authorizationApiKeyName") is not None:
         out["authorization_api_key_name"] = data["authorizationApiKeyName"]
     if data.get("authorizationApiKeyValue") is not None:
@@ -61,7 +59,5 @@ def deserialize_json(data: dict) -> HttpsNotificationConfiguration:
     if data.get("targetRoleArn") is not None:
         out["target_role_arn"] = data["targetRoleArn"]
     else:
-        raise DeserializationError(
-            "HttpsNotificationConfiguration.target_role_arn required"
-        )
+        out["target_role_arn"] = ""
     return out

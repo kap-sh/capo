@@ -71,7 +71,7 @@ def deserialize_json(data: dict) -> CreateSupportPermitInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateSupportPermitInput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("signingKeyInfo") is not None:
@@ -83,7 +83,11 @@ def deserialize_json(data: dict) -> CreateSupportPermitInput:
             )
         )
     else:
-        raise DeserializationError("CreateSupportPermitInput.signing_key_info required")
+        import capo_supportauthz.types._unknown
+
+        out["signing_key_info"] = capo_supportauthz.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("supportCaseDisplayId") is not None:
         out["support_case_display_id"] = data["supportCaseDisplayId"]
     if data.get("clientToken") is not None:

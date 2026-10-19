@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity.types.developer_user_identifier
     import capo_cognito_identity.types.identity_id
@@ -49,9 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> LookupDeveloperIdentityInput:
     if data.get("IdentityPoolId") is not None:
         out["identity_pool_id"] = data["IdentityPoolId"]
     else:
-        raise DeserializationError(
-            "LookupDeveloperIdentityInput.identity_pool_id required"
-        )
+        out["identity_pool_id"] = ""
     if data.get("IdentityId") is not None:
         out["identity_id"] = data["IdentityId"]
     if data.get("DeveloperUserIdentifier") is not None:

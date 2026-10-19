@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.date_timestamp
     import capo_bedrock_agentcore_control.types.payment_connector_id
@@ -55,15 +53,11 @@ def deserialize_json(data: dict) -> RotatePaymentConnectorCredentialsResponse:
     if data.get("paymentConnectorId") is not None:
         out["payment_connector_id"] = data["paymentConnectorId"]
     else:
-        raise DeserializationError(
-            "RotatePaymentConnectorCredentialsResponse.payment_connector_id required"
-        )
+        out["payment_connector_id"] = ""
     if data.get("paymentManagerId") is not None:
         out["payment_manager_id"] = data["paymentManagerId"]
     else:
-        raise DeserializationError(
-            "RotatePaymentConnectorCredentialsResponse.payment_manager_id required"
-        )
+        out["payment_manager_id"] = ""
     if data.get("lastUpdatedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -73,8 +67,10 @@ def deserialize_json(data: dict) -> RotatePaymentConnectorCredentialsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "RotatePaymentConnectorCredentialsResponse.last_updated_at required"
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.payment_connector_status
@@ -85,7 +81,10 @@ def deserialize_json(data: dict) -> RotatePaymentConnectorCredentialsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "RotatePaymentConnectorCredentialsResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.payment_connector_status.PaymentConnectorStatus",
+            "",
         )
     return out

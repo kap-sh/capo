@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.identity_source_id
     import capo_verifiedpermissions.types.policy_store_id
@@ -33,9 +31,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetIdentitySourceInput:
     if data.get("policyStoreId") is not None:
         out["policy_store_id"] = data["policyStoreId"]
     else:
-        raise DeserializationError("GetIdentitySourceInput.policy_store_id required")
+        out["policy_store_id"] = ""
     if data.get("identitySourceId") is not None:
         out["identity_source_id"] = data["identitySourceId"]
     else:
-        raise DeserializationError("GetIdentitySourceInput.identity_source_id required")
+        out["identity_source_id"] = ""
     return out

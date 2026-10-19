@@ -5,7 +5,6 @@ import json
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent_runtime._protocol.eventstream import HeaderValue, Message
-from capo_bedrock_agent_runtime.errors import DeserializationError
 
 
 class AgenticRetrieveResponseEvent(TypedDict, closed=True):
@@ -25,7 +24,7 @@ def deserialize_json(data: dict) -> AgenticRetrieveResponseEvent:
     if data.get("text") is not None:
         out["text"] = data["text"]
     else:
-        raise DeserializationError("AgenticRetrieveResponseEvent.text required")
+        out["text"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.geometry_format
     import capo_geo_routes.types.route_list
@@ -53,8 +51,10 @@ def deserialize_json(data: dict) -> CalculateRoutesResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "CalculateRoutesResponse.leg_geometry_format required"
+        import typing
+
+        out["leg_geometry_format"] = typing.cast(
+            "capo_geo_routes.types.geometry_format.GeometryFormat", ""
         )
     if data.get("Notices") is not None:
         import capo_geo_routes.types.route_response_notice_list
@@ -65,7 +65,7 @@ def deserialize_json(data: dict) -> CalculateRoutesResponse:
             )
         )
     else:
-        raise DeserializationError("CalculateRoutesResponse.notices required")
+        out["notices"] = []
     if data.get("Routes") is not None:
         import capo_geo_routes.types.route_list
 
@@ -73,7 +73,7 @@ def deserialize_json(data: dict) -> CalculateRoutesResponse:
             data["Routes"]
         )
     else:
-        raise DeserializationError("CalculateRoutesResponse.routes required")
+        out["routes"] = []
     return out
 
 

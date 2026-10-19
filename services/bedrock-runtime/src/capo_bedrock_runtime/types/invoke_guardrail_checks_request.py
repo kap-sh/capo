@@ -47,7 +47,7 @@ def deserialize_json(data: dict) -> InvokeGuardrailChecksRequest:
             )
         )
     else:
-        raise DeserializationError("InvokeGuardrailChecksRequest.messages required")
+        out["messages"] = []
     if data.get("checks") is not None:
         import capo_bedrock_runtime.types.guardrail_checks_config
 

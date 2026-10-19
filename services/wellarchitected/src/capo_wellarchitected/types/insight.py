@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 
 class Insight(TypedDict, closed=True):
     usage_pattern: "str"
@@ -26,7 +24,7 @@ def deserialize_json(data: dict) -> Insight:
     if data.get("usagePattern") is not None:
         out["usage_pattern"] = data["usagePattern"]
     else:
-        raise DeserializationError("Insight.usage_pattern required")
+        out["usage_pattern"] = ""
     if data.get("signalsDetected") is not None:
         out["signals_detected"] = data["signalsDetected"]
     return out

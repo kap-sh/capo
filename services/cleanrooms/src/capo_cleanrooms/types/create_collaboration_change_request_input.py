@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.change_input_list
     import capo_cleanrooms.types.collaboration_identifier
@@ -40,7 +38,5 @@ def deserialize_json(data: dict) -> CreateCollaborationChangeRequestInput:
             data["changes"]
         )
     else:
-        raise DeserializationError(
-            "CreateCollaborationChangeRequestInput.changes required"
-        )
+        out["changes"] = []
     return out

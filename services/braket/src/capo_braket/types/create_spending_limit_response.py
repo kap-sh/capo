@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_braket.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_braket.types.spending_limit_arn
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> CreateSpendingLimitResponse:
     if data.get("spendingLimitArn") is not None:
         out["spending_limit_arn"] = data["spendingLimitArn"]
     else:
-        raise DeserializationError(
-            "CreateSpendingLimitResponse.spending_limit_arn required"
-        )
+        out["spending_limit_arn"] = ""
     return out

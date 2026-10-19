@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dsql.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dsql.types.client_token
     import capo_dsql.types.cluster_id
@@ -62,7 +60,9 @@ def deserialize_json(data: dict) -> CreateStreamInput:
             data["targetDefinition"]
         )
     else:
-        raise DeserializationError("CreateStreamInput.target_definition required")
+        import capo_dsql.types._unknown
+
+        out["target_definition"] = capo_dsql.types._unknown.UnknownUnionMember("")
     if data.get("ordering") is not None:
         import capo_dsql.types.stream_ordering
 
@@ -70,13 +70,19 @@ def deserialize_json(data: dict) -> CreateStreamInput:
             data["ordering"]
         )
     else:
-        raise DeserializationError("CreateStreamInput.ordering required")
+        import typing
+
+        out["ordering"] = typing.cast(
+            "capo_dsql.types.stream_ordering.StreamOrdering", ""
+        )
     if data.get("format") is not None:
         import capo_dsql.types.stream_format
 
         out["format"] = capo_dsql.types.stream_format.deserialize_json(data["format"])
     else:
-        raise DeserializationError("CreateStreamInput.format required")
+        import typing
+
+        out["format"] = typing.cast("capo_dsql.types.stream_format.StreamFormat", "")
     if data.get("tags") is not None:
         import capo_dsql.types.tag_map
 

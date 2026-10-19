@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.account_scope
     import capo_cost_explorer.types.expression
@@ -105,8 +103,11 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "GetSavingsPlansPurchaseRecommendationRequest.savings_plans_type required"
+        import typing
+
+        out["savings_plans_type"] = typing.cast(
+            "capo_cost_explorer.types.supported_savings_plans_type.SupportedSavingsPlansType",
+            "",
         )
     if data.get("TermInYears") is not None:
         import capo_cost_explorer.types.term_in_years
@@ -117,8 +118,10 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "GetSavingsPlansPurchaseRecommendationRequest.term_in_years required"
+        import typing
+
+        out["term_in_years"] = typing.cast(
+            "capo_cost_explorer.types.term_in_years.TermInYears", ""
         )
     if data.get("PaymentOption") is not None:
         import capo_cost_explorer.types.payment_option
@@ -129,8 +132,10 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "GetSavingsPlansPurchaseRecommendationRequest.payment_option required"
+        import typing
+
+        out["payment_option"] = typing.cast(
+            "capo_cost_explorer.types.payment_option.PaymentOption", ""
         )
     if data.get("AccountScope") is not None:
         import capo_cost_explorer.types.account_scope
@@ -153,8 +158,10 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "GetSavingsPlansPurchaseRecommendationRequest.lookback_period_in_days required"
+        import typing
+
+        out["lookback_period_in_days"] = typing.cast(
+            "capo_cost_explorer.types.lookback_period_in_days.LookbackPeriodInDays", ""
         )
     if data.get("Filter") is not None:
         import capo_cost_explorer.types.expression

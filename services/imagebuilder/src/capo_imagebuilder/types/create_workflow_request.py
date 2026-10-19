@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.boolean
     import capo_imagebuilder.types.client_token
@@ -78,11 +76,11 @@ def deserialize_json(data: dict) -> CreateWorkflowRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateWorkflowRequest.name required")
+        out["name"] = ""
     if data.get("semanticVersion") is not None:
         out["semantic_version"] = data["semanticVersion"]
     else:
-        raise DeserializationError("CreateWorkflowRequest.semantic_version required")
+        out["semantic_version"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("changeDescription") is not None:
@@ -100,7 +98,7 @@ def deserialize_json(data: dict) -> CreateWorkflowRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CreateWorkflowRequest.client_token required")
+        out["client_token"] = ""
     if data.get("type") is not None:
         import capo_imagebuilder.types.workflow_type
 
@@ -108,7 +106,11 @@ def deserialize_json(data: dict) -> CreateWorkflowRequest:
             data["type"]
         )
     else:
-        raise DeserializationError("CreateWorkflowRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_imagebuilder.types.workflow_type.WorkflowType", ""
+        )
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
     return out

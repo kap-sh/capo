@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_account_access.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_account_access.types.error_code
 
@@ -36,9 +34,11 @@ def deserialize_json(data: dict) -> ErrorDetails:
             data["code"]
         )
     else:
-        raise DeserializationError("ErrorDetails.code required")
+        import typing
+
+        out["code"] = typing.cast("capo_account_access.types.error_code.ErrorCode", "")
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ErrorDetails.message required")
+        out["message"] = ""
     return out

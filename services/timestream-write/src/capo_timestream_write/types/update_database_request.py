@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_timestream_write.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_write.types.resource_name
     import capo_timestream_write.types.string_value2048
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateDatabaseRequest:
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError("UpdateDatabaseRequest.database_name required")
+        out["database_name"] = ""
     if data.get("KmsKeyId") is not None:
         out["kms_key_id"] = data["KmsKeyId"]
     else:
-        raise DeserializationError("UpdateDatabaseRequest.kms_key_id required")
+        out["kms_key_id"] = ""
     return out

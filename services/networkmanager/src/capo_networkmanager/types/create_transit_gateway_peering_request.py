@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmanager.types.client_token
     import capo_networkmanager.types.core_network_id
@@ -45,15 +43,11 @@ def deserialize_json(data: dict) -> CreateTransitGatewayPeeringRequest:
     if data.get("CoreNetworkId") is not None:
         out["core_network_id"] = data["CoreNetworkId"]
     else:
-        raise DeserializationError(
-            "CreateTransitGatewayPeeringRequest.core_network_id required"
-        )
+        out["core_network_id"] = ""
     if data.get("TransitGatewayArn") is not None:
         out["transit_gateway_arn"] = data["TransitGatewayArn"]
     else:
-        raise DeserializationError(
-            "CreateTransitGatewayPeeringRequest.transit_gateway_arn required"
-        )
+        out["transit_gateway_arn"] = ""
     if data.get("Tags") is not None:
         import capo_networkmanager.types.tag_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.submission_mutation_kind
     import capo_qapps.types.uuid
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> SubmissionMutation:
     if data.get("submissionId") is not None:
         out["submission_id"] = data["submissionId"]
     else:
-        raise DeserializationError("SubmissionMutation.submission_id required")
+        out["submission_id"] = ""
     if data.get("mutationType") is not None:
         import capo_qapps.types.submission_mutation_kind
 
@@ -45,5 +43,9 @@ def deserialize_json(data: dict) -> SubmissionMutation:
             )
         )
     else:
-        raise DeserializationError("SubmissionMutation.mutation_type required")
+        import typing
+
+        out["mutation_type"] = typing.cast(
+            "capo_qapps.types.submission_mutation_kind.SubmissionMutationKind", ""
+        )
     return out

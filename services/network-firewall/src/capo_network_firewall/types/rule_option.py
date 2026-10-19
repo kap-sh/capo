@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.keyword
     import capo_network_firewall.types.settings
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_0(data: dict) -> RuleOption:
     if data.get("Keyword") is not None:
         out["keyword"] = data["Keyword"]
     else:
-        raise DeserializationError("RuleOption.keyword required")
+        out["keyword"] = ""
     if data.get("Settings") is not None:
         import capo_network_firewall.types.settings
 

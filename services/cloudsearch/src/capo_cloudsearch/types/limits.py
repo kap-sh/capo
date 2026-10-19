@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudsearch._protocol.xml import Element
-from capo_cloudsearch.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudsearch.types.maximum_partition_count
@@ -43,10 +42,10 @@ def deserialize_query(el: Element) -> Limits:
             child_maximum_replication_count.text or ""
         )
     else:
-        raise DeserializationError("Limits.maximum_replication_count required")
+        out["maximum_replication_count"] = 0
     child_maximum_partition_count = el.find("MaximumPartitionCount")
     if child_maximum_partition_count is not None:
         out["maximum_partition_count"] = int(child_maximum_partition_count.text or "")
     else:
-        raise DeserializationError("Limits.maximum_partition_count required")
+        out["maximum_partition_count"] = 0
     return out

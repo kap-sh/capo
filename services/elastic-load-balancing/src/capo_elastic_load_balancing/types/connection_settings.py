@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_elastic_load_balancing._protocol.xml import Element
-from capo_elastic_load_balancing.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_elastic_load_balancing.types.idle_timeout
@@ -30,5 +29,5 @@ def deserialize_query(el: Element) -> ConnectionSettings:
     if child_idle_timeout is not None:
         out["idle_timeout"] = int(child_idle_timeout.text or "")
     else:
-        raise DeserializationError("ConnectionSettings.idle_timeout required")
+        out["idle_timeout"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sso_admin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_admin.types.trusted_token_issuer_arn
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteTrustedTokenIssuerRequest:
     if data.get("TrustedTokenIssuerArn") is not None:
         out["trusted_token_issuer_arn"] = data["TrustedTokenIssuerArn"]
     else:
-        raise DeserializationError(
-            "DeleteTrustedTokenIssuerRequest.trusted_token_issuer_arn required"
-        )
+        out["trusted_token_issuer_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_elastic_transcoder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elastic_transcoder.types.bucket_name
     import capo_elastic_transcoder.types.key_arn
@@ -82,17 +80,17 @@ def deserialize_json(data: dict) -> CreatePipelineRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreatePipelineRequest.name required")
+        out["name"] = ""
     if data.get("InputBucket") is not None:
         out["input_bucket"] = data["InputBucket"]
     else:
-        raise DeserializationError("CreatePipelineRequest.input_bucket required")
+        out["input_bucket"] = ""
     if data.get("OutputBucket") is not None:
         out["output_bucket"] = data["OutputBucket"]
     if data.get("Role") is not None:
         out["role"] = data["Role"]
     else:
-        raise DeserializationError("CreatePipelineRequest.role required")
+        out["role"] = ""
     if data.get("AwsKmsKeyArn") is not None:
         out["aws_kms_key_arn"] = data["AwsKmsKeyArn"]
     if data.get("Notifications") is not None:

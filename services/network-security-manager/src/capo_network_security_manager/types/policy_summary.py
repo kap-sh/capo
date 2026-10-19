@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.date_timestamp
     import capo_network_security_manager.types.entity_status
@@ -96,11 +94,11 @@ def deserialize_json(data: dict) -> PolicySummary:
     if data.get("policyId") is not None:
         out["policy_id"] = data["policyId"]
     else:
-        raise DeserializationError("PolicySummary.policy_id required")
+        out["policy_id"] = ""
     if data.get("policyArn") is not None:
         out["policy_arn"] = data["policyArn"]
     else:
-        raise DeserializationError("PolicySummary.policy_arn required")
+        out["policy_arn"] = ""
     if data.get("policyName") is not None:
         out["policy_name"] = data["policyName"]
     if data.get("status") is not None:

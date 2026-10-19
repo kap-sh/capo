@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.encryption_strategy
     import capo_cloudwatchomni.types.kms_key_arn
@@ -46,8 +44,10 @@ def deserialize_cbor(data: dict) -> EncryptionConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "EncryptionConfiguration.encryption_strategy required"
+        import typing
+
+        out["encryption_strategy"] = typing.cast(
+            "capo_cloudwatchomni.types.encryption_strategy.EncryptionStrategy", ""
         )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]

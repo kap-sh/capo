@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.description
     import capo_bedrock_agent.types.flow_alias_concurrency_configuration
@@ -63,7 +61,7 @@ def deserialize_json(data: dict) -> UpdateFlowAliasRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateFlowAliasRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("routingConfiguration") is not None:
@@ -75,9 +73,7 @@ def deserialize_json(data: dict) -> UpdateFlowAliasRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateFlowAliasRequest.routing_configuration required"
-        )
+        out["routing_configuration"] = []
     if data.get("concurrencyConfiguration") is not None:
         import capo_bedrock_agent.types.flow_alias_concurrency_configuration
 

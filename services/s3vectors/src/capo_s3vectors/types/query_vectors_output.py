@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3vectors.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3vectors.types.distance_metric
     import capo_s3vectors.types.query_vectors_next_token
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> QueryVectorsOutput:
             )
         )
     else:
-        raise DeserializationError("QueryVectorsOutput.vectors required")
+        out["vectors"] = []
     if data.get("distanceMetric") is not None:
         import capo_s3vectors.types.distance_metric
 

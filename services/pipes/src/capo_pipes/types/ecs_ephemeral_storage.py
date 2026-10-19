@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pipes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pipes.types.ephemeral_storage_size
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> EcsEphemeralStorage:
     if data.get("sizeInGiB") is not None:
         out["size_in_gi_b"] = data["sizeInGiB"]
     else:
-        raise DeserializationError("EcsEphemeralStorage.size_in_gi_b required")
+        out["size_in_gi_b"] = 0
     return out

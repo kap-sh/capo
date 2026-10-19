@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.completed_at
     import capo_datazone.types.created_at
@@ -96,19 +94,19 @@ def deserialize_json(data: dict) -> GetNotebookExportOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetNotebookExportOutput.id required")
+        out["id"] = ""
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("GetNotebookExportOutput.domain_id required")
+        out["domain_id"] = ""
     if data.get("owningProjectId") is not None:
         out["owning_project_id"] = data["owningProjectId"]
     else:
-        raise DeserializationError("GetNotebookExportOutput.owning_project_id required")
+        out["owning_project_id"] = ""
     if data.get("notebookId") is not None:
         out["notebook_id"] = data["notebookId"]
     else:
-        raise DeserializationError("GetNotebookExportOutput.notebook_id required")
+        out["notebook_id"] = ""
     if data.get("fileFormat") is not None:
         import capo_datazone.types.file_format
 
@@ -116,7 +114,11 @@ def deserialize_json(data: dict) -> GetNotebookExportOutput:
             data["fileFormat"]
         )
     else:
-        raise DeserializationError("GetNotebookExportOutput.file_format required")
+        import typing
+
+        out["file_format"] = typing.cast(
+            "capo_datazone.types.file_format.FileFormat", ""
+        )
     if data.get("status") is not None:
         import capo_datazone.types.notebook_export_status
 
@@ -124,7 +126,11 @@ def deserialize_json(data: dict) -> GetNotebookExportOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("GetNotebookExportOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_datazone.types.notebook_export_status.NotebookExportStatus", ""
+        )
     if data.get("outputLocation") is not None:
         import capo_datazone.types.output_location
 

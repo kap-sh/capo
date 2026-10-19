@@ -54,7 +54,7 @@ def deserialize_json(data: dict) -> DataPathColor:
     if data.get("Color") is not None:
         out["color"] = data["Color"]
     else:
-        raise DeserializationError("DataPathColor.color required")
+        out["color"] = ""
     if data.get("TimeGranularity") is not None:
         import capo_quicksight.types.time_granularity
 

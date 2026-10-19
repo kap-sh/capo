@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.cloud_watch_logs_log_group_arn
@@ -40,19 +39,17 @@ def deserialize_xml(el: Element) -> QueryLoggingConfig:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("QueryLoggingConfig.id required")
+        out["id"] = ""
     child_hosted_zone_id = el.find("HostedZoneId")
     if child_hosted_zone_id is not None:
         out["hosted_zone_id"] = str(child_hosted_zone_id.text or "")
     else:
-        raise DeserializationError("QueryLoggingConfig.hosted_zone_id required")
+        out["hosted_zone_id"] = ""
     child_cloud_watch_logs_log_group_arn = el.find("CloudWatchLogsLogGroupArn")
     if child_cloud_watch_logs_log_group_arn is not None:
         out["cloud_watch_logs_log_group_arn"] = str(
             child_cloud_watch_logs_log_group_arn.text or ""
         )
     else:
-        raise DeserializationError(
-            "QueryLoggingConfig.cloud_watch_logs_log_group_arn required"
-        )
+        out["cloud_watch_logs_log_group_arn"] = ""
     return out

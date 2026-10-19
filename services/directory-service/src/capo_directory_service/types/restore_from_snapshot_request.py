@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.snapshot_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> RestoreFromSnapshotRequest:
     if data.get("SnapshotId") is not None:
         out["snapshot_id"] = data["SnapshotId"]
     else:
-        raise DeserializationError("RestoreFromSnapshotRequest.snapshot_id required")
+        out["snapshot_id"] = ""
     return out

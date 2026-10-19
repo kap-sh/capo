@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_api_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_api_gateway.types.boolean
     import capo_api_gateway.types.list_of_string
@@ -89,7 +87,7 @@ def deserialize_json(data: dict) -> PutMethodRequest:
     if data.get("authorizationType") is not None:
         out["authorization_type"] = data["authorizationType"]
     else:
-        raise DeserializationError("PutMethodRequest.authorization_type required")
+        out["authorization_type"] = ""
     if data.get("authorizerId") is not None:
         out["authorizer_id"] = data["authorizerId"]
     if data.get("apiKeyRequired") is not None:

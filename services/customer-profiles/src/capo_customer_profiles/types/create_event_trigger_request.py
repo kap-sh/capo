@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.event_trigger_conditions
     import capo_customer_profiles.types.event_trigger_limits
@@ -75,9 +73,7 @@ def deserialize_json(data: dict) -> CreateEventTriggerRequest:
     if data.get("ObjectTypeName") is not None:
         out["object_type_name"] = data["ObjectTypeName"]
     else:
-        raise DeserializationError(
-            "CreateEventTriggerRequest.object_type_name required"
-        )
+        out["object_type_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("EventTriggerConditions") is not None:
@@ -89,9 +85,7 @@ def deserialize_json(data: dict) -> CreateEventTriggerRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateEventTriggerRequest.event_trigger_conditions required"
-        )
+        out["event_trigger_conditions"] = []
     if data.get("SegmentFilter") is not None:
         out["segment_filter"] = data["SegmentFilter"]
     if data.get("EventTriggerLimits") is not None:

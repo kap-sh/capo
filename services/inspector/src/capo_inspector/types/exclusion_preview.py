@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.attribute_list
     import capo_inspector.types.scope_list
@@ -50,15 +48,15 @@ def deserialize_aws_json_1_1(data: dict) -> ExclusionPreview:
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("ExclusionPreview.title required")
+        out["title"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("ExclusionPreview.description required")
+        out["description"] = ""
     if data.get("recommendation") is not None:
         out["recommendation"] = data["recommendation"]
     else:
-        raise DeserializationError("ExclusionPreview.recommendation required")
+        out["recommendation"] = ""
     if data.get("scopes") is not None:
         import capo_inspector.types.scope_list
 
@@ -66,7 +64,7 @@ def deserialize_aws_json_1_1(data: dict) -> ExclusionPreview:
             data["scopes"]
         )
     else:
-        raise DeserializationError("ExclusionPreview.scopes required")
+        out["scopes"] = []
     if data.get("attributes") is not None:
         import capo_inspector.types.attribute_list
 

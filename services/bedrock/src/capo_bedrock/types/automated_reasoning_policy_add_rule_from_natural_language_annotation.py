@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_annotation_rule_natural_language
 
@@ -33,9 +31,7 @@ def deserialize_json(
     if data.get("naturalLanguage") is not None:
         out["natural_language"] = data["naturalLanguage"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyAddRuleFromNaturalLanguageAnnotation.natural_language required"
-        )
+        out["natural_language"] = ""
     return out
 
 

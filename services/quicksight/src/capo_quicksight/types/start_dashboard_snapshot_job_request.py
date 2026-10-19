@@ -61,9 +61,7 @@ def deserialize_json(data: dict) -> StartDashboardSnapshotJobRequest:
     if data.get("SnapshotJobId") is not None:
         out["snapshot_job_id"] = data["SnapshotJobId"]
     else:
-        raise DeserializationError(
-            "StartDashboardSnapshotJobRequest.snapshot_job_id required"
-        )
+        out["snapshot_job_id"] = ""
     if data.get("UserConfiguration") is not None:
         import capo_quicksight.types.snapshot_user_configuration
 

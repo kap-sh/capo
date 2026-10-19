@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.string
 
@@ -30,11 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> RecommendationSettings:
     if data.get("InstanceSizingType") is not None:
         out["instance_sizing_type"] = data["InstanceSizingType"]
     else:
-        raise DeserializationError(
-            "RecommendationSettings.instance_sizing_type required"
-        )
+        out["instance_sizing_type"] = ""
     if data.get("WorkloadType") is not None:
         out["workload_type"] = data["WorkloadType"]
     else:
-        raise DeserializationError("RecommendationSettings.workload_type required")
+        out["workload_type"] = ""
     return out

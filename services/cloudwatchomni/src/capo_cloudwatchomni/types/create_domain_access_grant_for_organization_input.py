@@ -62,15 +62,11 @@ def deserialize_cbor(data: dict) -> CreateDomainAccessGrantForOrganizationInput:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError(
-            "CreateDomainAccessGrantForOrganizationInput.domain_id required"
-        )
+        out["domain_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "CreateDomainAccessGrantForOrganizationInput.name required"
-        )
+        out["name"] = ""
     if data.get("principal") is not None:
         import capo_cloudwatchomni.types.organization_access_grant_principal
 
@@ -92,8 +88,11 @@ def deserialize_cbor(data: dict) -> CreateDomainAccessGrantForOrganizationInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDomainAccessGrantForOrganizationInput.permission required"
+        import typing
+
+        out["permission"] = typing.cast(
+            "capo_cloudwatchomni.types.organization_grant_permission.OrganizationGrantPermission",
+            "",
         )
     if data.get("tags") is not None:
         import capo_cloudwatchomni.types.tag_map

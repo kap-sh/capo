@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.area_code
     import capo_chime_sdk_voice.types.country
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> GeoMatchParams:
     if data.get("Country") is not None:
         out["country"] = data["Country"]
     else:
-        raise DeserializationError("GeoMatchParams.country required")
+        out["country"] = ""
     if data.get("AreaCode") is not None:
         out["area_code"] = data["AreaCode"]
     else:
-        raise DeserializationError("GeoMatchParams.area_code required")
+        out["area_code"] = ""
     return out

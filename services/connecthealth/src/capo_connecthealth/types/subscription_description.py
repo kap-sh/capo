@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connecthealth.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -77,15 +75,15 @@ def deserialize_json(data: dict) -> SubscriptionDescription:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("SubscriptionDescription.domain_id required")
+        out["domain_id"] = ""
     if data.get("subscriptionId") is not None:
         out["subscription_id"] = data["subscriptionId"]
     else:
-        raise DeserializationError("SubscriptionDescription.subscription_id required")
+        out["subscription_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("SubscriptionDescription.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_connecthealth.types.subscription_status
 
@@ -93,7 +91,11 @@ def deserialize_json(data: dict) -> SubscriptionDescription:
             data["status"]
         )
     else:
-        raise DeserializationError("SubscriptionDescription.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_connecthealth.types.subscription_status.SubscriptionStatus", ""
+        )
     if data.get("createdAt") is not None:
         import capo_connecthealth.types._prelude.timestamp
 
@@ -103,7 +105,9 @@ def deserialize_json(data: dict) -> SubscriptionDescription:
             )
         )
     else:
-        raise DeserializationError("SubscriptionDescription.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastUpdatedAt") is not None:
         import capo_connecthealth.types._prelude.timestamp
 
@@ -113,7 +117,11 @@ def deserialize_json(data: dict) -> SubscriptionDescription:
             )
         )
     else:
-        raise DeserializationError("SubscriptionDescription.last_updated_at required")
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("activatedAt") is not None:
         import capo_connecthealth.types._prelude.timestamp
 

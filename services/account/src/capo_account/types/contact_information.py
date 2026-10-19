@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_account.types.address_line
     import capo_account.types.city
@@ -77,11 +75,11 @@ def deserialize_json(data: dict) -> ContactInformation:
     if data.get("FullName") is not None:
         out["full_name"] = data["FullName"]
     else:
-        raise DeserializationError("ContactInformation.full_name required")
+        out["full_name"] = ""
     if data.get("AddressLine1") is not None:
         out["address_line1"] = data["AddressLine1"]
     else:
-        raise DeserializationError("ContactInformation.address_line1 required")
+        out["address_line1"] = ""
     if data.get("AddressLine2") is not None:
         out["address_line2"] = data["AddressLine2"]
     if data.get("AddressLine3") is not None:
@@ -89,7 +87,7 @@ def deserialize_json(data: dict) -> ContactInformation:
     if data.get("City") is not None:
         out["city"] = data["City"]
     else:
-        raise DeserializationError("ContactInformation.city required")
+        out["city"] = ""
     if data.get("StateOrRegion") is not None:
         out["state_or_region"] = data["StateOrRegion"]
     if data.get("DistrictOrCounty") is not None:
@@ -97,15 +95,15 @@ def deserialize_json(data: dict) -> ContactInformation:
     if data.get("PostalCode") is not None:
         out["postal_code"] = data["PostalCode"]
     else:
-        raise DeserializationError("ContactInformation.postal_code required")
+        out["postal_code"] = ""
     if data.get("CountryCode") is not None:
         out["country_code"] = data["CountryCode"]
     else:
-        raise DeserializationError("ContactInformation.country_code required")
+        out["country_code"] = ""
     if data.get("PhoneNumber") is not None:
         out["phone_number"] = data["PhoneNumber"]
     else:
-        raise DeserializationError("ContactInformation.phone_number required")
+        out["phone_number"] = ""
     if data.get("CompanyName") is not None:
         out["company_name"] = data["CompanyName"]
     if data.get("WebsiteUrl") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.direct_connect_gateway_association_proposal_id
     import capo_direct_connect.types.direct_connect_gateway_id
@@ -56,21 +54,15 @@ def deserialize_aws_json_1_1(
     if data.get("directConnectGatewayId") is not None:
         out["direct_connect_gateway_id"] = data["directConnectGatewayId"]
     else:
-        raise DeserializationError(
-            "AcceptDirectConnectGatewayAssociationProposalRequest.direct_connect_gateway_id required"
-        )
+        out["direct_connect_gateway_id"] = ""
     if data.get("proposalId") is not None:
         out["proposal_id"] = data["proposalId"]
     else:
-        raise DeserializationError(
-            "AcceptDirectConnectGatewayAssociationProposalRequest.proposal_id required"
-        )
+        out["proposal_id"] = ""
     if data.get("associatedGatewayOwnerAccount") is not None:
         out["associated_gateway_owner_account"] = data["associatedGatewayOwnerAccount"]
     else:
-        raise DeserializationError(
-            "AcceptDirectConnectGatewayAssociationProposalRequest.associated_gateway_owner_account required"
-        )
+        out["associated_gateway_owner_account"] = ""
     if data.get("overrideAllowedPrefixesToDirectConnectGateway") is not None:
         import capo_direct_connect.types.route_filter_prefix_list
 

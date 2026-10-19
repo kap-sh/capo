@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_neptunedata.errors import DeserializationError
-
 
 class SparqlData(TypedDict, closed=True):
     stmt: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> SparqlData:
     if data.get("stmt") is not None:
         out["stmt"] = data["stmt"]
     else:
-        raise DeserializationError("SparqlData.stmt required")
+        out["stmt"] = ""
     return out

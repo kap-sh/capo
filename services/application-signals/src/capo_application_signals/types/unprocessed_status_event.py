@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -83,8 +81,11 @@ def deserialize_json(data: dict) -> UnprocessedStatusEvent:
             )
         )
     else:
-        raise DeserializationError(
-            "UnprocessedStatusEvent.instrumentation_type required"
+        import typing
+
+        out["instrumentation_type"] = typing.cast(
+            "capo_application_signals.types.instrumentation_type.InstrumentationType",
+            "",
         )
     if data.get("SignalType") is not None:
         import capo_application_signals.types.dynamic_instrumentation_signal_type
@@ -95,11 +96,16 @@ def deserialize_json(data: dict) -> UnprocessedStatusEvent:
             )
         )
     else:
-        raise DeserializationError("UnprocessedStatusEvent.signal_type required")
+        import typing
+
+        out["signal_type"] = typing.cast(
+            "capo_application_signals.types.dynamic_instrumentation_signal_type.DynamicInstrumentationSignalType",
+            "",
+        )
     if data.get("LocationHash") is not None:
         out["location_hash"] = data["LocationHash"]
     else:
-        raise DeserializationError("UnprocessedStatusEvent.location_hash required")
+        out["location_hash"] = ""
     if data.get("Status") is not None:
         import capo_application_signals.types.instrumentation_configuration_status
 
@@ -109,7 +115,12 @@ def deserialize_json(data: dict) -> UnprocessedStatusEvent:
             )
         )
     else:
-        raise DeserializationError("UnprocessedStatusEvent.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_application_signals.types.instrumentation_configuration_status.InstrumentationConfigurationStatus",
+            "",
+        )
     if data.get("Time") is not None:
         import capo_application_signals.types._prelude.timestamp
 
@@ -119,7 +130,9 @@ def deserialize_json(data: dict) -> UnprocessedStatusEvent:
             )
         )
     else:
-        raise DeserializationError("UnprocessedStatusEvent.time required")
+        import datetime
+
+        out["time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("FailedReason") is not None:
         import capo_application_signals.types.unprocessed_status_event_failure_reason
 
@@ -129,5 +142,10 @@ def deserialize_json(data: dict) -> UnprocessedStatusEvent:
             )
         )
     else:
-        raise DeserializationError("UnprocessedStatusEvent.failed_reason required")
+        import typing
+
+        out["failed_reason"] = typing.cast(
+            "capo_application_signals.types.unprocessed_status_event_failure_reason.UnprocessedStatusEventFailureReason",
+            "",
+        )
     return out

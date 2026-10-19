@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 
 class ContainerOperatingSystem(TypedDict, closed=True):
     operating_system_family_name: "str"
@@ -25,13 +23,9 @@ def deserialize_json(data: dict) -> ContainerOperatingSystem:
     if data.get("operatingSystemFamilyName") is not None:
         out["operating_system_family_name"] = data["operatingSystemFamilyName"]
     else:
-        raise DeserializationError(
-            "ContainerOperatingSystem.operating_system_family_name required"
-        )
+        out["operating_system_family_name"] = ""
     if data.get("operatingSystemName") is not None:
         out["operating_system_name"] = data["operatingSystemName"]
     else:
-        raise DeserializationError(
-            "ContainerOperatingSystem.operating_system_name required"
-        )
+        out["operating_system_name"] = ""
     return out

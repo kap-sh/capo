@@ -100,7 +100,7 @@ def deserialize_json(data: dict) -> BudgetSummary:
     if data.get("budgetId") is not None:
         out["budget_id"] = data["budgetId"]
     else:
-        raise DeserializationError("BudgetSummary.budget_id required")
+        out["budget_id"] = ""
     if data.get("usageTrackingResource") is not None:
         import capo_deadline.types.usage_tracking_resource
 
@@ -110,7 +110,11 @@ def deserialize_json(data: dict) -> BudgetSummary:
             )
         )
     else:
-        raise DeserializationError("BudgetSummary.usage_tracking_resource required")
+        import capo_deadline.types._unknown
+
+        out["usage_tracking_resource"] = (
+            capo_deadline.types._unknown.UnknownUnionMember("")
+        )
     if data.get("status") is not None:
         import capo_deadline.types.budget_status
 
@@ -118,15 +122,19 @@ def deserialize_json(data: dict) -> BudgetSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("BudgetSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_deadline.types.budget_status.BudgetStatus", ""
+        )
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("BudgetSummary.display_name required")
+        out["display_name"] = ""
     if data.get("approximateDollarLimit") is not None:
         out["approximate_dollar_limit"] = float(data["approximateDollarLimit"])
     else:
-        raise DeserializationError("BudgetSummary.approximate_dollar_limit required")
+        out["approximate_dollar_limit"] = 0.0
     if data.get("usages") is not None:
         import capo_deadline.types.consumed_usages
 
@@ -138,7 +146,7 @@ def deserialize_json(data: dict) -> BudgetSummary:
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("BudgetSummary.created_by required")
+        out["created_by"] = ""
     if data.get("createdAt") is not None:
         import capo_deadline.types.created_at
 
@@ -146,7 +154,9 @@ def deserialize_json(data: dict) -> BudgetSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("BudgetSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedBy") is not None:
         out["updated_by"] = data["updatedBy"]
     if data.get("updatedAt") is not None:

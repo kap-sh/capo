@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_taxsettings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_taxsettings.types.israel_customer_type
     import capo_taxsettings.types.israel_dealer_type
@@ -43,7 +41,11 @@ def deserialize_json(data: dict) -> IsraelAdditionalInfo:
             data["dealerType"]
         )
     else:
-        raise DeserializationError("IsraelAdditionalInfo.dealer_type required")
+        import typing
+
+        out["dealer_type"] = typing.cast(
+            "capo_taxsettings.types.israel_dealer_type.IsraelDealerType", ""
+        )
     if data.get("customerType") is not None:
         import capo_taxsettings.types.israel_customer_type
 
@@ -53,5 +55,9 @@ def deserialize_json(data: dict) -> IsraelAdditionalInfo:
             )
         )
     else:
-        raise DeserializationError("IsraelAdditionalInfo.customer_type required")
+        import typing
+
+        out["customer_type"] = typing.cast(
+            "capo_taxsettings.types.israel_customer_type.IsraelCustomerType", ""
+        )
     return out

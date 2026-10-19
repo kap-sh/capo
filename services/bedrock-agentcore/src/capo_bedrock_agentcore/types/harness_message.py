@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.harness_content_blocks
     import capo_bedrock_agentcore.types.harness_conversation_role
@@ -47,7 +45,12 @@ def deserialize_json(data: dict) -> HarnessMessage:
             )
         )
     else:
-        raise DeserializationError("HarnessMessage.role required")
+        import typing
+
+        out["role"] = typing.cast(
+            "capo_bedrock_agentcore.types.harness_conversation_role.HarnessConversationRole",
+            "",
+        )
     if data.get("content") is not None:
         import capo_bedrock_agentcore.types.harness_content_blocks
 
@@ -57,7 +60,7 @@ def deserialize_json(data: dict) -> HarnessMessage:
             )
         )
     else:
-        raise DeserializationError("HarnessMessage.content required")
+        out["content"] = []
     return out
 
 

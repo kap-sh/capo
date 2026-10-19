@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.client_token
     import capo_datazone.types.domain_id
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> PostTimeSeriesDataPointsInput:
             )
         )
     else:
-        raise DeserializationError("PostTimeSeriesDataPointsInput.forms required")
+        out["forms"] = []
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

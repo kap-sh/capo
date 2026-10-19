@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.client_token
     import capo_imagebuilder.types.image_build_version_arn
@@ -52,15 +50,11 @@ def deserialize_json(data: dict) -> SendWorkflowStepActionRequest:
     if data.get("stepExecutionId") is not None:
         out["step_execution_id"] = data["stepExecutionId"]
     else:
-        raise DeserializationError(
-            "SendWorkflowStepActionRequest.step_execution_id required"
-        )
+        out["step_execution_id"] = ""
     if data.get("imageBuildVersionArn") is not None:
         out["image_build_version_arn"] = data["imageBuildVersionArn"]
     else:
-        raise DeserializationError(
-            "SendWorkflowStepActionRequest.image_build_version_arn required"
-        )
+        out["image_build_version_arn"] = ""
     if data.get("action") is not None:
         import capo_imagebuilder.types.workflow_step_action_type
 
@@ -70,13 +64,16 @@ def deserialize_json(data: dict) -> SendWorkflowStepActionRequest:
             )
         )
     else:
-        raise DeserializationError("SendWorkflowStepActionRequest.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_imagebuilder.types.workflow_step_action_type.WorkflowStepActionType",
+            "",
+        )
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError(
-            "SendWorkflowStepActionRequest.client_token required"
-        )
+        out["client_token"] = ""
     return out

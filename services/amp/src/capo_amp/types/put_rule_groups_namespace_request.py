@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amp.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amp.types.idempotency_token
     import capo_amp.types.rule_groups_namespace_data
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> PutRuleGroupsNamespaceRequest:
             data["data"]
         )
     else:
-        raise DeserializationError("PutRuleGroupsNamespaceRequest.data required")
+        out["data"] = b""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

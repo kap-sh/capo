@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -90,7 +88,7 @@ def deserialize_json(data: dict) -> CreateEphemerisRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateEphemerisRequest.name required")
+        out["name"] = ""
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     if data.get("ephemeris") is not None:

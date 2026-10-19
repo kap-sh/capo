@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.accept_eula
     import capo_bedrock.types.endpoint_config
@@ -60,9 +58,7 @@ def deserialize_json(data: dict) -> CreateMarketplaceModelEndpointRequest:
     if data.get("modelSourceIdentifier") is not None:
         out["model_source_identifier"] = data["modelSourceIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateMarketplaceModelEndpointRequest.model_source_identifier required"
-        )
+        out["model_source_identifier"] = ""
     if data.get("endpointConfig") is not None:
         import capo_bedrock.types.endpoint_config
 
@@ -70,17 +66,15 @@ def deserialize_json(data: dict) -> CreateMarketplaceModelEndpointRequest:
             data["endpointConfig"]
         )
     else:
-        raise DeserializationError(
-            "CreateMarketplaceModelEndpointRequest.endpoint_config required"
-        )
+        import capo_bedrock.types._unknown
+
+        out["endpoint_config"] = capo_bedrock.types._unknown.UnknownUnionMember("")
     if data.get("acceptEula") is not None:
         out["accept_eula"] = data["acceptEula"]
     if data.get("endpointName") is not None:
         out["endpoint_name"] = data["endpointName"]
     else:
-        raise DeserializationError(
-            "CreateMarketplaceModelEndpointRequest.endpoint_name required"
-        )
+        out["endpoint_name"] = ""
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     if data.get("tags") is not None:

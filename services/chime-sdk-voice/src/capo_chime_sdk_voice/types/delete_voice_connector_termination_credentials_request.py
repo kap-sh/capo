@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.sensitive_string_list
     import capo_chime_sdk_voice.types.voice_connector_id
@@ -40,9 +38,7 @@ def deserialize_json(data: dict) -> DeleteVoiceConnectorTerminationCredentialsRe
             )
         )
     else:
-        raise DeserializationError(
-            "DeleteVoiceConnectorTerminationCredentialsRequest.usernames required"
-        )
+        out["usernames"] = []
     return out
 
 

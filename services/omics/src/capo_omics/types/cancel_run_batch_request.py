@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.batch_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CancelRunBatchRequest:
     if data.get("batchId") is not None:
         out["batch_id"] = data["batchId"]
     else:
-        raise DeserializationError("CancelRunBatchRequest.batch_id required")
+        out["batch_id"] = ""
     return out

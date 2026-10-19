@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_acm_pca.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm_pca.types.arn
     import capo_acm_pca.types.audit_report_response_format
@@ -45,15 +43,11 @@ def deserialize_aws_json_1_1(
     if data.get("CertificateAuthorityArn") is not None:
         out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
     else:
-        raise DeserializationError(
-            "CreateCertificateAuthorityAuditReportRequest.certificate_authority_arn required"
-        )
+        out["certificate_authority_arn"] = ""
     if data.get("S3BucketName") is not None:
         out["s3_bucket_name"] = data["S3BucketName"]
     else:
-        raise DeserializationError(
-            "CreateCertificateAuthorityAuditReportRequest.s3_bucket_name required"
-        )
+        out["s3_bucket_name"] = ""
     if data.get("AuditReportResponseFormat") is not None:
         import capo_acm_pca.types.audit_report_response_format
 
@@ -63,7 +57,10 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "CreateCertificateAuthorityAuditReportRequest.audit_report_response_format required"
+        import typing
+
+        out["audit_report_response_format"] = typing.cast(
+            "capo_acm_pca.types.audit_report_response_format.AuditReportResponseFormat",
+            "",
         )
     return out

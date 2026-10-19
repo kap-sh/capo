@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.arn_type
     import capo_cognito_identity_provider.types.description_type
@@ -52,11 +50,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateGroupRequest:
     if data.get("GroupName") is not None:
         out["group_name"] = data["GroupName"]
     else:
-        raise DeserializationError("UpdateGroupRequest.group_name required")
+        out["group_name"] = ""
     if data.get("UserPoolId") is not None:
         out["user_pool_id"] = data["UserPoolId"]
     else:
-        raise DeserializationError("UpdateGroupRequest.user_pool_id required")
+        out["user_pool_id"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("RoleArn") is not None:

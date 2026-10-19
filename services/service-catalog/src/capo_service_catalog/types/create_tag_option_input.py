@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.tag_option_key
     import capo_service_catalog.types.tag_option_value
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTagOptionInput:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("CreateTagOptionInput.key required")
+        out["key"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("CreateTagOptionInput.value required")
+        out["value"] = ""
     return out

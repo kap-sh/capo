@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.clone_type
     import capo_odb.types.integer_list
@@ -44,9 +42,7 @@ def deserialize_aws_json_1_0(data: dict) -> RestoreFromBackupConfiguration:
     if data.get("autonomousDatabaseBackupId") is not None:
         out["autonomous_database_backup_id"] = data["autonomousDatabaseBackupId"]
     else:
-        raise DeserializationError(
-            "RestoreFromBackupConfiguration.autonomous_database_backup_id required"
-        )
+        out["autonomous_database_backup_id"] = ""
     if data.get("cloneType") is not None:
         import capo_odb.types.clone_type
 
@@ -54,7 +50,9 @@ def deserialize_aws_json_1_0(data: dict) -> RestoreFromBackupConfiguration:
             data["cloneType"]
         )
     else:
-        raise DeserializationError("RestoreFromBackupConfiguration.clone_type required")
+        import typing
+
+        out["clone_type"] = typing.cast("capo_odb.types.clone_type.CloneType", "")
     if data.get("cloneTableSpaceList") is not None:
         import capo_odb.types.integer_list
 

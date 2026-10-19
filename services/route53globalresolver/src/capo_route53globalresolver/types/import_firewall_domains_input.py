@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.resource_id
 
@@ -32,11 +30,9 @@ def deserialize_json(data: dict) -> ImportFirewallDomainsInput:
     if data.get("domainFileUrl") is not None:
         out["domain_file_url"] = data["domainFileUrl"]
     else:
-        raise DeserializationError(
-            "ImportFirewallDomainsInput.domain_file_url required"
-        )
+        out["domain_file_url"] = ""
     if data.get("operation") is not None:
         out["operation"] = data["operation"]
     else:
-        raise DeserializationError("ImportFirewallDomainsInput.operation required")
+        out["operation"] = ""
     return out

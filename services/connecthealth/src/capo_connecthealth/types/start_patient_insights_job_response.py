@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connecthealth.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -41,11 +39,11 @@ def deserialize_json(data: dict) -> StartPatientInsightsJobResponse:
     if data.get("jobArn") is not None:
         out["job_arn"] = data["jobArn"]
     else:
-        raise DeserializationError("StartPatientInsightsJobResponse.job_arn required")
+        out["job_arn"] = ""
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("StartPatientInsightsJobResponse.job_id required")
+        out["job_id"] = ""
     if data.get("creationTime") is not None:
         import datetime
 

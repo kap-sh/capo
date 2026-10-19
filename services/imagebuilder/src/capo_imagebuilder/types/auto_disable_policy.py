@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.auto_disable_failure_count
 
@@ -29,5 +27,5 @@ def deserialize_json(data: dict) -> AutoDisablePolicy:
     if data.get("failureCount") is not None:
         out["failure_count"] = data["failureCount"]
     else:
-        raise DeserializationError("AutoDisablePolicy.failure_count required")
+        out["failure_count"] = 0
     return out

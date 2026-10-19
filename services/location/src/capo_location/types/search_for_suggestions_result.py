@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.place_category_list
     import capo_location.types.place_id
@@ -54,7 +52,7 @@ def deserialize_json(data: dict) -> SearchForSuggestionsResult:
     if data.get("Text") is not None:
         out["text"] = data["Text"]
     else:
-        raise DeserializationError("SearchForSuggestionsResult.text required")
+        out["text"] = ""
     if data.get("PlaceId") is not None:
         out["place_id"] = data["PlaceId"]
     if data.get("Categories") is not None:

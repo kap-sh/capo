@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_timestream_write.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_write.types.magnetic_store_retention_period_in_days
     import capo_timestream_write.types.memory_store_retention_period_in_hours
@@ -37,15 +35,11 @@ def deserialize_aws_json_1_0(data: dict) -> RetentionProperties:
             "MemoryStoreRetentionPeriodInHours"
         ]
     else:
-        raise DeserializationError(
-            "RetentionProperties.memory_store_retention_period_in_hours required"
-        )
+        out["memory_store_retention_period_in_hours"] = 0
     if data.get("MagneticStoreRetentionPeriodInDays") is not None:
         out["magnetic_store_retention_period_in_days"] = data[
             "MagneticStoreRetentionPeriodInDays"
         ]
     else:
-        raise DeserializationError(
-            "RetentionProperties.magnetic_store_retention_period_in_days required"
-        )
+        out["magnetic_store_retention_period_in_days"] = 0
     return out

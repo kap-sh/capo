@@ -223,15 +223,15 @@ def deserialize_json(data: dict) -> Harness:
     if data.get("harnessId") is not None:
         out["harness_id"] = data["harnessId"]
     else:
-        raise DeserializationError("Harness.harness_id required")
+        out["harness_id"] = ""
     if data.get("harnessName") is not None:
         out["harness_name"] = data["harnessName"]
     else:
-        raise DeserializationError("Harness.harness_name required")
+        out["harness_name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("Harness.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.harness_status
 
@@ -241,13 +241,17 @@ def deserialize_json(data: dict) -> Harness:
             )
         )
     else:
-        raise DeserializationError("Harness.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.harness_status.HarnessStatus", ""
+        )
     if data.get("harnessVersion") is not None:
         out["harness_version"] = data["harnessVersion"]
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:
-        raise DeserializationError("Harness.execution_role_arn required")
+        out["execution_role_arn"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -257,7 +261,9 @@ def deserialize_json(data: dict) -> Harness:
             )
         )
     else:
-        raise DeserializationError("Harness.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -267,7 +273,9 @@ def deserialize_json(data: dict) -> Harness:
             )
         )
     else:
-        raise DeserializationError("Harness.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("model") is not None:
         import capo_bedrock_agentcore_control.types.harness_model_configuration
 
@@ -277,7 +285,11 @@ def deserialize_json(data: dict) -> Harness:
             )
         )
     else:
-        raise DeserializationError("Harness.model required")
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["model"] = capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("systemPrompt") is not None:
         import capo_bedrock_agentcore_control.types.harness_system_prompt
 
@@ -287,7 +299,7 @@ def deserialize_json(data: dict) -> Harness:
             )
         )
     else:
-        raise DeserializationError("Harness.system_prompt required")
+        out["system_prompt"] = []
     if data.get("tools") is not None:
         import capo_bedrock_agentcore_control.types.harness_tools
 
@@ -297,7 +309,7 @@ def deserialize_json(data: dict) -> Harness:
             )
         )
     else:
-        raise DeserializationError("Harness.tools required")
+        out["tools"] = []
     if data.get("skills") is not None:
         import capo_bedrock_agentcore_control.types.harness_skills
 
@@ -307,7 +319,7 @@ def deserialize_json(data: dict) -> Harness:
             )
         )
     else:
-        raise DeserializationError("Harness.skills required")
+        out["skills"] = []
     if data.get("allowedTools") is not None:
         import capo_bedrock_agentcore_control.types.harness_allowed_tools
 
@@ -317,7 +329,7 @@ def deserialize_json(data: dict) -> Harness:
             )
         )
     else:
-        raise DeserializationError("Harness.allowed_tools required")
+        out["allowed_tools"] = []
     if data.get("truncation") is not None:
         import capo_bedrock_agentcore_control.types.harness_truncation_configuration
 
@@ -337,7 +349,11 @@ def deserialize_json(data: dict) -> Harness:
             )
         )
     else:
-        raise DeserializationError("Harness.environment required")
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["environment"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
+        )
     if data.get("environmentArtifact") is not None:
         import capo_bedrock_agentcore_control.types.harness_environment_artifact
 

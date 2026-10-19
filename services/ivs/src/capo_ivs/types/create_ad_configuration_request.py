@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs.types.ad_configuration_name
     import capo_ivs.types.media_tailor_playback_configurations_list
@@ -66,9 +64,7 @@ def deserialize_json(data: dict) -> CreateAdConfigurationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAdConfigurationRequest.media_tailor_playback_configurations required"
-        )
+        out["media_tailor_playback_configurations"] = []
     if data.get("postRollConfiguration") is not None:
         import capo_ivs.types.post_roll_configuration
 

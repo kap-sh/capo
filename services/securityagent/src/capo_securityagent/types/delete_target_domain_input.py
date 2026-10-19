@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.target_domain_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DeleteTargetDomainInput:
     if data.get("targetDomainId") is not None:
         out["target_domain_id"] = data["targetDomainId"]
     else:
-        raise DeserializationError("DeleteTargetDomainInput.target_domain_id required")
+        out["target_domain_id"] = ""
     return out

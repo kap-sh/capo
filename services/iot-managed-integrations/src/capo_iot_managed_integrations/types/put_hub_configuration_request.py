@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.hub_token_timer_expiry_setting_in_seconds
 
@@ -31,7 +29,5 @@ def deserialize_json(data: dict) -> PutHubConfigurationRequest:
             "HubTokenTimerExpirySettingInSeconds"
         ]
     else:
-        raise DeserializationError(
-            "PutHubConfigurationRequest.hub_token_timer_expiry_setting_in_seconds required"
-        )
+        out["hub_token_timer_expiry_setting_in_seconds"] = 0
     return out

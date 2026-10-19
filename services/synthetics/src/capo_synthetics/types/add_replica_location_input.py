@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_synthetics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_synthetics.types.kms_key_arn
     import capo_synthetics.types.location
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> AddReplicaLocationInput:
     if data.get("Location") is not None:
         out["location"] = data["Location"]
     else:
-        raise DeserializationError("AddReplicaLocationInput.location required")
+        out["location"] = ""
     if data.get("VpcConfig") is not None:
         import capo_synthetics.types.vpc_config_input
 

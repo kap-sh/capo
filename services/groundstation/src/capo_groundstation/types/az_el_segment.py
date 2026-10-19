@@ -52,7 +52,11 @@ def deserialize_json(data: dict) -> AzElSegment:
             data["referenceEpoch"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("AzElSegment.reference_epoch required")
+        import datetime
+
+        out["reference_epoch"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("validTimeRange") is not None:
         import capo_groundstation.types.iso8601_time_range
 
@@ -70,5 +74,5 @@ def deserialize_json(data: dict) -> AzElSegment:
             data["azElList"]
         )
     else:
-        raise DeserializationError("AzElSegment.az_el_list required")
+        out["az_el_list"] = []
     return out

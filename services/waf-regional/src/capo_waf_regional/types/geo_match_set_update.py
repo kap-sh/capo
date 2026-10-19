@@ -47,7 +47,11 @@ def deserialize_aws_json_1_1(data: dict) -> GeoMatchSetUpdate:
             data["Action"]
         )
     else:
-        raise DeserializationError("GeoMatchSetUpdate.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_waf_regional.types.change_action.ChangeAction", ""
+        )
     if data.get("GeoMatchConstraint") is not None:
         import capo_waf_regional.types.geo_match_constraint
 

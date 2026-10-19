@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.component_type_id
     import capo_iottwinmaker.types.id
@@ -39,19 +37,17 @@ def deserialize_json(data: dict) -> UpdateComponentTypeResponse:
     if data.get("workspaceId") is not None:
         out["workspace_id"] = data["workspaceId"]
     else:
-        raise DeserializationError("UpdateComponentTypeResponse.workspace_id required")
+        out["workspace_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("UpdateComponentTypeResponse.arn required")
+        out["arn"] = ""
     if data.get("componentTypeId") is not None:
         out["component_type_id"] = data["componentTypeId"]
     else:
-        raise DeserializationError(
-            "UpdateComponentTypeResponse.component_type_id required"
-        )
+        out["component_type_id"] = ""
     if data.get("state") is not None:
         out["state"] = data["state"]
     else:
-        raise DeserializationError("UpdateComponentTypeResponse.state required")
+        out["state"] = ""
     return out

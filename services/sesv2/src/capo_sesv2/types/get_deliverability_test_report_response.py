@@ -91,9 +91,7 @@ def deserialize_json(data: dict) -> GetDeliverabilityTestReportResponse:
             data["IspPlacements"]
         )
     else:
-        raise DeserializationError(
-            "GetDeliverabilityTestReportResponse.isp_placements required"
-        )
+        out["isp_placements"] = []
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     if data.get("Tags") is not None:

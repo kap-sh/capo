@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.agent_space_identifier
     import capo_devops_agent.types.approval_action_type
@@ -67,7 +65,11 @@ def deserialize_json(data: dict) -> UpdateApprovalActionRequest:
             data["action"]
         )
     else:
-        raise DeserializationError("UpdateApprovalActionRequest.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_devops_agent.types.approval_action_type.ApprovalActionType", ""
+        )
     if data.get("finalPattern") is not None:
         import capo_devops_agent.types.approval_pattern
 

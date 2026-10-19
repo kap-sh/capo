@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.input_predefined_attribute_configuration
     import capo_connect.types.instance_id
@@ -67,7 +65,7 @@ def deserialize_json(data: dict) -> CreatePredefinedAttributeRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreatePredefinedAttributeRequest.name required")
+        out["name"] = ""
     if data.get("Values") is not None:
         import capo_connect.types.predefined_attribute_values
 

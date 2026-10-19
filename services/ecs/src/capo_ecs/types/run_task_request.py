@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.boolean
     import capo_ecs.types.boxed_integer
@@ -234,7 +232,7 @@ def deserialize_aws_json_1_1(data: dict) -> RunTaskRequest:
     if data.get("taskDefinition") is not None:
         out["task_definition"] = data["taskDefinition"]
     else:
-        raise DeserializationError("RunTaskRequest.task_definition required")
+        out["task_definition"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("volumeConfigurations") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.seed_url_list
     import capo_kendra.types.web_crawler_mode
@@ -46,7 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> SeedUrlConfiguration:
             data["SeedUrls"]
         )
     else:
-        raise DeserializationError("SeedUrlConfiguration.seed_urls required")
+        out["seed_urls"] = []
     if data.get("WebCrawlerMode") is not None:
         import capo_kendra.types.web_crawler_mode
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.proxy_configuration_properties
     import capo_ecs.types.proxy_configuration_type
@@ -55,7 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> ProxyConfiguration:
     if data.get("containerName") is not None:
         out["container_name"] = data["containerName"]
     else:
-        raise DeserializationError("ProxyConfiguration.container_name required")
+        out["container_name"] = ""
     if data.get("properties") is not None:
         import capo_ecs.types.proxy_configuration_properties
 

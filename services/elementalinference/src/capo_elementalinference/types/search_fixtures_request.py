@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_elementalinference.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elementalinference.types.data_source_sport
     import capo_elementalinference.types.fixture_date
@@ -64,11 +62,15 @@ def deserialize_json(data: dict) -> SearchFixturesRequest:
             data["sport"]
         )
     else:
-        raise DeserializationError("SearchFixturesRequest.sport required")
+        import typing
+
+        out["sport"] = typing.cast(
+            "capo_elementalinference.types.data_source_sport.DataSourceSport", ""
+        )
     if data.get("startDate") is not None:
         out["start_date"] = data["startDate"]
     else:
-        raise DeserializationError("SearchFixturesRequest.start_date required")
+        out["start_date"] = ""
     if data.get("endDate") is not None:
         out["end_date"] = data["endDate"]
     if data.get("filters") is not None:

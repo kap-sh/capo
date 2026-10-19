@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.batch_update_task_items
     import capo_deadline.types.client_token
@@ -38,5 +36,5 @@ def deserialize_json(data: dict) -> BatchUpdateTaskRequest:
             data["tasks"]
         )
     else:
-        raise DeserializationError("BatchUpdateTaskRequest.tasks required")
+        out["tasks"] = []
     return out

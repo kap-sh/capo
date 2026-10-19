@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pipes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pipes.types.arn
     import capo_pipes.types.arn_or_url
@@ -125,7 +123,7 @@ def deserialize_json(data: dict) -> CreatePipeRequest:
     if data.get("Source") is not None:
         out["source"] = data["Source"]
     else:
-        raise DeserializationError("CreatePipeRequest.source required")
+        out["source"] = ""
     if data.get("SourceParameters") is not None:
         import capo_pipes.types.pipe_source_parameters
 
@@ -147,7 +145,7 @@ def deserialize_json(data: dict) -> CreatePipeRequest:
     if data.get("Target") is not None:
         out["target"] = data["Target"]
     else:
-        raise DeserializationError("CreatePipeRequest.target required")
+        out["target"] = ""
     if data.get("TargetParameters") is not None:
         import capo_pipes.types.pipe_target_parameters
 
@@ -159,7 +157,7 @@ def deserialize_json(data: dict) -> CreatePipeRequest:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("CreatePipeRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("Tags") is not None:
         import capo_pipes.types.tag_map
 

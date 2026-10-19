@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.next_page_token
     import capo_cost_explorer.types.page_size
@@ -51,13 +49,13 @@ def deserialize_aws_json_1_1(data: dict) -> GetTagsResponse:
             data["Tags"]
         )
     else:
-        raise DeserializationError("GetTagsResponse.tags required")
+        out["tags"] = []
     if data.get("ReturnSize") is not None:
         out["return_size"] = data["ReturnSize"]
     else:
-        raise DeserializationError("GetTagsResponse.return_size required")
+        out["return_size"] = 0
     if data.get("TotalSize") is not None:
         out["total_size"] = data["TotalSize"]
     else:
-        raise DeserializationError("GetTagsResponse.total_size required")
+        out["total_size"] = 0
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.path_type
@@ -50,9 +49,7 @@ def deserialize_query(el: Element) -> UpdateServerCertificateRequest:
     if child_server_certificate_name is not None:
         out["server_certificate_name"] = str(child_server_certificate_name.text or "")
     else:
-        raise DeserializationError(
-            "UpdateServerCertificateRequest.server_certificate_name required"
-        )
+        out["server_certificate_name"] = ""
     child_new_path = el.find("NewPath")
     if child_new_path is not None:
         out["new_path"] = str(child_new_path.text or "")

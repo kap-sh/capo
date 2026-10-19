@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_signin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_signin.types.authorization_code
     import capo_signin.types.client_id
@@ -51,11 +49,11 @@ def deserialize_json(data: dict) -> CreateOAuth2TokenRequestBody:
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
     else:
-        raise DeserializationError("CreateOAuth2TokenRequestBody.client_id required")
+        out["client_id"] = ""
     if data.get("grantType") is not None:
         out["grant_type"] = data["grantType"]
     else:
-        raise DeserializationError("CreateOAuth2TokenRequestBody.grant_type required")
+        out["grant_type"] = ""
     if data.get("code") is not None:
         out["code"] = data["code"]
     if data.get("redirectUri") is not None:

@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 
 class ResourceCountsSummary(TypedDict, closed=True):
     total: "int"
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceCountsSummary:
     if data.get("total") is not None:
         out["total"] = data["total"]
     else:
-        raise DeserializationError("ResourceCountsSummary.total required")
+        out["total"] = 0
     if data.get("failed") is not None:
         out["failed"] = data["failed"]
     if data.get("upToDate") is not None:

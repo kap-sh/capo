@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 
 class MCPServerAuthorizationDiscoveryConfig(TypedDict, closed=True):
     return_to_endpoint: "str"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> MCPServerAuthorizationDiscoveryConfig:
     if data.get("returnToEndpoint") is not None:
         out["return_to_endpoint"] = data["returnToEndpoint"]
     else:
-        raise DeserializationError(
-            "MCPServerAuthorizationDiscoveryConfig.return_to_endpoint required"
-        )
+        out["return_to_endpoint"] = ""
     return out

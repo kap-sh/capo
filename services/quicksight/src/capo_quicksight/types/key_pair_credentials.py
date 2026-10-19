@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.db_username
     import capo_quicksight.types.private_key
@@ -38,11 +36,11 @@ def deserialize_json(data: dict) -> KeyPairCredentials:
     if data.get("KeyPairUsername") is not None:
         out["key_pair_username"] = data["KeyPairUsername"]
     else:
-        raise DeserializationError("KeyPairCredentials.key_pair_username required")
+        out["key_pair_username"] = ""
     if data.get("PrivateKey") is not None:
         out["private_key"] = data["PrivateKey"]
     else:
-        raise DeserializationError("KeyPairCredentials.private_key required")
+        out["private_key"] = ""
     if data.get("PrivateKeyPassphrase") is not None:
         out["private_key_passphrase"] = data["PrivateKeyPassphrase"]
     return out

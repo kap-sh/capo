@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.description_string
     import capo_athena.types.query_string
@@ -40,19 +38,15 @@ def deserialize_aws_json_1_1(data: dict) -> UpdatePreparedStatementInput:
     if data.get("StatementName") is not None:
         out["statement_name"] = data["StatementName"]
     else:
-        raise DeserializationError(
-            "UpdatePreparedStatementInput.statement_name required"
-        )
+        out["statement_name"] = ""
     if data.get("WorkGroup") is not None:
         out["work_group"] = data["WorkGroup"]
     else:
-        raise DeserializationError("UpdatePreparedStatementInput.work_group required")
+        out["work_group"] = ""
     if data.get("QueryStatement") is not None:
         out["query_statement"] = data["QueryStatement"]
     else:
-        raise DeserializationError(
-            "UpdatePreparedStatementInput.query_statement required"
-        )
+        out["query_statement"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     return out

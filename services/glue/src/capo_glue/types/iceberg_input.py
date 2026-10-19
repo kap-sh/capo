@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.create_iceberg_table_input
     import capo_glue.types.metadata_operation
@@ -57,7 +55,11 @@ def deserialize_aws_json_1_1(data: dict) -> IcebergInput:
             )
         )
     else:
-        raise DeserializationError("IcebergInput.metadata_operation required")
+        import typing
+
+        out["metadata_operation"] = typing.cast(
+            "capo_glue.types.metadata_operation.MetadataOperation", ""
+        )
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     if data.get("CreateIcebergTableInput") is not None:

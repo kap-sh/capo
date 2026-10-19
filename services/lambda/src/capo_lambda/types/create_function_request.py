@@ -246,7 +246,7 @@ def deserialize_json(data: dict) -> CreateFunctionRequest:
     if data.get("FunctionName") is not None:
         out["function_name"] = data["FunctionName"]
     else:
-        raise DeserializationError("CreateFunctionRequest.function_name required")
+        out["function_name"] = ""
     if data.get("Runtime") is not None:
         import capo_lambda.types.runtime
 
@@ -254,7 +254,7 @@ def deserialize_json(data: dict) -> CreateFunctionRequest:
     if data.get("Role") is not None:
         out["role"] = data["Role"]
     else:
-        raise DeserializationError("CreateFunctionRequest.role required")
+        out["role"] = ""
     if data.get("Handler") is not None:
         out["handler"] = data["Handler"]
     if data.get("Code") is not None:

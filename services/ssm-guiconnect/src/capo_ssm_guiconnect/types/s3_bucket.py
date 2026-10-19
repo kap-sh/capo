@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_guiconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_guiconnect.types.account_id
     import capo_ssm_guiconnect.types.bucket_name
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> S3Bucket:
     if data.get("BucketOwner") is not None:
         out["bucket_owner"] = data["BucketOwner"]
     else:
-        raise DeserializationError("S3Bucket.bucket_owner required")
+        out["bucket_owner"] = ""
     if data.get("BucketName") is not None:
         out["bucket_name"] = data["BucketName"]
     else:
-        raise DeserializationError("S3Bucket.bucket_name required")
+        out["bucket_name"] = ""
     return out

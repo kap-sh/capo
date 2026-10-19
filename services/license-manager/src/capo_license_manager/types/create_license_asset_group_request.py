@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.license_asset_group_configuration_list
     import capo_license_manager.types.license_asset_group_property_list
@@ -80,7 +78,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLicenseAssetGroupRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateLicenseAssetGroupRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("LicenseAssetGroupConfigurations") is not None:
@@ -92,9 +90,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLicenseAssetGroupRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateLicenseAssetGroupRequest.license_asset_group_configurations required"
-        )
+        out["license_asset_group_configurations"] = []
     if data.get("AssociatedLicenseAssetRulesetARNs") is not None:
         import capo_license_manager.types.license_asset_ruleset_arn_list
 
@@ -104,9 +100,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLicenseAssetGroupRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateLicenseAssetGroupRequest.associated_license_asset_ruleset_ar_ns required"
-        )
+        out["associated_license_asset_ruleset_ar_ns"] = []
     if data.get("Properties") is not None:
         import capo_license_manager.types.license_asset_group_property_list
 
@@ -124,7 +118,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLicenseAssetGroupRequest:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError(
-            "CreateLicenseAssetGroupRequest.client_token required"
-        )
+        out["client_token"] = ""
     return out

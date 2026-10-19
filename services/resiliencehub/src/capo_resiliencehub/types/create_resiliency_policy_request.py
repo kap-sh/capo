@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.client_token
     import capo_resiliencehub.types.data_location_constraint
@@ -75,7 +73,7 @@ def deserialize_json(data: dict) -> CreateResiliencyPolicyRequest:
     if data.get("policyName") is not None:
         out["policy_name"] = data["policyName"]
     else:
-        raise DeserializationError("CreateResiliencyPolicyRequest.policy_name required")
+        out["policy_name"] = ""
     if data.get("policyDescription") is not None:
         out["policy_description"] = data["policyDescription"]
     if data.get("dataLocationConstraint") is not None:
@@ -93,7 +91,11 @@ def deserialize_json(data: dict) -> CreateResiliencyPolicyRequest:
             data["tier"]
         )
     else:
-        raise DeserializationError("CreateResiliencyPolicyRequest.tier required")
+        import typing
+
+        out["tier"] = typing.cast(
+            "capo_resiliencehub.types.resiliency_policy_tier.ResiliencyPolicyTier", ""
+        )
     if data.get("policy") is not None:
         import capo_resiliencehub.types.disruption_policy
 
@@ -101,7 +103,7 @@ def deserialize_json(data: dict) -> CreateResiliencyPolicyRequest:
             data["policy"]
         )
     else:
-        raise DeserializationError("CreateResiliencyPolicyRequest.policy required")
+        out["policy"] = {}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

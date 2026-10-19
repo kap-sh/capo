@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.conversion_source_format
     import capo_b2bi.types.input_file_source
@@ -45,7 +43,11 @@ def deserialize_aws_json_1_0(data: dict) -> ConversionSource:
             )
         )
     else:
-        raise DeserializationError("ConversionSource.file_format required")
+        import typing
+
+        out["file_format"] = typing.cast(
+            "capo_b2bi.types.conversion_source_format.ConversionSourceFormat", ""
+        )
     if data.get("inputFile") is not None:
         import capo_b2bi.types.input_file_source
 
@@ -53,5 +55,7 @@ def deserialize_aws_json_1_0(data: dict) -> ConversionSource:
             data["inputFile"]
         )
     else:
-        raise DeserializationError("ConversionSource.input_file required")
+        import capo_b2bi.types._unknown
+
+        out["input_file"] = capo_b2bi.types._unknown.UnknownUnionMember("")
     return out

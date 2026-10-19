@@ -161,13 +161,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePredictorRequest:
     if data.get("PredictorName") is not None:
         out["predictor_name"] = data["PredictorName"]
     else:
-        raise DeserializationError("CreatePredictorRequest.predictor_name required")
+        out["predictor_name"] = ""
     if data.get("AlgorithmArn") is not None:
         out["algorithm_arn"] = data["AlgorithmArn"]
     if data.get("ForecastHorizon") is not None:
         out["forecast_horizon"] = data["ForecastHorizon"]
     else:
-        raise DeserializationError("CreatePredictorRequest.forecast_horizon required")
+        out["forecast_horizon"] = 0
     if data.get("ForecastTypes") is not None:
         import capo_forecast.types.forecast_types
 

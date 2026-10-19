@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_servicediscovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_servicediscovery.types.namespace_name_private
     import capo_servicediscovery.types.private_dns_namespace_properties
@@ -66,7 +64,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePrivateDnsNamespaceRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreatePrivateDnsNamespaceRequest.name required")
+        out["name"] = ""
     if data.get("CreatorRequestId") is not None:
         out["creator_request_id"] = data["CreatorRequestId"]
     if data.get("Description") is not None:
@@ -74,7 +72,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePrivateDnsNamespaceRequest:
     if data.get("Vpc") is not None:
         out["vpc"] = data["Vpc"]
     else:
-        raise DeserializationError("CreatePrivateDnsNamespaceRequest.vpc required")
+        out["vpc"] = ""
     if data.get("Tags") is not None:
         import capo_servicediscovery.types.tag_list
 

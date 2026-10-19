@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_elastic_beanstalk._protocol.xml import Element
-from capo_elastic_beanstalk.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_elastic_beanstalk.types.source_location
@@ -50,7 +49,11 @@ def deserialize_query(el: Element) -> SourceBuildInformation:
             child_source_type
         )
     else:
-        raise DeserializationError("SourceBuildInformation.source_type required")
+        import typing
+
+        out["source_type"] = typing.cast(
+            "capo_elastic_beanstalk.types.source_type.SourceType", ""
+        )
     child_source_repository = el.find("SourceRepository")
     if child_source_repository is not None:
         import capo_elastic_beanstalk.types.source_repository
@@ -61,10 +64,14 @@ def deserialize_query(el: Element) -> SourceBuildInformation:
             )
         )
     else:
-        raise DeserializationError("SourceBuildInformation.source_repository required")
+        import typing
+
+        out["source_repository"] = typing.cast(
+            "capo_elastic_beanstalk.types.source_repository.SourceRepository", ""
+        )
     child_source_location = el.find("SourceLocation")
     if child_source_location is not None:
         out["source_location"] = str(child_source_location.text or "")
     else:
-        raise DeserializationError("SourceBuildInformation.source_location required")
+        out["source_location"] = ""
     return out

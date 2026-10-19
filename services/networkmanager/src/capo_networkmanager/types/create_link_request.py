@@ -76,7 +76,7 @@ def deserialize_json(data: dict) -> CreateLinkRequest:
     if data.get("SiteId") is not None:
         out["site_id"] = data["SiteId"]
     else:
-        raise DeserializationError("CreateLinkRequest.site_id required")
+        out["site_id"] = ""
     if data.get("Tags") is not None:
         import capo_networkmanager.types.tag_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.listener_identifier
     import capo_vpc_lattice.types.rule_update_list
@@ -41,5 +39,5 @@ def deserialize_json(data: dict) -> BatchUpdateRuleRequest:
             data["rules"]
         )
     else:
-        raise DeserializationError("BatchUpdateRuleRequest.rules required")
+        out["rules"] = []
     return out

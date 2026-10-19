@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.metered_product_summary_list
     import capo_deadline.types.next_token
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> ListAvailableMeteredProductsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListAvailableMeteredProductsResponse.metered_products required"
-        )
+        out["metered_products"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

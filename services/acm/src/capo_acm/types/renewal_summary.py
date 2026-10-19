@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_acm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm.types.domain_validation_list
     import capo_acm.types.failure_reason
@@ -66,7 +64,11 @@ def deserialize_aws_json_1_1(data: dict) -> RenewalSummary:
             data["RenewalStatus"]
         )
     else:
-        raise DeserializationError("RenewalSummary.renewal_status required")
+        import typing
+
+        out["renewal_status"] = typing.cast(
+            "capo_acm.types.renewal_status.RenewalStatus", ""
+        )
     if data.get("DomainValidationOptions") is not None:
         import capo_acm.types.domain_validation_list
 
@@ -76,7 +78,7 @@ def deserialize_aws_json_1_1(data: dict) -> RenewalSummary:
             )
         )
     else:
-        raise DeserializationError("RenewalSummary.domain_validation_options required")
+        out["domain_validation_options"] = []
     if data.get("RenewalStatusReason") is not None:
         import capo_acm.types.failure_reason
 
@@ -92,5 +94,7 @@ def deserialize_aws_json_1_1(data: dict) -> RenewalSummary:
             data["UpdatedAt"]
         )
     else:
-        raise DeserializationError("RenewalSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

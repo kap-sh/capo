@@ -45,7 +45,11 @@ def deserialize_json(data: dict) -> NotificationConfiguration:
             data["Status"]
         )
     else:
-        raise DeserializationError("NotificationConfiguration.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_kinesis_video.types.configuration_status.ConfigurationStatus", ""
+        )
     if data.get("DestinationConfig") is not None:
         import capo_kinesis_video.types.notification_destination_config
 

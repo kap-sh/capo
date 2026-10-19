@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.id
     import capo_iotsitewise.types.name
@@ -34,13 +32,13 @@ def deserialize_json(data: dict) -> ActionDefinition:
     if data.get("actionDefinitionId") is not None:
         out["action_definition_id"] = data["actionDefinitionId"]
     else:
-        raise DeserializationError("ActionDefinition.action_definition_id required")
+        out["action_definition_id"] = ""
     if data.get("actionName") is not None:
         out["action_name"] = data["actionName"]
     else:
-        raise DeserializationError("ActionDefinition.action_name required")
+        out["action_name"] = ""
     if data.get("actionType") is not None:
         out["action_type"] = data["actionType"]
     else:
-        raise DeserializationError("ActionDefinition.action_type required")
+        out["action_type"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.agent_arn_list
     import capo_datasync.types.azure_access_tier
@@ -123,9 +121,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationAzureBlobRequest:
     if data.get("ContainerUrl") is not None:
         out["container_url"] = data["ContainerUrl"]
     else:
-        raise DeserializationError(
-            "CreateLocationAzureBlobRequest.container_url required"
-        )
+        out["container_url"] = ""
     if data.get("AuthenticationType") is not None:
         import capo_datasync.types.azure_blob_authentication_type
 
@@ -135,8 +131,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationAzureBlobRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateLocationAzureBlobRequest.authentication_type required"
+        import typing
+
+        out["authentication_type"] = typing.cast(
+            "capo_datasync.types.azure_blob_authentication_type.AzureBlobAuthenticationType",
+            "",
         )
     if data.get("SasConfiguration") is not None:
         import capo_datasync.types.azure_blob_sas_configuration

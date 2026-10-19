@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wisdom.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wisdom.types.recommendation_id_list
     import capo_wisdom.types.uuid_or_arn
@@ -42,7 +40,5 @@ def deserialize_json(data: dict) -> NotifyRecommendationsReceivedRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "NotifyRecommendationsReceivedRequest.recommendation_ids required"
-        )
+        out["recommendation_ids"] = []
     return out

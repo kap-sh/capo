@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_device_farm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_device_farm.types.amazon_resource_name
     import capo_device_farm.types.content_type
@@ -44,11 +42,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateUploadRequest:
     if data.get("projectArn") is not None:
         out["project_arn"] = data["projectArn"]
     else:
-        raise DeserializationError("CreateUploadRequest.project_arn required")
+        out["project_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateUploadRequest.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         import capo_device_farm.types.upload_type
 
@@ -56,7 +54,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateUploadRequest:
             data["type"]
         )
     else:
-        raise DeserializationError("CreateUploadRequest.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_device_farm.types.upload_type.UploadType", "")
     if data.get("contentType") is not None:
         out["content_type"] = data["contentType"]
     return out

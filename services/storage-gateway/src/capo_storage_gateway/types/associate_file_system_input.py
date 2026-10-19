@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.audit_destination_arn
     import capo_storage_gateway.types.cache_attributes
@@ -85,23 +83,23 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateFileSystemInput:
     if data.get("UserName") is not None:
         out["user_name"] = data["UserName"]
     else:
-        raise DeserializationError("AssociateFileSystemInput.user_name required")
+        out["user_name"] = ""
     if data.get("Password") is not None:
         out["password"] = data["Password"]
     else:
-        raise DeserializationError("AssociateFileSystemInput.password required")
+        out["password"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("AssociateFileSystemInput.client_token required")
+        out["client_token"] = ""
     if data.get("GatewayARN") is not None:
         out["gateway_arn"] = data["GatewayARN"]
     else:
-        raise DeserializationError("AssociateFileSystemInput.gateway_arn required")
+        out["gateway_arn"] = ""
     if data.get("LocationARN") is not None:
         out["location_arn"] = data["LocationARN"]
     else:
-        raise DeserializationError("AssociateFileSystemInput.location_arn required")
+        out["location_arn"] = ""
     if data.get("Tags") is not None:
         import capo_storage_gateway.types.tags
 

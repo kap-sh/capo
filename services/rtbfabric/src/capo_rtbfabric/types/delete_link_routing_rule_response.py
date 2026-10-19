@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rtbfabric.types.rule_id
     import capo_rtbfabric.types.rule_status
@@ -33,7 +31,7 @@ def deserialize_json(data: dict) -> DeleteLinkRoutingRuleResponse:
     if data.get("ruleId") is not None:
         out["rule_id"] = data["ruleId"]
     else:
-        raise DeserializationError("DeleteLinkRoutingRuleResponse.rule_id required")
+        out["rule_id"] = ""
     if data.get("status") is not None:
         import capo_rtbfabric.types.rule_status
 
@@ -41,5 +39,7 @@ def deserialize_json(data: dict) -> DeleteLinkRoutingRuleResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("DeleteLinkRoutingRuleResponse.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_rtbfabric.types.rule_status.RuleStatus", "")
     return out

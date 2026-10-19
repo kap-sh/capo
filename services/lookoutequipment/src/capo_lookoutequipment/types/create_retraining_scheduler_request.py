@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.idempotence_token
     import capo_lookoutequipment.types.lookback_window
@@ -67,9 +65,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRetrainingSchedulerRequest:
     if data.get("ModelName") is not None:
         out["model_name"] = data["ModelName"]
     else:
-        raise DeserializationError(
-            "CreateRetrainingSchedulerRequest.model_name required"
-        )
+        out["model_name"] = ""
     if data.get("RetrainingStartDate") is not None:
         import capo_lookoutequipment.types.timestamp
 
@@ -81,15 +77,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRetrainingSchedulerRequest:
     if data.get("RetrainingFrequency") is not None:
         out["retraining_frequency"] = data["RetrainingFrequency"]
     else:
-        raise DeserializationError(
-            "CreateRetrainingSchedulerRequest.retraining_frequency required"
-        )
+        out["retraining_frequency"] = ""
     if data.get("LookbackWindow") is not None:
         out["lookback_window"] = data["LookbackWindow"]
     else:
-        raise DeserializationError(
-            "CreateRetrainingSchedulerRequest.lookback_window required"
-        )
+        out["lookback_window"] = ""
     if data.get("PromoteMode") is not None:
         import capo_lookoutequipment.types.model_promote_mode
 
@@ -101,7 +93,5 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRetrainingSchedulerRequest:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError(
-            "CreateRetrainingSchedulerRequest.client_token required"
-        )
+        out["client_token"] = ""
     return out

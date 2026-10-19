@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_device_farm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_device_farm.types.amazon_role_resource_name
     import capo_device_farm.types.environment_variables
@@ -63,7 +61,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProjectRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateProjectRequest.name required")
+        out["name"] = ""
     if data.get("defaultJobTimeoutMinutes") is not None:
         out["default_job_timeout_minutes"] = data["defaultJobTimeoutMinutes"]
     if data.get("vpcConfig") is not None:

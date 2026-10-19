@@ -35,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> CountPendingActivityTasksInput:
     if data.get("domain") is not None:
         out["domain"] = data["domain"]
     else:
-        raise DeserializationError("CountPendingActivityTasksInput.domain required")
+        out["domain"] = ""
     if data.get("taskList") is not None:
         import capo_swf.types.task_list
 

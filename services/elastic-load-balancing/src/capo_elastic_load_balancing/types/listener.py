@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_elastic_load_balancing._protocol.xml import Element
-from capo_elastic_load_balancing.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_elastic_load_balancing.types.access_point_port
@@ -55,7 +54,7 @@ def deserialize_query(el: Element) -> Listener:
     if child_protocol is not None:
         out["protocol"] = str(child_protocol.text or "")
     else:
-        raise DeserializationError("Listener.protocol required")
+        out["protocol"] = ""
     child_load_balancer_port = el.find("LoadBalancerPort")
     if child_load_balancer_port is not None:
         out["load_balancer_port"] = int(child_load_balancer_port.text or "")
@@ -68,7 +67,7 @@ def deserialize_query(el: Element) -> Listener:
     if child_instance_port is not None:
         out["instance_port"] = int(child_instance_port.text or "")
     else:
-        raise DeserializationError("Listener.instance_port required")
+        out["instance_port"] = 0
     child_ssl_certificate_id = el.find("SSLCertificateId")
     if child_ssl_certificate_id is not None:
         out["ssl_certificate_id"] = str(child_ssl_certificate_id.text or "")

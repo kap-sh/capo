@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.day_of_week
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> WeeklyRecurrence:
             data["dayOfWeek"]
         )
     else:
-        raise DeserializationError("WeeklyRecurrence.day_of_week required")
+        import typing
+
+        out["day_of_week"] = typing.cast(
+            "capo_devops_agent.types.day_of_week.DayOfWeek", ""
+        )
     return out

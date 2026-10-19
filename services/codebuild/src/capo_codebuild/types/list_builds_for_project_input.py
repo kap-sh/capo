@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.non_empty_string
     import capo_codebuild.types.sort_order_type
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListBuildsForProjectInput:
     if data.get("projectName") is not None:
         out["project_name"] = data["projectName"]
     else:
-        raise DeserializationError("ListBuildsForProjectInput.project_name required")
+        out["project_name"] = ""
     if data.get("sortOrder") is not None:
         import capo_codebuild.types.sort_order_type
 

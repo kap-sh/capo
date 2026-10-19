@@ -47,9 +47,7 @@ def deserialize_json(data: dict) -> CustomClaimValidationType:
     if data.get("inboundTokenClaimName") is not None:
         out["inbound_token_claim_name"] = data["inboundTokenClaimName"]
     else:
-        raise DeserializationError(
-            "CustomClaimValidationType.inbound_token_claim_name required"
-        )
+        out["inbound_token_claim_name"] = ""
     if data.get("inboundTokenClaimValueType") is not None:
         import capo_agent_registry_control.types.inbound_token_claim_value_type
 
@@ -59,8 +57,11 @@ def deserialize_json(data: dict) -> CustomClaimValidationType:
             )
         )
     else:
-        raise DeserializationError(
-            "CustomClaimValidationType.inbound_token_claim_value_type required"
+        import typing
+
+        out["inbound_token_claim_value_type"] = typing.cast(
+            "capo_agent_registry_control.types.inbound_token_claim_value_type.InboundTokenClaimValueType",
+            "",
         )
     if data.get("authorizingClaimMatchValue") is not None:
         import capo_agent_registry_control.types.authorizing_claim_match_value_type

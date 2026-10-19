@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_nova_act.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_nova_act.types.client_token
     import capo_nova_act.types.workflow_definition_name
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> CreateWorkflowDefinitionRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateWorkflowDefinitionRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("exportConfig") is not None:

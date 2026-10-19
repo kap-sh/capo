@@ -140,15 +140,15 @@ def deserialize_json(data: dict) -> GetProductOutput:
     if data.get("productId") is not None:
         out["product_id"] = data["productId"]
     else:
-        raise DeserializationError("GetProductOutput.product_id required")
+        out["product_id"] = ""
     if data.get("catalog") is not None:
         out["catalog"] = data["catalog"]
     else:
-        raise DeserializationError("GetProductOutput.catalog required")
+        out["catalog"] = ""
     if data.get("productName") is not None:
         out["product_name"] = data["productName"]
     else:
-        raise DeserializationError("GetProductOutput.product_name required")
+        out["product_name"] = ""
     if data.get("manufacturer") is not None:
         import capo_marketplace_discovery.types.seller_information
 
@@ -168,19 +168,24 @@ def deserialize_json(data: dict) -> GetProductOutput:
             )
         )
     else:
-        raise DeserializationError("GetProductOutput.deployed_on_aws required")
+        import typing
+
+        out["deployed_on_aws"] = typing.cast(
+            "capo_marketplace_discovery.types.deployed_on_aws_status.DeployedOnAwsStatus",
+            "",
+        )
     if data.get("shortDescription") is not None:
         out["short_description"] = data["shortDescription"]
     else:
-        raise DeserializationError("GetProductOutput.short_description required")
+        out["short_description"] = ""
     if data.get("longDescription") is not None:
         out["long_description"] = data["longDescription"]
     else:
-        raise DeserializationError("GetProductOutput.long_description required")
+        out["long_description"] = ""
     if data.get("logoThumbnailUrl") is not None:
         out["logo_thumbnail_url"] = data["logoThumbnailUrl"]
     else:
-        raise DeserializationError("GetProductOutput.logo_thumbnail_url required")
+        out["logo_thumbnail_url"] = ""
     if data.get("fulfillmentOptionSummaries") is not None:
         import capo_marketplace_discovery.types.fulfillment_option_summary_list
 
@@ -190,9 +195,7 @@ def deserialize_json(data: dict) -> GetProductOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetProductOutput.fulfillment_option_summaries required"
-        )
+        out["fulfillment_option_summaries"] = []
     if data.get("categories") is not None:
         import capo_marketplace_discovery.types.category_list
 
@@ -202,7 +205,7 @@ def deserialize_json(data: dict) -> GetProductOutput:
             )
         )
     else:
-        raise DeserializationError("GetProductOutput.categories required")
+        out["categories"] = []
     if data.get("highlights") is not None:
         import capo_marketplace_discovery.types.highlight_list
 
@@ -212,7 +215,7 @@ def deserialize_json(data: dict) -> GetProductOutput:
             )
         )
     else:
-        raise DeserializationError("GetProductOutput.highlights required")
+        out["highlights"] = []
     if data.get("promotionalMedia") is not None:
         import capo_marketplace_discovery.types.promotional_media_list
 
@@ -222,7 +225,7 @@ def deserialize_json(data: dict) -> GetProductOutput:
             )
         )
     else:
-        raise DeserializationError("GetProductOutput.promotional_media required")
+        out["promotional_media"] = []
     if data.get("resources") is not None:
         import capo_marketplace_discovery.types.resource_list
 
@@ -232,7 +235,7 @@ def deserialize_json(data: dict) -> GetProductOutput:
             )
         )
     else:
-        raise DeserializationError("GetProductOutput.resources required")
+        out["resources"] = []
     if data.get("sellerEngagements") is not None:
         import capo_marketplace_discovery.types.seller_engagement_list
 
@@ -242,9 +245,9 @@ def deserialize_json(data: dict) -> GetProductOutput:
             )
         )
     else:
-        raise DeserializationError("GetProductOutput.seller_engagements required")
+        out["seller_engagements"] = []
     if data.get("listingId") is not None:
         out["listing_id"] = data["listingId"]
     else:
-        raise DeserializationError("GetProductOutput.listing_id required")
+        out["listing_id"] = ""
     return out

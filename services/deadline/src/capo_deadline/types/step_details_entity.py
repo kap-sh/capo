@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.dependencies_list
     import capo_deadline.types.document
@@ -67,19 +65,19 @@ def deserialize_json(data: dict) -> StepDetailsEntity:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("StepDetailsEntity.job_id required")
+        out["job_id"] = ""
     if data.get("stepId") is not None:
         out["step_id"] = data["stepId"]
     else:
-        raise DeserializationError("StepDetailsEntity.step_id required")
+        out["step_id"] = ""
     if data.get("schemaVersion") is not None:
         out["schema_version"] = data["schemaVersion"]
     else:
-        raise DeserializationError("StepDetailsEntity.schema_version required")
+        out["schema_version"] = ""
     if data.get("template") is not None:
         out["template"] = data["template"]
     else:
-        raise DeserializationError("StepDetailsEntity.template required")
+        out["template"] = None
     if data.get("dependencies") is not None:
         import capo_deadline.types.dependencies_list
 
@@ -87,7 +85,7 @@ def deserialize_json(data: dict) -> StepDetailsEntity:
             data["dependencies"]
         )
     else:
-        raise DeserializationError("StepDetailsEntity.dependencies required")
+        out["dependencies"] = []
     if data.get("extensions") is not None:
         import capo_deadline.types.openjd_extension_name_list
 

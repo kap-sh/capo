@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.harness_bedrock_api_format
     import capo_bedrock_agentcore.types.max_tokens
@@ -75,7 +73,7 @@ def deserialize_json(data: dict) -> HarnessBedrockModelConfig:
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:
-        raise DeserializationError("HarnessBedrockModelConfig.model_id required")
+        out["model_id"] = ""
     if data.get("maxTokens") is not None:
         out["max_tokens"] = data["maxTokens"]
     if data.get("temperature") is not None:

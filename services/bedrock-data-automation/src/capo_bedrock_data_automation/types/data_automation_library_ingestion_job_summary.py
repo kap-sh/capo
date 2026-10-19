@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.data_automation_library_ingestion_job_arn
     import capo_bedrock_data_automation.types.date_timestamp
@@ -71,9 +69,7 @@ def deserialize_json(data: dict) -> DataAutomationLibraryIngestionJobSummary:
     if data.get("jobArn") is not None:
         out["job_arn"] = data["jobArn"]
     else:
-        raise DeserializationError(
-            "DataAutomationLibraryIngestionJobSummary.job_arn required"
-        )
+        out["job_arn"] = ""
     if data.get("jobStatus") is not None:
         import capo_bedrock_data_automation.types.library_ingestion_job_status
 
@@ -83,8 +79,11 @@ def deserialize_json(data: dict) -> DataAutomationLibraryIngestionJobSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "DataAutomationLibraryIngestionJobSummary.job_status required"
+        import typing
+
+        out["job_status"] = typing.cast(
+            "capo_bedrock_data_automation.types.library_ingestion_job_status.LibraryIngestionJobStatus",
+            "",
         )
     if data.get("entityType") is not None:
         import capo_bedrock_data_automation.types.entity_type
@@ -95,8 +94,10 @@ def deserialize_json(data: dict) -> DataAutomationLibraryIngestionJobSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "DataAutomationLibraryIngestionJobSummary.entity_type required"
+        import typing
+
+        out["entity_type"] = typing.cast(
+            "capo_bedrock_data_automation.types.entity_type.EntityType", ""
         )
     if data.get("operationType") is not None:
         import capo_bedrock_data_automation.types.library_ingestion_job_operation_type
@@ -107,8 +108,11 @@ def deserialize_json(data: dict) -> DataAutomationLibraryIngestionJobSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "DataAutomationLibraryIngestionJobSummary.operation_type required"
+        import typing
+
+        out["operation_type"] = typing.cast(
+            "capo_bedrock_data_automation.types.library_ingestion_job_operation_type.LibraryIngestionJobOperationType",
+            "",
         )
     if data.get("creationTime") is not None:
         import capo_bedrock_data_automation.types.date_timestamp
@@ -119,8 +123,10 @@ def deserialize_json(data: dict) -> DataAutomationLibraryIngestionJobSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "DataAutomationLibraryIngestionJobSummary.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("completionTime") is not None:
         import capo_bedrock_data_automation.types.date_timestamp

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.monitor_error_details
     import capo_iotsitewise.types.portal_state
@@ -44,7 +42,11 @@ def deserialize_json(data: dict) -> PortalStatus:
             data["state"]
         )
     else:
-        raise DeserializationError("PortalStatus.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_iotsitewise.types.portal_state.PortalState", ""
+        )
     if data.get("error") is not None:
         import capo_iotsitewise.types.monitor_error_details
 

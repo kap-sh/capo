@@ -76,19 +76,19 @@ def deserialize_json(data: dict) -> GetLinkRoutingRuleResponse:
     if data.get("gatewayId") is not None:
         out["gateway_id"] = data["gatewayId"]
     else:
-        raise DeserializationError("GetLinkRoutingRuleResponse.gateway_id required")
+        out["gateway_id"] = ""
     if data.get("linkId") is not None:
         out["link_id"] = data["linkId"]
     else:
-        raise DeserializationError("GetLinkRoutingRuleResponse.link_id required")
+        out["link_id"] = ""
     if data.get("ruleId") is not None:
         out["rule_id"] = data["ruleId"]
     else:
-        raise DeserializationError("GetLinkRoutingRuleResponse.rule_id required")
+        out["rule_id"] = ""
     if data.get("priority") is not None:
         out["priority"] = data["priority"]
     else:
-        raise DeserializationError("GetLinkRoutingRuleResponse.priority required")
+        out["priority"] = 0
     if data.get("conditions") is not None:
         import capo_rtbfabric.types.rule_condition
 
@@ -104,7 +104,9 @@ def deserialize_json(data: dict) -> GetLinkRoutingRuleResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("GetLinkRoutingRuleResponse.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_rtbfabric.types.rule_status.RuleStatus", "")
     if data.get("createdAt") is not None:
         import capo_rtbfabric.types._prelude.timestamp
 
@@ -112,7 +114,9 @@ def deserialize_json(data: dict) -> GetLinkRoutingRuleResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("GetLinkRoutingRuleResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_rtbfabric.types._prelude.timestamp
 
@@ -120,7 +124,9 @@ def deserialize_json(data: dict) -> GetLinkRoutingRuleResponse:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("GetLinkRoutingRuleResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("tags") is not None:
         import capo_rtbfabric.types.tags_map
 

@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 
 class RegistrationDeniedReasonInformation(TypedDict, closed=True):
     reason: "str"
@@ -37,15 +35,11 @@ def deserialize_aws_json_1_0(data: dict) -> RegistrationDeniedReasonInformation:
     if data.get("Reason") is not None:
         out["reason"] = data["Reason"]
     else:
-        raise DeserializationError(
-            "RegistrationDeniedReasonInformation.reason required"
-        )
+        out["reason"] = ""
     if data.get("ShortDescription") is not None:
         out["short_description"] = data["ShortDescription"]
     else:
-        raise DeserializationError(
-            "RegistrationDeniedReasonInformation.short_description required"
-        )
+        out["short_description"] = ""
     if data.get("LongDescription") is not None:
         out["long_description"] = data["LongDescription"]
     if data.get("DocumentationTitle") is not None:

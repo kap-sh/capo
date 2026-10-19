@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_timestream_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_query.types.amazon_resource_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> CreateScheduledQueryResponse:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("CreateScheduledQueryResponse.arn required")
+        out["arn"] = ""
     return out

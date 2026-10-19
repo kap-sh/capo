@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.authorizer_name
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> SetDefaultAuthorizerRequest:
     if data.get("authorizerName") is not None:
         out["authorizer_name"] = data["authorizerName"]
     else:
-        raise DeserializationError(
-            "SetDefaultAuthorizerRequest.authorizer_name required"
-        )
+        out["authorizer_name"] = ""
     return out

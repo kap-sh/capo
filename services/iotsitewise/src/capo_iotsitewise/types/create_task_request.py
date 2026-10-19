@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.client_token
     import capo_iotsitewise.types.description
@@ -55,7 +53,7 @@ def deserialize_json(data: dict) -> CreateTaskRequest:
     if data.get("taskName") is not None:
         out["task_name"] = data["taskName"]
     else:
-        raise DeserializationError("CreateTaskRequest.task_name required")
+        out["task_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("taskConfiguration") is not None:
@@ -67,7 +65,11 @@ def deserialize_json(data: dict) -> CreateTaskRequest:
             )
         )
     else:
-        raise DeserializationError("CreateTaskRequest.task_configuration required")
+        import capo_iotsitewise.types._unknown
+
+        out["task_configuration"] = capo_iotsitewise.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("tags") is not None:
         import capo_iotsitewise.types.tag_map
 

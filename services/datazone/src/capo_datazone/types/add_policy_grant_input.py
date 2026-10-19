@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.client_token
     import capo_datazone.types.domain_id
@@ -64,7 +62,11 @@ def deserialize_json(data: dict) -> AddPolicyGrantInput:
             data["policyType"]
         )
     else:
-        raise DeserializationError("AddPolicyGrantInput.policy_type required")
+        import typing
+
+        out["policy_type"] = typing.cast(
+            "capo_datazone.types.managed_policy_type.ManagedPolicyType", ""
+        )
     if data.get("principal") is not None:
         import capo_datazone.types.policy_grant_principal
 
@@ -72,7 +74,9 @@ def deserialize_json(data: dict) -> AddPolicyGrantInput:
             data["principal"]
         )
     else:
-        raise DeserializationError("AddPolicyGrantInput.principal required")
+        import capo_datazone.types._unknown
+
+        out["principal"] = capo_datazone.types._unknown.UnknownUnionMember("")
     if data.get("detail") is not None:
         import capo_datazone.types.policy_grant_detail
 
@@ -80,7 +84,9 @@ def deserialize_json(data: dict) -> AddPolicyGrantInput:
             data["detail"]
         )
     else:
-        raise DeserializationError("AddPolicyGrantInput.detail required")
+        import capo_datazone.types._unknown
+
+        out["detail"] = capo_datazone.types._unknown.UnknownUnionMember("")
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

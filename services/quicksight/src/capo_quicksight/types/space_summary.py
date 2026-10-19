@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -82,7 +80,7 @@ def deserialize_json(data: dict) -> SpaceSummary:
     if data.get("spaceId") is not None:
         out["space_id"] = data["spaceId"]
     else:
-        raise DeserializationError("SpaceSummary.space_id required")
+        out["space_id"] = ""
     if data.get("spaceArn") is not None:
         out["space_arn"] = data["spaceArn"]
     if data.get("name") is not None:

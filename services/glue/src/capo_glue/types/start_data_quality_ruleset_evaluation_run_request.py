@@ -94,9 +94,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartDataQualityRulesetEvaluationRun
     if data.get("Role") is not None:
         out["role"] = data["Role"]
     else:
-        raise DeserializationError(
-            "StartDataQualityRulesetEvaluationRunRequest.role required"
-        )
+        out["role"] = ""
     if data.get("NumberOfWorkers") is not None:
         out["number_of_workers"] = data["NumberOfWorkers"]
     if data.get("Timeout") is not None:
@@ -118,9 +116,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartDataQualityRulesetEvaluationRun
             data["RulesetNames"]
         )
     else:
-        raise DeserializationError(
-            "StartDataQualityRulesetEvaluationRunRequest.ruleset_names required"
-        )
+        out["ruleset_names"] = []
     if data.get("AdditionalDataSources") is not None:
         import capo_glue.types.data_source_map
 

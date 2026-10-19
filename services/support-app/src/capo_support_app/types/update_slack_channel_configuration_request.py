@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_support_app.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support_app.types.boolean_value
     import capo_support_app.types.channel_id
@@ -69,15 +67,11 @@ def deserialize_json(data: dict) -> UpdateSlackChannelConfigurationRequest:
     if data.get("teamId") is not None:
         out["team_id"] = data["teamId"]
     else:
-        raise DeserializationError(
-            "UpdateSlackChannelConfigurationRequest.team_id required"
-        )
+        out["team_id"] = ""
     if data.get("channelId") is not None:
         out["channel_id"] = data["channelId"]
     else:
-        raise DeserializationError(
-            "UpdateSlackChannelConfigurationRequest.channel_id required"
-        )
+        out["channel_id"] = ""
     if data.get("channelName") is not None:
         out["channel_name"] = data["channelName"]
     if data.get("notifyOnCreateOrReopenCase") is not None:

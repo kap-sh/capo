@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.bot_locale_history_event_description
     import capo_lex_models_v2.types.timestamp
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> BotLocaleHistoryEvent:
     if data.get("event") is not None:
         out["event"] = data["event"]
     else:
-        raise DeserializationError("BotLocaleHistoryEvent.event required")
+        out["event"] = ""
     if data.get("eventDate") is not None:
         import capo_lex_models_v2.types.timestamp
 
@@ -43,5 +41,7 @@ def deserialize_json(data: dict) -> BotLocaleHistoryEvent:
             data["eventDate"]
         )
     else:
-        raise DeserializationError("BotLocaleHistoryEvent.event_date required")
+        import datetime
+
+        out["event_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

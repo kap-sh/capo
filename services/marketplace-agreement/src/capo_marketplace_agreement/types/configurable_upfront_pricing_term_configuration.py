@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_agreement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.bounded_string
     import capo_marketplace_agreement.types.dimension_list
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> ConfigurableUpfrontPricingTermConfig
     if data.get("selectorValue") is not None:
         out["selector_value"] = data["selectorValue"]
     else:
-        raise DeserializationError(
-            "ConfigurableUpfrontPricingTermConfiguration.selector_value required"
-        )
+        out["selector_value"] = ""
     if data.get("dimensions") is not None:
         import capo_marketplace_agreement.types.dimension_list
 
@@ -49,7 +45,5 @@ def deserialize_aws_json_1_0(data: dict) -> ConfigurableUpfrontPricingTermConfig
             )
         )
     else:
-        raise DeserializationError(
-            "ConfigurableUpfrontPricingTermConfiguration.dimensions required"
-        )
+        out["dimensions"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.ip_group_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteIpGroupRequest:
     if data.get("GroupId") is not None:
         out["group_id"] = data["GroupId"]
     else:
-        raise DeserializationError("DeleteIpGroupRequest.group_id required")
+        out["group_id"] = ""
     return out

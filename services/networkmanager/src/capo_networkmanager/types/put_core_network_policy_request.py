@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmanager.types.client_token
     import capo_networkmanager.types.constrained_string
@@ -47,9 +45,7 @@ def deserialize_json(data: dict) -> PutCoreNetworkPolicyRequest:
     if data.get("PolicyDocument") is not None:
         out["policy_document"] = data["PolicyDocument"]
     else:
-        raise DeserializationError(
-            "PutCoreNetworkPolicyRequest.policy_document required"
-        )
+        out["policy_document"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("LatestVersionId") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.stop_service_deployment_stop_type
     import capo_ecs.types.string
@@ -40,9 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> StopServiceDeploymentRequest:
     if data.get("serviceDeploymentArn") is not None:
         out["service_deployment_arn"] = data["serviceDeploymentArn"]
     else:
-        raise DeserializationError(
-            "StopServiceDeploymentRequest.service_deployment_arn required"
-        )
+        out["service_deployment_arn"] = ""
     if data.get("stopType") is not None:
         import capo_ecs.types.stop_service_deployment_stop_type
 

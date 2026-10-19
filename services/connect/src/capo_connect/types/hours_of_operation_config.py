@@ -52,7 +52,11 @@ def deserialize_json(data: dict) -> HoursOfOperationConfig:
             data["Day"]
         )
     else:
-        raise DeserializationError("HoursOfOperationConfig.day required")
+        import typing
+
+        out["day"] = typing.cast(
+            "capo_connect.types.hours_of_operation_days.HoursOfOperationDays", ""
+        )
     if data.get("StartTime") is not None:
         import capo_connect.types.hours_of_operation_time_slice
 

@@ -106,15 +106,11 @@ def deserialize_json(data: dict) -> CreateOauth2CredentialProviderResponse:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "CreateOauth2CredentialProviderResponse.name required"
-        )
+        out["name"] = ""
     if data.get("credentialProviderArn") is not None:
         out["credential_provider_arn"] = data["credentialProviderArn"]
     else:
-        raise DeserializationError(
-            "CreateOauth2CredentialProviderResponse.credential_provider_arn required"
-        )
+        out["credential_provider_arn"] = ""
     if data.get("callbackUrl") is not None:
         out["callback_url"] = data["callbackUrl"]
     if data.get("oauth2ProviderConfigOutput") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.client_token
     import capo_imagebuilder.types.image_logging_configuration
@@ -108,33 +106,31 @@ def deserialize_json(data: dict) -> ImportDiskImageRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ImportDiskImageRequest.name required")
+        out["name"] = ""
     if data.get("semanticVersion") is not None:
         out["semantic_version"] = data["semanticVersion"]
     else:
-        raise DeserializationError("ImportDiskImageRequest.semantic_version required")
+        out["semantic_version"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("platform") is not None:
         out["platform"] = data["platform"]
     else:
-        raise DeserializationError("ImportDiskImageRequest.platform required")
+        out["platform"] = ""
     if data.get("osVersion") is not None:
         out["os_version"] = data["osVersion"]
     else:
-        raise DeserializationError("ImportDiskImageRequest.os_version required")
+        out["os_version"] = ""
     if data.get("executionRole") is not None:
         out["execution_role"] = data["executionRole"]
     if data.get("infrastructureConfigurationArn") is not None:
         out["infrastructure_configuration_arn"] = data["infrastructureConfigurationArn"]
     else:
-        raise DeserializationError(
-            "ImportDiskImageRequest.infrastructure_configuration_arn required"
-        )
+        out["infrastructure_configuration_arn"] = ""
     if data.get("uri") is not None:
         out["uri"] = data["uri"]
     else:
-        raise DeserializationError("ImportDiskImageRequest.uri required")
+        out["uri"] = ""
     if data.get("loggingConfiguration") is not None:
         import capo_imagebuilder.types.image_logging_configuration
 
@@ -166,5 +162,5 @@ def deserialize_json(data: dict) -> ImportDiskImageRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("ImportDiskImageRequest.client_token required")
+        out["client_token"] = ""
     return out

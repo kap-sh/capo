@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_auto_scaling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_auto_scaling.types.metric_scale
     import capo_application_auto_scaling.types.scaling_adjustment
@@ -64,5 +62,5 @@ def deserialize_aws_json_1_1(data: dict) -> StepAdjustment:
     if data.get("ScalingAdjustment") is not None:
         out["scaling_adjustment"] = data["ScalingAdjustment"]
     else:
-        raise DeserializationError("StepAdjustment.scaling_adjustment required")
+        out["scaling_adjustment"] = 0
     return out

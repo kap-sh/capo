@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.guardrail_automated_reasoning_policy_config
     import capo_bedrock.types.guardrail_blocked_messaging
@@ -155,7 +153,7 @@ def deserialize_json(data: dict) -> CreateGuardrailRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateGuardrailRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("topicPolicyConfig") is not None:
@@ -217,15 +215,11 @@ def deserialize_json(data: dict) -> CreateGuardrailRequest:
     if data.get("blockedInputMessaging") is not None:
         out["blocked_input_messaging"] = data["blockedInputMessaging"]
     else:
-        raise DeserializationError(
-            "CreateGuardrailRequest.blocked_input_messaging required"
-        )
+        out["blocked_input_messaging"] = ""
     if data.get("blockedOutputsMessaging") is not None:
         out["blocked_outputs_messaging"] = data["blockedOutputsMessaging"]
     else:
-        raise DeserializationError(
-            "CreateGuardrailRequest.blocked_outputs_messaging required"
-        )
+        out["blocked_outputs_messaging"] = ""
     if data.get("kmsKeyId") is not None:
         out["kms_key_id"] = data["kmsKeyId"]
     if data.get("tags") is not None:

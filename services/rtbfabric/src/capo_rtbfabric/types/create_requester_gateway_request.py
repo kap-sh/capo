@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rtbfabric.types.security_group_id_list
     import capo_rtbfabric.types.subnet_id_list
@@ -61,7 +59,7 @@ def deserialize_json(data: dict) -> CreateRequesterGatewayRequest:
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
     else:
-        raise DeserializationError("CreateRequesterGatewayRequest.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("subnetIds") is not None:
         import capo_rtbfabric.types.subnet_id_list
 
@@ -69,7 +67,7 @@ def deserialize_json(data: dict) -> CreateRequesterGatewayRequest:
             data["subnetIds"]
         )
     else:
-        raise DeserializationError("CreateRequesterGatewayRequest.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("securityGroupIds") is not None:
         import capo_rtbfabric.types.security_group_id_list
 
@@ -79,15 +77,11 @@ def deserialize_json(data: dict) -> CreateRequesterGatewayRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateRequesterGatewayRequest.security_group_ids required"
-        )
+        out["security_group_ids"] = []
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError(
-            "CreateRequesterGatewayRequest.client_token required"
-        )
+        out["client_token"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("tags") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.boolean
@@ -40,9 +38,7 @@ def deserialize_json(data: dict) -> UpdateAccountSettingsRequest:
     if data.get("DefaultNamespace") is not None:
         out["default_namespace"] = data["DefaultNamespace"]
     else:
-        raise DeserializationError(
-            "UpdateAccountSettingsRequest.default_namespace required"
-        )
+        out["default_namespace"] = ""
     if data.get("NotificationEmail") is not None:
         out["notification_email"] = data["NotificationEmail"]
     if data.get("TerminationProtectionEnabled") is not None:

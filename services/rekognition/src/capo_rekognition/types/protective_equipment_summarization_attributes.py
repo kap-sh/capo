@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.percent
     import capo_rekognition.types.protective_equipment_types
@@ -47,9 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> ProtectiveEquipmentSummarizationAttr
     if data.get("MinConfidence") is not None:
         out["min_confidence"] = float(data["MinConfidence"])
     else:
-        raise DeserializationError(
-            "ProtectiveEquipmentSummarizationAttributes.min_confidence required"
-        )
+        out["min_confidence"] = 0.0
     if data.get("RequiredEquipmentTypes") is not None:
         import capo_rekognition.types.protective_equipment_types
 
@@ -59,7 +55,5 @@ def deserialize_aws_json_1_1(data: dict) -> ProtectiveEquipmentSummarizationAttr
             )
         )
     else:
-        raise DeserializationError(
-            "ProtectiveEquipmentSummarizationAttributes.required_equipment_types required"
-        )
+        out["required_equipment_types"] = []
     return out

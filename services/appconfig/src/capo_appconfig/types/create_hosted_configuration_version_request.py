@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appconfig.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appconfig.types.blob
     import capo_appconfig.types.description
@@ -49,9 +47,7 @@ def deserialize_json(data: dict) -> CreateHostedConfigurationVersionRequest:
 
         out["content"] = capo_appconfig.types.blob.deserialize_json(data["Content"])
     else:
-        raise DeserializationError(
-            "CreateHostedConfigurationVersionRequest.content required"
-        )
+        out["content"] = b""
     return out
 
 

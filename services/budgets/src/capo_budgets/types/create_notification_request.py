@@ -47,11 +47,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateNotificationRequest:
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     else:
-        raise DeserializationError("CreateNotificationRequest.account_id required")
+        out["account_id"] = ""
     if data.get("BudgetName") is not None:
         out["budget_name"] = data["BudgetName"]
     else:
-        raise DeserializationError("CreateNotificationRequest.budget_name required")
+        out["budget_name"] = ""
     if data.get("Notification") is not None:
         import capo_budgets.types.notification
 
@@ -67,7 +67,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateNotificationRequest:
             data["Subscribers"]
         )
     else:
-        raise DeserializationError("CreateNotificationRequest.subscribers required")
+        out["subscribers"] = []
     return out
 
 

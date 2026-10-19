@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_efs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_efs.types.aws_account_id
     import capo_efs.types.destinations
@@ -61,27 +59,19 @@ def deserialize_json(data: dict) -> ReplicationConfigurationDescription:
     if data.get("SourceFileSystemId") is not None:
         out["source_file_system_id"] = data["SourceFileSystemId"]
     else:
-        raise DeserializationError(
-            "ReplicationConfigurationDescription.source_file_system_id required"
-        )
+        out["source_file_system_id"] = ""
     if data.get("SourceFileSystemRegion") is not None:
         out["source_file_system_region"] = data["SourceFileSystemRegion"]
     else:
-        raise DeserializationError(
-            "ReplicationConfigurationDescription.source_file_system_region required"
-        )
+        out["source_file_system_region"] = ""
     if data.get("SourceFileSystemArn") is not None:
         out["source_file_system_arn"] = data["SourceFileSystemArn"]
     else:
-        raise DeserializationError(
-            "ReplicationConfigurationDescription.source_file_system_arn required"
-        )
+        out["source_file_system_arn"] = ""
     if data.get("OriginalSourceFileSystemArn") is not None:
         out["original_source_file_system_arn"] = data["OriginalSourceFileSystemArn"]
     else:
-        raise DeserializationError(
-            "ReplicationConfigurationDescription.original_source_file_system_arn required"
-        )
+        out["original_source_file_system_arn"] = ""
     if data.get("CreationTime") is not None:
         import capo_efs.types.timestamp
 
@@ -89,8 +79,10 @@ def deserialize_json(data: dict) -> ReplicationConfigurationDescription:
             data["CreationTime"]
         )
     else:
-        raise DeserializationError(
-            "ReplicationConfigurationDescription.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("Destinations") is not None:
         import capo_efs.types.destinations
@@ -99,9 +91,7 @@ def deserialize_json(data: dict) -> ReplicationConfigurationDescription:
             data["Destinations"]
         )
     else:
-        raise DeserializationError(
-            "ReplicationConfigurationDescription.destinations required"
-        )
+        out["destinations"] = []
     if data.get("SourceFileSystemOwnerId") is not None:
         out["source_file_system_owner_id"] = data["SourceFileSystemOwnerId"]
     return out

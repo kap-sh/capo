@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.sync_job_state
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DeleteSyncJobResponse:
     if data.get("state") is not None:
         out["state"] = data["state"]
     else:
-        raise DeserializationError("DeleteSyncJobResponse.state required")
+        out["state"] = ""
     return out

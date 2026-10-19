@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.chat_response_configuration_arn
     import capo_qbusiness.types.chat_response_configuration_id
@@ -69,19 +67,15 @@ def deserialize_json(data: dict) -> ChatResponseConfiguration:
     if data.get("chatResponseConfigurationId") is not None:
         out["chat_response_configuration_id"] = data["chatResponseConfigurationId"]
     else:
-        raise DeserializationError(
-            "ChatResponseConfiguration.chat_response_configuration_id required"
-        )
+        out["chat_response_configuration_id"] = ""
     if data.get("chatResponseConfigurationArn") is not None:
         out["chat_response_configuration_arn"] = data["chatResponseConfigurationArn"]
     else:
-        raise DeserializationError(
-            "ChatResponseConfiguration.chat_response_configuration_arn required"
-        )
+        out["chat_response_configuration_arn"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("ChatResponseConfiguration.display_name required")
+        out["display_name"] = ""
     if data.get("responseConfigurationSummary") is not None:
         out["response_configuration_summary"] = data["responseConfigurationSummary"]
     if data.get("status") is not None:
@@ -93,7 +87,12 @@ def deserialize_json(data: dict) -> ChatResponseConfiguration:
             )
         )
     else:
-        raise DeserializationError("ChatResponseConfiguration.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_qbusiness.types.chat_response_configuration_status.ChatResponseConfigurationStatus",
+            "",
+        )
     if data.get("createdAt") is not None:
         import capo_qbusiness.types.timestamp
 

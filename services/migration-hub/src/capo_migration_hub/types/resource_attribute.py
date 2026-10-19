@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_migration_hub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migration_hub.types.resource_attribute_type
     import capo_migration_hub.types.resource_attribute_value
@@ -43,9 +41,13 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceAttribute:
             )
         )
     else:
-        raise DeserializationError("ResourceAttribute.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_migration_hub.types.resource_attribute_type.ResourceAttributeType", ""
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("ResourceAttribute.value required")
+        out["value"] = ""
     return out

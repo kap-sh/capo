@@ -39,7 +39,7 @@ def deserialize_json(data: dict) -> AssociateAccessPolicyRequest:
     if data.get("policyArn") is not None:
         out["policy_arn"] = data["policyArn"]
     else:
-        raise DeserializationError("AssociateAccessPolicyRequest.policy_arn required")
+        out["policy_arn"] = ""
     if data.get("accessScope") is not None:
         import capo_eks.types.access_scope
 

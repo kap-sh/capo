@@ -107,7 +107,7 @@ def deserialize_json(data: dict) -> AgenticRetrieveStreamRequest:
             )
         )
     else:
-        raise DeserializationError("AgenticRetrieveStreamRequest.messages required")
+        out["messages"] = []
     if data.get("retrievers") is not None:
         import capo_bedrock_agent_runtime.types.agentic_retrievers
 
@@ -117,7 +117,7 @@ def deserialize_json(data: dict) -> AgenticRetrieveStreamRequest:
             )
         )
     else:
-        raise DeserializationError("AgenticRetrieveStreamRequest.retrievers required")
+        out["retrievers"] = []
     if data.get("agenticRetrieveConfiguration") is not None:
         import capo_bedrock_agent_runtime.types.agentic_retrieve_configuration
 

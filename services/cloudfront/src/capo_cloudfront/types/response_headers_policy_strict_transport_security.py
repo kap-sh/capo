@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.boolean
@@ -46,9 +45,7 @@ def deserialize_xml(el: Element) -> ResponseHeadersPolicyStrictTransportSecurity
     if child_override is not None:
         out["override"] = (child_override.text or "").lower() == "true"
     else:
-        raise DeserializationError(
-            "ResponseHeadersPolicyStrictTransportSecurity.override required"
-        )
+        out["override"] = False
     child_include_subdomains = el.find("IncludeSubdomains")
     if child_include_subdomains is not None:
         out["include_subdomains"] = (
@@ -63,7 +60,5 @@ def deserialize_xml(el: Element) -> ResponseHeadersPolicyStrictTransportSecurity
             child_access_control_max_age_sec.text or ""
         )
     else:
-        raise DeserializationError(
-            "ResponseHeadersPolicyStrictTransportSecurity.access_control_max_age_sec required"
-        )
+        out["access_control_max_age_sec"] = 0
     return out

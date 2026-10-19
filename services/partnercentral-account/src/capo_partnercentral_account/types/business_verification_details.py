@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.country_code
     import capo_partnercentral_account.types.jurisdiction_code
@@ -42,17 +40,15 @@ def deserialize_aws_json_1_0(data: dict) -> BusinessVerificationDetails:
     if data.get("LegalName") is not None:
         out["legal_name"] = data["LegalName"]
     else:
-        raise DeserializationError("BusinessVerificationDetails.legal_name required")
+        out["legal_name"] = ""
     if data.get("RegistrationId") is not None:
         out["registration_id"] = data["RegistrationId"]
     else:
-        raise DeserializationError(
-            "BusinessVerificationDetails.registration_id required"
-        )
+        out["registration_id"] = ""
     if data.get("CountryCode") is not None:
         out["country_code"] = data["CountryCode"]
     else:
-        raise DeserializationError("BusinessVerificationDetails.country_code required")
+        out["country_code"] = ""
     if data.get("JurisdictionOfIncorporation") is not None:
         out["jurisdiction_of_incorporation"] = data["JurisdictionOfIncorporation"]
     return out

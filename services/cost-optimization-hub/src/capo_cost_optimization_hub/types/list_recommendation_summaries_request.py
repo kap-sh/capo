@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cost_optimization_hub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_optimization_hub.types.filter
     import capo_cost_optimization_hub.types.max_results
@@ -64,9 +62,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListRecommendationSummariesRequest:
     if data.get("groupBy") is not None:
         out["group_by"] = data["groupBy"]
     else:
-        raise DeserializationError(
-            "ListRecommendationSummariesRequest.group_by required"
-        )
+        out["group_by"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("metrics") is not None:

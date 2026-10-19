@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.audit_destination_arn
     import capo_storage_gateway.types.authentication
@@ -208,11 +206,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSMBFileShareInput:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("CreateSMBFileShareInput.client_token required")
+        out["client_token"] = ""
     if data.get("GatewayARN") is not None:
         out["gateway_arn"] = data["GatewayARN"]
     else:
-        raise DeserializationError("CreateSMBFileShareInput.gateway_arn required")
+        out["gateway_arn"] = ""
     if data.get("EncryptionType") is not None:
         import capo_storage_gateway.types.encryption_type
 
@@ -228,11 +226,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSMBFileShareInput:
     if data.get("Role") is not None:
         out["role"] = data["Role"]
     else:
-        raise DeserializationError("CreateSMBFileShareInput.role required")
+        out["role"] = ""
     if data.get("LocationARN") is not None:
         out["location_arn"] = data["LocationARN"]
     else:
-        raise DeserializationError("CreateSMBFileShareInput.location_arn required")
+        out["location_arn"] = ""
     if data.get("DefaultStorageClass") is not None:
         out["default_storage_class"] = data["DefaultStorageClass"]
     if data.get("ObjectACL") is not None:

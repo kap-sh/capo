@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.analytics_metadata_type
     import capo_cognito_identity_provider.types.challenge_name_type
@@ -104,15 +102,11 @@ def deserialize_aws_json_1_1(data: dict) -> AdminRespondToAuthChallengeRequest:
     if data.get("UserPoolId") is not None:
         out["user_pool_id"] = data["UserPoolId"]
     else:
-        raise DeserializationError(
-            "AdminRespondToAuthChallengeRequest.user_pool_id required"
-        )
+        out["user_pool_id"] = ""
     if data.get("ClientId") is not None:
         out["client_id"] = data["ClientId"]
     else:
-        raise DeserializationError(
-            "AdminRespondToAuthChallengeRequest.client_id required"
-        )
+        out["client_id"] = ""
     if data.get("ChallengeName") is not None:
         import capo_cognito_identity_provider.types.challenge_name_type
 
@@ -122,8 +116,11 @@ def deserialize_aws_json_1_1(data: dict) -> AdminRespondToAuthChallengeRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "AdminRespondToAuthChallengeRequest.challenge_name required"
+        import typing
+
+        out["challenge_name"] = typing.cast(
+            "capo_cognito_identity_provider.types.challenge_name_type.ChallengeNameType",
+            "",
         )
     if data.get("ChallengeResponses") is not None:
         import capo_cognito_identity_provider.types.challenge_responses_type

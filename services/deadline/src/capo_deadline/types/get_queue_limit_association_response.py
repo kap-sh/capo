@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.created_at
     import capo_deadline.types.created_by
@@ -67,11 +65,11 @@ def deserialize_json(data: dict) -> GetQueueLimitAssociationResponse:
     if data.get("queueId") is not None:
         out["queue_id"] = data["queueId"]
     else:
-        raise DeserializationError("GetQueueLimitAssociationResponse.queue_id required")
+        out["queue_id"] = ""
     if data.get("limitId") is not None:
         out["limit_id"] = data["limitId"]
     else:
-        raise DeserializationError("GetQueueLimitAssociationResponse.limit_id required")
+        out["limit_id"] = ""
     if data.get("status") is not None:
         import capo_deadline.types.queue_limit_association_status
 
@@ -81,7 +79,12 @@ def deserialize_json(data: dict) -> GetQueueLimitAssociationResponse:
             )
         )
     else:
-        raise DeserializationError("GetQueueLimitAssociationResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_deadline.types.queue_limit_association_status.QueueLimitAssociationStatus",
+            "",
+        )
     if data.get("createdAt") is not None:
         import capo_deadline.types.created_at
 
@@ -89,15 +92,13 @@ def deserialize_json(data: dict) -> GetQueueLimitAssociationResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError(
-            "GetQueueLimitAssociationResponse.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError(
-            "GetQueueLimitAssociationResponse.created_by required"
-        )
+        out["created_by"] = ""
     if data.get("updatedAt") is not None:
         import capo_deadline.types.updated_at
 

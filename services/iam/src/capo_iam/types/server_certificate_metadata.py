@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -65,26 +64,22 @@ def deserialize_query(el: Element) -> ServerCertificateMetadata:
     if child_path is not None:
         out["path"] = str(child_path.text or "")
     else:
-        raise DeserializationError("ServerCertificateMetadata.path required")
+        out["path"] = ""
     child_server_certificate_name = el.find("ServerCertificateName")
     if child_server_certificate_name is not None:
         out["server_certificate_name"] = str(child_server_certificate_name.text or "")
     else:
-        raise DeserializationError(
-            "ServerCertificateMetadata.server_certificate_name required"
-        )
+        out["server_certificate_name"] = ""
     child_server_certificate_id = el.find("ServerCertificateId")
     if child_server_certificate_id is not None:
         out["server_certificate_id"] = str(child_server_certificate_id.text or "")
     else:
-        raise DeserializationError(
-            "ServerCertificateMetadata.server_certificate_id required"
-        )
+        out["server_certificate_id"] = ""
     child_arn = el.find("Arn")
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("ServerCertificateMetadata.arn required")
+        out["arn"] = ""
     child_upload_date = el.find("UploadDate")
     if child_upload_date is not None:
         import capo_iam.types.date_type

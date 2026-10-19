@@ -37,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> EnableRadiusRequest:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError("EnableRadiusRequest.directory_id required")
+        out["directory_id"] = ""
     if data.get("RadiusSettings") is not None:
         import capo_directory_service.types.radius_settings
 

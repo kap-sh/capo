@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.date_timestamp
     import capo_network_security_manager.types.deployment_arn
@@ -78,11 +76,11 @@ def deserialize_json(data: dict) -> DeploymentSummary:
     if data.get("deploymentId") is not None:
         out["deployment_id"] = data["deploymentId"]
     else:
-        raise DeserializationError("DeploymentSummary.deployment_id required")
+        out["deployment_id"] = ""
     if data.get("deploymentArn") is not None:
         out["deployment_arn"] = data["deploymentArn"]
     else:
-        raise DeserializationError("DeploymentSummary.deployment_arn required")
+        out["deployment_arn"] = ""
     if data.get("deploymentName") is not None:
         out["deployment_name"] = data["deploymentName"]
     if data.get("status") is not None:

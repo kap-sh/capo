@@ -72,11 +72,11 @@ def deserialize_json(data: dict) -> GetEventStreamResponse:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("GetEventStreamResponse.domain_name required")
+        out["domain_name"] = ""
     if data.get("EventStreamArn") is not None:
         out["event_stream_arn"] = data["EventStreamArn"]
     else:
-        raise DeserializationError("GetEventStreamResponse.event_stream_arn required")
+        out["event_stream_arn"] = ""
     if data.get("CreatedAt") is not None:
         import capo_customer_profiles.types.timestamp
 
@@ -84,7 +84,9 @@ def deserialize_json(data: dict) -> GetEventStreamResponse:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("GetEventStreamResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("State") is not None:
         import capo_customer_profiles.types.event_stream_state
 
@@ -92,7 +94,11 @@ def deserialize_json(data: dict) -> GetEventStreamResponse:
             data["State"]
         )
     else:
-        raise DeserializationError("GetEventStreamResponse.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_customer_profiles.types.event_stream_state.EventStreamState", ""
+        )
     if data.get("StoppedSince") is not None:
         import capo_customer_profiles.types.timestamp
 

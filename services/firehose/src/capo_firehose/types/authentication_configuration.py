@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.connectivity
     import capo_firehose.types.role_arn
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> AuthenticationConfiguration:
     if data.get("RoleARN") is not None:
         out["role_arn"] = data["RoleARN"]
     else:
-        raise DeserializationError("AuthenticationConfiguration.role_arn required")
+        out["role_arn"] = ""
     if data.get("Connectivity") is not None:
         import capo_firehose.types.connectivity
 
@@ -43,5 +41,9 @@ def deserialize_aws_json_1_1(data: dict) -> AuthenticationConfiguration:
             data["Connectivity"]
         )
     else:
-        raise DeserializationError("AuthenticationConfiguration.connectivity required")
+        import typing
+
+        out["connectivity"] = typing.cast(
+            "capo_firehose.types.connectivity.Connectivity", ""
+        )
     return out

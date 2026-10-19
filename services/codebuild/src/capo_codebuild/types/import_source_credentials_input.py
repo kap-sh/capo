@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.auth_type
     import capo_codebuild.types.non_empty_string
@@ -55,7 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> ImportSourceCredentialsInput:
     if data.get("token") is not None:
         out["token"] = data["token"]
     else:
-        raise DeserializationError("ImportSourceCredentialsInput.token required")
+        out["token"] = ""
     if data.get("serverType") is not None:
         import capo_codebuild.types.server_type
 
@@ -63,7 +61,11 @@ def deserialize_aws_json_1_1(data: dict) -> ImportSourceCredentialsInput:
             data["serverType"]
         )
     else:
-        raise DeserializationError("ImportSourceCredentialsInput.server_type required")
+        import typing
+
+        out["server_type"] = typing.cast(
+            "capo_codebuild.types.server_type.ServerType", ""
+        )
     if data.get("authType") is not None:
         import capo_codebuild.types.auth_type
 
@@ -71,7 +73,9 @@ def deserialize_aws_json_1_1(data: dict) -> ImportSourceCredentialsInput:
             data["authType"]
         )
     else:
-        raise DeserializationError("ImportSourceCredentialsInput.auth_type required")
+        import typing
+
+        out["auth_type"] = typing.cast("capo_codebuild.types.auth_type.AuthType", "")
     if data.get("shouldOverwrite") is not None:
         out["should_overwrite"] = data["shouldOverwrite"]
     return out

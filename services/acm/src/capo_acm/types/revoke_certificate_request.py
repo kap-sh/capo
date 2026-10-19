@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_acm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm.types.arn
     import capo_acm.types.revocation_reason
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> RevokeCertificateRequest:
     if data.get("CertificateArn") is not None:
         out["certificate_arn"] = data["CertificateArn"]
     else:
-        raise DeserializationError("RevokeCertificateRequest.certificate_arn required")
+        out["certificate_arn"] = ""
     if data.get("RevocationReason") is not None:
         import capo_acm.types.revocation_reason
 
@@ -45,7 +43,9 @@ def deserialize_aws_json_1_1(data: dict) -> RevokeCertificateRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "RevokeCertificateRequest.revocation_reason required"
+        import typing
+
+        out["revocation_reason"] = typing.cast(
+            "capo_acm.types.revocation_reason.RevocationReason", ""
         )
     return out

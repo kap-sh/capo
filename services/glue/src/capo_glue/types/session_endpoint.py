@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.sensitive_string
     import capo_glue.types.spark_connect_endpoint_url
@@ -41,11 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> SessionEndpoint:
     if data.get("Url") is not None:
         out["url"] = data["Url"]
     else:
-        raise DeserializationError("SessionEndpoint.url required")
+        out["url"] = ""
     if data.get("AuthToken") is not None:
         out["auth_token"] = data["AuthToken"]
     else:
-        raise DeserializationError("SessionEndpoint.auth_token required")
+        out["auth_token"] = ""
     if data.get("AuthTokenExpirationTime") is not None:
         import capo_glue.types.timestamp_value
 
@@ -55,8 +53,10 @@ def deserialize_aws_json_1_1(data: dict) -> SessionEndpoint:
             )
         )
     else:
-        raise DeserializationError(
-            "SessionEndpoint.auth_token_expiration_time required"
+        import datetime
+
+        out["auth_token_expiration_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out
 

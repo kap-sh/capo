@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.bucket_name
@@ -58,7 +57,7 @@ def deserialize_xml(el: Element) -> RegionalBucket:
     if child_bucket is not None:
         out["bucket"] = str(child_bucket.text or "")
     else:
-        raise DeserializationError("RegionalBucket.bucket required")
+        out["bucket"] = ""
     child_bucket_arn = el.find("BucketArn")
     if child_bucket_arn is not None:
         out["bucket_arn"] = str(child_bucket_arn.text or "")
@@ -77,7 +76,11 @@ def deserialize_xml(el: Element) -> RegionalBucket:
             child_creation_date
         )
     else:
-        raise DeserializationError("RegionalBucket.creation_date required")
+        import datetime
+
+        out["creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_outpost_id = el.find("OutpostId")
     if child_outpost_id is not None:
         out["outpost_id"] = str(child_outpost_id.text or "")

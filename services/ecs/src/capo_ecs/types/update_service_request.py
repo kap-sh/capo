@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.availability_zone_rebalancing
     import capo_ecs.types.boolean
@@ -241,7 +239,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateServiceRequest:
     if data.get("service") is not None:
         out["service"] = data["service"]
     else:
-        raise DeserializationError("UpdateServiceRequest.service required")
+        out["service"] = ""
     if data.get("desiredCount") is not None:
         out["desired_count"] = data["desiredCount"]
     if data.get("taskDefinition") is not None:

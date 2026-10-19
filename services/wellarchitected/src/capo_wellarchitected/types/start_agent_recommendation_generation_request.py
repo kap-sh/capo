@@ -52,9 +52,7 @@ def deserialize_json(data: dict) -> StartAgentRecommendationGenerationRequest:
             data["types"]
         )
     else:
-        raise DeserializationError(
-            "StartAgentRecommendationGenerationRequest.types required"
-        )
+        out["types"] = []
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("additionalContext") is not None:

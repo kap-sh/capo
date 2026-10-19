@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -59,7 +57,7 @@ def deserialize_cbor(data: dict) -> ListTelemetryFieldsRequest:
     if data.get("dataSetName") is not None:
         out["data_set_name"] = data["dataSetName"]
     else:
-        raise DeserializationError("ListTelemetryFieldsRequest.data_set_name required")
+        out["data_set_name"] = ""
     if data.get("telemetryType") is not None:
         import capo_cloudwatchomni.types.telemetry_type
 

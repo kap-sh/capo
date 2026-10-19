@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.boolean
     import capo_customer_profiles.types.display_name
@@ -60,11 +58,11 @@ def deserialize_json(data: dict) -> CreateDomainLayoutRequest:
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("CreateDomainLayoutRequest.description required")
+        out["description"] = ""
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     else:
-        raise DeserializationError("CreateDomainLayoutRequest.display_name required")
+        out["display_name"] = ""
     if data.get("IsDefault") is not None:
         out["is_default"] = data["IsDefault"]
     if data.get("LayoutType") is not None:
@@ -74,11 +72,15 @@ def deserialize_json(data: dict) -> CreateDomainLayoutRequest:
             data["LayoutType"]
         )
     else:
-        raise DeserializationError("CreateDomainLayoutRequest.layout_type required")
+        import typing
+
+        out["layout_type"] = typing.cast(
+            "capo_customer_profiles.types.layout_type.LayoutType", ""
+        )
     if data.get("Layout") is not None:
         out["layout"] = data["Layout"]
     else:
-        raise DeserializationError("CreateDomainLayoutRequest.layout required")
+        out["layout"] = ""
     if data.get("Tags") is not None:
         import capo_customer_profiles.types.tag_map
 

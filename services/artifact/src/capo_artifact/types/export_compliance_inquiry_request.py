@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_artifact.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_artifact.types.inquiry_id
     import capo_artifact.types.query_identifiers_list
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> ExportComplianceInquiryRequest:
     if data.get("complianceInquiryId") is not None:
         out["compliance_inquiry_id"] = data["complianceInquiryId"]
     else:
-        raise DeserializationError(
-            "ExportComplianceInquiryRequest.compliance_inquiry_id required"
-        )
+        out["compliance_inquiry_id"] = ""
     if data.get("queryIdentifiers") is not None:
         import capo_artifact.types.query_identifiers_list
 

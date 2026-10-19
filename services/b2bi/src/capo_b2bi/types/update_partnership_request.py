@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.capability_options
     import capo_b2bi.types.partner_name
@@ -58,7 +56,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdatePartnershipRequest:
     if data.get("partnershipId") is not None:
         out["partnership_id"] = data["partnershipId"]
     else:
-        raise DeserializationError("UpdatePartnershipRequest.partnership_id required")
+        out["partnership_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("capabilities") is not None:

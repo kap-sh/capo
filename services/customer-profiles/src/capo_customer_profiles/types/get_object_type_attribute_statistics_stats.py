@@ -78,27 +78,19 @@ def deserialize_json(data: dict) -> GetObjectTypeAttributeStatisticsStats:
     if data.get("Maximum") is not None:
         out["maximum"] = float(data["Maximum"])
     else:
-        raise DeserializationError(
-            "GetObjectTypeAttributeStatisticsStats.maximum required"
-        )
+        out["maximum"] = 0.0
     if data.get("Minimum") is not None:
         out["minimum"] = float(data["Minimum"])
     else:
-        raise DeserializationError(
-            "GetObjectTypeAttributeStatisticsStats.minimum required"
-        )
+        out["minimum"] = 0.0
     if data.get("Average") is not None:
         out["average"] = float(data["Average"])
     else:
-        raise DeserializationError(
-            "GetObjectTypeAttributeStatisticsStats.average required"
-        )
+        out["average"] = 0.0
     if data.get("StandardDeviation") is not None:
         out["standard_deviation"] = float(data["StandardDeviation"])
     else:
-        raise DeserializationError(
-            "GetObjectTypeAttributeStatisticsStats.standard_deviation required"
-        )
+        out["standard_deviation"] = 0.0
     if data.get("Percentiles") is not None:
         import capo_customer_profiles.types.get_object_type_attribute_statistics_percentiles
 

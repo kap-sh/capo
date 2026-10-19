@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eventbridgev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.detail_type
     import capo_eventbridgev2.types.event_detail
@@ -67,11 +65,11 @@ def deserialize_cbor(data: dict) -> PutEventsRequestEntry:
     if data.get("Source") is not None:
         out["source"] = data["Source"]
     else:
-        raise DeserializationError("PutEventsRequestEntry.source required")
+        out["source"] = ""
     if data.get("DetailType") is not None:
         out["detail_type"] = data["DetailType"]
     else:
-        raise DeserializationError("PutEventsRequestEntry.detail_type required")
+        out["detail_type"] = ""
     if data.get("Detail") is not None:
         out["detail"] = data["Detail"]
     if data.get("Resources") is not None:

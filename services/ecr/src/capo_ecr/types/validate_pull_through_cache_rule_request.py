@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr.types.pull_through_cache_rule_repository_prefix
     import capo_ecr.types.registry_id
@@ -32,9 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> ValidatePullThroughCacheRuleRequest:
     if data.get("ecrRepositoryPrefix") is not None:
         out["ecr_repository_prefix"] = data["ecrRepositoryPrefix"]
     else:
-        raise DeserializationError(
-            "ValidatePullThroughCacheRuleRequest.ecr_repository_prefix required"
-        )
+        out["ecr_repository_prefix"] = ""
     if data.get("registryId") is not None:
         out["registry_id"] = data["registryId"]
     return out

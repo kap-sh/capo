@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -58,15 +56,15 @@ def deserialize_json(data: dict) -> TableBucketSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("TableBucketSummary.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("TableBucketSummary.name required")
+        out["name"] = ""
     if data.get("ownerAccountId") is not None:
         out["owner_account_id"] = data["ownerAccountId"]
     else:
-        raise DeserializationError("TableBucketSummary.owner_account_id required")
+        out["owner_account_id"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -74,7 +72,9 @@ def deserialize_json(data: dict) -> TableBucketSummary:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("TableBucketSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("tableBucketId") is not None:
         out["table_bucket_id"] = data["tableBucketId"]
     if data.get("type") is not None:

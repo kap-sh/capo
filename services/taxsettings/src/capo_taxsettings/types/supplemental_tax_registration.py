@@ -58,9 +58,7 @@ def deserialize_json(data: dict) -> SupplementalTaxRegistration:
     if data.get("registrationId") is not None:
         out["registration_id"] = data["registrationId"]
     else:
-        raise DeserializationError(
-            "SupplementalTaxRegistration.registration_id required"
-        )
+        out["registration_id"] = ""
     if data.get("registrationType") is not None:
         import capo_taxsettings.types.supplemental_tax_registration_type
 
@@ -70,13 +68,16 @@ def deserialize_json(data: dict) -> SupplementalTaxRegistration:
             )
         )
     else:
-        raise DeserializationError(
-            "SupplementalTaxRegistration.registration_type required"
+        import typing
+
+        out["registration_type"] = typing.cast(
+            "capo_taxsettings.types.supplemental_tax_registration_type.SupplementalTaxRegistrationType",
+            "",
         )
     if data.get("legalName") is not None:
         out["legal_name"] = data["legalName"]
     else:
-        raise DeserializationError("SupplementalTaxRegistration.legal_name required")
+        out["legal_name"] = ""
     if data.get("address") is not None:
         import capo_taxsettings.types.address
 
@@ -88,7 +89,7 @@ def deserialize_json(data: dict) -> SupplementalTaxRegistration:
     if data.get("authorityId") is not None:
         out["authority_id"] = data["authorityId"]
     else:
-        raise DeserializationError("SupplementalTaxRegistration.authority_id required")
+        out["authority_id"] = ""
     if data.get("status") is not None:
         import capo_taxsettings.types.tax_registration_status
 
@@ -96,5 +97,9 @@ def deserialize_json(data: dict) -> SupplementalTaxRegistration:
             data["status"]
         )
     else:
-        raise DeserializationError("SupplementalTaxRegistration.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_taxsettings.types.tax_registration_status.TaxRegistrationStatus", ""
+        )
     return out

@@ -65,11 +65,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateContactChannelRequest:
     if data.get("ContactId") is not None:
         out["contact_id"] = data["ContactId"]
     else:
-        raise DeserializationError("CreateContactChannelRequest.contact_id required")
+        out["contact_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateContactChannelRequest.name required")
+        out["name"] = ""
     if data.get("Type") is not None:
         import capo_ssm_contacts.types.channel_type
 
@@ -77,7 +77,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateContactChannelRequest:
             data["Type"]
         )
     else:
-        raise DeserializationError("CreateContactChannelRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_ssm_contacts.types.channel_type.ChannelType", ""
+        )
     if data.get("DeliveryAddress") is not None:
         import capo_ssm_contacts.types.contact_channel_address
 

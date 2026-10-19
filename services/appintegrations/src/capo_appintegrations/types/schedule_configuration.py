@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appintegrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appintegrations.types.non_blank_string
     import capo_appintegrations.types.object
@@ -42,5 +40,5 @@ def deserialize_json(data: dict) -> ScheduleConfiguration:
     if data.get("ScheduleExpression") is not None:
         out["schedule_expression"] = data["ScheduleExpression"]
     else:
-        raise DeserializationError("ScheduleConfiguration.schedule_expression required")
+        out["schedule_expression"] = ""
     return out

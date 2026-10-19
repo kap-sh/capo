@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.fsx_ontap_subdirectory
     import capo_datasync.types.fsx_update_protocol
@@ -45,9 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLocationFsxOntapRequest:
     if data.get("LocationArn") is not None:
         out["location_arn"] = data["LocationArn"]
     else:
-        raise DeserializationError(
-            "UpdateLocationFsxOntapRequest.location_arn required"
-        )
+        out["location_arn"] = ""
     if data.get("Protocol") is not None:
         import capo_datasync.types.fsx_update_protocol
 

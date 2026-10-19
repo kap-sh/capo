@@ -37,9 +37,7 @@ def deserialize_aws_json_1_0(data: dict) -> RegistrationSectionDefinition:
     if data.get("SectionPath") is not None:
         out["section_path"] = data["SectionPath"]
     else:
-        raise DeserializationError(
-            "RegistrationSectionDefinition.section_path required"
-        )
+        out["section_path"] = ""
     if data.get("DisplayHints") is not None:
         import capo_pinpoint_sms_voice_v2.types.registration_section_display_hints
 

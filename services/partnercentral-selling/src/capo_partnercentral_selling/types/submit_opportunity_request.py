@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.catalog_identifier
     import capo_partnercentral_selling.types.opportunity_identifier
@@ -56,11 +54,11 @@ def deserialize_aws_json_1_0(data: dict) -> SubmitOpportunityRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("SubmitOpportunityRequest.catalog required")
+        out["catalog"] = ""
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("SubmitOpportunityRequest.identifier required")
+        out["identifier"] = ""
     if data.get("InvolvementType") is not None:
         import capo_partnercentral_selling.types.sales_involvement_type
 
@@ -70,7 +68,12 @@ def deserialize_aws_json_1_0(data: dict) -> SubmitOpportunityRequest:
             )
         )
     else:
-        raise DeserializationError("SubmitOpportunityRequest.involvement_type required")
+        import typing
+
+        out["involvement_type"] = typing.cast(
+            "capo_partnercentral_selling.types.sales_involvement_type.SalesInvolvementType",
+            "",
+        )
     if data.get("Visibility") is not None:
         import capo_partnercentral_selling.types.visibility
 

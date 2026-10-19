@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_timestream_influxdb.errors import DeserializationError
-
 
 class S3Configuration(TypedDict, closed=True):
     bucket_name: "str"
@@ -25,9 +23,9 @@ def deserialize_aws_json_1_0(data: dict) -> S3Configuration:
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError("S3Configuration.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     else:
-        raise DeserializationError("S3Configuration.enabled required")
+        out["enabled"] = False
     return out

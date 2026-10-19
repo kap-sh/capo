@@ -43,7 +43,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetSchemaByDefinitionInput:
     if data.get("SchemaDefinition") is not None:
         out["schema_definition"] = data["SchemaDefinition"]
     else:
-        raise DeserializationError(
-            "GetSchemaByDefinitionInput.schema_definition required"
-        )
+        out["schema_definition"] = ""
     return out

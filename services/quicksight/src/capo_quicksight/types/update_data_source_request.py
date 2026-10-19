@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.data_source_credentials
@@ -81,7 +79,7 @@ def deserialize_json(data: dict) -> UpdateDataSourceRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateDataSourceRequest.name required")
+        out["name"] = ""
     if data.get("DataSourceParameters") is not None:
         import capo_quicksight.types.data_source_parameters
 

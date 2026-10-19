@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudfront_keyvaluestore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -65,17 +63,15 @@ def deserialize_json(data: dict) -> DescribeKeyValueStoreResponse:
     if data.get("ItemCount") is not None:
         out["item_count"] = data["ItemCount"]
     else:
-        raise DeserializationError("DescribeKeyValueStoreResponse.item_count required")
+        out["item_count"] = 0
     if data.get("TotalSizeInBytes") is not None:
         out["total_size_in_bytes"] = data["TotalSizeInBytes"]
     else:
-        raise DeserializationError(
-            "DescribeKeyValueStoreResponse.total_size_in_bytes required"
-        )
+        out["total_size_in_bytes"] = 0
     if data.get("KvsARN") is not None:
         out["kvs_arn"] = data["KvsARN"]
     else:
-        raise DeserializationError("DescribeKeyValueStoreResponse.kvs_arn required")
+        out["kvs_arn"] = ""
     if data.get("Created") is not None:
         import capo_cloudfront_keyvaluestore.types._prelude.timestamp
 
@@ -85,7 +81,9 @@ def deserialize_json(data: dict) -> DescribeKeyValueStoreResponse:
             )
         )
     else:
-        raise DeserializationError("DescribeKeyValueStoreResponse.created required")
+        import datetime
+
+        out["created"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("LastModified") is not None:
         import capo_cloudfront_keyvaluestore.types._prelude.timestamp
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.data_source_user_id
     import capo_qbusiness.types.membership_type
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> MemberUser:
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
     else:
-        raise DeserializationError("MemberUser.user_id required")
+        out["user_id"] = ""
     if data.get("type") is not None:
         import capo_qbusiness.types.membership_type
 

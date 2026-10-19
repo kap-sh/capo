@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.event_category_aggregation
     import capo_cloudtrail.types.templates
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> AggregationConfiguration:
             data["Templates"]
         )
     else:
-        raise DeserializationError("AggregationConfiguration.templates required")
+        out["templates"] = []
     if data.get("EventCategory") is not None:
         import capo_cloudtrail.types.event_category_aggregation
 
@@ -57,5 +55,10 @@ def deserialize_aws_json_1_1(data: dict) -> AggregationConfiguration:
             )
         )
     else:
-        raise DeserializationError("AggregationConfiguration.event_category required")
+        import typing
+
+        out["event_category"] = typing.cast(
+            "capo_cloudtrail.types.event_category_aggregation.EventCategoryAggregation",
+            "",
+        )
     return out

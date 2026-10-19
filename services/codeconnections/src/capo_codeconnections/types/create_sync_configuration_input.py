@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeconnections.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeconnections.types.branch_name
     import capo_codeconnections.types.deployment_file_path
@@ -94,27 +92,23 @@ def deserialize_aws_json_1_0(data: dict) -> CreateSyncConfigurationInput:
     if data.get("Branch") is not None:
         out["branch"] = data["Branch"]
     else:
-        raise DeserializationError("CreateSyncConfigurationInput.branch required")
+        out["branch"] = ""
     if data.get("ConfigFile") is not None:
         out["config_file"] = data["ConfigFile"]
     else:
-        raise DeserializationError("CreateSyncConfigurationInput.config_file required")
+        out["config_file"] = ""
     if data.get("RepositoryLinkId") is not None:
         out["repository_link_id"] = data["RepositoryLinkId"]
     else:
-        raise DeserializationError(
-            "CreateSyncConfigurationInput.repository_link_id required"
-        )
+        out["repository_link_id"] = ""
     if data.get("ResourceName") is not None:
         out["resource_name"] = data["ResourceName"]
     else:
-        raise DeserializationError(
-            "CreateSyncConfigurationInput.resource_name required"
-        )
+        out["resource_name"] = ""
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("CreateSyncConfigurationInput.role_arn required")
+        out["role_arn"] = ""
     if data.get("SyncType") is not None:
         import capo_codeconnections.types.sync_configuration_type
 
@@ -124,7 +118,12 @@ def deserialize_aws_json_1_0(data: dict) -> CreateSyncConfigurationInput:
             )
         )
     else:
-        raise DeserializationError("CreateSyncConfigurationInput.sync_type required")
+        import typing
+
+        out["sync_type"] = typing.cast(
+            "capo_codeconnections.types.sync_configuration_type.SyncConfigurationType",
+            "",
+        )
     if data.get("PublishDeploymentStatus") is not None:
         import capo_codeconnections.types.publish_deployment_status
 

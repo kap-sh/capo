@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.s3_bucket
     import capo_proton.types.s3_key
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> S3ObjectSource:
     if data.get("bucket") is not None:
         out["bucket"] = data["bucket"]
     else:
-        raise DeserializationError("S3ObjectSource.bucket required")
+        out["bucket"] = ""
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("S3ObjectSource.key required")
+        out["key"] = ""
     return out

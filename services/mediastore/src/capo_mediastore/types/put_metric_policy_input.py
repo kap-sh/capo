@@ -35,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutMetricPolicyInput:
     if data.get("ContainerName") is not None:
         out["container_name"] = data["ContainerName"]
     else:
-        raise DeserializationError("PutMetricPolicyInput.container_name required")
+        out["container_name"] = ""
     if data.get("MetricPolicy") is not None:
         import capo_mediastore.types.metric_policy
 

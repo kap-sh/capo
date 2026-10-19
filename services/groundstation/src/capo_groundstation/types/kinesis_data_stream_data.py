@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.kinesis_data_stream_arn
     import capo_groundstation.types.role_arn
@@ -33,11 +31,9 @@ def deserialize_json(data: dict) -> KinesisDataStreamData:
     if data.get("kinesisRoleArn") is not None:
         out["kinesis_role_arn"] = data["kinesisRoleArn"]
     else:
-        raise DeserializationError("KinesisDataStreamData.kinesis_role_arn required")
+        out["kinesis_role_arn"] = ""
     if data.get("kinesisDataStreamArn") is not None:
         out["kinesis_data_stream_arn"] = data["kinesisDataStreamArn"]
     else:
-        raise DeserializationError(
-            "KinesisDataStreamData.kinesis_data_stream_arn required"
-        )
+        out["kinesis_data_stream_arn"] = ""
     return out

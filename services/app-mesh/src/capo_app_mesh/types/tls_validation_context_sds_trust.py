@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.sds_secret_name
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> TlsValidationContextSdsTrust:
     if data.get("secretName") is not None:
         out["secret_name"] = data["secretName"]
     else:
-        raise DeserializationError("TlsValidationContextSdsTrust.secret_name required")
+        out["secret_name"] = ""
     return out

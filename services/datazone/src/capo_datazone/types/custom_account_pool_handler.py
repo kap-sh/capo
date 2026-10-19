@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.lambda_execution_role_arn
     import capo_datazone.types.lambda_function_arn
@@ -34,9 +32,7 @@ def deserialize_json(data: dict) -> CustomAccountPoolHandler:
     if data.get("lambdaFunctionArn") is not None:
         out["lambda_function_arn"] = data["lambdaFunctionArn"]
     else:
-        raise DeserializationError(
-            "CustomAccountPoolHandler.lambda_function_arn required"
-        )
+        out["lambda_function_arn"] = ""
     if data.get("lambdaExecutionRoleArn") is not None:
         out["lambda_execution_role_arn"] = data["lambdaExecutionRoleArn"]
     return out

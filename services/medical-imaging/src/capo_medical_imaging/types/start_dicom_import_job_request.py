@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_medical_imaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_medical_imaging.types.aws_account_id
     import capo_medical_imaging.types.client_token
@@ -68,21 +66,19 @@ def deserialize_json(data: dict) -> StartDICOMImportJobRequest:
     if data.get("dataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["dataAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "StartDICOMImportJobRequest.data_access_role_arn required"
-        )
+        out["data_access_role_arn"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("StartDICOMImportJobRequest.client_token required")
+        out["client_token"] = ""
     if data.get("inputS3Uri") is not None:
         out["input_s3_uri"] = data["inputS3Uri"]
     else:
-        raise DeserializationError("StartDICOMImportJobRequest.input_s3_uri required")
+        out["input_s3_uri"] = ""
     if data.get("outputS3Uri") is not None:
         out["output_s3_uri"] = data["outputS3Uri"]
     else:
-        raise DeserializationError("StartDICOMImportJobRequest.output_s3_uri required")
+        out["output_s3_uri"] = ""
     if data.get("inputOwnerAccountId") is not None:
         out["input_owner_account_id"] = data["inputOwnerAccountId"]
     if data.get("importConfiguration") is not None:

@@ -203,17 +203,15 @@ def deserialize_json(data: dict) -> GetModelCustomizationJobResponse:
     if data.get("jobArn") is not None:
         out["job_arn"] = data["jobArn"]
     else:
-        raise DeserializationError("GetModelCustomizationJobResponse.job_arn required")
+        out["job_arn"] = ""
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError("GetModelCustomizationJobResponse.job_name required")
+        out["job_name"] = ""
     if data.get("outputModelName") is not None:
         out["output_model_name"] = data["outputModelName"]
     else:
-        raise DeserializationError(
-            "GetModelCustomizationJobResponse.output_model_name required"
-        )
+        out["output_model_name"] = ""
     if data.get("outputModelArn") is not None:
         out["output_model_arn"] = data["outputModelArn"]
     if data.get("clientRequestToken") is not None:
@@ -221,7 +219,7 @@ def deserialize_json(data: dict) -> GetModelCustomizationJobResponse:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("GetModelCustomizationJobResponse.role_arn required")
+        out["role_arn"] = ""
     if data.get("status") is not None:
         import capo_bedrock.types.model_customization_job_status
 
@@ -245,8 +243,10 @@ def deserialize_json(data: dict) -> GetModelCustomizationJobResponse:
             data["creationTime"]
         )
     else:
-        raise DeserializationError(
-            "GetModelCustomizationJobResponse.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("lastModifiedTime") is not None:
         import capo_bedrock.types.timestamp
@@ -261,9 +261,7 @@ def deserialize_json(data: dict) -> GetModelCustomizationJobResponse:
     if data.get("baseModelArn") is not None:
         out["base_model_arn"] = data["baseModelArn"]
     else:
-        raise DeserializationError(
-            "GetModelCustomizationJobResponse.base_model_arn required"
-        )
+        out["base_model_arn"] = ""
     if data.get("hyperParameters") is not None:
         import capo_bedrock.types.model_customization_hyper_parameters
 

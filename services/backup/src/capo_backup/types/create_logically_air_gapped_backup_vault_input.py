@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.arn
     import capo_backup.types.backup_vault_name
@@ -60,15 +58,11 @@ def deserialize_json(data: dict) -> CreateLogicallyAirGappedBackupVaultInput:
     if data.get("MinRetentionDays") is not None:
         out["min_retention_days"] = data["MinRetentionDays"]
     else:
-        raise DeserializationError(
-            "CreateLogicallyAirGappedBackupVaultInput.min_retention_days required"
-        )
+        out["min_retention_days"] = 0
     if data.get("MaxRetentionDays") is not None:
         out["max_retention_days"] = data["MaxRetentionDays"]
     else:
-        raise DeserializationError(
-            "CreateLogicallyAirGappedBackupVaultInput.max_retention_days required"
-        )
+        out["max_retention_days"] = 0
     if data.get("EncryptionKeyArn") is not None:
         out["encryption_key_arn"] = data["EncryptionKeyArn"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.arn
     import capo_ssm_incidents.types.client_token
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> UpdateReplicationSetInput:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("UpdateReplicationSetInput.arn required")
+        out["arn"] = ""
     if data.get("actions") is not None:
         import capo_ssm_incidents.types.update_action_list
 
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> UpdateReplicationSetInput:
             data["actions"]
         )
     else:
-        raise DeserializationError("UpdateReplicationSetInput.actions required")
+        out["actions"] = []
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

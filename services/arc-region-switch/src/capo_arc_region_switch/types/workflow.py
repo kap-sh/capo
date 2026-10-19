@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.region
     import capo_arc_region_switch.types.steps
@@ -65,7 +63,12 @@ def deserialize_aws_json_1_0(data: dict) -> Workflow:
             )
         )
     else:
-        raise DeserializationError("Workflow.workflow_target_action required")
+        import typing
+
+        out["workflow_target_action"] = typing.cast(
+            "capo_arc_region_switch.types.workflow_target_action.WorkflowTargetAction",
+            "",
+        )
     if data.get("workflowTargetRegion") is not None:
         out["workflow_target_region"] = data["workflowTargetRegion"]
     if data.get("workflowDescription") is not None:

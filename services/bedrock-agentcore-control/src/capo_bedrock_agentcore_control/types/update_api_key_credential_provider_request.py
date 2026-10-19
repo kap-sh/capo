@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.credential_provider_name
     import capo_bedrock_agentcore_control.types.default_api_key_type
@@ -60,9 +58,7 @@ def deserialize_json(data: dict) -> UpdateApiKeyCredentialProviderRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "UpdateApiKeyCredentialProviderRequest.name required"
-        )
+        out["name"] = ""
     if data.get("apiKey") is not None:
         out["api_key"] = data["apiKey"]
     if data.get("apiKeySecretConfig") is not None:

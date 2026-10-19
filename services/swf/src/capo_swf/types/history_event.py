@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.activity_task_cancel_requested_event_attributes
     import capo_swf.types.activity_task_canceled_event_attributes
@@ -753,7 +751,11 @@ def deserialize_aws_json_1_0(data: dict) -> HistoryEvent:
             data["eventTimestamp"]
         )
     else:
-        raise DeserializationError("HistoryEvent.event_timestamp required")
+        import datetime
+
+        out["event_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("eventType") is not None:
         import capo_swf.types.event_type
 
@@ -761,7 +763,9 @@ def deserialize_aws_json_1_0(data: dict) -> HistoryEvent:
             data["eventType"]
         )
     else:
-        raise DeserializationError("HistoryEvent.event_type required")
+        import typing
+
+        out["event_type"] = typing.cast("capo_swf.types.event_type.EventType", "")
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:

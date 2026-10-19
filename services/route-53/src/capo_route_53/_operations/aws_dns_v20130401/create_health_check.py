@@ -65,7 +65,10 @@ def handle_response(
             fromstring(response.read())
         )
     )
-    out["location"] = response.headers["Location"]
+    if "Location" in response.headers:
+        out["location"] = response.headers["Location"]
+    else:
+        out["location"] = ""
     return out
 
 
@@ -77,7 +80,10 @@ async def async_handle_response(
             fromstring(await response.aread())
         )
     )
-    out["location"] = response.headers["Location"]
+    if "Location" in response.headers:
+        out["location"] = response.headers["Location"]
+    else:
+        out["location"] = ""
     return out
 
 

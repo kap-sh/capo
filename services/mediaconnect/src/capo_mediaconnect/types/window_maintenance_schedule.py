@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -45,13 +43,17 @@ def deserialize_json(data: dict) -> WindowMaintenanceSchedule:
             data["start"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("WindowMaintenanceSchedule.start required")
+        import datetime
+
+        out["start"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("end") is not None:
         import datetime
 
         out["end"] = datetime.datetime.fromisoformat(data["end"].replace("Z", "+00:00"))
     else:
-        raise DeserializationError("WindowMaintenanceSchedule.end required")
+        import datetime
+
+        out["end"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("scheduledTime") is not None:
         import datetime
 
@@ -59,5 +61,9 @@ def deserialize_json(data: dict) -> WindowMaintenanceSchedule:
             data["scheduledTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("WindowMaintenanceSchedule.scheduled_time required")
+        import datetime
+
+        out["scheduled_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

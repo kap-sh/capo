@@ -117,7 +117,7 @@ def deserialize_json(data: dict) -> RouteFerryLegDetails:
             )
         )
     else:
-        raise DeserializationError("RouteFerryLegDetails.after_travel_steps required")
+        out["after_travel_steps"] = []
     if data.get("Arrival") is not None:
         import capo_geo_routes.types.route_ferry_arrival
 
@@ -135,7 +135,7 @@ def deserialize_json(data: dict) -> RouteFerryLegDetails:
             )
         )
     else:
-        raise DeserializationError("RouteFerryLegDetails.before_travel_steps required")
+        out["before_travel_steps"] = []
     if data.get("Departure") is not None:
         import capo_geo_routes.types.route_ferry_departure
 
@@ -151,7 +151,7 @@ def deserialize_json(data: dict) -> RouteFerryLegDetails:
             data["Notices"]
         )
     else:
-        raise DeserializationError("RouteFerryLegDetails.notices required")
+        out["notices"] = []
     if data.get("PassThroughWaypoints") is not None:
         import capo_geo_routes.types.route_pass_through_waypoint_list
 
@@ -161,9 +161,7 @@ def deserialize_json(data: dict) -> RouteFerryLegDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "RouteFerryLegDetails.pass_through_waypoints required"
-        )
+        out["pass_through_waypoints"] = []
     if data.get("RouteName") is not None:
         out["route_name"] = data["RouteName"]
     if data.get("Spans") is not None:
@@ -173,7 +171,7 @@ def deserialize_json(data: dict) -> RouteFerryLegDetails:
             data["Spans"]
         )
     else:
-        raise DeserializationError("RouteFerryLegDetails.spans required")
+        out["spans"] = []
     if data.get("Summary") is not None:
         import capo_geo_routes.types.route_ferry_summary
 
@@ -189,7 +187,7 @@ def deserialize_json(data: dict) -> RouteFerryLegDetails:
             )
         )
     else:
-        raise DeserializationError("RouteFerryLegDetails.travel_steps required")
+        out["travel_steps"] = []
     return out
 
 

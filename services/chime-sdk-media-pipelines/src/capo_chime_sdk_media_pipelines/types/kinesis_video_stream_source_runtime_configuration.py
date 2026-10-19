@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.media_encoding
     import capo_chime_sdk_media_pipelines.types.media_sample_rate_hertz
@@ -49,9 +47,7 @@ def deserialize_json(data: dict) -> KinesisVideoStreamSourceRuntimeConfiguration
             data["Streams"]
         )
     else:
-        raise DeserializationError(
-            "KinesisVideoStreamSourceRuntimeConfiguration.streams required"
-        )
+        out["streams"] = []
     if data.get("MediaEncoding") is not None:
         import capo_chime_sdk_media_pipelines.types.media_encoding
 
@@ -61,13 +57,13 @@ def deserialize_json(data: dict) -> KinesisVideoStreamSourceRuntimeConfiguration
             )
         )
     else:
-        raise DeserializationError(
-            "KinesisVideoStreamSourceRuntimeConfiguration.media_encoding required"
+        import typing
+
+        out["media_encoding"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.media_encoding.MediaEncoding", ""
         )
     if data.get("MediaSampleRate") is not None:
         out["media_sample_rate"] = data["MediaSampleRate"]
     else:
-        raise DeserializationError(
-            "KinesisVideoStreamSourceRuntimeConfiguration.media_sample_rate required"
-        )
+        out["media_sample_rate"] = 0
     return out

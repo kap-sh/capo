@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.data_grant_name
     import capo_dataexchange.types.description
@@ -64,21 +62,19 @@ def deserialize_json(data: dict) -> CreateDataGrantRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateDataGrantRequest.name required")
+        out["name"] = ""
     if data.get("GrantDistributionScope") is not None:
         out["grant_distribution_scope"] = data["GrantDistributionScope"]
     else:
-        raise DeserializationError(
-            "CreateDataGrantRequest.grant_distribution_scope required"
-        )
+        out["grant_distribution_scope"] = ""
     if data.get("ReceiverPrincipal") is not None:
         out["receiver_principal"] = data["ReceiverPrincipal"]
     else:
-        raise DeserializationError("CreateDataGrantRequest.receiver_principal required")
+        out["receiver_principal"] = ""
     if data.get("SourceDataSetId") is not None:
         out["source_data_set_id"] = data["SourceDataSetId"]
     else:
-        raise DeserializationError("CreateDataGrantRequest.source_data_set_id required")
+        out["source_data_set_id"] = ""
     if data.get("EndsAt") is not None:
         import capo_dataexchange.types.timestamp
 

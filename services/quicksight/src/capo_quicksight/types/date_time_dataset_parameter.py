@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.dataset_parameter_id
     import capo_quicksight.types.dataset_parameter_name
@@ -67,11 +65,11 @@ def deserialize_json(data: dict) -> DateTimeDatasetParameter:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("DateTimeDatasetParameter.id required")
+        out["id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DateTimeDatasetParameter.name required")
+        out["name"] = ""
     if data.get("ValueType") is not None:
         import capo_quicksight.types.dataset_parameter_value_type
 
@@ -81,7 +79,12 @@ def deserialize_json(data: dict) -> DateTimeDatasetParameter:
             )
         )
     else:
-        raise DeserializationError("DateTimeDatasetParameter.value_type required")
+        import typing
+
+        out["value_type"] = typing.cast(
+            "capo_quicksight.types.dataset_parameter_value_type.DatasetParameterValueType",
+            "",
+        )
     if data.get("TimeGranularity") is not None:
         import capo_quicksight.types.time_granularity
 

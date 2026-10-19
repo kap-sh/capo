@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 
 class PersistentStorageConfiguration(TypedDict, closed=True):
     size_in_gi_b: "int"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> PersistentStorageConfiguration:
     if data.get("sizeInGiB") is not None:
         out["size_in_gi_b"] = data["sizeInGiB"]
     else:
-        raise DeserializationError(
-            "PersistentStorageConfiguration.size_in_gi_b required"
-        )
+        out["size_in_gi_b"] = 0
     return out

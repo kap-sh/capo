@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.error_handling_config
     import capo_appflow.types.id_field_name_list
@@ -72,7 +70,7 @@ def deserialize_json(data: dict) -> SAPODataDestinationProperties:
     if data.get("objectPath") is not None:
         out["object_path"] = data["objectPath"]
     else:
-        raise DeserializationError("SAPODataDestinationProperties.object_path required")
+        out["object_path"] = ""
     if data.get("successResponseHandlingConfig") is not None:
         import capo_appflow.types.success_response_handling_config
 

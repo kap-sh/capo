@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_xray.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_xray.types.ec2_instance_id
     import capo_xray.types.hostname
@@ -52,9 +50,7 @@ def deserialize_json(data: dict) -> PutTelemetryRecordsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "PutTelemetryRecordsRequest.telemetry_records required"
-        )
+        out["telemetry_records"] = []
     if data.get("EC2InstanceId") is not None:
         out["ec2_instance_id"] = data["EC2InstanceId"]
     if data.get("Hostname") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.accept_language
     import capo_service_catalog.types.id
@@ -53,31 +51,21 @@ def deserialize_aws_json_1_1(data: dict) -> ImportAsProvisionedProductInput:
     if data.get("ProductId") is not None:
         out["product_id"] = data["ProductId"]
     else:
-        raise DeserializationError(
-            "ImportAsProvisionedProductInput.product_id required"
-        )
+        out["product_id"] = ""
     if data.get("ProvisioningArtifactId") is not None:
         out["provisioning_artifact_id"] = data["ProvisioningArtifactId"]
     else:
-        raise DeserializationError(
-            "ImportAsProvisionedProductInput.provisioning_artifact_id required"
-        )
+        out["provisioning_artifact_id"] = ""
     if data.get("ProvisionedProductName") is not None:
         out["provisioned_product_name"] = data["ProvisionedProductName"]
     else:
-        raise DeserializationError(
-            "ImportAsProvisionedProductInput.provisioned_product_name required"
-        )
+        out["provisioned_product_name"] = ""
     if data.get("PhysicalId") is not None:
         out["physical_id"] = data["PhysicalId"]
     else:
-        raise DeserializationError(
-            "ImportAsProvisionedProductInput.physical_id required"
-        )
+        out["physical_id"] = ""
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     else:
-        raise DeserializationError(
-            "ImportAsProvisionedProductInput.idempotency_token required"
-        )
+        out["idempotency_token"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_directory_service_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service_data.types.client_token
     import capo_directory_service_data.types.directory_id
@@ -46,11 +44,11 @@ def deserialize_json(data: dict) -> RemoveGroupMemberRequest:
     if data.get("GroupName") is not None:
         out["group_name"] = data["GroupName"]
     else:
-        raise DeserializationError("RemoveGroupMemberRequest.group_name required")
+        out["group_name"] = ""
     if data.get("MemberName") is not None:
         out["member_name"] = data["MemberName"]
     else:
-        raise DeserializationError("RemoveGroupMemberRequest.member_name required")
+        out["member_name"] = ""
     if data.get("MemberRealm") is not None:
         out["member_realm"] = data["MemberRealm"]
     if data.get("ClientToken") is not None:

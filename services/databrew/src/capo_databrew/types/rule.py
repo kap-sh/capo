@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.column_selector_list
     import capo_databrew.types.disabled
@@ -66,7 +64,7 @@ def deserialize_json(data: dict) -> Rule:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Rule.name required")
+        out["name"] = ""
     if data.get("Disabled") is not None:
         out["disabled"] = data["Disabled"]
     else:
@@ -74,7 +72,7 @@ def deserialize_json(data: dict) -> Rule:
     if data.get("CheckExpression") is not None:
         out["check_expression"] = data["CheckExpression"]
     else:
-        raise DeserializationError("Rule.check_expression required")
+        out["check_expression"] = ""
     if data.get("SubstitutionMap") is not None:
         import capo_databrew.types.values_map
 

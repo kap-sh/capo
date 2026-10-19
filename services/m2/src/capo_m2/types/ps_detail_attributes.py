@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_m2.errors import DeserializationError
-
 
 class PsDetailAttributes(TypedDict, closed=True):
     format: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> PsDetailAttributes:
     if data.get("format") is not None:
         out["format"] = data["format"]
     else:
-        raise DeserializationError("PsDetailAttributes.format required")
+        out["format"] = ""
     if data.get("encoding") is not None:
         out["encoding"] = data["encoding"]
     else:
-        raise DeserializationError("PsDetailAttributes.encoding required")
+        out["encoding"] = ""
     return out

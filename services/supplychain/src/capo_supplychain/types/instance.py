@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -97,11 +95,11 @@ def deserialize_json(data: dict) -> Instance:
     if data.get("instanceId") is not None:
         out["instance_id"] = data["instanceId"]
     else:
-        raise DeserializationError("Instance.instance_id required")
+        out["instance_id"] = ""
     if data.get("awsAccountId") is not None:
         out["aws_account_id"] = data["awsAccountId"]
     else:
-        raise DeserializationError("Instance.aws_account_id required")
+        out["aws_account_id"] = ""
     if data.get("state") is not None:
         import capo_supplychain.types.instance_state
 
@@ -109,7 +107,11 @@ def deserialize_json(data: dict) -> Instance:
             data["state"]
         )
     else:
-        raise DeserializationError("Instance.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_supplychain.types.instance_state.InstanceState", ""
+        )
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     if data.get("webAppDnsDomain") is not None:

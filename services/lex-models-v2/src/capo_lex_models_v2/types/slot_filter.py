@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.filter_values
     import capo_lex_models_v2.types.slot_filter_name
@@ -51,7 +49,11 @@ def deserialize_json(data: dict) -> SlotFilter:
             data["name"]
         )
     else:
-        raise DeserializationError("SlotFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_lex_models_v2.types.slot_filter_name.SlotFilterName", ""
+        )
     if data.get("values") is not None:
         import capo_lex_models_v2.types.filter_values
 
@@ -59,7 +61,7 @@ def deserialize_json(data: dict) -> SlotFilter:
             data["values"]
         )
     else:
-        raise DeserializationError("SlotFilter.values required")
+        out["values"] = []
     if data.get("operator") is not None:
         import capo_lex_models_v2.types.slot_filter_operator
 
@@ -69,5 +71,9 @@ def deserialize_json(data: dict) -> SlotFilter:
             )
         )
     else:
-        raise DeserializationError("SlotFilter.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_lex_models_v2.types.slot_filter_operator.SlotFilterOperator", ""
+        )
     return out

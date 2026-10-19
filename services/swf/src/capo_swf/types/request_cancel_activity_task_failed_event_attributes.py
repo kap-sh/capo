@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.activity_id
     import capo_swf.types.event_id
@@ -47,9 +45,7 @@ def deserialize_aws_json_1_0(
     if data.get("activityId") is not None:
         out["activity_id"] = data["activityId"]
     else:
-        raise DeserializationError(
-            "RequestCancelActivityTaskFailedEventAttributes.activity_id required"
-        )
+        out["activity_id"] = ""
     if data.get("cause") is not None:
         import capo_swf.types.request_cancel_activity_task_failed_cause
 
@@ -59,8 +55,11 @@ def deserialize_aws_json_1_0(
             )
         )
     else:
-        raise DeserializationError(
-            "RequestCancelActivityTaskFailedEventAttributes.cause required"
+        import typing
+
+        out["cause"] = typing.cast(
+            "capo_swf.types.request_cancel_activity_task_failed_cause.RequestCancelActivityTaskFailedCause",
+            "",
         )
     if data.get("decisionTaskCompletedEventId") is not None:
         out["decision_task_completed_event_id"] = data["decisionTaskCompletedEventId"]

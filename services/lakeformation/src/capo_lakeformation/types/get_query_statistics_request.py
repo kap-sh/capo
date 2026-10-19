@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.get_query_statistics_request_query_id_string
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> GetQueryStatisticsRequest:
     if data.get("QueryId") is not None:
         out["query_id"] = data["QueryId"]
     else:
-        raise DeserializationError("GetQueryStatisticsRequest.query_id required")
+        out["query_id"] = ""
     return out

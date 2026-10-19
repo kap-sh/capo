@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.disk_image_format
     import capo_imagebuilder.types.non_empty_string
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> S3ExportConfiguration:
     if data.get("roleName") is not None:
         out["role_name"] = data["roleName"]
     else:
-        raise DeserializationError("S3ExportConfiguration.role_name required")
+        out["role_name"] = ""
     if data.get("diskImageFormat") is not None:
         import capo_imagebuilder.types.disk_image_format
 
@@ -52,11 +50,15 @@ def deserialize_json(data: dict) -> S3ExportConfiguration:
             )
         )
     else:
-        raise DeserializationError("S3ExportConfiguration.disk_image_format required")
+        import typing
+
+        out["disk_image_format"] = typing.cast(
+            "capo_imagebuilder.types.disk_image_format.DiskImageFormat", ""
+        )
     if data.get("s3Bucket") is not None:
         out["s3_bucket"] = data["s3Bucket"]
     else:
-        raise DeserializationError("S3ExportConfiguration.s3_bucket required")
+        out["s3_bucket"] = ""
     if data.get("s3Prefix") is not None:
         out["s3_prefix"] = data["s3Prefix"]
     return out

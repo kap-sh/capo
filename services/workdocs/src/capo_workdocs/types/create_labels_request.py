@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workdocs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workdocs.types.authentication_header_type
     import capo_workdocs.types.resource_id_type
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> CreateLabelsRequest:
             data["Labels"]
         )
     else:
-        raise DeserializationError("CreateLabelsRequest.labels required")
+        out["labels"] = []
     return out
 
 

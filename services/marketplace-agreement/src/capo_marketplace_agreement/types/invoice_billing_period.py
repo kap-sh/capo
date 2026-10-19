@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_agreement.errors import DeserializationError
-
 
 class InvoiceBillingPeriod(TypedDict, closed=True):
     month: "int"
@@ -25,9 +23,9 @@ def deserialize_aws_json_1_0(data: dict) -> InvoiceBillingPeriod:
     if data.get("month") is not None:
         out["month"] = data["month"]
     else:
-        raise DeserializationError("InvoiceBillingPeriod.month required")
+        out["month"] = 0
     if data.get("year") is not None:
         out["year"] = data["year"]
     else:
-        raise DeserializationError("InvoiceBillingPeriod.year required")
+        out["year"] = 0
     return out

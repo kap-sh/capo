@@ -62,25 +62,19 @@ def deserialize_aws_json_1_1(data: dict) -> CopyProjectVersionRequest:
     if data.get("SourceProjectArn") is not None:
         out["source_project_arn"] = data["SourceProjectArn"]
     else:
-        raise DeserializationError(
-            "CopyProjectVersionRequest.source_project_arn required"
-        )
+        out["source_project_arn"] = ""
     if data.get("SourceProjectVersionArn") is not None:
         out["source_project_version_arn"] = data["SourceProjectVersionArn"]
     else:
-        raise DeserializationError(
-            "CopyProjectVersionRequest.source_project_version_arn required"
-        )
+        out["source_project_version_arn"] = ""
     if data.get("DestinationProjectArn") is not None:
         out["destination_project_arn"] = data["DestinationProjectArn"]
     else:
-        raise DeserializationError(
-            "CopyProjectVersionRequest.destination_project_arn required"
-        )
+        out["destination_project_arn"] = ""
     if data.get("VersionName") is not None:
         out["version_name"] = data["VersionName"]
     else:
-        raise DeserializationError("CopyProjectVersionRequest.version_name required")
+        out["version_name"] = ""
     if data.get("OutputConfig") is not None:
         import capo_rekognition.types.output_config
 

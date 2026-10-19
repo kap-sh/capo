@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.consent_portal_description_type
     import capo_bedrock_agentcore_control.types.consent_portal_identifier
@@ -54,9 +52,7 @@ def deserialize_json(data: dict) -> UpdateConsentPortalRequest:
     if data.get("consentPortalIdentifier") is not None:
         out["consent_portal_identifier"] = data["consentPortalIdentifier"]
     else:
-        raise DeserializationError(
-            "UpdateConsentPortalRequest.consent_portal_identifier required"
-        )
+        out["consent_portal_identifier"] = ""
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     if data.get("idpConfig") is not None:

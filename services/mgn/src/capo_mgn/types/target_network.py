@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.cidr
     import capo_mgn.types.target_network_topology
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> TargetNetwork:
     if data.get("topology") is not None:
         out["topology"] = data["topology"]
     else:
-        raise DeserializationError("TargetNetwork.topology required")
+        out["topology"] = ""
     if data.get("inboundCidr") is not None:
         out["inbound_cidr"] = data["inboundCidr"]
     if data.get("outboundCidr") is not None:

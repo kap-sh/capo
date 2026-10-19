@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.action_failure_policy
     import capo_mailmanager.types.id_or_arn
@@ -57,7 +55,7 @@ def deserialize_aws_json_1_0(data: dict) -> RelayAction:
     if data.get("Relay") is not None:
         out["relay"] = data["Relay"]
     else:
-        raise DeserializationError("RelayAction.relay required")
+        out["relay"] = ""
     if data.get("MailFrom") is not None:
         import capo_mailmanager.types.mail_from
 

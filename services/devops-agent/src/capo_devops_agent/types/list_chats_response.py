@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.chat_execution_list
 
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> ListChatsResponse:
             )
         )
     else:
-        raise DeserializationError("ListChatsResponse.executions required")
+        out["executions"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

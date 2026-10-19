@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.topic_identifier
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> TopicIdentifierDeclaration:
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("TopicIdentifierDeclaration.identifier required")
+        out["identifier"] = ""
     if data.get("TopicArn") is not None:
         out["topic_arn"] = data["TopicArn"]
     else:
-        raise DeserializationError("TopicIdentifierDeclaration.topic_arn required")
+        out["topic_arn"] = ""
     return out

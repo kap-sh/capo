@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.s3_url
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> TerraformSource:
     if data.get("s3StateFileUrl") is not None:
         out["s3_state_file_url"] = data["s3StateFileUrl"]
     else:
-        raise DeserializationError("TerraformSource.s3_state_file_url required")
+        out["s3_state_file_url"] = ""
     return out

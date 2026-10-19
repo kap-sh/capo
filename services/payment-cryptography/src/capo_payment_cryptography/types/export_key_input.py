@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.export_attributes
     import capo_payment_cryptography.types.export_key_material
@@ -60,11 +58,15 @@ def deserialize_aws_json_1_0(data: dict) -> ExportKeyInput:
             )
         )
     else:
-        raise DeserializationError("ExportKeyInput.key_material required")
+        import capo_payment_cryptography.types._unknown
+
+        out["key_material"] = (
+            capo_payment_cryptography.types._unknown.UnknownUnionMember("")
+        )
     if data.get("ExportKeyIdentifier") is not None:
         out["export_key_identifier"] = data["ExportKeyIdentifier"]
     else:
-        raise DeserializationError("ExportKeyInput.export_key_identifier required")
+        out["export_key_identifier"] = ""
     if data.get("ExportAttributes") is not None:
         import capo_payment_cryptography.types.export_attributes
 

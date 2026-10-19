@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.campaign_name
     import capo_iotfleetwise.types.data_extra_dimension_node_path_list
@@ -55,7 +53,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateCampaignRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateCampaignRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("dataExtraDimensions") is not None:
@@ -75,7 +73,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateCampaignRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateCampaignRequest.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_iotfleetwise.types.update_campaign_action.UpdateCampaignAction", ""
+        )
     return out
 
 

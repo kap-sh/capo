@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.salesforce_custom_knowledge_article_type_configuration_list
     import capo_kendra.types.salesforce_knowledge_article_state_list
@@ -65,9 +63,7 @@ def deserialize_aws_json_1_1(data: dict) -> SalesforceKnowledgeArticleConfigurat
             )
         )
     else:
-        raise DeserializationError(
-            "SalesforceKnowledgeArticleConfiguration.included_states required"
-        )
+        out["included_states"] = []
     if data.get("StandardKnowledgeArticleTypeConfiguration") is not None:
         import capo_kendra.types.salesforce_standard_knowledge_article_type_configuration
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.distance_meters
     import capo_geo_routes.types.duration_seconds
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> WaypointOptimizationConnection:
     if data.get("From") is not None:
         out["from"] = data["From"]
     else:
-        raise DeserializationError("WaypointOptimizationConnection.from required")
+        out["from"] = ""
     if data.get("RestDuration") is not None:
         out["rest_duration"] = data["RestDuration"]
     else:
@@ -54,7 +52,7 @@ def deserialize_json(data: dict) -> WaypointOptimizationConnection:
     if data.get("To") is not None:
         out["to"] = data["To"]
     else:
-        raise DeserializationError("WaypointOptimizationConnection.to required")
+        out["to"] = ""
     if data.get("TravelDuration") is not None:
         out["travel_duration"] = data["TravelDuration"]
     else:

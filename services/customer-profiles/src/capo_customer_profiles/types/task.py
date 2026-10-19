@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.connector_operator
     import capo_customer_profiles.types.destination_field
@@ -88,7 +86,7 @@ def deserialize_json(data: dict) -> Task:
             )
         )
     else:
-        raise DeserializationError("Task.source_fields required")
+        out["source_fields"] = []
     if data.get("TaskProperties") is not None:
         import capo_customer_profiles.types.task_properties_map
 
@@ -104,5 +102,9 @@ def deserialize_json(data: dict) -> Task:
             data["TaskType"]
         )
     else:
-        raise DeserializationError("Task.task_type required")
+        import typing
+
+        out["task_type"] = typing.cast(
+            "capo_customer_profiles.types.task_type.TaskType", ""
+        )
     return out

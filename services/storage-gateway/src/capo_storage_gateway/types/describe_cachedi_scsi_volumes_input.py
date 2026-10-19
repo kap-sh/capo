@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.volume_ar_ns
 
@@ -37,7 +35,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeCachediSCSIVolumesInput:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeCachediSCSIVolumesInput.volume_ar_ns required"
-        )
+        out["volume_ar_ns"] = []
     return out

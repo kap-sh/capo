@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime.types.account_status
     import capo_chime.types.account_type
@@ -93,15 +91,15 @@ def deserialize_json(data: dict) -> Account:
     if data.get("AwsAccountId") is not None:
         out["aws_account_id"] = data["AwsAccountId"]
     else:
-        raise DeserializationError("Account.aws_account_id required")
+        out["aws_account_id"] = ""
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     else:
-        raise DeserializationError("Account.account_id required")
+        out["account_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Account.name required")
+        out["name"] = ""
     if data.get("AccountType") is not None:
         import capo_chime.types.account_type
 

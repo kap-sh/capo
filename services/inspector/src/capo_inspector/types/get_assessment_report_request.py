@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.arn
     import capo_inspector.types.report_file_format
@@ -45,9 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetAssessmentReportRequest:
     if data.get("assessmentRunArn") is not None:
         out["assessment_run_arn"] = data["assessmentRunArn"]
     else:
-        raise DeserializationError(
-            "GetAssessmentReportRequest.assessment_run_arn required"
-        )
+        out["assessment_run_arn"] = ""
     if data.get("reportFileFormat") is not None:
         import capo_inspector.types.report_file_format
 
@@ -57,8 +53,10 @@ def deserialize_aws_json_1_1(data: dict) -> GetAssessmentReportRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GetAssessmentReportRequest.report_file_format required"
+        import typing
+
+        out["report_file_format"] = typing.cast(
+            "capo_inspector.types.report_file_format.ReportFileFormat", ""
         )
     if data.get("reportType") is not None:
         import capo_inspector.types.report_type
@@ -67,5 +65,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetAssessmentReportRequest:
             data["reportType"]
         )
     else:
-        raise DeserializationError("GetAssessmentReportRequest.report_type required")
+        import typing
+
+        out["report_type"] = typing.cast(
+            "capo_inspector.types.report_type.ReportType", ""
+        )
     return out

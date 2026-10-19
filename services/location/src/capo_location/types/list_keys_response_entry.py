@@ -63,7 +63,7 @@ def deserialize_json(data: dict) -> ListKeysResponseEntry:
     if data.get("KeyName") is not None:
         out["key_name"] = data["KeyName"]
     else:
-        raise DeserializationError("ListKeysResponseEntry.key_name required")
+        out["key_name"] = ""
     if data.get("ExpireTime") is not None:
         import capo_location.types.timestamp
 
@@ -71,7 +71,11 @@ def deserialize_json(data: dict) -> ListKeysResponseEntry:
             data["ExpireTime"]
         )
     else:
-        raise DeserializationError("ListKeysResponseEntry.expire_time required")
+        import datetime
+
+        out["expire_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Restrictions") is not None:
@@ -89,7 +93,11 @@ def deserialize_json(data: dict) -> ListKeysResponseEntry:
             data["CreateTime"]
         )
     else:
-        raise DeserializationError("ListKeysResponseEntry.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("UpdateTime") is not None:
         import capo_location.types.timestamp
 
@@ -97,7 +105,11 @@ def deserialize_json(data: dict) -> ListKeysResponseEntry:
             data["UpdateTime"]
         )
     else:
-        raise DeserializationError("ListKeysResponseEntry.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out
 
 

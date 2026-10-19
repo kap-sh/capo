@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_networkflowmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkflowmonitor.types.workload_insights_top_contributors_timestamps_list
     import capo_networkflowmonitor.types.workload_insights_top_contributors_values_list
@@ -52,9 +50,7 @@ def deserialize_json(data: dict) -> WorkloadInsightsTopContributorsDataPoint:
             )
         )
     else:
-        raise DeserializationError(
-            "WorkloadInsightsTopContributorsDataPoint.timestamps required"
-        )
+        out["timestamps"] = []
     if data.get("values") is not None:
         import capo_networkflowmonitor.types.workload_insights_top_contributors_values_list
 
@@ -64,13 +60,9 @@ def deserialize_json(data: dict) -> WorkloadInsightsTopContributorsDataPoint:
             )
         )
     else:
-        raise DeserializationError(
-            "WorkloadInsightsTopContributorsDataPoint.values required"
-        )
+        out["values"] = []
     if data.get("label") is not None:
         out["label"] = data["label"]
     else:
-        raise DeserializationError(
-            "WorkloadInsightsTopContributorsDataPoint.label required"
-        )
+        out["label"] = ""
     return out

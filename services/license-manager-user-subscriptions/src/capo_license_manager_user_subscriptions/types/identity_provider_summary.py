@@ -70,7 +70,13 @@ def deserialize_json(data: dict) -> IdentityProviderSummary:
             )
         )
     else:
-        raise DeserializationError("IdentityProviderSummary.identity_provider required")
+        import capo_license_manager_user_subscriptions.types._unknown
+
+        out["identity_provider"] = (
+            capo_license_manager_user_subscriptions.types._unknown.UnknownUnionMember(
+                ""
+            )
+        )
     if data.get("Settings") is not None:
         import capo_license_manager_user_subscriptions.types.settings
 
@@ -84,11 +90,11 @@ def deserialize_json(data: dict) -> IdentityProviderSummary:
     if data.get("Product") is not None:
         out["product"] = data["Product"]
     else:
-        raise DeserializationError("IdentityProviderSummary.product required")
+        out["product"] = ""
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("IdentityProviderSummary.status required")
+        out["status"] = ""
     if data.get("IdentityProviderArn") is not None:
         out["identity_provider_arn"] = data["IdentityProviderArn"]
     if data.get("FailureMessage") is not None:

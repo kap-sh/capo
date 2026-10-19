@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.file_system_location_name
     import capo_deadline.types.output_relative_directories_list
@@ -65,7 +63,7 @@ def deserialize_json(data: dict) -> ManifestProperties:
     if data.get("rootPath") is not None:
         out["root_path"] = data["rootPath"]
     else:
-        raise DeserializationError("ManifestProperties.root_path required")
+        out["root_path"] = ""
     if data.get("rootPathFormat") is not None:
         import capo_deadline.types.path_format
 
@@ -73,7 +71,11 @@ def deserialize_json(data: dict) -> ManifestProperties:
             data["rootPathFormat"]
         )
     else:
-        raise DeserializationError("ManifestProperties.root_path_format required")
+        import typing
+
+        out["root_path_format"] = typing.cast(
+            "capo_deadline.types.path_format.PathFormat", ""
+        )
     if data.get("outputRelativeDirectories") is not None:
         import capo_deadline.types.output_relative_directories_list
 

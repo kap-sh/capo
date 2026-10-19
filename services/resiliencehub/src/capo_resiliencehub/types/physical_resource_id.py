@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.aws_region
     import capo_resiliencehub.types.customer_id
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> PhysicalResourceId:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("PhysicalResourceId.identifier required")
+        out["identifier"] = ""
     if data.get("type") is not None:
         import capo_resiliencehub.types.physical_identifier_type
 
@@ -55,7 +53,12 @@ def deserialize_json(data: dict) -> PhysicalResourceId:
             )
         )
     else:
-        raise DeserializationError("PhysicalResourceId.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_resiliencehub.types.physical_identifier_type.PhysicalIdentifierType",
+            "",
+        )
     if data.get("awsRegion") is not None:
         out["aws_region"] = data["awsRegion"]
     if data.get("awsAccountId") is not None:

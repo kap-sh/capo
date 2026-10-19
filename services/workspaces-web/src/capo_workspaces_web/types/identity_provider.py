@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.identity_provider_details
     import capo_workspaces_web.types.identity_provider_name
@@ -54,7 +52,7 @@ def deserialize_json(data: dict) -> IdentityProvider:
     if data.get("identityProviderArn") is not None:
         out["identity_provider_arn"] = data["identityProviderArn"]
     else:
-        raise DeserializationError("IdentityProvider.identity_provider_arn required")
+        out["identity_provider_arn"] = ""
     if data.get("identityProviderName") is not None:
         out["identity_provider_name"] = data["identityProviderName"]
     if data.get("identityProviderType") is not None:

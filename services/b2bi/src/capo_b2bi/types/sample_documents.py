@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.bucket_name
     import capo_b2bi.types.key_list
@@ -33,11 +31,11 @@ def deserialize_aws_json_1_0(data: dict) -> SampleDocuments:
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError("SampleDocuments.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("keys") is not None:
         import capo_b2bi.types.key_list
 
         out["keys"] = capo_b2bi.types.key_list.deserialize_aws_json_1_0(data["keys"])
     else:
-        raise DeserializationError("SampleDocuments.keys required")
+        out["keys"] = []
     return out

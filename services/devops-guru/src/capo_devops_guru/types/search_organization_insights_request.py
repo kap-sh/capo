@@ -77,9 +77,7 @@ def deserialize_json(data: dict) -> SearchOrganizationInsightsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "SearchOrganizationInsightsRequest.account_ids required"
-        )
+        out["account_ids"] = []
     if data.get("StartTimeRange") is not None:
         import capo_devops_guru.types.start_time_range
 
@@ -109,5 +107,7 @@ def deserialize_json(data: dict) -> SearchOrganizationInsightsRequest:
 
         out["type"] = capo_devops_guru.types.insight_type.deserialize_json(data["Type"])
     else:
-        raise DeserializationError("SearchOrganizationInsightsRequest.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_devops_guru.types.insight_type.InsightType", "")
     return out

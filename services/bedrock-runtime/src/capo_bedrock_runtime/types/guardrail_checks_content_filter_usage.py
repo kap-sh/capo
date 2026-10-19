@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 
 class GuardrailChecksContentFilterUsage(TypedDict, closed=True):
     text_units: "int"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> GuardrailChecksContentFilterUsage:
     if data.get("textUnits") is not None:
         out["text_units"] = data["textUnits"]
     else:
-        raise DeserializationError(
-            "GuardrailChecksContentFilterUsage.text_units required"
-        )
+        out["text_units"] = 0
     return out

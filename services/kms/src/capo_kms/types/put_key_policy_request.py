@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kms.types.boolean_type
     import capo_kms.types.key_id_type
@@ -45,13 +43,13 @@ def deserialize_aws_json_1_1(data: dict) -> PutKeyPolicyRequest:
     if data.get("KeyId") is not None:
         out["key_id"] = data["KeyId"]
     else:
-        raise DeserializationError("PutKeyPolicyRequest.key_id required")
+        out["key_id"] = ""
     if data.get("PolicyName") is not None:
         out["policy_name"] = data["PolicyName"]
     if data.get("Policy") is not None:
         out["policy"] = data["Policy"]
     else:
-        raise DeserializationError("PutKeyPolicyRequest.policy required")
+        out["policy"] = ""
     if data.get("BypassPolicyLockoutSafetyCheck") is not None:
         out["bypass_policy_lockout_safety_check"] = data[
             "BypassPolicyLockoutSafetyCheck"

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -55,7 +53,11 @@ def deserialize_json(data: dict) -> EphemerisMetaData:
             data["source"]
         )
     else:
-        raise DeserializationError("EphemerisMetaData.source required")
+        import typing
+
+        out["source"] = typing.cast(
+            "capo_groundstation.types.ephemeris_source.EphemerisSource", ""
+        )
     if data.get("ephemerisId") is not None:
         out["ephemeris_id"] = data["ephemerisId"]
     if data.get("epoch") is not None:

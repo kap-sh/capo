@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_servicediscovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_servicediscovery.types.dns_record_list
     import capo_servicediscovery.types.resource_id
@@ -67,5 +65,5 @@ def deserialize_aws_json_1_1(data: dict) -> DnsConfig:
             )
         )
     else:
-        raise DeserializationError("DnsConfig.dns_records required")
+        out["dns_records"] = []
     return out

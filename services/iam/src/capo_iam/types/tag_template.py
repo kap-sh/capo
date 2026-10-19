@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.tag_template_key_type
@@ -34,10 +33,10 @@ def deserialize_query(el: Element) -> TagTemplate:
     if child_key is not None:
         out["key"] = str(child_key.text or "")
     else:
-        raise DeserializationError("TagTemplate.key required")
+        out["key"] = ""
     child_value = el.find("Value")
     if child_value is not None:
         out["value"] = str(child_value.text or "")
     else:
-        raise DeserializationError("TagTemplate.value required")
+        out["value"] = ""
     return out

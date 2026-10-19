@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_support_app.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support_app.types.team_id
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> DeleteSlackWorkspaceConfigurationRequest:
     if data.get("teamId") is not None:
         out["team_id"] = data["teamId"]
     else:
-        raise DeserializationError(
-            "DeleteSlackWorkspaceConfigurationRequest.team_id required"
-        )
+        out["team_id"] = ""
     return out

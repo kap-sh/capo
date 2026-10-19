@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 
 class WhatsAppTimeOfDay(TypedDict, closed=True):
     hours: "int"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> WhatsAppTimeOfDay:
     if data.get("hours") is not None:
         out["hours"] = data["hours"]
     else:
-        raise DeserializationError("WhatsAppTimeOfDay.hours required")
+        out["hours"] = 0
     if data.get("minutes") is not None:
         out["minutes"] = data["minutes"]
     else:
-        raise DeserializationError("WhatsAppTimeOfDay.minutes required")
+        out["minutes"] = 0
     return out

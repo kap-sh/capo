@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.datadog_authorization_config
     import capo_devops_agent.types.description
@@ -46,11 +44,11 @@ def deserialize_json(data: dict) -> DatadogServiceDetails:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DatadogServiceDetails.name required")
+        out["name"] = ""
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError("DatadogServiceDetails.endpoint required")
+        out["endpoint"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("authorizationConfig") is not None:
@@ -62,8 +60,10 @@ def deserialize_json(data: dict) -> DatadogServiceDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "DatadogServiceDetails.authorization_config required"
+        import capo_devops_agent.types._unknown
+
+        out["authorization_config"] = (
+            capo_devops_agent.types._unknown.UnknownUnionMember("")
         )
     return out
 

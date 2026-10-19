@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 
 class DashDvbMetricsReporting(TypedDict, closed=True):
     reporting_url: "str"
@@ -26,7 +24,7 @@ def deserialize_json(data: dict) -> DashDvbMetricsReporting:
     if data.get("ReportingUrl") is not None:
         out["reporting_url"] = data["ReportingUrl"]
     else:
-        raise DeserializationError("DashDvbMetricsReporting.reporting_url required")
+        out["reporting_url"] = ""
     if data.get("Probability") is not None:
         out["probability"] = data["Probability"]
     return out

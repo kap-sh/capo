@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.date_timestamp
     import capo_bedrock_agent_runtime.types.node_name
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> FlowTraceNodeActionEvent:
     if data.get("nodeName") is not None:
         out["node_name"] = data["nodeName"]
     else:
-        raise DeserializationError("FlowTraceNodeActionEvent.node_name required")
+        out["node_name"] = ""
     if data.get("timestamp") is not None:
         import capo_bedrock_agent_runtime.types.date_timestamp
 
@@ -62,19 +60,21 @@ def deserialize_json(data: dict) -> FlowTraceNodeActionEvent:
             )
         )
     else:
-        raise DeserializationError("FlowTraceNodeActionEvent.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("requestId") is not None:
         out["request_id"] = data["requestId"]
     else:
-        raise DeserializationError("FlowTraceNodeActionEvent.request_id required")
+        out["request_id"] = ""
     if data.get("serviceName") is not None:
         out["service_name"] = data["serviceName"]
     else:
-        raise DeserializationError("FlowTraceNodeActionEvent.service_name required")
+        out["service_name"] = ""
     if data.get("operationName") is not None:
         out["operation_name"] = data["operationName"]
     else:
-        raise DeserializationError("FlowTraceNodeActionEvent.operation_name required")
+        out["operation_name"] = ""
     if data.get("operationRequest") is not None:
         out["operation_request"] = data["operationRequest"]
     if data.get("operationResponse") is not None:

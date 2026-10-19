@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 
 class AnalysisTemplateValidationStatusReason(TypedDict, closed=True):
     message: "str"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> AnalysisTemplateValidationStatusReason:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError(
-            "AnalysisTemplateValidationStatusReason.message required"
-        )
+        out["message"] = ""
     return out

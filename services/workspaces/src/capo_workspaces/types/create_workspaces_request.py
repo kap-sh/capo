@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.workspace_request_list
 
@@ -39,5 +37,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreateWorkspacesRequest:
             )
         )
     else:
-        raise DeserializationError("CreateWorkspacesRequest.workspaces required")
+        out["workspaces"] = []
     return out

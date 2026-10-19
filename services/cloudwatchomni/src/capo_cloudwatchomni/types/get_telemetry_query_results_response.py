@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.query_statistics
     import capo_cloudwatchomni.types.query_status
@@ -57,7 +55,11 @@ def deserialize_cbor(data: dict) -> GetTelemetryQueryResultsResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("GetTelemetryQueryResultsResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cloudwatchomni.types.query_status.QueryStatus", ""
+        )
     if data.get("rows") is not None:
         import capo_cloudwatchomni.types.row_list
 

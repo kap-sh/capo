@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_runtime_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_runtime_service.types.dialog_action_type
     import capo_lex_runtime_service.types.fulfillment_state
@@ -87,7 +85,11 @@ def deserialize_json(data: dict) -> DialogAction:
             )
         )
     else:
-        raise DeserializationError("DialogAction.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_lex_runtime_service.types.dialog_action_type.DialogActionType", ""
+        )
     if data.get("intentName") is not None:
         out["intent_name"] = data["intentName"]
     if data.get("slots") is not None:

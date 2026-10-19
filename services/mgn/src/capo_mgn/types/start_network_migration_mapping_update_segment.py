@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.account_id
     import capo_mgn.types.scope_tags_map
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> StartNetworkMigrationMappingUpdateSegment:
     if data.get("segmentID") is not None:
         out["segment_id"] = data["segmentID"]
     else:
-        raise DeserializationError(
-            "StartNetworkMigrationMappingUpdateSegment.segment_id required"
-        )
+        out["segment_id"] = ""
     if data.get("targetAccount") is not None:
         out["target_account"] = data["targetAccount"]
     if data.get("scopeTags") is not None:

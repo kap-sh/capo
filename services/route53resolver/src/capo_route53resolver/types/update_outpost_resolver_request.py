@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.instance_count
     import capo_route53resolver.types.outpost_instance_type
@@ -48,7 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateOutpostResolverRequest:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("UpdateOutpostResolverRequest.id required")
+        out["id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("InstanceCount") is not None:

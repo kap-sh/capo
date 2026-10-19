@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.boolean
@@ -85,22 +84,22 @@ def deserialize_xml(el: Element) -> DistributionTenantSummary:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("DistributionTenantSummary.id required")
+        out["id"] = ""
     child_distribution_id = el.find("DistributionId")
     if child_distribution_id is not None:
         out["distribution_id"] = str(child_distribution_id.text or "")
     else:
-        raise DeserializationError("DistributionTenantSummary.distribution_id required")
+        out["distribution_id"] = ""
     child_name = el.find("Name")
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("DistributionTenantSummary.name required")
+        out["name"] = ""
     child_arn = el.find("Arn")
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("DistributionTenantSummary.arn required")
+        out["arn"] = ""
     child_domains = el.find("Domains")
     if child_domains is not None:
         import capo_cloudfront.types.domain_result_list
@@ -109,7 +108,7 @@ def deserialize_xml(el: Element) -> DistributionTenantSummary:
             child_domains
         )
     else:
-        raise DeserializationError("DistributionTenantSummary.domains required")
+        out["domains"] = []
     child_connection_group_id = el.find("ConnectionGroupId")
     if child_connection_group_id is not None:
         out["connection_group_id"] = str(child_connection_group_id.text or "")
@@ -128,7 +127,11 @@ def deserialize_xml(el: Element) -> DistributionTenantSummary:
             child_created_time
         )
     else:
-        raise DeserializationError("DistributionTenantSummary.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_last_modified_time = el.find("LastModifiedTime")
     if child_last_modified_time is not None:
         import capo_cloudfront.types.timestamp
@@ -137,14 +140,16 @@ def deserialize_xml(el: Element) -> DistributionTenantSummary:
             child_last_modified_time
         )
     else:
-        raise DeserializationError(
-            "DistributionTenantSummary.last_modified_time required"
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     child_e_tag = el.find("ETag")
     if child_e_tag is not None:
         out["e_tag"] = str(child_e_tag.text or "")
     else:
-        raise DeserializationError("DistributionTenantSummary.e_tag required")
+        out["e_tag"] = ""
     child_enabled = el.find("Enabled")
     if child_enabled is not None:
         out["enabled"] = (child_enabled.text or "").lower() == "true"

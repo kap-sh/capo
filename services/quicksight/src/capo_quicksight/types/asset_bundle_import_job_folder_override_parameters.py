@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.resource_id
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> AssetBundleImportJobFolderOverrideParameters
     if data.get("FolderId") is not None:
         out["folder_id"] = data["FolderId"]
     else:
-        raise DeserializationError(
-            "AssetBundleImportJobFolderOverrideParameters.folder_id required"
-        )
+        out["folder_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("ParentFolderArn") is not None:

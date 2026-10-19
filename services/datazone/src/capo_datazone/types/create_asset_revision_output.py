@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.asset_id
     import capo_datazone.types.asset_listing_details
@@ -167,25 +165,25 @@ def deserialize_json(data: dict) -> CreateAssetRevisionOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CreateAssetRevisionOutput.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateAssetRevisionOutput.name required")
+        out["name"] = ""
     if data.get("typeIdentifier") is not None:
         out["type_identifier"] = data["typeIdentifier"]
     else:
-        raise DeserializationError("CreateAssetRevisionOutput.type_identifier required")
+        out["type_identifier"] = ""
     if data.get("typeRevision") is not None:
         out["type_revision"] = data["typeRevision"]
     else:
-        raise DeserializationError("CreateAssetRevisionOutput.type_revision required")
+        out["type_revision"] = ""
     if data.get("externalIdentifier") is not None:
         out["external_identifier"] = data["externalIdentifier"]
     if data.get("revision") is not None:
         out["revision"] = data["revision"]
     else:
-        raise DeserializationError("CreateAssetRevisionOutput.revision required")
+        out["revision"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("createdAt") is not None:
@@ -223,13 +221,11 @@ def deserialize_json(data: dict) -> CreateAssetRevisionOutput:
     if data.get("owningProjectId") is not None:
         out["owning_project_id"] = data["owningProjectId"]
     else:
-        raise DeserializationError(
-            "CreateAssetRevisionOutput.owning_project_id required"
-        )
+        out["owning_project_id"] = ""
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("CreateAssetRevisionOutput.domain_id required")
+        out["domain_id"] = ""
     if data.get("listing") is not None:
         import capo_datazone.types.asset_listing_details
 
@@ -243,7 +239,7 @@ def deserialize_json(data: dict) -> CreateAssetRevisionOutput:
             data["formsOutput"]
         )
     else:
-        raise DeserializationError("CreateAssetRevisionOutput.forms_output required")
+        out["forms_output"] = []
     if data.get("readOnlyFormsOutput") is not None:
         import capo_datazone.types.form_output_list
 

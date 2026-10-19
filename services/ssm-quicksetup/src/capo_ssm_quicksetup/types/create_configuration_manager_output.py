@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_ssm_quicksetup.errors import DeserializationError
-
 
 class CreateConfigurationManagerOutput(TypedDict, closed=True):
     manager_arn: "str"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> CreateConfigurationManagerOutput:
     if data.get("ManagerArn") is not None:
         out["manager_arn"] = data["ManagerArn"]
     else:
-        raise DeserializationError(
-            "CreateConfigurationManagerOutput.manager_arn required"
-        )
+        out["manager_arn"] = ""
     return out

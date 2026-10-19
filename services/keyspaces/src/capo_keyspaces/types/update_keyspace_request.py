@@ -50,7 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateKeyspaceRequest:
     if data.get("keyspaceName") is not None:
         out["keyspace_name"] = data["keyspaceName"]
     else:
-        raise DeserializationError("UpdateKeyspaceRequest.keyspace_name required")
+        out["keyspace_name"] = ""
     if data.get("replicationSpecification") is not None:
         import capo_keyspaces.types.replication_specification
 

@@ -72,11 +72,11 @@ def deserialize_json(data: dict) -> DescribeWorkspaceResponse:
     if data.get("workspaceArn") is not None:
         out["workspace_arn"] = data["workspaceArn"]
     else:
-        raise DeserializationError("DescribeWorkspaceResponse.workspace_arn required")
+        out["workspace_arn"] = ""
     if data.get("workspaceName") is not None:
         out["workspace_name"] = data["workspaceName"]
     else:
-        raise DeserializationError("DescribeWorkspaceResponse.workspace_name required")
+        out["workspace_name"] = ""
     if data.get("workspaceDescription") is not None:
         out["workspace_description"] = data["workspaceDescription"]
     if data.get("workspaceStatus") is not None:
@@ -106,7 +106,9 @@ def deserialize_json(data: dict) -> DescribeWorkspaceResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("DescribeWorkspaceResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_iotsitewise.types.timestamp
 
@@ -114,5 +116,7 @@ def deserialize_json(data: dict) -> DescribeWorkspaceResponse:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("DescribeWorkspaceResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

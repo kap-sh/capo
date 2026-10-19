@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.aws_cloud_map_instance_attributes
     import capo_app_mesh.types.aws_cloud_map_name
@@ -48,13 +46,11 @@ def deserialize_json(data: dict) -> AwsCloudMapServiceDiscovery:
     if data.get("namespaceName") is not None:
         out["namespace_name"] = data["namespaceName"]
     else:
-        raise DeserializationError(
-            "AwsCloudMapServiceDiscovery.namespace_name required"
-        )
+        out["namespace_name"] = ""
     if data.get("serviceName") is not None:
         out["service_name"] = data["serviceName"]
     else:
-        raise DeserializationError("AwsCloudMapServiceDiscovery.service_name required")
+        out["service_name"] = ""
     if data.get("attributes") is not None:
         import capo_app_mesh.types.aws_cloud_map_instance_attributes
 

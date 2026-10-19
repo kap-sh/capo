@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wellarchitected.types.agent_recommendation_arn
     import capo_wellarchitected.types.feedback_category
@@ -61,8 +59,11 @@ def deserialize_json(data: dict) -> PutAgentRecommendationFeedbackRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "PutAgentRecommendationFeedbackRequest.type required"
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_wellarchitected.types.recommendation_feedback_type.RecommendationFeedbackType",
+            "",
         )
     if data.get("feedbackCategory") is not None:
         import capo_wellarchitected.types.feedback_category

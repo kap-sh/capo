@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pca_connector_scep.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pca_connector_scep.types.certificate_authority_arn
     import capo_pca_connector_scep.types.client_token
@@ -59,9 +57,7 @@ def deserialize_json(data: dict) -> CreateConnectorRequest:
     if data.get("CertificateAuthorityArn") is not None:
         out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
     else:
-        raise DeserializationError(
-            "CreateConnectorRequest.certificate_authority_arn required"
-        )
+        out["certificate_authority_arn"] = ""
     if data.get("MobileDeviceManagement") is not None:
         import capo_pca_connector_scep.types.mobile_device_management
 

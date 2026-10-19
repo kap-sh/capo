@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appintegrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appintegrations.types.application_approved_origins
     import capo_appintegrations.types.url
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ExternalUrlConfig:
     if data.get("AccessUrl") is not None:
         out["access_url"] = data["AccessUrl"]
     else:
-        raise DeserializationError("ExternalUrlConfig.access_url required")
+        out["access_url"] = ""
     if data.get("ApprovedOrigins") is not None:
         import capo_appintegrations.types.application_approved_origins
 

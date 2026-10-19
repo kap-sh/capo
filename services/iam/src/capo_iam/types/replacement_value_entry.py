@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.replacement_value_list_type
@@ -38,5 +37,5 @@ def deserialize_query(el: Element) -> ReplacementValueEntry:
             child_values
         )
     else:
-        raise DeserializationError("ReplacementValueEntry.values required")
+        out["values"] = []
     return out

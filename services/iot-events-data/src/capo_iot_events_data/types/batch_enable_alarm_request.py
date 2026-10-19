@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_events_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events_data.types.enable_alarm_action_requests
 
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> BatchEnableAlarmRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchEnableAlarmRequest.enable_action_requests required"
-        )
+        out["enable_action_requests"] = []
     return out

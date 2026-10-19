@@ -52,8 +52,10 @@ def deserialize_json(data: dict) -> WhatsAppWeeklyOperatingHoursEntry:
             )
         )
     else:
-        raise DeserializationError(
-            "WhatsAppWeeklyOperatingHoursEntry.day_of_week required"
+        import typing
+
+        out["day_of_week"] = typing.cast(
+            "capo_socialmessaging.types.whats_app_day_of_week.WhatsAppDayOfWeek", ""
         )
     if data.get("openTime") is not None:
         import capo_socialmessaging.types.whats_app_time_of_day

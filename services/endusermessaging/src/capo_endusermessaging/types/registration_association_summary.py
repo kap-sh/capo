@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_endusermessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -43,15 +41,11 @@ def deserialize_json(data: dict) -> RegistrationAssociationSummary:
     if data.get("registrationId") is not None:
         out["registration_id"] = data["registrationId"]
     else:
-        raise DeserializationError(
-            "RegistrationAssociationSummary.registration_id required"
-        )
+        out["registration_id"] = ""
     if data.get("registrationType") is not None:
         out["registration_type"] = data["registrationType"]
     else:
-        raise DeserializationError(
-            "RegistrationAssociationSummary.registration_type required"
-        )
+        out["registration_type"] = ""
     if data.get("createdAt") is not None:
         import capo_endusermessaging.types._prelude.timestamp
 
@@ -61,11 +55,11 @@ def deserialize_json(data: dict) -> RegistrationAssociationSummary:
             )
         )
     else:
-        raise DeserializationError("RegistrationAssociationSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("smartMatchUsed") is not None:
         out["smart_match_used"] = data["smartMatchUsed"]
     else:
-        raise DeserializationError(
-            "RegistrationAssociationSummary.smart_match_used required"
-        )
+        out["smart_match_used"] = False
     return out

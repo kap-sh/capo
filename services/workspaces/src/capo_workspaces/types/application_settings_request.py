@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.application_settings_status_enum
     import capo_workspaces.types.settings_group
@@ -44,7 +42,12 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationSettingsRequest:
             )
         )
     else:
-        raise DeserializationError("ApplicationSettingsRequest.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_workspaces.types.application_settings_status_enum.ApplicationSettingsStatusEnum",
+            "",
+        )
     if data.get("SettingsGroup") is not None:
         out["settings_group"] = data["SettingsGroup"]
     return out

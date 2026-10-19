@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.asset_bundle_import_job_data_source_credentials
     import capo_quicksight.types.data_source_parameters
@@ -77,9 +75,7 @@ def deserialize_json(data: dict) -> AssetBundleImportJobDataSourceOverrideParame
     if data.get("DataSourceId") is not None:
         out["data_source_id"] = data["DataSourceId"]
     else:
-        raise DeserializationError(
-            "AssetBundleImportJobDataSourceOverrideParameters.data_source_id required"
-        )
+        out["data_source_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("DataSourceParameters") is not None:

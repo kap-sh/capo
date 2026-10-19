@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.glossary_id
     import capo_glue.types.page_size
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListGlossaryTermsRequest:
     if data.get("GlossaryIdentifier") is not None:
         out["glossary_identifier"] = data["GlossaryIdentifier"]
     else:
-        raise DeserializationError(
-            "ListGlossaryTermsRequest.glossary_identifier required"
-        )
+        out["glossary_identifier"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

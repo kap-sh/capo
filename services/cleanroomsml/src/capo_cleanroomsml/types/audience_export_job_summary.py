@@ -88,7 +88,11 @@ def deserialize_json(data: dict) -> AudienceExportJobSummary:
             data["createTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("AudienceExportJobSummary.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import datetime
 
@@ -96,17 +100,19 @@ def deserialize_json(data: dict) -> AudienceExportJobSummary:
             data["updateTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("AudienceExportJobSummary.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AudienceExportJobSummary.name required")
+        out["name"] = ""
     if data.get("audienceGenerationJobArn") is not None:
         out["audience_generation_job_arn"] = data["audienceGenerationJobArn"]
     else:
-        raise DeserializationError(
-            "AudienceExportJobSummary.audience_generation_job_arn required"
-        )
+        out["audience_generation_job_arn"] = ""
     if data.get("audienceSize") is not None:
         import capo_cleanroomsml.types.audience_size
 
@@ -126,7 +132,12 @@ def deserialize_json(data: dict) -> AudienceExportJobSummary:
             )
         )
     else:
-        raise DeserializationError("AudienceExportJobSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cleanroomsml.types.audience_export_job_status.AudienceExportJobStatus",
+            "",
+        )
     if data.get("statusDetails") is not None:
         import capo_cleanroomsml.types.status_details
 

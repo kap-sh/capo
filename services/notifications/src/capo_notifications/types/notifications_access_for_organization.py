@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notifications.types.access_status
 
@@ -35,7 +33,9 @@ def deserialize_json(data: dict) -> NotificationsAccessForOrganization:
             data["accessStatus"]
         )
     else:
-        raise DeserializationError(
-            "NotificationsAccessForOrganization.access_status required"
+        import typing
+
+        out["access_status"] = typing.cast(
+            "capo_notifications.types.access_status.AccessStatus", ""
         )
     return out

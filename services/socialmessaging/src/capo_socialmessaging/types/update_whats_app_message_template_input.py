@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.linked_whats_app_business_account_id
     import capo_socialmessaging.types.meta_parameter_format
@@ -82,7 +80,7 @@ def deserialize_json(data: dict) -> UpdateWhatsAppMessageTemplateInput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("UpdateWhatsAppMessageTemplateInput.id required")
+        out["id"] = ""
     if data.get("metaTemplateId") is not None:
         out["meta_template_id"] = data["metaTemplateId"]
     if data.get("templateName") is not None:

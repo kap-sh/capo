@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.shared_dns_views
 
@@ -43,5 +41,5 @@ def deserialize_json(data: dict) -> ListSharedDNSViewsOutput:
             )
         )
     else:
-        raise DeserializationError("ListSharedDNSViewsOutput.dns_views required")
+        out["dns_views"] = []
     return out

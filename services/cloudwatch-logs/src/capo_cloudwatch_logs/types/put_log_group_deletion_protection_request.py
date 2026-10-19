@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.deletion_protection_enabled
     import capo_cloudwatch_logs.types.log_group_identifier
@@ -33,13 +31,9 @@ def deserialize_aws_json_1_1(data: dict) -> PutLogGroupDeletionProtectionRequest
     if data.get("logGroupIdentifier") is not None:
         out["log_group_identifier"] = data["logGroupIdentifier"]
     else:
-        raise DeserializationError(
-            "PutLogGroupDeletionProtectionRequest.log_group_identifier required"
-        )
+        out["log_group_identifier"] = ""
     if data.get("deletionProtectionEnabled") is not None:
         out["deletion_protection_enabled"] = data["deletionProtectionEnabled"]
     else:
-        raise DeserializationError(
-            "PutLogGroupDeletionProtectionRequest.deletion_protection_enabled required"
-        )
+        out["deletion_protection_enabled"] = False
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.knowledge_base_document_details
 
@@ -43,9 +41,7 @@ def deserialize_json(data: dict) -> ListKnowledgeBaseDocumentsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListKnowledgeBaseDocumentsResponse.document_details required"
-        )
+        out["document_details"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

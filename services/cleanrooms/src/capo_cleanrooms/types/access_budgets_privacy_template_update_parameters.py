@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.budget_parameters
 
@@ -37,7 +35,5 @@ def deserialize_json(data: dict) -> AccessBudgetsPrivacyTemplateUpdateParameters
             )
         )
     else:
-        raise DeserializationError(
-            "AccessBudgetsPrivacyTemplateUpdateParameters.budget_parameters required"
-        )
+        out["budget_parameters"] = []
     return out

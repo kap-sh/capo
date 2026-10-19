@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError, ServiceError
+from capo_iotfleetwise.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.string
@@ -33,15 +33,15 @@ def deserialize_aws_json_1_0(data: dict) -> ConflictException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ConflictException_.message required")
+        out["message"] = ""
     if data.get("resource") is not None:
         out["resource"] = data["resource"]
     else:
-        raise DeserializationError("ConflictException_.resource required")
+        out["resource"] = ""
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError("ConflictException_.resource_type required")
+        out["resource_type"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.delivery_stream_failure_type
     import capo_firehose.types.non_empty_string
@@ -43,9 +41,14 @@ def deserialize_aws_json_1_1(data: dict) -> FailureDescription:
             )
         )
     else:
-        raise DeserializationError("FailureDescription.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_firehose.types.delivery_stream_failure_type.DeliveryStreamFailureType",
+            "",
+        )
     if data.get("Details") is not None:
         out["details"] = data["Details"]
     else:
-        raise DeserializationError("FailureDescription.details required")
+        out["details"] = ""
     return out

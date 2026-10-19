@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.sensitive_string
 
@@ -34,11 +32,11 @@ def deserialize_cbor(data: dict) -> OAuthClientCredential:
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
     else:
-        raise DeserializationError("OAuthClientCredential.client_id required")
+        out["client_id"] = ""
     if data.get("clientSecret") is not None:
         out["client_secret"] = data["clientSecret"]
     else:
-        raise DeserializationError("OAuthClientCredential.client_secret required")
+        out["client_secret"] = ""
     if data.get("providerId") is not None:
         out["provider_id"] = data["providerId"]
     return out

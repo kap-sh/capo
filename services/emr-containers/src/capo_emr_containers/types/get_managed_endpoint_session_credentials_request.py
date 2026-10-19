@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_containers.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_containers.types.client_token
     import capo_emr_containers.types.credential_type
@@ -53,15 +51,11 @@ def deserialize_json(data: dict) -> GetManagedEndpointSessionCredentialsRequest:
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:
-        raise DeserializationError(
-            "GetManagedEndpointSessionCredentialsRequest.execution_role_arn required"
-        )
+        out["execution_role_arn"] = ""
     if data.get("credentialType") is not None:
         out["credential_type"] = data["credentialType"]
     else:
-        raise DeserializationError(
-            "GetManagedEndpointSessionCredentialsRequest.credential_type required"
-        )
+        out["credential_type"] = ""
     if data.get("durationInSeconds") is not None:
         out["duration_in_seconds"] = data["durationInSeconds"]
     if data.get("logContext") is not None:

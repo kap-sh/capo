@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.csv_column_delimiter
     import capo_glue.types.csv_header
@@ -94,7 +92,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateCsvClassifierRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateCsvClassifierRequest.name required")
+        out["name"] = ""
     if data.get("Delimiter") is not None:
         out["delimiter"] = data["Delimiter"]
     if data.get("QuoteSymbol") is not None:

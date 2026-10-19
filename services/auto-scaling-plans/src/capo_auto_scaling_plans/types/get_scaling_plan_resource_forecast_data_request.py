@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_auto_scaling_plans.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auto_scaling_plans.types.forecast_data_type
     import capo_auto_scaling_plans.types.scalable_dimension
@@ -92,15 +90,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetScalingPlanResourceForecastDataRe
     if data.get("ScalingPlanName") is not None:
         out["scaling_plan_name"] = data["ScalingPlanName"]
     else:
-        raise DeserializationError(
-            "GetScalingPlanResourceForecastDataRequest.scaling_plan_name required"
-        )
+        out["scaling_plan_name"] = ""
     if data.get("ScalingPlanVersion") is not None:
         out["scaling_plan_version"] = data["ScalingPlanVersion"]
     else:
-        raise DeserializationError(
-            "GetScalingPlanResourceForecastDataRequest.scaling_plan_version required"
-        )
+        out["scaling_plan_version"] = 0
     if data.get("ServiceNamespace") is not None:
         import capo_auto_scaling_plans.types.service_namespace
 
@@ -110,15 +104,15 @@ def deserialize_aws_json_1_1(data: dict) -> GetScalingPlanResourceForecastDataRe
             )
         )
     else:
-        raise DeserializationError(
-            "GetScalingPlanResourceForecastDataRequest.service_namespace required"
+        import typing
+
+        out["service_namespace"] = typing.cast(
+            "capo_auto_scaling_plans.types.service_namespace.ServiceNamespace", ""
         )
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError(
-            "GetScalingPlanResourceForecastDataRequest.resource_id required"
-        )
+        out["resource_id"] = ""
     if data.get("ScalableDimension") is not None:
         import capo_auto_scaling_plans.types.scalable_dimension
 
@@ -128,8 +122,10 @@ def deserialize_aws_json_1_1(data: dict) -> GetScalingPlanResourceForecastDataRe
             )
         )
     else:
-        raise DeserializationError(
-            "GetScalingPlanResourceForecastDataRequest.scalable_dimension required"
+        import typing
+
+        out["scalable_dimension"] = typing.cast(
+            "capo_auto_scaling_plans.types.scalable_dimension.ScalableDimension", ""
         )
     if data.get("ForecastDataType") is not None:
         import capo_auto_scaling_plans.types.forecast_data_type
@@ -140,8 +136,10 @@ def deserialize_aws_json_1_1(data: dict) -> GetScalingPlanResourceForecastDataRe
             )
         )
     else:
-        raise DeserializationError(
-            "GetScalingPlanResourceForecastDataRequest.forecast_data_type required"
+        import typing
+
+        out["forecast_data_type"] = typing.cast(
+            "capo_auto_scaling_plans.types.forecast_data_type.ForecastDataType", ""
         )
     if data.get("StartTime") is not None:
         import capo_auto_scaling_plans.types.timestamp_type
@@ -152,9 +150,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetScalingPlanResourceForecastDataRe
             )
         )
     else:
-        raise DeserializationError(
-            "GetScalingPlanResourceForecastDataRequest.start_time required"
-        )
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_auto_scaling_plans.types.timestamp_type
 
@@ -164,7 +162,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetScalingPlanResourceForecastDataRe
             )
         )
     else:
-        raise DeserializationError(
-            "GetScalingPlanResourceForecastDataRequest.end_time required"
-        )
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

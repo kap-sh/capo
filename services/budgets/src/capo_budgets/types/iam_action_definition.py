@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_budgets.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_budgets.types.groups
     import capo_budgets.types.policy_arn
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> IamActionDefinition:
     if data.get("PolicyArn") is not None:
         out["policy_arn"] = data["PolicyArn"]
     else:
-        raise DeserializationError("IamActionDefinition.policy_arn required")
+        out["policy_arn"] = ""
     if data.get("Roles") is not None:
         import capo_budgets.types.roles
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.network_access_type
     import capo_datazone.types.security_group_ids
@@ -61,7 +59,11 @@ def deserialize_json(data: dict) -> NetworkConfig:
             )
         )
     else:
-        raise DeserializationError("NetworkConfig.network_access_type required")
+        import typing
+
+        out["network_access_type"] = typing.cast(
+            "capo_datazone.types.network_access_type.NetworkAccessType", ""
+        )
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
     if data.get("subnetIds") is not None:

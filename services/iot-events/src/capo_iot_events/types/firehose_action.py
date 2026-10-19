@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.delivery_stream_name
     import capo_iot_events.types.firehose_separator
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> FirehoseAction:
     if data.get("deliveryStreamName") is not None:
         out["delivery_stream_name"] = data["deliveryStreamName"]
     else:
-        raise DeserializationError("FirehoseAction.delivery_stream_name required")
+        out["delivery_stream_name"] = ""
     if data.get("separator") is not None:
         out["separator"] = data["separator"]
     if data.get("payload") is not None:

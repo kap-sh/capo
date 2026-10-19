@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.azure_client_identifier
     import capo_config_service.types.azure_tenant_identifier
@@ -35,13 +33,9 @@ def deserialize_aws_json_1_1(data: dict) -> AzureConnectorConfiguration:
     if data.get("tenantIdentifier") is not None:
         out["tenant_identifier"] = data["tenantIdentifier"]
     else:
-        raise DeserializationError(
-            "AzureConnectorConfiguration.tenant_identifier required"
-        )
+        out["tenant_identifier"] = ""
     if data.get("clientIdentifier") is not None:
         out["client_identifier"] = data["clientIdentifier"]
     else:
-        raise DeserializationError(
-            "AzureConnectorConfiguration.client_identifier required"
-        )
+        out["client_identifier"] = ""
     return out

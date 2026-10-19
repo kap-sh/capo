@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.payment_networks
 
@@ -37,5 +35,5 @@ def deserialize_aws_json_1_1(data: dict) -> CryptoConfig:
             )
         )
     else:
-        raise DeserializationError("CryptoConfig.payment_networks required")
+        out["payment_networks"] = []
     return out

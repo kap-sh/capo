@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.api_secret_key
 
@@ -27,9 +25,7 @@ def deserialize_json(data: dict) -> TrendmicroConnectorProfileCredentials:
     if data.get("apiSecretKey") is not None:
         out["api_secret_key"] = data["apiSecretKey"]
     else:
-        raise DeserializationError(
-            "TrendmicroConnectorProfileCredentials.api_secret_key required"
-        )
+        out["api_secret_key"] = ""
     return out
 
 

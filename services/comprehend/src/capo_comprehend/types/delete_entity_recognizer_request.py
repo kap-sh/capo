@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.entity_recognizer_arn
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteEntityRecognizerRequest:
     if data.get("EntityRecognizerArn") is not None:
         out["entity_recognizer_arn"] = data["EntityRecognizerArn"]
     else:
-        raise DeserializationError(
-            "DeleteEntityRecognizerRequest.entity_recognizer_arn required"
-        )
+        out["entity_recognizer_arn"] = ""
     return out

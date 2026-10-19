@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.filled_map_conditional_formatting_option_list
 
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> FilledMapConditionalFormatting:
             )
         )
     else:
-        raise DeserializationError(
-            "FilledMapConditionalFormatting.conditional_formatting_options required"
-        )
+        out["conditional_formatting_options"] = []
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.field_validation_code
 
@@ -39,11 +37,11 @@ def deserialize_aws_json_1_0(data: dict) -> FieldValidationError:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("FieldValidationError.name required")
+        out["name"] = ""
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("FieldValidationError.message required")
+        out["message"] = ""
     if data.get("Code") is not None:
         import capo_partnercentral_account.types.field_validation_code
 
@@ -53,5 +51,10 @@ def deserialize_aws_json_1_0(data: dict) -> FieldValidationError:
             )
         )
     else:
-        raise DeserializationError("FieldValidationError.code required")
+        import typing
+
+        out["code"] = typing.cast(
+            "capo_partnercentral_account.types.field_validation_code.FieldValidationCode",
+            "",
+        )
     return out

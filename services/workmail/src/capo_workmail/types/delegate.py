@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.member_type
     import capo_workmail.types.string
@@ -33,7 +31,7 @@ def deserialize_aws_json_1_1(data: dict) -> Delegate:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("Delegate.id required")
+        out["id"] = ""
     if data.get("Type") is not None:
         import capo_workmail.types.member_type
 
@@ -41,5 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> Delegate:
             data["Type"]
         )
     else:
-        raise DeserializationError("Delegate.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_workmail.types.member_type.MemberType", "")
     return out

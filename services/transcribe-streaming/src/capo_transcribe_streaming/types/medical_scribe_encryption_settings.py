@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transcribe_streaming.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe_streaming.types.kms_encryption_context_map
     import capo_transcribe_streaming.types.kms_key_id
@@ -48,7 +46,5 @@ def deserialize_json(data: dict) -> MedicalScribeEncryptionSettings:
     if data.get("KmsKeyId") is not None:
         out["kms_key_id"] = data["KmsKeyId"]
     else:
-        raise DeserializationError(
-            "MedicalScribeEncryptionSettings.kms_key_id required"
-        )
+        out["kms_key_id"] = ""
     return out

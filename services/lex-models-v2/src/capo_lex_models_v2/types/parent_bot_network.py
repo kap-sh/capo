@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.bot_version
     import capo_lex_models_v2.types.id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> ParentBotNetwork:
     if data.get("botId") is not None:
         out["bot_id"] = data["botId"]
     else:
-        raise DeserializationError("ParentBotNetwork.bot_id required")
+        out["bot_id"] = ""
     if data.get("botVersion") is not None:
         out["bot_version"] = data["botVersion"]
     else:
-        raise DeserializationError("ParentBotNetwork.bot_version required")
+        out["bot_version"] = ""
     return out

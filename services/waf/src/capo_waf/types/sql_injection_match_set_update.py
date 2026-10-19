@@ -45,7 +45,9 @@ def deserialize_aws_json_1_1(data: dict) -> SqlInjectionMatchSetUpdate:
             data["Action"]
         )
     else:
-        raise DeserializationError("SqlInjectionMatchSetUpdate.action required")
+        import typing
+
+        out["action"] = typing.cast("capo_waf.types.change_action.ChangeAction", "")
     if data.get("SqlInjectionMatchTuple") is not None:
         import capo_waf.types.sql_injection_match_tuple
 

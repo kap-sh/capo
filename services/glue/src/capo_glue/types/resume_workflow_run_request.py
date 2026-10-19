@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.id_string
     import capo_glue.types.name_string
@@ -39,11 +37,11 @@ def deserialize_aws_json_1_1(data: dict) -> ResumeWorkflowRunRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ResumeWorkflowRunRequest.name required")
+        out["name"] = ""
     if data.get("RunId") is not None:
         out["run_id"] = data["RunId"]
     else:
-        raise DeserializationError("ResumeWorkflowRunRequest.run_id required")
+        out["run_id"] = ""
     if data.get("NodeIds") is not None:
         import capo_glue.types.node_id_list
 
@@ -51,5 +49,5 @@ def deserialize_aws_json_1_1(data: dict) -> ResumeWorkflowRunRequest:
             data["NodeIds"]
         )
     else:
-        raise DeserializationError("ResumeWorkflowRunRequest.node_ids required")
+        out["node_ids"] = []
     return out

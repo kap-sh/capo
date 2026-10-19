@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.card_type
     import capo_qapps.types.default
@@ -55,11 +53,11 @@ def deserialize_json(data: dict) -> TextInputCard:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("TextInputCard.id required")
+        out["id"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("TextInputCard.title required")
+        out["title"] = ""
     if data.get("dependencies") is not None:
         import capo_qapps.types.dependency_list
 
@@ -67,13 +65,15 @@ def deserialize_json(data: dict) -> TextInputCard:
             data["dependencies"]
         )
     else:
-        raise DeserializationError("TextInputCard.dependencies required")
+        out["dependencies"] = []
     if data.get("type") is not None:
         import capo_qapps.types.card_type
 
         out["type"] = capo_qapps.types.card_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("TextInputCard.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_qapps.types.card_type.CardType", "")
     if data.get("placeholder") is not None:
         out["placeholder"] = data["placeholder"]
     if data.get("defaultValue") is not None:

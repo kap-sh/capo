@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.data_lake_namespace_list
     import capo_supplychain.types.data_lake_namespace_next_token
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> ListDataLakeNamespacesResponse:
             )
         )
     else:
-        raise DeserializationError("ListDataLakeNamespacesResponse.namespaces required")
+        out["namespaces"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

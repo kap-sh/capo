@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.form_name
     import capo_datazone.types.form_type_name
@@ -38,11 +36,11 @@ def deserialize_json(data: dict) -> MetadataFormSummary:
     if data.get("typeName") is not None:
         out["type_name"] = data["typeName"]
     else:
-        raise DeserializationError("MetadataFormSummary.type_name required")
+        out["type_name"] = ""
     if data.get("typeRevision") is not None:
         out["type_revision"] = data["typeRevision"]
     else:
-        raise DeserializationError("MetadataFormSummary.type_revision required")
+        out["type_revision"] = ""
     return out
 
 

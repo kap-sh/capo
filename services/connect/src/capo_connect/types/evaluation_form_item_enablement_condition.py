@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.evaluation_form_item_enablement_condition_operand_list
     import capo_connect.types.evaluation_form_item_enablement_operator
@@ -52,9 +50,7 @@ def deserialize_json(data: dict) -> EvaluationFormItemEnablementCondition:
             )
         )
     else:
-        raise DeserializationError(
-            "EvaluationFormItemEnablementCondition.operands required"
-        )
+        out["operands"] = []
     if data.get("Operator") is not None:
         import capo_connect.types.evaluation_form_item_enablement_operator
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.arn
     import capo_backup.types.backup_vault_name
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> UpdateRecoveryPointIndexSettingsInput:
 
         out["index"] = capo_backup.types.index.deserialize_json(data["Index"])
     else:
-        raise DeserializationError(
-            "UpdateRecoveryPointIndexSettingsInput.index required"
-        )
+        import typing
+
+        out["index"] = typing.cast("capo_backup.types.index.Index", "")
     return out

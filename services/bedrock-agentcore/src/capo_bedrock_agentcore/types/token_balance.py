@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.blockchain_chain_id
     import capo_bedrock_agentcore.types.crypto_wallet_network
@@ -55,11 +53,11 @@ def deserialize_json(data: dict) -> TokenBalance:
     if data.get("amount") is not None:
         out["amount"] = data["amount"]
     else:
-        raise DeserializationError("TokenBalance.amount required")
+        out["amount"] = ""
     if data.get("decimals") is not None:
         out["decimals"] = data["decimals"]
     else:
-        raise DeserializationError("TokenBalance.decimals required")
+        out["decimals"] = 0
     if data.get("token") is not None:
         import capo_bedrock_agentcore.types.instrument_balance_token
 
@@ -69,7 +67,12 @@ def deserialize_json(data: dict) -> TokenBalance:
             )
         )
     else:
-        raise DeserializationError("TokenBalance.token required")
+        import typing
+
+        out["token"] = typing.cast(
+            "capo_bedrock_agentcore.types.instrument_balance_token.InstrumentBalanceToken",
+            "",
+        )
     if data.get("network") is not None:
         import capo_bedrock_agentcore.types.crypto_wallet_network
 
@@ -79,7 +82,11 @@ def deserialize_json(data: dict) -> TokenBalance:
             )
         )
     else:
-        raise DeserializationError("TokenBalance.network required")
+        import typing
+
+        out["network"] = typing.cast(
+            "capo_bedrock_agentcore.types.crypto_wallet_network.CryptoWalletNetwork", ""
+        )
     if data.get("chain") is not None:
         import capo_bedrock_agentcore.types.blockchain_chain_id
 
@@ -89,5 +96,9 @@ def deserialize_json(data: dict) -> TokenBalance:
             )
         )
     else:
-        raise DeserializationError("TokenBalance.chain required")
+        import typing
+
+        out["chain"] = typing.cast(
+            "capo_bedrock_agentcore.types.blockchain_chain_id.BlockchainChainId", ""
+        )
     return out

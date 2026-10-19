@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.access_grants_location_id
@@ -38,7 +37,5 @@ def deserialize_xml(el: Element) -> UpdateAccessGrantsLocationRequest:
     if child_iam_role_arn is not None:
         out["iam_role_arn"] = str(child_iam_role_arn.text or "")
     else:
-        raise DeserializationError(
-            "UpdateAccessGrantsLocationRequest.iam_role_arn required"
-        )
+        out["iam_role_arn"] = ""
     return out

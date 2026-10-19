@@ -36,9 +36,7 @@ def deserialize_xml(el: Element) -> CreateVPCAssociationAuthorizationResponse:
     if child_hosted_zone_id is not None:
         out["hosted_zone_id"] = str(child_hosted_zone_id.text or "")
     else:
-        raise DeserializationError(
-            "CreateVPCAssociationAuthorizationResponse.hosted_zone_id required"
-        )
+        out["hosted_zone_id"] = ""
     child_vpc = el.find("VPC")
     if child_vpc is not None:
         import capo_route_53.types.vpc

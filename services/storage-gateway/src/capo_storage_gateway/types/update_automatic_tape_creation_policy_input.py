@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.automatic_tape_creation_rules
     import capo_storage_gateway.types.gateway_arn
@@ -42,13 +40,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateAutomaticTapeCreationPolicyInp
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateAutomaticTapeCreationPolicyInput.automatic_tape_creation_rules required"
-        )
+        out["automatic_tape_creation_rules"] = []
     if data.get("GatewayARN") is not None:
         out["gateway_arn"] = data["GatewayARN"]
     else:
-        raise DeserializationError(
-            "UpdateAutomaticTapeCreationPolicyInput.gateway_arn required"
-        )
+        out["gateway_arn"] = ""
     return out

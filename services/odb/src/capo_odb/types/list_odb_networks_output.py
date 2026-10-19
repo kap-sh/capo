@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.odb_network_list
 
@@ -41,5 +39,5 @@ def deserialize_aws_json_1_0(data: dict) -> ListOdbNetworksOutput:
             data["odbNetworks"]
         )
     else:
-        raise DeserializationError("ListOdbNetworksOutput.odb_networks required")
+        out["odb_networks"] = []
     return out

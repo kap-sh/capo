@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.activity_failed_event_details
     import capo_sfn.types.activity_schedule_failed_event_details
@@ -512,7 +510,9 @@ def deserialize_aws_json_1_0(data: dict) -> HistoryEvent:
             data["timestamp"]
         )
     else:
-        raise DeserializationError("HistoryEvent.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("type") is not None:
         import capo_sfn.types.history_event_type
 
@@ -520,7 +520,11 @@ def deserialize_aws_json_1_0(data: dict) -> HistoryEvent:
             data["type"]
         )
     else:
-        raise DeserializationError("HistoryEvent.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_sfn.types.history_event_type.HistoryEventType", ""
+        )
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:

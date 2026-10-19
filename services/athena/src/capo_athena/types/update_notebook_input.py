@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.client_request_token
     import capo_athena.types.notebook_id
@@ -49,11 +47,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateNotebookInput:
     if data.get("NotebookId") is not None:
         out["notebook_id"] = data["NotebookId"]
     else:
-        raise DeserializationError("UpdateNotebookInput.notebook_id required")
+        out["notebook_id"] = ""
     if data.get("Payload") is not None:
         out["payload"] = data["Payload"]
     else:
-        raise DeserializationError("UpdateNotebookInput.payload required")
+        out["payload"] = ""
     if data.get("Type") is not None:
         import capo_athena.types.notebook_type
 
@@ -61,7 +59,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateNotebookInput:
             data["Type"]
         )
     else:
-        raise DeserializationError("UpdateNotebookInput.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_athena.types.notebook_type.NotebookType", "")
     if data.get("SessionId") is not None:
         out["session_id"] = data["SessionId"]
     if data.get("ClientRequestToken") is not None:

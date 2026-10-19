@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.authentication_configuration_input
     import capo_glue.types.boolean
@@ -127,7 +125,7 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectionInput:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ConnectionInput.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("ConnectionType") is not None:
@@ -139,7 +137,11 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectionInput:
             )
         )
     else:
-        raise DeserializationError("ConnectionInput.connection_type required")
+        import typing
+
+        out["connection_type"] = typing.cast(
+            "capo_glue.types.connection_type.ConnectionType", ""
+        )
     if data.get("MatchCriteria") is not None:
         import capo_glue.types.match_criteria
 
@@ -155,7 +157,7 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectionInput:
             )
         )
     else:
-        raise DeserializationError("ConnectionInput.connection_properties required")
+        out["connection_properties"] = {}
     if data.get("SparkProperties") is not None:
         import capo_glue.types.property_map
 

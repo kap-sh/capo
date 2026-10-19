@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.table_name
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> PutItemInput:
     if data.get("tableName") is not None:
         out["table_name"] = data["tableName"]
     else:
-        raise DeserializationError("PutItemInput.table_name required")
+        out["table_name"] = ""
     return out

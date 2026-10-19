@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.approximation_dimension
     import capo_cost_explorer.types.granularity
@@ -60,8 +58,10 @@ def deserialize_aws_json_1_1(data: dict) -> GetApproximateUsageRecordsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GetApproximateUsageRecordsRequest.granularity required"
+        import typing
+
+        out["granularity"] = typing.cast(
+            "capo_cost_explorer.types.granularity.Granularity", ""
         )
     if data.get("Services") is not None:
         import capo_cost_explorer.types.usage_services
@@ -80,7 +80,10 @@ def deserialize_aws_json_1_1(data: dict) -> GetApproximateUsageRecordsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GetApproximateUsageRecordsRequest.approximation_dimension required"
+        import typing
+
+        out["approximation_dimension"] = typing.cast(
+            "capo_cost_explorer.types.approximation_dimension.ApproximationDimension",
+            "",
         )
     return out

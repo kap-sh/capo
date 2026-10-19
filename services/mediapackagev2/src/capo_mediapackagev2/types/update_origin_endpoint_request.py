@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediapackagev2.types.container_type
     import capo_mediapackagev2.types.create_dash_manifests
@@ -154,8 +152,10 @@ def deserialize_json(data: dict) -> UpdateOriginEndpointRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateOriginEndpointRequest.container_type required"
+        import typing
+
+        out["container_type"] = typing.cast(
+            "capo_mediapackagev2.types.container_type.ContainerType", ""
         )
     if data.get("Segment") is not None:
         import capo_mediapackagev2.types.segment

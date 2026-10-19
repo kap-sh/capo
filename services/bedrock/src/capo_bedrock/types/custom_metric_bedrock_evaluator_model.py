@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.evaluator_model_identifier
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> CustomMetricBedrockEvaluatorModel:
     if data.get("modelIdentifier") is not None:
         out["model_identifier"] = data["modelIdentifier"]
     else:
-        raise DeserializationError(
-            "CustomMetricBedrockEvaluatorModel.model_identifier required"
-        )
+        out["model_identifier"] = ""
     return out

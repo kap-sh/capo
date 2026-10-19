@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.sensitive_double
 
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> PositionalAccuracy:
     if data.get("Horizontal") is not None:
         out["horizontal"] = float(data["Horizontal"])
     else:
-        raise DeserializationError("PositionalAccuracy.horizontal required")
+        out["horizontal"] = 0.0
     return out
 
 

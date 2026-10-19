@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.command_execution_status
 
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> ContentStopEvent:
     if data.get("exitCode") is not None:
         out["exit_code"] = data["exitCode"]
     else:
-        raise DeserializationError("ContentStopEvent.exit_code required")
+        out["exit_code"] = 0
     if data.get("status") is not None:
         import capo_bedrock_agentcore.types.command_execution_status
 
@@ -48,5 +46,10 @@ def deserialize_json(data: dict) -> ContentStopEvent:
             )
         )
     else:
-        raise DeserializationError("ContentStopEvent.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore.types.command_execution_status.CommandExecutionStatus",
+            "",
+        )
     return out

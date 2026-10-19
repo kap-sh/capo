@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.language_code
     import capo_comprehend.types.list_of_text_segments
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> DetectToxicContentRequest:
             )
         )
     else:
-        raise DeserializationError("DetectToxicContentRequest.text_segments required")
+        out["text_segments"] = []
     if data.get("LanguageCode") is not None:
         import capo_comprehend.types.language_code
 
@@ -57,7 +55,11 @@ def deserialize_aws_json_1_1(data: dict) -> DetectToxicContentRequest:
             )
         )
     else:
-        raise DeserializationError("DetectToxicContentRequest.language_code required")
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_comprehend.types.language_code.LanguageCode", ""
+        )
     return out
 
 

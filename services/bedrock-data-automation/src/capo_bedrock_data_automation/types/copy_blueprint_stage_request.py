@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.blueprint_arn
     import capo_bedrock_data_automation.types.blueprint_stage
@@ -58,7 +56,11 @@ def deserialize_json(data: dict) -> CopyBlueprintStageRequest:
             )
         )
     else:
-        raise DeserializationError("CopyBlueprintStageRequest.source_stage required")
+        import typing
+
+        out["source_stage"] = typing.cast(
+            "capo_bedrock_data_automation.types.blueprint_stage.BlueprintStage", ""
+        )
     if data.get("targetStage") is not None:
         import capo_bedrock_data_automation.types.blueprint_stage
 
@@ -68,7 +70,11 @@ def deserialize_json(data: dict) -> CopyBlueprintStageRequest:
             )
         )
     else:
-        raise DeserializationError("CopyBlueprintStageRequest.target_stage required")
+        import typing
+
+        out["target_stage"] = typing.cast(
+            "capo_bedrock_data_automation.types.blueprint_stage.BlueprintStage", ""
+        )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

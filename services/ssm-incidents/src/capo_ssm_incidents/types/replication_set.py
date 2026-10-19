@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -73,15 +71,15 @@ def deserialize_json(data: dict) -> ReplicationSet:
             data["regionMap"]
         )
     else:
-        raise DeserializationError("ReplicationSet.region_map required")
+        out["region_map"] = {}
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("ReplicationSet.status required")
+        out["status"] = ""
     if data.get("deletionProtected") is not None:
         out["deletion_protected"] = data["deletionProtected"]
     else:
-        raise DeserializationError("ReplicationSet.deletion_protected required")
+        out["deletion_protected"] = False
     if data.get("createdTime") is not None:
         import capo_ssm_incidents.types._prelude.timestamp
 
@@ -91,11 +89,15 @@ def deserialize_json(data: dict) -> ReplicationSet:
             )
         )
     else:
-        raise DeserializationError("ReplicationSet.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("ReplicationSet.created_by required")
+        out["created_by"] = ""
     if data.get("lastModifiedTime") is not None:
         import capo_ssm_incidents.types._prelude.timestamp
 
@@ -105,9 +107,13 @@ def deserialize_json(data: dict) -> ReplicationSet:
             )
         )
     else:
-        raise DeserializationError("ReplicationSet.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastModifiedBy") is not None:
         out["last_modified_by"] = data["lastModifiedBy"]
     else:
-        raise DeserializationError("ReplicationSet.last_modified_by required")
+        out["last_modified_by"] = ""
     return out

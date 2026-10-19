@@ -125,11 +125,11 @@ def deserialize_json(data: dict) -> SubscriberResource:
     if data.get("subscriberId") is not None:
         out["subscriber_id"] = data["subscriberId"]
     else:
-        raise DeserializationError("SubscriberResource.subscriber_id required")
+        out["subscriber_id"] = ""
     if data.get("subscriberArn") is not None:
         out["subscriber_arn"] = data["subscriberArn"]
     else:
-        raise DeserializationError("SubscriberResource.subscriber_arn required")
+        out["subscriber_arn"] = ""
     if data.get("subscriberIdentity") is not None:
         import capo_securitylake.types.aws_identity
 
@@ -143,7 +143,7 @@ def deserialize_json(data: dict) -> SubscriberResource:
     if data.get("subscriberName") is not None:
         out["subscriber_name"] = data["subscriberName"]
     else:
-        raise DeserializationError("SubscriberResource.subscriber_name required")
+        out["subscriber_name"] = ""
     if data.get("subscriberDescription") is not None:
         out["subscriber_description"] = data["subscriberDescription"]
     if data.get("sources") is not None:
@@ -155,7 +155,7 @@ def deserialize_json(data: dict) -> SubscriberResource:
             )
         )
     else:
-        raise DeserializationError("SubscriberResource.sources required")
+        out["sources"] = []
     if data.get("accessTypes") is not None:
         import capo_securitylake.types.access_type_list
 

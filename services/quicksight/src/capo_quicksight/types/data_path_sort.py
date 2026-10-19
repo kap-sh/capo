@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.data_path_value_list
     import capo_quicksight.types.sort_direction
@@ -43,7 +41,11 @@ def deserialize_json(data: dict) -> DataPathSort:
             data["Direction"]
         )
     else:
-        raise DeserializationError("DataPathSort.direction required")
+        import typing
+
+        out["direction"] = typing.cast(
+            "capo_quicksight.types.sort_direction.SortDirection", ""
+        )
     if data.get("SortPaths") is not None:
         import capo_quicksight.types.data_path_value_list
 
@@ -51,7 +53,7 @@ def deserialize_json(data: dict) -> DataPathSort:
             data["SortPaths"]
         )
     else:
-        raise DeserializationError("DataPathSort.sort_paths required")
+        out["sort_paths"] = []
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.data_integration_flow_sql_transformation_configuration
     import capo_supplychain.types.data_integration_flow_transformation_type
@@ -52,8 +50,11 @@ def deserialize_json(data: dict) -> DataIntegrationFlowTransformation:
             )
         )
     else:
-        raise DeserializationError(
-            "DataIntegrationFlowTransformation.transformation_type required"
+        import typing
+
+        out["transformation_type"] = typing.cast(
+            "capo_supplychain.types.data_integration_flow_transformation_type.DataIntegrationFlowTransformationType",
+            "",
         )
     if data.get("sqlTransformation") is not None:
         import capo_supplychain.types.data_integration_flow_sql_transformation_configuration

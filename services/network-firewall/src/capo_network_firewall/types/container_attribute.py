@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.container_attribute_key
     import capo_network_firewall.types.container_attribute_value
@@ -33,9 +31,9 @@ def deserialize_aws_json_1_0(data: dict) -> ContainerAttribute:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("ContainerAttribute.key required")
+        out["key"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("ContainerAttribute.value required")
+        out["value"] = ""
     return out

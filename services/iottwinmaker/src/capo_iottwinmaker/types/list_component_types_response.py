@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.component_type_summaries
     import capo_iottwinmaker.types.id
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> ListComponentTypesResponse:
     if data.get("workspaceId") is not None:
         out["workspace_id"] = data["workspaceId"]
     else:
-        raise DeserializationError("ListComponentTypesResponse.workspace_id required")
+        out["workspace_id"] = ""
     if data.get("componentTypeSummaries") is not None:
         import capo_iottwinmaker.types.component_type_summaries
 
@@ -59,9 +57,7 @@ def deserialize_json(data: dict) -> ListComponentTypesResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListComponentTypesResponse.component_type_summaries required"
-        )
+        out["component_type_summaries"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

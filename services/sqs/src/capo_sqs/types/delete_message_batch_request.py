@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sqs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sqs.types.delete_message_batch_request_entry_list
     import capo_sqs.types.string
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteMessageBatchRequest:
     if data.get("QueueUrl") is not None:
         out["queue_url"] = data["QueueUrl"]
     else:
-        raise DeserializationError("DeleteMessageBatchRequest.queue_url required")
+        out["queue_url"] = ""
     if data.get("Entries") is not None:
         import capo_sqs.types.delete_message_batch_request_entry_list
 
@@ -47,5 +45,5 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteMessageBatchRequest:
             )
         )
     else:
-        raise DeserializationError("DeleteMessageBatchRequest.entries required")
+        out["entries"] = []
     return out

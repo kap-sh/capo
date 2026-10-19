@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.namespace
@@ -66,7 +64,7 @@ def deserialize_json(data: dict) -> RowLevelPermissionDataSet:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("RowLevelPermissionDataSet.arn required")
+        out["arn"] = ""
     if data.get("PermissionPolicy") is not None:
         import capo_quicksight.types.row_level_permission_policy
 
@@ -76,8 +74,11 @@ def deserialize_json(data: dict) -> RowLevelPermissionDataSet:
             )
         )
     else:
-        raise DeserializationError(
-            "RowLevelPermissionDataSet.permission_policy required"
+        import typing
+
+        out["permission_policy"] = typing.cast(
+            "capo_quicksight.types.row_level_permission_policy.RowLevelPermissionPolicy",
+            "",
         )
     if data.get("FormatVersion") is not None:
         import capo_quicksight.types.row_level_permission_format_version

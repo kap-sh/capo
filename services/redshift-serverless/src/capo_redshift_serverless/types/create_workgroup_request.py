@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.config_parameter_list
     import capo_redshift_serverless.types.ip_address_type
@@ -130,11 +128,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateWorkgroupRequest:
     if data.get("workgroupName") is not None:
         out["workgroup_name"] = data["workgroupName"]
     else:
-        raise DeserializationError("CreateWorkgroupRequest.workgroup_name required")
+        out["workgroup_name"] = ""
     if data.get("namespaceName") is not None:
         out["namespace_name"] = data["namespaceName"]
     else:
-        raise DeserializationError("CreateWorkgroupRequest.namespace_name required")
+        out["namespace_name"] = ""
     if data.get("baseCapacity") is not None:
         out["base_capacity"] = data["baseCapacity"]
     if data.get("enhancedVpcRouting") is not None:

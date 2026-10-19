@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.boxed_boolean
     import capo_ecs.types.compatibility_list
@@ -173,7 +171,7 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterTaskDefinitionRequest:
     if data.get("family") is not None:
         out["family"] = data["family"]
     else:
-        raise DeserializationError("RegisterTaskDefinitionRequest.family required")
+        out["family"] = ""
     if data.get("taskRoleArn") is not None:
         out["task_role_arn"] = data["taskRoleArn"]
     if data.get("executionRoleArn") is not None:
@@ -193,9 +191,7 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterTaskDefinitionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "RegisterTaskDefinitionRequest.container_definitions required"
-        )
+        out["container_definitions"] = []
     if data.get("volumes") is not None:
         import capo_ecs.types.volume_list
 

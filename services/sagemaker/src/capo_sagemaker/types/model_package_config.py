@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker.types.model_package_arn
     import capo_sagemaker.types.model_package_group_arn
@@ -36,9 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> ModelPackageConfig:
     if data.get("ModelPackageGroupArn") is not None:
         out["model_package_group_arn"] = data["ModelPackageGroupArn"]
     else:
-        raise DeserializationError(
-            "ModelPackageConfig.model_package_group_arn required"
-        )
+        out["model_package_group_arn"] = ""
     if data.get("SourceModelPackageArn") is not None:
         out["source_model_package_arn"] = data["SourceModelPackageArn"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_runtime_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_runtime_v2.types.bot_alias_identifier
     import capo_lex_runtime_v2.types.bot_identifier
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> RecognizeTextRequest:
     if data.get("text") is not None:
         out["text"] = data["text"]
     else:
-        raise DeserializationError("RecognizeTextRequest.text required")
+        out["text"] = ""
     if data.get("sessionState") is not None:
         import capo_lex_runtime_v2.types.session_state
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eventbridgev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.event_bus_arn
     import capo_eventbridgev2.types.policy_document
@@ -41,11 +39,11 @@ def deserialize_cbor(data: dict) -> PutResourcePolicyRequest:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("PutResourcePolicyRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("PolicyDocument") is not None:
         out["policy_document"] = data["PolicyDocument"]
     else:
-        raise DeserializationError("PutResourcePolicyRequest.policy_document required")
+        out["policy_document"] = ""
     if data.get("PolicyName") is not None:
         out["policy_name"] = data["PolicyName"]
     if data.get("ExpectedRevisionId") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.date_timestamp
     import capo_bedrock_agent.types.description
@@ -82,7 +80,7 @@ def deserialize_json(data: dict) -> FlowAliasSummary:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("FlowAliasSummary.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("routingConfiguration") is not None:
@@ -94,7 +92,7 @@ def deserialize_json(data: dict) -> FlowAliasSummary:
             )
         )
     else:
-        raise DeserializationError("FlowAliasSummary.routing_configuration required")
+        out["routing_configuration"] = []
     if data.get("concurrencyConfiguration") is not None:
         import capo_bedrock_agent.types.flow_alias_concurrency_configuration
 
@@ -106,15 +104,15 @@ def deserialize_json(data: dict) -> FlowAliasSummary:
     if data.get("flowId") is not None:
         out["flow_id"] = data["flowId"]
     else:
-        raise DeserializationError("FlowAliasSummary.flow_id required")
+        out["flow_id"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("FlowAliasSummary.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("FlowAliasSummary.arn required")
+        out["arn"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -122,7 +120,9 @@ def deserialize_json(data: dict) -> FlowAliasSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("FlowAliasSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -130,5 +130,7 @@ def deserialize_json(data: dict) -> FlowAliasSummary:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("FlowAliasSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

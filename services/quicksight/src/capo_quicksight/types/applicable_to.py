@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.applicable_to_type
     import capo_quicksight.types.group_arn_list
@@ -42,7 +40,11 @@ def deserialize_json(data: dict) -> ApplicableTo:
             data["Type"]
         )
     else:
-        raise DeserializationError("ApplicableTo.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_quicksight.types.applicable_to_type.ApplicableToType", ""
+        )
     if data.get("GroupArns") is not None:
         import capo_quicksight.types.group_arn_list
 

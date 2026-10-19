@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.evaluation_form_ai_version_status
     import capo_connect.types.timestamp
@@ -53,7 +51,12 @@ def deserialize_json(data: dict) -> EvaluationFormAIVersionLifecycle:
             )
         )
     else:
-        raise DeserializationError("EvaluationFormAIVersionLifecycle.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_connect.types.evaluation_form_ai_version_status.EvaluationFormAIVersionStatus",
+            "",
+        )
     if data.get("StartOfLifeTime") is not None:
         import capo_connect.types.timestamp
 
@@ -61,8 +64,10 @@ def deserialize_json(data: dict) -> EvaluationFormAIVersionLifecycle:
             data["StartOfLifeTime"]
         )
     else:
-        raise DeserializationError(
-            "EvaluationFormAIVersionLifecycle.start_of_life_time required"
+        import datetime
+
+        out["start_of_life_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("EndOfLifeTime") is not None:
         import capo_connect.types.timestamp

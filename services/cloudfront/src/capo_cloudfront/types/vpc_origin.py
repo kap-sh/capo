@@ -63,12 +63,12 @@ def deserialize_xml(el: Element) -> VpcOrigin:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("VpcOrigin.id required")
+        out["id"] = ""
     child_arn = el.find("Arn")
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("VpcOrigin.arn required")
+        out["arn"] = ""
     child_account_id = el.find("AccountId")
     if child_account_id is not None:
         out["account_id"] = str(child_account_id.text or "")
@@ -76,7 +76,7 @@ def deserialize_xml(el: Element) -> VpcOrigin:
     if child_status is not None:
         out["status"] = str(child_status.text or "")
     else:
-        raise DeserializationError("VpcOrigin.status required")
+        out["status"] = ""
     child_created_time = el.find("CreatedTime")
     if child_created_time is not None:
         import capo_cloudfront.types.timestamp
@@ -85,7 +85,11 @@ def deserialize_xml(el: Element) -> VpcOrigin:
             child_created_time
         )
     else:
-        raise DeserializationError("VpcOrigin.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_last_modified_time = el.find("LastModifiedTime")
     if child_last_modified_time is not None:
         import capo_cloudfront.types.timestamp
@@ -94,7 +98,11 @@ def deserialize_xml(el: Element) -> VpcOrigin:
             child_last_modified_time
         )
     else:
-        raise DeserializationError("VpcOrigin.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_vpc_origin_endpoint_config = el.find("VpcOriginEndpointConfig")
     if child_vpc_origin_endpoint_config is not None:
         import capo_cloudfront.types.vpc_origin_endpoint_config

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cost_and_usage_report_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_and_usage_report_service.types.additional_artifact_list
     import capo_cost_and_usage_report_service.types.aws_region
@@ -135,7 +133,7 @@ def deserialize_aws_json_1_1(data: dict) -> ReportDefinition:
     if data.get("ReportName") is not None:
         out["report_name"] = data["ReportName"]
     else:
-        raise DeserializationError("ReportDefinition.report_name required")
+        out["report_name"] = ""
     if data.get("TimeUnit") is not None:
         import capo_cost_and_usage_report_service.types.time_unit
 
@@ -145,7 +143,11 @@ def deserialize_aws_json_1_1(data: dict) -> ReportDefinition:
             )
         )
     else:
-        raise DeserializationError("ReportDefinition.time_unit required")
+        import typing
+
+        out["time_unit"] = typing.cast(
+            "capo_cost_and_usage_report_service.types.time_unit.TimeUnit", ""
+        )
     if data.get("Format") is not None:
         import capo_cost_and_usage_report_service.types.report_format
 
@@ -155,7 +157,11 @@ def deserialize_aws_json_1_1(data: dict) -> ReportDefinition:
             )
         )
     else:
-        raise DeserializationError("ReportDefinition.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_cost_and_usage_report_service.types.report_format.ReportFormat", ""
+        )
     if data.get("Compression") is not None:
         import capo_cost_and_usage_report_service.types.compression_format
 
@@ -165,7 +171,12 @@ def deserialize_aws_json_1_1(data: dict) -> ReportDefinition:
             )
         )
     else:
-        raise DeserializationError("ReportDefinition.compression required")
+        import typing
+
+        out["compression"] = typing.cast(
+            "capo_cost_and_usage_report_service.types.compression_format.CompressionFormat",
+            "",
+        )
     if data.get("AdditionalSchemaElements") is not None:
         import capo_cost_and_usage_report_service.types.schema_element_list
 
@@ -175,17 +186,15 @@ def deserialize_aws_json_1_1(data: dict) -> ReportDefinition:
             )
         )
     else:
-        raise DeserializationError(
-            "ReportDefinition.additional_schema_elements required"
-        )
+        out["additional_schema_elements"] = []
     if data.get("S3Bucket") is not None:
         out["s3_bucket"] = data["S3Bucket"]
     else:
-        raise DeserializationError("ReportDefinition.s3_bucket required")
+        out["s3_bucket"] = ""
     if data.get("S3Prefix") is not None:
         out["s3_prefix"] = data["S3Prefix"]
     else:
-        raise DeserializationError("ReportDefinition.s3_prefix required")
+        out["s3_prefix"] = ""
     if data.get("S3Region") is not None:
         import capo_cost_and_usage_report_service.types.aws_region
 
@@ -195,7 +204,11 @@ def deserialize_aws_json_1_1(data: dict) -> ReportDefinition:
             )
         )
     else:
-        raise DeserializationError("ReportDefinition.s3_region required")
+        import typing
+
+        out["s3_region"] = typing.cast(
+            "capo_cost_and_usage_report_service.types.aws_region.AWSRegion", ""
+        )
     if data.get("AdditionalArtifacts") is not None:
         import capo_cost_and_usage_report_service.types.additional_artifact_list
 

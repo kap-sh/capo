@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.fulfillment_option_type
     import capo_marketplace_discovery.types.sage_maker_algorithm_recommendation
@@ -66,9 +64,7 @@ def deserialize_json(data: dict) -> SageMakerAlgorithmFulfillmentOption:
     if data.get("fulfillmentOptionId") is not None:
         out["fulfillment_option_id"] = data["fulfillmentOptionId"]
     else:
-        raise DeserializationError(
-            "SageMakerAlgorithmFulfillmentOption.fulfillment_option_id required"
-        )
+        out["fulfillment_option_id"] = ""
     if data.get("fulfillmentOptionType") is not None:
         import capo_marketplace_discovery.types.fulfillment_option_type
 
@@ -78,15 +74,16 @@ def deserialize_json(data: dict) -> SageMakerAlgorithmFulfillmentOption:
             )
         )
     else:
-        raise DeserializationError(
-            "SageMakerAlgorithmFulfillmentOption.fulfillment_option_type required"
+        import typing
+
+        out["fulfillment_option_type"] = typing.cast(
+            "capo_marketplace_discovery.types.fulfillment_option_type.FulfillmentOptionType",
+            "",
         )
     if data.get("fulfillmentOptionDisplayName") is not None:
         out["fulfillment_option_display_name"] = data["fulfillmentOptionDisplayName"]
     else:
-        raise DeserializationError(
-            "SageMakerAlgorithmFulfillmentOption.fulfillment_option_display_name required"
-        )
+        out["fulfillment_option_display_name"] = ""
     if data.get("fulfillmentOptionVersion") is not None:
         out["fulfillment_option_version"] = data["fulfillmentOptionVersion"]
     if data.get("releaseNotes") is not None:

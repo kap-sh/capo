@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_guiconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_guiconnect.types.s3_buckets
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> RecordingDestinations:
             data["S3Buckets"]
         )
     else:
-        raise DeserializationError("RecordingDestinations.s3_buckets required")
+        out["s3_buckets"] = []
     return out

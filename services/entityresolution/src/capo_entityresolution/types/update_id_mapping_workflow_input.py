@@ -94,9 +94,7 @@ def deserialize_json(data: dict) -> UpdateIdMappingWorkflowInput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateIdMappingWorkflowInput.input_source_config required"
-        )
+        out["input_source_config"] = []
     if data.get("outputSourceConfig") is not None:
         import capo_entityresolution.types.id_mapping_workflow_output_source_config
 

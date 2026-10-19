@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appfabric.types.arn
     import capo_appfabric.types.date_time
@@ -88,11 +86,11 @@ def deserialize_json(data: dict) -> IngestionDestination:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("IngestionDestination.arn required")
+        out["arn"] = ""
     if data.get("ingestionArn") is not None:
         out["ingestion_arn"] = data["ingestionArn"]
     else:
-        raise DeserializationError("IngestionDestination.ingestion_arn required")
+        out["ingestion_arn"] = ""
     if data.get("processingConfiguration") is not None:
         import capo_appfabric.types.processing_configuration
 
@@ -102,8 +100,10 @@ def deserialize_json(data: dict) -> IngestionDestination:
             )
         )
     else:
-        raise DeserializationError(
-            "IngestionDestination.processing_configuration required"
+        import capo_appfabric.types._unknown
+
+        out["processing_configuration"] = (
+            capo_appfabric.types._unknown.UnknownUnionMember("")
         )
     if data.get("destinationConfiguration") is not None:
         import capo_appfabric.types.destination_configuration
@@ -114,8 +114,10 @@ def deserialize_json(data: dict) -> IngestionDestination:
             )
         )
     else:
-        raise DeserializationError(
-            "IngestionDestination.destination_configuration required"
+        import capo_appfabric.types._unknown
+
+        out["destination_configuration"] = (
+            capo_appfabric.types._unknown.UnknownUnionMember("")
         )
     if data.get("status") is not None:
         import capo_appfabric.types.ingestion_destination_status

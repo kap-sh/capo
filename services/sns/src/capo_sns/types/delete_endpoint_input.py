@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sns.types.string
@@ -30,5 +29,5 @@ def deserialize_query(el: Element) -> DeleteEndpointInput:
     if child_endpoint_arn is not None:
         out["endpoint_arn"] = str(child_endpoint_arn.text or "")
     else:
-        raise DeserializationError("DeleteEndpointInput.endpoint_arn required")
+        out["endpoint_arn"] = ""
     return out

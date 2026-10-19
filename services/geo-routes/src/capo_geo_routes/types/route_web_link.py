@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.route_web_link_device_type
     import capo_geo_routes.types.sensitive_string
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> RouteWebLink:
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("RouteWebLink.description required")
+        out["description"] = ""
     if data.get("DeviceType") is not None:
         import capo_geo_routes.types.route_web_link_device_type
 

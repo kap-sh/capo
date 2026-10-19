@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_organizations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_organizations.types.resource_policy_content
     import capo_organizations.types.tags
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutResourcePolicyRequest:
     if data.get("Content") is not None:
         out["content"] = data["Content"]
     else:
-        raise DeserializationError("PutResourcePolicyRequest.content required")
+        out["content"] = ""
     if data.get("Tags") is not None:
         import capo_organizations.types.tags
 

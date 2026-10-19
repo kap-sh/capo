@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.agent_preview_list
     import capo_inspector.types.pagination_token
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> PreviewAgentsResponse:
             )
         )
     else:
-        raise DeserializationError("PreviewAgentsResponse.agent_previews required")
+        out["agent_previews"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

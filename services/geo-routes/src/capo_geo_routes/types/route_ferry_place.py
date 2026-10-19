@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.position23
     import capo_geo_routes.types.sensitive_integer
@@ -61,7 +59,7 @@ def deserialize_json(data: dict) -> RouteFerryPlace:
             data["Position"]
         )
     else:
-        raise DeserializationError("RouteFerryPlace.position required")
+        out["position"] = []
     if data.get("WaypointIndex") is not None:
         out["waypoint_index"] = data["WaypointIndex"]
     return out

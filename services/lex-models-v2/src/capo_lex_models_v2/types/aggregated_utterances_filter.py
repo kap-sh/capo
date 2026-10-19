@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.aggregated_utterances_filter_name
     import capo_lex_models_v2.types.aggregated_utterances_filter_operator
@@ -57,7 +55,12 @@ def deserialize_json(data: dict) -> AggregatedUtterancesFilter:
             )
         )
     else:
-        raise DeserializationError("AggregatedUtterancesFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_lex_models_v2.types.aggregated_utterances_filter_name.AggregatedUtterancesFilterName",
+            "",
+        )
     if data.get("values") is not None:
         import capo_lex_models_v2.types.filter_values
 
@@ -65,7 +68,7 @@ def deserialize_json(data: dict) -> AggregatedUtterancesFilter:
             data["values"]
         )
     else:
-        raise DeserializationError("AggregatedUtterancesFilter.values required")
+        out["values"] = []
     if data.get("operator") is not None:
         import capo_lex_models_v2.types.aggregated_utterances_filter_operator
 
@@ -75,5 +78,10 @@ def deserialize_json(data: dict) -> AggregatedUtterancesFilter:
             )
         )
     else:
-        raise DeserializationError("AggregatedUtterancesFilter.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_lex_models_v2.types.aggregated_utterances_filter_operator.AggregatedUtterancesFilterOperator",
+            "",
+        )
     return out

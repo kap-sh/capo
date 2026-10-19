@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.sftp_port
     import capo_transfer.types.vpc_lattice_resource_configuration_arn
@@ -32,9 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribedConnectorVpcLatticeEgressCo
     if data.get("ResourceConfigurationArn") is not None:
         out["resource_configuration_arn"] = data["ResourceConfigurationArn"]
     else:
-        raise DeserializationError(
-            "DescribedConnectorVpcLatticeEgressConfig.resource_configuration_arn required"
-        )
+        out["resource_configuration_arn"] = ""
     if data.get("PortNumber") is not None:
         out["port_number"] = data["PortNumber"]
     return out

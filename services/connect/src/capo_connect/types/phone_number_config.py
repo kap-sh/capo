@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.channel
     import capo_connect.types.phone_type
@@ -44,7 +42,9 @@ def deserialize_json(data: dict) -> PhoneNumberConfig:
 
         out["channel"] = capo_connect.types.channel.deserialize_json(data["Channel"])
     else:
-        raise DeserializationError("PhoneNumberConfig.channel required")
+        import typing
+
+        out["channel"] = typing.cast("capo_connect.types.channel.Channel", "")
     if data.get("PhoneType") is not None:
         import capo_connect.types.phone_type
 
@@ -52,7 +52,9 @@ def deserialize_json(data: dict) -> PhoneNumberConfig:
             data["PhoneType"]
         )
     else:
-        raise DeserializationError("PhoneNumberConfig.phone_type required")
+        import typing
+
+        out["phone_type"] = typing.cast("capo_connect.types.phone_type.PhoneType", "")
     if data.get("PhoneNumber") is not None:
         out["phone_number"] = data["PhoneNumber"]
     return out

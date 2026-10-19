@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.batch_disassociate_finding_issue_errors
 
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> BatchDisassociateFindingIssueOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDisassociateFindingIssueOutput.errors required"
-        )
+        out["errors"] = []
     return out

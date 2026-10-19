@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.arn
     import capo_connectcampaignsv2.types.object_type_names_map
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> CustomerProfilesIntegrationConfig:
     if data.get("domainArn") is not None:
         out["domain_arn"] = data["domainArn"]
     else:
-        raise DeserializationError(
-            "CustomerProfilesIntegrationConfig.domain_arn required"
-        )
+        out["domain_arn"] = ""
     if data.get("objectTypeNames") is not None:
         import capo_connectcampaignsv2.types.object_type_names_map
 
@@ -49,7 +45,5 @@ def deserialize_json(data: dict) -> CustomerProfilesIntegrationConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "CustomerProfilesIntegrationConfig.object_type_names required"
-        )
+        out["object_type_names"] = {}
     return out

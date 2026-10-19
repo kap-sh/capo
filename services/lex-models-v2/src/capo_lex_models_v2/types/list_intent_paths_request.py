@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.analytics_path
     import capo_lex_models_v2.types.analytics_path_filters
@@ -60,7 +58,11 @@ def deserialize_json(data: dict) -> ListIntentPathsRequest:
             data["startDateTime"]
         )
     else:
-        raise DeserializationError("ListIntentPathsRequest.start_date_time required")
+        import datetime
+
+        out["start_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("endDateTime") is not None:
         import capo_lex_models_v2.types.timestamp
 
@@ -68,11 +70,15 @@ def deserialize_json(data: dict) -> ListIntentPathsRequest:
             data["endDateTime"]
         )
     else:
-        raise DeserializationError("ListIntentPathsRequest.end_date_time required")
+        import datetime
+
+        out["end_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("intentPath") is not None:
         out["intent_path"] = data["intentPath"]
     else:
-        raise DeserializationError("ListIntentPathsRequest.intent_path required")
+        out["intent_path"] = ""
     if data.get("filters") is not None:
         import capo_lex_models_v2.types.analytics_path_filters
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migration_hub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migration_hub.types.progress_percent
     import capo_migration_hub.types.status
@@ -47,7 +45,9 @@ def deserialize_aws_json_1_1(data: dict) -> Task:
             data["Status"]
         )
     else:
-        raise DeserializationError("Task.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_migration_hub.types.status.Status", "")
     if data.get("StatusDetail") is not None:
         out["status_detail"] = data["StatusDetail"]
     if data.get("ProgressPercent") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3files.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3files.types.file_system_id
     import capo_s3files.types.ip_address_type
@@ -59,11 +57,11 @@ def deserialize_json(data: dict) -> CreateMountTargetRequest:
     if data.get("fileSystemId") is not None:
         out["file_system_id"] = data["fileSystemId"]
     else:
-        raise DeserializationError("CreateMountTargetRequest.file_system_id required")
+        out["file_system_id"] = ""
     if data.get("subnetId") is not None:
         out["subnet_id"] = data["subnetId"]
     else:
-        raise DeserializationError("CreateMountTargetRequest.subnet_id required")
+        out["subnet_id"] = ""
     if data.get("ipv4Address") is not None:
         out["ipv4_address"] = data["ipv4Address"]
     if data.get("ipv6Address") is not None:

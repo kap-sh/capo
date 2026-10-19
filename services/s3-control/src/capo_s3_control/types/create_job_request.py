@@ -119,7 +119,7 @@ def deserialize_xml(el: Element) -> CreateJobRequest:
     if child_client_request_token is not None:
         out["client_request_token"] = str(child_client_request_token.text or "")
     else:
-        raise DeserializationError("CreateJobRequest.client_request_token required")
+        out["client_request_token"] = ""
     child_manifest = el.find("Manifest")
     if child_manifest is not None:
         import capo_s3_control.types.job_manifest
@@ -134,12 +134,12 @@ def deserialize_xml(el: Element) -> CreateJobRequest:
     if child_priority is not None:
         out["priority"] = int(child_priority.text or "")
     else:
-        raise DeserializationError("CreateJobRequest.priority required")
+        out["priority"] = 0
     child_role_arn = el.find("RoleArn")
     if child_role_arn is not None:
         out["role_arn"] = str(child_role_arn.text or "")
     else:
-        raise DeserializationError("CreateJobRequest.role_arn required")
+        out["role_arn"] = ""
     child_tags = el.find("Tags")
     if child_tags is not None:
         import capo_s3_control.types.s3_tag_set

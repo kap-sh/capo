@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.cidr_nonce
@@ -34,12 +33,10 @@ def deserialize_xml(el: Element) -> CreateCidrCollectionRequest:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("CreateCidrCollectionRequest.name required")
+        out["name"] = ""
     child_caller_reference = el.find("CallerReference")
     if child_caller_reference is not None:
         out["caller_reference"] = str(child_caller_reference.text or "")
     else:
-        raise DeserializationError(
-            "CreateCidrCollectionRequest.caller_reference required"
-        )
+        out["caller_reference"] = ""
     return out

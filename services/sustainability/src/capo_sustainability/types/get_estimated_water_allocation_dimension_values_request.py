@@ -63,9 +63,7 @@ def deserialize_json(data: dict) -> GetEstimatedWaterAllocationDimensionValuesRe
             data["Dimensions"]
         )
     else:
-        raise DeserializationError(
-            "GetEstimatedWaterAllocationDimensionValuesRequest.dimensions required"
-        )
+        out["dimensions"] = []
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

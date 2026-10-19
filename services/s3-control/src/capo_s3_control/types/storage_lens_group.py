@@ -45,7 +45,7 @@ def deserialize_xml(el: Element) -> StorageLensGroup:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("StorageLensGroup.name required")
+        out["name"] = ""
     child_filter = el.find("Filter")
     if child_filter is not None:
         import capo_s3_control.types.storage_lens_group_filter

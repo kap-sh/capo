@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_voice_id.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_voice_id.types.score
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> AuthenticationConfiguration:
     if data.get("AcceptanceThreshold") is not None:
         out["acceptance_threshold"] = data["AcceptanceThreshold"]
     else:
-        raise DeserializationError(
-            "AuthenticationConfiguration.acceptance_threshold required"
-        )
+        out["acceptance_threshold"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_detective.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_detective.types.timestamp
 
@@ -42,7 +40,11 @@ def deserialize_json(data: dict) -> DateFilter:
             data["StartInclusive"]
         )
     else:
-        raise DeserializationError("DateFilter.start_inclusive required")
+        import datetime
+
+        out["start_inclusive"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("EndInclusive") is not None:
         import capo_detective.types.timestamp
 
@@ -50,5 +52,9 @@ def deserialize_json(data: dict) -> DateFilter:
             data["EndInclusive"]
         )
     else:
-        raise DeserializationError("DateFilter.end_inclusive required")
+        import datetime
+
+        out["end_inclusive"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

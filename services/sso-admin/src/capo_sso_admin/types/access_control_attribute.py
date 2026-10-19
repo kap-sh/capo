@@ -37,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> AccessControlAttribute:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("AccessControlAttribute.key required")
+        out["key"] = ""
     if data.get("Value") is not None:
         import capo_sso_admin.types.access_control_attribute_value
 

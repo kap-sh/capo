@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.arn
     import capo_dataexchange.types.asset_type
@@ -75,11 +73,11 @@ def deserialize_json(data: dict) -> DataSetEntry:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("DataSetEntry.arn required")
+        out["arn"] = ""
     if data.get("AssetType") is not None:
         out["asset_type"] = data["AssetType"]
     else:
-        raise DeserializationError("DataSetEntry.asset_type required")
+        out["asset_type"] = ""
     if data.get("CreatedAt") is not None:
         import capo_dataexchange.types.timestamp
 
@@ -87,23 +85,25 @@ def deserialize_json(data: dict) -> DataSetEntry:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("DataSetEntry.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("DataSetEntry.description required")
+        out["description"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("DataSetEntry.id required")
+        out["id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DataSetEntry.name required")
+        out["name"] = ""
     if data.get("Origin") is not None:
         out["origin"] = data["Origin"]
     else:
-        raise DeserializationError("DataSetEntry.origin required")
+        out["origin"] = ""
     if data.get("OriginDetails") is not None:
         import capo_dataexchange.types.origin_details
 
@@ -119,5 +119,7 @@ def deserialize_json(data: dict) -> DataSetEntry:
             data["UpdatedAt"]
         )
     else:
-        raise DeserializationError("DataSetEntry.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

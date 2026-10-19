@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.date_time
     import capo_partnercentral_selling.types.engagement_arn
@@ -47,15 +45,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateEngagementContextResponse:
     if data.get("EngagementId") is not None:
         out["engagement_id"] = data["EngagementId"]
     else:
-        raise DeserializationError(
-            "UpdateEngagementContextResponse.engagement_id required"
-        )
+        out["engagement_id"] = ""
     if data.get("EngagementArn") is not None:
         out["engagement_arn"] = data["EngagementArn"]
     else:
-        raise DeserializationError(
-            "UpdateEngagementContextResponse.engagement_arn required"
-        )
+        out["engagement_arn"] = ""
     if data.get("EngagementLastModifiedAt") is not None:
         import capo_partnercentral_selling.types.date_time
 
@@ -65,13 +59,13 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateEngagementContextResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateEngagementContextResponse.engagement_last_modified_at required"
+        import datetime
+
+        out["engagement_last_modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("ContextId") is not None:
         out["context_id"] = data["ContextId"]
     else:
-        raise DeserializationError(
-            "UpdateEngagementContextResponse.context_id required"
-        )
+        out["context_id"] = ""
     return out

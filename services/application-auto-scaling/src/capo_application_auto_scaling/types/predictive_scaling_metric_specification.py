@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_auto_scaling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_auto_scaling.types.metric_scale
     import capo_application_auto_scaling.types.predictive_scaling_customized_metric_specification
@@ -111,9 +109,7 @@ def deserialize_aws_json_1_1(data: dict) -> PredictiveScalingMetricSpecification
     if data.get("TargetValue") is not None:
         out["target_value"] = float(data["TargetValue"])
     else:
-        raise DeserializationError(
-            "PredictiveScalingMetricSpecification.target_value required"
-        )
+        out["target_value"] = 0.0
     if data.get("PredefinedMetricPairSpecification") is not None:
         import capo_application_auto_scaling.types.predictive_scaling_predefined_metric_pair_specification
 

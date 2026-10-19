@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__map_of__string
     import capo_mediatailor.types.__string
@@ -77,7 +75,7 @@ def deserialize_json(data: dict) -> VodSource:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("VodSource.arn required")
+        out["arn"] = ""
     if data.get("CreationTime") is not None:
         import capo_mediatailor.types.__timestamp_unix
 
@@ -93,7 +91,7 @@ def deserialize_json(data: dict) -> VodSource:
             )
         )
     else:
-        raise DeserializationError("VodSource.http_package_configurations required")
+        out["http_package_configurations"] = []
     if data.get("LastModifiedTime") is not None:
         import capo_mediatailor.types.__timestamp_unix
 
@@ -105,7 +103,7 @@ def deserialize_json(data: dict) -> VodSource:
     if data.get("SourceLocationName") is not None:
         out["source_location_name"] = data["SourceLocationName"]
     else:
-        raise DeserializationError("VodSource.source_location_name required")
+        out["source_location_name"] = ""
     if data.get("tags") is not None:
         import capo_mediatailor.types.__map_of__string
 
@@ -115,5 +113,5 @@ def deserialize_json(data: dict) -> VodSource:
     if data.get("VodSourceName") is not None:
         out["vod_source_name"] = data["VodSourceName"]
     else:
-        raise DeserializationError("VodSource.vod_source_name required")
+        out["vod_source_name"] = ""
     return out

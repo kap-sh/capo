@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.autonomous_database_wallet_file
 
@@ -41,9 +39,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateAutonomousDatabaseWalletOutput
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAutonomousDatabaseWalletOutput.autonomous_database_wallet_file required"
-        )
+        out["autonomous_database_wallet_file"] = b""
     return out
 
 

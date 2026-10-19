@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.accelerators
     import capo_omics.types.container_registry_map
@@ -160,7 +158,7 @@ def deserialize_json(data: dict) -> CreateWorkflowVersionRequest:
     if data.get("versionName") is not None:
         out["version_name"] = data["versionName"]
     else:
-        raise DeserializationError("CreateWorkflowVersionRequest.version_name required")
+        out["version_name"] = ""
     if data.get("definitionZip") is not None:
         import capo_omics.types._prelude.blob
 
@@ -188,7 +186,7 @@ def deserialize_json(data: dict) -> CreateWorkflowVersionRequest:
     if data.get("requestId") is not None:
         out["request_id"] = data["requestId"]
     else:
-        raise DeserializationError("CreateWorkflowVersionRequest.request_id required")
+        out["request_id"] = ""
     if data.get("storageType") is not None:
         out["storage_type"] = data["storageType"]
     if data.get("storageCapacity") is not None:

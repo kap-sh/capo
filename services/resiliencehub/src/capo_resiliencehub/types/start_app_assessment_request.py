@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.arn
     import capo_resiliencehub.types.client_token
@@ -47,15 +45,15 @@ def deserialize_json(data: dict) -> StartAppAssessmentRequest:
     if data.get("appArn") is not None:
         out["app_arn"] = data["appArn"]
     else:
-        raise DeserializationError("StartAppAssessmentRequest.app_arn required")
+        out["app_arn"] = ""
     if data.get("appVersion") is not None:
         out["app_version"] = data["appVersion"]
     else:
-        raise DeserializationError("StartAppAssessmentRequest.app_version required")
+        out["app_version"] = ""
     if data.get("assessmentName") is not None:
         out["assessment_name"] = data["assessmentName"]
     else:
-        raise DeserializationError("StartAppAssessmentRequest.assessment_name required")
+        out["assessment_name"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

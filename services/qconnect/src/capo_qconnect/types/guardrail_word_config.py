@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.guardrail_word_text
 
@@ -27,7 +25,7 @@ def deserialize_json(data: dict) -> GuardrailWordConfig:
     if data.get("text") is not None:
         out["text"] = data["text"]
     else:
-        raise DeserializationError("GuardrailWordConfig.text required")
+        out["text"] = ""
     return out
 
 

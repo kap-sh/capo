@@ -37,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> UnshareDirectoryRequest:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError("UnshareDirectoryRequest.directory_id required")
+        out["directory_id"] = ""
     if data.get("UnshareTarget") is not None:
         import capo_directory_service.types.unshare_target
 

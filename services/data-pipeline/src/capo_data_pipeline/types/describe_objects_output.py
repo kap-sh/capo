@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_data_pipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_data_pipeline.types.boolean
     import capo_data_pipeline.types.pipeline_object_list
@@ -48,7 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeObjectsOutput:
             )
         )
     else:
-        raise DeserializationError("DescribeObjectsOutput.pipeline_objects required")
+        out["pipeline_objects"] = []
     if data.get("marker") is not None:
         out["marker"] = data["marker"]
     if data.get("hasMoreResults") is not None:

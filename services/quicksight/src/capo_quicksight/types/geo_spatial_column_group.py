@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.column_group_name
     import capo_quicksight.types.column_list
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> GeoSpatialColumnGroup:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("GeoSpatialColumnGroup.name required")
+        out["name"] = ""
     if data.get("CountryCode") is not None:
         import capo_quicksight.types.geo_spatial_country_code
 
@@ -62,5 +60,5 @@ def deserialize_json(data: dict) -> GeoSpatialColumnGroup:
             data["Columns"]
         )
     else:
-        raise DeserializationError("GeoSpatialColumnGroup.columns required")
+        out["columns"] = []
     return out

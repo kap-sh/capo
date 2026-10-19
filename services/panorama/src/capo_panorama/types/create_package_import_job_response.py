@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.job_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CreatePackageImportJobResponse:
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError("CreatePackageImportJobResponse.job_id required")
+        out["job_id"] = ""
     return out

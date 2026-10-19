@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transcribe.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe.types.pii_entity_types
     import capo_transcribe.types.redaction_output
@@ -60,7 +58,11 @@ def deserialize_aws_json_1_1(data: dict) -> ContentRedaction:
             )
         )
     else:
-        raise DeserializationError("ContentRedaction.redaction_type required")
+        import typing
+
+        out["redaction_type"] = typing.cast(
+            "capo_transcribe.types.redaction_type.RedactionType", ""
+        )
     if data.get("RedactionOutput") is not None:
         import capo_transcribe.types.redaction_output
 
@@ -70,7 +72,11 @@ def deserialize_aws_json_1_1(data: dict) -> ContentRedaction:
             )
         )
     else:
-        raise DeserializationError("ContentRedaction.redaction_output required")
+        import typing
+
+        out["redaction_output"] = typing.cast(
+            "capo_transcribe.types.redaction_output.RedactionOutput", ""
+        )
     if data.get("PiiEntityTypes") is not None:
         import capo_transcribe.types.pii_entity_types
 

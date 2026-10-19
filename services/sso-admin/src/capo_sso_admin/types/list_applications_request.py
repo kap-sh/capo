@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sso_admin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_admin.types.instance_arn
     import capo_sso_admin.types.list_applications_filter
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListApplicationsRequest:
     if data.get("InstanceArn") is not None:
         out["instance_arn"] = data["InstanceArn"]
     else:
-        raise DeserializationError("ListApplicationsRequest.instance_arn required")
+        out["instance_arn"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

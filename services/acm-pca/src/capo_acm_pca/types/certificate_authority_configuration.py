@@ -64,8 +64,10 @@ def deserialize_aws_json_1_1(data: dict) -> CertificateAuthorityConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "CertificateAuthorityConfiguration.key_algorithm required"
+        import typing
+
+        out["key_algorithm"] = typing.cast(
+            "capo_acm_pca.types.key_algorithm.KeyAlgorithm", ""
         )
     if data.get("SigningAlgorithm") is not None:
         import capo_acm_pca.types.signing_algorithm
@@ -76,8 +78,10 @@ def deserialize_aws_json_1_1(data: dict) -> CertificateAuthorityConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "CertificateAuthorityConfiguration.signing_algorithm required"
+        import typing
+
+        out["signing_algorithm"] = typing.cast(
+            "capo_acm_pca.types.signing_algorithm.SigningAlgorithm", ""
         )
     if data.get("Subject") is not None:
         import capo_acm_pca.types.asn1_subject

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.commit_name
     import capo_codecommit.types.path
@@ -36,11 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetFolderInput:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError("GetFolderInput.repository_name required")
+        out["repository_name"] = ""
     if data.get("commitSpecifier") is not None:
         out["commit_specifier"] = data["commitSpecifier"]
     if data.get("folderPath") is not None:
         out["folder_path"] = data["folderPath"]
     else:
-        raise DeserializationError("GetFolderInput.folder_path required")
+        out["folder_path"] = ""
     return out

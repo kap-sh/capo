@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.compute_node_name_list
     import capo_iotsitewise.types.environment_variables_map
@@ -54,11 +52,11 @@ def deserialize_json(data: dict) -> ComputeNode:
     if data.get("computeNodeName") is not None:
         out["compute_node_name"] = data["computeNodeName"]
     else:
-        raise DeserializationError("ComputeNode.compute_node_name required")
+        out["compute_node_name"] = ""
     if data.get("taskName") is not None:
         out["task_name"] = data["taskName"]
     else:
-        raise DeserializationError("ComputeNode.task_name required")
+        out["task_name"] = ""
     if data.get("environmentVariables") is not None:
         import capo_iotsitewise.types.environment_variables_map
 

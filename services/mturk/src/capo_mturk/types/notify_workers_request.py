@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mturk.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mturk.types.customer_id_list
     import capo_mturk.types.string
@@ -38,11 +36,11 @@ def deserialize_aws_json_1_1(data: dict) -> NotifyWorkersRequest:
     if data.get("Subject") is not None:
         out["subject"] = data["Subject"]
     else:
-        raise DeserializationError("NotifyWorkersRequest.subject required")
+        out["subject"] = ""
     if data.get("MessageText") is not None:
         out["message_text"] = data["MessageText"]
     else:
-        raise DeserializationError("NotifyWorkersRequest.message_text required")
+        out["message_text"] = ""
     if data.get("WorkerIds") is not None:
         import capo_mturk.types.customer_id_list
 
@@ -50,5 +48,5 @@ def deserialize_aws_json_1_1(data: dict) -> NotifyWorkersRequest:
             data["WorkerIds"]
         )
     else:
-        raise DeserializationError("NotifyWorkersRequest.worker_ids required")
+        out["worker_ids"] = []
     return out

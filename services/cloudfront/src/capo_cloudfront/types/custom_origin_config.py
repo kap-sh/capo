@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.integer
@@ -82,12 +81,12 @@ def deserialize_xml(el: Element) -> CustomOriginConfig:
     if child_http_port is not None:
         out["http_port"] = int(child_http_port.text or "")
     else:
-        raise DeserializationError("CustomOriginConfig.http_port required")
+        out["http_port"] = 0
     child_https_port = el.find("HTTPSPort")
     if child_https_port is not None:
         out["https_port"] = int(child_https_port.text or "")
     else:
-        raise DeserializationError("CustomOriginConfig.https_port required")
+        out["https_port"] = 0
     child_origin_protocol_policy = el.find("OriginProtocolPolicy")
     if child_origin_protocol_policy is not None:
         import capo_cloudfront.types.origin_protocol_policy
@@ -98,7 +97,11 @@ def deserialize_xml(el: Element) -> CustomOriginConfig:
             )
         )
     else:
-        raise DeserializationError("CustomOriginConfig.origin_protocol_policy required")
+        import typing
+
+        out["origin_protocol_policy"] = typing.cast(
+            "capo_cloudfront.types.origin_protocol_policy.OriginProtocolPolicy", ""
+        )
     child_origin_ssl_protocols = el.find("OriginSslProtocols")
     if child_origin_ssl_protocols is not None:
         import capo_cloudfront.types.origin_ssl_protocols

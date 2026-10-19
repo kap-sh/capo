@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aws_arn
     import capo_iot.types.put_asset_property_value_entry_list
@@ -43,11 +41,9 @@ def deserialize_json(data: dict) -> IotSiteWiseAction:
             )
         )
     else:
-        raise DeserializationError(
-            "IotSiteWiseAction.put_asset_property_value_entries required"
-        )
+        out["put_asset_property_value_entries"] = []
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("IotSiteWiseAction.role_arn required")
+        out["role_arn"] = ""
     return out

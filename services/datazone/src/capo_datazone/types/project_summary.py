@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -89,15 +87,15 @@ def deserialize_json(data: dict) -> ProjectSummary:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("ProjectSummary.domain_id required")
+        out["domain_id"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ProjectSummary.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ProjectSummary.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("projectStatus") is not None:
@@ -115,7 +113,7 @@ def deserialize_json(data: dict) -> ProjectSummary:
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("ProjectSummary.created_by required")
+        out["created_by"] = ""
     if data.get("createdAt") is not None:
         import datetime
 

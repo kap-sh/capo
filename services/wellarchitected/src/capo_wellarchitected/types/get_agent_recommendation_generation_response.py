@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -122,15 +120,11 @@ def deserialize_json(data: dict) -> GetAgentRecommendationGenerationResponse:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError(
-            "GetAgentRecommendationGenerationResponse.id required"
-        )
+        out["id"] = ""
     if data.get("profileArn") is not None:
         out["profile_arn"] = data["profileArn"]
     else:
-        raise DeserializationError(
-            "GetAgentRecommendationGenerationResponse.profile_arn required"
-        )
+        out["profile_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("status") is not None:
@@ -140,8 +134,10 @@ def deserialize_json(data: dict) -> GetAgentRecommendationGenerationResponse:
             data["status"]
         )
     else:
-        raise DeserializationError(
-            "GetAgentRecommendationGenerationResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_wellarchitected.types.generation_status.GenerationStatus", ""
         )
     if data.get("estimatedCompletionTime") is not None:
         import datetime
@@ -152,9 +148,7 @@ def deserialize_json(data: dict) -> GetAgentRecommendationGenerationResponse:
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError(
-            "GetAgentRecommendationGenerationResponse.created_by required"
-        )
+        out["created_by"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -162,9 +156,9 @@ def deserialize_json(data: dict) -> GetAgentRecommendationGenerationResponse:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "GetAgentRecommendationGenerationResponse.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastModifiedBy") is not None:
         out["last_modified_by"] = data["lastModifiedBy"]
     if data.get("lastModifiedAt") is not None:

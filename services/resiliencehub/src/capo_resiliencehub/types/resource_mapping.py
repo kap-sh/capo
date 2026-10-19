@@ -85,7 +85,11 @@ def deserialize_json(data: dict) -> ResourceMapping:
             )
         )
     else:
-        raise DeserializationError("ResourceMapping.mapping_type required")
+        import typing
+
+        out["mapping_type"] = typing.cast(
+            "capo_resiliencehub.types.resource_mapping_type.ResourceMappingType", ""
+        )
     if data.get("physicalResourceId") is not None:
         import capo_resiliencehub.types.physical_resource_id
 

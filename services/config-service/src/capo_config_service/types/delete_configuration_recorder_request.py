@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.recorder_name
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteConfigurationRecorderRequest:
     if data.get("ConfigurationRecorderName") is not None:
         out["configuration_recorder_name"] = data["ConfigurationRecorderName"]
     else:
-        raise DeserializationError(
-            "DeleteConfigurationRecorderRequest.configuration_recorder_name required"
-        )
+        out["configuration_recorder_name"] = ""
     return out

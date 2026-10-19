@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_grafana.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_grafana.types.api_key_name
     import capo_grafana.types.workspace_id
@@ -31,11 +29,9 @@ def deserialize_json(data: dict) -> DeleteWorkspaceApiKeyResponse:
     if data.get("keyName") is not None:
         out["key_name"] = data["keyName"]
     else:
-        raise DeserializationError("DeleteWorkspaceApiKeyResponse.key_name required")
+        out["key_name"] = ""
     if data.get("workspaceId") is not None:
         out["workspace_id"] = data["workspaceId"]
     else:
-        raise DeserializationError(
-            "DeleteWorkspaceApiKeyResponse.workspace_id required"
-        )
+        out["workspace_id"] = ""
     return out

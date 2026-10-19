@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.s3_bucket_name
     import capo_lex_models_v2.types.s3_object_path
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> TestSetImportInputLocation:
     if data.get("s3BucketName") is not None:
         out["s3_bucket_name"] = data["s3BucketName"]
     else:
-        raise DeserializationError("TestSetImportInputLocation.s3_bucket_name required")
+        out["s3_bucket_name"] = ""
     if data.get("s3Path") is not None:
         out["s3_path"] = data["s3Path"]
     else:
-        raise DeserializationError("TestSetImportInputLocation.s3_path required")
+        out["s3_path"] = ""
     return out

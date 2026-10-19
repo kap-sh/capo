@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_controltower.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_controltower.types.control_identifier
     import capo_controltower.types.enabled_control_parameters
@@ -51,11 +49,11 @@ def deserialize_json(data: dict) -> EnableControlInput:
     if data.get("controlIdentifier") is not None:
         out["control_identifier"] = data["controlIdentifier"]
     else:
-        raise DeserializationError("EnableControlInput.control_identifier required")
+        out["control_identifier"] = ""
     if data.get("targetIdentifier") is not None:
         out["target_identifier"] = data["targetIdentifier"]
     else:
-        raise DeserializationError("EnableControlInput.target_identifier required")
+        out["target_identifier"] = ""
     if data.get("tags") is not None:
         import capo_controltower.types.tag_map
 

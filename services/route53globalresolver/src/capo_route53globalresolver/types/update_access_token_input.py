@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.resource_id
     import capo_route53globalresolver.types.resource_name_short
@@ -30,5 +28,5 @@ def deserialize_json(data: dict) -> UpdateAccessTokenInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateAccessTokenInput.name required")
+        out["name"] = ""
     return out

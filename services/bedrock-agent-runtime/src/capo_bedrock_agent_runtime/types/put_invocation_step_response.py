@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.uuid
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> PutInvocationStepResponse:
     if data.get("invocationStepId") is not None:
         out["invocation_step_id"] = data["invocationStepId"]
     else:
-        raise DeserializationError(
-            "PutInvocationStepResponse.invocation_step_id required"
-        )
+        out["invocation_step_id"] = ""
     return out

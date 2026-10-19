@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pi.types.dimension_map
 
@@ -35,5 +33,5 @@ def deserialize_aws_json_1_1(data: dict) -> ResponsePartitionKey:
             data["Dimensions"]
         )
     else:
-        raise DeserializationError("ResponsePartitionKey.dimensions required")
+        out["dimensions"] = {}
     return out

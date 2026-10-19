@@ -39,11 +39,11 @@ def deserialize_json(data: dict) -> PagerDutyConfiguration:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("PagerDutyConfiguration.name required")
+        out["name"] = ""
     if data.get("secretId") is not None:
         out["secret_id"] = data["secretId"]
     else:
-        raise DeserializationError("PagerDutyConfiguration.secret_id required")
+        out["secret_id"] = ""
     if data.get("pagerDutyIncidentConfiguration") is not None:
         import capo_ssm_incidents.types.pager_duty_incident_configuration
 

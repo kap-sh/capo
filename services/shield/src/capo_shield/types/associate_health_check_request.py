@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_shield.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_shield.types.health_check_arn
     import capo_shield.types.protection_id
@@ -31,11 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateHealthCheckRequest:
     if data.get("ProtectionId") is not None:
         out["protection_id"] = data["ProtectionId"]
     else:
-        raise DeserializationError("AssociateHealthCheckRequest.protection_id required")
+        out["protection_id"] = ""
     if data.get("HealthCheckArn") is not None:
         out["health_check_arn"] = data["HealthCheckArn"]
     else:
-        raise DeserializationError(
-            "AssociateHealthCheckRequest.health_check_arn required"
-        )
+        out["health_check_arn"] = ""
     return out

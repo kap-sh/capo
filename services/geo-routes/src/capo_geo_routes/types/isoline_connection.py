@@ -39,7 +39,7 @@ def deserialize_json(data: dict) -> IsolineConnection:
     if data.get("FromPolygonIndex") is not None:
         out["from_polygon_index"] = data["FromPolygonIndex"]
     else:
-        raise DeserializationError("IsolineConnection.from_polygon_index required")
+        out["from_polygon_index"] = 0
     if data.get("Geometry") is not None:
         import capo_geo_routes.types.isoline_connection_geometry
 
@@ -53,7 +53,7 @@ def deserialize_json(data: dict) -> IsolineConnection:
     if data.get("ToPolygonIndex") is not None:
         out["to_polygon_index"] = data["ToPolygonIndex"]
     else:
-        raise DeserializationError("IsolineConnection.to_polygon_index required")
+        out["to_polygon_index"] = 0
     return out
 
 

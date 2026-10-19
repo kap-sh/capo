@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteMetricAttributionRequest:
     if data.get("metricAttributionArn") is not None:
         out["metric_attribution_arn"] = data["metricAttributionArn"]
     else:
-        raise DeserializationError(
-            "DeleteMetricAttributionRequest.metric_attribution_arn required"
-        )
+        out["metric_attribution_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.generic_limited_string
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> Datatype:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("Datatype.id required")
+        out["id"] = ""
     if data.get("Label") is not None:
         out["label"] = data["Label"]
     else:
-        raise DeserializationError("Datatype.label required")
+        out["label"] = ""
     return out

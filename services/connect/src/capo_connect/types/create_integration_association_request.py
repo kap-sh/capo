@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.instance_id
@@ -70,15 +68,15 @@ def deserialize_json(data: dict) -> CreateIntegrationAssociationRequest:
             data["IntegrationType"]
         )
     else:
-        raise DeserializationError(
-            "CreateIntegrationAssociationRequest.integration_type required"
+        import typing
+
+        out["integration_type"] = typing.cast(
+            "capo_connect.types.integration_type.IntegrationType", ""
         )
     if data.get("IntegrationArn") is not None:
         out["integration_arn"] = data["IntegrationArn"]
     else:
-        raise DeserializationError(
-            "CreateIntegrationAssociationRequest.integration_arn required"
-        )
+        out["integration_arn"] = ""
     if data.get("SourceApplicationUrl") is not None:
         out["source_application_url"] = data["SourceApplicationUrl"]
     if data.get("SourceApplicationName") is not None:

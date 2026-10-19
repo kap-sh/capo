@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.registry_record_credential_provider_type
     import capo_bedrock_agentcore_control.types.registry_record_credential_provider_union
@@ -49,8 +47,11 @@ def deserialize_json(data: dict) -> RegistryRecordCredentialProviderConfiguratio
             )
         )
     else:
-        raise DeserializationError(
-            "RegistryRecordCredentialProviderConfiguration.credential_provider_type required"
+        import typing
+
+        out["credential_provider_type"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.registry_record_credential_provider_type.RegistryRecordCredentialProviderType",
+            "",
         )
     if data.get("credentialProvider") is not None:
         import capo_bedrock_agentcore_control.types.registry_record_credential_provider_union
@@ -61,7 +62,9 @@ def deserialize_json(data: dict) -> RegistryRecordCredentialProviderConfiguratio
             )
         )
     else:
-        raise DeserializationError(
-            "RegistryRecordCredentialProviderConfiguration.credential_provider required"
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["credential_provider"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
         )
     return out

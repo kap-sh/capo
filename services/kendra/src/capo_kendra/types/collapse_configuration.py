@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.boolean
     import capo_kendra.types.document_attribute_key
@@ -72,9 +70,7 @@ def deserialize_aws_json_1_1(data: dict) -> CollapseConfiguration:
     if data.get("DocumentAttributeKey") is not None:
         out["document_attribute_key"] = data["DocumentAttributeKey"]
     else:
-        raise DeserializationError(
-            "CollapseConfiguration.document_attribute_key required"
-        )
+        out["document_attribute_key"] = ""
     if data.get("SortingConfigurations") is not None:
         import capo_kendra.types.sorting_configuration_list
 

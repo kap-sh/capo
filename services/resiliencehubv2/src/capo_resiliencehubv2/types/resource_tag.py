@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.tag_key
     import capo_resiliencehubv2.types.tag_value_list
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> ResourceTag:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("ResourceTag.key required")
+        out["key"] = ""
     if data.get("values") is not None:
         import capo_resiliencehubv2.types.tag_value_list
 
@@ -42,5 +40,5 @@ def deserialize_json(data: dict) -> ResourceTag:
             data["values"]
         )
     else:
-        raise DeserializationError("ResourceTag.values required")
+        out["values"] = []
     return out

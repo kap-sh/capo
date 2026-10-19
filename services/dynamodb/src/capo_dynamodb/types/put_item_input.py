@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.condition_expression
     import capo_dynamodb.types.conditional_operator
@@ -143,7 +141,7 @@ def deserialize_aws_json_1_0(data: dict) -> PutItemInput:
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("PutItemInput.table_name required")
+        out["table_name"] = ""
     if data.get("Item") is not None:
         import capo_dynamodb.types.put_item_input_attribute_map
 
@@ -153,7 +151,7 @@ def deserialize_aws_json_1_0(data: dict) -> PutItemInput:
             )
         )
     else:
-        raise DeserializationError("PutItemInput.item required")
+        out["item"] = {}
     if data.get("Expected") is not None:
         import capo_dynamodb.types.expected_attribute_map
 

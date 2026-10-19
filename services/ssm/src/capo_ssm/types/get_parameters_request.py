@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.boolean
     import capo_ssm.types.parameter_name_list
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetParametersRequest:
             data["Names"]
         )
     else:
-        raise DeserializationError("GetParametersRequest.names required")
+        out["names"] = []
     if data.get("WithDecryption") is not None:
         out["with_decryption"] = data["WithDecryption"]
     return out

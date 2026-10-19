@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.create_topic_reviewed_answers
@@ -45,9 +43,7 @@ def deserialize_json(data: dict) -> BatchCreateTopicReviewedAnswerRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchCreateTopicReviewedAnswerRequest.answers required"
-        )
+        out["answers"] = []
     return out
 
 

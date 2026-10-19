@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.domain_name
     import capo_lightsail.types.tag_list
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDomainRequest:
     if data.get("domainName") is not None:
         out["domain_name"] = data["domainName"]
     else:
-        raise DeserializationError("CreateDomainRequest.domain_name required")
+        out["domain_name"] = ""
     if data.get("tags") is not None:
         import capo_lightsail.types.tag_list
 

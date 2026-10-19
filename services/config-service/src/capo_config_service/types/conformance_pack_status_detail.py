@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.conformance_pack_arn
     import capo_config_service.types.conformance_pack_id
@@ -84,21 +82,15 @@ def deserialize_aws_json_1_1(data: dict) -> ConformancePackStatusDetail:
     if data.get("ConformancePackName") is not None:
         out["conformance_pack_name"] = data["ConformancePackName"]
     else:
-        raise DeserializationError(
-            "ConformancePackStatusDetail.conformance_pack_name required"
-        )
+        out["conformance_pack_name"] = ""
     if data.get("ConformancePackId") is not None:
         out["conformance_pack_id"] = data["ConformancePackId"]
     else:
-        raise DeserializationError(
-            "ConformancePackStatusDetail.conformance_pack_id required"
-        )
+        out["conformance_pack_id"] = ""
     if data.get("ConformancePackArn") is not None:
         out["conformance_pack_arn"] = data["ConformancePackArn"]
     else:
-        raise DeserializationError(
-            "ConformancePackStatusDetail.conformance_pack_arn required"
-        )
+        out["conformance_pack_arn"] = ""
     if data.get("ConformancePackState") is not None:
         import capo_config_service.types.conformance_pack_state
 
@@ -108,13 +100,15 @@ def deserialize_aws_json_1_1(data: dict) -> ConformancePackStatusDetail:
             )
         )
     else:
-        raise DeserializationError(
-            "ConformancePackStatusDetail.conformance_pack_state required"
+        import typing
+
+        out["conformance_pack_state"] = typing.cast(
+            "capo_config_service.types.conformance_pack_state.ConformancePackState", ""
         )
     if data.get("StackArn") is not None:
         out["stack_arn"] = data["StackArn"]
     else:
-        raise DeserializationError("ConformancePackStatusDetail.stack_arn required")
+        out["stack_arn"] = ""
     if data.get("ConformancePackStatusReason") is not None:
         out["conformance_pack_status_reason"] = data["ConformancePackStatusReason"]
     if data.get("LastUpdateRequestedTime") is not None:
@@ -126,8 +120,10 @@ def deserialize_aws_json_1_1(data: dict) -> ConformancePackStatusDetail:
             )
         )
     else:
-        raise DeserializationError(
-            "ConformancePackStatusDetail.last_update_requested_time required"
+        import datetime
+
+        out["last_update_requested_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("LastUpdateCompletedTime") is not None:
         import capo_config_service.types.date

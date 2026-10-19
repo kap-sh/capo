@@ -58,15 +58,11 @@ def deserialize_aws_json_1_0(data: dict) -> RegistrationVersionInformation:
     if data.get("VersionNumber") is not None:
         out["version_number"] = data["VersionNumber"]
     else:
-        raise DeserializationError(
-            "RegistrationVersionInformation.version_number required"
-        )
+        out["version_number"] = 0
     if data.get("RegistrationVersionStatus") is not None:
         out["registration_version_status"] = data["RegistrationVersionStatus"]
     else:
-        raise DeserializationError(
-            "RegistrationVersionInformation.registration_version_status required"
-        )
+        out["registration_version_status"] = ""
     if data.get("RegistrationVersionStatusHistory") is not None:
         import capo_pinpoint_sms_voice_v2.types.registration_version_status_history
 

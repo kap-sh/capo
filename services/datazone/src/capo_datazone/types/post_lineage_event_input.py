@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.client_token
     import capo_datazone.types.domain_id
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> PostLineageEventInput:
 
         out["event"] = capo_datazone.types.lineage_event.deserialize_json(data["event"])
     else:
-        raise DeserializationError("PostLineageEventInput.event required")
+        out["event"] = b""
     return out
 
 

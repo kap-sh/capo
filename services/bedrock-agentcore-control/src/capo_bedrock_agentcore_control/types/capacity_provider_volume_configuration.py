@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.capacity_provider_volume_name
     import capo_bedrock_agentcore_control.types.mount_path
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> CapacityProviderVolumeConfiguration:
     if data.get("volumeName") is not None:
         out["volume_name"] = data["volumeName"]
     else:
-        raise DeserializationError(
-            "CapacityProviderVolumeConfiguration.volume_name required"
-        )
+        out["volume_name"] = ""
     if data.get("mountPath") is not None:
         out["mount_path"] = data["mountPath"]
     else:
-        raise DeserializationError(
-            "CapacityProviderVolumeConfiguration.mount_path required"
-        )
+        out["mount_path"] = ""
     return out

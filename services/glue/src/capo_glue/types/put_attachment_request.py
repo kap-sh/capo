@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.asset_id
     import capo_glue.types.attachment_name
@@ -56,7 +54,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutAttachmentRequest:
     if data.get("AssetIdentifier") is not None:
         out["asset_identifier"] = data["AssetIdentifier"]
     else:
-        raise DeserializationError("PutAttachmentRequest.asset_identifier required")
+        out["asset_identifier"] = ""
     if data.get("IterableFormName") is not None:
         out["iterable_form_name"] = data["IterableFormName"]
     if data.get("ItemIdentifier") is not None:
@@ -64,15 +62,15 @@ def deserialize_aws_json_1_1(data: dict) -> PutAttachmentRequest:
     if data.get("AttachmentName") is not None:
         out["attachment_name"] = data["AttachmentName"]
     else:
-        raise DeserializationError("PutAttachmentRequest.attachment_name required")
+        out["attachment_name"] = ""
     if data.get("Content") is not None:
         out["content"] = data["Content"]
     else:
-        raise DeserializationError("PutAttachmentRequest.content required")
+        out["content"] = ""
     if data.get("FormTypeId") is not None:
         out["form_type_id"] = data["FormTypeId"]
     else:
-        raise DeserializationError("PutAttachmentRequest.form_type_id required")
+        out["form_type_id"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     return out

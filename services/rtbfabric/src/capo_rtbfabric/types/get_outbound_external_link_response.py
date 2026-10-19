@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -119,13 +117,11 @@ def deserialize_json(data: dict) -> GetOutboundExternalLinkResponse:
     if data.get("gatewayId") is not None:
         out["gateway_id"] = data["gatewayId"]
     else:
-        raise DeserializationError(
-            "GetOutboundExternalLinkResponse.gateway_id required"
-        )
+        out["gateway_id"] = ""
     if data.get("linkId") is not None:
         out["link_id"] = data["linkId"]
     else:
-        raise DeserializationError("GetOutboundExternalLinkResponse.link_id required")
+        out["link_id"] = ""
     if data.get("status") is not None:
         import capo_rtbfabric.types.link_status
 
@@ -133,13 +129,13 @@ def deserialize_json(data: dict) -> GetOutboundExternalLinkResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("GetOutboundExternalLinkResponse.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_rtbfabric.types.link_status.LinkStatus", "")
     if data.get("publicEndpoint") is not None:
         out["public_endpoint"] = data["publicEndpoint"]
     else:
-        raise DeserializationError(
-            "GetOutboundExternalLinkResponse.public_endpoint required"
-        )
+        out["public_endpoint"] = ""
     if data.get("flowModules") is not None:
         import capo_rtbfabric.types.module_configuration_list
 

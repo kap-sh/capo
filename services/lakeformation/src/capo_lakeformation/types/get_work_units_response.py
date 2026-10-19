@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.query_id_string
     import capo_lakeformation.types.token
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> GetWorkUnitsResponse:
     if data.get("QueryId") is not None:
         out["query_id"] = data["QueryId"]
     else:
-        raise DeserializationError("GetWorkUnitsResponse.query_id required")
+        out["query_id"] = ""
     if data.get("WorkUnitRanges") is not None:
         import capo_lakeformation.types.work_unit_range_list
 
@@ -54,5 +52,5 @@ def deserialize_json(data: dict) -> GetWorkUnitsResponse:
             )
         )
     else:
-        raise DeserializationError("GetWorkUnitsResponse.work_unit_ranges required")
+        out["work_unit_ranges"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.membership_identifier
     import capo_cleanrooms.types.privacy_budget_template_identifier
@@ -58,8 +56,10 @@ def deserialize_json(data: dict) -> UpdatePrivacyBudgetTemplateInput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdatePrivacyBudgetTemplateInput.privacy_budget_type required"
+        import typing
+
+        out["privacy_budget_type"] = typing.cast(
+            "capo_cleanrooms.types.privacy_budget_type.PrivacyBudgetType", ""
         )
     if data.get("parameters") is not None:
         import capo_cleanrooms.types.privacy_budget_template_update_parameters

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eventbridgev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.event_bus_v2_parameters
     import capo_eventbridgev2.types.http_parameters
@@ -116,7 +114,7 @@ def deserialize_cbor(data: dict) -> InvokeConfiguration:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("InvokeConfiguration.role_arn required")
+        out["role_arn"] = ""
     if data.get("LambdaParameters") is not None:
         import capo_eventbridgev2.types.lambda_parameters
 
@@ -184,7 +182,7 @@ def deserialize_cbor(data: dict) -> InvokeConfiguration:
     if data.get("TargetArn") is not None:
         out["target_arn"] = data["TargetArn"]
     else:
-        raise DeserializationError("InvokeConfiguration.target_arn required")
+        out["target_arn"] = ""
     return out
 
 

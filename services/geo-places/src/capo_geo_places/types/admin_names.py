@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_places.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_places.types.admin_names_preference
     import capo_geo_places.types.translation_name_list
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> AdminNames:
             data["Names"]
         )
     else:
-        raise DeserializationError("AdminNames.names required")
+        out["names"] = []
     if data.get("Preference") is not None:
         import capo_geo_places.types.admin_names_preference
 

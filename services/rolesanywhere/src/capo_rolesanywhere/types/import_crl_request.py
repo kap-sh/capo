@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rolesanywhere.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rolesanywhere.types.resource_name
     import capo_rolesanywhere.types.tag_list
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> ImportCrlRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ImportCrlRequest.name required")
+        out["name"] = ""
     if data.get("crlData") is not None:
         import capo_rolesanywhere.types._prelude.blob
 
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> ImportCrlRequest:
             data["crlData"]
         )
     else:
-        raise DeserializationError("ImportCrlRequest.crl_data required")
+        out["crl_data"] = b""
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     if data.get("tags") is not None:
@@ -67,7 +65,7 @@ def deserialize_json(data: dict) -> ImportCrlRequest:
     if data.get("trustAnchorArn") is not None:
         out["trust_anchor_arn"] = data["trustAnchorArn"]
     else:
-        raise DeserializationError("ImportCrlRequest.trust_anchor_arn required")
+        out["trust_anchor_arn"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.region_name
@@ -89,15 +87,15 @@ def deserialize_json(data: dict) -> Workspace:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("Workspace.id required")
+        out["id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Workspace.name required")
+        out["name"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("Workspace.arn required")
+        out["arn"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Theme") is not None:
@@ -115,7 +113,11 @@ def deserialize_json(data: dict) -> Workspace:
             data["LastModifiedTime"]
         )
     else:
-        raise DeserializationError("Workspace.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("LastModifiedRegion") is not None:
         out["last_modified_region"] = data["LastModifiedRegion"]
     if data.get("Tags") is not None:

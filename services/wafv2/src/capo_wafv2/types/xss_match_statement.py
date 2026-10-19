@@ -70,7 +70,7 @@ def deserialize_aws_json_1_1(data: dict) -> XssMatchStatement:
             )
         )
     else:
-        raise DeserializationError("XssMatchStatement.text_transformations required")
+        out["text_transformations"] = []
     if data.get("PreParseTextTransformations") is not None:
         import capo_wafv2.types.pre_parse_text_transformations
 

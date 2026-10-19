@@ -46,11 +46,11 @@ def deserialize_json(data: dict) -> CreateRuleGroupsNamespaceResponse:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateRuleGroupsNamespaceResponse.name required")
+        out["name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CreateRuleGroupsNamespaceResponse.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_amp.types.rule_groups_namespace_status
 

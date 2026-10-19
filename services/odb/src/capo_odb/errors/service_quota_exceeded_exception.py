@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_odb.errors import DeserializationError, ServiceError
+from capo_odb.errors import ServiceError
 
 
 class ServiceQuotaExceededException_(TypedDict, closed=True):
@@ -31,23 +31,19 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceQuotaExceededException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ServiceQuotaExceededException_.message required")
+        out["message"] = ""
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     else:
-        raise DeserializationError(
-            "ServiceQuotaExceededException_.resource_id required"
-        )
+        out["resource_id"] = ""
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError(
-            "ServiceQuotaExceededException_.resource_type required"
-        )
+        out["resource_type"] = ""
     if data.get("quotaCode") is not None:
         out["quota_code"] = data["quotaCode"]
     else:
-        raise DeserializationError("ServiceQuotaExceededException_.quota_code required")
+        out["quota_code"] = ""
     return out
 
 

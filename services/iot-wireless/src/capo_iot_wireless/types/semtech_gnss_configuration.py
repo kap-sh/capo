@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.position_configuration_fec
     import capo_iot_wireless.types.position_configuration_status
@@ -47,7 +45,12 @@ def deserialize_json(data: dict) -> SemtechGnssConfiguration:
             )
         )
     else:
-        raise DeserializationError("SemtechGnssConfiguration.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_iot_wireless.types.position_configuration_status.PositionConfigurationStatus",
+            "",
+        )
     if data.get("Fec") is not None:
         import capo_iot_wireless.types.position_configuration_fec
 
@@ -57,5 +60,10 @@ def deserialize_json(data: dict) -> SemtechGnssConfiguration:
             )
         )
     else:
-        raise DeserializationError("SemtechGnssConfiguration.fec required")
+        import typing
+
+        out["fec"] = typing.cast(
+            "capo_iot_wireless.types.position_configuration_fec.PositionConfigurationFec",
+            "",
+        )
     return out

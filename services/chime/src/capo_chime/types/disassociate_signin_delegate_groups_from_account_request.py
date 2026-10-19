@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime.types.non_empty_string
     import capo_chime.types.non_empty_string_list
@@ -38,7 +36,5 @@ def deserialize_json(data: dict) -> DisassociateSigninDelegateGroupsFromAccountR
             data["GroupNames"]
         )
     else:
-        raise DeserializationError(
-            "DisassociateSigninDelegateGroupsFromAccountRequest.group_names required"
-        )
+        out["group_names"] = []
     return out

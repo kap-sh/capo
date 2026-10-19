@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.iso_country_code
     import capo_pinpoint_sms_voice_v2.types.sender_id_or_arn
@@ -35,11 +33,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateSenderIdRequest:
     if data.get("SenderId") is not None:
         out["sender_id"] = data["SenderId"]
     else:
-        raise DeserializationError("UpdateSenderIdRequest.sender_id required")
+        out["sender_id"] = ""
     if data.get("IsoCountryCode") is not None:
         out["iso_country_code"] = data["IsoCountryCode"]
     else:
-        raise DeserializationError("UpdateSenderIdRequest.iso_country_code required")
+        out["iso_country_code"] = ""
     if data.get("DeletionProtectionEnabled") is not None:
         out["deletion_protection_enabled"] = data["DeletionProtectionEnabled"]
     return out

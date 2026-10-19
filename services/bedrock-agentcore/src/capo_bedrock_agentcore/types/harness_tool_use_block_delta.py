@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.sensitive_text
 
@@ -27,7 +25,7 @@ def deserialize_json(data: dict) -> HarnessToolUseBlockDelta:
     if data.get("input") is not None:
         out["input"] = data["input"]
     else:
-        raise DeserializationError("HarnessToolUseBlockDelta.input required")
+        out["input"] = ""
     return out
 
 

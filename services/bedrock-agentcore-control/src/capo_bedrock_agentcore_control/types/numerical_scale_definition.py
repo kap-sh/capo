@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 
 class NumericalScaleDefinition(TypedDict, closed=True):
     definition: "str"
@@ -36,13 +34,13 @@ def deserialize_json(data: dict) -> NumericalScaleDefinition:
     if data.get("definition") is not None:
         out["definition"] = data["definition"]
     else:
-        raise DeserializationError("NumericalScaleDefinition.definition required")
+        out["definition"] = ""
     if data.get("value") is not None:
         out["value"] = float(data["value"])
     else:
-        raise DeserializationError("NumericalScaleDefinition.value required")
+        out["value"] = 0.0
     if data.get("label") is not None:
         out["label"] = data["label"]
     else:
-        raise DeserializationError("NumericalScaleDefinition.label required")
+        out["label"] = ""
     return out

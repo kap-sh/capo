@@ -47,7 +47,7 @@ def deserialize_json(data: dict) -> RenameColumnsOperation:
     if data.get("Alias") is not None:
         out["alias"] = data["Alias"]
     else:
-        raise DeserializationError("RenameColumnsOperation.alias required")
+        out["alias"] = ""
     if data.get("Source") is not None:
         import capo_quicksight.types.transform_operation_source
 
@@ -67,7 +67,5 @@ def deserialize_json(data: dict) -> RenameColumnsOperation:
             )
         )
     else:
-        raise DeserializationError(
-            "RenameColumnsOperation.rename_column_operations required"
-        )
+        out["rename_column_operations"] = []
     return out

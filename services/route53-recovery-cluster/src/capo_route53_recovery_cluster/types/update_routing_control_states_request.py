@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53_recovery_cluster.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53_recovery_cluster.types.arns
     import capo_route53_recovery_cluster.types.update_routing_control_state_entries
@@ -52,9 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateRoutingControlStatesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateRoutingControlStatesRequest.update_routing_control_state_entries required"
-        )
+        out["update_routing_control_state_entries"] = []
     if data.get("SafetyRulesToOverride") is not None:
         import capo_route53_recovery_cluster.types.arns
 

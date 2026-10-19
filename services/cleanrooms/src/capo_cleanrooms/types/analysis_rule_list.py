@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.additional_analyses
     import capo_cleanrooms.types.analysis_rule_column_list
@@ -74,7 +72,7 @@ def deserialize_json(data: dict) -> AnalysisRuleList:
             )
         )
     else:
-        raise DeserializationError("AnalysisRuleList.join_columns required")
+        out["join_columns"] = []
     if data.get("allowedJoinOperators") is not None:
         import capo_cleanrooms.types.join_operators_list
 
@@ -92,7 +90,7 @@ def deserialize_json(data: dict) -> AnalysisRuleList:
             )
         )
     else:
-        raise DeserializationError("AnalysisRuleList.list_columns required")
+        out["list_columns"] = []
     if data.get("additionalAnalyses") is not None:
         import capo_cleanrooms.types.additional_analyses
 

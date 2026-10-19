@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivschat.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivschat.types.logging_configuration_identifier_list
     import capo_ivschat.types.message_review_handler
@@ -72,7 +70,7 @@ def deserialize_json(data: dict) -> UpdateRoomRequest:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("UpdateRoomRequest.identifier required")
+        out["identifier"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("maximumMessageRatePerSecond") is not None:

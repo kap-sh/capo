@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.featured_results_set_id
     import capo_kendra.types.index_id
@@ -33,13 +31,9 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeFeaturedResultsSetRequest:
     if data.get("IndexId") is not None:
         out["index_id"] = data["IndexId"]
     else:
-        raise DeserializationError(
-            "DescribeFeaturedResultsSetRequest.index_id required"
-        )
+        out["index_id"] = ""
     if data.get("FeaturedResultsSetId") is not None:
         out["featured_results_set_id"] = data["FeaturedResultsSetId"]
     else:
-        raise DeserializationError(
-            "DescribeFeaturedResultsSetRequest.featured_results_set_id required"
-        )
+        out["featured_results_set_id"] = ""
     return out

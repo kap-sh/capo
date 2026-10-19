@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mturk.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mturk.types.customer_id
     import capo_mturk.types.string
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateWorkerBlockRequest:
     if data.get("WorkerId") is not None:
         out["worker_id"] = data["WorkerId"]
     else:
-        raise DeserializationError("CreateWorkerBlockRequest.worker_id required")
+        out["worker_id"] = ""
     if data.get("Reason") is not None:
         out["reason"] = data["Reason"]
     else:
-        raise DeserializationError("CreateWorkerBlockRequest.reason required")
+        out["reason"] = ""
     return out

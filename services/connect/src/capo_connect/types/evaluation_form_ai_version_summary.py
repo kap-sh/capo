@@ -39,9 +39,7 @@ def deserialize_json(data: dict) -> EvaluationFormAIVersionSummary:
     if data.get("AIVersionName") is not None:
         out["ai_version_name"] = data["AIVersionName"]
     else:
-        raise DeserializationError(
-            "EvaluationFormAIVersionSummary.ai_version_name required"
-        )
+        out["ai_version_name"] = ""
     if data.get("AIVersionLifecycle") is not None:
         import capo_connect.types.evaluation_form_ai_version_lifecycle
 

@@ -120,7 +120,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateServiceRequest:
     if data.get("ServiceName") is not None:
         out["service_name"] = data["ServiceName"]
     else:
-        raise DeserializationError("CreateServiceRequest.service_name required")
+        out["service_name"] = ""
     if data.get("SourceConfiguration") is not None:
         import capo_apprunner.types.source_configuration
 

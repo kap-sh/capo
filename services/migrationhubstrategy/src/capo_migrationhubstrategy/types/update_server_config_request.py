@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migrationhubstrategy.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migrationhubstrategy.types.server_id
     import capo_migrationhubstrategy.types.strategy_option
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> UpdateServerConfigRequest:
     if data.get("serverId") is not None:
         out["server_id"] = data["serverId"]
     else:
-        raise DeserializationError("UpdateServerConfigRequest.server_id required")
+        out["server_id"] = ""
     if data.get("strategyOption") is not None:
         import capo_migrationhubstrategy.types.strategy_option
 

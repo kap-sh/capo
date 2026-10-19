@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_discovery_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_discovery_service.types.long
     import capo_application_discovery_service.types.neighbor_details_list
@@ -48,7 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListServerNeighborsResponse:
             )
         )
     else:
-        raise DeserializationError("ListServerNeighborsResponse.neighbors required")
+        out["neighbors"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("knownDependencyCount") is not None:

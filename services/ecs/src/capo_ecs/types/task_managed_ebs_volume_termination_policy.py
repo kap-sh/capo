@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.boxed_boolean
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> TaskManagedEBSVolumeTerminationPolic
     if data.get("deleteOnTermination") is not None:
         out["delete_on_termination"] = data["deleteOnTermination"]
     else:
-        raise DeserializationError(
-            "TaskManagedEBSVolumeTerminationPolicy.delete_on_termination required"
-        )
+        out["delete_on_termination"] = False
     return out

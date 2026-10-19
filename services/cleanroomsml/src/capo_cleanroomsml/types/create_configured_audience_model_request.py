@@ -96,13 +96,11 @@ def deserialize_json(data: dict) -> CreateConfiguredAudienceModelRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateConfiguredAudienceModelRequest.name required")
+        out["name"] = ""
     if data.get("audienceModelArn") is not None:
         out["audience_model_arn"] = data["audienceModelArn"]
     else:
-        raise DeserializationError(
-            "CreateConfiguredAudienceModelRequest.audience_model_arn required"
-        )
+        out["audience_model_arn"] = ""
     if data.get("outputConfig") is not None:
         import capo_cleanroomsml.types.configured_audience_model_output_config
 
@@ -126,9 +124,7 @@ def deserialize_json(data: dict) -> CreateConfiguredAudienceModelRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateConfiguredAudienceModelRequest.shared_audience_metrics required"
-        )
+        out["shared_audience_metrics"] = []
     if data.get("minMatchingSeedSize") is not None:
         out["min_matching_seed_size"] = data["minMatchingSeedSize"]
     if data.get("audienceSizeConfig") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_oam.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_oam.types.include_tags
     import capo_oam.types.resource_identifier
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> GetLinkInput:
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("GetLinkInput.identifier required")
+        out["identifier"] = ""
     if data.get("IncludeTags") is not None:
         out["include_tags"] = data["IncludeTags"]
     return out

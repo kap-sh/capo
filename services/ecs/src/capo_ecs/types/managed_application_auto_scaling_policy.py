@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.double
     import capo_ecs.types.managed_resource_status
@@ -72,8 +70,10 @@ def deserialize_aws_json_1_1(data: dict) -> ManagedApplicationAutoScalingPolicy:
             data["status"]
         )
     else:
-        raise DeserializationError(
-            "ManagedApplicationAutoScalingPolicy.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_ecs.types.managed_resource_status.ManagedResourceStatus", ""
         )
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
@@ -84,15 +84,13 @@ def deserialize_aws_json_1_1(data: dict) -> ManagedApplicationAutoScalingPolicy:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError(
-            "ManagedApplicationAutoScalingPolicy.updated_at required"
-        )
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("policyType") is not None:
         out["policy_type"] = data["policyType"]
     else:
-        raise DeserializationError(
-            "ManagedApplicationAutoScalingPolicy.policy_type required"
-        )
+        out["policy_type"] = ""
     if data.get("targetValue") is not None:
         out["target_value"] = float(data["targetValue"])
     else:
@@ -100,7 +98,5 @@ def deserialize_aws_json_1_1(data: dict) -> ManagedApplicationAutoScalingPolicy:
     if data.get("metric") is not None:
         out["metric"] = data["metric"]
     else:
-        raise DeserializationError(
-            "ManagedApplicationAutoScalingPolicy.metric required"
-        )
+        out["metric"] = ""
     return out

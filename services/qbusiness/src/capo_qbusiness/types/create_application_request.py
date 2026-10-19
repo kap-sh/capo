@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.application_name
     import capo_qbusiness.types.attachments_configuration
@@ -150,7 +148,7 @@ def deserialize_json(data: dict) -> CreateApplicationRequest:
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("CreateApplicationRequest.display_name required")
+        out["display_name"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     if data.get("identityType") is not None:

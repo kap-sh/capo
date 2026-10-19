@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.client_device_type_list
     import capo_workspaces.types.directory_id
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteClientBrandingRequest:
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("DeleteClientBrandingRequest.resource_id required")
+        out["resource_id"] = ""
     if data.get("Platforms") is not None:
         import capo_workspaces.types.client_device_type_list
 
@@ -47,5 +45,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteClientBrandingRequest:
             )
         )
     else:
-        raise DeserializationError("DeleteClientBrandingRequest.platforms required")
+        out["platforms"] = []
     return out

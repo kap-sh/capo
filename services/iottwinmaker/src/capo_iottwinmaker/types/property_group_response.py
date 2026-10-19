@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.boolean
     import capo_iottwinmaker.types.group_type
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> PropertyGroupResponse:
     if data.get("groupType") is not None:
         out["group_type"] = data["groupType"]
     else:
-        raise DeserializationError("PropertyGroupResponse.group_type required")
+        out["group_type"] = ""
     if data.get("propertyNames") is not None:
         import capo_iottwinmaker.types.property_names
 
@@ -47,9 +45,9 @@ def deserialize_json(data: dict) -> PropertyGroupResponse:
             data["propertyNames"]
         )
     else:
-        raise DeserializationError("PropertyGroupResponse.property_names required")
+        out["property_names"] = []
     if data.get("isInherited") is not None:
         out["is_inherited"] = data["isInherited"]
     else:
-        raise DeserializationError("PropertyGroupResponse.is_inherited required")
+        out["is_inherited"] = False
     return out

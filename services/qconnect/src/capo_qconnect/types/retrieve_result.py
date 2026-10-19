@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.reference_type
     import capo_qconnect.types.sensitive_string
@@ -38,19 +36,19 @@ def deserialize_json(data: dict) -> RetrieveResult:
     if data.get("associationId") is not None:
         out["association_id"] = data["associationId"]
     else:
-        raise DeserializationError("RetrieveResult.association_id required")
+        out["association_id"] = ""
     if data.get("sourceId") is not None:
         out["source_id"] = data["sourceId"]
     else:
-        raise DeserializationError("RetrieveResult.source_id required")
+        out["source_id"] = ""
     if data.get("referenceType") is not None:
         out["reference_type"] = data["referenceType"]
     else:
-        raise DeserializationError("RetrieveResult.reference_type required")
+        out["reference_type"] = ""
     if data.get("contentText") is not None:
         out["content_text"] = data["contentText"]
     else:
-        raise DeserializationError("RetrieveResult.content_text required")
+        out["content_text"] = ""
     return out
 
 

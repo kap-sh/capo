@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_arn
     import capo_bedrock.types.automated_reasoning_policy_description
@@ -62,21 +60,15 @@ def deserialize_json(data: dict) -> CreateAutomatedReasoningPolicyResponse:
     if data.get("policyArn") is not None:
         out["policy_arn"] = data["policyArn"]
     else:
-        raise DeserializationError(
-            "CreateAutomatedReasoningPolicyResponse.policy_arn required"
-        )
+        out["policy_arn"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError(
-            "CreateAutomatedReasoningPolicyResponse.version required"
-        )
+        out["version"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "CreateAutomatedReasoningPolicyResponse.name required"
-        )
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("definitionHash") is not None:
@@ -88,9 +80,9 @@ def deserialize_json(data: dict) -> CreateAutomatedReasoningPolicyResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError(
-            "CreateAutomatedReasoningPolicyResponse.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock.types.timestamp
 
@@ -98,9 +90,9 @@ def deserialize_json(data: dict) -> CreateAutomatedReasoningPolicyResponse:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError(
-            "CreateAutomatedReasoningPolicyResponse.updated_at required"
-        )
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

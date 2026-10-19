@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.data_quality_result_v2_id_list
     import capo_glue.types.data_quality_result_v2_list
@@ -50,9 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetDataQualityResultV2Response:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetDataQualityResultV2Response.results required"
-        )
+        out["results"] = []
     if data.get("ResultsNotFound") is not None:
         import capo_glue.types.data_quality_result_v2_id_list
 

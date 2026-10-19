@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.validate_state_machine_definition_code
     import capo_sfn.types.validate_state_machine_definition_location
@@ -54,21 +52,20 @@ def deserialize_aws_json_1_0(data: dict) -> ValidateStateMachineDefinitionDiagno
             )
         )
     else:
-        raise DeserializationError(
-            "ValidateStateMachineDefinitionDiagnostic.severity required"
+        import typing
+
+        out["severity"] = typing.cast(
+            "capo_sfn.types.validate_state_machine_definition_severity.ValidateStateMachineDefinitionSeverity",
+            "",
         )
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError(
-            "ValidateStateMachineDefinitionDiagnostic.code required"
-        )
+        out["code"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError(
-            "ValidateStateMachineDefinitionDiagnostic.message required"
-        )
+        out["message"] = ""
     if data.get("location") is not None:
         out["location"] = data["location"]
     return out

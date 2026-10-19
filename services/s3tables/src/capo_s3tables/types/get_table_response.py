@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -121,17 +119,19 @@ def deserialize_json(data: dict) -> GetTableResponse:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetTableResponse.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         import capo_s3tables.types.table_type
 
         out["type"] = capo_s3tables.types.table_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("GetTableResponse.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_s3tables.types.table_type.TableType", "")
     if data.get("tableARN") is not None:
         out["table_arn"] = data["tableARN"]
     else:
-        raise DeserializationError("GetTableResponse.table_arn required")
+        out["table_arn"] = ""
     if data.get("namespace") is not None:
         import capo_s3tables.types.namespace_list
 
@@ -139,19 +139,19 @@ def deserialize_json(data: dict) -> GetTableResponse:
             data["namespace"]
         )
     else:
-        raise DeserializationError("GetTableResponse.namespace required")
+        out["namespace"] = []
     if data.get("namespaceId") is not None:
         out["namespace_id"] = data["namespaceId"]
     if data.get("versionToken") is not None:
         out["version_token"] = data["versionToken"]
     else:
-        raise DeserializationError("GetTableResponse.version_token required")
+        out["version_token"] = ""
     if data.get("metadataLocation") is not None:
         out["metadata_location"] = data["metadataLocation"]
     if data.get("warehouseLocation") is not None:
         out["warehouse_location"] = data["warehouseLocation"]
     else:
-        raise DeserializationError("GetTableResponse.warehouse_location required")
+        out["warehouse_location"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -159,11 +159,13 @@ def deserialize_json(data: dict) -> GetTableResponse:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetTableResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("GetTableResponse.created_by required")
+        out["created_by"] = ""
     if data.get("managedByService") is not None:
         out["managed_by_service"] = data["managedByService"]
     if data.get("modifiedAt") is not None:
@@ -173,15 +175,19 @@ def deserialize_json(data: dict) -> GetTableResponse:
             data["modifiedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetTableResponse.modified_at required")
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("modifiedBy") is not None:
         out["modified_by"] = data["modifiedBy"]
     else:
-        raise DeserializationError("GetTableResponse.modified_by required")
+        out["modified_by"] = ""
     if data.get("ownerAccountId") is not None:
         out["owner_account_id"] = data["ownerAccountId"]
     else:
-        raise DeserializationError("GetTableResponse.owner_account_id required")
+        out["owner_account_id"] = ""
     if data.get("format") is not None:
         import capo_s3tables.types.open_table_format
 
@@ -189,7 +195,11 @@ def deserialize_json(data: dict) -> GetTableResponse:
             data["format"]
         )
     else:
-        raise DeserializationError("GetTableResponse.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_s3tables.types.open_table_format.OpenTableFormat", ""
+        )
     if data.get("tableBucketId") is not None:
         out["table_bucket_id"] = data["tableBucketId"]
     if data.get("managedTableInformation") is not None:

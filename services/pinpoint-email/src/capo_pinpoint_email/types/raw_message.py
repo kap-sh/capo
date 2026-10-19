@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_email.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_email.types.raw_message_data
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> RawMessage:
             data["Data"]
         )
     else:
-        raise DeserializationError("RawMessage.data required")
+        out["data"] = b""
     return out

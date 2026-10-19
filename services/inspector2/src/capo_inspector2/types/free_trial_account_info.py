@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.free_trial_info_list
     import capo_inspector2.types.metering_account_id
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> FreeTrialAccountInfo:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("FreeTrialAccountInfo.account_id required")
+        out["account_id"] = ""
     if data.get("freeTrialInfo") is not None:
         import capo_inspector2.types.free_trial_info_list
 
@@ -45,5 +43,5 @@ def deserialize_json(data: dict) -> FreeTrialAccountInfo:
             )
         )
     else:
-        raise DeserializationError("FreeTrialAccountInfo.free_trial_info required")
+        out["free_trial_info"] = []
     return out

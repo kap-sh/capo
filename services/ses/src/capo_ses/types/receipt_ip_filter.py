@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.cidr
@@ -42,10 +41,14 @@ def deserialize_query(el: Element) -> ReceiptIpFilter:
             child_policy
         )
     else:
-        raise DeserializationError("ReceiptIpFilter.policy required")
+        import typing
+
+        out["policy"] = typing.cast(
+            "capo_ses.types.receipt_filter_policy.ReceiptFilterPolicy", ""
+        )
     child_cidr = el.find("Cidr")
     if child_cidr is not None:
         out["cidr"] = str(child_cidr.text or "")
     else:
-        raise DeserializationError("ReceiptIpFilter.cidr required")
+        out["cidr"] = ""
     return out

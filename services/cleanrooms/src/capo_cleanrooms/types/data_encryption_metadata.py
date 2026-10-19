@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 
 class DataEncryptionMetadata(TypedDict, closed=True):
     allow_cleartext: "bool"
@@ -33,21 +31,19 @@ def deserialize_json(data: dict) -> DataEncryptionMetadata:
     if data.get("allowCleartext") is not None:
         out["allow_cleartext"] = data["allowCleartext"]
     else:
-        raise DeserializationError("DataEncryptionMetadata.allow_cleartext required")
+        out["allow_cleartext"] = False
     if data.get("allowDuplicates") is not None:
         out["allow_duplicates"] = data["allowDuplicates"]
     else:
-        raise DeserializationError("DataEncryptionMetadata.allow_duplicates required")
+        out["allow_duplicates"] = False
     if data.get("allowJoinsOnColumnsWithDifferentNames") is not None:
         out["allow_joins_on_columns_with_different_names"] = data[
             "allowJoinsOnColumnsWithDifferentNames"
         ]
     else:
-        raise DeserializationError(
-            "DataEncryptionMetadata.allow_joins_on_columns_with_different_names required"
-        )
+        out["allow_joins_on_columns_with_different_names"] = False
     if data.get("preserveNulls") is not None:
         out["preserve_nulls"] = data["preserveNulls"]
     else:
-        raise DeserializationError("DataEncryptionMetadata.preserve_nulls required")
+        out["preserve_nulls"] = False
     return out

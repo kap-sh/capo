@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectparticipant.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectparticipant.types.attachment_size_in_bytes
     import capo_connectparticipant.types.iso8601_datetime
@@ -47,7 +45,5 @@ def deserialize_json(data: dict) -> GetAttachmentResponse:
     if data.get("AttachmentSizeInBytes") is not None:
         out["attachment_size_in_bytes"] = data["AttachmentSizeInBytes"]
     else:
-        raise DeserializationError(
-            "GetAttachmentResponse.attachment_size_in_bytes required"
-        )
+        out["attachment_size_in_bytes"] = 0
     return out

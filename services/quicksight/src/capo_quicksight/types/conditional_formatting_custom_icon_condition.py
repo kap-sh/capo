@@ -55,9 +55,7 @@ def deserialize_json(data: dict) -> ConditionalFormattingCustomIconCondition:
     if data.get("Expression") is not None:
         out["expression"] = data["Expression"]
     else:
-        raise DeserializationError(
-            "ConditionalFormattingCustomIconCondition.expression required"
-        )
+        out["expression"] = ""
     if data.get("IconOptions") is not None:
         import capo_quicksight.types.conditional_formatting_custom_icon_options
 

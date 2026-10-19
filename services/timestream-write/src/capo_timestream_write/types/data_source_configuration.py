@@ -83,5 +83,9 @@ def deserialize_aws_json_1_0(data: dict) -> DataSourceConfiguration:
             )
         )
     else:
-        raise DeserializationError("DataSourceConfiguration.data_format required")
+        import typing
+
+        out["data_format"] = typing.cast(
+            "capo_timestream_write.types.batch_load_data_format.BatchLoadDataFormat", ""
+        )
     return out

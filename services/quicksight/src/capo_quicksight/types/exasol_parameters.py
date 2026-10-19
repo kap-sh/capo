@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.host
     import capo_quicksight.types.port
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> ExasolParameters:
     if data.get("Host") is not None:
         out["host"] = data["Host"]
     else:
-        raise DeserializationError("ExasolParameters.host required")
+        out["host"] = ""
     if data.get("Port") is not None:
         out["port"] = data["Port"]
     else:
-        raise DeserializationError("ExasolParameters.port required")
+        out["port"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.client_token
     import capo_supplychain.types.configuration_s3_uri
@@ -35,9 +33,7 @@ def deserialize_json(data: dict) -> CreateBillOfMaterialsImportJobRequest:
     if data.get("s3uri") is not None:
         out["s3uri"] = data["s3uri"]
     else:
-        raise DeserializationError(
-            "CreateBillOfMaterialsImportJobRequest.s3uri required"
-        )
+        out["s3uri"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

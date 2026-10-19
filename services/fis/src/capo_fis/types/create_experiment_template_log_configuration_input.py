@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fis.types.experiment_template_cloud_watch_logs_log_configuration_input
     import capo_fis.types.experiment_template_s3_log_configuration_input
@@ -69,7 +67,5 @@ def deserialize_json(data: dict) -> CreateExperimentTemplateLogConfigurationInpu
     if data.get("logSchemaVersion") is not None:
         out["log_schema_version"] = data["logSchemaVersion"]
     else:
-        raise DeserializationError(
-            "CreateExperimentTemplateLogConfigurationInput.log_schema_version required"
-        )
+        out["log_schema_version"] = 0
     return out

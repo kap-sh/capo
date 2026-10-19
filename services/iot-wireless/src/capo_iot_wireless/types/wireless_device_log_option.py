@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.log_level
     import capo_iot_wireless.types.wireless_device_event_log_option_list
@@ -54,7 +52,11 @@ def deserialize_json(data: dict) -> WirelessDeviceLogOption:
             data["Type"]
         )
     else:
-        raise DeserializationError("WirelessDeviceLogOption.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_iot_wireless.types.wireless_device_type.WirelessDeviceType", ""
+        )
     if data.get("LogLevel") is not None:
         import capo_iot_wireless.types.log_level
 
@@ -62,7 +64,9 @@ def deserialize_json(data: dict) -> WirelessDeviceLogOption:
             data["LogLevel"]
         )
     else:
-        raise DeserializationError("WirelessDeviceLogOption.log_level required")
+        import typing
+
+        out["log_level"] = typing.cast("capo_iot_wireless.types.log_level.LogLevel", "")
     if data.get("Events") is not None:
         import capo_iot_wireless.types.wireless_device_event_log_option_list
 

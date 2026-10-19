@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.address
@@ -94,7 +93,7 @@ def deserialize_query(el: Element) -> SendBulkTemplatedEmailRequest:
     if child_source is not None:
         out["source"] = str(child_source.text or "")
     else:
-        raise DeserializationError("SendBulkTemplatedEmailRequest.source required")
+        out["source"] = ""
     child_source_arn = el.find("SourceArn")
     if child_source_arn is not None:
         out["source_arn"] = str(child_source_arn.text or "")
@@ -125,7 +124,7 @@ def deserialize_query(el: Element) -> SendBulkTemplatedEmailRequest:
     if child_template is not None:
         out["template"] = str(child_template.text or "")
     else:
-        raise DeserializationError("SendBulkTemplatedEmailRequest.template required")
+        out["template"] = ""
     child_template_arn = el.find("TemplateArn")
     if child_template_arn is not None:
         out["template_arn"] = str(child_template_arn.text or "")
@@ -133,9 +132,7 @@ def deserialize_query(el: Element) -> SendBulkTemplatedEmailRequest:
     if child_default_template_data is not None:
         out["default_template_data"] = str(child_default_template_data.text or "")
     else:
-        raise DeserializationError(
-            "SendBulkTemplatedEmailRequest.default_template_data required"
-        )
+        out["default_template_data"] = ""
     child_destinations = el.find("Destinations")
     if child_destinations is not None:
         import capo_ses.types.bulk_email_destination_list
@@ -146,7 +143,5 @@ def deserialize_query(el: Element) -> SendBulkTemplatedEmailRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "SendBulkTemplatedEmailRequest.destinations required"
-        )
+        out["destinations"] = []
     return out

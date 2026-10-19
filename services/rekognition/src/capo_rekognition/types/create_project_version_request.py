@@ -93,11 +93,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProjectVersionRequest:
     if data.get("ProjectArn") is not None:
         out["project_arn"] = data["ProjectArn"]
     else:
-        raise DeserializationError("CreateProjectVersionRequest.project_arn required")
+        out["project_arn"] = ""
     if data.get("VersionName") is not None:
         out["version_name"] = data["VersionName"]
     else:
-        raise DeserializationError("CreateProjectVersionRequest.version_name required")
+        out["version_name"] = ""
     if data.get("OutputConfig") is not None:
         import capo_rekognition.types.output_config
 

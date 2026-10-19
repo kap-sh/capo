@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pipes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pipes.types.batch_resource_requirement_type
 
@@ -32,9 +30,9 @@ def deserialize_json(data: dict) -> BatchResourceRequirement:
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     else:
-        raise DeserializationError("BatchResourceRequirement.type required")
+        out["type"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("BatchResourceRequirement.value required")
+        out["value"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.account_id
     import capo_mgn.types.application_i_ds
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> DisassociateApplicationsRequest:
     if data.get("waveID") is not None:
         out["wave_id"] = data["waveID"]
     else:
-        raise DeserializationError("DisassociateApplicationsRequest.wave_id required")
+        out["wave_id"] = ""
     if data.get("applicationIDs") is not None:
         import capo_mgn.types.application_i_ds
 
@@ -48,9 +46,7 @@ def deserialize_json(data: dict) -> DisassociateApplicationsRequest:
             data["applicationIDs"]
         )
     else:
-        raise DeserializationError(
-            "DisassociateApplicationsRequest.application_i_ds required"
-        )
+        out["application_i_ds"] = []
     if data.get("accountID") is not None:
         out["account_id"] = data["accountID"]
     return out

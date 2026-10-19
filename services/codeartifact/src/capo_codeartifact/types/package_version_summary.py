@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeartifact.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeartifact.types.package_version
     import capo_codeartifact.types.package_version_origin
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> PackageVersionSummary:
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("PackageVersionSummary.version required")
+        out["version"] = ""
     if data.get("revision") is not None:
         out["revision"] = data["revision"]
     if data.get("status") is not None:
@@ -63,7 +61,11 @@ def deserialize_json(data: dict) -> PackageVersionSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("PackageVersionSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_codeartifact.types.package_version_status.PackageVersionStatus", ""
+        )
     if data.get("origin") is not None:
         import capo_codeartifact.types.package_version_origin
 

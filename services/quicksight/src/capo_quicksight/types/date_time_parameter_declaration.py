@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.date_time_default_values
     import capo_quicksight.types.date_time_value_when_unset_configuration
@@ -76,7 +74,7 @@ def deserialize_json(data: dict) -> DateTimeParameterDeclaration:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DateTimeParameterDeclaration.name required")
+        out["name"] = ""
     if data.get("DefaultValues") is not None:
         import capo_quicksight.types.date_time_default_values
 

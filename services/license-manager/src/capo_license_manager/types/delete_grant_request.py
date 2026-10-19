@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.arn
     import capo_license_manager.types.status_reason_message
@@ -38,11 +36,11 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteGrantRequest:
     if data.get("GrantArn") is not None:
         out["grant_arn"] = data["GrantArn"]
     else:
-        raise DeserializationError("DeleteGrantRequest.grant_arn required")
+        out["grant_arn"] = ""
     if data.get("StatusReason") is not None:
         out["status_reason"] = data["StatusReason"]
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     else:
-        raise DeserializationError("DeleteGrantRequest.version required")
+        out["version"] = ""
     return out

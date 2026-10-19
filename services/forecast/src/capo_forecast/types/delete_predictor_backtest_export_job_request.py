@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_forecast.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_forecast.types.arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeletePredictorBacktestExportJobRequ
     if data.get("PredictorBacktestExportJobArn") is not None:
         out["predictor_backtest_export_job_arn"] = data["PredictorBacktestExportJobArn"]
     else:
-        raise DeserializationError(
-            "DeletePredictorBacktestExportJobRequest.predictor_backtest_export_job_arn required"
-        )
+        out["predictor_backtest_export_job_arn"] = ""
     return out

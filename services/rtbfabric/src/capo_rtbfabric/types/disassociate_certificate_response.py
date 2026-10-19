@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rtbfabric.types.acm_certificate_arn
     import capo_rtbfabric.types.certificate_association_status
@@ -39,15 +37,11 @@ def deserialize_json(data: dict) -> DisassociateCertificateResponse:
     if data.get("gatewayId") is not None:
         out["gateway_id"] = data["gatewayId"]
     else:
-        raise DeserializationError(
-            "DisassociateCertificateResponse.gateway_id required"
-        )
+        out["gateway_id"] = ""
     if data.get("acmCertificateArn") is not None:
         out["acm_certificate_arn"] = data["acmCertificateArn"]
     else:
-        raise DeserializationError(
-            "DisassociateCertificateResponse.acm_certificate_arn required"
-        )
+        out["acm_certificate_arn"] = ""
     if data.get("status") is not None:
         import capo_rtbfabric.types.certificate_association_status
 
@@ -57,5 +51,10 @@ def deserialize_json(data: dict) -> DisassociateCertificateResponse:
             )
         )
     else:
-        raise DeserializationError("DisassociateCertificateResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_rtbfabric.types.certificate_association_status.CertificateAssociationStatus",
+            "",
+        )
     return out

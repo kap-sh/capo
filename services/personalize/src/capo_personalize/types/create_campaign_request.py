@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.arn
     import capo_personalize.types.campaign_config
@@ -58,13 +56,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCampaignRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateCampaignRequest.name required")
+        out["name"] = ""
     if data.get("solutionVersionArn") is not None:
         out["solution_version_arn"] = data["solutionVersionArn"]
     else:
-        raise DeserializationError(
-            "CreateCampaignRequest.solution_version_arn required"
-        )
+        out["solution_version_arn"] = ""
     if data.get("minProvisionedTPS") is not None:
         out["min_provisioned_tps"] = data["minProvisionedTPS"]
     if data.get("campaignConfig") is not None:

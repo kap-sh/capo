@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_dashboards.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_dashboards.types.dashboard_name
     import capo_bcm_dashboards.types.description
@@ -53,7 +51,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDashboardRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateDashboardRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("widgets") is not None:
@@ -63,7 +61,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDashboardRequest:
             data["widgets"]
         )
     else:
-        raise DeserializationError("CreateDashboardRequest.widgets required")
+        out["widgets"] = []
     if data.get("resourceTags") is not None:
         import capo_bcm_dashboards.types.resource_tag_list
 

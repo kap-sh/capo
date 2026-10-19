@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_clouddirectory.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_clouddirectory.types.attribute_key_list
     import capo_clouddirectory.types.batch_reference_name
@@ -70,9 +68,7 @@ def deserialize_json(data: dict) -> BatchCreateIndex:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchCreateIndex.ordered_indexed_attribute_list required"
-        )
+        out["ordered_indexed_attribute_list"] = []
     if data.get("IsUnique") is not None:
         out["is_unique"] = data["IsUnique"]
     else:

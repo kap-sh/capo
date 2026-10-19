@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.accept_language
     import capo_service_catalog.types.id
@@ -36,5 +34,5 @@ def deserialize_aws_json_1_1(data: dict) -> ListProvisioningArtifactsInput:
     if data.get("ProductId") is not None:
         out["product_id"] = data["ProductId"]
     else:
-        raise DeserializationError("ListProvisioningArtifactsInput.product_id required")
+        out["product_id"] = ""
     return out

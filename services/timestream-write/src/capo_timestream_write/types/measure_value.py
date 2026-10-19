@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_timestream_write.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_write.types.measure_value_type
     import capo_timestream_write.types.schema_name
@@ -39,11 +37,11 @@ def deserialize_aws_json_1_0(data: dict) -> MeasureValue:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("MeasureValue.name required")
+        out["name"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("MeasureValue.value required")
+        out["value"] = ""
     if data.get("Type") is not None:
         import capo_timestream_write.types.measure_value_type
 
@@ -53,5 +51,9 @@ def deserialize_aws_json_1_0(data: dict) -> MeasureValue:
             )
         )
     else:
-        raise DeserializationError("MeasureValue.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_timestream_write.types.measure_value_type.MeasureValueType", ""
+        )
     return out

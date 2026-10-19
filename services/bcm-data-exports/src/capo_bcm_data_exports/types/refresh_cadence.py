@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bcm_data_exports.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_data_exports.types.frequency_option
 
@@ -39,5 +37,9 @@ def deserialize_aws_json_1_1(data: dict) -> RefreshCadence:
             )
         )
     else:
-        raise DeserializationError("RefreshCadence.frequency required")
+        import typing
+
+        out["frequency"] = typing.cast(
+            "capo_bcm_data_exports.types.frequency_option.FrequencyOption", ""
+        )
     return out

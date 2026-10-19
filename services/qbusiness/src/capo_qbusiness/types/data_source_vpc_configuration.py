@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.security_group_ids
     import capo_qbusiness.types.subnet_ids
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> DataSourceVpcConfiguration:
             data["subnetIds"]
         )
     else:
-        raise DeserializationError("DataSourceVpcConfiguration.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("securityGroupIds") is not None:
         import capo_qbusiness.types.security_group_ids
 
@@ -53,7 +51,5 @@ def deserialize_json(data: dict) -> DataSourceVpcConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "DataSourceVpcConfiguration.security_group_ids required"
-        )
+        out["security_group_ids"] = []
     return out

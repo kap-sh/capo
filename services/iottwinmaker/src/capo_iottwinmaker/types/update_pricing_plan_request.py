@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.pricing_bundles
     import capo_iottwinmaker.types.pricing_mode
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> UpdatePricingPlanRequest:
     if data.get("pricingMode") is not None:
         out["pricing_mode"] = data["pricingMode"]
     else:
-        raise DeserializationError("UpdatePricingPlanRequest.pricing_mode required")
+        out["pricing_mode"] = ""
     if data.get("bundleNames") is not None:
         import capo_iottwinmaker.types.pricing_bundles
 

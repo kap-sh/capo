@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.attribute_name_list_type
     import capo_cognito_identity_provider.types.token_model_type
@@ -43,13 +41,11 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteUserAttributesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DeleteUserAttributesRequest.user_attribute_names required"
-        )
+        out["user_attribute_names"] = []
     if data.get("AccessToken") is not None:
         out["access_token"] = data["AccessToken"]
     else:
-        raise DeserializationError("DeleteUserAttributesRequest.access_token required")
+        out["access_token"] = ""
     return out
 
 

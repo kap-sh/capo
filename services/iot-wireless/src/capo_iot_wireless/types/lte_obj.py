@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.eutran_cid
     import capo_iot_wireless.types.lte_local_id
@@ -87,15 +85,15 @@ def deserialize_json(data: dict) -> LteObj:
     if data.get("Mcc") is not None:
         out["mcc"] = data["Mcc"]
     else:
-        raise DeserializationError("LteObj.mcc required")
+        out["mcc"] = 0
     if data.get("Mnc") is not None:
         out["mnc"] = data["Mnc"]
     else:
-        raise DeserializationError("LteObj.mnc required")
+        out["mnc"] = 0
     if data.get("EutranCid") is not None:
         out["eutran_cid"] = data["EutranCid"]
     else:
-        raise DeserializationError("LteObj.eutran_cid required")
+        out["eutran_cid"] = 0
     if data.get("Tac") is not None:
         out["tac"] = data["Tac"]
     if data.get("LteLocalId") is not None:

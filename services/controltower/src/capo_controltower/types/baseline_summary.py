@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_controltower.errors import DeserializationError
-
 
 class BaselineSummary(TypedDict, closed=True):
     arn: "str"
@@ -29,11 +27,11 @@ def deserialize_json(data: dict) -> BaselineSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("BaselineSummary.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("BaselineSummary.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

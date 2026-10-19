@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.application_arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteIdentityCenterApplicationReque
     if data.get("ApplicationArn") is not None:
         out["application_arn"] = data["ApplicationArn"]
     else:
-        raise DeserializationError(
-            "DeleteIdentityCenterApplicationRequest.application_arn required"
-        )
+        out["application_arn"] = ""
     return out

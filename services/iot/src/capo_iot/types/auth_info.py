@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.action_type
     import capo_iot.types.resources
@@ -46,5 +44,5 @@ def deserialize_json(data: dict) -> AuthInfo:
 
         out["resources"] = capo_iot.types.resources.deserialize_json(data["resources"])
     else:
-        raise DeserializationError("AuthInfo.resources required")
+        out["resources"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_signer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_signer.types.profile_name
     import capo_signer.types.profile_version
@@ -42,13 +40,11 @@ def deserialize_json(data: dict) -> RevokeSigningProfileRequest:
     if data.get("profileVersion") is not None:
         out["profile_version"] = data["profileVersion"]
     else:
-        raise DeserializationError(
-            "RevokeSigningProfileRequest.profile_version required"
-        )
+        out["profile_version"] = ""
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
     else:
-        raise DeserializationError("RevokeSigningProfileRequest.reason required")
+        out["reason"] = ""
     if data.get("effectiveTime") is not None:
         import capo_signer.types.timestamp
 
@@ -56,7 +52,9 @@ def deserialize_json(data: dict) -> RevokeSigningProfileRequest:
             data["effectiveTime"]
         )
     else:
-        raise DeserializationError(
-            "RevokeSigningProfileRequest.effective_time required"
+        import datetime
+
+        out["effective_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

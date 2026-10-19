@@ -74,9 +74,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateManagedInstancesProviderConfig
     if data.get("infrastructureRoleArn") is not None:
         out["infrastructure_role_arn"] = data["infrastructureRoleArn"]
     else:
-        raise DeserializationError(
-            "UpdateManagedInstancesProviderConfiguration.infrastructure_role_arn required"
-        )
+        out["infrastructure_role_arn"] = ""
     if data.get("instanceLaunchTemplate") is not None:
         import capo_ecs.types.instance_launch_template_update
 

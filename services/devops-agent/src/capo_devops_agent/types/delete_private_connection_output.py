@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.private_connection_name
     import capo_devops_agent.types.private_connection_status
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> DeletePrivateConnectionOutput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DeletePrivateConnectionOutput.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         import capo_devops_agent.types.private_connection_status
 
@@ -45,5 +43,10 @@ def deserialize_json(data: dict) -> DeletePrivateConnectionOutput:
             )
         )
     else:
-        raise DeserializationError("DeletePrivateConnectionOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_devops_agent.types.private_connection_status.PrivateConnectionStatus",
+            "",
+        )
     return out

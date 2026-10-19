@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_machine_learning.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_machine_learning.types.entity_id
     import capo_machine_learning.types.entity_name
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateBatchPredictionInput:
     if data.get("BatchPredictionId") is not None:
         out["batch_prediction_id"] = data["BatchPredictionId"]
     else:
-        raise DeserializationError(
-            "UpdateBatchPredictionInput.batch_prediction_id required"
-        )
+        out["batch_prediction_id"] = ""
     if data.get("BatchPredictionName") is not None:
         out["batch_prediction_name"] = data["BatchPredictionName"]
     else:
-        raise DeserializationError(
-            "UpdateBatchPredictionInput.batch_prediction_name required"
-        )
+        out["batch_prediction_name"] = ""
     return out

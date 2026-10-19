@@ -77,21 +77,21 @@ def deserialize_json(data: dict) -> AssociatedAssetsSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("AssociatedAssetsSummary.id required")
+        out["id"] = ""
     if data.get("externalId") is not None:
         out["external_id"] = data["externalId"]
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("AssociatedAssetsSummary.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AssociatedAssetsSummary.name required")
+        out["name"] = ""
     if data.get("assetModelId") is not None:
         out["asset_model_id"] = data["assetModelId"]
     else:
-        raise DeserializationError("AssociatedAssetsSummary.asset_model_id required")
+        out["asset_model_id"] = ""
     if data.get("creationDate") is not None:
         import capo_iotsitewise.types.timestamp
 
@@ -99,7 +99,11 @@ def deserialize_json(data: dict) -> AssociatedAssetsSummary:
             data["creationDate"]
         )
     else:
-        raise DeserializationError("AssociatedAssetsSummary.creation_date required")
+        import datetime
+
+        out["creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastUpdateDate") is not None:
         import capo_iotsitewise.types.timestamp
 
@@ -107,7 +111,11 @@ def deserialize_json(data: dict) -> AssociatedAssetsSummary:
             data["lastUpdateDate"]
         )
     else:
-        raise DeserializationError("AssociatedAssetsSummary.last_update_date required")
+        import datetime
+
+        out["last_update_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("status") is not None:
         import capo_iotsitewise.types.asset_status
 
@@ -123,7 +131,7 @@ def deserialize_json(data: dict) -> AssociatedAssetsSummary:
             data["hierarchies"]
         )
     else:
-        raise DeserializationError("AssociatedAssetsSummary.hierarchies required")
+        out["hierarchies"] = []
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

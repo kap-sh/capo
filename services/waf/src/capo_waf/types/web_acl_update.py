@@ -41,7 +41,9 @@ def deserialize_aws_json_1_1(data: dict) -> WebACLUpdate:
             data["Action"]
         )
     else:
-        raise DeserializationError("WebACLUpdate.action required")
+        import typing
+
+        out["action"] = typing.cast("capo_waf.types.change_action.ChangeAction", "")
     if data.get("ActivatedRule") is not None:
         import capo_waf.types.activated_rule
 

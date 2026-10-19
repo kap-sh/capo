@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.cloud_watch_log_group_name
     import capo_mgn.types.s3_bucket_name
@@ -41,17 +39,13 @@ def deserialize_json(data: dict) -> ConnectorSsmCommandConfig:
     if data.get("s3OutputEnabled") is not None:
         out["s3_output_enabled"] = data["s3OutputEnabled"]
     else:
-        raise DeserializationError(
-            "ConnectorSsmCommandConfig.s3_output_enabled required"
-        )
+        out["s3_output_enabled"] = False
     if data.get("outputS3BucketName") is not None:
         out["output_s3_bucket_name"] = data["outputS3BucketName"]
     if data.get("cloudWatchOutputEnabled") is not None:
         out["cloud_watch_output_enabled"] = data["cloudWatchOutputEnabled"]
     else:
-        raise DeserializationError(
-            "ConnectorSsmCommandConfig.cloud_watch_output_enabled required"
-        )
+        out["cloud_watch_output_enabled"] = False
     if data.get("cloudWatchLogGroupName") is not None:
         out["cloud_watch_log_group_name"] = data["cloudWatchLogGroupName"]
     return out

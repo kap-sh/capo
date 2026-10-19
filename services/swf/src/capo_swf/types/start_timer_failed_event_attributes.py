@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.event_id
     import capo_swf.types.start_timer_failed_cause
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_0(data: dict) -> StartTimerFailedEventAttributes:
     if data.get("timerId") is not None:
         out["timer_id"] = data["timerId"]
     else:
-        raise DeserializationError("StartTimerFailedEventAttributes.timer_id required")
+        out["timer_id"] = ""
     if data.get("cause") is not None:
         import capo_swf.types.start_timer_failed_cause
 
@@ -49,7 +47,11 @@ def deserialize_aws_json_1_0(data: dict) -> StartTimerFailedEventAttributes:
             data["cause"]
         )
     else:
-        raise DeserializationError("StartTimerFailedEventAttributes.cause required")
+        import typing
+
+        out["cause"] = typing.cast(
+            "capo_swf.types.start_timer_failed_cause.StartTimerFailedCause", ""
+        )
     if data.get("decisionTaskCompletedEventId") is not None:
         out["decision_task_completed_event_id"] = data["decisionTaskCompletedEventId"]
     else:

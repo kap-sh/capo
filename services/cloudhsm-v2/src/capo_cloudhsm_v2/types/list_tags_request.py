@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudhsm_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudhsm_v2.types.max_size
     import capo_cloudhsm_v2.types.next_token
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsRequest:
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("ListTagsRequest.resource_id required")
+        out["resource_id"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

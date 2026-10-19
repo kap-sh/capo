@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_events_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events_data.types.ephemeral_input_name
     import capo_iot_events_data.types.message_id
@@ -46,11 +44,11 @@ def deserialize_json(data: dict) -> Message:
     if data.get("messageId") is not None:
         out["message_id"] = data["messageId"]
     else:
-        raise DeserializationError("Message.message_id required")
+        out["message_id"] = ""
     if data.get("inputName") is not None:
         out["input_name"] = data["inputName"]
     else:
-        raise DeserializationError("Message.input_name required")
+        out["input_name"] = ""
     if data.get("payload") is not None:
         import capo_iot_events_data.types.payload
 
@@ -58,7 +56,7 @@ def deserialize_json(data: dict) -> Message:
             data["payload"]
         )
     else:
-        raise DeserializationError("Message.payload required")
+        out["payload"] = b""
     if data.get("timestamp") is not None:
         import capo_iot_events_data.types.timestamp_value
 

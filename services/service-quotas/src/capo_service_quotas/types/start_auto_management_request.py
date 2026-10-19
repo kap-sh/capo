@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_quotas.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_quotas.types.amazon_resource_name
     import capo_service_quotas.types.exclusion_list
@@ -65,7 +63,11 @@ def deserialize_aws_json_1_1(data: dict) -> StartAutoManagementRequest:
             )
         )
     else:
-        raise DeserializationError("StartAutoManagementRequest.opt_in_level required")
+        import typing
+
+        out["opt_in_level"] = typing.cast(
+            "capo_service_quotas.types.opt_in_level.OptInLevel", ""
+        )
     if data.get("OptInType") is not None:
         import capo_service_quotas.types.opt_in_type
 
@@ -75,7 +77,11 @@ def deserialize_aws_json_1_1(data: dict) -> StartAutoManagementRequest:
             )
         )
     else:
-        raise DeserializationError("StartAutoManagementRequest.opt_in_type required")
+        import typing
+
+        out["opt_in_type"] = typing.cast(
+            "capo_service_quotas.types.opt_in_type.OptInType", ""
+        )
     if data.get("NotificationArn") is not None:
         out["notification_arn"] = data["NotificationArn"]
     if data.get("ExclusionList") is not None:

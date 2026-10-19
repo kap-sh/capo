@@ -47,5 +47,5 @@ def deserialize_json(data: dict) -> LimitsPerLabelSet:
 
         out["label_set"] = capo_amp.types.label_set.deserialize_json(data["labelSet"])
     else:
-        raise DeserializationError("LimitsPerLabelSet.label_set required")
+        out["label_set"] = {}
     return out

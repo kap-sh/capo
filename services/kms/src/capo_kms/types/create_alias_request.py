@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kms.types.alias_name_type
     import capo_kms.types.key_id_type
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAliasRequest:
     if data.get("AliasName") is not None:
         out["alias_name"] = data["AliasName"]
     else:
-        raise DeserializationError("CreateAliasRequest.alias_name required")
+        out["alias_name"] = ""
     if data.get("TargetKeyId") is not None:
         out["target_key_id"] = data["TargetKeyId"]
     else:
-        raise DeserializationError("CreateAliasRequest.target_key_id required")
+        out["target_key_id"] = ""
     return out

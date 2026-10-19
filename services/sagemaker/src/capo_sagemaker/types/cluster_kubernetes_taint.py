@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker.types.cluster_kubernetes_taint_effect
     import capo_sagemaker.types.cluster_kubernetes_taint_key
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> ClusterKubernetesTaint:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("ClusterKubernetesTaint.key required")
+        out["key"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     if data.get("Effect") is not None:
@@ -56,5 +54,10 @@ def deserialize_aws_json_1_1(data: dict) -> ClusterKubernetesTaint:
             )
         )
     else:
-        raise DeserializationError("ClusterKubernetesTaint.effect required")
+        import typing
+
+        out["effect"] = typing.cast(
+            "capo_sagemaker.types.cluster_kubernetes_taint_effect.ClusterKubernetesTaintEffect",
+            "",
+        )
     return out

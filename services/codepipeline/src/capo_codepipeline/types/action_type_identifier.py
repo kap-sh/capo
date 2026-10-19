@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.action_category
     import capo_codepipeline.types.action_provider
@@ -49,17 +47,21 @@ def deserialize_aws_json_1_1(data: dict) -> ActionTypeIdentifier:
             )
         )
     else:
-        raise DeserializationError("ActionTypeIdentifier.category required")
+        import typing
+
+        out["category"] = typing.cast(
+            "capo_codepipeline.types.action_category.ActionCategory", ""
+        )
     if data.get("owner") is not None:
         out["owner"] = data["owner"]
     else:
-        raise DeserializationError("ActionTypeIdentifier.owner required")
+        out["owner"] = ""
     if data.get("provider") is not None:
         out["provider"] = data["provider"]
     else:
-        raise DeserializationError("ActionTypeIdentifier.provider required")
+        out["provider"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("ActionTypeIdentifier.version required")
+        out["version"] = ""
     return out

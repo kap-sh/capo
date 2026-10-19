@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 
 class ClusterForImageFilterCriteria(TypedDict, closed=True):
     resource_id: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> ClusterForImageFilterCriteria:
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     else:
-        raise DeserializationError("ClusterForImageFilterCriteria.resource_id required")
+        out["resource_id"] = ""
     return out

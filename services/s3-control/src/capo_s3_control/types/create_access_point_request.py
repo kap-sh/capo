@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.access_point_name
@@ -76,7 +75,7 @@ def deserialize_xml(el: Element) -> CreateAccessPointRequest:
     if child_bucket is not None:
         out["bucket"] = str(child_bucket.text or "")
     else:
-        raise DeserializationError("CreateAccessPointRequest.bucket required")
+        out["bucket"] = ""
     child_vpc_configuration = el.find("VpcConfiguration")
     if child_vpc_configuration is not None:
         import capo_s3_control.types.vpc_configuration

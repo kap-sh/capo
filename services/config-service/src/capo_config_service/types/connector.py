@@ -51,11 +51,11 @@ def deserialize_aws_json_1_1(data: dict) -> Connector:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Connector.name required")
+        out["name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("Connector.arn required")
+        out["arn"] = ""
     if data.get("connectorConfiguration") is not None:
         import capo_config_service.types.connector_configuration
 
@@ -73,5 +73,9 @@ def deserialize_aws_json_1_1(data: dict) -> Connector:
             data["createdTime"]
         )
     else:
-        raise DeserializationError("Connector.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.string
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> LocationTimestamp:
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("LocationTimestamp.value required")
+        out["value"] = ""
     if data.get("unit") is not None:
         out["unit"] = data["unit"]
     return out

@@ -49,9 +49,7 @@ def deserialize_json(data: dict) -> CreateVirtualRouterInput:
     if data.get("virtualRouterName") is not None:
         out["virtual_router_name"] = data["virtualRouterName"]
     else:
-        raise DeserializationError(
-            "CreateVirtualRouterInput.virtual_router_name required"
-        )
+        out["virtual_router_name"] = ""
     if data.get("spec") is not None:
         import capo_app_mesh.types.virtual_router_spec
 

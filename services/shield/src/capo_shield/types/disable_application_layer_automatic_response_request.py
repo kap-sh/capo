@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_shield.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_shield.types.resource_arn
 
@@ -31,7 +29,5 @@ def deserialize_aws_json_1_1(
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError(
-            "DisableApplicationLayerAutomaticResponseRequest.resource_arn required"
-        )
+        out["resource_arn"] = ""
     return out

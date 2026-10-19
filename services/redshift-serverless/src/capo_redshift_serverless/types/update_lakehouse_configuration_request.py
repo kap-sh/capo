@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.catalog_name_string
     import capo_redshift_serverless.types.lakehouse_idc_registration
@@ -56,9 +54,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLakehouseConfigurationRequest:
     if data.get("namespaceName") is not None:
         out["namespace_name"] = data["namespaceName"]
     else:
-        raise DeserializationError(
-            "UpdateLakehouseConfigurationRequest.namespace_name required"
-        )
+        out["namespace_name"] = ""
     if data.get("lakehouseRegistration") is not None:
         out["lakehouse_registration"] = data["lakehouseRegistration"]
     if data.get("catalogName") is not None:

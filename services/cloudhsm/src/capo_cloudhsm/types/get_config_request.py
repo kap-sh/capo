@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudhsm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudhsm.types.client_arn
     import capo_cloudhsm.types.client_version
@@ -43,7 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetConfigRequest:
     if data.get("ClientArn") is not None:
         out["client_arn"] = data["ClientArn"]
     else:
-        raise DeserializationError("GetConfigRequest.client_arn required")
+        out["client_arn"] = ""
     if data.get("ClientVersion") is not None:
         import capo_cloudhsm.types.client_version
 
@@ -53,7 +51,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetConfigRequest:
             )
         )
     else:
-        raise DeserializationError("GetConfigRequest.client_version required")
+        import typing
+
+        out["client_version"] = typing.cast(
+            "capo_cloudhsm.types.client_version.ClientVersion", ""
+        )
     if data.get("HapgList") is not None:
         import capo_cloudhsm.types.hapg_list
 
@@ -61,5 +63,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetConfigRequest:
             data["HapgList"]
         )
     else:
-        raise DeserializationError("GetConfigRequest.hapg_list required")
+        out["hapg_list"] = []
     return out

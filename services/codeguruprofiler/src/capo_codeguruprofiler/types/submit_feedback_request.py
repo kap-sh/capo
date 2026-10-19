@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeguruprofiler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguruprofiler.types.anomaly_instance_id
     import capo_codeguruprofiler.types.feedback_type
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> SubmitFeedbackRequest:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("SubmitFeedbackRequest.type required")
+        out["type"] = ""
     if data.get("comment") is not None:
         out["comment"] = data["comment"]
     return out

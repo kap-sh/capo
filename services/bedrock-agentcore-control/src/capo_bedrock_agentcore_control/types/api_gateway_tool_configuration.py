@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.api_gateway_tool_filters
     import capo_bedrock_agentcore_control.types.api_gateway_tool_overrides
@@ -60,5 +58,5 @@ def deserialize_json(data: dict) -> ApiGatewayToolConfiguration:
             )
         )
     else:
-        raise DeserializationError("ApiGatewayToolConfiguration.tool_filters required")
+        out["tool_filters"] = []
     return out

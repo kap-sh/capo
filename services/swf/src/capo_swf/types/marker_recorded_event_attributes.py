@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.data
     import capo_swf.types.event_id
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_0(data: dict) -> MarkerRecordedEventAttributes:
     if data.get("markerName") is not None:
         out["marker_name"] = data["markerName"]
     else:
-        raise DeserializationError("MarkerRecordedEventAttributes.marker_name required")
+        out["marker_name"] = ""
     if data.get("details") is not None:
         out["details"] = data["details"]
     if data.get("decisionTaskCompletedEventId") is not None:

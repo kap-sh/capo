@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.certificates
     import capo_panorama.types.device_arn
@@ -52,11 +50,11 @@ def deserialize_json(data: dict) -> ProvisionDeviceResponse:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("ProvisionDeviceResponse.arn required")
+        out["arn"] = ""
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("ProvisionDeviceResponse.status required")
+        out["status"] = ""
     if data.get("Certificates") is not None:
         import capo_panorama.types.certificates
 

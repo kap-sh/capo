@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_guru.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_guru.types.app_boundary_key
     import capo_devops_guru.types.tag_values
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> TagCollection:
     if data.get("AppBoundaryKey") is not None:
         out["app_boundary_key"] = data["AppBoundaryKey"]
     else:
-        raise DeserializationError("TagCollection.app_boundary_key required")
+        out["app_boundary_key"] = ""
     if data.get("TagValues") is not None:
         import capo_devops_guru.types.tag_values
 
@@ -43,5 +41,5 @@ def deserialize_json(data: dict) -> TagCollection:
             data["TagValues"]
         )
     else:
-        raise DeserializationError("TagCollection.tag_values required")
+        out["tag_values"] = []
     return out

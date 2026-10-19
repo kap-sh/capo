@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.metadata_model_properties
     import capo_database_migration_service.types.migration_project_identifier
@@ -44,21 +42,15 @@ def deserialize_aws_json_1_1(data: dict) -> StartMetadataModelCreationMessage:
     if data.get("MigrationProjectIdentifier") is not None:
         out["migration_project_identifier"] = data["MigrationProjectIdentifier"]
     else:
-        raise DeserializationError(
-            "StartMetadataModelCreationMessage.migration_project_identifier required"
-        )
+        out["migration_project_identifier"] = ""
     if data.get("SelectionRules") is not None:
         out["selection_rules"] = data["SelectionRules"]
     else:
-        raise DeserializationError(
-            "StartMetadataModelCreationMessage.selection_rules required"
-        )
+        out["selection_rules"] = ""
     if data.get("MetadataModelName") is not None:
         out["metadata_model_name"] = data["MetadataModelName"]
     else:
-        raise DeserializationError(
-            "StartMetadataModelCreationMessage.metadata_model_name required"
-        )
+        out["metadata_model_name"] = ""
     if data.get("Properties") is not None:
         import capo_database_migration_service.types.metadata_model_properties
 
@@ -68,7 +60,9 @@ def deserialize_aws_json_1_1(data: dict) -> StartMetadataModelCreationMessage:
             )
         )
     else:
-        raise DeserializationError(
-            "StartMetadataModelCreationMessage.properties required"
+        import capo_database_migration_service.types._unknown
+
+        out["properties"] = (
+            capo_database_migration_service.types._unknown.UnknownUnionMember("")
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.grid_layout_canvas_size_options
     import capo_quicksight.types.grid_layout_element_list
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> GridLayoutConfiguration:
             )
         )
     else:
-        raise DeserializationError("GridLayoutConfiguration.elements required")
+        out["elements"] = []
     if data.get("CanvasSizeOptions") is not None:
         import capo_quicksight.types.grid_layout_canvas_size_options
 

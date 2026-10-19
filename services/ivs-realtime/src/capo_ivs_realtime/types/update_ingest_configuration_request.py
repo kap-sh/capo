@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs_realtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.ingest_configuration_arn
     import capo_ivs_realtime.types.ingest_configuration_stage_arn
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> UpdateIngestConfigurationRequest:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("UpdateIngestConfigurationRequest.arn required")
+        out["arn"] = ""
     if data.get("stageArn") is not None:
         out["stage_arn"] = data["stageArn"]
     if data.get("redundantIngest") is not None:

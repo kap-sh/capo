@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.structured_log_destinations
     import capo_transfer.types.tags
@@ -74,7 +72,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateWorkflowRequest:
             data["Steps"]
         )
     else:
-        raise DeserializationError("CreateWorkflowRequest.steps required")
+        out["steps"] = []
     if data.get("OnExceptionSteps") is not None:
         import capo_transfer.types.workflow_steps
 

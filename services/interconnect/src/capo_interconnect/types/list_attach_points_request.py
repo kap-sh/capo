@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_interconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_interconnect.types.environment_id
     import capo_interconnect.types.max_results
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListAttachPointsRequest:
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError("ListAttachPointsRequest.environment_id required")
+        out["environment_id"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

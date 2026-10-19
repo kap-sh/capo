@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime.types.alexa_for_business_metadata
     import capo_chime.types.license
@@ -56,7 +54,7 @@ def deserialize_json(data: dict) -> UpdateUserRequestItem:
     if data.get("UserId") is not None:
         out["user_id"] = data["UserId"]
     else:
-        raise DeserializationError("UpdateUserRequestItem.user_id required")
+        out["user_id"] = ""
     if data.get("LicenseType") is not None:
         import capo_chime.types.license
 

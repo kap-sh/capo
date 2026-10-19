@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_finspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace.types.client_token
     import capo_finspace.types.id_type
@@ -46,11 +44,11 @@ def deserialize_json(data: dict) -> CreateKxUserRequest:
     if data.get("userName") is not None:
         out["user_name"] = data["userName"]
     else:
-        raise DeserializationError("CreateKxUserRequest.user_name required")
+        out["user_name"] = ""
     if data.get("iamRole") is not None:
         out["iam_role"] = data["iamRole"]
     else:
-        raise DeserializationError("CreateKxUserRequest.iam_role required")
+        out["iam_role"] = ""
     if data.get("tags") is not None:
         import capo_finspace.types.tag_map
 

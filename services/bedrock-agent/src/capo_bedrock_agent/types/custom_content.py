@@ -79,7 +79,11 @@ def deserialize_json(data: dict) -> CustomContent:
             )
         )
     else:
-        raise DeserializationError("CustomContent.source_type required")
+        import typing
+
+        out["source_type"] = typing.cast(
+            "capo_bedrock_agent.types.custom_source_type.CustomSourceType", ""
+        )
     if data.get("s3Location") is not None:
         import capo_bedrock_agent.types.custom_s3_location
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.idc_application_arn
     import capo_qbusiness.types.role_arn
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> IdcAuthConfiguration:
     if data.get("idcApplicationArn") is not None:
         out["idc_application_arn"] = data["idcApplicationArn"]
     else:
-        raise DeserializationError("IdcAuthConfiguration.idc_application_arn required")
+        out["idc_application_arn"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("IdcAuthConfiguration.role_arn required")
+        out["role_arn"] = ""
     return out

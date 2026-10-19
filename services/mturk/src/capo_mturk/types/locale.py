@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mturk.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mturk.types.country_parameters
 
@@ -31,7 +29,7 @@ def deserialize_aws_json_1_1(data: dict) -> Locale:
     if data.get("Country") is not None:
         out["country"] = data["Country"]
     else:
-        raise DeserializationError("Locale.country required")
+        out["country"] = ""
     if data.get("Subdivision") is not None:
         out["subdivision"] = data["Subdivision"]
     return out

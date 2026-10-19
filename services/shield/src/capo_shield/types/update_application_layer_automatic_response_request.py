@@ -39,9 +39,7 @@ def deserialize_aws_json_1_1(
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError(
-            "UpdateApplicationLayerAutomaticResponseRequest.resource_arn required"
-        )
+        out["resource_arn"] = ""
     if data.get("Action") is not None:
         import capo_shield.types.response_action
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.code_interpreter_session_id
     import capo_bedrock_agentcore.types.code_interpreter_session_status
@@ -65,13 +63,11 @@ def deserialize_json(data: dict) -> CodeInterpreterSessionSummary:
     if data.get("codeInterpreterIdentifier") is not None:
         out["code_interpreter_identifier"] = data["codeInterpreterIdentifier"]
     else:
-        raise DeserializationError(
-            "CodeInterpreterSessionSummary.code_interpreter_identifier required"
-        )
+        out["code_interpreter_identifier"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("CodeInterpreterSessionSummary.session_id required")
+        out["session_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("status") is not None:
@@ -83,7 +79,12 @@ def deserialize_json(data: dict) -> CodeInterpreterSessionSummary:
             )
         )
     else:
-        raise DeserializationError("CodeInterpreterSessionSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore.types.code_interpreter_session_status.CodeInterpreterSessionStatus",
+            "",
+        )
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore.types.date_timestamp
 
@@ -93,7 +94,9 @@ def deserialize_json(data: dict) -> CodeInterpreterSessionSummary:
             )
         )
     else:
-        raise DeserializationError("CodeInterpreterSessionSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastUpdatedAt") is not None:
         import capo_bedrock_agentcore.types.date_timestamp
 

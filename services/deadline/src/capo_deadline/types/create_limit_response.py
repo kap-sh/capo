@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.limit_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CreateLimitResponse:
     if data.get("limitId") is not None:
         out["limit_id"] = data["limitId"]
     else:
-        raise DeserializationError("CreateLimitResponse.limit_id required")
+        out["limit_id"] = ""
     return out

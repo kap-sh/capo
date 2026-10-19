@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.capacity_usage_summary
     import capo_network_firewall.types.configuration_sync_state
@@ -88,7 +86,11 @@ def deserialize_aws_json_1_0(data: dict) -> FirewallStatus:
             )
         )
     else:
-        raise DeserializationError("FirewallStatus.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_network_firewall.types.firewall_status_value.FirewallStatusValue", ""
+        )
     if data.get("ConfigurationSyncStateSummary") is not None:
         import capo_network_firewall.types.configuration_sync_state
 
@@ -98,8 +100,11 @@ def deserialize_aws_json_1_0(data: dict) -> FirewallStatus:
             )
         )
     else:
-        raise DeserializationError(
-            "FirewallStatus.configuration_sync_state_summary required"
+        import typing
+
+        out["configuration_sync_state_summary"] = typing.cast(
+            "capo_network_firewall.types.configuration_sync_state.ConfigurationSyncState",
+            "",
         )
     if data.get("SyncStates") is not None:
         import capo_network_firewall.types.sync_states

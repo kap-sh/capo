@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.self_grant_status
 
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> SelfGrantStatusDetail:
     if data.get("databaseName") is not None:
         out["database_name"] = data["databaseName"]
     else:
-        raise DeserializationError("SelfGrantStatusDetail.database_name required")
+        out["database_name"] = ""
     if data.get("schemaName") is not None:
         out["schema_name"] = data["schemaName"]
     if data.get("status") is not None:
@@ -52,7 +50,11 @@ def deserialize_json(data: dict) -> SelfGrantStatusDetail:
             data["status"]
         )
     else:
-        raise DeserializationError("SelfGrantStatusDetail.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_datazone.types.self_grant_status.SelfGrantStatus", ""
+        )
     if data.get("failureCause") is not None:
         out["failure_cause"] = data["failureCause"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_directory_service_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service_data.types.directory_id
     import capo_directory_service_data.types.ldap_display_name_list
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> SearchGroupsRequest:
     if data.get("SearchString") is not None:
         out["search_string"] = data["SearchString"]
     else:
-        raise DeserializationError("SearchGroupsRequest.search_string required")
+        out["search_string"] = ""
     if data.get("SearchAttributes") is not None:
         import capo_directory_service_data.types.ldap_display_name_list
 
@@ -67,7 +65,7 @@ def deserialize_json(data: dict) -> SearchGroupsRequest:
             )
         )
     else:
-        raise DeserializationError("SearchGroupsRequest.search_attributes required")
+        out["search_attributes"] = []
     if data.get("Realm") is not None:
         out["realm"] = data["Realm"]
     if data.get("NextToken") is not None:

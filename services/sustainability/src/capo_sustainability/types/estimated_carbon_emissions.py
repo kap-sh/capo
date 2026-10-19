@@ -65,13 +65,11 @@ def deserialize_json(data: dict) -> EstimatedCarbonEmissions:
             )
         )
     else:
-        raise DeserializationError(
-            "EstimatedCarbonEmissions.dimensions_values required"
-        )
+        out["dimensions_values"] = {}
     if data.get("ModelVersion") is not None:
         out["model_version"] = data["ModelVersion"]
     else:
-        raise DeserializationError("EstimatedCarbonEmissions.model_version required")
+        out["model_version"] = ""
     if data.get("EmissionsValues") is not None:
         import capo_sustainability.types.emissions_map
 
@@ -81,5 +79,5 @@ def deserialize_json(data: dict) -> EstimatedCarbonEmissions:
             )
         )
     else:
-        raise DeserializationError("EstimatedCarbonEmissions.emissions_values required")
+        out["emissions_values"] = {}
     return out

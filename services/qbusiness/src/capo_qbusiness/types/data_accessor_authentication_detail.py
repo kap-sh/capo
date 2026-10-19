@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.data_accessor_authentication_configuration
     import capo_qbusiness.types.data_accessor_authentication_type
@@ -65,8 +63,11 @@ def deserialize_json(data: dict) -> DataAccessorAuthenticationDetail:
             )
         )
     else:
-        raise DeserializationError(
-            "DataAccessorAuthenticationDetail.authentication_type required"
+        import typing
+
+        out["authentication_type"] = typing.cast(
+            "capo_qbusiness.types.data_accessor_authentication_type.DataAccessorAuthenticationType",
+            "",
         )
     if data.get("authenticationConfiguration") is not None:
         import capo_qbusiness.types.data_accessor_authentication_configuration

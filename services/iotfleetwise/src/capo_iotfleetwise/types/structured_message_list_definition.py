@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.non_negative_integer
     import capo_iotfleetwise.types.structure_message_name
@@ -53,7 +51,7 @@ def deserialize_aws_json_1_0(data: dict) -> StructuredMessageListDefinition:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("StructuredMessageListDefinition.name required")
+        out["name"] = ""
     if data.get("memberType") is not None:
         import capo_iotfleetwise.types.structured_message
 
@@ -63,9 +61,9 @@ def deserialize_aws_json_1_0(data: dict) -> StructuredMessageListDefinition:
             )
         )
     else:
-        raise DeserializationError(
-            "StructuredMessageListDefinition.member_type required"
-        )
+        import capo_iotfleetwise.types._unknown
+
+        out["member_type"] = capo_iotfleetwise.types._unknown.UnknownUnionMember("")
     if data.get("listType") is not None:
         import capo_iotfleetwise.types.structured_message_list_type
 
@@ -75,7 +73,12 @@ def deserialize_aws_json_1_0(data: dict) -> StructuredMessageListDefinition:
             )
         )
     else:
-        raise DeserializationError("StructuredMessageListDefinition.list_type required")
+        import typing
+
+        out["list_type"] = typing.cast(
+            "capo_iotfleetwise.types.structured_message_list_type.StructuredMessageListType",
+            "",
+        )
     if data.get("capacity") is not None:
         out["capacity"] = data["capacity"]
     else:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.response_inspection_body_contains_failure_strings
     import capo_wafv2.types.response_inspection_body_contains_success_strings
@@ -49,9 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> ResponseInspectionBodyContains:
             )
         )
     else:
-        raise DeserializationError(
-            "ResponseInspectionBodyContains.success_strings required"
-        )
+        out["success_strings"] = []
     if data.get("FailureStrings") is not None:
         import capo_wafv2.types.response_inspection_body_contains_failure_strings
 
@@ -61,7 +57,5 @@ def deserialize_aws_json_1_1(data: dict) -> ResponseInspectionBodyContains:
             )
         )
     else:
-        raise DeserializationError(
-            "ResponseInspectionBodyContains.failure_strings required"
-        )
+        out["failure_strings"] = []
     return out

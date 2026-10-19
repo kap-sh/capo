@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pipes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pipes.types.measure_name
     import capo_pipes.types.measure_value
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> SingleMeasureMapping:
     if data.get("MeasureValue") is not None:
         out["measure_value"] = data["MeasureValue"]
     else:
-        raise DeserializationError("SingleMeasureMapping.measure_value required")
+        out["measure_value"] = ""
     if data.get("MeasureValueType") is not None:
         out["measure_value_type"] = data["MeasureValueType"]
     else:
-        raise DeserializationError("SingleMeasureMapping.measure_value_type required")
+        out["measure_value_type"] = ""
     if data.get("MeasureName") is not None:
         out["measure_name"] = data["MeasureName"]
     else:
-        raise DeserializationError("SingleMeasureMapping.measure_name required")
+        out["measure_name"] = ""
     return out

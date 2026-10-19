@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.agent_arn_list
 
@@ -35,5 +33,5 @@ def deserialize_aws_json_1_1(data: dict) -> OnPremConfig:
             data["AgentArns"]
         )
     else:
-        raise DeserializationError("OnPremConfig.agent_arns required")
+        out["agent_arns"] = []
     return out

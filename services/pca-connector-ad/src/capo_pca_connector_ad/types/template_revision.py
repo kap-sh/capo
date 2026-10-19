@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_pca_connector_ad.errors import DeserializationError
-
 
 class TemplateRevision(TypedDict, closed=True):
     major_revision: "int"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> TemplateRevision:
     if data.get("MajorRevision") is not None:
         out["major_revision"] = data["MajorRevision"]
     else:
-        raise DeserializationError("TemplateRevision.major_revision required")
+        out["major_revision"] = 0
     if data.get("MinorRevision") is not None:
         out["minor_revision"] = data["MinorRevision"]
     else:
-        raise DeserializationError("TemplateRevision.minor_revision required")
+        out["minor_revision"] = 0
     return out

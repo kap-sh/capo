@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.non_empty_string
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> ExecutionErrorDetails:
     if data.get("errorCode") is not None:
         out["error_code"] = data["errorCode"]
     else:
-        raise DeserializationError("ExecutionErrorDetails.error_code required")
+        out["error_code"] = ""
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     else:
-        raise DeserializationError("ExecutionErrorDetails.error_message required")
+        out["error_message"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.arn
     import capo_sfn.types.definition
@@ -84,7 +82,7 @@ def deserialize_aws_json_1_0(data: dict) -> TestStateInput:
     if data.get("definition") is not None:
         out["definition"] = data["definition"]
     else:
-        raise DeserializationError("TestStateInput.definition required")
+        out["definition"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     if data.get("input") is not None:

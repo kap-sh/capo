@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.cloud_watch_logs_filter_operator
     import capo_bedrock_agentcore.types.filter_value
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> CloudWatchLogsFilter:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("CloudWatchLogsFilter.key required")
+        out["key"] = ""
     if data.get("operator") is not None:
         import capo_bedrock_agentcore.types.cloud_watch_logs_filter_operator
 
@@ -54,7 +52,12 @@ def deserialize_json(data: dict) -> CloudWatchLogsFilter:
             )
         )
     else:
-        raise DeserializationError("CloudWatchLogsFilter.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_bedrock_agentcore.types.cloud_watch_logs_filter_operator.CloudWatchLogsFilterOperator",
+            "",
+        )
     if data.get("value") is not None:
         import capo_bedrock_agentcore.types.filter_value
 
@@ -62,5 +65,7 @@ def deserialize_json(data: dict) -> CloudWatchLogsFilter:
             data["value"]
         )
     else:
-        raise DeserializationError("CloudWatchLogsFilter.value required")
+        import capo_bedrock_agentcore.types._unknown
+
+        out["value"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
     return out

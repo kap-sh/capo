@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.execution_status_list
     import capo_cloudwatch_logs.types.get_scheduled_query_history_max_results
@@ -60,19 +58,15 @@ def deserialize_aws_json_1_1(data: dict) -> GetScheduledQueryHistoryRequest:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError(
-            "GetScheduledQueryHistoryRequest.identifier required"
-        )
+        out["identifier"] = ""
     if data.get("startTime") is not None:
         out["start_time"] = data["startTime"]
     else:
-        raise DeserializationError(
-            "GetScheduledQueryHistoryRequest.start_time required"
-        )
+        out["start_time"] = 0
     if data.get("endTime") is not None:
         out["end_time"] = data["endTime"]
     else:
-        raise DeserializationError("GetScheduledQueryHistoryRequest.end_time required")
+        out["end_time"] = 0
     if data.get("executionStatuses") is not None:
         import capo_cloudwatch_logs.types.execution_status_list
 

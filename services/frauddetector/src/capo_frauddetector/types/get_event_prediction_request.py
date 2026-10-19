@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.event_variable_map
     import capo_frauddetector.types.external_model_endpoint_data_blob_map
@@ -77,17 +75,17 @@ def deserialize_aws_json_1_1(data: dict) -> GetEventPredictionRequest:
     if data.get("detectorId") is not None:
         out["detector_id"] = data["detectorId"]
     else:
-        raise DeserializationError("GetEventPredictionRequest.detector_id required")
+        out["detector_id"] = ""
     if data.get("detectorVersionId") is not None:
         out["detector_version_id"] = data["detectorVersionId"]
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError("GetEventPredictionRequest.event_id required")
+        out["event_id"] = ""
     if data.get("eventTypeName") is not None:
         out["event_type_name"] = data["eventTypeName"]
     else:
-        raise DeserializationError("GetEventPredictionRequest.event_type_name required")
+        out["event_type_name"] = ""
     if data.get("entities") is not None:
         import capo_frauddetector.types.list_of_entities
 
@@ -97,11 +95,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetEventPredictionRequest:
             )
         )
     else:
-        raise DeserializationError("GetEventPredictionRequest.entities required")
+        out["entities"] = []
     if data.get("eventTimestamp") is not None:
         out["event_timestamp"] = data["eventTimestamp"]
     else:
-        raise DeserializationError("GetEventPredictionRequest.event_timestamp required")
+        out["event_timestamp"] = ""
     if data.get("eventVariables") is not None:
         import capo_frauddetector.types.event_variable_map
 
@@ -111,7 +109,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetEventPredictionRequest:
             )
         )
     else:
-        raise DeserializationError("GetEventPredictionRequest.event_variables required")
+        out["event_variables"] = {}
     if data.get("externalModelEndpointDataBlobs") is not None:
         import capo_frauddetector.types.external_model_endpoint_data_blob_map
 

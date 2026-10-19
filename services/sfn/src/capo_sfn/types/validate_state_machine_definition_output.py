@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.validate_state_machine_definition_diagnostic_list
     import capo_sfn.types.validate_state_machine_definition_result_code
@@ -56,8 +54,11 @@ def deserialize_aws_json_1_0(data: dict) -> ValidateStateMachineDefinitionOutput
             )
         )
     else:
-        raise DeserializationError(
-            "ValidateStateMachineDefinitionOutput.result required"
+        import typing
+
+        out["result"] = typing.cast(
+            "capo_sfn.types.validate_state_machine_definition_result_code.ValidateStateMachineDefinitionResultCode",
+            "",
         )
     if data.get("diagnostics") is not None:
         import capo_sfn.types.validate_state_machine_definition_diagnostic_list
@@ -68,9 +69,7 @@ def deserialize_aws_json_1_0(data: dict) -> ValidateStateMachineDefinitionOutput
             )
         )
     else:
-        raise DeserializationError(
-            "ValidateStateMachineDefinitionOutput.diagnostics required"
-        )
+        out["diagnostics"] = []
     if data.get("truncated") is not None:
         out["truncated"] = data["truncated"]
     return out

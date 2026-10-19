@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -48,22 +47,22 @@ def deserialize_query(el: Element) -> Group:
     if child_path is not None:
         out["path"] = str(child_path.text or "")
     else:
-        raise DeserializationError("Group.path required")
+        out["path"] = ""
     child_group_name = el.find("GroupName")
     if child_group_name is not None:
         out["group_name"] = str(child_group_name.text or "")
     else:
-        raise DeserializationError("Group.group_name required")
+        out["group_name"] = ""
     child_group_id = el.find("GroupId")
     if child_group_id is not None:
         out["group_id"] = str(child_group_id.text or "")
     else:
-        raise DeserializationError("Group.group_id required")
+        out["group_id"] = ""
     child_arn = el.find("Arn")
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("Group.arn required")
+        out["arn"] = ""
     child_create_date = el.find("CreateDate")
     if child_create_date is not None:
         import capo_iam.types.date_type
@@ -72,5 +71,9 @@ def deserialize_query(el: Element) -> Group:
             child_create_date
         )
     else:
-        raise DeserializationError("Group.create_date required")
+        import datetime
+
+        out["create_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

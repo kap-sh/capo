@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.chap_secret
     import capo_storage_gateway.types.iqn_name
@@ -43,17 +41,15 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateChapCredentialsInput:
     if data.get("TargetARN") is not None:
         out["target_arn"] = data["TargetARN"]
     else:
-        raise DeserializationError("UpdateChapCredentialsInput.target_arn required")
+        out["target_arn"] = ""
     if data.get("SecretToAuthenticateInitiator") is not None:
         out["secret_to_authenticate_initiator"] = data["SecretToAuthenticateInitiator"]
     else:
-        raise DeserializationError(
-            "UpdateChapCredentialsInput.secret_to_authenticate_initiator required"
-        )
+        out["secret_to_authenticate_initiator"] = ""
     if data.get("InitiatorName") is not None:
         out["initiator_name"] = data["InitiatorName"]
     else:
-        raise DeserializationError("UpdateChapCredentialsInput.initiator_name required")
+        out["initiator_name"] = ""
     if data.get("SecretToAuthenticateTarget") is not None:
         out["secret_to_authenticate_target"] = data["SecretToAuthenticateTarget"]
     return out

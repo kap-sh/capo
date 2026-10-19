@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_xray.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_xray.types.policy_name
     import capo_xray.types.policy_revision_id
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> DeleteResourcePolicyRequest:
     if data.get("PolicyName") is not None:
         out["policy_name"] = data["PolicyName"]
     else:
-        raise DeserializationError("DeleteResourcePolicyRequest.policy_name required")
+        out["policy_name"] = ""
     if data.get("PolicyRevisionId") is not None:
         out["policy_revision_id"] = data["PolicyRevisionId"]
     return out

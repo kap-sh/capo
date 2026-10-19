@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_textract.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_textract.types.flow_definition_arn
     import capo_textract.types.human_loop_data_attributes
@@ -44,11 +42,11 @@ def deserialize_aws_json_1_1(data: dict) -> HumanLoopConfig:
     if data.get("HumanLoopName") is not None:
         out["human_loop_name"] = data["HumanLoopName"]
     else:
-        raise DeserializationError("HumanLoopConfig.human_loop_name required")
+        out["human_loop_name"] = ""
     if data.get("FlowDefinitionArn") is not None:
         out["flow_definition_arn"] = data["FlowDefinitionArn"]
     else:
-        raise DeserializationError("HumanLoopConfig.flow_definition_arn required")
+        out["flow_definition_arn"] = ""
     if data.get("DataAttributes") is not None:
         import capo_textract.types.human_loop_data_attributes
 

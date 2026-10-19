@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.anycast_ip_list_name
@@ -72,27 +71,27 @@ def deserialize_xml(el: Element) -> AnycastIpListSummary:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("AnycastIpListSummary.id required")
+        out["id"] = ""
     child_name = el.find("Name")
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("AnycastIpListSummary.name required")
+        out["name"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         out["status"] = str(child_status.text or "")
     else:
-        raise DeserializationError("AnycastIpListSummary.status required")
+        out["status"] = ""
     child_arn = el.find("Arn")
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("AnycastIpListSummary.arn required")
+        out["arn"] = ""
     child_ip_count = el.find("IpCount")
     if child_ip_count is not None:
         out["ip_count"] = int(child_ip_count.text or "")
     else:
-        raise DeserializationError("AnycastIpListSummary.ip_count required")
+        out["ip_count"] = 0
     child_last_modified_time = el.find("LastModifiedTime")
     if child_last_modified_time is not None:
         import capo_cloudfront.types.timestamp
@@ -101,7 +100,11 @@ def deserialize_xml(el: Element) -> AnycastIpListSummary:
             child_last_modified_time
         )
     else:
-        raise DeserializationError("AnycastIpListSummary.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_ip_address_type = el.find("IpAddressType")
     if child_ip_address_type is not None:
         import capo_cloudfront.types.ip_address_type

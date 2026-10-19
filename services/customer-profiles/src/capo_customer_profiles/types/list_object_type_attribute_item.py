@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.name
     import capo_customer_profiles.types.timestamp
@@ -35,9 +33,7 @@ def deserialize_json(data: dict) -> ListObjectTypeAttributeItem:
     if data.get("AttributeName") is not None:
         out["attribute_name"] = data["AttributeName"]
     else:
-        raise DeserializationError(
-            "ListObjectTypeAttributeItem.attribute_name required"
-        )
+        out["attribute_name"] = ""
     if data.get("LastUpdatedAt") is not None:
         import capo_customer_profiles.types.timestamp
 
@@ -47,7 +43,9 @@ def deserialize_json(data: dict) -> ListObjectTypeAttributeItem:
             )
         )
     else:
-        raise DeserializationError(
-            "ListObjectTypeAttributeItem.last_updated_at required"
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

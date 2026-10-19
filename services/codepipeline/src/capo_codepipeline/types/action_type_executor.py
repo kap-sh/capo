@@ -69,7 +69,11 @@ def deserialize_aws_json_1_1(data: dict) -> ActionTypeExecutor:
             data["type"]
         )
     else:
-        raise DeserializationError("ActionTypeExecutor.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codepipeline.types.executor_type.ExecutorType", ""
+        )
     if data.get("policyStatementsTemplate") is not None:
         out["policy_statements_template"] = data["policyStatementsTemplate"]
     if data.get("jobTimeout") is not None:

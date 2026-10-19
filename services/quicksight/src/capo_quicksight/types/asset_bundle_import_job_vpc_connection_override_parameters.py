@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.dns_resolver_list
     import capo_quicksight.types.resource_name
@@ -70,9 +68,7 @@ def deserialize_json(data: dict) -> AssetBundleImportJobVPCConnectionOverridePar
     if data.get("VPCConnectionId") is not None:
         out["vpc_connection_id"] = data["VPCConnectionId"]
     else:
-        raise DeserializationError(
-            "AssetBundleImportJobVPCConnectionOverrideParameters.vpc_connection_id required"
-        )
+        out["vpc_connection_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("SubnetIds") is not None:

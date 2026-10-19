@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_s3vectors.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -40,11 +38,11 @@ def deserialize_json(data: dict) -> VectorBucketSummary:
     if data.get("vectorBucketName") is not None:
         out["vector_bucket_name"] = data["vectorBucketName"]
     else:
-        raise DeserializationError("VectorBucketSummary.vector_bucket_name required")
+        out["vector_bucket_name"] = ""
     if data.get("vectorBucketArn") is not None:
         out["vector_bucket_arn"] = data["vectorBucketArn"]
     else:
-        raise DeserializationError("VectorBucketSummary.vector_bucket_arn required")
+        out["vector_bucket_arn"] = ""
     if data.get("creationTime") is not None:
         import capo_s3vectors.types._prelude.timestamp
 
@@ -52,5 +50,9 @@ def deserialize_json(data: dict) -> VectorBucketSummary:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("VectorBucketSummary.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

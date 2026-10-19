@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearchserverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearchserverless.types.client_token
     import capo_opensearchserverless.types.collection_group_capacity_limits
@@ -71,13 +69,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateCollectionGroupRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateCollectionGroupRequest.name required")
+        out["name"] = ""
     if data.get("standbyReplicas") is not None:
         out["standby_replicas"] = data["standbyReplicas"]
     else:
-        raise DeserializationError(
-            "CreateCollectionGroupRequest.standby_replicas required"
-        )
+        out["standby_replicas"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("tags") is not None:

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 
 class ProtectedQueryS3Output(TypedDict, closed=True):
     location: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> ProtectedQueryS3Output:
     if data.get("location") is not None:
         out["location"] = data["location"]
     else:
-        raise DeserializationError("ProtectedQueryS3Output.location required")
+        out["location"] = ""
     return out

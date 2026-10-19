@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.batch_job_execution_summary_list
     import capo_m2.types.next_token
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> ListBatchJobExecutionsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListBatchJobExecutionsResponse.batch_job_executions required"
-        )
+        out["batch_job_executions"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

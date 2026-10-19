@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.app_arn
     import capo_amplify.types.app_id
@@ -242,15 +240,15 @@ def deserialize_json(data: dict) -> App:
     if data.get("appId") is not None:
         out["app_id"] = data["appId"]
     else:
-        raise DeserializationError("App.app_id required")
+        out["app_id"] = ""
     if data.get("appArn") is not None:
         out["app_arn"] = data["appArn"]
     else:
-        raise DeserializationError("App.app_arn required")
+        out["app_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("App.name required")
+        out["name"] = ""
     if data.get("tags") is not None:
         import capo_amplify.types.tag_map
 
@@ -258,17 +256,19 @@ def deserialize_json(data: dict) -> App:
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("App.description required")
+        out["description"] = ""
     if data.get("repository") is not None:
         out["repository"] = data["repository"]
     else:
-        raise DeserializationError("App.repository required")
+        out["repository"] = ""
     if data.get("platform") is not None:
         import capo_amplify.types.platform
 
         out["platform"] = capo_amplify.types.platform.deserialize_json(data["platform"])
     else:
-        raise DeserializationError("App.platform required")
+        import typing
+
+        out["platform"] = typing.cast("capo_amplify.types.platform.Platform", "")
     if data.get("createTime") is not None:
         import capo_amplify.types.create_time
 
@@ -276,7 +276,11 @@ def deserialize_json(data: dict) -> App:
             data["createTime"]
         )
     else:
-        raise DeserializationError("App.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import capo_amplify.types.update_time
 
@@ -284,7 +288,11 @@ def deserialize_json(data: dict) -> App:
             data["updateTime"]
         )
     else:
-        raise DeserializationError("App.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("computeRoleArn") is not None:
         out["compute_role_arn"] = data["computeRoleArn"]
     if data.get("iamServiceRoleArn") is not None:
@@ -298,21 +306,21 @@ def deserialize_json(data: dict) -> App:
             )
         )
     else:
-        raise DeserializationError("App.environment_variables required")
+        out["environment_variables"] = {}
     if data.get("defaultDomain") is not None:
         out["default_domain"] = data["defaultDomain"]
     else:
-        raise DeserializationError("App.default_domain required")
+        out["default_domain"] = ""
     if data.get("enableBranchAutoBuild") is not None:
         out["enable_branch_auto_build"] = data["enableBranchAutoBuild"]
     else:
-        raise DeserializationError("App.enable_branch_auto_build required")
+        out["enable_branch_auto_build"] = False
     if data.get("enableBranchAutoDeletion") is not None:
         out["enable_branch_auto_deletion"] = data["enableBranchAutoDeletion"]
     if data.get("enableBasicAuth") is not None:
         out["enable_basic_auth"] = data["enableBasicAuth"]
     else:
-        raise DeserializationError("App.enable_basic_auth required")
+        out["enable_basic_auth"] = False
     if data.get("basicAuthCredentials") is not None:
         out["basic_auth_credentials"] = data["basicAuthCredentials"]
     if data.get("customRules") is not None:

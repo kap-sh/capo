@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_signin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_signin.types.bearer_token_type
     import capo_signin.types.o_auth_access_token
@@ -35,21 +33,15 @@ def deserialize_json(data: dict) -> CreateOAuth2TokenWithIAMResponse:
     if data.get("access_token") is not None:
         out["access_token"] = data["access_token"]
     else:
-        raise DeserializationError(
-            "CreateOAuth2TokenWithIAMResponse.access_token required"
-        )
+        out["access_token"] = ""
     if data.get("token_type") is not None:
         out["token_type"] = data["token_type"]
     else:
-        raise DeserializationError(
-            "CreateOAuth2TokenWithIAMResponse.token_type required"
-        )
+        out["token_type"] = ""
     if data.get("expires_in") is not None:
         out["expires_in"] = data["expires_in"]
     else:
-        raise DeserializationError(
-            "CreateOAuth2TokenWithIAMResponse.expires_in required"
-        )
+        out["expires_in"] = 0
     return out
 
 

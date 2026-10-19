@@ -50,33 +50,23 @@ def deserialize_json(data: dict) -> ValidateSolFunctionPackageContentOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError(
-            "ValidateSolFunctionPackageContentOutput.id required"
-        )
+        out["id"] = ""
     if data.get("vnfdId") is not None:
         out["vnfd_id"] = data["vnfdId"]
     else:
-        raise DeserializationError(
-            "ValidateSolFunctionPackageContentOutput.vnfd_id required"
-        )
+        out["vnfd_id"] = ""
     if data.get("vnfProductName") is not None:
         out["vnf_product_name"] = data["vnfProductName"]
     else:
-        raise DeserializationError(
-            "ValidateSolFunctionPackageContentOutput.vnf_product_name required"
-        )
+        out["vnf_product_name"] = ""
     if data.get("vnfProvider") is not None:
         out["vnf_provider"] = data["vnfProvider"]
     else:
-        raise DeserializationError(
-            "ValidateSolFunctionPackageContentOutput.vnf_provider required"
-        )
+        out["vnf_provider"] = ""
     if data.get("vnfdVersion") is not None:
         out["vnfd_version"] = data["vnfdVersion"]
     else:
-        raise DeserializationError(
-            "ValidateSolFunctionPackageContentOutput.vnfd_version required"
-        )
+        out["vnfd_version"] = ""
     if data.get("metadata") is not None:
         import capo_tnb.types.validate_sol_function_package_content_metadata
 

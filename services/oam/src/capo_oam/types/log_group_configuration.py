@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_oam.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_oam.types.logs_filter
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> LogGroupConfiguration:
     if data.get("Filter") is not None:
         out["filter"] = data["Filter"]
     else:
-        raise DeserializationError("LogGroupConfiguration.filter required")
+        out["filter"] = ""
     return out

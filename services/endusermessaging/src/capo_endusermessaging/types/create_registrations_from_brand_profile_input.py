@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_endusermessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_endusermessaging.types.brand_profile_id_or_arn
     import capo_endusermessaging.types.client_token
@@ -55,9 +53,7 @@ def deserialize_json(data: dict) -> CreateRegistrationsFromBrandProfileInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateRegistrationsFromBrandProfileInput.registration_types required"
-        )
+        out["registration_types"] = []
     if data.get("smartMatch") is not None:
         out["smart_match"] = data["smartMatch"]
     if data.get("clientToken") is not None:

@@ -62,7 +62,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateContactRequest:
     if data.get("Alias") is not None:
         out["alias"] = data["Alias"]
     else:
-        raise DeserializationError("CreateContactRequest.alias required")
+        out["alias"] = ""
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     if data.get("Type") is not None:
@@ -72,7 +72,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateContactRequest:
             data["Type"]
         )
     else:
-        raise DeserializationError("CreateContactRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_ssm_contacts.types.contact_type.ContactType", ""
+        )
     if data.get("Plan") is not None:
         import capo_ssm_contacts.types.plan
 

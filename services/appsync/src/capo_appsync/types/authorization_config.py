@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.authorization_type
     import capo_appsync.types.aws_iam_config
@@ -46,7 +44,11 @@ def deserialize_json(data: dict) -> AuthorizationConfig:
             )
         )
     else:
-        raise DeserializationError("AuthorizationConfig.authorization_type required")
+        import typing
+
+        out["authorization_type"] = typing.cast(
+            "capo_appsync.types.authorization_type.AuthorizationType", ""
+        )
     if data.get("awsIamConfig") is not None:
         import capo_appsync.types.aws_iam_config
 

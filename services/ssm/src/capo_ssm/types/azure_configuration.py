@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.azure_application_display_name
     import capo_ssm.types.azure_application_id
@@ -54,13 +52,13 @@ def deserialize_aws_json_1_1(data: dict) -> AzureConfiguration:
     if data.get("TenantId") is not None:
         out["tenant_id"] = data["TenantId"]
     else:
-        raise DeserializationError("AzureConfiguration.tenant_id required")
+        out["tenant_id"] = ""
     if data.get("TenantDisplayName") is not None:
         out["tenant_display_name"] = data["TenantDisplayName"]
     if data.get("ApplicationId") is not None:
         out["application_id"] = data["ApplicationId"]
     else:
-        raise DeserializationError("AzureConfiguration.application_id required")
+        out["application_id"] = ""
     if data.get("ApplicationDisplayName") is not None:
         out["application_display_name"] = data["ApplicationDisplayName"]
     if data.get("Targets") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.partner_value
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> PartnerThreatProtectionConfig:
     if data.get("Partner") is not None:
         out["partner"] = data["Partner"]
     else:
-        raise DeserializationError("PartnerThreatProtectionConfig.partner required")
+        out["partner"] = ""
     return out

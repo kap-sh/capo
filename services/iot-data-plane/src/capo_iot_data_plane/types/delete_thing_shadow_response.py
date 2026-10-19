@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_data_plane.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_data_plane.types.json_document
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> DeleteThingShadowResponse:
             data["payload"]
         )
     else:
-        raise DeserializationError("DeleteThingShadowResponse.payload required")
+        out["payload"] = b""
     return out

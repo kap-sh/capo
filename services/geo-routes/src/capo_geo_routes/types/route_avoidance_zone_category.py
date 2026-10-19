@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.route_zone_category
 
@@ -35,7 +33,11 @@ def deserialize_json(data: dict) -> RouteAvoidanceZoneCategory:
             data["Category"]
         )
     else:
-        raise DeserializationError("RouteAvoidanceZoneCategory.category required")
+        import typing
+
+        out["category"] = typing.cast(
+            "capo_geo_routes.types.route_zone_category.RouteZoneCategory", ""
+        )
     return out
 
 

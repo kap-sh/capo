@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.boolean
     import capo_lightsail.types.region_name
@@ -67,7 +65,7 @@ def deserialize_aws_json_1_1(data: dict) -> CopySnapshotRequest:
     if data.get("targetSnapshotName") is not None:
         out["target_snapshot_name"] = data["targetSnapshotName"]
     else:
-        raise DeserializationError("CopySnapshotRequest.target_snapshot_name required")
+        out["target_snapshot_name"] = ""
     if data.get("sourceRegion") is not None:
         import capo_lightsail.types.region_name
 
@@ -77,5 +75,9 @@ def deserialize_aws_json_1_1(data: dict) -> CopySnapshotRequest:
             )
         )
     else:
-        raise DeserializationError("CopySnapshotRequest.source_region required")
+        import typing
+
+        out["source_region"] = typing.cast(
+            "capo_lightsail.types.region_name.RegionName", ""
+        )
     return out

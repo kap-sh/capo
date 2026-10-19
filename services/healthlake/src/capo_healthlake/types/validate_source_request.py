@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.source_file_blob
     import capo_healthlake.types.source_format
@@ -45,7 +43,11 @@ def deserialize_aws_json_1_0(data: dict) -> ValidateSourceRequest:
             )
         )
     else:
-        raise DeserializationError("ValidateSourceRequest.source_format required")
+        import typing
+
+        out["source_format"] = typing.cast(
+            "capo_healthlake.types.source_format.SourceFormat", ""
+        )
     if data.get("SourceFile") is not None:
         import capo_healthlake.types.source_file_blob
 
@@ -55,7 +57,7 @@ def deserialize_aws_json_1_0(data: dict) -> ValidateSourceRequest:
             )
         )
     else:
-        raise DeserializationError("ValidateSourceRequest.source_file required")
+        out["source_file"] = b""
     return out
 
 

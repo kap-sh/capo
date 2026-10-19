@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.human_task_instructions
     import capo_bedrock.types.sage_maker_flow_definition_arn
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> HumanWorkflowConfig:
     if data.get("flowDefinitionArn") is not None:
         out["flow_definition_arn"] = data["flowDefinitionArn"]
     else:
-        raise DeserializationError("HumanWorkflowConfig.flow_definition_arn required")
+        out["flow_definition_arn"] = ""
     if data.get("instructions") is not None:
         out["instructions"] = data["instructions"]
     return out

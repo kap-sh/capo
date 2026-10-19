@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.event_message
     import capo_cloudwatch_logs.types.timestamp
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> InputLogEvent:
     if data.get("timestamp") is not None:
         out["timestamp"] = data["timestamp"]
     else:
-        raise DeserializationError("InputLogEvent.timestamp required")
+        out["timestamp"] = 0
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("InputLogEvent.message required")
+        out["message"] = ""
     return out

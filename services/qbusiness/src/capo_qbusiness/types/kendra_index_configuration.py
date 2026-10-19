@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.kendra_index_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> KendraIndexConfiguration:
     if data.get("indexId") is not None:
         out["index_id"] = data["indexId"]
     else:
-        raise DeserializationError("KendraIndexConfiguration.index_id required")
+        out["index_id"] = ""
     return out

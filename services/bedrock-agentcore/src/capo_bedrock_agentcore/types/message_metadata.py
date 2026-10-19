@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 
 class MessageMetadata(TypedDict, closed=True):
     event_id: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> MessageMetadata:
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError("MessageMetadata.event_id required")
+        out["event_id"] = ""
     if data.get("messageIndex") is not None:
         out["message_index"] = data["messageIndex"]
     else:
-        raise DeserializationError("MessageMetadata.message_index required")
+        out["message_index"] = 0
     return out

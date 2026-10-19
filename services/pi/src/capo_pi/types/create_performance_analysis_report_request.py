@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pi.types.identifier_string
     import capo_pi.types.iso_timestamp
@@ -62,15 +60,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePerformanceAnalysisReportReque
             data["ServiceType"]
         )
     else:
-        raise DeserializationError(
-            "CreatePerformanceAnalysisReportRequest.service_type required"
-        )
+        import typing
+
+        out["service_type"] = typing.cast("capo_pi.types.service_type.ServiceType", "")
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError(
-            "CreatePerformanceAnalysisReportRequest.identifier required"
-        )
+        out["identifier"] = ""
     if data.get("StartTime") is not None:
         import capo_pi.types.iso_timestamp
 
@@ -78,9 +74,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePerformanceAnalysisReportReque
             data["StartTime"]
         )
     else:
-        raise DeserializationError(
-            "CreatePerformanceAnalysisReportRequest.start_time required"
-        )
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_pi.types.iso_timestamp
 

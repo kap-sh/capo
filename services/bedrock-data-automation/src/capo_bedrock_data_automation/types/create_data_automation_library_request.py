@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.client_token
     import capo_bedrock_data_automation.types.data_automation_library_description
@@ -58,9 +56,7 @@ def deserialize_json(data: dict) -> CreateDataAutomationLibraryRequest:
     if data.get("libraryName") is not None:
         out["library_name"] = data["libraryName"]
     else:
-        raise DeserializationError(
-            "CreateDataAutomationLibraryRequest.library_name required"
-        )
+        out["library_name"] = ""
     if data.get("libraryDescription") is not None:
         out["library_description"] = data["libraryDescription"]
     if data.get("clientToken") is not None:

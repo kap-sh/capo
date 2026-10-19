@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.cis_rule_details
     import capo_inspector2.types.cis_rule_status
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> CisSessionMessage:
     if data.get("ruleId") is not None:
         out["rule_id"] = data["ruleId"]
     else:
-        raise DeserializationError("CisSessionMessage.rule_id required")
+        out["rule_id"] = ""
     if data.get("status") is not None:
         import capo_inspector2.types.cis_rule_status
 
@@ -51,7 +49,11 @@ def deserialize_json(data: dict) -> CisSessionMessage:
             data["status"]
         )
     else:
-        raise DeserializationError("CisSessionMessage.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_inspector2.types.cis_rule_status.CisRuleStatus", ""
+        )
     if data.get("cisRuleDetails") is not None:
         import capo_inspector2.types.cis_rule_details
 
@@ -61,5 +63,5 @@ def deserialize_json(data: dict) -> CisSessionMessage:
             )
         )
     else:
-        raise DeserializationError("CisSessionMessage.cis_rule_details required")
+        out["cis_rule_details"] = b""
     return out

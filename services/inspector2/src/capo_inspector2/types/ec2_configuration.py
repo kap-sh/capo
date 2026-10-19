@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.ec2_scan_mode
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> Ec2Configuration:
     if data.get("scanMode") is not None:
         out["scan_mode"] = data["scanMode"]
     else:
-        raise DeserializationError("Ec2Configuration.scan_mode required")
+        out["scan_mode"] = ""
     if data.get("activateVMScanner") is not None:
         out["activate_vm_scanner"] = data["activateVMScanner"]
     return out

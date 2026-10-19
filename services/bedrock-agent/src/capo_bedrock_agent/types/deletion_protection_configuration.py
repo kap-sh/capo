@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.enabled_or_disabled_state
 
@@ -44,8 +42,11 @@ def deserialize_json(data: dict) -> DeletionProtectionConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "DeletionProtectionConfiguration.deletion_protection_status required"
+        import typing
+
+        out["deletion_protection_status"] = typing.cast(
+            "capo_bedrock_agent.types.enabled_or_disabled_state.EnabledOrDisabledState",
+            "",
         )
     if data.get("deletionProtectionThreshold") is not None:
         out["deletion_protection_threshold"] = data["deletionProtectionThreshold"]

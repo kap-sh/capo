@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_grafana.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_grafana.types.pagination_token
     import capo_grafana.types.service_account_list
@@ -48,13 +46,9 @@ def deserialize_json(data: dict) -> ListWorkspaceServiceAccountsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListWorkspaceServiceAccountsResponse.service_accounts required"
-        )
+        out["service_accounts"] = []
     if data.get("workspaceId") is not None:
         out["workspace_id"] = data["workspaceId"]
     else:
-        raise DeserializationError(
-            "ListWorkspaceServiceAccountsResponse.workspace_id required"
-        )
+        out["workspace_id"] = ""
     return out

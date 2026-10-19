@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.managed_agent_name
     import capo_ecs.types.string
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> ManagedAgentStateChange:
     if data.get("containerName") is not None:
         out["container_name"] = data["containerName"]
     else:
-        raise DeserializationError("ManagedAgentStateChange.container_name required")
+        out["container_name"] = ""
     if data.get("managedAgentName") is not None:
         import capo_ecs.types.managed_agent_name
 
@@ -52,13 +50,15 @@ def deserialize_aws_json_1_1(data: dict) -> ManagedAgentStateChange:
             )
         )
     else:
-        raise DeserializationError(
-            "ManagedAgentStateChange.managed_agent_name required"
+        import typing
+
+        out["managed_agent_name"] = typing.cast(
+            "capo_ecs.types.managed_agent_name.ManagedAgentName", ""
         )
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("ManagedAgentStateChange.status required")
+        out["status"] = ""
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
     return out

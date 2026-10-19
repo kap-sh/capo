@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.user_type
 
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> UserReference:
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
     else:
-        raise DeserializationError("UserReference.user_id required")
+        out["user_id"] = ""
     if data.get("userType") is not None:
         import capo_devops_agent.types.user_type
 
@@ -42,5 +40,7 @@ def deserialize_json(data: dict) -> UserReference:
             data["userType"]
         )
     else:
-        raise DeserializationError("UserReference.user_type required")
+        import typing
+
+        out["user_type"] = typing.cast("capo_devops_agent.types.user_type.UserType", "")
     return out

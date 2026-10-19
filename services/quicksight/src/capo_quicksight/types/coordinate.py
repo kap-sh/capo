@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.coordinate_latitude_double
     import capo_quicksight.types.coordinate_longitude_double
@@ -51,9 +49,9 @@ def deserialize_json(data: dict) -> Coordinate:
     if data.get("Latitude") is not None:
         out["latitude"] = float(data["Latitude"])
     else:
-        raise DeserializationError("Coordinate.latitude required")
+        out["latitude"] = 0.0
     if data.get("Longitude") is not None:
         out["longitude"] = float(data["Longitude"])
     else:
-        raise DeserializationError("Coordinate.longitude required")
+        out["longitude"] = 0.0
     return out

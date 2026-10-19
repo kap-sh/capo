@@ -62,13 +62,11 @@ def deserialize_json(data: dict) -> CancelMetadataTransferJobResponse:
     if data.get("metadataTransferJobId") is not None:
         out["metadata_transfer_job_id"] = data["metadataTransferJobId"]
     else:
-        raise DeserializationError(
-            "CancelMetadataTransferJobResponse.metadata_transfer_job_id required"
-        )
+        out["metadata_transfer_job_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CancelMetadataTransferJobResponse.arn required")
+        out["arn"] = ""
     if data.get("updateDateTime") is not None:
         import capo_iottwinmaker.types.timestamp
 
@@ -76,8 +74,10 @@ def deserialize_json(data: dict) -> CancelMetadataTransferJobResponse:
             data["updateDateTime"]
         )
     else:
-        raise DeserializationError(
-            "CancelMetadataTransferJobResponse.update_date_time required"
+        import datetime
+
+        out["update_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("status") is not None:
         import capo_iottwinmaker.types.metadata_transfer_job_status

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_data_exports.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_data_exports.types.query_statement
     import capo_bcm_data_exports.types.table_configurations
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> DataQuery:
     if data.get("QueryStatement") is not None:
         out["query_statement"] = data["QueryStatement"]
     else:
-        raise DeserializationError("DataQuery.query_statement required")
+        out["query_statement"] = ""
     if data.get("TableConfigurations") is not None:
         import capo_bcm_data_exports.types.table_configurations
 

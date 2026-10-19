@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.service_now_instance_url
     import capo_devops_agent.types.service_now_service_authorization_config
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> ServiceNowServiceDetails:
     if data.get("instanceUrl") is not None:
         out["instance_url"] = data["instanceUrl"]
     else:
-        raise DeserializationError("ServiceNowServiceDetails.instance_url required")
+        out["instance_url"] = ""
     if data.get("authorizationConfig") is not None:
         import capo_devops_agent.types.service_now_service_authorization_config
 

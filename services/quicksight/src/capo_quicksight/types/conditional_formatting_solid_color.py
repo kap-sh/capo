@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.expression
     import capo_quicksight.types.hex_color
@@ -32,9 +30,7 @@ def deserialize_json(data: dict) -> ConditionalFormattingSolidColor:
     if data.get("Expression") is not None:
         out["expression"] = data["Expression"]
     else:
-        raise DeserializationError(
-            "ConditionalFormattingSolidColor.expression required"
-        )
+        out["expression"] = ""
     if data.get("Color") is not None:
         out["color"] = data["Color"]
     return out

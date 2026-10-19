@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_security_ir.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_security_ir.types.communication_preferences
     import capo_security_ir.types.email_address
@@ -48,15 +46,15 @@ def deserialize_json(data: dict) -> IncidentResponder:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("IncidentResponder.name required")
+        out["name"] = ""
     if data.get("jobTitle") is not None:
         out["job_title"] = data["jobTitle"]
     else:
-        raise DeserializationError("IncidentResponder.job_title required")
+        out["job_title"] = ""
     if data.get("email") is not None:
         out["email"] = data["email"]
     else:
-        raise DeserializationError("IncidentResponder.email required")
+        out["email"] = ""
     if data.get("communicationPreferences") is not None:
         import capo_security_ir.types.communication_preferences
 

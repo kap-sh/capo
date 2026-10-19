@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.arn_with_qualifier
     import capo_qconnect.types.uuid
@@ -35,19 +33,13 @@ def deserialize_json(data: dict) -> ActivateMessageTemplateResponse:
     if data.get("messageTemplateArn") is not None:
         out["message_template_arn"] = data["messageTemplateArn"]
     else:
-        raise DeserializationError(
-            "ActivateMessageTemplateResponse.message_template_arn required"
-        )
+        out["message_template_arn"] = ""
     if data.get("messageTemplateId") is not None:
         out["message_template_id"] = data["messageTemplateId"]
     else:
-        raise DeserializationError(
-            "ActivateMessageTemplateResponse.message_template_id required"
-        )
+        out["message_template_id"] = ""
     if data.get("versionNumber") is not None:
         out["version_number"] = data["versionNumber"]
     else:
-        raise DeserializationError(
-            "ActivateMessageTemplateResponse.version_number required"
-        )
+        out["version_number"] = 0
     return out

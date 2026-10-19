@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.instance_access_protocol
     import capo_lightsail.types.resource_name
@@ -40,9 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetInstanceAccessDetailsRequest:
     if data.get("instanceName") is not None:
         out["instance_name"] = data["instanceName"]
     else:
-        raise DeserializationError(
-            "GetInstanceAccessDetailsRequest.instance_name required"
-        )
+        out["instance_name"] = ""
     if data.get("protocol") is not None:
         import capo_lightsail.types.instance_access_protocol
 

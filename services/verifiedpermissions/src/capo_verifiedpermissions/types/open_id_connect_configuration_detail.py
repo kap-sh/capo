@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.entity_id_prefix
     import capo_verifiedpermissions.types.issuer
@@ -57,7 +55,7 @@ def deserialize_aws_json_1_0(data: dict) -> OpenIdConnectConfigurationDetail:
     if data.get("issuer") is not None:
         out["issuer"] = data["issuer"]
     else:
-        raise DeserializationError("OpenIdConnectConfigurationDetail.issuer required")
+        out["issuer"] = ""
     if data.get("entityIdPrefix") is not None:
         out["entity_id_prefix"] = data["entityIdPrefix"]
     if data.get("groupConfiguration") is not None:
@@ -77,8 +75,10 @@ def deserialize_aws_json_1_0(data: dict) -> OpenIdConnectConfigurationDetail:
             )
         )
     else:
-        raise DeserializationError(
-            "OpenIdConnectConfigurationDetail.token_selection required"
+        import capo_verifiedpermissions.types._unknown
+
+        out["token_selection"] = (
+            capo_verifiedpermissions.types._unknown.UnknownUnionMember("")
         )
     return out
 

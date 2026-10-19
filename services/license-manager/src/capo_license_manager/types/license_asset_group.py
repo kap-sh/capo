@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.arn
     import capo_license_manager.types.date_time
@@ -112,7 +110,7 @@ def deserialize_aws_json_1_1(data: dict) -> LicenseAssetGroup:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("LicenseAssetGroup.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("LicenseAssetGroupConfigurations") is not None:
@@ -132,9 +130,7 @@ def deserialize_aws_json_1_1(data: dict) -> LicenseAssetGroup:
             )
         )
     else:
-        raise DeserializationError(
-            "LicenseAssetGroup.associated_license_asset_ruleset_ar_ns required"
-        )
+        out["associated_license_asset_ruleset_ar_ns"] = []
     if data.get("Properties") is not None:
         import capo_license_manager.types.license_asset_group_property_list
 
@@ -146,7 +142,7 @@ def deserialize_aws_json_1_1(data: dict) -> LicenseAssetGroup:
     if data.get("LicenseAssetGroupArn") is not None:
         out["license_asset_group_arn"] = data["LicenseAssetGroupArn"]
     else:
-        raise DeserializationError("LicenseAssetGroup.license_asset_group_arn required")
+        out["license_asset_group_arn"] = ""
     if data.get("Status") is not None:
         import capo_license_manager.types.license_asset_group_status
 
@@ -156,7 +152,12 @@ def deserialize_aws_json_1_1(data: dict) -> LicenseAssetGroup:
             )
         )
     else:
-        raise DeserializationError("LicenseAssetGroup.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_license_manager.types.license_asset_group_status.LicenseAssetGroupStatus",
+            "",
+        )
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
     if data.get("LatestUsageAnalysisTime") is not None:

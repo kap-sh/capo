@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.application_maintenance_window_start_time
 
@@ -31,7 +29,5 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationMaintenanceConfigurationU
             "ApplicationMaintenanceWindowStartTimeUpdate"
         ]
     else:
-        raise DeserializationError(
-            "ApplicationMaintenanceConfigurationUpdate.application_maintenance_window_start_time_update required"
-        )
+        out["application_maintenance_window_start_time_update"] = ""
     return out

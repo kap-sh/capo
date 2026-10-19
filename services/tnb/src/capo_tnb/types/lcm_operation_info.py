@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_tnb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_tnb.types.ns_lcm_op_occ_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> LcmOperationInfo:
     if data.get("nsLcmOpOccId") is not None:
         out["ns_lcm_op_occ_id"] = data["nsLcmOpOccId"]
     else:
-        raise DeserializationError("LcmOperationInfo.ns_lcm_op_occ_id required")
+        out["ns_lcm_op_occ_id"] = ""
     return out

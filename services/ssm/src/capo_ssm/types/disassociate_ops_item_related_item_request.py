@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.ops_item_id
     import capo_ssm.types.ops_item_related_item_association_id
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DisassociateOpsItemRelatedItemReques
     if data.get("OpsItemId") is not None:
         out["ops_item_id"] = data["OpsItemId"]
     else:
-        raise DeserializationError(
-            "DisassociateOpsItemRelatedItemRequest.ops_item_id required"
-        )
+        out["ops_item_id"] = ""
     if data.get("AssociationId") is not None:
         out["association_id"] = data["AssociationId"]
     else:
-        raise DeserializationError(
-            "DisassociateOpsItemRelatedItemRequest.association_id required"
-        )
+        out["association_id"] = ""
     return out

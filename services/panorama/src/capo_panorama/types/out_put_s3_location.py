@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.bucket_name
     import capo_panorama.types.object_key
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> OutPutS3Location:
     if data.get("BucketName") is not None:
         out["bucket_name"] = data["BucketName"]
     else:
-        raise DeserializationError("OutPutS3Location.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("ObjectKey") is not None:
         out["object_key"] = data["ObjectKey"]
     else:
-        raise DeserializationError("OutPutS3Location.object_key required")
+        out["object_key"] = ""
     return out

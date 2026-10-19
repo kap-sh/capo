@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_annotation
     import capo_bedrock.types.automated_reasoning_policy_annotation_status
@@ -59,9 +57,9 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildLogEntry:
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyBuildLogEntry.annotation required"
-        )
+        import capo_bedrock.types._unknown
+
+        out["annotation"] = capo_bedrock.types._unknown.UnknownUnionMember("")
     if data.get("status") is not None:
         import capo_bedrock.types.automated_reasoning_policy_annotation_status
 
@@ -71,8 +69,11 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildLogEntry:
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyBuildLogEntry.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock.types.automated_reasoning_policy_annotation_status.AutomatedReasoningPolicyAnnotationStatus",
+            "",
         )
     if data.get("buildSteps") is not None:
         import capo_bedrock.types.automated_reasoning_policy_build_step_list
@@ -83,9 +84,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildLogEntry:
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyBuildLogEntry.build_steps required"
-        )
+        out["build_steps"] = []
     return out
 
 

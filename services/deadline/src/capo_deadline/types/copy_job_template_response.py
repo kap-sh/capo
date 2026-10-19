@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.job_template_type
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> CopyJobTemplateResponse:
             data["templateType"]
         )
     else:
-        raise DeserializationError("CopyJobTemplateResponse.template_type required")
+        import typing
+
+        out["template_type"] = typing.cast(
+            "capo_deadline.types.job_template_type.JobTemplateType", ""
+        )
     return out

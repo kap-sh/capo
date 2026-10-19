@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -58,13 +56,11 @@ def deserialize_json(data: dict) -> AnalysisLogExportSummary:
     if data.get("analysisLogExportId") is not None:
         out["analysis_log_export_id"] = data["analysisLogExportId"]
     else:
-        raise DeserializationError(
-            "AnalysisLogExportSummary.analysis_log_export_id required"
-        )
+        out["analysis_log_export_id"] = ""
     if data.get("analysisId") is not None:
         out["analysis_id"] = data["analysisId"]
     else:
-        raise DeserializationError("AnalysisLogExportSummary.analysis_id required")
+        out["analysis_id"] = ""
     if data.get("analysisType") is not None:
         import capo_cleanrooms.types.log_export_analysis_type
 
@@ -74,7 +70,11 @@ def deserialize_json(data: dict) -> AnalysisLogExportSummary:
             )
         )
     else:
-        raise DeserializationError("AnalysisLogExportSummary.analysis_type required")
+        import typing
+
+        out["analysis_type"] = typing.cast(
+            "capo_cleanrooms.types.log_export_analysis_type.LogExportAnalysisType", ""
+        )
     if data.get("status") is not None:
         import capo_cleanrooms.types.analysis_log_export_status
 
@@ -84,7 +84,12 @@ def deserialize_json(data: dict) -> AnalysisLogExportSummary:
             )
         )
     else:
-        raise DeserializationError("AnalysisLogExportSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cleanrooms.types.analysis_log_export_status.AnalysisLogExportStatus",
+            "",
+        )
     if data.get("createTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -92,5 +97,9 @@ def deserialize_json(data: dict) -> AnalysisLogExportSummary:
             data["createTime"]
         )
     else:
-        raise DeserializationError("AnalysisLogExportSummary.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

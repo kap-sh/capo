@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.contact_method_verification_protocol
 
@@ -39,7 +37,10 @@ def deserialize_aws_json_1_1(data: dict) -> SendContactMethodVerificationRequest
             )
         )
     else:
-        raise DeserializationError(
-            "SendContactMethodVerificationRequest.protocol required"
+        import typing
+
+        out["protocol"] = typing.cast(
+            "capo_lightsail.types.contact_method_verification_protocol.ContactMethodVerificationProtocol",
+            "",
         )
     return out

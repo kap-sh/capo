@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_keyspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_keyspaces.types.arn
     import capo_keyspaces.types.keyspace_name
@@ -46,15 +44,15 @@ def deserialize_aws_json_1_0(data: dict) -> KeyspaceSummary:
     if data.get("keyspaceName") is not None:
         out["keyspace_name"] = data["keyspaceName"]
     else:
-        raise DeserializationError("KeyspaceSummary.keyspace_name required")
+        out["keyspace_name"] = ""
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("KeyspaceSummary.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("replicationStrategy") is not None:
         out["replication_strategy"] = data["replicationStrategy"]
     else:
-        raise DeserializationError("KeyspaceSummary.replication_strategy required")
+        out["replication_strategy"] = ""
     if data.get("replicationRegions") is not None:
         import capo_keyspaces.types.region_list
 

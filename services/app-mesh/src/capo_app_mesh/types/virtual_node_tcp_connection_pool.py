@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.max_connections
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> VirtualNodeTcpConnectionPool:
     if data.get("maxConnections") is not None:
         out["max_connections"] = data["maxConnections"]
     else:
-        raise DeserializationError(
-            "VirtualNodeTcpConnectionPool.max_connections required"
-        )
+        out["max_connections"] = 0
     return out

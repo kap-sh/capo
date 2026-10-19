@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.offset_in_nanos
     import capo_iotsitewise.types.time_in_seconds
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> TimeInNanos:
     if data.get("timeInSeconds") is not None:
         out["time_in_seconds"] = data["timeInSeconds"]
     else:
-        raise DeserializationError("TimeInNanos.time_in_seconds required")
+        out["time_in_seconds"] = 0
     if data.get("offsetInNanos") is not None:
         out["offset_in_nanos"] = data["offsetInNanos"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.multi_select_question_rule_category_automation_condition
     import capo_connect.types.multi_select_question_rule_category_automation_label
@@ -45,9 +43,7 @@ def deserialize_json(data: dict) -> MultiSelectQuestionRuleCategoryAutomation:
     if data.get("Category") is not None:
         out["category"] = data["Category"]
     else:
-        raise DeserializationError(
-            "MultiSelectQuestionRuleCategoryAutomation.category required"
-        )
+        out["category"] = ""
     if data.get("Condition") is not None:
         import capo_connect.types.multi_select_question_rule_category_automation_condition
 
@@ -57,8 +53,11 @@ def deserialize_json(data: dict) -> MultiSelectQuestionRuleCategoryAutomation:
             )
         )
     else:
-        raise DeserializationError(
-            "MultiSelectQuestionRuleCategoryAutomation.condition required"
+        import typing
+
+        out["condition"] = typing.cast(
+            "capo_connect.types.multi_select_question_rule_category_automation_condition.MultiSelectQuestionRuleCategoryAutomationCondition",
+            "",
         )
     if data.get("OptionRefIds") is not None:
         import capo_connect.types.reference_id_list
@@ -67,7 +66,5 @@ def deserialize_json(data: dict) -> MultiSelectQuestionRuleCategoryAutomation:
             data["OptionRefIds"]
         )
     else:
-        raise DeserializationError(
-            "MultiSelectQuestionRuleCategoryAutomation.option_ref_ids required"
-        )
+        out["option_ref_ids"] = []
     return out

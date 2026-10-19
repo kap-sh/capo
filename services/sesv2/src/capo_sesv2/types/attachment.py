@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.attachment_content_description
     import capo_sesv2.types.attachment_content_disposition
@@ -86,7 +84,7 @@ def deserialize_json(data: dict) -> Attachment:
             data["RawContent"]
         )
     else:
-        raise DeserializationError("Attachment.raw_content required")
+        out["raw_content"] = b""
     if data.get("ContentDisposition") is not None:
         import capo_sesv2.types.attachment_content_disposition
 
@@ -98,7 +96,7 @@ def deserialize_json(data: dict) -> Attachment:
     if data.get("FileName") is not None:
         out["file_name"] = data["FileName"]
     else:
-        raise DeserializationError("Attachment.file_name required")
+        out["file_name"] = ""
     if data.get("ContentDescription") is not None:
         out["content_description"] = data["ContentDescription"]
     if data.get("ContentId") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.resource_name
     import capo_lightsail.types.tag_list
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateKeyPairRequest:
     if data.get("keyPairName") is not None:
         out["key_pair_name"] = data["keyPairName"]
     else:
-        raise DeserializationError("CreateKeyPairRequest.key_pair_name required")
+        out["key_pair_name"] = ""
     if data.get("tags") is not None:
         import capo_lightsail.types.tag_list
 

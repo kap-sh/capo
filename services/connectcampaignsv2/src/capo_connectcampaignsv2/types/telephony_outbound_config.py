@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.answer_machine_detection_config
     import capo_connectcampaignsv2.types.contact_flow_id
@@ -50,9 +48,7 @@ def deserialize_json(data: dict) -> TelephonyOutboundConfig:
     if data.get("connectContactFlowId") is not None:
         out["connect_contact_flow_id"] = data["connectContactFlowId"]
     else:
-        raise DeserializationError(
-            "TelephonyOutboundConfig.connect_contact_flow_id required"
-        )
+        out["connect_contact_flow_id"] = ""
     if data.get("connectSourcePhoneNumber") is not None:
         out["connect_source_phone_number"] = data["connectSourcePhoneNumber"]
     if data.get("answerMachineDetectionConfig") is not None:

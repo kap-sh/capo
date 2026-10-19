@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.expression_attribute_name_map
     import capo_dynamodb.types.expression_attribute_value_map
@@ -93,11 +91,11 @@ def deserialize_aws_json_1_0(data: dict) -> SearchVectorsInput:
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("SearchVectorsInput.table_name required")
+        out["table_name"] = ""
     if data.get("IndexName") is not None:
         out["index_name"] = data["IndexName"]
     else:
-        raise DeserializationError("SearchVectorsInput.index_name required")
+        out["index_name"] = ""
     if data.get("ReturnConsumedCapacity") is not None:
         import capo_dynamodb.types.return_consumed_capacity
 
@@ -133,11 +131,11 @@ def deserialize_aws_json_1_0(data: dict) -> SearchVectorsInput:
             )
         )
     else:
-        raise DeserializationError("SearchVectorsInput.search_vector required")
+        out["search_vector"] = []
     if data.get("SearchConditionExpression") is not None:
         out["search_condition_expression"] = data["SearchConditionExpression"]
     if data.get("TopK") is not None:
         out["top_k"] = data["TopK"]
     else:
-        raise DeserializationError("SearchVectorsInput.top_k required")
+        out["top_k"] = 0
     return out

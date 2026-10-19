@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_fms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fms.types.ip_port_number
     import capo_fms.types.protocol
@@ -35,13 +33,13 @@ def deserialize_aws_json_1_1(data: dict) -> App:
     if data.get("AppName") is not None:
         out["app_name"] = data["AppName"]
     else:
-        raise DeserializationError("App.app_name required")
+        out["app_name"] = ""
     if data.get("Protocol") is not None:
         out["protocol"] = data["Protocol"]
     else:
-        raise DeserializationError("App.protocol required")
+        out["protocol"] = ""
     if data.get("Port") is not None:
         out["port"] = data["Port"]
     else:
-        raise DeserializationError("App.port required")
+        out["port"] = 0
     return out

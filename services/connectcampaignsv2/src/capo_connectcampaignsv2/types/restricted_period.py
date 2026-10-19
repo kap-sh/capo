@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.iso8601_date
     import capo_connectcampaignsv2.types.restricted_period_name
@@ -36,9 +34,9 @@ def deserialize_json(data: dict) -> RestrictedPeriod:
     if data.get("startDate") is not None:
         out["start_date"] = data["startDate"]
     else:
-        raise DeserializationError("RestrictedPeriod.start_date required")
+        out["start_date"] = ""
     if data.get("endDate") is not None:
         out["end_date"] = data["endDate"]
     else:
-        raise DeserializationError("RestrictedPeriod.end_date required")
+        out["end_date"] = ""
     return out

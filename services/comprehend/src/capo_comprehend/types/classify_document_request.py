@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.customer_input_string
     import capo_comprehend.types.document_classifier_endpoint_arn
@@ -60,7 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> ClassifyDocumentRequest:
     if data.get("EndpointArn") is not None:
         out["endpoint_arn"] = data["EndpointArn"]
     else:
-        raise DeserializationError("ClassifyDocumentRequest.endpoint_arn required")
+        out["endpoint_arn"] = ""
     if data.get("Bytes") is not None:
         import capo_comprehend.types.semi_structured_document_blob
 

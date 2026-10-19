@@ -43,11 +43,11 @@ def deserialize_json(data: dict) -> RemoteAgentSigV4ServiceDetails:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RemoteAgentSigV4ServiceDetails.name required")
+        out["name"] = ""
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError("RemoteAgentSigV4ServiceDetails.endpoint required")
+        out["endpoint"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("authorizationConfig") is not None:

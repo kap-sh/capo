@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.as2_id
     import capo_transfer.types.certificate_ids
@@ -53,7 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProfileRequest:
     if data.get("As2Id") is not None:
         out["as2_id"] = data["As2Id"]
     else:
-        raise DeserializationError("CreateProfileRequest.as2_id required")
+        out["as2_id"] = ""
     if data.get("ProfileType") is not None:
         import capo_transfer.types.profile_type
 
@@ -61,7 +59,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProfileRequest:
             data["ProfileType"]
         )
     else:
-        raise DeserializationError("CreateProfileRequest.profile_type required")
+        import typing
+
+        out["profile_type"] = typing.cast(
+            "capo_transfer.types.profile_type.ProfileType", ""
+        )
     if data.get("CertificateIds") is not None:
         import capo_transfer.types.certificate_ids
 

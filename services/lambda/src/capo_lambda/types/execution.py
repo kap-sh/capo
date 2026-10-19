@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.durable_execution_arn
     import capo_lambda.types.durable_execution_name
@@ -66,15 +64,15 @@ def deserialize_json(data: dict) -> Execution:
     if data.get("DurableExecutionArn") is not None:
         out["durable_execution_arn"] = data["DurableExecutionArn"]
     else:
-        raise DeserializationError("Execution.durable_execution_arn required")
+        out["durable_execution_arn"] = ""
     if data.get("DurableExecutionName") is not None:
         out["durable_execution_name"] = data["DurableExecutionName"]
     else:
-        raise DeserializationError("Execution.durable_execution_name required")
+        out["durable_execution_name"] = ""
     if data.get("FunctionArn") is not None:
         out["function_arn"] = data["FunctionArn"]
     else:
-        raise DeserializationError("Execution.function_arn required")
+        out["function_arn"] = ""
     if data.get("Status") is not None:
         import capo_lambda.types.execution_status
 
@@ -82,7 +80,11 @@ def deserialize_json(data: dict) -> Execution:
             data["Status"]
         )
     else:
-        raise DeserializationError("Execution.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_lambda.types.execution_status.ExecutionStatus", ""
+        )
     if data.get("StartTimestamp") is not None:
         import capo_lambda.types.execution_timestamp
 
@@ -90,7 +92,11 @@ def deserialize_json(data: dict) -> Execution:
             data["StartTimestamp"]
         )
     else:
-        raise DeserializationError("Execution.start_timestamp required")
+        import datetime
+
+        out["start_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("EndTimestamp") is not None:
         import capo_lambda.types.execution_timestamp
 

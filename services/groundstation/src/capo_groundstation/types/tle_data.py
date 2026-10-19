@@ -39,11 +39,11 @@ def deserialize_json(data: dict) -> TLEData:
     if data.get("tleLine1") is not None:
         out["tle_line1"] = data["tleLine1"]
     else:
-        raise DeserializationError("TLEData.tle_line1 required")
+        out["tle_line1"] = ""
     if data.get("tleLine2") is not None:
         out["tle_line2"] = data["tleLine2"]
     else:
-        raise DeserializationError("TLEData.tle_line2 required")
+        out["tle_line2"] = ""
     if data.get("validTimeRange") is not None:
         import capo_groundstation.types.time_range
 

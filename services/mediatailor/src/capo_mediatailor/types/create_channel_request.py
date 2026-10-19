@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__map_of__string
     import capo_mediatailor.types.__string
@@ -99,7 +97,7 @@ def deserialize_json(data: dict) -> CreateChannelRequest:
             data["Outputs"]
         )
     else:
-        raise DeserializationError("CreateChannelRequest.outputs required")
+        out["outputs"] = []
     if data.get("PlaybackMode") is not None:
         import capo_mediatailor.types.playback_mode
 
@@ -107,7 +105,11 @@ def deserialize_json(data: dict) -> CreateChannelRequest:
             data["PlaybackMode"]
         )
     else:
-        raise DeserializationError("CreateChannelRequest.playback_mode required")
+        import typing
+
+        out["playback_mode"] = typing.cast(
+            "capo_mediatailor.types.playback_mode.PlaybackMode", ""
+        )
     if data.get("tags") is not None:
         import capo_mediatailor.types.__map_of__string
 

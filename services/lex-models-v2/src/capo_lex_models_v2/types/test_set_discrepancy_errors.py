@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.test_set_intent_discrepancy_list
     import capo_lex_models_v2.types.test_set_slot_discrepancy_list
@@ -49,9 +47,7 @@ def deserialize_json(data: dict) -> TestSetDiscrepancyErrors:
             )
         )
     else:
-        raise DeserializationError(
-            "TestSetDiscrepancyErrors.intent_discrepancies required"
-        )
+        out["intent_discrepancies"] = []
     if data.get("slotDiscrepancies") is not None:
         import capo_lex_models_v2.types.test_set_slot_discrepancy_list
 
@@ -61,7 +57,5 @@ def deserialize_json(data: dict) -> TestSetDiscrepancyErrors:
             )
         )
     else:
-        raise DeserializationError(
-            "TestSetDiscrepancyErrors.slot_discrepancies required"
-        )
+        out["slot_discrepancies"] = []
     return out

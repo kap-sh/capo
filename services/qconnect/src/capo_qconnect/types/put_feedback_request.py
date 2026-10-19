@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.content_feedback_data
     import capo_qconnect.types.target_type
@@ -42,11 +40,11 @@ def deserialize_json(data: dict) -> PutFeedbackRequest:
     if data.get("targetId") is not None:
         out["target_id"] = data["targetId"]
     else:
-        raise DeserializationError("PutFeedbackRequest.target_id required")
+        out["target_id"] = ""
     if data.get("targetType") is not None:
         out["target_type"] = data["targetType"]
     else:
-        raise DeserializationError("PutFeedbackRequest.target_type required")
+        out["target_type"] = ""
     if data.get("contentFeedback") is not None:
         import capo_qconnect.types.content_feedback_data
 
@@ -56,5 +54,7 @@ def deserialize_json(data: dict) -> PutFeedbackRequest:
             )
         )
     else:
-        raise DeserializationError("PutFeedbackRequest.content_feedback required")
+        import capo_qconnect.types._unknown
+
+        out["content_feedback"] = capo_qconnect.types._unknown.UnknownUnionMember("")
     return out

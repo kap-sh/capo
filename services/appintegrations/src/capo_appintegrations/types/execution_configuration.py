@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appintegrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appintegrations.types.execution_mode
     import capo_appintegrations.types.on_demand_configuration
@@ -61,7 +59,11 @@ def deserialize_json(data: dict) -> ExecutionConfiguration:
             )
         )
     else:
-        raise DeserializationError("ExecutionConfiguration.execution_mode required")
+        import typing
+
+        out["execution_mode"] = typing.cast(
+            "capo_appintegrations.types.execution_mode.ExecutionMode", ""
+        )
     if data.get("OnDemandConfiguration") is not None:
         import capo_appintegrations.types.on_demand_configuration
 

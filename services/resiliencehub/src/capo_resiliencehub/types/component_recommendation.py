@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.config_recommendation_list
     import capo_resiliencehub.types.entity_id
@@ -49,9 +47,7 @@ def deserialize_json(data: dict) -> ComponentRecommendation:
     if data.get("appComponentName") is not None:
         out["app_component_name"] = data["appComponentName"]
     else:
-        raise DeserializationError(
-            "ComponentRecommendation.app_component_name required"
-        )
+        out["app_component_name"] = ""
     if data.get("recommendationStatus") is not None:
         import capo_resiliencehub.types.recommendation_compliance_status
 
@@ -61,8 +57,11 @@ def deserialize_json(data: dict) -> ComponentRecommendation:
             )
         )
     else:
-        raise DeserializationError(
-            "ComponentRecommendation.recommendation_status required"
+        import typing
+
+        out["recommendation_status"] = typing.cast(
+            "capo_resiliencehub.types.recommendation_compliance_status.RecommendationComplianceStatus",
+            "",
         )
     if data.get("configRecommendations") is not None:
         import capo_resiliencehub.types.config_recommendation_list
@@ -73,7 +72,5 @@ def deserialize_json(data: dict) -> ComponentRecommendation:
             )
         )
     else:
-        raise DeserializationError(
-            "ComponentRecommendation.config_recommendations required"
-        )
+        out["config_recommendations"] = []
     return out

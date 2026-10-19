@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.ipv6
     import capo_route53resolver.types.resource_id
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateIpAddress:
     if data.get("IpId") is not None:
         out["ip_id"] = data["IpId"]
     else:
-        raise DeserializationError("UpdateIpAddress.ip_id required")
+        out["ip_id"] = ""
     if data.get("Ipv6") is not None:
         out["ipv6"] = data["Ipv6"]
     else:
-        raise DeserializationError("UpdateIpAddress.ipv6 required")
+        out["ipv6"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.access_preview_status_reason_code
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> AccessPreviewStatusReason:
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("AccessPreviewStatusReason.code required")
+        out["code"] = ""
     return out

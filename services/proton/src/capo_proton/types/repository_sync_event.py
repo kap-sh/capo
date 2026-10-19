@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_0(data: dict) -> RepositorySyncEvent:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("RepositorySyncEvent.type required")
+        out["type"] = ""
     if data.get("externalId") is not None:
         out["external_id"] = data["externalId"]
     if data.get("time") is not None:
@@ -51,9 +49,11 @@ def deserialize_aws_json_1_0(data: dict) -> RepositorySyncEvent:
             data["time"]
         )
     else:
-        raise DeserializationError("RepositorySyncEvent.time required")
+        import datetime
+
+        out["time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("event") is not None:
         out["event"] = data["event"]
     else:
-        raise DeserializationError("RepositorySyncEvent.event required")
+        out["event"] = ""
     return out

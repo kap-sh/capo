@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.secret_arn
     import capo_kendra.types.service_now_authentication_type
@@ -82,11 +80,11 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceNowConfiguration:
     if data.get("HostUrl") is not None:
         out["host_url"] = data["HostUrl"]
     else:
-        raise DeserializationError("ServiceNowConfiguration.host_url required")
+        out["host_url"] = ""
     if data.get("SecretArn") is not None:
         out["secret_arn"] = data["SecretArn"]
     else:
-        raise DeserializationError("ServiceNowConfiguration.secret_arn required")
+        out["secret_arn"] = ""
     if data.get("ServiceNowBuildVersion") is not None:
         import capo_kendra.types.service_now_build_version_type
 
@@ -96,8 +94,11 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceNowConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ServiceNowConfiguration.service_now_build_version required"
+        import typing
+
+        out["service_now_build_version"] = typing.cast(
+            "capo_kendra.types.service_now_build_version_type.ServiceNowBuildVersionType",
+            "",
         )
     if data.get("KnowledgeArticleConfiguration") is not None:
         import capo_kendra.types.service_now_knowledge_article_configuration

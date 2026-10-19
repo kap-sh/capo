@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.data_format
     import capo_sesv2.types.s3_url
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> ImportDataSource:
     if data.get("S3Url") is not None:
         out["s3_url"] = data["S3Url"]
     else:
-        raise DeserializationError("ImportDataSource.s3_url required")
+        out["s3_url"] = ""
     if data.get("DataFormat") is not None:
         import capo_sesv2.types.data_format
 
@@ -43,5 +41,7 @@ def deserialize_json(data: dict) -> ImportDataSource:
             data["DataFormat"]
         )
     else:
-        raise DeserializationError("ImportDataSource.data_format required")
+        import typing
+
+        out["data_format"] = typing.cast("capo_sesv2.types.data_format.DataFormat", "")
     return out

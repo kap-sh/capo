@@ -41,5 +41,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateRuleMetadataRequest:
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("UpdateRuleMetadataRequest.description required")
+        out["description"] = ""
     return out

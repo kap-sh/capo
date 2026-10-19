@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudcontrol.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudcontrol.types.request_token
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> GetResourceRequestStatusInput:
     if data.get("RequestToken") is not None:
         out["request_token"] = data["RequestToken"]
     else:
-        raise DeserializationError(
-            "GetResourceRequestStatusInput.request_token required"
-        )
+        out["request_token"] = ""
     return out

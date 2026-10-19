@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.collection_id
     import capo_rekognition.types.face_id
@@ -55,7 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> SearchUsersRequest:
     if data.get("CollectionId") is not None:
         out["collection_id"] = data["CollectionId"]
     else:
-        raise DeserializationError("SearchUsersRequest.collection_id required")
+        out["collection_id"] = ""
     if data.get("UserId") is not None:
         out["user_id"] = data["UserId"]
     if data.get("FaceId") is not None:

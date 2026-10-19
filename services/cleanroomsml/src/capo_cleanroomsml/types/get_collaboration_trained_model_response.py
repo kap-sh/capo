@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -179,21 +177,15 @@ def deserialize_json(data: dict) -> GetCollaborationTrainedModelResponse:
     if data.get("membershipIdentifier") is not None:
         out["membership_identifier"] = data["membershipIdentifier"]
     else:
-        raise DeserializationError(
-            "GetCollaborationTrainedModelResponse.membership_identifier required"
-        )
+        out["membership_identifier"] = ""
     if data.get("collaborationIdentifier") is not None:
         out["collaboration_identifier"] = data["collaborationIdentifier"]
     else:
-        raise DeserializationError(
-            "GetCollaborationTrainedModelResponse.collaboration_identifier required"
-        )
+        out["collaboration_identifier"] = ""
     if data.get("trainedModelArn") is not None:
         out["trained_model_arn"] = data["trainedModelArn"]
     else:
-        raise DeserializationError(
-            "GetCollaborationTrainedModelResponse.trained_model_arn required"
-        )
+        out["trained_model_arn"] = ""
     if data.get("versionIdentifier") is not None:
         out["version_identifier"] = data["versionIdentifier"]
     if data.get("incrementalTrainingDataChannels") is not None:
@@ -207,7 +199,7 @@ def deserialize_json(data: dict) -> GetCollaborationTrainedModelResponse:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetCollaborationTrainedModelResponse.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("status") is not None:
@@ -217,8 +209,10 @@ def deserialize_json(data: dict) -> GetCollaborationTrainedModelResponse:
             data["status"]
         )
     else:
-        raise DeserializationError(
-            "GetCollaborationTrainedModelResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cleanroomsml.types.trained_model_status.TrainedModelStatus", ""
         )
     if data.get("statusDetails") is not None:
         import capo_cleanroomsml.types.status_details
@@ -231,9 +225,7 @@ def deserialize_json(data: dict) -> GetCollaborationTrainedModelResponse:
             "configuredModelAlgorithmAssociationArn"
         ]
     else:
-        raise DeserializationError(
-            "GetCollaborationTrainedModelResponse.configured_model_algorithm_association_arn required"
-        )
+        out["configured_model_algorithm_association_arn"] = ""
     if data.get("resourceConfig") is not None:
         import capo_cleanroomsml.types.resource_config
 
@@ -287,8 +279,10 @@ def deserialize_json(data: dict) -> GetCollaborationTrainedModelResponse:
             data["createTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "GetCollaborationTrainedModelResponse.create_time required"
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("updateTime") is not None:
         import datetime
@@ -297,13 +291,13 @@ def deserialize_json(data: dict) -> GetCollaborationTrainedModelResponse:
             data["updateTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "GetCollaborationTrainedModelResponse.update_time required"
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("creatorAccountId") is not None:
         out["creator_account_id"] = data["creatorAccountId"]
     else:
-        raise DeserializationError(
-            "GetCollaborationTrainedModelResponse.creator_account_id required"
-        )
+        out["creator_account_id"] = ""
     return out

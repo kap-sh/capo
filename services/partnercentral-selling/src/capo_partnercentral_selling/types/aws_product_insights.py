@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.amount_map
     import capo_partnercentral_selling.types.aws_products_list
@@ -88,7 +86,11 @@ def deserialize_aws_json_1_0(data: dict) -> AwsProductInsights:
             )
         )
     else:
-        raise DeserializationError("AwsProductInsights.currency_code required")
+        import typing
+
+        out["currency_code"] = typing.cast(
+            "capo_partnercentral_selling.types.currency_code.CurrencyCode", ""
+        )
     if data.get("Frequency") is not None:
         import capo_partnercentral_selling.types.payment_frequency
 
@@ -98,7 +100,11 @@ def deserialize_aws_json_1_0(data: dict) -> AwsProductInsights:
             )
         )
     else:
-        raise DeserializationError("AwsProductInsights.frequency required")
+        import typing
+
+        out["frequency"] = typing.cast(
+            "capo_partnercentral_selling.types.payment_frequency.PaymentFrequency", ""
+        )
     if data.get("TotalAmount") is not None:
         out["total_amount"] = data["TotalAmount"]
     if data.get("TotalOptimizedAmount") is not None:
@@ -114,9 +120,7 @@ def deserialize_aws_json_1_0(data: dict) -> AwsProductInsights:
             )
         )
     else:
-        raise DeserializationError(
-            "AwsProductInsights.total_amount_by_category required"
-        )
+        out["total_amount_by_category"] = {}
     if data.get("AwsProducts") is not None:
         import capo_partnercentral_selling.types.aws_products_list
 
@@ -126,7 +130,7 @@ def deserialize_aws_json_1_0(data: dict) -> AwsProductInsights:
             )
         )
     else:
-        raise DeserializationError("AwsProductInsights.aws_products required")
+        out["aws_products"] = []
     return out
 
 

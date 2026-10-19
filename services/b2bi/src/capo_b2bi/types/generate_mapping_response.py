@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 
 class GenerateMappingResponse(TypedDict, closed=True):
     mapping_template: "str"
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_0(data: dict) -> GenerateMappingResponse:
     if data.get("mappingTemplate") is not None:
         out["mapping_template"] = data["mappingTemplate"]
     else:
-        raise DeserializationError("GenerateMappingResponse.mapping_template required")
+        out["mapping_template"] = ""
     if data.get("mappingAccuracy") is not None:
         out["mapping_accuracy"] = float(data["mappingAccuracy"])
     return out

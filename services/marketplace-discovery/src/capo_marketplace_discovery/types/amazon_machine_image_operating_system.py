@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 
 class AmazonMachineImageOperatingSystem(TypedDict, closed=True):
     operating_system_family_name: "str"
@@ -29,15 +27,11 @@ def deserialize_json(data: dict) -> AmazonMachineImageOperatingSystem:
     if data.get("operatingSystemFamilyName") is not None:
         out["operating_system_family_name"] = data["operatingSystemFamilyName"]
     else:
-        raise DeserializationError(
-            "AmazonMachineImageOperatingSystem.operating_system_family_name required"
-        )
+        out["operating_system_family_name"] = ""
     if data.get("operatingSystemName") is not None:
         out["operating_system_name"] = data["operatingSystemName"]
     else:
-        raise DeserializationError(
-            "AmazonMachineImageOperatingSystem.operating_system_name required"
-        )
+        out["operating_system_name"] = ""
     if data.get("operatingSystemVersion") is not None:
         out["operating_system_version"] = data["operatingSystemVersion"]
     return out

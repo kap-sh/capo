@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.string
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> TableToReload:
     if data.get("SchemaName") is not None:
         out["schema_name"] = data["SchemaName"]
     else:
-        raise DeserializationError("TableToReload.schema_name required")
+        out["schema_name"] = ""
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("TableToReload.table_name required")
+        out["table_name"] = ""
     return out

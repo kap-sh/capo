@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.activation_key
     import capo_datasync.types.input_tag_list
@@ -70,7 +68,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAgentRequest:
     if data.get("ActivationKey") is not None:
         out["activation_key"] = data["ActivationKey"]
     else:
-        raise DeserializationError("CreateAgentRequest.activation_key required")
+        out["activation_key"] = ""
     if data.get("AgentName") is not None:
         out["agent_name"] = data["AgentName"]
     if data.get("Tags") is not None:

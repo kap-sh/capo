@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.configuration_set_name
     import capo_sesv2.types.email_address
@@ -38,15 +36,11 @@ def deserialize_json(data: dict) -> SendCustomVerificationEmailRequest:
     if data.get("EmailAddress") is not None:
         out["email_address"] = data["EmailAddress"]
     else:
-        raise DeserializationError(
-            "SendCustomVerificationEmailRequest.email_address required"
-        )
+        out["email_address"] = ""
     if data.get("TemplateName") is not None:
         out["template_name"] = data["TemplateName"]
     else:
-        raise DeserializationError(
-            "SendCustomVerificationEmailRequest.template_name required"
-        )
+        out["template_name"] = ""
     if data.get("ConfigurationSetName") is not None:
         out["configuration_set_name"] = data["ConfigurationSetName"]
     return out

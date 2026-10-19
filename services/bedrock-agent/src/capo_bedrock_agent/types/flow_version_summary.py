@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.date_timestamp
     import capo_bedrock_agent.types.flow_arn
@@ -49,11 +47,11 @@ def deserialize_json(data: dict) -> FlowVersionSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("FlowVersionSummary.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("FlowVersionSummary.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agent.types.flow_status
 
@@ -61,7 +59,11 @@ def deserialize_json(data: dict) -> FlowVersionSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("FlowVersionSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agent.types.flow_status.FlowStatus", ""
+        )
     if data.get("createdAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -69,9 +71,11 @@ def deserialize_json(data: dict) -> FlowVersionSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("FlowVersionSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("FlowVersionSummary.version required")
+        out["version"] = ""
     return out

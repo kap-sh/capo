@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.creator_request_id
     import capo_route53resolver.types.dns64_enabled
@@ -135,9 +133,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateResolverEndpointRequest:
     if data.get("CreatorRequestId") is not None:
         out["creator_request_id"] = data["CreatorRequestId"]
     else:
-        raise DeserializationError(
-            "CreateResolverEndpointRequest.creator_request_id required"
-        )
+        out["creator_request_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("SecurityGroupIds") is not None:
@@ -149,9 +145,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateResolverEndpointRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateResolverEndpointRequest.security_group_ids required"
-        )
+        out["security_group_ids"] = []
     if data.get("Direction") is not None:
         import capo_route53resolver.types.resolver_endpoint_direction
 
@@ -161,7 +155,12 @@ def deserialize_aws_json_1_1(data: dict) -> CreateResolverEndpointRequest:
             )
         )
     else:
-        raise DeserializationError("CreateResolverEndpointRequest.direction required")
+        import typing
+
+        out["direction"] = typing.cast(
+            "capo_route53resolver.types.resolver_endpoint_direction.ResolverEndpointDirection",
+            "",
+        )
     if data.get("IpAddresses") is not None:
         import capo_route53resolver.types.ip_addresses_request
 
@@ -171,9 +170,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateResolverEndpointRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateResolverEndpointRequest.ip_addresses required"
-        )
+        out["ip_addresses"] = []
     if data.get("OutpostArn") is not None:
         out["outpost_arn"] = data["OutpostArn"]
     if data.get("PreferredInstanceType") is not None:

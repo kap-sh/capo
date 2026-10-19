@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_agent_registry_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_agent_registry_control.types.kms_key_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> EncryptionConfiguration:
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     else:
-        raise DeserializationError("EncryptionConfiguration.kms_key_arn required")
+        out["kms_key_arn"] = ""
     return out

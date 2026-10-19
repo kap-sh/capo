@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.access_token_value
     import capo_route53globalresolver.types.client_token
@@ -79,11 +77,11 @@ def deserialize_json(data: dict) -> CreateAccessTokenOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CreateAccessTokenOutput.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CreateAccessTokenOutput.arn required")
+        out["arn"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("createdAt") is not None:
@@ -95,11 +93,13 @@ def deserialize_json(data: dict) -> CreateAccessTokenOutput:
             )
         )
     else:
-        raise DeserializationError("CreateAccessTokenOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("dnsViewId") is not None:
         out["dns_view_id"] = data["dnsViewId"]
     else:
-        raise DeserializationError("CreateAccessTokenOutput.dns_view_id required")
+        out["dns_view_id"] = ""
     if data.get("expiresAt") is not None:
         import capo_route53globalresolver.types.iso8601_time_string
 
@@ -109,7 +109,9 @@ def deserialize_json(data: dict) -> CreateAccessTokenOutput:
             )
         )
     else:
-        raise DeserializationError("CreateAccessTokenOutput.expires_at required")
+        import datetime
+
+        out["expires_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("status") is not None:
@@ -119,11 +121,15 @@ def deserialize_json(data: dict) -> CreateAccessTokenOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("CreateAccessTokenOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_route53globalresolver.types.token_status.TokenStatus", ""
+        )
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("CreateAccessTokenOutput.value required")
+        out["value"] = ""
     return out
 
 

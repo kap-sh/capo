@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.arn
     import capo_sfn.types.billing_details
@@ -115,7 +113,7 @@ def deserialize_aws_json_1_0(data: dict) -> StartSyncExecutionOutput:
     if data.get("executionArn") is not None:
         out["execution_arn"] = data["executionArn"]
     else:
-        raise DeserializationError("StartSyncExecutionOutput.execution_arn required")
+        out["execution_arn"] = ""
     if data.get("stateMachineArn") is not None:
         out["state_machine_arn"] = data["stateMachineArn"]
     if data.get("name") is not None:
@@ -127,7 +125,9 @@ def deserialize_aws_json_1_0(data: dict) -> StartSyncExecutionOutput:
             data["startDate"]
         )
     else:
-        raise DeserializationError("StartSyncExecutionOutput.start_date required")
+        import datetime
+
+        out["start_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("stopDate") is not None:
         import capo_sfn.types.timestamp
 
@@ -135,7 +135,9 @@ def deserialize_aws_json_1_0(data: dict) -> StartSyncExecutionOutput:
             data["stopDate"]
         )
     else:
-        raise DeserializationError("StartSyncExecutionOutput.stop_date required")
+        import datetime
+
+        out["stop_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         import capo_sfn.types.sync_execution_status
 
@@ -143,7 +145,11 @@ def deserialize_aws_json_1_0(data: dict) -> StartSyncExecutionOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("StartSyncExecutionOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_sfn.types.sync_execution_status.SyncExecutionStatus", ""
+        )
     if data.get("error") is not None:
         out["error"] = data["error"]
     if data.get("cause") is not None:

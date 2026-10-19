@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_confidence_filter_threshold
     import capo_bedrock.types.automated_reasoning_policy_arn_list
@@ -54,9 +52,7 @@ def deserialize_json(data: dict) -> GuardrailAutomatedReasoningPolicy:
             )
         )
     else:
-        raise DeserializationError(
-            "GuardrailAutomatedReasoningPolicy.policies required"
-        )
+        out["policies"] = []
     if data.get("confidenceThreshold") is not None:
         out["confidence_threshold"] = float(data["confidenceThreshold"])
     return out

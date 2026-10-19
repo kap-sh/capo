@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_shield.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_shield.types.limits
 
@@ -39,7 +37,5 @@ def deserialize_aws_json_1_1(data: dict) -> ProtectionLimits:
             )
         )
     else:
-        raise DeserializationError(
-            "ProtectionLimits.protected_resource_type_limits required"
-        )
+        out["protected_resource_type_limits"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeguru_reviewer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguru_reviewer.types.build_artifacts_object_key
     import capo_codeguru_reviewer.types.source_code_artifacts_object_key
@@ -34,9 +32,7 @@ def deserialize_json(data: dict) -> CodeArtifacts:
     if data.get("SourceCodeArtifactsObjectKey") is not None:
         out["source_code_artifacts_object_key"] = data["SourceCodeArtifactsObjectKey"]
     else:
-        raise DeserializationError(
-            "CodeArtifacts.source_code_artifacts_object_key required"
-        )
+        out["source_code_artifacts_object_key"] = ""
     if data.get("BuildArtifactsObjectKey") is not None:
         out["build_artifacts_object_key"] = data["BuildArtifactsObjectKey"]
     return out

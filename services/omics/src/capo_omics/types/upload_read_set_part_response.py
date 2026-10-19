@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_omics.errors import DeserializationError
-
 
 class UploadReadSetPartResponse(TypedDict, closed=True):
     checksum: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> UploadReadSetPartResponse:
     if data.get("checksum") is not None:
         out["checksum"] = data["checksum"]
     else:
-        raise DeserializationError("UploadReadSetPartResponse.checksum required")
+        out["checksum"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.asset_composite_model_path
     import capo_iotsitewise.types.description
@@ -51,21 +49,21 @@ def deserialize_json(data: dict) -> AssetCompositeModelSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("AssetCompositeModelSummary.id required")
+        out["id"] = ""
     if data.get("externalId") is not None:
         out["external_id"] = data["externalId"]
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AssetCompositeModelSummary.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("AssetCompositeModelSummary.type required")
+        out["type"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("AssetCompositeModelSummary.description required")
+        out["description"] = ""
     if data.get("path") is not None:
         import capo_iotsitewise.types.asset_composite_model_path
 
@@ -75,5 +73,5 @@ def deserialize_json(data: dict) -> AssetCompositeModelSummary:
             )
         )
     else:
-        raise DeserializationError("AssetCompositeModelSummary.path required")
+        out["path"] = []
     return out

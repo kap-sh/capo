@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker.types.application_arn
     import capo_sagemaker.types.instance_arn
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> IdcConfigOutput:
     if data.get("InstanceArn") is not None:
         out["instance_arn"] = data["InstanceArn"]
     else:
-        raise DeserializationError("IdcConfigOutput.instance_arn required")
+        out["instance_arn"] = ""
     if data.get("ApplicationArn") is not None:
         out["application_arn"] = data["ApplicationArn"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.string
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteDaemonTaskDefinitionRequest:
     if data.get("daemonTaskDefinition") is not None:
         out["daemon_task_definition"] = data["daemonTaskDefinition"]
     else:
-        raise DeserializationError(
-            "DeleteDaemonTaskDefinitionRequest.daemon_task_definition required"
-        )
+        out["daemon_task_definition"] = ""
     return out

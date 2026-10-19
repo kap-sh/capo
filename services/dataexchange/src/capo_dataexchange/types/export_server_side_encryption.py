@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.__string
     import capo_dataexchange.types.server_side_encryption_types
@@ -36,5 +34,5 @@ def deserialize_json(data: dict) -> ExportServerSideEncryption:
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     else:
-        raise DeserializationError("ExportServerSideEncryption.type required")
+        out["type"] = ""
     return out

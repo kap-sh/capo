@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_memorydb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_memorydb.types.string
     import capo_memorydb.types.tag_list
@@ -41,13 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateParameterGroupRequest:
     if data.get("ParameterGroupName") is not None:
         out["parameter_group_name"] = data["ParameterGroupName"]
     else:
-        raise DeserializationError(
-            "CreateParameterGroupRequest.parameter_group_name required"
-        )
+        out["parameter_group_name"] = ""
     if data.get("Family") is not None:
         out["family"] = data["Family"]
     else:
-        raise DeserializationError("CreateParameterGroupRequest.family required")
+        out["family"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Tags") is not None:

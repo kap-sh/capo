@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.retention_period_hours
     import capo_kinesis.types.stream_arn
@@ -46,9 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> DecreaseStreamRetentionPeriodInput:
     if data.get("RetentionPeriodHours") is not None:
         out["retention_period_hours"] = data["RetentionPeriodHours"]
     else:
-        raise DeserializationError(
-            "DecreaseStreamRetentionPeriodInput.retention_period_hours required"
-        )
+        out["retention_period_hours"] = 0
     if data.get("StreamARN") is not None:
         out["stream_arn"] = data["StreamARN"]
     if data.get("StreamId") is not None:

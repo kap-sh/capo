@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.idempotency_token
     import capo_verifiedpermissions.types.policy_definition
@@ -51,7 +49,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreatePolicyInput:
     if data.get("policyStoreId") is not None:
         out["policy_store_id"] = data["policyStoreId"]
     else:
-        raise DeserializationError("CreatePolicyInput.policy_store_id required")
+        out["policy_store_id"] = ""
     if data.get("definition") is not None:
         import capo_verifiedpermissions.types.policy_definition
 
@@ -61,7 +59,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreatePolicyInput:
             )
         )
     else:
-        raise DeserializationError("CreatePolicyInput.definition required")
+        import capo_verifiedpermissions.types._unknown
+
+        out["definition"] = capo_verifiedpermissions.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("name") is not None:
         out["name"] = data["name"]
     return out

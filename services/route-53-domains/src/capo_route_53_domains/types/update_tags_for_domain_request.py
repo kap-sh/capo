@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route_53_domains.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route_53_domains.types.domain_name
     import capo_route_53_domains.types.tag_list
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateTagsForDomainRequest:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("UpdateTagsForDomainRequest.domain_name required")
+        out["domain_name"] = ""
     if data.get("TagsToUpdate") is not None:
         import capo_route_53_domains.types.tag_list
 

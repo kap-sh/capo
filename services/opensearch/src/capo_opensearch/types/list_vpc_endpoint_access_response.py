@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.authorized_principal_list
     import capo_opensearch.types.next_token
@@ -45,11 +43,9 @@ def deserialize_json(data: dict) -> ListVpcEndpointAccessResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListVpcEndpointAccessResponse.authorized_principal_list required"
-        )
+        out["authorized_principal_list"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     else:
-        raise DeserializationError("ListVpcEndpointAccessResponse.next_token required")
+        out["next_token"] = ""
     return out

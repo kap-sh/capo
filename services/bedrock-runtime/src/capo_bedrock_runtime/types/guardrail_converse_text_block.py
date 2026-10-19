@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.guardrail_converse_content_qualifier_list
 
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> GuardrailConverseTextBlock:
     if data.get("text") is not None:
         out["text"] = data["text"]
     else:
-        raise DeserializationError("GuardrailConverseTextBlock.text required")
+        out["text"] = ""
     if data.get("qualifiers") is not None:
         import capo_bedrock_runtime.types.guardrail_converse_content_qualifier_list
 

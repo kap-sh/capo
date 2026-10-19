@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_data_pipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_data_pipeline.types.field_list
     import capo_data_pipeline.types.task_id
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> ReportTaskProgressInput:
     if data.get("taskId") is not None:
         out["task_id"] = data["taskId"]
     else:
-        raise DeserializationError("ReportTaskProgressInput.task_id required")
+        out["task_id"] = ""
     if data.get("fields") is not None:
         import capo_data_pipeline.types.field_list
 

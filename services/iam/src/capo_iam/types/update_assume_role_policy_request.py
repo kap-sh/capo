@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.policy_document_type
@@ -34,12 +33,10 @@ def deserialize_query(el: Element) -> UpdateAssumeRolePolicyRequest:
     if child_role_name is not None:
         out["role_name"] = str(child_role_name.text or "")
     else:
-        raise DeserializationError("UpdateAssumeRolePolicyRequest.role_name required")
+        out["role_name"] = ""
     child_policy_document = el.find("PolicyDocument")
     if child_policy_document is not None:
         out["policy_document"] = str(child_policy_document.text or "")
     else:
-        raise DeserializationError(
-            "UpdateAssumeRolePolicyRequest.policy_document required"
-        )
+        out["policy_document"] = ""
     return out

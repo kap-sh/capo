@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.authorizer_type
     import capo_bedrock_agentcore_control.types.date_timestamp
@@ -89,11 +87,11 @@ def deserialize_json(data: dict) -> GatewaySummary:
     if data.get("gatewayId") is not None:
         out["gateway_id"] = data["gatewayId"]
     else:
-        raise DeserializationError("GatewaySummary.gateway_id required")
+        out["gateway_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GatewaySummary.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.gateway_status
 
@@ -103,7 +101,11 @@ def deserialize_json(data: dict) -> GatewaySummary:
             )
         )
     else:
-        raise DeserializationError("GatewaySummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.gateway_status.GatewayStatus", ""
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("createdAt") is not None:
@@ -115,7 +117,9 @@ def deserialize_json(data: dict) -> GatewaySummary:
             )
         )
     else:
-        raise DeserializationError("GatewaySummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -125,7 +129,9 @@ def deserialize_json(data: dict) -> GatewaySummary:
             )
         )
     else:
-        raise DeserializationError("GatewaySummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("authorizerType") is not None:
         import capo_bedrock_agentcore_control.types.authorizer_type
 
@@ -135,7 +141,11 @@ def deserialize_json(data: dict) -> GatewaySummary:
             )
         )
     else:
-        raise DeserializationError("GatewaySummary.authorizer_type required")
+        import typing
+
+        out["authorizer_type"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.authorizer_type.AuthorizerType", ""
+        )
     if data.get("protocolType") is not None:
         import capo_bedrock_agentcore_control.types.gateway_protocol_type
 

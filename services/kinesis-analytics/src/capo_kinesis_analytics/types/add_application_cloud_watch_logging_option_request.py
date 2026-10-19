@@ -45,15 +45,11 @@ def deserialize_aws_json_1_1(
     if data.get("ApplicationName") is not None:
         out["application_name"] = data["ApplicationName"]
     else:
-        raise DeserializationError(
-            "AddApplicationCloudWatchLoggingOptionRequest.application_name required"
-        )
+        out["application_name"] = ""
     if data.get("CurrentApplicationVersionId") is not None:
         out["current_application_version_id"] = data["CurrentApplicationVersionId"]
     else:
-        raise DeserializationError(
-            "AddApplicationCloudWatchLoggingOptionRequest.current_application_version_id required"
-        )
+        out["current_application_version_id"] = 0
     if data.get("CloudWatchLoggingOption") is not None:
         import capo_kinesis_analytics.types.cloud_watch_logging_option
 

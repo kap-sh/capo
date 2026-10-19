@@ -48,11 +48,11 @@ def deserialize_json(data: dict) -> CreateParticipantRequest:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("CreateParticipantRequest.instance_id required")
+        out["instance_id"] = ""
     if data.get("ContactId") is not None:
         out["contact_id"] = data["ContactId"]
     else:
-        raise DeserializationError("CreateParticipantRequest.contact_id required")
+        out["contact_id"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("ParticipantDetails") is not None:

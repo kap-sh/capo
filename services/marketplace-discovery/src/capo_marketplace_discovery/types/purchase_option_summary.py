@@ -108,11 +108,11 @@ def deserialize_json(data: dict) -> PurchaseOptionSummary:
     if data.get("purchaseOptionId") is not None:
         out["purchase_option_id"] = data["purchaseOptionId"]
     else:
-        raise DeserializationError("PurchaseOptionSummary.purchase_option_id required")
+        out["purchase_option_id"] = ""
     if data.get("catalog") is not None:
         out["catalog"] = data["catalog"]
     else:
-        raise DeserializationError("PurchaseOptionSummary.catalog required")
+        out["catalog"] = ""
     if data.get("purchaseOptionType") is not None:
         import capo_marketplace_discovery.types.purchase_option_type
 
@@ -122,8 +122,11 @@ def deserialize_json(data: dict) -> PurchaseOptionSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "PurchaseOptionSummary.purchase_option_type required"
+        import typing
+
+        out["purchase_option_type"] = typing.cast(
+            "capo_marketplace_discovery.types.purchase_option_type.PurchaseOptionType",
+            "",
         )
     if data.get("purchaseOptionName") is not None:
         out["purchase_option_name"] = data["purchaseOptionName"]
@@ -170,5 +173,5 @@ def deserialize_json(data: dict) -> PurchaseOptionSummary:
             )
         )
     else:
-        raise DeserializationError("PurchaseOptionSummary.associated_entities required")
+        out["associated_entities"] = []
     return out

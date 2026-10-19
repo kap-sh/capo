@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_0(data: dict) -> SavedAddress:
     if data.get("Address") is not None:
         out["address"] = data["Address"]
     else:
-        raise DeserializationError("SavedAddress.address required")
+        out["address"] = ""
     if data.get("CreatedTimestamp") is not None:
         import capo_mailmanager.types._prelude.timestamp
 
@@ -48,7 +46,11 @@ def deserialize_aws_json_1_0(data: dict) -> SavedAddress:
             )
         )
     else:
-        raise DeserializationError("SavedAddress.created_timestamp required")
+        import datetime
+
+        out["created_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out
 
 

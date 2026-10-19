@@ -77,7 +77,7 @@ def deserialize_json(data: dict) -> StartJobRequest:
     if data.get("Action") is not None:
         out["action"] = data["Action"]
     else:
-        raise DeserializationError("StartJobRequest.action required")
+        out["action"] = ""
     if data.get("ActionOptions") is not None:
         import capo_location.types.job_action_options
 
@@ -87,7 +87,7 @@ def deserialize_json(data: dict) -> StartJobRequest:
     if data.get("ExecutionRoleArn") is not None:
         out["execution_role_arn"] = data["ExecutionRoleArn"]
     else:
-        raise DeserializationError("StartJobRequest.execution_role_arn required")
+        out["execution_role_arn"] = ""
     if data.get("InputOptions") is not None:
         import capo_location.types.job_input_options
 

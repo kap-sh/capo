@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.harness_inline_function_description
     import capo_bedrock_agentcore_control.types.sensitive_json
@@ -31,11 +29,11 @@ def deserialize_json(data: dict) -> HarnessInlineFunctionConfig:
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("HarnessInlineFunctionConfig.description required")
+        out["description"] = ""
     if data.get("inputSchema") is not None:
         out["input_schema"] = data["inputSchema"]
     else:
-        raise DeserializationError("HarnessInlineFunctionConfig.input_schema required")
+        out["input_schema"] = None
     return out
 
 

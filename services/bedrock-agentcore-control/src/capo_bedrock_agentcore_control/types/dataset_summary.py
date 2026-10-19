@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -95,15 +93,15 @@ def deserialize_json(data: dict) -> DatasetSummary:
     if data.get("datasetArn") is not None:
         out["dataset_arn"] = data["datasetArn"]
     else:
-        raise DeserializationError("DatasetSummary.dataset_arn required")
+        out["dataset_arn"] = ""
     if data.get("datasetId") is not None:
         out["dataset_id"] = data["datasetId"]
     else:
-        raise DeserializationError("DatasetSummary.dataset_id required")
+        out["dataset_id"] = ""
     if data.get("datasetName") is not None:
         out["dataset_name"] = data["datasetName"]
     else:
-        raise DeserializationError("DatasetSummary.dataset_name required")
+        out["dataset_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("status") is not None:
@@ -115,7 +113,11 @@ def deserialize_json(data: dict) -> DatasetSummary:
             )
         )
     else:
-        raise DeserializationError("DatasetSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.dataset_status.DatasetStatus", ""
+        )
     if data.get("draftStatus") is not None:
         import capo_bedrock_agentcore_control.types.draft_status
 
@@ -133,11 +135,16 @@ def deserialize_json(data: dict) -> DatasetSummary:
             )
         )
     else:
-        raise DeserializationError("DatasetSummary.schema_type required")
+        import typing
+
+        out["schema_type"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.dataset_schema_type.DatasetSchemaType",
+            "",
+        )
     if data.get("exampleCount") is not None:
         out["example_count"] = data["exampleCount"]
     else:
-        raise DeserializationError("DatasetSummary.example_count required")
+        out["example_count"] = 0
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
 
@@ -147,7 +154,9 @@ def deserialize_json(data: dict) -> DatasetSummary:
             )
         )
     else:
-        raise DeserializationError("DatasetSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
 
@@ -157,5 +166,7 @@ def deserialize_json(data: dict) -> DatasetSummary:
             )
         )
     else:
-        raise DeserializationError("DatasetSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

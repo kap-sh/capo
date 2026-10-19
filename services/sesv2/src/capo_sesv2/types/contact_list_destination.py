@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.contact_list_import_action
     import capo_sesv2.types.contact_list_name
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> ContactListDestination:
     if data.get("ContactListName") is not None:
         out["contact_list_name"] = data["ContactListName"]
     else:
-        raise DeserializationError("ContactListDestination.contact_list_name required")
+        out["contact_list_name"] = ""
     if data.get("ContactListImportAction") is not None:
         import capo_sesv2.types.contact_list_import_action
 
@@ -49,7 +47,9 @@ def deserialize_json(data: dict) -> ContactListDestination:
             )
         )
     else:
-        raise DeserializationError(
-            "ContactListDestination.contact_list_import_action required"
+        import typing
+
+        out["contact_list_import_action"] = typing.cast(
+            "capo_sesv2.types.contact_list_import_action.ContactListImportAction", ""
         )
     return out

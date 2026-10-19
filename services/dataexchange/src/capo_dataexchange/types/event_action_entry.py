@@ -64,7 +64,7 @@ def deserialize_json(data: dict) -> EventActionEntry:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("EventActionEntry.arn required")
+        out["arn"] = ""
     if data.get("CreatedAt") is not None:
         import capo_dataexchange.types.timestamp
 
@@ -72,7 +72,9 @@ def deserialize_json(data: dict) -> EventActionEntry:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("EventActionEntry.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Event") is not None:
         import capo_dataexchange.types.event
 
@@ -82,7 +84,7 @@ def deserialize_json(data: dict) -> EventActionEntry:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("EventActionEntry.id required")
+        out["id"] = ""
     if data.get("UpdatedAt") is not None:
         import capo_dataexchange.types.timestamp
 
@@ -90,5 +92,7 @@ def deserialize_json(data: dict) -> EventActionEntry:
             data["UpdatedAt"]
         )
     else:
-        raise DeserializationError("EventActionEntry.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

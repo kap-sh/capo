@@ -33,7 +33,7 @@ def deserialize_json(data: dict) -> AccessPoliciesStatus:
     if data.get("Options") is not None:
         out["options"] = data["Options"]
     else:
-        raise DeserializationError("AccessPoliciesStatus.options required")
+        out["options"] = ""
     if data.get("Status") is not None:
         import capo_opensearch.types.option_status
 

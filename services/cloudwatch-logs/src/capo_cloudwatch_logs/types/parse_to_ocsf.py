@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.event_source
     import capo_cloudwatch_logs.types.mapping_version
@@ -59,7 +57,11 @@ def deserialize_aws_json_1_1(data: dict) -> ParseToOCSF:
             )
         )
     else:
-        raise DeserializationError("ParseToOCSF.event_source required")
+        import typing
+
+        out["event_source"] = typing.cast(
+            "capo_cloudwatch_logs.types.event_source.EventSource", ""
+        )
     if data.get("ocsfVersion") is not None:
         import capo_cloudwatch_logs.types.ocsf_version
 
@@ -69,7 +71,11 @@ def deserialize_aws_json_1_1(data: dict) -> ParseToOCSF:
             )
         )
     else:
-        raise DeserializationError("ParseToOCSF.ocsf_version required")
+        import typing
+
+        out["ocsf_version"] = typing.cast(
+            "capo_cloudwatch_logs.types.ocsf_version.OCSFVersion", ""
+        )
     if data.get("mappingVersion") is not None:
         out["mapping_version"] = data["mappingVersion"]
     return out

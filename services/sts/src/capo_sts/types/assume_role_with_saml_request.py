@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sts._protocol.xml import Element
-from capo_sts.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sts.types.arn_type
@@ -73,17 +72,17 @@ def deserialize_query(el: Element) -> AssumeRoleWithSAMLRequest:
     if child_role_arn is not None:
         out["role_arn"] = str(child_role_arn.text or "")
     else:
-        raise DeserializationError("AssumeRoleWithSAMLRequest.role_arn required")
+        out["role_arn"] = ""
     child_principal_arn = el.find("PrincipalArn")
     if child_principal_arn is not None:
         out["principal_arn"] = str(child_principal_arn.text or "")
     else:
-        raise DeserializationError("AssumeRoleWithSAMLRequest.principal_arn required")
+        out["principal_arn"] = ""
     child_saml_assertion = el.find("SAMLAssertion")
     if child_saml_assertion is not None:
         out["saml_assertion"] = str(child_saml_assertion.text or "")
     else:
-        raise DeserializationError("AssumeRoleWithSAMLRequest.saml_assertion required")
+        out["saml_assertion"] = ""
     child_policy_arns = el.find("PolicyArns")
     if child_policy_arns is not None:
         import capo_sts.types.policy_descriptor_list_type

@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_neptune_graph.errors import DeserializationError, ServiceError
+from capo_neptune_graph.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_neptune_graph.types.unprocessable_exception_reason
@@ -36,7 +36,7 @@ def deserialize_json(data: dict) -> UnprocessableException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("UnprocessableException_.message required")
+        out["message"] = ""
     if data.get("reason") is not None:
         import capo_neptune_graph.types.unprocessable_exception_reason
 
@@ -46,7 +46,12 @@ def deserialize_json(data: dict) -> UnprocessableException_:
             )
         )
     else:
-        raise DeserializationError("UnprocessableException_.reason required")
+        import typing
+
+        out["reason"] = typing.cast(
+            "capo_neptune_graph.types.unprocessable_exception_reason.UnprocessableExceptionReason",
+            "",
+        )
     return out
 
 

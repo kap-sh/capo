@@ -51,7 +51,5 @@ def deserialize_json(
     if data.get("modelArn") is not None:
         out["model_arn"] = data["modelArn"]
     else:
-        raise DeserializationError(
-            "BedrockFoundationModelContextEnrichmentConfiguration.model_arn required"
-        )
+        out["model_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.arn
     import capo_resiliencehubv2.types.associated_system_list
@@ -60,7 +58,7 @@ def deserialize_json(data: dict) -> ImportAppRequest:
     if data.get("v1AppArn") is not None:
         out["v1_app_arn"] = data["v1AppArn"]
     else:
-        raise DeserializationError("ImportAppRequest.v1_app_arn required")
+        out["v1_app_arn"] = ""
     if data.get("policyArn") is not None:
         out["policy_arn"] = data["policyArn"]
     if data.get("kmsKeyId") is not None:

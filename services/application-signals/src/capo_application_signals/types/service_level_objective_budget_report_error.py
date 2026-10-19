@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.service_level_objective_arn
     import capo_application_signals.types.service_level_objective_budget_report_error_code
@@ -39,25 +37,17 @@ def deserialize_json(data: dict) -> ServiceLevelObjectiveBudgetReportError:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError(
-            "ServiceLevelObjectiveBudgetReportError.name required"
-        )
+        out["name"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError(
-            "ServiceLevelObjectiveBudgetReportError.arn required"
-        )
+        out["arn"] = ""
     if data.get("ErrorCode") is not None:
         out["error_code"] = data["ErrorCode"]
     else:
-        raise DeserializationError(
-            "ServiceLevelObjectiveBudgetReportError.error_code required"
-        )
+        out["error_code"] = ""
     if data.get("ErrorMessage") is not None:
         out["error_message"] = data["ErrorMessage"]
     else:
-        raise DeserializationError(
-            "ServiceLevelObjectiveBudgetReportError.error_message required"
-        )
+        out["error_message"] = ""
     return out

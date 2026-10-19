@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.arn
     import capo_location.types.kms_key_id
@@ -88,15 +86,15 @@ def deserialize_json(data: dict) -> DescribeTrackerResponse:
     if data.get("TrackerName") is not None:
         out["tracker_name"] = data["TrackerName"]
     else:
-        raise DeserializationError("DescribeTrackerResponse.tracker_name required")
+        out["tracker_name"] = ""
     if data.get("TrackerArn") is not None:
         out["tracker_arn"] = data["TrackerArn"]
     else:
-        raise DeserializationError("DescribeTrackerResponse.tracker_arn required")
+        out["tracker_arn"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("DescribeTrackerResponse.description required")
+        out["description"] = ""
     if data.get("PricingPlan") is not None:
         out["pricing_plan"] = data["PricingPlan"]
     if data.get("PricingPlanDataSource") is not None:
@@ -112,7 +110,11 @@ def deserialize_json(data: dict) -> DescribeTrackerResponse:
             data["CreateTime"]
         )
     else:
-        raise DeserializationError("DescribeTrackerResponse.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("UpdateTime") is not None:
         import capo_location.types.timestamp
 
@@ -120,7 +122,11 @@ def deserialize_json(data: dict) -> DescribeTrackerResponse:
             data["UpdateTime"]
         )
     else:
-        raise DeserializationError("DescribeTrackerResponse.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("KmsKeyId") is not None:
         out["kms_key_id"] = data["KmsKeyId"]
     if data.get("PositionFiltering") is not None:

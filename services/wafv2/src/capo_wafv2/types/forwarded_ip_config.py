@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.fallback_behavior
     import capo_wafv2.types.forwarded_ip_header_name
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> ForwardedIPConfig:
     if data.get("HeaderName") is not None:
         out["header_name"] = data["HeaderName"]
     else:
-        raise DeserializationError("ForwardedIPConfig.header_name required")
+        out["header_name"] = ""
     if data.get("FallbackBehavior") is not None:
         import capo_wafv2.types.fallback_behavior
 
@@ -45,5 +43,9 @@ def deserialize_aws_json_1_1(data: dict) -> ForwardedIPConfig:
             )
         )
     else:
-        raise DeserializationError("ForwardedIPConfig.fallback_behavior required")
+        import typing
+
+        out["fallback_behavior"] = typing.cast(
+            "capo_wafv2.types.fallback_behavior.FallbackBehavior", ""
+        )
     return out

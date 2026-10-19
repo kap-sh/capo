@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route_53_domains.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route_53_domains.types.list_domains_attribute_name
     import capo_route_53_domains.types.operator
@@ -55,7 +53,12 @@ def deserialize_aws_json_1_1(data: dict) -> FilterCondition:
             )
         )
     else:
-        raise DeserializationError("FilterCondition.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_route_53_domains.types.list_domains_attribute_name.ListDomainsAttributeName",
+            "",
+        )
     if data.get("Operator") is not None:
         import capo_route_53_domains.types.operator
 
@@ -63,7 +66,11 @@ def deserialize_aws_json_1_1(data: dict) -> FilterCondition:
             data["Operator"]
         )
     else:
-        raise DeserializationError("FilterCondition.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_route_53_domains.types.operator.Operator", ""
+        )
     if data.get("Values") is not None:
         import capo_route_53_domains.types.values
 
@@ -71,5 +78,5 @@ def deserialize_aws_json_1_1(data: dict) -> FilterCondition:
             data["Values"]
         )
     else:
-        raise DeserializationError("FilterCondition.values required")
+        out["values"] = []
     return out

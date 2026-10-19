@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup_gateway.errors import DeserializationError, ServiceError
+from capo_backup_gateway.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_backup_gateway.types.string
@@ -31,7 +31,7 @@ def deserialize_aws_json_1_0(data: dict) -> ConflictException_:
     if data.get("ErrorCode") is not None:
         out["error_code"] = data["ErrorCode"]
     else:
-        raise DeserializationError("ConflictException_.error_code required")
+        out["error_code"] = ""
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     return out

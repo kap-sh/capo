@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.request_uri
     import capo_bedrock_agentcore.types.user_identifier
@@ -41,15 +39,15 @@ def deserialize_json(data: dict) -> CompleteResourceTokenAuthRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CompleteResourceTokenAuthRequest.user_identifier required"
+        import capo_bedrock_agentcore.types._unknown
+
+        out["user_identifier"] = (
+            capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
         )
     if data.get("sessionUri") is not None:
         out["session_uri"] = data["sessionUri"]
     else:
-        raise DeserializationError(
-            "CompleteResourceTokenAuthRequest.session_uri required"
-        )
+        out["session_uri"] = ""
     return out
 
 

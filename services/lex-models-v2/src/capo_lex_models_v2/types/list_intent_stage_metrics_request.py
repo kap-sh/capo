@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.analytics_bin_by_list
     import capo_lex_models_v2.types.analytics_intent_stage_filters
@@ -102,8 +100,10 @@ def deserialize_json(data: dict) -> ListIntentStageMetricsRequest:
             data["startDateTime"]
         )
     else:
-        raise DeserializationError(
-            "ListIntentStageMetricsRequest.start_date_time required"
+        import datetime
+
+        out["start_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("endDateTime") is not None:
         import capo_lex_models_v2.types.timestamp
@@ -112,8 +112,10 @@ def deserialize_json(data: dict) -> ListIntentStageMetricsRequest:
             data["endDateTime"]
         )
     else:
-        raise DeserializationError(
-            "ListIntentStageMetricsRequest.end_date_time required"
+        import datetime
+
+        out["end_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("metrics") is not None:
         import capo_lex_models_v2.types.analytics_intent_stage_metrics
@@ -124,7 +126,7 @@ def deserialize_json(data: dict) -> ListIntentStageMetricsRequest:
             )
         )
     else:
-        raise DeserializationError("ListIntentStageMetricsRequest.metrics required")
+        out["metrics"] = []
     if data.get("binBy") is not None:
         import capo_lex_models_v2.types.analytics_bin_by_list
 

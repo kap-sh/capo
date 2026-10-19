@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.scan_status_code
     import capo_inspector2.types.scan_status_reason
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> ScanStatus:
     if data.get("statusCode") is not None:
         out["status_code"] = data["statusCode"]
     else:
-        raise DeserializationError("ScanStatus.status_code required")
+        out["status_code"] = ""
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
     else:
-        raise DeserializationError("ScanStatus.reason required")
+        out["reason"] = ""
     return out

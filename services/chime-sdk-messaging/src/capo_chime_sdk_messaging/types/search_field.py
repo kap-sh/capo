@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_messaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_messaging.types.search_field_key
     import capo_chime_sdk_messaging.types.search_field_operator
@@ -53,7 +51,11 @@ def deserialize_json(data: dict) -> SearchField:
             data["Key"]
         )
     else:
-        raise DeserializationError("SearchField.key required")
+        import typing
+
+        out["key"] = typing.cast(
+            "capo_chime_sdk_messaging.types.search_field_key.SearchFieldKey", ""
+        )
     if data.get("Values") is not None:
         import capo_chime_sdk_messaging.types.search_field_values
 
@@ -63,7 +65,7 @@ def deserialize_json(data: dict) -> SearchField:
             )
         )
     else:
-        raise DeserializationError("SearchField.values required")
+        out["values"] = []
     if data.get("Operator") is not None:
         import capo_chime_sdk_messaging.types.search_field_operator
 
@@ -73,5 +75,10 @@ def deserialize_json(data: dict) -> SearchField:
             )
         )
     else:
-        raise DeserializationError("SearchField.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_chime_sdk_messaging.types.search_field_operator.SearchFieldOperator",
+            "",
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_finspace_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace_data.types.changeset_id
     import capo_finspace_data.types.client_token
@@ -56,7 +54,7 @@ def deserialize_json(data: dict) -> UpdateChangesetRequest:
             data["sourceParams"]
         )
     else:
-        raise DeserializationError("UpdateChangesetRequest.source_params required")
+        out["source_params"] = {}
     if data.get("formatParams") is not None:
         import capo_finspace_data.types.format_params
 
@@ -64,5 +62,5 @@ def deserialize_json(data: dict) -> UpdateChangesetRequest:
             data["formatParams"]
         )
     else:
-        raise DeserializationError("UpdateChangesetRequest.format_params required")
+        out["format_params"] = {}
     return out

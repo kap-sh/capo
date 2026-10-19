@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.__map_of_string
     import capo_mediaconnect.types.client_token
@@ -105,7 +103,7 @@ def deserialize_json(data: dict) -> CreateRouterOutputRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateRouterOutputRequest.name required")
+        out["name"] = ""
     if data.get("configuration") is not None:
         import capo_mediaconnect.types.router_output_configuration
 
@@ -115,11 +113,13 @@ def deserialize_json(data: dict) -> CreateRouterOutputRequest:
             )
         )
     else:
-        raise DeserializationError("CreateRouterOutputRequest.configuration required")
+        import capo_mediaconnect.types._unknown
+
+        out["configuration"] = capo_mediaconnect.types._unknown.UnknownUnionMember("")
     if data.get("maximumBitrate") is not None:
         out["maximum_bitrate"] = data["maximumBitrate"]
     else:
-        raise DeserializationError("CreateRouterOutputRequest.maximum_bitrate required")
+        out["maximum_bitrate"] = 0
     if data.get("routingScope") is not None:
         import capo_mediaconnect.types.routing_scope
 
@@ -127,7 +127,11 @@ def deserialize_json(data: dict) -> CreateRouterOutputRequest:
             data["routingScope"]
         )
     else:
-        raise DeserializationError("CreateRouterOutputRequest.routing_scope required")
+        import typing
+
+        out["routing_scope"] = typing.cast(
+            "capo_mediaconnect.types.routing_scope.RoutingScope", ""
+        )
     if data.get("tier") is not None:
         import capo_mediaconnect.types.router_output_tier
 
@@ -135,7 +139,11 @@ def deserialize_json(data: dict) -> CreateRouterOutputRequest:
             data["tier"]
         )
     else:
-        raise DeserializationError("CreateRouterOutputRequest.tier required")
+        import typing
+
+        out["tier"] = typing.cast(
+            "capo_mediaconnect.types.router_output_tier.RouterOutputTier", ""
+        )
     if data.get("regionName") is not None:
         out["region_name"] = data["regionName"]
     if data.get("availabilityZone") is not None:

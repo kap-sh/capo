@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.extraction_job_messages
     import capo_bedrock_agentcore.types.extraction_job_status
@@ -67,7 +65,7 @@ def deserialize_json(data: dict) -> ExtractionJobMetadata:
     if data.get("jobID") is not None:
         out["job_id"] = data["jobID"]
     else:
-        raise DeserializationError("ExtractionJobMetadata.job_id required")
+        out["job_id"] = ""
     if data.get("messages") is not None:
         import capo_bedrock_agentcore.types.extraction_job_messages
 
@@ -77,7 +75,9 @@ def deserialize_json(data: dict) -> ExtractionJobMetadata:
             )
         )
     else:
-        raise DeserializationError("ExtractionJobMetadata.messages required")
+        import capo_bedrock_agentcore.types._unknown
+
+        out["messages"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
     if data.get("status") is not None:
         import capo_bedrock_agentcore.types.extraction_job_status
 

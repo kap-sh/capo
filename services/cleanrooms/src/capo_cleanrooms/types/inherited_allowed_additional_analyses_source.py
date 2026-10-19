@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.account_id
     import capo_cleanrooms.types.allowed_additional_analyses
@@ -51,15 +49,11 @@ def deserialize_json(data: dict) -> InheritedAllowedAdditionalAnalysesSource:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "InheritedAllowedAdditionalAnalysesSource.name required"
-        )
+        out["name"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError(
-            "InheritedAllowedAdditionalAnalysesSource.id required"
-        )
+        out["id"] = ""
     if data.get("type") is not None:
         import capo_cleanrooms.types.base_table_dependency_type
 
@@ -67,8 +61,11 @@ def deserialize_json(data: dict) -> InheritedAllowedAdditionalAnalysesSource:
             data["type"]
         )
     else:
-        raise DeserializationError(
-            "InheritedAllowedAdditionalAnalysesSource.type required"
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cleanrooms.types.base_table_dependency_type.BaseTableDependencyType",
+            "",
         )
     if data.get("value") is not None:
         import capo_cleanrooms.types.allowed_additional_analyses
@@ -79,13 +76,9 @@ def deserialize_json(data: dict) -> InheritedAllowedAdditionalAnalysesSource:
             )
         )
     else:
-        raise DeserializationError(
-            "InheritedAllowedAdditionalAnalysesSource.value required"
-        )
+        out["value"] = []
     if data.get("sourceAccountId") is not None:
         out["source_account_id"] = data["sourceAccountId"]
     else:
-        raise DeserializationError(
-            "InheritedAllowedAdditionalAnalysesSource.source_account_id required"
-        )
+        out["source_account_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.commit_id
     import capo_codecommit.types.max_results
@@ -45,17 +43,13 @@ def deserialize_aws_json_1_1(data: dict) -> GetCommentsForComparedCommitInput:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError(
-            "GetCommentsForComparedCommitInput.repository_name required"
-        )
+        out["repository_name"] = ""
     if data.get("beforeCommitId") is not None:
         out["before_commit_id"] = data["beforeCommitId"]
     if data.get("afterCommitId") is not None:
         out["after_commit_id"] = data["afterCommitId"]
     else:
-        raise DeserializationError(
-            "GetCommentsForComparedCommitInput.after_commit_id required"
-        )
+        out["after_commit_id"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

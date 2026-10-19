@@ -64,9 +64,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetSavingsPlansUtilizationDetailsRes
             )
         )
     else:
-        raise DeserializationError(
-            "GetSavingsPlansUtilizationDetailsResponse.savings_plans_utilization_details required"
-        )
+        out["savings_plans_utilization_details"] = []
     if data.get("Total") is not None:
         import capo_cost_explorer.types.savings_plans_utilization_aggregates
 

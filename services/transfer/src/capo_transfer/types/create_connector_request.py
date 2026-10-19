@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.as2_connector_config
     import capo_transfer.types.connector_egress_config
@@ -112,7 +110,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateConnectorRequest:
     if data.get("AccessRole") is not None:
         out["access_role"] = data["AccessRole"]
     else:
-        raise DeserializationError("CreateConnectorRequest.access_role required")
+        out["access_role"] = ""
     if data.get("LoggingRole") is not None:
         out["logging_role"] = data["LoggingRole"]
     if data.get("Tags") is not None:

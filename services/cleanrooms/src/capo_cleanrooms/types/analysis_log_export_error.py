@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 
 class AnalysisLogExportError(TypedDict, closed=True):
     code: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> AnalysisLogExportError:
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("AnalysisLogExportError.code required")
+        out["code"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("AnalysisLogExportError.message required")
+        out["message"] = ""
     return out

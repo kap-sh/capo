@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.allowed_result_regions
     import capo_cleanrooms.types.analytics_engine
@@ -167,11 +165,11 @@ def deserialize_json(data: dict) -> CreateCollaborationInput:
             data["members"]
         )
     else:
-        raise DeserializationError("CreateCollaborationInput.members required")
+        out["members"] = []
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateCollaborationInput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
@@ -185,9 +183,7 @@ def deserialize_json(data: dict) -> CreateCollaborationInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateCollaborationInput.creator_member_abilities required"
-        )
+        out["creator_member_abilities"] = []
     if data.get("creatorMLMemberAbilities") is not None:
         import capo_cleanrooms.types.ml_member_abilities
 
@@ -199,9 +195,7 @@ def deserialize_json(data: dict) -> CreateCollaborationInput:
     if data.get("creatorDisplayName") is not None:
         out["creator_display_name"] = data["creatorDisplayName"]
     else:
-        raise DeserializationError(
-            "CreateCollaborationInput.creator_display_name required"
-        )
+        out["creator_display_name"] = ""
     if data.get("dataEncryptionMetadata") is not None:
         import capo_cleanrooms.types.data_encryption_metadata
 
@@ -219,7 +213,12 @@ def deserialize_json(data: dict) -> CreateCollaborationInput:
             )
         )
     else:
-        raise DeserializationError("CreateCollaborationInput.query_log_status required")
+        import typing
+
+        out["query_log_status"] = typing.cast(
+            "capo_cleanrooms.types.collaboration_query_log_status.CollaborationQueryLogStatus",
+            "",
+        )
     if data.get("jobLogStatus") is not None:
         import capo_cleanrooms.types.collaboration_job_log_status
 

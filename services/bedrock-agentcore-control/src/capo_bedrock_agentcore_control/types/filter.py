@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.filter_operator
     import capo_bedrock_agentcore_control.types.filter_value
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> Filter:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("Filter.key required")
+        out["key"] = ""
     if data.get("operator") is not None:
         import capo_bedrock_agentcore_control.types.filter_operator
 
@@ -54,7 +52,11 @@ def deserialize_json(data: dict) -> Filter:
             )
         )
     else:
-        raise DeserializationError("Filter.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.filter_operator.FilterOperator", ""
+        )
     if data.get("value") is not None:
         import capo_bedrock_agentcore_control.types.filter_value
 
@@ -64,5 +66,9 @@ def deserialize_json(data: dict) -> Filter:
             )
         )
     else:
-        raise DeserializationError("Filter.value required")
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["value"] = capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember(
+            ""
+        )
     return out

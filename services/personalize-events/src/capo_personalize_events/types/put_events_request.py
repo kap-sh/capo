@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_personalize_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize_events.types.event_list
     import capo_personalize_events.types.string_type
@@ -43,13 +41,13 @@ def deserialize_json(data: dict) -> PutEventsRequest:
     if data.get("trackingId") is not None:
         out["tracking_id"] = data["trackingId"]
     else:
-        raise DeserializationError("PutEventsRequest.tracking_id required")
+        out["tracking_id"] = ""
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("PutEventsRequest.session_id required")
+        out["session_id"] = ""
     if data.get("eventList") is not None:
         import capo_personalize_events.types.event_list
 
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> PutEventsRequest:
             data["eventList"]
         )
     else:
-        raise DeserializationError("PutEventsRequest.event_list required")
+        out["event_list"] = []
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.job_resource_type
     import capo_panorama.types.tag_map
@@ -33,11 +31,11 @@ def deserialize_json(data: dict) -> JobResourceTags:
     if data.get("ResourceType") is not None:
         out["resource_type"] = data["ResourceType"]
     else:
-        raise DeserializationError("JobResourceTags.resource_type required")
+        out["resource_type"] = ""
     if data.get("Tags") is not None:
         import capo_panorama.types.tag_map
 
         out["tags"] = capo_panorama.types.tag_map.deserialize_json(data["Tags"])
     else:
-        raise DeserializationError("JobResourceTags.tags required")
+        out["tags"] = {}
     return out

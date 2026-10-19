@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -71,8 +69,10 @@ def deserialize_json(data: dict) -> ConfiguredModelAlgorithmAssociationSummary:
             data["createTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "ConfiguredModelAlgorithmAssociationSummary.create_time required"
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("updateTime") is not None:
         import datetime
@@ -81,41 +81,33 @@ def deserialize_json(data: dict) -> ConfiguredModelAlgorithmAssociationSummary:
             data["updateTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "ConfiguredModelAlgorithmAssociationSummary.update_time required"
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("configuredModelAlgorithmAssociationArn") is not None:
         out["configured_model_algorithm_association_arn"] = data[
             "configuredModelAlgorithmAssociationArn"
         ]
     else:
-        raise DeserializationError(
-            "ConfiguredModelAlgorithmAssociationSummary.configured_model_algorithm_association_arn required"
-        )
+        out["configured_model_algorithm_association_arn"] = ""
     if data.get("configuredModelAlgorithmArn") is not None:
         out["configured_model_algorithm_arn"] = data["configuredModelAlgorithmArn"]
     else:
-        raise DeserializationError(
-            "ConfiguredModelAlgorithmAssociationSummary.configured_model_algorithm_arn required"
-        )
+        out["configured_model_algorithm_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "ConfiguredModelAlgorithmAssociationSummary.name required"
-        )
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("membershipIdentifier") is not None:
         out["membership_identifier"] = data["membershipIdentifier"]
     else:
-        raise DeserializationError(
-            "ConfiguredModelAlgorithmAssociationSummary.membership_identifier required"
-        )
+        out["membership_identifier"] = ""
     if data.get("collaborationIdentifier") is not None:
         out["collaboration_identifier"] = data["collaborationIdentifier"]
     else:
-        raise DeserializationError(
-            "ConfiguredModelAlgorithmAssociationSummary.collaboration_identifier required"
-        )
+        out["collaboration_identifier"] = ""
     return out

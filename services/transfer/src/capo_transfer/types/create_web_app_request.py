@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.tags
     import capo_transfer.types.web_app_access_endpoint
@@ -88,8 +86,10 @@ def deserialize_aws_json_1_1(data: dict) -> CreateWebAppRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateWebAppRequest.identity_provider_details required"
+        import capo_transfer.types._unknown
+
+        out["identity_provider_details"] = (
+            capo_transfer.types._unknown.UnknownUnionMember("")
         )
     if data.get("AccessEndpoint") is not None:
         out["access_endpoint"] = data["AccessEndpoint"]

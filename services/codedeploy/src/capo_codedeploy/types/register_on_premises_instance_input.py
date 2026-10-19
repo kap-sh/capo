@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codedeploy.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codedeploy.types.iam_session_arn
     import capo_codedeploy.types.iam_user_arn
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterOnPremisesInstanceInput:
     if data.get("instanceName") is not None:
         out["instance_name"] = data["instanceName"]
     else:
-        raise DeserializationError(
-            "RegisterOnPremisesInstanceInput.instance_name required"
-        )
+        out["instance_name"] = ""
     if data.get("iamSessionArn") is not None:
         out["iam_session_arn"] = data["iamSessionArn"]
     if data.get("iamUserArn") is not None:

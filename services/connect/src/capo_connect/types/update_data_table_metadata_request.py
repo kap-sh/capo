@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.data_table_description
     import capo_connect.types.data_table_id
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> UpdateDataTableMetadataRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateDataTableMetadataRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("ValueLockLevel") is not None:
@@ -64,11 +62,13 @@ def deserialize_json(data: dict) -> UpdateDataTableMetadataRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateDataTableMetadataRequest.value_lock_level required"
+        import typing
+
+        out["value_lock_level"] = typing.cast(
+            "capo_connect.types.data_table_lock_level.DataTableLockLevel", ""
         )
     if data.get("TimeZone") is not None:
         out["time_zone"] = data["TimeZone"]
     else:
-        raise DeserializationError("UpdateDataTableMetadataRequest.time_zone required")
+        out["time_zone"] = ""
     return out

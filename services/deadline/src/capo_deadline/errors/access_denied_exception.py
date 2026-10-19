@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError, ServiceError
+from capo_deadline.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_deadline.types.exception_context
@@ -36,7 +36,7 @@ def deserialize_json(data: dict) -> AccessDeniedException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("AccessDeniedException_.message required")
+        out["message"] = ""
     if data.get("context") is not None:
         import capo_deadline.types.exception_context
 

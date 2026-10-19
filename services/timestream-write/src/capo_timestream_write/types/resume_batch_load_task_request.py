@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_timestream_write.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_write.types.batch_load_task_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> ResumeBatchLoadTaskRequest:
     if data.get("TaskId") is not None:
         out["task_id"] = data["TaskId"]
     else:
-        raise DeserializationError("ResumeBatchLoadTaskRequest.task_id required")
+        out["task_id"] = ""
     return out

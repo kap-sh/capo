@@ -98,7 +98,7 @@ def deserialize_json(data: dict) -> CreateEvaluationJobRequest:
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError("CreateEvaluationJobRequest.job_name required")
+        out["job_name"] = ""
     if data.get("jobDescription") is not None:
         out["job_description"] = data["jobDescription"]
     if data.get("clientRequestToken") is not None:
@@ -106,7 +106,7 @@ def deserialize_json(data: dict) -> CreateEvaluationJobRequest:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateEvaluationJobRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("customerEncryptionKeyId") is not None:
         out["customer_encryption_key_id"] = data["customerEncryptionKeyId"]
     if data.get("jobTags") is not None:
@@ -128,9 +128,9 @@ def deserialize_json(data: dict) -> CreateEvaluationJobRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateEvaluationJobRequest.evaluation_config required"
-        )
+        import capo_bedrock.types._unknown
+
+        out["evaluation_config"] = capo_bedrock.types._unknown.UnknownUnionMember("")
     if data.get("inferenceConfig") is not None:
         import capo_bedrock.types.evaluation_inference_config
 
@@ -140,9 +140,9 @@ def deserialize_json(data: dict) -> CreateEvaluationJobRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateEvaluationJobRequest.inference_config required"
-        )
+        import capo_bedrock.types._unknown
+
+        out["inference_config"] = capo_bedrock.types._unknown.UnknownUnionMember("")
     if data.get("outputDataConfig") is not None:
         import capo_bedrock.types.evaluation_output_data_config
 

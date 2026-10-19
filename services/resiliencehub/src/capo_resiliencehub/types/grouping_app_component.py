@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.entity_name255
     import capo_resiliencehub.types.string255
@@ -34,13 +32,13 @@ def deserialize_json(data: dict) -> GroupingAppComponent:
     if data.get("appComponentId") is not None:
         out["app_component_id"] = data["appComponentId"]
     else:
-        raise DeserializationError("GroupingAppComponent.app_component_id required")
+        out["app_component_id"] = ""
     if data.get("appComponentType") is not None:
         out["app_component_type"] = data["appComponentType"]
     else:
-        raise DeserializationError("GroupingAppComponent.app_component_type required")
+        out["app_component_type"] = ""
     if data.get("appComponentName") is not None:
         out["app_component_name"] = data["appComponentName"]
     else:
-        raise DeserializationError("GroupingAppComponent.app_component_name required")
+        out["app_component_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securitylake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securitylake.types.aws_principal
     import capo_securitylake.types.external_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> AwsIdentity:
     if data.get("principal") is not None:
         out["principal"] = data["principal"]
     else:
-        raise DeserializationError("AwsIdentity.principal required")
+        out["principal"] = ""
     if data.get("externalId") is not None:
         out["external_id"] = data["externalId"]
     else:
-        raise DeserializationError("AwsIdentity.external_id required")
+        out["external_id"] = ""
     return out

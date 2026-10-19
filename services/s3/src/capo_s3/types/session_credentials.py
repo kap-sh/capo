@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.access_key_id_value
@@ -43,17 +42,17 @@ def deserialize_xml(el: Element) -> SessionCredentials:
     if child_access_key_id is not None:
         out["access_key_id"] = str(child_access_key_id.text or "")
     else:
-        raise DeserializationError("SessionCredentials.access_key_id required")
+        out["access_key_id"] = ""
     child_secret_access_key = el.find("SecretAccessKey")
     if child_secret_access_key is not None:
         out["secret_access_key"] = str(child_secret_access_key.text or "")
     else:
-        raise DeserializationError("SessionCredentials.secret_access_key required")
+        out["secret_access_key"] = ""
     child_session_token = el.find("SessionToken")
     if child_session_token is not None:
         out["session_token"] = str(child_session_token.text or "")
     else:
-        raise DeserializationError("SessionCredentials.session_token required")
+        out["session_token"] = ""
     child_expiration = el.find("Expiration")
     if child_expiration is not None:
         import capo_s3.types.session_expiration
@@ -62,7 +61,9 @@ def deserialize_xml(el: Element) -> SessionCredentials:
             child_expiration
         )
     else:
-        raise DeserializationError("SessionCredentials.expiration required")
+        import datetime
+
+        out["expiration"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

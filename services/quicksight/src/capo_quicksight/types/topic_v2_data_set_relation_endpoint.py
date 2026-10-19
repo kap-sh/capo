@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.topic_v2_data_set_relation_column_names
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> TopicV2DataSetRelationEndpoint:
     if data.get("DataSetArn") is not None:
         out["data_set_arn"] = data["DataSetArn"]
     else:
-        raise DeserializationError(
-            "TopicV2DataSetRelationEndpoint.data_set_arn required"
-        )
+        out["data_set_arn"] = ""
     if data.get("ColumnNames") is not None:
         import capo_quicksight.types.topic_v2_data_set_relation_column_names
 
@@ -49,7 +45,5 @@ def deserialize_json(data: dict) -> TopicV2DataSetRelationEndpoint:
             )
         )
     else:
-        raise DeserializationError(
-            "TopicV2DataSetRelationEndpoint.column_names required"
-        )
+        out["column_names"] = []
     return out

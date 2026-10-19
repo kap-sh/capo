@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_messaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_messaging.types.chime_arn
     import capo_chime_sdk_messaging.types.max_results
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> SearchChannelsRequest:
             data["Fields"]
         )
     else:
-        raise DeserializationError("SearchChannelsRequest.fields required")
+        out["fields"] = []
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -71,7 +69,7 @@ def deserialize_cbor(data: dict) -> DomainSummary:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("DomainSummary.domain_id required")
+        out["domain_id"] = ""
     if data.get("domainArn") is not None:
         out["domain_arn"] = data["domainArn"]
     if data.get("name") is not None:
@@ -89,7 +87,9 @@ def deserialize_cbor(data: dict) -> DomainSummary:
             )
         )
     else:
-        raise DeserializationError("DomainSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_cloudwatchomni.types._prelude.timestamp
 
@@ -99,7 +99,9 @@ def deserialize_cbor(data: dict) -> DomainSummary:
             )
         )
     else:
-        raise DeserializationError("DomainSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         import capo_cloudwatchomni.types.domain_status
 
@@ -107,5 +109,9 @@ def deserialize_cbor(data: dict) -> DomainSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("DomainSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cloudwatchomni.types.domain_status.DomainStatus", ""
+        )
     return out

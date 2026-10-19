@@ -35,7 +35,7 @@ def deserialize_json(data: dict) -> AxisLabelReferenceOptions:
     if data.get("FieldId") is not None:
         out["field_id"] = data["FieldId"]
     else:
-        raise DeserializationError("AxisLabelReferenceOptions.field_id required")
+        out["field_id"] = ""
     if data.get("Column") is not None:
         import capo_quicksight.types.column_identifier
 

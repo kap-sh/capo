@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.charset
     import capo_sesv2.types.message_data
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> Content:
     if data.get("Data") is not None:
         out["data"] = data["Data"]
     else:
-        raise DeserializationError("Content.data required")
+        out["data"] = ""
     if data.get("Charset") is not None:
         out["charset"] = data["Charset"]
     return out

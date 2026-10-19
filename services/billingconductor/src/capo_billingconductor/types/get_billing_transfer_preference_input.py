@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_billingconductor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billingconductor.types.responsibility_transfer_arn
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> GetBillingTransferPreferenceInput:
     if data.get("ResponsibilityTransferArn") is not None:
         out["responsibility_transfer_arn"] = data["ResponsibilityTransferArn"]
     else:
-        raise DeserializationError(
-            "GetBillingTransferPreferenceInput.responsibility_transfer_arn required"
-        )
+        out["responsibility_transfer_arn"] = ""
     return out

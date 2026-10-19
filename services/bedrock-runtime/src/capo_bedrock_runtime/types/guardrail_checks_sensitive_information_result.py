@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.guardrail_checks_sensitive_information_result_list
 
@@ -43,9 +41,7 @@ def deserialize_json(data: dict) -> GuardrailChecksSensitiveInformationResult:
             )
         )
     else:
-        raise DeserializationError(
-            "GuardrailChecksSensitiveInformationResult.results required"
-        )
+        out["results"] = []
     if data.get("truncated") is not None:
         out["truncated"] = data["truncated"]
     return out

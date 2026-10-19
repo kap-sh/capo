@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -89,7 +87,9 @@ def deserialize_json(data: dict) -> MemorySummary:
             )
         )
     else:
-        raise DeserializationError("MemorySummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
 
@@ -99,7 +99,9 @@ def deserialize_json(data: dict) -> MemorySummary:
             )
         )
     else:
-        raise DeserializationError("MemorySummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("managedByResourceArn") is not None:
         out["managed_by_resource_arn"] = data["managedByResourceArn"]
     return out

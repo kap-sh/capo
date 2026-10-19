@@ -49,9 +49,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateProfileWithAgentResponse:
     if data.get("ConversationId") is not None:
         out["conversation_id"] = data["ConversationId"]
     else:
-        raise DeserializationError(
-            "UpdateProfileWithAgentResponse.conversation_id required"
-        )
+        out["conversation_id"] = ""
     return out
 
 

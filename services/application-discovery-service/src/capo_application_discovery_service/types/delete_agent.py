@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_discovery_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_discovery_service.types.agent_id
     import capo_application_discovery_service.types.boolean
@@ -31,7 +29,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteAgent:
     if data.get("agentId") is not None:
         out["agent_id"] = data["agentId"]
     else:
-        raise DeserializationError("DeleteAgent.agent_id required")
+        out["agent_id"] = ""
     if data.get("force") is not None:
         out["force"] = data["force"]
     else:

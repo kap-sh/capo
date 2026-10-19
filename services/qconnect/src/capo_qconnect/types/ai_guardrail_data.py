@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -150,35 +148,35 @@ def deserialize_json(data: dict) -> AIGuardrailData:
     if data.get("assistantId") is not None:
         out["assistant_id"] = data["assistantId"]
     else:
-        raise DeserializationError("AIGuardrailData.assistant_id required")
+        out["assistant_id"] = ""
     if data.get("assistantArn") is not None:
         out["assistant_arn"] = data["assistantArn"]
     else:
-        raise DeserializationError("AIGuardrailData.assistant_arn required")
+        out["assistant_arn"] = ""
     if data.get("aiGuardrailArn") is not None:
         out["ai_guardrail_arn"] = data["aiGuardrailArn"]
     else:
-        raise DeserializationError("AIGuardrailData.ai_guardrail_arn required")
+        out["ai_guardrail_arn"] = ""
     if data.get("aiGuardrailId") is not None:
         out["ai_guardrail_id"] = data["aiGuardrailId"]
     else:
-        raise DeserializationError("AIGuardrailData.ai_guardrail_id required")
+        out["ai_guardrail_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AIGuardrailData.name required")
+        out["name"] = ""
     if data.get("visibilityStatus") is not None:
         out["visibility_status"] = data["visibilityStatus"]
     else:
-        raise DeserializationError("AIGuardrailData.visibility_status required")
+        out["visibility_status"] = ""
     if data.get("blockedInputMessaging") is not None:
         out["blocked_input_messaging"] = data["blockedInputMessaging"]
     else:
-        raise DeserializationError("AIGuardrailData.blocked_input_messaging required")
+        out["blocked_input_messaging"] = ""
     if data.get("blockedOutputsMessaging") is not None:
         out["blocked_outputs_messaging"] = data["blockedOutputsMessaging"]
     else:
-        raise DeserializationError("AIGuardrailData.blocked_outputs_messaging required")
+        out["blocked_outputs_messaging"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("topicPolicyConfig") is not None:

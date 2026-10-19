@@ -54,9 +54,7 @@ def deserialize_aws_json_1_1(
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError(
-            "CreateLicenseConversionTaskForResourceRequest.resource_arn required"
-        )
+        out["resource_arn"] = ""
     if data.get("SourceLicenseContext") is not None:
         import capo_license_manager.types.license_conversion_context
 

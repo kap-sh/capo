@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_serverless.types.hive_cli_parameters
     import capo_emr_serverless.types.init_script_path
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> Hive:
     if data.get("query") is not None:
         out["query"] = data["query"]
     else:
-        raise DeserializationError("Hive.query required")
+        out["query"] = ""
     if data.get("initQueryFile") is not None:
         out["init_query_file"] = data["initQueryFile"]
     if data.get("parameters") is not None:

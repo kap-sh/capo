@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_messaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_messaging.types.chime_arn
     import capo_chime_sdk_messaging.types.non_empty_resource_name
@@ -44,11 +42,11 @@ def deserialize_json(data: dict) -> UpdateChannelFlowRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateChannelFlowRequest.processors required")
+        out["processors"] = []
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateChannelFlowRequest.name required")
+        out["name"] = ""
     return out
 
 

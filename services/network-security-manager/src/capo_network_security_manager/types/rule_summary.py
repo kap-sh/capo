@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.date_timestamp
     import capo_network_security_manager.types.entity_status
@@ -97,15 +95,15 @@ def deserialize_json(data: dict) -> RuleSummary:
     if data.get("ruleId") is not None:
         out["rule_id"] = data["ruleId"]
     else:
-        raise DeserializationError("RuleSummary.rule_id required")
+        out["rule_id"] = ""
     if data.get("ruleArn") is not None:
         out["rule_arn"] = data["ruleArn"]
     else:
-        raise DeserializationError("RuleSummary.rule_arn required")
+        out["rule_arn"] = ""
     if data.get("ruleName") is not None:
         out["rule_name"] = data["ruleName"]
     else:
-        raise DeserializationError("RuleSummary.rule_name required")
+        out["rule_name"] = ""
     if data.get("firewallType") is not None:
         import capo_network_security_manager.types.rule_firewall_type
 

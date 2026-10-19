@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.boolean
     import capo_lightsail.types.bucket_access_log_prefix
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> BucketAccessLogConfig:
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     else:
-        raise DeserializationError("BucketAccessLogConfig.enabled required")
+        out["enabled"] = False
     if data.get("destination") is not None:
         out["destination"] = data["destination"]
     if data.get("prefix") is not None:

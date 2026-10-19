@@ -43,7 +43,7 @@ def deserialize_json(data: dict) -> ServiceResource:
     if data.get("resourceIdentifier") is not None:
         out["resource_identifier"] = data["resourceIdentifier"]
     else:
-        raise DeserializationError("ServiceResource.resource_identifier required")
+        out["resource_identifier"] = ""
     if data.get("inputSource") is not None:
         import capo_resiliencehubv2.types.input_source
 

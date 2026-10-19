@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_finspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace.types.email_id
     import capo_finspace.types.name_string
@@ -34,15 +32,15 @@ def deserialize_json(data: dict) -> SuperuserParameters:
     if data.get("emailAddress") is not None:
         out["email_address"] = data["emailAddress"]
     else:
-        raise DeserializationError("SuperuserParameters.email_address required")
+        out["email_address"] = ""
     if data.get("firstName") is not None:
         out["first_name"] = data["firstName"]
     else:
-        raise DeserializationError("SuperuserParameters.first_name required")
+        out["first_name"] = ""
     if data.get("lastName") is not None:
         out["last_name"] = data["lastName"]
     else:
-        raise DeserializationError("SuperuserParameters.last_name required")
+        out["last_name"] = ""
     return out
 
 

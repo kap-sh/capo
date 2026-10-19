@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resource_explorer_2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resource_explorer_2.types.query_string
 
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> SearchInput:
     if data.get("QueryString") is not None:
         out["query_string"] = data["QueryString"]
     else:
-        raise DeserializationError("SearchInput.query_string required")
+        out["query_string"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("ViewArn") is not None:

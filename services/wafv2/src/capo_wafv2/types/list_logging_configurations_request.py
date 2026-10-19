@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.log_scope
     import capo_wafv2.types.next_marker
@@ -50,7 +48,9 @@ def deserialize_aws_json_1_1(data: dict) -> ListLoggingConfigurationsRequest:
 
         out["scope"] = capo_wafv2.types.scope.deserialize_aws_json_1_1(data["Scope"])
     else:
-        raise DeserializationError("ListLoggingConfigurationsRequest.scope required")
+        import typing
+
+        out["scope"] = typing.cast("capo_wafv2.types.scope.Scope", "")
     if data.get("NextMarker") is not None:
         out["next_marker"] = data["NextMarker"]
     if data.get("Limit") is not None:

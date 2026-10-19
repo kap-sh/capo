@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codestar_connections.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codestar_connections.types.id
     import capo_codestar_connections.types.resolved_reason
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateSyncBlockerInput:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("UpdateSyncBlockerInput.id required")
+        out["id"] = ""
     if data.get("SyncType") is not None:
         import capo_codestar_connections.types.sync_configuration_type
 
@@ -57,13 +55,18 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateSyncBlockerInput:
             )
         )
     else:
-        raise DeserializationError("UpdateSyncBlockerInput.sync_type required")
+        import typing
+
+        out["sync_type"] = typing.cast(
+            "capo_codestar_connections.types.sync_configuration_type.SyncConfigurationType",
+            "",
+        )
     if data.get("ResourceName") is not None:
         out["resource_name"] = data["ResourceName"]
     else:
-        raise DeserializationError("UpdateSyncBlockerInput.resource_name required")
+        out["resource_name"] = ""
     if data.get("ResolvedReason") is not None:
         out["resolved_reason"] = data["ResolvedReason"]
     else:
-        raise DeserializationError("UpdateSyncBlockerInput.resolved_reason required")
+        out["resolved_reason"] = ""
     return out

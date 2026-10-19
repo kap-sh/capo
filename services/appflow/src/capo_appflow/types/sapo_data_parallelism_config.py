@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.sapo_data_max_parallelism
 
@@ -29,5 +27,5 @@ def deserialize_json(data: dict) -> SAPODataParallelismConfig:
     if data.get("maxParallelism") is not None:
         out["max_parallelism"] = data["maxParallelism"]
     else:
-        raise DeserializationError("SAPODataParallelismConfig.max_parallelism required")
+        out["max_parallelism"] = 0
     return out

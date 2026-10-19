@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.next_token
     import capo_deadline.types.sessions_statistics_aggregation_status
@@ -64,8 +62,11 @@ def deserialize_json(data: dict) -> GetSessionsStatisticsAggregationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetSessionsStatisticsAggregationResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_deadline.types.sessions_statistics_aggregation_status.SessionsStatisticsAggregationStatus",
+            "",
         )
     if data.get("statusMessage") is not None:
         out["status_message"] = data["statusMessage"]

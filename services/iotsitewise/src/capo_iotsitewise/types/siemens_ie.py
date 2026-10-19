@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.iot_core_thing_name
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> SiemensIE:
     if data.get("iotCoreThingName") is not None:
         out["iot_core_thing_name"] = data["iotCoreThingName"]
     else:
-        raise DeserializationError("SiemensIE.iot_core_thing_name required")
+        out["iot_core_thing_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.retriever_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> RetrieverContentSource:
     if data.get("retrieverId") is not None:
         out["retriever_id"] = data["retrieverId"]
     else:
-        raise DeserializationError("RetrieverContentSource.retriever_id required")
+        out["retriever_id"] = ""
     return out

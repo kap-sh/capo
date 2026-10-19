@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.asset_bundle_restrictive_resource_id_list
     import capo_quicksight.types.tag_list
@@ -45,15 +43,11 @@ def deserialize_json(data: dict) -> AssetBundleImportJobAnalysisOverrideTags:
             )
         )
     else:
-        raise DeserializationError(
-            "AssetBundleImportJobAnalysisOverrideTags.analysis_ids required"
-        )
+        out["analysis_ids"] = []
     if data.get("Tags") is not None:
         import capo_quicksight.types.tag_list
 
         out["tags"] = capo_quicksight.types.tag_list.deserialize_json(data["Tags"])
     else:
-        raise DeserializationError(
-            "AssetBundleImportJobAnalysisOverrideTags.tags required"
-        )
+        out["tags"] = []
     return out

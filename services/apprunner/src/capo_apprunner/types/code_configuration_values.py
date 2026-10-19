@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_apprunner.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_apprunner.types.build_command
     import capo_apprunner.types.runtime
@@ -76,7 +74,9 @@ def deserialize_aws_json_1_0(data: dict) -> CodeConfigurationValues:
             data["Runtime"]
         )
     else:
-        raise DeserializationError("CodeConfigurationValues.runtime required")
+        import typing
+
+        out["runtime"] = typing.cast("capo_apprunner.types.runtime.Runtime", "")
     if data.get("BuildCommand") is not None:
         out["build_command"] = data["BuildCommand"]
     if data.get("StartCommand") is not None:

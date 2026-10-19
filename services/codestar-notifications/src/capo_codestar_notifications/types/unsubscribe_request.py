@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_codestar_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codestar_notifications.types.notification_rule_arn
     import capo_codestar_notifications.types.target_address
@@ -31,11 +29,11 @@ def deserialize_json(data: dict) -> UnsubscribeRequest:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("UnsubscribeRequest.arn required")
+        out["arn"] = ""
     if data.get("TargetAddress") is not None:
         out["target_address"] = data["TargetAddress"]
     else:
-        raise DeserializationError("UnsubscribeRequest.target_address required")
+        out["target_address"] = ""
     return out
 
 

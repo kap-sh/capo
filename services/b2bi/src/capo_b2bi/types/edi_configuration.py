@@ -71,7 +71,9 @@ def deserialize_aws_json_1_0(data: dict) -> EdiConfiguration:
 
         out["type"] = capo_b2bi.types.edi_type.deserialize_aws_json_1_0(data["type"])
     else:
-        raise DeserializationError("EdiConfiguration.type required")
+        import capo_b2bi.types._unknown
+
+        out["type"] = capo_b2bi.types._unknown.UnknownUnionMember("")
     if data.get("inputLocation") is not None:
         import capo_b2bi.types.s3_location
 
@@ -91,5 +93,5 @@ def deserialize_aws_json_1_0(data: dict) -> EdiConfiguration:
     if data.get("transformerId") is not None:
         out["transformer_id"] = data["transformerId"]
     else:
-        raise DeserializationError("EdiConfiguration.transformer_id required")
+        out["transformer_id"] = ""
     return out

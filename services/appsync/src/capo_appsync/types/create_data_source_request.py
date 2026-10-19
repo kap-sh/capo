@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.data_source_level_metrics_config
     import capo_appsync.types.data_source_type
@@ -146,7 +144,7 @@ def deserialize_json(data: dict) -> CreateDataSourceRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateDataSourceRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("type") is not None:
@@ -154,7 +152,11 @@ def deserialize_json(data: dict) -> CreateDataSourceRequest:
 
         out["type"] = capo_appsync.types.data_source_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("CreateDataSourceRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_appsync.types.data_source_type.DataSourceType", ""
+        )
     if data.get("serviceRoleArn") is not None:
         out["service_role_arn"] = data["serviceRoleArn"]
     if data.get("dynamodbConfig") is not None:

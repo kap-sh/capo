@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.operation
     import capo_inspector2.types.service
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> Permission:
     if data.get("service") is not None:
         out["service"] = data["service"]
     else:
-        raise DeserializationError("Permission.service required")
+        out["service"] = ""
     if data.get("operation") is not None:
         out["operation"] = data["operation"]
     else:
-        raise DeserializationError("Permission.operation required")
+        out["operation"] = ""
     return out

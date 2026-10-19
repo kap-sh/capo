@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.client_id_type
     import capo_bedrock_agentcore_control.types.default_client_secret_type
@@ -64,9 +62,7 @@ def deserialize_json(data: dict) -> MicrosoftOauth2ProviderConfigInput:
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
     else:
-        raise DeserializationError(
-            "MicrosoftOauth2ProviderConfigInput.client_id required"
-        )
+        out["client_id"] = ""
     if data.get("clientSecret") is not None:
         out["client_secret"] = data["clientSecret"]
     else:

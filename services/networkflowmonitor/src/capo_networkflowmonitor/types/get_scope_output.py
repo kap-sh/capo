@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkflowmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkflowmonitor.types.arn
     import capo_networkflowmonitor.types.scope_id
@@ -56,7 +54,7 @@ def deserialize_json(data: dict) -> GetScopeOutput:
     if data.get("scopeId") is not None:
         out["scope_id"] = data["scopeId"]
     else:
-        raise DeserializationError("GetScopeOutput.scope_id required")
+        out["scope_id"] = ""
     if data.get("status") is not None:
         import capo_networkflowmonitor.types.scope_status
 
@@ -64,11 +62,15 @@ def deserialize_json(data: dict) -> GetScopeOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("GetScopeOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_networkflowmonitor.types.scope_status.ScopeStatus", ""
+        )
     if data.get("scopeArn") is not None:
         out["scope_arn"] = data["scopeArn"]
     else:
-        raise DeserializationError("GetScopeOutput.scope_arn required")
+        out["scope_arn"] = ""
     if data.get("targets") is not None:
         import capo_networkflowmonitor.types.target_resource_list
 
@@ -78,7 +80,7 @@ def deserialize_json(data: dict) -> GetScopeOutput:
             )
         )
     else:
-        raise DeserializationError("GetScopeOutput.targets required")
+        out["targets"] = []
     if data.get("tags") is not None:
         import capo_networkflowmonitor.types.tag_map
 

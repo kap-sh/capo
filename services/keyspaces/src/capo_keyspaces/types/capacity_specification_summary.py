@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_keyspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_keyspaces.types.capacity_units
     import capo_keyspaces.types.throughput_mode
@@ -53,9 +51,7 @@ def deserialize_aws_json_1_0(data: dict) -> CapacitySpecificationSummary:
     if data.get("throughputMode") is not None:
         out["throughput_mode"] = data["throughputMode"]
     else:
-        raise DeserializationError(
-            "CapacitySpecificationSummary.throughput_mode required"
-        )
+        out["throughput_mode"] = ""
     if data.get("readCapacityUnits") is not None:
         out["read_capacity_units"] = data["readCapacityUnits"]
     if data.get("writeCapacityUnits") is not None:

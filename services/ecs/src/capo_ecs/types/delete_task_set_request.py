@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.boxed_boolean
     import capo_ecs.types.string
@@ -38,15 +36,15 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteTaskSetRequest:
     if data.get("cluster") is not None:
         out["cluster"] = data["cluster"]
     else:
-        raise DeserializationError("DeleteTaskSetRequest.cluster required")
+        out["cluster"] = ""
     if data.get("service") is not None:
         out["service"] = data["service"]
     else:
-        raise DeserializationError("DeleteTaskSetRequest.service required")
+        out["service"] = ""
     if data.get("taskSet") is not None:
         out["task_set"] = data["taskSet"]
     else:
-        raise DeserializationError("DeleteTaskSetRequest.task_set required")
+        out["task_set"] = ""
     if data.get("force") is not None:
         out["force"] = data["force"]
     return out

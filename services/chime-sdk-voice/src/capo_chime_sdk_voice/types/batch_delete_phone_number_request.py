@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.non_empty_string_list
 
@@ -41,7 +39,5 @@ def deserialize_json(data: dict) -> BatchDeletePhoneNumberRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDeletePhoneNumberRequest.phone_number_ids required"
-        )
+        out["phone_number_ids"] = []
     return out

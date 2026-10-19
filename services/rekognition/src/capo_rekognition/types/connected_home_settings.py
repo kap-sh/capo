@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.connected_home_labels
     import capo_rekognition.types.percent
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectedHomeSettings:
             )
         )
     else:
-        raise DeserializationError("ConnectedHomeSettings.labels required")
+        out["labels"] = []
     if data.get("MinConfidence") is not None:
         out["min_confidence"] = float(data["MinConfidence"])
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.comments
     import capo_lookoutequipment.types.equipment
@@ -69,7 +67,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateLabelRequest:
     if data.get("LabelGroupName") is not None:
         out["label_group_name"] = data["LabelGroupName"]
     else:
-        raise DeserializationError("CreateLabelRequest.label_group_name required")
+        out["label_group_name"] = ""
     if data.get("StartTime") is not None:
         import capo_lookoutequipment.types.timestamp
 
@@ -79,7 +77,9 @@ def deserialize_aws_json_1_0(data: dict) -> CreateLabelRequest:
             )
         )
     else:
-        raise DeserializationError("CreateLabelRequest.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_lookoutequipment.types.timestamp
 
@@ -89,7 +89,9 @@ def deserialize_aws_json_1_0(data: dict) -> CreateLabelRequest:
             )
         )
     else:
-        raise DeserializationError("CreateLabelRequest.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Rating") is not None:
         import capo_lookoutequipment.types.label_rating
 
@@ -99,7 +101,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateLabelRequest:
             )
         )
     else:
-        raise DeserializationError("CreateLabelRequest.rating required")
+        import typing
+
+        out["rating"] = typing.cast(
+            "capo_lookoutequipment.types.label_rating.LabelRating", ""
+        )
     if data.get("FaultCode") is not None:
         out["fault_code"] = data["FaultCode"]
     if data.get("Notes") is not None:
@@ -109,5 +115,5 @@ def deserialize_aws_json_1_0(data: dict) -> CreateLabelRequest:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("CreateLabelRequest.client_token required")
+        out["client_token"] = ""
     return out

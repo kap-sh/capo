@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.start_source_network_recovery_request_network_entries
     import capo_drs.types.tags_map
@@ -50,9 +48,7 @@ def deserialize_json(data: dict) -> StartSourceNetworkRecoveryRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartSourceNetworkRecoveryRequest.source_networks required"
-        )
+        out["source_networks"] = []
     if data.get("deployAsNew") is not None:
         out["deploy_as_new"] = data["deployAsNew"]
     if data.get("tags") is not None:

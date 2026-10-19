@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.auth_type
     import capo_quicksight.types.share_point_client_id
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> SharePointParameters:
     if data.get("SharePointDomain") is not None:
         out["share_point_domain"] = data["SharePointDomain"]
     else:
-        raise DeserializationError("SharePointParameters.share_point_domain required")
+        out["share_point_domain"] = ""
     if data.get("TenantId") is not None:
         out["tenant_id"] = data["TenantId"]
     if data.get("ClientId") is not None:

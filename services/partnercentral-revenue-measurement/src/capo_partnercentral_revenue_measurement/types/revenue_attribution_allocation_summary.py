@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_revenue_measurement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_revenue_measurement.types.allocation_effective_date_string
     import capo_partnercentral_revenue_measurement.types.allocation_status
@@ -76,15 +74,11 @@ def deserialize_cbor(data: dict) -> RevenueAttributionAllocationSummary:
             "RevenueAttributionAllocationId"
         ]
     else:
-        raise DeserializationError(
-            "RevenueAttributionAllocationSummary.revenue_attribution_allocation_id required"
-        )
+        out["revenue_attribution_allocation_id"] = ""
     if data.get("RevenueAttributionIdentifier") is not None:
         out["revenue_attribution_identifier"] = data["RevenueAttributionIdentifier"]
     else:
-        raise DeserializationError(
-            "RevenueAttributionAllocationSummary.revenue_attribution_identifier required"
-        )
+        out["revenue_attribution_identifier"] = ""
     if data.get("EntityType") is not None:
         import capo_partnercentral_revenue_measurement.types.entity_type
 
@@ -94,41 +88,33 @@ def deserialize_cbor(data: dict) -> RevenueAttributionAllocationSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "RevenueAttributionAllocationSummary.entity_type required"
+        import typing
+
+        out["entity_type"] = typing.cast(
+            "capo_partnercentral_revenue_measurement.types.entity_type.EntityType", ""
         )
     if data.get("EntityIdentifier") is not None:
         out["entity_identifier"] = data["EntityIdentifier"]
     else:
-        raise DeserializationError(
-            "RevenueAttributionAllocationSummary.entity_identifier required"
-        )
+        out["entity_identifier"] = ""
     if data.get("EntityName") is not None:
         out["entity_name"] = data["EntityName"]
     if data.get("CustomerAwsAccountId") is not None:
         out["customer_aws_account_id"] = data["CustomerAwsAccountId"]
     else:
-        raise DeserializationError(
-            "RevenueAttributionAllocationSummary.customer_aws_account_id required"
-        )
+        out["customer_aws_account_id"] = ""
     if data.get("RevenueSharePercent") is not None:
         out["revenue_share_percent"] = data["RevenueSharePercent"]
     else:
-        raise DeserializationError(
-            "RevenueAttributionAllocationSummary.revenue_share_percent required"
-        )
+        out["revenue_share_percent"] = ""
     if data.get("EffectiveFrom") is not None:
         out["effective_from"] = data["EffectiveFrom"]
     else:
-        raise DeserializationError(
-            "RevenueAttributionAllocationSummary.effective_from required"
-        )
+        out["effective_from"] = ""
     if data.get("EffectiveUntil") is not None:
         out["effective_until"] = data["EffectiveUntil"]
     else:
-        raise DeserializationError(
-            "RevenueAttributionAllocationSummary.effective_until required"
-        )
+        out["effective_until"] = ""
     if data.get("Status") is not None:
         import capo_partnercentral_revenue_measurement.types.allocation_status
 
@@ -138,8 +124,11 @@ def deserialize_cbor(data: dict) -> RevenueAttributionAllocationSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "RevenueAttributionAllocationSummary.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_partnercentral_revenue_measurement.types.allocation_status.AllocationStatus",
+            "",
         )
     return out
 

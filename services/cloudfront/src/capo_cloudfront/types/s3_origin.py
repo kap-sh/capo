@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.string
@@ -31,10 +30,10 @@ def deserialize_xml(el: Element) -> S3Origin:
     if child_domain_name is not None:
         out["domain_name"] = str(child_domain_name.text or "")
     else:
-        raise DeserializationError("S3Origin.domain_name required")
+        out["domain_name"] = ""
     child_origin_access_identity = el.find("OriginAccessIdentity")
     if child_origin_access_identity is not None:
         out["origin_access_identity"] = str(child_origin_access_identity.text or "")
     else:
-        raise DeserializationError("S3Origin.origin_access_identity required")
+        out["origin_access_identity"] = ""
     return out

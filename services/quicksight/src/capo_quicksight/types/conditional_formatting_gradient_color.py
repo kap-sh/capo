@@ -33,9 +33,7 @@ def deserialize_json(data: dict) -> ConditionalFormattingGradientColor:
     if data.get("Expression") is not None:
         out["expression"] = data["Expression"]
     else:
-        raise DeserializationError(
-            "ConditionalFormattingGradientColor.expression required"
-        )
+        out["expression"] = ""
     if data.get("Color") is not None:
         import capo_quicksight.types.gradient_color
 

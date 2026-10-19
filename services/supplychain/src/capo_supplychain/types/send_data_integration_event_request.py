@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -76,19 +74,20 @@ def deserialize_json(data: dict) -> SendDataIntegrationEventRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "SendDataIntegrationEventRequest.event_type required"
+        import typing
+
+        out["event_type"] = typing.cast(
+            "capo_supplychain.types.data_integration_event_type.DataIntegrationEventType",
+            "",
         )
     if data.get("data") is not None:
         out["data"] = data["data"]
     else:
-        raise DeserializationError("SendDataIntegrationEventRequest.data required")
+        out["data"] = ""
     if data.get("eventGroupId") is not None:
         out["event_group_id"] = data["eventGroupId"]
     else:
-        raise DeserializationError(
-            "SendDataIntegrationEventRequest.event_group_id required"
-        )
+        out["event_group_id"] = ""
     if data.get("eventTimestamp") is not None:
         import datetime
 

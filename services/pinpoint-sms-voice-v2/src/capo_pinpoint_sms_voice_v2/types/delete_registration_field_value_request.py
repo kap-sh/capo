@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.field_path
     import capo_pinpoint_sms_voice_v2.types.registration_id_or_arn
@@ -33,13 +31,9 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteRegistrationFieldValueRequest:
     if data.get("RegistrationId") is not None:
         out["registration_id"] = data["RegistrationId"]
     else:
-        raise DeserializationError(
-            "DeleteRegistrationFieldValueRequest.registration_id required"
-        )
+        out["registration_id"] = ""
     if data.get("FieldPath") is not None:
         out["field_path"] = data["FieldPath"]
     else:
-        raise DeserializationError(
-            "DeleteRegistrationFieldValueRequest.field_path required"
-        )
+        out["field_path"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.catalog_id_string
     import capo_lakeformation.types.expression
@@ -58,5 +56,5 @@ def deserialize_json(data: dict) -> SearchDatabasesByLFTagsRequest:
             data["Expression"]
         )
     else:
-        raise DeserializationError("SearchDatabasesByLFTagsRequest.expression required")
+        out["expression"] = []
     return out

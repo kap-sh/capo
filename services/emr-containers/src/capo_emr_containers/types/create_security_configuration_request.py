@@ -61,13 +61,11 @@ def deserialize_json(data: dict) -> CreateSecurityConfigurationRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError(
-            "CreateSecurityConfigurationRequest.client_token required"
-        )
+        out["client_token"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateSecurityConfigurationRequest.name required")
+        out["name"] = ""
     if data.get("containerProvider") is not None:
         import capo_emr_containers.types.container_provider
 

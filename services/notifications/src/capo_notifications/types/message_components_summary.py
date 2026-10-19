@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 
 class MessageComponentsSummary(TypedDict, closed=True):
     headline: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> MessageComponentsSummary:
     if data.get("headline") is not None:
         out["headline"] = data["headline"]
     else:
-        raise DeserializationError("MessageComponentsSummary.headline required")
+        out["headline"] = ""
     return out

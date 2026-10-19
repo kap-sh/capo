@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.guardrail_contextual_grounding_filters_config
 
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> AIGuardrailContextualGroundingPolicyConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "AIGuardrailContextualGroundingPolicyConfig.filters_config required"
-        )
+        out["filters_config"] = []
     return out
 
 

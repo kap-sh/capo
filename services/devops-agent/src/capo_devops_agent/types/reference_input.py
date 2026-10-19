@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.resource_id
 
@@ -40,19 +38,19 @@ def deserialize_json(data: dict) -> ReferenceInput:
     if data.get("system") is not None:
         out["system"] = data["system"]
     else:
-        raise DeserializationError("ReferenceInput.system required")
+        out["system"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     if data.get("referenceId") is not None:
         out["reference_id"] = data["referenceId"]
     else:
-        raise DeserializationError("ReferenceInput.reference_id required")
+        out["reference_id"] = ""
     if data.get("referenceUrl") is not None:
         out["reference_url"] = data["referenceUrl"]
     else:
-        raise DeserializationError("ReferenceInput.reference_url required")
+        out["reference_url"] = ""
     if data.get("associationId") is not None:
         out["association_id"] = data["associationId"]
     else:
-        raise DeserializationError("ReferenceInput.association_id required")
+        out["association_id"] = ""
     return out

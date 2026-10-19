@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.session_type
     import capo_cognito_identity_provider.types.software_token_mfa_user_code_type
@@ -52,7 +50,7 @@ def deserialize_aws_json_1_1(data: dict) -> VerifySoftwareTokenRequest:
     if data.get("UserCode") is not None:
         out["user_code"] = data["UserCode"]
     else:
-        raise DeserializationError("VerifySoftwareTokenRequest.user_code required")
+        out["user_code"] = ""
     if data.get("FriendlyDeviceName") is not None:
         out["friendly_device_name"] = data["FriendlyDeviceName"]
     return out

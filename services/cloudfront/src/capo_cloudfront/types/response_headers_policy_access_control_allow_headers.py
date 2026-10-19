@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.access_control_allow_headers_list
@@ -38,9 +37,7 @@ def deserialize_xml(el: Element) -> ResponseHeadersPolicyAccessControlAllowHeade
     if child_quantity is not None:
         out["quantity"] = int(child_quantity.text or "")
     else:
-        raise DeserializationError(
-            "ResponseHeadersPolicyAccessControlAllowHeaders.quantity required"
-        )
+        out["quantity"] = 0
     child_items = el.find("Items")
     if child_items is not None:
         import capo_cloudfront.types.access_control_allow_headers_list
@@ -51,7 +48,5 @@ def deserialize_xml(el: Element) -> ResponseHeadersPolicyAccessControlAllowHeade
             )
         )
     else:
-        raise DeserializationError(
-            "ResponseHeadersPolicyAccessControlAllowHeaders.items required"
-        )
+        out["items"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime.types.non_empty_string
     import capo_chime.types.user_email_list
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> InviteUsersRequest:
             data["UserEmailList"]
         )
     else:
-        raise DeserializationError("InviteUsersRequest.user_email_list required")
+        out["user_email_list"] = []
     if data.get("UserType") is not None:
         import capo_chime.types.user_type
 

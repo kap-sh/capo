@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_textract.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_textract.types.query_input
     import capo_textract.types.query_pages
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> Query:
     if data.get("Text") is not None:
         out["text"] = data["Text"]
     else:
-        raise DeserializationError("Query.text required")
+        out["text"] = ""
     if data.get("Alias") is not None:
         out["alias"] = data["Alias"]
     if data.get("Pages") is not None:

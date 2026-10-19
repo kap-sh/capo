@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_guru.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_guru.types.mean_time_to_recover_in_milliseconds
     import capo_devops_guru.types.num_proactive_insights
@@ -51,7 +49,5 @@ def deserialize_json(data: dict) -> DescribeAccountOverviewResponse:
             "MeanTimeToRecoverInMilliseconds"
         ]
     else:
-        raise DeserializationError(
-            "DescribeAccountOverviewResponse.mean_time_to_recover_in_milliseconds required"
-        )
+        out["mean_time_to_recover_in_milliseconds"] = 0
     return out

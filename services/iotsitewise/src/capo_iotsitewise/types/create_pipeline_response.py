@@ -43,15 +43,15 @@ def deserialize_json(data: dict) -> CreatePipelineResponse:
     if data.get("pipelineName") is not None:
         out["pipeline_name"] = data["pipelineName"]
     else:
-        raise DeserializationError("CreatePipelineResponse.pipeline_name required")
+        out["pipeline_name"] = ""
     if data.get("pipelineArn") is not None:
         out["pipeline_arn"] = data["pipelineArn"]
     else:
-        raise DeserializationError("CreatePipelineResponse.pipeline_arn required")
+        out["pipeline_arn"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("CreatePipelineResponse.version required")
+        out["version"] = ""
     if data.get("status") is not None:
         import capo_iotsitewise.types.resource_status
 

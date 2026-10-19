@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker.types.ml_flow_resource_arn
     import capo_sagemaker.types.mlflow_experiment_name
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> MlflowConfig:
     if data.get("MlflowResourceArn") is not None:
         out["mlflow_resource_arn"] = data["MlflowResourceArn"]
     else:
-        raise DeserializationError("MlflowConfig.mlflow_resource_arn required")
+        out["mlflow_resource_arn"] = ""
     if data.get("MlflowExperimentName") is not None:
         out["mlflow_experiment_name"] = data["MlflowExperimentName"]
     if data.get("MlflowRunName") is not None:

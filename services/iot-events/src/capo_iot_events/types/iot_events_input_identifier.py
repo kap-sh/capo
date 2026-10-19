@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.input_name
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> IotEventsInputIdentifier:
     if data.get("inputName") is not None:
         out["input_name"] = data["inputName"]
     else:
-        raise DeserializationError("IotEventsInputIdentifier.input_name required")
+        out["input_name"] = ""
     return out

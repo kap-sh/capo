@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.commit_name
     import capo_codecommit.types.conflict_detail_level_type_enum
@@ -80,19 +78,15 @@ def deserialize_aws_json_1_1(data: dict) -> GetMergeConflictsInput:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError("GetMergeConflictsInput.repository_name required")
+        out["repository_name"] = ""
     if data.get("destinationCommitSpecifier") is not None:
         out["destination_commit_specifier"] = data["destinationCommitSpecifier"]
     else:
-        raise DeserializationError(
-            "GetMergeConflictsInput.destination_commit_specifier required"
-        )
+        out["destination_commit_specifier"] = ""
     if data.get("sourceCommitSpecifier") is not None:
         out["source_commit_specifier"] = data["sourceCommitSpecifier"]
     else:
-        raise DeserializationError(
-            "GetMergeConflictsInput.source_commit_specifier required"
-        )
+        out["source_commit_specifier"] = ""
     if data.get("mergeOption") is not None:
         import capo_codecommit.types.merge_option_type_enum
 
@@ -102,7 +96,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetMergeConflictsInput:
             )
         )
     else:
-        raise DeserializationError("GetMergeConflictsInput.merge_option required")
+        import typing
+
+        out["merge_option"] = typing.cast(
+            "capo_codecommit.types.merge_option_type_enum.MergeOptionTypeEnum", ""
+        )
     if data.get("conflictDetailLevel") is not None:
         import capo_codecommit.types.conflict_detail_level_type_enum
 

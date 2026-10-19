@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptune_graph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_neptune_graph.types.blank_node_handling
     import capo_neptune_graph.types.format
@@ -84,7 +82,7 @@ def deserialize_json(data: dict) -> StartImportTaskInput:
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("StartImportTaskInput.source required")
+        out["source"] = ""
     if data.get("format") is not None:
         import capo_neptune_graph.types.format
 
@@ -106,5 +104,5 @@ def deserialize_json(data: dict) -> StartImportTaskInput:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("StartImportTaskInput.role_arn required")
+        out["role_arn"] = ""
     return out

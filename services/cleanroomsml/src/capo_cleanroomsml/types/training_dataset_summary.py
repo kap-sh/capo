@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -68,7 +66,11 @@ def deserialize_json(data: dict) -> TrainingDatasetSummary:
             data["createTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("TrainingDatasetSummary.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import datetime
 
@@ -76,17 +78,19 @@ def deserialize_json(data: dict) -> TrainingDatasetSummary:
             data["updateTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("TrainingDatasetSummary.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("trainingDatasetArn") is not None:
         out["training_dataset_arn"] = data["trainingDatasetArn"]
     else:
-        raise DeserializationError(
-            "TrainingDatasetSummary.training_dataset_arn required"
-        )
+        out["training_dataset_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("TrainingDatasetSummary.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         import capo_cleanroomsml.types.training_dataset_status
 
@@ -96,7 +100,11 @@ def deserialize_json(data: dict) -> TrainingDatasetSummary:
             )
         )
     else:
-        raise DeserializationError("TrainingDatasetSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cleanroomsml.types.training_dataset_status.TrainingDatasetStatus", ""
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

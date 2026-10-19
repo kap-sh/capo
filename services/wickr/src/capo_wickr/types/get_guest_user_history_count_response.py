@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.guest_user_history_count_list
 
@@ -37,5 +35,5 @@ def deserialize_json(data: dict) -> GetGuestUserHistoryCountResponse:
             )
         )
     else:
-        raise DeserializationError("GetGuestUserHistoryCountResponse.history required")
+        out["history"] = []
     return out

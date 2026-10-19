@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.arn
     import capo_ssm_incidents.types.uuid
@@ -31,11 +29,9 @@ def deserialize_json(data: dict) -> DeleteTimelineEventInput:
     if data.get("incidentRecordArn") is not None:
         out["incident_record_arn"] = data["incidentRecordArn"]
     else:
-        raise DeserializationError(
-            "DeleteTimelineEventInput.incident_record_arn required"
-        )
+        out["incident_record_arn"] = ""
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError("DeleteTimelineEventInput.event_id required")
+        out["event_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.flow_node_name
 
@@ -30,13 +28,9 @@ def deserialize_json(data: dict) -> DuplicateConnectionsFlowValidationDetails:
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError(
-            "DuplicateConnectionsFlowValidationDetails.source required"
-        )
+        out["source"] = ""
     if data.get("target") is not None:
         out["target"] = data["target"]
     else:
-        raise DeserializationError(
-            "DuplicateConnectionsFlowValidationDetails.target required"
-        )
+        out["target"] = ""
     return out

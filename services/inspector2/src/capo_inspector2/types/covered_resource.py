@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.account_id
     import capo_inspector2.types.coverage_resource_type
@@ -106,19 +104,19 @@ def deserialize_json(data: dict) -> CoveredResource:
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError("CoveredResource.resource_type required")
+        out["resource_type"] = ""
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     else:
-        raise DeserializationError("CoveredResource.resource_id required")
+        out["resource_id"] = ""
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("CoveredResource.account_id required")
+        out["account_id"] = ""
     if data.get("scanType") is not None:
         out["scan_type"] = data["scanType"]
     else:
-        raise DeserializationError("CoveredResource.scan_type required")
+        out["scan_type"] = ""
     if data.get("scanStatus") is not None:
         import capo_inspector2.types.scan_status
 

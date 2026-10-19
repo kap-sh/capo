@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_agreement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.boolean
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> RenewalTermConfiguration:
     if data.get("enableAutoRenew") is not None:
         out["enable_auto_renew"] = data["enableAutoRenew"]
     else:
-        raise DeserializationError(
-            "RenewalTermConfiguration.enable_auto_renew required"
-        )
+        out["enable_auto_renew"] = False
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.host_key
     import capo_transfer.types.host_key_description
@@ -63,11 +61,11 @@ def deserialize_aws_json_1_1(data: dict) -> ImportHostKeyRequest:
     if data.get("ServerId") is not None:
         out["server_id"] = data["ServerId"]
     else:
-        raise DeserializationError("ImportHostKeyRequest.server_id required")
+        out["server_id"] = ""
     if data.get("HostKeyBody") is not None:
         out["host_key_body"] = data["HostKeyBody"]
     else:
-        raise DeserializationError("ImportHostKeyRequest.host_key_body required")
+        out["host_key_body"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Tags") is not None:

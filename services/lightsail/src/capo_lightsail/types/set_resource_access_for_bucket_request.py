@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.bucket_name
     import capo_lightsail.types.resource_bucket_access
@@ -39,15 +37,11 @@ def deserialize_aws_json_1_1(data: dict) -> SetResourceAccessForBucketRequest:
     if data.get("resourceName") is not None:
         out["resource_name"] = data["resourceName"]
     else:
-        raise DeserializationError(
-            "SetResourceAccessForBucketRequest.resource_name required"
-        )
+        out["resource_name"] = ""
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError(
-            "SetResourceAccessForBucketRequest.bucket_name required"
-        )
+        out["bucket_name"] = ""
     if data.get("access") is not None:
         import capo_lightsail.types.resource_bucket_access
 
@@ -57,5 +51,9 @@ def deserialize_aws_json_1_1(data: dict) -> SetResourceAccessForBucketRequest:
             )
         )
     else:
-        raise DeserializationError("SetResourceAccessForBucketRequest.access required")
+        import typing
+
+        out["access"] = typing.cast(
+            "capo_lightsail.types.resource_bucket_access.ResourceBucketAccess", ""
+        )
     return out

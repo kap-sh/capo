@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_places.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_places.types.api_key
     import capo_geo_places.types.country_code
@@ -101,7 +99,7 @@ def deserialize_json(data: dict) -> SuggestRequest:
     if data.get("QueryText") is not None:
         out["query_text"] = data["QueryText"]
     else:
-        raise DeserializationError("SuggestRequest.query_text required")
+        out["query_text"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("MaxQueryRefinements") is not None:

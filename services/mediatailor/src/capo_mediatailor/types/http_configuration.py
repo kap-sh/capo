@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__string
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> HttpConfiguration:
     if data.get("BaseUrl") is not None:
         out["base_url"] = data["BaseUrl"]
     else:
-        raise DeserializationError("HttpConfiguration.base_url required")
+        out["base_url"] = ""
     return out

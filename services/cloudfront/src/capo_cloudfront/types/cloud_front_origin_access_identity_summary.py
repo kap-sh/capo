@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.string
@@ -36,19 +35,15 @@ def deserialize_xml(el: Element) -> CloudFrontOriginAccessIdentitySummary:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("CloudFrontOriginAccessIdentitySummary.id required")
+        out["id"] = ""
     child_s3_canonical_user_id = el.find("S3CanonicalUserId")
     if child_s3_canonical_user_id is not None:
         out["s3_canonical_user_id"] = str(child_s3_canonical_user_id.text or "")
     else:
-        raise DeserializationError(
-            "CloudFrontOriginAccessIdentitySummary.s3_canonical_user_id required"
-        )
+        out["s3_canonical_user_id"] = ""
     child_comment = el.find("Comment")
     if child_comment is not None:
         out["comment"] = str(child_comment.text or "")
     else:
-        raise DeserializationError(
-            "CloudFrontOriginAccessIdentitySummary.comment required"
-        )
+        out["comment"] = ""
     return out

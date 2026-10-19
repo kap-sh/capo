@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -69,7 +67,9 @@ def deserialize_json(data: dict) -> AccessBudgetDetails:
             data["startTime"]
         )
     else:
-        raise DeserializationError("AccessBudgetDetails.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -79,11 +79,11 @@ def deserialize_json(data: dict) -> AccessBudgetDetails:
     if data.get("remainingBudget") is not None:
         out["remaining_budget"] = data["remainingBudget"]
     else:
-        raise DeserializationError("AccessBudgetDetails.remaining_budget required")
+        out["remaining_budget"] = 0
     if data.get("budget") is not None:
         out["budget"] = data["budget"]
     else:
-        raise DeserializationError("AccessBudgetDetails.budget required")
+        out["budget"] = 0
     if data.get("budgetType") is not None:
         import capo_cleanrooms.types.access_budget_type
 
@@ -91,7 +91,11 @@ def deserialize_json(data: dict) -> AccessBudgetDetails:
             data["budgetType"]
         )
     else:
-        raise DeserializationError("AccessBudgetDetails.budget_type required")
+        import typing
+
+        out["budget_type"] = typing.cast(
+            "capo_cleanrooms.types.access_budget_type.AccessBudgetType", ""
+        )
     if data.get("autoRefresh") is not None:
         import capo_cleanrooms.types.auto_refresh_mode
 

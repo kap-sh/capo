@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.instrumentation_configuration_status_list
 
@@ -39,15 +37,11 @@ def deserialize_json(data: dict) -> ReportInstrumentationConfigurationStatusRequ
     if data.get("Service") is not None:
         out["service"] = data["Service"]
     else:
-        raise DeserializationError(
-            "ReportInstrumentationConfigurationStatusRequest.service required"
-        )
+        out["service"] = ""
     if data.get("Environment") is not None:
         out["environment"] = data["Environment"]
     else:
-        raise DeserializationError(
-            "ReportInstrumentationConfigurationStatusRequest.environment required"
-        )
+        out["environment"] = ""
     if data.get("Configurations") is not None:
         import capo_application_signals.types.instrumentation_configuration_status_list
 
@@ -57,7 +51,5 @@ def deserialize_json(data: dict) -> ReportInstrumentationConfigurationStatusRequ
             )
         )
     else:
-        raise DeserializationError(
-            "ReportInstrumentationConfigurationStatusRequest.configurations required"
-        )
+        out["configurations"] = []
     return out

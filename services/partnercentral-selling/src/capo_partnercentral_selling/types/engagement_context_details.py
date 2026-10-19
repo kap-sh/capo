@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.engagement_context_identifier
     import capo_partnercentral_selling.types.engagement_context_payload
@@ -61,7 +59,12 @@ def deserialize_aws_json_1_0(data: dict) -> EngagementContextDetails:
             )
         )
     else:
-        raise DeserializationError("EngagementContextDetails.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_partnercentral_selling.types.engagement_context_type.EngagementContextType",
+            "",
+        )
     if data.get("Payload") is not None:
         import capo_partnercentral_selling.types.engagement_context_payload
 

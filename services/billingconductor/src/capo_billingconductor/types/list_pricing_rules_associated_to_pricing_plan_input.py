@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billingconductor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billingconductor.types.billing_period
     import capo_billingconductor.types.max_pricing_plan_results
@@ -48,9 +46,7 @@ def deserialize_json(data: dict) -> ListPricingRulesAssociatedToPricingPlanInput
     if data.get("PricingPlanArn") is not None:
         out["pricing_plan_arn"] = data["PricingPlanArn"]
     else:
-        raise DeserializationError(
-            "ListPricingRulesAssociatedToPricingPlanInput.pricing_plan_arn required"
-        )
+        out["pricing_plan_arn"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

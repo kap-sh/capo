@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.max_results
     import capo_workmail.types.next_token
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListAvailabilityConfigurationsReques
     if data.get("OrganizationId") is not None:
         out["organization_id"] = data["OrganizationId"]
     else:
-        raise DeserializationError(
-            "ListAvailabilityConfigurationsRequest.organization_id required"
-        )
+        out["organization_id"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

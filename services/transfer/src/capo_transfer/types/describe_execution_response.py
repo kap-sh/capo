@@ -35,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeExecutionResponse:
     if data.get("WorkflowId") is not None:
         out["workflow_id"] = data["WorkflowId"]
     else:
-        raise DeserializationError("DescribeExecutionResponse.workflow_id required")
+        out["workflow_id"] = ""
     if data.get("Execution") is not None:
         import capo_transfer.types.described_execution
 

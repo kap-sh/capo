@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_auto_scaling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_auto_scaling.types.metric_type
     import capo_application_auto_scaling.types.resource_label
@@ -46,8 +44,10 @@ def deserialize_aws_json_1_1(data: dict) -> PredefinedMetricSpecification:
             )
         )
     else:
-        raise DeserializationError(
-            "PredefinedMetricSpecification.predefined_metric_type required"
+        import typing
+
+        out["predefined_metric_type"] = typing.cast(
+            "capo_application_auto_scaling.types.metric_type.MetricType", ""
         )
     if data.get("ResourceLabel") is not None:
         out["resource_label"] = data["ResourceLabel"]

@@ -49,5 +49,7 @@ def deserialize_json(data: dict) -> AttributeKeyAndValue:
             data["Value"]
         )
     else:
-        raise DeserializationError("AttributeKeyAndValue.value required")
+        import capo_clouddirectory.types._unknown
+
+        out["value"] = capo_clouddirectory.types._unknown.UnknownUnionMember("")
     return out

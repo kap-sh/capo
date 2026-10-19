@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.max_results
     import capo_payment_cryptography.types.next_token
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListTagsForResourceInput:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("ListTagsForResourceInput.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

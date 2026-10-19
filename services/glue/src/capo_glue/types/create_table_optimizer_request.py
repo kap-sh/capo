@@ -54,15 +54,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTableOptimizerRequest:
     if data.get("CatalogId") is not None:
         out["catalog_id"] = data["CatalogId"]
     else:
-        raise DeserializationError("CreateTableOptimizerRequest.catalog_id required")
+        out["catalog_id"] = ""
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError("CreateTableOptimizerRequest.database_name required")
+        out["database_name"] = ""
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("CreateTableOptimizerRequest.table_name required")
+        out["table_name"] = ""
     if data.get("Type") is not None:
         import capo_glue.types.table_optimizer_type
 
@@ -70,7 +70,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTableOptimizerRequest:
             data["Type"]
         )
     else:
-        raise DeserializationError("CreateTableOptimizerRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_glue.types.table_optimizer_type.TableOptimizerType", ""
+        )
     if data.get("TableOptimizerConfiguration") is not None:
         import capo_glue.types.table_optimizer_configuration
 

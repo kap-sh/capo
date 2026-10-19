@@ -84,7 +84,7 @@ def deserialize_json(data: dict) -> CreateDatasetRequest:
     if data.get("datasetTitle") is not None:
         out["dataset_title"] = data["datasetTitle"]
     else:
-        raise DeserializationError("CreateDatasetRequest.dataset_title required")
+        out["dataset_title"] = ""
     if data.get("kind") is not None:
         import capo_finspace_data.types.dataset_kind
 
@@ -92,7 +92,11 @@ def deserialize_json(data: dict) -> CreateDatasetRequest:
             data["kind"]
         )
     else:
-        raise DeserializationError("CreateDatasetRequest.kind required")
+        import typing
+
+        out["kind"] = typing.cast(
+            "capo_finspace_data.types.dataset_kind.DatasetKind", ""
+        )
     if data.get("datasetDescription") is not None:
         out["dataset_description"] = data["datasetDescription"]
     if data.get("ownerInfo") is not None:

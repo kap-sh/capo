@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.batch_delete_featured_results_set_errors
 
@@ -39,7 +37,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDeleteFeaturedResultsSetRespons
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDeleteFeaturedResultsSetResponse.errors required"
-        )
+        out["errors"] = []
     return out

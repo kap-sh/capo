@@ -39,7 +39,7 @@ def deserialize_json(data: dict) -> ExecutionStartedDetails:
     if data.get("ExecutionTimeout") is not None:
         out["execution_timeout"] = data["ExecutionTimeout"]
     else:
-        raise DeserializationError("ExecutionStartedDetails.execution_timeout required")
+        out["execution_timeout"] = 0
     return out
 
 

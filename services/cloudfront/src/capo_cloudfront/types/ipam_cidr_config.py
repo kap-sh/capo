@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.ipam_cidr_status
@@ -44,12 +43,12 @@ def deserialize_xml(el: Element) -> IpamCidrConfig:
     if child_cidr is not None:
         out["cidr"] = str(child_cidr.text or "")
     else:
-        raise DeserializationError("IpamCidrConfig.cidr required")
+        out["cidr"] = ""
     child_ipam_pool_arn = el.find("IpamPoolArn")
     if child_ipam_pool_arn is not None:
         out["ipam_pool_arn"] = str(child_ipam_pool_arn.text or "")
     else:
-        raise DeserializationError("IpamCidrConfig.ipam_pool_arn required")
+        out["ipam_pool_arn"] = ""
     child_anycast_ip = el.find("AnycastIp")
     if child_anycast_ip is not None:
         out["anycast_ip"] = str(child_anycast_ip.text or "")

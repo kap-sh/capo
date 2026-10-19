@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.grouping_recommendation_rejection_reason
     import capo_resiliencehub.types.string255
@@ -40,9 +38,7 @@ def deserialize_json(data: dict) -> RejectGroupingRecommendationEntry:
     if data.get("groupingRecommendationId") is not None:
         out["grouping_recommendation_id"] = data["groupingRecommendationId"]
     else:
-        raise DeserializationError(
-            "RejectGroupingRecommendationEntry.grouping_recommendation_id required"
-        )
+        out["grouping_recommendation_id"] = ""
     if data.get("rejectionReason") is not None:
         import capo_resiliencehub.types.grouping_recommendation_rejection_reason
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_eventbridge.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridge.types.non_partner_event_bus_arn
 
@@ -29,5 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> EndpointEventBus:
     if data.get("EventBusArn") is not None:
         out["event_bus_arn"] = data["EventBusArn"]
     else:
-        raise DeserializationError("EndpointEventBus.event_bus_arn required")
+        out["event_bus_arn"] = ""
     return out

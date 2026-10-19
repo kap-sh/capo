@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.string
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetEventRequest:
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError("GetEventRequest.event_id required")
+        out["event_id"] = ""
     if data.get("eventTypeName") is not None:
         out["event_type_name"] = data["eventTypeName"]
     else:
-        raise DeserializationError("GetEventRequest.event_type_name required")
+        out["event_type_name"] = ""
     return out

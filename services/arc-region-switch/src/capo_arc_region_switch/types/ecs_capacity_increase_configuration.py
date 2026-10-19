@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.ecs_capacity_monitoring_approach
     import capo_arc_region_switch.types.ecs_ungraceful
@@ -81,7 +79,7 @@ def deserialize_aws_json_1_0(data: dict) -> EcsCapacityIncreaseConfiguration:
             )
         )
     else:
-        raise DeserializationError("EcsCapacityIncreaseConfiguration.services required")
+        out["services"] = []
     if data.get("ungraceful") is not None:
         import capo_arc_region_switch.types.ecs_ungraceful
 

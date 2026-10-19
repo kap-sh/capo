@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.client_id_type
     import capo_bedrock_agentcore_control.types.oauth2_discovery
@@ -47,8 +45,10 @@ def deserialize_json(data: dict) -> LinkedinOauth2ProviderConfigOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "LinkedinOauth2ProviderConfigOutput.oauth_discovery required"
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["oauth_discovery"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
         )
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -40,7 +39,7 @@ def deserialize_query(el: Element) -> ListPolicyVersionsRequest:
     if child_policy_arn is not None:
         out["policy_arn"] = str(child_policy_arn.text or "")
     else:
-        raise DeserializationError("ListPolicyVersionsRequest.policy_arn required")
+        out["policy_arn"] = ""
     child_marker = el.find("Marker")
     if child_marker is not None:
         out["marker"] = str(child_marker.text or "")

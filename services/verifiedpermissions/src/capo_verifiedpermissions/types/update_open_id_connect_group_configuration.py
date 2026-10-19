@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.claim
     import capo_verifiedpermissions.types.group_entity_type
@@ -33,15 +31,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateOpenIdConnectGroupConfiguratio
     if data.get("groupClaim") is not None:
         out["group_claim"] = data["groupClaim"]
     else:
-        raise DeserializationError(
-            "UpdateOpenIdConnectGroupConfiguration.group_claim required"
-        )
+        out["group_claim"] = ""
     if data.get("groupEntityType") is not None:
         out["group_entity_type"] = data["groupEntityType"]
     else:
-        raise DeserializationError(
-            "UpdateOpenIdConnectGroupConfiguration.group_entity_type required"
-        )
+        out["group_entity_type"] = ""
     return out
 
 

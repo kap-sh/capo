@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.import_key_material
     import capo_payment_cryptography.types.key_check_value_algorithm
@@ -78,7 +76,11 @@ def deserialize_aws_json_1_0(data: dict) -> ImportKeyInput:
             )
         )
     else:
-        raise DeserializationError("ImportKeyInput.key_material required")
+        import capo_payment_cryptography.types._unknown
+
+        out["key_material"] = (
+            capo_payment_cryptography.types._unknown.UnknownUnionMember("")
+        )
     if data.get("KeyCheckValueAlgorithm") is not None:
         out["key_check_value_algorithm"] = data["KeyCheckValueAlgorithm"]
     if data.get("Enabled") is not None:

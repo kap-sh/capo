@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_model_building_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_model_building_service.types.regex_pattern
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> SlotTypeRegexConfiguration:
     if data.get("pattern") is not None:
         out["pattern"] = data["pattern"]
     else:
-        raise DeserializationError("SlotTypeRegexConfiguration.pattern required")
+        out["pattern"] = ""
     return out

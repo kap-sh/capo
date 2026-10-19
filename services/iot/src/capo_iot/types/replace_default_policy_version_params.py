@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.policy_template_name
 
@@ -35,7 +33,9 @@ def deserialize_json(data: dict) -> ReplaceDefaultPolicyVersionParams:
             data["templateName"]
         )
     else:
-        raise DeserializationError(
-            "ReplaceDefaultPolicyVersionParams.template_name required"
+        import typing
+
+        out["template_name"] = typing.cast(
+            "capo_iot.types.policy_template_name.PolicyTemplateName", ""
         )
     return out

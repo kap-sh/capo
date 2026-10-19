@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.data_automation_library_arn
     import capo_bedrock_data_automation.types.data_automation_library_description
@@ -81,7 +79,7 @@ def deserialize_json(data: dict) -> DataAutomationLibrary:
     if data.get("libraryArn") is not None:
         out["library_arn"] = data["libraryArn"]
     else:
-        raise DeserializationError("DataAutomationLibrary.library_arn required")
+        out["library_arn"] = ""
     if data.get("creationTime") is not None:
         import capo_bedrock_data_automation.types.date_timestamp
 
@@ -91,11 +89,15 @@ def deserialize_json(data: dict) -> DataAutomationLibrary:
             )
         )
     else:
-        raise DeserializationError("DataAutomationLibrary.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("libraryName") is not None:
         out["library_name"] = data["libraryName"]
     else:
-        raise DeserializationError("DataAutomationLibrary.library_name required")
+        out["library_name"] = ""
     if data.get("libraryDescription") is not None:
         out["library_description"] = data["libraryDescription"]
     if data.get("status") is not None:
@@ -107,7 +109,12 @@ def deserialize_json(data: dict) -> DataAutomationLibrary:
             )
         )
     else:
-        raise DeserializationError("DataAutomationLibrary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_data_automation.types.data_automation_library_status.DataAutomationLibraryStatus",
+            "",
+        )
     if data.get("entityTypes") is not None:
         import capo_bedrock_data_automation.types.entity_type_info_list
 

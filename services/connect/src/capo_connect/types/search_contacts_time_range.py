@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.search_contacts_time_range_type
     import capo_connect.types.timestamp
@@ -50,7 +48,12 @@ def deserialize_json(data: dict) -> SearchContactsTimeRange:
             )
         )
     else:
-        raise DeserializationError("SearchContactsTimeRange.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_connect.types.search_contacts_time_range_type.SearchContactsTimeRangeType",
+            "",
+        )
     if data.get("StartTime") is not None:
         import capo_connect.types.timestamp
 
@@ -58,11 +61,15 @@ def deserialize_json(data: dict) -> SearchContactsTimeRange:
             data["StartTime"]
         )
     else:
-        raise DeserializationError("SearchContactsTimeRange.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_connect.types.timestamp
 
         out["end_time"] = capo_connect.types.timestamp.deserialize_json(data["EndTime"])
     else:
-        raise DeserializationError("SearchContactsTimeRange.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

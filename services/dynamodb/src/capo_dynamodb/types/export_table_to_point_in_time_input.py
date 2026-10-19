@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.client_token
     import capo_dynamodb.types.export_format
@@ -117,7 +115,7 @@ def deserialize_aws_json_1_0(data: dict) -> ExportTableToPointInTimeInput:
     if data.get("TableArn") is not None:
         out["table_arn"] = data["TableArn"]
     else:
-        raise DeserializationError("ExportTableToPointInTimeInput.table_arn required")
+        out["table_arn"] = ""
     if data.get("ExportTime") is not None:
         import capo_dynamodb.types.export_time
 
@@ -129,7 +127,7 @@ def deserialize_aws_json_1_0(data: dict) -> ExportTableToPointInTimeInput:
     if data.get("S3Bucket") is not None:
         out["s3_bucket"] = data["S3Bucket"]
     else:
-        raise DeserializationError("ExportTableToPointInTimeInput.s3_bucket required")
+        out["s3_bucket"] = ""
     if data.get("S3BucketOwner") is not None:
         out["s3_bucket_owner"] = data["S3BucketOwner"]
     if data.get("S3Prefix") is not None:

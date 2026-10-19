@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.action_name_type
@@ -121,7 +120,7 @@ def deserialize_query(el: Element) -> EvaluationResult:
     if child_eval_action_name is not None:
         out["eval_action_name"] = str(child_eval_action_name.text or "")
     else:
-        raise DeserializationError("EvaluationResult.eval_action_name required")
+        out["eval_action_name"] = ""
     child_eval_resource_name = el.find("EvalResourceName")
     if child_eval_resource_name is not None:
         out["eval_resource_name"] = str(child_eval_resource_name.text or "")
@@ -135,7 +134,12 @@ def deserialize_query(el: Element) -> EvaluationResult:
             )
         )
     else:
-        raise DeserializationError("EvaluationResult.eval_decision required")
+        import typing
+
+        out["eval_decision"] = typing.cast(
+            "capo_iam.types.policy_evaluation_decision_type.PolicyEvaluationDecisionType",
+            "",
+        )
     child_matched_statements = el.find("MatchedStatements")
     if child_matched_statements is not None:
         import capo_iam.types.statement_list_type

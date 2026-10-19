@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.browser_profile_arn
     import capo_bedrock_agentcore_control.types.browser_profile_id
@@ -67,11 +65,11 @@ def deserialize_json(data: dict) -> DeleteBrowserProfileResponse:
     if data.get("profileId") is not None:
         out["profile_id"] = data["profileId"]
     else:
-        raise DeserializationError("DeleteBrowserProfileResponse.profile_id required")
+        out["profile_id"] = ""
     if data.get("profileArn") is not None:
         out["profile_arn"] = data["profileArn"]
     else:
-        raise DeserializationError("DeleteBrowserProfileResponse.profile_arn required")
+        out["profile_arn"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.browser_profile_status
 
@@ -81,7 +79,12 @@ def deserialize_json(data: dict) -> DeleteBrowserProfileResponse:
             )
         )
     else:
-        raise DeserializationError("DeleteBrowserProfileResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.browser_profile_status.BrowserProfileStatus",
+            "",
+        )
     if data.get("lastUpdatedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -91,8 +94,10 @@ def deserialize_json(data: dict) -> DeleteBrowserProfileResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DeleteBrowserProfileResponse.last_updated_at required"
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("lastSavedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp

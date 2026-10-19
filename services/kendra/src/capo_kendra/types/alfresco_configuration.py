@@ -134,15 +134,15 @@ def deserialize_aws_json_1_1(data: dict) -> AlfrescoConfiguration:
     if data.get("SiteUrl") is not None:
         out["site_url"] = data["SiteUrl"]
     else:
-        raise DeserializationError("AlfrescoConfiguration.site_url required")
+        out["site_url"] = ""
     if data.get("SiteId") is not None:
         out["site_id"] = data["SiteId"]
     else:
-        raise DeserializationError("AlfrescoConfiguration.site_id required")
+        out["site_id"] = ""
     if data.get("SecretArn") is not None:
         out["secret_arn"] = data["SecretArn"]
     else:
-        raise DeserializationError("AlfrescoConfiguration.secret_arn required")
+        out["secret_arn"] = ""
     if data.get("SslCertificateS3Path") is not None:
         import capo_kendra.types.s3_path
 

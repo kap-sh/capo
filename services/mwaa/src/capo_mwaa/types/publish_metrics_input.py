@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mwaa.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mwaa.types.environment_name
     import capo_mwaa.types.metric_data
@@ -36,5 +34,5 @@ def deserialize_json(data: dict) -> PublishMetricsInput:
             data["MetricData"]
         )
     else:
-        raise DeserializationError("PublishMetricsInput.metric_data required")
+        out["metric_data"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.contact_id
     import capo_connect.types.include_raw_message
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ContactConfiguration:
     if data.get("ContactId") is not None:
         out["contact_id"] = data["ContactId"]
     else:
-        raise DeserializationError("ContactConfiguration.contact_id required")
+        out["contact_id"] = ""
     if data.get("ParticipantRole") is not None:
         import capo_connect.types.participant_role
 

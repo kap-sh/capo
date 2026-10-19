@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.secrets_manager_arn
     import capo_iot_managed_integrations.types.secrets_manager_version_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> SecretsManager:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("SecretsManager.arn required")
+        out["arn"] = ""
     if data.get("versionId") is not None:
         out["version_id"] = data["versionId"]
     else:
-        raise DeserializationError("SecretsManager.version_id required")
+        out["version_id"] = ""
     return out

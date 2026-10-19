@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aws_arn
     import capo_iot.types.client_properties
@@ -54,11 +52,11 @@ def deserialize_json(data: dict) -> KafkaAction:
     if data.get("destinationArn") is not None:
         out["destination_arn"] = data["destinationArn"]
     else:
-        raise DeserializationError("KafkaAction.destination_arn required")
+        out["destination_arn"] = ""
     if data.get("topic") is not None:
         out["topic"] = data["topic"]
     else:
-        raise DeserializationError("KafkaAction.topic required")
+        out["topic"] = ""
     if data.get("key") is not None:
         out["key"] = data["key"]
     if data.get("partition") is not None:
@@ -70,7 +68,7 @@ def deserialize_json(data: dict) -> KafkaAction:
             data["clientProperties"]
         )
     else:
-        raise DeserializationError("KafkaAction.client_properties required")
+        out["client_properties"] = {}
     if data.get("headers") is not None:
         import capo_iot.types.kafka_headers
 

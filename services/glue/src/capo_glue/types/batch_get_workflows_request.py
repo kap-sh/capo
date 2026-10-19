@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.nullable_boolean
     import capo_glue.types.workflow_names
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetWorkflowsRequest:
             data["Names"]
         )
     else:
-        raise DeserializationError("BatchGetWorkflowsRequest.names required")
+        out["names"] = []
     if data.get("IncludeGraph") is not None:
         out["include_graph"] = data["IncludeGraph"]
     return out

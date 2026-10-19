@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.port_number
     import capo_app_mesh.types.virtual_gateway_port_protocol
@@ -33,9 +31,9 @@ def deserialize_json(data: dict) -> VirtualGatewayPortMapping:
     if data.get("port") is not None:
         out["port"] = data["port"]
     else:
-        raise DeserializationError("VirtualGatewayPortMapping.port required")
+        out["port"] = 0
     if data.get("protocol") is not None:
         out["protocol"] = data["protocol"]
     else:
-        raise DeserializationError("VirtualGatewayPortMapping.protocol required")
+        out["protocol"] = ""
     return out

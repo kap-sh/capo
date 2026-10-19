@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_health.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_health.types.locale
     import capo_health.types.organization_event_detail_filters_list
@@ -44,9 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEventDetailsForOrganizationR
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeEventDetailsForOrganizationRequest.organization_event_detail_filters required"
-        )
+        out["organization_event_detail_filters"] = []
     if data.get("locale") is not None:
         out["locale"] = data["locale"]
     return out

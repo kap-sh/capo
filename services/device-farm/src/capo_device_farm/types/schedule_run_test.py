@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_device_farm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_device_farm.types.amazon_resource_name
     import capo_device_farm.types.filter
@@ -62,7 +60,9 @@ def deserialize_aws_json_1_1(data: dict) -> ScheduleRunTest:
             data["type"]
         )
     else:
-        raise DeserializationError("ScheduleRunTest.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_device_farm.types.test_type.TestType", "")
     if data.get("testPackageArn") is not None:
         out["test_package_arn"] = data["testPackageArn"]
     if data.get("testSpecArn") is not None:

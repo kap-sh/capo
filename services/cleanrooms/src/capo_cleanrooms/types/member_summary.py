@@ -92,15 +92,15 @@ def deserialize_json(data: dict) -> MemberSummary:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("MemberSummary.account_id required")
+        out["account_id"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("MemberSummary.status required")
+        out["status"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("MemberSummary.display_name required")
+        out["display_name"] = ""
     if data.get("abilities") is not None:
         import capo_cleanrooms.types.member_abilities
 
@@ -108,7 +108,7 @@ def deserialize_json(data: dict) -> MemberSummary:
             data["abilities"]
         )
     else:
-        raise DeserializationError("MemberSummary.abilities required")
+        out["abilities"] = []
     if data.get("mlAbilities") is not None:
         import capo_cleanrooms.types.ml_member_abilities
 
@@ -124,7 +124,11 @@ def deserialize_json(data: dict) -> MemberSummary:
             data["createTime"]
         )
     else:
-        raise DeserializationError("MemberSummary.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -132,7 +136,11 @@ def deserialize_json(data: dict) -> MemberSummary:
             data["updateTime"]
         )
     else:
-        raise DeserializationError("MemberSummary.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("membershipId") is not None:
         out["membership_id"] = data["membershipId"]
     if data.get("membershipArn") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_endusermessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_endusermessaging.types.channel_parameters
     import capo_endusermessaging.types.code_configuration_parameters
@@ -101,19 +99,19 @@ def deserialize_json(data: dict) -> SendNotifyCodeVerificationInput:
             data["channel"]
         )
     else:
-        raise DeserializationError("SendNotifyCodeVerificationInput.channel required")
+        import typing
+
+        out["channel"] = typing.cast(
+            "capo_endusermessaging.types.notify_channel.NotifyChannel", ""
+        )
     if data.get("destinationIdentity") is not None:
         out["destination_identity"] = data["destinationIdentity"]
     else:
-        raise DeserializationError(
-            "SendNotifyCodeVerificationInput.destination_identity required"
-        )
+        out["destination_identity"] = ""
     if data.get("originationIdentity") is not None:
         out["origination_identity"] = data["originationIdentity"]
     else:
-        raise DeserializationError(
-            "SendNotifyCodeVerificationInput.origination_identity required"
-        )
+        out["origination_identity"] = ""
     if data.get("notifyCodeConfiguration") is not None:
         out["notify_code_configuration"] = data["notifyCodeConfiguration"]
     if data.get("overrideChannelParameters") is not None:

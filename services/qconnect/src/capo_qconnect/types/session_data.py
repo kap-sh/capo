@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.ai_agent_configuration_map
     import capo_qconnect.types.arn
@@ -100,15 +98,15 @@ def deserialize_json(data: dict) -> SessionData:
     if data.get("sessionArn") is not None:
         out["session_arn"] = data["sessionArn"]
     else:
-        raise DeserializationError("SessionData.session_arn required")
+        out["session_arn"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("SessionData.session_id required")
+        out["session_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("SessionData.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("tags") is not None:

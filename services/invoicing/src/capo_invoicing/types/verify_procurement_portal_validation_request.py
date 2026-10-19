@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_invoicing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_invoicing.types.basic_string_without_space
     import capo_invoicing.types.procurement_portal_preference_arn_string
@@ -39,15 +37,11 @@ def deserialize_aws_json_1_0(data: dict) -> VerifyProcurementPortalValidationReq
             "ProcurementPortalPreferenceArn"
         ]
     else:
-        raise DeserializationError(
-            "VerifyProcurementPortalValidationRequest.procurement_portal_preference_arn required"
-        )
+        out["procurement_portal_preference_arn"] = ""
     if data.get("Code") is not None:
         out["code"] = data["Code"]
     else:
-        raise DeserializationError(
-            "VerifyProcurementPortalValidationRequest.code required"
-        )
+        out["code"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     return out

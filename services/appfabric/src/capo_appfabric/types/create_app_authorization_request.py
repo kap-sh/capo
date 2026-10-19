@@ -62,7 +62,7 @@ def deserialize_json(data: dict) -> CreateAppAuthorizationRequest:
     if data.get("app") is not None:
         out["app"] = data["app"]
     else:
-        raise DeserializationError("CreateAppAuthorizationRequest.app required")
+        out["app"] = ""
     if data.get("credential") is not None:
         import capo_appfabric.types.credential
 
@@ -70,7 +70,9 @@ def deserialize_json(data: dict) -> CreateAppAuthorizationRequest:
             data["credential"]
         )
     else:
-        raise DeserializationError("CreateAppAuthorizationRequest.credential required")
+        import capo_appfabric.types._unknown
+
+        out["credential"] = capo_appfabric.types._unknown.UnknownUnionMember("")
     if data.get("tenant") is not None:
         import capo_appfabric.types.tenant
 
@@ -84,7 +86,9 @@ def deserialize_json(data: dict) -> CreateAppAuthorizationRequest:
             data["authType"]
         )
     else:
-        raise DeserializationError("CreateAppAuthorizationRequest.auth_type required")
+        import typing
+
+        out["auth_type"] = typing.cast("capo_appfabric.types.auth_type.AuthType", "")
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

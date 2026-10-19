@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_simspaceweaver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_simspaceweaver.types.sim_space_weaver_resource_name
 
@@ -33,13 +31,13 @@ def deserialize_json(data: dict) -> StopAppInput:
     if data.get("Simulation") is not None:
         out["simulation"] = data["Simulation"]
     else:
-        raise DeserializationError("StopAppInput.simulation required")
+        out["simulation"] = ""
     if data.get("Domain") is not None:
         out["domain"] = data["Domain"]
     else:
-        raise DeserializationError("StopAppInput.domain required")
+        out["domain"] = ""
     if data.get("App") is not None:
         out["app"] = data["App"]
     else:
-        raise DeserializationError("StopAppInput.app required")
+        out["app"] = ""
     return out

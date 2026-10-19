@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.analytics_configuration
     import capo_healthlake.types.datastore_arn
@@ -173,11 +171,11 @@ def deserialize_aws_json_1_0(data: dict) -> DatastoreProperties:
     if data.get("DatastoreId") is not None:
         out["datastore_id"] = data["DatastoreId"]
     else:
-        raise DeserializationError("DatastoreProperties.datastore_id required")
+        out["datastore_id"] = ""
     if data.get("DatastoreArn") is not None:
         out["datastore_arn"] = data["DatastoreArn"]
     else:
-        raise DeserializationError("DatastoreProperties.datastore_arn required")
+        out["datastore_arn"] = ""
     if data.get("DatastoreName") is not None:
         out["datastore_name"] = data["DatastoreName"]
     if data.get("DatastoreStatus") is not None:
@@ -189,7 +187,11 @@ def deserialize_aws_json_1_0(data: dict) -> DatastoreProperties:
             )
         )
     else:
-        raise DeserializationError("DatastoreProperties.datastore_status required")
+        import typing
+
+        out["datastore_status"] = typing.cast(
+            "capo_healthlake.types.datastore_status.DatastoreStatus", ""
+        )
     if data.get("CreatedAt") is not None:
         import capo_healthlake.types.health_lake_timestamp
 
@@ -207,13 +209,15 @@ def deserialize_aws_json_1_0(data: dict) -> DatastoreProperties:
             )
         )
     else:
-        raise DeserializationError(
-            "DatastoreProperties.datastore_type_version required"
+        import typing
+
+        out["datastore_type_version"] = typing.cast(
+            "capo_healthlake.types.fhir_version.FHIRVersion", ""
         )
     if data.get("DatastoreEndpoint") is not None:
         out["datastore_endpoint"] = data["DatastoreEndpoint"]
     else:
-        raise DeserializationError("DatastoreProperties.datastore_endpoint required")
+        out["datastore_endpoint"] = ""
     if data.get("SseConfiguration") is not None:
         import capo_healthlake.types.sse_configuration
 

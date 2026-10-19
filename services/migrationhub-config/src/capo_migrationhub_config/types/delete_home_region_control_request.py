@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_migrationhub_config.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migrationhub_config.types.control_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteHomeRegionControlRequest:
     if data.get("ControlId") is not None:
         out["control_id"] = data["ControlId"]
     else:
-        raise DeserializationError("DeleteHomeRegionControlRequest.control_id required")
+        out["control_id"] = ""
     return out

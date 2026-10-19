@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.action_reference
     import capo_iot_managed_integrations.types.action_trace_id
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> CapabilityAction:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CapabilityAction.name required")
+        out["name"] = ""
     if data.get("ref") is not None:
         out["ref"] = data["ref"]
     if data.get("actionTraceId") is not None:

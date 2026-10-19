@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.arn
     import capo_backup.types.backup_vault_name
@@ -55,9 +53,7 @@ def deserialize_json(data: dict) -> CreateRestoreAccessBackupVaultInput:
     if data.get("SourceBackupVaultArn") is not None:
         out["source_backup_vault_arn"] = data["SourceBackupVaultArn"]
     else:
-        raise DeserializationError(
-            "CreateRestoreAccessBackupVaultInput.source_backup_vault_arn required"
-        )
+        out["source_backup_vault_arn"] = ""
     if data.get("BackupVaultName") is not None:
         out["backup_vault_name"] = data["BackupVaultName"]
     if data.get("BackupVaultTags") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.additional_attributes
     import capo_datazone.types.domain_id
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> QueryGraphInput:
 
         out["match"] = capo_datazone.types.match_clauses.deserialize_json(data["match"])
     else:
-        raise DeserializationError("QueryGraphInput.match required")
+        out["match"] = []
     if data.get("additionalAttributes") is not None:
         import capo_datazone.types.additional_attributes
 

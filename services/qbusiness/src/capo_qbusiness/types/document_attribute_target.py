@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.attribute_value_operator
     import capo_qbusiness.types.document_attribute_key
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> DocumentAttributeTarget:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("DocumentAttributeTarget.key required")
+        out["key"] = ""
     if data.get("value") is not None:
         import capo_qbusiness.types.document_attribute_value
 

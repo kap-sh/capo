@@ -72,7 +72,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateVectorIndexAction:
     if data.get("IndexName") is not None:
         out["index_name"] = data["IndexName"]
     else:
-        raise DeserializationError("CreateVectorIndexAction.index_name required")
+        out["index_name"] = ""
     if data.get("VectorAttribute") is not None:
         import capo_dynamodb.types.vector_attribute_definition
 
@@ -102,7 +102,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateVectorIndexAction:
     if data.get("Dimensions") is not None:
         out["dimensions"] = data["Dimensions"]
     else:
-        raise DeserializationError("CreateVectorIndexAction.dimensions required")
+        out["dimensions"] = 0
     if data.get("DistanceFunction") is not None:
         import capo_dynamodb.types.vector_distance_function
 
@@ -112,5 +112,9 @@ def deserialize_aws_json_1_0(data: dict) -> CreateVectorIndexAction:
             )
         )
     else:
-        raise DeserializationError("CreateVectorIndexAction.distance_function required")
+        import typing
+
+        out["distance_function"] = typing.cast(
+            "capo_dynamodb.types.vector_distance_function.VectorDistanceFunction", ""
+        )
     return out

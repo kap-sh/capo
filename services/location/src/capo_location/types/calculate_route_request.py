@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.api_key
     import capo_location.types.calculate_route_car_mode_options
@@ -130,7 +128,7 @@ def deserialize_json(data: dict) -> CalculateRouteRequest:
             data["DeparturePosition"]
         )
     else:
-        raise DeserializationError("CalculateRouteRequest.departure_position required")
+        out["departure_position"] = []
     if data.get("DestinationPosition") is not None:
         import capo_location.types.position
 
@@ -138,9 +136,7 @@ def deserialize_json(data: dict) -> CalculateRouteRequest:
             data["DestinationPosition"]
         )
     else:
-        raise DeserializationError(
-            "CalculateRouteRequest.destination_position required"
-        )
+        out["destination_position"] = []
     if data.get("WaypointPositions") is not None:
         import capo_location.types.waypoint_position_list
 

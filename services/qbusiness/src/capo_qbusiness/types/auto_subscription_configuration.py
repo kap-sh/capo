@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.auto_subscription_status
     import capo_qbusiness.types.subscription_type
@@ -52,8 +50,10 @@ def deserialize_json(data: dict) -> AutoSubscriptionConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "AutoSubscriptionConfiguration.auto_subscribe required"
+        import typing
+
+        out["auto_subscribe"] = typing.cast(
+            "capo_qbusiness.types.auto_subscription_status.AutoSubscriptionStatus", ""
         )
     if data.get("defaultSubscriptionType") is not None:
         import capo_qbusiness.types.subscription_type

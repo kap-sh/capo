@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.public_space_id
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> CreateSpaceRequest:
     if data.get("SpaceId") is not None:
         out["space_id"] = data["SpaceId"]
     else:
-        raise DeserializationError("CreateSpaceRequest.space_id required")
+        out["space_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateSpaceRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     return out

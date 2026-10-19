@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmanager.errors import DeserializationError, ServiceError
+from capo_networkmanager.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_networkmanager.types.core_network_policy_error_list
@@ -40,7 +40,7 @@ def deserialize_json(data: dict) -> CoreNetworkPolicyException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("CoreNetworkPolicyException_.message required")
+        out["message"] = ""
     if data.get("Errors") is not None:
         import capo_networkmanager.types.core_network_policy_error_list
 

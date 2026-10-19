@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity.types.identity_id
     import capo_cognito_identity.types.identity_pool_id
@@ -60,9 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetOpenIdTokenForDeveloperIdentityIn
     if data.get("IdentityPoolId") is not None:
         out["identity_pool_id"] = data["IdentityPoolId"]
     else:
-        raise DeserializationError(
-            "GetOpenIdTokenForDeveloperIdentityInput.identity_pool_id required"
-        )
+        out["identity_pool_id"] = ""
     if data.get("IdentityId") is not None:
         out["identity_id"] = data["IdentityId"]
     if data.get("Logins") is not None:
@@ -72,9 +68,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetOpenIdTokenForDeveloperIdentityIn
             data["Logins"]
         )
     else:
-        raise DeserializationError(
-            "GetOpenIdTokenForDeveloperIdentityInput.logins required"
-        )
+        out["logins"] = {}
     if data.get("PrincipalTags") is not None:
         import capo_cognito_identity.types.principal_tags
 

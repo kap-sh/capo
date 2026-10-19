@@ -44,7 +44,7 @@ def deserialize_json(data: dict) -> UpdateLinkRoutingRuleRequest:
     if data.get("priority") is not None:
         out["priority"] = data["priority"]
     else:
-        raise DeserializationError("UpdateLinkRoutingRuleRequest.priority required")
+        out["priority"] = 0
     if data.get("conditions") is not None:
         import capo_rtbfabric.types.rule_condition
 

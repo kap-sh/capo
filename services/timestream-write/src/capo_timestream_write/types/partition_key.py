@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_write.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_write.types.partition_key_enforcement_level
     import capo_timestream_write.types.partition_key_type
@@ -55,7 +53,11 @@ def deserialize_aws_json_1_0(data: dict) -> PartitionKey:
             )
         )
     else:
-        raise DeserializationError("PartitionKey.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_timestream_write.types.partition_key_type.PartitionKeyType", ""
+        )
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("EnforcementInRecord") is not None:

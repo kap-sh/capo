@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.callback_details
     import capo_lambda.types.chained_invoke_details
@@ -129,7 +127,7 @@ def deserialize_json(data: dict) -> Operation:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("Operation.id required")
+        out["id"] = ""
     if data.get("ParentId") is not None:
         out["parent_id"] = data["ParentId"]
     if data.get("Name") is not None:
@@ -139,7 +137,9 @@ def deserialize_json(data: dict) -> Operation:
 
         out["type"] = capo_lambda.types.operation_type.deserialize_json(data["Type"])
     else:
-        raise DeserializationError("Operation.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_lambda.types.operation_type.OperationType", "")
     if data.get("SubType") is not None:
         out["sub_type"] = data["SubType"]
     if data.get("StartTimestamp") is not None:
@@ -149,7 +149,11 @@ def deserialize_json(data: dict) -> Operation:
             data["StartTimestamp"]
         )
     else:
-        raise DeserializationError("Operation.start_timestamp required")
+        import datetime
+
+        out["start_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("EndTimestamp") is not None:
         import capo_lambda.types.execution_timestamp
 
@@ -163,7 +167,11 @@ def deserialize_json(data: dict) -> Operation:
             data["Status"]
         )
     else:
-        raise DeserializationError("Operation.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_lambda.types.operation_status.OperationStatus", ""
+        )
     if data.get("ExecutionDetails") is not None:
         import capo_lambda.types.execution_details
 

@@ -50,9 +50,7 @@ def deserialize_aws_json_1_1(data: dict) -> DetectCustomLabelsRequest:
     if data.get("ProjectVersionArn") is not None:
         out["project_version_arn"] = data["ProjectVersionArn"]
     else:
-        raise DeserializationError(
-            "DetectCustomLabelsRequest.project_version_arn required"
-        )
+        out["project_version_arn"] = ""
     if data.get("Image") is not None:
         import capo_rekognition.types.image
 

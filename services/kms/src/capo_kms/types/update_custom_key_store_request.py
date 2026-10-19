@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kms.types.account_id_type
     import capo_kms.types.cloud_hsm_cluster_id_type
@@ -106,9 +104,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateCustomKeyStoreRequest:
     if data.get("CustomKeyStoreId") is not None:
         out["custom_key_store_id"] = data["CustomKeyStoreId"]
     else:
-        raise DeserializationError(
-            "UpdateCustomKeyStoreRequest.custom_key_store_id required"
-        )
+        out["custom_key_store_id"] = ""
     if data.get("NewCustomKeyStoreName") is not None:
         out["new_custom_key_store_name"] = data["NewCustomKeyStoreName"]
     if data.get("KeyStorePassword") is not None:

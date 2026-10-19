@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -95,7 +93,7 @@ def deserialize_json(data: dict) -> ListContactsRequest:
             data["statusList"]
         )
     else:
-        raise DeserializationError("ListContactsRequest.status_list required")
+        out["status_list"] = []
     if data.get("startTime") is not None:
         import capo_groundstation.types._prelude.timestamp
 
@@ -105,7 +103,9 @@ def deserialize_json(data: dict) -> ListContactsRequest:
             )
         )
     else:
-        raise DeserializationError("ListContactsRequest.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_groundstation.types._prelude.timestamp
 
@@ -113,7 +113,9 @@ def deserialize_json(data: dict) -> ListContactsRequest:
             data["endTime"]
         )
     else:
-        raise DeserializationError("ListContactsRequest.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("groundStation") is not None:
         out["ground_station"] = data["groundStation"]
     if data.get("satelliteArn") is not None:

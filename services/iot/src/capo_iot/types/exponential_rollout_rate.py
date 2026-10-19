@@ -47,13 +47,11 @@ def deserialize_json(data: dict) -> ExponentialRolloutRate:
     if data.get("baseRatePerMinute") is not None:
         out["base_rate_per_minute"] = data["baseRatePerMinute"]
     else:
-        raise DeserializationError(
-            "ExponentialRolloutRate.base_rate_per_minute required"
-        )
+        out["base_rate_per_minute"] = 0
     if data.get("incrementFactor") is not None:
         out["increment_factor"] = float(data["incrementFactor"])
     else:
-        raise DeserializationError("ExponentialRolloutRate.increment_factor required")
+        out["increment_factor"] = 0.0
     if data.get("rateIncreaseCriteria") is not None:
         import capo_iot.types.rate_increase_criteria
 

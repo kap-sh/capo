@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 
 class TransformDataResponse(TypedDict, closed=True):
     transformed_data: "str"
@@ -26,7 +24,7 @@ def deserialize_aws_json_1_0(data: dict) -> TransformDataResponse:
     if data.get("TransformedData") is not None:
         out["transformed_data"] = data["TransformedData"]
     else:
-        raise DeserializationError("TransformDataResponse.transformed_data required")
+        out["transformed_data"] = ""
     if data.get("DriftReport") is not None:
         out["drift_report"] = data["DriftReport"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codeguruprofiler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguruprofiler.types.timestamp
 
@@ -33,5 +31,7 @@ def deserialize_json(data: dict) -> TimestampStructure:
             data["value"]
         )
     else:
-        raise DeserializationError("TimestampStructure.value required")
+        import datetime
+
+        out["value"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

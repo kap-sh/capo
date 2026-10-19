@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codedeploy.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codedeploy.types.application_name
     import capo_codedeploy.types.application_revision_sort_by
@@ -77,9 +75,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListApplicationRevisionsInput:
     if data.get("applicationName") is not None:
         out["application_name"] = data["applicationName"]
     else:
-        raise DeserializationError(
-            "ListApplicationRevisionsInput.application_name required"
-        )
+        out["application_name"] = ""
     if data.get("sortBy") is not None:
         import capo_codedeploy.types.application_revision_sort_by
 

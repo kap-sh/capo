@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_chime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime.types.non_empty_string
     import capo_chime.types.update_user_request_item_list
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> BatchUpdateUserRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchUpdateUserRequest.update_user_request_items required"
-        )
+        out["update_user_request_items"] = []
     return out
 
 

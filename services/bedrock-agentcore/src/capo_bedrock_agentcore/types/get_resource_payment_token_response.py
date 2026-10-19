@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.payment_token_response_output
 
@@ -39,8 +37,10 @@ def deserialize_json(data: dict) -> GetResourcePaymentTokenResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetResourcePaymentTokenResponse.payment_token_response required"
+        import capo_bedrock_agentcore.types._unknown
+
+        out["payment_token_response"] = (
+            capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
         )
     return out
 

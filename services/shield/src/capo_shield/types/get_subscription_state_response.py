@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_shield.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_shield.types.subscription_state
 
@@ -39,7 +37,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetSubscriptionStateResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetSubscriptionStateResponse.subscription_state required"
+        import typing
+
+        out["subscription_state"] = typing.cast(
+            "capo_shield.types.subscription_state.SubscriptionState", ""
         )
     return out

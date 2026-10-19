@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.cloud_watch_log_group_arn
     import capo_storage_gateway.types.gateway_arn
@@ -57,7 +55,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateGatewayInformationInput:
     if data.get("GatewayARN") is not None:
         out["gateway_arn"] = data["GatewayARN"]
     else:
-        raise DeserializationError("UpdateGatewayInformationInput.gateway_arn required")
+        out["gateway_arn"] = ""
     if data.get("GatewayName") is not None:
         out["gateway_name"] = data["GatewayName"]
     if data.get("GatewayTimezone") is not None:

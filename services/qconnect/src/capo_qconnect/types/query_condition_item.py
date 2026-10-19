@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.non_empty_string
     import capo_qconnect.types.query_condition_comparison_operator
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> QueryConditionItem:
     if data.get("field") is not None:
         out["field"] = data["field"]
     else:
-        raise DeserializationError("QueryConditionItem.field required")
+        out["field"] = ""
     if data.get("comparator") is not None:
         out["comparator"] = data["comparator"]
     else:
-        raise DeserializationError("QueryConditionItem.comparator required")
+        out["comparator"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("QueryConditionItem.value required")
+        out["value"] = ""
     return out

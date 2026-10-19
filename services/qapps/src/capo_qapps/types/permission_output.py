@@ -39,7 +39,9 @@ def deserialize_json(data: dict) -> PermissionOutput:
 
         out["action"] = capo_qapps.types.action.deserialize_json(data["action"])
     else:
-        raise DeserializationError("PermissionOutput.action required")
+        import typing
+
+        out["action"] = typing.cast("capo_qapps.types.action.Action", "")
     if data.get("principal") is not None:
         import capo_qapps.types.principal_output
 

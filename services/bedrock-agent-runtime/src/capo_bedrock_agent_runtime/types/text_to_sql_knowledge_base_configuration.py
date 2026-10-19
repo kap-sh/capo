@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.knowledge_base_arn
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> TextToSqlKnowledgeBaseConfiguration:
     if data.get("knowledgeBaseArn") is not None:
         out["knowledge_base_arn"] = data["knowledgeBaseArn"]
     else:
-        raise DeserializationError(
-            "TextToSqlKnowledgeBaseConfiguration.knowledge_base_arn required"
-        )
+        out["knowledge_base_arn"] = ""
     return out

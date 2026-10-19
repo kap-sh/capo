@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.date_time
     import capo_partnercentral_selling.types.engagement_identifier_list
@@ -85,15 +83,11 @@ def deserialize_aws_json_1_0(data: dict) -> StartProspectingFromEngagementTaskRe
             )
         )
     else:
-        raise DeserializationError(
-            "StartProspectingFromEngagementTaskResponse.identifiers required"
-        )
+        out["identifiers"] = []
     if data.get("TaskName") is not None:
         out["task_name"] = data["TaskName"]
     else:
-        raise DeserializationError(
-            "StartProspectingFromEngagementTaskResponse.task_name required"
-        )
+        out["task_name"] = ""
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     if data.get("ReasonCode") is not None:
@@ -107,9 +101,9 @@ def deserialize_aws_json_1_0(data: dict) -> StartProspectingFromEngagementTaskRe
             )
         )
     else:
-        raise DeserializationError(
-            "StartProspectingFromEngagementTaskResponse.start_time required"
-        )
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("TaskId") is not None:
         out["task_id"] = data["TaskId"]
     if data.get("TaskArn") is not None:
@@ -123,7 +117,10 @@ def deserialize_aws_json_1_0(data: dict) -> StartProspectingFromEngagementTaskRe
             )
         )
     else:
-        raise DeserializationError(
-            "StartProspectingFromEngagementTaskResponse.task_status required"
+        import typing
+
+        out["task_status"] = typing.cast(
+            "capo_partnercentral_selling.types.prospecting_task_status.ProspectingTaskStatus",
+            "",
         )
     return out

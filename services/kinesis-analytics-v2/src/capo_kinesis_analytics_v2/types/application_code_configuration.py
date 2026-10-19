@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.code_content
     import capo_kinesis_analytics_v2.types.code_content_type
@@ -62,7 +60,9 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationCodeConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ApplicationCodeConfiguration.code_content_type required"
+        import typing
+
+        out["code_content_type"] = typing.cast(
+            "capo_kinesis_analytics_v2.types.code_content_type.CodeContentType", ""
         )
     return out

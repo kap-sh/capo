@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.file_uploader_field_config
     import capo_amplifyuibuilder.types.value_mappings
@@ -128,7 +126,7 @@ def deserialize_json(data: dict) -> FieldInputConfig:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("FieldInputConfig.type required")
+        out["type"] = ""
     if data.get("required") is not None:
         out["required"] = data["required"]
     if data.get("readOnly") is not None:

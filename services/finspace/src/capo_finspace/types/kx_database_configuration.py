@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_finspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace.types.changeset_id
     import capo_finspace.types.database_name
@@ -63,7 +61,7 @@ def deserialize_json(data: dict) -> KxDatabaseConfiguration:
     if data.get("databaseName") is not None:
         out["database_name"] = data["databaseName"]
     else:
-        raise DeserializationError("KxDatabaseConfiguration.database_name required")
+        out["database_name"] = ""
     if data.get("cacheConfigurations") is not None:
         import capo_finspace.types.kx_database_cache_configurations
 

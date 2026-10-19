@@ -52,9 +52,7 @@ def deserialize_json(data: dict) -> DataTableDeleteValueIdentifier:
     if data.get("AttributeName") is not None:
         out["attribute_name"] = data["AttributeName"]
     else:
-        raise DeserializationError(
-            "DataTableDeleteValueIdentifier.attribute_name required"
-        )
+        out["attribute_name"] = ""
     if data.get("LockVersion") is not None:
         import capo_connect.types.data_table_lock_version
 

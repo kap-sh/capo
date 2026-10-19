@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_compute_optimizer_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_compute_optimizer_automation.types.savings_estimation_mode
 
@@ -58,19 +56,15 @@ def deserialize_aws_json_1_0(data: dict) -> EstimatedMonthlySavings:
     if data.get("currency") is not None:
         out["currency"] = data["currency"]
     else:
-        raise DeserializationError("EstimatedMonthlySavings.currency required")
+        out["currency"] = ""
     if data.get("beforeDiscountSavings") is not None:
         out["before_discount_savings"] = float(data["beforeDiscountSavings"])
     else:
-        raise DeserializationError(
-            "EstimatedMonthlySavings.before_discount_savings required"
-        )
+        out["before_discount_savings"] = 0.0
     if data.get("afterDiscountSavings") is not None:
         out["after_discount_savings"] = float(data["afterDiscountSavings"])
     else:
-        raise DeserializationError(
-            "EstimatedMonthlySavings.after_discount_savings required"
-        )
+        out["after_discount_savings"] = 0.0
     if data.get("savingsEstimationMode") is not None:
         import capo_compute_optimizer_automation.types.savings_estimation_mode
 
@@ -80,7 +74,10 @@ def deserialize_aws_json_1_0(data: dict) -> EstimatedMonthlySavings:
             )
         )
     else:
-        raise DeserializationError(
-            "EstimatedMonthlySavings.savings_estimation_mode required"
+        import typing
+
+        out["savings_estimation_mode"] = typing.cast(
+            "capo_compute_optimizer_automation.types.savings_estimation_mode.SavingsEstimationMode",
+            "",
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.stop_condition_source
 
@@ -40,9 +38,13 @@ def deserialize_json(data: dict) -> StopCondition:
             )
         )
     else:
-        raise DeserializationError("StopCondition.source required")
+        import typing
+
+        out["source"] = typing.cast(
+            "capo_resiliencehubv2.types.stop_condition_source.StopConditionSource", ""
+        )
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("StopCondition.value required")
+        out["value"] = ""
     return out

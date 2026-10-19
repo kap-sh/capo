@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.guardrail_pii_entity_type
     import capo_bedrock.types.guardrail_sensitive_information_action
@@ -77,7 +75,11 @@ def deserialize_json(data: dict) -> GuardrailPiiEntity:
             data["type"]
         )
     else:
-        raise DeserializationError("GuardrailPiiEntity.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock.types.guardrail_pii_entity_type.GuardrailPiiEntityType", ""
+        )
     if data.get("action") is not None:
         import capo_bedrock.types.guardrail_sensitive_information_action
 
@@ -87,7 +89,12 @@ def deserialize_json(data: dict) -> GuardrailPiiEntity:
             )
         )
     else:
-        raise DeserializationError("GuardrailPiiEntity.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_bedrock.types.guardrail_sensitive_information_action.GuardrailSensitiveInformationAction",
+            "",
+        )
     if data.get("inputAction") is not None:
         import capo_bedrock.types.guardrail_sensitive_information_action
 

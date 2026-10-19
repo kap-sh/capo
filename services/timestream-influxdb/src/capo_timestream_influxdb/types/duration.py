@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_timestream_influxdb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_influxdb.types.duration_type
 
@@ -42,9 +40,13 @@ def deserialize_aws_json_1_0(data: dict) -> Duration:
             )
         )
     else:
-        raise DeserializationError("Duration.duration_type required")
+        import typing
+
+        out["duration_type"] = typing.cast(
+            "capo_timestream_influxdb.types.duration_type.DurationType", ""
+        )
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("Duration.value required")
+        out["value"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.redshift_database
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> RedshiftQueryEngineRedshiftStorageConfigurat
     if data.get("databaseName") is not None:
         out["database_name"] = data["databaseName"]
     else:
-        raise DeserializationError(
-            "RedshiftQueryEngineRedshiftStorageConfiguration.database_name required"
-        )
+        out["database_name"] = ""
     return out

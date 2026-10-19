@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.boolean
     import capo_lightsail.types.resource_name
@@ -72,9 +70,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateRelationalDatabaseRequest:
     if data.get("relationalDatabaseName") is not None:
         out["relational_database_name"] = data["relationalDatabaseName"]
     else:
-        raise DeserializationError(
-            "UpdateRelationalDatabaseRequest.relational_database_name required"
-        )
+        out["relational_database_name"] = ""
     if data.get("masterUserPassword") is not None:
         out["master_user_password"] = data["masterUserPassword"]
     if data.get("rotateMasterUserPassword") is not None:

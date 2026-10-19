@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.name
     import capo_customer_profiles.types.stringified_json
@@ -34,11 +32,11 @@ def deserialize_json(data: dict) -> PutProfileObjectRequest:
     if data.get("ObjectTypeName") is not None:
         out["object_type_name"] = data["ObjectTypeName"]
     else:
-        raise DeserializationError("PutProfileObjectRequest.object_type_name required")
+        out["object_type_name"] = ""
     if data.get("Object") is not None:
         out["object"] = data["Object"]
     else:
-        raise DeserializationError("PutProfileObjectRequest.object required")
+        out["object"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.pagination_token
     import capo_ssm_contacts.types.ssm_contacts_arn
@@ -34,5 +32,5 @@ def deserialize_aws_json_1_1(data: dict) -> ListPageResolutionsRequest:
     if data.get("PageId") is not None:
         out["page_id"] = data["PageId"]
     else:
-        raise DeserializationError("ListPageResolutionsRequest.page_id required")
+        out["page_id"] = ""
     return out

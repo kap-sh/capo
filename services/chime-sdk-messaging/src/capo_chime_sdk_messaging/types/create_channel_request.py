@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_messaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_messaging.types.channel_id
     import capo_chime_sdk_messaging.types.channel_member_arns
@@ -130,11 +128,11 @@ def deserialize_json(data: dict) -> CreateChannelRequest:
     if data.get("AppInstanceArn") is not None:
         out["app_instance_arn"] = data["AppInstanceArn"]
     else:
-        raise DeserializationError("CreateChannelRequest.app_instance_arn required")
+        out["app_instance_arn"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateChannelRequest.name required")
+        out["name"] = ""
     if data.get("Mode") is not None:
         import capo_chime_sdk_messaging.types.channel_mode
 
@@ -154,7 +152,7 @@ def deserialize_json(data: dict) -> CreateChannelRequest:
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     else:
-        raise DeserializationError("CreateChannelRequest.client_request_token required")
+        out["client_request_token"] = ""
     if data.get("Tags") is not None:
         import capo_chime_sdk_messaging.types.tag_list
 

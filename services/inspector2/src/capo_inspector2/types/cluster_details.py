@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -51,7 +49,11 @@ def deserialize_json(data: dict) -> ClusterDetails:
             data["lastInUse"]
         )
     else:
-        raise DeserializationError("ClusterDetails.last_in_use required")
+        import datetime
+
+        out["last_in_use"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("runningUnitCount") is not None:
         out["running_unit_count"] = data["runningUnitCount"]
     if data.get("stoppedUnitCount") is not None:
@@ -65,5 +67,7 @@ def deserialize_json(data: dict) -> ClusterDetails:
             )
         )
     else:
-        raise DeserializationError("ClusterDetails.cluster_metadata required")
+        import capo_inspector2.types._unknown
+
+        out["cluster_metadata"] = capo_inspector2.types._unknown.UnknownUnionMember("")
     return out

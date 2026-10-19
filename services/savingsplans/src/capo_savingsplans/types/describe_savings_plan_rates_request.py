@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_savingsplans.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_savingsplans.types.max_results
     import capo_savingsplans.types.pagination_token
@@ -50,9 +48,7 @@ def deserialize_json(data: dict) -> DescribeSavingsPlanRatesRequest:
     if data.get("savingsPlanId") is not None:
         out["savings_plan_id"] = data["savingsPlanId"]
     else:
-        raise DeserializationError(
-            "DescribeSavingsPlanRatesRequest.savings_plan_id required"
-        )
+        out["savings_plan_id"] = ""
     if data.get("filters") is not None:
         import capo_savingsplans.types.savings_plan_rate_filter_list
 

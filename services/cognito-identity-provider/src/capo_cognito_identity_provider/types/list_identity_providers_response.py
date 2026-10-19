@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.pagination_key_type
     import capo_cognito_identity_provider.types.providers_list_type
@@ -48,7 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListIdentityProvidersResponse:
             )
         )
     else:
-        raise DeserializationError("ListIdentityProvidersResponse.providers required")
+        out["providers"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

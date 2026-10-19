@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.pagination_key_type
     import capo_cognito_identity_provider.types.pool_query_limit_type
@@ -38,5 +36,5 @@ def deserialize_aws_json_1_1(data: dict) -> ListUserPoolsRequest:
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     else:
-        raise DeserializationError("ListUserPoolsRequest.max_results required")
+        out["max_results"] = 0
     return out

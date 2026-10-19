@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.dtmf_character
     import capo_lex_models_v2.types.max_utterance_digits
@@ -38,17 +36,17 @@ def deserialize_json(data: dict) -> DTMFSpecification:
     if data.get("maxLength") is not None:
         out["max_length"] = data["maxLength"]
     else:
-        raise DeserializationError("DTMFSpecification.max_length required")
+        out["max_length"] = 0
     if data.get("endTimeoutMs") is not None:
         out["end_timeout_ms"] = data["endTimeoutMs"]
     else:
-        raise DeserializationError("DTMFSpecification.end_timeout_ms required")
+        out["end_timeout_ms"] = 0
     if data.get("deletionCharacter") is not None:
         out["deletion_character"] = data["deletionCharacter"]
     else:
-        raise DeserializationError("DTMFSpecification.deletion_character required")
+        out["deletion_character"] = ""
     if data.get("endCharacter") is not None:
         out["end_character"] = data["endCharacter"]
     else:
-        raise DeserializationError("DTMFSpecification.end_character required")
+        out["end_character"] = ""
     return out

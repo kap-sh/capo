@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.agent_collaboration
     import capo_bedrock_agent.types.agent_role_arn
@@ -143,7 +141,7 @@ def deserialize_json(data: dict) -> UpdateAgentRequest:
     if data.get("agentName") is not None:
         out["agent_name"] = data["agentName"]
     else:
-        raise DeserializationError("UpdateAgentRequest.agent_name required")
+        out["agent_name"] = ""
     if data.get("instruction") is not None:
         out["instruction"] = data["instruction"]
     if data.get("foundationModel") is not None:
@@ -171,9 +169,7 @@ def deserialize_json(data: dict) -> UpdateAgentRequest:
     if data.get("agentResourceRoleArn") is not None:
         out["agent_resource_role_arn"] = data["agentResourceRoleArn"]
     else:
-        raise DeserializationError(
-            "UpdateAgentRequest.agent_resource_role_arn required"
-        )
+        out["agent_resource_role_arn"] = ""
     if data.get("customerEncryptionKeyArn") is not None:
         out["customer_encryption_key_arn"] = data["customerEncryptionKeyArn"]
     if data.get("promptOverrideConfiguration") is not None:

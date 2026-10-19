@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transcribe.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe.types.model_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLanguageModelRequest:
     if data.get("ModelName") is not None:
         out["model_name"] = data["ModelName"]
     else:
-        raise DeserializationError("DescribeLanguageModelRequest.model_name required")
+        out["model_name"] = ""
     return out

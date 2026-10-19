@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.evaluation_transcript_points_of_interest
     import capo_connect.types.question_rule_category_automation_condition
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> EvaluationAutomationRuleCategory:
     if data.get("Category") is not None:
         out["category"] = data["Category"]
     else:
-        raise DeserializationError("EvaluationAutomationRuleCategory.category required")
+        out["category"] = ""
     if data.get("Condition") is not None:
         import capo_connect.types.question_rule_category_automation_condition
 
@@ -60,8 +58,11 @@ def deserialize_json(data: dict) -> EvaluationAutomationRuleCategory:
             )
         )
     else:
-        raise DeserializationError(
-            "EvaluationAutomationRuleCategory.condition required"
+        import typing
+
+        out["condition"] = typing.cast(
+            "capo_connect.types.question_rule_category_automation_condition.QuestionRuleCategoryAutomationCondition",
+            "",
         )
     if data.get("PointsOfInterest") is not None:
         import capo_connect.types.evaluation_transcript_points_of_interest

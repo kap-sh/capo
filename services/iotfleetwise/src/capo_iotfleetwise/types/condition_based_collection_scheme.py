@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.event_expression
     import capo_iotfleetwise.types.language_version
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_0(data: dict) -> ConditionBasedCollectionScheme:
     if data.get("expression") is not None:
         out["expression"] = data["expression"]
     else:
-        raise DeserializationError("ConditionBasedCollectionScheme.expression required")
+        out["expression"] = ""
     if data.get("minimumTriggerIntervalMs") is not None:
         out["minimum_trigger_interval_ms"] = data["minimumTriggerIntervalMs"]
     if data.get("triggerMode") is not None:

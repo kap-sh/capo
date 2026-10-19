@@ -80,15 +80,15 @@ def deserialize_json(data: dict) -> AppAuthorization:
     if data.get("appAuthorizationArn") is not None:
         out["app_authorization_arn"] = data["appAuthorizationArn"]
     else:
-        raise DeserializationError("AppAuthorization.app_authorization_arn required")
+        out["app_authorization_arn"] = ""
     if data.get("appBundleArn") is not None:
         out["app_bundle_arn"] = data["appBundleArn"]
     else:
-        raise DeserializationError("AppAuthorization.app_bundle_arn required")
+        out["app_bundle_arn"] = ""
     if data.get("app") is not None:
         out["app"] = data["app"]
     else:
-        raise DeserializationError("AppAuthorization.app required")
+        out["app"] = ""
     if data.get("tenant") is not None:
         import capo_appfabric.types.tenant
 
@@ -102,7 +102,9 @@ def deserialize_json(data: dict) -> AppAuthorization:
             data["authType"]
         )
     else:
-        raise DeserializationError("AppAuthorization.auth_type required")
+        import typing
+
+        out["auth_type"] = typing.cast("capo_appfabric.types.auth_type.AuthType", "")
     if data.get("status") is not None:
         import capo_appfabric.types.app_authorization_status
 
@@ -110,7 +112,11 @@ def deserialize_json(data: dict) -> AppAuthorization:
             data["status"]
         )
     else:
-        raise DeserializationError("AppAuthorization.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_appfabric.types.app_authorization_status.AppAuthorizationStatus", ""
+        )
     if data.get("createdAt") is not None:
         import capo_appfabric.types.date_time
 
@@ -118,7 +124,9 @@ def deserialize_json(data: dict) -> AppAuthorization:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("AppAuthorization.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_appfabric.types.date_time
 
@@ -126,7 +134,9 @@ def deserialize_json(data: dict) -> AppAuthorization:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("AppAuthorization.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("persona") is not None:
         import capo_appfabric.types.persona
 

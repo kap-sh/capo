@@ -69,13 +69,11 @@ def deserialize_json(data: dict) -> EstimatedWaterAllocation:
             )
         )
     else:
-        raise DeserializationError(
-            "EstimatedWaterAllocation.dimensions_values required"
-        )
+        out["dimensions_values"] = {}
     if data.get("ModelVersion") is not None:
         out["model_version"] = data["ModelVersion"]
     else:
-        raise DeserializationError("EstimatedWaterAllocation.model_version required")
+        out["model_version"] = ""
     if data.get("AllocationValues") is not None:
         import capo_sustainability.types.water_allocation_map
 
@@ -85,7 +83,5 @@ def deserialize_json(data: dict) -> EstimatedWaterAllocation:
             )
         )
     else:
-        raise DeserializationError(
-            "EstimatedWaterAllocation.allocation_values required"
-        )
+        out["allocation_values"] = {}
     return out

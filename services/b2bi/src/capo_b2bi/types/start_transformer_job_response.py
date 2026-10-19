@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.transformer_job_id
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> StartTransformerJobResponse:
     if data.get("transformerJobId") is not None:
         out["transformer_job_id"] = data["transformerJobId"]
     else:
-        raise DeserializationError(
-            "StartTransformerJobResponse.transformer_job_id required"
-        )
+        out["transformer_job_id"] = ""
     return out

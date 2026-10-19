@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.merge_options
     import capo_codecommit.types.object_id
@@ -47,19 +45,17 @@ def deserialize_aws_json_1_1(data: dict) -> GetMergeOptionsOutput:
             )
         )
     else:
-        raise DeserializationError("GetMergeOptionsOutput.merge_options required")
+        out["merge_options"] = []
     if data.get("sourceCommitId") is not None:
         out["source_commit_id"] = data["sourceCommitId"]
     else:
-        raise DeserializationError("GetMergeOptionsOutput.source_commit_id required")
+        out["source_commit_id"] = ""
     if data.get("destinationCommitId") is not None:
         out["destination_commit_id"] = data["destinationCommitId"]
     else:
-        raise DeserializationError(
-            "GetMergeOptionsOutput.destination_commit_id required"
-        )
+        out["destination_commit_id"] = ""
     if data.get("baseCommitId") is not None:
         out["base_commit_id"] = data["baseCommitId"]
     else:
-        raise DeserializationError("GetMergeOptionsOutput.base_commit_id required")
+        out["base_commit_id"] = ""
     return out

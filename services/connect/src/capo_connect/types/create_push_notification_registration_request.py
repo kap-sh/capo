@@ -61,15 +61,11 @@ def deserialize_json(data: dict) -> CreatePushNotificationRegistrationRequest:
     if data.get("PinpointAppArn") is not None:
         out["pinpoint_app_arn"] = data["PinpointAppArn"]
     else:
-        raise DeserializationError(
-            "CreatePushNotificationRegistrationRequest.pinpoint_app_arn required"
-        )
+        out["pinpoint_app_arn"] = ""
     if data.get("DeviceToken") is not None:
         out["device_token"] = data["DeviceToken"]
     else:
-        raise DeserializationError(
-            "CreatePushNotificationRegistrationRequest.device_token required"
-        )
+        out["device_token"] = ""
     if data.get("DeviceType") is not None:
         import capo_connect.types.device_type
 
@@ -77,8 +73,10 @@ def deserialize_json(data: dict) -> CreatePushNotificationRegistrationRequest:
             data["DeviceType"]
         )
     else:
-        raise DeserializationError(
-            "CreatePushNotificationRegistrationRequest.device_type required"
+        import typing
+
+        out["device_type"] = typing.cast(
+            "capo_connect.types.device_type.DeviceType", ""
         )
     if data.get("ContactConfiguration") is not None:
         import capo_connect.types.contact_configuration

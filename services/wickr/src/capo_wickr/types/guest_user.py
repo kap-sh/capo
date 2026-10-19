@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.generic_string
 
@@ -33,13 +31,13 @@ def deserialize_json(data: dict) -> GuestUser:
     if data.get("billingPeriod") is not None:
         out["billing_period"] = data["billingPeriod"]
     else:
-        raise DeserializationError("GuestUser.billing_period required")
+        out["billing_period"] = ""
     if data.get("username") is not None:
         out["username"] = data["username"]
     else:
-        raise DeserializationError("GuestUser.username required")
+        out["username"] = ""
     if data.get("usernameHash") is not None:
         out["username_hash"] = data["usernameHash"]
     else:
-        raise DeserializationError("GuestUser.username_hash required")
+        out["username_hash"] = ""
     return out

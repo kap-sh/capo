@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mwaa.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mwaa.types.environment_name
     import capo_mwaa.types.rest_api_method
@@ -43,11 +41,11 @@ def deserialize_json(data: dict) -> InvokeRestApiRequest:
     if data.get("Path") is not None:
         out["path"] = data["Path"]
     else:
-        raise DeserializationError("InvokeRestApiRequest.path required")
+        out["path"] = ""
     if data.get("Method") is not None:
         out["method"] = data["Method"]
     else:
-        raise DeserializationError("InvokeRestApiRequest.method required")
+        out["method"] = ""
     if data.get("QueryParameters") is not None:
         out["query_parameters"] = data["QueryParameters"]
     if data.get("Body") is not None:

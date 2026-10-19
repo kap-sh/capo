@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.leg_geometry
     import capo_location.types.position
@@ -80,7 +78,7 @@ def deserialize_json(data: dict) -> Leg:
             data["StartPosition"]
         )
     else:
-        raise DeserializationError("Leg.start_position required")
+        out["start_position"] = []
     if data.get("EndPosition") is not None:
         import capo_location.types.position
 
@@ -88,15 +86,15 @@ def deserialize_json(data: dict) -> Leg:
             data["EndPosition"]
         )
     else:
-        raise DeserializationError("Leg.end_position required")
+        out["end_position"] = []
     if data.get("Distance") is not None:
         out["distance"] = float(data["Distance"])
     else:
-        raise DeserializationError("Leg.distance required")
+        out["distance"] = 0.0
     if data.get("DurationSeconds") is not None:
         out["duration_seconds"] = float(data["DurationSeconds"])
     else:
-        raise DeserializationError("Leg.duration_seconds required")
+        out["duration_seconds"] = 0.0
     if data.get("Geometry") is not None:
         import capo_location.types.leg_geometry
 
@@ -108,7 +106,7 @@ def deserialize_json(data: dict) -> Leg:
 
         out["steps"] = capo_location.types.step_list.deserialize_json(data["Steps"])
     else:
-        raise DeserializationError("Leg.steps required")
+        out["steps"] = []
     return out
 
 

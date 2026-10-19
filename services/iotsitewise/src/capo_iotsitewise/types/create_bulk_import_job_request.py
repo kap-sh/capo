@@ -86,17 +86,17 @@ def deserialize_json(data: dict) -> CreateBulkImportJobRequest:
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError("CreateBulkImportJobRequest.job_name required")
+        out["job_name"] = ""
     if data.get("jobRoleArn") is not None:
         out["job_role_arn"] = data["jobRoleArn"]
     else:
-        raise DeserializationError("CreateBulkImportJobRequest.job_role_arn required")
+        out["job_role_arn"] = ""
     if data.get("files") is not None:
         import capo_iotsitewise.types.files
 
         out["files"] = capo_iotsitewise.types.files.deserialize_json(data["files"])
     else:
-        raise DeserializationError("CreateBulkImportJobRequest.files required")
+        out["files"] = []
     if data.get("errorReportLocation") is not None:
         import capo_iotsitewise.types.error_report_location
 

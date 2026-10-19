@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_xray.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_xray.types.entity_selector_expression
     import capo_xray.types.group_arn
@@ -70,17 +68,17 @@ def deserialize_json(data: dict) -> GetTimeSeriesServiceStatisticsRequest:
             data["StartTime"]
         )
     else:
-        raise DeserializationError(
-            "GetTimeSeriesServiceStatisticsRequest.start_time required"
-        )
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_xray.types.timestamp
 
         out["end_time"] = capo_xray.types.timestamp.deserialize_json(data["EndTime"])
     else:
-        raise DeserializationError(
-            "GetTimeSeriesServiceStatisticsRequest.end_time required"
-        )
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("GroupName") is not None:
         out["group_name"] = data["GroupName"]
     if data.get("GroupARN") is not None:

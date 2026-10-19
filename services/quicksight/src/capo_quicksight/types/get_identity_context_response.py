@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.status_code2
 
@@ -33,7 +31,7 @@ def deserialize_json(data: dict) -> GetIdentityContextResponse:
     if data.get("RequestId") is not None:
         out["request_id"] = data["RequestId"]
     else:
-        raise DeserializationError("GetIdentityContextResponse.request_id required")
+        out["request_id"] = ""
     if data.get("Context") is not None:
         out["context"] = data["Context"]
     return out

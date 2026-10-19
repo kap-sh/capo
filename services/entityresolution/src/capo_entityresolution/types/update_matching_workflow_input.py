@@ -91,9 +91,7 @@ def deserialize_json(data: dict) -> UpdateMatchingWorkflowInput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateMatchingWorkflowInput.input_source_config required"
-        )
+        out["input_source_config"] = []
     if data.get("outputSourceConfig") is not None:
         import capo_entityresolution.types.output_source_config
 
@@ -103,9 +101,7 @@ def deserialize_json(data: dict) -> UpdateMatchingWorkflowInput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateMatchingWorkflowInput.output_source_config required"
-        )
+        out["output_source_config"] = []
     if data.get("resolutionTechniques") is not None:
         import capo_entityresolution.types.resolution_techniques
 
@@ -129,5 +125,5 @@ def deserialize_json(data: dict) -> UpdateMatchingWorkflowInput:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("UpdateMatchingWorkflowInput.role_arn required")
+        out["role_arn"] = ""
     return out

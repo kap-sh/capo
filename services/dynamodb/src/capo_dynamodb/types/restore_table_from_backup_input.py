@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.backup_arn
     import capo_dynamodb.types.billing_mode
@@ -119,13 +117,11 @@ def deserialize_aws_json_1_0(data: dict) -> RestoreTableFromBackupInput:
     if data.get("TargetTableName") is not None:
         out["target_table_name"] = data["TargetTableName"]
     else:
-        raise DeserializationError(
-            "RestoreTableFromBackupInput.target_table_name required"
-        )
+        out["target_table_name"] = ""
     if data.get("BackupArn") is not None:
         out["backup_arn"] = data["BackupArn"]
     else:
-        raise DeserializationError("RestoreTableFromBackupInput.backup_arn required")
+        out["backup_arn"] = ""
     if data.get("BillingModeOverride") is not None:
         import capo_dynamodb.types.billing_mode
 

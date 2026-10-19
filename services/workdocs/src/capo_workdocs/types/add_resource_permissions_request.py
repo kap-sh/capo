@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workdocs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workdocs.types.authentication_header_type
     import capo_workdocs.types.notification_options
@@ -56,7 +54,7 @@ def deserialize_json(data: dict) -> AddResourcePermissionsRequest:
             data["Principals"]
         )
     else:
-        raise DeserializationError("AddResourcePermissionsRequest.principals required")
+        out["principals"] = []
     if data.get("NotificationOptions") is not None:
         import capo_workdocs.types.notification_options
 

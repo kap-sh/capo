@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.created_at
     import capo_deadline.types.created_by
@@ -87,15 +85,15 @@ def deserialize_json(data: dict) -> WorkerSummary:
     if data.get("farmId") is not None:
         out["farm_id"] = data["farmId"]
     else:
-        raise DeserializationError("WorkerSummary.farm_id required")
+        out["farm_id"] = ""
     if data.get("fleetId") is not None:
         out["fleet_id"] = data["fleetId"]
     else:
-        raise DeserializationError("WorkerSummary.fleet_id required")
+        out["fleet_id"] = ""
     if data.get("workerId") is not None:
         out["worker_id"] = data["workerId"]
     else:
-        raise DeserializationError("WorkerSummary.worker_id required")
+        out["worker_id"] = ""
     if data.get("hostProperties") is not None:
         import capo_deadline.types.host_properties_response
 
@@ -111,7 +109,11 @@ def deserialize_json(data: dict) -> WorkerSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("WorkerSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_deadline.types.worker_status.WorkerStatus", ""
+        )
     if data.get("log") is not None:
         import capo_deadline.types.log_configuration
 
@@ -123,11 +125,13 @@ def deserialize_json(data: dict) -> WorkerSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("WorkerSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("WorkerSummary.created_by required")
+        out["created_by"] = ""
     if data.get("updatedAt") is not None:
         import capo_deadline.types.updated_at
 

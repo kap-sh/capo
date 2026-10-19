@@ -83,7 +83,7 @@ def deserialize_json(data: dict) -> CreateIdNamespaceAssociationInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateIdNamespaceAssociationInput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("idMappingConfig") is not None:

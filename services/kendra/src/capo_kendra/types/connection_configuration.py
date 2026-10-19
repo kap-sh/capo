@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.database_host
     import capo_kendra.types.database_name
@@ -43,21 +41,21 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectionConfiguration:
     if data.get("DatabaseHost") is not None:
         out["database_host"] = data["DatabaseHost"]
     else:
-        raise DeserializationError("ConnectionConfiguration.database_host required")
+        out["database_host"] = ""
     if data.get("DatabasePort") is not None:
         out["database_port"] = data["DatabasePort"]
     else:
-        raise DeserializationError("ConnectionConfiguration.database_port required")
+        out["database_port"] = 0
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError("ConnectionConfiguration.database_name required")
+        out["database_name"] = ""
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("ConnectionConfiguration.table_name required")
+        out["table_name"] = ""
     if data.get("SecretArn") is not None:
         out["secret_arn"] = data["SecretArn"]
     else:
-        raise DeserializationError("ConnectionConfiguration.secret_arn required")
+        out["secret_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.string
 
@@ -31,9 +29,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteCapacityProviderRequest:
     if data.get("capacityProvider") is not None:
         out["capacity_provider"] = data["capacityProvider"]
     else:
-        raise DeserializationError(
-            "DeleteCapacityProviderRequest.capacity_provider required"
-        )
+        out["capacity_provider"] = ""
     if data.get("cluster") is not None:
         out["cluster"] = data["cluster"]
     return out

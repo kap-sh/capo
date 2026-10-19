@@ -61,7 +61,7 @@ def deserialize_json(data: dict) -> ItemSource:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("ItemSource.id required")
+        out["id"] = ""
     if data.get("Geometry") is not None:
         import capo_sagemaker_geospatial.types.geometry
 
@@ -85,7 +85,9 @@ def deserialize_json(data: dict) -> ItemSource:
             )
         )
     else:
-        raise DeserializationError("ItemSource.date_time required")
+        import datetime
+
+        out["date_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Properties") is not None:
         import capo_sagemaker_geospatial.types.properties
 

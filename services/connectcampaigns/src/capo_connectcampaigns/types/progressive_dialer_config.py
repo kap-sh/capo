@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcampaigns.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaigns.types.bandwidth_allocation
     import capo_connectcampaigns.types.dialing_capacity
@@ -50,9 +48,7 @@ def deserialize_json(data: dict) -> ProgressiveDialerConfig:
     if data.get("bandwidthAllocation") is not None:
         out["bandwidth_allocation"] = float(data["bandwidthAllocation"])
     else:
-        raise DeserializationError(
-            "ProgressiveDialerConfig.bandwidth_allocation required"
-        )
+        out["bandwidth_allocation"] = 0.0
     if data.get("dialingCapacity") is not None:
         out["dialing_capacity"] = float(data["dialingCapacity"])
     return out

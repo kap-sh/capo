@@ -65,7 +65,7 @@ def deserialize_json(data: dict) -> SnowflakePropertiesInput:
     if data.get("snowflakeRole") is not None:
         out["snowflake_role"] = data["snowflakeRole"]
     else:
-        raise DeserializationError("SnowflakePropertiesInput.snowflake_role required")
+        out["snowflake_role"] = ""
     if data.get("identityMapping") is not None:
         import capo_datazone.types.identity_mapping
 

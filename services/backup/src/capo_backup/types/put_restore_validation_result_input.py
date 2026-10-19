@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.restore_job_id
     import capo_backup.types.restore_validation_status
@@ -49,8 +47,10 @@ def deserialize_json(data: dict) -> PutRestoreValidationResultInput:
             )
         )
     else:
-        raise DeserializationError(
-            "PutRestoreValidationResultInput.validation_status required"
+        import typing
+
+        out["validation_status"] = typing.cast(
+            "capo_backup.types.restore_validation_status.RestoreValidationStatus", ""
         )
     if data.get("ValidationStatusMessage") is not None:
         out["validation_status_message"] = data["ValidationStatusMessage"]

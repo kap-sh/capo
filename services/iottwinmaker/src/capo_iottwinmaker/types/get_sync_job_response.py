@@ -62,19 +62,19 @@ def deserialize_json(data: dict) -> GetSyncJobResponse:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetSyncJobResponse.arn required")
+        out["arn"] = ""
     if data.get("workspaceId") is not None:
         out["workspace_id"] = data["workspaceId"]
     else:
-        raise DeserializationError("GetSyncJobResponse.workspace_id required")
+        out["workspace_id"] = ""
     if data.get("syncSource") is not None:
         out["sync_source"] = data["syncSource"]
     else:
-        raise DeserializationError("GetSyncJobResponse.sync_source required")
+        out["sync_source"] = ""
     if data.get("syncRole") is not None:
         out["sync_role"] = data["syncRole"]
     else:
-        raise DeserializationError("GetSyncJobResponse.sync_role required")
+        out["sync_role"] = ""
     if data.get("status") is not None:
         import capo_iottwinmaker.types.sync_job_status
 
@@ -90,7 +90,11 @@ def deserialize_json(data: dict) -> GetSyncJobResponse:
             data["creationDateTime"]
         )
     else:
-        raise DeserializationError("GetSyncJobResponse.creation_date_time required")
+        import datetime
+
+        out["creation_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateDateTime") is not None:
         import capo_iottwinmaker.types.timestamp
 
@@ -98,5 +102,9 @@ def deserialize_json(data: dict) -> GetSyncJobResponse:
             data["updateDateTime"]
         )
     else:
-        raise DeserializationError("GetSyncJobResponse.update_date_time required")
+        import datetime
+
+        out["update_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

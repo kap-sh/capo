@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.line_length
     import capo_b2bi.types.line_terminator
@@ -47,7 +45,9 @@ def deserialize_aws_json_1_0(data: dict) -> WrapOptions:
             data["wrapBy"]
         )
     else:
-        raise DeserializationError("WrapOptions.wrap_by required")
+        import typing
+
+        out["wrap_by"] = typing.cast("capo_b2bi.types.wrap_format.WrapFormat", "")
     if data.get("lineTerminator") is not None:
         import capo_b2bi.types.line_terminator
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_observabilityadmin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_observabilityadmin.types.iam_role_arn
     import capo_observabilityadmin.types.tag_conflict_resolution_strategy
@@ -40,9 +38,7 @@ def deserialize_json(data: dict) -> TagPropagationConfiguration:
     if data.get("DestinationRoleArn") is not None:
         out["destination_role_arn"] = data["DestinationRoleArn"]
     else:
-        raise DeserializationError(
-            "TagPropagationConfiguration.destination_role_arn required"
-        )
+        out["destination_role_arn"] = ""
     if data.get("TagConflictResolutionStrategy") is not None:
         import capo_observabilityadmin.types.tag_conflict_resolution_strategy
 

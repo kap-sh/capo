@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.position
     import capo_geo_routes.types.sensitive_double
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> RoadSnapSnappedTracePoint:
     if data.get("Confidence") is not None:
         out["confidence"] = float(data["Confidence"])
     else:
-        raise DeserializationError("RoadSnapSnappedTracePoint.confidence required")
+        out["confidence"] = 0.0
     if data.get("OriginalPosition") is not None:
         import capo_geo_routes.types.position
 
@@ -58,9 +56,7 @@ def deserialize_json(data: dict) -> RoadSnapSnappedTracePoint:
             data["OriginalPosition"]
         )
     else:
-        raise DeserializationError(
-            "RoadSnapSnappedTracePoint.original_position required"
-        )
+        out["original_position"] = []
     if data.get("SnappedPosition") is not None:
         import capo_geo_routes.types.position
 
@@ -68,9 +64,7 @@ def deserialize_json(data: dict) -> RoadSnapSnappedTracePoint:
             data["SnappedPosition"]
         )
     else:
-        raise DeserializationError(
-            "RoadSnapSnappedTracePoint.snapped_position required"
-        )
+        out["snapped_position"] = []
     return out
 
 

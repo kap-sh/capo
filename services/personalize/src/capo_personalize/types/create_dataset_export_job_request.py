@@ -65,11 +65,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDatasetExportJobRequest:
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError("CreateDatasetExportJobRequest.job_name required")
+        out["job_name"] = ""
     if data.get("datasetArn") is not None:
         out["dataset_arn"] = data["datasetArn"]
     else:
-        raise DeserializationError("CreateDatasetExportJobRequest.dataset_arn required")
+        out["dataset_arn"] = ""
     if data.get("ingestionMode") is not None:
         import capo_personalize.types.ingestion_mode
 
@@ -81,7 +81,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDatasetExportJobRequest:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateDatasetExportJobRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("jobOutput") is not None:
         import capo_personalize.types.dataset_export_job_output
 

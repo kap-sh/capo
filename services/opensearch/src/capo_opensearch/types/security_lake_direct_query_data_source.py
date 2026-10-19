@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.direct_query_data_source_role_arn
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> SecurityLakeDirectQueryDataSource:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError(
-            "SecurityLakeDirectQueryDataSource.role_arn required"
-        )
+        out["role_arn"] = ""
     return out

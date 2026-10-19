@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.ab_test_description
     import capo_bedrock_agentcore.types.ab_test_evaluation_config
@@ -93,13 +91,13 @@ def deserialize_json(data: dict) -> CreateABTestRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateABTestRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("gatewayArn") is not None:
         out["gateway_arn"] = data["gatewayArn"]
     else:
-        raise DeserializationError("CreateABTestRequest.gateway_arn required")
+        out["gateway_arn"] = ""
     if data.get("variants") is not None:
         import capo_bedrock_agentcore.types.variant_list
 
@@ -107,7 +105,7 @@ def deserialize_json(data: dict) -> CreateABTestRequest:
             data["variants"]
         )
     else:
-        raise DeserializationError("CreateABTestRequest.variants required")
+        out["variants"] = []
     if data.get("gatewayFilter") is not None:
         import capo_bedrock_agentcore.types.gateway_filter
 
@@ -125,11 +123,15 @@ def deserialize_json(data: dict) -> CreateABTestRequest:
             )
         )
     else:
-        raise DeserializationError("CreateABTestRequest.evaluation_config required")
+        import capo_bedrock_agentcore.types._unknown
+
+        out["evaluation_config"] = (
+            capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
+        )
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateABTestRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("enableOnCreate") is not None:
         out["enable_on_create"] = data["enableOnCreate"]
     if data.get("clientToken") is not None:

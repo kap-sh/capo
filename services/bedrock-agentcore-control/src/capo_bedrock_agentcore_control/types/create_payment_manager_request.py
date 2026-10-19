@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.authorizer_configuration
     import capo_bedrock_agentcore_control.types.client_token
@@ -84,7 +82,7 @@ def deserialize_json(data: dict) -> CreatePaymentManagerRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreatePaymentManagerRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("authorizerType") is not None:
@@ -96,8 +94,11 @@ def deserialize_json(data: dict) -> CreatePaymentManagerRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreatePaymentManagerRequest.authorizer_type required"
+        import typing
+
+        out["authorizer_type"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.payments_authorizer_type.PaymentsAuthorizerType",
+            "",
         )
     if data.get("authorizerConfiguration") is not None:
         import capo_bedrock_agentcore_control.types.authorizer_configuration
@@ -110,7 +111,7 @@ def deserialize_json(data: dict) -> CreatePaymentManagerRequest:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreatePaymentManagerRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

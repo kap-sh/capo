@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.channel_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteChannelRequest:
     if data.get("Channel") is not None:
         out["channel"] = data["Channel"]
     else:
-        raise DeserializationError("DeleteChannelRequest.channel required")
+        out["channel"] = ""
     return out

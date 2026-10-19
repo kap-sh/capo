@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.configurable_action_parameter_list
     import capo_datazone.types.configurable_action_type_authorization
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> ConfigurableEnvironmentAction:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("ConfigurableEnvironmentAction.type required")
+        out["type"] = ""
     if data.get("auth") is not None:
         import capo_datazone.types.configurable_action_type_authorization
 
@@ -67,5 +65,5 @@ def deserialize_json(data: dict) -> ConfigurableEnvironmentAction:
             )
         )
     else:
-        raise DeserializationError("ConfigurableEnvironmentAction.parameters required")
+        out["parameters"] = []
     return out

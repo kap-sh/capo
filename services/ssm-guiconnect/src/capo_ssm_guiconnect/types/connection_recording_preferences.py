@@ -50,7 +50,5 @@ def deserialize_json(data: dict) -> ConnectionRecordingPreferences:
     if data.get("KMSKeyArn") is not None:
         out["kms_key_arn"] = data["KMSKeyArn"]
     else:
-        raise DeserializationError(
-            "ConnectionRecordingPreferences.kms_key_arn required"
-        )
+        out["kms_key_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.iso_country_code_list
     import capo_pinpoint_sms_voice_v2.types.notify_configuration_id_or_arn
@@ -71,9 +69,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateNotifyConfigurationRequest:
     if data.get("NotifyConfigurationId") is not None:
         out["notify_configuration_id"] = data["NotifyConfigurationId"]
     else:
-        raise DeserializationError(
-            "UpdateNotifyConfigurationRequest.notify_configuration_id required"
-        )
+        out["notify_configuration_id"] = ""
     if data.get("DefaultTemplateId") is not None:
         out["default_template_id"] = data["DefaultTemplateId"]
     if data.get("PoolId") is not None:

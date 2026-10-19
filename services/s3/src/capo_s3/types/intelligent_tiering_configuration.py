@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.intelligent_tiering_filter
@@ -55,7 +54,7 @@ def deserialize_xml(el: Element) -> IntelligentTieringConfiguration:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("IntelligentTieringConfiguration.id required")
+        out["id"] = ""
     child_filter = el.find("Filter")
     if child_filter is not None:
         import capo_s3.types.intelligent_tiering_filter
@@ -71,11 +70,15 @@ def deserialize_xml(el: Element) -> IntelligentTieringConfiguration:
             child_status
         )
     else:
-        raise DeserializationError("IntelligentTieringConfiguration.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_s3.types.intelligent_tiering_status.IntelligentTieringStatus", ""
+        )
     if el.find("Tiering") is not None:
         import capo_s3.types.tiering_list
 
         out["tierings"] = capo_s3.types.tiering_list.deserialize_xml_flat(el, "Tiering")
     else:
-        raise DeserializationError("IntelligentTieringConfiguration.tierings required")
+        out["tierings"] = []
     return out

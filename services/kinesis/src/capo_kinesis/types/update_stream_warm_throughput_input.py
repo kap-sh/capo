@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.natural_integer_object
     import capo_kinesis.types.stream_arn
@@ -50,7 +48,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateStreamWarmThroughputInput:
     if data.get("WarmThroughputMiBps") is not None:
         out["warm_throughput_mi_bps"] = data["WarmThroughputMiBps"]
     else:
-        raise DeserializationError(
-            "UpdateStreamWarmThroughputInput.warm_throughput_mi_bps required"
-        )
+        out["warm_throughput_mi_bps"] = 0
     return out

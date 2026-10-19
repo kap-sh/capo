@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.agent_space_identifier
     import capo_devops_agent.types.trigger_action
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> CreateTriggerRequest:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("CreateTriggerRequest.type required")
+        out["type"] = ""
     if data.get("condition") is not None:
         import capo_devops_agent.types.trigger_condition
 
@@ -61,11 +59,13 @@ def deserialize_json(data: dict) -> CreateTriggerRequest:
             data["condition"]
         )
     else:
-        raise DeserializationError("CreateTriggerRequest.condition required")
+        import capo_devops_agent.types._unknown
+
+        out["condition"] = capo_devops_agent.types._unknown.UnknownUnionMember("")
     if data.get("action") is not None:
         out["action"] = data["action"]
     else:
-        raise DeserializationError("CreateTriggerRequest.action required")
+        out["action"] = None
     if data.get("status") is not None:
         out["status"] = data["status"]
     if data.get("clientToken") is not None:

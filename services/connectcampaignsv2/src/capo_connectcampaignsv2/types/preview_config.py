@@ -55,7 +55,7 @@ def deserialize_json(data: dict) -> PreviewConfig:
     if data.get("bandwidthAllocation") is not None:
         out["bandwidth_allocation"] = float(data["bandwidthAllocation"])
     else:
-        raise DeserializationError("PreviewConfig.bandwidth_allocation required")
+        out["bandwidth_allocation"] = 0.0
     if data.get("timeoutConfig") is not None:
         import capo_connectcampaignsv2.types.timeout_config
 

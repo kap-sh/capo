@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.document_classification_config
     import capo_comprehend.types.entity_recognition_config
@@ -63,7 +61,11 @@ def deserialize_aws_json_1_1(data: dict) -> TaskConfig:
             )
         )
     else:
-        raise DeserializationError("TaskConfig.language_code required")
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_comprehend.types.language_code.LanguageCode", ""
+        )
     if data.get("DocumentClassificationConfig") is not None:
         import capo_comprehend.types.document_classification_config
 

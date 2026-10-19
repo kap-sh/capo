@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.associated_alarm_map
     import capo_arc_region_switch.types.iam_role_arn
@@ -90,7 +88,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdatePlanRequest:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("UpdatePlanRequest.arn required")
+        out["arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("workflows") is not None:
@@ -102,11 +100,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdatePlanRequest:
             )
         )
     else:
-        raise DeserializationError("UpdatePlanRequest.workflows required")
+        out["workflows"] = []
     if data.get("executionRole") is not None:
         out["execution_role"] = data["executionRole"]
     else:
-        raise DeserializationError("UpdatePlanRequest.execution_role required")
+        out["execution_role"] = ""
     if data.get("recoveryTimeObjectiveMinutes") is not None:
         out["recovery_time_objective_minutes"] = data["recoveryTimeObjectiveMinutes"]
     if data.get("associatedAlarms") is not None:

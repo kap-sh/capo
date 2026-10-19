@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.identity
@@ -34,10 +33,10 @@ def deserialize_query(el: Element) -> DeleteIdentityPolicyRequest:
     if child_identity is not None:
         out["identity"] = str(child_identity.text or "")
     else:
-        raise DeserializationError("DeleteIdentityPolicyRequest.identity required")
+        out["identity"] = ""
     child_policy_name = el.find("PolicyName")
     if child_policy_name is not None:
         out["policy_name"] = str(child_policy_name.text or "")
     else:
-        raise DeserializationError("DeleteIdentityPolicyRequest.policy_name required")
+        out["policy_name"] = ""
     return out

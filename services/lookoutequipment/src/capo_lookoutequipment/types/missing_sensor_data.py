@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.integer
 
@@ -30,11 +28,9 @@ def deserialize_aws_json_1_0(data: dict) -> MissingSensorData:
     if data.get("AffectedSensorCount") is not None:
         out["affected_sensor_count"] = data["AffectedSensorCount"]
     else:
-        raise DeserializationError("MissingSensorData.affected_sensor_count required")
+        out["affected_sensor_count"] = 0
     if data.get("TotalNumberOfMissingValues") is not None:
         out["total_number_of_missing_values"] = data["TotalNumberOfMissingValues"]
     else:
-        raise DeserializationError(
-            "MissingSensorData.total_number_of_missing_values required"
-        )
+        out["total_number_of_missing_values"] = 0
     return out

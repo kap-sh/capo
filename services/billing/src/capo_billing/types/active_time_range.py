@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -48,7 +46,11 @@ def deserialize_aws_json_1_0(data: dict) -> ActiveTimeRange:
             )
         )
     else:
-        raise DeserializationError("ActiveTimeRange.active_after_inclusive required")
+        import datetime
+
+        out["active_after_inclusive"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("activeBeforeInclusive") is not None:
         import capo_billing.types._prelude.timestamp
 
@@ -58,5 +60,9 @@ def deserialize_aws_json_1_0(data: dict) -> ActiveTimeRange:
             )
         )
     else:
-        raise DeserializationError("ActiveTimeRange.active_before_inclusive required")
+        import datetime
+
+        out["active_before_inclusive"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

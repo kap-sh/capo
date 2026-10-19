@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_detective.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_detective.types.boolean
     import capo_detective.types.graph_arn
@@ -32,9 +30,7 @@ def deserialize_json(data: dict) -> UpdateOrganizationConfigurationRequest:
     if data.get("GraphArn") is not None:
         out["graph_arn"] = data["GraphArn"]
     else:
-        raise DeserializationError(
-            "UpdateOrganizationConfigurationRequest.graph_arn required"
-        )
+        out["graph_arn"] = ""
     if data.get("AutoEnable") is not None:
         out["auto_enable"] = data["AutoEnable"]
     return out

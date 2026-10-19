@@ -53,7 +53,7 @@ def deserialize_json(data: dict) -> CreateConfigurationRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateConfigurationRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("runConfigurations") is not None:
@@ -75,5 +75,5 @@ def deserialize_json(data: dict) -> CreateConfigurationRequest:
     if data.get("requestId") is not None:
         out["request_id"] = data["requestId"]
     else:
-        raise DeserializationError("CreateConfigurationRequest.request_id required")
+        out["request_id"] = ""
     return out

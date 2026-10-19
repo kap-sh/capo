@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.log_configuration_list_type
     import capo_cognito_identity_provider.types.user_pool_id_type
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> LogDeliveryConfigurationType:
     if data.get("UserPoolId") is not None:
         out["user_pool_id"] = data["UserPoolId"]
     else:
-        raise DeserializationError("LogDeliveryConfigurationType.user_pool_id required")
+        out["user_pool_id"] = ""
     if data.get("LogConfigurations") is not None:
         import capo_cognito_identity_provider.types.log_configuration_list_type
 
@@ -49,7 +47,5 @@ def deserialize_aws_json_1_1(data: dict) -> LogDeliveryConfigurationType:
             )
         )
     else:
-        raise DeserializationError(
-            "LogDeliveryConfigurationType.log_configurations required"
-        )
+        out["log_configurations"] = []
     return out

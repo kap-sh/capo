@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.media_pipeline_status_update
     import capo_chime_sdk_media_pipelines.types.non_empty_string
@@ -42,7 +40,10 @@ def deserialize_json(data: dict) -> UpdateMediaInsightsPipelineStatusRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateMediaInsightsPipelineStatusRequest.update_status required"
+        import typing
+
+        out["update_status"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.media_pipeline_status_update.MediaPipelineStatusUpdate",
+            "",
         )
     return out

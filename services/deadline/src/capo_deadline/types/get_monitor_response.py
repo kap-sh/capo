@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.created_at
     import capo_deadline.types.created_by
@@ -84,37 +82,33 @@ def deserialize_json(data: dict) -> GetMonitorResponse:
     if data.get("monitorId") is not None:
         out["monitor_id"] = data["monitorId"]
     else:
-        raise DeserializationError("GetMonitorResponse.monitor_id required")
+        out["monitor_id"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("GetMonitorResponse.display_name required")
+        out["display_name"] = ""
     if data.get("subdomain") is not None:
         out["subdomain"] = data["subdomain"]
     else:
-        raise DeserializationError("GetMonitorResponse.subdomain required")
+        out["subdomain"] = ""
     if data.get("url") is not None:
         out["url"] = data["url"]
     else:
-        raise DeserializationError("GetMonitorResponse.url required")
+        out["url"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("GetMonitorResponse.role_arn required")
+        out["role_arn"] = ""
     if data.get("identityCenterInstanceArn") is not None:
         out["identity_center_instance_arn"] = data["identityCenterInstanceArn"]
     else:
-        raise DeserializationError(
-            "GetMonitorResponse.identity_center_instance_arn required"
-        )
+        out["identity_center_instance_arn"] = ""
     if data.get("identityCenterRegion") is not None:
         out["identity_center_region"] = data["identityCenterRegion"]
     if data.get("identityCenterApplicationArn") is not None:
         out["identity_center_application_arn"] = data["identityCenterApplicationArn"]
     else:
-        raise DeserializationError(
-            "GetMonitorResponse.identity_center_application_arn required"
-        )
+        out["identity_center_application_arn"] = ""
     if data.get("createdAt") is not None:
         import capo_deadline.types.created_at
 
@@ -122,11 +116,13 @@ def deserialize_json(data: dict) -> GetMonitorResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("GetMonitorResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("GetMonitorResponse.created_by required")
+        out["created_by"] = ""
     if data.get("updatedAt") is not None:
         import capo_deadline.types.updated_at
 

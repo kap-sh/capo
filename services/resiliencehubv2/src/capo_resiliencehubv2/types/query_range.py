@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -61,7 +59,9 @@ def deserialize_json(data: dict) -> QueryRange:
             )
         )
     else:
-        raise DeserializationError("QueryRange.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_resiliencehubv2.types._prelude.timestamp
 
@@ -71,7 +71,9 @@ def deserialize_json(data: dict) -> QueryRange:
             )
         )
     else:
-        raise DeserializationError("QueryRange.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("granularity") is not None:
         import capo_resiliencehubv2.types.query_granularity
 
@@ -81,7 +83,11 @@ def deserialize_json(data: dict) -> QueryRange:
             )
         )
     else:
-        raise DeserializationError("QueryRange.granularity required")
+        import typing
+
+        out["granularity"] = typing.cast(
+            "capo_resiliencehubv2.types.query_granularity.QueryGranularity", ""
+        )
     if data.get("dataPoints") is not None:
         import capo_resiliencehubv2.types.query_data_point_list
 
@@ -91,5 +97,5 @@ def deserialize_json(data: dict) -> QueryRange:
             )
         )
     else:
-        raise DeserializationError("QueryRange.data_points required")
+        out["data_points"] = []
     return out

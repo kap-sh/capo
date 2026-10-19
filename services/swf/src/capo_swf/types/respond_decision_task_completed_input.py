@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.data
     import capo_swf.types.decision_list
@@ -59,9 +57,7 @@ def deserialize_aws_json_1_0(data: dict) -> RespondDecisionTaskCompletedInput:
     if data.get("taskToken") is not None:
         out["task_token"] = data["taskToken"]
     else:
-        raise DeserializationError(
-            "RespondDecisionTaskCompletedInput.task_token required"
-        )
+        out["task_token"] = ""
     if data.get("decisions") is not None:
         import capo_swf.types.decision_list
 

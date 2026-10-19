@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.execution_error_message
     import capo_transfer.types.execution_error_type
@@ -39,9 +37,13 @@ def deserialize_aws_json_1_1(data: dict) -> ExecutionError:
             data["Type"]
         )
     else:
-        raise DeserializationError("ExecutionError.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_transfer.types.execution_error_type.ExecutionErrorType", ""
+        )
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("ExecutionError.message required")
+        out["message"] = ""
     return out

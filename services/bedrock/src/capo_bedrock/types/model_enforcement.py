@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.excluded_models_list
     import capo_bedrock.types.included_models_list
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> ModelEnforcement:
             )
         )
     else:
-        raise DeserializationError("ModelEnforcement.included_models required")
+        out["included_models"] = []
     if data.get("excludedModels") is not None:
         import capo_bedrock.types.excluded_models_list
 
@@ -55,5 +53,5 @@ def deserialize_json(data: dict) -> ModelEnforcement:
             )
         )
     else:
-        raise DeserializationError("ModelEnforcement.excluded_models required")
+        out["excluded_models"] = []
     return out

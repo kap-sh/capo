@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -63,11 +61,11 @@ def deserialize_json(data: dict) -> AddDatasetExamplesResponse:
     if data.get("datasetArn") is not None:
         out["dataset_arn"] = data["datasetArn"]
     else:
-        raise DeserializationError("AddDatasetExamplesResponse.dataset_arn required")
+        out["dataset_arn"] = ""
     if data.get("datasetId") is not None:
         out["dataset_id"] = data["datasetId"]
     else:
-        raise DeserializationError("AddDatasetExamplesResponse.dataset_id required")
+        out["dataset_id"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.dataset_status
 
@@ -77,11 +75,15 @@ def deserialize_json(data: dict) -> AddDatasetExamplesResponse:
             )
         )
     else:
-        raise DeserializationError("AddDatasetExamplesResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.dataset_status.DatasetStatus", ""
+        )
     if data.get("addedCount") is not None:
         out["added_count"] = data["addedCount"]
     else:
-        raise DeserializationError("AddDatasetExamplesResponse.added_count required")
+        out["added_count"] = 0
     if data.get("updatedAt") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
 
@@ -91,7 +93,9 @@ def deserialize_json(data: dict) -> AddDatasetExamplesResponse:
             )
         )
     else:
-        raise DeserializationError("AddDatasetExamplesResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("exampleIds") is not None:
         import capo_bedrock_agentcore_control.types.example_id_list
 
@@ -101,5 +105,5 @@ def deserialize_json(data: dict) -> AddDatasetExamplesResponse:
             )
         )
     else:
-        raise DeserializationError("AddDatasetExamplesResponse.example_ids required")
+        out["example_ids"] = []
     return out

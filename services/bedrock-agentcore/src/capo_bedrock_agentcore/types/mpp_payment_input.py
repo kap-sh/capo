@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.version
     import capo_bedrock_agentcore.types.www_authenticate_header_list
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> MppPaymentInput:
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("MppPaymentInput.version required")
+        out["version"] = ""
     if data.get("wwwAuthenticateHeaders") is not None:
         import capo_bedrock_agentcore.types.www_authenticate_header_list
 
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> MppPaymentInput:
             )
         )
     else:
-        raise DeserializationError("MppPaymentInput.www_authenticate_headers required")
+        out["www_authenticate_headers"] = []
     if data.get("buyerPaysGasFees") is not None:
         out["buyer_pays_gas_fees"] = data["buyerPaysGasFees"]
     return out

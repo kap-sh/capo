@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pipes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pipes.types.arn_or_json_path
     import capo_pipes.types.boolean
@@ -129,9 +127,7 @@ def deserialize_json(data: dict) -> PipeTargetEcsTaskParameters:
     if data.get("TaskDefinitionArn") is not None:
         out["task_definition_arn"] = data["TaskDefinitionArn"]
     else:
-        raise DeserializationError(
-            "PipeTargetEcsTaskParameters.task_definition_arn required"
-        )
+        out["task_definition_arn"] = ""
     if data.get("TaskCount") is not None:
         out["task_count"] = data["TaskCount"]
     if data.get("LaunchType") is not None:

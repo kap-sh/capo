@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.created_at
     import capo_deadline.types.created_by
@@ -176,23 +174,23 @@ def deserialize_json(data: dict) -> BatchGetStepItem:
     if data.get("farmId") is not None:
         out["farm_id"] = data["farmId"]
     else:
-        raise DeserializationError("BatchGetStepItem.farm_id required")
+        out["farm_id"] = ""
     if data.get("queueId") is not None:
         out["queue_id"] = data["queueId"]
     else:
-        raise DeserializationError("BatchGetStepItem.queue_id required")
+        out["queue_id"] = ""
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("BatchGetStepItem.job_id required")
+        out["job_id"] = ""
     if data.get("stepId") is not None:
         out["step_id"] = data["stepId"]
     else:
-        raise DeserializationError("BatchGetStepItem.step_id required")
+        out["step_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("BatchGetStepItem.name required")
+        out["name"] = ""
     if data.get("lifecycleStatus") is not None:
         import capo_deadline.types.step_lifecycle_status
 
@@ -202,7 +200,11 @@ def deserialize_json(data: dict) -> BatchGetStepItem:
             )
         )
     else:
-        raise DeserializationError("BatchGetStepItem.lifecycle_status required")
+        import typing
+
+        out["lifecycle_status"] = typing.cast(
+            "capo_deadline.types.step_lifecycle_status.StepLifecycleStatus", ""
+        )
     if data.get("lifecycleStatusMessage") is not None:
         out["lifecycle_status_message"] = data["lifecycleStatusMessage"]
     if data.get("taskRunStatus") is not None:
@@ -212,7 +214,11 @@ def deserialize_json(data: dict) -> BatchGetStepItem:
             data["taskRunStatus"]
         )
     else:
-        raise DeserializationError("BatchGetStepItem.task_run_status required")
+        import typing
+
+        out["task_run_status"] = typing.cast(
+            "capo_deadline.types.task_run_status.TaskRunStatus", ""
+        )
     if data.get("taskRunStatusCounts") is not None:
         import capo_deadline.types.task_run_status_counts
 
@@ -222,7 +228,7 @@ def deserialize_json(data: dict) -> BatchGetStepItem:
             )
         )
     else:
-        raise DeserializationError("BatchGetStepItem.task_run_status_counts required")
+        out["task_run_status_counts"] = {}
     if data.get("taskFailureRetryCount") is not None:
         out["task_failure_retry_count"] = data["taskFailureRetryCount"]
     if data.get("targetTaskRunStatus") is not None:
@@ -240,11 +246,13 @@ def deserialize_json(data: dict) -> BatchGetStepItem:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("BatchGetStepItem.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("BatchGetStepItem.created_by required")
+        out["created_by"] = ""
     if data.get("updatedAt") is not None:
         import capo_deadline.types.updated_at
 

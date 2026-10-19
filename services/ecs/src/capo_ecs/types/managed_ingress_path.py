@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.access_type
     import capo_ecs.types.managed_certificate
@@ -105,11 +103,13 @@ def deserialize_aws_json_1_1(data: dict) -> ManagedIngressPath:
             data["accessType"]
         )
     else:
-        raise DeserializationError("ManagedIngressPath.access_type required")
+        import typing
+
+        out["access_type"] = typing.cast("capo_ecs.types.access_type.AccessType", "")
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError("ManagedIngressPath.endpoint required")
+        out["endpoint"] = ""
     if data.get("loadBalancer") is not None:
         import capo_ecs.types.managed_load_balancer
 

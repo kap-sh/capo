@@ -56,7 +56,7 @@ def deserialize_json(data: dict) -> FailedDataSegmentDeletion:
     if data.get("timeSeriesId") is not None:
         out["time_series_id"] = data["timeSeriesId"]
     else:
-        raise DeserializationError("FailedDataSegmentDeletion.time_series_id required")
+        out["time_series_id"] = ""
     if data.get("startTimestamp") is not None:
         import capo_iotsitewise.types.time_in_nanos
 
@@ -82,9 +82,13 @@ def deserialize_json(data: dict) -> FailedDataSegmentDeletion:
             )
         )
     else:
-        raise DeserializationError("FailedDataSegmentDeletion.error_code required")
+        import typing
+
+        out["error_code"] = typing.cast(
+            "capo_iotsitewise.types.data_segment_error_code.DataSegmentErrorCode", ""
+        )
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     else:
-        raise DeserializationError("FailedDataSegmentDeletion.error_message required")
+        out["error_message"] = ""
     return out

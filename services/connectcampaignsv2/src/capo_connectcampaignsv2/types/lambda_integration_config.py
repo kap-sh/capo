@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.lambda_arn
 
@@ -26,5 +24,5 @@ def deserialize_json(data: dict) -> LambdaIntegrationConfig:
     if data.get("functionArn") is not None:
         out["function_arn"] = data["functionArn"]
     else:
-        raise DeserializationError("LambdaIntegrationConfig.function_arn required")
+        out["function_arn"] = ""
     return out

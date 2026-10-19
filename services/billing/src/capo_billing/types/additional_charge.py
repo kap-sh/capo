@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billing.errors import DeserializationError
-
 
 class AdditionalCharge(TypedDict, closed=True):
     description: "str"
@@ -30,7 +28,7 @@ def deserialize_aws_json_1_0(data: dict) -> AdditionalCharge:
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("AdditionalCharge.description required")
+        out["description"] = ""
     if data.get("amount") is not None:
         out["amount"] = data["amount"]
     if data.get("chargeType") is not None:

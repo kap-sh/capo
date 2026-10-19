@@ -141,9 +141,7 @@ def deserialize_aws_json_1_1(data: dict) -> SplunkDestinationConfiguration:
     if data.get("HECEndpoint") is not None:
         out["hec_endpoint"] = data["HECEndpoint"]
     else:
-        raise DeserializationError(
-            "SplunkDestinationConfiguration.hec_endpoint required"
-        )
+        out["hec_endpoint"] = ""
     if data.get("HECEndpointType") is not None:
         import capo_firehose.types.hec_endpoint_type
 
@@ -153,8 +151,10 @@ def deserialize_aws_json_1_1(data: dict) -> SplunkDestinationConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "SplunkDestinationConfiguration.hec_endpoint_type required"
+        import typing
+
+        out["hec_endpoint_type"] = typing.cast(
+            "capo_firehose.types.hec_endpoint_type.HECEndpointType", ""
         )
     if data.get("HECToken") is not None:
         out["hec_token"] = data["HECToken"]

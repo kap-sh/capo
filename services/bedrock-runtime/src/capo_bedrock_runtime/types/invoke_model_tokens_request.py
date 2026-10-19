@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.body
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> InvokeModelTokensRequest:
 
         out["body"] = capo_bedrock_runtime.types.body.deserialize_json(data["body"])
     else:
-        raise DeserializationError("InvokeModelTokensRequest.body required")
+        out["body"] = b""
     return out
 
 

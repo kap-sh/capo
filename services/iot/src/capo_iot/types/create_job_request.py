@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.abort_config
     import capo_iot.types.destination_package_versions
@@ -161,7 +159,7 @@ def deserialize_json(data: dict) -> CreateJobRequest:
 
         out["targets"] = capo_iot.types.job_targets.deserialize_json(data["targets"])
     else:
-        raise DeserializationError("CreateJobRequest.targets required")
+        out["targets"] = []
     if data.get("documentSource") is not None:
         out["document_source"] = data["documentSource"]
     if data.get("document") is not None:

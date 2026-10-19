@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.boolean
     import capo_lex_models_v2.types.count
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> OverallTestResultItem:
     if data.get("totalResultCount") is not None:
         out["total_result_count"] = data["totalResultCount"]
     else:
-        raise DeserializationError("OverallTestResultItem.total_result_count required")
+        out["total_result_count"] = 0
     if data.get("speechTranscriptionResultCounts") is not None:
         import capo_lex_models_v2.types.test_result_match_status_count_map
 
@@ -75,7 +73,5 @@ def deserialize_json(data: dict) -> OverallTestResultItem:
             )
         )
     else:
-        raise DeserializationError(
-            "OverallTestResultItem.end_to_end_result_counts required"
-        )
+        out["end_to_end_result_counts"] = {}
     return out

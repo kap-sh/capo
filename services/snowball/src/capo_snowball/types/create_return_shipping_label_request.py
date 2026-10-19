@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_snowball.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_snowball.types.job_id
     import capo_snowball.types.shipping_option
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateReturnShippingLabelRequest:
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError("CreateReturnShippingLabelRequest.job_id required")
+        out["job_id"] = ""
     if data.get("ShippingOption") is not None:
         import capo_snowball.types.shipping_option
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.field_id
     import capo_connectcases.types.sla_field_value_union_list
@@ -53,11 +51,11 @@ def deserialize_json(data: dict) -> SlaInputConfiguration:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("SlaInputConfiguration.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("SlaInputConfiguration.type required")
+        out["type"] = ""
     if data.get("fieldId") is not None:
         out["field_id"] = data["fieldId"]
     if data.get("targetFieldValues") is not None:
@@ -71,7 +69,7 @@ def deserialize_json(data: dict) -> SlaInputConfiguration:
     if data.get("targetSlaMinutes") is not None:
         out["target_sla_minutes"] = data["targetSlaMinutes"]
     else:
-        raise DeserializationError("SlaInputConfiguration.target_sla_minutes required")
+        out["target_sla_minutes"] = 0
     return out
 
 

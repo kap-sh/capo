@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError, ServiceError
+from capo_verifiedpermissions.errors import ServiceError
 
 
 class InvalidStateException_(TypedDict, closed=True):
@@ -22,7 +22,7 @@ def deserialize_aws_json_1_0(data: dict) -> InvalidStateException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("InvalidStateException_.message required")
+        out["message"] = ""
     return out
 
 

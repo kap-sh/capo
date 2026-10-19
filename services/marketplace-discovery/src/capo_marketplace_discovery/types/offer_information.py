@@ -46,7 +46,7 @@ def deserialize_json(data: dict) -> OfferInformation:
     if data.get("offerId") is not None:
         out["offer_id"] = data["offerId"]
     else:
-        raise DeserializationError("OfferInformation.offer_id required")
+        out["offer_id"] = ""
     if data.get("offerName") is not None:
         out["offer_name"] = data["offerName"]
     if data.get("sellerOfRecord") is not None:

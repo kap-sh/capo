@@ -50,5 +50,5 @@ def deserialize_json(data: dict) -> AuthMaterial:
     if data.get("AuthMaterialName") is not None:
         out["auth_material_name"] = data["AuthMaterialName"]
     else:
-        raise DeserializationError("AuthMaterial.auth_material_name required")
+        out["auth_material_name"] = ""
     return out

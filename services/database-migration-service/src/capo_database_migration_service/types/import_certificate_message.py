@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.certificate_wallet
     import capo_database_migration_service.types.secret_string
@@ -62,9 +60,7 @@ def deserialize_aws_json_1_1(data: dict) -> ImportCertificateMessage:
     if data.get("CertificateIdentifier") is not None:
         out["certificate_identifier"] = data["CertificateIdentifier"]
     else:
-        raise DeserializationError(
-            "ImportCertificateMessage.certificate_identifier required"
-        )
+        out["certificate_identifier"] = ""
     if data.get("CertificatePem") is not None:
         out["certificate_pem"] = data["CertificatePem"]
     if data.get("CertificateWallet") is not None:

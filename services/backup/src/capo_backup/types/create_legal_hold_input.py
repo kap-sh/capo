@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.recovery_point_selection
     import capo_backup.types.string
@@ -54,11 +52,11 @@ def deserialize_json(data: dict) -> CreateLegalHoldInput:
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     else:
-        raise DeserializationError("CreateLegalHoldInput.title required")
+        out["title"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("CreateLegalHoldInput.description required")
+        out["description"] = ""
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     if data.get("RecoveryPointSelection") is not None:

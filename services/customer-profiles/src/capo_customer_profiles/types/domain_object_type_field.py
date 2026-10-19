@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.content_type
     import capo_customer_profiles.types.feature_type
@@ -48,11 +46,11 @@ def deserialize_json(data: dict) -> DomainObjectTypeField:
     if data.get("Source") is not None:
         out["source"] = data["Source"]
     else:
-        raise DeserializationError("DomainObjectTypeField.source required")
+        out["source"] = ""
     if data.get("Target") is not None:
         out["target"] = data["Target"]
     else:
-        raise DeserializationError("DomainObjectTypeField.target required")
+        out["target"] = ""
     if data.get("ContentType") is not None:
         import capo_customer_profiles.types.content_type
 

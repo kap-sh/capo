@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_influxdb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_influxdb.types.arn
     import capo_timestream_influxdb.types.db_parameter_group_id
@@ -39,15 +37,15 @@ def deserialize_aws_json_1_0(data: dict) -> DbParameterGroupSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("DbParameterGroupSummary.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DbParameterGroupSummary.name required")
+        out["name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("DbParameterGroupSummary.arn required")
+        out["arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

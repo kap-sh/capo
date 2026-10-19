@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.event_expression
     import capo_iotfleetwise.types.language_version
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_0(data: dict) -> DataPartitionUploadOptions:
     if data.get("expression") is not None:
         out["expression"] = data["expression"]
     else:
-        raise DeserializationError("DataPartitionUploadOptions.expression required")
+        out["expression"] = ""
     if data.get("conditionLanguageVersion") is not None:
         out["condition_language_version"] = data["conditionLanguageVersion"]
     return out

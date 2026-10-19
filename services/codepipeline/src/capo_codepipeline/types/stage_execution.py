@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.execution_type
     import capo_codepipeline.types.pipeline_execution_id
@@ -48,7 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> StageExecution:
     if data.get("pipelineExecutionId") is not None:
         out["pipeline_execution_id"] = data["pipelineExecutionId"]
     else:
-        raise DeserializationError("StageExecution.pipeline_execution_id required")
+        out["pipeline_execution_id"] = ""
     if data.get("status") is not None:
         import capo_codepipeline.types.stage_execution_status
 
@@ -58,7 +56,11 @@ def deserialize_aws_json_1_1(data: dict) -> StageExecution:
             )
         )
     else:
-        raise DeserializationError("StageExecution.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_codepipeline.types.stage_execution_status.StageExecutionStatus", ""
+        )
     if data.get("type") is not None:
         import capo_codepipeline.types.execution_type
 

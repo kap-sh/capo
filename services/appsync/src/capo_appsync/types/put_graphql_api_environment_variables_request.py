@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.environment_variable_map
     import capo_appsync.types.string
@@ -44,7 +42,5 @@ def deserialize_json(data: dict) -> PutGraphqlApiEnvironmentVariablesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "PutGraphqlApiEnvironmentVariablesRequest.environment_variables required"
-        )
+        out["environment_variables"] = {}
     return out

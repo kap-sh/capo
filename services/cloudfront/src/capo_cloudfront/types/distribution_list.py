@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.boolean
@@ -54,7 +53,7 @@ def deserialize_xml(el: Element) -> DistributionList:
     if child_marker is not None:
         out["marker"] = str(child_marker.text or "")
     else:
-        raise DeserializationError("DistributionList.marker required")
+        out["marker"] = ""
     child_next_marker = el.find("NextMarker")
     if child_next_marker is not None:
         out["next_marker"] = str(child_next_marker.text or "")
@@ -62,17 +61,17 @@ def deserialize_xml(el: Element) -> DistributionList:
     if child_max_items is not None:
         out["max_items"] = int(child_max_items.text or "")
     else:
-        raise DeserializationError("DistributionList.max_items required")
+        out["max_items"] = 0
     child_is_truncated = el.find("IsTruncated")
     if child_is_truncated is not None:
         out["is_truncated"] = (child_is_truncated.text or "").lower() == "true"
     else:
-        raise DeserializationError("DistributionList.is_truncated required")
+        out["is_truncated"] = False
     child_quantity = el.find("Quantity")
     if child_quantity is not None:
         out["quantity"] = int(child_quantity.text or "")
     else:
-        raise DeserializationError("DistributionList.quantity required")
+        out["quantity"] = 0
     child_items = el.find("Items")
     if child_items is not None:
         import capo_cloudfront.types.distribution_summary_list

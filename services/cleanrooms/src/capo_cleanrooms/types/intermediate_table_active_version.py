@@ -75,13 +75,11 @@ def deserialize_json(data: dict) -> IntermediateTableActiveVersion:
     if data.get("versionId") is not None:
         out["version_id"] = data["versionId"]
     else:
-        raise DeserializationError("IntermediateTableActiveVersion.version_id required")
+        out["version_id"] = ""
     if data.get("analysisId") is not None:
         out["analysis_id"] = data["analysisId"]
     else:
-        raise DeserializationError(
-            "IntermediateTableActiveVersion.analysis_id required"
-        )
+        out["analysis_id"] = ""
     if data.get("analysisType") is not None:
         import capo_cleanrooms.types.populate_intermediate_table_analysis_type
 
@@ -91,8 +89,11 @@ def deserialize_json(data: dict) -> IntermediateTableActiveVersion:
             )
         )
     else:
-        raise DeserializationError(
-            "IntermediateTableActiveVersion.analysis_type required"
+        import typing
+
+        out["analysis_type"] = typing.cast(
+            "capo_cleanrooms.types.populate_intermediate_table_analysis_type.PopulateIntermediateTableAnalysisType",
+            "",
         )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]

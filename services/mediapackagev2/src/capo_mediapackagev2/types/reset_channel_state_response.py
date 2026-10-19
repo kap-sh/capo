@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -40,17 +38,15 @@ def deserialize_json(data: dict) -> ResetChannelStateResponse:
     if data.get("ChannelGroupName") is not None:
         out["channel_group_name"] = data["ChannelGroupName"]
     else:
-        raise DeserializationError(
-            "ResetChannelStateResponse.channel_group_name required"
-        )
+        out["channel_group_name"] = ""
     if data.get("ChannelName") is not None:
         out["channel_name"] = data["ChannelName"]
     else:
-        raise DeserializationError("ResetChannelStateResponse.channel_name required")
+        out["channel_name"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("ResetChannelStateResponse.arn required")
+        out["arn"] = ""
     if data.get("ResetAt") is not None:
         import capo_mediapackagev2.types._prelude.timestamp
 
@@ -58,5 +54,7 @@ def deserialize_json(data: dict) -> ResetChannelStateResponse:
             data["ResetAt"]
         )
     else:
-        raise DeserializationError("ResetChannelStateResponse.reset_at required")
+        import datetime
+
+        out["reset_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

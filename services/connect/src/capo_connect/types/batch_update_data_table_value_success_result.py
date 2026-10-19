@@ -47,15 +47,11 @@ def deserialize_json(data: dict) -> BatchUpdateDataTableValueSuccessResult:
             data["PrimaryValues"]
         )
     else:
-        raise DeserializationError(
-            "BatchUpdateDataTableValueSuccessResult.primary_values required"
-        )
+        out["primary_values"] = []
     if data.get("AttributeName") is not None:
         out["attribute_name"] = data["AttributeName"]
     else:
-        raise DeserializationError(
-            "BatchUpdateDataTableValueSuccessResult.attribute_name required"
-        )
+        out["attribute_name"] = ""
     if data.get("LockVersion") is not None:
         import capo_connect.types.data_table_lock_version
 

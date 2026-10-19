@@ -43,7 +43,7 @@ def deserialize_query(el: Element) -> CreateReceiptRuleRequest:
     if child_rule_set_name is not None:
         out["rule_set_name"] = str(child_rule_set_name.text or "")
     else:
-        raise DeserializationError("CreateReceiptRuleRequest.rule_set_name required")
+        out["rule_set_name"] = ""
     child_after = el.find("After")
     if child_after is not None:
         out["after"] = str(child_after.text or "")

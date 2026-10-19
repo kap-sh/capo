@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.data_source_configuration_input
     import capo_datazone.types.data_source_type
@@ -113,13 +111,13 @@ def deserialize_json(data: dict) -> CreateDataSourceInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateDataSourceInput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("projectIdentifier") is not None:
         out["project_identifier"] = data["projectIdentifier"]
     else:
-        raise DeserializationError("CreateDataSourceInput.project_identifier required")
+        out["project_identifier"] = ""
     if data.get("environmentIdentifier") is not None:
         out["environment_identifier"] = data["environmentIdentifier"]
     if data.get("connectionIdentifier") is not None:
@@ -127,7 +125,7 @@ def deserialize_json(data: dict) -> CreateDataSourceInput:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("CreateDataSourceInput.type required")
+        out["type"] = ""
     if data.get("configuration") is not None:
         import capo_datazone.types.data_source_configuration_input
 

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 
 class CustomDocumentIdentifier(TypedDict, closed=True):
     id: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> CustomDocumentIdentifier:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CustomDocumentIdentifier.id required")
+        out["id"] = ""
     return out

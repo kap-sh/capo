@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.creator_request_id
     import capo_route53resolver.types.delegation_record
@@ -81,9 +79,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateResolverRuleRequest:
     if data.get("CreatorRequestId") is not None:
         out["creator_request_id"] = data["CreatorRequestId"]
     else:
-        raise DeserializationError(
-            "CreateResolverRuleRequest.creator_request_id required"
-        )
+        out["creator_request_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("RuleType") is not None:
@@ -95,7 +91,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateResolverRuleRequest:
             )
         )
     else:
-        raise DeserializationError("CreateResolverRuleRequest.rule_type required")
+        import typing
+
+        out["rule_type"] = typing.cast(
+            "capo_route53resolver.types.rule_type_option.RuleTypeOption", ""
+        )
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     if data.get("TargetIps") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.authorization_data
     import capo_bedrock_agentcore_control.types.certificate_configuration_list
@@ -192,11 +190,11 @@ def deserialize_json(data: dict) -> GatewayTarget:
     if data.get("gatewayArn") is not None:
         out["gateway_arn"] = data["gatewayArn"]
     else:
-        raise DeserializationError("GatewayTarget.gateway_arn required")
+        out["gateway_arn"] = ""
     if data.get("targetId") is not None:
         out["target_id"] = data["targetId"]
     else:
-        raise DeserializationError("GatewayTarget.target_id required")
+        out["target_id"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -206,7 +204,9 @@ def deserialize_json(data: dict) -> GatewayTarget:
             )
         )
     else:
-        raise DeserializationError("GatewayTarget.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -216,7 +216,9 @@ def deserialize_json(data: dict) -> GatewayTarget:
             )
         )
     else:
-        raise DeserializationError("GatewayTarget.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.target_status
 
@@ -226,7 +228,11 @@ def deserialize_json(data: dict) -> GatewayTarget:
             )
         )
     else:
-        raise DeserializationError("GatewayTarget.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.target_status.TargetStatus", ""
+        )
     if data.get("statusReasons") is not None:
         import capo_bedrock_agentcore_control.types.status_reasons
 
@@ -238,7 +244,7 @@ def deserialize_json(data: dict) -> GatewayTarget:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GatewayTarget.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("targetConfiguration") is not None:
@@ -250,7 +256,11 @@ def deserialize_json(data: dict) -> GatewayTarget:
             )
         )
     else:
-        raise DeserializationError("GatewayTarget.target_configuration required")
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["target_configuration"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
+        )
     if data.get("credentialProviderConfigurations") is not None:
         import capo_bedrock_agentcore_control.types.credential_provider_configurations
 
@@ -260,9 +270,7 @@ def deserialize_json(data: dict) -> GatewayTarget:
             )
         )
     else:
-        raise DeserializationError(
-            "GatewayTarget.credential_provider_configurations required"
-        )
+        out["credential_provider_configurations"] = []
     if data.get("lastSynchronizedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 

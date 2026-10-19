@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.auth_code
     import capo_securityagent.types.csrf_state
@@ -34,15 +32,13 @@ def deserialize_json(data: dict) -> AzureDevOpsIntegrationInput:
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("AzureDevOpsIntegrationInput.code required")
+        out["code"] = ""
     if data.get("state") is not None:
         out["state"] = data["state"]
     else:
-        raise DeserializationError("AzureDevOpsIntegrationInput.state required")
+        out["state"] = ""
     if data.get("organizationName") is not None:
         out["organization_name"] = data["organizationName"]
     else:
-        raise DeserializationError(
-            "AzureDevOpsIntegrationInput.organization_name required"
-        )
+        out["organization_name"] = ""
     return out

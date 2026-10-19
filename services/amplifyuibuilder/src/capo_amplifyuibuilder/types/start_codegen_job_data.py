@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.codegen_feature_flags
     import capo_amplifyuibuilder.types.codegen_job_generic_data_schema
@@ -78,7 +76,11 @@ def deserialize_json(data: dict) -> StartCodegenJobData:
             )
         )
     else:
-        raise DeserializationError("StartCodegenJobData.render_config required")
+        import capo_amplifyuibuilder.types._unknown
+
+        out["render_config"] = capo_amplifyuibuilder.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("genericDataSchema") is not None:
         import capo_amplifyuibuilder.types.codegen_job_generic_data_schema
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.date_time
     import capo_imagebuilder.types.distribution_list
@@ -83,7 +81,7 @@ def deserialize_json(data: dict) -> DistributionConfiguration:
     if data.get("timeoutMinutes") is not None:
         out["timeout_minutes"] = data["timeoutMinutes"]
     else:
-        raise DeserializationError("DistributionConfiguration.timeout_minutes required")
+        out["timeout_minutes"] = 0
     if data.get("dateCreated") is not None:
         out["date_created"] = data["dateCreated"]
     if data.get("dateUpdated") is not None:

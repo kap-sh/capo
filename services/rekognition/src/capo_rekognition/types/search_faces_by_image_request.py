@@ -62,7 +62,7 @@ def deserialize_aws_json_1_1(data: dict) -> SearchFacesByImageRequest:
     if data.get("CollectionId") is not None:
         out["collection_id"] = data["CollectionId"]
     else:
-        raise DeserializationError("SearchFacesByImageRequest.collection_id required")
+        out["collection_id"] = ""
     if data.get("Image") is not None:
         import capo_rekognition.types.image
 

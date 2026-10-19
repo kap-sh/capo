@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codestar_connections.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codestar_connections.types.repository_sync_event_list
     import capo_codestar_connections.types.repository_sync_status
@@ -59,7 +57,9 @@ def deserialize_aws_json_1_0(data: dict) -> RepositorySyncAttempt:
             )
         )
     else:
-        raise DeserializationError("RepositorySyncAttempt.started_at required")
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Status") is not None:
         import capo_codestar_connections.types.repository_sync_status
 
@@ -69,7 +69,12 @@ def deserialize_aws_json_1_0(data: dict) -> RepositorySyncAttempt:
             )
         )
     else:
-        raise DeserializationError("RepositorySyncAttempt.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_codestar_connections.types.repository_sync_status.RepositorySyncStatus",
+            "",
+        )
     if data.get("Events") is not None:
         import capo_codestar_connections.types.repository_sync_event_list
 
@@ -79,5 +84,5 @@ def deserialize_aws_json_1_0(data: dict) -> RepositorySyncAttempt:
             )
         )
     else:
-        raise DeserializationError("RepositorySyncAttempt.events required")
+        out["events"] = []
     return out

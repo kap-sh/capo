@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.file_path
     import capo_inspector2.types.lambda_layer_arn
@@ -82,11 +80,11 @@ def deserialize_json(data: dict) -> VulnerablePackage:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("VulnerablePackage.name required")
+        out["name"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("VulnerablePackage.version required")
+        out["version"] = ""
     if data.get("sourceLayerHash") is not None:
         out["source_layer_hash"] = data["sourceLayerHash"]
     if data.get("epoch") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> TriggerDetails:
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("TriggerDetails.source required")
+        out["source"] = ""
     if data.get("triggerArn") is not None:
         out["trigger_arn"] = data["triggerArn"]
     if data.get("timestamp") is not None:
@@ -56,7 +54,9 @@ def deserialize_json(data: dict) -> TriggerDetails:
             data["timestamp"]
         )
     else:
-        raise DeserializationError("TriggerDetails.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("rawData") is not None:
         out["raw_data"] = data["rawData"]
     return out

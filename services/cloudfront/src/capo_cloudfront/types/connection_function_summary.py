@@ -67,12 +67,12 @@ def deserialize_xml(el: Element) -> ConnectionFunctionSummary:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("ConnectionFunctionSummary.name required")
+        out["name"] = ""
     child_id = el.find("Id")
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("ConnectionFunctionSummary.id required")
+        out["id"] = ""
     child_connection_function_config = el.find("ConnectionFunctionConfig")
     if child_connection_function_config is not None:
         import capo_cloudfront.types.function_config
@@ -90,21 +90,23 @@ def deserialize_xml(el: Element) -> ConnectionFunctionSummary:
     if child_connection_function_arn is not None:
         out["connection_function_arn"] = str(child_connection_function_arn.text or "")
     else:
-        raise DeserializationError(
-            "ConnectionFunctionSummary.connection_function_arn required"
-        )
+        out["connection_function_arn"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         out["status"] = str(child_status.text or "")
     else:
-        raise DeserializationError("ConnectionFunctionSummary.status required")
+        out["status"] = ""
     child_stage = el.find("Stage")
     if child_stage is not None:
         import capo_cloudfront.types.function_stage
 
         out["stage"] = capo_cloudfront.types.function_stage.deserialize_xml(child_stage)
     else:
-        raise DeserializationError("ConnectionFunctionSummary.stage required")
+        import typing
+
+        out["stage"] = typing.cast(
+            "capo_cloudfront.types.function_stage.FunctionStage", ""
+        )
     child_created_time = el.find("CreatedTime")
     if child_created_time is not None:
         import capo_cloudfront.types.timestamp
@@ -113,7 +115,11 @@ def deserialize_xml(el: Element) -> ConnectionFunctionSummary:
             child_created_time
         )
     else:
-        raise DeserializationError("ConnectionFunctionSummary.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_last_modified_time = el.find("LastModifiedTime")
     if child_last_modified_time is not None:
         import capo_cloudfront.types.timestamp
@@ -122,7 +128,9 @@ def deserialize_xml(el: Element) -> ConnectionFunctionSummary:
             child_last_modified_time
         )
     else:
-        raise DeserializationError(
-            "ConnectionFunctionSummary.last_modified_time required"
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_organizations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_organizations.types.account_id
     import capo_organizations.types.parent_id
@@ -34,13 +32,13 @@ def deserialize_aws_json_1_1(data: dict) -> MoveAccountRequest:
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     else:
-        raise DeserializationError("MoveAccountRequest.account_id required")
+        out["account_id"] = ""
     if data.get("SourceParentId") is not None:
         out["source_parent_id"] = data["SourceParentId"]
     else:
-        raise DeserializationError("MoveAccountRequest.source_parent_id required")
+        out["source_parent_id"] = ""
     if data.get("DestinationParentId") is not None:
         out["destination_parent_id"] = data["DestinationParentId"]
     else:
-        raise DeserializationError("MoveAccountRequest.destination_parent_id required")
+        out["destination_parent_id"] = ""
     return out

@@ -51,7 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> NotificationWithSubscribers:
             data["Subscribers"]
         )
     else:
-        raise DeserializationError("NotificationWithSubscribers.subscribers required")
+        out["subscribers"] = []
     return out
 
 

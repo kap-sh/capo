@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.user_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> BatchUserSuccessResponseItem:
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
     else:
-        raise DeserializationError("BatchUserSuccessResponseItem.user_id required")
+        out["user_id"] = ""
     return out

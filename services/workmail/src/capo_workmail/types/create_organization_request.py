@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.boolean
     import capo_workmail.types.directory_id
@@ -60,7 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateOrganizationRequest:
     if data.get("Alias") is not None:
         out["alias"] = data["Alias"]
     else:
-        raise DeserializationError("CreateOrganizationRequest.alias required")
+        out["alias"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("Domains") is not None:

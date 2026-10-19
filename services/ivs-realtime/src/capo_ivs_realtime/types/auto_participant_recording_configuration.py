@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs_realtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.auto_participant_recording_storage_configuration_arn
     import capo_ivs_realtime.types.participant_recording_hls_configuration
@@ -78,9 +76,7 @@ def deserialize_json(data: dict) -> AutoParticipantRecordingConfiguration:
     if data.get("storageConfigurationArn") is not None:
         out["storage_configuration_arn"] = data["storageConfigurationArn"]
     else:
-        raise DeserializationError(
-            "AutoParticipantRecordingConfiguration.storage_configuration_arn required"
-        )
+        out["storage_configuration_arn"] = ""
     if data.get("mediaTypes") is not None:
         import capo_ivs_realtime.types.participant_recording_media_type_list
 

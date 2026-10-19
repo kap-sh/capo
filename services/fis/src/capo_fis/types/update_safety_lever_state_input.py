@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_fis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fis.types.safety_lever_status_input
     import capo_fis.types.safety_lever_status_reason
@@ -39,9 +37,13 @@ def deserialize_json(data: dict) -> UpdateSafetyLeverStateInput:
             data["status"]
         )
     else:
-        raise DeserializationError("UpdateSafetyLeverStateInput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_fis.types.safety_lever_status_input.SafetyLeverStatusInput", ""
+        )
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
     else:
-        raise DeserializationError("UpdateSafetyLeverStateInput.reason required")
+        out["reason"] = ""
     return out

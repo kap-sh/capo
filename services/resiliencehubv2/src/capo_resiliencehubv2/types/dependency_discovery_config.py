@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -57,7 +55,12 @@ def deserialize_json(data: dict) -> DependencyDiscoveryConfig:
             )
         )
     else:
-        raise DeserializationError("DependencyDiscoveryConfig.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_resiliencehubv2.types.dependency_discovery_status.DependencyDiscoveryStatus",
+            "",
+        )
     if data.get("updatedAt") is not None:
         import capo_resiliencehubv2.types._prelude.timestamp
 

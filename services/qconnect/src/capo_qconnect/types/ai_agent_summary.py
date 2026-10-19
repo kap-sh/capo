@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -94,27 +92,27 @@ def deserialize_json(data: dict) -> AIAgentSummary:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AIAgentSummary.name required")
+        out["name"] = ""
     if data.get("assistantId") is not None:
         out["assistant_id"] = data["assistantId"]
     else:
-        raise DeserializationError("AIAgentSummary.assistant_id required")
+        out["assistant_id"] = ""
     if data.get("assistantArn") is not None:
         out["assistant_arn"] = data["assistantArn"]
     else:
-        raise DeserializationError("AIAgentSummary.assistant_arn required")
+        out["assistant_arn"] = ""
     if data.get("aiAgentId") is not None:
         out["ai_agent_id"] = data["aiAgentId"]
     else:
-        raise DeserializationError("AIAgentSummary.ai_agent_id required")
+        out["ai_agent_id"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("AIAgentSummary.type required")
+        out["type"] = ""
     if data.get("aiAgentArn") is not None:
         out["ai_agent_arn"] = data["aiAgentArn"]
     else:
-        raise DeserializationError("AIAgentSummary.ai_agent_arn required")
+        out["ai_agent_arn"] = ""
     if data.get("modifiedTime") is not None:
         import capo_qconnect.types._prelude.timestamp
 
@@ -124,7 +122,7 @@ def deserialize_json(data: dict) -> AIAgentSummary:
     if data.get("visibilityStatus") is not None:
         out["visibility_status"] = data["visibilityStatus"]
     else:
-        raise DeserializationError("AIAgentSummary.visibility_status required")
+        out["visibility_status"] = ""
     if data.get("configuration") is not None:
         import capo_qconnect.types.ai_agent_configuration
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.condition_list
 
@@ -37,5 +35,5 @@ def deserialize_aws_json_1_1(data: dict) -> BeforeEntryConditions:
             )
         )
     else:
-        raise DeserializationError("BeforeEntryConditions.conditions required")
+        out["conditions"] = []
     return out

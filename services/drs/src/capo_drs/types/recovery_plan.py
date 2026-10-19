@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.iso8601_datetime_string
     import capo_drs.types.recovery_plan_description
@@ -54,25 +52,25 @@ def deserialize_json(data: dict) -> RecoveryPlan:
     if data.get("recoveryPlanArn") is not None:
         out["recovery_plan_arn"] = data["recoveryPlanArn"]
     else:
-        raise DeserializationError("RecoveryPlan.recovery_plan_arn required")
+        out["recovery_plan_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RecoveryPlan.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("RecoveryPlan.status required")
+        out["status"] = ""
     if data.get("createdAt") is not None:
         out["created_at"] = data["createdAt"]
     else:
-        raise DeserializationError("RecoveryPlan.created_at required")
+        out["created_at"] = ""
     if data.get("updatedAt") is not None:
         out["updated_at"] = data["updatedAt"]
     else:
-        raise DeserializationError("RecoveryPlan.updated_at required")
+        out["updated_at"] = ""
     if data.get("tags") is not None:
         import capo_drs.types.tags_map
 

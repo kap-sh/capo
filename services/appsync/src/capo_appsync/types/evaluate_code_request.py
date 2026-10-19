@@ -52,11 +52,11 @@ def deserialize_json(data: dict) -> EvaluateCodeRequest:
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("EvaluateCodeRequest.code required")
+        out["code"] = ""
     if data.get("context") is not None:
         out["context"] = data["context"]
     else:
-        raise DeserializationError("EvaluateCodeRequest.context required")
+        out["context"] = ""
     if data.get("function") is not None:
         out["function"] = data["function"]
     return out

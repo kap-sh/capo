@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_elastic_transcoder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elastic_transcoder.types.create_job_output
     import capo_elastic_transcoder.types.create_job_outputs
@@ -100,7 +98,7 @@ def deserialize_json(data: dict) -> CreateJobRequest:
     if data.get("PipelineId") is not None:
         out["pipeline_id"] = data["PipelineId"]
     else:
-        raise DeserializationError("CreateJobRequest.pipeline_id required")
+        out["pipeline_id"] = ""
     if data.get("Input") is not None:
         import capo_elastic_transcoder.types.job_input
 

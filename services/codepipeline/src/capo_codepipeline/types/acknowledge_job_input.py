@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.job_id
     import capo_codepipeline.types.nonce
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> AcknowledgeJobInput:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("AcknowledgeJobInput.job_id required")
+        out["job_id"] = ""
     if data.get("nonce") is not None:
         out["nonce"] = data["nonce"]
     else:
-        raise DeserializationError("AcknowledgeJobInput.nonce required")
+        out["nonce"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.opportunity_sort_name
     import capo_partnercentral_selling.types.sort_order
@@ -51,7 +49,11 @@ def deserialize_aws_json_1_0(data: dict) -> OpportunitySort:
             )
         )
     else:
-        raise DeserializationError("OpportunitySort.sort_order required")
+        import typing
+
+        out["sort_order"] = typing.cast(
+            "capo_partnercentral_selling.types.sort_order.SortOrder", ""
+        )
     if data.get("SortBy") is not None:
         import capo_partnercentral_selling.types.opportunity_sort_name
 
@@ -61,5 +63,10 @@ def deserialize_aws_json_1_0(data: dict) -> OpportunitySort:
             )
         )
     else:
-        raise DeserializationError("OpportunitySort.sort_by required")
+        import typing
+
+        out["sort_by"] = typing.cast(
+            "capo_partnercentral_selling.types.opportunity_sort_name.OpportunitySortName",
+            "",
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.index_name
     import capo_iot.types.next_token
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> SearchIndexRequest:
     if data.get("queryString") is not None:
         out["query_string"] = data["queryString"]
     else:
-        raise DeserializationError("SearchIndexRequest.query_string required")
+        out["query_string"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

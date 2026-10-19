@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.virtual_gateway_listener_tls_certificate
     import capo_app_mesh.types.virtual_gateway_listener_tls_mode
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> VirtualGatewayListenerTls:
     if data.get("mode") is not None:
         out["mode"] = data["mode"]
     else:
-        raise DeserializationError("VirtualGatewayListenerTls.mode required")
+        out["mode"] = ""
     if data.get("validation") is not None:
         import capo_app_mesh.types.virtual_gateway_listener_tls_validation_context
 
@@ -68,5 +66,7 @@ def deserialize_json(data: dict) -> VirtualGatewayListenerTls:
             )
         )
     else:
-        raise DeserializationError("VirtualGatewayListenerTls.certificate required")
+        import capo_app_mesh.types._unknown
+
+        out["certificate"] = capo_app_mesh.types._unknown.UnknownUnionMember("")
     return out

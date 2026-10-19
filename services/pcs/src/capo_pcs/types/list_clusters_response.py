@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pcs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pcs.types.cluster_list
 
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListClustersResponse:
             data["clusters"]
         )
     else:
-        raise DeserializationError("ListClustersResponse.clusters required")
+        out["clusters"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

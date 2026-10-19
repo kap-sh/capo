@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.cloud_connector_id
     import capo_ssm.types.next_token
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> ValidateCloudConnectorRequest:
     if data.get("CloudConnectorId") is not None:
         out["cloud_connector_id"] = data["CloudConnectorId"]
     else:
-        raise DeserializationError(
-            "ValidateCloudConnectorRequest.cloud_connector_id required"
-        )
+        out["cloud_connector_id"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

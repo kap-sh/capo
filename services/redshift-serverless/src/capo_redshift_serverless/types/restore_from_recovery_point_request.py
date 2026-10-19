@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.namespace_name
     import capo_redshift_serverless.types.workgroup_name
@@ -38,21 +36,15 @@ def deserialize_aws_json_1_1(data: dict) -> RestoreFromRecoveryPointRequest:
     if data.get("recoveryPointId") is not None:
         out["recovery_point_id"] = data["recoveryPointId"]
     else:
-        raise DeserializationError(
-            "RestoreFromRecoveryPointRequest.recovery_point_id required"
-        )
+        out["recovery_point_id"] = ""
     if data.get("namespaceName") is not None:
         out["namespace_name"] = data["namespaceName"]
     else:
-        raise DeserializationError(
-            "RestoreFromRecoveryPointRequest.namespace_name required"
-        )
+        out["namespace_name"] = ""
     if data.get("workgroupName") is not None:
         out["workgroup_name"] = data["workgroupName"]
     else:
-        raise DeserializationError(
-            "RestoreFromRecoveryPointRequest.workgroup_name required"
-        )
+        out["workgroup_name"] = ""
     if data.get("maintainIntegration") is not None:
         out["maintain_integration"] = data["maintainIntegration"]
     return out

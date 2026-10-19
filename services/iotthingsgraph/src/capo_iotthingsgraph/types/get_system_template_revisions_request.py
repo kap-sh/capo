@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotthingsgraph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotthingsgraph.types.max_results
     import capo_iotthingsgraph.types.next_token
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetSystemTemplateRevisionsRequest:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetSystemTemplateRevisionsRequest.id required")
+        out["id"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

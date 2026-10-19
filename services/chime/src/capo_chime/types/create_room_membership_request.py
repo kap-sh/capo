@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime.types.non_empty_string
     import capo_chime.types.room_membership_role
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> CreateRoomMembershipRequest:
     if data.get("MemberId") is not None:
         out["member_id"] = data["MemberId"]
     else:
-        raise DeserializationError("CreateRoomMembershipRequest.member_id required")
+        out["member_id"] = ""
     if data.get("Role") is not None:
         import capo_chime.types.room_membership_role
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.resource_id
 
@@ -33,7 +31,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetResolverQueryLogConfigAssociation
             "ResolverQueryLogConfigAssociationId"
         ]
     else:
-        raise DeserializationError(
-            "GetResolverQueryLogConfigAssociationRequest.resolver_query_log_config_association_id required"
-        )
+        out["resolver_query_log_config_association_id"] = ""
     return out

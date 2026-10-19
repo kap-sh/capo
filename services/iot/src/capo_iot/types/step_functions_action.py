@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aws_arn
     import capo_iot.types.execution_name_prefix
@@ -40,9 +38,9 @@ def deserialize_json(data: dict) -> StepFunctionsAction:
     if data.get("stateMachineName") is not None:
         out["state_machine_name"] = data["stateMachineName"]
     else:
-        raise DeserializationError("StepFunctionsAction.state_machine_name required")
+        out["state_machine_name"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("StepFunctionsAction.role_arn required")
+        out["role_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_account_access.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_account_access.types.application_arn
     import capo_account_access.types.entitlement
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> CreateEntitlementRequest:
     if data.get("applicationArn") is not None:
         out["application_arn"] = data["applicationArn"]
     else:
-        raise DeserializationError("CreateEntitlementRequest.application_arn required")
+        out["application_arn"] = ""
     if data.get("entitlement") is not None:
         import capo_account_access.types.entitlement
 
@@ -43,5 +41,7 @@ def deserialize_json(data: dict) -> CreateEntitlementRequest:
             data["entitlement"]
         )
     else:
-        raise DeserializationError("CreateEntitlementRequest.entitlement required")
+        import capo_account_access.types._unknown
+
+        out["entitlement"] = capo_account_access.types._unknown.UnknownUnionMember("")
     return out

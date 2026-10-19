@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.agreement_id
     import capo_transfer.types.server_id
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteAgreementRequest:
     if data.get("AgreementId") is not None:
         out["agreement_id"] = data["AgreementId"]
     else:
-        raise DeserializationError("DeleteAgreementRequest.agreement_id required")
+        out["agreement_id"] = ""
     if data.get("ServerId") is not None:
         out["server_id"] = data["ServerId"]
     else:
-        raise DeserializationError("DeleteAgreementRequest.server_id required")
+        out["server_id"] = ""
     return out

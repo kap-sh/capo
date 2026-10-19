@@ -176,23 +176,19 @@ def deserialize_json(data: dict) -> CreateOriginEndpointResponse:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("CreateOriginEndpointResponse.arn required")
+        out["arn"] = ""
     if data.get("ChannelGroupName") is not None:
         out["channel_group_name"] = data["ChannelGroupName"]
     else:
-        raise DeserializationError(
-            "CreateOriginEndpointResponse.channel_group_name required"
-        )
+        out["channel_group_name"] = ""
     if data.get("ChannelName") is not None:
         out["channel_name"] = data["ChannelName"]
     else:
-        raise DeserializationError("CreateOriginEndpointResponse.channel_name required")
+        out["channel_name"] = ""
     if data.get("OriginEndpointName") is not None:
         out["origin_endpoint_name"] = data["OriginEndpointName"]
     else:
-        raise DeserializationError(
-            "CreateOriginEndpointResponse.origin_endpoint_name required"
-        )
+        out["origin_endpoint_name"] = ""
     if data.get("ContainerType") is not None:
         import capo_mediapackagev2.types.container_type
 
@@ -202,8 +198,10 @@ def deserialize_json(data: dict) -> CreateOriginEndpointResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateOriginEndpointResponse.container_type required"
+        import typing
+
+        out["container_type"] = typing.cast(
+            "capo_mediapackagev2.types.container_type.ContainerType", ""
         )
     if data.get("Segment") is not None:
         import capo_mediapackagev2.types.segment
@@ -222,7 +220,9 @@ def deserialize_json(data: dict) -> CreateOriginEndpointResponse:
             )
         )
     else:
-        raise DeserializationError("CreateOriginEndpointResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("ModifiedAt") is not None:
         import capo_mediapackagev2.types._prelude.timestamp
 
@@ -232,7 +232,11 @@ def deserialize_json(data: dict) -> CreateOriginEndpointResponse:
             )
         )
     else:
-        raise DeserializationError("CreateOriginEndpointResponse.modified_at required")
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("StartoverWindowSeconds") is not None:

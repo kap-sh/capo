@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.asset_id
     import capo_iot.types.asset_property_alias
@@ -67,7 +65,5 @@ def deserialize_json(data: dict) -> PutAssetPropertyValueEntry:
             )
         )
     else:
-        raise DeserializationError(
-            "PutAssetPropertyValueEntry.property_values required"
-        )
+        out["property_values"] = []
     return out

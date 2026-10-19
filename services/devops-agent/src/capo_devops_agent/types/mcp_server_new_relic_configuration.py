@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 
 class MCPServerNewRelicConfiguration(TypedDict, closed=True):
     account_id: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> MCPServerNewRelicConfiguration:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("MCPServerNewRelicConfiguration.account_id required")
+        out["account_id"] = ""
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError("MCPServerNewRelicConfiguration.endpoint required")
+        out["endpoint"] = ""
     return out

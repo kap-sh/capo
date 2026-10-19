@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -67,7 +65,11 @@ def deserialize_cbor(data: dict) -> AlertStateInfo:
             data["value"]
         )
     else:
-        raise DeserializationError("AlertStateInfo.value required")
+        import typing
+
+        out["value"] = typing.cast(
+            "capo_cloudwatchomni.types.alert_state.AlertState", ""
+        )
     if data.get("transitionedAt") is not None:
         import capo_cloudwatchomni.types._prelude.timestamp
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediastore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediastore.types.object_group
     import capo_mediastore.types.object_group_name
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> MetricPolicyRule:
     if data.get("ObjectGroup") is not None:
         out["object_group"] = data["ObjectGroup"]
     else:
-        raise DeserializationError("MetricPolicyRule.object_group required")
+        out["object_group"] = ""
     if data.get("ObjectGroupName") is not None:
         out["object_group_name"] = data["ObjectGroupName"]
     else:
-        raise DeserializationError("MetricPolicyRule.object_group_name required")
+        out["object_group_name"] = ""
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.import_source_type
@@ -40,10 +39,14 @@ def deserialize_xml(el: Element) -> ImportSource:
             child_source_type
         )
     else:
-        raise DeserializationError("ImportSource.source_type required")
+        import typing
+
+        out["source_type"] = typing.cast(
+            "capo_cloudfront.types.import_source_type.ImportSourceType", ""
+        )
     child_source_arn = el.find("SourceARN")
     if child_source_arn is not None:
         out["source_arn"] = str(child_source_arn.text or "")
     else:
-        raise DeserializationError("ImportSource.source_arn required")
+        out["source_arn"] = ""
     return out

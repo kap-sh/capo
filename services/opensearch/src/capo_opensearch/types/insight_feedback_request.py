@@ -58,7 +58,7 @@ def deserialize_json(data: dict) -> InsightFeedbackRequest:
     if data.get("InsightId") is not None:
         out["insight_id"] = data["InsightId"]
     else:
-        raise DeserializationError("InsightFeedbackRequest.insight_id required")
+        out["insight_id"] = ""
     if data.get("Thumbs") is not None:
         import capo_opensearch.types.insight_feedback_thumbs
 
@@ -66,7 +66,11 @@ def deserialize_json(data: dict) -> InsightFeedbackRequest:
             data["Thumbs"]
         )
     else:
-        raise DeserializationError("InsightFeedbackRequest.thumbs required")
+        import typing
+
+        out["thumbs"] = typing.cast(
+            "capo_opensearch.types.insight_feedback_thumbs.InsightFeedbackThumbs", ""
+        )
     if data.get("FeedbackText") is not None:
         out["feedback_text"] = data["FeedbackText"]
     return out

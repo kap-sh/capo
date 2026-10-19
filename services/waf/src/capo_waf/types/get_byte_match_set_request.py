@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_waf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf.types.resource_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetByteMatchSetRequest:
     if data.get("ByteMatchSetId") is not None:
         out["byte_match_set_id"] = data["ByteMatchSetId"]
     else:
-        raise DeserializationError("GetByteMatchSetRequest.byte_match_set_id required")
+        out["byte_match_set_id"] = ""
     return out

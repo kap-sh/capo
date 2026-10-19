@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.batch_evaluation_arn
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> BatchEvaluationTraceConfig:
     if data.get("batchEvaluationArn") is not None:
         out["batch_evaluation_arn"] = data["batchEvaluationArn"]
     else:
-        raise DeserializationError(
-            "BatchEvaluationTraceConfig.batch_evaluation_arn required"
-        )
+        out["batch_evaluation_arn"] = ""
     return out

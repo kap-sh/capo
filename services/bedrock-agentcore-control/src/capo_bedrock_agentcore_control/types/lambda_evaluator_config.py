@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.lambda_arn
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> LambdaEvaluatorConfig:
     if data.get("lambdaArn") is not None:
         out["lambda_arn"] = data["lambdaArn"]
     else:
-        raise DeserializationError("LambdaEvaluatorConfig.lambda_arn required")
+        out["lambda_arn"] = ""
     if data.get("lambdaTimeoutInSeconds") is not None:
         out["lambda_timeout_in_seconds"] = data["lambdaTimeoutInSeconds"]
     return out

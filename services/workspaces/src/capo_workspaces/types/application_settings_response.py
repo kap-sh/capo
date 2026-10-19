@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.application_settings_status_enum
     import capo_workspaces.types.s3_bucket_name
@@ -49,7 +47,12 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationSettingsResponse:
             )
         )
     else:
-        raise DeserializationError("ApplicationSettingsResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_workspaces.types.application_settings_status_enum.ApplicationSettingsStatusEnum",
+            "",
+        )
     if data.get("SettingsGroup") is not None:
         out["settings_group"] = data["SettingsGroup"]
     if data.get("S3BucketName") is not None:

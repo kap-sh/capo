@@ -61,7 +61,5 @@ def deserialize_json(data: dict) -> CustomTransformationConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "CustomTransformationConfiguration.transformations required"
-        )
+        out["transformations"] = []
     return out

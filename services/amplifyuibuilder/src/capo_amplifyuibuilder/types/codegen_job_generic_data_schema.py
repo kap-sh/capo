@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.codegen_generic_data_enums
     import capo_amplifyuibuilder.types.codegen_generic_data_models
@@ -71,8 +69,11 @@ def deserialize_json(data: dict) -> CodegenJobGenericDataSchema:
             )
         )
     else:
-        raise DeserializationError(
-            "CodegenJobGenericDataSchema.data_source_type required"
+        import typing
+
+        out["data_source_type"] = typing.cast(
+            "capo_amplifyuibuilder.types.codegen_job_generic_data_source_type.CodegenJobGenericDataSourceType",
+            "",
         )
     if data.get("models") is not None:
         import capo_amplifyuibuilder.types.codegen_generic_data_models
@@ -83,7 +84,7 @@ def deserialize_json(data: dict) -> CodegenJobGenericDataSchema:
             )
         )
     else:
-        raise DeserializationError("CodegenJobGenericDataSchema.models required")
+        out["models"] = {}
     if data.get("enums") is not None:
         import capo_amplifyuibuilder.types.codegen_generic_data_enums
 
@@ -93,7 +94,7 @@ def deserialize_json(data: dict) -> CodegenJobGenericDataSchema:
             )
         )
     else:
-        raise DeserializationError("CodegenJobGenericDataSchema.enums required")
+        out["enums"] = {}
     if data.get("nonModels") is not None:
         import capo_amplifyuibuilder.types.codegen_generic_data_non_models
 
@@ -103,5 +104,5 @@ def deserialize_json(data: dict) -> CodegenJobGenericDataSchema:
             )
         )
     else:
-        raise DeserializationError("CodegenJobGenericDataSchema.non_models required")
+        out["non_models"] = {}
     return out

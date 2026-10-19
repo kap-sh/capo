@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.action_list
     import capo_accessanalyzer.types.finding_status
@@ -86,11 +84,11 @@ def deserialize_json(data: dict) -> AnalyzedResource:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("AnalyzedResource.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError("AnalyzedResource.resource_type required")
+        out["resource_type"] = ""
     if data.get("createdAt") is not None:
         import capo_accessanalyzer.types.timestamp
 
@@ -98,7 +96,9 @@ def deserialize_json(data: dict) -> AnalyzedResource:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("AnalyzedResource.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("analyzedAt") is not None:
         import capo_accessanalyzer.types.timestamp
 
@@ -106,7 +106,11 @@ def deserialize_json(data: dict) -> AnalyzedResource:
             data["analyzedAt"]
         )
     else:
-        raise DeserializationError("AnalyzedResource.analyzed_at required")
+        import datetime
+
+        out["analyzed_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updatedAt") is not None:
         import capo_accessanalyzer.types.timestamp
 
@@ -114,11 +118,13 @@ def deserialize_json(data: dict) -> AnalyzedResource:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("AnalyzedResource.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("isPublic") is not None:
         out["is_public"] = data["isPublic"]
     else:
-        raise DeserializationError("AnalyzedResource.is_public required")
+        out["is_public"] = False
     if data.get("actions") is not None:
         import capo_accessanalyzer.types.action_list
 
@@ -136,7 +142,7 @@ def deserialize_json(data: dict) -> AnalyzedResource:
     if data.get("resourceOwnerAccount") is not None:
         out["resource_owner_account"] = data["resourceOwnerAccount"]
     else:
-        raise DeserializationError("AnalyzedResource.resource_owner_account required")
+        out["resource_owner_account"] = ""
     if data.get("error") is not None:
         out["error"] = data["error"]
     return out

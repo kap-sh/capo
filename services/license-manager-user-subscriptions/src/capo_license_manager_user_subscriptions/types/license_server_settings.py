@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_license_manager_user_subscriptions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager_user_subscriptions.types.server_settings
     import capo_license_manager_user_subscriptions.types.server_type
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> LicenseServerSettings:
     if data.get("ServerType") is not None:
         out["server_type"] = data["ServerType"]
     else:
-        raise DeserializationError("LicenseServerSettings.server_type required")
+        out["server_type"] = ""
     if data.get("ServerSettings") is not None:
         import capo_license_manager_user_subscriptions.types.server_settings
 
@@ -49,5 +47,11 @@ def deserialize_json(data: dict) -> LicenseServerSettings:
             )
         )
     else:
-        raise DeserializationError("LicenseServerSettings.server_settings required")
+        import capo_license_manager_user_subscriptions.types._unknown
+
+        out["server_settings"] = (
+            capo_license_manager_user_subscriptions.types._unknown.UnknownUnionMember(
+                ""
+            )
+        )
     return out

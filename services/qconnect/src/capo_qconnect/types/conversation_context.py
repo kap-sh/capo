@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.self_service_conversation_history_list
 
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> ConversationContext:
             )
         )
     else:
-        raise DeserializationError(
-            "ConversationContext.self_service_conversation_history required"
-        )
+        out["self_service_conversation_history"] = []
     return out
 
 

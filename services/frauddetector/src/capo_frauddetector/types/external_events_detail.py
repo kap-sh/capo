@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.iam_role_arn
     import capo_frauddetector.types.s3_bucket_location
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> ExternalEventsDetail:
     if data.get("dataLocation") is not None:
         out["data_location"] = data["dataLocation"]
     else:
-        raise DeserializationError("ExternalEventsDetail.data_location required")
+        out["data_location"] = ""
     if data.get("dataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["dataAccessRoleArn"]
     else:
-        raise DeserializationError("ExternalEventsDetail.data_access_role_arn required")
+        out["data_access_role_arn"] = ""
     return out

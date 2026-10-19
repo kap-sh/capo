@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.arn
     import capo_codecommit.types.max_results
@@ -55,9 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribePullRequestEventsInput:
     if data.get("pullRequestId") is not None:
         out["pull_request_id"] = data["pullRequestId"]
     else:
-        raise DeserializationError(
-            "DescribePullRequestEventsInput.pull_request_id required"
-        )
+        out["pull_request_id"] = ""
     if data.get("pullRequestEventType") is not None:
         import capo_codecommit.types.pull_request_event_type
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.asset_bundle_export_job_refresh_schedule_property_to_override_list
@@ -41,9 +39,7 @@ def deserialize_json(
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError(
-            "AssetBundleExportJobRefreshScheduleOverrideProperties.arn required"
-        )
+        out["arn"] = ""
     if data.get("Properties") is not None:
         import capo_quicksight.types.asset_bundle_export_job_refresh_schedule_property_to_override_list
 
@@ -53,7 +49,5 @@ def deserialize_json(
             )
         )
     else:
-        raise DeserializationError(
-            "AssetBundleExportJobRefreshScheduleOverrideProperties.properties required"
-        )
+        out["properties"] = []
     return out

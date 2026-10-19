@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mturk.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mturk.types.boolean
     import capo_mturk.types.entity_id
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> ApproveAssignmentRequest:
     if data.get("AssignmentId") is not None:
         out["assignment_id"] = data["AssignmentId"]
     else:
-        raise DeserializationError("ApproveAssignmentRequest.assignment_id required")
+        out["assignment_id"] = ""
     if data.get("RequesterFeedback") is not None:
         out["requester_feedback"] = data["RequesterFeedback"]
     if data.get("OverrideRejection") is not None:

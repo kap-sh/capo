@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_tnb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_tnb.types.operational_state
     import capo_tnb.types.vnf_pkg_id
@@ -38,7 +36,9 @@ def deserialize_json(data: dict) -> UpdateSolFunctionPackageInput:
             data["operationalState"]
         )
     else:
-        raise DeserializationError(
-            "UpdateSolFunctionPackageInput.operational_state required"
+        import typing
+
+        out["operational_state"] = typing.cast(
+            "capo_tnb.types.operational_state.OperationalState", ""
         )
     return out

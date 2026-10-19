@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_events.types.connection_authorization_type
     import capo_cloudwatch_events.types.connection_description
@@ -60,7 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateConnectionRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateConnectionRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("AuthorizationType") is not None:

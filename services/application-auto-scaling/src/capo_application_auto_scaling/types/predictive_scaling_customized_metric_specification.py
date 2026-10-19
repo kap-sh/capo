@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_auto_scaling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_auto_scaling.types.predictive_scaling_metric_data_queries
 
@@ -43,7 +41,5 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "PredictiveScalingCustomizedMetricSpecification.metric_data_queries required"
-        )
+        out["metric_data_queries"] = []
     return out

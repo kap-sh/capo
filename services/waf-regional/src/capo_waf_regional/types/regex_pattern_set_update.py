@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_waf_regional.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf_regional.types.change_action
     import capo_waf_regional.types.regex_pattern_string
@@ -41,11 +39,13 @@ def deserialize_aws_json_1_1(data: dict) -> RegexPatternSetUpdate:
             data["Action"]
         )
     else:
-        raise DeserializationError("RegexPatternSetUpdate.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_waf_regional.types.change_action.ChangeAction", ""
+        )
     if data.get("RegexPatternString") is not None:
         out["regex_pattern_string"] = data["RegexPatternString"]
     else:
-        raise DeserializationError(
-            "RegexPatternSetUpdate.regex_pattern_string required"
-        )
+        out["regex_pattern_string"] = ""
     return out

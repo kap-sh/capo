@@ -45,7 +45,11 @@ def deserialize_aws_json_1_1(data: dict) -> SizeConstraintSetUpdate:
             data["Action"]
         )
     else:
-        raise DeserializationError("SizeConstraintSetUpdate.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_waf_regional.types.change_action.ChangeAction", ""
+        )
     if data.get("SizeConstraint") is not None:
         import capo_waf_regional.types.size_constraint
 

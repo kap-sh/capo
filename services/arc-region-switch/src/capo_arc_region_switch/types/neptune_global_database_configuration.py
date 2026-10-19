@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.iam_role_arn
     import capo_arc_region_switch.types.neptune_default_behavior
@@ -102,9 +100,7 @@ def deserialize_aws_json_1_0(data: dict) -> NeptuneGlobalDatabaseConfiguration:
     if data.get("globalClusterIdentifier") is not None:
         out["global_cluster_identifier"] = data["globalClusterIdentifier"]
     else:
-        raise DeserializationError(
-            "NeptuneGlobalDatabaseConfiguration.global_cluster_identifier required"
-        )
+        out["global_cluster_identifier"] = ""
     if data.get("regionDatabaseClusterArns") is not None:
         import capo_arc_region_switch.types.region_neptune_cluster_arn_map
 
@@ -114,7 +110,5 @@ def deserialize_aws_json_1_0(data: dict) -> NeptuneGlobalDatabaseConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "NeptuneGlobalDatabaseConfiguration.region_database_cluster_arns required"
-        )
+        out["region_database_cluster_arns"] = {}
     return out

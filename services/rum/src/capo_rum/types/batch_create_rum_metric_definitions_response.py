@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rum.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rum.types.batch_create_rum_metric_definitions_errors
     import capo_rum.types.metric_definitions
@@ -50,9 +48,7 @@ def deserialize_json(data: dict) -> BatchCreateRumMetricDefinitionsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchCreateRumMetricDefinitionsResponse.errors required"
-        )
+        out["errors"] = []
     if data.get("MetricDefinitions") is not None:
         import capo_rum.types.metric_definitions
 

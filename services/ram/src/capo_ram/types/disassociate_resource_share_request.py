@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ram.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ram.types.principal_arn_or_id_list
     import capo_ram.types.resource_arn_list
@@ -62,9 +60,7 @@ def deserialize_json(data: dict) -> DisassociateResourceShareRequest:
     if data.get("resourceShareArn") is not None:
         out["resource_share_arn"] = data["resourceShareArn"]
     else:
-        raise DeserializationError(
-            "DisassociateResourceShareRequest.resource_share_arn required"
-        )
+        out["resource_share_arn"] = ""
     if data.get("resourceArns") is not None:
         import capo_ram.types.resource_arn_list
 

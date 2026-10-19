@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_outposts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_outposts.types.address
     import capo_outposts.types.rack_physical_properties
@@ -72,7 +70,7 @@ def deserialize_json(data: dict) -> CreateSiteInput:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateSiteInput.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Notes") is not None:

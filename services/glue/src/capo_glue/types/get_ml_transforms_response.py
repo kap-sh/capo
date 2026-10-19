@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.pagination_token
     import capo_glue.types.transform_list
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetMLTransformsResponse:
             data["Transforms"]
         )
     else:
-        raise DeserializationError("GetMLTransformsResponse.transforms required")
+        out["transforms"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

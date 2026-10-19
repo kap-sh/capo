@@ -91,19 +91,17 @@ def deserialize_json(data: dict) -> EvaluationSearchSummary:
     if data.get("EvaluationId") is not None:
         out["evaluation_id"] = data["EvaluationId"]
     else:
-        raise DeserializationError("EvaluationSearchSummary.evaluation_id required")
+        out["evaluation_id"] = ""
     if data.get("EvaluationArn") is not None:
         out["evaluation_arn"] = data["EvaluationArn"]
     else:
-        raise DeserializationError("EvaluationSearchSummary.evaluation_arn required")
+        out["evaluation_arn"] = ""
     if data.get("EvaluationFormId") is not None:
         out["evaluation_form_id"] = data["EvaluationFormId"]
     if data.get("EvaluationFormVersion") is not None:
         out["evaluation_form_version"] = data["EvaluationFormVersion"]
     else:
-        raise DeserializationError(
-            "EvaluationSearchSummary.evaluation_form_version required"
-        )
+        out["evaluation_form_version"] = 0
     if data.get("EvaluationFormTitle") is not None:
         out["evaluation_form_title"] = data["EvaluationFormTitle"]
     if data.get("Metadata") is not None:
@@ -123,7 +121,11 @@ def deserialize_json(data: dict) -> EvaluationSearchSummary:
             data["Status"]
         )
     else:
-        raise DeserializationError("EvaluationSearchSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_connect.types.evaluation_status.EvaluationStatus", ""
+        )
     if data.get("EvaluationType") is not None:
         import capo_connect.types.evaluation_type
 
@@ -137,7 +139,11 @@ def deserialize_json(data: dict) -> EvaluationSearchSummary:
             data["CreatedTime"]
         )
     else:
-        raise DeserializationError("EvaluationSearchSummary.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("LastModifiedTime") is not None:
         import capo_connect.types.timestamp
 
@@ -145,8 +151,10 @@ def deserialize_json(data: dict) -> EvaluationSearchSummary:
             data["LastModifiedTime"]
         )
     else:
-        raise DeserializationError(
-            "EvaluationSearchSummary.last_modified_time required"
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("Tags") is not None:
         import capo_connect.types.tag_map

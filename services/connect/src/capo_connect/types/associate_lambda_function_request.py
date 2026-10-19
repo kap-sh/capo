@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.client_token
     import capo_connect.types.function_arn
@@ -35,9 +33,7 @@ def deserialize_json(data: dict) -> AssociateLambdaFunctionRequest:
     if data.get("FunctionArn") is not None:
         out["function_arn"] = data["FunctionArn"]
     else:
-        raise DeserializationError(
-            "AssociateLambdaFunctionRequest.function_arn required"
-        )
+        out["function_arn"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.string
     import capo_license_manager.types.string_list
@@ -38,11 +36,11 @@ def deserialize_aws_json_1_1(data: dict) -> MatchingRuleStatement:
     if data.get("KeyToMatch") is not None:
         out["key_to_match"] = data["KeyToMatch"]
     else:
-        raise DeserializationError("MatchingRuleStatement.key_to_match required")
+        out["key_to_match"] = ""
     if data.get("Constraint") is not None:
         out["constraint"] = data["Constraint"]
     else:
-        raise DeserializationError("MatchingRuleStatement.constraint required")
+        out["constraint"] = ""
     if data.get("ValueToMatch") is not None:
         import capo_license_manager.types.string_list
 
@@ -52,5 +50,5 @@ def deserialize_aws_json_1_1(data: dict) -> MatchingRuleStatement:
             )
         )
     else:
-        raise DeserializationError("MatchingRuleStatement.value_to_match required")
+        out["value_to_match"] = []
     return out

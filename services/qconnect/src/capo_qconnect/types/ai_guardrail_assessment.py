@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 
 class AIGuardrailAssessment(TypedDict, closed=True):
     blocked: "bool"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> AIGuardrailAssessment:
     if data.get("blocked") is not None:
         out["blocked"] = data["blocked"]
     else:
-        raise DeserializationError("AIGuardrailAssessment.blocked required")
+        out["blocked"] = False
     return out

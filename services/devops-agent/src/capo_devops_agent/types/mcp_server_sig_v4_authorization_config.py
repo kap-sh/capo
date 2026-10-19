@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.custom_headers
     import capo_devops_agent.types.role_arn
@@ -47,11 +45,11 @@ def deserialize_json(data: dict) -> MCPServerSigV4AuthorizationConfig:
     if data.get("region") is not None:
         out["region"] = data["region"]
     else:
-        raise DeserializationError("MCPServerSigV4AuthorizationConfig.region required")
+        out["region"] = ""
     if data.get("service") is not None:
         out["service"] = data["service"]
     else:
-        raise DeserializationError("MCPServerSigV4AuthorizationConfig.service required")
+        out["service"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:

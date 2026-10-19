@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.application_mode
     import capo_kinesis_analytics_v2.types.application_name
@@ -74,11 +72,11 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationSummary:
     if data.get("ApplicationName") is not None:
         out["application_name"] = data["ApplicationName"]
     else:
-        raise DeserializationError("ApplicationSummary.application_name required")
+        out["application_name"] = ""
     if data.get("ApplicationARN") is not None:
         out["application_arn"] = data["ApplicationARN"]
     else:
-        raise DeserializationError("ApplicationSummary.application_arn required")
+        out["application_arn"] = ""
     if data.get("ApplicationStatus") is not None:
         import capo_kinesis_analytics_v2.types.application_status
 
@@ -88,11 +86,15 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationSummary:
             )
         )
     else:
-        raise DeserializationError("ApplicationSummary.application_status required")
+        import typing
+
+        out["application_status"] = typing.cast(
+            "capo_kinesis_analytics_v2.types.application_status.ApplicationStatus", ""
+        )
     if data.get("ApplicationVersionId") is not None:
         out["application_version_id"] = data["ApplicationVersionId"]
     else:
-        raise DeserializationError("ApplicationSummary.application_version_id required")
+        out["application_version_id"] = 0
     if data.get("RuntimeEnvironment") is not None:
         import capo_kinesis_analytics_v2.types.runtime_environment
 
@@ -102,7 +104,11 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationSummary:
             )
         )
     else:
-        raise DeserializationError("ApplicationSummary.runtime_environment required")
+        import typing
+
+        out["runtime_environment"] = typing.cast(
+            "capo_kinesis_analytics_v2.types.runtime_environment.RuntimeEnvironment", ""
+        )
     if data.get("ApplicationMode") is not None:
         import capo_kinesis_analytics_v2.types.application_mode
 

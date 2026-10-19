@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.alarm_state
     import capo_lightsail.types.resource_name
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> TestAlarmRequest:
     if data.get("alarmName") is not None:
         out["alarm_name"] = data["alarmName"]
     else:
-        raise DeserializationError("TestAlarmRequest.alarm_name required")
+        out["alarm_name"] = ""
     if data.get("state") is not None:
         import capo_lightsail.types.alarm_state
 
@@ -43,5 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> TestAlarmRequest:
             data["state"]
         )
     else:
-        raise DeserializationError("TestAlarmRequest.state required")
+        import typing
+
+        out["state"] = typing.cast("capo_lightsail.types.alarm_state.AlarmState", "")
     return out

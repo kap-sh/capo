@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.bundle_associated_resource_type_list
     import capo_workspaces.types.bundle_id
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeBundleAssociationsRequest:
     if data.get("BundleId") is not None:
         out["bundle_id"] = data["BundleId"]
     else:
-        raise DeserializationError(
-            "DescribeBundleAssociationsRequest.bundle_id required"
-        )
+        out["bundle_id"] = ""
     if data.get("AssociatedResourceTypes") is not None:
         import capo_workspaces.types.bundle_associated_resource_type_list
 
@@ -49,7 +45,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeBundleAssociationsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeBundleAssociationsRequest.associated_resource_types required"
-        )
+        out["associated_resource_types"] = []
     return out

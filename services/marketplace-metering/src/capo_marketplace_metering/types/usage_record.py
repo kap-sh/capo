@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_metering.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_metering.types.customer_aws_account_id
     import capo_marketplace_metering.types.customer_identifier
@@ -79,7 +77,9 @@ def deserialize_aws_json_1_1(data: dict) -> UsageRecord:
             )
         )
     else:
-        raise DeserializationError("UsageRecord.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("CustomerIdentifier") is not None:
         out["customer_identifier"] = data["CustomerIdentifier"]
     else:
@@ -87,7 +87,7 @@ def deserialize_aws_json_1_1(data: dict) -> UsageRecord:
     if data.get("Dimension") is not None:
         out["dimension"] = data["Dimension"]
     else:
-        raise DeserializationError("UsageRecord.dimension required")
+        out["dimension"] = ""
     if data.get("Quantity") is not None:
         out["quantity"] = data["Quantity"]
     if data.get("UsageAllocations") is not None:

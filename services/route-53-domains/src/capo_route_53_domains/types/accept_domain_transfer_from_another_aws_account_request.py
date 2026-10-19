@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_route_53_domains.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route_53_domains.types.domain_name
     import capo_route_53_domains.types.password
@@ -35,15 +33,11 @@ def deserialize_aws_json_1_1(
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError(
-            "AcceptDomainTransferFromAnotherAwsAccountRequest.domain_name required"
-        )
+        out["domain_name"] = ""
     if data.get("Password") is not None:
         out["password"] = data["Password"]
     else:
-        raise DeserializationError(
-            "AcceptDomainTransferFromAnotherAwsAccountRequest.password required"
-        )
+        out["password"] = ""
     return out
 
 

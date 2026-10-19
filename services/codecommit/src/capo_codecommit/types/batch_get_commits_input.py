@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.commit_ids_input_list
     import capo_codecommit.types.repository_name
@@ -43,9 +41,9 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetCommitsInput:
             )
         )
     else:
-        raise DeserializationError("BatchGetCommitsInput.commit_ids required")
+        out["commit_ids"] = []
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError("BatchGetCommitsInput.repository_name required")
+        out["repository_name"] = ""
     return out

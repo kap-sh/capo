@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.admin_account_summary_list
     import capo_network_security_manager.types.next_token
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> ListAdminAccountsResponse:
             )
         )
     else:
-        raise DeserializationError("ListAdminAccountsResponse.admin_accounts required")
+        out["admin_accounts"] = []
     return out
 
 

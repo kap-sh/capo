@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -79,21 +77,23 @@ def deserialize_json(data: dict) -> TableSummary:
             data["namespace"]
         )
     else:
-        raise DeserializationError("TableSummary.namespace required")
+        out["namespace"] = []
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("TableSummary.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         import capo_s3tables.types.table_type
 
         out["type"] = capo_s3tables.types.table_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("TableSummary.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_s3tables.types.table_type.TableType", "")
     if data.get("tableARN") is not None:
         out["table_arn"] = data["tableARN"]
     else:
-        raise DeserializationError("TableSummary.table_arn required")
+        out["table_arn"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -101,7 +101,9 @@ def deserialize_json(data: dict) -> TableSummary:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("TableSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("modifiedAt") is not None:
         import datetime
 
@@ -109,7 +111,11 @@ def deserialize_json(data: dict) -> TableSummary:
             data["modifiedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("TableSummary.modified_at required")
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("managedByService") is not None:
         out["managed_by_service"] = data["managedByService"]
     if data.get("namespaceId") is not None:

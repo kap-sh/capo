@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.backup_arn
     import capo_dynamodb.types.backup_creation_date_time
@@ -75,11 +73,11 @@ def deserialize_aws_json_1_0(data: dict) -> BackupDetails:
     if data.get("BackupArn") is not None:
         out["backup_arn"] = data["BackupArn"]
     else:
-        raise DeserializationError("BackupDetails.backup_arn required")
+        out["backup_arn"] = ""
     if data.get("BackupName") is not None:
         out["backup_name"] = data["BackupName"]
     else:
-        raise DeserializationError("BackupDetails.backup_name required")
+        out["backup_name"] = ""
     if data.get("BackupSizeBytes") is not None:
         out["backup_size_bytes"] = data["BackupSizeBytes"]
     if data.get("BackupStatus") is not None:
@@ -91,7 +89,11 @@ def deserialize_aws_json_1_0(data: dict) -> BackupDetails:
             )
         )
     else:
-        raise DeserializationError("BackupDetails.backup_status required")
+        import typing
+
+        out["backup_status"] = typing.cast(
+            "capo_dynamodb.types.backup_status.BackupStatus", ""
+        )
     if data.get("BackupType") is not None:
         import capo_dynamodb.types.backup_type
 
@@ -99,7 +101,11 @@ def deserialize_aws_json_1_0(data: dict) -> BackupDetails:
             data["BackupType"]
         )
     else:
-        raise DeserializationError("BackupDetails.backup_type required")
+        import typing
+
+        out["backup_type"] = typing.cast(
+            "capo_dynamodb.types.backup_type.BackupType", ""
+        )
     if data.get("BackupCreationDateTime") is not None:
         import capo_dynamodb.types.backup_creation_date_time
 
@@ -109,7 +115,11 @@ def deserialize_aws_json_1_0(data: dict) -> BackupDetails:
             )
         )
     else:
-        raise DeserializationError("BackupDetails.backup_creation_date_time required")
+        import datetime
+
+        out["backup_creation_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("BackupExpiryDateTime") is not None:
         import capo_dynamodb.types.date
 

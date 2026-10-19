@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.cors
     import capo_lambda.types.function_arn
@@ -62,15 +60,11 @@ def deserialize_json(data: dict) -> UpdateFunctionUrlConfigResponse:
     if data.get("FunctionUrl") is not None:
         out["function_url"] = data["FunctionUrl"]
     else:
-        raise DeserializationError(
-            "UpdateFunctionUrlConfigResponse.function_url required"
-        )
+        out["function_url"] = ""
     if data.get("FunctionArn") is not None:
         out["function_arn"] = data["FunctionArn"]
     else:
-        raise DeserializationError(
-            "UpdateFunctionUrlConfigResponse.function_arn required"
-        )
+        out["function_arn"] = ""
     if data.get("AuthType") is not None:
         import capo_lambda.types.function_url_auth_type
 
@@ -78,7 +72,11 @@ def deserialize_json(data: dict) -> UpdateFunctionUrlConfigResponse:
             data["AuthType"]
         )
     else:
-        raise DeserializationError("UpdateFunctionUrlConfigResponse.auth_type required")
+        import typing
+
+        out["auth_type"] = typing.cast(
+            "capo_lambda.types.function_url_auth_type.FunctionUrlAuthType", ""
+        )
     if data.get("Cors") is not None:
         import capo_lambda.types.cors
 
@@ -86,15 +84,11 @@ def deserialize_json(data: dict) -> UpdateFunctionUrlConfigResponse:
     if data.get("CreationTime") is not None:
         out["creation_time"] = data["CreationTime"]
     else:
-        raise DeserializationError(
-            "UpdateFunctionUrlConfigResponse.creation_time required"
-        )
+        out["creation_time"] = ""
     if data.get("LastModifiedTime") is not None:
         out["last_modified_time"] = data["LastModifiedTime"]
     else:
-        raise DeserializationError(
-            "UpdateFunctionUrlConfigResponse.last_modified_time required"
-        )
+        out["last_modified_time"] = ""
     if data.get("InvokeMode") is not None:
         import capo_lambda.types.invoke_mode
 

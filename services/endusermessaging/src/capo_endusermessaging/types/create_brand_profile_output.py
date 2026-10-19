@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_endusermessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -69,19 +67,15 @@ def deserialize_json(data: dict) -> CreateBrandProfileOutput:
     if data.get("brandProfileId") is not None:
         out["brand_profile_id"] = data["brandProfileId"]
     else:
-        raise DeserializationError("CreateBrandProfileOutput.brand_profile_id required")
+        out["brand_profile_id"] = ""
     if data.get("brandProfileArn") is not None:
         out["brand_profile_arn"] = data["brandProfileArn"]
     else:
-        raise DeserializationError(
-            "CreateBrandProfileOutput.brand_profile_arn required"
-        )
+        out["brand_profile_arn"] = ""
     if data.get("brandProfileName") is not None:
         out["brand_profile_name"] = data["brandProfileName"]
     else:
-        raise DeserializationError(
-            "CreateBrandProfileOutput.brand_profile_name required"
-        )
+        out["brand_profile_name"] = ""
     if data.get("status") is not None:
         import capo_endusermessaging.types.status
 
@@ -89,13 +83,13 @@ def deserialize_json(data: dict) -> CreateBrandProfileOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("CreateBrandProfileOutput.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_endusermessaging.types.status.Status", "")
     if data.get("deletionProtectionEnabled") is not None:
         out["deletion_protection_enabled"] = data["deletionProtectionEnabled"]
     else:
-        raise DeserializationError(
-            "CreateBrandProfileOutput.deletion_protection_enabled required"
-        )
+        out["deletion_protection_enabled"] = False
     if data.get("createdAt") is not None:
         import capo_endusermessaging.types._prelude.timestamp
 
@@ -105,7 +99,9 @@ def deserialize_json(data: dict) -> CreateBrandProfileOutput:
             )
         )
     else:
-        raise DeserializationError("CreateBrandProfileOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_endusermessaging.types._prelude.timestamp
 
@@ -115,11 +111,11 @@ def deserialize_json(data: dict) -> CreateBrandProfileOutput:
             )
         )
     else:
-        raise DeserializationError("CreateBrandProfileOutput.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("attributesCreated") is not None:
         out["attributes_created"] = data["attributesCreated"]
     else:
-        raise DeserializationError(
-            "CreateBrandProfileOutput.attributes_created required"
-        )
+        out["attributes_created"] = 0
     return out

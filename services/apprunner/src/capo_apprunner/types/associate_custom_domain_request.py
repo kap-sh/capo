@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_apprunner.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_apprunner.types.app_runner_resource_arn
     import capo_apprunner.types.domain_name
@@ -38,11 +36,11 @@ def deserialize_aws_json_1_0(data: dict) -> AssociateCustomDomainRequest:
     if data.get("ServiceArn") is not None:
         out["service_arn"] = data["ServiceArn"]
     else:
-        raise DeserializationError("AssociateCustomDomainRequest.service_arn required")
+        out["service_arn"] = ""
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("AssociateCustomDomainRequest.domain_name required")
+        out["domain_name"] = ""
     if data.get("EnableWWWSubdomain") is not None:
         out["enable_www_subdomain"] = data["EnableWWWSubdomain"]
     return out

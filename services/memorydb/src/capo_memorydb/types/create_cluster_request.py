@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_memorydb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_memorydb.types.acl_name
     import capo_memorydb.types.boolean_optional
@@ -165,11 +163,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateClusterRequest:
     if data.get("ClusterName") is not None:
         out["cluster_name"] = data["ClusterName"]
     else:
-        raise DeserializationError("CreateClusterRequest.cluster_name required")
+        out["cluster_name"] = ""
     if data.get("NodeType") is not None:
         out["node_type"] = data["NodeType"]
     else:
-        raise DeserializationError("CreateClusterRequest.node_type required")
+        out["node_type"] = ""
     if data.get("MultiRegionClusterName") is not None:
         out["multi_region_cluster_name"] = data["MultiRegionClusterName"]
     if data.get("ParameterGroupName") is not None:
@@ -223,7 +221,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateClusterRequest:
     if data.get("ACLName") is not None:
         out["acl_name"] = data["ACLName"]
     else:
-        raise DeserializationError("CreateClusterRequest.acl_name required")
+        out["acl_name"] = ""
     if data.get("Engine") is not None:
         out["engine"] = data["Engine"]
     if data.get("EngineVersion") is not None:

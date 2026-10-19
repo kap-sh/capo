@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.account_id
@@ -58,14 +57,18 @@ def deserialize_xml(el: Element) -> InventoryS3BucketDestination:
     if child_bucket is not None:
         out["bucket"] = str(child_bucket.text or "")
     else:
-        raise DeserializationError("InventoryS3BucketDestination.bucket required")
+        out["bucket"] = ""
     child_format = el.find("Format")
     if child_format is not None:
         import capo_s3.types.inventory_format
 
         out["format"] = capo_s3.types.inventory_format.deserialize_xml(child_format)
     else:
-        raise DeserializationError("InventoryS3BucketDestination.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_s3.types.inventory_format.InventoryFormat", ""
+        )
     child_prefix = el.find("Prefix")
     if child_prefix is not None:
         out["prefix"] = str(child_prefix.text or "")

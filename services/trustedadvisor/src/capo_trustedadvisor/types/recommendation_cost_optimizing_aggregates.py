@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_trustedadvisor.errors import DeserializationError
-
 
 class RecommendationCostOptimizingAggregates(TypedDict, closed=True):
     estimated_monthly_savings: "float"
@@ -42,15 +40,11 @@ def deserialize_json(data: dict) -> RecommendationCostOptimizingAggregates:
     if data.get("estimatedMonthlySavings") is not None:
         out["estimated_monthly_savings"] = float(data["estimatedMonthlySavings"])
     else:
-        raise DeserializationError(
-            "RecommendationCostOptimizingAggregates.estimated_monthly_savings required"
-        )
+        out["estimated_monthly_savings"] = 0.0
     if data.get("estimatedPercentMonthlySavings") is not None:
         out["estimated_percent_monthly_savings"] = float(
             data["estimatedPercentMonthlySavings"]
         )
     else:
-        raise DeserializationError(
-            "RecommendationCostOptimizingAggregates.estimated_percent_monthly_savings required"
-        )
+        out["estimated_percent_monthly_savings"] = 0.0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudhsm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudhsm.types.label
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreateHapgRequest:
     if data.get("Label") is not None:
         out["label"] = data["Label"]
     else:
-        raise DeserializationError("CreateHapgRequest.label required")
+        out["label"] = ""
     return out

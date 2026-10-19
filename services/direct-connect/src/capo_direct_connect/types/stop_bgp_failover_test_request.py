@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.virtual_interface_id
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> StopBgpFailoverTestRequest:
     if data.get("virtualInterfaceId") is not None:
         out["virtual_interface_id"] = data["virtualInterfaceId"]
     else:
-        raise DeserializationError(
-            "StopBgpFailoverTestRequest.virtual_interface_id required"
-        )
+        out["virtual_interface_id"] = ""
     return out

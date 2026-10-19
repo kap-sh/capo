@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.describe_limit
     import capo_cloudwatch_logs.types.import_id
@@ -50,9 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeImportTaskBatchesRequest:
     if data.get("importId") is not None:
         out["import_id"] = data["importId"]
     else:
-        raise DeserializationError(
-            "DescribeImportTaskBatchesRequest.import_id required"
-        )
+        out["import_id"] = ""
     if data.get("batchImportStatus") is not None:
         import capo_cloudwatch_logs.types.import_status_list
 

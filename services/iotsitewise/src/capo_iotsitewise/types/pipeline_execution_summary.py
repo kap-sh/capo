@@ -63,13 +63,11 @@ def deserialize_json(data: dict) -> PipelineExecutionSummary:
     if data.get("pipelineExecutionId") is not None:
         out["pipeline_execution_id"] = data["pipelineExecutionId"]
     else:
-        raise DeserializationError(
-            "PipelineExecutionSummary.pipeline_execution_id required"
-        )
+        out["pipeline_execution_id"] = ""
     if data.get("pipelineVersion") is not None:
         out["pipeline_version"] = data["pipelineVersion"]
     else:
-        raise DeserializationError("PipelineExecutionSummary.pipeline_version required")
+        out["pipeline_version"] = ""
     if data.get("status") is not None:
         import capo_iotsitewise.types.pipeline_execution_status
 

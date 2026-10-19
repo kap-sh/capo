@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.batch_get_job_entity_errors
     import capo_deadline.types.batch_get_job_entity_list
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> BatchGetJobEntityResponse:
             )
         )
     else:
-        raise DeserializationError("BatchGetJobEntityResponse.entities required")
+        out["entities"] = []
     if data.get("errors") is not None:
         import capo_deadline.types.batch_get_job_entity_errors
 
@@ -55,7 +53,7 @@ def deserialize_json(data: dict) -> BatchGetJobEntityResponse:
             )
         )
     else:
-        raise DeserializationError("BatchGetJobEntityResponse.errors required")
+        out["errors"] = []
     return out
 
 

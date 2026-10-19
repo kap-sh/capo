@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eventbridge.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridge.types.transformer_input
     import capo_eventbridge.types.transformer_paths
@@ -48,5 +46,5 @@ def deserialize_aws_json_1_1(data: dict) -> InputTransformer:
     if data.get("InputTemplate") is not None:
         out["input_template"] = data["InputTemplate"]
     else:
-        raise DeserializationError("InputTransformer.input_template required")
+        out["input_template"] = ""
     return out

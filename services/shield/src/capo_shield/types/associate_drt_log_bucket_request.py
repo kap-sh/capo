@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_shield.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_shield.types.log_bucket
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateDRTLogBucketRequest:
     if data.get("LogBucket") is not None:
         out["log_bucket"] = data["LogBucket"]
     else:
-        raise DeserializationError("AssociateDRTLogBucketRequest.log_bucket required")
+        out["log_bucket"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.hex_length_equals4
     import capo_payment_cryptography_data.types.hex_length_equals8
@@ -45,23 +43,19 @@ def deserialize_json(data: dict) -> SessionKeyMastercard:
     if data.get("PrimaryAccountNumber") is not None:
         out["primary_account_number"] = data["PrimaryAccountNumber"]
     else:
-        raise DeserializationError(
-            "SessionKeyMastercard.primary_account_number required"
-        )
+        out["primary_account_number"] = ""
     if data.get("PanSequenceNumber") is not None:
         out["pan_sequence_number"] = data["PanSequenceNumber"]
     else:
-        raise DeserializationError("SessionKeyMastercard.pan_sequence_number required")
+        out["pan_sequence_number"] = ""
     if data.get("ApplicationTransactionCounter") is not None:
         out["application_transaction_counter"] = data["ApplicationTransactionCounter"]
     else:
-        raise DeserializationError(
-            "SessionKeyMastercard.application_transaction_counter required"
-        )
+        out["application_transaction_counter"] = ""
     if data.get("UnpredictableNumber") is not None:
         out["unpredictable_number"] = data["UnpredictableNumber"]
     else:
-        raise DeserializationError("SessionKeyMastercard.unpredictable_number required")
+        out["unpredictable_number"] = ""
     return out
 
 

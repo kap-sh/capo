@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_places.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_places.types.category_list
     import capo_geo_places.types.sensitive_string
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> CrossReference:
     if data.get("Source") is not None:
         out["source"] = data["Source"]
     else:
-        raise DeserializationError("CrossReference.source required")
+        out["source"] = ""
     if data.get("SourcePlaceId") is not None:
         out["source_place_id"] = data["SourcePlaceId"]
     else:
-        raise DeserializationError("CrossReference.source_place_id required")
+        out["source_place_id"] = ""
     if data.get("SourceCategories") is not None:
         import capo_geo_places.types.category_list
 

@@ -95,7 +95,7 @@ def deserialize_json(data: dict) -> BrandingConfiguration:
             )
         )
     else:
-        raise DeserializationError("BrandingConfiguration.localized_strings required")
+        out["localized_strings"] = {}
     if data.get("colorTheme") is not None:
         import capo_workspaces_web.types.color_theme
 
@@ -103,7 +103,11 @@ def deserialize_json(data: dict) -> BrandingConfiguration:
             data["colorTheme"]
         )
     else:
-        raise DeserializationError("BrandingConfiguration.color_theme required")
+        import typing
+
+        out["color_theme"] = typing.cast(
+            "capo_workspaces_web.types.color_theme.ColorTheme", ""
+        )
     if data.get("termsOfService") is not None:
         out["terms_of_service"] = data["termsOfService"]
     return out

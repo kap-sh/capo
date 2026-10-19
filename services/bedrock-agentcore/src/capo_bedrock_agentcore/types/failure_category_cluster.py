@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.failure_sub_category_cluster_list
 
@@ -45,21 +43,19 @@ def deserialize_json(data: dict) -> FailureCategoryCluster:
     if data.get("clusterId") is not None:
         out["cluster_id"] = data["clusterId"]
     else:
-        raise DeserializationError("FailureCategoryCluster.cluster_id required")
+        out["cluster_id"] = 0
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("FailureCategoryCluster.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("FailureCategoryCluster.description required")
+        out["description"] = ""
     if data.get("affectedSessionCount") is not None:
         out["affected_session_count"] = data["affectedSessionCount"]
     else:
-        raise DeserializationError(
-            "FailureCategoryCluster.affected_session_count required"
-        )
+        out["affected_session_count"] = 0
     if data.get("subCategories") is not None:
         import capo_bedrock_agentcore.types.failure_sub_category_cluster_list
 
@@ -69,5 +65,5 @@ def deserialize_json(data: dict) -> FailureCategoryCluster:
             )
         )
     else:
-        raise DeserializationError("FailureCategoryCluster.sub_categories required")
+        out["sub_categories"] = []
     return out

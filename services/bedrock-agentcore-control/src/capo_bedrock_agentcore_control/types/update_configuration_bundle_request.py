@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.branch_name
     import capo_bedrock_agentcore_control.types.client_token
@@ -120,17 +118,13 @@ def deserialize_json(data: dict) -> UpdateConfigurationBundleRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateConfigurationBundleRequest.parent_version_ids required"
-        )
+        out["parent_version_ids"] = []
     if data.get("branchName") is not None:
         out["branch_name"] = data["branchName"]
     if data.get("commitMessage") is not None:
         out["commit_message"] = data["commitMessage"]
     else:
-        raise DeserializationError(
-            "UpdateConfigurationBundleRequest.commit_message required"
-        )
+        out["commit_message"] = ""
     if data.get("createdBy") is not None:
         import capo_bedrock_agentcore_control.types.version_created_by_source
 

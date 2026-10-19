@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.sort_order
     import capo_connect.types.sortable_field_name
@@ -41,11 +39,17 @@ def deserialize_json(data: dict) -> Sort:
             data["FieldName"]
         )
     else:
-        raise DeserializationError("Sort.field_name required")
+        import typing
+
+        out["field_name"] = typing.cast(
+            "capo_connect.types.sortable_field_name.SortableFieldName", ""
+        )
     if data.get("Order") is not None:
         import capo_connect.types.sort_order
 
         out["order"] = capo_connect.types.sort_order.deserialize_json(data["Order"])
     else:
-        raise DeserializationError("Sort.order required")
+        import typing
+
+        out["order"] = typing.cast("capo_connect.types.sort_order.SortOrder", "")
     return out

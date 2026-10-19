@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.guardrail_checks_sensitive_information_entity_config_list
 
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> GuardrailChecksSensitiveInformationConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "GuardrailChecksSensitiveInformationConfig.entities required"
-        )
+        out["entities"] = []
     return out

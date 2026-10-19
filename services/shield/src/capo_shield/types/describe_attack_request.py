@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_shield.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_shield.types.attack_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAttackRequest:
     if data.get("AttackId") is not None:
         out["attack_id"] = data["AttackId"]
     else:
-        raise DeserializationError("DescribeAttackRequest.attack_id required")
+        out["attack_id"] = ""
     return out

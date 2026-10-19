@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.guardrail_identifier
     import capo_bedrock.types.guardrail_numerical_version
@@ -57,15 +55,11 @@ def deserialize_json(data: dict) -> AccountEnforcedGuardrailInferenceInputConfig
     if data.get("guardrailIdentifier") is not None:
         out["guardrail_identifier"] = data["guardrailIdentifier"]
     else:
-        raise DeserializationError(
-            "AccountEnforcedGuardrailInferenceInputConfiguration.guardrail_identifier required"
-        )
+        out["guardrail_identifier"] = ""
     if data.get("guardrailVersion") is not None:
         out["guardrail_version"] = data["guardrailVersion"]
     else:
-        raise DeserializationError(
-            "AccountEnforcedGuardrailInferenceInputConfiguration.guardrail_version required"
-        )
+        out["guardrail_version"] = ""
     if data.get("selectiveContentGuarding") is not None:
         import capo_bedrock.types.selective_content_guarding
 

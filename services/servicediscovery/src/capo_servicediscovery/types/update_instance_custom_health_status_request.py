@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_servicediscovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_servicediscovery.types.arn
     import capo_servicediscovery.types.custom_health_status
@@ -41,15 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateInstanceCustomHealthStatusRequ
     if data.get("ServiceId") is not None:
         out["service_id"] = data["ServiceId"]
     else:
-        raise DeserializationError(
-            "UpdateInstanceCustomHealthStatusRequest.service_id required"
-        )
+        out["service_id"] = ""
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError(
-            "UpdateInstanceCustomHealthStatusRequest.instance_id required"
-        )
+        out["instance_id"] = ""
     if data.get("Status") is not None:
         import capo_servicediscovery.types.custom_health_status
 
@@ -59,7 +53,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateInstanceCustomHealthStatusRequ
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateInstanceCustomHealthStatusRequest.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_servicediscovery.types.custom_health_status.CustomHealthStatus", ""
         )
     return out

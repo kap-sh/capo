@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 
 class SageMakerAlgorithmRecommendation(TypedDict, closed=True):
     recommended_batch_transform_instance_type: "str"
@@ -35,9 +33,7 @@ def deserialize_json(data: dict) -> SageMakerAlgorithmRecommendation:
             "recommendedBatchTransformInstanceType"
         ]
     else:
-        raise DeserializationError(
-            "SageMakerAlgorithmRecommendation.recommended_batch_transform_instance_type required"
-        )
+        out["recommended_batch_transform_instance_type"] = ""
     if data.get("recommendedRealtimeInferenceInstanceType") is not None:
         out["recommended_realtime_inference_instance_type"] = data[
             "recommendedRealtimeInferenceInstanceType"
@@ -47,7 +43,5 @@ def deserialize_json(data: dict) -> SageMakerAlgorithmRecommendation:
             "recommendedTrainingInstanceType"
         ]
     else:
-        raise DeserializationError(
-            "SageMakerAlgorithmRecommendation.recommended_training_instance_type required"
-        )
+        out["recommended_training_instance_type"] = ""
     return out

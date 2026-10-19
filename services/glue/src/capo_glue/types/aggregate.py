@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.aggregate_operations
     import capo_glue.types.glue_studio_path_list
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> Aggregate:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Aggregate.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.one_input
 
@@ -57,7 +55,7 @@ def deserialize_aws_json_1_1(data: dict) -> Aggregate:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("Aggregate.inputs required")
+        out["inputs"] = []
     if data.get("Groups") is not None:
         import capo_glue.types.glue_studio_path_list
 
@@ -65,7 +63,7 @@ def deserialize_aws_json_1_1(data: dict) -> Aggregate:
             data["Groups"]
         )
     else:
-        raise DeserializationError("Aggregate.groups required")
+        out["groups"] = []
     if data.get("Aggs") is not None:
         import capo_glue.types.aggregate_operations
 
@@ -73,5 +71,5 @@ def deserialize_aws_json_1_1(data: dict) -> Aggregate:
             data["Aggs"]
         )
     else:
-        raise DeserializationError("Aggregate.aggs required")
+        out["aggs"] = []
     return out

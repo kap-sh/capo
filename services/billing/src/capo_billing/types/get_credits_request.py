@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -46,7 +44,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetCreditsRequest:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("GetCreditsRequest.account_id required")
+        out["account_id"] = ""
     if data.get("startDate") is not None:
         import capo_billing.types._prelude.timestamp
 
@@ -56,7 +54,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetCreditsRequest:
             )
         )
     else:
-        raise DeserializationError("GetCreditsRequest.start_date required")
+        import datetime
+
+        out["start_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endDate") is not None:
         import capo_billing.types._prelude.timestamp
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.agent_endpoint_description
     import capo_bedrock_agentcore_control.types.agent_runtime_arn
@@ -98,15 +96,11 @@ def deserialize_json(data: dict) -> GetAgentRuntimeEndpointResponse:
     if data.get("agentRuntimeEndpointArn") is not None:
         out["agent_runtime_endpoint_arn"] = data["agentRuntimeEndpointArn"]
     else:
-        raise DeserializationError(
-            "GetAgentRuntimeEndpointResponse.agent_runtime_endpoint_arn required"
-        )
+        out["agent_runtime_endpoint_arn"] = ""
     if data.get("agentRuntimeArn") is not None:
         out["agent_runtime_arn"] = data["agentRuntimeArn"]
     else:
-        raise DeserializationError(
-            "GetAgentRuntimeEndpointResponse.agent_runtime_arn required"
-        )
+        out["agent_runtime_arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("status") is not None:
@@ -118,7 +112,12 @@ def deserialize_json(data: dict) -> GetAgentRuntimeEndpointResponse:
             )
         )
     else:
-        raise DeserializationError("GetAgentRuntimeEndpointResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.agent_runtime_endpoint_status.AgentRuntimeEndpointStatus",
+            "",
+        )
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -128,9 +127,9 @@ def deserialize_json(data: dict) -> GetAgentRuntimeEndpointResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetAgentRuntimeEndpointResponse.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastUpdatedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -140,19 +139,21 @@ def deserialize_json(data: dict) -> GetAgentRuntimeEndpointResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetAgentRuntimeEndpointResponse.last_updated_at required"
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("failureReason") is not None:
         out["failure_reason"] = data["failureReason"]
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetAgentRuntimeEndpointResponse.name required")
+        out["name"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetAgentRuntimeEndpointResponse.id required")
+        out["id"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.aggregate_types
     import capo_iotsitewise.types.asset_property_alias
@@ -86,9 +84,7 @@ def deserialize_json(data: dict) -> BatchGetAssetPropertyAggregatesEntry:
     if data.get("entryId") is not None:
         out["entry_id"] = data["entryId"]
     else:
-        raise DeserializationError(
-            "BatchGetAssetPropertyAggregatesEntry.entry_id required"
-        )
+        out["entry_id"] = ""
     if data.get("assetId") is not None:
         out["asset_id"] = data["assetId"]
     if data.get("propertyId") is not None:
@@ -104,15 +100,11 @@ def deserialize_json(data: dict) -> BatchGetAssetPropertyAggregatesEntry:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetAssetPropertyAggregatesEntry.aggregate_types required"
-        )
+        out["aggregate_types"] = []
     if data.get("resolution") is not None:
         out["resolution"] = data["resolution"]
     else:
-        raise DeserializationError(
-            "BatchGetAssetPropertyAggregatesEntry.resolution required"
-        )
+        out["resolution"] = ""
     if data.get("startDate") is not None:
         import capo_iotsitewise.types.timestamp
 
@@ -120,9 +112,9 @@ def deserialize_json(data: dict) -> BatchGetAssetPropertyAggregatesEntry:
             data["startDate"]
         )
     else:
-        raise DeserializationError(
-            "BatchGetAssetPropertyAggregatesEntry.start_date required"
-        )
+        import datetime
+
+        out["start_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endDate") is not None:
         import capo_iotsitewise.types.timestamp
 
@@ -130,9 +122,9 @@ def deserialize_json(data: dict) -> BatchGetAssetPropertyAggregatesEntry:
             data["endDate"]
         )
     else:
-        raise DeserializationError(
-            "BatchGetAssetPropertyAggregatesEntry.end_date required"
-        )
+        import datetime
+
+        out["end_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("qualities") is not None:
         import capo_iotsitewise.types.qualities
 

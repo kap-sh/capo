@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.credential_timeout_duration_second_integer
     import capo_lakeformation.types.iam_role_arn
@@ -42,21 +40,15 @@ def deserialize_json(data: dict) -> AssumeDecoratedRoleWithSAMLRequest:
     if data.get("SAMLAssertion") is not None:
         out["saml_assertion"] = data["SAMLAssertion"]
     else:
-        raise DeserializationError(
-            "AssumeDecoratedRoleWithSAMLRequest.saml_assertion required"
-        )
+        out["saml_assertion"] = ""
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError(
-            "AssumeDecoratedRoleWithSAMLRequest.role_arn required"
-        )
+        out["role_arn"] = ""
     if data.get("PrincipalArn") is not None:
         out["principal_arn"] = data["PrincipalArn"]
     else:
-        raise DeserializationError(
-            "AssumeDecoratedRoleWithSAMLRequest.principal_arn required"
-        )
+        out["principal_arn"] = ""
     if data.get("DurationSeconds") is not None:
         out["duration_seconds"] = data["DurationSeconds"]
     return out

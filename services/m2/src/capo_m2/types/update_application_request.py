@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.definition
     import capo_m2.types.entity_description
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> UpdateApplicationRequest:
     if data.get("currentApplicationVersion") is not None:
         out["current_application_version"] = data["currentApplicationVersion"]
     else:
-        raise DeserializationError(
-            "UpdateApplicationRequest.current_application_version required"
-        )
+        out["current_application_version"] = 0
     if data.get("definition") is not None:
         import capo_m2.types.definition
 

@@ -62,5 +62,5 @@ def deserialize_json(data: dict) -> BatchAttachObject:
     if data.get("LinkName") is not None:
         out["link_name"] = data["LinkName"]
     else:
-        raise DeserializationError("BatchAttachObject.link_name required")
+        out["link_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -67,15 +65,15 @@ def deserialize_json(data: dict) -> Trigger:
     if data.get("triggerId") is not None:
         out["trigger_id"] = data["triggerId"]
     else:
-        raise DeserializationError("Trigger.trigger_id required")
+        out["trigger_id"] = ""
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError("Trigger.agent_space_id required")
+        out["agent_space_id"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("Trigger.type required")
+        out["type"] = ""
     if data.get("condition") is not None:
         import capo_devops_agent.types.trigger_condition
 
@@ -83,15 +81,17 @@ def deserialize_json(data: dict) -> Trigger:
             data["condition"]
         )
     else:
-        raise DeserializationError("Trigger.condition required")
+        import capo_devops_agent.types._unknown
+
+        out["condition"] = capo_devops_agent.types._unknown.UnknownUnionMember("")
     if data.get("action") is not None:
         out["action"] = data["action"]
     else:
-        raise DeserializationError("Trigger.action required")
+        out["action"] = None
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("Trigger.status required")
+        out["status"] = ""
     if data.get("createdAt") is not None:
         import capo_devops_agent.types._prelude.timestamp
 
@@ -99,7 +99,9 @@ def deserialize_json(data: dict) -> Trigger:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("Trigger.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_devops_agent.types._prelude.timestamp
 
@@ -107,5 +109,7 @@ def deserialize_json(data: dict) -> Trigger:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("Trigger.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

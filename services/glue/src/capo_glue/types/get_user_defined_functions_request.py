@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.catalog_getter_page_size
     import capo_glue.types.catalog_id_string
@@ -61,7 +59,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetUserDefinedFunctionsRequest:
     if data.get("Pattern") is not None:
         out["pattern"] = data["Pattern"]
     else:
-        raise DeserializationError("GetUserDefinedFunctionsRequest.pattern required")
+        out["pattern"] = ""
     if data.get("FunctionType") is not None:
         import capo_glue.types.function_type
 

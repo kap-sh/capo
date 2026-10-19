@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_security_ir.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_security_ir.types.ip_address
     import capo_security_ir.types.user_agent
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> ThreatActorIp:
     if data.get("ipAddress") is not None:
         out["ip_address"] = data["ipAddress"]
     else:
-        raise DeserializationError("ThreatActorIp.ip_address required")
+        out["ip_address"] = ""
     if data.get("userAgent") is not None:
         out["user_agent"] = data["userAgent"]
     return out

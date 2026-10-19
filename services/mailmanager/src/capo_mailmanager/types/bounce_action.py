@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.action_failure_policy
     import capo_mailmanager.types.bounce_message
@@ -69,23 +67,23 @@ def deserialize_aws_json_1_0(data: dict) -> BounceAction:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("BounceAction.role_arn required")
+        out["role_arn"] = ""
     if data.get("Sender") is not None:
         out["sender"] = data["Sender"]
     else:
-        raise DeserializationError("BounceAction.sender required")
+        out["sender"] = ""
     if data.get("StatusCode") is not None:
         out["status_code"] = data["StatusCode"]
     else:
-        raise DeserializationError("BounceAction.status_code required")
+        out["status_code"] = ""
     if data.get("SmtpReplyCode") is not None:
         out["smtp_reply_code"] = data["SmtpReplyCode"]
     else:
-        raise DeserializationError("BounceAction.smtp_reply_code required")
+        out["smtp_reply_code"] = ""
     if data.get("DiagnosticMessage") is not None:
         out["diagnostic_message"] = data["DiagnosticMessage"]
     else:
-        raise DeserializationError("BounceAction.diagnostic_message required")
+        out["diagnostic_message"] = ""
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     return out

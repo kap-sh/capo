@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 
 class OAuthCodeCredential(TypedDict, closed=True):
     auth_code: "str"
@@ -22,5 +20,5 @@ def deserialize_cbor(data: dict) -> OAuthCodeCredential:
     if data.get("authCode") is not None:
         out["auth_code"] = data["authCode"]
     else:
-        raise DeserializationError("OAuthCodeCredential.auth_code required")
+        out["auth_code"] = ""
     return out

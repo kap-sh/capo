@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_endusermessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_endusermessaging.types.brand_profile_id_or_arn
     import capo_endusermessaging.types.client_token
@@ -56,9 +54,7 @@ def deserialize_json(data: dict) -> UpdateBrandProfileFromRegistrationInput:
     if data.get("registrationId") is not None:
         out["registration_id"] = data["registrationId"]
     else:
-        raise DeserializationError(
-            "UpdateBrandProfileFromRegistrationInput.registration_id required"
-        )
+        out["registration_id"] = ""
     if data.get("smartMatch") is not None:
         out["smart_match"] = data["smartMatch"]
     if data.get("onAttributeConflict") is not None:

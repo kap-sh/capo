@@ -39,11 +39,11 @@ def deserialize_json(data: dict) -> CreateDatasetResponse:
     if data.get("datasetId") is not None:
         out["dataset_id"] = data["datasetId"]
     else:
-        raise DeserializationError("CreateDatasetResponse.dataset_id required")
+        out["dataset_id"] = ""
     if data.get("datasetArn") is not None:
         out["dataset_arn"] = data["datasetArn"]
     else:
-        raise DeserializationError("CreateDatasetResponse.dataset_arn required")
+        out["dataset_arn"] = ""
     if data.get("datasetStatus") is not None:
         import capo_iotsitewise.types.dataset_status
 

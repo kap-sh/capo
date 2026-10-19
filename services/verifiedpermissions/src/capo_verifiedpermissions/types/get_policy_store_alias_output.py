@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.alias
     import capo_verifiedpermissions.types.alias_state
@@ -53,15 +51,15 @@ def deserialize_aws_json_1_0(data: dict) -> GetPolicyStoreAliasOutput:
     if data.get("aliasName") is not None:
         out["alias_name"] = data["aliasName"]
     else:
-        raise DeserializationError("GetPolicyStoreAliasOutput.alias_name required")
+        out["alias_name"] = ""
     if data.get("policyStoreId") is not None:
         out["policy_store_id"] = data["policyStoreId"]
     else:
-        raise DeserializationError("GetPolicyStoreAliasOutput.policy_store_id required")
+        out["policy_store_id"] = ""
     if data.get("aliasArn") is not None:
         out["alias_arn"] = data["aliasArn"]
     else:
-        raise DeserializationError("GetPolicyStoreAliasOutput.alias_arn required")
+        out["alias_arn"] = ""
     if data.get("createdAt") is not None:
         import capo_verifiedpermissions.types.timestamp_format
 
@@ -71,7 +69,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetPolicyStoreAliasOutput:
             )
         )
     else:
-        raise DeserializationError("GetPolicyStoreAliasOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("state") is not None:
         import capo_verifiedpermissions.types.alias_state
 
@@ -81,5 +81,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetPolicyStoreAliasOutput:
             )
         )
     else:
-        raise DeserializationError("GetPolicyStoreAliasOutput.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_verifiedpermissions.types.alias_state.AliasState", ""
+        )
     return out

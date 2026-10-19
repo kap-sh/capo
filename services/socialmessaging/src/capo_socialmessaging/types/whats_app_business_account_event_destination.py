@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.event_destination_arn
     import capo_socialmessaging.types.role_arn
@@ -34,9 +32,7 @@ def deserialize_json(data: dict) -> WhatsAppBusinessAccountEventDestination:
     if data.get("eventDestinationArn") is not None:
         out["event_destination_arn"] = data["eventDestinationArn"]
     else:
-        raise DeserializationError(
-            "WhatsAppBusinessAccountEventDestination.event_destination_arn required"
-        )
+        out["event_destination_arn"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     return out

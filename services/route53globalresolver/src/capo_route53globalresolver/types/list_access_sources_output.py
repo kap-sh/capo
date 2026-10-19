@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.access_sources
 
@@ -45,5 +43,5 @@ def deserialize_json(data: dict) -> ListAccessSourcesOutput:
             )
         )
     else:
-        raise DeserializationError("ListAccessSourcesOutput.access_sources required")
+        out["access_sources"] = []
     return out

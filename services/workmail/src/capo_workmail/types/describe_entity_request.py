@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.email_address
     import capo_workmail.types.organization_id
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEntityRequest:
     if data.get("OrganizationId") is not None:
         out["organization_id"] = data["OrganizationId"]
     else:
-        raise DeserializationError("DescribeEntityRequest.organization_id required")
+        out["organization_id"] = ""
     if data.get("Email") is not None:
         out["email"] = data["Email"]
     else:
-        raise DeserializationError("DescribeEntityRequest.email required")
+        out["email"] = ""
     return out

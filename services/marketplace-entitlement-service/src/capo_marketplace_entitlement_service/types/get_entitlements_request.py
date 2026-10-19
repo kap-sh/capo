@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_entitlement_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_entitlement_service.types.get_entitlement_filters
     import capo_marketplace_entitlement_service.types.non_empty_string
@@ -54,7 +52,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetEntitlementsRequest:
     if data.get("ProductCode") is not None:
         out["product_code"] = data["ProductCode"]
     else:
-        raise DeserializationError("GetEntitlementsRequest.product_code required")
+        out["product_code"] = ""
     if data.get("Filter") is not None:
         import capo_marketplace_entitlement_service.types.get_entitlement_filters
 

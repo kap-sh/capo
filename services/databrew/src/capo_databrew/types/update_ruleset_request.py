@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.rule_list
     import capo_databrew.types.ruleset_description
@@ -43,5 +41,5 @@ def deserialize_json(data: dict) -> UpdateRulesetRequest:
 
         out["rules"] = capo_databrew.types.rule_list.deserialize_json(data["Rules"])
     else:
-        raise DeserializationError("UpdateRulesetRequest.rules required")
+        out["rules"] = []
     return out

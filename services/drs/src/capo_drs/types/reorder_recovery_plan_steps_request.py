@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.recovery_plan_step_arn_list
     import capo_drs.types.strict_drsarn
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> ReorderRecoveryPlanStepsRequest:
     if data.get("recoveryPlanArn") is not None:
         out["recovery_plan_arn"] = data["recoveryPlanArn"]
     else:
-        raise DeserializationError(
-            "ReorderRecoveryPlanStepsRequest.recovery_plan_arn required"
-        )
+        out["recovery_plan_arn"] = ""
     if data.get("orderedStepArns") is not None:
         import capo_drs.types.recovery_plan_step_arn_list
 
@@ -49,7 +45,5 @@ def deserialize_json(data: dict) -> ReorderRecoveryPlanStepsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ReorderRecoveryPlanStepsRequest.ordered_step_arns required"
-        )
+        out["ordered_step_arns"] = []
     return out

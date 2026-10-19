@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pricing_plan_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -89,15 +87,15 @@ def deserialize_json(data: dict) -> SubscriptionSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("SubscriptionSummary.arn required")
+        out["arn"] = ""
     if data.get("planFamily") is not None:
         out["plan_family"] = data["planFamily"]
     else:
-        raise DeserializationError("SubscriptionSummary.plan_family required")
+        out["plan_family"] = ""
     if data.get("planTier") is not None:
         out["plan_tier"] = data["planTier"]
     else:
-        raise DeserializationError("SubscriptionSummary.plan_tier required")
+        out["plan_tier"] = ""
     if data.get("usageLevel") is not None:
         out["usage_level"] = data["usageLevel"]
     if data.get("scheduledChange") is not None:
@@ -115,7 +113,9 @@ def deserialize_json(data: dict) -> SubscriptionSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("SubscriptionSummary.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_pricing_plan_manager.types.status.Status", "")
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
     if data.get("resourceArns") is not None:
@@ -127,7 +127,7 @@ def deserialize_json(data: dict) -> SubscriptionSummary:
             )
         )
     else:
-        raise DeserializationError("SubscriptionSummary.resource_arns required")
+        out["resource_arns"] = []
     if data.get("createdAt") is not None:
         import datetime
 
@@ -135,7 +135,9 @@ def deserialize_json(data: dict) -> SubscriptionSummary:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("SubscriptionSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import datetime
 
@@ -143,9 +145,11 @@ def deserialize_json(data: dict) -> SubscriptionSummary:
             data["updatedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("SubscriptionSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("eTag") is not None:
         out["e_tag"] = data["eTag"]
     else:
-        raise DeserializationError("SubscriptionSummary.e_tag required")
+        out["e_tag"] = ""
     return out

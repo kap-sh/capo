@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.access_key_id_type
     import capo_ssm.types.access_key_secret_type
@@ -43,15 +41,15 @@ def deserialize_aws_json_1_1(data: dict) -> Credentials:
     if data.get("AccessKeyId") is not None:
         out["access_key_id"] = data["AccessKeyId"]
     else:
-        raise DeserializationError("Credentials.access_key_id required")
+        out["access_key_id"] = ""
     if data.get("SecretAccessKey") is not None:
         out["secret_access_key"] = data["SecretAccessKey"]
     else:
-        raise DeserializationError("Credentials.secret_access_key required")
+        out["secret_access_key"] = ""
     if data.get("SessionToken") is not None:
         out["session_token"] = data["SessionToken"]
     else:
-        raise DeserializationError("Credentials.session_token required")
+        out["session_token"] = ""
     if data.get("ExpirationTime") is not None:
         import capo_ssm.types.date_time
 
@@ -59,7 +57,11 @@ def deserialize_aws_json_1_1(data: dict) -> Credentials:
             data["ExpirationTime"]
         )
     else:
-        raise DeserializationError("Credentials.expiration_time required")
+        import datetime
+
+        out["expiration_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out
 
 

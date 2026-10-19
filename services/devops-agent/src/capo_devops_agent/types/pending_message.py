@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.message
 
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> PendingMessage:
     if data.get("messageId") is not None:
         out["message_id"] = data["messageId"]
     else:
-        raise DeserializationError("PendingMessage.message_id required")
+        out["message_id"] = ""
     if data.get("message") is not None:
         import capo_devops_agent.types.message
 
@@ -40,5 +38,7 @@ def deserialize_json(data: dict) -> PendingMessage:
             data["message"]
         )
     else:
-        raise DeserializationError("PendingMessage.message required")
+        import capo_devops_agent.types._unknown
+
+        out["message"] = capo_devops_agent.types._unknown.UnknownUnionMember("")
     return out

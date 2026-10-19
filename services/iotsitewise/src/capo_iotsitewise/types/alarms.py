@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.arn
     import capo_iotsitewise.types.iam_arn
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> Alarms:
     if data.get("alarmRoleArn") is not None:
         out["alarm_role_arn"] = data["alarmRoleArn"]
     else:
-        raise DeserializationError("Alarms.alarm_role_arn required")
+        out["alarm_role_arn"] = ""
     if data.get("notificationLambdaArn") is not None:
         out["notification_lambda_arn"] = data["notificationLambdaArn"]
     return out

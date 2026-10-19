@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.output_format_structure
     import capo_bedrock_runtime.types.output_format_type
@@ -47,7 +45,11 @@ def deserialize_json(data: dict) -> OutputFormat:
             data["type"]
         )
     else:
-        raise DeserializationError("OutputFormat.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_runtime.types.output_format_type.OutputFormatType", ""
+        )
     if data.get("structure") is not None:
         import capo_bedrock_runtime.types.output_format_structure
 
@@ -57,7 +59,9 @@ def deserialize_json(data: dict) -> OutputFormat:
             )
         )
     else:
-        raise DeserializationError("OutputFormat.structure required")
+        import capo_bedrock_runtime.types._unknown
+
+        out["structure"] = capo_bedrock_runtime.types._unknown.UnknownUnionMember("")
     return out
 
 

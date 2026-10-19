@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.branch_name
     import capo_codecommit.types.commit_id
@@ -61,19 +59,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteFileInput:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError("DeleteFileInput.repository_name required")
+        out["repository_name"] = ""
     if data.get("branchName") is not None:
         out["branch_name"] = data["branchName"]
     else:
-        raise DeserializationError("DeleteFileInput.branch_name required")
+        out["branch_name"] = ""
     if data.get("filePath") is not None:
         out["file_path"] = data["filePath"]
     else:
-        raise DeserializationError("DeleteFileInput.file_path required")
+        out["file_path"] = ""
     if data.get("parentCommitId") is not None:
         out["parent_commit_id"] = data["parentCommitId"]
     else:
-        raise DeserializationError("DeleteFileInput.parent_commit_id required")
+        out["parent_commit_id"] = ""
     if data.get("keepEmptyFolders") is not None:
         out["keep_empty_folders"] = data["keepEmptyFolders"]
     if data.get("commitMessage") is not None:

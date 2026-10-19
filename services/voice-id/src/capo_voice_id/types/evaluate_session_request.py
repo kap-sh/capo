@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_voice_id.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_voice_id.types.domain_id
     import capo_voice_id.types.session_name_or_id
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> EvaluateSessionRequest:
     if data.get("DomainId") is not None:
         out["domain_id"] = data["DomainId"]
     else:
-        raise DeserializationError("EvaluateSessionRequest.domain_id required")
+        out["domain_id"] = ""
     if data.get("SessionNameOrId") is not None:
         out["session_name_or_id"] = data["SessionNameOrId"]
     else:
-        raise DeserializationError("EvaluateSessionRequest.session_name_or_id required")
+        out["session_name_or_id"] = ""
     return out

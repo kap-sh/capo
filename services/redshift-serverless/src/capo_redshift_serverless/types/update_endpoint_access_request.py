@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.vpc_security_group_id_list
 
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateEndpointAccessRequest:
     if data.get("endpointName") is not None:
         out["endpoint_name"] = data["endpointName"]
     else:
-        raise DeserializationError("UpdateEndpointAccessRequest.endpoint_name required")
+        out["endpoint_name"] = ""
     if data.get("vpcSecurityGroupIds") is not None:
         import capo_redshift_serverless.types.vpc_security_group_id_list
 

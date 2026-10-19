@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager_user_subscriptions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager_user_subscriptions.types.box_integer
     import capo_license_manager_user_subscriptions.types.filter_list
@@ -69,8 +67,12 @@ def deserialize_json(data: dict) -> ListProductSubscriptionsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ListProductSubscriptionsRequest.identity_provider required"
+        import capo_license_manager_user_subscriptions.types._unknown
+
+        out["identity_provider"] = (
+            capo_license_manager_user_subscriptions.types._unknown.UnknownUnionMember(
+                ""
+            )
         )
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.database_arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GlueDataCatalogConfigurationUpdate:
     if data.get("DatabaseARNUpdate") is not None:
         out["database_arn_update"] = data["DatabaseARNUpdate"]
     else:
-        raise DeserializationError(
-            "GlueDataCatalogConfigurationUpdate.database_arn_update required"
-        )
+        out["database_arn_update"] = ""
     return out

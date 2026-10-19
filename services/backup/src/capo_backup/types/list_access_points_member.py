@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -84,7 +82,7 @@ def deserialize_json(data: dict) -> ListAccessPointsMember:
     if data.get("AccessPointArn") is not None:
         out["access_point_arn"] = data["AccessPointArn"]
     else:
-        raise DeserializationError("ListAccessPointsMember.access_point_arn required")
+        out["access_point_arn"] = ""
     if data.get("AccessPointMetadata") is not None:
         import capo_backup.types.access_point_metadata_map
 
@@ -94,15 +92,13 @@ def deserialize_json(data: dict) -> ListAccessPointsMember:
             )
         )
     else:
-        raise DeserializationError(
-            "ListAccessPointsMember.access_point_metadata required"
-        )
+        out["access_point_metadata"] = {}
     if data.get("BackupVaultArn") is not None:
         out["backup_vault_arn"] = data["BackupVaultArn"]
     if data.get("BackupVaultName") is not None:
         out["backup_vault_name"] = data["BackupVaultName"]
     else:
-        raise DeserializationError("ListAccessPointsMember.backup_vault_name required")
+        out["backup_vault_name"] = ""
     if data.get("CreationTime") is not None:
         import capo_backup.types._prelude.timestamp
 
@@ -110,23 +106,27 @@ def deserialize_json(data: dict) -> ListAccessPointsMember:
             data["CreationTime"]
         )
     else:
-        raise DeserializationError("ListAccessPointsMember.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ListAccessPointsMember.name required")
+        out["name"] = ""
     if data.get("RecoveryPointArn") is not None:
         out["recovery_point_arn"] = data["RecoveryPointArn"]
     else:
-        raise DeserializationError("ListAccessPointsMember.recovery_point_arn required")
+        out["recovery_point_arn"] = ""
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("ListAccessPointsMember.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("ResourceType") is not None:
         out["resource_type"] = data["ResourceType"]
     else:
-        raise DeserializationError("ListAccessPointsMember.resource_type required")
+        out["resource_type"] = ""
     if data.get("Status") is not None:
         import capo_backup.types.access_point_status
 
@@ -134,7 +134,11 @@ def deserialize_json(data: dict) -> ListAccessPointsMember:
             data["Status"]
         )
     else:
-        raise DeserializationError("ListAccessPointsMember.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_backup.types.access_point_status.AccessPointStatus", ""
+        )
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
     return out

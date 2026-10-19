@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_ivs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs.types.channel_arn
     import capo_ivs.types.stream_metadata
@@ -31,11 +29,11 @@ def deserialize_json(data: dict) -> PutMetadataRequest:
     if data.get("channelArn") is not None:
         out["channel_arn"] = data["channelArn"]
     else:
-        raise DeserializationError("PutMetadataRequest.channel_arn required")
+        out["channel_arn"] = ""
     if data.get("metadata") is not None:
         out["metadata"] = data["metadata"]
     else:
-        raise DeserializationError("PutMetadataRequest.metadata required")
+        out["metadata"] = ""
     return out
 
 

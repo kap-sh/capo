@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_elastic_beanstalk._protocol.xml import Element
-from capo_elastic_beanstalk.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_elastic_beanstalk.types.application_name
@@ -34,14 +33,10 @@ def deserialize_query(el: Element) -> DeleteConfigurationTemplateMessage:
     if child_application_name is not None:
         out["application_name"] = str(child_application_name.text or "")
     else:
-        raise DeserializationError(
-            "DeleteConfigurationTemplateMessage.application_name required"
-        )
+        out["application_name"] = ""
     child_template_name = el.find("TemplateName")
     if child_template_name is not None:
         out["template_name"] = str(child_template_name.text or "")
     else:
-        raise DeserializationError(
-            "DeleteConfigurationTemplateMessage.template_name required"
-        )
+        out["template_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.action_payload_field_value
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> ActionExecutionPayloadField:
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("ActionExecutionPayloadField.value required")
+        out["value"] = None
     return out

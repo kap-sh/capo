@@ -45,21 +45,15 @@ def deserialize_json(data: dict) -> RedisEnterpriseCloudConfiguration:
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError(
-            "RedisEnterpriseCloudConfiguration.endpoint required"
-        )
+        out["endpoint"] = ""
     if data.get("vectorIndexName") is not None:
         out["vector_index_name"] = data["vectorIndexName"]
     else:
-        raise DeserializationError(
-            "RedisEnterpriseCloudConfiguration.vector_index_name required"
-        )
+        out["vector_index_name"] = ""
     if data.get("credentialsSecretArn") is not None:
         out["credentials_secret_arn"] = data["credentialsSecretArn"]
     else:
-        raise DeserializationError(
-            "RedisEnterpriseCloudConfiguration.credentials_secret_arn required"
-        )
+        out["credentials_secret_arn"] = ""
     if data.get("fieldMapping") is not None:
         import capo_bedrock_agent.types.redis_enterprise_cloud_field_mapping
 

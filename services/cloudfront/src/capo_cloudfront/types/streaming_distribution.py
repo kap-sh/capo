@@ -64,17 +64,17 @@ def deserialize_xml(el: Element) -> StreamingDistribution:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("StreamingDistribution.id required")
+        out["id"] = ""
     child_arn = el.find("ARN")
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("StreamingDistribution.arn required")
+        out["arn"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         out["status"] = str(child_status.text or "")
     else:
-        raise DeserializationError("StreamingDistribution.status required")
+        out["status"] = ""
     child_last_modified_time = el.find("LastModifiedTime")
     if child_last_modified_time is not None:
         import capo_cloudfront.types.timestamp
@@ -86,7 +86,7 @@ def deserialize_xml(el: Element) -> StreamingDistribution:
     if child_domain_name is not None:
         out["domain_name"] = str(child_domain_name.text or "")
     else:
-        raise DeserializationError("StreamingDistribution.domain_name required")
+        out["domain_name"] = ""
     child_active_trusted_signers = el.find("ActiveTrustedSigners")
     if child_active_trusted_signers is not None:
         import capo_cloudfront.types.active_trusted_signers

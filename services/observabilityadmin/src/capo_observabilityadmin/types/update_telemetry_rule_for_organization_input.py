@@ -35,9 +35,7 @@ def deserialize_json(data: dict) -> UpdateTelemetryRuleForOrganizationInput:
     if data.get("RuleIdentifier") is not None:
         out["rule_identifier"] = data["RuleIdentifier"]
     else:
-        raise DeserializationError(
-            "UpdateTelemetryRuleForOrganizationInput.rule_identifier required"
-        )
+        out["rule_identifier"] = ""
     if data.get("Rule") is not None:
         import capo_observabilityadmin.types.telemetry_rule
 

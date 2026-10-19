@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError, ServiceError
+from capo_verifiedpermissions.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.resource_type
@@ -39,11 +39,11 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceNotFoundException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ResourceNotFoundException_.message required")
+        out["message"] = ""
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     else:
-        raise DeserializationError("ResourceNotFoundException_.resource_id required")
+        out["resource_id"] = ""
     if data.get("resourceType") is not None:
         import capo_verifiedpermissions.types.resource_type
 
@@ -53,7 +53,11 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceNotFoundException_:
             )
         )
     else:
-        raise DeserializationError("ResourceNotFoundException_.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_verifiedpermissions.types.resource_type.ResourceType", ""
+        )
     return out
 
 

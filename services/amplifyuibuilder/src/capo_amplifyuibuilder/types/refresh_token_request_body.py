@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.sensitive_string
 
@@ -33,7 +31,7 @@ def deserialize_json(data: dict) -> RefreshTokenRequestBody:
     if data.get("token") is not None:
         out["token"] = data["token"]
     else:
-        raise DeserializationError("RefreshTokenRequestBody.token required")
+        out["token"] = ""
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
     return out

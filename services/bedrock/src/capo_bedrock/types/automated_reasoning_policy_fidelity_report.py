@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_accuracy_score
     import capo_bedrock.types.automated_reasoning_policy_coverage_score
@@ -77,15 +75,11 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyFidelityReport:
     if data.get("coverageScore") is not None:
         out["coverage_score"] = float(data["coverageScore"])
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyFidelityReport.coverage_score required"
-        )
+        out["coverage_score"] = 0.0
     if data.get("accuracyScore") is not None:
         out["accuracy_score"] = float(data["accuracyScore"])
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyFidelityReport.accuracy_score required"
-        )
+        out["accuracy_score"] = 0.0
     if data.get("ruleReports") is not None:
         import capo_bedrock.types.automated_reasoning_policy_rule_report_map
 
@@ -95,9 +89,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyFidelityReport:
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyFidelityReport.rule_reports required"
-        )
+        out["rule_reports"] = {}
     if data.get("variableReports") is not None:
         import capo_bedrock.types.automated_reasoning_policy_variable_report_map
 
@@ -107,9 +99,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyFidelityReport:
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyFidelityReport.variable_reports required"
-        )
+        out["variable_reports"] = {}
     if data.get("documentSources") is not None:
         import capo_bedrock.types.automated_reasoning_policy_report_source_document_list
 
@@ -119,9 +109,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyFidelityReport:
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyFidelityReport.document_sources required"
-        )
+        out["document_sources"] = []
     return out
 
 

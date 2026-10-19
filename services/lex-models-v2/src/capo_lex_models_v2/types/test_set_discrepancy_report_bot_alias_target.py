@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.bot_alias_id
     import capo_lex_models_v2.types.id
@@ -35,19 +33,13 @@ def deserialize_json(data: dict) -> TestSetDiscrepancyReportBotAliasTarget:
     if data.get("botId") is not None:
         out["bot_id"] = data["botId"]
     else:
-        raise DeserializationError(
-            "TestSetDiscrepancyReportBotAliasTarget.bot_id required"
-        )
+        out["bot_id"] = ""
     if data.get("botAliasId") is not None:
         out["bot_alias_id"] = data["botAliasId"]
     else:
-        raise DeserializationError(
-            "TestSetDiscrepancyReportBotAliasTarget.bot_alias_id required"
-        )
+        out["bot_alias_id"] = ""
     if data.get("localeId") is not None:
         out["locale_id"] = data["localeId"]
     else:
-        raise DeserializationError(
-            "TestSetDiscrepancyReportBotAliasTarget.locale_id required"
-        )
+        out["locale_id"] = ""
     return out

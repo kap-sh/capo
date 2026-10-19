@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import TypedDict
 
 from capo_sts._protocol.xml import Element
-from capo_sts.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sts.types.access_key_id_type
@@ -46,24 +45,26 @@ def deserialize_query(el: Element) -> Credentials:
     if child_access_key_id is not None:
         out["access_key_id"] = str(child_access_key_id.text or "")
     else:
-        raise DeserializationError("Credentials.access_key_id required")
+        out["access_key_id"] = ""
     child_secret_access_key = el.find("SecretAccessKey")
     if child_secret_access_key is not None:
         out["secret_access_key"] = str(child_secret_access_key.text or "")
     else:
-        raise DeserializationError("Credentials.secret_access_key required")
+        out["secret_access_key"] = ""
     child_session_token = el.find("SessionToken")
     if child_session_token is not None:
         out["session_token"] = str(child_session_token.text or "")
     else:
-        raise DeserializationError("Credentials.session_token required")
+        out["session_token"] = ""
     child_expiration = el.find("Expiration")
     if child_expiration is not None:
         import capo_sts.types.date_type
 
         out["expiration"] = capo_sts.types.date_type.deserialize_query(child_expiration)
     else:
-        raise DeserializationError("Credentials.expiration required")
+        import datetime
+
+        out["expiration"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

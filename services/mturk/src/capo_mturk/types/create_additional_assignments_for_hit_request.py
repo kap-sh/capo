@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mturk.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mturk.types.entity_id
     import capo_mturk.types.idempotency_token
@@ -38,15 +36,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAdditionalAssignmentsForHITReq
     if data.get("HITId") is not None:
         out["hit_id"] = data["HITId"]
     else:
-        raise DeserializationError(
-            "CreateAdditionalAssignmentsForHITRequest.hit_id required"
-        )
+        out["hit_id"] = ""
     if data.get("NumberOfAdditionalAssignments") is not None:
         out["number_of_additional_assignments"] = data["NumberOfAdditionalAssignments"]
     else:
-        raise DeserializationError(
-            "CreateAdditionalAssignmentsForHITRequest.number_of_additional_assignments required"
-        )
+        out["number_of_additional_assignments"] = 0
     if data.get("UniqueRequestToken") is not None:
         out["unique_request_token"] = data["UniqueRequestToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.integer
     import capo_lookoutequipment.types.statistical_issue_status
@@ -54,7 +52,12 @@ def deserialize_aws_json_1_0(data: dict) -> LargeTimestampGaps:
             )
         )
     else:
-        raise DeserializationError("LargeTimestampGaps.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_lookoutequipment.types.statistical_issue_status.StatisticalIssueStatus",
+            "",
+        )
     if data.get("NumberOfLargeTimestampGaps") is not None:
         out["number_of_large_timestamp_gaps"] = data["NumberOfLargeTimestampGaps"]
     if data.get("MaxTimestampGapInDays") is not None:

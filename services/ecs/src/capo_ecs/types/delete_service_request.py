@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.boxed_boolean
     import capo_ecs.types.string
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteServiceRequest:
     if data.get("service") is not None:
         out["service"] = data["service"]
     else:
-        raise DeserializationError("DeleteServiceRequest.service required")
+        out["service"] = ""
     if data.get("force") is not None:
         out["force"] = data["force"]
     return out

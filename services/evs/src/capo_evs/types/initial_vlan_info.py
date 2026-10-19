@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_evs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_evs.types.cidr
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> InitialVlanInfo:
     if data.get("cidr") is not None:
         out["cidr"] = data["cidr"]
     else:
-        raise DeserializationError("InitialVlanInfo.cidr required")
+        out["cidr"] = ""
     return out

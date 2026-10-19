@@ -80,13 +80,11 @@ def deserialize_json(data: dict) -> DescribeDatasetExportJobResponse:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("DescribeDatasetExportJobResponse.job_id required")
+        out["job_id"] = ""
     if data.get("workspaceName") is not None:
         out["workspace_name"] = data["workspaceName"]
     else:
-        raise DeserializationError(
-            "DescribeDatasetExportJobResponse.workspace_name required"
-        )
+        out["workspace_name"] = ""
     if data.get("status") is not None:
         import capo_iotsitewise.types.dataset_export_job_status
 
@@ -96,7 +94,12 @@ def deserialize_json(data: dict) -> DescribeDatasetExportJobResponse:
             )
         )
     else:
-        raise DeserializationError("DescribeDatasetExportJobResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_iotsitewise.types.dataset_export_job_status.DatasetExportJobStatus",
+            "",
+        )
     if data.get("startedAt") is not None:
         import capo_iotsitewise.types._prelude.timestamp
 
@@ -104,9 +107,9 @@ def deserialize_json(data: dict) -> DescribeDatasetExportJobResponse:
             data["startedAt"]
         )
     else:
-        raise DeserializationError(
-            "DescribeDatasetExportJobResponse.started_at required"
-        )
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("completedAt") is not None:
         import capo_iotsitewise.types._prelude.timestamp
 
@@ -118,9 +121,7 @@ def deserialize_json(data: dict) -> DescribeDatasetExportJobResponse:
     if data.get("destinationS3Uri") is not None:
         out["destination_s3_uri"] = data["destinationS3Uri"]
     else:
-        raise DeserializationError(
-            "DescribeDatasetExportJobResponse.destination_s3_uri required"
-        )
+        out["destination_s3_uri"] = ""
     if data.get("errorReportLocation") is not None:
         import capo_iotsitewise.types.export_error_report_location
 
@@ -140,5 +141,7 @@ def deserialize_json(data: dict) -> DescribeDatasetExportJobResponse:
             data["input"]
         )
     else:
-        raise DeserializationError("DescribeDatasetExportJobResponse.input required")
+        import capo_iotsitewise.types._unknown
+
+        out["input"] = capo_iotsitewise.types._unknown.UnknownUnionMember("")
     return out

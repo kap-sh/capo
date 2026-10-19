@@ -51,9 +51,9 @@ def deserialize_json(data: dict) -> RoutingProfileQueueConfig:
     if data.get("Priority") is not None:
         out["priority"] = data["Priority"]
     else:
-        raise DeserializationError("RoutingProfileQueueConfig.priority required")
+        out["priority"] = 0
     if data.get("Delay") is not None:
         out["delay"] = data["Delay"]
     else:
-        raise DeserializationError("RoutingProfileQueueConfig.delay required")
+        out["delay"] = 0
     return out

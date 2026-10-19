@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transcribe.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe.types.absolute_time_range
     import capo_transcribe.types.boolean
@@ -93,7 +91,11 @@ def deserialize_aws_json_1_1(data: dict) -> TranscriptFilter:
             )
         )
     else:
-        raise DeserializationError("TranscriptFilter.transcript_filter_type required")
+        import typing
+
+        out["transcript_filter_type"] = typing.cast(
+            "capo_transcribe.types.transcript_filter_type.TranscriptFilterType", ""
+        )
     if data.get("AbsoluteTimeRange") is not None:
         import capo_transcribe.types.absolute_time_range
 
@@ -129,5 +131,5 @@ def deserialize_aws_json_1_1(data: dict) -> TranscriptFilter:
             )
         )
     else:
-        raise DeserializationError("TranscriptFilter.targets required")
+        out["targets"] = []
     return out

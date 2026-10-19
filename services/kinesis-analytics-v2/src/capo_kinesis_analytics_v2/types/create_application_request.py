@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.application_configuration
     import capo_kinesis_analytics_v2.types.application_description
@@ -98,7 +96,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateApplicationRequest:
     if data.get("ApplicationName") is not None:
         out["application_name"] = data["ApplicationName"]
     else:
-        raise DeserializationError("CreateApplicationRequest.application_name required")
+        out["application_name"] = ""
     if data.get("ApplicationDescription") is not None:
         out["application_description"] = data["ApplicationDescription"]
     if data.get("RuntimeEnvironment") is not None:
@@ -110,15 +108,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateApplicationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateApplicationRequest.runtime_environment required"
+        import typing
+
+        out["runtime_environment"] = typing.cast(
+            "capo_kinesis_analytics_v2.types.runtime_environment.RuntimeEnvironment", ""
         )
     if data.get("ServiceExecutionRole") is not None:
         out["service_execution_role"] = data["ServiceExecutionRole"]
     else:
-        raise DeserializationError(
-            "CreateApplicationRequest.service_execution_role required"
-        )
+        out["service_execution_role"] = ""
     if data.get("ApplicationConfiguration") is not None:
         import capo_kinesis_analytics_v2.types.application_configuration
 

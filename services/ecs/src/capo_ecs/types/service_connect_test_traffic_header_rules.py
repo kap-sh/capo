@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.service_connect_test_traffic_header_match_rules
     import capo_ecs.types.string
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceConnectTestTrafficHeaderRules
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ServiceConnectTestTrafficHeaderRules.name required")
+        out["name"] = ""
     if data.get("value") is not None:
         import capo_ecs.types.service_connect_test_traffic_header_match_rules
 

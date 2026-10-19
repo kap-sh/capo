@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_security_ir.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_security_ir.types.aws_region
 
@@ -33,5 +31,7 @@ def deserialize_json(data: dict) -> ImpactedAwsRegion:
             data["region"]
         )
     else:
-        raise DeserializationError("ImpactedAwsRegion.region required")
+        import typing
+
+        out["region"] = typing.cast("capo_security_ir.types.aws_region.AwsRegion", "")
     return out

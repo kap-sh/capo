@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_security_ir.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_security_ir.types.comment_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CreateCaseCommentResponse:
     if data.get("commentId") is not None:
         out["comment_id"] = data["commentId"]
     else:
-        raise DeserializationError("CreateCaseCommentResponse.comment_id required")
+        out["comment_id"] = ""
     return out

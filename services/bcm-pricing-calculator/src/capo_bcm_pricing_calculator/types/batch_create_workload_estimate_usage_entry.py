@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_pricing_calculator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_pricing_calculator.types.account_id
     import capo_bcm_pricing_calculator.types.historical_usage_entity
@@ -72,39 +70,29 @@ def deserialize_aws_json_1_0(data: dict) -> BatchCreateWorkloadEstimateUsageEntr
     if data.get("serviceCode") is not None:
         out["service_code"] = data["serviceCode"]
     else:
-        raise DeserializationError(
-            "BatchCreateWorkloadEstimateUsageEntry.service_code required"
-        )
+        out["service_code"] = ""
     if data.get("usageType") is not None:
         out["usage_type"] = data["usageType"]
     else:
-        raise DeserializationError(
-            "BatchCreateWorkloadEstimateUsageEntry.usage_type required"
-        )
+        out["usage_type"] = ""
     if data.get("operation") is not None:
         out["operation"] = data["operation"]
     else:
-        raise DeserializationError(
-            "BatchCreateWorkloadEstimateUsageEntry.operation required"
-        )
+        out["operation"] = ""
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("BatchCreateWorkloadEstimateUsageEntry.key required")
+        out["key"] = ""
     if data.get("group") is not None:
         out["group"] = data["group"]
     if data.get("usageAccountId") is not None:
         out["usage_account_id"] = data["usageAccountId"]
     else:
-        raise DeserializationError(
-            "BatchCreateWorkloadEstimateUsageEntry.usage_account_id required"
-        )
+        out["usage_account_id"] = ""
     if data.get("amount") is not None:
         out["amount"] = float(data["amount"])
     else:
-        raise DeserializationError(
-            "BatchCreateWorkloadEstimateUsageEntry.amount required"
-        )
+        out["amount"] = 0.0
     if data.get("historicalUsage") is not None:
         import capo_bcm_pricing_calculator.types.historical_usage_entity
 

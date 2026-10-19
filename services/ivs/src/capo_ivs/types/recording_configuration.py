@@ -89,7 +89,7 @@ def deserialize_json(data: dict) -> RecordingConfiguration:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("RecordingConfiguration.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("destinationConfiguration") is not None:
@@ -107,7 +107,7 @@ def deserialize_json(data: dict) -> RecordingConfiguration:
     if data.get("state") is not None:
         out["state"] = data["state"]
     else:
-        raise DeserializationError("RecordingConfiguration.state required")
+        out["state"] = ""
     if data.get("tags") is not None:
         import capo_ivs.types.tags
 

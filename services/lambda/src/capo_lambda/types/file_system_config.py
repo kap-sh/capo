@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.file_system_arn
     import capo_lambda.types.local_mount_path
@@ -40,11 +38,11 @@ def deserialize_json(data: dict) -> FileSystemConfig:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("FileSystemConfig.arn required")
+        out["arn"] = ""
     if data.get("LocalMountPath") is not None:
         out["local_mount_path"] = data["LocalMountPath"]
     else:
-        raise DeserializationError("FileSystemConfig.local_mount_path required")
+        out["local_mount_path"] = ""
     if data.get("S3FilesConfig") is not None:
         import capo_lambda.types.s3_files_config
 

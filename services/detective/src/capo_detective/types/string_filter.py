@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_detective.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_detective.types.value
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> StringFilter:
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("StringFilter.value required")
+        out["value"] = ""
     return out

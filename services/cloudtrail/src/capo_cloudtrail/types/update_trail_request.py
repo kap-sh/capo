@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.boolean
     import capo_cloudtrail.types.string
@@ -72,7 +70,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateTrailRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateTrailRequest.name required")
+        out["name"] = ""
     if data.get("S3BucketName") is not None:
         out["s3_bucket_name"] = data["S3BucketName"]
     if data.get("S3KeyPrefix") is not None:

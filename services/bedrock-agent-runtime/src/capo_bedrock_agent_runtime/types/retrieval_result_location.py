@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.retrieval_result_confluence_location
     import capo_bedrock_agent_runtime.types.retrieval_result_custom_document_location
@@ -169,7 +167,12 @@ def deserialize_json(data: dict) -> RetrievalResultLocation:
             )
         )
     else:
-        raise DeserializationError("RetrievalResultLocation.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.retrieval_result_location_type.RetrievalResultLocationType",
+            "",
+        )
     if data.get("s3Location") is not None:
         import capo_bedrock_agent_runtime.types.retrieval_result_s3_location
 

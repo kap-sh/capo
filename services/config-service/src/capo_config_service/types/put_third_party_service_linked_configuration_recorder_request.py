@@ -56,15 +56,11 @@ def deserialize_aws_json_1_1(
     if data.get("ServicePrincipal") is not None:
         out["service_principal"] = data["ServicePrincipal"]
     else:
-        raise DeserializationError(
-            "PutThirdPartyServiceLinkedConfigurationRecorderRequest.service_principal required"
-        )
+        out["service_principal"] = ""
     if data.get("ConnectorArn") is not None:
         out["connector_arn"] = data["ConnectorArn"]
     else:
-        raise DeserializationError(
-            "PutThirdPartyServiceLinkedConfigurationRecorderRequest.connector_arn required"
-        )
+        out["connector_arn"] = ""
     if data.get("ScopeConfiguration") is not None:
         import capo_config_service.types.scope_configuration
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_waf_regional.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf_regional.types.ignore_unsupported_type
     import capo_waf_regional.types.resource_id
@@ -37,19 +35,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateWebACLMigrationStackRequest:
     if data.get("WebACLId") is not None:
         out["web_acl_id"] = data["WebACLId"]
     else:
-        raise DeserializationError(
-            "CreateWebACLMigrationStackRequest.web_acl_id required"
-        )
+        out["web_acl_id"] = ""
     if data.get("S3BucketName") is not None:
         out["s3_bucket_name"] = data["S3BucketName"]
     else:
-        raise DeserializationError(
-            "CreateWebACLMigrationStackRequest.s3_bucket_name required"
-        )
+        out["s3_bucket_name"] = ""
     if data.get("IgnoreUnsupportedType") is not None:
         out["ignore_unsupported_type"] = data["IgnoreUnsupportedType"]
     else:
-        raise DeserializationError(
-            "CreateWebACLMigrationStackRequest.ignore_unsupported_type required"
-        )
+        out["ignore_unsupported_type"] = False
     return out

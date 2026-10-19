@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.alias
     import capo_verifiedpermissions.types.policy_store_id
@@ -45,17 +43,15 @@ def deserialize_aws_json_1_0(data: dict) -> CreatePolicyStoreAliasOutput:
     if data.get("aliasName") is not None:
         out["alias_name"] = data["aliasName"]
     else:
-        raise DeserializationError("CreatePolicyStoreAliasOutput.alias_name required")
+        out["alias_name"] = ""
     if data.get("policyStoreId") is not None:
         out["policy_store_id"] = data["policyStoreId"]
     else:
-        raise DeserializationError(
-            "CreatePolicyStoreAliasOutput.policy_store_id required"
-        )
+        out["policy_store_id"] = ""
     if data.get("aliasArn") is not None:
         out["alias_arn"] = data["aliasArn"]
     else:
-        raise DeserializationError("CreatePolicyStoreAliasOutput.alias_arn required")
+        out["alias_arn"] = ""
     if data.get("createdAt") is not None:
         import capo_verifiedpermissions.types.timestamp_format
 
@@ -65,5 +61,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreatePolicyStoreAliasOutput:
             )
         )
     else:
-        raise DeserializationError("CreatePolicyStoreAliasOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.client_token
     import capo_imagebuilder.types.distribution_configuration_arn
@@ -59,17 +57,15 @@ def deserialize_json(data: dict) -> DistributeImageRequest:
     if data.get("sourceImage") is not None:
         out["source_image"] = data["sourceImage"]
     else:
-        raise DeserializationError("DistributeImageRequest.source_image required")
+        out["source_image"] = ""
     if data.get("distributionConfigurationArn") is not None:
         out["distribution_configuration_arn"] = data["distributionConfigurationArn"]
     else:
-        raise DeserializationError(
-            "DistributeImageRequest.distribution_configuration_arn required"
-        )
+        out["distribution_configuration_arn"] = ""
     if data.get("executionRole") is not None:
         out["execution_role"] = data["executionRole"]
     else:
-        raise DeserializationError("DistributeImageRequest.execution_role required")
+        out["execution_role"] = ""
     if data.get("tags") is not None:
         import capo_imagebuilder.types.tag_map
 
@@ -77,7 +73,7 @@ def deserialize_json(data: dict) -> DistributeImageRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("DistributeImageRequest.client_token required")
+        out["client_token"] = ""
     if data.get("loggingConfiguration") is not None:
         import capo_imagebuilder.types.image_logging_configuration
 

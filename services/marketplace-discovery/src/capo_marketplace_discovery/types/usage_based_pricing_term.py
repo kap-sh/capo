@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.currency_code
     import capo_marketplace_discovery.types.term_id
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> UsageBasedPricingTerm:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("UsageBasedPricingTerm.id required")
+        out["id"] = ""
     if data.get("type") is not None:
         import capo_marketplace_discovery.types.term_type
 
@@ -57,11 +55,15 @@ def deserialize_json(data: dict) -> UsageBasedPricingTerm:
             data["type"]
         )
     else:
-        raise DeserializationError("UsageBasedPricingTerm.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_marketplace_discovery.types.term_type.TermType", ""
+        )
     if data.get("currencyCode") is not None:
         out["currency_code"] = data["currencyCode"]
     else:
-        raise DeserializationError("UsageBasedPricingTerm.currency_code required")
+        out["currency_code"] = ""
     if data.get("rateCards") is not None:
         import capo_marketplace_discovery.types.usage_based_rate_card_list
 
@@ -71,5 +73,5 @@ def deserialize_json(data: dict) -> UsageBasedPricingTerm:
             )
         )
     else:
-        raise DeserializationError("UsageBasedPricingTerm.rate_cards required")
+        out["rate_cards"] = []
     return out

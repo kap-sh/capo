@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.ec2_security_group_arn_list
     import capo_datasync.types.ec2_subnet_arn
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> Ec2Config:
     if data.get("SubnetArn") is not None:
         out["subnet_arn"] = data["SubnetArn"]
     else:
-        raise DeserializationError("Ec2Config.subnet_arn required")
+        out["subnet_arn"] = ""
     if data.get("SecurityGroupArns") is not None:
         import capo_datasync.types.ec2_security_group_arn_list
 
@@ -49,5 +47,5 @@ def deserialize_aws_json_1_1(data: dict) -> Ec2Config:
             )
         )
     else:
-        raise DeserializationError("Ec2Config.security_group_arns required")
+        out["security_group_arns"] = []
     return out

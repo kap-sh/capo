@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_artifact.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_artifact.types.long_string_attribute
     import capo_artifact.types.timestamp_attribute
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> ResponseVersion:
     if data.get("responseText") is not None:
         out["response_text"] = data["responseText"]
     else:
-        raise DeserializationError("ResponseVersion.response_text required")
+        out["response_text"] = ""
     if data.get("timestamp") is not None:
         import capo_artifact.types.timestamp_attribute
 
@@ -43,5 +41,7 @@ def deserialize_json(data: dict) -> ResponseVersion:
             data["timestamp"]
         )
     else:
-        raise DeserializationError("ResponseVersion.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

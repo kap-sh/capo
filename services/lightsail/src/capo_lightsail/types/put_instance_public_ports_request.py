@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.port_info_list
     import capo_lightsail.types.resource_name
@@ -41,11 +39,9 @@ def deserialize_aws_json_1_1(data: dict) -> PutInstancePublicPortsRequest:
             )
         )
     else:
-        raise DeserializationError("PutInstancePublicPortsRequest.port_infos required")
+        out["port_infos"] = []
     if data.get("instanceName") is not None:
         out["instance_name"] = data["instanceName"]
     else:
-        raise DeserializationError(
-            "PutInstancePublicPortsRequest.instance_name required"
-        )
+        out["instance_name"] = ""
     return out

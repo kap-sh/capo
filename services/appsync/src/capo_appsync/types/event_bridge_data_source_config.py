@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.string
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> EventBridgeDataSourceConfig:
     if data.get("eventBusArn") is not None:
         out["event_bus_arn"] = data["eventBusArn"]
     else:
-        raise DeserializationError("EventBridgeDataSourceConfig.event_bus_arn required")
+        out["event_bus_arn"] = ""
     return out

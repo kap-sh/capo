@@ -56,7 +56,7 @@ def deserialize_json(data: dict) -> AggregateOperation:
     if data.get("Alias") is not None:
         out["alias"] = data["Alias"]
     else:
-        raise DeserializationError("AggregateOperation.alias required")
+        out["alias"] = ""
     if data.get("Source") is not None:
         import capo_quicksight.types.transform_operation_source
 
@@ -82,5 +82,5 @@ def deserialize_json(data: dict) -> AggregateOperation:
             data["Aggregations"]
         )
     else:
-        raise DeserializationError("AggregateOperation.aggregations required")
+        out["aggregations"] = []
     return out

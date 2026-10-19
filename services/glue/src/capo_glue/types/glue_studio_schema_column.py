@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.column_type_string
     import capo_glue.types.glue_studio_column_name_string
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> GlueStudioSchemaColumn:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("GlueStudioSchemaColumn.name required")
+        out["name"] = ""
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     if data.get("GlueStudioType") is not None:

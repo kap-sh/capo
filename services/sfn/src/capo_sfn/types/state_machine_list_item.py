@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.arn
     import capo_sfn.types.name
@@ -47,11 +45,11 @@ def deserialize_aws_json_1_0(data: dict) -> StateMachineListItem:
     if data.get("stateMachineArn") is not None:
         out["state_machine_arn"] = data["stateMachineArn"]
     else:
-        raise DeserializationError("StateMachineListItem.state_machine_arn required")
+        out["state_machine_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("StateMachineListItem.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         import capo_sfn.types.state_machine_type
 
@@ -59,7 +57,11 @@ def deserialize_aws_json_1_0(data: dict) -> StateMachineListItem:
             data["type"]
         )
     else:
-        raise DeserializationError("StateMachineListItem.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_sfn.types.state_machine_type.StateMachineType", ""
+        )
     if data.get("creationDate") is not None:
         import capo_sfn.types.timestamp
 
@@ -67,5 +69,9 @@ def deserialize_aws_json_1_0(data: dict) -> StateMachineListItem:
             data["creationDate"]
         )
     else:
-        raise DeserializationError("StateMachineListItem.creation_date required")
+        import datetime
+
+        out["creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

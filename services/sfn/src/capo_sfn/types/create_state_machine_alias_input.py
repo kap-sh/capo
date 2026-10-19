@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.alias_description
     import capo_sfn.types.character_restricted_name
@@ -46,7 +44,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateStateMachineAliasInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateStateMachineAliasInput.name required")
+        out["name"] = ""
     if data.get("routingConfiguration") is not None:
         import capo_sfn.types.routing_configuration_list
 
@@ -56,9 +54,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateStateMachineAliasInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateStateMachineAliasInput.routing_configuration required"
-        )
+        out["routing_configuration"] = []
     return out
 
 

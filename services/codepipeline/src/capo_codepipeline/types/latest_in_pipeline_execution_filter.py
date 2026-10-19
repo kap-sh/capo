@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.pipeline_execution_id
     import capo_codepipeline.types.start_time_range
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> LatestInPipelineExecutionFilter:
     if data.get("pipelineExecutionId") is not None:
         out["pipeline_execution_id"] = data["pipelineExecutionId"]
     else:
-        raise DeserializationError(
-            "LatestInPipelineExecutionFilter.pipeline_execution_id required"
-        )
+        out["pipeline_execution_id"] = ""
     if data.get("startTimeRange") is not None:
         import capo_codepipeline.types.start_time_range
 
@@ -51,7 +47,9 @@ def deserialize_aws_json_1_1(data: dict) -> LatestInPipelineExecutionFilter:
             )
         )
     else:
-        raise DeserializationError(
-            "LatestInPipelineExecutionFilter.start_time_range required"
+        import typing
+
+        out["start_time_range"] = typing.cast(
+            "capo_codepipeline.types.start_time_range.StartTimeRange", ""
         )
     return out

@@ -49,9 +49,7 @@ def deserialize_json(data: dict) -> AutomatedEvaluationCustomMetricConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedEvaluationCustomMetricConfig.custom_metrics required"
-        )
+        out["custom_metrics"] = []
     if data.get("evaluatorModelConfig") is not None:
         import capo_bedrock.types.custom_metric_evaluator_model_config
 

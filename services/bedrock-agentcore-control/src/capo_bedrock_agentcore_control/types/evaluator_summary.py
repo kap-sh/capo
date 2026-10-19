@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -115,15 +113,15 @@ def deserialize_json(data: dict) -> EvaluatorSummary:
     if data.get("evaluatorArn") is not None:
         out["evaluator_arn"] = data["evaluatorArn"]
     else:
-        raise DeserializationError("EvaluatorSummary.evaluator_arn required")
+        out["evaluator_arn"] = ""
     if data.get("evaluatorId") is not None:
         out["evaluator_id"] = data["evaluatorId"]
     else:
-        raise DeserializationError("EvaluatorSummary.evaluator_id required")
+        out["evaluator_id"] = ""
     if data.get("evaluatorName") is not None:
         out["evaluator_name"] = data["evaluatorName"]
     else:
-        raise DeserializationError("EvaluatorSummary.evaluator_name required")
+        out["evaluator_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("evaluatorType") is not None:
@@ -135,7 +133,11 @@ def deserialize_json(data: dict) -> EvaluatorSummary:
             )
         )
     else:
-        raise DeserializationError("EvaluatorSummary.evaluator_type required")
+        import typing
+
+        out["evaluator_type"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.evaluator_type.EvaluatorType", ""
+        )
     if data.get("provider") is not None:
         import capo_bedrock_agentcore_control.types.provider
 
@@ -161,7 +163,11 @@ def deserialize_json(data: dict) -> EvaluatorSummary:
             )
         )
     else:
-        raise DeserializationError("EvaluatorSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.evaluator_status.EvaluatorStatus", ""
+        )
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
 
@@ -171,7 +177,9 @@ def deserialize_json(data: dict) -> EvaluatorSummary:
             )
         )
     else:
-        raise DeserializationError("EvaluatorSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
 
@@ -181,7 +189,9 @@ def deserialize_json(data: dict) -> EvaluatorSummary:
             )
         )
     else:
-        raise DeserializationError("EvaluatorSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lockedForModification") is not None:
         out["locked_for_modification"] = data["lockedForModification"]
     if data.get("kmsKeyArn") is not None:

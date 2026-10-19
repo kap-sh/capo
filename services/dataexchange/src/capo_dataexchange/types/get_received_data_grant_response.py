@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.arn
     import capo_dataexchange.types.data_grant_acceptance_state
@@ -99,23 +97,19 @@ def deserialize_json(data: dict) -> GetReceivedDataGrantResponse:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("GetReceivedDataGrantResponse.name required")
+        out["name"] = ""
     if data.get("SenderPrincipal") is not None:
         out["sender_principal"] = data["SenderPrincipal"]
     if data.get("ReceiverPrincipal") is not None:
         out["receiver_principal"] = data["ReceiverPrincipal"]
     else:
-        raise DeserializationError(
-            "GetReceivedDataGrantResponse.receiver_principal required"
-        )
+        out["receiver_principal"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("AcceptanceState") is not None:
         out["acceptance_state"] = data["AcceptanceState"]
     else:
-        raise DeserializationError(
-            "GetReceivedDataGrantResponse.acceptance_state required"
-        )
+        out["acceptance_state"] = ""
     if data.get("AcceptedAt") is not None:
         import capo_dataexchange.types.timestamp
 
@@ -131,21 +125,19 @@ def deserialize_json(data: dict) -> GetReceivedDataGrantResponse:
     if data.get("GrantDistributionScope") is not None:
         out["grant_distribution_scope"] = data["GrantDistributionScope"]
     else:
-        raise DeserializationError(
-            "GetReceivedDataGrantResponse.grant_distribution_scope required"
-        )
+        out["grant_distribution_scope"] = ""
     if data.get("DataSetId") is not None:
         out["data_set_id"] = data["DataSetId"]
     else:
-        raise DeserializationError("GetReceivedDataGrantResponse.data_set_id required")
+        out["data_set_id"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("GetReceivedDataGrantResponse.id required")
+        out["id"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("GetReceivedDataGrantResponse.arn required")
+        out["arn"] = ""
     if data.get("CreatedAt") is not None:
         import capo_dataexchange.types.timestamp
 
@@ -153,7 +145,9 @@ def deserialize_json(data: dict) -> GetReceivedDataGrantResponse:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("GetReceivedDataGrantResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("UpdatedAt") is not None:
         import capo_dataexchange.types.timestamp
 
@@ -161,5 +155,7 @@ def deserialize_json(data: dict) -> GetReceivedDataGrantResponse:
             data["UpdatedAt"]
         )
     else:
-        raise DeserializationError("GetReceivedDataGrantResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

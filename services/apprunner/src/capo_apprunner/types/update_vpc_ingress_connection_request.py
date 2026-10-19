@@ -41,9 +41,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateVpcIngressConnectionRequest:
     if data.get("VpcIngressConnectionArn") is not None:
         out["vpc_ingress_connection_arn"] = data["VpcIngressConnectionArn"]
     else:
-        raise DeserializationError(
-            "UpdateVpcIngressConnectionRequest.vpc_ingress_connection_arn required"
-        )
+        out["vpc_ingress_connection_arn"] = ""
     if data.get("IngressVpcConfiguration") is not None:
         import capo_apprunner.types.ingress_vpc_configuration
 

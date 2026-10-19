@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.function_arn
     import capo_lambda.types.runtime_version_arn
@@ -46,15 +44,15 @@ def deserialize_json(data: dict) -> PutRuntimeManagementConfigResponse:
             data["UpdateRuntimeOn"]
         )
     else:
-        raise DeserializationError(
-            "PutRuntimeManagementConfigResponse.update_runtime_on required"
+        import typing
+
+        out["update_runtime_on"] = typing.cast(
+            "capo_lambda.types.update_runtime_on.UpdateRuntimeOn", ""
         )
     if data.get("FunctionArn") is not None:
         out["function_arn"] = data["FunctionArn"]
     else:
-        raise DeserializationError(
-            "PutRuntimeManagementConfigResponse.function_arn required"
-        )
+        out["function_arn"] = ""
     if data.get("RuntimeVersionArn") is not None:
         out["runtime_version_arn"] = data["RuntimeVersionArn"]
     return out

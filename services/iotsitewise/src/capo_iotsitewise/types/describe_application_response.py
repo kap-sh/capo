@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -77,7 +75,7 @@ def deserialize_json(data: dict) -> DescribeApplicationResponse:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("DescribeApplicationResponse.arn required")
+        out["arn"] = ""
     if data.get("createdAt") is not None:
         import capo_iotsitewise.types._prelude.timestamp
 
@@ -85,27 +83,27 @@ def deserialize_json(data: dict) -> DescribeApplicationResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("DescribeApplicationResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("dnsSubdomain") is not None:
         out["dns_subdomain"] = data["dnsSubdomain"]
     else:
-        raise DeserializationError("DescribeApplicationResponse.dns_subdomain required")
+        out["dns_subdomain"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("DescribeApplicationResponse.id required")
+        out["id"] = ""
     if data.get("idcApplicationArn") is not None:
         out["idc_application_arn"] = data["idcApplicationArn"]
     else:
-        raise DeserializationError(
-            "DescribeApplicationResponse.idc_application_arn required"
-        )
+        out["idc_application_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DescribeApplicationResponse.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         import capo_iotsitewise.types.application_status
 
@@ -113,7 +111,11 @@ def deserialize_json(data: dict) -> DescribeApplicationResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("DescribeApplicationResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_iotsitewise.types.application_status.ApplicationStatus", ""
+        )
     if data.get("updatedAt") is not None:
         import capo_iotsitewise.types._prelude.timestamp
 
@@ -121,11 +123,11 @@ def deserialize_json(data: dict) -> DescribeApplicationResponse:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("DescribeApplicationResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("workspaceName") is not None:
         out["workspace_name"] = data["workspaceName"]
     else:
-        raise DeserializationError(
-            "DescribeApplicationResponse.workspace_name required"
-        )
+        out["workspace_name"] = ""
     return out

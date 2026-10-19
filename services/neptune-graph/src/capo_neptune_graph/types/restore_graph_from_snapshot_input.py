@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptune_graph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_neptune_graph.types.graph_name
     import capo_neptune_graph.types.provisioned_memory
@@ -59,7 +57,7 @@ def deserialize_json(data: dict) -> RestoreGraphFromSnapshotInput:
     if data.get("graphName") is not None:
         out["graph_name"] = data["graphName"]
     else:
-        raise DeserializationError("RestoreGraphFromSnapshotInput.graph_name required")
+        out["graph_name"] = ""
     if data.get("provisionedMemory") is not None:
         out["provisioned_memory"] = data["provisionedMemory"]
     if data.get("deletionProtection") is not None:

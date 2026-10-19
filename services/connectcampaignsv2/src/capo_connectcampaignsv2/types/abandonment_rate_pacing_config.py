@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.connection_start_point
     import capo_connectcampaignsv2.types.evaluation_window
@@ -49,23 +47,17 @@ def deserialize_json(data: dict) -> AbandonmentRatePacingConfig:
     if data.get("targetRate") is not None:
         out["target_rate"] = float(data["targetRate"])
     else:
-        raise DeserializationError("AbandonmentRatePacingConfig.target_rate required")
+        out["target_rate"] = 0.0
     if data.get("connectionStartPoint") is not None:
         out["connection_start_point"] = data["connectionStartPoint"]
     else:
-        raise DeserializationError(
-            "AbandonmentRatePacingConfig.connection_start_point required"
-        )
+        out["connection_start_point"] = ""
     if data.get("connectionThresholdSeconds") is not None:
         out["connection_threshold_seconds"] = data["connectionThresholdSeconds"]
     else:
-        raise DeserializationError(
-            "AbandonmentRatePacingConfig.connection_threshold_seconds required"
-        )
+        out["connection_threshold_seconds"] = 0
     if data.get("evaluationWindow") is not None:
         out["evaluation_window"] = data["evaluationWindow"]
     else:
-        raise DeserializationError(
-            "AbandonmentRatePacingConfig.evaluation_window required"
-        )
+        out["evaluation_window"] = ""
     return out

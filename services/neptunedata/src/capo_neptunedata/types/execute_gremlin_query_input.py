@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptunedata.errors import DeserializationError
-
 
 class ExecuteGremlinQueryInput(TypedDict, closed=True):
     gremlin_query: "str"
@@ -24,5 +22,5 @@ def deserialize_json(data: dict) -> ExecuteGremlinQueryInput:
     if data.get("gremlin") is not None:
         out["gremlin_query"] = data["gremlin"]
     else:
-        raise DeserializationError("ExecuteGremlinQueryInput.gremlin_query required")
+        out["gremlin_query"] = ""
     return out

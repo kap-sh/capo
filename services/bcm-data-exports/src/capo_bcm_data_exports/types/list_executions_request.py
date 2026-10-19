@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_data_exports.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_data_exports.types.arn
     import capo_bcm_data_exports.types.max_results
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListExecutionsRequest:
     if data.get("ExportArn") is not None:
         out["export_arn"] = data["ExportArn"]
     else:
-        raise DeserializationError("ListExecutionsRequest.export_arn required")
+        out["export_arn"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeconnections.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeconnections.types.security_group_ids
     import capo_codeconnections.types.subnet_ids
@@ -52,7 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> VpcConfiguration:
     if data.get("VpcId") is not None:
         out["vpc_id"] = data["VpcId"]
     else:
-        raise DeserializationError("VpcConfiguration.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("SubnetIds") is not None:
         import capo_codeconnections.types.subnet_ids
 
@@ -62,7 +60,7 @@ def deserialize_aws_json_1_0(data: dict) -> VpcConfiguration:
             )
         )
     else:
-        raise DeserializationError("VpcConfiguration.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("SecurityGroupIds") is not None:
         import capo_codeconnections.types.security_group_ids
 
@@ -72,7 +70,7 @@ def deserialize_aws_json_1_0(data: dict) -> VpcConfiguration:
             )
         )
     else:
-        raise DeserializationError("VpcConfiguration.security_group_ids required")
+        out["security_group_ids"] = []
     if data.get("TlsCertificate") is not None:
         out["tls_certificate"] = data["TlsCertificate"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.error_handling_config
     import capo_appflow.types.id_field_name_list
@@ -59,7 +57,7 @@ def deserialize_json(data: dict) -> ZendeskDestinationProperties:
     if data.get("object") is not None:
         out["object"] = data["object"]
     else:
-        raise DeserializationError("ZendeskDestinationProperties.object required")
+        out["object"] = ""
     if data.get("idFieldNames") is not None:
         import capo_appflow.types.id_field_name_list
 

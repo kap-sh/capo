@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.cost_allocation_tag_status
     import capo_cost_explorer.types.tag_key
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> CostAllocationTagStatusEntry:
     if data.get("TagKey") is not None:
         out["tag_key"] = data["TagKey"]
     else:
-        raise DeserializationError("CostAllocationTagStatusEntry.tag_key required")
+        out["tag_key"] = ""
     if data.get("Status") is not None:
         import capo_cost_explorer.types.cost_allocation_tag_status
 
@@ -49,5 +47,10 @@ def deserialize_aws_json_1_1(data: dict) -> CostAllocationTagStatusEntry:
             )
         )
     else:
-        raise DeserializationError("CostAllocationTagStatusEntry.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cost_explorer.types.cost_allocation_tag_status.CostAllocationTagStatus",
+            "",
+        )
     return out

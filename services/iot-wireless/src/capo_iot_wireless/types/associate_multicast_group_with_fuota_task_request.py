@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.fuota_task_id
     import capo_iot_wireless.types.multicast_group_id
@@ -28,7 +26,5 @@ def deserialize_json(data: dict) -> AssociateMulticastGroupWithFuotaTaskRequest:
     if data.get("MulticastGroupId") is not None:
         out["multicast_group_id"] = data["MulticastGroupId"]
     else:
-        raise DeserializationError(
-            "AssociateMulticastGroupWithFuotaTaskRequest.multicast_group_id required"
-        )
+        out["multicast_group_id"] = ""
     return out

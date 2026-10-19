@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.account_pool_name
     import capo_datazone.types.account_source
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> CreateAccountPoolInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateAccountPoolInput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("resolutionStrategy") is not None:
@@ -63,8 +61,10 @@ def deserialize_json(data: dict) -> CreateAccountPoolInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAccountPoolInput.resolution_strategy required"
+        import typing
+
+        out["resolution_strategy"] = typing.cast(
+            "capo_datazone.types.resolution_strategy.ResolutionStrategy", ""
         )
     if data.get("accountSource") is not None:
         import capo_datazone.types.account_source
@@ -73,7 +73,9 @@ def deserialize_json(data: dict) -> CreateAccountPoolInput:
             data["accountSource"]
         )
     else:
-        raise DeserializationError("CreateAccountPoolInput.account_source required")
+        import capo_datazone.types._unknown
+
+        out["account_source"] = capo_datazone.types._unknown.UnknownUnionMember("")
     return out
 
 

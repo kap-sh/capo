@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.instance_patch_state_filter_key
     import capo_ssm.types.instance_patch_state_filter_values
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> InstancePatchStateFilter:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("InstancePatchStateFilter.key required")
+        out["key"] = ""
     if data.get("Values") is not None:
         import capo_ssm.types.instance_patch_state_filter_values
 
@@ -57,7 +55,7 @@ def deserialize_aws_json_1_1(data: dict) -> InstancePatchStateFilter:
             )
         )
     else:
-        raise DeserializationError("InstancePatchStateFilter.values required")
+        out["values"] = []
     if data.get("Type") is not None:
         import capo_ssm.types.instance_patch_state_operator_type
 
@@ -67,5 +65,10 @@ def deserialize_aws_json_1_1(data: dict) -> InstancePatchStateFilter:
             )
         )
     else:
-        raise DeserializationError("InstancePatchStateFilter.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_ssm.types.instance_patch_state_operator_type.InstancePatchStateOperatorType",
+            "",
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.accelerator_name
     import capo_deadline.types.accelerator_runtime
@@ -37,7 +35,11 @@ def deserialize_json(data: dict) -> AcceleratorSelection:
             data["name"]
         )
     else:
-        raise DeserializationError("AcceleratorSelection.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_deadline.types.accelerator_name.AcceleratorName", ""
+        )
     if data.get("runtime") is not None:
         out["runtime"] = data["runtime"]
     else:

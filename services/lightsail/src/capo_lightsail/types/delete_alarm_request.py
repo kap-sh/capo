@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.resource_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteAlarmRequest:
     if data.get("alarmName") is not None:
         out["alarm_name"] = data["alarmName"]
     else:
-        raise DeserializationError("DeleteAlarmRequest.alarm_name required")
+        out["alarm_name"] = ""
     return out

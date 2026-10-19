@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notifications.types.account_contact_type
     import capo_notifications.types.managed_notification_configuration_os_arn
@@ -40,9 +38,7 @@ def deserialize_json(data: dict) -> AssociateManagedNotificationAccountContactRe
             "managedNotificationConfigurationArn"
         ]
     else:
-        raise DeserializationError(
-            "AssociateManagedNotificationAccountContactRequest.managed_notification_configuration_arn required"
-        )
+        out["managed_notification_configuration_arn"] = ""
     if data.get("isSensitiveEventsSubscribed") is not None:
         out["is_sensitive_events_subscribed"] = data["isSensitiveEventsSubscribed"]
     return out

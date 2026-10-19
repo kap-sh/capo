@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.uuid
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> UpdateAgentStatusResponse:
     if data.get("agentId") is not None:
         out["agent_id"] = data["agentId"]
     else:
-        raise DeserializationError("UpdateAgentStatusResponse.agent_id required")
+        out["agent_id"] = ""
     return out

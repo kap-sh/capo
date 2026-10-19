@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.field_option_name
     import capo_connectcases.types.field_option_value
@@ -34,13 +32,13 @@ def deserialize_json(data: dict) -> FieldOption:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("FieldOption.name required")
+        out["name"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("FieldOption.value required")
+        out["value"] = ""
     if data.get("active") is not None:
         out["active"] = data["active"]
     else:
-        raise DeserializationError("FieldOption.active required")
+        out["active"] = False
     return out

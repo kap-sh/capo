@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.answer_field
     import capo_lex_models_v2.types.question_field
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> ExactResponseFields:
     if data.get("questionField") is not None:
         out["question_field"] = data["questionField"]
     else:
-        raise DeserializationError("ExactResponseFields.question_field required")
+        out["question_field"] = ""
     if data.get("answerField") is not None:
         out["answer_field"] = data["answerField"]
     else:
-        raise DeserializationError("ExactResponseFields.answer_field required")
+        out["answer_field"] = ""
     return out

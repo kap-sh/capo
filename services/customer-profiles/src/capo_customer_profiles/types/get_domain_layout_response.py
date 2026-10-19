@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.boolean
     import capo_customer_profiles.types.display_name
@@ -77,17 +75,15 @@ def deserialize_json(data: dict) -> GetDomainLayoutResponse:
     if data.get("LayoutDefinitionName") is not None:
         out["layout_definition_name"] = data["LayoutDefinitionName"]
     else:
-        raise DeserializationError(
-            "GetDomainLayoutResponse.layout_definition_name required"
-        )
+        out["layout_definition_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("GetDomainLayoutResponse.description required")
+        out["description"] = ""
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     else:
-        raise DeserializationError("GetDomainLayoutResponse.display_name required")
+        out["display_name"] = ""
     if data.get("IsDefault") is not None:
         out["is_default"] = data["IsDefault"]
     else:
@@ -99,15 +95,19 @@ def deserialize_json(data: dict) -> GetDomainLayoutResponse:
             data["LayoutType"]
         )
     else:
-        raise DeserializationError("GetDomainLayoutResponse.layout_type required")
+        import typing
+
+        out["layout_type"] = typing.cast(
+            "capo_customer_profiles.types.layout_type.LayoutType", ""
+        )
     if data.get("Layout") is not None:
         out["layout"] = data["Layout"]
     else:
-        raise DeserializationError("GetDomainLayoutResponse.layout required")
+        out["layout"] = ""
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     else:
-        raise DeserializationError("GetDomainLayoutResponse.version required")
+        out["version"] = ""
     if data.get("CreatedAt") is not None:
         import capo_customer_profiles.types.timestamp
 
@@ -115,7 +115,9 @@ def deserialize_json(data: dict) -> GetDomainLayoutResponse:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("GetDomainLayoutResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("LastUpdatedAt") is not None:
         import capo_customer_profiles.types.timestamp
 
@@ -125,7 +127,11 @@ def deserialize_json(data: dict) -> GetDomainLayoutResponse:
             )
         )
     else:
-        raise DeserializationError("GetDomainLayoutResponse.last_updated_at required")
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("Tags") is not None:
         import capo_customer_profiles.types.tag_map
 

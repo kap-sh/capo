@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.entity
     import capo_cloudwatch_logs.types.input_log_events
@@ -57,11 +55,11 @@ def deserialize_aws_json_1_1(data: dict) -> PutLogEventsRequest:
     if data.get("logGroupName") is not None:
         out["log_group_name"] = data["logGroupName"]
     else:
-        raise DeserializationError("PutLogEventsRequest.log_group_name required")
+        out["log_group_name"] = ""
     if data.get("logStreamName") is not None:
         out["log_stream_name"] = data["logStreamName"]
     else:
-        raise DeserializationError("PutLogEventsRequest.log_stream_name required")
+        out["log_stream_name"] = ""
     if data.get("logEvents") is not None:
         import capo_cloudwatch_logs.types.input_log_events
 
@@ -71,7 +69,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutLogEventsRequest:
             )
         )
     else:
-        raise DeserializationError("PutLogEventsRequest.log_events required")
+        out["log_events"] = []
     if data.get("sequenceToken") is not None:
         out["sequence_token"] = data["sequenceToken"]
     if data.get("entity") is not None:

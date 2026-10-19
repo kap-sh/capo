@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.kms_key_arn
     import capo_devops_agent.types.post_register_service_supported_service
@@ -79,7 +77,9 @@ def deserialize_json(data: dict) -> RegisterServiceInput:
             )
         )
     else:
-        raise DeserializationError("RegisterServiceInput.service_details required")
+        import capo_devops_agent.types._unknown
+
+        out["service_details"] = capo_devops_agent.types._unknown.UnknownUnionMember("")
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     if data.get("privateConnectionName") is not None:

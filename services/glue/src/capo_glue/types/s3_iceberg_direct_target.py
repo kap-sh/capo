@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.additional_options
     import capo_glue.types.auto_data_quality
@@ -122,7 +120,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3IcebergDirectTarget:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("S3IcebergDirectTarget.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.one_input
 
@@ -130,7 +128,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3IcebergDirectTarget:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("S3IcebergDirectTarget.inputs required")
+        out["inputs"] = []
     if data.get("PartitionKeys") is not None:
         import capo_glue.types.glue_studio_path_list
 
@@ -142,7 +140,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3IcebergDirectTarget:
     if data.get("Path") is not None:
         out["path"] = data["Path"]
     else:
-        raise DeserializationError("S3IcebergDirectTarget.path required")
+        out["path"] = ""
     if data.get("Format") is not None:
         import capo_glue.types.target_format
 
@@ -150,7 +148,9 @@ def deserialize_aws_json_1_1(data: dict) -> S3IcebergDirectTarget:
             data["Format"]
         )
     else:
-        raise DeserializationError("S3IcebergDirectTarget.format required")
+        import typing
+
+        out["format"] = typing.cast("capo_glue.types.target_format.TargetFormat", "")
     if data.get("AdditionalOptions") is not None:
         import capo_glue.types.additional_options
 
@@ -184,7 +184,12 @@ def deserialize_aws_json_1_1(data: dict) -> S3IcebergDirectTarget:
             )
         )
     else:
-        raise DeserializationError("S3IcebergDirectTarget.compression required")
+        import typing
+
+        out["compression"] = typing.cast(
+            "capo_glue.types.iceberg_target_compression_type.IcebergTargetCompressionType",
+            "",
+        )
     if data.get("NumberTargetPartitions") is not None:
         out["number_target_partitions"] = data["NumberTargetPartitions"]
     if data.get("OutputSchemas") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.account_id
     import capo_network_security_manager.types.sensitive_account_email
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> AccountReference:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("AccountReference.account_id required")
+        out["account_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("email") is not None:

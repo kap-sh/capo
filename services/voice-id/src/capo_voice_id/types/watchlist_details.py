@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_voice_id.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_voice_id.types.watchlist_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> WatchlistDetails:
     if data.get("DefaultWatchlistId") is not None:
         out["default_watchlist_id"] = data["DefaultWatchlistId"]
     else:
-        raise DeserializationError("WatchlistDetails.default_watchlist_id required")
+        out["default_watchlist_id"] = ""
     return out

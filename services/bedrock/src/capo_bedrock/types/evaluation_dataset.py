@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.evaluation_dataset_location
     import capo_bedrock.types.evaluation_dataset_name
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> EvaluationDataset:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("EvaluationDataset.name required")
+        out["name"] = ""
     if data.get("datasetLocation") is not None:
         import capo_bedrock.types.evaluation_dataset_location
 

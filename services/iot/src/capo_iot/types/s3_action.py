@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aws_arn
     import capo_iot.types.bucket_name
@@ -46,15 +44,15 @@ def deserialize_json(data: dict) -> S3Action:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("S3Action.role_arn required")
+        out["role_arn"] = ""
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError("S3Action.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("S3Action.key required")
+        out["key"] = ""
     if data.get("cannedAcl") is not None:
         import capo_iot.types.canned_access_control_list
 

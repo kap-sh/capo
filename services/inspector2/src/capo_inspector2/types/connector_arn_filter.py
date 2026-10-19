@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.connector_arn
     import capo_inspector2.types.connector_arn_comparison
@@ -41,9 +39,13 @@ def deserialize_json(data: dict) -> ConnectorArnFilter:
             )
         )
     else:
-        raise DeserializationError("ConnectorArnFilter.comparison required")
+        import typing
+
+        out["comparison"] = typing.cast(
+            "capo_inspector2.types.connector_arn_comparison.ConnectorArnComparison", ""
+        )
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("ConnectorArnFilter.value required")
+        out["value"] = ""
     return out

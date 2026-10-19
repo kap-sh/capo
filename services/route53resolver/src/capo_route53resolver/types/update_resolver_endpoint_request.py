@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.dns64_enabled
     import capo_route53resolver.types.ipv6_internet_access_enabled
@@ -97,9 +95,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateResolverEndpointRequest:
     if data.get("ResolverEndpointId") is not None:
         out["resolver_endpoint_id"] = data["ResolverEndpointId"]
     else:
-        raise DeserializationError(
-            "UpdateResolverEndpointRequest.resolver_endpoint_id required"
-        )
+        out["resolver_endpoint_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("ResolverEndpointType") is not None:

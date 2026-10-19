@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeguru_security.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguru_security.types.analysis_type
     import capo_codeguru_security.types.client_token
@@ -73,11 +71,15 @@ def deserialize_json(data: dict) -> CreateScanRequest:
             data["resourceId"]
         )
     else:
-        raise DeserializationError("CreateScanRequest.resource_id required")
+        import capo_codeguru_security.types._unknown
+
+        out["resource_id"] = capo_codeguru_security.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("scanName") is not None:
         out["scan_name"] = data["scanName"]
     else:
-        raise DeserializationError("CreateScanRequest.scan_name required")
+        out["scan_name"] = ""
     if data.get("scanType") is not None:
         import capo_codeguru_security.types.scan_type
 

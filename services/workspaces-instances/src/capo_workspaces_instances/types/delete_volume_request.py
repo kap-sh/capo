@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces_instances.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_instances.types.volume_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteVolumeRequest:
     if data.get("VolumeId") is not None:
         out["volume_id"] = data["VolumeId"]
     else:
-        raise DeserializationError("DeleteVolumeRequest.volume_id required")
+        out["volume_id"] = ""
     return out

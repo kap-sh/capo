@@ -74,17 +74,15 @@ def deserialize_aws_json_1_1(data: dict) -> GetTopPathStatisticsByTrafficRequest
     if data.get("WebAclArn") is not None:
         out["web_acl_arn"] = data["WebAclArn"]
     else:
-        raise DeserializationError(
-            "GetTopPathStatisticsByTrafficRequest.web_acl_arn required"
-        )
+        out["web_acl_arn"] = ""
     if data.get("Scope") is not None:
         import capo_wafv2.types.scope
 
         out["scope"] = capo_wafv2.types.scope.deserialize_aws_json_1_1(data["Scope"])
     else:
-        raise DeserializationError(
-            "GetTopPathStatisticsByTrafficRequest.scope required"
-        )
+        import typing
+
+        out["scope"] = typing.cast("capo_wafv2.types.scope.Scope", "")
     if data.get("UriPathPrefix") is not None:
         out["uri_path_prefix"] = data["UriPathPrefix"]
     if data.get("TimeWindow") is not None:
@@ -106,17 +104,13 @@ def deserialize_aws_json_1_1(data: dict) -> GetTopPathStatisticsByTrafficRequest
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
     else:
-        raise DeserializationError(
-            "GetTopPathStatisticsByTrafficRequest.limit required"
-        )
+        out["limit"] = 0
     if data.get("NumberOfTopTrafficBotsPerPath") is not None:
         out["number_of_top_traffic_bots_per_path"] = data[
             "NumberOfTopTrafficBotsPerPath"
         ]
     else:
-        raise DeserializationError(
-            "GetTopPathStatisticsByTrafficRequest.number_of_top_traffic_bots_per_path required"
-        )
+        out["number_of_top_traffic_bots_per_path"] = 0
     if data.get("NextMarker") is not None:
         out["next_marker"] = data["NextMarker"]
     return out

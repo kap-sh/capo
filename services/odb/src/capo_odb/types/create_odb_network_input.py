@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.access
     import capo_odb.types.general_input_string
@@ -123,7 +121,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateOdbNetworkInput:
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("CreateOdbNetworkInput.display_name required")
+        out["display_name"] = ""
     if data.get("availabilityZone") is not None:
         out["availability_zone"] = data["availabilityZone"]
     if data.get("availabilityZoneId") is not None:
@@ -131,7 +129,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateOdbNetworkInput:
     if data.get("clientSubnetCidr") is not None:
         out["client_subnet_cidr"] = data["clientSubnetCidr"]
     else:
-        raise DeserializationError("CreateOdbNetworkInput.client_subnet_cidr required")
+        out["client_subnet_cidr"] = ""
     if data.get("backupSubnetCidr") is not None:
         out["backup_subnet_cidr"] = data["backupSubnetCidr"]
     if data.get("customDomainName") is not None:

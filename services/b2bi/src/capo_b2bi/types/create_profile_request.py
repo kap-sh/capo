@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.business_name
     import capo_b2bi.types.email
@@ -57,17 +55,17 @@ def deserialize_aws_json_1_0(data: dict) -> CreateProfileRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateProfileRequest.name required")
+        out["name"] = ""
     if data.get("email") is not None:
         out["email"] = data["email"]
     if data.get("phone") is not None:
         out["phone"] = data["phone"]
     else:
-        raise DeserializationError("CreateProfileRequest.phone required")
+        out["phone"] = ""
     if data.get("businessName") is not None:
         out["business_name"] = data["businessName"]
     else:
-        raise DeserializationError("CreateProfileRequest.business_name required")
+        out["business_name"] = ""
     if data.get("logging") is not None:
         import capo_b2bi.types.logging
 
@@ -75,7 +73,9 @@ def deserialize_aws_json_1_0(data: dict) -> CreateProfileRequest:
             data["logging"]
         )
     else:
-        raise DeserializationError("CreateProfileRequest.logging required")
+        import typing
+
+        out["logging"] = typing.cast("capo_b2bi.types.logging.Logging", "")
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

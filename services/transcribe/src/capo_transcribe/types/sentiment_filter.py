@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transcribe.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe.types.absolute_time_range
     import capo_transcribe.types.boolean
@@ -83,7 +81,7 @@ def deserialize_aws_json_1_1(data: dict) -> SentimentFilter:
             )
         )
     else:
-        raise DeserializationError("SentimentFilter.sentiments required")
+        out["sentiments"] = []
     if data.get("AbsoluteTimeRange") is not None:
         import capo_transcribe.types.absolute_time_range
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.capacity_provider_arn
     import capo_lambda.types.function_versions_by_capacity_provider_list
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> ListFunctionVersionsByCapacityProviderRespon
     if data.get("CapacityProviderArn") is not None:
         out["capacity_provider_arn"] = data["CapacityProviderArn"]
     else:
-        raise DeserializationError(
-            "ListFunctionVersionsByCapacityProviderResponse.capacity_provider_arn required"
-        )
+        out["capacity_provider_arn"] = ""
     if data.get("FunctionVersions") is not None:
         import capo_lambda.types.function_versions_by_capacity_provider_list
 
@@ -54,9 +50,7 @@ def deserialize_json(data: dict) -> ListFunctionVersionsByCapacityProviderRespon
             )
         )
     else:
-        raise DeserializationError(
-            "ListFunctionVersionsByCapacityProviderResponse.function_versions required"
-        )
+        out["function_versions"] = []
     if data.get("NextMarker") is not None:
         out["next_marker"] = data["NextMarker"]
     return out

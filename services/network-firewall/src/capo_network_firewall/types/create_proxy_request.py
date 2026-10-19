@@ -76,11 +76,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateProxyRequest:
     if data.get("ProxyName") is not None:
         out["proxy_name"] = data["ProxyName"]
     else:
-        raise DeserializationError("CreateProxyRequest.proxy_name required")
+        out["proxy_name"] = ""
     if data.get("NatGatewayId") is not None:
         out["nat_gateway_id"] = data["NatGatewayId"]
     else:
-        raise DeserializationError("CreateProxyRequest.nat_gateway_id required")
+        out["nat_gateway_id"] = ""
     if data.get("ProxyConfigurationName") is not None:
         out["proxy_configuration_name"] = data["ProxyConfigurationName"]
     if data.get("ProxyConfigurationArn") is not None:

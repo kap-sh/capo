@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -46,21 +44,15 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteVerifiedDestinationNumberResul
     if data.get("VerifiedDestinationNumberArn") is not None:
         out["verified_destination_number_arn"] = data["VerifiedDestinationNumberArn"]
     else:
-        raise DeserializationError(
-            "DeleteVerifiedDestinationNumberResult.verified_destination_number_arn required"
-        )
+        out["verified_destination_number_arn"] = ""
     if data.get("VerifiedDestinationNumberId") is not None:
         out["verified_destination_number_id"] = data["VerifiedDestinationNumberId"]
     else:
-        raise DeserializationError(
-            "DeleteVerifiedDestinationNumberResult.verified_destination_number_id required"
-        )
+        out["verified_destination_number_id"] = ""
     if data.get("DestinationPhoneNumber") is not None:
         out["destination_phone_number"] = data["DestinationPhoneNumber"]
     else:
-        raise DeserializationError(
-            "DeleteVerifiedDestinationNumberResult.destination_phone_number required"
-        )
+        out["destination_phone_number"] = ""
     if data.get("CreatedTimestamp") is not None:
         import capo_pinpoint_sms_voice_v2.types._prelude.timestamp
 
@@ -70,7 +62,9 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteVerifiedDestinationNumberResul
             )
         )
     else:
-        raise DeserializationError(
-            "DeleteVerifiedDestinationNumberResult.created_timestamp required"
+        import datetime
+
+        out["created_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

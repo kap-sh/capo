@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_auto_scaling_plans.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auto_scaling_plans.types.metric_dimensions
     import capo_auto_scaling_plans.types.metric_name
@@ -59,15 +57,11 @@ def deserialize_aws_json_1_1(data: dict) -> CustomizedLoadMetricSpecification:
     if data.get("MetricName") is not None:
         out["metric_name"] = data["MetricName"]
     else:
-        raise DeserializationError(
-            "CustomizedLoadMetricSpecification.metric_name required"
-        )
+        out["metric_name"] = ""
     if data.get("Namespace") is not None:
         out["namespace"] = data["Namespace"]
     else:
-        raise DeserializationError(
-            "CustomizedLoadMetricSpecification.namespace required"
-        )
+        out["namespace"] = ""
     if data.get("Dimensions") is not None:
         import capo_auto_scaling_plans.types.metric_dimensions
 
@@ -85,8 +79,10 @@ def deserialize_aws_json_1_1(data: dict) -> CustomizedLoadMetricSpecification:
             )
         )
     else:
-        raise DeserializationError(
-            "CustomizedLoadMetricSpecification.statistic required"
+        import typing
+
+        out["statistic"] = typing.cast(
+            "capo_auto_scaling_plans.types.metric_statistic.MetricStatistic", ""
         )
     if data.get("Unit") is not None:
         out["unit"] = data["Unit"]

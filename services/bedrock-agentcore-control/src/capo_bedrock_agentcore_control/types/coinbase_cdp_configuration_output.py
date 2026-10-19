@@ -78,7 +78,7 @@ def deserialize_json(data: dict) -> CoinbaseCdpConfigurationOutput:
     if data.get("apiKeyId") is not None:
         out["api_key_id"] = data["apiKeyId"]
     else:
-        raise DeserializationError("CoinbaseCdpConfigurationOutput.api_key_id required")
+        out["api_key_id"] = ""
     if data.get("apiKeySecretArn") is not None:
         import capo_bedrock_agentcore_control.types.secret
 

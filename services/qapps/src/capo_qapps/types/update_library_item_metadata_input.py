@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.instance_id
     import capo_qapps.types.uuid
@@ -34,9 +32,7 @@ def deserialize_json(data: dict) -> UpdateLibraryItemMetadataInput:
     if data.get("libraryItemId") is not None:
         out["library_item_id"] = data["libraryItemId"]
     else:
-        raise DeserializationError(
-            "UpdateLibraryItemMetadataInput.library_item_id required"
-        )
+        out["library_item_id"] = ""
     if data.get("isVerified") is not None:
         out["is_verified"] = data["isVerified"]
     return out

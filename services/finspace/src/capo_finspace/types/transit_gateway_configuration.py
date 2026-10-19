@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_finspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace.types.network_acl_configuration
     import capo_finspace.types.transit_gateway_id
@@ -44,15 +42,11 @@ def deserialize_json(data: dict) -> TransitGatewayConfiguration:
     if data.get("transitGatewayID") is not None:
         out["transit_gateway_id"] = data["transitGatewayID"]
     else:
-        raise DeserializationError(
-            "TransitGatewayConfiguration.transit_gateway_id required"
-        )
+        out["transit_gateway_id"] = ""
     if data.get("routableCIDRSpace") is not None:
         out["routable_cidr_space"] = data["routableCIDRSpace"]
     else:
-        raise DeserializationError(
-            "TransitGatewayConfiguration.routable_cidr_space required"
-        )
+        out["routable_cidr_space"] = ""
     if data.get("attachmentNetworkAclConfiguration") is not None:
         import capo_finspace.types.network_acl_configuration
 

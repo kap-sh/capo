@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb_streams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb_streams.types.sequence_number
     import capo_dynamodb_streams.types.shard_id
@@ -59,11 +57,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetShardIteratorInput:
     if data.get("StreamArn") is not None:
         out["stream_arn"] = data["StreamArn"]
     else:
-        raise DeserializationError("GetShardIteratorInput.stream_arn required")
+        out["stream_arn"] = ""
     if data.get("ShardId") is not None:
         out["shard_id"] = data["ShardId"]
     else:
-        raise DeserializationError("GetShardIteratorInput.shard_id required")
+        out["shard_id"] = ""
     if data.get("ShardIteratorType") is not None:
         import capo_dynamodb_streams.types.shard_iterator_type
 
@@ -73,7 +71,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetShardIteratorInput:
             )
         )
     else:
-        raise DeserializationError("GetShardIteratorInput.shard_iterator_type required")
+        import typing
+
+        out["shard_iterator_type"] = typing.cast(
+            "capo_dynamodb_streams.types.shard_iterator_type.ShardIteratorType", ""
+        )
     if data.get("SequenceNumber") is not None:
         out["sequence_number"] = data["SequenceNumber"]
     if data.get("Timestamp") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.boolean
     import capo_opensearch.types.kms_key_id
@@ -34,7 +32,5 @@ def deserialize_json(data: dict) -> PackageEncryptionOptions:
     if data.get("EncryptionEnabled") is not None:
         out["encryption_enabled"] = data["EncryptionEnabled"]
     else:
-        raise DeserializationError(
-            "PackageEncryptionOptions.encryption_enabled required"
-        )
+        out["encryption_enabled"] = False
     return out

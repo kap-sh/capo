@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_billingconductor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billingconductor.types.pricing_plan_full_arn
 
@@ -29,5 +27,5 @@ def deserialize_json(data: dict) -> ComputationPreference:
     if data.get("PricingPlanArn") is not None:
         out["pricing_plan_arn"] = data["PricingPlanArn"]
     else:
-        raise DeserializationError("ComputationPreference.pricing_plan_arn required")
+        out["pricing_plan_arn"] = ""
     return out

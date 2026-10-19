@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_annotated_chunk_list
     import capo_bedrock.types.automated_reasoning_policy_atomic_statement_list
@@ -55,21 +53,15 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyReportSourceDocument
     if data.get("documentName") is not None:
         out["document_name"] = data["documentName"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyReportSourceDocument.document_name required"
-        )
+        out["document_name"] = ""
     if data.get("documentHash") is not None:
         out["document_hash"] = data["documentHash"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyReportSourceDocument.document_hash required"
-        )
+        out["document_hash"] = ""
     if data.get("documentId") is not None:
         out["document_id"] = data["documentId"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyReportSourceDocument.document_id required"
-        )
+        out["document_id"] = ""
     if data.get("atomicStatements") is not None:
         import capo_bedrock.types.automated_reasoning_policy_atomic_statement_list
 
@@ -79,9 +71,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyReportSourceDocument
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyReportSourceDocument.atomic_statements required"
-        )
+        out["atomic_statements"] = []
     if data.get("documentContent") is not None:
         import capo_bedrock.types.automated_reasoning_policy_annotated_chunk_list
 
@@ -91,9 +81,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyReportSourceDocument
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyReportSourceDocument.document_content required"
-        )
+        out["document_content"] = []
     return out
 
 

@@ -68,7 +68,9 @@ def deserialize_aws_json_1_0(data: dict) -> TestParsingRequest:
             data["fileFormat"]
         )
     else:
-        raise DeserializationError("TestParsingRequest.file_format required")
+        import typing
+
+        out["file_format"] = typing.cast("capo_b2bi.types.file_format.FileFormat", "")
     if data.get("ediType") is not None:
         import capo_b2bi.types.edi_type
 
@@ -76,7 +78,9 @@ def deserialize_aws_json_1_0(data: dict) -> TestParsingRequest:
             data["ediType"]
         )
     else:
-        raise DeserializationError("TestParsingRequest.edi_type required")
+        import capo_b2bi.types._unknown
+
+        out["edi_type"] = capo_b2bi.types._unknown.UnknownUnionMember("")
     if data.get("advancedOptions") is not None:
         import capo_b2bi.types.advanced_options
 

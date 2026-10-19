@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.answer_machine_detection_config
     import capo_connect.types.attributes
@@ -139,21 +137,15 @@ def deserialize_json(data: dict) -> StartOutboundVoiceContactRequest:
     if data.get("DestinationPhoneNumber") is not None:
         out["destination_phone_number"] = data["DestinationPhoneNumber"]
     else:
-        raise DeserializationError(
-            "StartOutboundVoiceContactRequest.destination_phone_number required"
-        )
+        out["destination_phone_number"] = ""
     if data.get("ContactFlowId") is not None:
         out["contact_flow_id"] = data["ContactFlowId"]
     else:
-        raise DeserializationError(
-            "StartOutboundVoiceContactRequest.contact_flow_id required"
-        )
+        out["contact_flow_id"] = ""
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError(
-            "StartOutboundVoiceContactRequest.instance_id required"
-        )
+        out["instance_id"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("SourcePhoneNumber") is not None:

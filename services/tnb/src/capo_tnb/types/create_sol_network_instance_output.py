@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_tnb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_tnb.types.ns_instance_arn
     import capo_tnb.types.ns_instance_id
@@ -45,23 +43,19 @@ def deserialize_json(data: dict) -> CreateSolNetworkInstanceOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CreateSolNetworkInstanceOutput.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CreateSolNetworkInstanceOutput.arn required")
+        out["arn"] = ""
     if data.get("nsdInfoId") is not None:
         out["nsd_info_id"] = data["nsdInfoId"]
     else:
-        raise DeserializationError(
-            "CreateSolNetworkInstanceOutput.nsd_info_id required"
-        )
+        out["nsd_info_id"] = ""
     if data.get("nsInstanceName") is not None:
         out["ns_instance_name"] = data["nsInstanceName"]
     else:
-        raise DeserializationError(
-            "CreateSolNetworkInstanceOutput.ns_instance_name required"
-        )
+        out["ns_instance_name"] = ""
     if data.get("tags") is not None:
         import capo_tnb.types.tag_map
 

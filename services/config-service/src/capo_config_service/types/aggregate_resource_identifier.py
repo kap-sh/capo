@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.account_id
     import capo_config_service.types.aws_region
@@ -50,17 +48,15 @@ def deserialize_aws_json_1_1(data: dict) -> AggregateResourceIdentifier:
     if data.get("SourceAccountId") is not None:
         out["source_account_id"] = data["SourceAccountId"]
     else:
-        raise DeserializationError(
-            "AggregateResourceIdentifier.source_account_id required"
-        )
+        out["source_account_id"] = ""
     if data.get("SourceRegion") is not None:
         out["source_region"] = data["SourceRegion"]
     else:
-        raise DeserializationError("AggregateResourceIdentifier.source_region required")
+        out["source_region"] = ""
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("AggregateResourceIdentifier.resource_id required")
+        out["resource_id"] = ""
     if data.get("ResourceType") is not None:
         import capo_config_service.types.resource_type
 
@@ -70,7 +66,11 @@ def deserialize_aws_json_1_1(data: dict) -> AggregateResourceIdentifier:
             )
         )
     else:
-        raise DeserializationError("AggregateResourceIdentifier.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_config_service.types.resource_type.ResourceType", ""
+        )
     if data.get("ResourceName") is not None:
         out["resource_name"] = data["ResourceName"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.app_id
     import capo_amplify.types.branch_name
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> CreateWebhookRequest:
     if data.get("branchName") is not None:
         out["branch_name"] = data["branchName"]
     else:
-        raise DeserializationError("CreateWebhookRequest.branch_name required")
+        out["branch_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

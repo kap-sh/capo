@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securitylake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securitylake.types.aws_log_source_resource_list
     import capo_securitylake.types.region
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> DataLakeAutoEnableNewAccountConfiguration:
     if data.get("region") is not None:
         out["region"] = data["region"]
     else:
-        raise DeserializationError(
-            "DataLakeAutoEnableNewAccountConfiguration.region required"
-        )
+        out["region"] = ""
     if data.get("sources") is not None:
         import capo_securitylake.types.aws_log_source_resource_list
 
@@ -51,7 +47,5 @@ def deserialize_json(data: dict) -> DataLakeAutoEnableNewAccountConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "DataLakeAutoEnableNewAccountConfiguration.sources required"
-        )
+        out["sources"] = []
     return out

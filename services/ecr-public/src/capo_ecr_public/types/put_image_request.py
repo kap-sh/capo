@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecr_public.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr_public.types.image_digest
     import capo_ecr_public.types.image_manifest
@@ -55,11 +53,11 @@ def deserialize_aws_json_1_1(data: dict) -> PutImageRequest:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError("PutImageRequest.repository_name required")
+        out["repository_name"] = ""
     if data.get("imageManifest") is not None:
         out["image_manifest"] = data["imageManifest"]
     else:
-        raise DeserializationError("PutImageRequest.image_manifest required")
+        out["image_manifest"] = ""
     if data.get("imageManifestMediaType") is not None:
         out["image_manifest_media_type"] = data["imageManifestMediaType"]
     if data.get("imageTag") is not None:

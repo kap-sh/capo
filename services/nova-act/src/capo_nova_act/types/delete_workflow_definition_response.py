@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_nova_act.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_nova_act.types.workflow_definition_status
 
@@ -35,5 +33,10 @@ def deserialize_json(data: dict) -> DeleteWorkflowDefinitionResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("DeleteWorkflowDefinitionResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_nova_act.types.workflow_definition_status.WorkflowDefinitionStatus",
+            "",
+        )
     return out

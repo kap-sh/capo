@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -48,21 +46,19 @@ def deserialize_json(data: dict) -> UpdateRestoreTestingPlanOutput:
             data["CreationTime"]
         )
     else:
-        raise DeserializationError(
-            "UpdateRestoreTestingPlanOutput.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("RestoreTestingPlanArn") is not None:
         out["restore_testing_plan_arn"] = data["RestoreTestingPlanArn"]
     else:
-        raise DeserializationError(
-            "UpdateRestoreTestingPlanOutput.restore_testing_plan_arn required"
-        )
+        out["restore_testing_plan_arn"] = ""
     if data.get("RestoreTestingPlanName") is not None:
         out["restore_testing_plan_name"] = data["RestoreTestingPlanName"]
     else:
-        raise DeserializationError(
-            "UpdateRestoreTestingPlanOutput.restore_testing_plan_name required"
-        )
+        out["restore_testing_plan_name"] = ""
     if data.get("UpdateTime") is not None:
         import capo_backup.types._prelude.timestamp
 
@@ -70,7 +66,9 @@ def deserialize_json(data: dict) -> UpdateRestoreTestingPlanOutput:
             data["UpdateTime"]
         )
     else:
-        raise DeserializationError(
-            "UpdateRestoreTestingPlanOutput.update_time required"
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.string
@@ -70,17 +69,17 @@ def deserialize_xml(el: Element) -> VpcOriginSummary:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("VpcOriginSummary.id required")
+        out["id"] = ""
     child_name = el.find("Name")
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("VpcOriginSummary.name required")
+        out["name"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         out["status"] = str(child_status.text or "")
     else:
-        raise DeserializationError("VpcOriginSummary.status required")
+        out["status"] = ""
     child_created_time = el.find("CreatedTime")
     if child_created_time is not None:
         import capo_cloudfront.types.timestamp
@@ -89,7 +88,11 @@ def deserialize_xml(el: Element) -> VpcOriginSummary:
             child_created_time
         )
     else:
-        raise DeserializationError("VpcOriginSummary.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_last_modified_time = el.find("LastModifiedTime")
     if child_last_modified_time is not None:
         import capo_cloudfront.types.timestamp
@@ -98,12 +101,16 @@ def deserialize_xml(el: Element) -> VpcOriginSummary:
             child_last_modified_time
         )
     else:
-        raise DeserializationError("VpcOriginSummary.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_arn = el.find("Arn")
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("VpcOriginSummary.arn required")
+        out["arn"] = ""
     child_account_id = el.find("AccountId")
     if child_account_id is not None:
         out["account_id"] = str(child_account_id.text or "")
@@ -111,7 +118,7 @@ def deserialize_xml(el: Element) -> VpcOriginSummary:
     if child_origin_endpoint_arn is not None:
         out["origin_endpoint_arn"] = str(child_origin_endpoint_arn.text or "")
     else:
-        raise DeserializationError("VpcOriginSummary.origin_endpoint_arn required")
+        out["origin_endpoint_arn"] = ""
     child_ip_address_type = el.find("IpAddressType")
     if child_ip_address_type is not None:
         import capo_cloudfront.types.vpc_ip_address_type

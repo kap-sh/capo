@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_elasticsearch_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elasticsearch_service.types.next_token
     import capo_elasticsearch_service.types.vpc_endpoint_summary_list
@@ -43,13 +41,9 @@ def deserialize_json(data: dict) -> ListVpcEndpointsForDomainResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListVpcEndpointsForDomainResponse.vpc_endpoint_summary_list required"
-        )
+        out["vpc_endpoint_summary_list"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     else:
-        raise DeserializationError(
-            "ListVpcEndpointsForDomainResponse.next_token required"
-        )
+        out["next_token"] = ""
     return out

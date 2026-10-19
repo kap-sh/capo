@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.device_model
     import capo_workmail.types.device_operating_system
@@ -51,9 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetMobileDeviceAccessEffectRequest:
     if data.get("OrganizationId") is not None:
         out["organization_id"] = data["OrganizationId"]
     else:
-        raise DeserializationError(
-            "GetMobileDeviceAccessEffectRequest.organization_id required"
-        )
+        out["organization_id"] = ""
     if data.get("DeviceType") is not None:
         out["device_type"] = data["DeviceType"]
     if data.get("DeviceModel") is not None:

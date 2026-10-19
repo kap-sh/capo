@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codestar_connections.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codestar_connections.types.repository_link_id
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteRepositoryLinkInput:
     if data.get("RepositoryLinkId") is not None:
         out["repository_link_id"] = data["RepositoryLinkId"]
     else:
-        raise DeserializationError(
-            "DeleteRepositoryLinkInput.repository_link_id required"
-        )
+        out["repository_link_id"] = ""
     return out

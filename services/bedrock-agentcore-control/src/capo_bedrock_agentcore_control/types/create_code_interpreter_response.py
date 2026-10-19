@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.code_interpreter_arn
     import capo_bedrock_agentcore_control.types.code_interpreter_id
@@ -55,15 +53,11 @@ def deserialize_json(data: dict) -> CreateCodeInterpreterResponse:
     if data.get("codeInterpreterId") is not None:
         out["code_interpreter_id"] = data["codeInterpreterId"]
     else:
-        raise DeserializationError(
-            "CreateCodeInterpreterResponse.code_interpreter_id required"
-        )
+        out["code_interpreter_id"] = ""
     if data.get("codeInterpreterArn") is not None:
         out["code_interpreter_arn"] = data["codeInterpreterArn"]
     else:
-        raise DeserializationError(
-            "CreateCodeInterpreterResponse.code_interpreter_arn required"
-        )
+        out["code_interpreter_arn"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -73,7 +67,9 @@ def deserialize_json(data: dict) -> CreateCodeInterpreterResponse:
             )
         )
     else:
-        raise DeserializationError("CreateCodeInterpreterResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.code_interpreter_status
 
@@ -83,5 +79,10 @@ def deserialize_json(data: dict) -> CreateCodeInterpreterResponse:
             )
         )
     else:
-        raise DeserializationError("CreateCodeInterpreterResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.code_interpreter_status.CodeInterpreterStatus",
+            "",
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.generic_string
     import capo_wickr.types.network_id
@@ -32,5 +30,5 @@ def deserialize_json(data: dict) -> UpdateGuestUserRequest:
     if data.get("block") is not None:
         out["block"] = data["block"]
     else:
-        raise DeserializationError("UpdateGuestUserRequest.block required")
+        out["block"] = False
     return out

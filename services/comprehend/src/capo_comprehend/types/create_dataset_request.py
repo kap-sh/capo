@@ -73,11 +73,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDatasetRequest:
     if data.get("FlywheelArn") is not None:
         out["flywheel_arn"] = data["FlywheelArn"]
     else:
-        raise DeserializationError("CreateDatasetRequest.flywheel_arn required")
+        out["flywheel_arn"] = ""
     if data.get("DatasetName") is not None:
         out["dataset_name"] = data["DatasetName"]
     else:
-        raise DeserializationError("CreateDatasetRequest.dataset_name required")
+        out["dataset_name"] = ""
     if data.get("DatasetType") is not None:
         import capo_comprehend.types.dataset_type
 

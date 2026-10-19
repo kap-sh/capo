@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.disruption_resiliency_score
     import capo_resiliencehub.types.double
@@ -70,7 +68,7 @@ def deserialize_json(data: dict) -> ResiliencyScore:
             )
         )
     else:
-        raise DeserializationError("ResiliencyScore.disruption_score required")
+        out["disruption_score"] = {}
     if data.get("componentScore") is not None:
         import capo_resiliencehub.types.scoring_component_resiliency_scores
 

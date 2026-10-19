@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.target_account_list
     import capo_inspector2.types.target_resource_tags
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> CreateCisTargets:
             data["accountIds"]
         )
     else:
-        raise DeserializationError("CreateCisTargets.account_ids required")
+        out["account_ids"] = []
     if data.get("targetResourceTags") is not None:
         import capo_inspector2.types.target_resource_tags
 
@@ -57,5 +55,5 @@ def deserialize_json(data: dict) -> CreateCisTargets:
             )
         )
     else:
-        raise DeserializationError("CreateCisTargets.target_resource_tags required")
+        out["target_resource_tags"] = {}
     return out

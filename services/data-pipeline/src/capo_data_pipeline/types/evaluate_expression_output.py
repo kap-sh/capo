@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_data_pipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_data_pipeline.types.long_string
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> EvaluateExpressionOutput:
     if data.get("evaluatedExpression") is not None:
         out["evaluated_expression"] = data["evaluatedExpression"]
     else:
-        raise DeserializationError(
-            "EvaluateExpressionOutput.evaluated_expression required"
-        )
+        out["evaluated_expression"] = ""
     return out

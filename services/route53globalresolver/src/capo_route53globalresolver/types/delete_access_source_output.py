@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.cidr
     import capo_route53globalresolver.types.cr_resource_status
@@ -90,11 +88,11 @@ def deserialize_json(data: dict) -> DeleteAccessSourceOutput:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("DeleteAccessSourceOutput.arn required")
+        out["arn"] = ""
     if data.get("cidr") is not None:
         out["cidr"] = data["cidr"]
     else:
-        raise DeserializationError("DeleteAccessSourceOutput.cidr required")
+        out["cidr"] = ""
     if data.get("createdAt") is not None:
         import capo_route53globalresolver.types.iso8601_time_string
 
@@ -104,11 +102,13 @@ def deserialize_json(data: dict) -> DeleteAccessSourceOutput:
             )
         )
     else:
-        raise DeserializationError("DeleteAccessSourceOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("DeleteAccessSourceOutput.id required")
+        out["id"] = ""
     if data.get("ipAddressType") is not None:
         import capo_route53globalresolver.types.ip_address_type
 
@@ -118,13 +118,17 @@ def deserialize_json(data: dict) -> DeleteAccessSourceOutput:
             )
         )
     else:
-        raise DeserializationError("DeleteAccessSourceOutput.ip_address_type required")
+        import typing
+
+        out["ip_address_type"] = typing.cast(
+            "capo_route53globalresolver.types.ip_address_type.IpAddressType", ""
+        )
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("dnsViewId") is not None:
         out["dns_view_id"] = data["dnsViewId"]
     else:
-        raise DeserializationError("DeleteAccessSourceOutput.dns_view_id required")
+        out["dns_view_id"] = ""
     if data.get("protocol") is not None:
         import capo_route53globalresolver.types.dns_protocol
 
@@ -134,7 +138,11 @@ def deserialize_json(data: dict) -> DeleteAccessSourceOutput:
             )
         )
     else:
-        raise DeserializationError("DeleteAccessSourceOutput.protocol required")
+        import typing
+
+        out["protocol"] = typing.cast(
+            "capo_route53globalresolver.types.dns_protocol.DnsProtocol", ""
+        )
     if data.get("status") is not None:
         import capo_route53globalresolver.types.cr_resource_status
 
@@ -144,7 +152,11 @@ def deserialize_json(data: dict) -> DeleteAccessSourceOutput:
             )
         )
     else:
-        raise DeserializationError("DeleteAccessSourceOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_route53globalresolver.types.cr_resource_status.CRResourceStatus", ""
+        )
     if data.get("updatedAt") is not None:
         import capo_route53globalresolver.types.iso8601_time_string
 
@@ -154,5 +166,7 @@ def deserialize_json(data: dict) -> DeleteAccessSourceOutput:
             )
         )
     else:
-        raise DeserializationError("DeleteAccessSourceOutput.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

@@ -79,15 +79,16 @@ def deserialize_aws_json_1_0(
             )
         )
     else:
-        raise DeserializationError(
-            "StartChildWorkflowExecutionFailedEventAttributes.cause required"
+        import typing
+
+        out["cause"] = typing.cast(
+            "capo_swf.types.start_child_workflow_execution_failed_cause.StartChildWorkflowExecutionFailedCause",
+            "",
         )
     if data.get("workflowId") is not None:
         out["workflow_id"] = data["workflowId"]
     else:
-        raise DeserializationError(
-            "StartChildWorkflowExecutionFailedEventAttributes.workflow_id required"
-        )
+        out["workflow_id"] = ""
     if data.get("initiatedEventId") is not None:
         out["initiated_event_id"] = data["initiatedEventId"]
     else:

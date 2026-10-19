@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.notification_attributes
@@ -44,7 +43,5 @@ def deserialize_query(el: Element) -> GetIdentityNotificationAttributesResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetIdentityNotificationAttributesResponse.notification_attributes required"
-        )
+        out["notification_attributes"] = {}
     return out

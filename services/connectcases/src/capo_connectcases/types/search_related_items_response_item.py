@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.association_time
     import capo_connectcases.types.related_item_content
@@ -63,13 +61,11 @@ def deserialize_json(data: dict) -> SearchRelatedItemsResponseItem:
     if data.get("relatedItemId") is not None:
         out["related_item_id"] = data["relatedItemId"]
     else:
-        raise DeserializationError(
-            "SearchRelatedItemsResponseItem.related_item_id required"
-        )
+        out["related_item_id"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("SearchRelatedItemsResponseItem.type required")
+        out["type"] = ""
     if data.get("associationTime") is not None:
         import capo_connectcases.types.association_time
 
@@ -79,8 +75,10 @@ def deserialize_json(data: dict) -> SearchRelatedItemsResponseItem:
             )
         )
     else:
-        raise DeserializationError(
-            "SearchRelatedItemsResponseItem.association_time required"
+        import datetime
+
+        out["association_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("content") is not None:
         import capo_connectcases.types.related_item_content
@@ -89,7 +87,9 @@ def deserialize_json(data: dict) -> SearchRelatedItemsResponseItem:
             data["content"]
         )
     else:
-        raise DeserializationError("SearchRelatedItemsResponseItem.content required")
+        import capo_connectcases.types._unknown
+
+        out["content"] = capo_connectcases.types._unknown.UnknownUnionMember("")
     if data.get("tags") is not None:
         import capo_connectcases.types.tags
 

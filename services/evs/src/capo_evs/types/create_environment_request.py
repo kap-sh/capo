@@ -148,13 +148,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateEnvironmentRequest:
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
     else:
-        raise DeserializationError("CreateEnvironmentRequest.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("serviceAccessSubnetId") is not None:
         out["service_access_subnet_id"] = data["serviceAccessSubnetId"]
     else:
-        raise DeserializationError(
-            "CreateEnvironmentRequest.service_access_subnet_id required"
-        )
+        out["service_access_subnet_id"] = ""
     if data.get("vcfVersion") is not None:
         import capo_evs.types.vcf_version
 
@@ -162,11 +160,13 @@ def deserialize_aws_json_1_0(data: dict) -> CreateEnvironmentRequest:
             data["vcfVersion"]
         )
     else:
-        raise DeserializationError("CreateEnvironmentRequest.vcf_version required")
+        import typing
+
+        out["vcf_version"] = typing.cast("capo_evs.types.vcf_version.VcfVersion", "")
     if data.get("termsAccepted") is not None:
         out["terms_accepted"] = data["termsAccepted"]
     else:
-        raise DeserializationError("CreateEnvironmentRequest.terms_accepted required")
+        out["terms_accepted"] = False
     if data.get("initialVlans") is not None:
         import capo_evs.types.initial_vlans
 

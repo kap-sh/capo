@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_neptunedata.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_neptunedata.types.propertygraph_records_list
     import capo_neptunedata.types.string_valued_map
@@ -56,19 +54,15 @@ def deserialize_json(data: dict) -> GetPropertygraphStreamOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetPropertygraphStreamOutput.last_event_id required"
-        )
+        out["last_event_id"] = {}
     if data.get("lastTrxTimestamp") is not None:
         out["last_trx_timestamp_in_millis"] = data["lastTrxTimestamp"]
     else:
-        raise DeserializationError(
-            "GetPropertygraphStreamOutput.last_trx_timestamp_in_millis required"
-        )
+        out["last_trx_timestamp_in_millis"] = 0
     if data.get("format") is not None:
         out["format"] = data["format"]
     else:
-        raise DeserializationError("GetPropertygraphStreamOutput.format required")
+        out["format"] = ""
     if data.get("records") is not None:
         import capo_neptunedata.types.propertygraph_records_list
 
@@ -78,11 +72,9 @@ def deserialize_json(data: dict) -> GetPropertygraphStreamOutput:
             )
         )
     else:
-        raise DeserializationError("GetPropertygraphStreamOutput.records required")
+        out["records"] = []
     if data.get("totalRecords") is not None:
         out["total_records"] = data["totalRecords"]
     else:
-        raise DeserializationError(
-            "GetPropertygraphStreamOutput.total_records required"
-        )
+        out["total_records"] = 0
     return out

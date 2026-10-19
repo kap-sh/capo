@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.accept_language
     import capo_service_catalog.types.id
@@ -154,7 +152,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateProvisionedProductInput:
     if data.get("UpdateToken") is not None:
         out["update_token"] = data["UpdateToken"]
     else:
-        raise DeserializationError(
-            "UpdateProvisionedProductInput.update_token required"
-        )
+        out["update_token"] = ""
     return out

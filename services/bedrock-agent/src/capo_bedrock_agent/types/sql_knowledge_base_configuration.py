@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.query_engine_type
     import capo_bedrock_agent.types.redshift_configuration
@@ -48,7 +46,11 @@ def deserialize_json(data: dict) -> SqlKnowledgeBaseConfiguration:
             data["type"]
         )
     else:
-        raise DeserializationError("SqlKnowledgeBaseConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent.types.query_engine_type.QueryEngineType", ""
+        )
     if data.get("redshiftConfiguration") is not None:
         import capo_bedrock_agent.types.redshift_configuration
 

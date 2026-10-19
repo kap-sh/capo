@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.boosting_duration_in_seconds
     import capo_qbusiness.types.document_attribute_boosting_level
@@ -46,8 +44,11 @@ def deserialize_json(data: dict) -> DateAttributeBoostingConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "DateAttributeBoostingConfiguration.boosting_level required"
+        import typing
+
+        out["boosting_level"] = typing.cast(
+            "capo_qbusiness.types.document_attribute_boosting_level.DocumentAttributeBoostingLevel",
+            "",
         )
     if data.get("boostingDurationInSeconds") is not None:
         out["boosting_duration_in_seconds"] = data["boostingDurationInSeconds"]

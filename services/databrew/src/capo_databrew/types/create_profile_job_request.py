@@ -124,7 +124,7 @@ def deserialize_json(data: dict) -> CreateProfileJobRequest:
     if data.get("DatasetName") is not None:
         out["dataset_name"] = data["DatasetName"]
     else:
-        raise DeserializationError("CreateProfileJobRequest.dataset_name required")
+        out["dataset_name"] = ""
     if data.get("EncryptionKeyArn") is not None:
         out["encryption_key_arn"] = data["EncryptionKeyArn"]
     if data.get("EncryptionMode") is not None:
@@ -136,7 +136,7 @@ def deserialize_json(data: dict) -> CreateProfileJobRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateProfileJobRequest.name required")
+        out["name"] = ""
     if data.get("LogSubscription") is not None:
         import capo_databrew.types.log_subscription
 
@@ -174,7 +174,7 @@ def deserialize_json(data: dict) -> CreateProfileJobRequest:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("CreateProfileJobRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("Tags") is not None:
         import capo_databrew.types.tag_map
 

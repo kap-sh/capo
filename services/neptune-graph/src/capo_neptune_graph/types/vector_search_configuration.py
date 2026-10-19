@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_neptune_graph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_neptune_graph.types.vector_search_dimension
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> VectorSearchConfiguration:
     if data.get("dimension") is not None:
         out["dimension"] = data["dimension"]
     else:
-        raise DeserializationError("VectorSearchConfiguration.dimension required")
+        out["dimension"] = 0
     return out

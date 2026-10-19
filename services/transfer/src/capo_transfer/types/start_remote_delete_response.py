@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.delete_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> StartRemoteDeleteResponse:
     if data.get("DeleteId") is not None:
         out["delete_id"] = data["DeleteId"]
     else:
-        raise DeserializationError("StartRemoteDeleteResponse.delete_id required")
+        out["delete_id"] = ""
     return out

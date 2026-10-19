@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_data_pipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_data_pipeline.types.attribute_name_string
     import capo_data_pipeline.types.attribute_value_string
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> ParameterAttribute:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("ParameterAttribute.key required")
+        out["key"] = ""
     if data.get("stringValue") is not None:
         out["string_value"] = data["stringValue"]
     else:
-        raise DeserializationError("ParameterAttribute.string_value required")
+        out["string_value"] = ""
     return out

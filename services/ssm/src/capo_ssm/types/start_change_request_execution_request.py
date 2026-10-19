@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.automation_parameter_map
     import capo_ssm.types.boolean
@@ -105,9 +103,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartChangeRequestExecutionRequest:
     if data.get("DocumentName") is not None:
         out["document_name"] = data["DocumentName"]
     else:
-        raise DeserializationError(
-            "StartChangeRequestExecutionRequest.document_name required"
-        )
+        out["document_name"] = ""
     if data.get("DocumentVersion") is not None:
         out["document_version"] = data["DocumentVersion"]
     if data.get("Parameters") is not None:
@@ -131,9 +127,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartChangeRequestExecutionRequest:
             data["Runbooks"]
         )
     else:
-        raise DeserializationError(
-            "StartChangeRequestExecutionRequest.runbooks required"
-        )
+        out["runbooks"] = []
     if data.get("Tags") is not None:
         import capo_ssm.types.tag_list
 

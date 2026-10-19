@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appfabric.types.string64
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> FirehoseStream:
     if data.get("streamName") is not None:
         out["stream_name"] = data["streamName"]
     else:
-        raise DeserializationError("FirehoseStream.stream_name required")
+        out["stream_name"] = ""
     return out

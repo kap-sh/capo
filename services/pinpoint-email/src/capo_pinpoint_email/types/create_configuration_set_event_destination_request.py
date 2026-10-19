@@ -44,9 +44,7 @@ def deserialize_json(data: dict) -> CreateConfigurationSetEventDestinationReques
     if data.get("EventDestinationName") is not None:
         out["event_destination_name"] = data["EventDestinationName"]
     else:
-        raise DeserializationError(
-            "CreateConfigurationSetEventDestinationRequest.event_destination_name required"
-        )
+        out["event_destination_name"] = ""
     if data.get("EventDestination") is not None:
         import capo_pinpoint_email.types.event_destination_definition
 

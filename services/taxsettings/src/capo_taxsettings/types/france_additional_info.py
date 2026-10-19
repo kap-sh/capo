@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_taxsettings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_taxsettings.types.siren_number
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> FranceAdditionalInfo:
     if data.get("sirenNumber") is not None:
         out["siren_number"] = data["sirenNumber"]
     else:
-        raise DeserializationError("FranceAdditionalInfo.siren_number required")
+        out["siren_number"] = ""
     if data.get("eInvoiceRoutingCode") is not None:
         out["e_invoice_routing_code"] = data["eInvoiceRoutingCode"]
     return out

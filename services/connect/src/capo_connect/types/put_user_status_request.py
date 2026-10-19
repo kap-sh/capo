@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.agent_status_id
     import capo_connect.types.instance_id
@@ -33,5 +31,5 @@ def deserialize_json(data: dict) -> PutUserStatusRequest:
     if data.get("AgentStatusId") is not None:
         out["agent_status_id"] = data["AgentStatusId"]
     else:
-        raise DeserializationError("PutUserStatusRequest.agent_status_id required")
+        out["agent_status_id"] = ""
     return out

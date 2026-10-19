@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.group_filter_attribute
     import capo_quicksight.types.group_filter_operator
@@ -47,7 +45,11 @@ def deserialize_json(data: dict) -> GroupSearchFilter:
             data["Operator"]
         )
     else:
-        raise DeserializationError("GroupSearchFilter.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_quicksight.types.group_filter_operator.GroupFilterOperator", ""
+        )
     if data.get("Name") is not None:
         import capo_quicksight.types.group_filter_attribute
 
@@ -55,9 +57,13 @@ def deserialize_json(data: dict) -> GroupSearchFilter:
             data["Name"]
         )
     else:
-        raise DeserializationError("GroupSearchFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_quicksight.types.group_filter_attribute.GroupFilterAttribute", ""
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("GroupSearchFilter.value required")
+        out["value"] = ""
     return out

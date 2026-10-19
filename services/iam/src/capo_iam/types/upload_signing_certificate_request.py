@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.certificate_body_type
@@ -40,7 +39,5 @@ def deserialize_query(el: Element) -> UploadSigningCertificateRequest:
     if child_certificate_body is not None:
         out["certificate_body"] = str(child_certificate_body.text or "")
     else:
-        raise DeserializationError(
-            "UploadSigningCertificateRequest.certificate_body required"
-        )
+        out["certificate_body"] = ""
     return out

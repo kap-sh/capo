@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.inventory_frequency
@@ -34,5 +33,9 @@ def deserialize_xml(el: Element) -> InventorySchedule:
             child_frequency
         )
     else:
-        raise DeserializationError("InventorySchedule.frequency required")
+        import typing
+
+        out["frequency"] = typing.cast(
+            "capo_s3.types.inventory_frequency.InventoryFrequency", ""
+        )
     return out

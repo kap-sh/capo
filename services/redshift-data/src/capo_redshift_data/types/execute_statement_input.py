@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_data.types.client_token
     import capo_redshift_data.types.cluster_identifier_string
@@ -110,7 +108,7 @@ def deserialize_aws_json_1_1(data: dict) -> ExecuteStatementInput:
     if data.get("Sql") is not None:
         out["sql"] = data["Sql"]
     else:
-        raise DeserializationError("ExecuteStatementInput.sql required")
+        out["sql"] = ""
     if data.get("ClusterIdentifier") is not None:
         out["cluster_identifier"] = data["ClusterIdentifier"]
     if data.get("SecretArn") is not None:

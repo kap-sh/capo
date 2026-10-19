@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.file_system_location_name
     import capo_deadline.types.file_system_location_type
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> FileSystemLocation:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("FileSystemLocation.name required")
+        out["name"] = ""
     if data.get("path") is not None:
         out["path"] = data["path"]
     else:
-        raise DeserializationError("FileSystemLocation.path required")
+        out["path"] = ""
     if data.get("type") is not None:
         import capo_deadline.types.file_system_location_type
 
@@ -51,5 +49,9 @@ def deserialize_json(data: dict) -> FileSystemLocation:
             data["type"]
         )
     else:
-        raise DeserializationError("FileSystemLocation.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_deadline.types.file_system_location_type.FileSystemLocationType", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.aws_marketplace_solution_arn
     import capo_partnercentral_selling.types.catalog_identifier
@@ -69,17 +67,17 @@ def deserialize_aws_json_1_0(data: dict) -> SolutionBase:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("SolutionBase.catalog required")
+        out["catalog"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("SolutionBase.id required")
+        out["id"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("SolutionBase.name required")
+        out["name"] = ""
     if data.get("Status") is not None:
         import capo_partnercentral_selling.types.solution_status
 
@@ -89,11 +87,15 @@ def deserialize_aws_json_1_0(data: dict) -> SolutionBase:
             )
         )
     else:
-        raise DeserializationError("SolutionBase.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_partnercentral_selling.types.solution_status.SolutionStatus", ""
+        )
     if data.get("Category") is not None:
         out["category"] = data["Category"]
     else:
-        raise DeserializationError("SolutionBase.category required")
+        out["category"] = ""
     if data.get("CreatedDate") is not None:
         import capo_partnercentral_selling.types.date_time
 
@@ -103,7 +105,11 @@ def deserialize_aws_json_1_0(data: dict) -> SolutionBase:
             )
         )
     else:
-        raise DeserializationError("SolutionBase.created_date required")
+        import datetime
+
+        out["created_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("AwsMarketplaceSolutionArn") is not None:
         out["aws_marketplace_solution_arn"] = data["AwsMarketplaceSolutionArn"]
     return out

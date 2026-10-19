@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migrationhuborchestrator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migrationhuborchestrator.types.step_input_parameters
     import capo_migrationhuborchestrator.types.string_list
@@ -71,15 +69,13 @@ def deserialize_json(data: dict) -> CreateMigrationWorkflowRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateMigrationWorkflowRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("templateId") is not None:
         out["template_id"] = data["templateId"]
     else:
-        raise DeserializationError(
-            "CreateMigrationWorkflowRequest.template_id required"
-        )
+        out["template_id"] = ""
     if data.get("applicationConfigurationId") is not None:
         out["application_configuration_id"] = data["applicationConfigurationId"]
     if data.get("inputParameters") is not None:
@@ -91,9 +87,7 @@ def deserialize_json(data: dict) -> CreateMigrationWorkflowRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateMigrationWorkflowRequest.input_parameters required"
-        )
+        out["input_parameters"] = {}
     if data.get("stepTargets") is not None:
         import capo_migrationhuborchestrator.types.string_list
 

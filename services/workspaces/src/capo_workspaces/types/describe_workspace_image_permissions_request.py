@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.limit
     import capo_workspaces.types.pagination_token
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeWorkspaceImagePermissionsReq
     if data.get("ImageId") is not None:
         out["image_id"] = data["ImageId"]
     else:
-        raise DeserializationError(
-            "DescribeWorkspaceImagePermissionsRequest.image_id required"
-        )
+        out["image_id"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.condition_key
     import capo_backup.types.condition_type
@@ -43,13 +41,17 @@ def deserialize_json(data: dict) -> Condition:
             data["ConditionType"]
         )
     else:
-        raise DeserializationError("Condition.condition_type required")
+        import typing
+
+        out["condition_type"] = typing.cast(
+            "capo_backup.types.condition_type.ConditionType", ""
+        )
     if data.get("ConditionKey") is not None:
         out["condition_key"] = data["ConditionKey"]
     else:
-        raise DeserializationError("Condition.condition_key required")
+        out["condition_key"] = ""
     if data.get("ConditionValue") is not None:
         out["condition_value"] = data["ConditionValue"]
     else:
-        raise DeserializationError("Condition.condition_value required")
+        out["condition_value"] = ""
     return out

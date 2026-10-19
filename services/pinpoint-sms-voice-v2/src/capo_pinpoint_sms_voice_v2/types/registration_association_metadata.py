@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.iso_country_code
     import capo_pinpoint_sms_voice_v2.types.phone_number
@@ -46,21 +44,15 @@ def deserialize_aws_json_1_0(data: dict) -> RegistrationAssociationMetadata:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError(
-            "RegistrationAssociationMetadata.resource_arn required"
-        )
+        out["resource_arn"] = ""
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError(
-            "RegistrationAssociationMetadata.resource_id required"
-        )
+        out["resource_id"] = ""
     if data.get("ResourceType") is not None:
         out["resource_type"] = data["ResourceType"]
     else:
-        raise DeserializationError(
-            "RegistrationAssociationMetadata.resource_type required"
-        )
+        out["resource_type"] = ""
     if data.get("IsoCountryCode") is not None:
         out["iso_country_code"] = data["IsoCountryCode"]
     if data.get("PhoneNumber") is not None:

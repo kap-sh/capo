@@ -32,7 +32,7 @@ def deserialize_json(data: dict) -> GetSparqlStatisticsOutput:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("GetSparqlStatisticsOutput.status required")
+        out["status"] = ""
     if data.get("payload") is not None:
         import capo_neptunedata.types.statistics
 

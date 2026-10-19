@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_security_ir.errors import DeserializationError
-
 
 class GetFindingMetricsResponse(TypedDict, closed=True):
     findings_ingested_security_hub: "int"
@@ -54,73 +52,51 @@ def deserialize_json(data: dict) -> GetFindingMetricsResponse:
     if data.get("findingsIngestedSecurityHub") is not None:
         out["findings_ingested_security_hub"] = data["findingsIngestedSecurityHub"]
     else:
-        raise DeserializationError(
-            "GetFindingMetricsResponse.findings_ingested_security_hub required"
-        )
+        out["findings_ingested_security_hub"] = 0
     if data.get("findingsIngestedGuardDuty") is not None:
         out["findings_ingested_guard_duty"] = data["findingsIngestedGuardDuty"]
     else:
-        raise DeserializationError(
-            "GetFindingMetricsResponse.findings_ingested_guard_duty required"
-        )
+        out["findings_ingested_guard_duty"] = 0
     if data.get("findingsTriaged") is not None:
         out["findings_triaged"] = data["findingsTriaged"]
     else:
-        raise DeserializationError(
-            "GetFindingMetricsResponse.findings_triaged required"
-        )
+        out["findings_triaged"] = 0
     if data.get("findingsTriagedFalsePositive") is not None:
         out["findings_triaged_false_positive"] = data["findingsTriagedFalsePositive"]
     else:
-        raise DeserializationError(
-            "GetFindingMetricsResponse.findings_triaged_false_positive required"
-        )
+        out["findings_triaged_false_positive"] = 0
     if data.get("findingsInvestigated") is not None:
         out["findings_investigated"] = data["findingsInvestigated"]
     else:
-        raise DeserializationError(
-            "GetFindingMetricsResponse.findings_investigated required"
-        )
+        out["findings_investigated"] = 0
     if data.get("findingsInvestigatedFalsePositive") is not None:
         out["findings_investigated_false_positive"] = data[
             "findingsInvestigatedFalsePositive"
         ]
     else:
-        raise DeserializationError(
-            "GetFindingMetricsResponse.findings_investigated_false_positive required"
-        )
+        out["findings_investigated_false_positive"] = 0
     if data.get("findingsEscalated") is not None:
         out["findings_escalated"] = data["findingsEscalated"]
     else:
-        raise DeserializationError(
-            "GetFindingMetricsResponse.findings_escalated required"
-        )
+        out["findings_escalated"] = 0
     if data.get("findingsEscalatedFalsePositive") is not None:
         out["findings_escalated_false_positive"] = data[
             "findingsEscalatedFalsePositive"
         ]
     else:
-        raise DeserializationError(
-            "GetFindingMetricsResponse.findings_escalated_false_positive required"
-        )
+        out["findings_escalated_false_positive"] = 0
     if data.get("findingsTruePositive") is not None:
         out["findings_true_positive"] = data["findingsTruePositive"]
     else:
-        raise DeserializationError(
-            "GetFindingMetricsResponse.findings_true_positive required"
-        )
+        out["findings_true_positive"] = 0
     if data.get("findingsInvestigatedInProgress") is not None:
         out["findings_investigated_in_progress"] = data[
             "findingsInvestigatedInProgress"
         ]
     else:
-        raise DeserializationError(
-            "GetFindingMetricsResponse.findings_investigated_in_progress required"
-        )
+        out["findings_investigated_in_progress"] = 0
     if data.get("findingsEscalatedInProgress") is not None:
         out["findings_escalated_in_progress"] = data["findingsEscalatedInProgress"]
     else:
-        raise DeserializationError(
-            "GetFindingMetricsResponse.findings_escalated_in_progress required"
-        )
+        out["findings_escalated_in_progress"] = 0
     return out

@@ -83,7 +83,11 @@ def deserialize_json(data: dict) -> StartProtectedJobInput:
             data["type"]
         )
     else:
-        raise DeserializationError("StartProtectedJobInput.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cleanrooms.types.protected_job_type.ProtectedJobType", ""
+        )
     if data.get("jobParameters") is not None:
         import capo_cleanrooms.types.protected_job_parameters
 

@@ -105,15 +105,15 @@ def deserialize_json(data: dict) -> Goal:
     if data.get("agentSpaceArn") is not None:
         out["agent_space_arn"] = data["agentSpaceArn"]
     else:
-        raise DeserializationError("Goal.agent_space_arn required")
+        out["agent_space_arn"] = ""
     if data.get("goalId") is not None:
         out["goal_id"] = data["goalId"]
     else:
-        raise DeserializationError("Goal.goal_id required")
+        out["goal_id"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("Goal.title required")
+        out["title"] = ""
     if data.get("content") is not None:
         import capo_devops_agent.types.goal_content
 
@@ -129,7 +129,11 @@ def deserialize_json(data: dict) -> Goal:
             data["status"]
         )
     else:
-        raise DeserializationError("Goal.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_devops_agent.types.goal_status.GoalStatus", ""
+        )
     if data.get("goalType") is not None:
         import capo_devops_agent.types.goal_type
 
@@ -145,7 +149,9 @@ def deserialize_json(data: dict) -> Goal:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("Goal.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_devops_agent.types.back_log_timestamp
 
@@ -153,7 +159,9 @@ def deserialize_json(data: dict) -> Goal:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("Goal.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastEvaluatedAt") is not None:
         import capo_devops_agent.types.back_log_timestamp
 
@@ -169,7 +177,7 @@ def deserialize_json(data: dict) -> Goal:
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("Goal.version required")
+        out["version"] = 0
     if data.get("evaluationSchedule") is not None:
         import capo_devops_agent.types.goal_schedule
 

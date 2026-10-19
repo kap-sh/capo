@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_medical_imaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_medical_imaging.types.dicom_study_date
     import capo_medical_imaging.types.dicom_study_time
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> DICOMStudyDateAndTime:
     if data.get("DICOMStudyDate") is not None:
         out["dicom_study_date"] = data["DICOMStudyDate"]
     else:
-        raise DeserializationError("DICOMStudyDateAndTime.dicom_study_date required")
+        out["dicom_study_date"] = ""
     if data.get("DICOMStudyTime") is not None:
         out["dicom_study_time"] = data["DICOMStudyTime"]
     return out

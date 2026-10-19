@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_efs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_efs.types.marker
     import capo_efs.types.tags
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> DescribeTagsResponse:
 
         out["tags"] = capo_efs.types.tags.deserialize_json(data["Tags"])
     else:
-        raise DeserializationError("DescribeTagsResponse.tags required")
+        out["tags"] = []
     if data.get("NextMarker") is not None:
         out["next_marker"] = data["NextMarker"]
     return out

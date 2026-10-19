@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs.types.pagination_token
     import capo_ivs.types.playback_key_pair_list
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ListPlaybackKeyPairsResponse:
             data["keyPairs"]
         )
     else:
-        raise DeserializationError("ListPlaybackKeyPairsResponse.key_pairs required")
+        out["key_pairs"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

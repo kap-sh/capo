@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.glossary_long_description
     import capo_glue.types.glossary_short_description
@@ -51,7 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateGlossaryTermRequest:
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("UpdateGlossaryTermRequest.identifier required")
+        out["identifier"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("ShortDescription") is not None:

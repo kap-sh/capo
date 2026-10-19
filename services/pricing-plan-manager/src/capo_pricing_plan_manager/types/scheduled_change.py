@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pricing_plan_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -61,7 +59,12 @@ def deserialize_json(data: dict) -> ScheduledChange:
             )
         )
     else:
-        raise DeserializationError("ScheduledChange.change_type required")
+        import typing
+
+        out["change_type"] = typing.cast(
+            "capo_pricing_plan_manager.types.scheduled_change_type.ScheduledChangeType",
+            "",
+        )
     if data.get("effectiveDate") is not None:
         import datetime
 

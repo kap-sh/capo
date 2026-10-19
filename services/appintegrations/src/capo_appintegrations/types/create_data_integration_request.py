@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appintegrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appintegrations.types.description
     import capo_appintegrations.types.file_configuration
@@ -94,13 +92,13 @@ def deserialize_json(data: dict) -> CreateDataIntegrationRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateDataIntegrationRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("KmsKey") is not None:
         out["kms_key"] = data["KmsKey"]
     else:
-        raise DeserializationError("CreateDataIntegrationRequest.kms_key required")
+        out["kms_key"] = ""
     if data.get("SourceURI") is not None:
         out["source_uri"] = data["SourceURI"]
     if data.get("ScheduleConfig") is not None:

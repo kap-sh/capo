@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.arn
     import capo_inspector.types.inspector_event
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_1(data: dict) -> SubscribeToEventRequest:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("SubscribeToEventRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("event") is not None:
         import capo_inspector.types.inspector_event
 
@@ -46,9 +44,13 @@ def deserialize_aws_json_1_1(data: dict) -> SubscribeToEventRequest:
             data["event"]
         )
     else:
-        raise DeserializationError("SubscribeToEventRequest.event required")
+        import typing
+
+        out["event"] = typing.cast(
+            "capo_inspector.types.inspector_event.InspectorEvent", ""
+        )
     if data.get("topicArn") is not None:
         out["topic_arn"] = data["topicArn"]
     else:
-        raise DeserializationError("SubscribeToEventRequest.topic_arn required")
+        out["topic_arn"] = ""
     return out

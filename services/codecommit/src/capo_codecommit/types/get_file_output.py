@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.file_content
     import capo_codecommit.types.file_mode_type_enum
@@ -54,15 +52,15 @@ def deserialize_aws_json_1_1(data: dict) -> GetFileOutput:
     if data.get("commitId") is not None:
         out["commit_id"] = data["commitId"]
     else:
-        raise DeserializationError("GetFileOutput.commit_id required")
+        out["commit_id"] = ""
     if data.get("blobId") is not None:
         out["blob_id"] = data["blobId"]
     else:
-        raise DeserializationError("GetFileOutput.blob_id required")
+        out["blob_id"] = ""
     if data.get("filePath") is not None:
         out["file_path"] = data["filePath"]
     else:
-        raise DeserializationError("GetFileOutput.file_path required")
+        out["file_path"] = ""
     if data.get("fileMode") is not None:
         import capo_codecommit.types.file_mode_type_enum
 
@@ -72,7 +70,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetFileOutput:
             )
         )
     else:
-        raise DeserializationError("GetFileOutput.file_mode required")
+        import typing
+
+        out["file_mode"] = typing.cast(
+            "capo_codecommit.types.file_mode_type_enum.FileModeTypeEnum", ""
+        )
     if data.get("fileSize") is not None:
         out["file_size"] = data["fileSize"]
     else:
@@ -86,5 +88,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetFileOutput:
             )
         )
     else:
-        raise DeserializationError("GetFileOutput.file_content required")
+        out["file_content"] = b""
     return out

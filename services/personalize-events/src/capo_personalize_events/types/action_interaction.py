@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_personalize_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize_events.types.action_id
     import capo_personalize_events.types.action_impression
@@ -78,13 +76,13 @@ def deserialize_json(data: dict) -> ActionInteraction:
     if data.get("actionId") is not None:
         out["action_id"] = data["actionId"]
     else:
-        raise DeserializationError("ActionInteraction.action_id required")
+        out["action_id"] = ""
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("ActionInteraction.session_id required")
+        out["session_id"] = ""
     if data.get("timestamp") is not None:
         import capo_personalize_events.types.date
 
@@ -92,11 +90,13 @@ def deserialize_json(data: dict) -> ActionInteraction:
             data["timestamp"]
         )
     else:
-        raise DeserializationError("ActionInteraction.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("eventType") is not None:
         out["event_type"] = data["eventType"]
     else:
-        raise DeserializationError("ActionInteraction.event_type required")
+        out["event_type"] = ""
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     if data.get("recommendationId") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.daily_settings
     import capo_ssm_contacts.types.monthly_settings
@@ -107,7 +105,7 @@ def deserialize_aws_json_1_1(data: dict) -> RecurrenceSettings:
     if data.get("NumberOfOnCalls") is not None:
         out["number_of_on_calls"] = data["NumberOfOnCalls"]
     else:
-        raise DeserializationError("RecurrenceSettings.number_of_on_calls required")
+        out["number_of_on_calls"] = 0
     if data.get("ShiftCoverages") is not None:
         import capo_ssm_contacts.types.shift_coverages_map
 
@@ -119,5 +117,5 @@ def deserialize_aws_json_1_1(data: dict) -> RecurrenceSettings:
     if data.get("RecurrenceMultiplier") is not None:
         out["recurrence_multiplier"] = data["RecurrenceMultiplier"]
     else:
-        raise DeserializationError("RecurrenceSettings.recurrence_multiplier required")
+        out["recurrence_multiplier"] = 0
     return out

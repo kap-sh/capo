@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sns.types.map_string_to_string
@@ -38,5 +37,5 @@ def deserialize_query(el: Element) -> SetSMSAttributesInput:
             child_attributes
         )
     else:
-        raise DeserializationError("SetSMSAttributesInput.attributes required")
+        out["attributes"] = {}
     return out

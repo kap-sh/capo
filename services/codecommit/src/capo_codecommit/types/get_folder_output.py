@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.file_list
     import capo_codecommit.types.folder_list
@@ -77,11 +75,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetFolderOutput:
     if data.get("commitId") is not None:
         out["commit_id"] = data["commitId"]
     else:
-        raise DeserializationError("GetFolderOutput.commit_id required")
+        out["commit_id"] = ""
     if data.get("folderPath") is not None:
         out["folder_path"] = data["folderPath"]
     else:
-        raise DeserializationError("GetFolderOutput.folder_path required")
+        out["folder_path"] = ""
     if data.get("treeId") is not None:
         out["tree_id"] = data["treeId"]
     if data.get("subFolders") is not None:

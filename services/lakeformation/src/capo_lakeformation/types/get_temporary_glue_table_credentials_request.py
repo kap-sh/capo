@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.audit_context
     import capo_lakeformation.types.credential_timeout_duration_second_integer
@@ -83,9 +81,7 @@ def deserialize_json(data: dict) -> GetTemporaryGlueTableCredentialsRequest:
     if data.get("TableArn") is not None:
         out["table_arn"] = data["TableArn"]
     else:
-        raise DeserializationError(
-            "GetTemporaryGlueTableCredentialsRequest.table_arn required"
-        )
+        out["table_arn"] = ""
     if data.get("Permissions") is not None:
         import capo_lakeformation.types.permission_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.credential_provider_name
     import capo_bedrock_agentcore.types.workload_identity_token_type
@@ -33,17 +31,13 @@ def deserialize_json(data: dict) -> GetResourceApiKeyRequest:
     if data.get("workloadIdentityToken") is not None:
         out["workload_identity_token"] = data["workloadIdentityToken"]
     else:
-        raise DeserializationError(
-            "GetResourceApiKeyRequest.workload_identity_token required"
-        )
+        out["workload_identity_token"] = ""
     if data.get("resourceCredentialProviderName") is not None:
         out["resource_credential_provider_name"] = data[
             "resourceCredentialProviderName"
         ]
     else:
-        raise DeserializationError(
-            "GetResourceApiKeyRequest.resource_credential_provider_name required"
-        )
+        out["resource_credential_provider_name"] = ""
     return out
 
 

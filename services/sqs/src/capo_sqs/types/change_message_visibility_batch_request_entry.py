@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sqs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sqs.types.nullable_integer
     import capo_sqs.types.string
@@ -35,15 +33,11 @@ def deserialize_aws_json_1_0(data: dict) -> ChangeMessageVisibilityBatchRequestE
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError(
-            "ChangeMessageVisibilityBatchRequestEntry.id required"
-        )
+        out["id"] = ""
     if data.get("ReceiptHandle") is not None:
         out["receipt_handle"] = data["ReceiptHandle"]
     else:
-        raise DeserializationError(
-            "ChangeMessageVisibilityBatchRequestEntry.receipt_handle required"
-        )
+        out["receipt_handle"] = ""
     if data.get("VisibilityTimeout") is not None:
         out["visibility_timeout"] = data["VisibilityTimeout"]
     return out

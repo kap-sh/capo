@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_web.types.date_time
     import capo_lambda_web.types.description
@@ -53,11 +51,11 @@ def deserialize_json(data: dict) -> FunctionRevisionSummary:
     if data.get("revisionArn") is not None:
         out["revision_arn"] = data["revisionArn"]
     else:
-        raise DeserializationError("FunctionRevisionSummary.revision_arn required")
+        out["revision_arn"] = ""
     if data.get("revisionId") is not None:
         out["revision_id"] = data["revisionId"]
     else:
-        raise DeserializationError("FunctionRevisionSummary.revision_id required")
+        out["revision_id"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("state") is not None:
@@ -67,11 +65,15 @@ def deserialize_json(data: dict) -> FunctionRevisionSummary:
             data["state"]
         )
     else:
-        raise DeserializationError("FunctionRevisionSummary.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_lambda_web.types.revision_state.RevisionState", ""
+        )
     if data.get("stateReason") is not None:
         out["state_reason"] = data["stateReason"]
     else:
-        raise DeserializationError("FunctionRevisionSummary.state_reason required")
+        out["state_reason"] = ""
     if data.get("createdAt") is not None:
         import capo_lambda_web.types.date_time
 
@@ -79,5 +81,7 @@ def deserialize_json(data: dict) -> FunctionRevisionSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("FunctionRevisionSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.expression
     import capo_config_service.types.limit
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> SelectResourceConfigRequest:
     if data.get("Expression") is not None:
         out["expression"] = data["Expression"]
     else:
-        raise DeserializationError("SelectResourceConfigRequest.expression required")
+        out["expression"] = ""
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
     if data.get("NextToken") is not None:

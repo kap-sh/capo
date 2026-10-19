@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity.types.identity_pool_id
     import capo_cognito_identity.types.role_mapping_map
@@ -48,9 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> SetIdentityPoolRolesInput:
     if data.get("IdentityPoolId") is not None:
         out["identity_pool_id"] = data["IdentityPoolId"]
     else:
-        raise DeserializationError(
-            "SetIdentityPoolRolesInput.identity_pool_id required"
-        )
+        out["identity_pool_id"] = ""
     if data.get("Roles") is not None:
         import capo_cognito_identity.types.roles_map
 
@@ -58,7 +54,7 @@ def deserialize_aws_json_1_1(data: dict) -> SetIdentityPoolRolesInput:
             data["Roles"]
         )
     else:
-        raise DeserializationError("SetIdentityPoolRolesInput.roles required")
+        out["roles"] = {}
     if data.get("RoleMappings") is not None:
         import capo_cognito_identity.types.role_mapping_map
 

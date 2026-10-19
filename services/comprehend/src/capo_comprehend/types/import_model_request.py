@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.comprehend_arn_name
     import capo_comprehend.types.comprehend_model_arn
@@ -58,7 +56,7 @@ def deserialize_aws_json_1_1(data: dict) -> ImportModelRequest:
     if data.get("SourceModelArn") is not None:
         out["source_model_arn"] = data["SourceModelArn"]
     else:
-        raise DeserializationError("ImportModelRequest.source_model_arn required")
+        out["source_model_arn"] = ""
     if data.get("ModelName") is not None:
         out["model_name"] = data["ModelName"]
     if data.get("VersionName") is not None:

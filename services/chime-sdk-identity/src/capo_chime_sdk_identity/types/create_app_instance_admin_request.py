@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_identity.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_identity.types.chime_arn
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> CreateAppInstanceAdminRequest:
     if data.get("AppInstanceAdminArn") is not None:
         out["app_instance_admin_arn"] = data["AppInstanceAdminArn"]
     else:
-        raise DeserializationError(
-            "CreateAppInstanceAdminRequest.app_instance_admin_arn required"
-        )
+        out["app_instance_admin_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.item_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CustomVocabularyEntryId:
     if data.get("itemId") is not None:
         out["item_id"] = data["itemId"]
     else:
-        raise DeserializationError("CustomVocabularyEntryId.item_id required")
+        out["item_id"] = ""
     return out

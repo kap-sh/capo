@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> CreateLinkRoutingRuleResponse:
     if data.get("ruleId") is not None:
         out["rule_id"] = data["ruleId"]
     else:
-        raise DeserializationError("CreateLinkRoutingRuleResponse.rule_id required")
+        out["rule_id"] = ""
     if data.get("status") is not None:
         import capo_rtbfabric.types.rule_status
 
@@ -50,7 +48,9 @@ def deserialize_json(data: dict) -> CreateLinkRoutingRuleResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("CreateLinkRoutingRuleResponse.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_rtbfabric.types.rule_status.RuleStatus", "")
     if data.get("createdAt") is not None:
         import capo_rtbfabric.types._prelude.timestamp
 
@@ -58,5 +58,7 @@ def deserialize_json(data: dict) -> CreateLinkRoutingRuleResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("CreateLinkRoutingRuleResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

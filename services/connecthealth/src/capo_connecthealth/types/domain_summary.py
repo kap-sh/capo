@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connecthealth.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -52,15 +50,15 @@ def deserialize_json(data: dict) -> DomainSummary:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("DomainSummary.domain_id required")
+        out["domain_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("DomainSummary.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DomainSummary.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         import capo_connecthealth.types.domain_status
 
@@ -68,7 +66,11 @@ def deserialize_json(data: dict) -> DomainSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("DomainSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_connecthealth.types.domain_status.DomainStatus", ""
+        )
     if data.get("createdAt") is not None:
         import capo_connecthealth.types._prelude.timestamp
 
@@ -78,5 +80,7 @@ def deserialize_json(data: dict) -> DomainSummary:
             )
         )
     else:
-        raise DeserializationError("DomainSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_controlcatalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_controlcatalog.types.common_control_summary_list
     import capo_controlcatalog.types.pagination_token
@@ -48,9 +46,7 @@ def deserialize_json(data: dict) -> ListCommonControlsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListCommonControlsResponse.common_controls required"
-        )
+        out["common_controls"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

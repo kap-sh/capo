@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.date_type
     import capo_cognito_identity_provider.types.string_type
@@ -62,21 +60,15 @@ def deserialize_aws_json_1_1(data: dict) -> WebAuthnCredentialDescription:
     if data.get("CredentialId") is not None:
         out["credential_id"] = data["CredentialId"]
     else:
-        raise DeserializationError(
-            "WebAuthnCredentialDescription.credential_id required"
-        )
+        out["credential_id"] = ""
     if data.get("FriendlyCredentialName") is not None:
         out["friendly_credential_name"] = data["FriendlyCredentialName"]
     else:
-        raise DeserializationError(
-            "WebAuthnCredentialDescription.friendly_credential_name required"
-        )
+        out["friendly_credential_name"] = ""
     if data.get("RelyingPartyId") is not None:
         out["relying_party_id"] = data["RelyingPartyId"]
     else:
-        raise DeserializationError(
-            "WebAuthnCredentialDescription.relying_party_id required"
-        )
+        out["relying_party_id"] = ""
     if data.get("AuthenticatorAttachment") is not None:
         out["authenticator_attachment"] = data["AuthenticatorAttachment"]
     if data.get("AuthenticatorTransports") is not None:
@@ -88,9 +80,7 @@ def deserialize_aws_json_1_1(data: dict) -> WebAuthnCredentialDescription:
             )
         )
     else:
-        raise DeserializationError(
-            "WebAuthnCredentialDescription.authenticator_transports required"
-        )
+        out["authenticator_transports"] = []
     if data.get("CreatedAt") is not None:
         import capo_cognito_identity_provider.types.date_type
 
@@ -100,5 +90,7 @@ def deserialize_aws_json_1_1(data: dict) -> WebAuthnCredentialDescription:
             )
         )
     else:
-        raise DeserializationError("WebAuthnCredentialDescription.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.subnet_mappings
     import capo_network_firewall.types.vpc_id
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> VpcEndpoint:
     if data.get("VpcId") is not None:
         out["vpc_id"] = data["VpcId"]
     else:
-        raise DeserializationError("VpcEndpoint.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("SubnetMappings") is not None:
         import capo_network_firewall.types.subnet_mappings
 
@@ -47,5 +45,5 @@ def deserialize_aws_json_1_0(data: dict) -> VpcEndpoint:
             )
         )
     else:
-        raise DeserializationError("VpcEndpoint.subnet_mappings required")
+        out["subnet_mappings"] = []
     return out

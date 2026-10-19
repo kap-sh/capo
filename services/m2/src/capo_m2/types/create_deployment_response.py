@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.identifier
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CreateDeploymentResponse:
     if data.get("deploymentId") is not None:
         out["deployment_id"] = data["deploymentId"]
     else:
-        raise DeserializationError("CreateDeploymentResponse.deployment_id required")
+        out["deployment_id"] = ""
     return out

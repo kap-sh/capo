@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.document_attribute_key
     import capo_qapps.types.document_attribute_value
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> DocumentAttribute:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DocumentAttribute.name required")
+        out["name"] = ""
     if data.get("value") is not None:
         import capo_qapps.types.document_attribute_value
 
@@ -43,5 +41,7 @@ def deserialize_json(data: dict) -> DocumentAttribute:
             data["value"]
         )
     else:
-        raise DeserializationError("DocumentAttribute.value required")
+        import capo_qapps.types._unknown
+
+        out["value"] = capo_qapps.types._unknown.UnknownUnionMember("")
     return out

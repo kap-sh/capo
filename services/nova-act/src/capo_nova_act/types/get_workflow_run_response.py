@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_nova_act.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_nova_act.types.cloud_watch_log_group_name
     import capo_nova_act.types.date_timestamp
@@ -66,11 +64,11 @@ def deserialize_json(data: dict) -> GetWorkflowRunResponse:
     if data.get("workflowRunArn") is not None:
         out["workflow_run_arn"] = data["workflowRunArn"]
     else:
-        raise DeserializationError("GetWorkflowRunResponse.workflow_run_arn required")
+        out["workflow_run_arn"] = ""
     if data.get("workflowRunId") is not None:
         out["workflow_run_id"] = data["workflowRunId"]
     else:
-        raise DeserializationError("GetWorkflowRunResponse.workflow_run_id required")
+        out["workflow_run_id"] = ""
     if data.get("status") is not None:
         import capo_nova_act.types.workflow_run_status
 
@@ -78,7 +76,11 @@ def deserialize_json(data: dict) -> GetWorkflowRunResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("GetWorkflowRunResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_nova_act.types.workflow_run_status.WorkflowRunStatus", ""
+        )
     if data.get("startedAt") is not None:
         import capo_nova_act.types.date_timestamp
 
@@ -86,7 +88,9 @@ def deserialize_json(data: dict) -> GetWorkflowRunResponse:
             data["startedAt"]
         )
     else:
-        raise DeserializationError("GetWorkflowRunResponse.started_at required")
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endedAt") is not None:
         import capo_nova_act.types.date_timestamp
 
@@ -96,7 +100,7 @@ def deserialize_json(data: dict) -> GetWorkflowRunResponse:
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:
-        raise DeserializationError("GetWorkflowRunResponse.model_id required")
+        out["model_id"] = ""
     if data.get("logGroupName") is not None:
         out["log_group_name"] = data["logGroupName"]
     return out

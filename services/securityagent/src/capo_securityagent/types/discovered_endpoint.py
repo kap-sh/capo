@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 
 class DiscoveredEndpoint(TypedDict, closed=True):
     uri: "str"
@@ -43,19 +41,19 @@ def deserialize_json(data: dict) -> DiscoveredEndpoint:
     if data.get("uri") is not None:
         out["uri"] = data["uri"]
     else:
-        raise DeserializationError("DiscoveredEndpoint.uri required")
+        out["uri"] = ""
     if data.get("pentestJobId") is not None:
         out["pentest_job_id"] = data["pentestJobId"]
     else:
-        raise DeserializationError("DiscoveredEndpoint.pentest_job_id required")
+        out["pentest_job_id"] = ""
     if data.get("taskId") is not None:
         out["task_id"] = data["taskId"]
     else:
-        raise DeserializationError("DiscoveredEndpoint.task_id required")
+        out["task_id"] = ""
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError("DiscoveredEndpoint.agent_space_id required")
+        out["agent_space_id"] = ""
     if data.get("evidence") is not None:
         out["evidence"] = data["evidence"]
     if data.get("operation") is not None:

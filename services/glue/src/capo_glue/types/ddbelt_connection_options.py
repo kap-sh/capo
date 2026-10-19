@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.boolean_value
     import capo_glue.types.ddb_export_type
@@ -78,9 +76,7 @@ def deserialize_aws_json_1_1(data: dict) -> DDBELTConnectionOptions:
     if data.get("DynamodbTableArn") is not None:
         out["dynamodb_table_arn"] = data["DynamodbTableArn"]
     else:
-        raise DeserializationError(
-            "DDBELTConnectionOptions.dynamodb_table_arn required"
-        )
+        out["dynamodb_table_arn"] = ""
     if data.get("DynamodbS3Bucket") is not None:
         out["dynamodb_s3_bucket"] = data["DynamodbS3Bucket"]
     if data.get("DynamodbS3Prefix") is not None:

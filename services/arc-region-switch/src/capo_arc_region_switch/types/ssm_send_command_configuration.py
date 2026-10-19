@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.region_ssm_document_map
     import capo_arc_region_switch.types.ssm_send_command_ungraceful
@@ -72,15 +70,11 @@ def deserialize_aws_json_1_0(data: dict) -> SsmSendCommandConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "SsmSendCommandConfiguration.region_documents required"
-        )
+        out["region_documents"] = {}
     if data.get("retryIntervalMinutes") is not None:
         out["retry_interval_minutes"] = float(data["retryIntervalMinutes"])
     else:
-        raise DeserializationError(
-            "SsmSendCommandConfiguration.retry_interval_minutes required"
-        )
+        out["retry_interval_minutes"] = 0.0
     if data.get("ungraceful") is not None:
         import capo_arc_region_switch.types.ssm_send_command_ungraceful
 

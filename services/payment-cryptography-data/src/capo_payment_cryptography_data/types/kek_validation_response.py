@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.as2805_random_key_material
 
@@ -27,7 +25,7 @@ def deserialize_json(data: dict) -> KekValidationResponse:
     if data.get("RandomKeySend") is not None:
         out["random_key_send"] = data["RandomKeySend"]
     else:
-        raise DeserializationError("KekValidationResponse.random_key_send required")
+        out["random_key_send"] = ""
     return out
 
 

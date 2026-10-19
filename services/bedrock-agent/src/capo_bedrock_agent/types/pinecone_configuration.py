@@ -52,13 +52,11 @@ def deserialize_json(data: dict) -> PineconeConfiguration:
     if data.get("connectionString") is not None:
         out["connection_string"] = data["connectionString"]
     else:
-        raise DeserializationError("PineconeConfiguration.connection_string required")
+        out["connection_string"] = ""
     if data.get("credentialsSecretArn") is not None:
         out["credentials_secret_arn"] = data["credentialsSecretArn"]
     else:
-        raise DeserializationError(
-            "PineconeConfiguration.credentials_secret_arn required"
-        )
+        out["credentials_secret_arn"] = ""
     if data.get("namespace") is not None:
         out["namespace"] = data["namespace"]
     if data.get("fieldMapping") is not None:

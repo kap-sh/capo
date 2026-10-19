@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.entity_description
     import capo_wafv2.types.entity_id
@@ -58,17 +56,19 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateRegexPatternSetRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateRegexPatternSetRequest.name required")
+        out["name"] = ""
     if data.get("Scope") is not None:
         import capo_wafv2.types.scope
 
         out["scope"] = capo_wafv2.types.scope.deserialize_aws_json_1_1(data["Scope"])
     else:
-        raise DeserializationError("UpdateRegexPatternSetRequest.scope required")
+        import typing
+
+        out["scope"] = typing.cast("capo_wafv2.types.scope.Scope", "")
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("UpdateRegexPatternSetRequest.id required")
+        out["id"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("RegularExpressionList") is not None:
@@ -80,11 +80,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateRegexPatternSetRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateRegexPatternSetRequest.regular_expression_list required"
-        )
+        out["regular_expression_list"] = []
     if data.get("LockToken") is not None:
         out["lock_token"] = data["LockToken"]
     else:
-        raise DeserializationError("UpdateRegexPatternSetRequest.lock_token required")
+        out["lock_token"] = ""
     return out

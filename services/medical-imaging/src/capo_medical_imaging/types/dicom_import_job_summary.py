@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_medical_imaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_medical_imaging.types.datastore_id
     import capo_medical_imaging.types.date
@@ -70,11 +68,11 @@ def deserialize_json(data: dict) -> DICOMImportJobSummary:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("DICOMImportJobSummary.job_id required")
+        out["job_id"] = ""
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError("DICOMImportJobSummary.job_name required")
+        out["job_name"] = ""
     if data.get("jobStatus") is not None:
         import capo_medical_imaging.types.job_status
 
@@ -82,11 +80,15 @@ def deserialize_json(data: dict) -> DICOMImportJobSummary:
             data["jobStatus"]
         )
     else:
-        raise DeserializationError("DICOMImportJobSummary.job_status required")
+        import typing
+
+        out["job_status"] = typing.cast(
+            "capo_medical_imaging.types.job_status.JobStatus", ""
+        )
     if data.get("datastoreId") is not None:
         out["datastore_id"] = data["datastoreId"]
     else:
-        raise DeserializationError("DICOMImportJobSummary.datastore_id required")
+        out["datastore_id"] = ""
     if data.get("dataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["dataAccessRoleArn"]
     if data.get("endedAt") is not None:

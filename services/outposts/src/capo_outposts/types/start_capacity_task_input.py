@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_outposts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_outposts.types.asset_id_input
     import capo_outposts.types.dry_run
@@ -87,7 +85,7 @@ def deserialize_json(data: dict) -> StartCapacityTaskInput:
             )
         )
     else:
-        raise DeserializationError("StartCapacityTaskInput.instance_pools required")
+        out["instance_pools"] = []
     if data.get("InstancesToExclude") is not None:
         import capo_outposts.types.instances_to_exclude
 

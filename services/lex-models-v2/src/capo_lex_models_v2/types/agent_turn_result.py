@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.execution_error_details
     import capo_lex_models_v2.types.name
@@ -59,7 +57,7 @@ def deserialize_json(data: dict) -> AgentTurnResult:
     if data.get("expectedAgentPrompt") is not None:
         out["expected_agent_prompt"] = data["expectedAgentPrompt"]
     else:
-        raise DeserializationError("AgentTurnResult.expected_agent_prompt required")
+        out["expected_agent_prompt"] = ""
     if data.get("actualAgentPrompt") is not None:
         out["actual_agent_prompt"] = data["actualAgentPrompt"]
     if data.get("errorDetails") is not None:

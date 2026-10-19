@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.resource_arn
     import capo_bedrock_agent.types.revision_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> PutResourcePolicyResponse:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("PutResourcePolicyResponse.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("revisionId") is not None:
         out["revision_id"] = data["revisionId"]
     else:
-        raise DeserializationError("PutResourcePolicyResponse.revision_id required")
+        out["revision_id"] = ""
     return out

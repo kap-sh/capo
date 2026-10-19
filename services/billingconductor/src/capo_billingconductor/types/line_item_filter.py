@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billingconductor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billingconductor.types.attribute_value_list
     import capo_billingconductor.types.line_item_filter_attribute_name
@@ -70,7 +68,12 @@ def deserialize_json(data: dict) -> LineItemFilter:
             )
         )
     else:
-        raise DeserializationError("LineItemFilter.attribute required")
+        import typing
+
+        out["attribute"] = typing.cast(
+            "capo_billingconductor.types.line_item_filter_attribute_name.LineItemFilterAttributeName",
+            "",
+        )
     if data.get("MatchOption") is not None:
         import capo_billingconductor.types.match_option
 
@@ -78,7 +81,11 @@ def deserialize_json(data: dict) -> LineItemFilter:
             data["MatchOption"]
         )
     else:
-        raise DeserializationError("LineItemFilter.match_option required")
+        import typing
+
+        out["match_option"] = typing.cast(
+            "capo_billingconductor.types.match_option.MatchOption", ""
+        )
     if data.get("Values") is not None:
         import capo_billingconductor.types.line_item_filter_values_list
 

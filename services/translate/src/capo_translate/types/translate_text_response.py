@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_translate.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_translate.types.applied_terminology_list
     import capo_translate.types.language_code_string
@@ -60,19 +58,15 @@ def deserialize_aws_json_1_1(data: dict) -> TranslateTextResponse:
     if data.get("TranslatedText") is not None:
         out["translated_text"] = data["TranslatedText"]
     else:
-        raise DeserializationError("TranslateTextResponse.translated_text required")
+        out["translated_text"] = ""
     if data.get("SourceLanguageCode") is not None:
         out["source_language_code"] = data["SourceLanguageCode"]
     else:
-        raise DeserializationError(
-            "TranslateTextResponse.source_language_code required"
-        )
+        out["source_language_code"] = ""
     if data.get("TargetLanguageCode") is not None:
         out["target_language_code"] = data["TargetLanguageCode"]
     else:
-        raise DeserializationError(
-            "TranslateTextResponse.target_language_code required"
-        )
+        out["target_language_code"] = ""
     if data.get("AppliedTerminologies") is not None:
         import capo_translate.types.applied_terminology_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.close_status_filter
     import capo_swf.types.domain_name
@@ -96,7 +94,7 @@ def deserialize_aws_json_1_0(data: dict) -> CountClosedWorkflowExecutionsInput:
     if data.get("domain") is not None:
         out["domain"] = data["domain"]
     else:
-        raise DeserializationError("CountClosedWorkflowExecutionsInput.domain required")
+        out["domain"] = ""
     if data.get("startTimeFilter") is not None:
         import capo_swf.types.execution_time_filter
 

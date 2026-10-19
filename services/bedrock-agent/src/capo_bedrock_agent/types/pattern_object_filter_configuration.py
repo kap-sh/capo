@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.pattern_object_filter_list
 
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> PatternObjectFilterConfiguration:
             )
         )
     else:
-        raise DeserializationError("PatternObjectFilterConfiguration.filters required")
+        out["filters"] = []
     return out
 
 

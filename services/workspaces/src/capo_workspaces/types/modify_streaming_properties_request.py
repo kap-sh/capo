@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.directory_id
     import capo_workspaces.types.streaming_properties
@@ -40,9 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyStreamingPropertiesRequest:
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError(
-            "ModifyStreamingPropertiesRequest.resource_id required"
-        )
+        out["resource_id"] = ""
     if data.get("StreamingProperties") is not None:
         import capo_workspaces.types.streaming_properties
 

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 
 class HeaderTagAction(TypedDict, closed=True):
     name: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> HeaderTagAction:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("HeaderTagAction.name required")
+        out["name"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("HeaderTagAction.value required")
+        out["value"] = ""
     return out

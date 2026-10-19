@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__integer_min1
     import capo_mediatailor.types.__string
@@ -35,15 +33,11 @@ def deserialize_json(data: dict) -> HttpRequestCacheConfiguration:
     if data.get("TtlMinimumSeconds") is not None:
         out["ttl_minimum_seconds"] = data["TtlMinimumSeconds"]
     else:
-        raise DeserializationError(
-            "HttpRequestCacheConfiguration.ttl_minimum_seconds required"
-        )
+        out["ttl_minimum_seconds"] = 0
     if data.get("TtlMaximumSeconds") is not None:
         out["ttl_maximum_seconds"] = data["TtlMaximumSeconds"]
     else:
-        raise DeserializationError(
-            "HttpRequestCacheConfiguration.ttl_maximum_seconds required"
-        )
+        out["ttl_maximum_seconds"] = 0
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     return out

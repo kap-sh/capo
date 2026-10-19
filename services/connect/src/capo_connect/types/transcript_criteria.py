@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.participant_role
     import capo_connect.types.search_contacts_match_type
@@ -51,7 +49,11 @@ def deserialize_json(data: dict) -> TranscriptCriteria:
             data["ParticipantRole"]
         )
     else:
-        raise DeserializationError("TranscriptCriteria.participant_role required")
+        import typing
+
+        out["participant_role"] = typing.cast(
+            "capo_connect.types.participant_role.ParticipantRole", ""
+        )
     if data.get("SearchText") is not None:
         import capo_connect.types.search_text_list
 
@@ -59,7 +61,7 @@ def deserialize_json(data: dict) -> TranscriptCriteria:
             data["SearchText"]
         )
     else:
-        raise DeserializationError("TranscriptCriteria.search_text required")
+        out["search_text"] = []
     if data.get("MatchType") is not None:
         import capo_connect.types.search_contacts_match_type
 
@@ -69,7 +71,11 @@ def deserialize_json(data: dict) -> TranscriptCriteria:
             )
         )
     else:
-        raise DeserializationError("TranscriptCriteria.match_type required")
+        import typing
+
+        out["match_type"] = typing.cast(
+            "capo_connect.types.search_contacts_match_type.SearchContactsMatchType", ""
+        )
     return out
 
 

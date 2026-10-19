@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.min_zero_max_integer
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> AcceleratorTotalMemoryMiBRange:
     if data.get("min") is not None:
         out["min"] = data["min"]
     else:
-        raise DeserializationError("AcceleratorTotalMemoryMiBRange.min required")
+        out["min"] = 0
     if data.get("max") is not None:
         out["max"] = data["max"]
     return out

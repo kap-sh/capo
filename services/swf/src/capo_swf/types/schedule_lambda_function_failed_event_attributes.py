@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.event_id
     import capo_swf.types.function_id
@@ -47,15 +45,11 @@ def deserialize_aws_json_1_0(data: dict) -> ScheduleLambdaFunctionFailedEventAtt
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError(
-            "ScheduleLambdaFunctionFailedEventAttributes.id required"
-        )
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "ScheduleLambdaFunctionFailedEventAttributes.name required"
-        )
+        out["name"] = ""
     if data.get("cause") is not None:
         import capo_swf.types.schedule_lambda_function_failed_cause
 
@@ -65,8 +59,11 @@ def deserialize_aws_json_1_0(data: dict) -> ScheduleLambdaFunctionFailedEventAtt
             )
         )
     else:
-        raise DeserializationError(
-            "ScheduleLambdaFunctionFailedEventAttributes.cause required"
+        import typing
+
+        out["cause"] = typing.cast(
+            "capo_swf.types.schedule_lambda_function_failed_cause.ScheduleLambdaFunctionFailedCause",
+            "",
         )
     if data.get("decisionTaskCompletedEventId") is not None:
         out["decision_task_completed_event_id"] = data["decisionTaskCompletedEventId"]

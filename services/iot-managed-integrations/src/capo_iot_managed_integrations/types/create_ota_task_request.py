@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.client_token
     import capo_iot_managed_integrations.types.ota_description
@@ -133,7 +131,7 @@ def deserialize_json(data: dict) -> CreateOtaTaskRequest:
     if data.get("S3Url") is not None:
         out["s3_url"] = data["S3Url"]
     else:
-        raise DeserializationError("CreateOtaTaskRequest.s3_url required")
+        out["s3_url"] = ""
     if data.get("Protocol") is not None:
         import capo_iot_managed_integrations.types.ota_protocol
 
@@ -165,7 +163,11 @@ def deserialize_json(data: dict) -> CreateOtaTaskRequest:
             data["OtaType"]
         )
     else:
-        raise DeserializationError("CreateOtaTaskRequest.ota_type required")
+        import typing
+
+        out["ota_type"] = typing.cast(
+            "capo_iot_managed_integrations.types.ota_type.OtaType", ""
+        )
     if data.get("OtaTargetQueryString") is not None:
         out["ota_target_query_string"] = data["OtaTargetQueryString"]
     if data.get("ClientToken") is not None:

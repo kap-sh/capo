@@ -36,7 +36,7 @@ def deserialize_aws_json_1_0(data: dict) -> RecommendedActionSummary:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("RecommendedActionSummary.key required")
+        out["key"] = ""
     if data.get("total") is not None:
         import capo_compute_optimizer_automation.types.recommended_action_total
 

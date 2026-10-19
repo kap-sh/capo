@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.ip_group_id
     import capo_workspaces.types.ip_rule_list
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> AuthorizeIpRulesRequest:
     if data.get("GroupId") is not None:
         out["group_id"] = data["GroupId"]
     else:
-        raise DeserializationError("AuthorizeIpRulesRequest.group_id required")
+        out["group_id"] = ""
     if data.get("UserRules") is not None:
         import capo_workspaces.types.ip_rule_list
 
@@ -43,5 +41,5 @@ def deserialize_aws_json_1_1(data: dict) -> AuthorizeIpRulesRequest:
             data["UserRules"]
         )
     else:
-        raise DeserializationError("AuthorizeIpRulesRequest.user_rules required")
+        out["user_rules"] = []
     return out

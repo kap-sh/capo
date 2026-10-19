@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.date_timestamp
     import capo_bedrock_agent_runtime.types.node_error_code
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> NodeFailureEvent:
     if data.get("nodeName") is not None:
         out["node_name"] = data["nodeName"]
     else:
-        raise DeserializationError("NodeFailureEvent.node_name required")
+        out["node_name"] = ""
     if data.get("timestamp") is not None:
         import capo_bedrock_agent_runtime.types.date_timestamp
 
@@ -56,7 +54,9 @@ def deserialize_json(data: dict) -> NodeFailureEvent:
             )
         )
     else:
-        raise DeserializationError("NodeFailureEvent.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("errorCode") is not None:
         import capo_bedrock_agent_runtime.types.node_error_code
 
@@ -66,9 +66,13 @@ def deserialize_json(data: dict) -> NodeFailureEvent:
             )
         )
     else:
-        raise DeserializationError("NodeFailureEvent.error_code required")
+        import typing
+
+        out["error_code"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.node_error_code.NodeErrorCode", ""
+        )
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     else:
-        raise DeserializationError("NodeFailureEvent.error_message required")
+        out["error_message"] = ""
     return out

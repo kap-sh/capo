@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.evaluation_answer_data
     import capo_connect.types.evaluation_question_answer_analysis_details
@@ -89,7 +87,12 @@ def deserialize_json(data: dict) -> EvaluationSuggestedAnswer:
             )
         )
     else:
-        raise DeserializationError("EvaluationSuggestedAnswer.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_connect.types.evaluation_suggested_answer_status.EvaluationSuggestedAnswerStatus",
+            "",
+        )
     if data.get("Input") is not None:
         import capo_connect.types.evaluation_question_input_details
 
@@ -107,7 +110,12 @@ def deserialize_json(data: dict) -> EvaluationSuggestedAnswer:
             )
         )
     else:
-        raise DeserializationError("EvaluationSuggestedAnswer.analysis_type required")
+        import typing
+
+        out["analysis_type"] = typing.cast(
+            "capo_connect.types.evaluation_question_answer_analysis_type.EvaluationQuestionAnswerAnalysisType",
+            "",
+        )
     if data.get("AnalysisDetails") is not None:
         import capo_connect.types.evaluation_question_answer_analysis_details
 

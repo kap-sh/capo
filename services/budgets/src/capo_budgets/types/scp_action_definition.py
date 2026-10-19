@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_budgets.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_budgets.types.policy_id
     import capo_budgets.types.target_ids
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> ScpActionDefinition:
     if data.get("PolicyId") is not None:
         out["policy_id"] = data["PolicyId"]
     else:
-        raise DeserializationError("ScpActionDefinition.policy_id required")
+        out["policy_id"] = ""
     if data.get("TargetIds") is not None:
         import capo_budgets.types.target_ids
 
@@ -43,5 +41,5 @@ def deserialize_aws_json_1_1(data: dict) -> ScpActionDefinition:
             data["TargetIds"]
         )
     else:
-        raise DeserializationError("ScpActionDefinition.target_ids required")
+        out["target_ids"] = []
     return out

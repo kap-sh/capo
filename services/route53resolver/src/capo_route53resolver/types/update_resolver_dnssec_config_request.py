@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.resource_id
     import capo_route53resolver.types.validation
@@ -35,9 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateResolverDnssecConfigRequest:
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError(
-            "UpdateResolverDnssecConfigRequest.resource_id required"
-        )
+        out["resource_id"] = ""
     if data.get("Validation") is not None:
         import capo_route53resolver.types.validation
 
@@ -47,7 +43,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateResolverDnssecConfigRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateResolverDnssecConfigRequest.validation required"
+        import typing
+
+        out["validation"] = typing.cast(
+            "capo_route53resolver.types.validation.Validation", ""
         )
     return out

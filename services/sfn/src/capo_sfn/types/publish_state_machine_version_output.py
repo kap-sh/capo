@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.arn
     import capo_sfn.types.timestamp
@@ -39,13 +37,13 @@ def deserialize_aws_json_1_0(data: dict) -> PublishStateMachineVersionOutput:
             data["creationDate"]
         )
     else:
-        raise DeserializationError(
-            "PublishStateMachineVersionOutput.creation_date required"
+        import datetime
+
+        out["creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("stateMachineVersionArn") is not None:
         out["state_machine_version_arn"] = data["stateMachineVersionArn"]
     else:
-        raise DeserializationError(
-            "PublishStateMachineVersionOutput.state_machine_version_arn required"
-        )
+        out["state_machine_version_arn"] = ""
     return out

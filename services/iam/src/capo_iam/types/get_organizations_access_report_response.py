@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.access_details
@@ -110,8 +109,10 @@ def deserialize_query(el: Element) -> GetOrganizationsAccessReportResponse:
             child_job_status
         )
     else:
-        raise DeserializationError(
-            "GetOrganizationsAccessReportResponse.job_status required"
+        import typing
+
+        out["job_status"] = typing.cast(
+            "capo_iam.types.job_status_type.jobStatusType", ""
         )
     child_job_creation_date = el.find("JobCreationDate")
     if child_job_creation_date is not None:
@@ -121,8 +122,10 @@ def deserialize_query(el: Element) -> GetOrganizationsAccessReportResponse:
             child_job_creation_date
         )
     else:
-        raise DeserializationError(
-            "GetOrganizationsAccessReportResponse.job_creation_date required"
+        import datetime
+
+        out["job_creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     child_job_completion_date = el.find("JobCompletionDate")
     if child_job_completion_date is not None:

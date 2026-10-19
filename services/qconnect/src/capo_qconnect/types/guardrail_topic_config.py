@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.guardrail_topic_definition
     import capo_qconnect.types.guardrail_topic_examples
@@ -48,11 +46,11 @@ def deserialize_json(data: dict) -> GuardrailTopicConfig:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GuardrailTopicConfig.name required")
+        out["name"] = ""
     if data.get("definition") is not None:
         out["definition"] = data["definition"]
     else:
-        raise DeserializationError("GuardrailTopicConfig.definition required")
+        out["definition"] = ""
     if data.get("examples") is not None:
         import capo_qconnect.types.guardrail_topic_examples
 
@@ -62,7 +60,7 @@ def deserialize_json(data: dict) -> GuardrailTopicConfig:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("GuardrailTopicConfig.type required")
+        out["type"] = ""
     return out
 
 

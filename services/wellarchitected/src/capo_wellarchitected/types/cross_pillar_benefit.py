@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wellarchitected.types.impact_category
     import capo_wellarchitected.types.pillar
@@ -47,15 +45,17 @@ def deserialize_json(data: dict) -> CrossPillarBenefit:
             data["pillar"]
         )
     else:
-        raise DeserializationError("CrossPillarBenefit.pillar required")
+        import typing
+
+        out["pillar"] = typing.cast("capo_wellarchitected.types.pillar.Pillar", "")
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("CrossPillarBenefit.title required")
+        out["title"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("CrossPillarBenefit.description required")
+        out["description"] = ""
     if data.get("impact") is not None:
         import capo_wellarchitected.types.impact_category
 
@@ -63,5 +63,9 @@ def deserialize_json(data: dict) -> CrossPillarBenefit:
             data["impact"]
         )
     else:
-        raise DeserializationError("CrossPillarBenefit.impact required")
+        import typing
+
+        out["impact"] = typing.cast(
+            "capo_wellarchitected.types.impact_category.ImpactCategory", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.data_set_export_summary
     import capo_m2.types.data_set_task_lifecycle
@@ -48,11 +46,11 @@ def deserialize_json(data: dict) -> GetDataSetExportTaskResponse:
     if data.get("taskId") is not None:
         out["task_id"] = data["taskId"]
     else:
-        raise DeserializationError("GetDataSetExportTaskResponse.task_id required")
+        out["task_id"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("GetDataSetExportTaskResponse.status required")
+        out["status"] = ""
     if data.get("summary") is not None:
         import capo_m2.types.data_set_export_summary
 

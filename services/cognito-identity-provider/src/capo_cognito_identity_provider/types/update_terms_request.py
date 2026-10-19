@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.links_type
     import capo_cognito_identity_provider.types.terms_enforcement_type
@@ -77,11 +75,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateTermsRequest:
     if data.get("TermsId") is not None:
         out["terms_id"] = data["TermsId"]
     else:
-        raise DeserializationError("UpdateTermsRequest.terms_id required")
+        out["terms_id"] = ""
     if data.get("UserPoolId") is not None:
         out["user_pool_id"] = data["UserPoolId"]
     else:
-        raise DeserializationError("UpdateTermsRequest.user_pool_id required")
+        out["user_pool_id"] = ""
     if data.get("TermsName") is not None:
         out["terms_name"] = data["TermsName"]
     if data.get("TermsSource") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.api_key_type
 
@@ -27,7 +25,7 @@ def deserialize_json(data: dict) -> GetResourceApiKeyResponse:
     if data.get("apiKey") is not None:
         out["api_key"] = data["apiKey"]
     else:
-        raise DeserializationError("GetResourceApiKeyResponse.api_key required")
+        out["api_key"] = ""
     return out
 
 

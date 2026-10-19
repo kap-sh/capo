@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> CreateS3TableIntegrationInput:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("CreateS3TableIntegrationInput.role_arn required")
+        out["role_arn"] = ""
     if data.get("Tags") is not None:
         import capo_observabilityadmin.types.tag_map_input
 

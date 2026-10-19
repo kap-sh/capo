@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.arn
     import capo_chime_sdk_media_pipelines.types.client_request_token
@@ -50,9 +48,7 @@ def deserialize_json(data: dict) -> StartSpeakerSearchTaskRequest:
     if data.get("VoiceProfileDomainArn") is not None:
         out["voice_profile_domain_arn"] = data["VoiceProfileDomainArn"]
     else:
-        raise DeserializationError(
-            "StartSpeakerSearchTaskRequest.voice_profile_domain_arn required"
-        )
+        out["voice_profile_domain_arn"] = ""
     if data.get("KinesisVideoStreamSourceTaskConfiguration") is not None:
         import capo_chime_sdk_media_pipelines.types.kinesis_video_stream_source_task_configuration
 

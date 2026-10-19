@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.origin_access_control_origin_types
@@ -56,7 +55,7 @@ def deserialize_xml(el: Element) -> OriginAccessControlConfig:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("OriginAccessControlConfig.name required")
+        out["name"] = ""
     child_description = el.find("Description")
     if child_description is not None:
         out["description"] = str(child_description.text or "")
@@ -70,8 +69,11 @@ def deserialize_xml(el: Element) -> OriginAccessControlConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "OriginAccessControlConfig.signing_protocol required"
+        import typing
+
+        out["signing_protocol"] = typing.cast(
+            "capo_cloudfront.types.origin_access_control_signing_protocols.OriginAccessControlSigningProtocols",
+            "",
         )
     child_signing_behavior = el.find("SigningBehavior")
     if child_signing_behavior is not None:
@@ -83,8 +85,11 @@ def deserialize_xml(el: Element) -> OriginAccessControlConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "OriginAccessControlConfig.signing_behavior required"
+        import typing
+
+        out["signing_behavior"] = typing.cast(
+            "capo_cloudfront.types.origin_access_control_signing_behaviors.OriginAccessControlSigningBehaviors",
+            "",
         )
     child_origin_access_control_origin_type = el.find("OriginAccessControlOriginType")
     if child_origin_access_control_origin_type is not None:
@@ -96,7 +101,10 @@ def deserialize_xml(el: Element) -> OriginAccessControlConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "OriginAccessControlConfig.origin_access_control_origin_type required"
+        import typing
+
+        out["origin_access_control_origin_type"] = typing.cast(
+            "capo_cloudfront.types.origin_access_control_origin_types.OriginAccessControlOriginTypes",
+            "",
         )
     return out

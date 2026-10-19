@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.filter_expressions
 
@@ -43,9 +41,7 @@ def deserialize_json(data: dict) -> RelationalFilterConfiguration:
     if data.get("databaseName") is not None:
         out["database_name"] = data["databaseName"]
     else:
-        raise DeserializationError(
-            "RelationalFilterConfiguration.database_name required"
-        )
+        out["database_name"] = ""
     if data.get("schemaName") is not None:
         out["schema_name"] = data["schemaName"]
     if data.get("filterExpressions") is not None:

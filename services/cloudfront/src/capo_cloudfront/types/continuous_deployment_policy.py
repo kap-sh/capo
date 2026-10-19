@@ -45,7 +45,7 @@ def deserialize_xml(el: Element) -> ContinuousDeploymentPolicy:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("ContinuousDeploymentPolicy.id required")
+        out["id"] = ""
     child_last_modified_time = el.find("LastModifiedTime")
     if child_last_modified_time is not None:
         import capo_cloudfront.types.timestamp
@@ -54,8 +54,10 @@ def deserialize_xml(el: Element) -> ContinuousDeploymentPolicy:
             child_last_modified_time
         )
     else:
-        raise DeserializationError(
-            "ContinuousDeploymentPolicy.last_modified_time required"
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     child_continuous_deployment_policy_config = el.find(
         "ContinuousDeploymentPolicyConfig"

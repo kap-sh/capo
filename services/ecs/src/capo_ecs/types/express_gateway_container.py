@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.boxed_integer
     import capo_ecs.types.environment_variables
@@ -89,7 +87,7 @@ def deserialize_aws_json_1_1(data: dict) -> ExpressGatewayContainer:
     if data.get("image") is not None:
         out["image"] = data["image"]
     else:
-        raise DeserializationError("ExpressGatewayContainer.image required")
+        out["image"] = ""
     if data.get("containerPort") is not None:
         out["container_port"] = data["containerPort"]
     if data.get("awsLogsConfiguration") is not None:

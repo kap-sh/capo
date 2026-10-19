@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.monetization_amount_value
     import capo_wafv2.types.path_string
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> RevenuePathStatistics:
     if data.get("Path") is not None:
         out["path"] = data["Path"]
     else:
-        raise DeserializationError("RevenuePathStatistics.path required")
+        out["path"] = ""
     if data.get("Percentage") is not None:
         out["percentage"] = float(data["Percentage"])
     else:
@@ -55,7 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> RevenuePathStatistics:
     if data.get("Amount") is not None:
         out["amount"] = data["Amount"]
     else:
-        raise DeserializationError("RevenuePathStatistics.amount required")
+        out["amount"] = ""
     if data.get("RequestCount") is not None:
         out["request_count"] = data["RequestCount"]
     else:

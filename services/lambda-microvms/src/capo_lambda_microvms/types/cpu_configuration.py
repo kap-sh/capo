@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda_microvms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_microvms.types.architecture
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> CpuConfiguration:
             data["architecture"]
         )
     else:
-        raise DeserializationError("CpuConfiguration.architecture required")
+        import typing
+
+        out["architecture"] = typing.cast(
+            "capo_lambda_microvms.types.architecture.Architecture", ""
+        )
     return out

@@ -51,7 +51,12 @@ def deserialize_json(data: dict) -> RerankQuery:
             )
         )
     else:
-        raise DeserializationError("RerankQuery.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.rerank_query_content_type.RerankQueryContentType",
+            "",
+        )
     if data.get("textQuery") is not None:
         import capo_bedrock_agent_runtime.types.rerank_text_document
 

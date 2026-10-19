@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda_core.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_core.types.network_connector_versions_list
     import capo_lambda_core.types.string
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> ListNetworkConnectorVersionsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListNetworkConnectorVersionsResponse.network_connector_versions required"
-        )
+        out["network_connector_versions"] = []
     if data.get("NextMarker") is not None:
         out["next_marker"] = data["NextMarker"]
     return out

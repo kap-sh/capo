@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearchserverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearchserverless.types.client_token
     import capo_opensearchserverless.types.policy_name
@@ -38,11 +36,11 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteSecurityPolicyRequest:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("DeleteSecurityPolicyRequest.type required")
+        out["type"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DeleteSecurityPolicyRequest.name required")
+        out["name"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

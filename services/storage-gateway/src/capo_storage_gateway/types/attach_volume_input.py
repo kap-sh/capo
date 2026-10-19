@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.disk_id
     import capo_storage_gateway.types.gateway_arn
@@ -47,17 +45,17 @@ def deserialize_aws_json_1_1(data: dict) -> AttachVolumeInput:
     if data.get("GatewayARN") is not None:
         out["gateway_arn"] = data["GatewayARN"]
     else:
-        raise DeserializationError("AttachVolumeInput.gateway_arn required")
+        out["gateway_arn"] = ""
     if data.get("TargetName") is not None:
         out["target_name"] = data["TargetName"]
     if data.get("VolumeARN") is not None:
         out["volume_arn"] = data["VolumeARN"]
     else:
-        raise DeserializationError("AttachVolumeInput.volume_arn required")
+        out["volume_arn"] = ""
     if data.get("NetworkInterfaceId") is not None:
         out["network_interface_id"] = data["NetworkInterfaceId"]
     else:
-        raise DeserializationError("AttachVolumeInput.network_interface_id required")
+        out["network_interface_id"] = ""
     if data.get("DiskId") is not None:
         out["disk_id"] = data["DiskId"]
     return out

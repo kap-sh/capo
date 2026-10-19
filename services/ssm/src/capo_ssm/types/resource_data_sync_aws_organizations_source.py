@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.resource_data_sync_organization_source_type
     import capo_ssm.types.resource_data_sync_organizational_unit_list
@@ -40,9 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceDataSyncAwsOrganizationsSour
     if data.get("OrganizationSourceType") is not None:
         out["organization_source_type"] = data["OrganizationSourceType"]
     else:
-        raise DeserializationError(
-            "ResourceDataSyncAwsOrganizationsSource.organization_source_type required"
-        )
+        out["organization_source_type"] = ""
     if data.get("OrganizationalUnits") is not None:
         import capo_ssm.types.resource_data_sync_organizational_unit_list
 

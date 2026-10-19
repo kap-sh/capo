@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.profile_description
@@ -69,19 +67,19 @@ def deserialize_json(data: dict) -> LimitsProfile:
     if data.get("profileId") is not None:
         out["profile_id"] = data["profileId"]
     else:
-        raise DeserializationError("LimitsProfile.profile_id required")
+        out["profile_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("LimitsProfile.arn required")
+        out["arn"] = ""
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("LimitsProfile.account_id required")
+        out["account_id"] = ""
     if data.get("profileName") is not None:
         out["profile_name"] = data["profileName"]
     else:
-        raise DeserializationError("LimitsProfile.profile_name required")
+        out["profile_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("resourceLimits") is not None:
@@ -93,7 +91,7 @@ def deserialize_json(data: dict) -> LimitsProfile:
             )
         )
     else:
-        raise DeserializationError("LimitsProfile.resource_limits required")
+        out["resource_limits"] = {}
     if data.get("createdAt") is not None:
         import capo_quicksight.types.timestamp
 
@@ -101,7 +99,9 @@ def deserialize_json(data: dict) -> LimitsProfile:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("LimitsProfile.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_quicksight.types.timestamp
 
@@ -109,5 +109,7 @@ def deserialize_json(data: dict) -> LimitsProfile:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("LimitsProfile.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_auto_scaling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_auto_scaling.types.predictive_scaling_max_capacity_breach_behavior
     import capo_application_auto_scaling.types.predictive_scaling_max_capacity_buffer
@@ -79,9 +77,7 @@ def deserialize_aws_json_1_1(data: dict) -> PredictiveScalingPolicyConfiguration
             )
         )
     else:
-        raise DeserializationError(
-            "PredictiveScalingPolicyConfiguration.metric_specifications required"
-        )
+        out["metric_specifications"] = []
     if data.get("Mode") is not None:
         import capo_application_auto_scaling.types.predictive_scaling_mode
 

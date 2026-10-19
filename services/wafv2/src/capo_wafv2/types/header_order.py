@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.oversize_handling
 
@@ -37,5 +35,9 @@ def deserialize_aws_json_1_1(data: dict) -> HeaderOrder:
             )
         )
     else:
-        raise DeserializationError("HeaderOrder.oversize_handling required")
+        import typing
+
+        out["oversize_handling"] = typing.cast(
+            "capo_wafv2.types.oversize_handling.OversizeHandling", ""
+        )
     return out

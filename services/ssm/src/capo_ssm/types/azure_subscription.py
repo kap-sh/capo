@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.azure_subscription_display_name
     import capo_ssm.types.azure_subscription_id
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_1(data: dict) -> AzureSubscription:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("AzureSubscription.id required")
+        out["id"] = ""
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     return out

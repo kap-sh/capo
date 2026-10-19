@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmanager.types.client_token
     import capo_networkmanager.types.constrained_string
@@ -53,9 +51,7 @@ def deserialize_json(data: dict) -> CreateCoreNetworkRequest:
     if data.get("GlobalNetworkId") is not None:
         out["global_network_id"] = data["GlobalNetworkId"]
     else:
-        raise DeserializationError(
-            "CreateCoreNetworkRequest.global_network_id required"
-        )
+        out["global_network_id"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Tags") is not None:

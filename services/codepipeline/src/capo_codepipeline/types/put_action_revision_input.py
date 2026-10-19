@@ -45,15 +45,15 @@ def deserialize_aws_json_1_1(data: dict) -> PutActionRevisionInput:
     if data.get("pipelineName") is not None:
         out["pipeline_name"] = data["pipelineName"]
     else:
-        raise DeserializationError("PutActionRevisionInput.pipeline_name required")
+        out["pipeline_name"] = ""
     if data.get("stageName") is not None:
         out["stage_name"] = data["stageName"]
     else:
-        raise DeserializationError("PutActionRevisionInput.stage_name required")
+        out["stage_name"] = ""
     if data.get("actionName") is not None:
         out["action_name"] = data["actionName"]
     else:
-        raise DeserializationError("PutActionRevisionInput.action_name required")
+        out["action_name"] = ""
     if data.get("actionRevision") is not None:
         import capo_codepipeline.types.action_revision
 

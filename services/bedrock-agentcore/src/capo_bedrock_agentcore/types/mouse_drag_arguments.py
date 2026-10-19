@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.mouse_button
 
@@ -44,19 +42,19 @@ def deserialize_json(data: dict) -> MouseDragArguments:
     if data.get("endX") is not None:
         out["end_x"] = data["endX"]
     else:
-        raise DeserializationError("MouseDragArguments.end_x required")
+        out["end_x"] = 0
     if data.get("endY") is not None:
         out["end_y"] = data["endY"]
     else:
-        raise DeserializationError("MouseDragArguments.end_y required")
+        out["end_y"] = 0
     if data.get("startX") is not None:
         out["start_x"] = data["startX"]
     else:
-        raise DeserializationError("MouseDragArguments.start_x required")
+        out["start_x"] = 0
     if data.get("startY") is not None:
         out["start_y"] = data["startY"]
     else:
-        raise DeserializationError("MouseDragArguments.start_y required")
+        out["start_y"] = 0
     if data.get("button") is not None:
         import capo_bedrock_agentcore.types.mouse_button
 

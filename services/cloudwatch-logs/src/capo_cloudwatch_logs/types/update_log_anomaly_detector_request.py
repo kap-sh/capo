@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.anomaly_detector_arn
     import capo_cloudwatch_logs.types.anomaly_visibility_time
@@ -59,9 +57,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLogAnomalyDetectorRequest:
     if data.get("anomalyDetectorArn") is not None:
         out["anomaly_detector_arn"] = data["anomalyDetectorArn"]
     else:
-        raise DeserializationError(
-            "UpdateLogAnomalyDetectorRequest.anomaly_detector_arn required"
-        )
+        out["anomaly_detector_arn"] = ""
     if data.get("evaluationFrequency") is not None:
         import capo_cloudwatch_logs.types.evaluation_frequency
 
@@ -77,5 +73,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLogAnomalyDetectorRequest:
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     else:
-        raise DeserializationError("UpdateLogAnomalyDetectorRequest.enabled required")
+        out["enabled"] = False
     return out

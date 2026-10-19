@@ -51,7 +51,7 @@ def deserialize_json(data: dict) -> CreateRouteInput:
     if data.get("routeName") is not None:
         out["route_name"] = data["routeName"]
     else:
-        raise DeserializationError("CreateRouteInput.route_name required")
+        out["route_name"] = ""
     if data.get("spec") is not None:
         import capo_app_mesh.types.route_spec
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.site_base_url
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> ConfluenceParameters:
     if data.get("ConfluenceUrl") is not None:
         out["confluence_url"] = data["ConfluenceUrl"]
     else:
-        raise DeserializationError("ConfluenceParameters.confluence_url required")
+        out["confluence_url"] = ""
     return out

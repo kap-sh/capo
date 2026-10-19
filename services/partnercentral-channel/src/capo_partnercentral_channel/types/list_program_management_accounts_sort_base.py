@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_channel.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_channel.types.list_program_management_accounts_sort_name
     import capo_partnercentral_channel.types.sort_order
@@ -49,8 +47,10 @@ def deserialize_aws_json_1_0(data: dict) -> ListProgramManagementAccountsSortBas
             )
         )
     else:
-        raise DeserializationError(
-            "ListProgramManagementAccountsSortBase.sort_order required"
+        import typing
+
+        out["sort_order"] = typing.cast(
+            "capo_partnercentral_channel.types.sort_order.SortOrder", ""
         )
     if data.get("sortBy") is not None:
         import capo_partnercentral_channel.types.list_program_management_accounts_sort_name
@@ -61,7 +61,10 @@ def deserialize_aws_json_1_0(data: dict) -> ListProgramManagementAccountsSortBas
             )
         )
     else:
-        raise DeserializationError(
-            "ListProgramManagementAccountsSortBase.sort_by required"
+        import typing
+
+        out["sort_by"] = typing.cast(
+            "capo_partnercentral_channel.types.list_program_management_accounts_sort_name.ListProgramManagementAccountsSortName",
+            "",
         )
     return out

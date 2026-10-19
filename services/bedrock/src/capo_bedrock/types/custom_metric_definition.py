@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.custom_metric_instructions
     import capo_bedrock.types.metric_name
@@ -42,11 +40,11 @@ def deserialize_json(data: dict) -> CustomMetricDefinition:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CustomMetricDefinition.name required")
+        out["name"] = ""
     if data.get("instructions") is not None:
         out["instructions"] = data["instructions"]
     else:
-        raise DeserializationError("CustomMetricDefinition.instructions required")
+        out["instructions"] = ""
     if data.get("ratingScale") is not None:
         import capo_bedrock.types.rating_scale
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.thing_arn
     import capo_iot_wireless.types.wireless_gateway_id
@@ -30,7 +28,5 @@ def deserialize_json(data: dict) -> AssociateWirelessGatewayWithThingRequest:
     if data.get("ThingArn") is not None:
         out["thing_arn"] = data["ThingArn"]
     else:
-        raise DeserializationError(
-            "AssociateWirelessGatewayWithThingRequest.thing_arn required"
-        )
+        out["thing_arn"] = ""
     return out

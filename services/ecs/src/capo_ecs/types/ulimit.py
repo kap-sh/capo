@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.integer
     import capo_ecs.types.ulimit_name
@@ -38,7 +36,9 @@ def deserialize_aws_json_1_1(data: dict) -> Ulimit:
 
         out["name"] = capo_ecs.types.ulimit_name.deserialize_aws_json_1_1(data["name"])
     else:
-        raise DeserializationError("Ulimit.name required")
+        import typing
+
+        out["name"] = typing.cast("capo_ecs.types.ulimit_name.UlimitName", "")
     if data.get("softLimit") is not None:
         out["soft_limit"] = data["softLimit"]
     else:

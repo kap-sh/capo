@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.execution_status
     import capo_devops_agent.types.journal_timestamp
@@ -67,17 +65,17 @@ def deserialize_json(data: dict) -> Execution:
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError("Execution.agent_space_id required")
+        out["agent_space_id"] = ""
     if data.get("executionId") is not None:
         out["execution_id"] = data["executionId"]
     else:
-        raise DeserializationError("Execution.execution_id required")
+        out["execution_id"] = ""
     if data.get("parentExecutionId") is not None:
         out["parent_execution_id"] = data["parentExecutionId"]
     if data.get("agentSubTask") is not None:
         out["agent_sub_task"] = data["agentSubTask"]
     else:
-        raise DeserializationError("Execution.agent_sub_task required")
+        out["agent_sub_task"] = ""
     if data.get("createdAt") is not None:
         import capo_devops_agent.types.journal_timestamp
 
@@ -85,7 +83,9 @@ def deserialize_json(data: dict) -> Execution:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("Execution.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_devops_agent.types.journal_timestamp
 
@@ -93,7 +93,9 @@ def deserialize_json(data: dict) -> Execution:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("Execution.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("executionStatus") is not None:
         import capo_devops_agent.types.execution_status
 
@@ -103,7 +105,11 @@ def deserialize_json(data: dict) -> Execution:
             )
         )
     else:
-        raise DeserializationError("Execution.execution_status required")
+        import typing
+
+        out["execution_status"] = typing.cast(
+            "capo_devops_agent.types.execution_status.ExecutionStatus", ""
+        )
     if data.get("agentType") is not None:
         out["agent_type"] = data["agentType"]
     if data.get("uid") is not None:

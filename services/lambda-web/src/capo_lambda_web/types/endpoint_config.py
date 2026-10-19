@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_web.types.auth_type
     import capo_lambda_web.types.auto_deployment_mode
@@ -86,7 +84,7 @@ def deserialize_json(data: dict) -> EndpointConfig:
     if data.get("endpointName") is not None:
         out["endpoint_name"] = data["endpointName"]
     else:
-        raise DeserializationError("EndpointConfig.endpoint_name required")
+        out["endpoint_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("endpointType") is not None:
@@ -96,7 +94,11 @@ def deserialize_json(data: dict) -> EndpointConfig:
             data["endpointType"]
         )
     else:
-        raise DeserializationError("EndpointConfig.endpoint_type required")
+        import typing
+
+        out["endpoint_type"] = typing.cast(
+            "capo_lambda_web.types.endpoint_type.EndpointType", ""
+        )
     if data.get("authType") is not None:
         import capo_lambda_web.types.auth_type
 
@@ -104,7 +106,9 @@ def deserialize_json(data: dict) -> EndpointConfig:
             data["authType"]
         )
     else:
-        raise DeserializationError("EndpointConfig.auth_type required")
+        import typing
+
+        out["auth_type"] = typing.cast("capo_lambda_web.types.auth_type.AuthType", "")
     if data.get("autoDeploymentMode") is not None:
         import capo_lambda_web.types.auto_deployment_mode
 

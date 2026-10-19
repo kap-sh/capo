@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.enabled_memory_types
     import capo_bedrock_agent.types.session_summary_configuration
@@ -58,7 +56,7 @@ def deserialize_json(data: dict) -> MemoryConfiguration:
             )
         )
     else:
-        raise DeserializationError("MemoryConfiguration.enabled_memory_types required")
+        out["enabled_memory_types"] = []
     if data.get("storageDays") is not None:
         out["storage_days"] = data["storageDays"]
     else:

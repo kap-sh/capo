@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 
 class ToolUseBlockDelta(TypedDict, closed=True):
     input: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> ToolUseBlockDelta:
     if data.get("input") is not None:
         out["input"] = data["input"]
     else:
-        raise DeserializationError("ToolUseBlockDelta.input required")
+        out["input"] = ""
     return out

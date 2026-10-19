@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.string
@@ -31,10 +30,10 @@ def deserialize_xml(el: Element) -> QueryArgProfile:
     if child_query_arg is not None:
         out["query_arg"] = str(child_query_arg.text or "")
     else:
-        raise DeserializationError("QueryArgProfile.query_arg required")
+        out["query_arg"] = ""
     child_profile_id = el.find("ProfileId")
     if child_profile_id is not None:
         out["profile_id"] = str(child_profile_id.text or "")
     else:
-        raise DeserializationError("QueryArgProfile.profile_id required")
+        out["profile_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_managedblockchain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_managedblockchain.types.principal_string
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> InviteAction:
     if data.get("Principal") is not None:
         out["principal"] = data["Principal"]
     else:
-        raise DeserializationError("InviteAction.principal required")
+        out["principal"] = ""
     return out

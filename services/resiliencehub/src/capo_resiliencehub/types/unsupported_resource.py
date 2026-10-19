@@ -77,7 +77,7 @@ def deserialize_json(data: dict) -> UnsupportedResource:
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError("UnsupportedResource.resource_type required")
+        out["resource_type"] = ""
     if data.get("unsupportedResourceStatus") is not None:
         out["unsupported_resource_status"] = data["unsupportedResourceStatus"]
     return out

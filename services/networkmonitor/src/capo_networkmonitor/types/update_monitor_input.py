@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_networkmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmonitor.types.aggregation_period
     import capo_networkmonitor.types.resource_name
@@ -30,5 +28,5 @@ def deserialize_json(data: dict) -> UpdateMonitorInput:
     if data.get("aggregationPeriod") is not None:
         out["aggregation_period"] = data["aggregationPeriod"]
     else:
-        raise DeserializationError("UpdateMonitorInput.aggregation_period required")
+        out["aggregation_period"] = 0
     return out

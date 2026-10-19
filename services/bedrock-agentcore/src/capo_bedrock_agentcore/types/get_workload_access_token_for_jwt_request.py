@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.user_token_type
     import capo_bedrock_agentcore.types.workload_identity_name_type
@@ -31,15 +29,11 @@ def deserialize_json(data: dict) -> GetWorkloadAccessTokenForJWTRequest:
     if data.get("workloadName") is not None:
         out["workload_name"] = data["workloadName"]
     else:
-        raise DeserializationError(
-            "GetWorkloadAccessTokenForJWTRequest.workload_name required"
-        )
+        out["workload_name"] = ""
     if data.get("userToken") is not None:
         out["user_token"] = data["userToken"]
     else:
-        raise DeserializationError(
-            "GetWorkloadAccessTokenForJWTRequest.user_token required"
-        )
+        out["user_token"] = ""
     return out
 
 

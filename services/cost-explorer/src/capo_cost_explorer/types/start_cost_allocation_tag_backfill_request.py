@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.zoned_date_time
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> StartCostAllocationTagBackfillReques
     if data.get("BackfillFrom") is not None:
         out["backfill_from"] = data["BackfillFrom"]
     else:
-        raise DeserializationError(
-            "StartCostAllocationTagBackfillRequest.backfill_from required"
-        )
+        out["backfill_from"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.network_interface_rule_list
 
@@ -41,7 +39,5 @@ def deserialize_json(data: dict) -> PublicRouterNetworkInterfaceConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "PublicRouterNetworkInterfaceConfiguration.allow_rules required"
-        )
+        out["allow_rules"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -88,7 +86,7 @@ def deserialize_json(data: dict) -> AnalysisRule:
     if data.get("collaborationId") is not None:
         out["collaboration_id"] = data["collaborationId"]
     else:
-        raise DeserializationError("AnalysisRule.collaboration_id required")
+        out["collaboration_id"] = ""
     if data.get("type") is not None:
         import capo_cleanrooms.types.analysis_rule_type
 
@@ -96,11 +94,15 @@ def deserialize_json(data: dict) -> AnalysisRule:
             data["type"]
         )
     else:
-        raise DeserializationError("AnalysisRule.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cleanrooms.types.analysis_rule_type.AnalysisRuleType", ""
+        )
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AnalysisRule.name required")
+        out["name"] = ""
     if data.get("createTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -108,7 +110,11 @@ def deserialize_json(data: dict) -> AnalysisRule:
             data["createTime"]
         )
     else:
-        raise DeserializationError("AnalysisRule.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -116,7 +122,11 @@ def deserialize_json(data: dict) -> AnalysisRule:
             data["updateTime"]
         )
     else:
-        raise DeserializationError("AnalysisRule.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("policy") is not None:
         import capo_cleanrooms.types.analysis_rule_policy
 
@@ -124,7 +134,9 @@ def deserialize_json(data: dict) -> AnalysisRule:
             data["policy"]
         )
     else:
-        raise DeserializationError("AnalysisRule.policy required")
+        import capo_cleanrooms.types._unknown
+
+        out["policy"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
     if data.get("collaborationPolicy") is not None:
         import capo_cleanrooms.types.configured_table_association_analysis_rule_policy
 

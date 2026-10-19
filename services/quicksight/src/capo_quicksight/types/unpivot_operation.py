@@ -61,7 +61,7 @@ def deserialize_json(data: dict) -> UnpivotOperation:
     if data.get("Alias") is not None:
         out["alias"] = data["Alias"]
     else:
-        raise DeserializationError("UnpivotOperation.alias required")
+        out["alias"] = ""
     if data.get("Source") is not None:
         import capo_quicksight.types.transform_operation_source
 
@@ -81,29 +81,21 @@ def deserialize_json(data: dict) -> UnpivotOperation:
             )
         )
     else:
-        raise DeserializationError("UnpivotOperation.columns_to_unpivot required")
+        out["columns_to_unpivot"] = []
     if data.get("UnpivotedLabelColumnName") is not None:
         out["unpivoted_label_column_name"] = data["UnpivotedLabelColumnName"]
     else:
-        raise DeserializationError(
-            "UnpivotOperation.unpivoted_label_column_name required"
-        )
+        out["unpivoted_label_column_name"] = ""
     if data.get("UnpivotedLabelColumnId") is not None:
         out["unpivoted_label_column_id"] = data["UnpivotedLabelColumnId"]
     else:
-        raise DeserializationError(
-            "UnpivotOperation.unpivoted_label_column_id required"
-        )
+        out["unpivoted_label_column_id"] = ""
     if data.get("UnpivotedValueColumnName") is not None:
         out["unpivoted_value_column_name"] = data["UnpivotedValueColumnName"]
     else:
-        raise DeserializationError(
-            "UnpivotOperation.unpivoted_value_column_name required"
-        )
+        out["unpivoted_value_column_name"] = ""
     if data.get("UnpivotedValueColumnId") is not None:
         out["unpivoted_value_column_id"] = data["UnpivotedValueColumnId"]
     else:
-        raise DeserializationError(
-            "UnpivotOperation.unpivoted_value_column_id required"
-        )
+        out["unpivoted_value_column_id"] = ""
     return out

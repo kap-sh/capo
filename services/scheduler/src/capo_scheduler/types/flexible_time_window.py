@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_scheduler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_scheduler.types.flexible_time_window_mode
     import capo_scheduler.types.maximum_window_in_minutes
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> FlexibleTimeWindow:
     if data.get("Mode") is not None:
         out["mode"] = data["Mode"]
     else:
-        raise DeserializationError("FlexibleTimeWindow.mode required")
+        out["mode"] = ""
     if data.get("MaximumWindowInMinutes") is not None:
         out["maximum_window_in_minutes"] = data["MaximumWindowInMinutes"]
     return out

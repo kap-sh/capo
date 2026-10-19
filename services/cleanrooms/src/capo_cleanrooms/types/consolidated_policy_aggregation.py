@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.additional_analyses
     import capo_cleanrooms.types.aggregate_column_list
@@ -139,9 +137,7 @@ def deserialize_json(data: dict) -> ConsolidatedPolicyAggregation:
             )
         )
     else:
-        raise DeserializationError(
-            "ConsolidatedPolicyAggregation.aggregate_columns required"
-        )
+        out["aggregate_columns"] = []
     if data.get("joinColumns") is not None:
         import capo_cleanrooms.types.analysis_rule_column_list
 
@@ -151,9 +147,7 @@ def deserialize_json(data: dict) -> ConsolidatedPolicyAggregation:
             )
         )
     else:
-        raise DeserializationError(
-            "ConsolidatedPolicyAggregation.join_columns required"
-        )
+        out["join_columns"] = []
     if data.get("joinRequired") is not None:
         out["join_required"] = data["joinRequired"]
     if data.get("allowedJoinOperators") is not None:
@@ -173,9 +167,7 @@ def deserialize_json(data: dict) -> ConsolidatedPolicyAggregation:
             )
         )
     else:
-        raise DeserializationError(
-            "ConsolidatedPolicyAggregation.dimension_columns required"
-        )
+        out["dimension_columns"] = []
     if data.get("scalarFunctions") is not None:
         import capo_cleanrooms.types.scalar_functions_list
 
@@ -185,9 +177,7 @@ def deserialize_json(data: dict) -> ConsolidatedPolicyAggregation:
             )
         )
     else:
-        raise DeserializationError(
-            "ConsolidatedPolicyAggregation.scalar_functions required"
-        )
+        out["scalar_functions"] = []
     if data.get("outputConstraints") is not None:
         import capo_cleanrooms.types.aggregation_constraints
 
@@ -197,9 +187,7 @@ def deserialize_json(data: dict) -> ConsolidatedPolicyAggregation:
             )
         )
     else:
-        raise DeserializationError(
-            "ConsolidatedPolicyAggregation.output_constraints required"
-        )
+        out["output_constraints"] = []
     if data.get("additionalAnalyses") is not None:
         import capo_cleanrooms.types.additional_analyses
 

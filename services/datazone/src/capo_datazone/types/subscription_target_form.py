@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.form_name
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> SubscriptionTargetForm:
     if data.get("formName") is not None:
         out["form_name"] = data["formName"]
     else:
-        raise DeserializationError("SubscriptionTargetForm.form_name required")
+        out["form_name"] = ""
     if data.get("content") is not None:
         out["content"] = data["content"]
     else:
-        raise DeserializationError("SubscriptionTargetForm.content required")
+        out["content"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.mac_address
     import capo_iot_wireless.types.rss
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> WiFiAccessPoint:
     if data.get("MacAddress") is not None:
         out["mac_address"] = data["MacAddress"]
     else:
-        raise DeserializationError("WiFiAccessPoint.mac_address required")
+        out["mac_address"] = ""
     if data.get("Rss") is not None:
         out["rss"] = data["Rss"]
     else:
-        raise DeserializationError("WiFiAccessPoint.rss required")
+        out["rss"] = 0
     return out

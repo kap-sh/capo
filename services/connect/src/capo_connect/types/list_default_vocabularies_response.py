@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.default_vocabulary_list
     import capo_connect.types.vocabulary_next_token
@@ -48,9 +46,7 @@ def deserialize_json(data: dict) -> ListDefaultVocabulariesResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListDefaultVocabulariesResponse.default_vocabulary_list required"
-        )
+        out["default_vocabulary_list"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

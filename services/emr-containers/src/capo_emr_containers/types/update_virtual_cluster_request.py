@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_containers.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_containers.types.client_token
     import capo_emr_containers.types.resource_id_string
@@ -51,5 +49,5 @@ def deserialize_json(data: dict) -> UpdateVirtualClusterRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("UpdateVirtualClusterRequest.client_token required")
+        out["client_token"] = ""
     return out

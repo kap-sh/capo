@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces_instances.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_instances.types.workspace_instance_id
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_0(data: dict) -> ListTagsForResourceRequest:
     if data.get("WorkspaceInstanceId") is not None:
         out["workspace_instance_id"] = data["WorkspaceInstanceId"]
     else:
-        raise DeserializationError(
-            "ListTagsForResourceRequest.workspace_instance_id required"
-        )
+        out["workspace_instance_id"] = ""
     return out

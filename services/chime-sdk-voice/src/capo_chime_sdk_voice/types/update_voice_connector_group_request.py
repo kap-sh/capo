@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.call_distribution_type
     import capo_chime_sdk_voice.types.non_empty_string
@@ -58,7 +56,7 @@ def deserialize_json(data: dict) -> UpdateVoiceConnectorGroupRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateVoiceConnectorGroupRequest.name required")
+        out["name"] = ""
     if data.get("VoiceConnectorItems") is not None:
         import capo_chime_sdk_voice.types.voice_connector_item_list
 
@@ -68,9 +66,7 @@ def deserialize_json(data: dict) -> UpdateVoiceConnectorGroupRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateVoiceConnectorGroupRequest.voice_connector_items required"
-        )
+        out["voice_connector_items"] = []
     if data.get("CallDistributionType") is not None:
         import capo_chime_sdk_voice.types.call_distribution_type
 

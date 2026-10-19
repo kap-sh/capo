@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.function_runtime
@@ -47,7 +46,7 @@ def deserialize_xml(el: Element) -> FunctionConfig:
     if child_comment is not None:
         out["comment"] = str(child_comment.text or "")
     else:
-        raise DeserializationError("FunctionConfig.comment required")
+        out["comment"] = ""
     child_runtime = el.find("Runtime")
     if child_runtime is not None:
         import capo_cloudfront.types.function_runtime
@@ -56,7 +55,11 @@ def deserialize_xml(el: Element) -> FunctionConfig:
             child_runtime
         )
     else:
-        raise DeserializationError("FunctionConfig.runtime required")
+        import typing
+
+        out["runtime"] = typing.cast(
+            "capo_cloudfront.types.function_runtime.FunctionRuntime", ""
+        )
     child_key_value_store_associations = el.find("KeyValueStoreAssociations")
     if child_key_value_store_associations is not None:
         import capo_cloudfront.types.key_value_store_associations

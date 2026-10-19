@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_controlcatalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_controlcatalog.types.framework_item
     import capo_controlcatalog.types.framework_name
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> FrameworkMappingDetails:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("FrameworkMappingDetails.name required")
+        out["name"] = ""
     if data.get("Item") is not None:
         out["item"] = data["Item"]
     else:
-        raise DeserializationError("FrameworkMappingDetails.item required")
+        out["item"] = ""
     return out

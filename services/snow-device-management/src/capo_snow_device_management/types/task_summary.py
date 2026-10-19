@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_snow_device_management.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_snow_device_management.types.tag_map
     import capo_snow_device_management.types.task_id
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> TaskSummary:
     if data.get("taskId") is not None:
         out["task_id"] = data["taskId"]
     else:
-        raise DeserializationError("TaskSummary.task_id required")
+        out["task_id"] = ""
     if data.get("taskArn") is not None:
         out["task_arn"] = data["taskArn"]
     if data.get("state") is not None:

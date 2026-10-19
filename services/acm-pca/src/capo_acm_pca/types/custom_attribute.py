@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_acm_pca.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm_pca.types.custom_object_identifier
     import capo_acm_pca.types.string1_to256
@@ -33,9 +31,9 @@ def deserialize_aws_json_1_1(data: dict) -> CustomAttribute:
     if data.get("ObjectIdentifier") is not None:
         out["object_identifier"] = data["ObjectIdentifier"]
     else:
-        raise DeserializationError("CustomAttribute.object_identifier required")
+        out["object_identifier"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("CustomAttribute.value required")
+        out["value"] = ""
     return out

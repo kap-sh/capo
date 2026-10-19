@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudtrail_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail_data.types.error_code
     import capo_cloudtrail_data.types.error_message
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> ResultErrorEntry:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ResultErrorEntry.id required")
+        out["id"] = ""
     if data.get("errorCode") is not None:
         out["error_code"] = data["errorCode"]
     else:
-        raise DeserializationError("ResultErrorEntry.error_code required")
+        out["error_code"] = ""
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     else:
-        raise DeserializationError("ResultErrorEntry.error_message required")
+        out["error_message"] = ""
     return out

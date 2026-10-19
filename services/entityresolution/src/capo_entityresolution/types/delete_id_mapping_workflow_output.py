@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 
 class DeleteIdMappingWorkflowOutput(TypedDict, closed=True):
     message: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> DeleteIdMappingWorkflowOutput:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("DeleteIdMappingWorkflowOutput.message required")
+        out["message"] = ""
     return out

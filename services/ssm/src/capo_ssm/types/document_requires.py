@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.document_arn
     import capo_ssm.types.document_version
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentRequires:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DocumentRequires.name required")
+        out["name"] = ""
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     if data.get("RequireType") is not None:

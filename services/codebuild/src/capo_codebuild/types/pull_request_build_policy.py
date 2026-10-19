@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.pull_request_build_approver_roles
     import capo_codebuild.types.pull_request_build_comment_approval
@@ -52,8 +50,11 @@ def deserialize_aws_json_1_1(data: dict) -> PullRequestBuildPolicy:
             )
         )
     else:
-        raise DeserializationError(
-            "PullRequestBuildPolicy.requires_comment_approval required"
+        import typing
+
+        out["requires_comment_approval"] = typing.cast(
+            "capo_codebuild.types.pull_request_build_comment_approval.PullRequestBuildCommentApproval",
+            "",
         )
     if data.get("approverRoles") is not None:
         import capo_codebuild.types.pull_request_build_approver_roles

@@ -75,9 +75,7 @@ def deserialize_json(data: dict) -> CreateDetectorModelRequest:
     if data.get("detectorModelName") is not None:
         out["detector_model_name"] = data["detectorModelName"]
     else:
-        raise DeserializationError(
-            "CreateDetectorModelRequest.detector_model_name required"
-        )
+        out["detector_model_name"] = ""
     if data.get("detectorModelDefinition") is not None:
         import capo_iot_events.types.detector_model_definition
 
@@ -97,7 +95,7 @@ def deserialize_json(data: dict) -> CreateDetectorModelRequest:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateDetectorModelRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("tags") is not None:
         import capo_iot_events.types.tags
 

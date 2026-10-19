@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.non_empty_string
     import capo_qconnect.types.span_message_value_list
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> SpanToolResultValue:
     if data.get("toolUseId") is not None:
         out["tool_use_id"] = data["toolUseId"]
     else:
-        raise DeserializationError("SpanToolResultValue.tool_use_id required")
+        out["tool_use_id"] = ""
     if data.get("values") is not None:
         import capo_qconnect.types.span_message_value_list
 
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> SpanToolResultValue:
             data["values"]
         )
     else:
-        raise DeserializationError("SpanToolResultValue.values required")
+        out["values"] = []
     if data.get("error") is not None:
         out["error"] = data["error"]
     return out

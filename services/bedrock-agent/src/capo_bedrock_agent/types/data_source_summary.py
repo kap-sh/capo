@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.data_source_status
     import capo_bedrock_agent.types.date_timestamp
@@ -55,15 +53,15 @@ def deserialize_json(data: dict) -> DataSourceSummary:
     if data.get("knowledgeBaseId") is not None:
         out["knowledge_base_id"] = data["knowledgeBaseId"]
     else:
-        raise DeserializationError("DataSourceSummary.knowledge_base_id required")
+        out["knowledge_base_id"] = ""
     if data.get("dataSourceId") is not None:
         out["data_source_id"] = data["dataSourceId"]
     else:
-        raise DeserializationError("DataSourceSummary.data_source_id required")
+        out["data_source_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DataSourceSummary.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agent.types.data_source_status
 
@@ -71,7 +69,11 @@ def deserialize_json(data: dict) -> DataSourceSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("DataSourceSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agent.types.data_source_status.DataSourceStatus", ""
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("updatedAt") is not None:
@@ -81,5 +83,7 @@ def deserialize_json(data: dict) -> DataSourceSummary:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("DataSourceSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

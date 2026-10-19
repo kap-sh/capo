@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.bedrock_guardrail_configuration
     import capo_lex_models_v2.types.bedrock_model_arn
@@ -60,7 +58,7 @@ def deserialize_json(data: dict) -> BedrockModelSpecification:
     if data.get("modelArn") is not None:
         out["model_arn"] = data["modelArn"]
     else:
-        raise DeserializationError("BedrockModelSpecification.model_arn required")
+        out["model_arn"] = ""
     if data.get("guardrail") is not None:
         import capo_lex_models_v2.types.bedrock_guardrail_configuration
 

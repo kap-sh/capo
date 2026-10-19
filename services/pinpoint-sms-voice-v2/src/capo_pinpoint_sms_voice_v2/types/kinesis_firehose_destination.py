@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.delivery_stream_arn
     import capo_pinpoint_sms_voice_v2.types.iam_role_arn
@@ -33,11 +31,9 @@ def deserialize_aws_json_1_0(data: dict) -> KinesisFirehoseDestination:
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     else:
-        raise DeserializationError("KinesisFirehoseDestination.iam_role_arn required")
+        out["iam_role_arn"] = ""
     if data.get("DeliveryStreamArn") is not None:
         out["delivery_stream_arn"] = data["DeliveryStreamArn"]
     else:
-        raise DeserializationError(
-            "KinesisFirehoseDestination.delivery_stream_arn required"
-        )
+        out["delivery_stream_arn"] = ""
     return out

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_resource_explorer_2.errors import DeserializationError
-
 
 class DeleteIndexInput(TypedDict, closed=True):
     arn: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> DeleteIndexInput:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("DeleteIndexInput.arn required")
+        out["arn"] = ""
     return out

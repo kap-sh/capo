@@ -58,9 +58,7 @@ def deserialize_json(data: dict) -> StartContactConversationalAnalyticsJobReques
             data["AnalyticsModes"]
         )
     else:
-        raise DeserializationError(
-            "StartContactConversationalAnalyticsJobRequest.analytics_modes required"
-        )
+        out["analytics_modes"] = []
     if data.get("AnalyticsConfiguration") is not None:
         import capo_connect.types.analytics_configuration
 

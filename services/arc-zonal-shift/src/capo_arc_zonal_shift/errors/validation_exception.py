@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_arc_zonal_shift.errors import DeserializationError, ServiceError
+from capo_arc_zonal_shift.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_arc_zonal_shift.types.validation_exception_reason
@@ -36,7 +36,7 @@ def deserialize_json(data: dict) -> ValidationException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ValidationException_.message required")
+        out["message"] = ""
     if data.get("reason") is not None:
         import capo_arc_zonal_shift.types.validation_exception_reason
 
@@ -46,7 +46,12 @@ def deserialize_json(data: dict) -> ValidationException_:
             )
         )
     else:
-        raise DeserializationError("ValidationException_.reason required")
+        import typing
+
+        out["reason"] = typing.cast(
+            "capo_arc_zonal_shift.types.validation_exception_reason.ValidationExceptionReason",
+            "",
+        )
     return out
 
 

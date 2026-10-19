@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.durable_execution_arn
     import capo_lambda.types.event_input
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> ChainedInvokeStartedDetails:
     if data.get("FunctionName") is not None:
         out["function_name"] = data["FunctionName"]
     else:
-        raise DeserializationError("ChainedInvokeStartedDetails.function_name required")
+        out["function_name"] = ""
     if data.get("TenantId") is not None:
         out["tenant_id"] = data["TenantId"]
     if data.get("Input") is not None:

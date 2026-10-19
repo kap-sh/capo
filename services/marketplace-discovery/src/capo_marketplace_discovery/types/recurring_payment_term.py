@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.billing_period_type
     import capo_marketplace_discovery.types.bounded_string
@@ -55,7 +53,7 @@ def deserialize_json(data: dict) -> RecurringPaymentTerm:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("RecurringPaymentTerm.id required")
+        out["id"] = ""
     if data.get("type") is not None:
         import capo_marketplace_discovery.types.term_type
 
@@ -63,11 +61,15 @@ def deserialize_json(data: dict) -> RecurringPaymentTerm:
             data["type"]
         )
     else:
-        raise DeserializationError("RecurringPaymentTerm.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_marketplace_discovery.types.term_type.TermType", ""
+        )
     if data.get("currencyCode") is not None:
         out["currency_code"] = data["currencyCode"]
     else:
-        raise DeserializationError("RecurringPaymentTerm.currency_code required")
+        out["currency_code"] = ""
     if data.get("billingPeriod") is not None:
         import capo_marketplace_discovery.types.billing_period_type
 
@@ -77,9 +79,13 @@ def deserialize_json(data: dict) -> RecurringPaymentTerm:
             )
         )
     else:
-        raise DeserializationError("RecurringPaymentTerm.billing_period required")
+        import typing
+
+        out["billing_period"] = typing.cast(
+            "capo_marketplace_discovery.types.billing_period_type.BillingPeriodType", ""
+        )
     if data.get("price") is not None:
         out["price"] = data["price"]
     else:
-        raise DeserializationError("RecurringPaymentTerm.price required")
+        out["price"] = ""
     return out

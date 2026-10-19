@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_clouddirectory.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_clouddirectory.types.attribute_key_and_value_list
     import capo_clouddirectory.types.batch_reference_name
@@ -72,7 +70,7 @@ def deserialize_json(data: dict) -> BatchCreateObject:
             )
         )
     else:
-        raise DeserializationError("BatchCreateObject.schema_facet required")
+        out["schema_facet"] = []
     if data.get("ObjectAttributeList") is not None:
         import capo_clouddirectory.types.attribute_key_and_value_list
 
@@ -82,7 +80,7 @@ def deserialize_json(data: dict) -> BatchCreateObject:
             )
         )
     else:
-        raise DeserializationError("BatchCreateObject.object_attribute_list required")
+        out["object_attribute_list"] = []
     if data.get("ParentReference") is not None:
         import capo_clouddirectory.types.object_reference
 

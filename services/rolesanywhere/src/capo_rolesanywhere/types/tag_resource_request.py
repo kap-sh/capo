@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_rolesanywhere.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rolesanywhere.types.amazon_resource_name
     import capo_rolesanywhere.types.tag_list
@@ -33,13 +31,13 @@ def deserialize_json(data: dict) -> TagResourceRequest:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("TagResourceRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("tags") is not None:
         import capo_rolesanywhere.types.tag_list
 
         out["tags"] = capo_rolesanywhere.types.tag_list.deserialize_json(data["tags"])
     else:
-        raise DeserializationError("TagResourceRequest.tags required")
+        out["tags"] = []
     return out
 
 

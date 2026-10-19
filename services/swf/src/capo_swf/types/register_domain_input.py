@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.description
     import capo_swf.types.domain_name
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_0(data: dict) -> RegisterDomainInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RegisterDomainInput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("workflowExecutionRetentionPeriodInDays") is not None:
@@ -57,9 +55,7 @@ def deserialize_aws_json_1_0(data: dict) -> RegisterDomainInput:
             "workflowExecutionRetentionPeriodInDays"
         ]
     else:
-        raise DeserializationError(
-            "RegisterDomainInput.workflow_execution_retention_period_in_days required"
-        )
+        out["workflow_execution_retention_period_in_days"] = ""
     if data.get("tags") is not None:
         import capo_swf.types.resource_tag_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.account_recovery_setting_type
     import capo_cognito_identity_provider.types.acr_configuration_type
@@ -342,7 +340,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateUserPoolRequest:
     if data.get("PoolName") is not None:
         out["pool_name"] = data["PoolName"]
     else:
-        raise DeserializationError("CreateUserPoolRequest.pool_name required")
+        out["pool_name"] = ""
     if data.get("Policies") is not None:
         import capo_cognito_identity_provider.types.user_pool_policy_type
 

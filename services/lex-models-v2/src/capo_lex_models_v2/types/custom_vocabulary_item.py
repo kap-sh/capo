@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.item_id
     import capo_lex_models_v2.types.phrase
@@ -40,11 +38,11 @@ def deserialize_json(data: dict) -> CustomVocabularyItem:
     if data.get("itemId") is not None:
         out["item_id"] = data["itemId"]
     else:
-        raise DeserializationError("CustomVocabularyItem.item_id required")
+        out["item_id"] = ""
     if data.get("phrase") is not None:
         out["phrase"] = data["phrase"]
     else:
-        raise DeserializationError("CustomVocabularyItem.phrase required")
+        out["phrase"] = ""
     if data.get("weight") is not None:
         out["weight"] = data["weight"]
     if data.get("displayAs") is not None:

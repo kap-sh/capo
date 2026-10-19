@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_efs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_efs.types.aws_account_id
     import capo_efs.types.file_system_id
@@ -65,15 +63,19 @@ def deserialize_json(data: dict) -> Destination:
             data["Status"]
         )
     else:
-        raise DeserializationError("Destination.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_efs.types.replication_status.ReplicationStatus", ""
+        )
     if data.get("FileSystemId") is not None:
         out["file_system_id"] = data["FileSystemId"]
     else:
-        raise DeserializationError("Destination.file_system_id required")
+        out["file_system_id"] = ""
     if data.get("Region") is not None:
         out["region"] = data["Region"]
     else:
-        raise DeserializationError("Destination.region required")
+        out["region"] = ""
     if data.get("LastReplicatedTimestamp") is not None:
         import capo_efs.types.timestamp
 

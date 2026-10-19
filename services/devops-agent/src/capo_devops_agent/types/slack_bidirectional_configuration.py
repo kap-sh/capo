@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.role_arn
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> SlackBidirectionalConfiguration:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("SlackBidirectionalConfiguration.role_arn required")
+        out["role_arn"] = ""
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     return out

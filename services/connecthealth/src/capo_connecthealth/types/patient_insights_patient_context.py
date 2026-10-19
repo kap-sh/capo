@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connecthealth.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connecthealth.types.pronouns
     import capo_connecthealth.types.sensitive_iso_date_string
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> PatientInsightsPatientContext:
     if data.get("patientId") is not None:
         out["patient_id"] = data["patientId"]
     else:
-        raise DeserializationError("PatientInsightsPatientContext.patient_id required")
+        out["patient_id"] = ""
     if data.get("dateOfBirth") is not None:
         out["date_of_birth"] = data["dateOfBirth"]
     if data.get("pronouns") is not None:

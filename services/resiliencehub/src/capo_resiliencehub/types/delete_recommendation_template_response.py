@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.arn
     import capo_resiliencehub.types.recommendation_template_status
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> DeleteRecommendationTemplateResponse:
     if data.get("recommendationTemplateArn") is not None:
         out["recommendation_template_arn"] = data["recommendationTemplateArn"]
     else:
-        raise DeserializationError(
-            "DeleteRecommendationTemplateResponse.recommendation_template_arn required"
-        )
+        out["recommendation_template_arn"] = ""
     if data.get("status") is not None:
         import capo_resiliencehub.types.recommendation_template_status
 
@@ -49,7 +45,10 @@ def deserialize_json(data: dict) -> DeleteRecommendationTemplateResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DeleteRecommendationTemplateResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_resiliencehub.types.recommendation_template_status.RecommendationTemplateStatus",
+            "",
         )
     return out

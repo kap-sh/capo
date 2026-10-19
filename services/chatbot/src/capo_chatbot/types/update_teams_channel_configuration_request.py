@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chatbot.types.arn
     import capo_chatbot.types.boolean_account_preference
@@ -79,15 +77,11 @@ def deserialize_json(data: dict) -> UpdateTeamsChannelConfigurationRequest:
     if data.get("ChatConfigurationArn") is not None:
         out["chat_configuration_arn"] = data["ChatConfigurationArn"]
     else:
-        raise DeserializationError(
-            "UpdateTeamsChannelConfigurationRequest.chat_configuration_arn required"
-        )
+        out["chat_configuration_arn"] = ""
     if data.get("ChannelId") is not None:
         out["channel_id"] = data["ChannelId"]
     else:
-        raise DeserializationError(
-            "UpdateTeamsChannelConfigurationRequest.channel_id required"
-        )
+        out["channel_id"] = ""
     if data.get("ChannelName") is not None:
         out["channel_name"] = data["ChannelName"]
     if data.get("SnsTopicArns") is not None:

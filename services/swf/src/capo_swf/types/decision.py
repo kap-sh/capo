@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.cancel_timer_decision_attributes
     import capo_swf.types.cancel_workflow_execution_decision_attributes
@@ -204,7 +202,11 @@ def deserialize_aws_json_1_0(data: dict) -> Decision:
             data["decisionType"]
         )
     else:
-        raise DeserializationError("Decision.decision_type required")
+        import typing
+
+        out["decision_type"] = typing.cast(
+            "capo_swf.types.decision_type.DecisionType", ""
+        )
     if data.get("scheduleActivityTaskDecisionAttributes") is not None:
         import capo_swf.types.schedule_activity_task_decision_attributes
 

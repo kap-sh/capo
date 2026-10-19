@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_trustedadvisor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_trustedadvisor.types.update_recommendation_resource_exclusion_error_list
 
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> BatchUpdateRecommendationResourceExclusionRe
             )
         )
     else:
-        raise DeserializationError(
-            "BatchUpdateRecommendationResourceExclusionResponse.batch_update_recommendation_resource_exclusion_errors required"
-        )
+        out["batch_update_recommendation_resource_exclusion_errors"] = []
     return out

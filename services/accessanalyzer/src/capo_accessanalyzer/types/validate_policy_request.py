@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.locale
     import capo_accessanalyzer.types.policy_document
@@ -50,11 +48,11 @@ def deserialize_json(data: dict) -> ValidatePolicyRequest:
     if data.get("policyDocument") is not None:
         out["policy_document"] = data["policyDocument"]
     else:
-        raise DeserializationError("ValidatePolicyRequest.policy_document required")
+        out["policy_document"] = ""
     if data.get("policyType") is not None:
         out["policy_type"] = data["policyType"]
     else:
-        raise DeserializationError("ValidatePolicyRequest.policy_type required")
+        out["policy_type"] = ""
     if data.get("validatePolicyResourceType") is not None:
         out["validate_policy_resource_type"] = data["validatePolicyResourceType"]
     return out

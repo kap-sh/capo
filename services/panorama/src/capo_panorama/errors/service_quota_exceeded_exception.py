@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_panorama.errors import DeserializationError, ServiceError
+from capo_panorama.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_panorama.types.string
@@ -41,7 +41,7 @@ def deserialize_json(data: dict) -> ServiceQuotaExceededException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("ServiceQuotaExceededException_.message required")
+        out["message"] = ""
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     if data.get("ResourceType") is not None:
@@ -49,13 +49,11 @@ def deserialize_json(data: dict) -> ServiceQuotaExceededException_:
     if data.get("QuotaCode") is not None:
         out["quota_code"] = data["QuotaCode"]
     else:
-        raise DeserializationError("ServiceQuotaExceededException_.quota_code required")
+        out["quota_code"] = ""
     if data.get("ServiceCode") is not None:
         out["service_code"] = data["ServiceCode"]
     else:
-        raise DeserializationError(
-            "ServiceQuotaExceededException_.service_code required"
-        )
+        out["service_code"] = ""
     return out
 
 

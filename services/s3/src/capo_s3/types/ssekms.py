@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.ssekms_key_id
@@ -28,7 +27,7 @@ def deserialize_xml(el: Element) -> SSEKMS:
     if child_key_id is not None:
         out["key_id"] = str(child_key_id.text or "")
     else:
-        raise DeserializationError("SSEKMS.key_id required")
+        out["key_id"] = ""
     return out
 
 

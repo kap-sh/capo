@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.executor_id
     import capo_athena.types.executor_state
@@ -58,7 +56,7 @@ def deserialize_aws_json_1_1(data: dict) -> ExecutorsSummary:
     if data.get("ExecutorId") is not None:
         out["executor_id"] = data["ExecutorId"]
     else:
-        raise DeserializationError("ExecutorsSummary.executor_id required")
+        out["executor_id"] = ""
     if data.get("ExecutorType") is not None:
         import capo_athena.types.executor_type
 

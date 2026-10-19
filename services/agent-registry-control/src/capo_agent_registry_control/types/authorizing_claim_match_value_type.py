@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_agent_registry_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_agent_registry_control.types.claim_match_operator_type
     import capo_agent_registry_control.types.claim_match_value_type
@@ -51,8 +49,10 @@ def deserialize_json(data: dict) -> AuthorizingClaimMatchValueType:
             )
         )
     else:
-        raise DeserializationError(
-            "AuthorizingClaimMatchValueType.claim_match_value required"
+        import capo_agent_registry_control.types._unknown
+
+        out["claim_match_value"] = (
+            capo_agent_registry_control.types._unknown.UnknownUnionMember("")
         )
     if data.get("claimMatchOperator") is not None:
         import capo_agent_registry_control.types.claim_match_operator_type
@@ -63,7 +63,10 @@ def deserialize_json(data: dict) -> AuthorizingClaimMatchValueType:
             )
         )
     else:
-        raise DeserializationError(
-            "AuthorizingClaimMatchValueType.claim_match_operator required"
+        import typing
+
+        out["claim_match_operator"] = typing.cast(
+            "capo_agent_registry_control.types.claim_match_operator_type.ClaimMatchOperatorType",
+            "",
         )
     return out

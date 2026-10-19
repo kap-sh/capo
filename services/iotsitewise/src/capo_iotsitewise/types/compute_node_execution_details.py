@@ -93,21 +93,19 @@ def deserialize_json(data: dict) -> ComputeNodeExecutionDetails:
     if data.get("computeNodeName") is not None:
         out["compute_node_name"] = data["computeNodeName"]
     else:
-        raise DeserializationError(
-            "ComputeNodeExecutionDetails.compute_node_name required"
-        )
+        out["compute_node_name"] = ""
     if data.get("taskName") is not None:
         out["task_name"] = data["taskName"]
     else:
-        raise DeserializationError("ComputeNodeExecutionDetails.task_name required")
+        out["task_name"] = ""
     if data.get("taskArn") is not None:
         out["task_arn"] = data["taskArn"]
     else:
-        raise DeserializationError("ComputeNodeExecutionDetails.task_arn required")
+        out["task_arn"] = ""
     if data.get("taskVersion") is not None:
         out["task_version"] = data["taskVersion"]
     else:
-        raise DeserializationError("ComputeNodeExecutionDetails.task_version required")
+        out["task_version"] = ""
     if data.get("dependsOn") is not None:
         import capo_iotsitewise.types.compute_node_name_list
 
@@ -117,7 +115,7 @@ def deserialize_json(data: dict) -> ComputeNodeExecutionDetails:
             )
         )
     else:
-        raise DeserializationError("ComputeNodeExecutionDetails.depends_on required")
+        out["depends_on"] = []
     if data.get("status") is not None:
         import capo_iotsitewise.types.compute_node_execution_status
 

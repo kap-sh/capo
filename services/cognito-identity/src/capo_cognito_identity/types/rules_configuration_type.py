@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity.types.mapping_rules_list
 
@@ -39,5 +37,5 @@ def deserialize_aws_json_1_1(data: dict) -> RulesConfigurationType:
             )
         )
     else:
-        raise DeserializationError("RulesConfigurationType.rules required")
+        out["rules"] = []
     return out

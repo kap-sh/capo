@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.arn
     import capo_inspector.types.list_max_results
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListExclusionsRequest:
     if data.get("assessmentRunArn") is not None:
         out["assessment_run_arn"] = data["assessmentRunArn"]
     else:
-        raise DeserializationError("ListExclusionsRequest.assessment_run_arn required")
+        out["assessment_run_arn"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

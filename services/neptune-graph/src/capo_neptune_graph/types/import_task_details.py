@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptune_graph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> ImportTaskDetails:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("ImportTaskDetails.status required")
+        out["status"] = ""
     if data.get("startTime") is not None:
         import capo_neptune_graph.types._prelude.timestamp
 
@@ -63,27 +61,29 @@ def deserialize_json(data: dict) -> ImportTaskDetails:
             )
         )
     else:
-        raise DeserializationError("ImportTaskDetails.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("timeElapsedSeconds") is not None:
         out["time_elapsed_seconds"] = data["timeElapsedSeconds"]
     else:
-        raise DeserializationError("ImportTaskDetails.time_elapsed_seconds required")
+        out["time_elapsed_seconds"] = 0
     if data.get("progressPercentage") is not None:
         out["progress_percentage"] = data["progressPercentage"]
     else:
-        raise DeserializationError("ImportTaskDetails.progress_percentage required")
+        out["progress_percentage"] = 0
     if data.get("errorCount") is not None:
         out["error_count"] = data["errorCount"]
     else:
-        raise DeserializationError("ImportTaskDetails.error_count required")
+        out["error_count"] = 0
     if data.get("errorDetails") is not None:
         out["error_details"] = data["errorDetails"]
     if data.get("statementCount") is not None:
         out["statement_count"] = data["statementCount"]
     else:
-        raise DeserializationError("ImportTaskDetails.statement_count required")
+        out["statement_count"] = 0
     if data.get("dictionaryEntryCount") is not None:
         out["dictionary_entry_count"] = data["dictionaryEntryCount"]
     else:
-        raise DeserializationError("ImportTaskDetails.dictionary_entry_count required")
+        out["dictionary_entry_count"] = 0
     return out

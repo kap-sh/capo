@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.database
     import capo_quicksight.types.host
@@ -40,15 +38,15 @@ def deserialize_json(data: dict) -> ImpalaParameters:
     if data.get("Host") is not None:
         out["host"] = data["Host"]
     else:
-        raise DeserializationError("ImpalaParameters.host required")
+        out["host"] = ""
     if data.get("Port") is not None:
         out["port"] = data["Port"]
     else:
-        raise DeserializationError("ImpalaParameters.port required")
+        out["port"] = 0
     if data.get("Database") is not None:
         out["database"] = data["Database"]
     if data.get("SqlEndpointPath") is not None:
         out["sql_endpoint_path"] = data["SqlEndpointPath"]
     else:
-        raise DeserializationError("ImpalaParameters.sql_endpoint_path required")
+        out["sql_endpoint_path"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.image_file_data
     import capo_iotsitewise.types.image_file_type
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> ImageFile:
             data["data"]
         )
     else:
-        raise DeserializationError("ImageFile.data required")
+        out["data"] = b""
     if data.get("type") is not None:
         import capo_iotsitewise.types.image_file_type
 
@@ -47,5 +45,9 @@ def deserialize_json(data: dict) -> ImageFile:
             data["type"]
         )
     else:
-        raise DeserializationError("ImageFile.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_iotsitewise.types.image_file_type.ImageFileType", ""
+        )
     return out

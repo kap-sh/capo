@@ -65,7 +65,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAdapterVersionRequest:
     if data.get("AdapterId") is not None:
         out["adapter_id"] = data["AdapterId"]
     else:
-        raise DeserializationError("CreateAdapterVersionRequest.adapter_id required")
+        out["adapter_id"] = ""
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     if data.get("DatasetConfig") is not None:

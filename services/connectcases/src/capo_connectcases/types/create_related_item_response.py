@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.related_item_arn
     import capo_connectcases.types.related_item_id
@@ -31,11 +29,9 @@ def deserialize_json(data: dict) -> CreateRelatedItemResponse:
     if data.get("relatedItemId") is not None:
         out["related_item_id"] = data["relatedItemId"]
     else:
-        raise DeserializationError("CreateRelatedItemResponse.related_item_id required")
+        out["related_item_id"] = ""
     if data.get("relatedItemArn") is not None:
         out["related_item_arn"] = data["relatedItemArn"]
     else:
-        raise DeserializationError(
-            "CreateRelatedItemResponse.related_item_arn required"
-        )
+        out["related_item_arn"] = ""
     return out

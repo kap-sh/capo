@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sns.types.actions_list
@@ -50,12 +49,12 @@ def deserialize_query(el: Element) -> AddPermissionInput:
     if child_topic_arn is not None:
         out["topic_arn"] = str(child_topic_arn.text or "")
     else:
-        raise DeserializationError("AddPermissionInput.topic_arn required")
+        out["topic_arn"] = ""
     child_label = el.find("Label")
     if child_label is not None:
         out["label"] = str(child_label.text or "")
     else:
-        raise DeserializationError("AddPermissionInput.label required")
+        out["label"] = ""
     child_aws_account_id = el.find("AWSAccountId")
     if child_aws_account_id is not None:
         import capo_sns.types.delegates_list
@@ -64,7 +63,7 @@ def deserialize_query(el: Element) -> AddPermissionInput:
             child_aws_account_id
         )
     else:
-        raise DeserializationError("AddPermissionInput.aws_account_id required")
+        out["aws_account_id"] = []
     child_action_name = el.find("ActionName")
     if child_action_name is not None:
         import capo_sns.types.actions_list
@@ -73,5 +72,5 @@ def deserialize_query(el: Element) -> AddPermissionInput:
             child_action_name
         )
     else:
-        raise DeserializationError("AddPermissionInput.action_name required")
+        out["action_name"] = []
     return out

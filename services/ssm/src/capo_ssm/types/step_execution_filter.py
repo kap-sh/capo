@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.step_execution_filter_key
     import capo_ssm.types.step_execution_filter_value_list
@@ -47,7 +45,11 @@ def deserialize_aws_json_1_1(data: dict) -> StepExecutionFilter:
             data["Key"]
         )
     else:
-        raise DeserializationError("StepExecutionFilter.key required")
+        import typing
+
+        out["key"] = typing.cast(
+            "capo_ssm.types.step_execution_filter_key.StepExecutionFilterKey", ""
+        )
     if data.get("Values") is not None:
         import capo_ssm.types.step_execution_filter_value_list
 
@@ -57,5 +59,5 @@ def deserialize_aws_json_1_1(data: dict) -> StepExecutionFilter:
             )
         )
     else:
-        raise DeserializationError("StepExecutionFilter.values required")
+        out["values"] = []
     return out

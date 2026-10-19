@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_auto_scaling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_auto_scaling.types.not_scaled_reasons
     import capo_application_auto_scaling.types.resource_id
@@ -117,7 +115,7 @@ def deserialize_aws_json_1_1(data: dict) -> ScalingActivity:
     if data.get("ActivityId") is not None:
         out["activity_id"] = data["ActivityId"]
     else:
-        raise DeserializationError("ScalingActivity.activity_id required")
+        out["activity_id"] = ""
     if data.get("ServiceNamespace") is not None:
         import capo_application_auto_scaling.types.service_namespace
 
@@ -127,11 +125,15 @@ def deserialize_aws_json_1_1(data: dict) -> ScalingActivity:
             )
         )
     else:
-        raise DeserializationError("ScalingActivity.service_namespace required")
+        import typing
+
+        out["service_namespace"] = typing.cast(
+            "capo_application_auto_scaling.types.service_namespace.ServiceNamespace", ""
+        )
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("ScalingActivity.resource_id required")
+        out["resource_id"] = ""
     if data.get("ScalableDimension") is not None:
         import capo_application_auto_scaling.types.scalable_dimension
 
@@ -141,15 +143,20 @@ def deserialize_aws_json_1_1(data: dict) -> ScalingActivity:
             )
         )
     else:
-        raise DeserializationError("ScalingActivity.scalable_dimension required")
+        import typing
+
+        out["scalable_dimension"] = typing.cast(
+            "capo_application_auto_scaling.types.scalable_dimension.ScalableDimension",
+            "",
+        )
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("ScalingActivity.description required")
+        out["description"] = ""
     if data.get("Cause") is not None:
         out["cause"] = data["Cause"]
     else:
-        raise DeserializationError("ScalingActivity.cause required")
+        out["cause"] = ""
     if data.get("StartTime") is not None:
         import capo_application_auto_scaling.types.timestamp_type
 
@@ -159,7 +166,9 @@ def deserialize_aws_json_1_1(data: dict) -> ScalingActivity:
             )
         )
     else:
-        raise DeserializationError("ScalingActivity.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_application_auto_scaling.types.timestamp_type
 
@@ -177,7 +186,12 @@ def deserialize_aws_json_1_1(data: dict) -> ScalingActivity:
             )
         )
     else:
-        raise DeserializationError("ScalingActivity.status_code required")
+        import typing
+
+        out["status_code"] = typing.cast(
+            "capo_application_auto_scaling.types.scaling_activity_status_code.ScalingActivityStatusCode",
+            "",
+        )
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
     if data.get("Details") is not None:

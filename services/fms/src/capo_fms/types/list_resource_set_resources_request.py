@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fms.types.pagination_max_results
     import capo_fms.types.pagination_token
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListResourceSetResourcesRequest:
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError(
-            "ListResourceSetResourcesRequest.identifier required"
-        )
+        out["identifier"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

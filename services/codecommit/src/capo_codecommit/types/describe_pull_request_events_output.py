@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.next_token
     import capo_codecommit.types.pull_request_event_list
@@ -46,9 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribePullRequestEventsOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribePullRequestEventsOutput.pull_request_events required"
-        )
+        out["pull_request_events"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

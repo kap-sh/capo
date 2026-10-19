@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.account_ids
     import capo_cloudwatch_logs.types.data_source_filters
@@ -131,8 +129,11 @@ def deserialize_aws_json_1_1(data: dict) -> ListAggregateLogGroupSummariesReques
             )
         )
     else:
-        raise DeserializationError(
-            "ListAggregateLogGroupSummariesRequest.group_by required"
+        import typing
+
+        out["group_by"] = typing.cast(
+            "capo_cloudwatch_logs.types.list_aggregate_log_group_summaries_group_by.ListAggregateLogGroupSummariesGroupBy",
+            "",
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]

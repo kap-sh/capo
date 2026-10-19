@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.description
     import capo_devops_agent.types.new_relic_region
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> RegisteredNewRelicDetails:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("RegisteredNewRelicDetails.account_id required")
+        out["account_id"] = ""
     if data.get("region") is not None:
         import capo_devops_agent.types.new_relic_region
 
@@ -47,7 +45,11 @@ def deserialize_json(data: dict) -> RegisteredNewRelicDetails:
             data["region"]
         )
     else:
-        raise DeserializationError("RegisteredNewRelicDetails.region required")
+        import typing
+
+        out["region"] = typing.cast(
+            "capo_devops_agent.types.new_relic_region.NewRelicRegion", ""
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

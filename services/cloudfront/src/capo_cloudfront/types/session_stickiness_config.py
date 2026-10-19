@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.integer
@@ -31,10 +30,10 @@ def deserialize_xml(el: Element) -> SessionStickinessConfig:
     if child_idle_ttl is not None:
         out["idle_ttl"] = int(child_idle_ttl.text or "")
     else:
-        raise DeserializationError("SessionStickinessConfig.idle_ttl required")
+        out["idle_ttl"] = 0
     child_maximum_ttl = el.find("MaximumTTL")
     if child_maximum_ttl is not None:
         out["maximum_ttl"] = int(child_maximum_ttl.text or "")
     else:
-        raise DeserializationError("SessionStickinessConfig.maximum_ttl required")
+        out["maximum_ttl"] = 0
     return out

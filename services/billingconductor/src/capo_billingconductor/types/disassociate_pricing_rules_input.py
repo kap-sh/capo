@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_billingconductor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billingconductor.types.pricing_plan_arn
     import capo_billingconductor.types.pricing_rule_arns_non_empty_input
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> DisassociatePricingRulesInput:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("DisassociatePricingRulesInput.arn required")
+        out["arn"] = ""
     if data.get("PricingRuleArns") is not None:
         import capo_billingconductor.types.pricing_rule_arns_non_empty_input
 
@@ -47,7 +45,5 @@ def deserialize_json(data: dict) -> DisassociatePricingRulesInput:
             )
         )
     else:
-        raise DeserializationError(
-            "DisassociatePricingRulesInput.pricing_rule_arns required"
-        )
+        out["pricing_rule_arns"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.bounded_string
     import capo_marketplace_discovery.types.term_id
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> NetPaymentTerm:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("NetPaymentTerm.id required")
+        out["id"] = ""
     if data.get("type") is not None:
         import capo_marketplace_discovery.types.term_type
 
@@ -47,9 +45,13 @@ def deserialize_json(data: dict) -> NetPaymentTerm:
             data["type"]
         )
     else:
-        raise DeserializationError("NetPaymentTerm.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_marketplace_discovery.types.term_type.TermType", ""
+        )
     if data.get("paymentDuePeriod") is not None:
         out["payment_due_period"] = data["paymentDuePeriod"]
     else:
-        raise DeserializationError("NetPaymentTerm.payment_due_period required")
+        out["payment_due_period"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.stride_category_list
     import capo_securityagent.types.string_list
@@ -120,11 +118,11 @@ def deserialize_json(data: dict) -> CreateThreatInput:
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError("CreateThreatInput.agent_space_id required")
+        out["agent_space_id"] = ""
     if data.get("threatJobId") is not None:
         out["threat_job_id"] = data["threatJobId"]
     else:
-        raise DeserializationError("CreateThreatInput.threat_job_id required")
+        out["threat_job_id"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     if data.get("statement") is not None:

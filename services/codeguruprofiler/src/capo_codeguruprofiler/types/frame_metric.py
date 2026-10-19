@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codeguruprofiler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguruprofiler.types.metric_type
     import capo_codeguruprofiler.types.thread_states
@@ -38,11 +36,11 @@ def deserialize_json(data: dict) -> FrameMetric:
     if data.get("frameName") is not None:
         out["frame_name"] = data["frameName"]
     else:
-        raise DeserializationError("FrameMetric.frame_name required")
+        out["frame_name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("FrameMetric.type required")
+        out["type"] = ""
     if data.get("threadStates") is not None:
         import capo_codeguruprofiler.types.thread_states
 
@@ -52,5 +50,5 @@ def deserialize_json(data: dict) -> FrameMetric:
             )
         )
     else:
-        raise DeserializationError("FrameMetric.thread_states required")
+        out["thread_states"] = []
     return out

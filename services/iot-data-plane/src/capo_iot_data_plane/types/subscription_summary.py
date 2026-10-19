@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_data_plane.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_data_plane.types.qos
     import capo_iot_data_plane.types.topic_filter
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> SubscriptionSummary:
     if data.get("topicFilter") is not None:
         out["topic_filter"] = data["topicFilter"]
     else:
-        raise DeserializationError("SubscriptionSummary.topic_filter required")
+        out["topic_filter"] = ""
     if data.get("qos") is not None:
         out["qos"] = data["qos"]
     else:

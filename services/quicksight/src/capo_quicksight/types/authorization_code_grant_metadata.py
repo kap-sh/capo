@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.authorization_code_grant_credentials_details
     import capo_quicksight.types.authorization_code_grant_credentials_source
@@ -56,15 +54,11 @@ def deserialize_json(data: dict) -> AuthorizationCodeGrantMetadata:
     if data.get("BaseEndpoint") is not None:
         out["base_endpoint"] = data["BaseEndpoint"]
     else:
-        raise DeserializationError(
-            "AuthorizationCodeGrantMetadata.base_endpoint required"
-        )
+        out["base_endpoint"] = ""
     if data.get("RedirectUrl") is not None:
         out["redirect_url"] = data["RedirectUrl"]
     else:
-        raise DeserializationError(
-            "AuthorizationCodeGrantMetadata.redirect_url required"
-        )
+        out["redirect_url"] = ""
     if data.get("AuthorizationCodeGrantCredentialsSource") is not None:
         import capo_quicksight.types.authorization_code_grant_credentials_source
 

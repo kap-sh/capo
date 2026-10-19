@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.resource_tag_source
     import capo_datazone.types.tag_key
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> ResourceTag:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("ResourceTag.key required")
+        out["key"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("ResourceTag.value required")
+        out["value"] = ""
     if data.get("source") is not None:
         import capo_datazone.types.resource_tag_source
 
@@ -51,5 +49,9 @@ def deserialize_json(data: dict) -> ResourceTag:
             data["source"]
         )
     else:
-        raise DeserializationError("ResourceTag.source required")
+        import typing
+
+        out["source"] = typing.cast(
+            "capo_datazone.types.resource_tag_source.ResourceTagSource", ""
+        )
     return out

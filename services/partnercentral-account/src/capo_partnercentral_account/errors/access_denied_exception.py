@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError, ServiceError
+from capo_partnercentral_account.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.access_denied_exception_reason
@@ -36,7 +36,7 @@ def deserialize_aws_json_1_0(data: dict) -> AccessDeniedException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("AccessDeniedException_.message required")
+        out["message"] = ""
     if data.get("Reason") is not None:
         import capo_partnercentral_account.types.access_denied_exception_reason
 
@@ -46,7 +46,12 @@ def deserialize_aws_json_1_0(data: dict) -> AccessDeniedException_:
             )
         )
     else:
-        raise DeserializationError("AccessDeniedException_.reason required")
+        import typing
+
+        out["reason"] = typing.cast(
+            "capo_partnercentral_account.types.access_denied_exception_reason.AccessDeniedExceptionReason",
+            "",
+        )
     return out
 
 

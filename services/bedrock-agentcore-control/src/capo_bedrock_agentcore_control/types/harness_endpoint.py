@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.date_timestamp
     import capo_bedrock_agentcore_control.types.harness_endpoint_arn
@@ -94,19 +92,19 @@ def deserialize_json(data: dict) -> HarnessEndpoint:
     if data.get("harnessId") is not None:
         out["harness_id"] = data["harnessId"]
     else:
-        raise DeserializationError("HarnessEndpoint.harness_id required")
+        out["harness_id"] = ""
     if data.get("harnessName") is not None:
         out["harness_name"] = data["harnessName"]
     else:
-        raise DeserializationError("HarnessEndpoint.harness_name required")
+        out["harness_name"] = ""
     if data.get("endpointName") is not None:
         out["endpoint_name"] = data["endpointName"]
     else:
-        raise DeserializationError("HarnessEndpoint.endpoint_name required")
+        out["endpoint_name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("HarnessEndpoint.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.harness_endpoint_status
 
@@ -116,7 +114,12 @@ def deserialize_json(data: dict) -> HarnessEndpoint:
             )
         )
     else:
-        raise DeserializationError("HarnessEndpoint.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.harness_endpoint_status.HarnessEndpointStatus",
+            "",
+        )
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -126,7 +129,9 @@ def deserialize_json(data: dict) -> HarnessEndpoint:
             )
         )
     else:
-        raise DeserializationError("HarnessEndpoint.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -136,7 +141,9 @@ def deserialize_json(data: dict) -> HarnessEndpoint:
             )
         )
     else:
-        raise DeserializationError("HarnessEndpoint.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("liveVersion") is not None:
         out["live_version"] = data["liveVersion"]
     if data.get("targetVersion") is not None:

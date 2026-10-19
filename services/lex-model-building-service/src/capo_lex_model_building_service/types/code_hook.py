@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_model_building_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_model_building_service.types.lambda_arn
     import capo_lex_model_building_service.types.message_version
@@ -33,9 +31,9 @@ def deserialize_json(data: dict) -> CodeHook:
     if data.get("uri") is not None:
         out["uri"] = data["uri"]
     else:
-        raise DeserializationError("CodeHook.uri required")
+        out["uri"] = ""
     if data.get("messageVersion") is not None:
         out["message_version"] = data["messageVersion"]
     else:
-        raise DeserializationError("CodeHook.message_version required")
+        out["message_version"] = ""
     return out

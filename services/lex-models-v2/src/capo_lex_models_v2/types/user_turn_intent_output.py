@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.name
     import capo_lex_models_v2.types.user_turn_slot_output_map
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> UserTurnIntentOutput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UserTurnIntentOutput.name required")
+        out["name"] = ""
     if data.get("slots") is not None:
         import capo_lex_models_v2.types.user_turn_slot_output_map
 

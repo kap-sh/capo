@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.target_next_token
     import capo_bedrock_agentcore_control.types.target_summaries
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> ListGatewayTargetsResponse:
             )
         )
     else:
-        raise DeserializationError("ListGatewayTargetsResponse.items required")
+        out["items"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

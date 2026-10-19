@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_s3files.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3files.types.mount_target_id
     import capo_s3files.types.security_groups
@@ -38,5 +36,5 @@ def deserialize_json(data: dict) -> UpdateMountTargetRequest:
             data["securityGroups"]
         )
     else:
-        raise DeserializationError("UpdateMountTargetRequest.security_groups required")
+        out["security_groups"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.document_metadata_enum
     import capo_ssm.types.document_name
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListDocumentMetadataHistoryRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ListDocumentMetadataHistoryRequest.name required")
+        out["name"] = ""
     if data.get("DocumentVersion") is not None:
         out["document_version"] = data["DocumentVersion"]
     if data.get("Metadata") is not None:
@@ -62,8 +60,10 @@ def deserialize_aws_json_1_1(data: dict) -> ListDocumentMetadataHistoryRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ListDocumentMetadataHistoryRequest.metadata required"
+        import typing
+
+        out["metadata"] = typing.cast(
+            "capo_ssm.types.document_metadata_enum.DocumentMetadataEnum", ""
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]

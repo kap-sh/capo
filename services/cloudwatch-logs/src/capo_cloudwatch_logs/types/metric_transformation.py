@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.default_value
     import capo_cloudwatch_logs.types.dimensions
@@ -68,15 +66,15 @@ def deserialize_aws_json_1_1(data: dict) -> MetricTransformation:
     if data.get("metricName") is not None:
         out["metric_name"] = data["metricName"]
     else:
-        raise DeserializationError("MetricTransformation.metric_name required")
+        out["metric_name"] = ""
     if data.get("metricNamespace") is not None:
         out["metric_namespace"] = data["metricNamespace"]
     else:
-        raise DeserializationError("MetricTransformation.metric_namespace required")
+        out["metric_namespace"] = ""
     if data.get("metricValue") is not None:
         out["metric_value"] = data["metricValue"]
     else:
-        raise DeserializationError("MetricTransformation.metric_value required")
+        out["metric_value"] = ""
     if data.get("defaultValue") is not None:
         out["default_value"] = float(data["defaultValue"])
     if data.get("dimensions") is not None:

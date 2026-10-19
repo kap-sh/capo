@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.active_speaker_only_configuration
     import capo_chime_sdk_media_pipelines.types.canvas_orientation
@@ -117,8 +115,11 @@ def deserialize_json(data: dict) -> GridViewConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "GridViewConfiguration.content_share_layout required"
+        import typing
+
+        out["content_share_layout"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.content_share_layout_option.ContentShareLayoutOption",
+            "",
         )
     if data.get("PresenterOnlyConfiguration") is not None:
         import capo_chime_sdk_media_pipelines.types.presenter_only_configuration

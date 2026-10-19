@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_pricing_calculator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_pricing_calculator.types.account_id
     import capo_bcm_pricing_calculator.types.availability_zone
@@ -89,21 +87,15 @@ def deserialize_aws_json_1_0(data: dict) -> BillEstimateInputUsageModificationSu
     if data.get("serviceCode") is not None:
         out["service_code"] = data["serviceCode"]
     else:
-        raise DeserializationError(
-            "BillEstimateInputUsageModificationSummary.service_code required"
-        )
+        out["service_code"] = ""
     if data.get("usageType") is not None:
         out["usage_type"] = data["usageType"]
     else:
-        raise DeserializationError(
-            "BillEstimateInputUsageModificationSummary.usage_type required"
-        )
+        out["usage_type"] = ""
     if data.get("operation") is not None:
         out["operation"] = data["operation"]
     else:
-        raise DeserializationError(
-            "BillEstimateInputUsageModificationSummary.operation required"
-        )
+        out["operation"] = ""
     if data.get("location") is not None:
         out["location"] = data["location"]
     if data.get("availabilityZone") is not None:

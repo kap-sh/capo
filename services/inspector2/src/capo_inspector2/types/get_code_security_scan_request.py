@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.code_security_resource
     import capo_inspector2.types.code_security_uuid
@@ -39,9 +37,11 @@ def deserialize_json(data: dict) -> GetCodeSecurityScanRequest:
             data["resource"]
         )
     else:
-        raise DeserializationError("GetCodeSecurityScanRequest.resource required")
+        import capo_inspector2.types._unknown
+
+        out["resource"] = capo_inspector2.types._unknown.UnknownUnionMember("")
     if data.get("scanId") is not None:
         out["scan_id"] = data["scanId"]
     else:
-        raise DeserializationError("GetCodeSecurityScanRequest.scan_id required")
+        out["scan_id"] = ""
     return out

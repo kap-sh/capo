@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.browser_profile_id
     import capo_bedrock_agentcore.types.browser_session_id
@@ -44,21 +42,15 @@ def deserialize_json(data: dict) -> SaveBrowserSessionProfileResponse:
     if data.get("profileIdentifier") is not None:
         out["profile_identifier"] = data["profileIdentifier"]
     else:
-        raise DeserializationError(
-            "SaveBrowserSessionProfileResponse.profile_identifier required"
-        )
+        out["profile_identifier"] = ""
     if data.get("browserIdentifier") is not None:
         out["browser_identifier"] = data["browserIdentifier"]
     else:
-        raise DeserializationError(
-            "SaveBrowserSessionProfileResponse.browser_identifier required"
-        )
+        out["browser_identifier"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError(
-            "SaveBrowserSessionProfileResponse.session_id required"
-        )
+        out["session_id"] = ""
     if data.get("lastUpdatedAt") is not None:
         import capo_bedrock_agentcore.types.date_timestamp
 
@@ -68,7 +60,9 @@ def deserialize_json(data: dict) -> SaveBrowserSessionProfileResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "SaveBrowserSessionProfileResponse.last_updated_at required"
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

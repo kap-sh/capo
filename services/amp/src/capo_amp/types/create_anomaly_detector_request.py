@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amp.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amp.types.anomaly_detector_alias
     import capo_amp.types.anomaly_detector_configuration
@@ -83,7 +81,7 @@ def deserialize_json(data: dict) -> CreateAnomalyDetectorRequest:
     if data.get("alias") is not None:
         out["alias"] = data["alias"]
     else:
-        raise DeserializationError("CreateAnomalyDetectorRequest.alias required")
+        out["alias"] = ""
     if data.get("evaluationIntervalInSeconds") is not None:
         out["evaluation_interval_in_seconds"] = data["evaluationIntervalInSeconds"]
     if data.get("missingDataAction") is not None:
@@ -103,9 +101,9 @@ def deserialize_json(data: dict) -> CreateAnomalyDetectorRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAnomalyDetectorRequest.configuration required"
-        )
+        import capo_amp.types._unknown
+
+        out["configuration"] = capo_amp.types._unknown.UnknownUnionMember("")
     if data.get("labels") is not None:
         import capo_amp.types.prometheus_metric_label_map
 

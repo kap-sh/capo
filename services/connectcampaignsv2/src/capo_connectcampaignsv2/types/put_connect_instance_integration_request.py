@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.instance_id
     import capo_connectcampaignsv2.types.integration_config
@@ -42,7 +40,9 @@ def deserialize_json(data: dict) -> PutConnectInstanceIntegrationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "PutConnectInstanceIntegrationRequest.integration_config required"
+        import capo_connectcampaignsv2.types._unknown
+
+        out["integration_config"] = (
+            capo_connectcampaignsv2.types._unknown.UnknownUnionMember("")
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.client_id
     import capo_securityagent.types.client_secret
@@ -54,9 +52,9 @@ def deserialize_json(data: dict) -> InitiateProviderRegistrationInput:
             data["provider"]
         )
     else:
-        raise DeserializationError(
-            "InitiateProviderRegistrationInput.provider required"
-        )
+        import typing
+
+        out["provider"] = typing.cast("capo_securityagent.types.provider.Provider", "")
     if data.get("targetUrl") is not None:
         out["target_url"] = data["targetUrl"]
     if data.get("organizationName") is not None:

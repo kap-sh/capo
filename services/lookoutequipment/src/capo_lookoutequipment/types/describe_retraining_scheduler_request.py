@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.model_name
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeRetrainingSchedulerRequest:
     if data.get("ModelName") is not None:
         out["model_name"] = data["ModelName"]
     else:
-        raise DeserializationError(
-            "DescribeRetrainingSchedulerRequest.model_name required"
-        )
+        out["model_name"] = ""
     return out

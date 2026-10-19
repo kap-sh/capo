@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.associated_template_and_rule_list
     import capo_network_security_manager.types.date_timestamp
@@ -127,15 +125,15 @@ def deserialize_json(data: dict) -> CreatePolicyOutput:
     if data.get("policyId") is not None:
         out["policy_id"] = data["policyId"]
     else:
-        raise DeserializationError("CreatePolicyOutput.policy_id required")
+        out["policy_id"] = ""
     if data.get("policyArn") is not None:
         out["policy_arn"] = data["policyArn"]
     else:
-        raise DeserializationError("CreatePolicyOutput.policy_arn required")
+        out["policy_arn"] = ""
     if data.get("policyName") is not None:
         out["policy_name"] = data["policyName"]
     else:
-        raise DeserializationError("CreatePolicyOutput.policy_name required")
+        out["policy_name"] = ""
     if data.get("policyDescription") is not None:
         out["policy_description"] = data["policyDescription"]
     if data.get("status") is not None:
@@ -147,11 +145,15 @@ def deserialize_json(data: dict) -> CreatePolicyOutput:
             )
         )
     else:
-        raise DeserializationError("CreatePolicyOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_network_security_manager.types.entity_status.EntityStatus", ""
+        )
     if data.get("priority") is not None:
         out["priority"] = data["priority"]
     else:
-        raise DeserializationError("CreatePolicyOutput.priority required")
+        out["priority"] = 0
     if data.get("associatedTemplateAndRuleList") is not None:
         import capo_network_security_manager.types.associated_template_and_rule_list
 
@@ -161,13 +163,11 @@ def deserialize_json(data: dict) -> CreatePolicyOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreatePolicyOutput.associated_template_and_rule_list required"
-        )
+        out["associated_template_and_rule_list"] = []
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("CreatePolicyOutput.version required")
+        out["version"] = ""
     if data.get("updateToken") is not None:
         out["update_token"] = data["updateToken"]
     if data.get("isSnapshot") is not None:
@@ -183,7 +183,12 @@ def deserialize_json(data: dict) -> CreatePolicyOutput:
             )
         )
     else:
-        raise DeserializationError("CreatePolicyOutput.firewall_type required")
+        import typing
+
+        out["firewall_type"] = typing.cast(
+            "capo_network_security_manager.types.policy_firewall_type.PolicyFirewallType",
+            "",
+        )
     if data.get("policyConfiguration") is not None:
         import capo_network_security_manager.types.policy_configuration
 

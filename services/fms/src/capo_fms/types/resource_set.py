@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fms.types.base62_id
     import capo_fms.types.description
@@ -74,7 +72,7 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceSet:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ResourceSet.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("UpdateToken") is not None:
@@ -88,7 +86,7 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceSet:
             )
         )
     else:
-        raise DeserializationError("ResourceSet.resource_type_list required")
+        out["resource_type_list"] = []
     if data.get("LastUpdateTime") is not None:
         import capo_fms.types.time_stamp
 

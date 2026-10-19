@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__list_of_schedule_ad_break
     import capo_mediatailor.types.__long
@@ -107,17 +105,17 @@ def deserialize_json(data: dict) -> ScheduleEntry:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("ScheduleEntry.arn required")
+        out["arn"] = ""
     if data.get("ChannelName") is not None:
         out["channel_name"] = data["ChannelName"]
     else:
-        raise DeserializationError("ScheduleEntry.channel_name required")
+        out["channel_name"] = ""
     if data.get("LiveSourceName") is not None:
         out["live_source_name"] = data["LiveSourceName"]
     if data.get("ProgramName") is not None:
         out["program_name"] = data["ProgramName"]
     else:
-        raise DeserializationError("ScheduleEntry.program_name required")
+        out["program_name"] = ""
     if data.get("ScheduleAdBreaks") is not None:
         import capo_mediatailor.types.__list_of_schedule_ad_break
 
@@ -137,7 +135,7 @@ def deserialize_json(data: dict) -> ScheduleEntry:
     if data.get("SourceLocationName") is not None:
         out["source_location_name"] = data["SourceLocationName"]
     else:
-        raise DeserializationError("ScheduleEntry.source_location_name required")
+        out["source_location_name"] = ""
     if data.get("VodSourceName") is not None:
         out["vod_source_name"] = data["VodSourceName"]
     if data.get("Audiences") is not None:

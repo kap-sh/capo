@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.string
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> QueueInfo:
     if data.get("WaitingOnIngestion") is not None:
         out["waiting_on_ingestion"] = data["WaitingOnIngestion"]
     else:
-        raise DeserializationError("QueueInfo.waiting_on_ingestion required")
+        out["waiting_on_ingestion"] = ""
     if data.get("QueuedIngestion") is not None:
         out["queued_ingestion"] = data["QueuedIngestion"]
     else:
-        raise DeserializationError("QueueInfo.queued_ingestion required")
+        out["queued_ingestion"] = ""
     return out

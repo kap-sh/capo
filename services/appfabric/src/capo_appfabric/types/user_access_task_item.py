@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appfabric.types.string255
     import capo_appfabric.types.task_error
@@ -43,11 +41,11 @@ def deserialize_json(data: dict) -> UserAccessTaskItem:
     if data.get("app") is not None:
         out["app"] = data["app"]
     else:
-        raise DeserializationError("UserAccessTaskItem.app required")
+        out["app"] = ""
     if data.get("tenantId") is not None:
         out["tenant_id"] = data["tenantId"]
     else:
-        raise DeserializationError("UserAccessTaskItem.tenant_id required")
+        out["tenant_id"] = ""
     if data.get("taskId") is not None:
         out["task_id"] = data["taskId"]
     if data.get("error") is not None:

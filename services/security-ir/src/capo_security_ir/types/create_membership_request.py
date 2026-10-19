@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_security_ir.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_security_ir.types.incident_response_team
     import capo_security_ir.types.membership_name
@@ -65,7 +63,7 @@ def deserialize_json(data: dict) -> CreateMembershipRequest:
     if data.get("membershipName") is not None:
         out["membership_name"] = data["membershipName"]
     else:
-        raise DeserializationError("CreateMembershipRequest.membership_name required")
+        out["membership_name"] = ""
     if data.get("incidentResponseTeam") is not None:
         import capo_security_ir.types.incident_response_team
 
@@ -75,9 +73,7 @@ def deserialize_json(data: dict) -> CreateMembershipRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateMembershipRequest.incident_response_team required"
-        )
+        out["incident_response_team"] = []
     if data.get("optInFeatures") is not None:
         import capo_security_ir.types.opt_in_features
 

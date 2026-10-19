@@ -48,7 +48,7 @@ def deserialize_json(data: dict) -> Anomaly:
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
     else:
-        raise DeserializationError("Anomaly.reason required")
+        out["reason"] = ""
     if data.get("instances") is not None:
         import capo_codeguruprofiler.types.anomaly_instances
 
@@ -58,5 +58,5 @@ def deserialize_json(data: dict) -> Anomaly:
             )
         )
     else:
-        raise DeserializationError("Anomaly.instances required")
+        out["instances"] = []
     return out

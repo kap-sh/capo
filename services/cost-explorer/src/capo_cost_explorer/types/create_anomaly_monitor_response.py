@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.generic_string
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAnomalyMonitorResponse:
     if data.get("MonitorArn") is not None:
         out["monitor_arn"] = data["MonitorArn"]
     else:
-        raise DeserializationError("CreateAnomalyMonitorResponse.monitor_arn required")
+        out["monitor_arn"] = ""
     return out

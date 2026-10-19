@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_elasticsearch_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elasticsearch_service.types.saml_entity_id
     import capo_elasticsearch_service.types.saml_metadata
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> SAMLIdp:
     if data.get("MetadataContent") is not None:
         out["metadata_content"] = data["MetadataContent"]
     else:
-        raise DeserializationError("SAMLIdp.metadata_content required")
+        out["metadata_content"] = ""
     if data.get("EntityId") is not None:
         out["entity_id"] = data["EntityId"]
     else:
-        raise DeserializationError("SAMLIdp.entity_id required")
+        out["entity_id"] = ""
     return out

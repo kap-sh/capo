@@ -35,7 +35,7 @@ def deserialize_json(data: dict) -> JobAttachmentDetailsEntity:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("JobAttachmentDetailsEntity.job_id required")
+        out["job_id"] = ""
     if data.get("attachments") is not None:
         import capo_deadline.types.attachments
 

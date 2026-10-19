@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.filter_value_list
     import capo_database_migration_service.types.string
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> Filter:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Filter.name required")
+        out["name"] = ""
     if data.get("Values") is not None:
         import capo_database_migration_service.types.filter_value_list
 
@@ -47,5 +45,5 @@ def deserialize_aws_json_1_1(data: dict) -> Filter:
             )
         )
     else:
-        raise DeserializationError("Filter.values required")
+        out["values"] = []
     return out

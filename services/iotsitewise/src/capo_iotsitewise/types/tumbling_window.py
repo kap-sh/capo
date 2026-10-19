@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.interval
     import capo_iotsitewise.types.offset
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> TumblingWindow:
     if data.get("interval") is not None:
         out["interval"] = data["interval"]
     else:
-        raise DeserializationError("TumblingWindow.interval required")
+        out["interval"] = ""
     if data.get("offset") is not None:
         out["offset"] = data["offset"]
     return out

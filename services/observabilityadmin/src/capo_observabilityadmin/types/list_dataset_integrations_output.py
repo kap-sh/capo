@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_observabilityadmin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_observabilityadmin.types.dataset_integration_summaries
     import capo_observabilityadmin.types.next_token
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> ListDatasetIntegrationsOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListDatasetIntegrationsOutput.dataset_integration_summaries required"
-        )
+        out["dataset_integration_summaries"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

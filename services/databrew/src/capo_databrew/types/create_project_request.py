@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.arn
     import capo_databrew.types.dataset_name
@@ -52,15 +50,15 @@ def deserialize_json(data: dict) -> CreateProjectRequest:
     if data.get("DatasetName") is not None:
         out["dataset_name"] = data["DatasetName"]
     else:
-        raise DeserializationError("CreateProjectRequest.dataset_name required")
+        out["dataset_name"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateProjectRequest.name required")
+        out["name"] = ""
     if data.get("RecipeName") is not None:
         out["recipe_name"] = data["RecipeName"]
     else:
-        raise DeserializationError("CreateProjectRequest.recipe_name required")
+        out["recipe_name"] = ""
     if data.get("Sample") is not None:
         import capo_databrew.types.sample
 
@@ -68,7 +66,7 @@ def deserialize_json(data: dict) -> CreateProjectRequest:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("CreateProjectRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("Tags") is not None:
         import capo_databrew.types.tag_map
 

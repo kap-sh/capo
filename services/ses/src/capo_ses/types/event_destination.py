@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.cloud_watch_destination
@@ -79,7 +78,7 @@ def deserialize_query(el: Element) -> EventDestination:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("EventDestination.name required")
+        out["name"] = ""
     child_enabled = el.find("Enabled")
     if child_enabled is not None:
         out["enabled"] = (child_enabled.text or "").lower() == "true"
@@ -93,7 +92,7 @@ def deserialize_query(el: Element) -> EventDestination:
             child_matching_event_types
         )
     else:
-        raise DeserializationError("EventDestination.matching_event_types required")
+        out["matching_event_types"] = []
     child_kinesis_firehose_destination = el.find("KinesisFirehoseDestination")
     if child_kinesis_firehose_destination is not None:
         import capo_ses.types.kinesis_firehose_destination

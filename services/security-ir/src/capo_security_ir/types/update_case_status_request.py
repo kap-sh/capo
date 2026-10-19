@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_security_ir.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_security_ir.types.case_id
     import capo_security_ir.types.self_managed_case_status
@@ -40,5 +38,9 @@ def deserialize_json(data: dict) -> UpdateCaseStatusRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateCaseStatusRequest.case_status required")
+        import typing
+
+        out["case_status"] = typing.cast(
+            "capo_security_ir.types.self_managed_case_status.SelfManagedCaseStatus", ""
+        )
     return out

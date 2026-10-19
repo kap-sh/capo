@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.network_id
     import capo_wickr.types.update_user_details
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> UpdateUserRequest:
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
     else:
-        raise DeserializationError("UpdateUserRequest.user_id required")
+        out["user_id"] = ""
     if data.get("userDetails") is not None:
         import capo_wickr.types.update_user_details
 

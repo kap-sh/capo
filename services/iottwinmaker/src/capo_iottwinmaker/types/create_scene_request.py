@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.description
     import capo_iottwinmaker.types.id
@@ -69,11 +67,11 @@ def deserialize_json(data: dict) -> CreateSceneRequest:
     if data.get("sceneId") is not None:
         out["scene_id"] = data["sceneId"]
     else:
-        raise DeserializationError("CreateSceneRequest.scene_id required")
+        out["scene_id"] = ""
     if data.get("contentLocation") is not None:
         out["content_location"] = data["contentLocation"]
     else:
-        raise DeserializationError("CreateSceneRequest.content_location required")
+        out["content_location"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("capabilities") is not None:

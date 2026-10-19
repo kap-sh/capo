@@ -57,8 +57,11 @@ def deserialize_json(data: dict) -> AssociateInstanceStorageConfigRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "AssociateInstanceStorageConfigRequest.resource_type required"
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_connect.types.instance_storage_resource_type.InstanceStorageResourceType",
+            "",
         )
     if data.get("StorageConfig") is not None:
         import capo_connect.types.instance_storage_config

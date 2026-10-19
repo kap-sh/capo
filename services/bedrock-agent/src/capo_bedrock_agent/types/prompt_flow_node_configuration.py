@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.guardrail_configuration
     import capo_bedrock_agent.types.prompt_flow_node_source_configuration
@@ -52,8 +50,10 @@ def deserialize_json(data: dict) -> PromptFlowNodeConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "PromptFlowNodeConfiguration.source_configuration required"
+        import capo_bedrock_agent.types._unknown
+
+        out["source_configuration"] = (
+            capo_bedrock_agent.types._unknown.UnknownUnionMember("")
         )
     if data.get("guardrailConfiguration") is not None:
         import capo_bedrock_agent.types.guardrail_configuration

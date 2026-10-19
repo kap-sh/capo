@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_gameliftstreams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_gameliftstreams.types.client_token
     import capo_gameliftstreams.types.description
@@ -67,7 +65,7 @@ def deserialize_json(data: dict) -> CreateStreamGroupInput:
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("CreateStreamGroupInput.description required")
+        out["description"] = ""
     if data.get("StreamClass") is not None:
         import capo_gameliftstreams.types.stream_class
 
@@ -75,7 +73,11 @@ def deserialize_json(data: dict) -> CreateStreamGroupInput:
             data["StreamClass"]
         )
     else:
-        raise DeserializationError("CreateStreamGroupInput.stream_class required")
+        import typing
+
+        out["stream_class"] = typing.cast(
+            "capo_gameliftstreams.types.stream_class.StreamClass", ""
+        )
     if data.get("DefaultApplicationIdentifier") is not None:
         out["default_application_identifier"] = data["DefaultApplicationIdentifier"]
     if data.get("LocationConfigurations") is not None:

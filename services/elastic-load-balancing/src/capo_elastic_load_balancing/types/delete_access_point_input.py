@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_elastic_load_balancing._protocol.xml import Element
-from capo_elastic_load_balancing.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_elastic_load_balancing.types.access_point_name
@@ -32,5 +31,5 @@ def deserialize_query(el: Element) -> DeleteAccessPointInput:
     if child_load_balancer_name is not None:
         out["load_balancer_name"] = str(child_load_balancer_name.text or "")
     else:
-        raise DeserializationError("DeleteAccessPointInput.load_balancer_name required")
+        out["load_balancer_name"] = ""
     return out

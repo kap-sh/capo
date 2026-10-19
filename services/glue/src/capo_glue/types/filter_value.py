@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.enclosed_in_string_properties
     import capo_glue.types.filter_value_type
@@ -43,7 +41,11 @@ def deserialize_aws_json_1_1(data: dict) -> FilterValue:
             data["Type"]
         )
     else:
-        raise DeserializationError("FilterValue.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_glue.types.filter_value_type.FilterValueType", ""
+        )
     if data.get("Value") is not None:
         import capo_glue.types.enclosed_in_string_properties
 
@@ -53,5 +55,5 @@ def deserialize_aws_json_1_1(data: dict) -> FilterValue:
             )
         )
     else:
-        raise DeserializationError("FilterValue.value required")
+        out["value"] = []
     return out

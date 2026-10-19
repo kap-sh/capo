@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.amazon_resource_name
@@ -41,7 +40,9 @@ def deserialize_query(el: Element) -> StopAction:
 
         out["scope"] = capo_ses.types.stop_scope.deserialize_query(child_scope)
     else:
-        raise DeserializationError("StopAction.scope required")
+        import typing
+
+        out["scope"] = typing.cast("capo_ses.types.stop_scope.StopScope", "")
     child_topic_arn = el.find("TopicArn")
     if child_topic_arn is not None:
         out["topic_arn"] = str(child_topic_arn.text or "")

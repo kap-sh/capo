@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 
 class StartTag(TypedDict, closed=True):
     time_offset: "float"
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> StartTag:
     if data.get("TimeOffset") is not None:
         out["time_offset"] = float(data["TimeOffset"])
     else:
-        raise DeserializationError("StartTag.time_offset required")
+        out["time_offset"] = 0.0
     if data.get("Precise") is not None:
         out["precise"] = data["Precise"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.rule_actions
     import capo_mailmanager.types.rule_conditions
@@ -75,7 +73,7 @@ def deserialize_aws_json_1_0(data: dict) -> Rule:
             data["Actions"]
         )
     else:
-        raise DeserializationError("Rule.actions required")
+        out["actions"] = []
     return out
 
 

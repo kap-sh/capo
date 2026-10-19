@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.resource_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> StartVariantImportResponse:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("StartVariantImportResponse.job_id required")
+        out["job_id"] = ""
     return out

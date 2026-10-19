@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.role_arn
     import capo_qbusiness.types.saml_attribute
@@ -41,15 +39,15 @@ def deserialize_json(data: dict) -> SamlConfiguration:
     if data.get("metadataXML") is not None:
         out["metadata_xml"] = data["metadataXML"]
     else:
-        raise DeserializationError("SamlConfiguration.metadata_xml required")
+        out["metadata_xml"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("SamlConfiguration.role_arn required")
+        out["role_arn"] = ""
     if data.get("userIdAttribute") is not None:
         out["user_id_attribute"] = data["userIdAttribute"]
     else:
-        raise DeserializationError("SamlConfiguration.user_id_attribute required")
+        out["user_id_attribute"] = ""
     if data.get("userGroupAttribute") is not None:
         out["user_group_attribute"] = data["userGroupAttribute"]
     return out

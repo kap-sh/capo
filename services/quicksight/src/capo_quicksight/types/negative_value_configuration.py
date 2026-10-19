@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.negative_value_display_mode
 
@@ -41,5 +39,10 @@ def deserialize_json(data: dict) -> NegativeValueConfiguration:
             )
         )
     else:
-        raise DeserializationError("NegativeValueConfiguration.display_mode required")
+        import typing
+
+        out["display_mode"] = typing.cast(
+            "capo_quicksight.types.negative_value_display_mode.NegativeValueDisplayMode",
+            "",
+        )
     return out

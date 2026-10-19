@@ -42,9 +42,7 @@ def deserialize_json(data: dict) -> GetBillingTransferPreferenceOutput:
     if data.get("ResponsibilityTransferArn") is not None:
         out["responsibility_transfer_arn"] = data["ResponsibilityTransferArn"]
     else:
-        raise DeserializationError(
-            "GetBillingTransferPreferenceOutput.responsibility_transfer_arn required"
-        )
+        out["responsibility_transfer_arn"] = ""
     if data.get("AutoBillingTransferBillingGroupCreation") is not None:
         import capo_billingconductor.types.auto_transfer_billing_group_creation_preference
 

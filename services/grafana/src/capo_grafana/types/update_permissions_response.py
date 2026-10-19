@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_grafana.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_grafana.types.update_error_list
 
@@ -33,5 +31,5 @@ def deserialize_json(data: dict) -> UpdatePermissionsResponse:
             data["errors"]
         )
     else:
-        raise DeserializationError("UpdatePermissionsResponse.errors required")
+        out["errors"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.string
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> ProjectSourceVersion:
     if data.get("sourceIdentifier") is not None:
         out["source_identifier"] = data["sourceIdentifier"]
     else:
-        raise DeserializationError("ProjectSourceVersion.source_identifier required")
+        out["source_identifier"] = ""
     if data.get("sourceVersion") is not None:
         out["source_version"] = data["sourceVersion"]
     else:
-        raise DeserializationError("ProjectSourceVersion.source_version required")
+        out["source_version"] = ""
     return out

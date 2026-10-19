@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.license_endpoint_id
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> CreateLicenseEndpointResponse:
     if data.get("licenseEndpointId") is not None:
         out["license_endpoint_id"] = data["licenseEndpointId"]
     else:
-        raise DeserializationError(
-            "CreateLicenseEndpointResponse.license_endpoint_id required"
-        )
+        out["license_endpoint_id"] = ""
     return out

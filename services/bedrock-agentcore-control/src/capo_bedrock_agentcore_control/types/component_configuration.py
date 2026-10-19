@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 
 class ComponentConfiguration(TypedDict, closed=True):
     configuration: "object"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> ComponentConfiguration:
     if data.get("configuration") is not None:
         out["configuration"] = data["configuration"]
     else:
-        raise DeserializationError("ComponentConfiguration.configuration required")
+        out["configuration"] = None
     return out

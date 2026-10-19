@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_aiops.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_aiops.types.chatbot_notification_channel
     import capo_aiops.types.cross_account_configurations
@@ -99,11 +97,11 @@ def deserialize_json(data: dict) -> CreateInvestigationGroupInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateInvestigationGroupInput.name required")
+        out["name"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateInvestigationGroupInput.role_arn required")
+        out["role_arn"] = ""
     if data.get("encryptionConfiguration") is not None:
         import capo_aiops.types.encryption_configuration
 

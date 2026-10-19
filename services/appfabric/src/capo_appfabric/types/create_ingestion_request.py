@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appfabric.types.identifier
     import capo_appfabric.types.ingestion_type
@@ -54,11 +52,11 @@ def deserialize_json(data: dict) -> CreateIngestionRequest:
     if data.get("app") is not None:
         out["app"] = data["app"]
     else:
-        raise DeserializationError("CreateIngestionRequest.app required")
+        out["app"] = ""
     if data.get("tenantId") is not None:
         out["tenant_id"] = data["tenantId"]
     else:
-        raise DeserializationError("CreateIngestionRequest.tenant_id required")
+        out["tenant_id"] = ""
     if data.get("ingestionType") is not None:
         import capo_appfabric.types.ingestion_type
 
@@ -66,7 +64,11 @@ def deserialize_json(data: dict) -> CreateIngestionRequest:
             data["ingestionType"]
         )
     else:
-        raise DeserializationError("CreateIngestionRequest.ingestion_type required")
+        import typing
+
+        out["ingestion_type"] = typing.cast(
+            "capo_appfabric.types.ingestion_type.IngestionType", ""
+        )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

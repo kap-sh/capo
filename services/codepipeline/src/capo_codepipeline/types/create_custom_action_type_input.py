@@ -99,15 +99,19 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCustomActionTypeInput:
             )
         )
     else:
-        raise DeserializationError("CreateCustomActionTypeInput.category required")
+        import typing
+
+        out["category"] = typing.cast(
+            "capo_codepipeline.types.action_category.ActionCategory", ""
+        )
     if data.get("provider") is not None:
         out["provider"] = data["provider"]
     else:
-        raise DeserializationError("CreateCustomActionTypeInput.provider required")
+        out["provider"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("CreateCustomActionTypeInput.version required")
+        out["version"] = ""
     if data.get("settings") is not None:
         import capo_codepipeline.types.action_type_settings
 

@@ -79,27 +79,19 @@ def deserialize_aws_json_1_0(data: dict) -> GetQualificationsDisassociationTaskR
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError(
-            "GetQualificationsDisassociationTaskResponse.catalog required"
-        )
+        out["catalog"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError(
-            "GetQualificationsDisassociationTaskResponse.arn required"
-        )
+        out["arn"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError(
-            "GetQualificationsDisassociationTaskResponse.id required"
-        )
+        out["id"] = ""
     if data.get("TaskId") is not None:
         out["task_id"] = data["TaskId"]
     else:
-        raise DeserializationError(
-            "GetQualificationsDisassociationTaskResponse.task_id required"
-        )
+        out["task_id"] = ""
     if data.get("Status") is not None:
         import capo_partnercentral_account.types.qualifications_disassociation_task_status
 
@@ -109,8 +101,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetQualificationsDisassociationTaskR
             )
         )
     else:
-        raise DeserializationError(
-            "GetQualificationsDisassociationTaskResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_partnercentral_account.types.qualifications_disassociation_task_status.QualificationsDisassociationTaskStatus",
+            "",
         )
     if data.get("AssociatedPartner") is not None:
         import capo_partnercentral_account.types.qualifications_association_partner
@@ -133,9 +128,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetQualificationsDisassociationTaskR
             )
         )
     else:
-        raise DeserializationError(
-            "GetQualificationsDisassociationTaskResponse.started_at required"
-        )
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndedAt") is not None:
         import capo_partnercentral_account.types.date_time
 

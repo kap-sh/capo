@@ -64,11 +64,11 @@ def deserialize_json(data: dict) -> GetInternetEventOutput:
     if data.get("EventId") is not None:
         out["event_id"] = data["EventId"]
     else:
-        raise DeserializationError("GetInternetEventOutput.event_id required")
+        out["event_id"] = ""
     if data.get("EventArn") is not None:
         out["event_arn"] = data["EventArn"]
     else:
-        raise DeserializationError("GetInternetEventOutput.event_arn required")
+        out["event_arn"] = ""
     if data.get("StartedAt") is not None:
         import datetime
 
@@ -76,7 +76,9 @@ def deserialize_json(data: dict) -> GetInternetEventOutput:
             data["StartedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetInternetEventOutput.started_at required")
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndedAt") is not None:
         import datetime
 
@@ -96,9 +98,9 @@ def deserialize_json(data: dict) -> GetInternetEventOutput:
     if data.get("EventType") is not None:
         out["event_type"] = data["EventType"]
     else:
-        raise DeserializationError("GetInternetEventOutput.event_type required")
+        out["event_type"] = ""
     if data.get("EventStatus") is not None:
         out["event_status"] = data["EventStatus"]
     else:
-        raise DeserializationError("GetInternetEventOutput.event_status required")
+        out["event_status"] = ""
     return out

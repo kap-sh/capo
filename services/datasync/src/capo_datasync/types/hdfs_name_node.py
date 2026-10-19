@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.hdfs_server_hostname
     import capo_datasync.types.hdfs_server_port
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> HdfsNameNode:
     if data.get("Hostname") is not None:
         out["hostname"] = data["Hostname"]
     else:
-        raise DeserializationError("HdfsNameNode.hostname required")
+        out["hostname"] = ""
     if data.get("Port") is not None:
         out["port"] = data["Port"]
     else:
-        raise DeserializationError("HdfsNameNode.port required")
+        out["port"] = 0
     return out

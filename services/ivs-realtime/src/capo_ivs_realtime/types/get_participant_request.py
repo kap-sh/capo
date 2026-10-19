@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ivs_realtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.participant_id
     import capo_ivs_realtime.types.stage_arn
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> GetParticipantRequest:
     if data.get("stageArn") is not None:
         out["stage_arn"] = data["stageArn"]
     else:
-        raise DeserializationError("GetParticipantRequest.stage_arn required")
+        out["stage_arn"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("GetParticipantRequest.session_id required")
+        out["session_id"] = ""
     if data.get("participantId") is not None:
         out["participant_id"] = data["participantId"]
     else:
-        raise DeserializationError("GetParticipantRequest.participant_id required")
+        out["participant_id"] = ""
     return out

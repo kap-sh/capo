@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.boolean_value
     import capo_glue.types.boxed_boolean
@@ -152,7 +150,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3CsvSource:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("S3CsvSource.name required")
+        out["name"] = ""
     if data.get("Paths") is not None:
         import capo_glue.types.enclosed_in_string_properties
 
@@ -162,7 +160,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3CsvSource:
             )
         )
     else:
-        raise DeserializationError("S3CsvSource.paths required")
+        out["paths"] = []
     if data.get("CompressionType") is not None:
         import capo_glue.types.compression_type
 
@@ -204,7 +202,9 @@ def deserialize_aws_json_1_1(data: dict) -> S3CsvSource:
             data["Separator"]
         )
     else:
-        raise DeserializationError("S3CsvSource.separator required")
+        import typing
+
+        out["separator"] = typing.cast("capo_glue.types.separator.Separator", "")
     if data.get("Escaper") is not None:
         out["escaper"] = data["Escaper"]
     if data.get("QuoteChar") is not None:
@@ -214,7 +214,9 @@ def deserialize_aws_json_1_1(data: dict) -> S3CsvSource:
             data["QuoteChar"]
         )
     else:
-        raise DeserializationError("S3CsvSource.quote_char required")
+        import typing
+
+        out["quote_char"] = typing.cast("capo_glue.types.quote_char.QuoteChar", "")
     if data.get("Multiline") is not None:
         out["multiline"] = data["Multiline"]
     if data.get("WithHeader") is not None:

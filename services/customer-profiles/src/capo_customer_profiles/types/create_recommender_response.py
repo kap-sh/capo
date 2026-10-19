@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.arn
     import capo_customer_profiles.types.tag_map
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> CreateRecommenderResponse:
     if data.get("RecommenderArn") is not None:
         out["recommender_arn"] = data["RecommenderArn"]
     else:
-        raise DeserializationError("CreateRecommenderResponse.recommender_arn required")
+        out["recommender_arn"] = ""
     if data.get("Tags") is not None:
         import capo_customer_profiles.types.tag_map
 

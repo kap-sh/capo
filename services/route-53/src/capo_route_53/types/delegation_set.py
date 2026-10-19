@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.delegation_set_name_servers
@@ -56,5 +55,5 @@ def deserialize_xml(el: Element) -> DelegationSet:
             )
         )
     else:
-        raise DeserializationError("DelegationSet.name_servers required")
+        out["name_servers"] = []
     return out

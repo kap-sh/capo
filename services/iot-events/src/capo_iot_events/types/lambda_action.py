@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.amazon_resource_name
     import capo_iot_events.types.payload
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> LambdaAction:
     if data.get("functionArn") is not None:
         out["function_arn"] = data["functionArn"]
     else:
-        raise DeserializationError("LambdaAction.function_arn required")
+        out["function_arn"] = ""
     if data.get("payload") is not None:
         import capo_iot_events.types.payload
 

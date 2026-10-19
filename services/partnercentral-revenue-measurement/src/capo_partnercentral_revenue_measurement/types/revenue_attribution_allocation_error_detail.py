@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_revenue_measurement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_revenue_measurement.types.allocation_effective_date_string
     import capo_partnercentral_revenue_measurement.types.customer_aws_account_id
@@ -90,33 +88,27 @@ def deserialize_cbor(data: dict) -> RevenueAttributionAllocationErrorDetail:
             )
         )
     else:
-        raise DeserializationError(
-            "RevenueAttributionAllocationErrorDetail.entity_type required"
+        import typing
+
+        out["entity_type"] = typing.cast(
+            "capo_partnercentral_revenue_measurement.types.entity_type.EntityType", ""
         )
     if data.get("EntityId") is not None:
         out["entity_id"] = data["EntityId"]
     else:
-        raise DeserializationError(
-            "RevenueAttributionAllocationErrorDetail.entity_id required"
-        )
+        out["entity_id"] = ""
     if data.get("CustomerAwsAccountId") is not None:
         out["customer_aws_account_id"] = data["CustomerAwsAccountId"]
     else:
-        raise DeserializationError(
-            "RevenueAttributionAllocationErrorDetail.customer_aws_account_id required"
-        )
+        out["customer_aws_account_id"] = ""
     if data.get("EffectiveFrom") is not None:
         out["effective_from"] = data["EffectiveFrom"]
     else:
-        raise DeserializationError(
-            "RevenueAttributionAllocationErrorDetail.effective_from required"
-        )
+        out["effective_from"] = ""
     if data.get("EffectiveUntil") is not None:
         out["effective_until"] = data["EffectiveUntil"]
     else:
-        raise DeserializationError(
-            "RevenueAttributionAllocationErrorDetail.effective_until required"
-        )
+        out["effective_until"] = ""
     if data.get("Action") is not None:
         import capo_partnercentral_revenue_measurement.types.revenue_attribution_allocation_action
 
@@ -126,8 +118,11 @@ def deserialize_cbor(data: dict) -> RevenueAttributionAllocationErrorDetail:
             )
         )
     else:
-        raise DeserializationError(
-            "RevenueAttributionAllocationErrorDetail.action required"
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_partnercentral_revenue_measurement.types.revenue_attribution_allocation_action.RevenueAttributionAllocationAction",
+            "",
         )
     if data.get("ErrorCode") is not None:
         import capo_partnercentral_revenue_measurement.types.revenue_attribution_allocation_error_code
@@ -138,15 +133,16 @@ def deserialize_cbor(data: dict) -> RevenueAttributionAllocationErrorDetail:
             )
         )
     else:
-        raise DeserializationError(
-            "RevenueAttributionAllocationErrorDetail.error_code required"
+        import typing
+
+        out["error_code"] = typing.cast(
+            "capo_partnercentral_revenue_measurement.types.revenue_attribution_allocation_error_code.RevenueAttributionAllocationErrorCode",
+            "",
         )
     if data.get("ErrorMessage") is not None:
         out["error_message"] = data["ErrorMessage"]
     else:
-        raise DeserializationError(
-            "RevenueAttributionAllocationErrorDetail.error_message required"
-        )
+        out["error_message"] = ""
     return out
 
 

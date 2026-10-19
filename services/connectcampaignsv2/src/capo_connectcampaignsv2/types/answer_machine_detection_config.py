@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 
 class AnswerMachineDetectionConfig(TypedDict, closed=True):
     enable_answer_machine_detection: "bool"
@@ -26,9 +24,7 @@ def deserialize_json(data: dict) -> AnswerMachineDetectionConfig:
     if data.get("enableAnswerMachineDetection") is not None:
         out["enable_answer_machine_detection"] = data["enableAnswerMachineDetection"]
     else:
-        raise DeserializationError(
-            "AnswerMachineDetectionConfig.enable_answer_machine_detection required"
-        )
+        out["enable_answer_machine_detection"] = False
     if data.get("awaitAnswerMachinePrompt") is not None:
         out["await_answer_machine_prompt"] = data["awaitAnswerMachinePrompt"]
     return out

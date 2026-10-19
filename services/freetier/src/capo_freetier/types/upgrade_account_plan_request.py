@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_freetier.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_freetier.types.account_plan_type
 
@@ -39,7 +37,9 @@ def deserialize_aws_json_1_0(data: dict) -> UpgradeAccountPlanRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpgradeAccountPlanRequest.account_plan_type required"
+        import typing
+
+        out["account_plan_type"] = typing.cast(
+            "capo_freetier.types.account_plan_type.AccountPlanType", ""
         )
     return out

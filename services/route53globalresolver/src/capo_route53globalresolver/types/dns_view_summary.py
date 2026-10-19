@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.client_token
     import capo_route53globalresolver.types.dns_sec_validation_type
@@ -114,15 +112,15 @@ def deserialize_json(data: dict) -> DNSViewSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("DNSViewSummary.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("DNSViewSummary.arn required")
+        out["arn"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("DNSViewSummary.client_token required")
+        out["client_token"] = ""
     if data.get("dnssecValidation") is not None:
         import capo_route53globalresolver.types.dns_sec_validation_type
 
@@ -132,7 +130,12 @@ def deserialize_json(data: dict) -> DNSViewSummary:
             )
         )
     else:
-        raise DeserializationError("DNSViewSummary.dnssec_validation required")
+        import typing
+
+        out["dnssec_validation"] = typing.cast(
+            "capo_route53globalresolver.types.dns_sec_validation_type.DnsSecValidationType",
+            "",
+        )
     if data.get("ednsClientSubnet") is not None:
         import capo_route53globalresolver.types.edns_client_subnet_type
 
@@ -142,7 +145,12 @@ def deserialize_json(data: dict) -> DNSViewSummary:
             )
         )
     else:
-        raise DeserializationError("DNSViewSummary.edns_client_subnet required")
+        import typing
+
+        out["edns_client_subnet"] = typing.cast(
+            "capo_route53globalresolver.types.edns_client_subnet_type.EdnsClientSubnetType",
+            "",
+        )
     if data.get("firewallRulesFailOpen") is not None:
         import capo_route53globalresolver.types.firewall_rules_fail_open_type
 
@@ -152,17 +160,22 @@ def deserialize_json(data: dict) -> DNSViewSummary:
             )
         )
     else:
-        raise DeserializationError("DNSViewSummary.firewall_rules_fail_open required")
+        import typing
+
+        out["firewall_rules_fail_open"] = typing.cast(
+            "capo_route53globalresolver.types.firewall_rules_fail_open_type.FirewallRulesFailOpenType",
+            "",
+        )
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DNSViewSummary.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("globalResolverId") is not None:
         out["global_resolver_id"] = data["globalResolverId"]
     else:
-        raise DeserializationError("DNSViewSummary.global_resolver_id required")
+        out["global_resolver_id"] = ""
     if data.get("createdAt") is not None:
         import capo_route53globalresolver.types.iso8601_time_string
 
@@ -172,7 +185,9 @@ def deserialize_json(data: dict) -> DNSViewSummary:
             )
         )
     else:
-        raise DeserializationError("DNSViewSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_route53globalresolver.types.iso8601_time_string
 
@@ -182,7 +197,9 @@ def deserialize_json(data: dict) -> DNSViewSummary:
             )
         )
     else:
-        raise DeserializationError("DNSViewSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         import capo_route53globalresolver.types.profile_resource_status
 
@@ -192,5 +209,10 @@ def deserialize_json(data: dict) -> DNSViewSummary:
             )
         )
     else:
-        raise DeserializationError("DNSViewSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_route53globalresolver.types.profile_resource_status.ProfileResourceStatus",
+            "",
+        )
     return out

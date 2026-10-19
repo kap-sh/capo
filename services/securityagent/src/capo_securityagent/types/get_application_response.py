@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.application_domain
     import capo_securityagent.types.application_id
@@ -60,11 +58,11 @@ def deserialize_json(data: dict) -> GetApplicationResponse:
     if data.get("applicationId") is not None:
         out["application_id"] = data["applicationId"]
     else:
-        raise DeserializationError("GetApplicationResponse.application_id required")
+        out["application_id"] = ""
     if data.get("domain") is not None:
         out["domain"] = data["domain"]
     else:
-        raise DeserializationError("GetApplicationResponse.domain required")
+        out["domain"] = ""
     if data.get("applicationName") is not None:
         out["application_name"] = data["applicationName"]
     if data.get("idcConfiguration") is not None:

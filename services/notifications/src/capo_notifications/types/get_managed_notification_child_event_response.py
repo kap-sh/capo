@@ -51,17 +51,13 @@ def deserialize_json(data: dict) -> GetManagedNotificationChildEventResponse:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError(
-            "GetManagedNotificationChildEventResponse.arn required"
-        )
+        out["arn"] = ""
     if data.get("managedNotificationConfigurationArn") is not None:
         out["managed_notification_configuration_arn"] = data[
             "managedNotificationConfigurationArn"
         ]
     else:
-        raise DeserializationError(
-            "GetManagedNotificationChildEventResponse.managed_notification_configuration_arn required"
-        )
+        out["managed_notification_configuration_arn"] = ""
     if data.get("creationTime") is not None:
         import capo_notifications.types.creation_time
 
@@ -69,8 +65,10 @@ def deserialize_json(data: dict) -> GetManagedNotificationChildEventResponse:
             data["creationTime"]
         )
     else:
-        raise DeserializationError(
-            "GetManagedNotificationChildEventResponse.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("content") is not None:
         import capo_notifications.types.managed_notification_child_event

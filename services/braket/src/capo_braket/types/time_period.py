@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_braket.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -34,7 +32,9 @@ def deserialize_json(data: dict) -> TimePeriod:
             float(data["startAt"]), tz=datetime.timezone.utc
         )
     else:
-        raise DeserializationError("TimePeriod.start_at required")
+        import datetime
+
+        out["start_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endAt") is not None:
         import datetime
 
@@ -42,5 +42,7 @@ def deserialize_json(data: dict) -> TimePeriod:
             float(data["endAt"]), tz=datetime.timezone.utc
         )
     else:
-        raise DeserializationError("TimePeriod.end_at required")
+        import datetime
+
+        out["end_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

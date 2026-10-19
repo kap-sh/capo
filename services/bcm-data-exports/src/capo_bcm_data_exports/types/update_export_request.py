@@ -35,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateExportRequest:
     if data.get("ExportArn") is not None:
         out["export_arn"] = data["ExportArn"]
     else:
-        raise DeserializationError("UpdateExportRequest.export_arn required")
+        out["export_arn"] = ""
     if data.get("Export") is not None:
         import capo_bcm_data_exports.types.export
 

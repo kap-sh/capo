@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.api_key
     import capo_appflow.types.api_secret_key
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> ApiKeyCredentials:
     if data.get("apiKey") is not None:
         out["api_key"] = data["apiKey"]
     else:
-        raise DeserializationError("ApiKeyCredentials.api_key required")
+        out["api_key"] = ""
     if data.get("apiSecretKey") is not None:
         out["api_secret_key"] = data["apiSecretKey"]
     return out

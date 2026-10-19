@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_forecast.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_forecast.types.double
     import capo_forecast.types.name
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> Action:
     if data.get("AttributeName") is not None:
         out["attribute_name"] = data["AttributeName"]
     else:
-        raise DeserializationError("Action.attribute_name required")
+        out["attribute_name"] = ""
     if data.get("Operation") is not None:
         import capo_forecast.types.operation
 
@@ -55,9 +53,11 @@ def deserialize_aws_json_1_1(data: dict) -> Action:
             data["Operation"]
         )
     else:
-        raise DeserializationError("Action.operation required")
+        import typing
+
+        out["operation"] = typing.cast("capo_forecast.types.operation.Operation", "")
     if data.get("Value") is not None:
         out["value"] = float(data["Value"])
     else:
-        raise DeserializationError("Action.value required")
+        out["value"] = 0.0
     return out

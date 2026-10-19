@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pcs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pcs.types.endpoint_type
 
@@ -47,11 +45,13 @@ def deserialize_aws_json_1_0(data: dict) -> Endpoint:
             data["type"]
         )
     else:
-        raise DeserializationError("Endpoint.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_pcs.types.endpoint_type.EndpointType", "")
     if data.get("privateIpAddress") is not None:
         out["private_ip_address"] = data["privateIpAddress"]
     else:
-        raise DeserializationError("Endpoint.private_ip_address required")
+        out["private_ip_address"] = ""
     if data.get("publicIpAddress") is not None:
         out["public_ip_address"] = data["publicIpAddress"]
     if data.get("ipv6Address") is not None:
@@ -59,5 +59,5 @@ def deserialize_aws_json_1_0(data: dict) -> Endpoint:
     if data.get("port") is not None:
         out["port"] = data["port"]
     else:
-        raise DeserializationError("Endpoint.port required")
+        out["port"] = ""
     return out

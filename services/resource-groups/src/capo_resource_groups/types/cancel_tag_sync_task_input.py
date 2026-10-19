@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resource_groups.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resource_groups.types.tag_sync_task_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CancelTagSyncTaskInput:
     if data.get("TaskArn") is not None:
         out["task_arn"] = data["TaskArn"]
     else:
-        raise DeserializationError("CancelTagSyncTaskInput.task_arn required")
+        out["task_arn"] = ""
     return out

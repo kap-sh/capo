@@ -84,5 +84,7 @@ def deserialize_json(data: dict) -> SearchInsightsRequest:
 
         out["type"] = capo_devops_guru.types.insight_type.deserialize_json(data["Type"])
     else:
-        raise DeserializationError("SearchInsightsRequest.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_devops_guru.types.insight_type.InsightType", "")
     return out

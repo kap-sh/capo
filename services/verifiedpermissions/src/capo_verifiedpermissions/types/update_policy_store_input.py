@@ -59,7 +59,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdatePolicyStoreInput:
     if data.get("policyStoreId") is not None:
         out["policy_store_id"] = data["policyStoreId"]
     else:
-        raise DeserializationError("UpdatePolicyStoreInput.policy_store_id required")
+        out["policy_store_id"] = ""
     if data.get("validationSettings") is not None:
         import capo_verifiedpermissions.types.validation_settings
 

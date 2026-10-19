@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.policy_store_id
     import capo_verifiedpermissions.types.schema_definition
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> PutSchemaInput:
     if data.get("policyStoreId") is not None:
         out["policy_store_id"] = data["policyStoreId"]
     else:
-        raise DeserializationError("PutSchemaInput.policy_store_id required")
+        out["policy_store_id"] = ""
     if data.get("definition") is not None:
         import capo_verifiedpermissions.types.schema_definition
 
@@ -47,7 +45,11 @@ def deserialize_aws_json_1_0(data: dict) -> PutSchemaInput:
             )
         )
     else:
-        raise DeserializationError("PutSchemaInput.definition required")
+        import capo_verifiedpermissions.types._unknown
+
+        out["definition"] = capo_verifiedpermissions.types._unknown.UnknownUnionMember(
+            ""
+        )
     return out
 
 

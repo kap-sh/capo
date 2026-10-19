@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -144,15 +142,15 @@ def deserialize_json(data: dict) -> Memory:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("Memory.arn required")
+        out["arn"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("Memory.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Memory.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("encryptionKeyArn") is not None:
@@ -162,7 +160,7 @@ def deserialize_json(data: dict) -> Memory:
     if data.get("eventExpiryDuration") is not None:
         out["event_expiry_duration"] = data["eventExpiryDuration"]
     else:
-        raise DeserializationError("Memory.event_expiry_duration required")
+        out["event_expiry_duration"] = 0
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.memory_status
 
@@ -172,7 +170,11 @@ def deserialize_json(data: dict) -> Memory:
             )
         )
     else:
-        raise DeserializationError("Memory.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.memory_status.MemoryStatus", ""
+        )
     if data.get("failureReason") is not None:
         out["failure_reason"] = data["failureReason"]
     if data.get("createdAt") is not None:
@@ -184,7 +186,9 @@ def deserialize_json(data: dict) -> Memory:
             )
         )
     else:
-        raise DeserializationError("Memory.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
 
@@ -194,7 +198,9 @@ def deserialize_json(data: dict) -> Memory:
             )
         )
     else:
-        raise DeserializationError("Memory.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("strategies") is not None:
         import capo_bedrock_agentcore_control.types.memory_strategy_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.management_cidr_range_constraint
     import capo_workspaces.types.management_cidr_range_max_results
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListAvailableManagementCidrRangesReq
     if data.get("ManagementCidrRangeConstraint") is not None:
         out["management_cidr_range_constraint"] = data["ManagementCidrRangeConstraint"]
     else:
-        raise DeserializationError(
-            "ListAvailableManagementCidrRangesRequest.management_cidr_range_constraint required"
-        )
+        out["management_cidr_range_constraint"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

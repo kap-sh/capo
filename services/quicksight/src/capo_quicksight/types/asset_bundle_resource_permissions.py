@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.action_list
     import capo_quicksight.types.asset_bundle_principal_list
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> AssetBundleResourcePermissions:
             )
         )
     else:
-        raise DeserializationError("AssetBundleResourcePermissions.principals required")
+        out["principals"] = []
     if data.get("Actions") is not None:
         import capo_quicksight.types.action_list
 
@@ -55,5 +53,5 @@ def deserialize_json(data: dict) -> AssetBundleResourcePermissions:
             data["Actions"]
         )
     else:
-        raise DeserializationError("AssetBundleResourcePermissions.actions required")
+        out["actions"] = []
     return out

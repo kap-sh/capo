@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sts._protocol.xml import Element
-from capo_sts.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sts.types.arn_type
@@ -121,12 +120,12 @@ def deserialize_query(el: Element) -> AssumeRoleRequest:
     if child_role_arn is not None:
         out["role_arn"] = str(child_role_arn.text or "")
     else:
-        raise DeserializationError("AssumeRoleRequest.role_arn required")
+        out["role_arn"] = ""
     child_role_session_name = el.find("RoleSessionName")
     if child_role_session_name is not None:
         out["role_session_name"] = str(child_role_session_name.text or "")
     else:
-        raise DeserializationError("AssumeRoleRequest.role_session_name required")
+        out["role_session_name"] = ""
     child_policy_arns = el.find("PolicyArns")
     if child_policy_arns is not None:
         import capo_sts.types.policy_descriptor_list_type

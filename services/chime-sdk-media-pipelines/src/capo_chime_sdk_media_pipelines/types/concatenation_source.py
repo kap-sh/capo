@@ -49,7 +49,12 @@ def deserialize_json(data: dict) -> ConcatenationSource:
             )
         )
     else:
-        raise DeserializationError("ConcatenationSource.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.concatenation_source_type.ConcatenationSourceType",
+            "",
+        )
     if data.get("MediaCapturePipelineSourceConfiguration") is not None:
         import capo_chime_sdk_media_pipelines.types.media_capture_pipeline_source_configuration
 

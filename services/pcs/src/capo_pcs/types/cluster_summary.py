@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pcs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -52,15 +50,15 @@ def deserialize_aws_json_1_0(data: dict) -> ClusterSummary:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ClusterSummary.name required")
+        out["name"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ClusterSummary.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ClusterSummary.arn required")
+        out["arn"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -68,7 +66,9 @@ def deserialize_aws_json_1_0(data: dict) -> ClusterSummary:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("ClusterSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("modifiedAt") is not None:
         import datetime
 
@@ -76,7 +76,11 @@ def deserialize_aws_json_1_0(data: dict) -> ClusterSummary:
             data["modifiedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("ClusterSummary.modified_at required")
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("status") is not None:
         import capo_pcs.types.cluster_status
 
@@ -84,5 +88,7 @@ def deserialize_aws_json_1_0(data: dict) -> ClusterSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("ClusterSummary.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_pcs.types.cluster_status.ClusterStatus", "")
     return out

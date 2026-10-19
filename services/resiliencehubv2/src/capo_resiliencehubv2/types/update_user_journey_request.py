@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.arn
     import capo_resiliencehubv2.types.entity_description
@@ -43,11 +41,11 @@ def deserialize_json(data: dict) -> UpdateUserJourneyRequest:
     if data.get("systemArn") is not None:
         out["system_arn"] = data["systemArn"]
     else:
-        raise DeserializationError("UpdateUserJourneyRequest.system_arn required")
+        out["system_arn"] = ""
     if data.get("userJourneyId") is not None:
         out["user_journey_id"] = data["userJourneyId"]
     else:
-        raise DeserializationError("UpdateUserJourneyRequest.user_journey_id required")
+        out["user_journey_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("description") is not None:

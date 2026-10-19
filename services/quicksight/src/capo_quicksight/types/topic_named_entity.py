@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.description_sensitive_string
     import capo_quicksight.types.limited_string
@@ -91,7 +89,7 @@ def deserialize_json(data: dict) -> TopicNamedEntity:
     if data.get("EntityName") is not None:
         out["entity_name"] = data["EntityName"]
     else:
-        raise DeserializationError("TopicNamedEntity.entity_name required")
+        out["entity_name"] = ""
     if data.get("EntityDescription") is not None:
         out["entity_description"] = data["EntityDescription"]
     if data.get("EntitySynonyms") is not None:

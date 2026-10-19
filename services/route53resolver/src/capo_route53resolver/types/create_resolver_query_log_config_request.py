@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.creator_request_id
     import capo_route53resolver.types.destination_arn
@@ -44,19 +42,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateResolverQueryLogConfigRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateResolverQueryLogConfigRequest.name required")
+        out["name"] = ""
     if data.get("DestinationArn") is not None:
         out["destination_arn"] = data["DestinationArn"]
     else:
-        raise DeserializationError(
-            "CreateResolverQueryLogConfigRequest.destination_arn required"
-        )
+        out["destination_arn"] = ""
     if data.get("CreatorRequestId") is not None:
         out["creator_request_id"] = data["CreatorRequestId"]
     else:
-        raise DeserializationError(
-            "CreateResolverQueryLogConfigRequest.creator_request_id required"
-        )
+        out["creator_request_id"] = ""
     if data.get("Tags") is not None:
         import capo_route53resolver.types.tag_list
 

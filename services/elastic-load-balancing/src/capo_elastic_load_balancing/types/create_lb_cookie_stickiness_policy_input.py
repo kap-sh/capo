@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_elastic_load_balancing._protocol.xml import Element
-from capo_elastic_load_balancing.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_elastic_load_balancing.types.access_point_name
@@ -50,16 +49,12 @@ def deserialize_query(el: Element) -> CreateLBCookieStickinessPolicyInput:
     if child_load_balancer_name is not None:
         out["load_balancer_name"] = str(child_load_balancer_name.text or "")
     else:
-        raise DeserializationError(
-            "CreateLBCookieStickinessPolicyInput.load_balancer_name required"
-        )
+        out["load_balancer_name"] = ""
     child_policy_name = el.find("PolicyName")
     if child_policy_name is not None:
         out["policy_name"] = str(child_policy_name.text or "")
     else:
-        raise DeserializationError(
-            "CreateLBCookieStickinessPolicyInput.policy_name required"
-        )
+        out["policy_name"] = ""
     child_cookie_expiration_period = el.find("CookieExpirationPeriod")
     if child_cookie_expiration_period is not None:
         out["cookie_expiration_period"] = int(child_cookie_expiration_period.text or "")

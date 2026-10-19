@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.catalog
     import capo_partnercentral_account.types.partner_identifier
@@ -41,11 +39,11 @@ def deserialize_aws_json_1_0(data: dict) -> PutProfileVisibilityRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("PutProfileVisibilityRequest.catalog required")
+        out["catalog"] = ""
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("PutProfileVisibilityRequest.identifier required")
+        out["identifier"] = ""
     if data.get("Visibility") is not None:
         import capo_partnercentral_account.types.profile_visibility
 
@@ -55,5 +53,9 @@ def deserialize_aws_json_1_0(data: dict) -> PutProfileVisibilityRequest:
             )
         )
     else:
-        raise DeserializationError("PutProfileVisibilityRequest.visibility required")
+        import typing
+
+        out["visibility"] = typing.cast(
+            "capo_partnercentral_account.types.profile_visibility.ProfileVisibility", ""
+        )
     return out

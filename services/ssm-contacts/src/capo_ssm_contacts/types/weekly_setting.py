@@ -45,7 +45,11 @@ def deserialize_aws_json_1_1(data: dict) -> WeeklySetting:
             )
         )
     else:
-        raise DeserializationError("WeeklySetting.day_of_week required")
+        import typing
+
+        out["day_of_week"] = typing.cast(
+            "capo_ssm_contacts.types.day_of_week.DayOfWeek", ""
+        )
     if data.get("HandOffTime") is not None:
         import capo_ssm_contacts.types.hand_off_time
 

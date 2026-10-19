@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transcribe.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe.types.category_name
     import capo_transcribe.types.input_type
@@ -53,9 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCallAnalyticsCategoryRequest:
     if data.get("CategoryName") is not None:
         out["category_name"] = data["CategoryName"]
     else:
-        raise DeserializationError(
-            "CreateCallAnalyticsCategoryRequest.category_name required"
-        )
+        out["category_name"] = ""
     if data.get("Rules") is not None:
         import capo_transcribe.types.rule_list
 
@@ -63,7 +59,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCallAnalyticsCategoryRequest:
             data["Rules"]
         )
     else:
-        raise DeserializationError("CreateCallAnalyticsCategoryRequest.rules required")
+        out["rules"] = []
     if data.get("Tags") is not None:
         import capo_transcribe.types.tag_list
 

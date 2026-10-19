@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.repository_name
     import capo_codecommit.types.repository_triggers_list
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> TestRepositoryTriggersInput:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError(
-            "TestRepositoryTriggersInput.repository_name required"
-        )
+        out["repository_name"] = ""
     if data.get("triggers") is not None:
         import capo_codecommit.types.repository_triggers_list
 
@@ -49,5 +45,5 @@ def deserialize_aws_json_1_1(data: dict) -> TestRepositoryTriggersInput:
             )
         )
     else:
-        raise DeserializationError("TestRepositoryTriggersInput.triggers required")
+        out["triggers"] = []
     return out

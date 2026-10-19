@@ -35,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> MonthlySetting:
     if data.get("DayOfMonth") is not None:
         out["day_of_month"] = data["DayOfMonth"]
     else:
-        raise DeserializationError("MonthlySetting.day_of_month required")
+        out["day_of_month"] = 0
     if data.get("HandOffTime") is not None:
         import capo_ssm_contacts.types.hand_off_time
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.evaluation_review_request_comment_list
@@ -98,7 +96,5 @@ def deserialize_json(data: dict) -> EvaluationReviewMetadata:
             )
         )
     else:
-        raise DeserializationError(
-            "EvaluationReviewMetadata.review_request_comments required"
-        )
+        out["review_request_comments"] = []
     return out

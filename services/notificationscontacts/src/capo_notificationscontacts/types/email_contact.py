@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_notificationscontacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notificationscontacts.types.creation_time
     import capo_notificationscontacts.types.email_contact_arn
@@ -55,19 +53,19 @@ def deserialize_json(data: dict) -> EmailContact:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("EmailContact.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("EmailContact.name required")
+        out["name"] = ""
     if data.get("address") is not None:
         out["address"] = data["address"]
     else:
-        raise DeserializationError("EmailContact.address required")
+        out["address"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("EmailContact.status required")
+        out["status"] = ""
     if data.get("creationTime") is not None:
         import capo_notificationscontacts.types.creation_time
 
@@ -77,7 +75,11 @@ def deserialize_json(data: dict) -> EmailContact:
             )
         )
     else:
-        raise DeserializationError("EmailContact.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import capo_notificationscontacts.types.update_time
 
@@ -87,7 +89,11 @@ def deserialize_json(data: dict) -> EmailContact:
             )
         )
     else:
-        raise DeserializationError("EmailContact.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out
 
 

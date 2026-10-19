@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.client_token
     import capo_wickr.types.network_id
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> BatchToggleUserSuspendStatusRequest:
 
         out["user_ids"] = capo_wickr.types.user_ids.deserialize_json(data["userIds"])
     else:
-        raise DeserializationError(
-            "BatchToggleUserSuspendStatusRequest.user_ids required"
-        )
+        out["user_ids"] = []
     return out

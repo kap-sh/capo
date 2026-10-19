@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_invoicing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_invoicing.types.basic_string_without_space
     import capo_invoicing.types.buyer_domain
@@ -169,8 +167,10 @@ def deserialize_aws_json_1_0(data: dict) -> CreateProcurementPortalPreferenceReq
             )
         )
     else:
-        raise DeserializationError(
-            "CreateProcurementPortalPreferenceRequest.procurement_portal_name required"
+        import typing
+
+        out["procurement_portal_name"] = typing.cast(
+            "capo_invoicing.types.procurement_portal_name.ProcurementPortalName", ""
         )
     if data.get("BuyerDomain") is not None:
         import capo_invoicing.types.buyer_domain
@@ -181,15 +181,15 @@ def deserialize_aws_json_1_0(data: dict) -> CreateProcurementPortalPreferenceReq
             )
         )
     else:
-        raise DeserializationError(
-            "CreateProcurementPortalPreferenceRequest.buyer_domain required"
+        import typing
+
+        out["buyer_domain"] = typing.cast(
+            "capo_invoicing.types.buyer_domain.BuyerDomain", ""
         )
     if data.get("BuyerIdentifier") is not None:
         out["buyer_identifier"] = data["BuyerIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateProcurementPortalPreferenceRequest.buyer_identifier required"
-        )
+        out["buyer_identifier"] = ""
     if data.get("SupplierDomain") is not None:
         import capo_invoicing.types.supplier_domain
 
@@ -199,15 +199,15 @@ def deserialize_aws_json_1_0(data: dict) -> CreateProcurementPortalPreferenceReq
             )
         )
     else:
-        raise DeserializationError(
-            "CreateProcurementPortalPreferenceRequest.supplier_domain required"
+        import typing
+
+        out["supplier_domain"] = typing.cast(
+            "capo_invoicing.types.supplier_domain.SupplierDomain", ""
         )
     if data.get("SupplierIdentifier") is not None:
         out["supplier_identifier"] = data["SupplierIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateProcurementPortalPreferenceRequest.supplier_identifier required"
-        )
+        out["supplier_identifier"] = ""
     if data.get("Selector") is not None:
         import capo_invoicing.types.procurement_portal_preference_selector
 
@@ -233,9 +233,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateProcurementPortalPreferenceReq
     if data.get("EinvoiceDeliveryEnabled") is not None:
         out["einvoice_delivery_enabled"] = data["EinvoiceDeliveryEnabled"]
     else:
-        raise DeserializationError(
-            "CreateProcurementPortalPreferenceRequest.einvoice_delivery_enabled required"
-        )
+        out["einvoice_delivery_enabled"] = False
     if data.get("EinvoiceDeliveryPreference") is not None:
         import capo_invoicing.types.einvoice_delivery_preference
 
@@ -247,9 +245,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateProcurementPortalPreferenceReq
     if data.get("PurchaseOrderRetrievalEnabled") is not None:
         out["purchase_order_retrieval_enabled"] = data["PurchaseOrderRetrievalEnabled"]
     else:
-        raise DeserializationError(
-            "CreateProcurementPortalPreferenceRequest.purchase_order_retrieval_enabled required"
-        )
+        out["purchase_order_retrieval_enabled"] = False
     if data.get("MarketplacePunchOutEnabled") is not None:
         out["marketplace_punch_out_enabled"] = data["MarketplacePunchOutEnabled"]
     if data.get("MarketplacePunchOutPreference") is not None:
@@ -267,9 +263,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateProcurementPortalPreferenceReq
             data["Contacts"]
         )
     else:
-        raise DeserializationError(
-            "CreateProcurementPortalPreferenceRequest.contacts required"
-        )
+        out["contacts"] = []
     if data.get("ResourceTags") is not None:
         import capo_invoicing.types.resource_tag_list
 

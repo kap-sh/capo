@@ -143,7 +143,7 @@ def deserialize_json(data: dict) -> GetControlResponse:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("GetControlResponse.arn required")
+        out["arn"] = ""
     if data.get("Aliases") is not None:
         import capo_controlcatalog.types.control_aliases
 
@@ -153,11 +153,11 @@ def deserialize_json(data: dict) -> GetControlResponse:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("GetControlResponse.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("GetControlResponse.description required")
+        out["description"] = ""
     if data.get("Behavior") is not None:
         import capo_controlcatalog.types.control_behavior
 
@@ -165,7 +165,11 @@ def deserialize_json(data: dict) -> GetControlResponse:
             data["Behavior"]
         )
     else:
-        raise DeserializationError("GetControlResponse.behavior required")
+        import typing
+
+        out["behavior"] = typing.cast(
+            "capo_controlcatalog.types.control_behavior.ControlBehavior", ""
+        )
     if data.get("Severity") is not None:
         import capo_controlcatalog.types.control_severity
 

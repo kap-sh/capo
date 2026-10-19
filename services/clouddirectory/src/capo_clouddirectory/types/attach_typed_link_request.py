@@ -109,5 +109,5 @@ def deserialize_json(data: dict) -> AttachTypedLinkRequest:
             )
         )
     else:
-        raise DeserializationError("AttachTypedLinkRequest.attributes required")
+        out["attributes"] = []
     return out

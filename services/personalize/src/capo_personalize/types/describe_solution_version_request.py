@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeSolutionVersionRequest:
     if data.get("solutionVersionArn") is not None:
         out["solution_version_arn"] = data["solutionVersionArn"]
     else:
-        raise DeserializationError(
-            "DescribeSolutionVersionRequest.solution_version_arn required"
-        )
+        out["solution_version_arn"] = ""
     return out

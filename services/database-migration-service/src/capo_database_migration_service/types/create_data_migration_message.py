@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.boolean_optional
     import capo_database_migration_service.types.integer_optional
@@ -108,9 +106,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDataMigrationMessage:
     if data.get("MigrationProjectIdentifier") is not None:
         out["migration_project_identifier"] = data["MigrationProjectIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateDataMigrationMessage.migration_project_identifier required"
-        )
+        out["migration_project_identifier"] = ""
     if data.get("DataMigrationType") is not None:
         import capo_database_migration_service.types.migration_type_value
 
@@ -120,15 +116,16 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDataMigrationMessage:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDataMigrationMessage.data_migration_type required"
+        import typing
+
+        out["data_migration_type"] = typing.cast(
+            "capo_database_migration_service.types.migration_type_value.MigrationTypeValue",
+            "",
         )
     if data.get("ServiceAccessRoleArn") is not None:
         out["service_access_role_arn"] = data["ServiceAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "CreateDataMigrationMessage.service_access_role_arn required"
-        )
+        out["service_access_role_arn"] = ""
     if data.get("EnableCloudwatchLogs") is not None:
         out["enable_cloudwatch_logs"] = data["EnableCloudwatchLogs"]
     if data.get("SourceDataSettings") is not None:

@@ -49,7 +49,7 @@ def deserialize_json(data: dict) -> CreateGatewayRequest:
     if data.get("gatewayName") is not None:
         out["gateway_name"] = data["gatewayName"]
     else:
-        raise DeserializationError("CreateGatewayRequest.gateway_name required")
+        out["gateway_name"] = ""
     if data.get("gatewayPlatform") is not None:
         import capo_iotsitewise.types.gateway_platform
 

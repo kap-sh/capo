@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.filter_expression_type
 
@@ -38,9 +36,13 @@ def deserialize_json(data: dict) -> FilterExpression:
             data["type"]
         )
     else:
-        raise DeserializationError("FilterExpression.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_datazone.types.filter_expression_type.FilterExpressionType", ""
+        )
     if data.get("expression") is not None:
         out["expression"] = data["expression"]
     else:
-        raise DeserializationError("FilterExpression.expression required")
+        out["expression"] = ""
     return out

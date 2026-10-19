@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.guardrail_sensitive_information_action
 
@@ -75,13 +73,13 @@ def deserialize_json(data: dict) -> GuardrailRegexConfig:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GuardrailRegexConfig.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("pattern") is not None:
         out["pattern"] = data["pattern"]
     else:
-        raise DeserializationError("GuardrailRegexConfig.pattern required")
+        out["pattern"] = ""
     if data.get("action") is not None:
         import capo_bedrock.types.guardrail_sensitive_information_action
 
@@ -91,7 +89,12 @@ def deserialize_json(data: dict) -> GuardrailRegexConfig:
             )
         )
     else:
-        raise DeserializationError("GuardrailRegexConfig.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_bedrock.types.guardrail_sensitive_information_action.GuardrailSensitiveInformationAction",
+            "",
+        )
     if data.get("inputAction") is not None:
         import capo_bedrock.types.guardrail_sensitive_information_action
 

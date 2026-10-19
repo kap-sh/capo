@@ -57,11 +57,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdatePartitionRequest:
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError("UpdatePartitionRequest.database_name required")
+        out["database_name"] = ""
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("UpdatePartitionRequest.table_name required")
+        out["table_name"] = ""
     if data.get("PartitionValueList") is not None:
         import capo_glue.types.bounded_partition_value_list
 
@@ -71,9 +71,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdatePartitionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdatePartitionRequest.partition_value_list required"
-        )
+        out["partition_value_list"] = []
     if data.get("PartitionInput") is not None:
         import capo_glue.types.partition_input
 

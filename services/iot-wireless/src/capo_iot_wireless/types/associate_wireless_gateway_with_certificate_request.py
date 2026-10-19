@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.iot_certificate_id
     import capo_iot_wireless.types.wireless_gateway_id
@@ -30,7 +28,5 @@ def deserialize_json(data: dict) -> AssociateWirelessGatewayWithCertificateReque
     if data.get("IotCertificateId") is not None:
         out["iot_certificate_id"] = data["IotCertificateId"]
     else:
-        raise DeserializationError(
-            "AssociateWirelessGatewayWithCertificateRequest.iot_certificate_id required"
-        )
+        out["iot_certificate_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.accept_action
     import capo_mailmanager.types.idempotency_token
@@ -72,9 +70,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateTrafficPolicyRequest:
     if data.get("TrafficPolicyName") is not None:
         out["traffic_policy_name"] = data["TrafficPolicyName"]
     else:
-        raise DeserializationError(
-            "CreateTrafficPolicyRequest.traffic_policy_name required"
-        )
+        out["traffic_policy_name"] = ""
     if data.get("PolicyStatements") is not None:
         import capo_mailmanager.types.policy_statement_list
 
@@ -84,9 +80,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateTrafficPolicyRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateTrafficPolicyRequest.policy_statements required"
-        )
+        out["policy_statements"] = []
     if data.get("DefaultAction") is not None:
         import capo_mailmanager.types.accept_action
 
@@ -96,7 +90,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateTrafficPolicyRequest:
             )
         )
     else:
-        raise DeserializationError("CreateTrafficPolicyRequest.default_action required")
+        import typing
+
+        out["default_action"] = typing.cast(
+            "capo_mailmanager.types.accept_action.AcceptAction", ""
+        )
     if data.get("MaxMessageSizeBytes") is not None:
         out["max_message_size_bytes"] = data["MaxMessageSizeBytes"]
     if data.get("Tags") is not None:

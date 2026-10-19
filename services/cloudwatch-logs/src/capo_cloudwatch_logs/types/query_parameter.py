@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.query_parameter_default_value
     import capo_cloudwatch_logs.types.query_parameter_description
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> QueryParameter:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("QueryParameter.name required")
+        out["name"] = ""
     if data.get("defaultValue") is not None:
         out["default_value"] = data["defaultValue"]
     if data.get("description") is not None:

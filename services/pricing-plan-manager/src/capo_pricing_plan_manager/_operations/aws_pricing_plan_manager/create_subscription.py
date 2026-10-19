@@ -82,7 +82,10 @@ def handle_response(
             json.loads(response.read())
         )
     }  # type: ignore[typeddict-item]
-    out["e_tag"] = response.headers["ETag"]
+    if "ETag" in response.headers:
+        out["e_tag"] = response.headers["ETag"]
+    else:
+        out["e_tag"] = ""
     return out
 
 
@@ -96,7 +99,10 @@ async def async_handle_response(
             json.loads(await response.aread())
         )
     }  # type: ignore[typeddict-item]
-    out["e_tag"] = response.headers["ETag"]
+    if "ETag" in response.headers:
+        out["e_tag"] = response.headers["ETag"]
+    else:
+        out["e_tag"] = ""
     return out
 
 

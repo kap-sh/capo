@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.file_path
     import capo_app_mesh.types.logging_format
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> VirtualGatewayFileAccessLog:
     if data.get("path") is not None:
         out["path"] = data["path"]
     else:
-        raise DeserializationError("VirtualGatewayFileAccessLog.path required")
+        out["path"] = ""
     if data.get("format") is not None:
         import capo_app_mesh.types.logging_format
 

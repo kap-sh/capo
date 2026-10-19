@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appintegrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appintegrations.types.non_blank_string
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> OnDemandConfiguration:
     if data.get("StartTime") is not None:
         out["start_time"] = data["StartTime"]
     else:
-        raise DeserializationError("OnDemandConfiguration.start_time required")
+        out["start_time"] = ""
     if data.get("EndTime") is not None:
         out["end_time"] = data["EndTime"]
     return out

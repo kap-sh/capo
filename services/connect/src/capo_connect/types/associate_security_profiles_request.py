@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.entity_arn
     import capo_connect.types.entity_type
@@ -52,9 +50,7 @@ def deserialize_json(data: dict) -> AssociateSecurityProfilesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "AssociateSecurityProfilesRequest.security_profiles required"
-        )
+        out["security_profiles"] = []
     if data.get("EntityType") is not None:
         import capo_connect.types.entity_type
 
@@ -62,13 +58,13 @@ def deserialize_json(data: dict) -> AssociateSecurityProfilesRequest:
             data["EntityType"]
         )
     else:
-        raise DeserializationError(
-            "AssociateSecurityProfilesRequest.entity_type required"
+        import typing
+
+        out["entity_type"] = typing.cast(
+            "capo_connect.types.entity_type.EntityType", ""
         )
     if data.get("EntityArn") is not None:
         out["entity_arn"] = data["EntityArn"]
     else:
-        raise DeserializationError(
-            "AssociateSecurityProfilesRequest.entity_arn required"
-        )
+        out["entity_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.network_file_definitions
     import capo_iotfleetwise.types.resource_name
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_0(data: dict) -> ImportDecoderManifestRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ImportDecoderManifestRequest.name required")
+        out["name"] = ""
     if data.get("networkFileDefinitions") is not None:
         import capo_iotfleetwise.types.network_file_definitions
 
@@ -49,7 +47,5 @@ def deserialize_aws_json_1_0(data: dict) -> ImportDecoderManifestRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ImportDecoderManifestRequest.network_file_definitions required"
-        )
+        out["network_file_definitions"] = []
     return out

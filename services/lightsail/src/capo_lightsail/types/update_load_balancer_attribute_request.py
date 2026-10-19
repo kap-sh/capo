@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.load_balancer_attribute_name
     import capo_lightsail.types.resource_name
@@ -43,9 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLoadBalancerAttributeRequest:
     if data.get("loadBalancerName") is not None:
         out["load_balancer_name"] = data["loadBalancerName"]
     else:
-        raise DeserializationError(
-            "UpdateLoadBalancerAttributeRequest.load_balancer_name required"
-        )
+        out["load_balancer_name"] = ""
     if data.get("attributeName") is not None:
         import capo_lightsail.types.load_balancer_attribute_name
 
@@ -55,13 +51,14 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLoadBalancerAttributeRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateLoadBalancerAttributeRequest.attribute_name required"
+        import typing
+
+        out["attribute_name"] = typing.cast(
+            "capo_lightsail.types.load_balancer_attribute_name.LoadBalancerAttributeName",
+            "",
         )
     if data.get("attributeValue") is not None:
         out["attribute_value"] = data["attributeValue"]
     else:
-        raise DeserializationError(
-            "UpdateLoadBalancerAttributeRequest.attribute_value required"
-        )
+        out["attribute_value"] = ""
     return out

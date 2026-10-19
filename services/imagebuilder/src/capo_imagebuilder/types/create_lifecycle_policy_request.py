@@ -95,7 +95,7 @@ def deserialize_json(data: dict) -> CreateLifecyclePolicyRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateLifecyclePolicyRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("status") is not None:
@@ -109,9 +109,7 @@ def deserialize_json(data: dict) -> CreateLifecyclePolicyRequest:
     if data.get("executionRole") is not None:
         out["execution_role"] = data["executionRole"]
     else:
-        raise DeserializationError(
-            "CreateLifecyclePolicyRequest.execution_role required"
-        )
+        out["execution_role"] = ""
     if data.get("resourceType") is not None:
         import capo_imagebuilder.types.lifecycle_policy_resource_type
 
@@ -121,8 +119,11 @@ def deserialize_json(data: dict) -> CreateLifecyclePolicyRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateLifecyclePolicyRequest.resource_type required"
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_imagebuilder.types.lifecycle_policy_resource_type.LifecyclePolicyResourceType",
+            "",
         )
     if data.get("policyDetails") is not None:
         import capo_imagebuilder.types.lifecycle_policy_details
@@ -133,9 +134,7 @@ def deserialize_json(data: dict) -> CreateLifecyclePolicyRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateLifecyclePolicyRequest.policy_details required"
-        )
+        out["policy_details"] = []
     if data.get("resourceSelection") is not None:
         import capo_imagebuilder.types.lifecycle_policy_resource_selection
 
@@ -155,7 +154,7 @@ def deserialize_json(data: dict) -> CreateLifecyclePolicyRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CreateLifecyclePolicyRequest.client_token required")
+        out["client_token"] = ""
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.client_token
     import capo_imagebuilder.types.image_logging_configuration
@@ -73,11 +71,11 @@ def deserialize_json(data: dict) -> ImportVmImageRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ImportVmImageRequest.name required")
+        out["name"] = ""
     if data.get("semanticVersion") is not None:
         out["semantic_version"] = data["semanticVersion"]
     else:
-        raise DeserializationError("ImportVmImageRequest.semantic_version required")
+        out["semantic_version"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("platform") is not None:
@@ -87,13 +85,15 @@ def deserialize_json(data: dict) -> ImportVmImageRequest:
             data["platform"]
         )
     else:
-        raise DeserializationError("ImportVmImageRequest.platform required")
+        import typing
+
+        out["platform"] = typing.cast("capo_imagebuilder.types.platform.Platform", "")
     if data.get("osVersion") is not None:
         out["os_version"] = data["osVersion"]
     if data.get("vmImportTaskId") is not None:
         out["vm_import_task_id"] = data["vmImportTaskId"]
     else:
-        raise DeserializationError("ImportVmImageRequest.vm_import_task_id required")
+        out["vm_import_task_id"] = ""
     if data.get("loggingConfiguration") is not None:
         import capo_imagebuilder.types.image_logging_configuration
 
@@ -109,5 +109,5 @@ def deserialize_json(data: dict) -> ImportVmImageRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("ImportVmImageRequest.client_token required")
+        out["client_token"] = ""
     return out

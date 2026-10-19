@@ -108,15 +108,15 @@ def deserialize_json(data: dict) -> ScraperSummary:
     if data.get("scraperId") is not None:
         out["scraper_id"] = data["scraperId"]
     else:
-        raise DeserializationError("ScraperSummary.scraper_id required")
+        out["scraper_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ScraperSummary.arn required")
+        out["arn"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("ScraperSummary.role_arn required")
+        out["role_arn"] = ""
     if data.get("status") is not None:
         import capo_amp.types.scraper_status
 
@@ -130,7 +130,9 @@ def deserialize_json(data: dict) -> ScraperSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("ScraperSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastModifiedAt") is not None:
         import capo_amp.types._prelude.timestamp
 
@@ -138,7 +140,11 @@ def deserialize_json(data: dict) -> ScraperSummary:
             data["lastModifiedAt"]
         )
     else:
-        raise DeserializationError("ScraperSummary.last_modified_at required")
+        import datetime
+
+        out["last_modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("tags") is not None:
         import capo_amp.types.tag_map
 
@@ -150,7 +156,9 @@ def deserialize_json(data: dict) -> ScraperSummary:
 
         out["source"] = capo_amp.types.source.deserialize_json(data["source"])
     else:
-        raise DeserializationError("ScraperSummary.source required")
+        import capo_amp.types._unknown
+
+        out["source"] = capo_amp.types._unknown.UnknownUnionMember("")
     if data.get("destination") is not None:
         import capo_amp.types.destination
 
@@ -158,7 +166,9 @@ def deserialize_json(data: dict) -> ScraperSummary:
             data["destination"]
         )
     else:
-        raise DeserializationError("ScraperSummary.destination required")
+        import capo_amp.types._unknown
+
+        out["destination"] = capo_amp.types._unknown.UnknownUnionMember("")
     if data.get("roleConfiguration") is not None:
         import capo_amp.types.role_configuration
 

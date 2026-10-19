@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.identity_source_id
     import capo_verifiedpermissions.types.policy_store_id
@@ -52,13 +50,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateIdentitySourceInput:
     if data.get("policyStoreId") is not None:
         out["policy_store_id"] = data["policyStoreId"]
     else:
-        raise DeserializationError("UpdateIdentitySourceInput.policy_store_id required")
+        out["policy_store_id"] = ""
     if data.get("identitySourceId") is not None:
         out["identity_source_id"] = data["identitySourceId"]
     else:
-        raise DeserializationError(
-            "UpdateIdentitySourceInput.identity_source_id required"
-        )
+        out["identity_source_id"] = ""
     if data.get("updateConfiguration") is not None:
         import capo_verifiedpermissions.types.update_configuration
 
@@ -68,8 +64,10 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateIdentitySourceInput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateIdentitySourceInput.update_configuration required"
+        import capo_verifiedpermissions.types._unknown
+
+        out["update_configuration"] = (
+            capo_verifiedpermissions.types._unknown.UnknownUnionMember("")
         )
     if data.get("principalEntityType") is not None:
         out["principal_entity_type"] = data["principalEntityType"]

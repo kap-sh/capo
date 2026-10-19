@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.destination
     import capo_network_firewall.types.port
@@ -66,15 +64,20 @@ def deserialize_aws_json_1_0(data: dict) -> Header:
             )
         )
     else:
-        raise DeserializationError("Header.protocol required")
+        import typing
+
+        out["protocol"] = typing.cast(
+            "capo_network_firewall.types.stateful_rule_protocol.StatefulRuleProtocol",
+            "",
+        )
     if data.get("Source") is not None:
         out["source"] = data["Source"]
     else:
-        raise DeserializationError("Header.source required")
+        out["source"] = ""
     if data.get("SourcePort") is not None:
         out["source_port"] = data["SourcePort"]
     else:
-        raise DeserializationError("Header.source_port required")
+        out["source_port"] = ""
     if data.get("Direction") is not None:
         import capo_network_firewall.types.stateful_rule_direction
 
@@ -84,13 +87,18 @@ def deserialize_aws_json_1_0(data: dict) -> Header:
             )
         )
     else:
-        raise DeserializationError("Header.direction required")
+        import typing
+
+        out["direction"] = typing.cast(
+            "capo_network_firewall.types.stateful_rule_direction.StatefulRuleDirection",
+            "",
+        )
     if data.get("Destination") is not None:
         out["destination"] = data["Destination"]
     else:
-        raise DeserializationError("Header.destination required")
+        out["destination"] = ""
     if data.get("DestinationPort") is not None:
         out["destination_port"] = data["DestinationPort"]
     else:
-        raise DeserializationError("Header.destination_port required")
+        out["destination_port"] = ""
     return out

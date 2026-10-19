@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.harness_event_bridge_bus_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> HarnessHookEventBridgeTarget:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("HarnessHookEventBridgeTarget.arn required")
+        out["arn"] = ""
     return out

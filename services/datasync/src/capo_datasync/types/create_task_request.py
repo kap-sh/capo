@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.filter_list
     import capo_datasync.types.input_tag_list
@@ -119,13 +117,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTaskRequest:
     if data.get("SourceLocationArn") is not None:
         out["source_location_arn"] = data["SourceLocationArn"]
     else:
-        raise DeserializationError("CreateTaskRequest.source_location_arn required")
+        out["source_location_arn"] = ""
     if data.get("DestinationLocationArn") is not None:
         out["destination_location_arn"] = data["DestinationLocationArn"]
     else:
-        raise DeserializationError(
-            "CreateTaskRequest.destination_location_arn required"
-        )
+        out["destination_location_arn"] = ""
     if data.get("CloudWatchLogGroupArn") is not None:
         out["cloud_watch_log_group_arn"] = data["CloudWatchLogGroupArn"]
     if data.get("Name") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.account_id
     import capo_imagebuilder.types.boolean
@@ -36,9 +34,7 @@ def deserialize_json(data: dict) -> LaunchTemplateConfiguration:
     if data.get("launchTemplateId") is not None:
         out["launch_template_id"] = data["launchTemplateId"]
     else:
-        raise DeserializationError(
-            "LaunchTemplateConfiguration.launch_template_id required"
-        )
+        out["launch_template_id"] = ""
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     if data.get("setDefaultVersion") is not None:

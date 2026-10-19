@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.assigned_session_action_definition
     import capo_deadline.types.session_action_id
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> AssignedSessionAction:
     if data.get("sessionActionId") is not None:
         out["session_action_id"] = data["sessionActionId"]
     else:
-        raise DeserializationError("AssignedSessionAction.session_action_id required")
+        out["session_action_id"] = ""
     if data.get("definition") is not None:
         import capo_deadline.types.assigned_session_action_definition
 
@@ -47,7 +45,9 @@ def deserialize_json(data: dict) -> AssignedSessionAction:
             )
         )
     else:
-        raise DeserializationError("AssignedSessionAction.definition required")
+        import capo_deadline.types._unknown
+
+        out["definition"] = capo_deadline.types._unknown.UnknownUnionMember("")
     return out
 
 

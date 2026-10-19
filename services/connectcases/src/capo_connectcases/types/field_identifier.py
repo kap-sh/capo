@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.field_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> FieldIdentifier:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("FieldIdentifier.id required")
+        out["id"] = ""
     return out

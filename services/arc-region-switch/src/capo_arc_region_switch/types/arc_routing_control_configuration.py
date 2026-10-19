@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.iam_role_arn
     import capo_arc_region_switch.types.region_and_routing_controls
@@ -61,7 +59,5 @@ def deserialize_aws_json_1_0(data: dict) -> ArcRoutingControlConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ArcRoutingControlConfiguration.region_and_routing_controls required"
-        )
+        out["region_and_routing_controls"] = {}
     return out

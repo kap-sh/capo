@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_cost_optimization_hub.errors import DeserializationError
-
 
 class ValidationExceptionDetail(TypedDict, closed=True):
     field_name: "str"
@@ -25,9 +23,9 @@ def deserialize_aws_json_1_0(data: dict) -> ValidationExceptionDetail:
     if data.get("fieldName") is not None:
         out["field_name"] = data["fieldName"]
     else:
-        raise DeserializationError("ValidationExceptionDetail.field_name required")
+        out["field_name"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ValidationExceptionDetail.message required")
+        out["message"] = ""
     return out

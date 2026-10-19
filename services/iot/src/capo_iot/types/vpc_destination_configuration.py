@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aws_arn
     import capo_iot.types.security_group_list
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> VpcDestinationConfiguration:
             data["subnetIds"]
         )
     else:
-        raise DeserializationError("VpcDestinationConfiguration.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("securityGroups") is not None:
         import capo_iot.types.security_group_list
 
@@ -60,9 +58,9 @@ def deserialize_json(data: dict) -> VpcDestinationConfiguration:
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
     else:
-        raise DeserializationError("VpcDestinationConfiguration.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("VpcDestinationConfiguration.role_arn required")
+        out["role_arn"] = ""
     return out

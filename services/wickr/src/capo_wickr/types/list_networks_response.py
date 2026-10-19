@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.generic_string
     import capo_wickr.types.network_list
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> ListNetworksResponse:
             data["networks"]
         )
     else:
-        raise DeserializationError("ListNetworksResponse.networks required")
+        out["networks"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

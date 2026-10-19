@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transcribe_streaming.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe_streaming.types.channel_id
     import capo_transcribe_streaming.types.participant_role
@@ -47,5 +45,9 @@ def deserialize_json(data: dict) -> ChannelDefinition:
             )
         )
     else:
-        raise DeserializationError("ChannelDefinition.participant_role required")
+        import typing
+
+        out["participant_role"] = typing.cast(
+            "capo_transcribe_streaming.types.participant_role.ParticipantRole", ""
+        )
     return out

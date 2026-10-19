@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.idempotency_token
     import capo_mailmanager.types.relay_authentication
@@ -63,15 +61,15 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRelayRequest:
     if data.get("RelayName") is not None:
         out["relay_name"] = data["RelayName"]
     else:
-        raise DeserializationError("CreateRelayRequest.relay_name required")
+        out["relay_name"] = ""
     if data.get("ServerName") is not None:
         out["server_name"] = data["ServerName"]
     else:
-        raise DeserializationError("CreateRelayRequest.server_name required")
+        out["server_name"] = ""
     if data.get("ServerPort") is not None:
         out["server_port"] = data["ServerPort"]
     else:
-        raise DeserializationError("CreateRelayRequest.server_port required")
+        out["server_port"] = 0
     if data.get("Authentication") is not None:
         import capo_mailmanager.types.relay_authentication
 
@@ -81,7 +79,9 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRelayRequest:
             )
         )
     else:
-        raise DeserializationError("CreateRelayRequest.authentication required")
+        import capo_mailmanager.types._unknown
+
+        out["authentication"] = capo_mailmanager.types._unknown.UnknownUnionMember("")
     if data.get("Tags") is not None:
         import capo_mailmanager.types.tag_list
 

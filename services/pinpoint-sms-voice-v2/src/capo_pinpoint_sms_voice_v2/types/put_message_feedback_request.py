@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.message_feedback_status
     import capo_pinpoint_sms_voice_v2.types.message_id
@@ -33,11 +31,9 @@ def deserialize_aws_json_1_0(data: dict) -> PutMessageFeedbackRequest:
     if data.get("MessageId") is not None:
         out["message_id"] = data["MessageId"]
     else:
-        raise DeserializationError("PutMessageFeedbackRequest.message_id required")
+        out["message_id"] = ""
     if data.get("MessageFeedbackStatus") is not None:
         out["message_feedback_status"] = data["MessageFeedbackStatus"]
     else:
-        raise DeserializationError(
-            "PutMessageFeedbackRequest.message_feedback_status required"
-        )
+        out["message_feedback_status"] = ""
     return out

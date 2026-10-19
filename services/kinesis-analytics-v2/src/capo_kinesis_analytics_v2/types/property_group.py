@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.id
     import capo_kinesis_analytics_v2.types.property_map
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> PropertyGroup:
     if data.get("PropertyGroupId") is not None:
         out["property_group_id"] = data["PropertyGroupId"]
     else:
-        raise DeserializationError("PropertyGroup.property_group_id required")
+        out["property_group_id"] = ""
     if data.get("PropertyMap") is not None:
         import capo_kinesis_analytics_v2.types.property_map
 
@@ -47,5 +45,5 @@ def deserialize_aws_json_1_1(data: dict) -> PropertyGroup:
             )
         )
     else:
-        raise DeserializationError("PropertyGroup.property_map required")
+        out["property_map"] = {}
     return out

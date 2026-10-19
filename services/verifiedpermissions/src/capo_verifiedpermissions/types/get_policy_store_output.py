@@ -117,11 +117,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetPolicyStoreOutput:
     if data.get("policyStoreId") is not None:
         out["policy_store_id"] = data["policyStoreId"]
     else:
-        raise DeserializationError("GetPolicyStoreOutput.policy_store_id required")
+        out["policy_store_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetPolicyStoreOutput.arn required")
+        out["arn"] = ""
     if data.get("validationSettings") is not None:
         import capo_verifiedpermissions.types.validation_settings
 
@@ -141,7 +141,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetPolicyStoreOutput:
             )
         )
     else:
-        raise DeserializationError("GetPolicyStoreOutput.created_date required")
+        import datetime
+
+        out["created_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastUpdatedDate") is not None:
         import capo_verifiedpermissions.types.timestamp_format
 
@@ -151,7 +155,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetPolicyStoreOutput:
             )
         )
     else:
-        raise DeserializationError("GetPolicyStoreOutput.last_updated_date required")
+        import datetime
+
+        out["last_updated_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("deletionProtection") is not None:

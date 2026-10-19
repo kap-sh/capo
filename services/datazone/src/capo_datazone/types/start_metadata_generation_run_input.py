@@ -93,7 +93,5 @@ def deserialize_json(data: dict) -> StartMetadataGenerationRunInput:
     if data.get("owningProjectIdentifier") is not None:
         out["owning_project_identifier"] = data["owningProjectIdentifier"]
     else:
-        raise DeserializationError(
-            "StartMetadataGenerationRunInput.owning_project_identifier required"
-        )
+        out["owning_project_identifier"] = ""
     return out

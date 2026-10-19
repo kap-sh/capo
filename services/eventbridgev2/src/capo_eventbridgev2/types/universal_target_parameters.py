@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eventbridgev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.string
     import capo_eventbridgev2.types.universal_target_input
@@ -32,7 +30,7 @@ def deserialize_cbor(data: dict) -> UniversalTargetParameters:
     if data.get("Input") is not None:
         out["input"] = data["Input"]
     else:
-        raise DeserializationError("UniversalTargetParameters.input required")
+        out["input"] = ""
     if data.get("InvocationTimeoutSeconds") is not None:
         out["invocation_timeout_seconds"] = data["InvocationTimeoutSeconds"]
     return out

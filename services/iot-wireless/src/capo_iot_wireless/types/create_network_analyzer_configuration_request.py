@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.client_request_token
     import capo_iot_wireless.types.description
@@ -89,9 +87,7 @@ def deserialize_json(data: dict) -> CreateNetworkAnalyzerConfigurationRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError(
-            "CreateNetworkAnalyzerConfigurationRequest.name required"
-        )
+        out["name"] = ""
     if data.get("TraceContent") is not None:
         import capo_iot_wireless.types.trace_content
 

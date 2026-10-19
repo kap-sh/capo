@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_neptunedata.errors import DeserializationError
-
 
 class ExecuteOpenCypherQueryOutput(TypedDict, closed=True):
     results: "object"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> ExecuteOpenCypherQueryOutput:
     if data.get("results") is not None:
         out["results"] = data["results"]
     else:
-        raise DeserializationError("ExecuteOpenCypherQueryOutput.results required")
+        out["results"] = None
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -67,23 +65,23 @@ def deserialize_cbor(data: dict) -> OmniDashboard:
     if data.get("dashboardId") is not None:
         out["dashboard_id"] = data["dashboardId"]
     else:
-        raise DeserializationError("OmniDashboard.dashboard_id required")
+        out["dashboard_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("OmniDashboard.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("OmniDashboard.name required")
+        out["name"] = ""
     if data.get("body") is not None:
         out["body"] = data["body"]
     else:
-        raise DeserializationError("OmniDashboard.body required")
+        out["body"] = ""
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("OmniDashboard.created_by required")
+        out["created_by"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("tags") is not None:
@@ -99,7 +97,9 @@ def deserialize_cbor(data: dict) -> OmniDashboard:
             )
         )
     else:
-        raise DeserializationError("OmniDashboard.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_cloudwatchomni.types._prelude.timestamp
 
@@ -109,5 +109,7 @@ def deserialize_cbor(data: dict) -> OmniDashboard:
             )
         )
     else:
-        raise DeserializationError("OmniDashboard.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

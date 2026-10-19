@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity.types.arn_string
     import capo_cognito_identity.types.identity_id
@@ -41,9 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetCredentialsForIdentityInput:
     if data.get("IdentityId") is not None:
         out["identity_id"] = data["IdentityId"]
     else:
-        raise DeserializationError(
-            "GetCredentialsForIdentityInput.identity_id required"
-        )
+        out["identity_id"] = ""
     if data.get("Logins") is not None:
         import capo_cognito_identity.types.logins_map
 

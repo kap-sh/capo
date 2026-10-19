@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.recovery_snapshot_id
     import capo_drs.types.source_server_id
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> RecoveryPlanExecutionSourceServer:
     if data.get("sourceServerID") is not None:
         out["source_server_id"] = data["sourceServerID"]
     else:
-        raise DeserializationError(
-            "RecoveryPlanExecutionSourceServer.source_server_id required"
-        )
+        out["source_server_id"] = ""
     if data.get("recoverySnapshotID") is not None:
         out["recovery_snapshot_id"] = data["recoverySnapshotID"]
     else:
-        raise DeserializationError(
-            "RecoveryPlanExecutionSourceServer.recovery_snapshot_id required"
-        )
+        out["recovery_snapshot_id"] = ""
     return out

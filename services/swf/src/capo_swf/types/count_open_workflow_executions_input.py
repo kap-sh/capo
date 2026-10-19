@@ -68,7 +68,7 @@ def deserialize_aws_json_1_0(data: dict) -> CountOpenWorkflowExecutionsInput:
     if data.get("domain") is not None:
         out["domain"] = data["domain"]
     else:
-        raise DeserializationError("CountOpenWorkflowExecutionsInput.domain required")
+        out["domain"] = ""
     if data.get("startTimeFilter") is not None:
         import capo_swf.types.execution_time_filter
 

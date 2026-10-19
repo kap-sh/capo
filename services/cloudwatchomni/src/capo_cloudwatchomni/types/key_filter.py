@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.key_filter_key
     import capo_cloudwatchomni.types.key_filter_values
@@ -36,7 +34,7 @@ def deserialize_cbor(data: dict) -> KeyFilter:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("KeyFilter.key required")
+        out["key"] = ""
     if data.get("values") is not None:
         import capo_cloudwatchomni.types.key_filter_values
 

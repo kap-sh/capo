@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.origin_request_policy_query_string_behavior
@@ -51,8 +50,11 @@ def deserialize_xml(el: Element) -> OriginRequestPolicyQueryStringsConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "OriginRequestPolicyQueryStringsConfig.query_string_behavior required"
+        import typing
+
+        out["query_string_behavior"] = typing.cast(
+            "capo_cloudfront.types.origin_request_policy_query_string_behavior.OriginRequestPolicyQueryStringBehavior",
+            "",
         )
     child_query_strings = el.find("QueryStrings")
     if child_query_strings is not None:

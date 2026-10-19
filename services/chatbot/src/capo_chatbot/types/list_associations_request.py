@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chatbot.types.chat_configuration_arn
     import capo_chatbot.types.string
@@ -36,9 +34,7 @@ def deserialize_json(data: dict) -> ListAssociationsRequest:
     if data.get("ChatConfiguration") is not None:
         out["chat_configuration"] = data["ChatConfiguration"]
     else:
-        raise DeserializationError(
-            "ListAssociationsRequest.chat_configuration required"
-        )
+        out["chat_configuration"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.ephemeris_type
     import capo_groundstation.types.uuid
@@ -44,5 +42,9 @@ def deserialize_json(data: dict) -> EphemerisResponseData:
             )
         )
     else:
-        raise DeserializationError("EphemerisResponseData.ephemeris_type required")
+        import typing
+
+        out["ephemeris_type"] = typing.cast(
+            "capo_groundstation.types.ephemeris_type.EphemerisType", ""
+        )
     return out

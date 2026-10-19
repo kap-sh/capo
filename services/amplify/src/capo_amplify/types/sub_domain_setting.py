@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.branch_name
     import capo_amplify.types.domain_prefix
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> SubDomainSetting:
     if data.get("prefix") is not None:
         out["prefix"] = data["prefix"]
     else:
-        raise DeserializationError("SubDomainSetting.prefix required")
+        out["prefix"] = ""
     if data.get("branchName") is not None:
         out["branch_name"] = data["branchName"]
     else:
-        raise DeserializationError("SubDomainSetting.branch_name required")
+        out["branch_name"] = ""
     return out

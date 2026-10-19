@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -40,9 +38,11 @@ def deserialize_json(data: dict) -> QueryDataPoint:
             )
         )
     else:
-        raise DeserializationError("QueryDataPoint.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("queryCount") is not None:
         out["query_count"] = data["queryCount"]
     else:
-        raise DeserializationError("QueryDataPoint.query_count required")
+        out["query_count"] = 0
     return out

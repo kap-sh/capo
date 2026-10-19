@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_launch_wizard.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_launch_wizard.types.deployment_pattern_version_filter_key
     import capo_launch_wizard.types.deployment_pattern_version_filter_values
@@ -49,7 +47,12 @@ def deserialize_json(data: dict) -> DeploymentPatternVersionFilter:
             )
         )
     else:
-        raise DeserializationError("DeploymentPatternVersionFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_launch_wizard.types.deployment_pattern_version_filter_key.DeploymentPatternVersionFilterKey",
+            "",
+        )
     if data.get("values") is not None:
         import capo_launch_wizard.types.deployment_pattern_version_filter_values
 
@@ -59,5 +62,5 @@ def deserialize_json(data: dict) -> DeploymentPatternVersionFilter:
             )
         )
     else:
-        raise DeserializationError("DeploymentPatternVersionFilter.values required")
+        out["values"] = []
     return out

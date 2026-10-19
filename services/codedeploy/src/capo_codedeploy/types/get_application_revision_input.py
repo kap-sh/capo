@@ -35,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetApplicationRevisionInput:
     if data.get("applicationName") is not None:
         out["application_name"] = data["applicationName"]
     else:
-        raise DeserializationError(
-            "GetApplicationRevisionInput.application_name required"
-        )
+        out["application_name"] = ""
     if data.get("revision") is not None:
         import capo_codedeploy.types.revision_location
 

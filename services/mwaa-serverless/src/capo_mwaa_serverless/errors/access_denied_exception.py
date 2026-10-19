@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_mwaa_serverless.errors import DeserializationError, ServiceError
+from capo_mwaa_serverless.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_mwaa_serverless.types.error_message
@@ -27,7 +27,7 @@ def deserialize_aws_json_1_0(data: dict) -> AccessDeniedException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("AccessDeniedException_.message required")
+        out["message"] = ""
     return out
 
 

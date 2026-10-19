@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.between_configuration
     import capo_glue.types.bool
@@ -83,7 +81,9 @@ def deserialize_aws_json_1_1(data: dict) -> FilterConfiguration:
             data["FilterMode"]
         )
     else:
-        raise DeserializationError("FilterConfiguration.filter_mode required")
+        import typing
+
+        out["filter_mode"] = typing.cast("capo_glue.types.filter_mode.FilterMode", "")
     if data.get("OperatorMappings") is not None:
         import capo_glue.types.connection_string_to_string_map
 

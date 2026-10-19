@@ -52,7 +52,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateProfileWithAgentRequest:
     if data.get("ProfileId") is not None:
         out["profile_id"] = data["ProfileId"]
     else:
-        raise DeserializationError("UpdateProfileWithAgentRequest.profile_id required")
+        out["profile_id"] = ""
     if data.get("SourceFormat") is not None:
         import capo_healthlake.types.source_format
 
@@ -62,8 +62,10 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateProfileWithAgentRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateProfileWithAgentRequest.source_format required"
+        import typing
+
+        out["source_format"] = typing.cast(
+            "capo_healthlake.types.source_format.SourceFormat", ""
         )
     if data.get("InputMessage") is not None:
         import capo_healthlake.types.agent_input_message

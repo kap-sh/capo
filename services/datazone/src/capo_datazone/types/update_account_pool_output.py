@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -116,11 +114,13 @@ def deserialize_json(data: dict) -> UpdateAccountPoolOutput:
             data["accountSource"]
         )
     else:
-        raise DeserializationError("UpdateAccountPoolOutput.account_source required")
+        import capo_datazone.types._unknown
+
+        out["account_source"] = capo_datazone.types._unknown.UnknownUnionMember("")
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("UpdateAccountPoolOutput.created_by required")
+        out["created_by"] = ""
     if data.get("createdAt") is not None:
         import datetime
 

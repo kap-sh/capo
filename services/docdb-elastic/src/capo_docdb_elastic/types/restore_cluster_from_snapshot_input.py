@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_docdb_elastic.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_docdb_elastic.types.string_list
     import capo_docdb_elastic.types.tag_map
@@ -68,9 +66,7 @@ def deserialize_json(data: dict) -> RestoreClusterFromSnapshotInput:
     if data.get("clusterName") is not None:
         out["cluster_name"] = data["clusterName"]
     else:
-        raise DeserializationError(
-            "RestoreClusterFromSnapshotInput.cluster_name required"
-        )
+        out["cluster_name"] = ""
     if data.get("vpcSecurityGroupIds") is not None:
         import capo_docdb_elastic.types.string_list
 

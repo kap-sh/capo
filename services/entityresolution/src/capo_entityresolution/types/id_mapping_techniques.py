@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.id_mapping_rule_based_properties
     import capo_entityresolution.types.id_mapping_type
@@ -63,7 +61,11 @@ def deserialize_json(data: dict) -> IdMappingTechniques:
             )
         )
     else:
-        raise DeserializationError("IdMappingTechniques.id_mapping_type required")
+        import typing
+
+        out["id_mapping_type"] = typing.cast(
+            "capo_entityresolution.types.id_mapping_type.IdMappingType", ""
+        )
     if data.get("ruleBasedProperties") is not None:
         import capo_entityresolution.types.id_mapping_rule_based_properties
 

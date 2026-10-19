@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_keyspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_keyspaces.types.client_side_timestamps_status
 
@@ -29,5 +27,5 @@ def deserialize_aws_json_1_0(data: dict) -> ClientSideTimestamps:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("ClientSideTimestamps.status required")
+        out["status"] = ""
     return out

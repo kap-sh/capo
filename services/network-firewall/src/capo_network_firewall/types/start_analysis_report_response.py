@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.analysis_report_id
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_0(data: dict) -> StartAnalysisReportResponse:
     if data.get("AnalysisReportId") is not None:
         out["analysis_report_id"] = data["AnalysisReportId"]
     else:
-        raise DeserializationError(
-            "StartAnalysisReportResponse.analysis_report_id required"
-        )
+        out["analysis_report_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.boolean
     import capo_codepipeline.types.description
@@ -58,7 +56,7 @@ def deserialize_aws_json_1_1(data: dict) -> RuleConfigurationProperty:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RuleConfigurationProperty.name required")
+        out["name"] = ""
     if data.get("required") is not None:
         out["required"] = data["required"]
     else:

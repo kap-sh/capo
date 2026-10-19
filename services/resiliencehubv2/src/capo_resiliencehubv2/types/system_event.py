@@ -63,7 +63,7 @@ def deserialize_json(data: dict) -> SystemEvent:
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError("SystemEvent.event_id required")
+        out["event_id"] = ""
     if data.get("timestamp") is not None:
         import capo_resiliencehubv2.types._prelude.timestamp
 
@@ -73,7 +73,9 @@ def deserialize_json(data: dict) -> SystemEvent:
             )
         )
     else:
-        raise DeserializationError("SystemEvent.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("eventType") is not None:
         import capo_resiliencehubv2.types.system_event_type
 
@@ -83,11 +85,15 @@ def deserialize_json(data: dict) -> SystemEvent:
             )
         )
     else:
-        raise DeserializationError("SystemEvent.event_type required")
+        import typing
+
+        out["event_type"] = typing.cast(
+            "capo_resiliencehubv2.types.system_event_type.SystemEventType", ""
+        )
     if data.get("systemArn") is not None:
         out["system_arn"] = data["systemArn"]
     else:
-        raise DeserializationError("SystemEvent.system_arn required")
+        out["system_arn"] = ""
     if data.get("actor") is not None:
         import capo_resiliencehubv2.types.event_actor
 

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.enabled
@@ -36,12 +35,10 @@ def deserialize_query(el: Element) -> SetIdentityDkimEnabledRequest:
     if child_identity is not None:
         out["identity"] = str(child_identity.text or "")
     else:
-        raise DeserializationError("SetIdentityDkimEnabledRequest.identity required")
+        out["identity"] = ""
     child_dkim_enabled = el.find("DkimEnabled")
     if child_dkim_enabled is not None:
         out["dkim_enabled"] = (child_dkim_enabled.text or "").lower() == "true"
     else:
-        raise DeserializationError(
-            "SetIdentityDkimEnabledRequest.dkim_enabled required"
-        )
+        out["dkim_enabled"] = False
     return out

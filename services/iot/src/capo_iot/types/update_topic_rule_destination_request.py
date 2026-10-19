@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aws_arn
     import capo_iot.types.topic_rule_destination_status
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> UpdateTopicRuleDestinationRequest:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("UpdateTopicRuleDestinationRequest.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_iot.types.topic_rule_destination_status
 
@@ -43,5 +41,10 @@ def deserialize_json(data: dict) -> UpdateTopicRuleDestinationRequest:
             data["status"]
         )
     else:
-        raise DeserializationError("UpdateTopicRuleDestinationRequest.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_iot.types.topic_rule_destination_status.TopicRuleDestinationStatus",
+            "",
+        )
     return out

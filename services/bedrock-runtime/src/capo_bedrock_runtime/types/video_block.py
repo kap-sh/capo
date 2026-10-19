@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.video_format
     import capo_bedrock_runtime.types.video_source
@@ -43,7 +41,11 @@ def deserialize_json(data: dict) -> VideoBlock:
             data["format"]
         )
     else:
-        raise DeserializationError("VideoBlock.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_bedrock_runtime.types.video_format.VideoFormat", ""
+        )
     if data.get("source") is not None:
         import capo_bedrock_runtime.types.video_source
 
@@ -51,5 +53,7 @@ def deserialize_json(data: dict) -> VideoBlock:
             data["source"]
         )
     else:
-        raise DeserializationError("VideoBlock.source required")
+        import capo_bedrock_runtime.types._unknown
+
+        out["source"] = capo_bedrock_runtime.types._unknown.UnknownUnionMember("")
     return out

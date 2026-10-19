@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivschat.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivschat.types.destination_configuration
     import capo_ivschat.types.logging_configuration_name
@@ -57,8 +55,10 @@ def deserialize_json(data: dict) -> CreateLoggingConfigurationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateLoggingConfigurationRequest.destination_configuration required"
+        import capo_ivschat.types._unknown
+
+        out["destination_configuration"] = (
+            capo_ivschat.types._unknown.UnknownUnionMember("")
         )
     if data.get("tags") is not None:
         import capo_ivschat.types.tags

@@ -87,7 +87,7 @@ def deserialize_json(data: dict) -> JoinOperation:
     if data.get("Alias") is not None:
         out["alias"] = data["Alias"]
     else:
-        raise DeserializationError("JoinOperation.alias required")
+        out["alias"] = ""
     if data.get("LeftOperand") is not None:
         import capo_quicksight.types.transform_operation_source
 
@@ -115,11 +115,15 @@ def deserialize_json(data: dict) -> JoinOperation:
             data["Type"]
         )
     else:
-        raise DeserializationError("JoinOperation.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_quicksight.types.join_operation_type.JoinOperationType", ""
+        )
     if data.get("OnClause") is not None:
         out["on_clause"] = data["OnClause"]
     else:
-        raise DeserializationError("JoinOperation.on_clause required")
+        out["on_clause"] = ""
     if data.get("LeftOperandProperties") is not None:
         import capo_quicksight.types.join_operand_properties
 

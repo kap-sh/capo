@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_outposts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_outposts.types.asset_id
     import capo_outposts.types.device_serial_number
@@ -46,15 +44,13 @@ def deserialize_json(data: dict) -> StartConnectionRequest:
     if data.get("AssetId") is not None:
         out["asset_id"] = data["AssetId"]
     else:
-        raise DeserializationError("StartConnectionRequest.asset_id required")
+        out["asset_id"] = ""
     if data.get("ClientPublicKey") is not None:
         out["client_public_key"] = data["ClientPublicKey"]
     else:
-        raise DeserializationError("StartConnectionRequest.client_public_key required")
+        out["client_public_key"] = ""
     if data.get("NetworkInterfaceDeviceIndex") is not None:
         out["network_interface_device_index"] = data["NetworkInterfaceDeviceIndex"]
     else:
-        raise DeserializationError(
-            "StartConnectionRequest.network_interface_device_index required"
-        )
+        out["network_interface_device_index"] = 0
     return out

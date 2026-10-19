@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.identifier
     import capo_frauddetector.types.whole_number_version_string
@@ -33,11 +31,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetDetectorVersionRequest:
     if data.get("detectorId") is not None:
         out["detector_id"] = data["detectorId"]
     else:
-        raise DeserializationError("GetDetectorVersionRequest.detector_id required")
+        out["detector_id"] = ""
     if data.get("detectorVersionId") is not None:
         out["detector_version_id"] = data["detectorVersionId"]
     else:
-        raise DeserializationError(
-            "GetDetectorVersionRequest.detector_version_id required"
-        )
+        out["detector_version_id"] = ""
     return out

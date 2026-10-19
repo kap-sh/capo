@@ -38,7 +38,7 @@ def deserialize_query(el: Element) -> ReceiptFilter:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("ReceiptFilter.name required")
+        out["name"] = ""
     child_ip_filter = el.find("IpFilter")
     if child_ip_filter is not None:
         import capo_ses.types.receipt_ip_filter

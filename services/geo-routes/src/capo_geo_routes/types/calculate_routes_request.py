@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.api_key
     import capo_geo_routes.types.geometry_format
@@ -287,7 +285,7 @@ def deserialize_json(data: dict) -> CalculateRoutesRequest:
             data["Destination"]
         )
     else:
-        raise DeserializationError("CalculateRoutesRequest.destination required")
+        out["destination"] = []
     if data.get("DestinationOptions") is not None:
         import capo_geo_routes.types.route_destination_options
 
@@ -353,7 +351,7 @@ def deserialize_json(data: dict) -> CalculateRoutesRequest:
 
         out["origin"] = capo_geo_routes.types.position.deserialize_json(data["Origin"])
     else:
-        raise DeserializationError("CalculateRoutesRequest.origin required")
+        out["origin"] = []
     if data.get("OriginOptions") is not None:
         import capo_geo_routes.types.route_origin_options
 

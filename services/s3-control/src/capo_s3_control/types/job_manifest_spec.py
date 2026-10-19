@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.job_manifest_field_list
@@ -47,7 +46,11 @@ def deserialize_xml(el: Element) -> JobManifestSpec:
             child_format
         )
     else:
-        raise DeserializationError("JobManifestSpec.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_s3_control.types.job_manifest_format.JobManifestFormat", ""
+        )
     child_fields = el.find("Fields")
     if child_fields is not None:
         import capo_s3_control.types.job_manifest_field_list

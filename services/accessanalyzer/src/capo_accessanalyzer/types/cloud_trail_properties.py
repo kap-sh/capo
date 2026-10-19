@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.timestamp
     import capo_accessanalyzer.types.trail_properties_list
@@ -56,7 +54,7 @@ def deserialize_json(data: dict) -> CloudTrailProperties:
             )
         )
     else:
-        raise DeserializationError("CloudTrailProperties.trail_properties required")
+        out["trail_properties"] = []
     if data.get("startTime") is not None:
         import capo_accessanalyzer.types.timestamp
 
@@ -64,7 +62,9 @@ def deserialize_json(data: dict) -> CloudTrailProperties:
             data["startTime"]
         )
     else:
-        raise DeserializationError("CloudTrailProperties.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_accessanalyzer.types.timestamp
 
@@ -72,5 +72,7 @@ def deserialize_json(data: dict) -> CloudTrailProperties:
             data["endTime"]
         )
     else:
-        raise DeserializationError("CloudTrailProperties.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

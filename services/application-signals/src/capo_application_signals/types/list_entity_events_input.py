@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -59,7 +57,7 @@ def deserialize_json(data: dict) -> ListEntityEventsInput:
             data["Entity"]
         )
     else:
-        raise DeserializationError("ListEntityEventsInput.entity required")
+        out["entity"] = {}
     if data.get("StartTime") is not None:
         import capo_application_signals.types._prelude.timestamp
 
@@ -69,7 +67,9 @@ def deserialize_json(data: dict) -> ListEntityEventsInput:
             )
         )
     else:
-        raise DeserializationError("ListEntityEventsInput.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_application_signals.types._prelude.timestamp
 
@@ -79,5 +79,7 @@ def deserialize_json(data: dict) -> ListEntityEventsInput:
             )
         )
     else:
-        raise DeserializationError("ListEntityEventsInput.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

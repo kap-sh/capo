@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.app_version
     import capo_qapps.types.category_id_list
@@ -42,11 +40,11 @@ def deserialize_json(data: dict) -> CreateLibraryItemInput:
     if data.get("appId") is not None:
         out["app_id"] = data["appId"]
     else:
-        raise DeserializationError("CreateLibraryItemInput.app_id required")
+        out["app_id"] = ""
     if data.get("appVersion") is not None:
         out["app_version"] = data["appVersion"]
     else:
-        raise DeserializationError("CreateLibraryItemInput.app_version required")
+        out["app_version"] = 0
     if data.get("categories") is not None:
         import capo_qapps.types.category_id_list
 
@@ -54,5 +52,5 @@ def deserialize_json(data: dict) -> CreateLibraryItemInput:
             data["categories"]
         )
     else:
-        raise DeserializationError("CreateLibraryItemInput.categories required")
+        out["categories"] = []
     return out

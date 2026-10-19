@@ -76,31 +76,27 @@ def deserialize_json(data: dict) -> GetSolNetworkInstanceOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetSolNetworkInstanceOutput.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetSolNetworkInstanceOutput.arn required")
+        out["arn"] = ""
     if data.get("nsInstanceName") is not None:
         out["ns_instance_name"] = data["nsInstanceName"]
     else:
-        raise DeserializationError(
-            "GetSolNetworkInstanceOutput.ns_instance_name required"
-        )
+        out["ns_instance_name"] = ""
     if data.get("nsInstanceDescription") is not None:
         out["ns_instance_description"] = data["nsInstanceDescription"]
     else:
-        raise DeserializationError(
-            "GetSolNetworkInstanceOutput.ns_instance_description required"
-        )
+        out["ns_instance_description"] = ""
     if data.get("nsdId") is not None:
         out["nsd_id"] = data["nsdId"]
     else:
-        raise DeserializationError("GetSolNetworkInstanceOutput.nsd_id required")
+        out["nsd_id"] = ""
     if data.get("nsdInfoId") is not None:
         out["nsd_info_id"] = data["nsdInfoId"]
     else:
-        raise DeserializationError("GetSolNetworkInstanceOutput.nsd_info_id required")
+        out["nsd_info_id"] = ""
     if data.get("nsState") is not None:
         import capo_tnb.types.ns_state
 

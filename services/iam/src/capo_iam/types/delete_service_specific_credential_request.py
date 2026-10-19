@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.service_specific_credential_id
@@ -49,7 +48,5 @@ def deserialize_query(el: Element) -> DeleteServiceSpecificCredentialRequest:
             child_service_specific_credential_id.text or ""
         )
     else:
-        raise DeserializationError(
-            "DeleteServiceSpecificCredentialRequest.service_specific_credential_id required"
-        )
+        out["service_specific_credential_id"] = ""
     return out

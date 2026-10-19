@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.deepgram_model_id
     import capo_lex_models_v2.types.secrets_manager_secret_arn
@@ -34,9 +32,7 @@ def deserialize_json(data: dict) -> DeepgramSpeechModelConfig:
     if data.get("apiTokenSecretArn") is not None:
         out["api_token_secret_arn"] = data["apiTokenSecretArn"]
     else:
-        raise DeserializationError(
-            "DeepgramSpeechModelConfig.api_token_secret_arn required"
-        )
+        out["api_token_secret_arn"] = ""
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     return out

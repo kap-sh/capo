@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.next_token
     import capo_databrew.types.project_list
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> ListProjectsResponse:
             data["Projects"]
         )
     else:
-        raise DeserializationError("ListProjectsResponse.projects required")
+        out["projects"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chatbot.types.resource_state
     import capo_chatbot.types.string
@@ -44,11 +42,11 @@ def deserialize_json(data: dict) -> ConfiguredTeam:
     if data.get("TenantId") is not None:
         out["tenant_id"] = data["TenantId"]
     else:
-        raise DeserializationError("ConfiguredTeam.tenant_id required")
+        out["tenant_id"] = ""
     if data.get("TeamId") is not None:
         out["team_id"] = data["TeamId"]
     else:
-        raise DeserializationError("ConfiguredTeam.team_id required")
+        out["team_id"] = ""
     if data.get("TeamName") is not None:
         out["team_name"] = data["TeamName"]
     if data.get("State") is not None:

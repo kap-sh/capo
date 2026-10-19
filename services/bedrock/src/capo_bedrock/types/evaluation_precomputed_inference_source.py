@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.evaluation_precomputed_inference_source_identifier
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> EvaluationPrecomputedInferenceSource:
     if data.get("inferenceSourceIdentifier") is not None:
         out["inference_source_identifier"] = data["inferenceSourceIdentifier"]
     else:
-        raise DeserializationError(
-            "EvaluationPrecomputedInferenceSource.inference_source_identifier required"
-        )
+        out["inference_source_identifier"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_keyspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_keyspaces.types.arn
     import capo_keyspaces.types.type_name
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteTypeResponse:
     if data.get("keyspaceArn") is not None:
         out["keyspace_arn"] = data["keyspaceArn"]
     else:
-        raise DeserializationError("DeleteTypeResponse.keyspace_arn required")
+        out["keyspace_arn"] = ""
     if data.get("typeName") is not None:
         out["type_name"] = data["typeName"]
     else:
-        raise DeserializationError("DeleteTypeResponse.type_name required")
+        out["type_name"] = ""
     return out

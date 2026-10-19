@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.alarm_name
@@ -38,10 +37,14 @@ def deserialize_xml(el: Element) -> AlarmIdentifier:
             child_region
         )
     else:
-        raise DeserializationError("AlarmIdentifier.region required")
+        import typing
+
+        out["region"] = typing.cast(
+            "capo_route_53.types.cloud_watch_region.CloudWatchRegion", ""
+        )
     child_name = el.find("Name")
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("AlarmIdentifier.name required")
+        out["name"] = ""
     return out

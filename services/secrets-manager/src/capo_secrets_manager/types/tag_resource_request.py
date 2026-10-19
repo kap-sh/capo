@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_secrets_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_secrets_manager.types.secret_id_type
     import capo_secrets_manager.types.tag_list_type
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> TagResourceRequest:
     if data.get("SecretId") is not None:
         out["secret_id"] = data["SecretId"]
     else:
-        raise DeserializationError("TagResourceRequest.secret_id required")
+        out["secret_id"] = ""
     if data.get("Tags") is not None:
         import capo_secrets_manager.types.tag_list_type
 
@@ -43,5 +41,5 @@ def deserialize_aws_json_1_1(data: dict) -> TagResourceRequest:
             data["Tags"]
         )
     else:
-        raise DeserializationError("TagResourceRequest.tags required")
+        out["tags"] = []
     return out

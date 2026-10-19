@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.code_review_id_list
 
@@ -40,13 +38,9 @@ def deserialize_json(data: dict) -> BatchDeleteCodeReviewsInput:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDeleteCodeReviewsInput.code_review_ids required"
-        )
+        out["code_review_ids"] = []
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError(
-            "BatchDeleteCodeReviewsInput.agent_space_id required"
-        )
+        out["agent_space_id"] = ""
     return out

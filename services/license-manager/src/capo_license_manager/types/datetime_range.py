@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.iso8601_date_time
 
@@ -31,7 +29,7 @@ def deserialize_aws_json_1_1(data: dict) -> DatetimeRange:
     if data.get("Begin") is not None:
         out["begin"] = data["Begin"]
     else:
-        raise DeserializationError("DatetimeRange.begin required")
+        out["begin"] = ""
     if data.get("End") is not None:
         out["end"] = data["End"]
     return out

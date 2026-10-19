@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_braket.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -68,27 +66,27 @@ def deserialize_json(data: dict) -> QuantumTaskSummary:
     if data.get("quantumTaskArn") is not None:
         out["quantum_task_arn"] = data["quantumTaskArn"]
     else:
-        raise DeserializationError("QuantumTaskSummary.quantum_task_arn required")
+        out["quantum_task_arn"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("QuantumTaskSummary.status required")
+        out["status"] = ""
     if data.get("deviceArn") is not None:
         out["device_arn"] = data["deviceArn"]
     else:
-        raise DeserializationError("QuantumTaskSummary.device_arn required")
+        out["device_arn"] = ""
     if data.get("shots") is not None:
         out["shots"] = data["shots"]
     else:
-        raise DeserializationError("QuantumTaskSummary.shots required")
+        out["shots"] = 0
     if data.get("outputS3Bucket") is not None:
         out["output_s3_bucket"] = data["outputS3Bucket"]
     else:
-        raise DeserializationError("QuantumTaskSummary.output_s3_bucket required")
+        out["output_s3_bucket"] = ""
     if data.get("outputS3Directory") is not None:
         out["output_s3_directory"] = data["outputS3Directory"]
     else:
-        raise DeserializationError("QuantumTaskSummary.output_s3_directory required")
+        out["output_s3_directory"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -96,7 +94,9 @@ def deserialize_json(data: dict) -> QuantumTaskSummary:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("QuantumTaskSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endedAt") is not None:
         import datetime
 

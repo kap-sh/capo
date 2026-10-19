@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.idempotency_token
     import capo_direct_connect.types.resiliency_group_name
@@ -57,9 +55,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateResiliencyGroupRequest:
     if data.get("resiliencyGroupName") is not None:
         out["resiliency_group_name"] = data["resiliencyGroupName"]
     else:
-        raise DeserializationError(
-            "CreateResiliencyGroupRequest.resiliency_group_name required"
-        )
+        out["resiliency_group_name"] = ""
     if data.get("intendedResiliencyModel") is not None:
         import capo_direct_connect.types.resiliency_model
 
@@ -69,8 +65,10 @@ def deserialize_aws_json_1_1(data: dict) -> CreateResiliencyGroupRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateResiliencyGroupRequest.intended_resiliency_model required"
+        import typing
+
+        out["intended_resiliency_model"] = typing.cast(
+            "capo_direct_connect.types.resiliency_model.ResiliencyModel", ""
         )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]

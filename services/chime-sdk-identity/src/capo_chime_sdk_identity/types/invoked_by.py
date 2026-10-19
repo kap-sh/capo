@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_identity.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_identity.types.standard_messages
     import capo_chime_sdk_identity.types.targeted_messages
@@ -53,7 +51,11 @@ def deserialize_json(data: dict) -> InvokedBy:
             )
         )
     else:
-        raise DeserializationError("InvokedBy.standard_messages required")
+        import typing
+
+        out["standard_messages"] = typing.cast(
+            "capo_chime_sdk_identity.types.standard_messages.StandardMessages", ""
+        )
     if data.get("TargetedMessages") is not None:
         import capo_chime_sdk_identity.types.targeted_messages
 
@@ -63,5 +65,9 @@ def deserialize_json(data: dict) -> InvokedBy:
             )
         )
     else:
-        raise DeserializationError("InvokedBy.targeted_messages required")
+        import typing
+
+        out["targeted_messages"] = typing.cast(
+            "capo_chime_sdk_identity.types.targeted_messages.TargetedMessages", ""
+        )
     return out

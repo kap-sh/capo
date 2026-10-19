@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 
 class ScopeChange(TypedDict, closed=True):
     integration_id: "str"
@@ -36,17 +34,17 @@ def deserialize_json(data: dict) -> ScopeChange:
     if data.get("integrationId") is not None:
         out["integration_id"] = data["integrationId"]
     else:
-        raise DeserializationError("ScopeChange.integration_id required")
+        out["integration_id"] = ""
     if data.get("providerResourceId") is not None:
         out["provider_resource_id"] = data["providerResourceId"]
     else:
-        raise DeserializationError("ScopeChange.provider_resource_id required")
+        out["provider_resource_id"] = ""
     if data.get("baseCommitSha") is not None:
         out["base_commit_sha"] = data["baseCommitSha"]
     if data.get("headCommitSha") is not None:
         out["head_commit_sha"] = data["headCommitSha"]
     else:
-        raise DeserializationError("ScopeChange.head_commit_sha required")
+        out["head_commit_sha"] = ""
     if data.get("triggerRunId") is not None:
         out["trigger_run_id"] = data["triggerRunId"]
     return out

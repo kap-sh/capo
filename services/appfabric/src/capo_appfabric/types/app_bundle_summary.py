@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appfabric.types.arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> AppBundleSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("AppBundleSummary.arn required")
+        out["arn"] = ""
     return out

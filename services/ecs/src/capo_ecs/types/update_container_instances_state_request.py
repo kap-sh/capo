@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.container_instance_status
     import capo_ecs.types.string
@@ -52,9 +50,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateContainerInstancesStateRequest
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateContainerInstancesStateRequest.container_instances required"
-        )
+        out["container_instances"] = []
     if data.get("status") is not None:
         import capo_ecs.types.container_instance_status
 
@@ -64,7 +60,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateContainerInstancesStateRequest
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateContainerInstancesStateRequest.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_ecs.types.container_instance_status.ContainerInstanceStatus", ""
         )
     return out

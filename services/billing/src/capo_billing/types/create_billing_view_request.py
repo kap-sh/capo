@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billing.types.billing_view_description
     import capo_billing.types.billing_view_name
@@ -73,7 +71,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateBillingViewRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateBillingViewRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("sourceViews") is not None:
@@ -85,7 +83,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateBillingViewRequest:
             )
         )
     else:
-        raise DeserializationError("CreateBillingViewRequest.source_views required")
+        out["source_views"] = []
     if data.get("dataFilterExpression") is not None:
         import capo_billing.types.expression
 

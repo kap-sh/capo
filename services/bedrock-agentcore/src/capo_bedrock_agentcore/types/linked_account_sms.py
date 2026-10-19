@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.phone_number
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> LinkedAccountSms:
     if data.get("phoneNumber") is not None:
         out["phone_number"] = data["phoneNumber"]
     else:
-        raise DeserializationError("LinkedAccountSms.phone_number required")
+        out["phone_number"] = ""
     return out

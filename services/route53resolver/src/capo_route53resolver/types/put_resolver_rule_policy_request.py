@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.arn
     import capo_route53resolver.types.resolver_rule_policy
@@ -33,11 +31,9 @@ def deserialize_aws_json_1_1(data: dict) -> PutResolverRulePolicyRequest:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("PutResolverRulePolicyRequest.arn required")
+        out["arn"] = ""
     if data.get("ResolverRulePolicy") is not None:
         out["resolver_rule_policy"] = data["ResolverRulePolicy"]
     else:
-        raise DeserializationError(
-            "PutResolverRulePolicyRequest.resolver_rule_policy required"
-        )
+        out["resolver_rule_policy"] = ""
     return out

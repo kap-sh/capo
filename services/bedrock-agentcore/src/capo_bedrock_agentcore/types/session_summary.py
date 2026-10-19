@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -40,11 +38,11 @@ def deserialize_json(data: dict) -> SessionSummary:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("SessionSummary.session_id required")
+        out["session_id"] = ""
     if data.get("actorId") is not None:
         out["actor_id"] = data["actorId"]
     else:
-        raise DeserializationError("SessionSummary.actor_id required")
+        out["actor_id"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore.types._prelude.timestamp
 
@@ -54,5 +52,7 @@ def deserialize_json(data: dict) -> SessionSummary:
             )
         )
     else:
-        raise DeserializationError("SessionSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

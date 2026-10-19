@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeguruprofiler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguruprofiler.types.timestamp
     import capo_codeguruprofiler.types.user_feedback
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> AnomalyInstance:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("AnomalyInstance.id required")
+        out["id"] = ""
     if data.get("startTime") is not None:
         import capo_codeguruprofiler.types.timestamp
 
@@ -59,7 +57,9 @@ def deserialize_json(data: dict) -> AnomalyInstance:
             data["startTime"]
         )
     else:
-        raise DeserializationError("AnomalyInstance.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_codeguruprofiler.types.timestamp
 

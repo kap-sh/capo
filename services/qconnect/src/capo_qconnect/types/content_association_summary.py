@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.arn
     import capo_qconnect.types.content_association_contents
@@ -68,41 +66,31 @@ def deserialize_json(data: dict) -> ContentAssociationSummary:
     if data.get("knowledgeBaseId") is not None:
         out["knowledge_base_id"] = data["knowledgeBaseId"]
     else:
-        raise DeserializationError(
-            "ContentAssociationSummary.knowledge_base_id required"
-        )
+        out["knowledge_base_id"] = ""
     if data.get("knowledgeBaseArn") is not None:
         out["knowledge_base_arn"] = data["knowledgeBaseArn"]
     else:
-        raise DeserializationError(
-            "ContentAssociationSummary.knowledge_base_arn required"
-        )
+        out["knowledge_base_arn"] = ""
     if data.get("contentId") is not None:
         out["content_id"] = data["contentId"]
     else:
-        raise DeserializationError("ContentAssociationSummary.content_id required")
+        out["content_id"] = ""
     if data.get("contentArn") is not None:
         out["content_arn"] = data["contentArn"]
     else:
-        raise DeserializationError("ContentAssociationSummary.content_arn required")
+        out["content_arn"] = ""
     if data.get("contentAssociationId") is not None:
         out["content_association_id"] = data["contentAssociationId"]
     else:
-        raise DeserializationError(
-            "ContentAssociationSummary.content_association_id required"
-        )
+        out["content_association_id"] = ""
     if data.get("contentAssociationArn") is not None:
         out["content_association_arn"] = data["contentAssociationArn"]
     else:
-        raise DeserializationError(
-            "ContentAssociationSummary.content_association_arn required"
-        )
+        out["content_association_arn"] = ""
     if data.get("associationType") is not None:
         out["association_type"] = data["associationType"]
     else:
-        raise DeserializationError(
-            "ContentAssociationSummary.association_type required"
-        )
+        out["association_type"] = ""
     if data.get("associationData") is not None:
         import capo_qconnect.types.content_association_contents
 
@@ -112,9 +100,9 @@ def deserialize_json(data: dict) -> ContentAssociationSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "ContentAssociationSummary.association_data required"
-        )
+        import capo_qconnect.types._unknown
+
+        out["association_data"] = capo_qconnect.types._unknown.UnknownUnionMember("")
     if data.get("tags") is not None:
         import capo_qconnect.types.tags
 

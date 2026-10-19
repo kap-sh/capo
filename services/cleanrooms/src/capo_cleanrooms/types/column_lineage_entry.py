@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.account_id
     import capo_cleanrooms.types.analysis_rule_column_name
@@ -54,19 +52,19 @@ def deserialize_json(data: dict) -> ColumnLineageEntry:
     if data.get("column") is not None:
         out["column"] = data["column"]
     else:
-        raise DeserializationError("ColumnLineageEntry.column required")
+        out["column"] = ""
     if data.get("sourceColumn") is not None:
         out["source_column"] = data["sourceColumn"]
     else:
-        raise DeserializationError("ColumnLineageEntry.source_column required")
+        out["source_column"] = ""
     if data.get("sourceName") is not None:
         out["source_name"] = data["sourceName"]
     else:
-        raise DeserializationError("ColumnLineageEntry.source_name required")
+        out["source_name"] = ""
     if data.get("sourceId") is not None:
         out["source_id"] = data["sourceId"]
     else:
-        raise DeserializationError("ColumnLineageEntry.source_id required")
+        out["source_id"] = ""
     if data.get("sourceType") is not None:
         import capo_cleanrooms.types.base_table_dependency_type
 
@@ -76,9 +74,14 @@ def deserialize_json(data: dict) -> ColumnLineageEntry:
             )
         )
     else:
-        raise DeserializationError("ColumnLineageEntry.source_type required")
+        import typing
+
+        out["source_type"] = typing.cast(
+            "capo_cleanrooms.types.base_table_dependency_type.BaseTableDependencyType",
+            "",
+        )
     if data.get("sourceAccountId") is not None:
         out["source_account_id"] = data["sourceAccountId"]
     else:
-        raise DeserializationError("ColumnLineageEntry.source_account_id required")
+        out["source_account_id"] = ""
     return out

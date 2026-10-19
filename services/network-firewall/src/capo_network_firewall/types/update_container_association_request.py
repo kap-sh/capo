@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.container_monitoring_configurations
     import capo_network_firewall.types.container_monitoring_type
@@ -89,7 +87,12 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateContainerAssociationRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateContainerAssociationRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_network_firewall.types.container_monitoring_type.ContainerMonitoringType",
+            "",
+        )
     if data.get("ContainerMonitoringConfigurations") is not None:
         import capo_network_firewall.types.container_monitoring_configurations
 
@@ -99,9 +102,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateContainerAssociationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateContainerAssociationRequest.container_monitoring_configurations required"
-        )
+        out["container_monitoring_configurations"] = []
     if data.get("Tags") is not None:
         import capo_network_firewall.types.tag_list
 
@@ -111,7 +112,5 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateContainerAssociationRequest:
     if data.get("UpdateToken") is not None:
         out["update_token"] = data["UpdateToken"]
     else:
-        raise DeserializationError(
-            "UpdateContainerAssociationRequest.update_token required"
-        )
+        out["update_token"] = ""
     return out

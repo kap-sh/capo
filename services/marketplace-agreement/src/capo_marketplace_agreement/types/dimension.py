@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_agreement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.bounded_string
     import capo_marketplace_agreement.types.zero_value_integer
@@ -33,7 +31,7 @@ def deserialize_aws_json_1_0(data: dict) -> Dimension:
     if data.get("dimensionKey") is not None:
         out["dimension_key"] = data["dimensionKey"]
     else:
-        raise DeserializationError("Dimension.dimension_key required")
+        out["dimension_key"] = ""
     if data.get("dimensionValue") is not None:
         out["dimension_value"] = data["dimensionValue"]
     else:

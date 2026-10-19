@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.hex_length_equals4
     import capo_payment_cryptography_data.types.number_length_equals2
@@ -39,17 +37,15 @@ def deserialize_json(data: dict) -> SessionKeyUnionPay:
     if data.get("PrimaryAccountNumber") is not None:
         out["primary_account_number"] = data["PrimaryAccountNumber"]
     else:
-        raise DeserializationError("SessionKeyUnionPay.primary_account_number required")
+        out["primary_account_number"] = ""
     if data.get("PanSequenceNumber") is not None:
         out["pan_sequence_number"] = data["PanSequenceNumber"]
     else:
-        raise DeserializationError("SessionKeyUnionPay.pan_sequence_number required")
+        out["pan_sequence_number"] = ""
     if data.get("ApplicationTransactionCounter") is not None:
         out["application_transaction_counter"] = data["ApplicationTransactionCounter"]
     else:
-        raise DeserializationError(
-            "SessionKeyUnionPay.application_transaction_counter required"
-        )
+        out["application_transaction_counter"] = ""
     return out
 
 

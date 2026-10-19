@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_trustedadvisor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_trustedadvisor.types.account_recommendation_lifecycle_summary_list
 
@@ -45,9 +43,7 @@ def deserialize_json(data: dict) -> ListOrganizationRecommendationAccountsRespon
             )
         )
     else:
-        raise DeserializationError(
-            "ListOrganizationRecommendationAccountsResponse.account_recommendation_lifecycle_summaries required"
-        )
+        out["account_recommendation_lifecycle_summaries"] = []
     return out
 
 

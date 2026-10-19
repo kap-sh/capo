@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.cfn_stack_name
     import capo_drs.types.source_network_id
@@ -32,9 +30,7 @@ def deserialize_json(data: dict) -> StartSourceNetworkRecoveryRequestNetworkEntr
     if data.get("sourceNetworkID") is not None:
         out["source_network_id"] = data["sourceNetworkID"]
     else:
-        raise DeserializationError(
-            "StartSourceNetworkRecoveryRequestNetworkEntry.source_network_id required"
-        )
+        out["source_network_id"] = ""
     if data.get("cfnStackName") is not None:
         out["cfn_stack_name"] = data["cfnStackName"]
     return out

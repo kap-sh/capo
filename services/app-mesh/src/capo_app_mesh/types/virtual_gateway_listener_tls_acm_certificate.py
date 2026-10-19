@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.arn
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> VirtualGatewayListenerTlsAcmCertificate:
     if data.get("certificateArn") is not None:
         out["certificate_arn"] = data["certificateArn"]
     else:
-        raise DeserializationError(
-            "VirtualGatewayListenerTlsAcmCertificate.certificate_arn required"
-        )
+        out["certificate_arn"] = ""
     return out

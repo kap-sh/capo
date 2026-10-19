@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.gateway_identifier
     import capo_bedrock_agentcore_control.types.target_id_list
@@ -44,7 +42,5 @@ def deserialize_json(data: dict) -> SynchronizeGatewayTargetsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "SynchronizeGatewayTargetsRequest.target_id_list required"
-        )
+        out["target_id_list"] = []
     return out

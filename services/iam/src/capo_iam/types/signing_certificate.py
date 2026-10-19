@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.certificate_body_type
@@ -55,24 +54,26 @@ def deserialize_query(el: Element) -> SigningCertificate:
     if child_user_name is not None:
         out["user_name"] = str(child_user_name.text or "")
     else:
-        raise DeserializationError("SigningCertificate.user_name required")
+        out["user_name"] = ""
     child_certificate_id = el.find("CertificateId")
     if child_certificate_id is not None:
         out["certificate_id"] = str(child_certificate_id.text or "")
     else:
-        raise DeserializationError("SigningCertificate.certificate_id required")
+        out["certificate_id"] = ""
     child_certificate_body = el.find("CertificateBody")
     if child_certificate_body is not None:
         out["certificate_body"] = str(child_certificate_body.text or "")
     else:
-        raise DeserializationError("SigningCertificate.certificate_body required")
+        out["certificate_body"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         import capo_iam.types.status_type
 
         out["status"] = capo_iam.types.status_type.deserialize_query(child_status)
     else:
-        raise DeserializationError("SigningCertificate.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_iam.types.status_type.statusType", "")
     child_upload_date = el.find("UploadDate")
     if child_upload_date is not None:
         import capo_iam.types.date_type

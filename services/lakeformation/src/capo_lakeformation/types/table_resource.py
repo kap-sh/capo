@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.catalog_id_string
     import capo_lakeformation.types.name_string
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> TableResource:
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError("TableResource.database_name required")
+        out["database_name"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("TableWildcard") is not None:

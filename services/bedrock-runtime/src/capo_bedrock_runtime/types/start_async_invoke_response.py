@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.invocation_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> StartAsyncInvokeResponse:
     if data.get("invocationArn") is not None:
         out["invocation_arn"] = data["invocationArn"]
     else:
-        raise DeserializationError("StartAsyncInvokeResponse.invocation_arn required")
+        out["invocation_arn"] = ""
     return out

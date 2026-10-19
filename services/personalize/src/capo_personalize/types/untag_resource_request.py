@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.arn
     import capo_personalize.types.tag_keys
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> UntagResourceRequest:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("UntagResourceRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("tagKeys") is not None:
         import capo_personalize.types.tag_keys
 
@@ -43,7 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> UntagResourceRequest:
             data["tagKeys"]
         )
     else:
-        raise DeserializationError("UntagResourceRequest.tag_keys required")
+        out["tag_keys"] = []
     return out
 
 

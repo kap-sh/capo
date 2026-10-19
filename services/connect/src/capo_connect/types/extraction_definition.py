@@ -87,19 +87,15 @@ def deserialize_json(data: dict) -> ExtractionDefinition:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ExtractionDefinition.name required")
+        out["name"] = ""
     if data.get("ExtractionDefinitionId") is not None:
         out["extraction_definition_id"] = data["ExtractionDefinitionId"]
     else:
-        raise DeserializationError(
-            "ExtractionDefinition.extraction_definition_id required"
-        )
+        out["extraction_definition_id"] = ""
     if data.get("ExtractionDefinitionArn") is not None:
         out["extraction_definition_arn"] = data["ExtractionDefinitionArn"]
     else:
-        raise DeserializationError(
-            "ExtractionDefinition.extraction_definition_arn required"
-        )
+        out["extraction_definition_arn"] = ""
     if data.get("ExtractionConfiguration") is not None:
         import capo_connect.types.extraction_configuration
 
@@ -127,7 +123,11 @@ def deserialize_json(data: dict) -> ExtractionDefinition:
             data["CreatedTime"]
         )
     else:
-        raise DeserializationError("ExtractionDefinition.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("LastUpdatedTime") is not None:
         import capo_connect.types.timestamp
 
@@ -135,11 +135,15 @@ def deserialize_json(data: dict) -> ExtractionDefinition:
             data["LastUpdatedTime"]
         )
     else:
-        raise DeserializationError("ExtractionDefinition.last_updated_time required")
+        import datetime
+
+        out["last_updated_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("LastUpdatedBy") is not None:
         out["last_updated_by"] = data["LastUpdatedBy"]
     else:
-        raise DeserializationError("ExtractionDefinition.last_updated_by required")
+        out["last_updated_by"] = ""
     if data.get("Tags") is not None:
         import capo_connect.types.tag_map
 

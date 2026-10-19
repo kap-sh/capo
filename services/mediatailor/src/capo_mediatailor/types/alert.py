@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__list_of__string
     import capo_mediatailor.types.__string
@@ -60,11 +58,11 @@ def deserialize_json(data: dict) -> Alert:
     if data.get("AlertCode") is not None:
         out["alert_code"] = data["AlertCode"]
     else:
-        raise DeserializationError("Alert.alert_code required")
+        out["alert_code"] = ""
     if data.get("AlertMessage") is not None:
         out["alert_message"] = data["AlertMessage"]
     else:
-        raise DeserializationError("Alert.alert_message required")
+        out["alert_message"] = ""
     if data.get("LastModifiedTime") is not None:
         import capo_mediatailor.types.__timestamp_unix
 
@@ -74,7 +72,11 @@ def deserialize_json(data: dict) -> Alert:
             )
         )
     else:
-        raise DeserializationError("Alert.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("RelatedResourceArns") is not None:
         import capo_mediatailor.types.__list_of__string
 
@@ -84,11 +86,11 @@ def deserialize_json(data: dict) -> Alert:
             )
         )
     else:
-        raise DeserializationError("Alert.related_resource_arns required")
+        out["related_resource_arns"] = []
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("Alert.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("Category") is not None:
         import capo_mediatailor.types.alert_category
 

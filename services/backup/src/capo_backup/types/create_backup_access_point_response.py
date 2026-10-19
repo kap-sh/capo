@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.access_point_arn
     import capo_backup.types.access_point_status
@@ -35,9 +33,7 @@ def deserialize_json(data: dict) -> CreateBackupAccessPointResponse:
     if data.get("AccessPointArn") is not None:
         out["access_point_arn"] = data["AccessPointArn"]
     else:
-        raise DeserializationError(
-            "CreateBackupAccessPointResponse.access_point_arn required"
-        )
+        out["access_point_arn"] = ""
     if data.get("Status") is not None:
         import capo_backup.types.access_point_status
 
@@ -45,5 +41,9 @@ def deserialize_json(data: dict) -> CreateBackupAccessPointResponse:
             data["Status"]
         )
     else:
-        raise DeserializationError("CreateBackupAccessPointResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_backup.types.access_point_status.AccessPointStatus", ""
+        )
     return out

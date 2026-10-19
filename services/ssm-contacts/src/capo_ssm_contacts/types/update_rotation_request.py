@@ -64,7 +64,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateRotationRequest:
     if data.get("RotationId") is not None:
         out["rotation_id"] = data["RotationId"]
     else:
-        raise DeserializationError("UpdateRotationRequest.rotation_id required")
+        out["rotation_id"] = ""
     if data.get("ContactIds") is not None:
         import capo_ssm_contacts.types.rotation_contacts_arn_list
 

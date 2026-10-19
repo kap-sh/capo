@@ -49,9 +49,9 @@ def deserialize_json(data: dict) -> SubDomain:
     if data.get("verified") is not None:
         out["verified"] = data["verified"]
     else:
-        raise DeserializationError("SubDomain.verified required")
+        out["verified"] = False
     if data.get("dnsRecord") is not None:
         out["dns_record"] = data["dnsRecord"]
     else:
-        raise DeserializationError("SubDomain.dns_record required")
+        out["dns_record"] = ""
     return out

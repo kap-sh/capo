@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.blueprint_parameters
     import capo_glue.types.orchestration_iam_role_arn
@@ -36,11 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> StartBlueprintRunRequest:
     if data.get("BlueprintName") is not None:
         out["blueprint_name"] = data["BlueprintName"]
     else:
-        raise DeserializationError("StartBlueprintRunRequest.blueprint_name required")
+        out["blueprint_name"] = ""
     if data.get("Parameters") is not None:
         out["parameters"] = data["Parameters"]
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("StartBlueprintRunRequest.role_arn required")
+        out["role_arn"] = ""
     return out

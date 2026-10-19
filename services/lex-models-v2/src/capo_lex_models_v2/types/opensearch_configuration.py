@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.boolean
     import capo_lex_models_v2.types.domain_endpoint
@@ -61,11 +59,11 @@ def deserialize_json(data: dict) -> OpensearchConfiguration:
     if data.get("domainEndpoint") is not None:
         out["domain_endpoint"] = data["domainEndpoint"]
     else:
-        raise DeserializationError("OpensearchConfiguration.domain_endpoint required")
+        out["domain_endpoint"] = ""
     if data.get("indexName") is not None:
         out["index_name"] = data["indexName"]
     else:
-        raise DeserializationError("OpensearchConfiguration.index_name required")
+        out["index_name"] = ""
     if data.get("exactResponse") is not None:
         out["exact_response"] = data["exactResponse"]
     else:

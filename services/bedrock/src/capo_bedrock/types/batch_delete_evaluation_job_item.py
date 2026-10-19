@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.evaluation_job_identifier
     import capo_bedrock.types.evaluation_job_status
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> BatchDeleteEvaluationJobItem:
     if data.get("jobIdentifier") is not None:
         out["job_identifier"] = data["jobIdentifier"]
     else:
-        raise DeserializationError(
-            "BatchDeleteEvaluationJobItem.job_identifier required"
-        )
+        out["job_identifier"] = ""
     if data.get("jobStatus") is not None:
         import capo_bedrock.types.evaluation_job_status
 
@@ -47,7 +43,11 @@ def deserialize_json(data: dict) -> BatchDeleteEvaluationJobItem:
             data["jobStatus"]
         )
     else:
-        raise DeserializationError("BatchDeleteEvaluationJobItem.job_status required")
+        import typing
+
+        out["job_status"] = typing.cast(
+            "capo_bedrock.types.evaluation_job_status.EvaluationJobStatus", ""
+        )
     return out
 
 

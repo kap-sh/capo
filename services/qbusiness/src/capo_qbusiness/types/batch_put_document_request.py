@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.application_id
     import capo_qbusiness.types.documents
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> BatchPutDocumentRequest:
             data["documents"]
         )
     else:
-        raise DeserializationError("BatchPutDocumentRequest.documents required")
+        out["documents"] = []
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     if data.get("dataSourceSyncId") is not None:

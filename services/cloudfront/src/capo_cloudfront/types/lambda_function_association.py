@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.boolean
@@ -41,9 +40,7 @@ def deserialize_xml(el: Element) -> LambdaFunctionAssociation:
     if child_lambda_function_arn is not None:
         out["lambda_function_arn"] = str(child_lambda_function_arn.text or "")
     else:
-        raise DeserializationError(
-            "LambdaFunctionAssociation.lambda_function_arn required"
-        )
+        out["lambda_function_arn"] = ""
     child_event_type = el.find("EventType")
     if child_event_type is not None:
         import capo_cloudfront.types.event_type
@@ -52,7 +49,11 @@ def deserialize_xml(el: Element) -> LambdaFunctionAssociation:
             child_event_type
         )
     else:
-        raise DeserializationError("LambdaFunctionAssociation.event_type required")
+        import typing
+
+        out["event_type"] = typing.cast(
+            "capo_cloudfront.types.event_type.EventType", ""
+        )
     child_include_body = el.find("IncludeBody")
     if child_include_body is not None:
         out["include_body"] = (child_include_body.text or "").lower() == "true"

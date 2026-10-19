@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.user_group_resolution_mode
 
@@ -41,7 +39,9 @@ def deserialize_aws_json_1_1(data: dict) -> UserGroupResolutionConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "UserGroupResolutionConfiguration.user_group_resolution_mode required"
+        import typing
+
+        out["user_group_resolution_mode"] = typing.cast(
+            "capo_kendra.types.user_group_resolution_mode.UserGroupResolutionMode", ""
         )
     return out

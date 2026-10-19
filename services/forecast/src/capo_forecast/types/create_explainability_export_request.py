@@ -50,15 +50,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateExplainabilityExportRequest:
     if data.get("ExplainabilityExportName") is not None:
         out["explainability_export_name"] = data["ExplainabilityExportName"]
     else:
-        raise DeserializationError(
-            "CreateExplainabilityExportRequest.explainability_export_name required"
-        )
+        out["explainability_export_name"] = ""
     if data.get("ExplainabilityArn") is not None:
         out["explainability_arn"] = data["ExplainabilityArn"]
     else:
-        raise DeserializationError(
-            "CreateExplainabilityExportRequest.explainability_arn required"
-        )
+        out["explainability_arn"] = ""
     if data.get("Destination") is not None:
         import capo_forecast.types.data_destination
 

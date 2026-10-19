@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.existing_user_name_type
@@ -38,15 +37,15 @@ def deserialize_query(el: Element) -> GetUserPolicyResponse:
     if child_user_name is not None:
         out["user_name"] = str(child_user_name.text or "")
     else:
-        raise DeserializationError("GetUserPolicyResponse.user_name required")
+        out["user_name"] = ""
     child_policy_name = el.find("PolicyName")
     if child_policy_name is not None:
         out["policy_name"] = str(child_policy_name.text or "")
     else:
-        raise DeserializationError("GetUserPolicyResponse.policy_name required")
+        out["policy_name"] = ""
     child_policy_document = el.find("PolicyDocument")
     if child_policy_document is not None:
         out["policy_document"] = str(child_policy_document.text or "")
     else:
-        raise DeserializationError("GetUserPolicyResponse.policy_document required")
+        out["policy_document"] = ""
     return out

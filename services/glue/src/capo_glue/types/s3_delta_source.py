@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.additional_options
     import capo_glue.types.enclosed_in_string_properties
@@ -70,7 +68,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3DeltaSource:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("S3DeltaSource.name required")
+        out["name"] = ""
     if data.get("Paths") is not None:
         import capo_glue.types.enclosed_in_string_properties
 
@@ -80,7 +78,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3DeltaSource:
             )
         )
     else:
-        raise DeserializationError("S3DeltaSource.paths required")
+        out["paths"] = []
     if data.get("AdditionalDeltaOptions") is not None:
         import capo_glue.types.additional_options
 

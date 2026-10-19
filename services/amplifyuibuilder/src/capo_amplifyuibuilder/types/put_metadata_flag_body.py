@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 
 class PutMetadataFlagBody(TypedDict, closed=True):
     new_value: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> PutMetadataFlagBody:
     if data.get("newValue") is not None:
         out["new_value"] = data["newValue"]
     else:
-        raise DeserializationError("PutMetadataFlagBody.new_value required")
+        out["new_value"] = ""
     return out

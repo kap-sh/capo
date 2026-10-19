@@ -59,7 +59,7 @@ def deserialize_xml(el: Element) -> UpdateFunctionRequest:
             child_function_code
         )
     else:
-        raise DeserializationError("UpdateFunctionRequest.function_code required")
+        out["function_code"] = b""
     return out
 
 

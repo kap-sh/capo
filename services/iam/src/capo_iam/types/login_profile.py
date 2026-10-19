@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.boolean_type
@@ -47,7 +46,7 @@ def deserialize_query(el: Element) -> LoginProfile:
     if child_user_name is not None:
         out["user_name"] = str(child_user_name.text or "")
     else:
-        raise DeserializationError("LoginProfile.user_name required")
+        out["user_name"] = ""
     child_create_date = el.find("CreateDate")
     if child_create_date is not None:
         import capo_iam.types.date_type
@@ -56,7 +55,11 @@ def deserialize_query(el: Element) -> LoginProfile:
             child_create_date
         )
     else:
-        raise DeserializationError("LoginProfile.create_date required")
+        import datetime
+
+        out["create_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_password_reset_required = el.find("PasswordResetRequired")
     if child_password_reset_required is not None:
         out["password_reset_required"] = (

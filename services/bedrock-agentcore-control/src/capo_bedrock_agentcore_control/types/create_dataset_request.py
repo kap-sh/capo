@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.client_token
     import capo_bedrock_agentcore_control.types.data_source_type
@@ -78,7 +76,7 @@ def deserialize_json(data: dict) -> CreateDatasetRequest:
     if data.get("datasetName") is not None:
         out["dataset_name"] = data["datasetName"]
     else:
-        raise DeserializationError("CreateDatasetRequest.dataset_name required")
+        out["dataset_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("source") is not None:
@@ -90,7 +88,11 @@ def deserialize_json(data: dict) -> CreateDatasetRequest:
             )
         )
     else:
-        raise DeserializationError("CreateDatasetRequest.source required")
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["source"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
+        )
     if data.get("schemaType") is not None:
         import capo_bedrock_agentcore_control.types.dataset_schema_type
 
@@ -100,7 +102,12 @@ def deserialize_json(data: dict) -> CreateDatasetRequest:
             )
         )
     else:
-        raise DeserializationError("CreateDatasetRequest.schema_type required")
+        import typing
+
+        out["schema_type"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.dataset_schema_type.DatasetSchemaType",
+            "",
+        )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     if data.get("tags") is not None:

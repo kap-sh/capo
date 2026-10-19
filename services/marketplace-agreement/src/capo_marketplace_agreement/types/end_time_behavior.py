@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_agreement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.end_time_behavior_reason_code
     import capo_marketplace_agreement.types.end_time_behavior_type
@@ -65,7 +63,12 @@ def deserialize_aws_json_1_0(data: dict) -> EndTimeBehavior:
             )
         )
     else:
-        raise DeserializationError("EndTimeBehavior.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_marketplace_agreement.types.end_time_behavior_type.EndTimeBehaviorType",
+            "",
+        )
     if data.get("reasonCode") is not None:
         import capo_marketplace_agreement.types.end_time_behavior_reason_code
 

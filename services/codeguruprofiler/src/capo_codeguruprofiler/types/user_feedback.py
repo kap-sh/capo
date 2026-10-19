@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codeguruprofiler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguruprofiler.types.feedback_type
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> UserFeedback:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("UserFeedback.type required")
+        out["type"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_repostspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_repostspace.types.accessor_id
     import capo_repostspace.types.error_code
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> BatchError:
     if data.get("accessorId") is not None:
         out["accessor_id"] = data["accessorId"]
     else:
-        raise DeserializationError("BatchError.accessor_id required")
+        out["accessor_id"] = ""
     if data.get("error") is not None:
         out["error"] = data["error"]
     else:
-        raise DeserializationError("BatchError.error required")
+        out["error"] = 0
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("BatchError.message required")
+        out["message"] = ""
     return out

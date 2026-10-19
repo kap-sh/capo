@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.data_replication
     import capo_workspaces.types.workspace_id
@@ -53,9 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyWorkspacePropertiesRequest:
     if data.get("WorkspaceId") is not None:
         out["workspace_id"] = data["WorkspaceId"]
     else:
-        raise DeserializationError(
-            "ModifyWorkspacePropertiesRequest.workspace_id required"
-        )
+        out["workspace_id"] = ""
     if data.get("WorkspaceProperties") is not None:
         import capo_workspaces.types.workspace_properties
 

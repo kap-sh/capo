@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.aws_account_id
     import capo_dataexchange.types.database_lf_tag_policy_and_permissions
@@ -68,9 +66,7 @@ def deserialize_json(
     if data.get("CatalogId") is not None:
         out["catalog_id"] = data["CatalogId"]
     else:
-        raise DeserializationError(
-            "ImportAssetsFromLakeFormationTagPolicyResponseDetails.catalog_id required"
-        )
+        out["catalog_id"] = ""
     if data.get("Database") is not None:
         import capo_dataexchange.types.database_lf_tag_policy_and_permissions
 
@@ -90,19 +86,13 @@ def deserialize_json(
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError(
-            "ImportAssetsFromLakeFormationTagPolicyResponseDetails.role_arn required"
-        )
+        out["role_arn"] = ""
     if data.get("DataSetId") is not None:
         out["data_set_id"] = data["DataSetId"]
     else:
-        raise DeserializationError(
-            "ImportAssetsFromLakeFormationTagPolicyResponseDetails.data_set_id required"
-        )
+        out["data_set_id"] = ""
     if data.get("RevisionId") is not None:
         out["revision_id"] = data["RevisionId"]
     else:
-        raise DeserializationError(
-            "ImportAssetsFromLakeFormationTagPolicyResponseDetails.revision_id required"
-        )
+        out["revision_id"] = ""
     return out

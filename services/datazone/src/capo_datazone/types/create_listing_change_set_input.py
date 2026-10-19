@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.change_action
     import capo_datazone.types.client_token
@@ -54,9 +52,7 @@ def deserialize_json(data: dict) -> CreateListingChangeSetInput:
     if data.get("entityIdentifier") is not None:
         out["entity_identifier"] = data["entityIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateListingChangeSetInput.entity_identifier required"
-        )
+        out["entity_identifier"] = ""
     if data.get("entityType") is not None:
         import capo_datazone.types.entity_type
 
@@ -64,7 +60,11 @@ def deserialize_json(data: dict) -> CreateListingChangeSetInput:
             data["entityType"]
         )
     else:
-        raise DeserializationError("CreateListingChangeSetInput.entity_type required")
+        import typing
+
+        out["entity_type"] = typing.cast(
+            "capo_datazone.types.entity_type.EntityType", ""
+        )
     if data.get("entityRevision") is not None:
         out["entity_revision"] = data["entityRevision"]
     if data.get("action") is not None:
@@ -74,7 +74,11 @@ def deserialize_json(data: dict) -> CreateListingChangeSetInput:
             data["action"]
         )
     else:
-        raise DeserializationError("CreateListingChangeSetInput.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_datazone.types.change_action.ChangeAction", ""
+        )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

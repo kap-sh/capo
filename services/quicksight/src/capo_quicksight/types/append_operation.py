@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.appended_column_list
     import capo_quicksight.types.transform_operation_alias
@@ -60,7 +58,7 @@ def deserialize_json(data: dict) -> AppendOperation:
     if data.get("Alias") is not None:
         out["alias"] = data["Alias"]
     else:
-        raise DeserializationError("AppendOperation.alias required")
+        out["alias"] = ""
     if data.get("FirstSource") is not None:
         import capo_quicksight.types.transform_operation_source
 
@@ -86,5 +84,5 @@ def deserialize_json(data: dict) -> AppendOperation:
             )
         )
     else:
-        raise DeserializationError("AppendOperation.appended_columns required")
+        out["appended_columns"] = []
     return out

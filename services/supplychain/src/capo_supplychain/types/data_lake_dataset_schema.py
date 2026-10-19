@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.data_lake_dataset_primary_key_field_list
     import capo_supplychain.types.data_lake_dataset_schema_field_list
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> DataLakeDatasetSchema:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DataLakeDatasetSchema.name required")
+        out["name"] = ""
     if data.get("fields") is not None:
         import capo_supplychain.types.data_lake_dataset_schema_field_list
 
@@ -62,7 +60,7 @@ def deserialize_json(data: dict) -> DataLakeDatasetSchema:
             )
         )
     else:
-        raise DeserializationError("DataLakeDatasetSchema.fields required")
+        out["fields"] = []
     if data.get("primaryKeys") is not None:
         import capo_supplychain.types.data_lake_dataset_primary_key_field_list
 

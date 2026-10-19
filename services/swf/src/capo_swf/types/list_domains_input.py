@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.page_size
     import capo_swf.types.page_token
@@ -56,7 +54,11 @@ def deserialize_aws_json_1_0(data: dict) -> ListDomainsInput:
             )
         )
     else:
-        raise DeserializationError("ListDomainsInput.registration_status required")
+        import typing
+
+        out["registration_status"] = typing.cast(
+            "capo_swf.types.registration_status.RegistrationStatus", ""
+        )
     if data.get("maximumPageSize") is not None:
         out["maximum_page_size"] = data["maximumPageSize"]
     if data.get("reverseOrder") is not None:

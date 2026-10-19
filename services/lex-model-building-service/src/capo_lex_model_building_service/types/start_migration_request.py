@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_model_building_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_model_building_service.types.bot_name
     import capo_lex_model_building_service.types.iam_role_arn
@@ -51,19 +49,19 @@ def deserialize_json(data: dict) -> StartMigrationRequest:
     if data.get("v1BotName") is not None:
         out["v1_bot_name"] = data["v1BotName"]
     else:
-        raise DeserializationError("StartMigrationRequest.v1_bot_name required")
+        out["v1_bot_name"] = ""
     if data.get("v1BotVersion") is not None:
         out["v1_bot_version"] = data["v1BotVersion"]
     else:
-        raise DeserializationError("StartMigrationRequest.v1_bot_version required")
+        out["v1_bot_version"] = ""
     if data.get("v2BotName") is not None:
         out["v2_bot_name"] = data["v2BotName"]
     else:
-        raise DeserializationError("StartMigrationRequest.v2_bot_name required")
+        out["v2_bot_name"] = ""
     if data.get("v2BotRole") is not None:
         out["v2_bot_role"] = data["v2BotRole"]
     else:
-        raise DeserializationError("StartMigrationRequest.v2_bot_role required")
+        out["v2_bot_role"] = ""
     if data.get("migrationStrategy") is not None:
         import capo_lex_model_building_service.types.migration_strategy
 
@@ -73,5 +71,10 @@ def deserialize_json(data: dict) -> StartMigrationRequest:
             )
         )
     else:
-        raise DeserializationError("StartMigrationRequest.migration_strategy required")
+        import typing
+
+        out["migration_strategy"] = typing.cast(
+            "capo_lex_model_building_service.types.migration_strategy.MigrationStrategy",
+            "",
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_auditmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auditmanager.types.control_set_id
     import capo_auditmanager.types.manual_evidence_list
@@ -45,9 +43,7 @@ def deserialize_json(data: dict) -> BatchImportEvidenceToAssessmentControlReques
             )
         )
     else:
-        raise DeserializationError(
-            "BatchImportEvidenceToAssessmentControlRequest.manual_evidence required"
-        )
+        out["manual_evidence"] = []
     return out
 
 

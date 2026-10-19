@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.agent_space_identifier
     import capo_devops_agent.types.asset_id_list
@@ -65,11 +63,11 @@ def deserialize_json(data: dict) -> SendMessageRequest:
     if data.get("executionId") is not None:
         out["execution_id"] = data["executionId"]
     else:
-        raise DeserializationError("SendMessageRequest.execution_id required")
+        out["execution_id"] = ""
     if data.get("content") is not None:
         out["content"] = data["content"]
     else:
-        raise DeserializationError("SendMessageRequest.content required")
+        out["content"] = ""
     if data.get("context") is not None:
         import capo_devops_agent.types.send_message_context
 

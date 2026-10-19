@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.target_domain_id_list
 
@@ -41,7 +39,5 @@ def deserialize_json(data: dict) -> BatchGetTargetDomainsInput:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetTargetDomainsInput.target_domain_ids required"
-        )
+        out["target_domain_ids"] = []
     return out

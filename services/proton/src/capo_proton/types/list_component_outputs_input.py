@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.deployment_id
     import capo_proton.types.empty_next_token
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListComponentOutputsInput:
     if data.get("componentName") is not None:
         out["component_name"] = data["componentName"]
     else:
-        raise DeserializationError("ListComponentOutputsInput.component_name required")
+        out["component_name"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("deploymentId") is not None:

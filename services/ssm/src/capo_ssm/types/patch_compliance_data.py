@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.date_time
     import capo_ssm.types.patch_classification
@@ -60,19 +58,19 @@ def deserialize_aws_json_1_1(data: dict) -> PatchComplianceData:
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     else:
-        raise DeserializationError("PatchComplianceData.title required")
+        out["title"] = ""
     if data.get("KBId") is not None:
         out["kb_id"] = data["KBId"]
     else:
-        raise DeserializationError("PatchComplianceData.kb_id required")
+        out["kb_id"] = ""
     if data.get("Classification") is not None:
         out["classification"] = data["Classification"]
     else:
-        raise DeserializationError("PatchComplianceData.classification required")
+        out["classification"] = ""
     if data.get("Severity") is not None:
         out["severity"] = data["Severity"]
     else:
-        raise DeserializationError("PatchComplianceData.severity required")
+        out["severity"] = ""
     if data.get("State") is not None:
         import capo_ssm.types.patch_compliance_data_state
 
@@ -82,7 +80,11 @@ def deserialize_aws_json_1_1(data: dict) -> PatchComplianceData:
             )
         )
     else:
-        raise DeserializationError("PatchComplianceData.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_ssm.types.patch_compliance_data_state.PatchComplianceDataState", ""
+        )
     if data.get("InstalledTime") is not None:
         import capo_ssm.types.date_time
 
@@ -90,7 +92,11 @@ def deserialize_aws_json_1_1(data: dict) -> PatchComplianceData:
             data["InstalledTime"]
         )
     else:
-        raise DeserializationError("PatchComplianceData.installed_time required")
+        import datetime
+
+        out["installed_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("CVEIds") is not None:
         out["cve_ids"] = data["CVEIds"]
     return out

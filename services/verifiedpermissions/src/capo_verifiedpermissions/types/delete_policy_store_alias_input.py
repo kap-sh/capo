@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.alias
     import capo_verifiedpermissions.types.deletion_mode
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_0(data: dict) -> DeletePolicyStoreAliasInput:
     if data.get("aliasName") is not None:
         out["alias_name"] = data["aliasName"]
     else:
-        raise DeserializationError("DeletePolicyStoreAliasInput.alias_name required")
+        out["alias_name"] = ""
     if data.get("deletionMode") is not None:
         import capo_verifiedpermissions.types.deletion_mode
 

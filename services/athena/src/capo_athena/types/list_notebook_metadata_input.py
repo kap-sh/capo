@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.filter_definition
     import capo_athena.types.max_notebooks_count
@@ -56,5 +54,5 @@ def deserialize_aws_json_1_1(data: dict) -> ListNotebookMetadataInput:
     if data.get("WorkGroup") is not None:
         out["work_group"] = data["WorkGroup"]
     else:
-        raise DeserializationError("ListNotebookMetadataInput.work_group required")
+        out["work_group"] = ""
     return out

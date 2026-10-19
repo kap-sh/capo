@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -59,19 +57,19 @@ def deserialize_json(data: dict) -> GitMetadata:
     if data.get("connectionId") is not None:
         out["connection_id"] = data["connectionId"]
     else:
-        raise DeserializationError("GitMetadata.connection_id required")
+        out["connection_id"] = ""
     if data.get("repository") is not None:
         out["repository"] = data["repository"]
     else:
-        raise DeserializationError("GitMetadata.repository required")
+        out["repository"] = ""
     if data.get("branch") is not None:
         out["branch"] = data["branch"]
     else:
-        raise DeserializationError("GitMetadata.branch required")
+        out["branch"] = ""
     if data.get("commitHash") is not None:
         out["commit_hash"] = data["commitHash"]
     else:
-        raise DeserializationError("GitMetadata.commit_hash required")
+        out["commit_hash"] = ""
     if data.get("fileName") is not None:
         out["file_name"] = data["fileName"]
     if data.get("committedAt") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_clouddirectory.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_clouddirectory.types.arn
     import capo_clouddirectory.types.batch_read_operation_list
@@ -49,5 +47,5 @@ def deserialize_json(data: dict) -> BatchReadRequest:
             )
         )
     else:
-        raise DeserializationError("BatchReadRequest.operations required")
+        out["operations"] = []
     return out

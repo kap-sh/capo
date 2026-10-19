@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_acm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm.types.domain_name_string
     import capo_acm.types.domain_status
@@ -82,7 +80,7 @@ def deserialize_aws_json_1_1(data: dict) -> DomainValidation:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("DomainValidation.domain_name required")
+        out["domain_name"] = ""
     if data.get("ValidationEmails") is not None:
         import capo_acm.types.validation_email_list
 

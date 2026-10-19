@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.generic_string
     import capo_wickr.types.security_group_id_list
@@ -66,13 +64,11 @@ def deserialize_json(data: dict) -> BatchCreateUserRequestItem:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchCreateUserRequestItem.security_group_ids required"
-        )
+        out["security_group_ids"] = []
     if data.get("username") is not None:
         out["username"] = data["username"]
     else:
-        raise DeserializationError("BatchCreateUserRequestItem.username required")
+        out["username"] = ""
     if data.get("inviteCode") is not None:
         out["invite_code"] = data["inviteCode"]
     if data.get("inviteCodeTtl") is not None:

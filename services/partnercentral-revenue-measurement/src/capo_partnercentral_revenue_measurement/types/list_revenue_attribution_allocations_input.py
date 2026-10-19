@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_revenue_measurement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_revenue_measurement.types.allocation_effective_date_string
     import capo_partnercentral_revenue_measurement.types.allocation_status
@@ -164,15 +162,15 @@ def deserialize_cbor(data: dict) -> ListRevenueAttributionAllocationsInput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListRevenueAttributionAllocationsInput.catalog required"
+        import typing
+
+        out["catalog"] = typing.cast(
+            "capo_partnercentral_revenue_measurement.types.catalog_name.CatalogName", ""
         )
     if data.get("RevenueAttributionIdentifier") is not None:
         out["revenue_attribution_identifier"] = data["RevenueAttributionIdentifier"]
     else:
-        raise DeserializationError(
-            "ListRevenueAttributionAllocationsInput.revenue_attribution_identifier required"
-        )
+        out["revenue_attribution_identifier"] = ""
     if data.get("EntityTypeFilters") is not None:
         import capo_partnercentral_revenue_measurement.types.entity_type_filter_list
 

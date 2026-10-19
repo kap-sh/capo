@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_waf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf.types.metric_name
     import capo_waf.types.predicates
@@ -55,7 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> RateBasedRule:
     if data.get("RuleId") is not None:
         out["rule_id"] = data["RuleId"]
     else:
-        raise DeserializationError("RateBasedRule.rule_id required")
+        out["rule_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("MetricName") is not None:
@@ -67,7 +65,7 @@ def deserialize_aws_json_1_1(data: dict) -> RateBasedRule:
             data["MatchPredicates"]
         )
     else:
-        raise DeserializationError("RateBasedRule.match_predicates required")
+        out["match_predicates"] = []
     if data.get("RateKey") is not None:
         import capo_waf.types.rate_key
 
@@ -75,9 +73,11 @@ def deserialize_aws_json_1_1(data: dict) -> RateBasedRule:
             data["RateKey"]
         )
     else:
-        raise DeserializationError("RateBasedRule.rate_key required")
+        import typing
+
+        out["rate_key"] = typing.cast("capo_waf.types.rate_key.RateKey", "")
     if data.get("RateLimit") is not None:
         out["rate_limit"] = data["RateLimit"]
     else:
-        raise DeserializationError("RateBasedRule.rate_limit required")
+        out["rate_limit"] = 0
     return out

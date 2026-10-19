@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.box_boolean
     import capo_license_manager.types.entitlement_unit
@@ -53,7 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> Entitlement:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Entitlement.name required")
+        out["name"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     if data.get("MaxCount") is not None:
@@ -69,7 +67,11 @@ def deserialize_aws_json_1_1(data: dict) -> Entitlement:
             )
         )
     else:
-        raise DeserializationError("Entitlement.unit required")
+        import typing
+
+        out["unit"] = typing.cast(
+            "capo_license_manager.types.entitlement_unit.EntitlementUnit", ""
+        )
     if data.get("AllowCheckIn") is not None:
         out["allow_check_in"] = data["AllowCheckIn"]
     return out

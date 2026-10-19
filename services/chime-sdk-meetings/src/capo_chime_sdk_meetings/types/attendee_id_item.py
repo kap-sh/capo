@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_meetings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_meetings.types.guid_string
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> AttendeeIdItem:
     if data.get("AttendeeId") is not None:
         out["attendee_id"] = data["AttendeeId"]
     else:
-        raise DeserializationError("AttendeeIdItem.attendee_id required")
+        out["attendee_id"] = ""
     return out

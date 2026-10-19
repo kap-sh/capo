@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_budgets.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_budgets.types.comparison_operator
     import capo_budgets.types.notification_state
@@ -83,7 +81,11 @@ def deserialize_aws_json_1_1(data: dict) -> Notification:
             )
         )
     else:
-        raise DeserializationError("Notification.notification_type required")
+        import typing
+
+        out["notification_type"] = typing.cast(
+            "capo_budgets.types.notification_type.NotificationType", ""
+        )
     if data.get("ComparisonOperator") is not None:
         import capo_budgets.types.comparison_operator
 
@@ -93,7 +95,11 @@ def deserialize_aws_json_1_1(data: dict) -> Notification:
             )
         )
     else:
-        raise DeserializationError("Notification.comparison_operator required")
+        import typing
+
+        out["comparison_operator"] = typing.cast(
+            "capo_budgets.types.comparison_operator.ComparisonOperator", ""
+        )
     if data.get("Threshold") is not None:
         out["threshold"] = float(data["Threshold"])
     else:

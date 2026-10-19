@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.extraction_definition_display_label
     import capo_connect.types.extraction_definition_id
@@ -70,15 +68,11 @@ def deserialize_json(data: dict) -> RealTimeContactAnalysisSegmentExtractedInfor
     if data.get("ExtractionDefinitionId") is not None:
         out["extraction_definition_id"] = data["ExtractionDefinitionId"]
     else:
-        raise DeserializationError(
-            "RealTimeContactAnalysisSegmentExtractedInformation.extraction_definition_id required"
-        )
+        out["extraction_definition_id"] = ""
     if data.get("ExtractionDefinitionName") is not None:
         out["extraction_definition_name"] = data["ExtractionDefinitionName"]
     else:
-        raise DeserializationError(
-            "RealTimeContactAnalysisSegmentExtractedInformation.extraction_definition_name required"
-        )
+        out["extraction_definition_name"] = ""
     if data.get("ExtractionDefinitionDisplayLabel") is not None:
         out["extraction_definition_display_label"] = data[
             "ExtractionDefinitionDisplayLabel"

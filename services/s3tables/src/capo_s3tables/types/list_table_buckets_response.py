@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3tables.types.next_token
     import capo_s3tables.types.table_bucket_summary_list
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> ListTableBucketsResponse:
             )
         )
     else:
-        raise DeserializationError("ListTableBucketsResponse.table_buckets required")
+        out["table_buckets"] = []
     if data.get("continuationToken") is not None:
         out["continuation_token"] = data["continuationToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.awskms_key_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> KMSEncryptionConfig:
     if data.get("AWSKMSKeyARN") is not None:
         out["awskms_key_arn"] = data["AWSKMSKeyARN"]
     else:
-        raise DeserializationError("KMSEncryptionConfig.awskms_key_arn required")
+        out["awskms_key_arn"] = ""
     return out

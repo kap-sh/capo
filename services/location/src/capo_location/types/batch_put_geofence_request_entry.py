@@ -44,7 +44,7 @@ def deserialize_json(data: dict) -> BatchPutGeofenceRequestEntry:
     if data.get("GeofenceId") is not None:
         out["geofence_id"] = data["GeofenceId"]
     else:
-        raise DeserializationError("BatchPutGeofenceRequestEntry.geofence_id required")
+        out["geofence_id"] = ""
     if data.get("Geometry") is not None:
         import capo_location.types.geofence_geometry
 

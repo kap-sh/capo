@@ -58,9 +58,7 @@ def deserialize_json(data: dict) -> GenerateEmbedUrlForRegisteredUserRequest:
     if data.get("UserArn") is not None:
         out["user_arn"] = data["UserArn"]
     else:
-        raise DeserializationError(
-            "GenerateEmbedUrlForRegisteredUserRequest.user_arn required"
-        )
+        out["user_arn"] = ""
     if data.get("ExperienceConfiguration") is not None:
         import capo_quicksight.types.registered_user_embedding_experience_configuration
 

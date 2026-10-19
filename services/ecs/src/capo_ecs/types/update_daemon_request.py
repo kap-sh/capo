@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.boolean
     import capo_ecs.types.boxed_boolean
@@ -78,13 +76,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDaemonRequest:
     if data.get("daemonArn") is not None:
         out["daemon_arn"] = data["daemonArn"]
     else:
-        raise DeserializationError("UpdateDaemonRequest.daemon_arn required")
+        out["daemon_arn"] = ""
     if data.get("daemonTaskDefinitionArn") is not None:
         out["daemon_task_definition_arn"] = data["daemonTaskDefinitionArn"]
     else:
-        raise DeserializationError(
-            "UpdateDaemonRequest.daemon_task_definition_arn required"
-        )
+        out["daemon_task_definition_arn"] = ""
     if data.get("capacityProviderArns") is not None:
         import capo_ecs.types.string_list
 
@@ -94,9 +90,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDaemonRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateDaemonRequest.capacity_provider_arns required"
-        )
+        out["capacity_provider_arns"] = []
     if data.get("deploymentConfiguration") is not None:
         import capo_ecs.types.daemon_deployment_configuration
 

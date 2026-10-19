@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.boolean
     import capo_athena.types.catalog_name_string
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteDataCatalogInput:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DeleteDataCatalogInput.name required")
+        out["name"] = ""
     if data.get("DeleteCatalogOnly") is not None:
         out["delete_catalog_only"] = data["DeleteCatalogOnly"]
     return out

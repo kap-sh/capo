@@ -100,9 +100,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartRxNormInferenceJobRequest:
     if data.get("DataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["DataAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "StartRxNormInferenceJobRequest.data_access_role_arn required"
-        )
+        out["data_access_role_arn"] = ""
     if data.get("JobName") is not None:
         out["job_name"] = data["JobName"]
     if data.get("ClientRequestToken") is not None:
@@ -118,7 +116,9 @@ def deserialize_aws_json_1_1(data: dict) -> StartRxNormInferenceJobRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartRxNormInferenceJobRequest.language_code required"
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_comprehendmedical.types.language_code.LanguageCode", ""
         )
     return out

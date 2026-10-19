@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.non_empty_string_without_whitespace
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> PartitionField:
     if data.get("SourceName") is not None:
         out["source_name"] = data["SourceName"]
     else:
-        raise DeserializationError("PartitionField.source_name required")
+        out["source_name"] = ""
     return out

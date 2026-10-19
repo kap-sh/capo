@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.cache_ttl
 
@@ -34,9 +32,11 @@ def deserialize_json(data: dict) -> CacheDetail:
 
         out["ttl"] = capo_bedrock_runtime.types.cache_ttl.deserialize_json(data["ttl"])
     else:
-        raise DeserializationError("CacheDetail.ttl required")
+        import typing
+
+        out["ttl"] = typing.cast("capo_bedrock_runtime.types.cache_ttl.CacheTTL", "")
     if data.get("inputTokens") is not None:
         out["input_tokens"] = data["inputTokens"]
     else:
-        raise DeserializationError("CacheDetail.input_tokens required")
+        out["input_tokens"] = 0
     return out

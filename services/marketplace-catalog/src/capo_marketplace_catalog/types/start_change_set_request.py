@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_catalog.types.catalog
     import capo_marketplace_catalog.types.change_set_name
@@ -71,7 +69,7 @@ def deserialize_json(data: dict) -> StartChangeSetRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("StartChangeSetRequest.catalog required")
+        out["catalog"] = ""
     if data.get("ChangeSet") is not None:
         import capo_marketplace_catalog.types.requested_change_list
 
@@ -81,7 +79,7 @@ def deserialize_json(data: dict) -> StartChangeSetRequest:
             )
         )
     else:
-        raise DeserializationError("StartChangeSetRequest.change_set required")
+        out["change_set"] = []
     if data.get("ChangeSetName") is not None:
         out["change_set_name"] = data["ChangeSetName"]
     if data.get("ClientRequestToken") is not None:

@@ -74,13 +74,17 @@ def deserialize_json(data: dict) -> GetMetricDataRequest:
             data["StartTime"]
         )
     else:
-        raise DeserializationError("GetMetricDataRequest.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_connect.types.timestamp
 
         out["end_time"] = capo_connect.types.timestamp.deserialize_json(data["EndTime"])
     else:
-        raise DeserializationError("GetMetricDataRequest.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Filters") is not None:
         import capo_connect.types.filters
 
@@ -102,7 +106,7 @@ def deserialize_json(data: dict) -> GetMetricDataRequest:
             )
         )
     else:
-        raise DeserializationError("GetMetricDataRequest.historical_metrics required")
+        out["historical_metrics"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

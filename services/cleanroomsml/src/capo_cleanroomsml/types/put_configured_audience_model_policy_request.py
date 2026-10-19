@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.configured_audience_model_arn
     import capo_cleanroomsml.types.hash
@@ -50,9 +48,7 @@ def deserialize_json(data: dict) -> PutConfiguredAudienceModelPolicyRequest:
     if data.get("configuredAudienceModelPolicy") is not None:
         out["configured_audience_model_policy"] = data["configuredAudienceModelPolicy"]
     else:
-        raise DeserializationError(
-            "PutConfiguredAudienceModelPolicyRequest.configured_audience_model_policy required"
-        )
+        out["configured_audience_model_policy"] = ""
     if data.get("previousPolicyHash") is not None:
         out["previous_policy_hash"] = data["previousPolicyHash"]
     if data.get("policyExistenceCondition") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.sns_topic_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> SnsDestination:
     if data.get("TopicArn") is not None:
         out["topic_arn"] = data["TopicArn"]
     else:
-        raise DeserializationError("SnsDestination.topic_arn required")
+        out["topic_arn"] = ""
     return out

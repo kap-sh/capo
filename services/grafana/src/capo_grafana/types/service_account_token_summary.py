@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_grafana.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -52,11 +50,11 @@ def deserialize_json(data: dict) -> ServiceAccountTokenSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ServiceAccountTokenSummary.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ServiceAccountTokenSummary.name required")
+        out["name"] = ""
     if data.get("createdAt") is not None:
         import capo_grafana.types._prelude.timestamp
 
@@ -64,7 +62,9 @@ def deserialize_json(data: dict) -> ServiceAccountTokenSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("ServiceAccountTokenSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("expiresAt") is not None:
         import capo_grafana.types._prelude.timestamp
 
@@ -72,7 +72,9 @@ def deserialize_json(data: dict) -> ServiceAccountTokenSummary:
             data["expiresAt"]
         )
     else:
-        raise DeserializationError("ServiceAccountTokenSummary.expires_at required")
+        import datetime
+
+        out["expires_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastUsedAt") is not None:
         import capo_grafana.types._prelude.timestamp
 

@@ -75,7 +75,7 @@ def deserialize_json(data: dict) -> StartProtectedQueryInput:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("StartProtectedQueryInput.type required")
+        out["type"] = ""
     if data.get("sqlParameters") is not None:
         import capo_cleanrooms.types.protected_query_sql_parameters
 

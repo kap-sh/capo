@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.certificate_value
     import capo_iot_wireless.types.signing_alg
@@ -39,9 +37,13 @@ def deserialize_json(data: dict) -> CertificateList:
             data["SigningAlg"]
         )
     else:
-        raise DeserializationError("CertificateList.signing_alg required")
+        import typing
+
+        out["signing_alg"] = typing.cast(
+            "capo_iot_wireless.types.signing_alg.SigningAlg", ""
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("CertificateList.value required")
+        out["value"] = ""
     return out

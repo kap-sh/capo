@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ivs_realtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.participant_id
     import capo_ivs_realtime.types.replication_state
@@ -45,25 +43,25 @@ def deserialize_json(data: dict) -> ParticipantReplica:
     if data.get("sourceStageArn") is not None:
         out["source_stage_arn"] = data["sourceStageArn"]
     else:
-        raise DeserializationError("ParticipantReplica.source_stage_arn required")
+        out["source_stage_arn"] = ""
     if data.get("participantId") is not None:
         out["participant_id"] = data["participantId"]
     else:
-        raise DeserializationError("ParticipantReplica.participant_id required")
+        out["participant_id"] = ""
     if data.get("sourceSessionId") is not None:
         out["source_session_id"] = data["sourceSessionId"]
     else:
-        raise DeserializationError("ParticipantReplica.source_session_id required")
+        out["source_session_id"] = ""
     if data.get("destinationStageArn") is not None:
         out["destination_stage_arn"] = data["destinationStageArn"]
     else:
-        raise DeserializationError("ParticipantReplica.destination_stage_arn required")
+        out["destination_stage_arn"] = ""
     if data.get("destinationSessionId") is not None:
         out["destination_session_id"] = data["destinationSessionId"]
     else:
-        raise DeserializationError("ParticipantReplica.destination_session_id required")
+        out["destination_session_id"] = ""
     if data.get("replicationState") is not None:
         out["replication_state"] = data["replicationState"]
     else:
-        raise DeserializationError("ParticipantReplica.replication_state required")
+        out["replication_state"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.artifact_namespace
     import capo_codebuild.types.artifact_packaging
@@ -101,7 +99,11 @@ def deserialize_aws_json_1_1(data: dict) -> ProjectArtifacts:
             data["type"]
         )
     else:
-        raise DeserializationError("ProjectArtifacts.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codebuild.types.artifacts_type.ArtifactsType", ""
+        )
     if data.get("location") is not None:
         out["location"] = data["location"]
     if data.get("path") is not None:

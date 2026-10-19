@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_acm_pca.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm_pca.types.arn
     import capo_acm_pca.types.max_results
@@ -41,7 +39,5 @@ def deserialize_aws_json_1_1(data: dict) -> ListPermissionsRequest:
     if data.get("CertificateAuthorityArn") is not None:
         out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
     else:
-        raise DeserializationError(
-            "ListPermissionsRequest.certificate_authority_arn required"
-        )
+        out["certificate_authority_arn"] = ""
     return out

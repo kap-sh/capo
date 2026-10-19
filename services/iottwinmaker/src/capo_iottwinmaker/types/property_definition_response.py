@@ -86,35 +86,31 @@ def deserialize_json(data: dict) -> PropertyDefinitionResponse:
     if data.get("isTimeSeries") is not None:
         out["is_time_series"] = data["isTimeSeries"]
     else:
-        raise DeserializationError("PropertyDefinitionResponse.is_time_series required")
+        out["is_time_series"] = False
     if data.get("isRequiredInEntity") is not None:
         out["is_required_in_entity"] = data["isRequiredInEntity"]
     else:
-        raise DeserializationError(
-            "PropertyDefinitionResponse.is_required_in_entity required"
-        )
+        out["is_required_in_entity"] = False
     if data.get("isExternalId") is not None:
         out["is_external_id"] = data["isExternalId"]
     else:
-        raise DeserializationError("PropertyDefinitionResponse.is_external_id required")
+        out["is_external_id"] = False
     if data.get("isStoredExternally") is not None:
         out["is_stored_externally"] = data["isStoredExternally"]
     else:
-        raise DeserializationError(
-            "PropertyDefinitionResponse.is_stored_externally required"
-        )
+        out["is_stored_externally"] = False
     if data.get("isImported") is not None:
         out["is_imported"] = data["isImported"]
     else:
-        raise DeserializationError("PropertyDefinitionResponse.is_imported required")
+        out["is_imported"] = False
     if data.get("isFinal") is not None:
         out["is_final"] = data["isFinal"]
     else:
-        raise DeserializationError("PropertyDefinitionResponse.is_final required")
+        out["is_final"] = False
     if data.get("isInherited") is not None:
         out["is_inherited"] = data["isInherited"]
     else:
-        raise DeserializationError("PropertyDefinitionResponse.is_inherited required")
+        out["is_inherited"] = False
     if data.get("defaultValue") is not None:
         import capo_iottwinmaker.types.data_value
 

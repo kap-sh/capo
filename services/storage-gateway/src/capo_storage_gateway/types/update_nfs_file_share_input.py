@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.audit_destination_arn
     import capo_storage_gateway.types.boolean
@@ -143,7 +141,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateNFSFileShareInput:
     if data.get("FileShareARN") is not None:
         out["file_share_arn"] = data["FileShareARN"]
     else:
-        raise DeserializationError("UpdateNFSFileShareInput.file_share_arn required")
+        out["file_share_arn"] = ""
     if data.get("EncryptionType") is not None:
         import capo_storage_gateway.types.encryption_type
 

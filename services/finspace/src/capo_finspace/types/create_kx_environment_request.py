@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_finspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace.types.client_token
     import capo_finspace.types.description
@@ -48,13 +46,13 @@ def deserialize_json(data: dict) -> CreateKxEnvironmentRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateKxEnvironmentRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("kmsKeyId") is not None:
         out["kms_key_id"] = data["kmsKeyId"]
     else:
-        raise DeserializationError("CreateKxEnvironmentRequest.kms_key_id required")
+        out["kms_key_id"] = ""
     if data.get("tags") is not None:
         import capo_finspace.types.tag_map
 

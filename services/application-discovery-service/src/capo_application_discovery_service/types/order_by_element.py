@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_discovery_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_discovery_service.types.order_by_element_field_name
     import capo_application_discovery_service.types.order_string
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> OrderByElement:
     if data.get("fieldName") is not None:
         out["field_name"] = data["fieldName"]
     else:
-        raise DeserializationError("OrderByElement.field_name required")
+        out["field_name"] = ""
     if data.get("sortOrder") is not None:
         import capo_application_discovery_service.types.order_string
 

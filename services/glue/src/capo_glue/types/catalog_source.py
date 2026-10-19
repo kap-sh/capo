@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.enclosed_in_string_property
     import capo_glue.types.glue_schemas
@@ -49,15 +47,15 @@ def deserialize_aws_json_1_1(data: dict) -> CatalogSource:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CatalogSource.name required")
+        out["name"] = ""
     if data.get("Database") is not None:
         out["database"] = data["Database"]
     else:
-        raise DeserializationError("CatalogSource.database required")
+        out["database"] = ""
     if data.get("Table") is not None:
         out["table"] = data["Table"]
     else:
-        raise DeserializationError("CatalogSource.table required")
+        out["table"] = ""
     if data.get("PartitionPredicate") is not None:
         out["partition_predicate"] = data["PartitionPredicate"]
     if data.get("OutputSchemas") is not None:

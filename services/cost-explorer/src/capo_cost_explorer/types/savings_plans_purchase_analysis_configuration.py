@@ -105,8 +105,10 @@ def deserialize_aws_json_1_1(data: dict) -> SavingsPlansPurchaseAnalysisConfigur
             )
         )
     else:
-        raise DeserializationError(
-            "SavingsPlansPurchaseAnalysisConfiguration.analysis_type required"
+        import typing
+
+        out["analysis_type"] = typing.cast(
+            "capo_cost_explorer.types.analysis_type.AnalysisType", ""
         )
     if data.get("SavingsPlansToAdd") is not None:
         import capo_cost_explorer.types.savings_plans_to_add
@@ -117,9 +119,7 @@ def deserialize_aws_json_1_1(data: dict) -> SavingsPlansPurchaseAnalysisConfigur
             )
         )
     else:
-        raise DeserializationError(
-            "SavingsPlansPurchaseAnalysisConfiguration.savings_plans_to_add required"
-        )
+        out["savings_plans_to_add"] = []
     if data.get("SavingsPlansToExclude") is not None:
         import capo_cost_explorer.types.savings_plans_to_exclude
 

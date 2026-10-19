@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.enable_status
     import capo_lakeformation.types.scope_targets
@@ -43,7 +41,11 @@ def deserialize_json(data: dict) -> ExternalFilteringConfiguration:
             data["Status"]
         )
     else:
-        raise DeserializationError("ExternalFilteringConfiguration.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_lakeformation.types.enable_status.EnableStatus", ""
+        )
     if data.get("AuthorizedTargets") is not None:
         import capo_lakeformation.types.scope_targets
 
@@ -53,7 +55,5 @@ def deserialize_json(data: dict) -> ExternalFilteringConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ExternalFilteringConfiguration.authorized_targets required"
-        )
+        out["authorized_targets"] = []
     return out

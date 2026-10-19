@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_check_input_text_reference_list
     import capo_bedrock.types.automated_reasoning_check_translation_confidence
@@ -96,7 +94,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningCheckTranslation:
             )
         )
     else:
-        raise DeserializationError("AutomatedReasoningCheckTranslation.claims required")
+        out["claims"] = []
     if data.get("untranslatedPremises") is not None:
         import capo_bedrock.types.automated_reasoning_check_input_text_reference_list
 
@@ -116,9 +114,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningCheckTranslation:
     if data.get("confidence") is not None:
         out["confidence"] = float(data["confidence"])
     else:
-        raise DeserializationError(
-            "AutomatedReasoningCheckTranslation.confidence required"
-        )
+        out["confidence"] = 0.0
     return out
 
 

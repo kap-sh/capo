@@ -49,7 +49,12 @@ def deserialize_json(data: dict) -> RerankingConfiguration:
             )
         )
     else:
-        raise DeserializationError("RerankingConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.reranking_configuration_type.RerankingConfigurationType",
+            "",
+        )
     if data.get("bedrockRerankingConfiguration") is not None:
         import capo_bedrock_agent_runtime.types.bedrock_reranking_configuration
 

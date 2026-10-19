@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.arn
     import capo_sfn.types.definition
@@ -112,27 +110,19 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeStateMachineForExecutionOutp
     if data.get("stateMachineArn") is not None:
         out["state_machine_arn"] = data["stateMachineArn"]
     else:
-        raise DeserializationError(
-            "DescribeStateMachineForExecutionOutput.state_machine_arn required"
-        )
+        out["state_machine_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "DescribeStateMachineForExecutionOutput.name required"
-        )
+        out["name"] = ""
     if data.get("definition") is not None:
         out["definition"] = data["definition"]
     else:
-        raise DeserializationError(
-            "DescribeStateMachineForExecutionOutput.definition required"
-        )
+        out["definition"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError(
-            "DescribeStateMachineForExecutionOutput.role_arn required"
-        )
+        out["role_arn"] = ""
     if data.get("updateDate") is not None:
         import capo_sfn.types.timestamp
 
@@ -140,8 +130,10 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeStateMachineForExecutionOutp
             data["updateDate"]
         )
     else:
-        raise DeserializationError(
-            "DescribeStateMachineForExecutionOutput.update_date required"
+        import datetime
+
+        out["update_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("loggingConfiguration") is not None:
         import capo_sfn.types.logging_configuration

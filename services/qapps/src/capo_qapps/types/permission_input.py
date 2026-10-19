@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.action
 
@@ -34,9 +32,11 @@ def deserialize_json(data: dict) -> PermissionInput:
 
         out["action"] = capo_qapps.types.action.deserialize_json(data["action"])
     else:
-        raise DeserializationError("PermissionInput.action required")
+        import typing
+
+        out["action"] = typing.cast("capo_qapps.types.action.Action", "")
     if data.get("principal") is not None:
         out["principal"] = data["principal"]
     else:
-        raise DeserializationError("PermissionInput.principal required")
+        out["principal"] = ""
     return out

@@ -54,7 +54,7 @@ def deserialize_json(data: dict) -> StartTrainedModelExportJobRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("StartTrainedModelExportJobRequest.name required")
+        out["name"] = ""
     if data.get("trainedModelVersionIdentifier") is not None:
         out["trained_model_version_identifier"] = data["trainedModelVersionIdentifier"]
     if data.get("outputConfiguration") is not None:

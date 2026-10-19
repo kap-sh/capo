@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_chime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime.types.calling_name
 
@@ -27,9 +25,7 @@ def deserialize_json(data: dict) -> UpdatePhoneNumberSettingsRequest:
     if data.get("CallingName") is not None:
         out["calling_name"] = data["CallingName"]
     else:
-        raise DeserializationError(
-            "UpdatePhoneNumberSettingsRequest.calling_name required"
-        )
+        out["calling_name"] = ""
     return out
 
 

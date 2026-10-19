@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.created_time
     import capo_connectcases.types.deleted
@@ -129,15 +127,15 @@ def deserialize_json(data: dict) -> GetTemplateResponse:
     if data.get("templateId") is not None:
         out["template_id"] = data["templateId"]
     else:
-        raise DeserializationError("GetTemplateResponse.template_id required")
+        out["template_id"] = ""
     if data.get("templateArn") is not None:
         out["template_arn"] = data["templateArn"]
     else:
-        raise DeserializationError("GetTemplateResponse.template_arn required")
+        out["template_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetTemplateResponse.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("layoutConfiguration") is not None:
@@ -163,7 +161,7 @@ def deserialize_json(data: dict) -> GetTemplateResponse:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("GetTemplateResponse.status required")
+        out["status"] = ""
     if data.get("deleted") is not None:
         out["deleted"] = data["deleted"]
     else:

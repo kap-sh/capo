@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.string
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteCertificateMessage:
     if data.get("CertificateArn") is not None:
         out["certificate_arn"] = data["CertificateArn"]
     else:
-        raise DeserializationError("DeleteCertificateMessage.certificate_arn required")
+        out["certificate_arn"] = ""
     return out

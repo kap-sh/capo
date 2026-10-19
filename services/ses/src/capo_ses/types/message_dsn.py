@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.arrival_date
@@ -50,7 +49,7 @@ def deserialize_query(el: Element) -> MessageDsn:
     if child_reporting_mta is not None:
         out["reporting_mta"] = str(child_reporting_mta.text or "")
     else:
-        raise DeserializationError("MessageDsn.reporting_mta required")
+        out["reporting_mta"] = ""
     child_arrival_date = el.find("ArrivalDate")
     if child_arrival_date is not None:
         import capo_ses.types.arrival_date

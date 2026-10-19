@@ -65,12 +65,16 @@ def deserialize_xml(el: Element) -> SelectParameters:
             child_expression_type
         )
     else:
-        raise DeserializationError("SelectParameters.expression_type required")
+        import typing
+
+        out["expression_type"] = typing.cast(
+            "capo_s3.types.expression_type.ExpressionType", ""
+        )
     child_expression = el.find("Expression")
     if child_expression is not None:
         out["expression"] = str(child_expression.text or "")
     else:
-        raise DeserializationError("SelectParameters.expression required")
+        out["expression"] = ""
     child_output_serialization = el.find("OutputSerialization")
     if child_output_serialization is not None:
         import capo_s3.types.output_serialization

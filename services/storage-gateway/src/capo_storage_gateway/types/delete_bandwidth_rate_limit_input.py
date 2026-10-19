@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.bandwidth_type
     import capo_storage_gateway.types.gateway_arn
@@ -30,11 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteBandwidthRateLimitInput:
     if data.get("GatewayARN") is not None:
         out["gateway_arn"] = data["GatewayARN"]
     else:
-        raise DeserializationError("DeleteBandwidthRateLimitInput.gateway_arn required")
+        out["gateway_arn"] = ""
     if data.get("BandwidthType") is not None:
         out["bandwidth_type"] = data["BandwidthType"]
     else:
-        raise DeserializationError(
-            "DeleteBandwidthRateLimitInput.bandwidth_type required"
-        )
+        out["bandwidth_type"] = ""
     return out

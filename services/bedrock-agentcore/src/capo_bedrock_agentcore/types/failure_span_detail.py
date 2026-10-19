@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.insights_failure_signal_list
 
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> FailureSpanDetail:
     if data.get("spanId") is not None:
         out["span_id"] = data["spanId"]
     else:
-        raise DeserializationError("FailureSpanDetail.span_id required")
+        out["span_id"] = ""
     if data.get("traceId") is not None:
         out["trace_id"] = data["traceId"]
     else:
-        raise DeserializationError("FailureSpanDetail.trace_id required")
+        out["trace_id"] = ""
     if data.get("signals") is not None:
         import capo_bedrock_agentcore.types.insights_failure_signal_list
 
@@ -53,5 +51,5 @@ def deserialize_json(data: dict) -> FailureSpanDetail:
             )
         )
     else:
-        raise DeserializationError("FailureSpanDetail.signals required")
+        out["signals"] = []
     return out

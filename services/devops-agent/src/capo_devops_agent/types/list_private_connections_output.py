@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.private_connection_summary_list
 
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> ListPrivateConnectionsOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListPrivateConnectionsOutput.private_connections required"
-        )
+        out["private_connections"] = []
     return out

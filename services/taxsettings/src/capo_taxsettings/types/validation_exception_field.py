@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_taxsettings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_taxsettings.types.field_name
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> ValidationExceptionField:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ValidationExceptionField.name required")
+        out["name"] = ""
     return out

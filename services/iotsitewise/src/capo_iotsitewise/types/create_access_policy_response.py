@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.arn
     import capo_iotsitewise.types.id
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> CreateAccessPolicyResponse:
     if data.get("accessPolicyId") is not None:
         out["access_policy_id"] = data["accessPolicyId"]
     else:
-        raise DeserializationError(
-            "CreateAccessPolicyResponse.access_policy_id required"
-        )
+        out["access_policy_id"] = ""
     if data.get("accessPolicyArn") is not None:
         out["access_policy_arn"] = data["accessPolicyArn"]
     else:
-        raise DeserializationError(
-            "CreateAccessPolicyResponse.access_policy_arn required"
-        )
+        out["access_policy_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.arn
     import capo_customer_profiles.types.name
@@ -70,15 +68,11 @@ def deserialize_json(data: dict) -> CreateRecommenderSchemaResponse:
     if data.get("RecommenderSchemaArn") is not None:
         out["recommender_schema_arn"] = data["RecommenderSchemaArn"]
     else:
-        raise DeserializationError(
-            "CreateRecommenderSchemaResponse.recommender_schema_arn required"
-        )
+        out["recommender_schema_arn"] = ""
     if data.get("RecommenderSchemaName") is not None:
         out["recommender_schema_name"] = data["RecommenderSchemaName"]
     else:
-        raise DeserializationError(
-            "CreateRecommenderSchemaResponse.recommender_schema_name required"
-        )
+        out["recommender_schema_name"] = ""
     if data.get("Fields") is not None:
         import capo_customer_profiles.types.recommender_schema_fields
 
@@ -88,7 +82,7 @@ def deserialize_json(data: dict) -> CreateRecommenderSchemaResponse:
             )
         )
     else:
-        raise DeserializationError("CreateRecommenderSchemaResponse.fields required")
+        out["fields"] = {}
     if data.get("CreatedAt") is not None:
         import capo_customer_profiles.types.timestamp
 
@@ -96,9 +90,9 @@ def deserialize_json(data: dict) -> CreateRecommenderSchemaResponse:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError(
-            "CreateRecommenderSchemaResponse.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Status") is not None:
         import capo_customer_profiles.types.recommender_schema_status
 
@@ -108,7 +102,12 @@ def deserialize_json(data: dict) -> CreateRecommenderSchemaResponse:
             )
         )
     else:
-        raise DeserializationError("CreateRecommenderSchemaResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_customer_profiles.types.recommender_schema_status.RecommenderSchemaStatus",
+            "",
+        )
     if data.get("Tags") is not None:
         import capo_customer_profiles.types.tag_map
 

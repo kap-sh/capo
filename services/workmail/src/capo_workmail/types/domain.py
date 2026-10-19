@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.domain_name
     import capo_workmail.types.hosted_zone_id
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> Domain:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("Domain.domain_name required")
+        out["domain_name"] = ""
     if data.get("HostedZoneId") is not None:
         out["hosted_zone_id"] = data["HostedZoneId"]
     return out

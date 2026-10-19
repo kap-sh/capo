@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_sap.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_sap.types.arn
     import capo_ssm_sap.types.permission_action_type
@@ -44,5 +42,5 @@ def deserialize_json(data: dict) -> GetResourcePermissionInput:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("GetResourcePermissionInput.resource_arn required")
+        out["resource_arn"] = ""
     return out

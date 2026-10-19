@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.featured_results_set_id_list
     import capo_kendra.types.index_id
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDeleteFeaturedResultsSetRequest
     if data.get("IndexId") is not None:
         out["index_id"] = data["IndexId"]
     else:
-        raise DeserializationError(
-            "BatchDeleteFeaturedResultsSetRequest.index_id required"
-        )
+        out["index_id"] = ""
     if data.get("FeaturedResultsSetIds") is not None:
         import capo_kendra.types.featured_results_set_id_list
 
@@ -51,7 +47,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDeleteFeaturedResultsSetRequest
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDeleteFeaturedResultsSetRequest.featured_results_set_ids required"
-        )
+        out["featured_results_set_ids"] = []
     return out

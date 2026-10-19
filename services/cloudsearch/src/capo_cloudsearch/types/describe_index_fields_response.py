@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudsearch._protocol.xml import Element
-from capo_cloudsearch.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudsearch.types.index_field_status_list
@@ -40,5 +39,5 @@ def deserialize_query(el: Element) -> DescribeIndexFieldsResponse:
             )
         )
     else:
-        raise DeserializationError("DescribeIndexFieldsResponse.index_fields required")
+        out["index_fields"] = []
     return out

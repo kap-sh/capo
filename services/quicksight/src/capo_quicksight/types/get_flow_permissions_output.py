@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.flow_id
@@ -46,11 +44,11 @@ def deserialize_json(data: dict) -> GetFlowPermissionsOutput:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("GetFlowPermissionsOutput.arn required")
+        out["arn"] = ""
     if data.get("FlowId") is not None:
         out["flow_id"] = data["FlowId"]
     else:
-        raise DeserializationError("GetFlowPermissionsOutput.flow_id required")
+        out["flow_id"] = ""
     if data.get("Permissions") is not None:
         import capo_quicksight.types.permissions_list
 
@@ -58,7 +56,7 @@ def deserialize_json(data: dict) -> GetFlowPermissionsOutput:
             data["Permissions"]
         )
     else:
-        raise DeserializationError("GetFlowPermissionsOutput.permissions required")
+        out["permissions"] = []
     if data.get("RequestId") is not None:
         out["request_id"] = data["RequestId"]
     return out

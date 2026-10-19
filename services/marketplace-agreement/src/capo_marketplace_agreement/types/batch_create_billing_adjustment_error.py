@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_agreement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.billing_adjustment_error_code
     import capo_marketplace_agreement.types.client_token
@@ -46,15 +44,18 @@ def deserialize_aws_json_1_0(data: dict) -> BatchCreateBillingAdjustmentError:
             )
         )
     else:
-        raise DeserializationError("BatchCreateBillingAdjustmentError.code required")
+        import typing
+
+        out["code"] = typing.cast(
+            "capo_marketplace_agreement.types.billing_adjustment_error_code.BillingAdjustmentErrorCode",
+            "",
+        )
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("BatchCreateBillingAdjustmentError.message required")
+        out["message"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError(
-            "BatchCreateBillingAdjustmentError.client_token required"
-        )
+        out["client_token"] = ""
     return out

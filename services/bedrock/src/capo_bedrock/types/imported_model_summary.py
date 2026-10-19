@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.imported_model_arn
     import capo_bedrock.types.imported_model_name
@@ -53,11 +51,11 @@ def deserialize_json(data: dict) -> ImportedModelSummary:
     if data.get("modelArn") is not None:
         out["model_arn"] = data["modelArn"]
     else:
-        raise DeserializationError("ImportedModelSummary.model_arn required")
+        out["model_arn"] = ""
     if data.get("modelName") is not None:
         out["model_name"] = data["modelName"]
     else:
-        raise DeserializationError("ImportedModelSummary.model_name required")
+        out["model_name"] = ""
     if data.get("creationTime") is not None:
         import capo_bedrock.types.timestamp
 
@@ -65,7 +63,11 @@ def deserialize_json(data: dict) -> ImportedModelSummary:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("ImportedModelSummary.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("instructSupported") is not None:
         out["instruct_supported"] = data["instructSupported"]
     if data.get("modelArchitecture") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.arn
     import capo_inspector.types.assessment_target_name
@@ -50,11 +48,11 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentTarget:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("AssessmentTarget.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AssessmentTarget.name required")
+        out["name"] = ""
     if data.get("resourceGroupArn") is not None:
         out["resource_group_arn"] = data["resourceGroupArn"]
     if data.get("createdAt") is not None:
@@ -64,7 +62,9 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentTarget:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("AssessmentTarget.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_inspector.types.timestamp
 
@@ -72,5 +72,7 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentTarget:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("AssessmentTarget.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

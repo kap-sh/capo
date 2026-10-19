@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.string
 
@@ -31,7 +29,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetLicenseManagerReportGeneratorRequ
             "LicenseManagerReportGeneratorArn"
         ]
     else:
-        raise DeserializationError(
-            "GetLicenseManagerReportGeneratorRequest.license_manager_report_generator_arn required"
-        )
+        out["license_manager_report_generator_arn"] = ""
     return out

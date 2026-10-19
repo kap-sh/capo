@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.non_empty_string
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> DataSetReference:
     if data.get("DataSetPlaceholder") is not None:
         out["data_set_placeholder"] = data["DataSetPlaceholder"]
     else:
-        raise DeserializationError("DataSetReference.data_set_placeholder required")
+        out["data_set_placeholder"] = ""
     if data.get("DataSetArn") is not None:
         out["data_set_arn"] = data["DataSetArn"]
     else:
-        raise DeserializationError("DataSetReference.data_set_arn required")
+        out["data_set_arn"] = ""
     return out

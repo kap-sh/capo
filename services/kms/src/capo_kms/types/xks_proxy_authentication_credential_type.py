@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_kms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kms.types.xks_proxy_authentication_access_key_id_type
     import capo_kms.types.xks_proxy_authentication_raw_secret_access_key_type
@@ -31,15 +29,11 @@ def deserialize_aws_json_1_1(data: dict) -> XksProxyAuthenticationCredentialType
     if data.get("AccessKeyId") is not None:
         out["access_key_id"] = data["AccessKeyId"]
     else:
-        raise DeserializationError(
-            "XksProxyAuthenticationCredentialType.access_key_id required"
-        )
+        out["access_key_id"] = ""
     if data.get("RawSecretAccessKey") is not None:
         out["raw_secret_access_key"] = data["RawSecretAccessKey"]
     else:
-        raise DeserializationError(
-            "XksProxyAuthenticationCredentialType.raw_secret_access_key required"
-        )
+        out["raw_secret_access_key"] = ""
     return out
 
 

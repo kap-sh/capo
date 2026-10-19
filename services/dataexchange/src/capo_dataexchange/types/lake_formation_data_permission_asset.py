@@ -66,9 +66,7 @@ def deserialize_json(data: dict) -> LakeFormationDataPermissionAsset:
             "LakeFormationDataPermissionType"
         ]
     else:
-        raise DeserializationError(
-            "LakeFormationDataPermissionAsset.lake_formation_data_permission_type required"
-        )
+        out["lake_formation_data_permission_type"] = ""
     if data.get("Permissions") is not None:
         import capo_dataexchange.types.list_of_lf_permissions
 
@@ -78,9 +76,7 @@ def deserialize_json(data: dict) -> LakeFormationDataPermissionAsset:
             )
         )
     else:
-        raise DeserializationError(
-            "LakeFormationDataPermissionAsset.permissions required"
-        )
+        out["permissions"] = []
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_managedblockchain_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_managedblockchain_query.types.confirmation_status_include_list
 
@@ -39,5 +37,5 @@ def deserialize_json(data: dict) -> ConfirmationStatusFilter:
             )
         )
     else:
-        raise DeserializationError("ConfirmationStatusFilter.include required")
+        out["include"] = []
     return out

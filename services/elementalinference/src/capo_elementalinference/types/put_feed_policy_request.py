@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_elementalinference.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elementalinference.types.feed_id
     import capo_elementalinference.types.policy_document
@@ -30,5 +28,5 @@ def deserialize_json(data: dict) -> PutFeedPolicyRequest:
     if data.get("policy") is not None:
         out["policy"] = data["policy"]
     else:
-        raise DeserializationError("PutFeedPolicyRequest.policy required")
+        out["policy"] = ""
     return out

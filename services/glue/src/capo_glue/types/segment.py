@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.non_negative_integer
     import capo_glue.types.total_segments_integer
@@ -35,5 +33,5 @@ def deserialize_aws_json_1_1(data: dict) -> Segment:
     if data.get("TotalSegments") is not None:
         out["total_segments"] = data["TotalSegments"]
     else:
-        raise DeserializationError("Segment.total_segments required")
+        out["total_segments"] = 0
     return out

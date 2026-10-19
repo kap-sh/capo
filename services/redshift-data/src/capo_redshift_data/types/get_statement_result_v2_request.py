@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_data.types.string
     import capo_redshift_data.types.uuid
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetStatementResultV2Request:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("GetStatementResultV2Request.id required")
+        out["id"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("WaitTimeSeconds") is not None:

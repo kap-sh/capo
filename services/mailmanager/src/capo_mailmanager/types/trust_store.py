@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.ca_content
     import capo_mailmanager.types.crl_content
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> TrustStore:
     if data.get("CAContent") is not None:
         out["ca_content"] = data["CAContent"]
     else:
-        raise DeserializationError("TrustStore.ca_content required")
+        out["ca_content"] = ""
     if data.get("CrlContent") is not None:
         out["crl_content"] = data["CrlContent"]
     if data.get("KmsKeyArn") is not None:

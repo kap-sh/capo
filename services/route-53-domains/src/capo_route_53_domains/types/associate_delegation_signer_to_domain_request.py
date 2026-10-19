@@ -39,9 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateDelegationSignerToDomainReq
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError(
-            "AssociateDelegationSignerToDomainRequest.domain_name required"
-        )
+        out["domain_name"] = ""
     if data.get("SigningAttributes") is not None:
         import capo_route_53_domains.types.dnssec_signing_attributes
 

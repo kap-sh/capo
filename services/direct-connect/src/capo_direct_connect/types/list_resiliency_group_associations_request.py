@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.max_result_set_size
     import capo_direct_connect.types.pagination_token
@@ -43,9 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListResiliencyGroupAssociationsReque
     if data.get("resiliencyGroupId") is not None:
         out["resiliency_group_id"] = data["resiliencyGroupId"]
     else:
-        raise DeserializationError(
-            "ListResiliencyGroupAssociationsRequest.resiliency_group_id required"
-        )
+        out["resiliency_group_id"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.approval_status
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> ApprovalStatusDetails:
             data["status"]
         )
     else:
-        raise DeserializationError("ApprovalStatusDetails.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cleanrooms.types.approval_status.ApprovalStatus", ""
+        )
     return out

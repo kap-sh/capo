@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.application_name
     import capo_iotsitewise.types.arn
@@ -54,15 +52,15 @@ def deserialize_json(data: dict) -> CreateApplicationRequest:
     if data.get("idcInstanceArn") is not None:
         out["idc_instance_arn"] = data["idcInstanceArn"]
     else:
-        raise DeserializationError("CreateApplicationRequest.idc_instance_arn required")
+        out["idc_instance_arn"] = ""
     if data.get("workspaceName") is not None:
         out["workspace_name"] = data["workspaceName"]
     else:
-        raise DeserializationError("CreateApplicationRequest.workspace_name required")
+        out["workspace_name"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateApplicationRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("tags") is not None:

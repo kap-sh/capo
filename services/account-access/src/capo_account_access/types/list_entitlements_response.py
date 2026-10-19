@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_account_access.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_account_access.types.entitlements_list
 
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> ListEntitlementsResponse:
             )
         )
     else:
-        raise DeserializationError("ListEntitlementsResponse.entitlements required")
+        out["entitlements"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

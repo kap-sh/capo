@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.cluster_details_list
 
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> ClusterInformation:
     if data.get("clusterArn") is not None:
         out["cluster_arn"] = data["clusterArn"]
     else:
-        raise DeserializationError("ClusterInformation.cluster_arn required")
+        out["cluster_arn"] = ""
     if data.get("clusterDetails") is not None:
         import capo_inspector2.types.cluster_details_list
 

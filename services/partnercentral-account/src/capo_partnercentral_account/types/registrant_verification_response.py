@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.completion_url
     import capo_partnercentral_account.types.date_time
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> RegistrantVerificationResponse:
     if data.get("CompletionUrl") is not None:
         out["completion_url"] = data["CompletionUrl"]
     else:
-        raise DeserializationError(
-            "RegistrantVerificationResponse.completion_url required"
-        )
+        out["completion_url"] = ""
     if data.get("CompletionUrlExpiresAt") is not None:
         import capo_partnercentral_account.types.date_time
 
@@ -49,7 +45,9 @@ def deserialize_aws_json_1_0(data: dict) -> RegistrantVerificationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "RegistrantVerificationResponse.completion_url_expires_at required"
+        import datetime
+
+        out["completion_url_expires_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

@@ -64,7 +64,7 @@ def deserialize_aws_json_1_0(data: dict) -> StartTransformerJobRequest:
     if data.get("transformerId") is not None:
         out["transformer_id"] = data["transformerId"]
     else:
-        raise DeserializationError("StartTransformerJobRequest.transformer_id required")
+        out["transformer_id"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

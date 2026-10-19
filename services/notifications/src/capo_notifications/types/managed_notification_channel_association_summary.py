@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notifications.types.channel_association_override_option
     import capo_notifications.types.channel_type
@@ -45,9 +43,7 @@ def deserialize_json(data: dict) -> ManagedNotificationChannelAssociationSummary
     if data.get("channelIdentifier") is not None:
         out["channel_identifier"] = data["channelIdentifier"]
     else:
-        raise DeserializationError(
-            "ManagedNotificationChannelAssociationSummary.channel_identifier required"
-        )
+        out["channel_identifier"] = ""
     if data.get("channelType") is not None:
         import capo_notifications.types.channel_type
 
@@ -55,8 +51,10 @@ def deserialize_json(data: dict) -> ManagedNotificationChannelAssociationSummary
             data["channelType"]
         )
     else:
-        raise DeserializationError(
-            "ManagedNotificationChannelAssociationSummary.channel_type required"
+        import typing
+
+        out["channel_type"] = typing.cast(
+            "capo_notifications.types.channel_type.ChannelType", ""
         )
     if data.get("overrideOption") is not None:
         out["override_option"] = data["overrideOption"]

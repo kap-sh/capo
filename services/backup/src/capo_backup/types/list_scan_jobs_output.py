@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.scan_jobs
 
@@ -39,5 +37,5 @@ def deserialize_json(data: dict) -> ListScanJobsOutput:
             data["ScanJobs"]
         )
     else:
-        raise DeserializationError("ListScanJobsOutput.scan_jobs required")
+        out["scan_jobs"] = []
     return out

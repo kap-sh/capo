@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.operator
     import capo_customer_profiles.types.string1_to255
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> Threshold:
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("Threshold.value required")
+        out["value"] = ""
     if data.get("Operator") is not None:
         import capo_customer_profiles.types.operator
 
@@ -43,5 +41,9 @@ def deserialize_json(data: dict) -> Threshold:
             data["Operator"]
         )
     else:
-        raise DeserializationError("Threshold.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_customer_profiles.types.operator.Operator", ""
+        )
     return out

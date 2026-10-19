@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.data_details
     import capo_qconnect.types.data_reference
@@ -41,7 +39,9 @@ def deserialize_json(data: dict) -> DataSummary:
             data["reference"]
         )
     else:
-        raise DeserializationError("DataSummary.reference required")
+        import capo_qconnect.types._unknown
+
+        out["reference"] = capo_qconnect.types._unknown.UnknownUnionMember("")
     if data.get("details") is not None:
         import capo_qconnect.types.data_details
 
@@ -49,7 +49,9 @@ def deserialize_json(data: dict) -> DataSummary:
             data["details"]
         )
     else:
-        raise DeserializationError("DataSummary.details required")
+        import capo_qconnect.types._unknown
+
+        out["details"] = capo_qconnect.types._unknown.UnknownUnionMember("")
     return out
 
 

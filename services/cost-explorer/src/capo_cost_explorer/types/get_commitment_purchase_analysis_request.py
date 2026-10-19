@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.analysis_id
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetCommitmentPurchaseAnalysisRequest
     if data.get("AnalysisId") is not None:
         out["analysis_id"] = data["AnalysisId"]
     else:
-        raise DeserializationError(
-            "GetCommitmentPurchaseAnalysisRequest.analysis_id required"
-        )
+        out["analysis_id"] = ""
     return out

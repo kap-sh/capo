@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.pool_name
     import capo_sesv2.types.scaling_mode
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> DedicatedIpPool:
     if data.get("PoolName") is not None:
         out["pool_name"] = data["PoolName"]
     else:
-        raise DeserializationError("DedicatedIpPool.pool_name required")
+        out["pool_name"] = ""
     if data.get("ScalingMode") is not None:
         import capo_sesv2.types.scaling_mode
 
@@ -43,5 +41,9 @@ def deserialize_json(data: dict) -> DedicatedIpPool:
             data["ScalingMode"]
         )
     else:
-        raise DeserializationError("DedicatedIpPool.scaling_mode required")
+        import typing
+
+        out["scaling_mode"] = typing.cast(
+            "capo_sesv2.types.scaling_mode.ScalingMode", ""
+        )
     return out

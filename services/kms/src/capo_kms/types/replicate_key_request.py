@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kms.types.boolean_type
     import capo_kms.types.description_type
@@ -57,11 +55,11 @@ def deserialize_aws_json_1_1(data: dict) -> ReplicateKeyRequest:
     if data.get("KeyId") is not None:
         out["key_id"] = data["KeyId"]
     else:
-        raise DeserializationError("ReplicateKeyRequest.key_id required")
+        out["key_id"] = ""
     if data.get("ReplicaRegion") is not None:
         out["replica_region"] = data["ReplicaRegion"]
     else:
-        raise DeserializationError("ReplicateKeyRequest.replica_region required")
+        out["replica_region"] = ""
     if data.get("Policy") is not None:
         out["policy"] = data["Policy"]
     if data.get("BypassPolicyLockoutSafetyCheck") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.function_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> LambdaAction:
     if data.get("functionArn") is not None:
         out["function_arn"] = data["functionArn"]
     else:
-        raise DeserializationError("LambdaAction.function_arn required")
+        out["function_arn"] = ""
     return out

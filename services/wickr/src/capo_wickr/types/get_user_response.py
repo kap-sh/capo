@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.generic_string
     import capo_wickr.types.security_group_id_list
@@ -74,7 +72,7 @@ def deserialize_json(data: dict) -> GetUserResponse:
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
     else:
-        raise DeserializationError("GetUserResponse.user_id required")
+        out["user_id"] = ""
     if data.get("firstName") is not None:
         out["first_name"] = data["firstName"]
     if data.get("lastName") is not None:

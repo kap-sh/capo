@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.log_destination_map
     import capo_network_firewall.types.log_destination_type
@@ -57,7 +55,11 @@ def deserialize_aws_json_1_0(data: dict) -> LogDestinationConfig:
             data["LogType"]
         )
     else:
-        raise DeserializationError("LogDestinationConfig.log_type required")
+        import typing
+
+        out["log_type"] = typing.cast(
+            "capo_network_firewall.types.log_type.LogType", ""
+        )
     if data.get("LogDestinationType") is not None:
         import capo_network_firewall.types.log_destination_type
 
@@ -67,7 +69,11 @@ def deserialize_aws_json_1_0(data: dict) -> LogDestinationConfig:
             )
         )
     else:
-        raise DeserializationError("LogDestinationConfig.log_destination_type required")
+        import typing
+
+        out["log_destination_type"] = typing.cast(
+            "capo_network_firewall.types.log_destination_type.LogDestinationType", ""
+        )
     if data.get("LogDestination") is not None:
         import capo_network_firewall.types.log_destination_map
 
@@ -77,5 +83,5 @@ def deserialize_aws_json_1_0(data: dict) -> LogDestinationConfig:
             )
         )
     else:
-        raise DeserializationError("LogDestinationConfig.log_destination required")
+        out["log_destination"] = {}
     return out

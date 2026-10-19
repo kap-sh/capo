@@ -70,15 +70,11 @@ def deserialize_json(data: dict) -> RasterDataCollectionQueryOutput:
     if data.get("RasterDataCollectionArn") is not None:
         out["raster_data_collection_arn"] = data["RasterDataCollectionArn"]
     else:
-        raise DeserializationError(
-            "RasterDataCollectionQueryOutput.raster_data_collection_arn required"
-        )
+        out["raster_data_collection_arn"] = ""
     if data.get("RasterDataCollectionName") is not None:
         out["raster_data_collection_name"] = data["RasterDataCollectionName"]
     else:
-        raise DeserializationError(
-            "RasterDataCollectionQueryOutput.raster_data_collection_name required"
-        )
+        out["raster_data_collection_name"] = ""
     if data.get("TimeRangeFilter") is not None:
         import capo_sagemaker_geospatial.types.time_range_filter_output
 

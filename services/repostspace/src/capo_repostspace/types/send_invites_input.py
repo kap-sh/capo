@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_repostspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_repostspace.types.accessor_id_list
     import capo_repostspace.types.invite_body
@@ -46,15 +44,15 @@ def deserialize_json(data: dict) -> SendInvitesInput:
             data["accessorIds"]
         )
     else:
-        raise DeserializationError("SendInvitesInput.accessor_ids required")
+        out["accessor_ids"] = []
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("SendInvitesInput.title required")
+        out["title"] = ""
     if data.get("body") is not None:
         out["body"] = data["body"]
     else:
-        raise DeserializationError("SendInvitesInput.body required")
+        out["body"] = ""
     return out
 
 

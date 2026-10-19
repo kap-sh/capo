@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_auto_scaling_plans.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auto_scaling_plans.types.application_source
     import capo_auto_scaling_plans.types.scaling_instructions
@@ -59,15 +57,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateScalingPlanRequest:
     if data.get("ScalingPlanName") is not None:
         out["scaling_plan_name"] = data["ScalingPlanName"]
     else:
-        raise DeserializationError(
-            "UpdateScalingPlanRequest.scaling_plan_name required"
-        )
+        out["scaling_plan_name"] = ""
     if data.get("ScalingPlanVersion") is not None:
         out["scaling_plan_version"] = data["ScalingPlanVersion"]
     else:
-        raise DeserializationError(
-            "UpdateScalingPlanRequest.scaling_plan_version required"
-        )
+        out["scaling_plan_version"] = 0
     if data.get("ApplicationSource") is not None:
         import capo_auto_scaling_plans.types.application_source
 

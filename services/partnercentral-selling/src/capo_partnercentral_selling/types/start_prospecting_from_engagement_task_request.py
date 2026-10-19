@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.catalog_identifier
     import capo_partnercentral_selling.types.client_token
@@ -45,9 +43,7 @@ def deserialize_aws_json_1_0(data: dict) -> StartProspectingFromEngagementTaskRe
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError(
-            "StartProspectingFromEngagementTaskRequest.catalog required"
-        )
+        out["catalog"] = ""
     if data.get("Identifiers") is not None:
         import capo_partnercentral_selling.types.engagement_identifier_list
 
@@ -57,19 +53,13 @@ def deserialize_aws_json_1_0(data: dict) -> StartProspectingFromEngagementTaskRe
             )
         )
     else:
-        raise DeserializationError(
-            "StartProspectingFromEngagementTaskRequest.identifiers required"
-        )
+        out["identifiers"] = []
     if data.get("TaskName") is not None:
         out["task_name"] = data["TaskName"]
     else:
-        raise DeserializationError(
-            "StartProspectingFromEngagementTaskRequest.task_name required"
-        )
+        out["task_name"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError(
-            "StartProspectingFromEngagementTaskRequest.client_token required"
-        )
+        out["client_token"] = ""
     return out

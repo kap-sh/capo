@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.http_api_schema_configuration
     import capo_bedrock_agentcore_control.types.runtime_arn
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> RuntimeTargetConfiguration:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("RuntimeTargetConfiguration.arn required")
+        out["arn"] = ""
     if data.get("qualifier") is not None:
         out["qualifier"] = data["qualifier"]
     if data.get("schema") is not None:

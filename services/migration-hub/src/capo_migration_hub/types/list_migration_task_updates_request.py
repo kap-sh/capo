@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migration_hub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migration_hub.types.max_results
     import capo_migration_hub.types.migration_task_name
@@ -45,15 +43,11 @@ def deserialize_aws_json_1_1(data: dict) -> ListMigrationTaskUpdatesRequest:
     if data.get("ProgressUpdateStream") is not None:
         out["progress_update_stream"] = data["ProgressUpdateStream"]
     else:
-        raise DeserializationError(
-            "ListMigrationTaskUpdatesRequest.progress_update_stream required"
-        )
+        out["progress_update_stream"] = ""
     if data.get("MigrationTaskName") is not None:
         out["migration_task_name"] = data["MigrationTaskName"]
     else:
-        raise DeserializationError(
-            "ListMigrationTaskUpdatesRequest.migration_task_name required"
-        )
+        out["migration_task_name"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.kms_encryption_context
     import capo_bedrock_data_automation.types.kms_key_id
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> EncryptionConfiguration:
     if data.get("kmsKeyId") is not None:
         out["kms_key_id"] = data["kmsKeyId"]
     else:
-        raise DeserializationError("EncryptionConfiguration.kms_key_id required")
+        out["kms_key_id"] = ""
     if data.get("kmsEncryptionContext") is not None:
         import capo_bedrock_data_automation.types.kms_encryption_context
 

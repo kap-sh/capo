@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.limited_path_list
     import capo_glue.types.node_name
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> DropDuplicates:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DropDuplicates.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.one_input
 
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> DropDuplicates:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("DropDuplicates.inputs required")
+        out["inputs"] = []
     if data.get("Columns") is not None:
         import capo_glue.types.limited_path_list
 

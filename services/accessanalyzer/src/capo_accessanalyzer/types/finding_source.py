@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.finding_source_detail
     import capo_accessanalyzer.types.finding_source_type
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> FindingSource:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("FindingSource.type required")
+        out["type"] = ""
     if data.get("detail") is not None:
         import capo_accessanalyzer.types.finding_source_detail
 

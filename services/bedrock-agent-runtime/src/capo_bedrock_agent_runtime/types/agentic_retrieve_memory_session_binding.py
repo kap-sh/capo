@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.agent_core_memory_actor_id
     import capo_bedrock_agent_runtime.types.agent_core_memory_session_id
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> AgenticRetrieveMemorySessionBinding:
     if data.get("actorId") is not None:
         out["actor_id"] = data["actorId"]
     else:
-        raise DeserializationError(
-            "AgenticRetrieveMemorySessionBinding.actor_id required"
-        )
+        out["actor_id"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError(
-            "AgenticRetrieveMemorySessionBinding.session_id required"
-        )
+        out["session_id"] = ""
     return out

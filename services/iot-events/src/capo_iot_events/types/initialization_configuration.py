@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.disabled_on_initialization
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> InitializationConfiguration:
     if data.get("disabledOnInitialization") is not None:
         out["disabled_on_initialization"] = data["disabledOnInitialization"]
     else:
-        raise DeserializationError(
-            "InitializationConfiguration.disabled_on_initialization required"
-        )
+        out["disabled_on_initialization"] = False
     return out

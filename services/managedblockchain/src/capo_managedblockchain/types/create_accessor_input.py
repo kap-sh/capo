@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_managedblockchain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_managedblockchain.types.accessor_network_type
     import capo_managedblockchain.types.accessor_type
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> CreateAccessorInput:
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     else:
-        raise DeserializationError("CreateAccessorInput.client_request_token required")
+        out["client_request_token"] = ""
     if data.get("AccessorType") is not None:
         import capo_managedblockchain.types.accessor_type
 
@@ -67,7 +65,11 @@ def deserialize_json(data: dict) -> CreateAccessorInput:
             )
         )
     else:
-        raise DeserializationError("CreateAccessorInput.accessor_type required")
+        import typing
+
+        out["accessor_type"] = typing.cast(
+            "capo_managedblockchain.types.accessor_type.AccessorType", ""
+        )
     if data.get("Tags") is not None:
         import capo_managedblockchain.types.input_tag_map
 

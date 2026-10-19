@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.kms_key_id
     import capo_redshift_serverless.types.namespace_name
@@ -41,15 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSnapshotCopyConfigurationReque
     if data.get("namespaceName") is not None:
         out["namespace_name"] = data["namespaceName"]
     else:
-        raise DeserializationError(
-            "CreateSnapshotCopyConfigurationRequest.namespace_name required"
-        )
+        out["namespace_name"] = ""
     if data.get("destinationRegion") is not None:
         out["destination_region"] = data["destinationRegion"]
     else:
-        raise DeserializationError(
-            "CreateSnapshotCopyConfigurationRequest.destination_region required"
-        )
+        out["destination_region"] = ""
     if data.get("snapshotRetentionPeriod") is not None:
         out["snapshot_retention_period"] = data["snapshotRetentionPeriod"]
     if data.get("destinationKmsKeyId") is not None:

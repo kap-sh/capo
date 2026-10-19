@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.boolean
@@ -41,7 +40,7 @@ def deserialize_xml(el: Element) -> TrustStoreConfig:
     if child_trust_store_id is not None:
         out["trust_store_id"] = str(child_trust_store_id.text or "")
     else:
-        raise DeserializationError("TrustStoreConfig.trust_store_id required")
+        out["trust_store_id"] = ""
     child_advertise_trust_store_ca_names = el.find("AdvertiseTrustStoreCaNames")
     if child_advertise_trust_store_ca_names is not None:
         out["advertise_trust_store_ca_names"] = (

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_medical_imaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_medical_imaging.types.copiable_attributes
 
@@ -29,7 +27,7 @@ def deserialize_json(data: dict) -> MetadataCopies:
     if data.get("copiableAttributes") is not None:
         out["copiable_attributes"] = data["copiableAttributes"]
     else:
-        raise DeserializationError("MetadataCopies.copiable_attributes required")
+        out["copiable_attributes"] = ""
     return out
 
 

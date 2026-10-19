@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearchserverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearchserverless.types.open_search_serverless_entity_id
     import capo_opensearchserverless.types.saml_group_attribute
@@ -52,7 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> SamlConfigOptions:
     if data.get("metadata") is not None:
         out["metadata"] = data["metadata"]
     else:
-        raise DeserializationError("SamlConfigOptions.metadata required")
+        out["metadata"] = ""
     if data.get("userAttribute") is not None:
         out["user_attribute"] = data["userAttribute"]
     if data.get("groupAttribute") is not None:

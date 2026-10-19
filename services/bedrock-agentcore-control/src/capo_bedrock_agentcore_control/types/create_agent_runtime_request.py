@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.agent_runtime_artifact
     import capo_bedrock_agentcore_control.types.agent_runtime_name
@@ -176,9 +174,7 @@ def deserialize_json(data: dict) -> CreateAgentRuntimeRequest:
     if data.get("agentRuntimeName") is not None:
         out["agent_runtime_name"] = data["agentRuntimeName"]
     else:
-        raise DeserializationError(
-            "CreateAgentRuntimeRequest.agent_runtime_name required"
-        )
+        out["agent_runtime_name"] = ""
     if data.get("agentRuntimeArtifact") is not None:
         import capo_bedrock_agentcore_control.types.agent_runtime_artifact
 
@@ -188,13 +184,15 @@ def deserialize_json(data: dict) -> CreateAgentRuntimeRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAgentRuntimeRequest.agent_runtime_artifact required"
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["agent_runtime_artifact"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
         )
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateAgentRuntimeRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("networkConfiguration") is not None:
         import capo_bedrock_agentcore_control.types.network_configuration
 

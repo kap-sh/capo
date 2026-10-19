@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.document_review_action
     import capo_ssm.types.document_review_comment_list
@@ -48,7 +46,11 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentReviews:
             data["Action"]
         )
     else:
-        raise DeserializationError("DocumentReviews.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_ssm.types.document_review_action.DocumentReviewAction", ""
+        )
     if data.get("Comment") is not None:
         import capo_ssm.types.document_review_comment_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.route_engine_type
     import capo_geo_routes.types.route_rental_mode
@@ -88,7 +86,11 @@ def deserialize_json(data: dict) -> RouteRentalTransportModeDetails:
             data["Mode"]
         )
     else:
-        raise DeserializationError("RouteRentalTransportModeDetails.mode required")
+        import typing
+
+        out["mode"] = typing.cast(
+            "capo_geo_routes.types.route_rental_mode.RouteRentalMode", ""
+        )
     if data.get("Model") is not None:
         out["model"] = data["Model"]
     if data.get("Name") is not None:

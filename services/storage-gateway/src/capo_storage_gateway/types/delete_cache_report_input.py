@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.cache_report_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteCacheReportInput:
     if data.get("CacheReportARN") is not None:
         out["cache_report_arn"] = data["CacheReportARN"]
     else:
-        raise DeserializationError("DeleteCacheReportInput.cache_report_arn required")
+        out["cache_report_arn"] = ""
     return out

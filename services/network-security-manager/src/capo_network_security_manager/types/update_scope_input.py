@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.description
     import capo_network_security_manager.types.idempotency_token
@@ -63,7 +61,7 @@ def deserialize_json(data: dict) -> UpdateScopeInput:
     if data.get("updateToken") is not None:
         out["update_token"] = data["updateToken"]
     else:
-        raise DeserializationError("UpdateScopeInput.update_token required")
+        out["update_token"] = ""
     if data.get("scopeDescription") is not None:
         out["scope_description"] = data["scopeDescription"]
     if data.get("scopeConfiguration") is not None:
@@ -77,7 +75,7 @@ def deserialize_json(data: dict) -> UpdateScopeInput:
     if data.get("isPublished") is not None:
         out["is_published"] = data["isPublished"]
     else:
-        raise DeserializationError("UpdateScopeInput.is_published required")
+        out["is_published"] = False
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

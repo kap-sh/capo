@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_panorama.errors import DeserializationError, ServiceError
+from capo_panorama.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_panorama.types.conflict_exception_error_argument_list
@@ -50,15 +50,15 @@ def deserialize_json(data: dict) -> ConflictException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("ConflictException_.message required")
+        out["message"] = ""
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("ConflictException_.resource_id required")
+        out["resource_id"] = ""
     if data.get("ResourceType") is not None:
         out["resource_type"] = data["ResourceType"]
     else:
-        raise DeserializationError("ConflictException_.resource_type required")
+        out["resource_type"] = ""
     if data.get("ErrorId") is not None:
         out["error_id"] = data["ErrorId"]
     if data.get("ErrorArguments") is not None:

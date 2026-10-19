@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecatalyst.types.name_string
     import capo_codecatalyst.types.timestamp
@@ -77,23 +75,23 @@ def deserialize_json(data: dict) -> GetWorkflowRunResponse:
     if data.get("spaceName") is not None:
         out["space_name"] = data["spaceName"]
     else:
-        raise DeserializationError("GetWorkflowRunResponse.space_name required")
+        out["space_name"] = ""
     if data.get("projectName") is not None:
         out["project_name"] = data["projectName"]
     else:
-        raise DeserializationError("GetWorkflowRunResponse.project_name required")
+        out["project_name"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetWorkflowRunResponse.id required")
+        out["id"] = ""
     if data.get("workflowId") is not None:
         out["workflow_id"] = data["workflowId"]
     else:
-        raise DeserializationError("GetWorkflowRunResponse.workflow_id required")
+        out["workflow_id"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("GetWorkflowRunResponse.status required")
+        out["status"] = ""
     if data.get("statusReasons") is not None:
         import capo_codecatalyst.types.workflow_run_status_reasons
 
@@ -109,7 +107,9 @@ def deserialize_json(data: dict) -> GetWorkflowRunResponse:
             data["startTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetWorkflowRunResponse.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import datetime
 
@@ -123,5 +123,9 @@ def deserialize_json(data: dict) -> GetWorkflowRunResponse:
             data["lastUpdatedTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetWorkflowRunResponse.last_updated_time required")
+        import datetime
+
+        out["last_updated_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

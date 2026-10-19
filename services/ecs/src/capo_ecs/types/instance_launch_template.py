@@ -128,9 +128,7 @@ def deserialize_aws_json_1_1(data: dict) -> InstanceLaunchTemplate:
     if data.get("ec2InstanceProfileArn") is not None:
         out["ec2_instance_profile_arn"] = data["ec2InstanceProfileArn"]
     else:
-        raise DeserializationError(
-            "InstanceLaunchTemplate.ec2_instance_profile_arn required"
-        )
+        out["ec2_instance_profile_arn"] = ""
     if data.get("networkConfiguration") is not None:
         import capo_ecs.types.managed_instances_network_configuration
 

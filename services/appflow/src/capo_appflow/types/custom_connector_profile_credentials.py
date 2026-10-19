@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.api_key_credentials
     import capo_appflow.types.authentication_type
@@ -75,8 +73,10 @@ def deserialize_json(data: dict) -> CustomConnectorProfileCredentials:
             )
         )
     else:
-        raise DeserializationError(
-            "CustomConnectorProfileCredentials.authentication_type required"
+        import typing
+
+        out["authentication_type"] = typing.cast(
+            "capo_appflow.types.authentication_type.AuthenticationType", ""
         )
     if data.get("basic") is not None:
         import capo_appflow.types.basic_auth_credentials

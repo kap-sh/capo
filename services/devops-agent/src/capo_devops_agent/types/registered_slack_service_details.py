@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 
 class RegisteredSlackServiceDetails(TypedDict, closed=True):
     team_id: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> RegisteredSlackServiceDetails:
     if data.get("teamId") is not None:
         out["team_id"] = data["teamId"]
     else:
-        raise DeserializationError("RegisteredSlackServiceDetails.team_id required")
+        out["team_id"] = ""
     if data.get("teamName") is not None:
         out["team_name"] = data["teamName"]
     else:
-        raise DeserializationError("RegisteredSlackServiceDetails.team_name required")
+        out["team_name"] = ""
     return out

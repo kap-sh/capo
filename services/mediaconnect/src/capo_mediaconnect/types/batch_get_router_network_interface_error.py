@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.router_network_interface_arn
 
@@ -35,15 +33,13 @@ def deserialize_json(data: dict) -> BatchGetRouterNetworkInterfaceError:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("BatchGetRouterNetworkInterfaceError.arn required")
+        out["arn"] = ""
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("BatchGetRouterNetworkInterfaceError.code required")
+        out["code"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError(
-            "BatchGetRouterNetworkInterfaceError.message required"
-        )
+        out["message"] = ""
     return out

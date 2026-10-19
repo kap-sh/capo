@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_clouddirectory.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_clouddirectory.types.arn
     import capo_clouddirectory.types.bool
@@ -39,21 +37,15 @@ def deserialize_json(data: dict) -> UpgradePublishedSchemaRequest:
     if data.get("DevelopmentSchemaArn") is not None:
         out["development_schema_arn"] = data["DevelopmentSchemaArn"]
     else:
-        raise DeserializationError(
-            "UpgradePublishedSchemaRequest.development_schema_arn required"
-        )
+        out["development_schema_arn"] = ""
     if data.get("PublishedSchemaArn") is not None:
         out["published_schema_arn"] = data["PublishedSchemaArn"]
     else:
-        raise DeserializationError(
-            "UpgradePublishedSchemaRequest.published_schema_arn required"
-        )
+        out["published_schema_arn"] = ""
     if data.get("MinorVersion") is not None:
         out["minor_version"] = data["MinorVersion"]
     else:
-        raise DeserializationError(
-            "UpgradePublishedSchemaRequest.minor_version required"
-        )
+        out["minor_version"] = ""
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
     return out

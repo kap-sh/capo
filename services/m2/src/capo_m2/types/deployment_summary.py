@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.deployment_lifecycle
     import capo_m2.types.identifier
@@ -51,23 +49,23 @@ def deserialize_json(data: dict) -> DeploymentSummary:
     if data.get("deploymentId") is not None:
         out["deployment_id"] = data["deploymentId"]
     else:
-        raise DeserializationError("DeploymentSummary.deployment_id required")
+        out["deployment_id"] = ""
     if data.get("applicationId") is not None:
         out["application_id"] = data["applicationId"]
     else:
-        raise DeserializationError("DeploymentSummary.application_id required")
+        out["application_id"] = ""
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError("DeploymentSummary.environment_id required")
+        out["environment_id"] = ""
     if data.get("applicationVersion") is not None:
         out["application_version"] = data["applicationVersion"]
     else:
-        raise DeserializationError("DeploymentSummary.application_version required")
+        out["application_version"] = 0
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("DeploymentSummary.status required")
+        out["status"] = ""
     if data.get("creationTime") is not None:
         import capo_m2.types.timestamp
 
@@ -75,7 +73,11 @@ def deserialize_json(data: dict) -> DeploymentSummary:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("DeploymentSummary.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
     return out

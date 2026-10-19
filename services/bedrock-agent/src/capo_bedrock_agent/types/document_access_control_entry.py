@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.access_control_access
     import capo_bedrock_agent.types.access_control_principal_type
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> DocumentAccessControlEntry:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DocumentAccessControlEntry.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         import capo_bedrock_agent.types.access_control_principal_type
 
@@ -52,7 +50,12 @@ def deserialize_json(data: dict) -> DocumentAccessControlEntry:
             )
         )
     else:
-        raise DeserializationError("DocumentAccessControlEntry.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent.types.access_control_principal_type.AccessControlPrincipalType",
+            "",
+        )
     if data.get("access") is not None:
         import capo_bedrock_agent.types.access_control_access
 
@@ -60,5 +63,9 @@ def deserialize_json(data: dict) -> DocumentAccessControlEntry:
             data["access"]
         )
     else:
-        raise DeserializationError("DocumentAccessControlEntry.access required")
+        import typing
+
+        out["access"] = typing.cast(
+            "capo_bedrock_agent.types.access_control_access.AccessControlAccess", ""
+        )
     return out

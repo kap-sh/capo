@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.harness_tool_use_id
     import capo_bedrock_agentcore.types.harness_tool_use_status
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> HarnessToolResultBlockStart:
     if data.get("toolUseId") is not None:
         out["tool_use_id"] = data["toolUseId"]
     else:
-        raise DeserializationError("HarnessToolResultBlockStart.tool_use_id required")
+        out["tool_use_id"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore.types.harness_tool_use_status
 

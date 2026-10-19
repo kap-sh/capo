@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_odb.errors import DeserializationError
-
 
 class AcceptMarketplaceRegistrationInput(TypedDict, closed=True):
     marketplace_registration_token: "str"
@@ -22,7 +20,5 @@ def deserialize_aws_json_1_0(data: dict) -> AcceptMarketplaceRegistrationInput:
     if data.get("marketplaceRegistrationToken") is not None:
         out["marketplace_registration_token"] = data["marketplaceRegistrationToken"]
     else:
-        raise DeserializationError(
-            "AcceptMarketplaceRegistrationInput.marketplace_registration_token required"
-        )
+        out["marketplace_registration_token"] = ""
     return out

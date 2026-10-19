@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.container_label
     import capo_lightsail.types.container_service_name
@@ -35,15 +33,13 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterContainerImageRequest:
     if data.get("serviceName") is not None:
         out["service_name"] = data["serviceName"]
     else:
-        raise DeserializationError(
-            "RegisterContainerImageRequest.service_name required"
-        )
+        out["service_name"] = ""
     if data.get("label") is not None:
         out["label"] = data["label"]
     else:
-        raise DeserializationError("RegisterContainerImageRequest.label required")
+        out["label"] = ""
     if data.get("digest") is not None:
         out["digest"] = data["digest"]
     else:
-        raise DeserializationError("RegisterContainerImageRequest.digest required")
+        out["digest"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.agent_space_id
     import capo_devops_agent.types.association_capabilities
@@ -56,7 +54,9 @@ def deserialize_json(data: dict) -> UpdateAssociationInput:
             )
         )
     else:
-        raise DeserializationError("UpdateAssociationInput.configuration required")
+        import capo_devops_agent.types._unknown
+
+        out["configuration"] = capo_devops_agent.types._unknown.UnknownUnionMember("")
     if data.get("capabilities") is not None:
         import capo_devops_agent.types.association_capabilities
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.phrase_display_as_text
     import capo_bedrock_data_automation.types.phrase_text
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> Phrase:
     if data.get("text") is not None:
         out["text"] = data["text"]
     else:
-        raise DeserializationError("Phrase.text required")
+        out["text"] = ""
     if data.get("displayAsText") is not None:
         out["display_as_text"] = data["displayAsText"]
     return out

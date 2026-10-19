@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.arn
     import capo_resiliencehubv2.types.test_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> DeleteTestRequest:
     if data.get("testId") is not None:
         out["test_id"] = data["testId"]
     else:
-        raise DeserializationError("DeleteTestRequest.test_id required")
+        out["test_id"] = ""
     if data.get("serviceArn") is not None:
         out["service_arn"] = data["serviceArn"]
     else:
-        raise DeserializationError("DeleteTestRequest.service_arn required")
+        out["service_arn"] = ""
     return out

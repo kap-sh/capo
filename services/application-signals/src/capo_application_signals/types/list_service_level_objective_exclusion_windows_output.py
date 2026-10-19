@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.exclusion_windows
     import capo_application_signals.types.next_token
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> ListServiceLevelObjectiveExclusionWindowsOut
             )
         )
     else:
-        raise DeserializationError(
-            "ListServiceLevelObjectiveExclusionWindowsOutput.exclusion_windows required"
-        )
+        out["exclusion_windows"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

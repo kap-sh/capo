@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 
 class SchemaV2Field(TypedDict, closed=True):
     id: "int"
@@ -35,19 +33,19 @@ def deserialize_json(data: dict) -> SchemaV2Field:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("SchemaV2Field.id required")
+        out["id"] = 0
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("SchemaV2Field.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("SchemaV2Field.type required")
+        out["type"] = None
     if data.get("required") is not None:
         out["required"] = data["required"]
     else:
-        raise DeserializationError("SchemaV2Field.required required")
+        out["required"] = False
     if data.get("doc") is not None:
         out["doc"] = data["doc"]
     return out

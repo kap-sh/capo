@@ -118,15 +118,17 @@ def deserialize_aws_json_1_1(data: dict) -> DatabaseSourceConfiguration:
             data["Type"]
         )
     else:
-        raise DeserializationError("DatabaseSourceConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_firehose.types.database_type.DatabaseType", "")
     if data.get("Endpoint") is not None:
         out["endpoint"] = data["Endpoint"]
     else:
-        raise DeserializationError("DatabaseSourceConfiguration.endpoint required")
+        out["endpoint"] = ""
     if data.get("Port") is not None:
         out["port"] = data["Port"]
     else:
-        raise DeserializationError("DatabaseSourceConfiguration.port required")
+        out["port"] = 0
     if data.get("SSLMode") is not None:
         import capo_firehose.types.ssl_mode
 
@@ -170,9 +172,7 @@ def deserialize_aws_json_1_1(data: dict) -> DatabaseSourceConfiguration:
     if data.get("SnapshotWatermarkTable") is not None:
         out["snapshot_watermark_table"] = data["SnapshotWatermarkTable"]
     else:
-        raise DeserializationError(
-            "DatabaseSourceConfiguration.snapshot_watermark_table required"
-        )
+        out["snapshot_watermark_table"] = ""
     if data.get("DatabaseSourceAuthenticationConfiguration") is not None:
         import capo_firehose.types.database_source_authentication_configuration
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.amount_capability_name
 
@@ -38,9 +36,9 @@ def deserialize_json(data: dict) -> WorkerAmountCapability:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("WorkerAmountCapability.name required")
+        out["name"] = ""
     if data.get("value") is not None:
         out["value"] = float(data["value"])
     else:
-        raise DeserializationError("WorkerAmountCapability.value required")
+        out["value"] = 0.0
     return out

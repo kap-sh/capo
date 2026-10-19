@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.key_algorithm
     import capo_payment_cryptography.types.key_material_type
@@ -37,15 +35,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetParametersForExportInput:
     if data.get("KeyMaterialType") is not None:
         out["key_material_type"] = data["KeyMaterialType"]
     else:
-        raise DeserializationError(
-            "GetParametersForExportInput.key_material_type required"
-        )
+        out["key_material_type"] = ""
     if data.get("SigningKeyAlgorithm") is not None:
         out["signing_key_algorithm"] = data["SigningKeyAlgorithm"]
     else:
-        raise DeserializationError(
-            "GetParametersForExportInput.signing_key_algorithm required"
-        )
+        out["signing_key_algorithm"] = ""
     if data.get("ReuseLastGeneratedToken") is not None:
         out["reuse_last_generated_token"] = data["ReuseLastGeneratedToken"]
     return out

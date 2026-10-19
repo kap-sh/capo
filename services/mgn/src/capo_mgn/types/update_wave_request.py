@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.account_id
     import capo_mgn.types.wave_description
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> UpdateWaveRequest:
     if data.get("waveID") is not None:
         out["wave_id"] = data["waveID"]
     else:
-        raise DeserializationError("UpdateWaveRequest.wave_id required")
+        out["wave_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("description") is not None:

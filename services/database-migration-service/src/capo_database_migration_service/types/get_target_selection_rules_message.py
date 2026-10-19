@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.migration_project_identifier
     import capo_database_migration_service.types.string
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetTargetSelectionRulesMessage:
     if data.get("MigrationProjectIdentifier") is not None:
         out["migration_project_identifier"] = data["MigrationProjectIdentifier"]
     else:
-        raise DeserializationError(
-            "GetTargetSelectionRulesMessage.migration_project_identifier required"
-        )
+        out["migration_project_identifier"] = ""
     if data.get("SelectionRules") is not None:
         out["selection_rules"] = data["SelectionRules"]
     else:
-        raise DeserializationError(
-            "GetTargetSelectionRulesMessage.selection_rules required"
-        )
+        out["selection_rules"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.account_id
     import capo_inspector2.types.date_time_timestamp
@@ -71,9 +69,7 @@ def deserialize_json(data: dict) -> LambdaFunctionAggregationResponse:
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     else:
-        raise DeserializationError(
-            "LambdaFunctionAggregationResponse.resource_id required"
-        )
+        out["resource_id"] = ""
     if data.get("functionName") is not None:
         out["function_name"] = data["functionName"]
     if data.get("runtime") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_dashboards.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_dashboards.types.generic_time_stamp
     import capo_bcm_dashboards.types.health_status_code
@@ -65,7 +63,11 @@ def deserialize_aws_json_1_0(data: dict) -> HealthStatus:
             )
         )
     else:
-        raise DeserializationError("HealthStatus.status_code required")
+        import typing
+
+        out["status_code"] = typing.cast(
+            "capo_bcm_dashboards.types.health_status_code.HealthStatusCode", ""
+        )
     if data.get("lastRefreshedAt") is not None:
         import capo_bcm_dashboards.types.generic_time_stamp
 

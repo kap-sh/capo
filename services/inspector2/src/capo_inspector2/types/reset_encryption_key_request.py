@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.resource_type
     import capo_inspector2.types.scan_type
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> ResetEncryptionKeyRequest:
     if data.get("scanType") is not None:
         out["scan_type"] = data["scanType"]
     else:
-        raise DeserializationError("ResetEncryptionKeyRequest.scan_type required")
+        out["scan_type"] = ""
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError("ResetEncryptionKeyRequest.resource_type required")
+        out["resource_type"] = ""
     return out

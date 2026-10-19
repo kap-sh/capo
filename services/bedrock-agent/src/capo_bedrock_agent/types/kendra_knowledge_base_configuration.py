@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.kendra_index_arn
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> KendraKnowledgeBaseConfiguration:
     if data.get("kendraIndexArn") is not None:
         out["kendra_index_arn"] = data["kendraIndexArn"]
     else:
-        raise DeserializationError(
-            "KendraKnowledgeBaseConfiguration.kendra_index_arn required"
-        )
+        out["kendra_index_arn"] = ""
     return out

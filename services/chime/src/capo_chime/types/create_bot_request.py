@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime.types.non_empty_string
     import capo_chime.types.sensitive_string
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> CreateBotRequest:
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     else:
-        raise DeserializationError("CreateBotRequest.display_name required")
+        out["display_name"] = ""
     if data.get("Domain") is not None:
         out["domain"] = data["Domain"]
     return out

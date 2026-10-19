@@ -57,7 +57,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateBudgetRequest:
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     else:
-        raise DeserializationError("CreateBudgetRequest.account_id required")
+        out["account_id"] = ""
     if data.get("Budget") is not None:
         import capo_budgets.types.budget
 

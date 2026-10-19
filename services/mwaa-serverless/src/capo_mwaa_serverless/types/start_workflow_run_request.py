@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mwaa_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mwaa_serverless.types.idempotency_token_string
     import capo_mwaa_serverless.types.object_map
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_0(data: dict) -> StartWorkflowRunRequest:
     if data.get("WorkflowArn") is not None:
         out["workflow_arn"] = data["WorkflowArn"]
     else:
-        raise DeserializationError("StartWorkflowRunRequest.workflow_arn required")
+        out["workflow_arn"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("OverrideParameters") is not None:

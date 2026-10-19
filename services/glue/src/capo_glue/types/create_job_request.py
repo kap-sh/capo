@@ -219,7 +219,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateJobRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateJobRequest.name required")
+        out["name"] = ""
     if data.get("JobMode") is not None:
         import capo_glue.types.job_mode
 
@@ -235,7 +235,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateJobRequest:
     if data.get("Role") is not None:
         out["role"] = data["Role"]
     else:
-        raise DeserializationError("CreateJobRequest.role required")
+        out["role"] = ""
     if data.get("ExecutionProperty") is not None:
         import capo_glue.types.execution_property
 

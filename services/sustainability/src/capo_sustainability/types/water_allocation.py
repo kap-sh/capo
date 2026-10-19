@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sustainability.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sustainability.types.water_allocation_unit
 
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> WaterAllocation:
     if data.get("Value") is not None:
         out["value"] = float(data["Value"])
     else:
-        raise DeserializationError("WaterAllocation.value required")
+        out["value"] = 0.0
     if data.get("Unit") is not None:
         import capo_sustainability.types.water_allocation_unit
 
@@ -50,5 +48,9 @@ def deserialize_json(data: dict) -> WaterAllocation:
             data["Unit"]
         )
     else:
-        raise DeserializationError("WaterAllocation.unit required")
+        import typing
+
+        out["unit"] = typing.cast(
+            "capo_sustainability.types.water_allocation_unit.WaterAllocationUnit", ""
+        )
     return out

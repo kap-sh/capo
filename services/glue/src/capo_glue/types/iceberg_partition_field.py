@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.column_name_string
     import capo_glue.types.iceberg_transform_string
@@ -42,11 +40,11 @@ def deserialize_aws_json_1_1(data: dict) -> IcebergPartitionField:
     if data.get("Transform") is not None:
         out["transform"] = data["Transform"]
     else:
-        raise DeserializationError("IcebergPartitionField.transform required")
+        out["transform"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("IcebergPartitionField.name required")
+        out["name"] = ""
     if data.get("FieldId") is not None:
         out["field_id"] = data["FieldId"]
     else:

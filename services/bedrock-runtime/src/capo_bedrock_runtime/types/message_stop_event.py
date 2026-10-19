@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_bedrock_runtime._protocol.eventstream import HeaderValue, Message
-from capo_bedrock_runtime.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.stop_reason
@@ -41,7 +40,11 @@ def deserialize_json(data: dict) -> MessageStopEvent:
             data["stopReason"]
         )
     else:
-        raise DeserializationError("MessageStopEvent.stop_reason required")
+        import typing
+
+        out["stop_reason"] = typing.cast(
+            "capo_bedrock_runtime.types.stop_reason.StopReason", ""
+        )
     if data.get("additionalModelResponseFields") is not None:
         out["additional_model_response_fields"] = data["additionalModelResponseFields"]
     return out

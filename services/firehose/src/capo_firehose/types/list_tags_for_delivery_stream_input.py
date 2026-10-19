@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.delivery_stream_name
     import capo_firehose.types.list_tags_for_delivery_stream_input_limit
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsForDeliveryStreamInput:
     if data.get("DeliveryStreamName") is not None:
         out["delivery_stream_name"] = data["DeliveryStreamName"]
     else:
-        raise DeserializationError(
-            "ListTagsForDeliveryStreamInput.delivery_stream_name required"
-        )
+        out["delivery_stream_name"] = ""
     if data.get("ExclusiveStartTagKey") is not None:
         out["exclusive_start_tag_key"] = data["ExclusiveStartTagKey"]
     if data.get("Limit") is not None:

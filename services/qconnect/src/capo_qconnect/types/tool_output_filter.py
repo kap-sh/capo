@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.non_empty_string
     import capo_qconnect.types.tool_output_configuration
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ToolOutputFilter:
     if data.get("jsonPath") is not None:
         out["json_path"] = data["jsonPath"]
     else:
-        raise DeserializationError("ToolOutputFilter.json_path required")
+        out["json_path"] = ""
     if data.get("outputConfiguration") is not None:
         import capo_qconnect.types.tool_output_configuration
 

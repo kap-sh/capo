@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.id
     import capo_iottwinmaker.types.next_token
@@ -43,11 +41,11 @@ def deserialize_json(data: dict) -> ExecuteQueryRequest:
     if data.get("workspaceId") is not None:
         out["workspace_id"] = data["workspaceId"]
     else:
-        raise DeserializationError("ExecuteQueryRequest.workspace_id required")
+        out["workspace_id"] = ""
     if data.get("queryStatement") is not None:
         out["query_statement"] = data["queryStatement"]
     else:
-        raise DeserializationError("ExecuteQueryRequest.query_statement required")
+        out["query_statement"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

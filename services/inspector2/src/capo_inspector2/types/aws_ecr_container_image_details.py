@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.date_time_timestamp
     import capo_inspector2.types.image_hash
@@ -81,9 +79,7 @@ def deserialize_json(data: dict) -> AwsEcrContainerImageDetails:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError(
-            "AwsEcrContainerImageDetails.repository_name required"
-        )
+        out["repository_name"] = ""
     if data.get("imageTags") is not None:
         import capo_inspector2.types.image_tag_list
 
@@ -103,11 +99,11 @@ def deserialize_json(data: dict) -> AwsEcrContainerImageDetails:
     if data.get("imageHash") is not None:
         out["image_hash"] = data["imageHash"]
     else:
-        raise DeserializationError("AwsEcrContainerImageDetails.image_hash required")
+        out["image_hash"] = ""
     if data.get("registry") is not None:
         out["registry"] = data["registry"]
     else:
-        raise DeserializationError("AwsEcrContainerImageDetails.registry required")
+        out["registry"] = ""
     if data.get("platform") is not None:
         out["platform"] = data["platform"]
     if data.get("lastInUseAt") is not None:

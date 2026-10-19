@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rtbfabric.types.protocol_list
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> ListenerConfig:
             data["protocols"]
         )
     else:
-        raise DeserializationError("ListenerConfig.protocols required")
+        out["protocols"] = []
     return out

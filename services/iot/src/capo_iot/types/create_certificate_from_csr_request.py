@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.certificate_signing_request
     import capo_iot.types.set_as_active
@@ -32,7 +30,5 @@ def deserialize_json(data: dict) -> CreateCertificateFromCsrRequest:
     if data.get("certificateSigningRequest") is not None:
         out["certificate_signing_request"] = data["certificateSigningRequest"]
     else:
-        raise DeserializationError(
-            "CreateCertificateFromCsrRequest.certificate_signing_request required"
-        )
+        out["certificate_signing_request"] = ""
     return out

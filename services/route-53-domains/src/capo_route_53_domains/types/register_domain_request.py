@@ -116,13 +116,13 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterDomainRequest:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("RegisterDomainRequest.domain_name required")
+        out["domain_name"] = ""
     if data.get("IdnLangCode") is not None:
         out["idn_lang_code"] = data["IdnLangCode"]
     if data.get("DurationInYears") is not None:
         out["duration_in_years"] = data["DurationInYears"]
     else:
-        raise DeserializationError("RegisterDomainRequest.duration_in_years required")
+        out["duration_in_years"] = 0
     if data.get("AutoRenew") is not None:
         out["auto_renew"] = data["AutoRenew"]
     if data.get("AdminContact") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.analytics_filter_operator
     import capo_lex_models_v2.types.analytics_filter_values
@@ -55,7 +53,12 @@ def deserialize_json(data: dict) -> AnalyticsSessionFilter:
             )
         )
     else:
-        raise DeserializationError("AnalyticsSessionFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_lex_models_v2.types.analytics_session_filter_name.AnalyticsSessionFilterName",
+            "",
+        )
     if data.get("operator") is not None:
         import capo_lex_models_v2.types.analytics_filter_operator
 
@@ -65,7 +68,12 @@ def deserialize_json(data: dict) -> AnalyticsSessionFilter:
             )
         )
     else:
-        raise DeserializationError("AnalyticsSessionFilter.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_lex_models_v2.types.analytics_filter_operator.AnalyticsFilterOperator",
+            "",
+        )
     if data.get("values") is not None:
         import capo_lex_models_v2.types.analytics_filter_values
 
@@ -75,5 +83,5 @@ def deserialize_json(data: dict) -> AnalyticsSessionFilter:
             )
         )
     else:
-        raise DeserializationError("AnalyticsSessionFilter.values required")
+        out["values"] = []
     return out

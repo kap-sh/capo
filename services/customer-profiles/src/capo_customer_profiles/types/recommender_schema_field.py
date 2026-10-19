@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.content_type
     import capo_customer_profiles.types.feature_type
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> RecommenderSchemaField:
     if data.get("TargetFieldName") is not None:
         out["target_field_name"] = data["TargetFieldName"]
     else:
-        raise DeserializationError("RecommenderSchemaField.target_field_name required")
+        out["target_field_name"] = ""
     if data.get("ContentType") is not None:
         import capo_customer_profiles.types.content_type
 

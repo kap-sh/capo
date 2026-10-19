@@ -65,13 +65,13 @@ def deserialize_aws_json_1_1(data: dict) -> StartReplayRequest:
     if data.get("ReplayName") is not None:
         out["replay_name"] = data["ReplayName"]
     else:
-        raise DeserializationError("StartReplayRequest.replay_name required")
+        out["replay_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("EventSourceArn") is not None:
         out["event_source_arn"] = data["EventSourceArn"]
     else:
-        raise DeserializationError("StartReplayRequest.event_source_arn required")
+        out["event_source_arn"] = ""
     if data.get("EventStartTime") is not None:
         import capo_cloudwatch_events.types.timestamp
 
@@ -81,7 +81,11 @@ def deserialize_aws_json_1_1(data: dict) -> StartReplayRequest:
             )
         )
     else:
-        raise DeserializationError("StartReplayRequest.event_start_time required")
+        import datetime
+
+        out["event_start_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("EventEndTime") is not None:
         import capo_cloudwatch_events.types.timestamp
 
@@ -91,7 +95,11 @@ def deserialize_aws_json_1_1(data: dict) -> StartReplayRequest:
             )
         )
     else:
-        raise DeserializationError("StartReplayRequest.event_end_time required")
+        import datetime
+
+        out["event_end_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("Destination") is not None:
         import capo_cloudwatch_events.types.replay_destination
 

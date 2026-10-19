@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.amazon_resource_name
 
@@ -29,5 +27,5 @@ def deserialize_aws_json_1_0(data: dict) -> GetResourcePolicyRequest:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("GetResourcePolicyRequest.resource_arn required")
+        out["resource_arn"] = ""
     return out

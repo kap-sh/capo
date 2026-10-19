@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.mount_relative_path
     import capo_iotsitewise.types.mount_source
@@ -45,11 +43,11 @@ def deserialize_json(data: dict) -> Mount:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Mount.name required")
+        out["name"] = ""
     if data.get("relativePath") is not None:
         out["relative_path"] = data["relativePath"]
     else:
-        raise DeserializationError("Mount.relative_path required")
+        out["relative_path"] = ""
     if data.get("source") is not None:
         import capo_iotsitewise.types.mount_source
 
@@ -57,7 +55,9 @@ def deserialize_json(data: dict) -> Mount:
             data["source"]
         )
     else:
-        raise DeserializationError("Mount.source required")
+        import capo_iotsitewise.types._unknown
+
+        out["source"] = capo_iotsitewise.types._unknown.UnknownUnionMember("")
     if data.get("storageType") is not None:
         import capo_iotsitewise.types.mount_storage_type
 
@@ -67,5 +67,9 @@ def deserialize_json(data: dict) -> Mount:
             )
         )
     else:
-        raise DeserializationError("Mount.storage_type required")
+        import typing
+
+        out["storage_type"] = typing.cast(
+            "capo_iotsitewise.types.mount_storage_type.MountStorageType", ""
+        )
     return out

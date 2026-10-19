@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.arn
     import capo_connectcampaignsv2.types.campaign_arn
@@ -76,19 +74,19 @@ def deserialize_json(data: dict) -> CampaignSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CampaignSummary.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CampaignSummary.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CampaignSummary.name required")
+        out["name"] = ""
     if data.get("connectInstanceId") is not None:
         out["connect_instance_id"] = data["connectInstanceId"]
     else:
-        raise DeserializationError("CampaignSummary.connect_instance_id required")
+        out["connect_instance_id"] = ""
     if data.get("channelSubtypes") is not None:
         import capo_connectcampaignsv2.types.channel_subtype_list
 
@@ -98,7 +96,7 @@ def deserialize_json(data: dict) -> CampaignSummary:
             )
         )
     else:
-        raise DeserializationError("CampaignSummary.channel_subtypes required")
+        out["channel_subtypes"] = []
     if data.get("type") is not None:
         out["type"] = data["type"]
     if data.get("schedule") is not None:

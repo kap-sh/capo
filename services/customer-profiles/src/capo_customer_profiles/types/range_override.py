@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.end
     import capo_customer_profiles.types.range_unit
@@ -49,5 +47,9 @@ def deserialize_json(data: dict) -> RangeOverride:
             data["Unit"]
         )
     else:
-        raise DeserializationError("RangeOverride.unit required")
+        import typing
+
+        out["unit"] = typing.cast(
+            "capo_customer_profiles.types.range_unit.RangeUnit", ""
+        )
     return out

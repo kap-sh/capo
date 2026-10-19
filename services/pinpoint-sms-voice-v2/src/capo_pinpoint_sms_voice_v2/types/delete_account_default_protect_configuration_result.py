@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.protect_configuration_arn
     import capo_pinpoint_sms_voice_v2.types.protect_configuration_id
@@ -37,13 +35,9 @@ def deserialize_aws_json_1_0(
             "DefaultProtectConfigurationArn"
         ]
     else:
-        raise DeserializationError(
-            "DeleteAccountDefaultProtectConfigurationResult.default_protect_configuration_arn required"
-        )
+        out["default_protect_configuration_arn"] = ""
     if data.get("DefaultProtectConfigurationId") is not None:
         out["default_protect_configuration_id"] = data["DefaultProtectConfigurationId"]
     else:
-        raise DeserializationError(
-            "DeleteAccountDefaultProtectConfigurationResult.default_protect_configuration_id required"
-        )
+        out["default_protect_configuration_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.next_token
     import capo_qconnect.types.query_results_list
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> QueryAssistantResponse:
             data["results"]
         )
     else:
-        raise DeserializationError("QueryAssistantResponse.results required")
+        out["results"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

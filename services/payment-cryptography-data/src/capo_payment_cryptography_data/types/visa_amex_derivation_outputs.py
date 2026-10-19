@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.key_arn
     import capo_payment_cryptography_data.types.key_check_value
@@ -47,17 +45,13 @@ def deserialize_json(data: dict) -> VisaAmexDerivationOutputs:
     if data.get("AuthorizationRequestKeyArn") is not None:
         out["authorization_request_key_arn"] = data["AuthorizationRequestKeyArn"]
     else:
-        raise DeserializationError(
-            "VisaAmexDerivationOutputs.authorization_request_key_arn required"
-        )
+        out["authorization_request_key_arn"] = ""
     if data.get("AuthorizationRequestKeyCheckValue") is not None:
         out["authorization_request_key_check_value"] = data[
             "AuthorizationRequestKeyCheckValue"
         ]
     else:
-        raise DeserializationError(
-            "VisaAmexDerivationOutputs.authorization_request_key_check_value required"
-        )
+        out["authorization_request_key_check_value"] = ""
     if data.get("CurrentPinPekArn") is not None:
         out["current_pin_pek_arn"] = data["CurrentPinPekArn"]
     if data.get("CurrentPinPekKeyCheckValue") is not None:

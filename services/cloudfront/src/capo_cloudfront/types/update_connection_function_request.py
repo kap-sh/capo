@@ -66,9 +66,7 @@ def deserialize_xml(el: Element) -> UpdateConnectionFunctionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateConnectionFunctionRequest.connection_function_code required"
-        )
+        out["connection_function_code"] = b""
     return out
 
 

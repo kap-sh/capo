@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.amazon_resource_name
     import capo_sesv2.types.max_items
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> ListResourceTenantsRequest:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("ListResourceTenantsRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("PageSize") is not None:
         out["page_size"] = data["PageSize"]
     if data.get("NextToken") is not None:

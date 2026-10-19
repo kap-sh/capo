@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecatalyst.types.name_string
     import capo_codecatalyst.types.timestamp
@@ -45,17 +43,15 @@ def deserialize_json(data: dict) -> DevEnvironmentSessionSummary:
     if data.get("spaceName") is not None:
         out["space_name"] = data["spaceName"]
     else:
-        raise DeserializationError("DevEnvironmentSessionSummary.space_name required")
+        out["space_name"] = ""
     if data.get("projectName") is not None:
         out["project_name"] = data["projectName"]
     else:
-        raise DeserializationError("DevEnvironmentSessionSummary.project_name required")
+        out["project_name"] = ""
     if data.get("devEnvironmentId") is not None:
         out["dev_environment_id"] = data["devEnvironmentId"]
     else:
-        raise DeserializationError(
-            "DevEnvironmentSessionSummary.dev_environment_id required"
-        )
+        out["dev_environment_id"] = ""
     if data.get("startedTime") is not None:
         import datetime
 
@@ -63,9 +59,13 @@ def deserialize_json(data: dict) -> DevEnvironmentSessionSummary:
             data["startedTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("DevEnvironmentSessionSummary.started_time required")
+        import datetime
+
+        out["started_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("DevEnvironmentSessionSummary.id required")
+        out["id"] = ""
     return out

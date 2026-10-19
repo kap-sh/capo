@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.data_automation_project_arn
     import capo_bedrock_data_automation.types.data_automation_project_name
@@ -65,7 +63,7 @@ def deserialize_json(data: dict) -> DataAutomationProjectSummary:
     if data.get("projectArn") is not None:
         out["project_arn"] = data["projectArn"]
     else:
-        raise DeserializationError("DataAutomationProjectSummary.project_arn required")
+        out["project_arn"] = ""
     if data.get("projectStage") is not None:
         import capo_bedrock_data_automation.types.data_automation_project_stage
 
@@ -93,8 +91,10 @@ def deserialize_json(data: dict) -> DataAutomationProjectSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "DataAutomationProjectSummary.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out
 

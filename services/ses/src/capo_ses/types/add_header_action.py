@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.header_name
@@ -34,10 +33,10 @@ def deserialize_query(el: Element) -> AddHeaderAction:
     if child_header_name is not None:
         out["header_name"] = str(child_header_name.text or "")
     else:
-        raise DeserializationError("AddHeaderAction.header_name required")
+        out["header_name"] = ""
     child_header_value = el.find("HeaderValue")
     if child_header_value is not None:
         out["header_value"] = str(child_header_value.text or "")
     else:
-        raise DeserializationError("AddHeaderAction.header_value required")
+        out["header_value"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.action_failure_policy
     import capo_mailmanager.types.iam_role_arn
@@ -71,7 +69,7 @@ def deserialize_aws_json_1_0(data: dict) -> InvokeLambdaAction:
     if data.get("FunctionArn") is not None:
         out["function_arn"] = data["FunctionArn"]
     else:
-        raise DeserializationError("InvokeLambdaAction.function_arn required")
+        out["function_arn"] = ""
     if data.get("InvocationType") is not None:
         import capo_mailmanager.types.lambda_invocation_type
 
@@ -81,11 +79,15 @@ def deserialize_aws_json_1_0(data: dict) -> InvokeLambdaAction:
             )
         )
     else:
-        raise DeserializationError("InvokeLambdaAction.invocation_type required")
+        import typing
+
+        out["invocation_type"] = typing.cast(
+            "capo_mailmanager.types.lambda_invocation_type.LambdaInvocationType", ""
+        )
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("InvokeLambdaAction.role_arn required")
+        out["role_arn"] = ""
     if data.get("RetryTimeMinutes") is not None:
         out["retry_time_minutes"] = data["RetryTimeMinutes"]
     return out

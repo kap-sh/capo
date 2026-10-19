@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_health.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_health.types.event_aggregate_field
     import capo_health.types.event_filter
@@ -64,8 +62,10 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEventAggregatesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeEventAggregatesRequest.aggregate_field required"
+        import typing
+
+        out["aggregate_field"] = typing.cast(
+            "capo_health.types.event_aggregate_field.eventAggregateField", ""
         )
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]

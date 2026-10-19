@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.resource_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> LambdaOutputUpdate:
     if data.get("ResourceARNUpdate") is not None:
         out["resource_arn_update"] = data["ResourceARNUpdate"]
     else:
-        raise DeserializationError("LambdaOutputUpdate.resource_arn_update required")
+        out["resource_arn_update"] = ""
     return out

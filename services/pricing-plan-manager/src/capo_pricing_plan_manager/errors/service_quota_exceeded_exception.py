@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_pricing_plan_manager.errors import DeserializationError, ServiceError
+from capo_pricing_plan_manager.errors import ServiceError
 
 
 class ServiceQuotaExceededException_(TypedDict, closed=True):
@@ -22,7 +22,7 @@ def deserialize_json(data: dict) -> ServiceQuotaExceededException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ServiceQuotaExceededException_.message required")
+        out["message"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.classification
     import capo_glue.types.custom_patterns
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateGrokClassifierRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateGrokClassifierRequest.name required")
+        out["name"] = ""
     if data.get("Classification") is not None:
         out["classification"] = data["Classification"]
     if data.get("GrokPattern") is not None:

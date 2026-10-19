@@ -124,15 +124,15 @@ def deserialize_json(data: dict) -> DataSource:
     if data.get("knowledgeBaseId") is not None:
         out["knowledge_base_id"] = data["knowledgeBaseId"]
     else:
-        raise DeserializationError("DataSource.knowledge_base_id required")
+        out["knowledge_base_id"] = ""
     if data.get("dataSourceId") is not None:
         out["data_source_id"] = data["dataSourceId"]
     else:
-        raise DeserializationError("DataSource.data_source_id required")
+        out["data_source_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DataSource.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agent.types.data_source_status
 
@@ -140,7 +140,11 @@ def deserialize_json(data: dict) -> DataSource:
             data["status"]
         )
     else:
-        raise DeserializationError("DataSource.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agent.types.data_source_status.DataSourceStatus", ""
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("dataSourceConfiguration") is not None:
@@ -184,7 +188,9 @@ def deserialize_json(data: dict) -> DataSource:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("DataSource.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -192,7 +198,9 @@ def deserialize_json(data: dict) -> DataSource:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("DataSource.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("failureReasons") is not None:
         import capo_bedrock_agent.types.failure_reasons
 

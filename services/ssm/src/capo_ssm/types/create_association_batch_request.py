@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.association_dispatch_assume_role_arn
     import capo_ssm.types.create_association_batch_request_entries
@@ -46,7 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAssociationBatchRequest:
             )
         )
     else:
-        raise DeserializationError("CreateAssociationBatchRequest.entries required")
+        out["entries"] = []
     if data.get("AssociationDispatchAssumeRole") is not None:
         out["association_dispatch_assume_role"] = data["AssociationDispatchAssumeRole"]
     return out

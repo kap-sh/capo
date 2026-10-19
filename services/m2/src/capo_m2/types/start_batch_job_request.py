@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.auth_secrets_manager_arn
     import capo_m2.types.batch_job_identifier
@@ -58,7 +56,9 @@ def deserialize_json(data: dict) -> StartBatchJobRequest:
             )
         )
     else:
-        raise DeserializationError("StartBatchJobRequest.batch_job_identifier required")
+        import capo_m2.types._unknown
+
+        out["batch_job_identifier"] = capo_m2.types._unknown.UnknownUnionMember("")
     if data.get("jobParams") is not None:
         import capo_m2.types.batch_job_parameters_map
 

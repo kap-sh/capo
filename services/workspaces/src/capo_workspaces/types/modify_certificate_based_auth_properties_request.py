@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.certificate_based_auth_properties
     import capo_workspaces.types.deletable_certificate_based_auth_properties_list
@@ -53,9 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyCertificateBasedAuthProperties
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError(
-            "ModifyCertificateBasedAuthPropertiesRequest.resource_id required"
-        )
+        out["resource_id"] = ""
     if data.get("CertificateBasedAuthProperties") is not None:
         import capo_workspaces.types.certificate_based_auth_properties
 

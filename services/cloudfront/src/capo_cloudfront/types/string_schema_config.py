@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.boolean
@@ -46,7 +45,7 @@ def deserialize_xml(el: Element) -> StringSchemaConfig:
     if child_required is not None:
         out["required"] = (child_required.text or "").lower() == "true"
     else:
-        raise DeserializationError("StringSchemaConfig.required required")
+        out["required"] = False
     return out
 
 

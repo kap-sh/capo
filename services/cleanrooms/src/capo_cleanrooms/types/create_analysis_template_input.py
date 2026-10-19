@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.analysis_format
     import capo_cleanrooms.types.analysis_parameter_list
@@ -111,7 +109,7 @@ def deserialize_json(data: dict) -> CreateAnalysisTemplateInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateAnalysisTemplateInput.name required")
+        out["name"] = ""
     if data.get("format") is not None:
         import capo_cleanrooms.types.analysis_format
 
@@ -119,7 +117,11 @@ def deserialize_json(data: dict) -> CreateAnalysisTemplateInput:
             data["format"]
         )
     else:
-        raise DeserializationError("CreateAnalysisTemplateInput.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_cleanrooms.types.analysis_format.AnalysisFormat", ""
+        )
     if data.get("source") is not None:
         import capo_cleanrooms.types.analysis_source
 
@@ -127,7 +129,9 @@ def deserialize_json(data: dict) -> CreateAnalysisTemplateInput:
             data["source"]
         )
     else:
-        raise DeserializationError("CreateAnalysisTemplateInput.source required")
+        import capo_cleanrooms.types._unknown
+
+        out["source"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
     if data.get("tags") is not None:
         import capo_cleanrooms.types.tag_map
 

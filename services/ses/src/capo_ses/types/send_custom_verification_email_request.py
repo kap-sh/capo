@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.address
@@ -43,16 +42,12 @@ def deserialize_query(el: Element) -> SendCustomVerificationEmailRequest:
     if child_email_address is not None:
         out["email_address"] = str(child_email_address.text or "")
     else:
-        raise DeserializationError(
-            "SendCustomVerificationEmailRequest.email_address required"
-        )
+        out["email_address"] = ""
     child_template_name = el.find("TemplateName")
     if child_template_name is not None:
         out["template_name"] = str(child_template_name.text or "")
     else:
-        raise DeserializationError(
-            "SendCustomVerificationEmailRequest.template_name required"
-        )
+        out["template_name"] = ""
     child_configuration_set_name = el.find("ConfigurationSetName")
     if child_configuration_set_name is not None:
         out["configuration_set_name"] = str(child_configuration_set_name.text or "")

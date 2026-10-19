@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -35,7 +34,7 @@ def deserialize_query(el: Element) -> GetHumanReadableSummaryRequest:
     if child_entity_arn is not None:
         out["entity_arn"] = str(child_entity_arn.text or "")
     else:
-        raise DeserializationError("GetHumanReadableSummaryRequest.entity_arn required")
+        out["entity_arn"] = ""
     child_locale = el.find("Locale")
     if child_locale is not None:
         out["locale"] = str(child_locale.text or "")

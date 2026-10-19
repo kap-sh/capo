@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.content
     import capo_bedrock_agentcore.types.role
@@ -41,13 +39,17 @@ def deserialize_json(data: dict) -> Conversational:
             data["content"]
         )
     else:
-        raise DeserializationError("Conversational.content required")
+        import capo_bedrock_agentcore.types._unknown
+
+        out["content"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
     if data.get("role") is not None:
         import capo_bedrock_agentcore.types.role
 
         out["role"] = capo_bedrock_agentcore.types.role.deserialize_json(data["role"])
     else:
-        raise DeserializationError("Conversational.role required")
+        import typing
+
+        out["role"] = typing.cast("capo_bedrock_agentcore.types.role.Role", "")
     return out
 
 

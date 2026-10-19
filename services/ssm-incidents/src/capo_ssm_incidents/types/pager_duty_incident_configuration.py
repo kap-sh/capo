@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 
 class PagerDutyIncidentConfiguration(TypedDict, closed=True):
     service_id: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> PagerDutyIncidentConfiguration:
     if data.get("serviceId") is not None:
         out["service_id"] = data["serviceId"]
     else:
-        raise DeserializationError("PagerDutyIncidentConfiguration.service_id required")
+        out["service_id"] = ""
     return out

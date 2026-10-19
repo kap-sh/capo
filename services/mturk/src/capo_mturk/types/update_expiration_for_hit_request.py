@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mturk.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mturk.types.entity_id
     import capo_mturk.types.timestamp
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateExpirationForHITRequest:
     if data.get("HITId") is not None:
         out["hit_id"] = data["HITId"]
     else:
-        raise DeserializationError("UpdateExpirationForHITRequest.hit_id required")
+        out["hit_id"] = ""
     if data.get("ExpireAt") is not None:
         import capo_mturk.types.timestamp
 
@@ -43,5 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateExpirationForHITRequest:
             data["ExpireAt"]
         )
     else:
-        raise DeserializationError("UpdateExpirationForHITRequest.expire_at required")
+        import datetime
+
+        out["expire_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

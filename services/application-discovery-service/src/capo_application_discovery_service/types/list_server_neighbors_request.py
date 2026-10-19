@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_discovery_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_discovery_service.types.boolean
     import capo_application_discovery_service.types.configuration_id
@@ -59,9 +57,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListServerNeighborsRequest:
     if data.get("configurationId") is not None:
         out["configuration_id"] = data["configurationId"]
     else:
-        raise DeserializationError(
-            "ListServerNeighborsRequest.configuration_id required"
-        )
+        out["configuration_id"] = ""
     if data.get("portInformationNeeded") is not None:
         out["port_information_needed"] = data["portInformationNeeded"]
     if data.get("neighborConfigurationIds") is not None:

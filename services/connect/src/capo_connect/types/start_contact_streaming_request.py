@@ -47,11 +47,11 @@ def deserialize_json(data: dict) -> StartContactStreamingRequest:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("StartContactStreamingRequest.instance_id required")
+        out["instance_id"] = ""
     if data.get("ContactId") is not None:
         out["contact_id"] = data["ContactId"]
     else:
-        raise DeserializationError("StartContactStreamingRequest.contact_id required")
+        out["contact_id"] = ""
     if data.get("ChatStreamingConfiguration") is not None:
         import capo_connect.types.chat_streaming_configuration
 
@@ -67,5 +67,5 @@ def deserialize_json(data: dict) -> StartContactStreamingRequest:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("StartContactStreamingRequest.client_token required")
+        out["client_token"] = ""
     return out

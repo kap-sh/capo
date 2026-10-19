@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.client_token
     import capo_iot_managed_integrations.types.log_level
@@ -49,9 +47,7 @@ def deserialize_json(data: dict) -> CreateEventLogConfigurationRequest:
     if data.get("ResourceType") is not None:
         out["resource_type"] = data["ResourceType"]
     else:
-        raise DeserializationError(
-            "CreateEventLogConfigurationRequest.resource_type required"
-        )
+        out["resource_type"] = ""
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     if data.get("EventLogLevel") is not None:
@@ -63,8 +59,10 @@ def deserialize_json(data: dict) -> CreateEventLogConfigurationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateEventLogConfigurationRequest.event_log_level required"
+        import typing
+
+        out["event_log_level"] = typing.cast(
+            "capo_iot_managed_integrations.types.log_level.LogLevel", ""
         )
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]

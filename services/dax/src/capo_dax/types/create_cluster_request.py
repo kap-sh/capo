@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dax.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dax.types.availability_zone_list
     import capo_dax.types.cluster_endpoint_encryption_type
@@ -123,17 +121,17 @@ def deserialize_aws_json_1_1(data: dict) -> CreateClusterRequest:
     if data.get("ClusterName") is not None:
         out["cluster_name"] = data["ClusterName"]
     else:
-        raise DeserializationError("CreateClusterRequest.cluster_name required")
+        out["cluster_name"] = ""
     if data.get("NodeType") is not None:
         out["node_type"] = data["NodeType"]
     else:
-        raise DeserializationError("CreateClusterRequest.node_type required")
+        out["node_type"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("ReplicationFactor") is not None:
         out["replication_factor"] = data["ReplicationFactor"]
     else:
-        raise DeserializationError("CreateClusterRequest.replication_factor required")
+        out["replication_factor"] = 0
     if data.get("AvailabilityZones") is not None:
         import capo_dax.types.availability_zone_list
 
@@ -159,7 +157,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateClusterRequest:
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     else:
-        raise DeserializationError("CreateClusterRequest.iam_role_arn required")
+        out["iam_role_arn"] = ""
     if data.get("ParameterGroupName") is not None:
         out["parameter_group_name"] = data["ParameterGroupName"]
     if data.get("Tags") is not None:

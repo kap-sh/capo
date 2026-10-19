@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.auto_remediation_attempt_seconds
     import capo_config_service.types.auto_remediation_attempts
@@ -111,7 +109,7 @@ def deserialize_aws_json_1_1(data: dict) -> RemediationConfiguration:
     if data.get("ConfigRuleName") is not None:
         out["config_rule_name"] = data["ConfigRuleName"]
     else:
-        raise DeserializationError("RemediationConfiguration.config_rule_name required")
+        out["config_rule_name"] = ""
     if data.get("TargetType") is not None:
         import capo_config_service.types.remediation_target_type
 
@@ -121,11 +119,16 @@ def deserialize_aws_json_1_1(data: dict) -> RemediationConfiguration:
             )
         )
     else:
-        raise DeserializationError("RemediationConfiguration.target_type required")
+        import typing
+
+        out["target_type"] = typing.cast(
+            "capo_config_service.types.remediation_target_type.RemediationTargetType",
+            "",
+        )
     if data.get("TargetId") is not None:
         out["target_id"] = data["TargetId"]
     else:
-        raise DeserializationError("RemediationConfiguration.target_id required")
+        out["target_id"] = ""
     if data.get("TargetVersion") is not None:
         out["target_version"] = data["TargetVersion"]
     if data.get("Parameters") is not None:

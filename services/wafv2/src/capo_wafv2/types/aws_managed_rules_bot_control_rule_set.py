@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.enable_machine_learning
     import capo_wafv2.types.inspection_level
@@ -43,8 +41,10 @@ def deserialize_aws_json_1_1(data: dict) -> AWSManagedRulesBotControlRuleSet:
             )
         )
     else:
-        raise DeserializationError(
-            "AWSManagedRulesBotControlRuleSet.inspection_level required"
+        import typing
+
+        out["inspection_level"] = typing.cast(
+            "capo_wafv2.types.inspection_level.InspectionLevel", ""
         )
     if data.get("EnableMachineLearning") is not None:
         out["enable_machine_learning"] = data["EnableMachineLearning"]

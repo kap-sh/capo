@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.task_template_arn
     import capo_connect.types.task_template_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> CreateTaskTemplateResponse:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("CreateTaskTemplateResponse.id required")
+        out["id"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("CreateTaskTemplateResponse.arn required")
+        out["arn"] = ""
     return out

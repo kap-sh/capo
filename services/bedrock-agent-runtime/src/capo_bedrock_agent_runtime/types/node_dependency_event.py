@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.date_timestamp
     import capo_bedrock_agent_runtime.types.node_name
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> NodeDependencyEvent:
     if data.get("nodeName") is not None:
         out["node_name"] = data["nodeName"]
     else:
-        raise DeserializationError("NodeDependencyEvent.node_name required")
+        out["node_name"] = ""
     if data.get("timestamp") is not None:
         import capo_bedrock_agent_runtime.types.date_timestamp
 
@@ -57,7 +55,9 @@ def deserialize_json(data: dict) -> NodeDependencyEvent:
             )
         )
     else:
-        raise DeserializationError("NodeDependencyEvent.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("traceElements") is not None:
         import capo_bedrock_agent_runtime.types.node_trace_elements
 
@@ -67,5 +67,9 @@ def deserialize_json(data: dict) -> NodeDependencyEvent:
             )
         )
     else:
-        raise DeserializationError("NodeDependencyEvent.trace_elements required")
+        import capo_bedrock_agent_runtime.types._unknown
+
+        out["trace_elements"] = (
+            capo_bedrock_agent_runtime.types._unknown.UnknownUnionMember("")
+        )
     return out

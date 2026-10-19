@@ -149,7 +149,7 @@ def deserialize_json(data: dict) -> RecommendationSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("RecommendationSummary.id required")
+        out["id"] = ""
     if data.get("type") is not None:
         import capo_trustedadvisor.types.recommendation_type
 
@@ -157,7 +157,11 @@ def deserialize_json(data: dict) -> RecommendationSummary:
             data["type"]
         )
     else:
-        raise DeserializationError("RecommendationSummary.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_trustedadvisor.types.recommendation_type.RecommendationType", ""
+        )
     if data.get("checkArn") is not None:
         out["check_arn"] = data["checkArn"]
     if data.get("status") is not None:
@@ -169,7 +173,11 @@ def deserialize_json(data: dict) -> RecommendationSummary:
             )
         )
     else:
-        raise DeserializationError("RecommendationSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_trustedadvisor.types.recommendation_status.RecommendationStatus", ""
+        )
     if data.get("lifecycleStage") is not None:
         import capo_trustedadvisor.types.recommendation_lifecycle_stage
 
@@ -187,7 +195,7 @@ def deserialize_json(data: dict) -> RecommendationSummary:
             )
         )
     else:
-        raise DeserializationError("RecommendationSummary.pillars required")
+        out["pillars"] = []
     if data.get("source") is not None:
         import capo_trustedadvisor.types.recommendation_source
 
@@ -197,7 +205,11 @@ def deserialize_json(data: dict) -> RecommendationSummary:
             )
         )
     else:
-        raise DeserializationError("RecommendationSummary.source required")
+        import typing
+
+        out["source"] = typing.cast(
+            "capo_trustedadvisor.types.recommendation_source.RecommendationSource", ""
+        )
     if data.get("awsServices") is not None:
         import capo_trustedadvisor.types.recommendation_aws_service_list
 
@@ -209,7 +221,7 @@ def deserialize_json(data: dict) -> RecommendationSummary:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RecommendationSummary.name required")
+        out["name"] = ""
     if data.get("resourcesAggregates") is not None:
         import capo_trustedadvisor.types.recommendation_resources_aggregates
 
@@ -245,7 +257,7 @@ def deserialize_json(data: dict) -> RecommendationSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("RecommendationSummary.arn required")
+        out["arn"] = ""
     if data.get("statusReason") is not None:
         import capo_trustedadvisor.types.status_reason
 

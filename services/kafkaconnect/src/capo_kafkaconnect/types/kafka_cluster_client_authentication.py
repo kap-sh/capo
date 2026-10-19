@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kafkaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kafkaconnect.types.kafka_cluster_client_authentication_type
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> KafkaClusterClientAuthentication:
     if data.get("authenticationType") is not None:
         out["authentication_type"] = data["authenticationType"]
     else:
-        raise DeserializationError(
-            "KafkaClusterClientAuthentication.authentication_type required"
-        )
+        out["authentication_type"] = ""
     return out

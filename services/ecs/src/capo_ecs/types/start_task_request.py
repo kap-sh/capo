@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.boolean
     import capo_ecs.types.network_configuration
@@ -119,7 +117,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartTaskRequest:
             )
         )
     else:
-        raise DeserializationError("StartTaskRequest.container_instances required")
+        out["container_instances"] = []
     if data.get("enableECSManagedTags") is not None:
         out["enable_ecs_managed_tags"] = data["enableECSManagedTags"]
     if data.get("enableExecuteCommand") is not None:
@@ -157,7 +155,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartTaskRequest:
     if data.get("taskDefinition") is not None:
         out["task_definition"] = data["taskDefinition"]
     else:
-        raise DeserializationError("StartTaskRequest.task_definition required")
+        out["task_definition"] = ""
     if data.get("volumeConfigurations") is not None:
         import capo_ecs.types.task_volume_configurations
 

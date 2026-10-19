@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_invoicing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_invoicing.types.account_id_list
 
@@ -37,5 +35,5 @@ def deserialize_aws_json_1_0(data: dict) -> BatchGetInvoiceProfileRequest:
             )
         )
     else:
-        raise DeserializationError("BatchGetInvoiceProfileRequest.account_ids required")
+        out["account_ids"] = []
     return out

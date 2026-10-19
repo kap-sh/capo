@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.name
     import capo_customer_profiles.types.recommender_filter_expression
@@ -75,15 +73,11 @@ def deserialize_json(data: dict) -> GetRecommenderFilterResponse:
     if data.get("RecommenderFilterName") is not None:
         out["recommender_filter_name"] = data["RecommenderFilterName"]
     else:
-        raise DeserializationError(
-            "GetRecommenderFilterResponse.recommender_filter_name required"
-        )
+        out["recommender_filter_name"] = ""
     if data.get("RecommenderFilterExpression") is not None:
         out["recommender_filter_expression"] = data["RecommenderFilterExpression"]
     else:
-        raise DeserializationError(
-            "GetRecommenderFilterResponse.recommender_filter_expression required"
-        )
+        out["recommender_filter_expression"] = ""
     if data.get("RecommenderSchemaName") is not None:
         out["recommender_schema_name"] = data["RecommenderSchemaName"]
     if data.get("CreatedAt") is not None:
@@ -93,7 +87,9 @@ def deserialize_json(data: dict) -> GetRecommenderFilterResponse:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("GetRecommenderFilterResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Status") is not None:
         import capo_customer_profiles.types.recommender_filter_status
 
@@ -103,7 +99,12 @@ def deserialize_json(data: dict) -> GetRecommenderFilterResponse:
             )
         )
     else:
-        raise DeserializationError("GetRecommenderFilterResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_customer_profiles.types.recommender_filter_status.RecommenderFilterStatus",
+            "",
+        )
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("FailureReason") is not None:
@@ -115,7 +116,7 @@ def deserialize_json(data: dict) -> GetRecommenderFilterResponse:
             data["Tags"]
         )
     else:
-        raise DeserializationError("GetRecommenderFilterResponse.tags required")
+        out["tags"] = {}
     return out
 
 

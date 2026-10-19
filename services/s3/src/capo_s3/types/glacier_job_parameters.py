@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.tier
@@ -32,5 +31,7 @@ def deserialize_xml(el: Element) -> GlacierJobParameters:
 
         out["tier"] = capo_s3.types.tier.deserialize_xml(child_tier)
     else:
-        raise DeserializationError("GlacierJobParameters.tier required")
+        import typing
+
+        out["tier"] = typing.cast("capo_s3.types.tier.Tier", "")
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_backup_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup_gateway.types.gateway_arn
     import capo_backup_gateway.types.server_arn
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> AssociateGatewayToServerInput:
     if data.get("GatewayArn") is not None:
         out["gateway_arn"] = data["GatewayArn"]
     else:
-        raise DeserializationError("AssociateGatewayToServerInput.gateway_arn required")
+        out["gateway_arn"] = ""
     if data.get("ServerArn") is not None:
         out["server_arn"] = data["ServerArn"]
     else:
-        raise DeserializationError("AssociateGatewayToServerInput.server_arn required")
+        out["server_arn"] = ""
     return out

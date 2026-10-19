@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.blueprint_arn
     import capo_bedrock_data_automation.types.blueprint_stage
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> BlueprintOptimizationObject:
     if data.get("blueprintArn") is not None:
         out["blueprint_arn"] = data["blueprintArn"]
     else:
-        raise DeserializationError("BlueprintOptimizationObject.blueprint_arn required")
+        out["blueprint_arn"] = ""
     if data.get("stage") is not None:
         import capo_bedrock_data_automation.types.blueprint_stage
 

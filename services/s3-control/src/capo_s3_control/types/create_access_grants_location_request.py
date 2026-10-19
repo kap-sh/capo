@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.account_id
@@ -44,16 +43,12 @@ def deserialize_xml(el: Element) -> CreateAccessGrantsLocationRequest:
     if child_location_scope is not None:
         out["location_scope"] = str(child_location_scope.text or "")
     else:
-        raise DeserializationError(
-            "CreateAccessGrantsLocationRequest.location_scope required"
-        )
+        out["location_scope"] = ""
     child_iam_role_arn = el.find("IAMRoleArn")
     if child_iam_role_arn is not None:
         out["iam_role_arn"] = str(child_iam_role_arn.text or "")
     else:
-        raise DeserializationError(
-            "CreateAccessGrantsLocationRequest.iam_role_arn required"
-        )
+        out["iam_role_arn"] = ""
     child_tags = el.find("Tags")
     if child_tags is not None:
         import capo_s3_control.types.tag_list

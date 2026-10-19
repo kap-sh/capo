@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_shield.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_shield.types.resource_arn_list
     import capo_shield.types.token
@@ -42,9 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListResourcesInProtectionGroupRespon
             )
         )
     else:
-        raise DeserializationError(
-            "ListResourcesInProtectionGroupResponse.resource_arns required"
-        )
+        out["resource_arns"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

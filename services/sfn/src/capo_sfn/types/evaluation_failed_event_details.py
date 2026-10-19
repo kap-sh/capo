@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.evaluation_failure_location
     import capo_sfn.types.sensitive_cause
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_0(data: dict) -> EvaluationFailedEventDetails:
     if data.get("state") is not None:
         out["state"] = data["state"]
     else:
-        raise DeserializationError("EvaluationFailedEventDetails.state required")
+        out["state"] = ""
     return out
 
 

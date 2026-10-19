@@ -64,7 +64,9 @@ def deserialize_aws_json_1_1(data: dict) -> ActionHistory:
             )
         )
     else:
-        raise DeserializationError("ActionHistory.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Status") is not None:
         import capo_budgets.types.action_status
 
@@ -72,7 +74,9 @@ def deserialize_aws_json_1_1(data: dict) -> ActionHistory:
             data["Status"]
         )
     else:
-        raise DeserializationError("ActionHistory.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_budgets.types.action_status.ActionStatus", "")
     if data.get("EventType") is not None:
         import capo_budgets.types.event_type
 
@@ -80,7 +84,9 @@ def deserialize_aws_json_1_1(data: dict) -> ActionHistory:
             data["EventType"]
         )
     else:
-        raise DeserializationError("ActionHistory.event_type required")
+        import typing
+
+        out["event_type"] = typing.cast("capo_budgets.types.event_type.EventType", "")
     if data.get("ActionHistoryDetails") is not None:
         import capo_budgets.types.action_history_details
 

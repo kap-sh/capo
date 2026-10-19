@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.bounded_length_string
     import capo_healthlake.types.client_token_string
@@ -110,9 +108,9 @@ def deserialize_aws_json_1_0(data: dict) -> StartFHIRImportJobRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartFHIRImportJobRequest.input_data_config required"
-        )
+        import capo_healthlake.types._unknown
+
+        out["input_data_config"] = capo_healthlake.types._unknown.UnknownUnionMember("")
     if data.get("JobOutputDataConfig") is not None:
         import capo_healthlake.types.output_data_config
 
@@ -122,19 +120,19 @@ def deserialize_aws_json_1_0(data: dict) -> StartFHIRImportJobRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartFHIRImportJobRequest.job_output_data_config required"
+        import capo_healthlake.types._unknown
+
+        out["job_output_data_config"] = (
+            capo_healthlake.types._unknown.UnknownUnionMember("")
         )
     if data.get("DatastoreId") is not None:
         out["datastore_id"] = data["DatastoreId"]
     else:
-        raise DeserializationError("StartFHIRImportJobRequest.datastore_id required")
+        out["datastore_id"] = ""
     if data.get("DataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["DataAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "StartFHIRImportJobRequest.data_access_role_arn required"
-        )
+        out["data_access_role_arn"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("ValidationLevel") is not None:

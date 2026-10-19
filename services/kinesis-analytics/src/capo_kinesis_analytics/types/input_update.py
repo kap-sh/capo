@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics.types.id
     import capo_kinesis_analytics.types.in_app_stream_name
@@ -99,7 +97,7 @@ def deserialize_aws_json_1_1(data: dict) -> InputUpdate:
     if data.get("InputId") is not None:
         out["input_id"] = data["InputId"]
     else:
-        raise DeserializationError("InputUpdate.input_id required")
+        out["input_id"] = ""
     if data.get("NamePrefixUpdate") is not None:
         out["name_prefix_update"] = data["NamePrefixUpdate"]
     if data.get("InputProcessingConfigurationUpdate") is not None:

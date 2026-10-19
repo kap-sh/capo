@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_revenue_measurement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -97,37 +95,27 @@ def deserialize_cbor(data: dict) -> CreateMarketplaceRevenueShareAllocationOutpu
             "MarketplaceRevenueShareAllocationId"
         ]
     else:
-        raise DeserializationError(
-            "CreateMarketplaceRevenueShareAllocationOutput.marketplace_revenue_share_allocation_id required"
-        )
+        out["marketplace_revenue_share_allocation_id"] = ""
     if data.get("ProductId") is not None:
         out["product_id"] = data["ProductId"]
     else:
-        raise DeserializationError(
-            "CreateMarketplaceRevenueShareAllocationOutput.product_id required"
-        )
+        out["product_id"] = ""
     if data.get("ProductName") is not None:
         out["product_name"] = data["ProductName"]
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError(
-            "CreateMarketplaceRevenueShareAllocationOutput.arn required"
-        )
+        out["arn"] = ""
     if data.get("EffectiveFrom") is not None:
         out["effective_from"] = data["EffectiveFrom"]
     else:
-        raise DeserializationError(
-            "CreateMarketplaceRevenueShareAllocationOutput.effective_from required"
-        )
+        out["effective_from"] = ""
     if data.get("EffectiveUntil") is not None:
         out["effective_until"] = data["EffectiveUntil"]
     if data.get("RevenueSharePercent") is not None:
         out["revenue_share_percent"] = data["RevenueSharePercent"]
     else:
-        raise DeserializationError(
-            "CreateMarketplaceRevenueShareAllocationOutput.revenue_share_percent required"
-        )
+        out["revenue_share_percent"] = ""
     if data.get("Status") is not None:
         import capo_partnercentral_revenue_measurement.types.allocation_status
 
@@ -137,8 +125,11 @@ def deserialize_cbor(data: dict) -> CreateMarketplaceRevenueShareAllocationOutpu
             )
         )
     else:
-        raise DeserializationError(
-            "CreateMarketplaceRevenueShareAllocationOutput.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_partnercentral_revenue_measurement.types.allocation_status.AllocationStatus",
+            "",
         )
     if data.get("CreatedDate") is not None:
         import capo_partnercentral_revenue_measurement.types._prelude.timestamp

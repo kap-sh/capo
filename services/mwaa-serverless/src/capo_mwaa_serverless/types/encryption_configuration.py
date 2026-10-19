@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mwaa_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mwaa_serverless.types.encryption_type
 
@@ -41,7 +39,11 @@ def deserialize_aws_json_1_0(data: dict) -> EncryptionConfiguration:
             )
         )
     else:
-        raise DeserializationError("EncryptionConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_mwaa_serverless.types.encryption_type.EncryptionType", ""
+        )
     if data.get("KmsKeyId") is not None:
         out["kms_key_id"] = data["KmsKeyId"]
     return out

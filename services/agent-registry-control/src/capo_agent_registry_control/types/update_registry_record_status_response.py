@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_agent_registry_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_agent_registry_control.types.date_timestamp
     import capo_agent_registry_control.types.registry_arn
@@ -60,21 +58,15 @@ def deserialize_json(data: dict) -> UpdateRegistryRecordStatusResponse:
     if data.get("registryArn") is not None:
         out["registry_arn"] = data["registryArn"]
     else:
-        raise DeserializationError(
-            "UpdateRegistryRecordStatusResponse.registry_arn required"
-        )
+        out["registry_arn"] = ""
     if data.get("recordArn") is not None:
         out["record_arn"] = data["recordArn"]
     else:
-        raise DeserializationError(
-            "UpdateRegistryRecordStatusResponse.record_arn required"
-        )
+        out["record_arn"] = ""
     if data.get("recordId") is not None:
         out["record_id"] = data["recordId"]
     else:
-        raise DeserializationError(
-            "UpdateRegistryRecordStatusResponse.record_id required"
-        )
+        out["record_id"] = ""
     if data.get("status") is not None:
         import capo_agent_registry_control.types.registry_record_status
 
@@ -84,13 +76,16 @@ def deserialize_json(data: dict) -> UpdateRegistryRecordStatusResponse:
             )
         )
     else:
-        raise DeserializationError("UpdateRegistryRecordStatusResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_agent_registry_control.types.registry_record_status.RegistryRecordStatus",
+            "",
+        )
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
     else:
-        raise DeserializationError(
-            "UpdateRegistryRecordStatusResponse.status_reason required"
-        )
+        out["status_reason"] = ""
     if data.get("updatedAt") is not None:
         import capo_agent_registry_control.types.date_timestamp
 
@@ -100,7 +95,7 @@ def deserialize_json(data: dict) -> UpdateRegistryRecordStatusResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateRegistryRecordStatusResponse.updated_at required"
-        )
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

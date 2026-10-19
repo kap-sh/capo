@@ -64,7 +64,7 @@ def deserialize_json(data: dict) -> RerankRequest:
             )
         )
     else:
-        raise DeserializationError("RerankRequest.queries required")
+        out["queries"] = []
     if data.get("sources") is not None:
         import capo_bedrock_agent_runtime.types.rerank_sources_list
 
@@ -74,7 +74,7 @@ def deserialize_json(data: dict) -> RerankRequest:
             )
         )
     else:
-        raise DeserializationError("RerankRequest.sources required")
+        out["sources"] = []
     if data.get("rerankingConfiguration") is not None:
         import capo_bedrock_agent_runtime.types.reranking_configuration
 

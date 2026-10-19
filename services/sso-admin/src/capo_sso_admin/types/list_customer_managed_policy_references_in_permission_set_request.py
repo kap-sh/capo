@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sso_admin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_admin.types.instance_arn
     import capo_sso_admin.types.max_results
@@ -45,15 +43,11 @@ def deserialize_aws_json_1_1(
     if data.get("InstanceArn") is not None:
         out["instance_arn"] = data["InstanceArn"]
     else:
-        raise DeserializationError(
-            "ListCustomerManagedPolicyReferencesInPermissionSetRequest.instance_arn required"
-        )
+        out["instance_arn"] = ""
     if data.get("PermissionSetArn") is not None:
         out["permission_set_arn"] = data["PermissionSetArn"]
     else:
-        raise DeserializationError(
-            "ListCustomerManagedPolicyReferencesInPermissionSetRequest.permission_set_arn required"
-        )
+        out["permission_set_arn"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

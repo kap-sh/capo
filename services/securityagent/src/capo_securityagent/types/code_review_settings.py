@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 
 class CodeReviewSettings(TypedDict, closed=True):
     controls_scanning: "bool"
@@ -25,11 +23,9 @@ def deserialize_json(data: dict) -> CodeReviewSettings:
     if data.get("controlsScanning") is not None:
         out["controls_scanning"] = data["controlsScanning"]
     else:
-        raise DeserializationError("CodeReviewSettings.controls_scanning required")
+        out["controls_scanning"] = False
     if data.get("generalPurposeScanning") is not None:
         out["general_purpose_scanning"] = data["generalPurposeScanning"]
     else:
-        raise DeserializationError(
-            "CodeReviewSettings.general_purpose_scanning required"
-        )
+        out["general_purpose_scanning"] = False
     return out

@@ -85,21 +85,15 @@ def deserialize_json(data: dict) -> CreateWebFunctionRevisionResponse:
     if data.get("functionArn") is not None:
         out["function_arn"] = data["functionArn"]
     else:
-        raise DeserializationError(
-            "CreateWebFunctionRevisionResponse.function_arn required"
-        )
+        out["function_arn"] = ""
     if data.get("revisionArn") is not None:
         out["revision_arn"] = data["revisionArn"]
     else:
-        raise DeserializationError(
-            "CreateWebFunctionRevisionResponse.revision_arn required"
-        )
+        out["revision_arn"] = ""
     if data.get("revisionId") is not None:
         out["revision_id"] = data["revisionId"]
     else:
-        raise DeserializationError(
-            "CreateWebFunctionRevisionResponse.revision_id required"
-        )
+        out["revision_id"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("kmsKeyArn") is not None:
@@ -131,13 +125,15 @@ def deserialize_json(data: dict) -> CreateWebFunctionRevisionResponse:
             data["state"]
         )
     else:
-        raise DeserializationError("CreateWebFunctionRevisionResponse.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_lambda_web.types.revision_state.RevisionState", ""
+        )
     if data.get("stateReason") is not None:
         out["state_reason"] = data["stateReason"]
     else:
-        raise DeserializationError(
-            "CreateWebFunctionRevisionResponse.state_reason required"
-        )
+        out["state_reason"] = ""
     if data.get("errors") is not None:
         import capo_lambda_web.types.revision_errors
 
@@ -151,9 +147,9 @@ def deserialize_json(data: dict) -> CreateWebFunctionRevisionResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError(
-            "CreateWebFunctionRevisionResponse.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

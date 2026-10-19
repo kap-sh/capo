@@ -41,15 +41,11 @@ def deserialize_json(data: dict) -> OpenSearchServerlessConfiguration:
     if data.get("collectionArn") is not None:
         out["collection_arn"] = data["collectionArn"]
     else:
-        raise DeserializationError(
-            "OpenSearchServerlessConfiguration.collection_arn required"
-        )
+        out["collection_arn"] = ""
     if data.get("vectorIndexName") is not None:
         out["vector_index_name"] = data["vectorIndexName"]
     else:
-        raise DeserializationError(
-            "OpenSearchServerlessConfiguration.vector_index_name required"
-        )
+        out["vector_index_name"] = ""
     if data.get("fieldMapping") is not None:
         import capo_bedrock_agent.types.open_search_serverless_field_mapping
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_networkmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmanager.types.global_network_id
     import capo_networkmanager.types.network_resource_metadata_map
@@ -45,7 +43,5 @@ def deserialize_json(data: dict) -> UpdateNetworkResourceMetadataRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateNetworkResourceMetadataRequest.metadata required"
-        )
+        out["metadata"] = {}
     return out

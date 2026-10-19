@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.beacon_event_type_list
     import capo_mediatailor.types.client_side_beaconing_mode
@@ -54,8 +52,11 @@ def deserialize_json(data: dict) -> ClientSideBeaconingConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ClientSideBeaconingConfiguration.reporting_mode required"
+        import typing
+
+        out["reporting_mode"] = typing.cast(
+            "capo_mediatailor.types.client_side_beaconing_mode.ClientSideBeaconingMode",
+            "",
         )
     if data.get("AdditionalEventTypes") is not None:
         import capo_mediatailor.types.beacon_event_type_list

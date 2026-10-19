@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.directory_id
     import capo_workspaces.types.ip_group_id_list
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateIpGroupsRequest:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError("AssociateIpGroupsRequest.directory_id required")
+        out["directory_id"] = ""
     if data.get("GroupIds") is not None:
         import capo_workspaces.types.ip_group_id_list
 
@@ -45,5 +43,5 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateIpGroupsRequest:
             )
         )
     else:
-        raise DeserializationError("AssociateIpGroupsRequest.group_ids required")
+        out["group_ids"] = []
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_sts._protocol.xml import Element
-from capo_sts.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sts.types.encoded_message_type
@@ -30,7 +29,5 @@ def deserialize_query(el: Element) -> DecodeAuthorizationMessageRequest:
     if child_encoded_message is not None:
         out["encoded_message"] = str(child_encoded_message.text or "")
     else:
-        raise DeserializationError(
-            "DecodeAuthorizationMessageRequest.encoded_message required"
-        )
+        out["encoded_message"] = ""
     return out

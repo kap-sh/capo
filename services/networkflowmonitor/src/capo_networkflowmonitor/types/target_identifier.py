@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_networkflowmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkflowmonitor.types.target_id
     import capo_networkflowmonitor.types.target_type
@@ -43,7 +41,9 @@ def deserialize_json(data: dict) -> TargetIdentifier:
             data["targetId"]
         )
     else:
-        raise DeserializationError("TargetIdentifier.target_id required")
+        import capo_networkflowmonitor.types._unknown
+
+        out["target_id"] = capo_networkflowmonitor.types._unknown.UnknownUnionMember("")
     if data.get("targetType") is not None:
         import capo_networkflowmonitor.types.target_type
 
@@ -51,5 +51,9 @@ def deserialize_json(data: dict) -> TargetIdentifier:
             data["targetType"]
         )
     else:
-        raise DeserializationError("TargetIdentifier.target_type required")
+        import typing
+
+        out["target_type"] = typing.cast(
+            "capo_networkflowmonitor.types.target_type.TargetType", ""
+        )
     return out

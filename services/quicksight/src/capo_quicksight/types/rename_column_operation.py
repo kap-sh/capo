@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.column_name
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> RenameColumnOperation:
     if data.get("ColumnName") is not None:
         out["column_name"] = data["ColumnName"]
     else:
-        raise DeserializationError("RenameColumnOperation.column_name required")
+        out["column_name"] = ""
     if data.get("NewColumnName") is not None:
         out["new_column_name"] = data["NewColumnName"]
     else:
-        raise DeserializationError("RenameColumnOperation.new_column_name required")
+        out["new_column_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.page_size
     import capo_codebuild.types.string
@@ -45,7 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeTestCasesInput:
     if data.get("reportArn") is not None:
         out["report_arn"] = data["reportArn"]
     else:
-        raise DeserializationError("DescribeTestCasesInput.report_arn required")
+        out["report_arn"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

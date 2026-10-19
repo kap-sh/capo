@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 
 class AzureDevOpsConfiguration(TypedDict, closed=True):
     organization_name: "str"
@@ -28,15 +26,13 @@ def deserialize_json(data: dict) -> AzureDevOpsConfiguration:
     if data.get("organizationName") is not None:
         out["organization_name"] = data["organizationName"]
     else:
-        raise DeserializationError(
-            "AzureDevOpsConfiguration.organization_name required"
-        )
+        out["organization_name"] = ""
     if data.get("projectId") is not None:
         out["project_id"] = data["projectId"]
     else:
-        raise DeserializationError("AzureDevOpsConfiguration.project_id required")
+        out["project_id"] = ""
     if data.get("projectName") is not None:
         out["project_name"] = data["projectName"]
     else:
-        raise DeserializationError("AzureDevOpsConfiguration.project_name required")
+        out["project_name"] = ""
     return out

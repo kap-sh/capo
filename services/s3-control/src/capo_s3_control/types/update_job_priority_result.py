@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.job_id
@@ -32,7 +31,7 @@ def deserialize_xml(el: Element) -> UpdateJobPriorityResult:
     if child_job_id is not None:
         out["job_id"] = str(child_job_id.text or "")
     else:
-        raise DeserializationError("UpdateJobPriorityResult.job_id required")
+        out["job_id"] = ""
     child_priority = el.find("Priority")
     if child_priority is not None:
         out["priority"] = int(child_priority.text or "")

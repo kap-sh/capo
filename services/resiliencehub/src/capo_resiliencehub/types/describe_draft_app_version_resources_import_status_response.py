@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.arn
     import capo_resiliencehub.types.entity_version
@@ -67,15 +65,11 @@ def deserialize_json(
     if data.get("appArn") is not None:
         out["app_arn"] = data["appArn"]
     else:
-        raise DeserializationError(
-            "DescribeDraftAppVersionResourcesImportStatusResponse.app_arn required"
-        )
+        out["app_arn"] = ""
     if data.get("appVersion") is not None:
         out["app_version"] = data["appVersion"]
     else:
-        raise DeserializationError(
-            "DescribeDraftAppVersionResourcesImportStatusResponse.app_version required"
-        )
+        out["app_version"] = ""
     if data.get("status") is not None:
         import capo_resiliencehub.types.resource_import_status_type
 
@@ -85,8 +79,11 @@ def deserialize_json(
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeDraftAppVersionResourcesImportStatusResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_resiliencehub.types.resource_import_status_type.ResourceImportStatusType",
+            "",
         )
     if data.get("statusChangeTime") is not None:
         import capo_resiliencehub.types.time_stamp
@@ -97,8 +94,10 @@ def deserialize_json(
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeDraftAppVersionResourcesImportStatusResponse.status_change_time required"
+        import datetime
+
+        out["status_change_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]

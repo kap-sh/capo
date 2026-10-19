@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.catalog_id_string
     import capo_lakeformation.types.column_names
@@ -71,19 +69,19 @@ def deserialize_json(data: dict) -> DataCellsFilter:
     if data.get("TableCatalogId") is not None:
         out["table_catalog_id"] = data["TableCatalogId"]
     else:
-        raise DeserializationError("DataCellsFilter.table_catalog_id required")
+        out["table_catalog_id"] = ""
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError("DataCellsFilter.database_name required")
+        out["database_name"] = ""
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("DataCellsFilter.table_name required")
+        out["table_name"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DataCellsFilter.name required")
+        out["name"] = ""
     if data.get("RowFilter") is not None:
         import capo_lakeformation.types.row_filter
 

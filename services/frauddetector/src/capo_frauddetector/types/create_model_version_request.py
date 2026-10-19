@@ -94,7 +94,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateModelVersionRequest:
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:
-        raise DeserializationError("CreateModelVersionRequest.model_id required")
+        out["model_id"] = ""
     if data.get("modelType") is not None:
         import capo_frauddetector.types.model_type_enum
 
@@ -104,7 +104,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateModelVersionRequest:
             )
         )
     else:
-        raise DeserializationError("CreateModelVersionRequest.model_type required")
+        import typing
+
+        out["model_type"] = typing.cast(
+            "capo_frauddetector.types.model_type_enum.ModelTypeEnum", ""
+        )
     if data.get("trainingDataSource") is not None:
         import capo_frauddetector.types.training_data_source_enum
 
@@ -114,8 +118,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateModelVersionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateModelVersionRequest.training_data_source required"
+        import typing
+
+        out["training_data_source"] = typing.cast(
+            "capo_frauddetector.types.training_data_source_enum.TrainingDataSourceEnum",
+            "",
         )
     if data.get("trainingDataSchema") is not None:
         import capo_frauddetector.types.training_data_schema

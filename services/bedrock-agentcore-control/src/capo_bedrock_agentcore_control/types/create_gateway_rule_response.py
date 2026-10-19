@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.actions
     import capo_bedrock_agentcore_control.types.conditions
@@ -98,15 +96,15 @@ def deserialize_json(data: dict) -> CreateGatewayRuleResponse:
     if data.get("ruleId") is not None:
         out["rule_id"] = data["ruleId"]
     else:
-        raise DeserializationError("CreateGatewayRuleResponse.rule_id required")
+        out["rule_id"] = ""
     if data.get("gatewayArn") is not None:
         out["gateway_arn"] = data["gatewayArn"]
     else:
-        raise DeserializationError("CreateGatewayRuleResponse.gateway_arn required")
+        out["gateway_arn"] = ""
     if data.get("priority") is not None:
         out["priority"] = data["priority"]
     else:
-        raise DeserializationError("CreateGatewayRuleResponse.priority required")
+        out["priority"] = 0
     if data.get("conditions") is not None:
         import capo_bedrock_agentcore_control.types.conditions
 
@@ -122,7 +120,7 @@ def deserialize_json(data: dict) -> CreateGatewayRuleResponse:
             data["actions"]
         )
     else:
-        raise DeserializationError("CreateGatewayRuleResponse.actions required")
+        out["actions"] = []
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("createdAt") is not None:
@@ -134,7 +132,9 @@ def deserialize_json(data: dict) -> CreateGatewayRuleResponse:
             )
         )
     else:
-        raise DeserializationError("CreateGatewayRuleResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.gateway_rule_status
 
@@ -144,7 +144,12 @@ def deserialize_json(data: dict) -> CreateGatewayRuleResponse:
             )
         )
     else:
-        raise DeserializationError("CreateGatewayRuleResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.gateway_rule_status.GatewayRuleStatus",
+            "",
+        )
     if data.get("system") is not None:
         import capo_bedrock_agentcore_control.types.system_managed_block
 

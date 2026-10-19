@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.accept_language
     import capo_service_catalog.types.idempotency_token
@@ -65,7 +63,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateServiceActionInput:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateServiceActionInput.name required")
+        out["name"] = ""
     if data.get("DefinitionType") is not None:
         import capo_service_catalog.types.service_action_definition_type
 
@@ -75,7 +73,12 @@ def deserialize_aws_json_1_1(data: dict) -> CreateServiceActionInput:
             )
         )
     else:
-        raise DeserializationError("CreateServiceActionInput.definition_type required")
+        import typing
+
+        out["definition_type"] = typing.cast(
+            "capo_service_catalog.types.service_action_definition_type.ServiceActionDefinitionType",
+            "",
+        )
     if data.get("Definition") is not None:
         import capo_service_catalog.types.service_action_definition_map
 
@@ -85,7 +88,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateServiceActionInput:
             )
         )
     else:
-        raise DeserializationError("CreateServiceActionInput.definition required")
+        out["definition"] = {}
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("AcceptLanguage") is not None:
@@ -93,7 +96,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreateServiceActionInput:
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     else:
-        raise DeserializationError(
-            "CreateServiceActionInput.idempotency_token required"
-        )
+        out["idempotency_token"] = ""
     return out

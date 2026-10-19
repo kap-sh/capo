@@ -49,9 +49,7 @@ def deserialize_json(data: dict) -> UpdateAssistantAIAgentRequest:
     if data.get("aiAgentType") is not None:
         out["ai_agent_type"] = data["aiAgentType"]
     else:
-        raise DeserializationError(
-            "UpdateAssistantAIAgentRequest.ai_agent_type required"
-        )
+        out["ai_agent_type"] = ""
     if data.get("configuration") is not None:
         import capo_qconnect.types.ai_agent_configuration_data
 

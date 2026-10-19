@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.applicable_asset_types
     import capo_datazone.types.authorized_principal_identifiers
@@ -95,11 +93,11 @@ def deserialize_json(data: dict) -> CreateSubscriptionTargetInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateSubscriptionTargetInput.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("CreateSubscriptionTargetInput.type required")
+        out["type"] = ""
     if data.get("subscriptionTargetConfig") is not None:
         import capo_datazone.types.subscription_target_forms
 
@@ -109,9 +107,7 @@ def deserialize_json(data: dict) -> CreateSubscriptionTargetInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateSubscriptionTargetInput.subscription_target_config required"
-        )
+        out["subscription_target_config"] = []
     if data.get("authorizedPrincipals") is not None:
         import capo_datazone.types.authorized_principal_identifiers
 
@@ -121,15 +117,11 @@ def deserialize_json(data: dict) -> CreateSubscriptionTargetInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateSubscriptionTargetInput.authorized_principals required"
-        )
+        out["authorized_principals"] = []
     if data.get("manageAccessRole") is not None:
         out["manage_access_role"] = data["manageAccessRole"]
     else:
-        raise DeserializationError(
-            "CreateSubscriptionTargetInput.manage_access_role required"
-        )
+        out["manage_access_role"] = ""
     if data.get("applicableAssetTypes") is not None:
         import capo_datazone.types.applicable_asset_types
 
@@ -139,9 +131,7 @@ def deserialize_json(data: dict) -> CreateSubscriptionTargetInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateSubscriptionTargetInput.applicable_asset_types required"
-        )
+        out["applicable_asset_types"] = []
     if data.get("provider") is not None:
         out["provider"] = data["provider"]
     if data.get("clientToken") is not None:

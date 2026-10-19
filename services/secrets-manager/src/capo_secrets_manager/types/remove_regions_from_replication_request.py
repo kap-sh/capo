@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_secrets_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_secrets_manager.types.remove_replica_region_list_type
     import capo_secrets_manager.types.secret_id_type
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> RemoveRegionsFromReplicationRequest:
     if data.get("SecretId") is not None:
         out["secret_id"] = data["SecretId"]
     else:
-        raise DeserializationError(
-            "RemoveRegionsFromReplicationRequest.secret_id required"
-        )
+        out["secret_id"] = ""
     if data.get("RemoveReplicaRegions") is not None:
         import capo_secrets_manager.types.remove_replica_region_list_type
 
@@ -49,7 +45,5 @@ def deserialize_aws_json_1_1(data: dict) -> RemoveRegionsFromReplicationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "RemoveRegionsFromReplicationRequest.remove_replica_regions required"
-        )
+        out["remove_replica_regions"] = []
     return out

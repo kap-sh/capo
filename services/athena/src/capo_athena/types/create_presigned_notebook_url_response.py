@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.auth_token
     import capo_athena.types.long
@@ -35,19 +33,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePresignedNotebookUrlResponse:
     if data.get("NotebookUrl") is not None:
         out["notebook_url"] = data["NotebookUrl"]
     else:
-        raise DeserializationError(
-            "CreatePresignedNotebookUrlResponse.notebook_url required"
-        )
+        out["notebook_url"] = ""
     if data.get("AuthToken") is not None:
         out["auth_token"] = data["AuthToken"]
     else:
-        raise DeserializationError(
-            "CreatePresignedNotebookUrlResponse.auth_token required"
-        )
+        out["auth_token"] = ""
     if data.get("AuthTokenExpirationTime") is not None:
         out["auth_token_expiration_time"] = data["AuthTokenExpirationTime"]
     else:
-        raise DeserializationError(
-            "CreatePresignedNotebookUrlResponse.auth_token_expiration_time required"
-        )
+        out["auth_token_expiration_time"] = 0
     return out

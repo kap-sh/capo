@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_taxsettings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_taxsettings.types.person_type
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> KenyaAdditionalInfo:
             data["personType"]
         )
     else:
-        raise DeserializationError("KenyaAdditionalInfo.person_type required")
+        import typing
+
+        out["person_type"] = typing.cast(
+            "capo_taxsettings.types.person_type.PersonType", ""
+        )
     return out

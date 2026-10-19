@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.domain_deliverability_campaign_list
     import capo_sesv2.types.next_token
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> ListDomainDeliverabilityCampaignsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListDomainDeliverabilityCampaignsResponse.domain_deliverability_campaigns required"
-        )
+        out["domain_deliverability_campaigns"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

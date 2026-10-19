@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sns.types.binary
@@ -43,7 +42,7 @@ def deserialize_query(el: Element) -> MessageAttributeValue:
     if child_data_type is not None:
         out["data_type"] = str(child_data_type.text or "")
     else:
-        raise DeserializationError("MessageAttributeValue.data_type required")
+        out["data_type"] = ""
     child_string_value = el.find("StringValue")
     if child_string_value is not None:
         out["string_value"] = str(child_string_value.text or "")

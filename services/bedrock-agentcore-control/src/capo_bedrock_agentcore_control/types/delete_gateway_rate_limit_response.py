@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.gateway_rate_limit_id
     import capo_bedrock_agentcore_control.types.gateway_rate_limit_status
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> DeleteGatewayRateLimitResponse:
     if data.get("rateLimitId") is not None:
         out["rate_limit_id"] = data["rateLimitId"]
     else:
-        raise DeserializationError(
-            "DeleteGatewayRateLimitResponse.rate_limit_id required"
-        )
+        out["rate_limit_id"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.gateway_rate_limit_status
 
@@ -51,5 +47,10 @@ def deserialize_json(data: dict) -> DeleteGatewayRateLimitResponse:
             )
         )
     else:
-        raise DeserializationError("DeleteGatewayRateLimitResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.gateway_rate_limit_status.GatewayRateLimitStatus",
+            "",
+        )
     return out

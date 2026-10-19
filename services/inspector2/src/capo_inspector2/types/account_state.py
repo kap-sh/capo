@@ -41,7 +41,7 @@ def deserialize_json(data: dict) -> AccountState:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("AccountState.account_id required")
+        out["account_id"] = ""
     if data.get("state") is not None:
         import capo_inspector2.types.state
 

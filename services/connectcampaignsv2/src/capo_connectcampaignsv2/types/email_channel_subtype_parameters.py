@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.arn
     import capo_connectcampaignsv2.types.attributes
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> EmailChannelSubtypeParameters:
     if data.get("destinationEmailAddress") is not None:
         out["destination_email_address"] = data["destinationEmailAddress"]
     else:
-        raise DeserializationError(
-            "EmailChannelSubtypeParameters.destination_email_address required"
-        )
+        out["destination_email_address"] = ""
     if data.get("connectSourceEmailAddress") is not None:
         out["connect_source_email_address"] = data["connectSourceEmailAddress"]
     if data.get("templateArn") is not None:
@@ -60,9 +56,7 @@ def deserialize_json(data: dict) -> EmailChannelSubtypeParameters:
             )
         )
     else:
-        raise DeserializationError(
-            "EmailChannelSubtypeParameters.template_parameters required"
-        )
+        out["template_parameters"] = {}
     return out
 
 

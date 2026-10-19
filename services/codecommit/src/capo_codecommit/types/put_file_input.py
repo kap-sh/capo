@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.branch_name
     import capo_codecommit.types.commit_id
@@ -74,11 +72,11 @@ def deserialize_aws_json_1_1(data: dict) -> PutFileInput:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError("PutFileInput.repository_name required")
+        out["repository_name"] = ""
     if data.get("branchName") is not None:
         out["branch_name"] = data["branchName"]
     else:
-        raise DeserializationError("PutFileInput.branch_name required")
+        out["branch_name"] = ""
     if data.get("fileContent") is not None:
         import capo_codecommit.types.file_content
 
@@ -88,11 +86,11 @@ def deserialize_aws_json_1_1(data: dict) -> PutFileInput:
             )
         )
     else:
-        raise DeserializationError("PutFileInput.file_content required")
+        out["file_content"] = b""
     if data.get("filePath") is not None:
         out["file_path"] = data["filePath"]
     else:
-        raise DeserializationError("PutFileInput.file_path required")
+        out["file_path"] = ""
     if data.get("fileMode") is not None:
         import capo_codecommit.types.file_mode_type_enum
 

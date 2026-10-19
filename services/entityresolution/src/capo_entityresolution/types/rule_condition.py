@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 
 class RuleCondition(TypedDict, closed=True):
     rule_name: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> RuleCondition:
     if data.get("ruleName") is not None:
         out["rule_name"] = data["ruleName"]
     else:
-        raise DeserializationError("RuleCondition.rule_name required")
+        out["rule_name"] = ""
     if data.get("condition") is not None:
         out["condition"] = data["condition"]
     else:
-        raise DeserializationError("RuleCondition.condition required")
+        out["condition"] = ""
     return out

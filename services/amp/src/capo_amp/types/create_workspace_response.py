@@ -49,11 +49,11 @@ def deserialize_json(data: dict) -> CreateWorkspaceResponse:
     if data.get("workspaceId") is not None:
         out["workspace_id"] = data["workspaceId"]
     else:
-        raise DeserializationError("CreateWorkspaceResponse.workspace_id required")
+        out["workspace_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CreateWorkspaceResponse.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_amp.types.workspace_status
 

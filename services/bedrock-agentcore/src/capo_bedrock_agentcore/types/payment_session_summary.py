@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.date_timestamp
     import capo_bedrock_agentcore.types.payment_manager_arn
@@ -57,21 +55,19 @@ def deserialize_json(data: dict) -> PaymentSessionSummary:
     if data.get("paymentSessionId") is not None:
         out["payment_session_id"] = data["paymentSessionId"]
     else:
-        raise DeserializationError("PaymentSessionSummary.payment_session_id required")
+        out["payment_session_id"] = ""
     if data.get("paymentManagerArn") is not None:
         out["payment_manager_arn"] = data["paymentManagerArn"]
     else:
-        raise DeserializationError("PaymentSessionSummary.payment_manager_arn required")
+        out["payment_manager_arn"] = ""
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
     else:
-        raise DeserializationError("PaymentSessionSummary.user_id required")
+        out["user_id"] = ""
     if data.get("expiryTimeInMinutes") is not None:
         out["expiry_time_in_minutes"] = data["expiryTimeInMinutes"]
     else:
-        raise DeserializationError(
-            "PaymentSessionSummary.expiry_time_in_minutes required"
-        )
+        out["expiry_time_in_minutes"] = 0
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore.types.date_timestamp
 
@@ -81,7 +77,9 @@ def deserialize_json(data: dict) -> PaymentSessionSummary:
             )
         )
     else:
-        raise DeserializationError("PaymentSessionSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agentcore.types.date_timestamp
 
@@ -91,5 +89,7 @@ def deserialize_json(data: dict) -> PaymentSessionSummary:
             )
         )
     else:
-        raise DeserializationError("PaymentSessionSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

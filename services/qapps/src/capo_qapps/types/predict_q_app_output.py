@@ -40,5 +40,5 @@ def deserialize_json(data: dict) -> PredictQAppOutput:
     if data.get("problemStatement") is not None:
         out["problem_statement"] = data["problemStatement"]
     else:
-        raise DeserializationError("PredictQAppOutput.problem_statement required")
+        out["problem_statement"] = ""
     return out

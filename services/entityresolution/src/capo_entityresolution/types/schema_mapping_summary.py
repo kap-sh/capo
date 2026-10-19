@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -50,11 +48,11 @@ def deserialize_json(data: dict) -> SchemaMappingSummary:
     if data.get("schemaName") is not None:
         out["schema_name"] = data["schemaName"]
     else:
-        raise DeserializationError("SchemaMappingSummary.schema_name required")
+        out["schema_name"] = ""
     if data.get("schemaArn") is not None:
         out["schema_arn"] = data["schemaArn"]
     else:
-        raise DeserializationError("SchemaMappingSummary.schema_arn required")
+        out["schema_arn"] = ""
     if data.get("createdAt") is not None:
         import capo_entityresolution.types._prelude.timestamp
 
@@ -64,7 +62,9 @@ def deserialize_json(data: dict) -> SchemaMappingSummary:
             )
         )
     else:
-        raise DeserializationError("SchemaMappingSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_entityresolution.types._prelude.timestamp
 
@@ -74,9 +74,11 @@ def deserialize_json(data: dict) -> SchemaMappingSummary:
             )
         )
     else:
-        raise DeserializationError("SchemaMappingSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("hasWorkflows") is not None:
         out["has_workflows"] = data["hasWorkflows"]
     else:
-        raise DeserializationError("SchemaMappingSummary.has_workflows required")
+        out["has_workflows"] = False
     return out

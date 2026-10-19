@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_osis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_osis.types.buffer_options
     import capo_osis.types.encryption_at_rest_options
@@ -96,21 +94,19 @@ def deserialize_json(data: dict) -> CreatePipelineRequest:
     if data.get("PipelineName") is not None:
         out["pipeline_name"] = data["PipelineName"]
     else:
-        raise DeserializationError("CreatePipelineRequest.pipeline_name required")
+        out["pipeline_name"] = ""
     if data.get("MinUnits") is not None:
         out["min_units"] = data["MinUnits"]
     else:
-        raise DeserializationError("CreatePipelineRequest.min_units required")
+        out["min_units"] = 0
     if data.get("MaxUnits") is not None:
         out["max_units"] = data["MaxUnits"]
     else:
-        raise DeserializationError("CreatePipelineRequest.max_units required")
+        out["max_units"] = 0
     if data.get("PipelineConfigurationBody") is not None:
         out["pipeline_configuration_body"] = data["PipelineConfigurationBody"]
     else:
-        raise DeserializationError(
-            "CreatePipelineRequest.pipeline_configuration_body required"
-        )
+        out["pipeline_configuration_body"] = ""
     if data.get("LogPublishingOptions") is not None:
         import capo_osis.types.log_publishing_options
 

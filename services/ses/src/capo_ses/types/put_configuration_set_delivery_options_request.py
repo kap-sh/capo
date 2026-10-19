@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.configuration_set_name
@@ -43,9 +42,7 @@ def deserialize_query(el: Element) -> PutConfigurationSetDeliveryOptionsRequest:
     if child_configuration_set_name is not None:
         out["configuration_set_name"] = str(child_configuration_set_name.text or "")
     else:
-        raise DeserializationError(
-            "PutConfigurationSetDeliveryOptionsRequest.configuration_set_name required"
-        )
+        out["configuration_set_name"] = ""
     child_delivery_options = el.find("DeliveryOptions")
     if child_delivery_options is not None:
         import capo_ses.types.delivery_options

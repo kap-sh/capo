@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codeconnections.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeconnections.types.repository_link_id
     import capo_codeconnections.types.sync_configuration_type
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListRepositorySyncDefinitionsInput:
     if data.get("RepositoryLinkId") is not None:
         out["repository_link_id"] = data["RepositoryLinkId"]
     else:
-        raise DeserializationError(
-            "ListRepositorySyncDefinitionsInput.repository_link_id required"
-        )
+        out["repository_link_id"] = ""
     if data.get("SyncType") is not None:
         import capo_codeconnections.types.sync_configuration_type
 
@@ -51,7 +47,10 @@ def deserialize_aws_json_1_0(data: dict) -> ListRepositorySyncDefinitionsInput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListRepositorySyncDefinitionsInput.sync_type required"
+        import typing
+
+        out["sync_type"] = typing.cast(
+            "capo_codeconnections.types.sync_configuration_type.SyncConfigurationType",
+            "",
         )
     return out

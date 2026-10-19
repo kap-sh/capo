@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.boolean_type
     import capo_cognito_identity_provider.types.code_delivery_details_type
@@ -63,7 +61,7 @@ def deserialize_aws_json_1_1(data: dict) -> SignUpResponse:
     if data.get("UserSub") is not None:
         out["user_sub"] = data["UserSub"]
     else:
-        raise DeserializationError("SignUpResponse.user_sub required")
+        out["user_sub"] = ""
     if data.get("Session") is not None:
         out["session"] = data["Session"]
     return out

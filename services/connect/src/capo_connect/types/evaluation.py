@@ -103,11 +103,11 @@ def deserialize_json(data: dict) -> Evaluation:
     if data.get("EvaluationId") is not None:
         out["evaluation_id"] = data["EvaluationId"]
     else:
-        raise DeserializationError("Evaluation.evaluation_id required")
+        out["evaluation_id"] = ""
     if data.get("EvaluationArn") is not None:
         out["evaluation_arn"] = data["EvaluationArn"]
     else:
-        raise DeserializationError("Evaluation.evaluation_arn required")
+        out["evaluation_arn"] = ""
     if data.get("Metadata") is not None:
         import capo_connect.types.evaluation_metadata
 
@@ -125,7 +125,7 @@ def deserialize_json(data: dict) -> Evaluation:
             )
         )
     else:
-        raise DeserializationError("Evaluation.answers required")
+        out["answers"] = {}
     if data.get("Notes") is not None:
         import capo_connect.types.evaluation_notes_map
 
@@ -133,7 +133,7 @@ def deserialize_json(data: dict) -> Evaluation:
             data["Notes"]
         )
     else:
-        raise DeserializationError("Evaluation.notes required")
+        out["notes"] = {}
     if data.get("Status") is not None:
         import capo_connect.types.evaluation_status
 
@@ -141,7 +141,11 @@ def deserialize_json(data: dict) -> Evaluation:
             data["Status"]
         )
     else:
-        raise DeserializationError("Evaluation.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_connect.types.evaluation_status.EvaluationStatus", ""
+        )
     if data.get("Scores") is not None:
         import capo_connect.types.evaluation_scores_map
 
@@ -155,7 +159,11 @@ def deserialize_json(data: dict) -> Evaluation:
             data["CreatedTime"]
         )
     else:
-        raise DeserializationError("Evaluation.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("LastModifiedTime") is not None:
         import capo_connect.types.timestamp
 
@@ -163,7 +171,11 @@ def deserialize_json(data: dict) -> Evaluation:
             data["LastModifiedTime"]
         )
     else:
-        raise DeserializationError("Evaluation.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("EvaluationType") is not None:
         import capo_connect.types.evaluation_type
 

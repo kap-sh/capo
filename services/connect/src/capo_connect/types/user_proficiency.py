@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.predefined_attribute_name
     import capo_connect.types.predefined_attribute_string_value
@@ -45,11 +43,11 @@ def deserialize_json(data: dict) -> UserProficiency:
     if data.get("AttributeName") is not None:
         out["attribute_name"] = data["AttributeName"]
     else:
-        raise DeserializationError("UserProficiency.attribute_name required")
+        out["attribute_name"] = ""
     if data.get("AttributeValue") is not None:
         out["attribute_value"] = data["AttributeValue"]
     else:
-        raise DeserializationError("UserProficiency.attribute_value required")
+        out["attribute_value"] = ""
     if data.get("Level") is not None:
         out["level"] = float(data["Level"])
     else:

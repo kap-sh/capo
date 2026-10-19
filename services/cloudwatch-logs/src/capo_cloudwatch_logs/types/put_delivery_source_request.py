@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.arn
     import capo_cloudwatch_logs.types.delivery_source_configuration
@@ -57,15 +55,15 @@ def deserialize_aws_json_1_1(data: dict) -> PutDeliverySourceRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("PutDeliverySourceRequest.name required")
+        out["name"] = ""
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("PutDeliverySourceRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("logType") is not None:
         out["log_type"] = data["logType"]
     else:
-        raise DeserializationError("PutDeliverySourceRequest.log_type required")
+        out["log_type"] = ""
     if data.get("tags") is not None:
         import capo_cloudwatch_logs.types.tags
 

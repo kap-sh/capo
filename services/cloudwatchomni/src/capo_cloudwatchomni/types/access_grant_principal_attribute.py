@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 
 class AccessGrantPrincipalAttribute(TypedDict, closed=True):
     key: "str"
@@ -25,9 +23,9 @@ def deserialize_cbor(data: dict) -> AccessGrantPrincipalAttribute:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("AccessGrantPrincipalAttribute.key required")
+        out["key"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("AccessGrantPrincipalAttribute.value required")
+        out["value"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_interconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_interconnect.types.activation_key
     import capo_interconnect.types.attach_point
@@ -61,15 +59,13 @@ def deserialize_aws_json_1_0(data: dict) -> AcceptConnectionProposalRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "AcceptConnectionProposalRequest.attach_point required"
-        )
+        import capo_interconnect.types._unknown
+
+        out["attach_point"] = capo_interconnect.types._unknown.UnknownUnionMember("")
     if data.get("activationKey") is not None:
         out["activation_key"] = data["activationKey"]
     else:
-        raise DeserializationError(
-            "AcceptConnectionProposalRequest.activation_key required"
-        )
+        out["activation_key"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("tags") is not None:

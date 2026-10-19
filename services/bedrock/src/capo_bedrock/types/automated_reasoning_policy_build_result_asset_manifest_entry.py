@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_build_result_asset_id
     import capo_bedrock.types.automated_reasoning_policy_build_result_asset_name
@@ -57,8 +55,11 @@ def deserialize_json(
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyBuildResultAssetManifestEntry.asset_type required"
+        import typing
+
+        out["asset_type"] = typing.cast(
+            "capo_bedrock.types.automated_reasoning_policy_build_result_asset_type.AutomatedReasoningPolicyBuildResultAssetType",
+            "",
         )
     if data.get("assetName") is not None:
         out["asset_name"] = data["assetName"]

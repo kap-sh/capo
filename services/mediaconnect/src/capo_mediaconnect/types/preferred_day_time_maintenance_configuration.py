@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.day
 
@@ -34,13 +32,11 @@ def deserialize_json(data: dict) -> PreferredDayTimeMaintenanceConfiguration:
 
         out["day"] = capo_mediaconnect.types.day.deserialize_json(data["day"])
     else:
-        raise DeserializationError(
-            "PreferredDayTimeMaintenanceConfiguration.day required"
-        )
+        import typing
+
+        out["day"] = typing.cast("capo_mediaconnect.types.day.Day", "")
     if data.get("time") is not None:
         out["time"] = data["time"]
     else:
-        raise DeserializationError(
-            "PreferredDayTimeMaintenanceConfiguration.time required"
-        )
+        out["time"] = ""
     return out

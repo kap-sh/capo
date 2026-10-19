@@ -52,11 +52,11 @@ def deserialize_json(data: dict) -> VirtualNodeData:
     if data.get("meshName") is not None:
         out["mesh_name"] = data["meshName"]
     else:
-        raise DeserializationError("VirtualNodeData.mesh_name required")
+        out["mesh_name"] = ""
     if data.get("virtualNodeName") is not None:
         out["virtual_node_name"] = data["virtualNodeName"]
     else:
-        raise DeserializationError("VirtualNodeData.virtual_node_name required")
+        out["virtual_node_name"] = ""
     if data.get("spec") is not None:
         import capo_app_mesh.types.virtual_node_spec
 

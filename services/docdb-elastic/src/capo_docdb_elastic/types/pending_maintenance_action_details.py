@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_docdb_elastic.errors import DeserializationError
-
 
 class PendingMaintenanceActionDetails(TypedDict, closed=True):
     action: "str"
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> PendingMaintenanceActionDetails:
     if data.get("action") is not None:
         out["action"] = data["action"]
     else:
-        raise DeserializationError("PendingMaintenanceActionDetails.action required")
+        out["action"] = ""
     if data.get("autoAppliedAfterDate") is not None:
         out["auto_applied_after_date"] = data["autoAppliedAfterDate"]
     if data.get("forcedApplyDate") is not None:

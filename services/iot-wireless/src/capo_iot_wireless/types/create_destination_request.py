@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.client_request_token
     import capo_iot_wireless.types.description
@@ -62,7 +60,7 @@ def deserialize_json(data: dict) -> CreateDestinationRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateDestinationRequest.name required")
+        out["name"] = ""
     if data.get("ExpressionType") is not None:
         import capo_iot_wireless.types.expression_type
 
@@ -72,17 +70,21 @@ def deserialize_json(data: dict) -> CreateDestinationRequest:
             )
         )
     else:
-        raise DeserializationError("CreateDestinationRequest.expression_type required")
+        import typing
+
+        out["expression_type"] = typing.cast(
+            "capo_iot_wireless.types.expression_type.ExpressionType", ""
+        )
     if data.get("Expression") is not None:
         out["expression"] = data["Expression"]
     else:
-        raise DeserializationError("CreateDestinationRequest.expression required")
+        out["expression"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("CreateDestinationRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("Tags") is not None:
         import capo_iot_wireless.types.tag_list
 

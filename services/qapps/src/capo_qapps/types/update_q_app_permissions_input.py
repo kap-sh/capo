@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.instance_id
     import capo_qapps.types.permissions_input_list
@@ -55,7 +53,7 @@ def deserialize_json(data: dict) -> UpdateQAppPermissionsInput:
     if data.get("appId") is not None:
         out["app_id"] = data["appId"]
     else:
-        raise DeserializationError("UpdateQAppPermissionsInput.app_id required")
+        out["app_id"] = ""
     if data.get("grantPermissions") is not None:
         import capo_qapps.types.permissions_input_list
 

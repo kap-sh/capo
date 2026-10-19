@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_supportauthz.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supportauthz.types.action
     import capo_supportauthz.types.action_description
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> ActionSummary:
     if data.get("action") is not None:
         out["action"] = data["action"]
     else:
-        raise DeserializationError("ActionSummary.action required")
+        out["action"] = ""
     if data.get("service") is not None:
         out["service"] = data["service"]
     else:
-        raise DeserializationError("ActionSummary.service required")
+        out["service"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("ActionSummary.description required")
+        out["description"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.accept_language
     import capo_service_catalog.types.id
@@ -58,9 +56,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListOrganizationPortfolioAccessInput
     if data.get("PortfolioId") is not None:
         out["portfolio_id"] = data["PortfolioId"]
     else:
-        raise DeserializationError(
-            "ListOrganizationPortfolioAccessInput.portfolio_id required"
-        )
+        out["portfolio_id"] = ""
     if data.get("OrganizationNodeType") is not None:
         import capo_service_catalog.types.organization_node_type
 
@@ -70,8 +66,10 @@ def deserialize_aws_json_1_1(data: dict) -> ListOrganizationPortfolioAccessInput
             )
         )
     else:
-        raise DeserializationError(
-            "ListOrganizationPortfolioAccessInput.organization_node_type required"
+        import typing
+
+        out["organization_node_type"] = typing.cast(
+            "capo_service_catalog.types.organization_node_type.OrganizationNodeType", ""
         )
     if data.get("PageToken") is not None:
         out["page_token"] = data["PageToken"]

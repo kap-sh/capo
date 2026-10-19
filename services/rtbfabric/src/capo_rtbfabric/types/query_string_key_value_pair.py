@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 
 class QueryStringKeyValuePair(TypedDict, closed=True):
     key: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> QueryStringKeyValuePair:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("QueryStringKeyValuePair.key required")
+        out["key"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("QueryStringKeyValuePair.value required")
+        out["value"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.role_arn
     import capo_personalize.types.s3_data_config
@@ -47,5 +45,5 @@ def deserialize_aws_json_1_1(data: dict) -> MetricAttributionOutput:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("MetricAttributionOutput.role_arn required")
+        out["role_arn"] = ""
     return out

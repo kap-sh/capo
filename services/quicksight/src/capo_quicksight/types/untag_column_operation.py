@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.column_name
     import capo_quicksight.types.column_tag_names
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> UntagColumnOperation:
     if data.get("ColumnName") is not None:
         out["column_name"] = data["ColumnName"]
     else:
-        raise DeserializationError("UntagColumnOperation.column_name required")
+        out["column_name"] = ""
     if data.get("TagNames") is not None:
         import capo_quicksight.types.column_tag_names
 
@@ -43,5 +41,5 @@ def deserialize_json(data: dict) -> UntagColumnOperation:
             data["TagNames"]
         )
     else:
-        raise DeserializationError("UntagColumnOperation.tag_names required")
+        out["tag_names"] = []
     return out

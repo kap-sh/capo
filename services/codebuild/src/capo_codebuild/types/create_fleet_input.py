@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.compute_configuration
     import capo_codebuild.types.compute_type
@@ -129,11 +127,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateFleetInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateFleetInput.name required")
+        out["name"] = ""
     if data.get("baseCapacity") is not None:
         out["base_capacity"] = data["baseCapacity"]
     else:
-        raise DeserializationError("CreateFleetInput.base_capacity required")
+        out["base_capacity"] = 0
     if data.get("environmentType") is not None:
         import capo_codebuild.types.environment_type
 
@@ -143,7 +141,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateFleetInput:
             )
         )
     else:
-        raise DeserializationError("CreateFleetInput.environment_type required")
+        import typing
+
+        out["environment_type"] = typing.cast(
+            "capo_codebuild.types.environment_type.EnvironmentType", ""
+        )
     if data.get("computeType") is not None:
         import capo_codebuild.types.compute_type
 
@@ -153,7 +155,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateFleetInput:
             )
         )
     else:
-        raise DeserializationError("CreateFleetInput.compute_type required")
+        import typing
+
+        out["compute_type"] = typing.cast(
+            "capo_codebuild.types.compute_type.ComputeType", ""
+        )
     if data.get("computeConfiguration") is not None:
         import capo_codebuild.types.compute_configuration
 

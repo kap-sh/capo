@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.description
     import capo_proton.types.display_name
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateServiceTemplateInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateServiceTemplateInput.name required")
+        out["name"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     if data.get("description") is not None:

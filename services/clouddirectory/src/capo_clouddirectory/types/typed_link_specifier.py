@@ -106,7 +106,5 @@ def deserialize_json(data: dict) -> TypedLinkSpecifier:
             )
         )
     else:
-        raise DeserializationError(
-            "TypedLinkSpecifier.identity_attribute_values required"
-        )
+        out["identity_attribute_values"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_evs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_evs.types.dedicated_host_id
     import capo_evs.types.host_name
@@ -51,11 +49,11 @@ def deserialize_aws_json_1_0(data: dict) -> HostInfoForCreate:
     if data.get("hostName") is not None:
         out["host_name"] = data["hostName"]
     else:
-        raise DeserializationError("HostInfoForCreate.host_name required")
+        out["host_name"] = ""
     if data.get("keyName") is not None:
         out["key_name"] = data["keyName"]
     else:
-        raise DeserializationError("HostInfoForCreate.key_name required")
+        out["key_name"] = ""
     if data.get("instanceType") is not None:
         import capo_evs.types.instance_type
 
@@ -63,7 +61,11 @@ def deserialize_aws_json_1_0(data: dict) -> HostInfoForCreate:
             data["instanceType"]
         )
     else:
-        raise DeserializationError("HostInfoForCreate.instance_type required")
+        import typing
+
+        out["instance_type"] = typing.cast(
+            "capo_evs.types.instance_type.InstanceType", ""
+        )
     if data.get("placementGroupId") is not None:
         out["placement_group_id"] = data["placementGroupId"]
     if data.get("dedicatedHostId") is not None:

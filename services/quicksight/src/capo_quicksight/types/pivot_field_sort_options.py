@@ -35,7 +35,7 @@ def deserialize_json(data: dict) -> PivotFieldSortOptions:
     if data.get("FieldId") is not None:
         out["field_id"] = data["FieldId"]
     else:
-        raise DeserializationError("PivotFieldSortOptions.field_id required")
+        out["field_id"] = ""
     if data.get("SortBy") is not None:
         import capo_quicksight.types.pivot_table_sort_by
 

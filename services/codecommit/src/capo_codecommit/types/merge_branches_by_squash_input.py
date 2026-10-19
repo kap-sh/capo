@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.branch_name
     import capo_codecommit.types.commit_name
@@ -100,21 +98,15 @@ def deserialize_aws_json_1_1(data: dict) -> MergeBranchesBySquashInput:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError(
-            "MergeBranchesBySquashInput.repository_name required"
-        )
+        out["repository_name"] = ""
     if data.get("sourceCommitSpecifier") is not None:
         out["source_commit_specifier"] = data["sourceCommitSpecifier"]
     else:
-        raise DeserializationError(
-            "MergeBranchesBySquashInput.source_commit_specifier required"
-        )
+        out["source_commit_specifier"] = ""
     if data.get("destinationCommitSpecifier") is not None:
         out["destination_commit_specifier"] = data["destinationCommitSpecifier"]
     else:
-        raise DeserializationError(
-            "MergeBranchesBySquashInput.destination_commit_specifier required"
-        )
+        out["destination_commit_specifier"] = ""
     if data.get("targetBranch") is not None:
         out["target_branch"] = data["targetBranch"]
     if data.get("conflictDetailLevel") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker.types.cluster_partition_names
     import capo_sagemaker.types.cluster_slurm_node_type
@@ -52,7 +50,11 @@ def deserialize_aws_json_1_1(data: dict) -> ClusterSlurmConfigDetails:
             )
         )
     else:
-        raise DeserializationError("ClusterSlurmConfigDetails.node_type required")
+        import typing
+
+        out["node_type"] = typing.cast(
+            "capo_sagemaker.types.cluster_slurm_node_type.ClusterSlurmNodeType", ""
+        )
     if data.get("PartitionNames") is not None:
         import capo_sagemaker.types.cluster_partition_names
 

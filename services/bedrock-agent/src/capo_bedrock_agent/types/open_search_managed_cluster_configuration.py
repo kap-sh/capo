@@ -45,21 +45,15 @@ def deserialize_json(data: dict) -> OpenSearchManagedClusterConfiguration:
     if data.get("domainEndpoint") is not None:
         out["domain_endpoint"] = data["domainEndpoint"]
     else:
-        raise DeserializationError(
-            "OpenSearchManagedClusterConfiguration.domain_endpoint required"
-        )
+        out["domain_endpoint"] = ""
     if data.get("domainArn") is not None:
         out["domain_arn"] = data["domainArn"]
     else:
-        raise DeserializationError(
-            "OpenSearchManagedClusterConfiguration.domain_arn required"
-        )
+        out["domain_arn"] = ""
     if data.get("vectorIndexName") is not None:
         out["vector_index_name"] = data["vectorIndexName"]
     else:
-        raise DeserializationError(
-            "OpenSearchManagedClusterConfiguration.vector_index_name required"
-        )
+        out["vector_index_name"] = ""
     if data.get("fieldMapping") is not None:
         import capo_bedrock_agent.types.open_search_managed_cluster_field_mapping
 

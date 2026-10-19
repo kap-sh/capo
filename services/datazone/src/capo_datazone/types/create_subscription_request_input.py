@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.accepted_asset_scopes
     import capo_datazone.types.asset_permissions
@@ -97,9 +95,7 @@ def deserialize_json(data: dict) -> CreateSubscriptionRequestInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateSubscriptionRequestInput.subscribed_principals required"
-        )
+        out["subscribed_principals"] = []
     if data.get("subscribedListings") is not None:
         import capo_datazone.types.subscribed_listing_inputs
 
@@ -109,15 +105,11 @@ def deserialize_json(data: dict) -> CreateSubscriptionRequestInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateSubscriptionRequestInput.subscribed_listings required"
-        )
+        out["subscribed_listings"] = []
     if data.get("requestReason") is not None:
         out["request_reason"] = data["requestReason"]
     else:
-        raise DeserializationError(
-            "CreateSubscriptionRequestInput.request_reason required"
-        )
+        out["request_reason"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("metadataForms") is not None:

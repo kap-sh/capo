@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.boolean
     import capo_vpc_lattice.types.header_match_name
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> HeaderMatch:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("HeaderMatch.name required")
+        out["name"] = ""
     if data.get("match") is not None:
         import capo_vpc_lattice.types.header_match_type
 
@@ -48,7 +46,9 @@ def deserialize_json(data: dict) -> HeaderMatch:
             data["match"]
         )
     else:
-        raise DeserializationError("HeaderMatch.match required")
+        import capo_vpc_lattice.types._unknown
+
+        out["match"] = capo_vpc_lattice.types._unknown.UnknownUnionMember("")
     if data.get("caseSensitive") is not None:
         out["case_sensitive"] = data["caseSensitive"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeartifact.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeartifact.types.account_id
     import capo_codeartifact.types.domain_name
@@ -66,7 +64,7 @@ def deserialize_json(data: dict) -> DeletePackageVersionsRequest:
             data["versions"]
         )
     else:
-        raise DeserializationError("DeletePackageVersionsRequest.versions required")
+        out["versions"] = []
     if data.get("expectedStatus") is not None:
         import capo_codeartifact.types.package_version_status
 

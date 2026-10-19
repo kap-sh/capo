@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.checkpoint_token
     import capo_lambda.types.client_token
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> CheckpointDurableExecutionRequest:
     if data.get("CheckpointToken") is not None:
         out["checkpoint_token"] = data["CheckpointToken"]
     else:
-        raise DeserializationError(
-            "CheckpointDurableExecutionRequest.checkpoint_token required"
-        )
+        out["checkpoint_token"] = ""
     if data.get("Updates") is not None:
         import capo_lambda.types.operation_updates
 

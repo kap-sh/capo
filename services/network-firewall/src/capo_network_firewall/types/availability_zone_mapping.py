@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.availability_zone_mapping_string
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> AvailabilityZoneMapping:
     if data.get("AvailabilityZone") is not None:
         out["availability_zone"] = data["AvailabilityZone"]
     else:
-        raise DeserializationError("AvailabilityZoneMapping.availability_zone required")
+        out["availability_zone"] = ""
     return out

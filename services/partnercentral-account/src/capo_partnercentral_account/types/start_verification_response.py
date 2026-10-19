@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.date_time
     import capo_partnercentral_account.types.verification_response_details
@@ -90,8 +88,10 @@ def deserialize_aws_json_1_0(data: dict) -> StartVerificationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "StartVerificationResponse.verification_type required"
+        import typing
+
+        out["verification_type"] = typing.cast(
+            "capo_partnercentral_account.types.verification_type.VerificationType", ""
         )
     if data.get("VerificationStatus") is not None:
         import capo_partnercentral_account.types.verification_status
@@ -102,8 +102,11 @@ def deserialize_aws_json_1_0(data: dict) -> StartVerificationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "StartVerificationResponse.verification_status required"
+        import typing
+
+        out["verification_status"] = typing.cast(
+            "capo_partnercentral_account.types.verification_status.VerificationStatus",
+            "",
         )
     if data.get("VerificationStatusReason") is not None:
         out["verification_status_reason"] = data["VerificationStatusReason"]
@@ -116,8 +119,10 @@ def deserialize_aws_json_1_0(data: dict) -> StartVerificationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "StartVerificationResponse.verification_response_details required"
+        import capo_partnercentral_account.types._unknown
+
+        out["verification_response_details"] = (
+            capo_partnercentral_account.types._unknown.UnknownUnionMember("")
         )
     if data.get("StartedAt") is not None:
         import capo_partnercentral_account.types.date_time
@@ -128,7 +133,9 @@ def deserialize_aws_json_1_0(data: dict) -> StartVerificationResponse:
             )
         )
     else:
-        raise DeserializationError("StartVerificationResponse.started_at required")
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("CompletedAt") is not None:
         import capo_partnercentral_account.types.date_time
 

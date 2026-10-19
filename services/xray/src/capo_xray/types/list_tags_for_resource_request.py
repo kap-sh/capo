@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_xray.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_xray.types.amazon_resource_name
     import capo_xray.types.string
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> ListTagsForResourceRequest:
     if data.get("ResourceARN") is not None:
         out["resource_arn"] = data["ResourceARN"]
     else:
-        raise DeserializationError("ListTagsForResourceRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

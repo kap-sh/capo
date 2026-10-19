@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.next_token
     import capo_arc_region_switch.types.service_quota_warning_summary_list
@@ -44,9 +42,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListServiceQuotaWarningsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListServiceQuotaWarningsResponse.service_quota_warning_summaries required"
-        )
+        out["service_quota_warning_summaries"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

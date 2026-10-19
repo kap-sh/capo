@@ -61,7 +61,7 @@ def deserialize_json(data: dict) -> SearchContactsRequest:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("SearchContactsRequest.instance_id required")
+        out["instance_id"] = ""
     if data.get("TimeRange") is not None:
         import capo_connect.types.search_contacts_time_range
 

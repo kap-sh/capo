@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_gameliftstreams.errors import DeserializationError, ServiceError
+from capo_gameliftstreams.errors import ServiceError
 
 
 class StreamSessionAccessNotReadyException_(TypedDict, closed=True):
@@ -23,9 +23,7 @@ def deserialize_json(data: dict) -> StreamSessionAccessNotReadyException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError(
-            "StreamSessionAccessNotReadyException_.message required"
-        )
+        out["message"] = ""
     return out
 
 

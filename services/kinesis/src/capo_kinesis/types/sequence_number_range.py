@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.sequence_number
 
@@ -33,9 +31,7 @@ def deserialize_aws_json_1_1(data: dict) -> SequenceNumberRange:
     if data.get("StartingSequenceNumber") is not None:
         out["starting_sequence_number"] = data["StartingSequenceNumber"]
     else:
-        raise DeserializationError(
-            "SequenceNumberRange.starting_sequence_number required"
-        )
+        out["starting_sequence_number"] = ""
     if data.get("EndingSequenceNumber") is not None:
         out["ending_sequence_number"] = data["EndingSequenceNumber"]
     return out

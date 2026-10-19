@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.certificate_arn
     import capo_appsync.types.description
@@ -42,11 +40,11 @@ def deserialize_json(data: dict) -> CreateDomainNameRequest:
     if data.get("domainName") is not None:
         out["domain_name"] = data["domainName"]
     else:
-        raise DeserializationError("CreateDomainNameRequest.domain_name required")
+        out["domain_name"] = ""
     if data.get("certificateArn") is not None:
         out["certificate_arn"] = data["certificateArn"]
     else:
-        raise DeserializationError("CreateDomainNameRequest.certificate_arn required")
+        out["certificate_arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("tags") is not None:

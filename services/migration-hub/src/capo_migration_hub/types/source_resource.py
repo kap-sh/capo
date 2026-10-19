@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migration_hub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migration_hub.types.source_resource_description
     import capo_migration_hub.types.source_resource_name
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> SourceResource:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("SourceResource.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("StatusDetail") is not None:

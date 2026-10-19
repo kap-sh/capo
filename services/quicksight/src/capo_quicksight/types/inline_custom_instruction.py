@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.inline_custom_instruction_text
     import capo_quicksight.types.uploaded_document_metadata
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> InlineCustomInstruction:
     if data.get("InstructionText") is not None:
         out["instruction_text"] = data["InstructionText"]
     else:
-        raise DeserializationError("InlineCustomInstruction.instruction_text required")
+        out["instruction_text"] = ""
     if data.get("UploadedDocumentMetadata") is not None:
         import capo_quicksight.types.uploaded_document_metadata
 

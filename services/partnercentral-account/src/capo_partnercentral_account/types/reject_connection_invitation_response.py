@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.catalog
     import capo_partnercentral_account.types.connection_id
@@ -121,17 +119,15 @@ def deserialize_aws_json_1_0(data: dict) -> RejectConnectionInvitationResponse:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError(
-            "RejectConnectionInvitationResponse.catalog required"
-        )
+        out["catalog"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("RejectConnectionInvitationResponse.id required")
+        out["id"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("RejectConnectionInvitationResponse.arn required")
+        out["arn"] = ""
     if data.get("ConnectionId") is not None:
         out["connection_id"] = data["ConnectionId"]
     if data.get("ConnectionType") is not None:
@@ -143,8 +139,10 @@ def deserialize_aws_json_1_0(data: dict) -> RejectConnectionInvitationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "RejectConnectionInvitationResponse.connection_type required"
+        import typing
+
+        out["connection_type"] = typing.cast(
+            "capo_partnercentral_account.types.connection_type.ConnectionType", ""
         )
     if data.get("CreatedAt") is not None:
         import capo_partnercentral_account.types.date_time
@@ -155,9 +153,9 @@ def deserialize_aws_json_1_0(data: dict) -> RejectConnectionInvitationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "RejectConnectionInvitationResponse.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("UpdatedAt") is not None:
         import capo_partnercentral_account.types.date_time
 
@@ -167,9 +165,9 @@ def deserialize_aws_json_1_0(data: dict) -> RejectConnectionInvitationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "RejectConnectionInvitationResponse.updated_at required"
-        )
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("ExpiresAt") is not None:
         import capo_partnercentral_account.types.date_time
 
@@ -181,9 +179,7 @@ def deserialize_aws_json_1_0(data: dict) -> RejectConnectionInvitationResponse:
     if data.get("OtherParticipantIdentifier") is not None:
         out["other_participant_identifier"] = data["OtherParticipantIdentifier"]
     else:
-        raise DeserializationError(
-            "RejectConnectionInvitationResponse.other_participant_identifier required"
-        )
+        out["other_participant_identifier"] = ""
     if data.get("ParticipantType") is not None:
         import capo_partnercentral_account.types.participant_type
 
@@ -193,8 +189,10 @@ def deserialize_aws_json_1_0(data: dict) -> RejectConnectionInvitationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "RejectConnectionInvitationResponse.participant_type required"
+        import typing
+
+        out["participant_type"] = typing.cast(
+            "capo_partnercentral_account.types.participant_type.ParticipantType", ""
         )
     if data.get("Status") is not None:
         import capo_partnercentral_account.types.invitation_status
@@ -205,25 +203,23 @@ def deserialize_aws_json_1_0(data: dict) -> RejectConnectionInvitationResponse:
             )
         )
     else:
-        raise DeserializationError("RejectConnectionInvitationResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_partnercentral_account.types.invitation_status.InvitationStatus", ""
+        )
     if data.get("InvitationMessage") is not None:
         out["invitation_message"] = data["InvitationMessage"]
     else:
-        raise DeserializationError(
-            "RejectConnectionInvitationResponse.invitation_message required"
-        )
+        out["invitation_message"] = ""
     if data.get("InviterEmail") is not None:
         out["inviter_email"] = data["InviterEmail"]
     else:
-        raise DeserializationError(
-            "RejectConnectionInvitationResponse.inviter_email required"
-        )
+        out["inviter_email"] = ""
     if data.get("InviterName") is not None:
         out["inviter_name"] = data["InviterName"]
     else:
-        raise DeserializationError(
-            "RejectConnectionInvitationResponse.inviter_name required"
-        )
+        out["inviter_name"] = ""
     return out
 
 

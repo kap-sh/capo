@@ -72,7 +72,11 @@ def deserialize_aws_json_1_0(data: dict) -> WorkflowTypeInfo:
             data["status"]
         )
     else:
-        raise DeserializationError("WorkflowTypeInfo.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_swf.types.registration_status.RegistrationStatus", ""
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("creationDate") is not None:
@@ -82,7 +86,11 @@ def deserialize_aws_json_1_0(data: dict) -> WorkflowTypeInfo:
             data["creationDate"]
         )
     else:
-        raise DeserializationError("WorkflowTypeInfo.creation_date required")
+        import datetime
+
+        out["creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("deprecationDate") is not None:
         import capo_swf.types.timestamp
 

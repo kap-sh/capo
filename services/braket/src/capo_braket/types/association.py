@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_braket.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_braket.types.association_type
     import capo_braket.types.braket_resource_arn
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> Association:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("Association.arn required")
+        out["arn"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("Association.type required")
+        out["type"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_backup_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup_gateway.types.tag_key
     import capo_backup_gateway.types.tag_value
@@ -39,17 +37,17 @@ def deserialize_aws_json_1_0(data: dict) -> VmwareToAwsTagMapping:
     if data.get("VmwareCategory") is not None:
         out["vmware_category"] = data["VmwareCategory"]
     else:
-        raise DeserializationError("VmwareToAwsTagMapping.vmware_category required")
+        out["vmware_category"] = ""
     if data.get("VmwareTagName") is not None:
         out["vmware_tag_name"] = data["VmwareTagName"]
     else:
-        raise DeserializationError("VmwareToAwsTagMapping.vmware_tag_name required")
+        out["vmware_tag_name"] = ""
     if data.get("AwsTagKey") is not None:
         out["aws_tag_key"] = data["AwsTagKey"]
     else:
-        raise DeserializationError("VmwareToAwsTagMapping.aws_tag_key required")
+        out["aws_tag_key"] = ""
     if data.get("AwsTagValue") is not None:
         out["aws_tag_value"] = data["AwsTagValue"]
     else:
-        raise DeserializationError("VmwareToAwsTagMapping.aws_tag_value required")
+        out["aws_tag_value"] = ""
     return out

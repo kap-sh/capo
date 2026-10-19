@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pi.types.limit
     import capo_pi.types.sanitized_string
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> DimensionGroup:
     if data.get("Group") is not None:
         out["group"] = data["Group"]
     else:
-        raise DeserializationError("DimensionGroup.group required")
+        out["group"] = ""
     if data.get("Dimensions") is not None:
         import capo_pi.types.sanitized_string_list
 

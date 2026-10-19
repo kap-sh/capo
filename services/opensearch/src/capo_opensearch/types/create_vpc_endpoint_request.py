@@ -40,7 +40,7 @@ def deserialize_json(data: dict) -> CreateVpcEndpointRequest:
     if data.get("DomainArn") is not None:
         out["domain_arn"] = data["DomainArn"]
     else:
-        raise DeserializationError("CreateVpcEndpointRequest.domain_arn required")
+        out["domain_arn"] = ""
     if data.get("VpcOptions") is not None:
         import capo_opensearch.types.vpc_options
 

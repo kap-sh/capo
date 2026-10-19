@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.arn
     import capo_location.types.resource_name
@@ -30,7 +28,5 @@ def deserialize_json(data: dict) -> AssociateTrackerConsumerRequest:
     if data.get("ConsumerArn") is not None:
         out["consumer_arn"] = data["ConsumerArn"]
     else:
-        raise DeserializationError(
-            "AssociateTrackerConsumerRequest.consumer_arn required"
-        )
+        out["consumer_arn"] = ""
     return out

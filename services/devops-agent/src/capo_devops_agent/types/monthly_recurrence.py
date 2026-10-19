@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 
 class MonthlyRecurrence(TypedDict, closed=True):
     day_of_month: "int"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> MonthlyRecurrence:
     if data.get("dayOfMonth") is not None:
         out["day_of_month"] = data["dayOfMonth"]
     else:
-        raise DeserializationError("MonthlyRecurrence.day_of_month required")
+        out["day_of_month"] = 0
     return out

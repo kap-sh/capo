@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.client_token
     import capo_workspaces_web.types.security_group_id_list
@@ -59,7 +57,7 @@ def deserialize_json(data: dict) -> CreateNetworkSettingsRequest:
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
     else:
-        raise DeserializationError("CreateNetworkSettingsRequest.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("subnetIds") is not None:
         import capo_workspaces_web.types.subnet_id_list
 
@@ -67,7 +65,7 @@ def deserialize_json(data: dict) -> CreateNetworkSettingsRequest:
             data["subnetIds"]
         )
     else:
-        raise DeserializationError("CreateNetworkSettingsRequest.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("securityGroupIds") is not None:
         import capo_workspaces_web.types.security_group_id_list
 
@@ -77,9 +75,7 @@ def deserialize_json(data: dict) -> CreateNetworkSettingsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateNetworkSettingsRequest.security_group_ids required"
-        )
+        out["security_group_ids"] = []
     if data.get("tags") is not None:
         import capo_workspaces_web.types.tag_list
 

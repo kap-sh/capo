@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.wrapper_boolean
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GitSubmodulesConfig:
     if data.get("fetchSubmodules") is not None:
         out["fetch_submodules"] = data["fetchSubmodules"]
     else:
-        raise DeserializationError("GitSubmodulesConfig.fetch_submodules required")
+        out["fetch_submodules"] = False
     return out

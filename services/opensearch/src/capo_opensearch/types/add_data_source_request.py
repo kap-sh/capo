@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.data_source_description
     import capo_opensearch.types.data_source_name
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> AddDataSourceRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("AddDataSourceRequest.name required")
+        out["name"] = ""
     if data.get("DataSourceType") is not None:
         import capo_opensearch.types.data_source_type
 
@@ -55,7 +53,9 @@ def deserialize_json(data: dict) -> AddDataSourceRequest:
             )
         )
     else:
-        raise DeserializationError("AddDataSourceRequest.data_source_type required")
+        import capo_opensearch.types._unknown
+
+        out["data_source_type"] = capo_opensearch.types._unknown.UnknownUnionMember("")
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     return out

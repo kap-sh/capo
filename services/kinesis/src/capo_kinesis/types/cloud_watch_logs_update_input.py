@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.boolean_object
     import capo_kinesis.types.cloud_watch_log_group_name
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> CloudWatchLogsUpdateInput:
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
-        raise DeserializationError("CloudWatchLogsUpdateInput.enabled required")
+        out["enabled"] = False
     if data.get("LogGroupName") is not None:
         out["log_group_name"] = data["LogGroupName"]
     if data.get("LogStreamName") is not None:

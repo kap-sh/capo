@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.enclosed_in_string_properties
     import capo_glue.types.node_name
@@ -56,7 +54,7 @@ def deserialize_aws_json_1_1(data: dict) -> RenameField:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("RenameField.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.one_input
 
@@ -64,7 +62,7 @@ def deserialize_aws_json_1_1(data: dict) -> RenameField:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("RenameField.inputs required")
+        out["inputs"] = []
     if data.get("SourcePath") is not None:
         import capo_glue.types.enclosed_in_string_properties
 
@@ -74,7 +72,7 @@ def deserialize_aws_json_1_1(data: dict) -> RenameField:
             )
         )
     else:
-        raise DeserializationError("RenameField.source_path required")
+        out["source_path"] = []
     if data.get("TargetPath") is not None:
         import capo_glue.types.enclosed_in_string_properties
 
@@ -84,5 +82,5 @@ def deserialize_aws_json_1_1(data: dict) -> RenameField:
             )
         )
     else:
-        raise DeserializationError("RenameField.target_path required")
+        out["target_path"] = []
     return out

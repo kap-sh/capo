@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3tables.types.metadata_location
     import capo_s3tables.types.namespace_name
@@ -40,13 +38,9 @@ def deserialize_json(data: dict) -> UpdateTableMetadataLocationRequest:
     if data.get("versionToken") is not None:
         out["version_token"] = data["versionToken"]
     else:
-        raise DeserializationError(
-            "UpdateTableMetadataLocationRequest.version_token required"
-        )
+        out["version_token"] = ""
     if data.get("metadataLocation") is not None:
         out["metadata_location"] = data["metadataLocation"]
     else:
-        raise DeserializationError(
-            "UpdateTableMetadataLocationRequest.metadata_location required"
-        )
+        out["metadata_location"] = ""
     return out

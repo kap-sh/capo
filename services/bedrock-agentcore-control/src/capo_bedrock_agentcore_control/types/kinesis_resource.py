@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.arn
     import capo_bedrock_agentcore_control.types.content_configuration_list
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> KinesisResource:
     if data.get("dataStreamArn") is not None:
         out["data_stream_arn"] = data["dataStreamArn"]
     else:
-        raise DeserializationError("KinesisResource.data_stream_arn required")
+        out["data_stream_arn"] = ""
     if data.get("contentConfigurations") is not None:
         import capo_bedrock_agentcore_control.types.content_configuration_list
 
@@ -47,5 +45,5 @@ def deserialize_json(data: dict) -> KinesisResource:
             )
         )
     else:
-        raise DeserializationError("KinesisResource.content_configurations required")
+        out["content_configurations"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.anomaly_detector_arn
     import capo_cloudwatch_logs.types.anomaly_id
@@ -74,7 +72,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateAnomalyRequest:
     if data.get("anomalyDetectorArn") is not None:
         out["anomaly_detector_arn"] = data["anomalyDetectorArn"]
     else:
-        raise DeserializationError("UpdateAnomalyRequest.anomaly_detector_arn required")
+        out["anomaly_detector_arn"] = ""
     if data.get("suppressionType") is not None:
         import capo_cloudwatch_logs.types.suppression_type
 

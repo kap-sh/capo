@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.rr_type
@@ -53,29 +52,31 @@ def deserialize_xml(el: Element) -> TrafficPolicy:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("TrafficPolicy.id required")
+        out["id"] = ""
     child_version = el.find("Version")
     if child_version is not None:
         out["version"] = int(child_version.text or "")
     else:
-        raise DeserializationError("TrafficPolicy.version required")
+        out["version"] = 0
     child_name = el.find("Name")
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("TrafficPolicy.name required")
+        out["name"] = ""
     child_type = el.find("Type")
     if child_type is not None:
         import capo_route_53.types.rr_type
 
         out["type"] = capo_route_53.types.rr_type.deserialize_xml(child_type)
     else:
-        raise DeserializationError("TrafficPolicy.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_route_53.types.rr_type.RRType", "")
     child_document = el.find("Document")
     if child_document is not None:
         out["document"] = str(child_document.text or "")
     else:
-        raise DeserializationError("TrafficPolicy.document required")
+        out["document"] = ""
     child_comment = el.find("Comment")
     if child_comment is not None:
         out["comment"] = str(child_comment.text or "")

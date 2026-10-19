@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.add_remove_attributes_finding_arn_list
     import capo_inspector.types.user_attribute_list
@@ -47,9 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> AddAttributesToFindingsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "AddAttributesToFindingsRequest.finding_arns required"
-        )
+        out["finding_arns"] = []
     if data.get("attributes") is not None:
         import capo_inspector.types.user_attribute_list
 
@@ -59,5 +55,5 @@ def deserialize_aws_json_1_1(data: dict) -> AddAttributesToFindingsRequest:
             )
         )
     else:
-        raise DeserializationError("AddAttributesToFindingsRequest.attributes required")
+        out["attributes"] = []
     return out

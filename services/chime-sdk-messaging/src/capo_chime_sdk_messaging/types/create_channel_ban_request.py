@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_messaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_messaging.types.chime_arn
 
@@ -31,5 +29,5 @@ def deserialize_json(data: dict) -> CreateChannelBanRequest:
     if data.get("MemberArn") is not None:
         out["member_arn"] = data["MemberArn"]
     else:
-        raise DeserializationError("CreateChannelBanRequest.member_arn required")
+        out["member_arn"] = ""
     return out

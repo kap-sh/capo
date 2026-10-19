@@ -44,7 +44,7 @@ def deserialize_json(data: dict) -> OutlierDetection:
     if data.get("maxServerErrors") is not None:
         out["max_server_errors"] = data["maxServerErrors"]
     else:
-        raise DeserializationError("OutlierDetection.max_server_errors required")
+        out["max_server_errors"] = 0
     if data.get("interval") is not None:
         import capo_app_mesh.types.duration
 
@@ -64,5 +64,5 @@ def deserialize_json(data: dict) -> OutlierDetection:
     if data.get("maxEjectionPercent") is not None:
         out["max_ejection_percent"] = data["maxEjectionPercent"]
     else:
-        raise DeserializationError("OutlierDetection.max_ejection_percent required")
+        out["max_ejection_percent"] = 0
     return out

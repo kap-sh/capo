@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.checkout_type
     import capo_license_manager.types.client_token
@@ -62,7 +60,7 @@ def deserialize_aws_json_1_1(data: dict) -> CheckoutLicenseRequest:
     if data.get("ProductSKU") is not None:
         out["product_sku"] = data["ProductSKU"]
     else:
-        raise DeserializationError("CheckoutLicenseRequest.product_sku required")
+        out["product_sku"] = ""
     if data.get("CheckoutType") is not None:
         import capo_license_manager.types.checkout_type
 
@@ -72,11 +70,15 @@ def deserialize_aws_json_1_1(data: dict) -> CheckoutLicenseRequest:
             )
         )
     else:
-        raise DeserializationError("CheckoutLicenseRequest.checkout_type required")
+        import typing
+
+        out["checkout_type"] = typing.cast(
+            "capo_license_manager.types.checkout_type.CheckoutType", ""
+        )
     if data.get("KeyFingerprint") is not None:
         out["key_fingerprint"] = data["KeyFingerprint"]
     else:
-        raise DeserializationError("CheckoutLicenseRequest.key_fingerprint required")
+        out["key_fingerprint"] = ""
     if data.get("Entitlements") is not None:
         import capo_license_manager.types.entitlement_data_list
 
@@ -86,11 +88,11 @@ def deserialize_aws_json_1_1(data: dict) -> CheckoutLicenseRequest:
             )
         )
     else:
-        raise DeserializationError("CheckoutLicenseRequest.entitlements required")
+        out["entitlements"] = []
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("CheckoutLicenseRequest.client_token required")
+        out["client_token"] = ""
     if data.get("Beneficiary") is not None:
         out["beneficiary"] = data["Beneficiary"]
     if data.get("NodeId") is not None:

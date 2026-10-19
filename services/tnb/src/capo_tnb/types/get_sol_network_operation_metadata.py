@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_tnb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -98,7 +96,9 @@ def deserialize_json(data: dict) -> GetSolNetworkOperationMetadata:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetSolNetworkOperationMetadata.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastModified") is not None:
         import datetime
 
@@ -106,7 +106,9 @@ def deserialize_json(data: dict) -> GetSolNetworkOperationMetadata:
             data["lastModified"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "GetSolNetworkOperationMetadata.last_modified required"
+        import datetime
+
+        out["last_modified"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

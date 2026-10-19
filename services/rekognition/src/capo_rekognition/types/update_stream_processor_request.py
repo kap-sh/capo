@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.regions_of_interest
     import capo_rekognition.types.stream_processor_data_sharing_preference
@@ -79,7 +77,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateStreamProcessorRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateStreamProcessorRequest.name required")
+        out["name"] = ""
     if data.get("SettingsForUpdate") is not None:
         import capo_rekognition.types.stream_processor_settings_for_update
 

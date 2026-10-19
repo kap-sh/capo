@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 
 class GetRecoveryPointRequest(TypedDict, closed=True):
     recovery_point_id: "str"
@@ -22,5 +20,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetRecoveryPointRequest:
     if data.get("recoveryPointId") is not None:
         out["recovery_point_id"] = data["recoveryPointId"]
     else:
-        raise DeserializationError("GetRecoveryPointRequest.recovery_point_id required")
+        out["recovery_point_id"] = ""
     return out

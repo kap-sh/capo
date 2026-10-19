@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.aws_account_id
     import capo_omics.types.cache_behavior
@@ -142,13 +140,13 @@ def deserialize_json(data: dict) -> DefaultRunSetting:
     if data.get("workflowId") is not None:
         out["workflow_id"] = data["workflowId"]
     else:
-        raise DeserializationError("DefaultRunSetting.workflow_id required")
+        out["workflow_id"] = ""
     if data.get("workflowType") is not None:
         out["workflow_type"] = data["workflowType"]
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("DefaultRunSetting.role_arn required")
+        out["role_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("cacheId") is not None:

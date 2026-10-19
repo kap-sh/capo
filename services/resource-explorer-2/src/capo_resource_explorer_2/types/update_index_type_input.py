@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resource_explorer_2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resource_explorer_2.types.index_type
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> UpdateIndexTypeInput:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("UpdateIndexTypeInput.arn required")
+        out["arn"] = ""
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     else:
-        raise DeserializationError("UpdateIndexTypeInput.type required")
+        out["type"] = ""
     return out

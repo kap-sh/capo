@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codedeploy.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codedeploy.types.deployment_id
     import capo_codedeploy.types.nullable_boolean
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_1(data: dict) -> StopDeploymentInput:
     if data.get("deploymentId") is not None:
         out["deployment_id"] = data["deploymentId"]
     else:
-        raise DeserializationError("StopDeploymentInput.deployment_id required")
+        out["deployment_id"] = ""
     if data.get("autoRollbackEnabled") is not None:
         out["auto_rollback_enabled"] = data["autoRollbackEnabled"]
     return out

@@ -73,8 +73,11 @@ def deserialize_json(data: dict) -> EvaluationFormItemEnablementConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "EvaluationFormItemEnablementConfiguration.action required"
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_connect.types.evaluation_form_item_enablement_action.EvaluationFormItemEnablementAction",
+            "",
         )
     if data.get("DefaultAction") is not None:
         import capo_connect.types.evaluation_form_item_enablement_action

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aws_arn
     import capo_iot.types.batch_mode
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> IotEventsAction:
     if data.get("inputName") is not None:
         out["input_name"] = data["inputName"]
     else:
-        raise DeserializationError("IotEventsAction.input_name required")
+        out["input_name"] = ""
     if data.get("messageId") is not None:
         out["message_id"] = data["messageId"]
     if data.get("batchMode") is not None:
@@ -49,5 +47,5 @@ def deserialize_json(data: dict) -> IotEventsAction:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("IotEventsAction.role_arn required")
+        out["role_arn"] = ""
     return out

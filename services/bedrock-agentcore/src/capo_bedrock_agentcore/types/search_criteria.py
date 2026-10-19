@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.memory_metadata_filter_list
     import capo_bedrock_agentcore.types.memory_strategy_id
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> SearchCriteria:
     if data.get("searchQuery") is not None:
         out["search_query"] = data["searchQuery"]
     else:
-        raise DeserializationError("SearchCriteria.search_query required")
+        out["search_query"] = ""
     if data.get("memoryStrategyId") is not None:
         out["memory_strategy_id"] = data["memoryStrategyId"]
     if data.get("topK") is not None:

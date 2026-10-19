@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.secret_arn
     import capo_mgn.types.storage_virtual_machine_id
@@ -33,13 +31,9 @@ def deserialize_json(data: dict) -> FsxOntapConfiguration:
     if data.get("storageVirtualMachineId") is not None:
         out["storage_virtual_machine_id"] = data["storageVirtualMachineId"]
     else:
-        raise DeserializationError(
-            "FsxOntapConfiguration.storage_virtual_machine_id required"
-        )
+        out["storage_virtual_machine_id"] = ""
     if data.get("credentialsSecretArn") is not None:
         out["credentials_secret_arn"] = data["credentialsSecretArn"]
     else:
-        raise DeserializationError(
-            "FsxOntapConfiguration.credentials_secret_arn required"
-        )
+        out["credentials_secret_arn"] = ""
     return out

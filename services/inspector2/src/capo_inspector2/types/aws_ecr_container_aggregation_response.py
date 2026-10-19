@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.account_id
     import capo_inspector2.types.date_time_timestamp
@@ -77,9 +75,7 @@ def deserialize_json(data: dict) -> AwsEcrContainerAggregationResponse:
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     else:
-        raise DeserializationError(
-            "AwsEcrContainerAggregationResponse.resource_id required"
-        )
+        out["resource_id"] = ""
     if data.get("imageSha") is not None:
         out["image_sha"] = data["imageSha"]
     if data.get("repository") is not None:

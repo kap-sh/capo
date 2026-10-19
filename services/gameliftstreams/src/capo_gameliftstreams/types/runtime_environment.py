@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_gameliftstreams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_gameliftstreams.types.runtime_environment_type
     import capo_gameliftstreams.types.runtime_environment_version
@@ -41,9 +39,14 @@ def deserialize_json(data: dict) -> RuntimeEnvironment:
             )
         )
     else:
-        raise DeserializationError("RuntimeEnvironment.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_gameliftstreams.types.runtime_environment_type.RuntimeEnvironmentType",
+            "",
+        )
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     else:
-        raise DeserializationError("RuntimeEnvironment.version required")
+        out["version"] = ""
     return out

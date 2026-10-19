@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.arn
     import capo_chime_sdk_media_pipelines.types.media_stream_pipeline_sink_type
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> MediaStreamSink:
     if data.get("SinkArn") is not None:
         out["sink_arn"] = data["SinkArn"]
     else:
-        raise DeserializationError("MediaStreamSink.sink_arn required")
+        out["sink_arn"] = ""
     if data.get("SinkType") is not None:
         import capo_chime_sdk_media_pipelines.types.media_stream_pipeline_sink_type
 
@@ -63,11 +61,16 @@ def deserialize_json(data: dict) -> MediaStreamSink:
             )
         )
     else:
-        raise DeserializationError("MediaStreamSink.sink_type required")
+        import typing
+
+        out["sink_type"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.media_stream_pipeline_sink_type.MediaStreamPipelineSinkType",
+            "",
+        )
     if data.get("ReservedStreamCapacity") is not None:
         out["reserved_stream_capacity"] = data["ReservedStreamCapacity"]
     else:
-        raise DeserializationError("MediaStreamSink.reserved_stream_capacity required")
+        out["reserved_stream_capacity"] = 0
     if data.get("MediaStreamType") is not None:
         import capo_chime_sdk_media_pipelines.types.media_stream_type
 
@@ -77,7 +80,11 @@ def deserialize_json(data: dict) -> MediaStreamSink:
             )
         )
     else:
-        raise DeserializationError("MediaStreamSink.media_stream_type required")
+        import typing
+
+        out["media_stream_type"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.media_stream_type.MediaStreamType", ""
+        )
     return out
 
 

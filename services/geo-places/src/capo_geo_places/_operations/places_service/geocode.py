@@ -68,7 +68,10 @@ def handle_response(
             json.loads(response.read())
         )
     )
-    out["pricing_bucket"] = response.headers["x-amz-geo-pricing-bucket"]
+    if "x-amz-geo-pricing-bucket" in response.headers:
+        out["pricing_bucket"] = response.headers["x-amz-geo-pricing-bucket"]
+    else:
+        out["pricing_bucket"] = ""
     return out
 
 
@@ -80,7 +83,10 @@ async def async_handle_response(
             json.loads(await response.aread())
         )
     )
-    out["pricing_bucket"] = response.headers["x-amz-geo-pricing-bucket"]
+    if "x-amz-geo-pricing-bucket" in response.headers:
+        out["pricing_bucket"] = response.headers["x-amz-geo-pricing-bucket"]
+    else:
+        out["pricing_bucket"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.collaboration_configured_model_algorithm_association_list
     import capo_cleanroomsml.types.next_token
@@ -52,7 +50,5 @@ def deserialize_json(
             )
         )
     else:
-        raise DeserializationError(
-            "ListCollaborationConfiguredModelAlgorithmAssociationsResponse.collaboration_configured_model_algorithm_associations required"
-        )
+        out["collaboration_configured_model_algorithm_associations"] = []
     return out

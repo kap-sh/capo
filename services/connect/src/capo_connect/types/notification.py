@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.notification_content
@@ -102,11 +100,11 @@ def deserialize_json(data: dict) -> Notification:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("Notification.id required")
+        out["id"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("Notification.arn required")
+        out["arn"] = ""
     if data.get("Priority") is not None:
         import capo_connect.types.notification_priority
 
@@ -126,7 +124,11 @@ def deserialize_json(data: dict) -> Notification:
             data["LastModifiedTime"]
         )
     else:
-        raise DeserializationError("Notification.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("CreatedAt") is not None:
         import capo_connect.types.timestamp
 

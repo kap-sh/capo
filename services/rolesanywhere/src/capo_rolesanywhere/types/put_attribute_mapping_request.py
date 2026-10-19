@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rolesanywhere.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rolesanywhere.types.certificate_field
     import capo_rolesanywhere.types.mapping_rules
@@ -38,9 +36,7 @@ def deserialize_json(data: dict) -> PutAttributeMappingRequest:
     if data.get("certificateField") is not None:
         out["certificate_field"] = data["certificateField"]
     else:
-        raise DeserializationError(
-            "PutAttributeMappingRequest.certificate_field required"
-        )
+        out["certificate_field"] = ""
     if data.get("mappingRules") is not None:
         import capo_rolesanywhere.types.mapping_rules
 
@@ -48,5 +44,5 @@ def deserialize_json(data: dict) -> PutAttributeMappingRequest:
             data["mappingRules"]
         )
     else:
-        raise DeserializationError("PutAttributeMappingRequest.mapping_rules required")
+        out["mapping_rules"] = []
     return out

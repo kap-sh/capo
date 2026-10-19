@@ -33,7 +33,7 @@ def deserialize_json(data: dict) -> BatchDeleteGeofenceError:
     if data.get("GeofenceId") is not None:
         out["geofence_id"] = data["GeofenceId"]
     else:
-        raise DeserializationError("BatchDeleteGeofenceError.geofence_id required")
+        out["geofence_id"] = ""
     if data.get("Error") is not None:
         import capo_location.types.batch_item_error
 

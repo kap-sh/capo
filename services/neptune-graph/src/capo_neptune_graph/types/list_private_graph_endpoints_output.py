@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptune_graph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_neptune_graph.types.pagination_token
     import capo_neptune_graph.types.private_graph_endpoint_summary_list
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> ListPrivateGraphEndpointsOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListPrivateGraphEndpointsOutput.private_graph_endpoints required"
-        )
+        out["private_graph_endpoints"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.bedrock_foundation_model_context_enrichment_configuration
     import capo_bedrock_agent.types.context_enrichment_type
@@ -48,7 +46,11 @@ def deserialize_json(data: dict) -> ContextEnrichmentConfiguration:
             data["type"]
         )
     else:
-        raise DeserializationError("ContextEnrichmentConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent.types.context_enrichment_type.ContextEnrichmentType", ""
+        )
     if data.get("bedrockFoundationModelConfiguration") is not None:
         import capo_bedrock_agent.types.bedrock_foundation_model_context_enrichment_configuration
 

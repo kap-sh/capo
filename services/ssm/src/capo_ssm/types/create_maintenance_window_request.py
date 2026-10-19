@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.client_token
     import capo_ssm.types.maintenance_window_allow_unassociated_targets
@@ -89,7 +87,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMaintenanceWindowRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateMaintenanceWindowRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("StartDate") is not None:
@@ -99,7 +97,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMaintenanceWindowRequest:
     if data.get("Schedule") is not None:
         out["schedule"] = data["Schedule"]
     else:
-        raise DeserializationError("CreateMaintenanceWindowRequest.schedule required")
+        out["schedule"] = ""
     if data.get("ScheduleTimezone") is not None:
         out["schedule_timezone"] = data["ScheduleTimezone"]
     if data.get("ScheduleOffset") is not None:
@@ -107,17 +105,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMaintenanceWindowRequest:
     if data.get("Duration") is not None:
         out["duration"] = data["Duration"]
     else:
-        raise DeserializationError("CreateMaintenanceWindowRequest.duration required")
+        out["duration"] = 0
     if data.get("Cutoff") is not None:
         out["cutoff"] = data["Cutoff"]
     else:
-        raise DeserializationError("CreateMaintenanceWindowRequest.cutoff required")
+        out["cutoff"] = 0
     if data.get("AllowUnassociatedTargets") is not None:
         out["allow_unassociated_targets"] = data["AllowUnassociatedTargets"]
     else:
-        raise DeserializationError(
-            "CreateMaintenanceWindowRequest.allow_unassociated_targets required"
-        )
+        out["allow_unassociated_targets"] = False
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("Tags") is not None:

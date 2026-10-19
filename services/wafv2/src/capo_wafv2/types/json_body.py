@@ -79,7 +79,11 @@ def deserialize_aws_json_1_1(data: dict) -> JsonBody:
             data["MatchScope"]
         )
     else:
-        raise DeserializationError("JsonBody.match_scope required")
+        import typing
+
+        out["match_scope"] = typing.cast(
+            "capo_wafv2.types.json_match_scope.JsonMatchScope", ""
+        )
     if data.get("InvalidFallbackBehavior") is not None:
         import capo_wafv2.types.body_parsing_fallback_behavior
 

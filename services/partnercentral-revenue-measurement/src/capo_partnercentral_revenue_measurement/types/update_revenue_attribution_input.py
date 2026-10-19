@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_revenue_measurement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_revenue_measurement.types.catalog_name
     import capo_partnercentral_revenue_measurement.types.client_token
@@ -60,11 +58,15 @@ def deserialize_cbor(data: dict) -> UpdateRevenueAttributionInput:
             )
         )
     else:
-        raise DeserializationError("UpdateRevenueAttributionInput.catalog required")
+        import typing
+
+        out["catalog"] = typing.cast(
+            "capo_partnercentral_revenue_measurement.types.catalog_name.CatalogName", ""
+        )
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("UpdateRevenueAttributionInput.identifier required")
+        out["identifier"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("Description") is not None:
@@ -72,5 +74,5 @@ def deserialize_cbor(data: dict) -> UpdateRevenueAttributionInput:
     if data.get("Revision") is not None:
         out["revision"] = data["Revision"]
     else:
-        raise DeserializationError("UpdateRevenueAttributionInput.revision required")
+        out["revision"] = ""
     return out

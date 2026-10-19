@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_auto_scaling_plans.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auto_scaling_plans.types.cooldown
     import capo_auto_scaling_plans.types.customized_scaling_metric_specification
@@ -99,7 +97,7 @@ def deserialize_aws_json_1_1(data: dict) -> TargetTrackingConfiguration:
     if data.get("TargetValue") is not None:
         out["target_value"] = float(data["TargetValue"])
     else:
-        raise DeserializationError("TargetTrackingConfiguration.target_value required")
+        out["target_value"] = 0.0
     if data.get("DisableScaleIn") is not None:
         out["disable_scale_in"] = data["DisableScaleIn"]
     if data.get("ScaleOutCooldown") is not None:

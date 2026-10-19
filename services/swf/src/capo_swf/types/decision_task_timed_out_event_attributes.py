@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.decision_task_timeout_type
     import capo_swf.types.event_id
@@ -46,8 +44,10 @@ def deserialize_aws_json_1_0(data: dict) -> DecisionTaskTimedOutEventAttributes:
             )
         )
     else:
-        raise DeserializationError(
-            "DecisionTaskTimedOutEventAttributes.timeout_type required"
+        import typing
+
+        out["timeout_type"] = typing.cast(
+            "capo_swf.types.decision_task_timeout_type.DecisionTaskTimeoutType", ""
         )
     if data.get("scheduledEventId") is not None:
         out["scheduled_event_id"] = data["scheduledEventId"]

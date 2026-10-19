@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.phone_number
     import capo_pinpoint_sms_voice_v2.types.rcs_postback_data
@@ -35,13 +33,13 @@ def deserialize_aws_json_1_0(data: dict) -> RcsDialPhoneAction:
     if data.get("Text") is not None:
         out["text"] = data["Text"]
     else:
-        raise DeserializationError("RcsDialPhoneAction.text required")
+        out["text"] = ""
     if data.get("PostbackData") is not None:
         out["postback_data"] = data["PostbackData"]
     else:
-        raise DeserializationError("RcsDialPhoneAction.postback_data required")
+        out["postback_data"] = ""
     if data.get("PhoneNumber") is not None:
         out["phone_number"] = data["PhoneNumber"]
     else:
-        raise DeserializationError("RcsDialPhoneAction.phone_number required")
+        out["phone_number"] = ""
     return out

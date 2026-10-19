@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -133,9 +131,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetEnterpriseSupportContractDetailsR
     if data.get("supportAllocationMethod") is not None:
         out["support_allocation_method"] = data["supportAllocationMethod"]
     else:
-        raise DeserializationError(
-            "GetEnterpriseSupportContractDetailsResponse.support_allocation_method required"
-        )
+        out["support_allocation_method"] = ""
     if data.get("supportReservedInstanceAmortizationStartDate") is not None:
         import capo_billing.types._prelude.timestamp
 
@@ -177,9 +173,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetEnterpriseSupportContractDetailsR
             )
         )
     else:
-        raise DeserializationError(
-            "GetEnterpriseSupportContractDetailsResponse.contract_payer_account_ids required"
-        )
+        out["contract_payer_account_ids"] = []
     if data.get("chargedPayerAccountIds") is not None:
         import capo_billing.types.charge_account_list
 
@@ -189,9 +183,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetEnterpriseSupportContractDetailsR
             )
         )
     else:
-        raise DeserializationError(
-            "GetEnterpriseSupportContractDetailsResponse.charged_payer_account_ids required"
-        )
+        out["charged_payer_account_ids"] = []
     if data.get("additionalSupportCharge") is not None:
         import capo_billing.types.additional_charge_list
 
@@ -217,7 +209,5 @@ def deserialize_aws_json_1_0(data: dict) -> GetEnterpriseSupportContractDetailsR
             )
         )
     else:
-        raise DeserializationError(
-            "GetEnterpriseSupportContractDetailsResponse.pricing_plans required"
-        )
+        out["pricing_plans"] = []
     return out

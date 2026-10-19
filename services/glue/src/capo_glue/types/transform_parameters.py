@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.find_matches_parameters
     import capo_glue.types.transform_type
@@ -48,7 +46,11 @@ def deserialize_aws_json_1_1(data: dict) -> TransformParameters:
             data["TransformType"]
         )
     else:
-        raise DeserializationError("TransformParameters.transform_type required")
+        import typing
+
+        out["transform_type"] = typing.cast(
+            "capo_glue.types.transform_type.TransformType", ""
+        )
     if data.get("FindMatchesParameters") is not None:
         import capo_glue.types.find_matches_parameters
 

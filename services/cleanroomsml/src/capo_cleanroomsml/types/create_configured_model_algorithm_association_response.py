@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.configured_model_algorithm_association_arn
 
@@ -31,7 +29,5 @@ def deserialize_json(data: dict) -> CreateConfiguredModelAlgorithmAssociationRes
             "configuredModelAlgorithmAssociationArn"
         ]
     else:
-        raise DeserializationError(
-            "CreateConfiguredModelAlgorithmAssociationResponse.configured_model_algorithm_association_arn required"
-        )
+        out["configured_model_algorithm_association_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_outposts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_outposts.types.outpost_id
     import capo_outposts.types.vpc_information_list
@@ -40,7 +38,5 @@ def deserialize_json(data: dict) -> CreatePrivateConnectivityConfigInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreatePrivateConnectivityConfigInput.vpc_information_list required"
-        )
+        out["vpc_information_list"] = []
     return out

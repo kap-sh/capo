@@ -47,7 +47,7 @@ def deserialize_json(data: dict) -> RegisterClusterRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RegisterClusterRequest.name required")
+        out["name"] = ""
     if data.get("connectorConfig") is not None:
         import capo_eks.types.connector_config_request
 

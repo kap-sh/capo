@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_places.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_places.types.api_key
     import capo_geo_places.types.country_code
@@ -120,7 +118,7 @@ def deserialize_json(data: dict) -> ReverseGeocodeRequest:
             data["QueryPosition"]
         )
     else:
-        raise DeserializationError("ReverseGeocodeRequest.query_position required")
+        out["query_position"] = []
     if data.get("QueryRadius") is not None:
         out["query_radius"] = data["QueryRadius"]
     if data.get("MaxResults") is not None:

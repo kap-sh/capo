@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_shield.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_shield.types.contact_notes
     import capo_shield.types.email_address
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> EmergencyContact:
     if data.get("EmailAddress") is not None:
         out["email_address"] = data["EmailAddress"]
     else:
-        raise DeserializationError("EmergencyContact.email_address required")
+        out["email_address"] = ""
     if data.get("PhoneNumber") is not None:
         out["phone_number"] = data["PhoneNumber"]
     if data.get("ContactNotes") is not None:

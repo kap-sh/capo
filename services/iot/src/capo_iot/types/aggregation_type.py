@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aggregation_type_name
     import capo_iot.types.aggregation_type_values
@@ -42,7 +40,11 @@ def deserialize_json(data: dict) -> AggregationType:
             data["name"]
         )
     else:
-        raise DeserializationError("AggregationType.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_iot.types.aggregation_type_name.AggregationTypeName", ""
+        )
     if data.get("values") is not None:
         import capo_iot.types.aggregation_type_values
 

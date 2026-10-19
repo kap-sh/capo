@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_tnb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_tnb.types.ns_lcm_op_occ_id
     import capo_tnb.types.tag_map
@@ -34,9 +32,7 @@ def deserialize_json(data: dict) -> InstantiateSolNetworkInstanceOutput:
     if data.get("nsLcmOpOccId") is not None:
         out["ns_lcm_op_occ_id"] = data["nsLcmOpOccId"]
     else:
-        raise DeserializationError(
-            "InstantiateSolNetworkInstanceOutput.ns_lcm_op_occ_id required"
-        )
+        out["ns_lcm_op_occ_id"] = ""
     if data.get("tags") is not None:
         import capo_tnb.types.tag_map
 

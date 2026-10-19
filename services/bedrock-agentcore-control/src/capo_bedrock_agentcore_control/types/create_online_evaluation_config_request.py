@@ -132,9 +132,7 @@ def deserialize_json(data: dict) -> CreateOnlineEvaluationConfigRequest:
     if data.get("onlineEvaluationConfigName") is not None:
         out["online_evaluation_config_name"] = data["onlineEvaluationConfigName"]
     else:
-        raise DeserializationError(
-            "CreateOnlineEvaluationConfigRequest.online_evaluation_config_name required"
-        )
+        out["online_evaluation_config_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("rule") is not None:
@@ -154,8 +152,10 @@ def deserialize_json(data: dict) -> CreateOnlineEvaluationConfigRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateOnlineEvaluationConfigRequest.data_source_config required"
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["data_source_config"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
         )
     if data.get("evaluators") is not None:
         import capo_bedrock_agentcore_control.types.evaluator_list
@@ -192,15 +192,11 @@ def deserialize_json(data: dict) -> CreateOnlineEvaluationConfigRequest:
     if data.get("evaluationExecutionRoleArn") is not None:
         out["evaluation_execution_role_arn"] = data["evaluationExecutionRoleArn"]
     else:
-        raise DeserializationError(
-            "CreateOnlineEvaluationConfigRequest.evaluation_execution_role_arn required"
-        )
+        out["evaluation_execution_role_arn"] = ""
     if data.get("enableOnCreate") is not None:
         out["enable_on_create"] = data["enableOnCreate"]
     else:
-        raise DeserializationError(
-            "CreateOnlineEvaluationConfigRequest.enable_on_create required"
-        )
+        out["enable_on_create"] = False
     if data.get("tags") is not None:
         import capo_bedrock_agentcore_control.types.tags_map
 

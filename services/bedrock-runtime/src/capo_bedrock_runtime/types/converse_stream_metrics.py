@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 
 class ConverseStreamMetrics(TypedDict, closed=True):
     latency_ms: "int"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> ConverseStreamMetrics:
     if data.get("latencyMs") is not None:
         out["latency_ms"] = data["latencyMs"]
     else:
-        raise DeserializationError("ConverseStreamMetrics.latency_ms required")
+        out["latency_ms"] = 0
     return out

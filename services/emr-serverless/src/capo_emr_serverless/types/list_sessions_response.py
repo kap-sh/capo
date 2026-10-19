@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_serverless.types.next_token
     import capo_emr_serverless.types.sessions
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ListSessionsResponse:
             data["sessions"]
         )
     else:
-        raise DeserializationError("ListSessionsResponse.sessions required")
+        out["sessions"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

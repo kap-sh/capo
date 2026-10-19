@@ -75,9 +75,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLicenseManagerReportGeneratorR
     if data.get("ReportGeneratorName") is not None:
         out["report_generator_name"] = data["ReportGeneratorName"]
     else:
-        raise DeserializationError(
-            "CreateLicenseManagerReportGeneratorRequest.report_generator_name required"
-        )
+        out["report_generator_name"] = ""
     if data.get("Type") is not None:
         import capo_license_manager.types.report_type_list
 
@@ -87,9 +85,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLicenseManagerReportGeneratorR
             )
         )
     else:
-        raise DeserializationError(
-            "CreateLicenseManagerReportGeneratorRequest.type required"
-        )
+        out["type"] = []
     if data.get("ReportContext") is not None:
         import capo_license_manager.types.report_context
 
@@ -117,9 +113,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLicenseManagerReportGeneratorR
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError(
-            "CreateLicenseManagerReportGeneratorRequest.client_token required"
-        )
+        out["client_token"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Tags") is not None:

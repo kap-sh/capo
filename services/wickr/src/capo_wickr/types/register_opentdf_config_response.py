@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.generic_string
     import capo_wickr.types.sensitive_string
@@ -37,21 +35,19 @@ def deserialize_json(data: dict) -> RegisterOpentdfConfigResponse:
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
     else:
-        raise DeserializationError("RegisterOpentdfConfigResponse.client_id required")
+        out["client_id"] = ""
     if data.get("domain") is not None:
         out["domain"] = data["domain"]
     else:
-        raise DeserializationError("RegisterOpentdfConfigResponse.domain required")
+        out["domain"] = ""
     if data.get("clientSecret") is not None:
         out["client_secret"] = data["clientSecret"]
     else:
-        raise DeserializationError(
-            "RegisterOpentdfConfigResponse.client_secret required"
-        )
+        out["client_secret"] = ""
     if data.get("provider") is not None:
         out["provider"] = data["provider"]
     else:
-        raise DeserializationError("RegisterOpentdfConfigResponse.provider required")
+        out["provider"] = ""
     return out
 
 

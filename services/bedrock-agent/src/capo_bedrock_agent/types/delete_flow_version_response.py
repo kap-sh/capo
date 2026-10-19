@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.id
     import capo_bedrock_agent.types.numerical_version
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> DeleteFlowVersionResponse:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("DeleteFlowVersionResponse.id required")
+        out["id"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("DeleteFlowVersionResponse.version required")
+        out["version"] = ""
     return out

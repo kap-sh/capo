@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_simspaceweaver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_simspaceweaver.types.client_token
     import capo_simspaceweaver.types.description
@@ -78,13 +76,13 @@ def deserialize_json(data: dict) -> StartSimulationInput:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("StartSimulationInput.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("StartSimulationInput.role_arn required")
+        out["role_arn"] = ""
     if data.get("SchemaS3Location") is not None:
         import capo_simspaceweaver.types.s3_location
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.allowed_column_list
     import capo_cleanrooms.types.analysis_method
@@ -76,7 +74,7 @@ def deserialize_json(data: dict) -> CreateConfiguredTableInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateConfiguredTableInput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("tableReference") is not None:
@@ -86,9 +84,9 @@ def deserialize_json(data: dict) -> CreateConfiguredTableInput:
             data["tableReference"]
         )
     else:
-        raise DeserializationError(
-            "CreateConfiguredTableInput.table_reference required"
-        )
+        import capo_cleanrooms.types._unknown
+
+        out["table_reference"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
     if data.get("allowedColumns") is not None:
         import capo_cleanrooms.types.allowed_column_list
 
@@ -98,9 +96,7 @@ def deserialize_json(data: dict) -> CreateConfiguredTableInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateConfiguredTableInput.allowed_columns required"
-        )
+        out["allowed_columns"] = []
     if data.get("analysisMethod") is not None:
         import capo_cleanrooms.types.analysis_method
 
@@ -108,8 +104,10 @@ def deserialize_json(data: dict) -> CreateConfiguredTableInput:
             data["analysisMethod"]
         )
     else:
-        raise DeserializationError(
-            "CreateConfiguredTableInput.analysis_method required"
+        import typing
+
+        out["analysis_method"] = typing.cast(
+            "capo_cleanrooms.types.analysis_method.AnalysisMethod", ""
         )
     if data.get("selectedAnalysisMethods") is not None:
         import capo_cleanrooms.types.selected_analysis_methods

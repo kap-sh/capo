@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 
 class CodeLine(TypedDict, closed=True):
     content: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> CodeLine:
     if data.get("content") is not None:
         out["content"] = data["content"]
     else:
-        raise DeserializationError("CodeLine.content required")
+        out["content"] = ""
     if data.get("lineNumber") is not None:
         out["line_number"] = data["lineNumber"]
     else:
-        raise DeserializationError("CodeLine.line_number required")
+        out["line_number"] = 0
     return out

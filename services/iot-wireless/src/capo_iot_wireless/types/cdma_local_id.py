@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.cdma_channel
     import capo_iot_wireless.types.pn_offset
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> CdmaLocalId:
     if data.get("PnOffset") is not None:
         out["pn_offset"] = data["PnOffset"]
     else:
-        raise DeserializationError("CdmaLocalId.pn_offset required")
+        out["pn_offset"] = 0
     if data.get("CdmaChannel") is not None:
         out["cdma_channel"] = data["CdmaChannel"]
     else:
-        raise DeserializationError("CdmaLocalId.cdma_channel required")
+        out["cdma_channel"] = 0
     return out

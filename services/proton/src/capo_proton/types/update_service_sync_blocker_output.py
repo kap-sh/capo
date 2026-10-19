@@ -39,9 +39,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateServiceSyncBlockerOutput:
     if data.get("serviceName") is not None:
         out["service_name"] = data["serviceName"]
     else:
-        raise DeserializationError(
-            "UpdateServiceSyncBlockerOutput.service_name required"
-        )
+        out["service_name"] = ""
     if data.get("serviceInstanceName") is not None:
         out["service_instance_name"] = data["serviceInstanceName"]
     if data.get("serviceSyncBlocker") is not None:

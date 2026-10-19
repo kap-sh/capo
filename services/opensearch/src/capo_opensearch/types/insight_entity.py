@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.insight_entity_type
     import capo_opensearch.types.insight_entity_value
@@ -40,7 +38,11 @@ def deserialize_json(data: dict) -> InsightEntity:
             data["Type"]
         )
     else:
-        raise DeserializationError("InsightEntity.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_opensearch.types.insight_entity_type.InsightEntityType", ""
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.execution_state
     import capo_arc_region_switch.types.list_executions_max_results
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListPlanExecutionsRequest:
     if data.get("planArn") is not None:
         out["plan_arn"] = data["planArn"]
     else:
-        raise DeserializationError("ListPlanExecutionsRequest.plan_arn required")
+        out["plan_arn"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_events_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events_data.types.alarm_model_name
     import capo_iot_events_data.types.key_value
@@ -41,11 +39,11 @@ def deserialize_json(data: dict) -> EnableAlarmActionRequest:
     if data.get("requestId") is not None:
         out["request_id"] = data["requestId"]
     else:
-        raise DeserializationError("EnableAlarmActionRequest.request_id required")
+        out["request_id"] = ""
     if data.get("alarmModelName") is not None:
         out["alarm_model_name"] = data["alarmModelName"]
     else:
-        raise DeserializationError("EnableAlarmActionRequest.alarm_model_name required")
+        out["alarm_model_name"] = ""
     if data.get("keyValue") is not None:
         out["key_value"] = data["keyValue"]
     if data.get("note") is not None:

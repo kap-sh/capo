@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.job_id
     import capo_mailmanager.types.pre_signed_url
@@ -31,13 +29,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateAddressListImportJobResponse:
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError("CreateAddressListImportJobResponse.job_id required")
+        out["job_id"] = ""
     if data.get("PreSignedUrl") is not None:
         out["pre_signed_url"] = data["PreSignedUrl"]
     else:
-        raise DeserializationError(
-            "CreateAddressListImportJobResponse.pre_signed_url required"
-        )
+        out["pre_signed_url"] = ""
     return out
 
 

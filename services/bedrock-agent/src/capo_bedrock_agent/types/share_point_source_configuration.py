@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.microsoft365_tenant_id
     import capo_bedrock_agent.types.secret_arn
@@ -64,7 +62,7 @@ def deserialize_json(data: dict) -> SharePointSourceConfiguration:
     if data.get("domain") is not None:
         out["domain"] = data["domain"]
     else:
-        raise DeserializationError("SharePointSourceConfiguration.domain required")
+        out["domain"] = ""
     if data.get("siteUrls") is not None:
         import capo_bedrock_agent.types.share_point_site_urls
 
@@ -74,7 +72,7 @@ def deserialize_json(data: dict) -> SharePointSourceConfiguration:
             )
         )
     else:
-        raise DeserializationError("SharePointSourceConfiguration.site_urls required")
+        out["site_urls"] = []
     if data.get("hostType") is not None:
         import capo_bedrock_agent.types.share_point_host_type
 
@@ -84,7 +82,11 @@ def deserialize_json(data: dict) -> SharePointSourceConfiguration:
             )
         )
     else:
-        raise DeserializationError("SharePointSourceConfiguration.host_type required")
+        import typing
+
+        out["host_type"] = typing.cast(
+            "capo_bedrock_agent.types.share_point_host_type.SharePointHostType", ""
+        )
     if data.get("authType") is not None:
         import capo_bedrock_agent.types.share_point_auth_type
 
@@ -94,11 +96,13 @@ def deserialize_json(data: dict) -> SharePointSourceConfiguration:
             )
         )
     else:
-        raise DeserializationError("SharePointSourceConfiguration.auth_type required")
+        import typing
+
+        out["auth_type"] = typing.cast(
+            "capo_bedrock_agent.types.share_point_auth_type.SharePointAuthType", ""
+        )
     if data.get("credentialsSecretArn") is not None:
         out["credentials_secret_arn"] = data["credentialsSecretArn"]
     else:
-        raise DeserializationError(
-            "SharePointSourceConfiguration.credentials_secret_arn required"
-        )
+        out["credentials_secret_arn"] = ""
     return out

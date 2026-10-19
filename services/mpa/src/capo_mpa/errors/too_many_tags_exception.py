@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mpa.errors import DeserializationError, ServiceError
+from capo_mpa.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_mpa.types.string
@@ -32,7 +32,7 @@ def deserialize_json(data: dict) -> TooManyTagsException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("TooManyTagsException_.message required")
+        out["message"] = ""
     if data.get("ResourceName") is not None:
         out["resource_name"] = data["ResourceName"]
     return out

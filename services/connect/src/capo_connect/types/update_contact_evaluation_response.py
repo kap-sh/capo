@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.resource_id
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> UpdateContactEvaluationResponse:
     if data.get("EvaluationId") is not None:
         out["evaluation_id"] = data["EvaluationId"]
     else:
-        raise DeserializationError(
-            "UpdateContactEvaluationResponse.evaluation_id required"
-        )
+        out["evaluation_id"] = ""
     if data.get("EvaluationArn") is not None:
         out["evaluation_arn"] = data["EvaluationArn"]
     else:
-        raise DeserializationError(
-            "UpdateContactEvaluationResponse.evaluation_arn required"
-        )
+        out["evaluation_arn"] = ""
     return out

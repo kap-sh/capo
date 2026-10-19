@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 
 class CloudFormationProperties(TypedDict, closed=True):
     template_url: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> CloudFormationProperties:
     if data.get("templateUrl") is not None:
         out["template_url"] = data["templateUrl"]
     else:
-        raise DeserializationError("CloudFormationProperties.template_url required")
+        out["template_url"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.geo_arn
     import capo_location.types.resource_name
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> UpdateMapResponse:
     if data.get("MapName") is not None:
         out["map_name"] = data["MapName"]
     else:
-        raise DeserializationError("UpdateMapResponse.map_name required")
+        out["map_name"] = ""
     if data.get("MapArn") is not None:
         out["map_arn"] = data["MapArn"]
     else:
-        raise DeserializationError("UpdateMapResponse.map_arn required")
+        out["map_arn"] = ""
     if data.get("UpdateTime") is not None:
         import capo_location.types.timestamp
 
@@ -51,7 +49,11 @@ def deserialize_json(data: dict) -> UpdateMapResponse:
             data["UpdateTime"]
         )
     else:
-        raise DeserializationError("UpdateMapResponse.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out
 
 

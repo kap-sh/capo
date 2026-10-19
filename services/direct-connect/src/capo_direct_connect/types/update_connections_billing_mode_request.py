@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.connection_id_list
     import capo_direct_connect.types.request_billing_mode
@@ -49,9 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateConnectionsBillingModeRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateConnectionsBillingModeRequest.connection_ids required"
-        )
+        out["connection_ids"] = []
     if data.get("billingMode") is not None:
         import capo_direct_connect.types.request_billing_mode
 
@@ -61,7 +57,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateConnectionsBillingModeRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateConnectionsBillingModeRequest.billing_mode required"
+        import typing
+
+        out["billing_mode"] = typing.cast(
+            "capo_direct_connect.types.request_billing_mode.RequestBillingMode", ""
         )
     return out

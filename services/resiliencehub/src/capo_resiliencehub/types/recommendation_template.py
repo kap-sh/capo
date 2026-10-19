@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.arn
     import capo_resiliencehub.types.boolean_optional
@@ -132,7 +130,7 @@ def deserialize_json(data: dict) -> RecommendationTemplate:
     if data.get("assessmentArn") is not None:
         out["assessment_arn"] = data["assessmentArn"]
     else:
-        raise DeserializationError("RecommendationTemplate.assessment_arn required")
+        out["assessment_arn"] = ""
     if data.get("appArn") is not None:
         out["app_arn"] = data["appArn"]
     if data.get("recommendationIds") is not None:
@@ -152,9 +150,7 @@ def deserialize_json(data: dict) -> RecommendationTemplate:
             )
         )
     else:
-        raise DeserializationError(
-            "RecommendationTemplate.recommendation_types required"
-        )
+        out["recommendation_types"] = []
     if data.get("format") is not None:
         import capo_resiliencehub.types.template_format
 
@@ -162,13 +158,15 @@ def deserialize_json(data: dict) -> RecommendationTemplate:
             data["format"]
         )
     else:
-        raise DeserializationError("RecommendationTemplate.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_resiliencehub.types.template_format.TemplateFormat", ""
+        )
     if data.get("recommendationTemplateArn") is not None:
         out["recommendation_template_arn"] = data["recommendationTemplateArn"]
     else:
-        raise DeserializationError(
-            "RecommendationTemplate.recommendation_template_arn required"
-        )
+        out["recommendation_template_arn"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     if data.get("status") is not None:
@@ -180,11 +178,16 @@ def deserialize_json(data: dict) -> RecommendationTemplate:
             )
         )
     else:
-        raise DeserializationError("RecommendationTemplate.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_resiliencehub.types.recommendation_template_status.RecommendationTemplateStatus",
+            "",
+        )
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RecommendationTemplate.name required")
+        out["name"] = ""
     if data.get("startTime") is not None:
         import capo_resiliencehub.types.time_stamp
 

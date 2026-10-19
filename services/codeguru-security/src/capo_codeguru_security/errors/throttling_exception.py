@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeguru_security.errors import DeserializationError, ServiceError
+from capo_codeguru_security.errors import ServiceError
 
 
 class ThrottlingException_(TypedDict, closed=True):
@@ -34,11 +34,11 @@ def deserialize_json(data: dict) -> ThrottlingException_:
     if data.get("errorCode") is not None:
         out["error_code"] = data["errorCode"]
     else:
-        raise DeserializationError("ThrottlingException_.error_code required")
+        out["error_code"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ThrottlingException_.message required")
+        out["message"] = ""
     if data.get("serviceCode") is not None:
         out["service_code"] = data["serviceCode"]
     if data.get("quotaCode") is not None:

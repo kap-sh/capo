@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.bot_version
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> BotVersionLocaleDetails:
     if data.get("sourceBotVersion") is not None:
         out["source_bot_version"] = data["sourceBotVersion"]
     else:
-        raise DeserializationError(
-            "BotVersionLocaleDetails.source_bot_version required"
-        )
+        out["source_bot_version"] = ""
     return out

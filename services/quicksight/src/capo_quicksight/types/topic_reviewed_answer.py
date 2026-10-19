@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.answer_id
     import capo_quicksight.types.arn
@@ -66,15 +64,15 @@ def deserialize_json(data: dict) -> TopicReviewedAnswer:
     if data.get("AnswerId") is not None:
         out["answer_id"] = data["AnswerId"]
     else:
-        raise DeserializationError("TopicReviewedAnswer.answer_id required")
+        out["answer_id"] = ""
     if data.get("DatasetArn") is not None:
         out["dataset_arn"] = data["DatasetArn"]
     else:
-        raise DeserializationError("TopicReviewedAnswer.dataset_arn required")
+        out["dataset_arn"] = ""
     if data.get("Question") is not None:
         out["question"] = data["Question"]
     else:
-        raise DeserializationError("TopicReviewedAnswer.question required")
+        out["question"] = ""
     if data.get("Mir") is not None:
         import capo_quicksight.types.topic_ir
 

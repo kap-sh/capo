@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.aws_account_id
     import capo_resiliencehubv2.types.aws_region
@@ -58,7 +56,7 @@ def deserialize_json(data: dict) -> Resource:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("Resource.identifier required")
+        out["identifier"] = ""
     if data.get("awsRegion") is not None:
         out["aws_region"] = data["awsRegion"]
     if data.get("awsAccountId") is not None:

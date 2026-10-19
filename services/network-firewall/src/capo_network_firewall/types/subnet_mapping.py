@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.collection_member_string
     import capo_network_firewall.types.ip_address_type
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_0(data: dict) -> SubnetMapping:
     if data.get("SubnetId") is not None:
         out["subnet_id"] = data["SubnetId"]
     else:
-        raise DeserializationError("SubnetMapping.subnet_id required")
+        out["subnet_id"] = ""
     if data.get("IPAddressType") is not None:
         import capo_network_firewall.types.ip_address_type
 

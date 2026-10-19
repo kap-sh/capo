@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billing.types.search_option
     import capo_billing.types.search_value
@@ -41,9 +39,13 @@ def deserialize_aws_json_1_0(data: dict) -> StringSearch:
             )
         )
     else:
-        raise DeserializationError("StringSearch.search_option required")
+        import typing
+
+        out["search_option"] = typing.cast(
+            "capo_billing.types.search_option.SearchOption", ""
+        )
     if data.get("searchValue") is not None:
         out["search_value"] = data["searchValue"]
     else:
-        raise DeserializationError("StringSearch.search_value required")
+        out["search_value"] = ""
     return out

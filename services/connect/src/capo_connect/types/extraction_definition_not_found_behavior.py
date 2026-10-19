@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.not_found_behavior_type
     import capo_connect.types.not_found_default_value
@@ -42,8 +40,10 @@ def deserialize_json(data: dict) -> ExtractionDefinitionNotFoundBehavior:
             data["Behavior"]
         )
     else:
-        raise DeserializationError(
-            "ExtractionDefinitionNotFoundBehavior.behavior required"
+        import typing
+
+        out["behavior"] = typing.cast(
+            "capo_connect.types.not_found_behavior_type.NotFoundBehaviorType", ""
         )
     if data.get("DefaultValue") is not None:
         out["default_value"] = data["DefaultValue"]

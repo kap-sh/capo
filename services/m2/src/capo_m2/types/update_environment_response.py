@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.identifier
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> UpdateEnvironmentResponse:
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError("UpdateEnvironmentResponse.environment_id required")
+        out["environment_id"] = ""
     return out

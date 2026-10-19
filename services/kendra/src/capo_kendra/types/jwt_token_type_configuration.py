@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.claim_regex
     import capo_kendra.types.group_attribute_field
@@ -69,7 +67,11 @@ def deserialize_aws_json_1_1(data: dict) -> JwtTokenTypeConfiguration:
             data["KeyLocation"]
         )
     else:
-        raise DeserializationError("JwtTokenTypeConfiguration.key_location required")
+        import typing
+
+        out["key_location"] = typing.cast(
+            "capo_kendra.types.key_location.KeyLocation", ""
+        )
     if data.get("URL") is not None:
         out["url"] = data["URL"]
     if data.get("SecretManagerArn") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.teacher_model_identifier
 
@@ -35,9 +33,7 @@ def deserialize_json(data: dict) -> TeacherModelConfig:
     if data.get("teacherModelIdentifier") is not None:
         out["teacher_model_identifier"] = data["teacherModelIdentifier"]
     else:
-        raise DeserializationError(
-            "TeacherModelConfig.teacher_model_identifier required"
-        )
+        out["teacher_model_identifier"] = ""
     if data.get("maxResponseLengthForInference") is not None:
         out["max_response_length_for_inference"] = data["maxResponseLengthForInference"]
     return out

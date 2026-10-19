@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError, ServiceError
+from capo_network_security_manager.errors import ServiceError
 
 
 class ThrottlingException_(TypedDict, closed=True):
@@ -26,7 +26,7 @@ def deserialize_json(data: dict) -> ThrottlingException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ThrottlingException_.message required")
+        out["message"] = ""
     if data.get("retryAfterSeconds") is not None:
         out["retry_after_seconds"] = data["retryAfterSeconds"]
     return out

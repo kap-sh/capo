@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.job_title
     import capo_partnercentral_selling.types.name
@@ -46,7 +44,7 @@ def deserialize_aws_json_1_0(data: dict) -> SenderContact:
     if data.get("Email") is not None:
         out["email"] = data["Email"]
     else:
-        raise DeserializationError("SenderContact.email required")
+        out["email"] = ""
     if data.get("FirstName") is not None:
         out["first_name"] = data["FirstName"]
     if data.get("LastName") is not None:

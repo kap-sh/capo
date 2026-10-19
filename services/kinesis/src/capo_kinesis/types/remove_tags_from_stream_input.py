@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.stream_arn
     import capo_kinesis.types.stream_id
@@ -52,7 +50,7 @@ def deserialize_aws_json_1_1(data: dict) -> RemoveTagsFromStreamInput:
             data["TagKeys"]
         )
     else:
-        raise DeserializationError("RemoveTagsFromStreamInput.tag_keys required")
+        out["tag_keys"] = []
     if data.get("StreamARN") is not None:
         out["stream_arn"] = data["StreamARN"]
     if data.get("StreamId") is not None:

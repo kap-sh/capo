@@ -55,7 +55,7 @@ def deserialize_aws_json_1_1(data: dict) -> Shard:
     if data.get("ShardId") is not None:
         out["shard_id"] = data["ShardId"]
     else:
-        raise DeserializationError("Shard.shard_id required")
+        out["shard_id"] = ""
     if data.get("ParentShardId") is not None:
         out["parent_shard_id"] = data["ParentShardId"]
     if data.get("AdjacentParentShardId") is not None:

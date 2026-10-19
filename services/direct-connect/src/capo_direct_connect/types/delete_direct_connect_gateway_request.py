@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.direct_connect_gateway_id
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteDirectConnectGatewayRequest:
     if data.get("directConnectGatewayId") is not None:
         out["direct_connect_gateway_id"] = data["directConnectGatewayId"]
     else:
-        raise DeserializationError(
-            "DeleteDirectConnectGatewayRequest.direct_connect_gateway_id required"
-        )
+        out["direct_connect_gateway_id"] = ""
     return out

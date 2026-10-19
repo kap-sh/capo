@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.glue_schemas
     import capo_glue.types.many_inputs
@@ -54,7 +52,7 @@ def deserialize_aws_json_1_1(data: dict) -> SparkSQL:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("SparkSQL.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.many_inputs
 
@@ -62,11 +60,11 @@ def deserialize_aws_json_1_1(data: dict) -> SparkSQL:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("SparkSQL.inputs required")
+        out["inputs"] = []
     if data.get("SqlQuery") is not None:
         out["sql_query"] = data["SqlQuery"]
     else:
-        raise DeserializationError("SparkSQL.sql_query required")
+        out["sql_query"] = ""
     if data.get("SqlAliases") is not None:
         import capo_glue.types.sql_aliases
 
@@ -74,7 +72,7 @@ def deserialize_aws_json_1_1(data: dict) -> SparkSQL:
             data["SqlAliases"]
         )
     else:
-        raise DeserializationError("SparkSQL.sql_aliases required")
+        out["sql_aliases"] = []
     if data.get("OutputSchemas") is not None:
         import capo_glue.types.glue_schemas
 

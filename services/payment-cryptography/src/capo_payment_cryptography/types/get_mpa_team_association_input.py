@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.mpa_operation
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> GetMpaTeamAssociationInput:
     if data.get("Action") is not None:
         out["action"] = data["Action"]
     else:
-        raise DeserializationError("GetMpaTeamAssociationInput.action required")
+        out["action"] = ""
     return out

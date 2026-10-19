@@ -94,9 +94,7 @@ def deserialize_json(data: dict) -> CreateIdMappingWorkflowInput:
     if data.get("workflowName") is not None:
         out["workflow_name"] = data["workflowName"]
     else:
-        raise DeserializationError(
-            "CreateIdMappingWorkflowInput.workflow_name required"
-        )
+        out["workflow_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("inputSourceConfig") is not None:
@@ -108,9 +106,7 @@ def deserialize_json(data: dict) -> CreateIdMappingWorkflowInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateIdMappingWorkflowInput.input_source_config required"
-        )
+        out["input_source_config"] = []
     if data.get("outputSourceConfig") is not None:
         import capo_entityresolution.types.id_mapping_workflow_output_source_config
 

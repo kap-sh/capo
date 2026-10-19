@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kms.types.arn_type
     import capo_kms.types.aws_account_id_type
@@ -257,7 +255,7 @@ def deserialize_aws_json_1_1(data: dict) -> KeyMetadata:
     if data.get("KeyId") is not None:
         out["key_id"] = data["KeyId"]
     else:
-        raise DeserializationError("KeyMetadata.key_id required")
+        out["key_id"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     if data.get("CreationDate") is not None:

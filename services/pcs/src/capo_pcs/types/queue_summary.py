@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pcs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -54,19 +52,19 @@ def deserialize_aws_json_1_0(data: dict) -> QueueSummary:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("QueueSummary.name required")
+        out["name"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("QueueSummary.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("QueueSummary.arn required")
+        out["arn"] = ""
     if data.get("clusterId") is not None:
         out["cluster_id"] = data["clusterId"]
     else:
-        raise DeserializationError("QueueSummary.cluster_id required")
+        out["cluster_id"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -74,7 +72,9 @@ def deserialize_aws_json_1_0(data: dict) -> QueueSummary:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("QueueSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("modifiedAt") is not None:
         import datetime
 
@@ -82,7 +82,11 @@ def deserialize_aws_json_1_0(data: dict) -> QueueSummary:
             data["modifiedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("QueueSummary.modified_at required")
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("status") is not None:
         import capo_pcs.types.queue_status
 
@@ -90,5 +94,7 @@ def deserialize_aws_json_1_0(data: dict) -> QueueSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("QueueSummary.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_pcs.types.queue_status.QueueStatus", "")
     return out

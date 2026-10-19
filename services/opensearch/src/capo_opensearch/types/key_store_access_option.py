@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.boolean
     import capo_opensearch.types.role_arn
@@ -34,7 +32,5 @@ def deserialize_json(data: dict) -> KeyStoreAccessOption:
     if data.get("KeyStoreAccessEnabled") is not None:
         out["key_store_access_enabled"] = data["KeyStoreAccessEnabled"]
     else:
-        raise DeserializationError(
-            "KeyStoreAccessOption.key_store_access_enabled required"
-        )
+        out["key_store_access_enabled"] = False
     return out

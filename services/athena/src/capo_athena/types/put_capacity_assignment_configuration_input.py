@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.capacity_assignments_list
     import capo_athena.types.capacity_reservation_name
@@ -41,9 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutCapacityAssignmentConfigurationIn
     if data.get("CapacityReservationName") is not None:
         out["capacity_reservation_name"] = data["CapacityReservationName"]
     else:
-        raise DeserializationError(
-            "PutCapacityAssignmentConfigurationInput.capacity_reservation_name required"
-        )
+        out["capacity_reservation_name"] = ""
     if data.get("CapacityAssignments") is not None:
         import capo_athena.types.capacity_assignments_list
 
@@ -53,7 +49,5 @@ def deserialize_aws_json_1_1(data: dict) -> PutCapacityAssignmentConfigurationIn
             )
         )
     else:
-        raise DeserializationError(
-            "PutCapacityAssignmentConfigurationInput.capacity_assignments required"
-        )
+        out["capacity_assignments"] = []
     return out

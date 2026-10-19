@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.linked_whats_app_business_account_id
     import capo_socialmessaging.types.meta_flow_application_id
@@ -63,11 +61,11 @@ def deserialize_json(data: dict) -> UpdateWhatsAppFlowInput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("UpdateWhatsAppFlowInput.id required")
+        out["id"] = ""
     if data.get("flowId") is not None:
         out["flow_id"] = data["flowId"]
     else:
-        raise DeserializationError("UpdateWhatsAppFlowInput.flow_id required")
+        out["flow_id"] = ""
     if data.get("flowName") is not None:
         out["flow_name"] = data["flowName"]
     if data.get("categories") is not None:

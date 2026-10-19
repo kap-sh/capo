@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.long
     import capo_inspector.types.message_type
@@ -35,11 +33,11 @@ def deserialize_aws_json_1_1(data: dict) -> TelemetryMetadata:
     if data.get("messageType") is not None:
         out["message_type"] = data["messageType"]
     else:
-        raise DeserializationError("TelemetryMetadata.message_type required")
+        out["message_type"] = ""
     if data.get("count") is not None:
         out["count"] = data["count"]
     else:
-        raise DeserializationError("TelemetryMetadata.count required")
+        out["count"] = 0
     if data.get("dataSize") is not None:
         out["data_size"] = data["dataSize"]
     return out

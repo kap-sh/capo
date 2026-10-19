@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloud9.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloud9.types.environment_id
     import capo_cloud9.types.member_permissions
@@ -39,15 +37,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEnvironmentMembershipRequest:
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError(
-            "CreateEnvironmentMembershipRequest.environment_id required"
-        )
+        out["environment_id"] = ""
     if data.get("userArn") is not None:
         out["user_arn"] = data["userArn"]
     else:
-        raise DeserializationError(
-            "CreateEnvironmentMembershipRequest.user_arn required"
-        )
+        out["user_arn"] = ""
     if data.get("permissions") is not None:
         import capo_cloud9.types.member_permissions
 
@@ -57,7 +51,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEnvironmentMembershipRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateEnvironmentMembershipRequest.permissions required"
+        import typing
+
+        out["permissions"] = typing.cast(
+            "capo_cloud9.types.member_permissions.MemberPermissions", ""
         )
     return out

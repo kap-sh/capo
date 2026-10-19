@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.authorizer_function_arn
     import capo_iot.types.authorizer_name
@@ -72,9 +70,7 @@ def deserialize_json(data: dict) -> CreateAuthorizerRequest:
     if data.get("authorizerFunctionArn") is not None:
         out["authorizer_function_arn"] = data["authorizerFunctionArn"]
     else:
-        raise DeserializationError(
-            "CreateAuthorizerRequest.authorizer_function_arn required"
-        )
+        out["authorizer_function_arn"] = ""
     if data.get("tokenKeyName") is not None:
         out["token_key_name"] = data["tokenKeyName"]
     if data.get("tokenSigningPublicKeys") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.iso8601_time_string
     import capo_route53globalresolver.types.resource_id
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> DeleteAccessTokenOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("DeleteAccessTokenOutput.id required")
+        out["id"] = ""
     if data.get("status") is not None:
         import capo_route53globalresolver.types.token_status
 
@@ -53,7 +51,11 @@ def deserialize_json(data: dict) -> DeleteAccessTokenOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("DeleteAccessTokenOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_route53globalresolver.types.token_status.TokenStatus", ""
+        )
     if data.get("deletedAt") is not None:
         import capo_route53globalresolver.types.iso8601_time_string
 
@@ -63,5 +65,7 @@ def deserialize_json(data: dict) -> DeleteAccessTokenOutput:
             )
         )
     else:
-        raise DeserializationError("DeleteAccessTokenOutput.deleted_at required")
+        import datetime
+
+        out["deleted_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

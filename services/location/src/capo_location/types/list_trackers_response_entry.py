@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.pricing_plan
     import capo_location.types.resource_description
@@ -55,11 +53,11 @@ def deserialize_json(data: dict) -> ListTrackersResponseEntry:
     if data.get("TrackerName") is not None:
         out["tracker_name"] = data["TrackerName"]
     else:
-        raise DeserializationError("ListTrackersResponseEntry.tracker_name required")
+        out["tracker_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("ListTrackersResponseEntry.description required")
+        out["description"] = ""
     if data.get("PricingPlan") is not None:
         out["pricing_plan"] = data["PricingPlan"]
     if data.get("PricingPlanDataSource") is not None:
@@ -71,7 +69,11 @@ def deserialize_json(data: dict) -> ListTrackersResponseEntry:
             data["CreateTime"]
         )
     else:
-        raise DeserializationError("ListTrackersResponseEntry.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("UpdateTime") is not None:
         import capo_location.types.timestamp
 
@@ -79,7 +81,11 @@ def deserialize_json(data: dict) -> ListTrackersResponseEntry:
             data["UpdateTime"]
         )
     else:
-        raise DeserializationError("ListTrackersResponseEntry.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out
 
 

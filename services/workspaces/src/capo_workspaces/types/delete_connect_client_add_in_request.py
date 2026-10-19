@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.amazon_uuid
     import capo_workspaces.types.directory_id
@@ -31,11 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteConnectClientAddInRequest:
     if data.get("AddInId") is not None:
         out["add_in_id"] = data["AddInId"]
     else:
-        raise DeserializationError("DeleteConnectClientAddInRequest.add_in_id required")
+        out["add_in_id"] = ""
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError(
-            "DeleteConnectClientAddInRequest.resource_id required"
-        )
+        out["resource_id"] = ""
     return out

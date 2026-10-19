@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.arn
     import capo_route53resolver.types.firewall_rule_group_policy
@@ -33,11 +31,9 @@ def deserialize_aws_json_1_1(data: dict) -> PutFirewallRuleGroupPolicyRequest:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("PutFirewallRuleGroupPolicyRequest.arn required")
+        out["arn"] = ""
     if data.get("FirewallRuleGroupPolicy") is not None:
         out["firewall_rule_group_policy"] = data["FirewallRuleGroupPolicy"]
     else:
-        raise DeserializationError(
-            "PutFirewallRuleGroupPolicyRequest.firewall_rule_group_policy required"
-        )
+        out["firewall_rule_group_policy"] = ""
     return out

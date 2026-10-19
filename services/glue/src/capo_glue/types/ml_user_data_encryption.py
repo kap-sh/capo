@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.ml_user_data_encryption_mode_string
     import capo_glue.types.name_string
@@ -44,8 +42,11 @@ def deserialize_aws_json_1_1(data: dict) -> MLUserDataEncryption:
             )
         )
     else:
-        raise DeserializationError(
-            "MLUserDataEncryption.ml_user_data_encryption_mode required"
+        import typing
+
+        out["ml_user_data_encryption_mode"] = typing.cast(
+            "capo_glue.types.ml_user_data_encryption_mode_string.MLUserDataEncryptionModeString",
+            "",
         )
     if data.get("KmsKeyId") is not None:
         out["kms_key_id"] = data["KmsKeyId"]

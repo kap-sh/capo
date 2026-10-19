@@ -47,5 +47,5 @@ def deserialize_aws_json_1_0(data: dict) -> StatelessRule:
     if data.get("Priority") is not None:
         out["priority"] = data["Priority"]
     else:
-        raise DeserializationError("StatelessRule.priority required")
+        out["priority"] = 0
     return out

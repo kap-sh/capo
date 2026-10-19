@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.boolean
     import capo_chime_sdk_voice.types.country_list
@@ -52,9 +50,7 @@ def deserialize_json(data: dict) -> PutVoiceConnectorProxyRequest:
     if data.get("DefaultSessionExpiryMinutes") is not None:
         out["default_session_expiry_minutes"] = data["DefaultSessionExpiryMinutes"]
     else:
-        raise DeserializationError(
-            "PutVoiceConnectorProxyRequest.default_session_expiry_minutes required"
-        )
+        out["default_session_expiry_minutes"] = 0
     if data.get("PhoneNumberPoolCountries") is not None:
         import capo_chime_sdk_voice.types.country_list
 
@@ -64,9 +60,7 @@ def deserialize_json(data: dict) -> PutVoiceConnectorProxyRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "PutVoiceConnectorProxyRequest.phone_number_pool_countries required"
-        )
+        out["phone_number_pool_countries"] = []
     if data.get("FallBackPhoneNumber") is not None:
         out["fall_back_phone_number"] = data["FallBackPhoneNumber"]
     if data.get("Disabled") is not None:

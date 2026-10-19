@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.data_table_attribute_value_type
     import capo_connect.types.data_table_id
@@ -99,11 +97,11 @@ def deserialize_json(data: dict) -> DataTableValueSummary:
             )
         )
     else:
-        raise DeserializationError("DataTableValueSummary.primary_values required")
+        out["primary_values"] = []
     if data.get("AttributeName") is not None:
         out["attribute_name"] = data["AttributeName"]
     else:
-        raise DeserializationError("DataTableValueSummary.attribute_name required")
+        out["attribute_name"] = ""
     if data.get("ValueType") is not None:
         import capo_connect.types.data_table_attribute_value_type
 
@@ -113,11 +111,16 @@ def deserialize_json(data: dict) -> DataTableValueSummary:
             )
         )
     else:
-        raise DeserializationError("DataTableValueSummary.value_type required")
+        import typing
+
+        out["value_type"] = typing.cast(
+            "capo_connect.types.data_table_attribute_value_type.DataTableAttributeValueType",
+            "",
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("DataTableValueSummary.value required")
+        out["value"] = ""
     if data.get("LockVersion") is not None:
         import capo_connect.types.data_table_lock_version
 

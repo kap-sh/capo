@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.boxed_boolean
     import capo_ecs.types.string
@@ -38,9 +36,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeregisterContainerInstanceRequest:
     if data.get("containerInstance") is not None:
         out["container_instance"] = data["containerInstance"]
     else:
-        raise DeserializationError(
-            "DeregisterContainerInstanceRequest.container_instance required"
-        )
+        out["container_instance"] = ""
     if data.get("force") is not None:
         out["force"] = data["force"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.position
     import capo_geo_routes.types.route_matrix_destination_options
@@ -54,7 +52,7 @@ def deserialize_json(data: dict) -> RouteMatrixDestination:
             data["Position"]
         )
     else:
-        raise DeserializationError("RouteMatrixDestination.position required")
+        out["position"] = []
     return out
 
 

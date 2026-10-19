@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda_microvms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -114,7 +112,7 @@ def deserialize_json(data: dict) -> RunMicrovmResponse:
     if data.get("microvmId") is not None:
         out["microvm_id"] = data["microvmId"]
     else:
-        raise DeserializationError("RunMicrovmResponse.microvm_id required")
+        out["microvm_id"] = ""
     if data.get("state") is not None:
         import capo_lambda_microvms.types.microvm_state
 
@@ -122,19 +120,23 @@ def deserialize_json(data: dict) -> RunMicrovmResponse:
             data["state"]
         )
     else:
-        raise DeserializationError("RunMicrovmResponse.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_lambda_microvms.types.microvm_state.MicrovmState", ""
+        )
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError("RunMicrovmResponse.endpoint required")
+        out["endpoint"] = ""
     if data.get("imageArn") is not None:
         out["image_arn"] = data["imageArn"]
     else:
-        raise DeserializationError("RunMicrovmResponse.image_arn required")
+        out["image_arn"] = ""
     if data.get("imageVersion") is not None:
         out["image_version"] = data["imageVersion"]
     else:
-        raise DeserializationError("RunMicrovmResponse.image_version required")
+        out["image_version"] = ""
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     if data.get("idlePolicy") is not None:
@@ -146,9 +148,7 @@ def deserialize_json(data: dict) -> RunMicrovmResponse:
     if data.get("maximumDurationInSeconds") is not None:
         out["maximum_duration_in_seconds"] = data["maximumDurationInSeconds"]
     else:
-        raise DeserializationError(
-            "RunMicrovmResponse.maximum_duration_in_seconds required"
-        )
+        out["maximum_duration_in_seconds"] = 0
     if data.get("startedAt") is not None:
         import capo_lambda_microvms.types._prelude.timestamp
 
@@ -158,7 +158,9 @@ def deserialize_json(data: dict) -> RunMicrovmResponse:
             )
         )
     else:
-        raise DeserializationError("RunMicrovmResponse.started_at required")
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("terminatedAt") is not None:
         import capo_lambda_microvms.types._prelude.timestamp
 

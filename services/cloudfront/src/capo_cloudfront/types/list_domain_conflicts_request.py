@@ -49,7 +49,7 @@ def deserialize_xml(el: Element) -> ListDomainConflictsRequest:
     if child_domain is not None:
         out["domain"] = str(child_domain.text or "")
     else:
-        raise DeserializationError("ListDomainConflictsRequest.domain required")
+        out["domain"] = ""
     child_domain_control_validation_resource = el.find(
         "DomainControlValidationResource"
     )

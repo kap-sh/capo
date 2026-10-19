@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.boolean
@@ -38,9 +37,7 @@ def deserialize_xml(el: Element) -> ResponseHeadersPolicyFrameOptions:
     if child_override is not None:
         out["override"] = (child_override.text or "").lower() == "true"
     else:
-        raise DeserializationError(
-            "ResponseHeadersPolicyFrameOptions.override required"
-        )
+        out["override"] = False
     child_frame_option = el.find("FrameOption")
     if child_frame_option is not None:
         import capo_cloudfront.types.frame_options_list
@@ -49,7 +46,9 @@ def deserialize_xml(el: Element) -> ResponseHeadersPolicyFrameOptions:
             child_frame_option
         )
     else:
-        raise DeserializationError(
-            "ResponseHeadersPolicyFrameOptions.frame_option required"
+        import typing
+
+        out["frame_option"] = typing.cast(
+            "capo_cloudfront.types.frame_options_list.FrameOptionsList", ""
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.client_credentials_source
     import capo_quicksight.types.endpoint
@@ -53,9 +51,7 @@ def deserialize_json(data: dict) -> ReadClientCredentialsGrantMetadata:
     if data.get("BaseEndpoint") is not None:
         out["base_endpoint"] = data["BaseEndpoint"]
     else:
-        raise DeserializationError(
-            "ReadClientCredentialsGrantMetadata.base_endpoint required"
-        )
+        out["base_endpoint"] = ""
     if data.get("ReadClientCredentialsDetails") is not None:
         import capo_quicksight.types.read_client_credentials_details
 

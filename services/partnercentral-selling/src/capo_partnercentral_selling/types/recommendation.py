@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.recommendation_attribute_map
 
@@ -42,11 +40,11 @@ def deserialize_aws_json_1_0(data: dict) -> Recommendation:
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     else:
-        raise DeserializationError("Recommendation.type required")
+        out["type"] = ""
     if data.get("Details") is not None:
         out["details"] = data["Details"]
     else:
-        raise DeserializationError("Recommendation.details required")
+        out["details"] = ""
     if data.get("Attributes") is not None:
         import capo_partnercentral_selling.types.recommendation_attribute_map
 

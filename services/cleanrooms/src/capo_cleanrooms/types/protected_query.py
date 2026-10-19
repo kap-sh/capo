@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -141,15 +139,15 @@ def deserialize_json(data: dict) -> ProtectedQuery:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ProtectedQuery.id required")
+        out["id"] = ""
     if data.get("membershipId") is not None:
         out["membership_id"] = data["membershipId"]
     else:
-        raise DeserializationError("ProtectedQuery.membership_id required")
+        out["membership_id"] = ""
     if data.get("membershipArn") is not None:
         out["membership_arn"] = data["membershipArn"]
     else:
-        raise DeserializationError("ProtectedQuery.membership_arn required")
+        out["membership_arn"] = ""
     if data.get("createTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -157,7 +155,11 @@ def deserialize_json(data: dict) -> ProtectedQuery:
             data["createTime"]
         )
     else:
-        raise DeserializationError("ProtectedQuery.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("sqlParameters") is not None:
         import capo_cleanrooms.types.protected_query_sql_parameters
 
@@ -169,7 +171,7 @@ def deserialize_json(data: dict) -> ProtectedQuery:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("ProtectedQuery.status required")
+        out["status"] = ""
     if data.get("resultConfiguration") is not None:
         import capo_cleanrooms.types.protected_query_result_configuration
 

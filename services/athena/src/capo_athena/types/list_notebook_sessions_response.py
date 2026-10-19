@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.notebook_sessions_list
     import capo_athena.types.token
@@ -46,9 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListNotebookSessionsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListNotebookSessionsResponse.notebook_sessions_list required"
-        )
+        out["notebook_sessions_list"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

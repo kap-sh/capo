@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_device_farm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_device_farm.types.amazon_resource_name
     import capo_device_farm.types.schedule_run_configuration
@@ -70,9 +68,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetDevicePoolCompatibilityRequest:
     if data.get("devicePoolArn") is not None:
         out["device_pool_arn"] = data["devicePoolArn"]
     else:
-        raise DeserializationError(
-            "GetDevicePoolCompatibilityRequest.device_pool_arn required"
-        )
+        out["device_pool_arn"] = ""
     if data.get("appArn") is not None:
         out["app_arn"] = data["appArn"]
     if data.get("testType") is not None:

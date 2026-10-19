@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_global_accelerator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_global_accelerator.types.generic_boolean
     import capo_global_accelerator.types.generic_string
@@ -71,9 +69,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCustomRoutingAcceleratorReques
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError(
-            "CreateCustomRoutingAcceleratorRequest.name required"
-        )
+        out["name"] = ""
     if data.get("IpAddressType") is not None:
         import capo_global_accelerator.types.ip_address_type
 
@@ -95,9 +91,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCustomRoutingAcceleratorReques
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     else:
-        raise DeserializationError(
-            "CreateCustomRoutingAcceleratorRequest.idempotency_token required"
-        )
+        out["idempotency_token"] = ""
     if data.get("Tags") is not None:
         import capo_global_accelerator.types.tags
 

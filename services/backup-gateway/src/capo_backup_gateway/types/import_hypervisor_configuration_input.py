@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup_gateway.types.host
     import capo_backup_gateway.types.kms_key_arn
@@ -55,11 +53,11 @@ def deserialize_aws_json_1_0(data: dict) -> ImportHypervisorConfigurationInput:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ImportHypervisorConfigurationInput.name required")
+        out["name"] = ""
     if data.get("Host") is not None:
         out["host"] = data["Host"]
     else:
-        raise DeserializationError("ImportHypervisorConfigurationInput.host required")
+        out["host"] = ""
     if data.get("Username") is not None:
         out["username"] = data["Username"]
     if data.get("Password") is not None:

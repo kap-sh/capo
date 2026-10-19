@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.agent_status
     import capo_groundstation.types.capability_arn
@@ -55,11 +53,11 @@ def deserialize_json(data: dict) -> ComponentStatusData:
     if data.get("componentType") is not None:
         out["component_type"] = data["componentType"]
     else:
-        raise DeserializationError("ComponentStatusData.component_type required")
+        out["component_type"] = ""
     if data.get("capabilityArn") is not None:
         out["capability_arn"] = data["capabilityArn"]
     else:
-        raise DeserializationError("ComponentStatusData.capability_arn required")
+        out["capability_arn"] = ""
     if data.get("status") is not None:
         import capo_groundstation.types.agent_status
 
@@ -67,7 +65,11 @@ def deserialize_json(data: dict) -> ComponentStatusData:
             data["status"]
         )
     else:
-        raise DeserializationError("ComponentStatusData.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_groundstation.types.agent_status.AgentStatus", ""
+        )
     if data.get("bytesSent") is not None:
         out["bytes_sent"] = data["bytesSent"]
     if data.get("bytesReceived") is not None:
@@ -77,5 +79,5 @@ def deserialize_json(data: dict) -> ComponentStatusData:
     if data.get("dataflowId") is not None:
         out["dataflow_id"] = data["dataflowId"]
     else:
-        raise DeserializationError("ComponentStatusData.dataflow_id required")
+        out["dataflow_id"] = ""
     return out

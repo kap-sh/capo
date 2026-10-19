@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -116,15 +114,15 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRcsAgentResult:
     if data.get("RcsAgentArn") is not None:
         out["rcs_agent_arn"] = data["RcsAgentArn"]
     else:
-        raise DeserializationError("CreateRcsAgentResult.rcs_agent_arn required")
+        out["rcs_agent_arn"] = ""
     if data.get("RcsAgentId") is not None:
         out["rcs_agent_id"] = data["RcsAgentId"]
     else:
-        raise DeserializationError("CreateRcsAgentResult.rcs_agent_id required")
+        out["rcs_agent_id"] = ""
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("CreateRcsAgentResult.status required")
+        out["status"] = ""
     if data.get("DeletionProtectionEnabled") is not None:
         out["deletion_protection_enabled"] = data["DeletionProtectionEnabled"]
     else:
@@ -140,7 +138,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRcsAgentResult:
             )
         )
     else:
-        raise DeserializationError("CreateRcsAgentResult.created_timestamp required")
+        import datetime
+
+        out["created_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("SelfManagedOptOutsEnabled") is not None:
         out["self_managed_opt_outs_enabled"] = data["SelfManagedOptOutsEnabled"]
     else:

@@ -75,13 +75,13 @@ def deserialize_aws_json_1_0(data: dict) -> CreatePartnerRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("CreatePartnerRequest.catalog required")
+        out["catalog"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("LegalName") is not None:
         out["legal_name"] = data["LegalName"]
     else:
-        raise DeserializationError("CreatePartnerRequest.legal_name required")
+        out["legal_name"] = ""
     if data.get("PrimarySolutionType") is not None:
         import capo_partnercentral_account.types.primary_solution_type
 
@@ -91,8 +91,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreatePartnerRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreatePartnerRequest.primary_solution_type required"
+        import typing
+
+        out["primary_solution_type"] = typing.cast(
+            "capo_partnercentral_account.types.primary_solution_type.PrimarySolutionType",
+            "",
         )
     if data.get("AllianceLeadContact") is not None:
         import capo_partnercentral_account.types.alliance_lead_contact
@@ -109,9 +112,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreatePartnerRequest:
     if data.get("EmailVerificationCode") is not None:
         out["email_verification_code"] = data["EmailVerificationCode"]
     else:
-        raise DeserializationError(
-            "CreatePartnerRequest.email_verification_code required"
-        )
+        out["email_verification_code"] = ""
     if data.get("Tags") is not None:
         import capo_partnercentral_account.types.tag_list
 

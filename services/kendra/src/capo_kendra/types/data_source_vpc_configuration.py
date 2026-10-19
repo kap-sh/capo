@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.security_group_id_list
     import capo_kendra.types.subnet_id_list
@@ -45,7 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> DataSourceVpcConfiguration:
             data["SubnetIds"]
         )
     else:
-        raise DeserializationError("DataSourceVpcConfiguration.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("SecurityGroupIds") is not None:
         import capo_kendra.types.security_group_id_list
 
@@ -55,7 +53,5 @@ def deserialize_aws_json_1_1(data: dict) -> DataSourceVpcConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "DataSourceVpcConfiguration.security_group_ids required"
-        )
+        out["security_group_ids"] = []
     return out

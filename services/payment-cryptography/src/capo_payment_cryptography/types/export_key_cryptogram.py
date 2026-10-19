@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.certificate_type
     import capo_payment_cryptography.types.key_arn_or_key_alias_type
@@ -46,15 +44,11 @@ def deserialize_aws_json_1_0(data: dict) -> ExportKeyCryptogram:
             "CertificateAuthorityPublicKeyIdentifier"
         ]
     else:
-        raise DeserializationError(
-            "ExportKeyCryptogram.certificate_authority_public_key_identifier required"
-        )
+        out["certificate_authority_public_key_identifier"] = ""
     if data.get("WrappingKeyCertificate") is not None:
         out["wrapping_key_certificate"] = data["WrappingKeyCertificate"]
     else:
-        raise DeserializationError(
-            "ExportKeyCryptogram.wrapping_key_certificate required"
-        )
+        out["wrapping_key_certificate"] = ""
     if data.get("WrappingSpec") is not None:
         out["wrapping_spec"] = data["WrappingSpec"]
     return out

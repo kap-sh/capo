@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.profile_id_string
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteDataTransformationProfileReque
     if data.get("ProfileId") is not None:
         out["profile_id"] = data["ProfileId"]
     else:
-        raise DeserializationError(
-            "DeleteDataTransformationProfileRequest.profile_id required"
-        )
+        out["profile_id"] = ""
     return out

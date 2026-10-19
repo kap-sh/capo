@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_memorydb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_memorydb.types.string
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> FailoverShardRequest:
     if data.get("ClusterName") is not None:
         out["cluster_name"] = data["ClusterName"]
     else:
-        raise DeserializationError("FailoverShardRequest.cluster_name required")
+        out["cluster_name"] = ""
     if data.get("ShardName") is not None:
         out["shard_name"] = data["ShardName"]
     else:
-        raise DeserializationError("FailoverShardRequest.shard_name required")
+        out["shard_name"] = ""
     return out

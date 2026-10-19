@@ -81,7 +81,7 @@ def deserialize_json(data: dict) -> CreateMetricRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateMetricRequest.name required")
+        out["name"] = ""
     if data.get("MetricCalculation") is not None:
         import capo_connect.types.metric_calculation
 
@@ -97,7 +97,9 @@ def deserialize_json(data: dict) -> CreateMetricRequest:
 
         out["unit"] = capo_connect.types.metric_unit.deserialize_json(data["Unit"])
     else:
-        raise DeserializationError("CreateMetricRequest.unit required")
+        import typing
+
+        out["unit"] = typing.cast("capo_connect.types.metric_unit.MetricUnit", "")
     if data.get("Status") is not None:
         import capo_connect.types.metric_status
 

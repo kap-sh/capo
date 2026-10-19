@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.outbound_message_source_type
     import capo_connect.types.outbound_raw_message
@@ -65,7 +63,12 @@ def deserialize_json(data: dict) -> OutboundEmailContent:
             )
         )
     else:
-        raise DeserializationError("OutboundEmailContent.message_source_type required")
+        import typing
+
+        out["message_source_type"] = typing.cast(
+            "capo_connect.types.outbound_message_source_type.OutboundMessageSourceType",
+            "",
+        )
     if data.get("TemplatedMessageConfig") is not None:
         import capo_connect.types.templated_message_config
 

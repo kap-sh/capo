@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.name
     import capo_customer_profiles.types.profile_ids
@@ -40,5 +38,5 @@ def deserialize_json(data: dict) -> GetSegmentMembershipRequest:
             data["ProfileIds"]
         )
     else:
-        raise DeserializationError("GetSegmentMembershipRequest.profile_ids required")
+        out["profile_ids"] = []
     return out

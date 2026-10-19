@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_commerce_analytics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_commerce_analytics.types.customer_defined_values
     import capo_marketplace_commerce_analytics.types.destination_s3_bucket_name
@@ -81,8 +79,11 @@ def deserialize_aws_json_1_1(data: dict) -> StartSupportDataExportRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartSupportDataExportRequest.data_set_type required"
+        import typing
+
+        out["data_set_type"] = typing.cast(
+            "capo_marketplace_commerce_analytics.types.support_data_set_type.SupportDataSetType",
+            "",
         )
     if data.get("fromDate") is not None:
         import capo_marketplace_commerce_analytics.types.from_date
@@ -93,27 +94,23 @@ def deserialize_aws_json_1_1(data: dict) -> StartSupportDataExportRequest:
             )
         )
     else:
-        raise DeserializationError("StartSupportDataExportRequest.from_date required")
+        import datetime
+
+        out["from_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("roleNameArn") is not None:
         out["role_name_arn"] = data["roleNameArn"]
     else:
-        raise DeserializationError(
-            "StartSupportDataExportRequest.role_name_arn required"
-        )
+        out["role_name_arn"] = ""
     if data.get("destinationS3BucketName") is not None:
         out["destination_s3_bucket_name"] = data["destinationS3BucketName"]
     else:
-        raise DeserializationError(
-            "StartSupportDataExportRequest.destination_s3_bucket_name required"
-        )
+        out["destination_s3_bucket_name"] = ""
     if data.get("destinationS3Prefix") is not None:
         out["destination_s3_prefix"] = data["destinationS3Prefix"]
     if data.get("snsTopicArn") is not None:
         out["sns_topic_arn"] = data["snsTopicArn"]
     else:
-        raise DeserializationError(
-            "StartSupportDataExportRequest.sns_topic_arn required"
-        )
+        out["sns_topic_arn"] = ""
     if data.get("customerDefinedValues") is not None:
         import capo_marketplace_commerce_analytics.types.customer_defined_values
 

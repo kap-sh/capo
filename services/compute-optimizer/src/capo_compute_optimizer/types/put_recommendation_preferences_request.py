@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_compute_optimizer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_compute_optimizer.types.enhanced_infrastructure_metrics
     import capo_compute_optimizer.types.external_metrics_preference
@@ -139,8 +137,10 @@ def deserialize_aws_json_1_0(data: dict) -> PutRecommendationPreferencesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "PutRecommendationPreferencesRequest.resource_type required"
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_compute_optimizer.types.resource_type.ResourceType", ""
         )
     if data.get("scope") is not None:
         import capo_compute_optimizer.types.scope

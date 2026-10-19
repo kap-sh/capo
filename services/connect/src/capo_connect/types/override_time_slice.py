@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.hours24_format
     import capo_connect.types.minutes_limit60
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> OverrideTimeSlice:
     if data.get("Hours") is not None:
         out["hours"] = data["Hours"]
     else:
-        raise DeserializationError("OverrideTimeSlice.hours required")
+        out["hours"] = 0
     if data.get("Minutes") is not None:
         out["minutes"] = data["Minutes"]
     else:
-        raise DeserializationError("OverrideTimeSlice.minutes required")
+        out["minutes"] = 0
     return out

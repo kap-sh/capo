@@ -70,7 +70,12 @@ def deserialize_json(data: dict) -> CreateExportRequest:
             )
         )
     else:
-        raise DeserializationError("CreateExportRequest.file_format required")
+        import typing
+
+        out["file_format"] = typing.cast(
+            "capo_lex_models_v2.types.import_export_file_format.ImportExportFileFormat",
+            "",
+        )
     if data.get("filePassword") is not None:
         out["file_password"] = data["filePassword"]
     return out

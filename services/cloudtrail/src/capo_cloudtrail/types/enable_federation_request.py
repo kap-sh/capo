@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.event_data_store_arn
     import capo_cloudtrail.types.federation_role_arn
@@ -31,11 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> EnableFederationRequest:
     if data.get("EventDataStore") is not None:
         out["event_data_store"] = data["EventDataStore"]
     else:
-        raise DeserializationError("EnableFederationRequest.event_data_store required")
+        out["event_data_store"] = ""
     if data.get("FederationRoleArn") is not None:
         out["federation_role_arn"] = data["FederationRoleArn"]
     else:
-        raise DeserializationError(
-            "EnableFederationRequest.federation_role_arn required"
-        )
+        out["federation_role_arn"] = ""
     return out

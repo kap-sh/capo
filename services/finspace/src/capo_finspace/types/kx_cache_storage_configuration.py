@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_finspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace.types.kx_cache_storage_size
     import capo_finspace.types.kx_cache_storage_type
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> KxCacheStorageConfiguration:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("KxCacheStorageConfiguration.type required")
+        out["type"] = ""
     if data.get("size") is not None:
         out["size"] = data["size"]
     else:
-        raise DeserializationError("KxCacheStorageConfiguration.size required")
+        out["size"] = 0
     return out

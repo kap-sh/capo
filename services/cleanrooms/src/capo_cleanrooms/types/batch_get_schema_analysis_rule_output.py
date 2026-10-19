@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.batch_get_schema_analysis_rule_error_list
     import capo_cleanrooms.types.schema_analysis_rule_list
@@ -51,9 +49,7 @@ def deserialize_json(data: dict) -> BatchGetSchemaAnalysisRuleOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetSchemaAnalysisRuleOutput.analysis_rules required"
-        )
+        out["analysis_rules"] = []
     if data.get("errors") is not None:
         import capo_cleanrooms.types.batch_get_schema_analysis_rule_error_list
 
@@ -63,5 +59,5 @@ def deserialize_json(data: dict) -> BatchGetSchemaAnalysisRuleOutput:
             )
         )
     else:
-        raise DeserializationError("BatchGetSchemaAnalysisRuleOutput.errors required")
+        out["errors"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_keyspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_keyspaces.types.keyspace_summary_list
     import capo_keyspaces.types.next_token
@@ -46,5 +44,5 @@ def deserialize_aws_json_1_0(data: dict) -> ListKeyspacesResponse:
             )
         )
     else:
-        raise DeserializationError("ListKeyspacesResponse.keyspaces required")
+        out["keyspaces"] = []
     return out

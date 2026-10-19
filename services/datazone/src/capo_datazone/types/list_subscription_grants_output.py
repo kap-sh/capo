@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.pagination_token
     import capo_datazone.types.subscription_grants
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ListSubscriptionGrantsOutput:
             data["items"]
         )
     else:
-        raise DeserializationError("ListSubscriptionGrantsOutput.items required")
+        out["items"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

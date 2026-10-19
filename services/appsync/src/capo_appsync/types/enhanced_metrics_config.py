@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.data_source_level_metrics_behavior
     import capo_appsync.types.operation_level_metrics_config
@@ -61,8 +59,11 @@ def deserialize_json(data: dict) -> EnhancedMetricsConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "EnhancedMetricsConfig.resolver_level_metrics_behavior required"
+        import typing
+
+        out["resolver_level_metrics_behavior"] = typing.cast(
+            "capo_appsync.types.resolver_level_metrics_behavior.ResolverLevelMetricsBehavior",
+            "",
         )
     if data.get("dataSourceLevelMetricsBehavior") is not None:
         import capo_appsync.types.data_source_level_metrics_behavior
@@ -73,8 +74,11 @@ def deserialize_json(data: dict) -> EnhancedMetricsConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "EnhancedMetricsConfig.data_source_level_metrics_behavior required"
+        import typing
+
+        out["data_source_level_metrics_behavior"] = typing.cast(
+            "capo_appsync.types.data_source_level_metrics_behavior.DataSourceLevelMetricsBehavior",
+            "",
         )
     if data.get("operationLevelMetricsConfig") is not None:
         import capo_appsync.types.operation_level_metrics_config
@@ -85,7 +89,10 @@ def deserialize_json(data: dict) -> EnhancedMetricsConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "EnhancedMetricsConfig.operation_level_metrics_config required"
+        import typing
+
+        out["operation_level_metrics_config"] = typing.cast(
+            "capo_appsync.types.operation_level_metrics_config.OperationLevelMetricsConfig",
+            "",
         )
     return out

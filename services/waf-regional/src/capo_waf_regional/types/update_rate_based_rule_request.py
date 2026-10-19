@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_waf_regional.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf_regional.types.change_token
     import capo_waf_regional.types.rate_limit
@@ -43,11 +41,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateRateBasedRuleRequest:
     if data.get("RuleId") is not None:
         out["rule_id"] = data["RuleId"]
     else:
-        raise DeserializationError("UpdateRateBasedRuleRequest.rule_id required")
+        out["rule_id"] = ""
     if data.get("ChangeToken") is not None:
         out["change_token"] = data["ChangeToken"]
     else:
-        raise DeserializationError("UpdateRateBasedRuleRequest.change_token required")
+        out["change_token"] = ""
     if data.get("Updates") is not None:
         import capo_waf_regional.types.rule_updates
 
@@ -55,9 +53,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateRateBasedRuleRequest:
             data["Updates"]
         )
     else:
-        raise DeserializationError("UpdateRateBasedRuleRequest.updates required")
+        out["updates"] = []
     if data.get("RateLimit") is not None:
         out["rate_limit"] = data["RateLimit"]
     else:
-        raise DeserializationError("UpdateRateBasedRuleRequest.rate_limit required")
+        out["rate_limit"] = 0
     return out

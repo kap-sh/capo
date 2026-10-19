@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rtbfabric.types.filter_criteria
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> Filter:
             data["criteria"]
         )
     else:
-        raise DeserializationError("Filter.criteria required")
+        out["criteria"] = []
     return out

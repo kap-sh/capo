@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.alias
     import capo_lambda.types.alias_routing_configuration
@@ -54,11 +52,11 @@ def deserialize_json(data: dict) -> CreateAliasRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateAliasRequest.name required")
+        out["name"] = ""
     if data.get("FunctionVersion") is not None:
         out["function_version"] = data["FunctionVersion"]
     else:
-        raise DeserializationError("CreateAliasRequest.function_version required")
+        out["function_version"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("RoutingConfig") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.integration_credential
     import capo_cloudwatchomni.types.integration_identifier
@@ -67,7 +65,9 @@ def deserialize_cbor(data: dict) -> UpdateIntegrationInput:
             )
         )
     else:
-        raise DeserializationError("UpdateIntegrationInput.identifier required")
+        import capo_cloudwatchomni.types._unknown
+
+        out["identifier"] = capo_cloudwatchomni.types._unknown.UnknownUnionMember("")
     if data.get("credential") is not None:
         import capo_cloudwatchomni.types.integration_credential
 

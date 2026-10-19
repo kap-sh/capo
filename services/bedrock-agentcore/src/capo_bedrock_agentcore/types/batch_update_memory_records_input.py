@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.memory_id
     import capo_bedrock_agentcore.types.memory_records_update_input_list
@@ -55,7 +53,7 @@ def deserialize_json(data: dict) -> BatchUpdateMemoryRecordsInput:
             )
         )
     else:
-        raise DeserializationError("BatchUpdateMemoryRecordsInput.records required")
+        out["records"] = []
     if data.get("recordExpirySpecification") is not None:
         import capo_bedrock_agentcore.types.record_expiry_specification
 

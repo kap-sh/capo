@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_bedrock_agentcore._protocol.eventstream import HeaderValue, Message
-from capo_bedrock_agentcore.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.harness_hook_decision
@@ -60,11 +59,11 @@ def deserialize_json(data: dict) -> HarnessHookEvent:
     if data.get("hookEventId") is not None:
         out["hook_event_id"] = data["hookEventId"]
     else:
-        raise DeserializationError("HarnessHookEvent.hook_event_id required")
+        out["hook_event_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("HarnessHookEvent.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         import capo_bedrock_agentcore.types.harness_hook_event_type
 
@@ -74,7 +73,12 @@ def deserialize_json(data: dict) -> HarnessHookEvent:
             )
         )
     else:
-        raise DeserializationError("HarnessHookEvent.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agentcore.types.harness_hook_event_type.HarnessHookEventType",
+            "",
+        )
     if data.get("decision") is not None:
         import capo_bedrock_agentcore.types.harness_hook_decision
 

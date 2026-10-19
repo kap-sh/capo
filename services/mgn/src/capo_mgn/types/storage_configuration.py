@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.fsx_ontap_configuration
     import capo_mgn.types.storage_type
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> StorageConfiguration:
     if data.get("storageType") is not None:
         out["storage_type"] = data["storageType"]
     else:
-        raise DeserializationError("StorageConfiguration.storage_type required")
+        out["storage_type"] = ""
     if data.get("fsxOntapConfiguration") is not None:
         import capo_mgn.types.fsx_ontap_configuration
 

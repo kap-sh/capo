@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.boolean
     import capo_storage_gateway.types.volume_arn
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> DetachVolumeInput:
     if data.get("VolumeARN") is not None:
         out["volume_arn"] = data["VolumeARN"]
     else:
-        raise DeserializationError("DetachVolumeInput.volume_arn required")
+        out["volume_arn"] = ""
     if data.get("ForceDetach") is not None:
         out["force_detach"] = data["ForceDetach"]
     return out

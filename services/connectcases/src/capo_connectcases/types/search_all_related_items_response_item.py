@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.association_time
     import capo_connectcases.types.case_id
@@ -65,17 +63,15 @@ def deserialize_json(data: dict) -> SearchAllRelatedItemsResponseItem:
     if data.get("relatedItemId") is not None:
         out["related_item_id"] = data["relatedItemId"]
     else:
-        raise DeserializationError(
-            "SearchAllRelatedItemsResponseItem.related_item_id required"
-        )
+        out["related_item_id"] = ""
     if data.get("caseId") is not None:
         out["case_id"] = data["caseId"]
     else:
-        raise DeserializationError("SearchAllRelatedItemsResponseItem.case_id required")
+        out["case_id"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("SearchAllRelatedItemsResponseItem.type required")
+        out["type"] = ""
     if data.get("associationTime") is not None:
         import capo_connectcases.types.association_time
 
@@ -85,8 +81,10 @@ def deserialize_json(data: dict) -> SearchAllRelatedItemsResponseItem:
             )
         )
     else:
-        raise DeserializationError(
-            "SearchAllRelatedItemsResponseItem.association_time required"
+        import datetime
+
+        out["association_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("content") is not None:
         import capo_connectcases.types.related_item_content
@@ -95,7 +93,9 @@ def deserialize_json(data: dict) -> SearchAllRelatedItemsResponseItem:
             data["content"]
         )
     else:
-        raise DeserializationError("SearchAllRelatedItemsResponseItem.content required")
+        import capo_connectcases.types._unknown
+
+        out["content"] = capo_connectcases.types._unknown.UnknownUnionMember("")
     if data.get("performedBy") is not None:
         import capo_connectcases.types.user_union
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_serverless.types.application_id
     import capo_emr_serverless.types.architecture
@@ -221,7 +219,7 @@ def deserialize_json(data: dict) -> UpdateApplicationRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("UpdateApplicationRequest.client_token required")
+        out["client_token"] = ""
     if data.get("initialCapacity") is not None:
         import capo_emr_serverless.types.initial_capacity_config_map
 

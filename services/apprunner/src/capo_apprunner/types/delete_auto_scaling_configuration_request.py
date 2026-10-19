@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_apprunner.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_apprunner.types.app_runner_resource_arn
     import capo_apprunner.types.boolean
@@ -34,9 +32,7 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteAutoScalingConfigurationReques
     if data.get("AutoScalingConfigurationArn") is not None:
         out["auto_scaling_configuration_arn"] = data["AutoScalingConfigurationArn"]
     else:
-        raise DeserializationError(
-            "DeleteAutoScalingConfigurationRequest.auto_scaling_configuration_arn required"
-        )
+        out["auto_scaling_configuration_arn"] = ""
     if data.get("DeleteAllRevisions") is not None:
         out["delete_all_revisions"] = data["DeleteAllRevisions"]
     return out

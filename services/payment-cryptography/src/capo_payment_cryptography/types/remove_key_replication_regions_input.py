@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.key_arn_or_key_alias_type
     import capo_payment_cryptography.types.regions
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_0(data: dict) -> RemoveKeyReplicationRegionsInput:
     if data.get("KeyIdentifier") is not None:
         out["key_identifier"] = data["KeyIdentifier"]
     else:
-        raise DeserializationError(
-            "RemoveKeyReplicationRegionsInput.key_identifier required"
-        )
+        out["key_identifier"] = ""
     if data.get("ReplicationRegions") is not None:
         import capo_payment_cryptography.types.regions
 
@@ -51,7 +47,5 @@ def deserialize_aws_json_1_0(data: dict) -> RemoveKeyReplicationRegionsInput:
             )
         )
     else:
-        raise DeserializationError(
-            "RemoveKeyReplicationRegionsInput.replication_regions required"
-        )
+        out["replication_regions"] = []
     return out

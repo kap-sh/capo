@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transcribe.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe.types.vocabulary_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteVocabularyRequest:
     if data.get("VocabularyName") is not None:
         out["vocabulary_name"] = data["VocabularyName"]
     else:
-        raise DeserializationError("DeleteVocabularyRequest.vocabulary_name required")
+        out["vocabulary_name"] = ""
     return out

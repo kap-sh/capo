@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_forecast.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_forecast.types.arn
     import capo_forecast.types.kms_key_arn
@@ -36,11 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> S3Config:
     if data.get("Path") is not None:
         out["path"] = data["Path"]
     else:
-        raise DeserializationError("S3Config.path required")
+        out["path"] = ""
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("S3Config.role_arn required")
+        out["role_arn"] = ""
     if data.get("KMSKeyArn") is not None:
         out["kms_key_arn"] = data["KMSKeyArn"]
     return out

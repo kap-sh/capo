@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.layer_custom_action_name
     import capo_quicksight.types.layer_custom_action_operation_list
@@ -62,11 +60,11 @@ def deserialize_json(data: dict) -> LayerCustomAction:
     if data.get("CustomActionId") is not None:
         out["custom_action_id"] = data["CustomActionId"]
     else:
-        raise DeserializationError("LayerCustomAction.custom_action_id required")
+        out["custom_action_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("LayerCustomAction.name required")
+        out["name"] = ""
     if data.get("Status") is not None:
         import capo_quicksight.types.widget_status
 
@@ -82,7 +80,12 @@ def deserialize_json(data: dict) -> LayerCustomAction:
             )
         )
     else:
-        raise DeserializationError("LayerCustomAction.trigger required")
+        import typing
+
+        out["trigger"] = typing.cast(
+            "capo_quicksight.types.layer_custom_action_trigger.LayerCustomActionTrigger",
+            "",
+        )
     if data.get("ActionOperations") is not None:
         import capo_quicksight.types.layer_custom_action_operation_list
 
@@ -92,7 +95,7 @@ def deserialize_json(data: dict) -> LayerCustomAction:
             )
         )
     else:
-        raise DeserializationError("LayerCustomAction.action_operations required")
+        out["action_operations"] = []
     return out
 
 

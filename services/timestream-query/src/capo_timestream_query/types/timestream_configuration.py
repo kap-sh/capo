@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_query.types.dimension_mapping_list
     import capo_timestream_query.types.mixed_measure_mapping_list
@@ -78,15 +76,15 @@ def deserialize_aws_json_1_0(data: dict) -> TimestreamConfiguration:
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError("TimestreamConfiguration.database_name required")
+        out["database_name"] = ""
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("TimestreamConfiguration.table_name required")
+        out["table_name"] = ""
     if data.get("TimeColumn") is not None:
         out["time_column"] = data["TimeColumn"]
     else:
-        raise DeserializationError("TimestreamConfiguration.time_column required")
+        out["time_column"] = ""
     if data.get("DimensionMappings") is not None:
         import capo_timestream_query.types.dimension_mapping_list
 
@@ -96,9 +94,7 @@ def deserialize_aws_json_1_0(data: dict) -> TimestreamConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "TimestreamConfiguration.dimension_mappings required"
-        )
+        out["dimension_mappings"] = []
     if data.get("MultiMeasureMappings") is not None:
         import capo_timestream_query.types.multi_measure_mappings
 

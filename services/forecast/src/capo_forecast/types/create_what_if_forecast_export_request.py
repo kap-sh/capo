@@ -57,9 +57,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateWhatIfForecastExportRequest:
     if data.get("WhatIfForecastExportName") is not None:
         out["what_if_forecast_export_name"] = data["WhatIfForecastExportName"]
     else:
-        raise DeserializationError(
-            "CreateWhatIfForecastExportRequest.what_if_forecast_export_name required"
-        )
+        out["what_if_forecast_export_name"] = ""
     if data.get("WhatIfForecastArns") is not None:
         import capo_forecast.types.what_if_forecast_arn_list_for_export
 
@@ -69,9 +67,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateWhatIfForecastExportRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateWhatIfForecastExportRequest.what_if_forecast_arns required"
-        )
+        out["what_if_forecast_arns"] = []
     if data.get("Destination") is not None:
         import capo_forecast.types.data_destination
 

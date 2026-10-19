@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.launch_disposition
     import capo_drs.types.launch_into_instance_properties
@@ -85,9 +83,7 @@ def deserialize_json(data: dict) -> UpdateLaunchConfigurationRequest:
     if data.get("sourceServerID") is not None:
         out["source_server_id"] = data["sourceServerID"]
     else:
-        raise DeserializationError(
-            "UpdateLaunchConfigurationRequest.source_server_id required"
-        )
+        out["source_server_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("launchDisposition") is not None:

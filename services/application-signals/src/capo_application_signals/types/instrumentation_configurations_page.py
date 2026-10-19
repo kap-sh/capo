@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -62,17 +60,15 @@ def deserialize_json(data: dict) -> InstrumentationConfigurationsPage:
     if data.get("Service") is not None:
         out["service"] = data["Service"]
     else:
-        raise DeserializationError("InstrumentationConfigurationsPage.service required")
+        out["service"] = ""
     if data.get("Environment") is not None:
         out["environment"] = data["Environment"]
     else:
-        raise DeserializationError(
-            "InstrumentationConfigurationsPage.environment required"
-        )
+        out["environment"] = ""
     if data.get("Changed") is not None:
         out["changed"] = data["Changed"]
     else:
-        raise DeserializationError("InstrumentationConfigurationsPage.changed required")
+        out["changed"] = False
     if data.get("LatestConfigurations") is not None:
         import capo_application_signals.types.instrumentation_configurations_without_service_env
 
@@ -90,15 +86,13 @@ def deserialize_json(data: dict) -> InstrumentationConfigurationsPage:
             )
         )
     else:
-        raise DeserializationError(
-            "InstrumentationConfigurationsPage.synced_at required"
-        )
+        import datetime
+
+        out["synced_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("SyncInterval") is not None:
         out["sync_interval"] = data["SyncInterval"]
     else:
-        raise DeserializationError(
-            "InstrumentationConfigurationsPage.sync_interval required"
-        )
+        out["sync_interval"] = 0
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

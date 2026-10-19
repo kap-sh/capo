@@ -106,11 +106,11 @@ def deserialize_aws_json_1_0(data: dict) -> ImportJob:
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError("ImportJob.job_id required")
+        out["job_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ImportJob.name required")
+        out["name"] = ""
     if data.get("Status") is not None:
         import capo_mailmanager.types.import_job_status
 
@@ -120,11 +120,15 @@ def deserialize_aws_json_1_0(data: dict) -> ImportJob:
             )
         )
     else:
-        raise DeserializationError("ImportJob.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_mailmanager.types.import_job_status.ImportJobStatus", ""
+        )
     if data.get("PreSignedUrl") is not None:
         out["pre_signed_url"] = data["PreSignedUrl"]
     else:
-        raise DeserializationError("ImportJob.pre_signed_url required")
+        out["pre_signed_url"] = ""
     if data.get("ImportedItemsCount") is not None:
         out["imported_items_count"] = data["ImportedItemsCount"]
     if data.get("FailedItemsCount") is not None:
@@ -142,7 +146,7 @@ def deserialize_aws_json_1_0(data: dict) -> ImportJob:
     if data.get("AddressListId") is not None:
         out["address_list_id"] = data["AddressListId"]
     else:
-        raise DeserializationError("ImportJob.address_list_id required")
+        out["address_list_id"] = ""
     if data.get("CreatedTimestamp") is not None:
         import capo_mailmanager.types._prelude.timestamp
 
@@ -152,7 +156,11 @@ def deserialize_aws_json_1_0(data: dict) -> ImportJob:
             )
         )
     else:
-        raise DeserializationError("ImportJob.created_timestamp required")
+        import datetime
+
+        out["created_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("StartTimestamp") is not None:
         import capo_mailmanager.types._prelude.timestamp
 

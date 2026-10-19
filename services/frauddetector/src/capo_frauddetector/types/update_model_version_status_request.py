@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.float_version_string
     import capo_frauddetector.types.model_identifier
@@ -51,7 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateModelVersionStatusRequest:
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:
-        raise DeserializationError("UpdateModelVersionStatusRequest.model_id required")
+        out["model_id"] = ""
     if data.get("modelType") is not None:
         import capo_frauddetector.types.model_type_enum
 
@@ -61,15 +59,15 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateModelVersionStatusRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateModelVersionStatusRequest.model_type required"
+        import typing
+
+        out["model_type"] = typing.cast(
+            "capo_frauddetector.types.model_type_enum.ModelTypeEnum", ""
         )
     if data.get("modelVersionNumber") is not None:
         out["model_version_number"] = data["modelVersionNumber"]
     else:
-        raise DeserializationError(
-            "UpdateModelVersionStatusRequest.model_version_number required"
-        )
+        out["model_version_number"] = ""
     if data.get("status") is not None:
         import capo_frauddetector.types.model_version_status
 
@@ -79,5 +77,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateModelVersionStatusRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateModelVersionStatusRequest.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_frauddetector.types.model_version_status.ModelVersionStatus", ""
+        )
     return out

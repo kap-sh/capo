@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_influxdb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_influxdb.types.db_backup_name
     import capo_timestream_influxdb.types.db_resource_id
@@ -49,11 +47,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDbBackupInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateDbBackupInput.name required")
+        out["name"] = ""
     if data.get("dbResourceId") is not None:
         out["db_resource_id"] = data["dbResourceId"]
     else:
-        raise DeserializationError("CreateDbBackupInput.db_resource_id required")
+        out["db_resource_id"] = ""
     if data.get("retentionDays") is not None:
         out["retention_days"] = data["retentionDays"]
     if data.get("tags") is not None:

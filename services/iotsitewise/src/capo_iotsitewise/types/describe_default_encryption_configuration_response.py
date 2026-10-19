@@ -54,8 +54,10 @@ def deserialize_json(data: dict) -> DescribeDefaultEncryptionConfigurationRespon
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeDefaultEncryptionConfigurationResponse.encryption_type required"
+        import typing
+
+        out["encryption_type"] = typing.cast(
+            "capo_iotsitewise.types.encryption_type.EncryptionType", ""
         )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]

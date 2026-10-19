@@ -45,7 +45,11 @@ def deserialize_aws_json_1_1(data: dict) -> XssMatchSetUpdate:
             data["Action"]
         )
     else:
-        raise DeserializationError("XssMatchSetUpdate.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_waf_regional.types.change_action.ChangeAction", ""
+        )
     if data.get("XssMatchTuple") is not None:
         import capo_waf_regional.types.xss_match_tuple
 

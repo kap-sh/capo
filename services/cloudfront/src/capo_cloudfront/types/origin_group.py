@@ -55,7 +55,7 @@ def deserialize_xml(el: Element) -> OriginGroup:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("OriginGroup.id required")
+        out["id"] = ""
     child_failover_criteria = el.find("FailoverCriteria")
     if child_failover_criteria is not None:
         import capo_cloudfront.types.origin_group_failover_criteria

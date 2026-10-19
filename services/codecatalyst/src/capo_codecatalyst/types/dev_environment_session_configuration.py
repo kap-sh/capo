@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecatalyst.types.dev_environment_session_type
     import capo_codecatalyst.types.execute_command_session_configuration
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> DevEnvironmentSessionConfiguration:
     if data.get("sessionType") is not None:
         out["session_type"] = data["sessionType"]
     else:
-        raise DeserializationError(
-            "DevEnvironmentSessionConfiguration.session_type required"
-        )
+        out["session_type"] = ""
     if data.get("executeCommandSessionConfiguration") is not None:
         import capo_codecatalyst.types.execute_command_session_configuration
 

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.replication_rules
@@ -34,7 +33,7 @@ def deserialize_xml(el: Element) -> ReplicationConfiguration:
     if child_role is not None:
         out["role"] = str(child_role.text or "")
     else:
-        raise DeserializationError("ReplicationConfiguration.role required")
+        out["role"] = ""
     child_rules = el.find("Rules")
     if child_rules is not None:
         import capo_s3_control.types.replication_rules
@@ -43,5 +42,5 @@ def deserialize_xml(el: Element) -> ReplicationConfiguration:
             child_rules
         )
     else:
-        raise DeserializationError("ReplicationConfiguration.rules required")
+        out["rules"] = []
     return out

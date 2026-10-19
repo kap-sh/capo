@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.client_token
     import capo_imagebuilder.types.image_build_version_arn
@@ -33,11 +31,9 @@ def deserialize_json(data: dict) -> CancelImageCreationRequest:
     if data.get("imageBuildVersionArn") is not None:
         out["image_build_version_arn"] = data["imageBuildVersionArn"]
     else:
-        raise DeserializationError(
-            "CancelImageCreationRequest.image_build_version_arn required"
-        )
+        out["image_build_version_arn"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CancelImageCreationRequest.client_token required")
+        out["client_token"] = ""
     return out

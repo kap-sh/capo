@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.flow_name
     import capo_appflow.types.max_results
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> DescribeFlowExecutionRecordsRequest:
     if data.get("flowName") is not None:
         out["flow_name"] = data["flowName"]
     else:
-        raise DeserializationError(
-            "DescribeFlowExecutionRecordsRequest.flow_name required"
-        )
+        out["flow_name"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

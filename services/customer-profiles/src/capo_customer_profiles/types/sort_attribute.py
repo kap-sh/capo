@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.field_name
     import capo_customer_profiles.types.segment_sort_data_type
@@ -56,7 +54,7 @@ def deserialize_json(data: dict) -> SortAttribute:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("SortAttribute.name required")
+        out["name"] = ""
     if data.get("DataType") is not None:
         import capo_customer_profiles.types.segment_sort_data_type
 
@@ -72,7 +70,11 @@ def deserialize_json(data: dict) -> SortAttribute:
             data["Order"]
         )
     else:
-        raise DeserializationError("SortAttribute.order required")
+        import typing
+
+        out["order"] = typing.cast(
+            "capo_customer_profiles.types.segment_sort_order.SegmentSortOrder", ""
+        )
     if data.get("Type") is not None:
         import capo_customer_profiles.types.sort_attribute_type
 

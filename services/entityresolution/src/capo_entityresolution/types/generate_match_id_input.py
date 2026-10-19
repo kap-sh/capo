@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.entity_name
     import capo_entityresolution.types.processing_type
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> GenerateMatchIdInput:
             data["records"]
         )
     else:
-        raise DeserializationError("GenerateMatchIdInput.records required")
+        out["records"] = []
     if data.get("processingType") is not None:
         import capo_entityresolution.types.processing_type
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mturk.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mturk.types.entity_id
     import capo_mturk.types.string
@@ -31,11 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetFileUploadURLRequest:
     if data.get("AssignmentId") is not None:
         out["assignment_id"] = data["AssignmentId"]
     else:
-        raise DeserializationError("GetFileUploadURLRequest.assignment_id required")
+        out["assignment_id"] = ""
     if data.get("QuestionIdentifier") is not None:
         out["question_identifier"] = data["QuestionIdentifier"]
     else:
-        raise DeserializationError(
-            "GetFileUploadURLRequest.question_identifier required"
-        )
+        out["question_identifier"] = ""
     return out

@@ -118,9 +118,9 @@ def deserialize_aws_json_1_0(data: dict) -> WorkflowExecutionStartedEventAttribu
             data["childPolicy"]
         )
     else:
-        raise DeserializationError(
-            "WorkflowExecutionStartedEventAttributes.child_policy required"
-        )
+        import typing
+
+        out["child_policy"] = typing.cast("capo_swf.types.child_policy.ChildPolicy", "")
     if data.get("taskList") is not None:
         import capo_swf.types.task_list
 

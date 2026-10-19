@@ -53,11 +53,11 @@ def deserialize_json(data: dict) -> ToolDefinition:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ToolDefinition.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("ToolDefinition.description required")
+        out["description"] = ""
     if data.get("inputSchema") is not None:
         import capo_bedrock_agentcore_control.types.schema_definition
 

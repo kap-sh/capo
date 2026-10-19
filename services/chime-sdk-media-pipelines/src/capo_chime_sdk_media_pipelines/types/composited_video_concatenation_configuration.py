@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.artifacts_concatenation_state
 
@@ -39,7 +37,10 @@ def deserialize_json(data: dict) -> CompositedVideoConcatenationConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "CompositedVideoConcatenationConfiguration.state required"
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.artifacts_concatenation_state.ArtifactsConcatenationState",
+            "",
         )
     return out

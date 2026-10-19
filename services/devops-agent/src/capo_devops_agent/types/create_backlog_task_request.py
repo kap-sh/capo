@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.agent_space_identifier
     import capo_devops_agent.types.backlog_task_description
@@ -76,11 +74,13 @@ def deserialize_json(data: dict) -> CreateBacklogTaskRequest:
             data["taskType"]
         )
     else:
-        raise DeserializationError("CreateBacklogTaskRequest.task_type required")
+        import typing
+
+        out["task_type"] = typing.cast("capo_devops_agent.types.task_type.TaskType", "")
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("CreateBacklogTaskRequest.title required")
+        out["title"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("priority") is not None:
@@ -90,7 +90,9 @@ def deserialize_json(data: dict) -> CreateBacklogTaskRequest:
             data["priority"]
         )
     else:
-        raise DeserializationError("CreateBacklogTaskRequest.priority required")
+        import typing
+
+        out["priority"] = typing.cast("capo_devops_agent.types.priority.Priority", "")
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

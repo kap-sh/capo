@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_messaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_messaging.types.channel_membership_type
     import capo_chime_sdk_messaging.types.chime_arn
@@ -70,9 +68,7 @@ def deserialize_json(data: dict) -> BatchCreateChannelMembershipRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchCreateChannelMembershipRequest.member_arns required"
-        )
+        out["member_arns"] = []
     if data.get("SubChannelId") is not None:
         out["sub_channel_id"] = data["SubChannelId"]
     return out

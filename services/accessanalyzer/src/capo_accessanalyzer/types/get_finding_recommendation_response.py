@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.recommendation_error
     import capo_accessanalyzer.types.recommendation_type
@@ -86,9 +84,9 @@ def deserialize_json(data: dict) -> GetFindingRecommendationResponse:
             data["startedAt"]
         )
     else:
-        raise DeserializationError(
-            "GetFindingRecommendationResponse.started_at required"
-        )
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("completedAt") is not None:
         import capo_accessanalyzer.types.timestamp
 
@@ -106,9 +104,7 @@ def deserialize_json(data: dict) -> GetFindingRecommendationResponse:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError(
-            "GetFindingRecommendationResponse.resource_arn required"
-        )
+        out["resource_arn"] = ""
     if data.get("recommendedSteps") is not None:
         import capo_accessanalyzer.types.recommended_step_list
 
@@ -120,11 +116,9 @@ def deserialize_json(data: dict) -> GetFindingRecommendationResponse:
     if data.get("recommendationType") is not None:
         out["recommendation_type"] = data["recommendationType"]
     else:
-        raise DeserializationError(
-            "GetFindingRecommendationResponse.recommendation_type required"
-        )
+        out["recommendation_type"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("GetFindingRecommendationResponse.status required")
+        out["status"] = ""
     return out

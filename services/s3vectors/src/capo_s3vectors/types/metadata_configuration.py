@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_s3vectors.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3vectors.types.non_filterable_metadata_keys
 
@@ -41,7 +39,5 @@ def deserialize_json(data: dict) -> MetadataConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "MetadataConfiguration.non_filterable_metadata_keys required"
-        )
+        out["non_filterable_metadata_keys"] = []
     return out

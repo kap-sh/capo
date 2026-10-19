@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.email
 
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> OAuth2Authentication:
     if data.get("sub") is not None:
         out["sub"] = data["sub"]
     else:
-        raise DeserializationError("OAuth2Authentication.sub required")
+        out["sub"] = ""
     if data.get("emailAddress") is not None:
         out["email_address"] = data["emailAddress"]
     if data.get("name") is not None:

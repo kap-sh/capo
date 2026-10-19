@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.dns_name
@@ -72,9 +71,7 @@ def deserialize_xml(el: Element) -> ListResourceRecordSetsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListResourceRecordSetsResponse.resource_record_sets required"
-        )
+        out["resource_record_sets"] = []
     child_is_truncated = el.find("IsTruncated")
     if child_is_truncated is not None:
         out["is_truncated"] = (child_is_truncated.text or "").lower() == "true"
@@ -97,5 +94,5 @@ def deserialize_xml(el: Element) -> ListResourceRecordSetsResponse:
     if child_max_items is not None:
         out["max_items"] = int(child_max_items.text or "")
     else:
-        raise DeserializationError("ListResourceRecordSetsResponse.max_items required")
+        out["max_items"] = 0
     return out

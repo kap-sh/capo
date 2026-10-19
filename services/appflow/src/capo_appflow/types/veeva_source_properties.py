@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.boolean
     import capo_appflow.types.document_type
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> VeevaSourceProperties:
     if data.get("object") is not None:
         out["object"] = data["object"]
     else:
-        raise DeserializationError("VeevaSourceProperties.object required")
+        out["object"] = ""
     if data.get("documentType") is not None:
         out["document_type"] = data["documentType"]
     if data.get("includeSourceFiles") is not None:

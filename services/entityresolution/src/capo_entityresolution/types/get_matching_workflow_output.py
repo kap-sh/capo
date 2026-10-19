@@ -113,11 +113,11 @@ def deserialize_json(data: dict) -> GetMatchingWorkflowOutput:
     if data.get("workflowName") is not None:
         out["workflow_name"] = data["workflowName"]
     else:
-        raise DeserializationError("GetMatchingWorkflowOutput.workflow_name required")
+        out["workflow_name"] = ""
     if data.get("workflowArn") is not None:
         out["workflow_arn"] = data["workflowArn"]
     else:
-        raise DeserializationError("GetMatchingWorkflowOutput.workflow_arn required")
+        out["workflow_arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("inputSourceConfig") is not None:
@@ -129,9 +129,7 @@ def deserialize_json(data: dict) -> GetMatchingWorkflowOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetMatchingWorkflowOutput.input_source_config required"
-        )
+        out["input_source_config"] = []
     if data.get("outputSourceConfig") is not None:
         import capo_entityresolution.types.output_source_config
 
@@ -141,9 +139,7 @@ def deserialize_json(data: dict) -> GetMatchingWorkflowOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetMatchingWorkflowOutput.output_source_config required"
-        )
+        out["output_source_config"] = []
     if data.get("resolutionTechniques") is not None:
         import capo_entityresolution.types.resolution_techniques
 
@@ -165,7 +161,9 @@ def deserialize_json(data: dict) -> GetMatchingWorkflowOutput:
             )
         )
     else:
-        raise DeserializationError("GetMatchingWorkflowOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_entityresolution.types._prelude.timestamp
 
@@ -175,7 +173,9 @@ def deserialize_json(data: dict) -> GetMatchingWorkflowOutput:
             )
         )
     else:
-        raise DeserializationError("GetMatchingWorkflowOutput.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("incrementalRunConfig") is not None:
         import capo_entityresolution.types.incremental_run_config
 
@@ -187,7 +187,7 @@ def deserialize_json(data: dict) -> GetMatchingWorkflowOutput:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("GetMatchingWorkflowOutput.role_arn required")
+        out["role_arn"] = ""
     if data.get("tags") is not None:
         import capo_entityresolution.types.tag_map
 

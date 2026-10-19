@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.fulfillment_option_type
     import capo_marketplace_discovery.types.non_empty_string
@@ -45,11 +43,14 @@ def deserialize_json(data: dict) -> FulfillmentOptionSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "FulfillmentOptionSummary.fulfillment_option_type required"
+        import typing
+
+        out["fulfillment_option_type"] = typing.cast(
+            "capo_marketplace_discovery.types.fulfillment_option_type.FulfillmentOptionType",
+            "",
         )
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("FulfillmentOptionSummary.display_name required")
+        out["display_name"] = ""
     return out

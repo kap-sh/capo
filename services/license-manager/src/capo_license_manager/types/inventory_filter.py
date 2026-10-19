@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.inventory_filter_condition
     import capo_license_manager.types.string
@@ -43,7 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> InventoryFilter:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("InventoryFilter.name required")
+        out["name"] = ""
     if data.get("Condition") is not None:
         import capo_license_manager.types.inventory_filter_condition
 
@@ -53,7 +51,12 @@ def deserialize_aws_json_1_1(data: dict) -> InventoryFilter:
             )
         )
     else:
-        raise DeserializationError("InventoryFilter.condition required")
+        import typing
+
+        out["condition"] = typing.cast(
+            "capo_license_manager.types.inventory_filter_condition.InventoryFilterCondition",
+            "",
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     return out

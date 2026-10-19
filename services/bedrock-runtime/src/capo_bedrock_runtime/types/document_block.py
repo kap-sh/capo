@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.citations_config
     import capo_bedrock_runtime.types.document_format
@@ -65,7 +63,7 @@ def deserialize_json(data: dict) -> DocumentBlock:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DocumentBlock.name required")
+        out["name"] = ""
     if data.get("source") is not None:
         import capo_bedrock_runtime.types.document_source
 
@@ -73,7 +71,9 @@ def deserialize_json(data: dict) -> DocumentBlock:
             data["source"]
         )
     else:
-        raise DeserializationError("DocumentBlock.source required")
+        import capo_bedrock_runtime.types._unknown
+
+        out["source"] = capo_bedrock_runtime.types._unknown.UnknownUnionMember("")
     if data.get("context") is not None:
         out["context"] = data["context"]
     if data.get("citations") is not None:

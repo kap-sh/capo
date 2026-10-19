@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.iso_country_code
     import capo_pinpoint_sms_voice_v2.types.number_capability_list
@@ -52,21 +50,15 @@ def deserialize_aws_json_1_0(data: dict) -> OriginationIdentityMetadata:
     if data.get("OriginationIdentityArn") is not None:
         out["origination_identity_arn"] = data["OriginationIdentityArn"]
     else:
-        raise DeserializationError(
-            "OriginationIdentityMetadata.origination_identity_arn required"
-        )
+        out["origination_identity_arn"] = ""
     if data.get("OriginationIdentity") is not None:
         out["origination_identity"] = data["OriginationIdentity"]
     else:
-        raise DeserializationError(
-            "OriginationIdentityMetadata.origination_identity required"
-        )
+        out["origination_identity"] = ""
     if data.get("IsoCountryCode") is not None:
         out["iso_country_code"] = data["IsoCountryCode"]
     else:
-        raise DeserializationError(
-            "OriginationIdentityMetadata.iso_country_code required"
-        )
+        out["iso_country_code"] = ""
     if data.get("NumberCapabilities") is not None:
         import capo_pinpoint_sms_voice_v2.types.number_capability_list
 
@@ -76,9 +68,7 @@ def deserialize_aws_json_1_0(data: dict) -> OriginationIdentityMetadata:
             )
         )
     else:
-        raise DeserializationError(
-            "OriginationIdentityMetadata.number_capabilities required"
-        )
+        out["number_capabilities"] = []
     if data.get("PhoneNumber") is not None:
         out["phone_number"] = data["PhoneNumber"]
     return out

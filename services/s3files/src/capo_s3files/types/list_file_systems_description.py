@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3files.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -72,23 +70,25 @@ def deserialize_json(data: dict) -> ListFileSystemsDescription:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("ListFileSystemsDescription.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("fileSystemArn") is not None:
         out["file_system_arn"] = data["fileSystemArn"]
     else:
-        raise DeserializationError(
-            "ListFileSystemsDescription.file_system_arn required"
-        )
+        out["file_system_arn"] = ""
     if data.get("fileSystemId") is not None:
         out["file_system_id"] = data["fileSystemId"]
     else:
-        raise DeserializationError("ListFileSystemsDescription.file_system_id required")
+        out["file_system_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("bucket") is not None:
         out["bucket"] = data["bucket"]
     else:
-        raise DeserializationError("ListFileSystemsDescription.bucket required")
+        out["bucket"] = ""
     if data.get("status") is not None:
         import capo_s3files.types.life_cycle_state
 
@@ -96,15 +96,19 @@ def deserialize_json(data: dict) -> ListFileSystemsDescription:
             data["status"]
         )
     else:
-        raise DeserializationError("ListFileSystemsDescription.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_s3files.types.life_cycle_state.LifeCycleState", ""
+        )
     if data.get("statusMessage") is not None:
         out["status_message"] = data["statusMessage"]
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("ListFileSystemsDescription.role_arn required")
+        out["role_arn"] = ""
     if data.get("ownerId") is not None:
         out["owner_id"] = data["ownerId"]
     else:
-        raise DeserializationError("ListFileSystemsDescription.owner_id required")
+        out["owner_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivschat.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivschat.types.destination_configuration
     import capo_ivschat.types.logging_configuration_identifier
@@ -47,9 +45,7 @@ def deserialize_json(data: dict) -> UpdateLoggingConfigurationRequest:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError(
-            "UpdateLoggingConfigurationRequest.identifier required"
-        )
+        out["identifier"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("destinationConfiguration") is not None:

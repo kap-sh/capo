@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -63,9 +61,7 @@ def deserialize_json(data: dict) -> RouterInputThumbnailDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "RouterInputThumbnailDetails.thumbnail_messages required"
-        )
+        out["thumbnail_messages"] = []
     if data.get("thumbnail") is not None:
         import capo_mediaconnect.types._prelude.blob
 

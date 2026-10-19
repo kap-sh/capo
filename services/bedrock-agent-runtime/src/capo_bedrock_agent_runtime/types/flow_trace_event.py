@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent_runtime._protocol.eventstream import HeaderValue, Message
-from capo_bedrock_agent_runtime.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.flow_trace
@@ -37,7 +36,9 @@ def deserialize_json(data: dict) -> FlowTraceEvent:
             data["trace"]
         )
     else:
-        raise DeserializationError("FlowTraceEvent.trace required")
+        import capo_bedrock_agent_runtime.types._unknown
+
+        out["trace"] = capo_bedrock_agent_runtime.types._unknown.UnknownUnionMember("")
     return out
 
 

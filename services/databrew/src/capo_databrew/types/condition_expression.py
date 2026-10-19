@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.condition
     import capo_databrew.types.condition_value
@@ -36,11 +34,11 @@ def deserialize_json(data: dict) -> ConditionExpression:
     if data.get("Condition") is not None:
         out["condition"] = data["Condition"]
     else:
-        raise DeserializationError("ConditionExpression.condition required")
+        out["condition"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     if data.get("TargetColumn") is not None:
         out["target_column"] = data["TargetColumn"]
     else:
-        raise DeserializationError("ConditionExpression.target_column required")
+        out["target_column"] = ""
     return out

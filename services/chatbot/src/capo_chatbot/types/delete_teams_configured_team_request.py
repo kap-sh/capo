@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chatbot.types.uuid
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DeleteTeamsConfiguredTeamRequest:
     if data.get("TeamId") is not None:
         out["team_id"] = data["TeamId"]
     else:
-        raise DeserializationError("DeleteTeamsConfiguredTeamRequest.team_id required")
+        out["team_id"] = ""
     return out

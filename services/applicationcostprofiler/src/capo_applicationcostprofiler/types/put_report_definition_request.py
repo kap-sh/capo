@@ -63,13 +63,11 @@ def deserialize_json(data: dict) -> PutReportDefinitionRequest:
     if data.get("reportId") is not None:
         out["report_id"] = data["reportId"]
     else:
-        raise DeserializationError("PutReportDefinitionRequest.report_id required")
+        out["report_id"] = ""
     if data.get("reportDescription") is not None:
         out["report_description"] = data["reportDescription"]
     else:
-        raise DeserializationError(
-            "PutReportDefinitionRequest.report_description required"
-        )
+        out["report_description"] = ""
     if data.get("reportFrequency") is not None:
         import capo_applicationcostprofiler.types.report_frequency
 
@@ -79,8 +77,10 @@ def deserialize_json(data: dict) -> PutReportDefinitionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "PutReportDefinitionRequest.report_frequency required"
+        import typing
+
+        out["report_frequency"] = typing.cast(
+            "capo_applicationcostprofiler.types.report_frequency.ReportFrequency", ""
         )
     if data.get("format") is not None:
         import capo_applicationcostprofiler.types.format
@@ -89,7 +89,11 @@ def deserialize_json(data: dict) -> PutReportDefinitionRequest:
             data["format"]
         )
     else:
-        raise DeserializationError("PutReportDefinitionRequest.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_applicationcostprofiler.types.format.Format", ""
+        )
     if data.get("destinationS3Location") is not None:
         import capo_applicationcostprofiler.types.s3_location
 

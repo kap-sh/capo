@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_auto_scaling_plans.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auto_scaling_plans.types.policy_name
     import capo_auto_scaling_plans.types.policy_type
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> ScalingPolicy:
     if data.get("PolicyName") is not None:
         out["policy_name"] = data["PolicyName"]
     else:
-        raise DeserializationError("ScalingPolicy.policy_name required")
+        out["policy_name"] = ""
     if data.get("PolicyType") is not None:
         import capo_auto_scaling_plans.types.policy_type
 
@@ -60,7 +58,11 @@ def deserialize_aws_json_1_1(data: dict) -> ScalingPolicy:
             )
         )
     else:
-        raise DeserializationError("ScalingPolicy.policy_type required")
+        import typing
+
+        out["policy_type"] = typing.cast(
+            "capo_auto_scaling_plans.types.policy_type.PolicyType", ""
+        )
     if data.get("TargetTrackingConfiguration") is not None:
         import capo_auto_scaling_plans.types.target_tracking_configuration
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.attribute_name
     import capo_entityresolution.types.schema_attribute_type
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> SchemaInputAttribute:
     if data.get("fieldName") is not None:
         out["field_name"] = data["fieldName"]
     else:
-        raise DeserializationError("SchemaInputAttribute.field_name required")
+        out["field_name"] = ""
     if data.get("type") is not None:
         import capo_entityresolution.types.schema_attribute_type
 
@@ -61,7 +59,11 @@ def deserialize_json(data: dict) -> SchemaInputAttribute:
             )
         )
     else:
-        raise DeserializationError("SchemaInputAttribute.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_entityresolution.types.schema_attribute_type.SchemaAttributeType", ""
+        )
     if data.get("groupName") is not None:
         out["group_name"] = data["groupName"]
     if data.get("matchKey") is not None:

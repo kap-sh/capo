@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_shield.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_shield.types.protected_resource_type
     import capo_shield.types.protection_group_aggregation
@@ -80,9 +78,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProtectionGroupRequest:
     if data.get("ProtectionGroupId") is not None:
         out["protection_group_id"] = data["ProtectionGroupId"]
     else:
-        raise DeserializationError(
-            "CreateProtectionGroupRequest.protection_group_id required"
-        )
+        out["protection_group_id"] = ""
     if data.get("Aggregation") is not None:
         import capo_shield.types.protection_group_aggregation
 
@@ -92,7 +88,12 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProtectionGroupRequest:
             )
         )
     else:
-        raise DeserializationError("CreateProtectionGroupRequest.aggregation required")
+        import typing
+
+        out["aggregation"] = typing.cast(
+            "capo_shield.types.protection_group_aggregation.ProtectionGroupAggregation",
+            "",
+        )
     if data.get("Pattern") is not None:
         import capo_shield.types.protection_group_pattern
 
@@ -102,7 +103,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProtectionGroupRequest:
             )
         )
     else:
-        raise DeserializationError("CreateProtectionGroupRequest.pattern required")
+        import typing
+
+        out["pattern"] = typing.cast(
+            "capo_shield.types.protection_group_pattern.ProtectionGroupPattern", ""
+        )
     if data.get("ResourceType") is not None:
         import capo_shield.types.protected_resource_type
 

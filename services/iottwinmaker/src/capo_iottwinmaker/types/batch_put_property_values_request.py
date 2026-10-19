@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.entries
     import capo_iottwinmaker.types.id
@@ -36,5 +34,5 @@ def deserialize_json(data: dict) -> BatchPutPropertyValuesRequest:
             data["entries"]
         )
     else:
-        raise DeserializationError("BatchPutPropertyValuesRequest.entries required")
+        out["entries"] = []
     return out

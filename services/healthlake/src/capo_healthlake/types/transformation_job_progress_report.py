@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 
 class TransformationJobProgressReport(TypedDict, closed=True):
     total_files_scanned: "int"
@@ -31,25 +29,17 @@ def deserialize_aws_json_1_0(data: dict) -> TransformationJobProgressReport:
     if data.get("TotalFilesScanned") is not None:
         out["total_files_scanned"] = data["TotalFilesScanned"]
     else:
-        raise DeserializationError(
-            "TransformationJobProgressReport.total_files_scanned required"
-        )
+        out["total_files_scanned"] = 0
     if data.get("TotalFilesConverted") is not None:
         out["total_files_converted"] = data["TotalFilesConverted"]
     else:
-        raise DeserializationError(
-            "TransformationJobProgressReport.total_files_converted required"
-        )
+        out["total_files_converted"] = 0
     if data.get("TotalFilesFailed") is not None:
         out["total_files_failed"] = data["TotalFilesFailed"]
     else:
-        raise DeserializationError(
-            "TransformationJobProgressReport.total_files_failed required"
-        )
+        out["total_files_failed"] = 0
     if data.get("TotalResourcesGenerated") is not None:
         out["total_resources_generated"] = data["TotalResourcesGenerated"]
     else:
-        raise DeserializationError(
-            "TransformationJobProgressReport.total_resources_generated required"
-        )
+        out["total_resources_generated"] = 0
     return out

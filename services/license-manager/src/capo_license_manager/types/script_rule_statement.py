@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.string
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> ScriptRuleStatement:
     if data.get("KeyToMatch") is not None:
         out["key_to_match"] = data["KeyToMatch"]
     else:
-        raise DeserializationError("ScriptRuleStatement.key_to_match required")
+        out["key_to_match"] = ""
     if data.get("Script") is not None:
         out["script"] = data["Script"]
     else:
-        raise DeserializationError("ScriptRuleStatement.script required")
+        out["script"] = ""
     return out

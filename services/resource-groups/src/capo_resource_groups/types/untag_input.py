@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resource_groups.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resource_groups.types.group_arn_v2
     import capo_resource_groups.types.tag_key_list
@@ -36,5 +34,5 @@ def deserialize_json(data: dict) -> UntagInput:
             data["Keys"]
         )
     else:
-        raise DeserializationError("UntagInput.keys required")
+        out["keys"] = []
     return out

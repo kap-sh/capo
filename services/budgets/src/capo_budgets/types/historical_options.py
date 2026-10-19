@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_budgets.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_budgets.types.adjustment_period
 
@@ -33,9 +31,7 @@ def deserialize_aws_json_1_1(data: dict) -> HistoricalOptions:
     if data.get("BudgetAdjustmentPeriod") is not None:
         out["budget_adjustment_period"] = data["BudgetAdjustmentPeriod"]
     else:
-        raise DeserializationError(
-            "HistoricalOptions.budget_adjustment_period required"
-        )
+        out["budget_adjustment_period"] = 0
     if data.get("LookBackAvailablePeriods") is not None:
         out["look_back_available_periods"] = data["LookBackAvailablePeriods"]
     return out

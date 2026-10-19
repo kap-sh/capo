@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.integer
     import capo_quicksight.types.time_granularity
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> ExcludePeriodConfiguration:
     if data.get("Amount") is not None:
         out["amount"] = data["Amount"]
     else:
-        raise DeserializationError("ExcludePeriodConfiguration.amount required")
+        out["amount"] = 0
     if data.get("Granularity") is not None:
         import capo_quicksight.types.time_granularity
 
@@ -52,7 +50,11 @@ def deserialize_json(data: dict) -> ExcludePeriodConfiguration:
             data["Granularity"]
         )
     else:
-        raise DeserializationError("ExcludePeriodConfiguration.granularity required")
+        import typing
+
+        out["granularity"] = typing.cast(
+            "capo_quicksight.types.time_granularity.TimeGranularity", ""
+        )
     if data.get("Status") is not None:
         import capo_quicksight.types.widget_status
 

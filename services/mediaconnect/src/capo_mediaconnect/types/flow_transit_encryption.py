@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.flow_transit_encryption_key_configuration
     import capo_mediaconnect.types.flow_transit_encryption_key_type
@@ -60,7 +58,9 @@ def deserialize_json(data: dict) -> FlowTransitEncryption:
             )
         )
     else:
-        raise DeserializationError(
-            "FlowTransitEncryption.encryption_key_configuration required"
+        import capo_mediaconnect.types._unknown
+
+        out["encryption_key_configuration"] = (
+            capo_mediaconnect.types._unknown.UnknownUnionMember("")
         )
     return out

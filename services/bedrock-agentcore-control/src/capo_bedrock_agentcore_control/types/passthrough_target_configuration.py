@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.http_api_schema_configuration
     import capo_bedrock_agentcore_control.types.passthrough_endpoint
@@ -91,7 +89,7 @@ def deserialize_json(data: dict) -> PassthroughTargetConfiguration:
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError("PassthroughTargetConfiguration.endpoint required")
+        out["endpoint"] = ""
     if data.get("protocolType") is not None:
         import capo_bedrock_agentcore_control.types.passthrough_protocol_type
 
@@ -101,8 +99,11 @@ def deserialize_json(data: dict) -> PassthroughTargetConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "PassthroughTargetConfiguration.protocol_type required"
+        import typing
+
+        out["protocol_type"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.passthrough_protocol_type.PassthroughProtocolType",
+            "",
         )
     if data.get("schema") is not None:
         import capo_bedrock_agentcore_control.types.http_api_schema_configuration

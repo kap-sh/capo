@@ -51,9 +51,7 @@ def deserialize_json(data: dict) -> UpdateAssetModelCompositeModelResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateAssetModelCompositeModelResponse.asset_model_composite_model_path required"
-        )
+        out["asset_model_composite_model_path"] = []
     if data.get("assetModelStatus") is not None:
         import capo_iotsitewise.types.asset_model_status
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billing.types.dimension
     import capo_billing.types.values
@@ -37,7 +35,9 @@ def deserialize_aws_json_1_0(data: dict) -> DimensionValues:
 
         out["key"] = capo_billing.types.dimension.deserialize_aws_json_1_0(data["key"])
     else:
-        raise DeserializationError("DimensionValues.key required")
+        import typing
+
+        out["key"] = typing.cast("capo_billing.types.dimension.Dimension", "")
     if data.get("values") is not None:
         import capo_billing.types.values
 
@@ -45,5 +45,5 @@ def deserialize_aws_json_1_0(data: dict) -> DimensionValues:
             data["values"]
         )
     else:
-        raise DeserializationError("DimensionValues.values required")
+        out["values"] = []
     return out

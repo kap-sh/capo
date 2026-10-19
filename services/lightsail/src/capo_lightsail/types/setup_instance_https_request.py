@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.certificate_provider
     import capo_lightsail.types.email_address
@@ -53,11 +51,11 @@ def deserialize_aws_json_1_1(data: dict) -> SetupInstanceHttpsRequest:
     if data.get("instanceName") is not None:
         out["instance_name"] = data["instanceName"]
     else:
-        raise DeserializationError("SetupInstanceHttpsRequest.instance_name required")
+        out["instance_name"] = ""
     if data.get("emailAddress") is not None:
         out["email_address"] = data["emailAddress"]
     else:
-        raise DeserializationError("SetupInstanceHttpsRequest.email_address required")
+        out["email_address"] = ""
     if data.get("domainNames") is not None:
         import capo_lightsail.types.setup_domain_name_list
 
@@ -67,7 +65,7 @@ def deserialize_aws_json_1_1(data: dict) -> SetupInstanceHttpsRequest:
             )
         )
     else:
-        raise DeserializationError("SetupInstanceHttpsRequest.domain_names required")
+        out["domain_names"] = []
     if data.get("certificateProvider") is not None:
         import capo_lightsail.types.certificate_provider
 
@@ -77,8 +75,10 @@ def deserialize_aws_json_1_1(data: dict) -> SetupInstanceHttpsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "SetupInstanceHttpsRequest.certificate_provider required"
+        import typing
+
+        out["certificate_provider"] = typing.cast(
+            "capo_lightsail.types.certificate_provider.CertificateProvider", ""
         )
     return out
 

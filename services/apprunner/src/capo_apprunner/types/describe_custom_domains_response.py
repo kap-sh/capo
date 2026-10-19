@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_apprunner.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_apprunner.types.app_runner_resource_arn
     import capo_apprunner.types.custom_domain_list
@@ -55,11 +53,11 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeCustomDomainsResponse:
     if data.get("DNSTarget") is not None:
         out["dns_target"] = data["DNSTarget"]
     else:
-        raise DeserializationError("DescribeCustomDomainsResponse.dns_target required")
+        out["dns_target"] = ""
     if data.get("ServiceArn") is not None:
         out["service_arn"] = data["ServiceArn"]
     else:
-        raise DeserializationError("DescribeCustomDomainsResponse.service_arn required")
+        out["service_arn"] = ""
     if data.get("CustomDomains") is not None:
         import capo_apprunner.types.custom_domain_list
 
@@ -69,9 +67,7 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeCustomDomainsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeCustomDomainsResponse.custom_domains required"
-        )
+        out["custom_domains"] = []
     if data.get("VpcDNSTargets") is not None:
         import capo_apprunner.types.vpc_dns_target_list
 
@@ -81,9 +77,7 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeCustomDomainsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeCustomDomainsResponse.vpc_dns_targets required"
-        )
+        out["vpc_dns_targets"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

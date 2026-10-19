@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_tnb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_tnb.types.list_sol_function_package_metadata
     import capo_tnb.types.onboarding_state
@@ -82,11 +80,11 @@ def deserialize_json(data: dict) -> ListSolFunctionPackageInfo:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ListSolFunctionPackageInfo.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ListSolFunctionPackageInfo.arn required")
+        out["arn"] = ""
     if data.get("onboardingState") is not None:
         import capo_tnb.types.onboarding_state
 
@@ -94,8 +92,10 @@ def deserialize_json(data: dict) -> ListSolFunctionPackageInfo:
             data["onboardingState"]
         )
     else:
-        raise DeserializationError(
-            "ListSolFunctionPackageInfo.onboarding_state required"
+        import typing
+
+        out["onboarding_state"] = typing.cast(
+            "capo_tnb.types.onboarding_state.OnboardingState", ""
         )
     if data.get("operationalState") is not None:
         import capo_tnb.types.operational_state
@@ -104,8 +104,10 @@ def deserialize_json(data: dict) -> ListSolFunctionPackageInfo:
             data["operationalState"]
         )
     else:
-        raise DeserializationError(
-            "ListSolFunctionPackageInfo.operational_state required"
+        import typing
+
+        out["operational_state"] = typing.cast(
+            "capo_tnb.types.operational_state.OperationalState", ""
         )
     if data.get("usageState") is not None:
         import capo_tnb.types.usage_state
@@ -114,7 +116,9 @@ def deserialize_json(data: dict) -> ListSolFunctionPackageInfo:
             data["usageState"]
         )
     else:
-        raise DeserializationError("ListSolFunctionPackageInfo.usage_state required")
+        import typing
+
+        out["usage_state"] = typing.cast("capo_tnb.types.usage_state.UsageState", "")
     if data.get("vnfdId") is not None:
         out["vnfd_id"] = data["vnfdId"]
     if data.get("vnfProvider") is not None:

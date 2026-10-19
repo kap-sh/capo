@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_apprunner.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_apprunner.types.image_configuration
     import capo_apprunner.types.image_identifier
@@ -52,7 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> ImageRepository:
     if data.get("ImageIdentifier") is not None:
         out["image_identifier"] = data["ImageIdentifier"]
     else:
-        raise DeserializationError("ImageRepository.image_identifier required")
+        out["image_identifier"] = ""
     if data.get("ImageConfiguration") is not None:
         import capo_apprunner.types.image_configuration
 
@@ -70,7 +68,11 @@ def deserialize_aws_json_1_0(data: dict) -> ImageRepository:
             )
         )
     else:
-        raise DeserializationError("ImageRepository.image_repository_type required")
+        import typing
+
+        out["image_repository_type"] = typing.cast(
+            "capo_apprunner.types.image_repository_type.ImageRepositoryType", ""
+        )
     return out
 
 

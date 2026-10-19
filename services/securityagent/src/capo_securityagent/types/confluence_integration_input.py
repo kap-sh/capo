@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.auth_code
     import capo_securityagent.types.confluence_installation_id
@@ -41,19 +39,17 @@ def deserialize_json(data: dict) -> ConfluenceIntegrationInput:
     if data.get("installationId") is not None:
         out["installation_id"] = data["installationId"]
     else:
-        raise DeserializationError(
-            "ConfluenceIntegrationInput.installation_id required"
-        )
+        out["installation_id"] = ""
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("ConfluenceIntegrationInput.code required")
+        out["code"] = ""
     if data.get("state") is not None:
         out["state"] = data["state"]
     else:
-        raise DeserializationError("ConfluenceIntegrationInput.state required")
+        out["state"] = ""
     if data.get("siteUrl") is not None:
         out["site_url"] = data["siteUrl"]
     else:
-        raise DeserializationError("ConfluenceIntegrationInput.site_url required")
+        out["site_url"] = ""
     return out

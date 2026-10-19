@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.boolean
     import capo_quicksight.types.database
@@ -39,15 +37,15 @@ def deserialize_json(data: dict) -> OracleParameters:
     if data.get("Host") is not None:
         out["host"] = data["Host"]
     else:
-        raise DeserializationError("OracleParameters.host required")
+        out["host"] = ""
     if data.get("Port") is not None:
         out["port"] = data["Port"]
     else:
-        raise DeserializationError("OracleParameters.port required")
+        out["port"] = 0
     if data.get("Database") is not None:
         out["database"] = data["Database"]
     else:
-        raise DeserializationError("OracleParameters.database required")
+        out["database"] = ""
     if data.get("UseServiceName") is not None:
         out["use_service_name"] = data["UseServiceName"]
     else:

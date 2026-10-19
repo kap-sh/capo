@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.app_sync_runtime
     import capo_appsync.types.code
@@ -80,13 +78,13 @@ def deserialize_json(data: dict) -> CreateFunctionRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateFunctionRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("dataSourceName") is not None:
         out["data_source_name"] = data["dataSourceName"]
     else:
-        raise DeserializationError("CreateFunctionRequest.data_source_name required")
+        out["data_source_name"] = ""
     if data.get("requestMappingTemplate") is not None:
         out["request_mapping_template"] = data["requestMappingTemplate"]
     if data.get("responseMappingTemplate") is not None:

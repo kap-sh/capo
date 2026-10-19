@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.node_name
     import capo_glue.types.two_inputs
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> Union:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Union.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.two_inputs
 
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> Union:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("Union.inputs required")
+        out["inputs"] = []
     if data.get("UnionType") is not None:
         import capo_glue.types.union_type
 
@@ -57,5 +55,7 @@ def deserialize_aws_json_1_1(data: dict) -> Union:
             data["UnionType"]
         )
     else:
-        raise DeserializationError("Union.union_type required")
+        import typing
+
+        out["union_type"] = typing.cast("capo_glue.types.union_type.UnionType", "")
     return out

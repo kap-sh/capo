@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.record_format_type
 
@@ -41,5 +39,9 @@ def deserialize_aws_json_1_1(data: dict) -> DestinationSchema:
             )
         )
     else:
-        raise DeserializationError("DestinationSchema.record_format_type required")
+        import typing
+
+        out["record_format_type"] = typing.cast(
+            "capo_kinesis_analytics_v2.types.record_format_type.RecordFormatType", ""
+        )
     return out

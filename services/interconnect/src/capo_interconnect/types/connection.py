@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_interconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_interconnect.types.activation_key
     import capo_interconnect.types.amazon_resource_name
@@ -101,19 +99,19 @@ def deserialize_aws_json_1_0(data: dict) -> Connection:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("Connection.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("Connection.arn required")
+        out["arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("Connection.description required")
+        out["description"] = ""
     if data.get("bandwidth") is not None:
         out["bandwidth"] = data["bandwidth"]
     else:
-        raise DeserializationError("Connection.bandwidth required")
+        out["bandwidth"] = ""
     if data.get("attachPoint") is not None:
         import capo_interconnect.types.attach_point
 
@@ -123,11 +121,13 @@ def deserialize_aws_json_1_0(data: dict) -> Connection:
             )
         )
     else:
-        raise DeserializationError("Connection.attach_point required")
+        import capo_interconnect.types._unknown
+
+        out["attach_point"] = capo_interconnect.types._unknown.UnknownUnionMember("")
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError("Connection.environment_id required")
+        out["environment_id"] = ""
     if data.get("provider") is not None:
         import capo_interconnect.types.provider
 
@@ -135,15 +135,17 @@ def deserialize_aws_json_1_0(data: dict) -> Connection:
             data["provider"]
         )
     else:
-        raise DeserializationError("Connection.provider required")
+        import capo_interconnect.types._unknown
+
+        out["provider"] = capo_interconnect.types._unknown.UnknownUnionMember("")
     if data.get("location") is not None:
         out["location"] = data["location"]
     else:
-        raise DeserializationError("Connection.location required")
+        out["location"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("Connection.type required")
+        out["type"] = ""
     if data.get("state") is not None:
         import capo_interconnect.types.connection_state
 
@@ -153,21 +155,25 @@ def deserialize_aws_json_1_0(data: dict) -> Connection:
             )
         )
     else:
-        raise DeserializationError("Connection.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_interconnect.types.connection_state.ConnectionState", ""
+        )
     if data.get("sharedId") is not None:
         out["shared_id"] = data["sharedId"]
     else:
-        raise DeserializationError("Connection.shared_id required")
+        out["shared_id"] = ""
     if data.get("billingTier") is not None:
         out["billing_tier"] = data["billingTier"]
     if data.get("ownerAccount") is not None:
         out["owner_account"] = data["ownerAccount"]
     else:
-        raise DeserializationError("Connection.owner_account required")
+        out["owner_account"] = ""
     if data.get("activationKey") is not None:
         out["activation_key"] = data["activationKey"]
     else:
-        raise DeserializationError("Connection.activation_key required")
+        out["activation_key"] = ""
     if data.get("tags") is not None:
         import capo_interconnect.types.tag_map
 

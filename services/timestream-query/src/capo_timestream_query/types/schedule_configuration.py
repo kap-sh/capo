@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_timestream_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_query.types.schedule_expression
 
@@ -29,5 +27,5 @@ def deserialize_aws_json_1_0(data: dict) -> ScheduleConfiguration:
     if data.get("ScheduleExpression") is not None:
         out["schedule_expression"] = data["ScheduleExpression"]
     else:
-        raise DeserializationError("ScheduleConfiguration.schedule_expression required")
+        out["schedule_expression"] = ""
     return out

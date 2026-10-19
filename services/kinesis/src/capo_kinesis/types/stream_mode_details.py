@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.stream_mode
 
@@ -35,5 +33,9 @@ def deserialize_aws_json_1_1(data: dict) -> StreamModeDetails:
             data["StreamMode"]
         )
     else:
-        raise DeserializationError("StreamModeDetails.stream_mode required")
+        import typing
+
+        out["stream_mode"] = typing.cast(
+            "capo_kinesis.types.stream_mode.StreamMode", ""
+        )
     return out

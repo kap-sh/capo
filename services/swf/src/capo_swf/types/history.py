@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.history_event_list
     import capo_swf.types.page_token
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_0(data: dict) -> History:
             data["events"]
         )
     else:
-        raise DeserializationError("History.events required")
+        out["events"] = []
     if data.get("nextPageToken") is not None:
         out["next_page_token"] = data["nextPageToken"]
     return out

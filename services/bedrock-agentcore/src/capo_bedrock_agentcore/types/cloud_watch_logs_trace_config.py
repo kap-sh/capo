@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -74,7 +72,7 @@ def deserialize_json(data: dict) -> CloudWatchLogsTraceConfig:
             )
         )
     else:
-        raise DeserializationError("CloudWatchLogsTraceConfig.log_group_arns required")
+        out["log_group_arns"] = []
     if data.get("serviceNames") is not None:
         import capo_bedrock_agentcore.types.service_name_list
 
@@ -84,7 +82,7 @@ def deserialize_json(data: dict) -> CloudWatchLogsTraceConfig:
             )
         )
     else:
-        raise DeserializationError("CloudWatchLogsTraceConfig.service_names required")
+        out["service_names"] = []
     if data.get("startTime") is not None:
         import datetime
 
@@ -92,7 +90,9 @@ def deserialize_json(data: dict) -> CloudWatchLogsTraceConfig:
             data["startTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("CloudWatchLogsTraceConfig.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import datetime
 
@@ -100,7 +100,9 @@ def deserialize_json(data: dict) -> CloudWatchLogsTraceConfig:
             data["endTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("CloudWatchLogsTraceConfig.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("rule") is not None:
         import capo_bedrock_agentcore.types.cloud_watch_logs_rule
 

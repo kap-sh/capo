@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_endusermessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_endusermessaging.types.brand_profile_attribute_name
     import capo_endusermessaging.types.brand_profile_id_or_arn
@@ -33,15 +31,11 @@ def deserialize_json(data: dict) -> DeleteBrandProfileAttributeOutput:
     if data.get("brandProfileId") is not None:
         out["brand_profile_id"] = data["brandProfileId"]
     else:
-        raise DeserializationError(
-            "DeleteBrandProfileAttributeOutput.brand_profile_id required"
-        )
+        out["brand_profile_id"] = ""
     if data.get("attributeName") is not None:
         out["attribute_name"] = data["attributeName"]
     else:
-        raise DeserializationError(
-            "DeleteBrandProfileAttributeOutput.attribute_name required"
-        )
+        out["attribute_name"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.data_pull_mode
     import capo_appflow.types.date
@@ -80,9 +78,7 @@ def deserialize_json(data: dict) -> ScheduledTriggerProperties:
     if data.get("scheduleExpression") is not None:
         out["schedule_expression"] = data["scheduleExpression"]
     else:
-        raise DeserializationError(
-            "ScheduledTriggerProperties.schedule_expression required"
-        )
+        out["schedule_expression"] = ""
     if data.get("dataPullMode") is not None:
         import capo_appflow.types.data_pull_mode
 

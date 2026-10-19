@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.boolean
     import capo_appflow.types.bucket_name
@@ -71,17 +69,13 @@ def deserialize_json(data: dict) -> RedshiftConnectorProfileProperties:
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError(
-            "RedshiftConnectorProfileProperties.bucket_name required"
-        )
+        out["bucket_name"] = ""
     if data.get("bucketPrefix") is not None:
         out["bucket_prefix"] = data["bucketPrefix"]
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError(
-            "RedshiftConnectorProfileProperties.role_arn required"
-        )
+        out["role_arn"] = ""
     if data.get("dataApiRoleArn") is not None:
         out["data_api_role_arn"] = data["dataApiRoleArn"]
     if data.get("isRedshiftServerless") is not None:

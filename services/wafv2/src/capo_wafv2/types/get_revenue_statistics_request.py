@@ -111,8 +111,10 @@ def deserialize_aws_json_1_1(data: dict) -> GetRevenueStatisticsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GetRevenueStatisticsRequest.statistic_type required"
+        import typing
+
+        out["statistic_type"] = typing.cast(
+            "capo_wafv2.types.ranking_statistic_type.RankingStatisticType", ""
         )
     if data.get("TimeWindow") is not None:
         import capo_wafv2.types.time_window
@@ -127,7 +129,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetRevenueStatisticsRequest:
 
         out["scope"] = capo_wafv2.types.scope.deserialize_aws_json_1_1(data["Scope"])
     else:
-        raise DeserializationError("GetRevenueStatisticsRequest.scope required")
+        import typing
+
+        out["scope"] = typing.cast("capo_wafv2.types.scope.Scope", "")
     if data.get("Currency") is not None:
         import capo_wafv2.types.currency
 
@@ -135,7 +139,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetRevenueStatisticsRequest:
             data["Currency"]
         )
     else:
-        raise DeserializationError("GetRevenueStatisticsRequest.currency required")
+        import typing
+
+        out["currency"] = typing.cast("capo_wafv2.types.currency.Currency", "")
     if data.get("GroupBy") is not None:
         import capo_wafv2.types.group_by_type
 

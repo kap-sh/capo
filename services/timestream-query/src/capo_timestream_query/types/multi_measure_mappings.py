@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_query.types.multi_measure_attribute_mapping_list
     import capo_timestream_query.types.schema_name
@@ -48,7 +46,5 @@ def deserialize_aws_json_1_0(data: dict) -> MultiMeasureMappings:
             )
         )
     else:
-        raise DeserializationError(
-            "MultiMeasureMappings.multi_measure_attribute_mappings required"
-        )
+        out["multi_measure_attribute_mappings"] = []
     return out

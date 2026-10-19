@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_arc_zonal_shift.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_zonal_shift.types.control_condition_type
     import capo_arc_zonal_shift.types.metric_identifier
@@ -41,9 +39,13 @@ def deserialize_json(data: dict) -> ControlCondition:
             )
         )
     else:
-        raise DeserializationError("ControlCondition.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_arc_zonal_shift.types.control_condition_type.ControlConditionType", ""
+        )
     if data.get("alarmIdentifier") is not None:
         out["alarm_identifier"] = data["alarmIdentifier"]
     else:
-        raise DeserializationError("ControlCondition.alarm_identifier required")
+        out["alarm_identifier"] = ""
     return out

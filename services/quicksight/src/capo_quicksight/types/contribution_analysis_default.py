@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.contributor_dimension_list
     import capo_quicksight.types.field_id
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> ContributionAnalysisDefault:
     if data.get("MeasureFieldId") is not None:
         out["measure_field_id"] = data["MeasureFieldId"]
     else:
-        raise DeserializationError(
-            "ContributionAnalysisDefault.measure_field_id required"
-        )
+        out["measure_field_id"] = ""
     if data.get("ContributorDimensions") is not None:
         import capo_quicksight.types.contributor_dimension_list
 
@@ -51,7 +47,5 @@ def deserialize_json(data: dict) -> ContributionAnalysisDefault:
             )
         )
     else:
-        raise DeserializationError(
-            "ContributionAnalysisDefault.contributor_dimensions required"
-        )
+        out["contributor_dimensions"] = []
     return out

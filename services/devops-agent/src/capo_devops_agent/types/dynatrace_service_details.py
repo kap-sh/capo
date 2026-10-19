@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.dynatrace_service_authorization_config
 
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> DynatraceServiceDetails:
     if data.get("accountUrn") is not None:
         out["account_urn"] = data["accountUrn"]
     else:
-        raise DeserializationError("DynatraceServiceDetails.account_urn required")
+        out["account_urn"] = ""
     if data.get("authorizationConfig") is not None:
         import capo_devops_agent.types.dynatrace_service_authorization_config
 

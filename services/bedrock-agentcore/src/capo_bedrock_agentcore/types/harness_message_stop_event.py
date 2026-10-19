@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore._protocol.eventstream import HeaderValue, Message
-from capo_bedrock_agentcore.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.harness_stop_reason
@@ -39,7 +38,11 @@ def deserialize_json(data: dict) -> HarnessMessageStopEvent:
             )
         )
     else:
-        raise DeserializationError("HarnessMessageStopEvent.stop_reason required")
+        import typing
+
+        out["stop_reason"] = typing.cast(
+            "capo_bedrock_agentcore.types.harness_stop_reason.HarnessStopReason", ""
+        )
     return out
 
 

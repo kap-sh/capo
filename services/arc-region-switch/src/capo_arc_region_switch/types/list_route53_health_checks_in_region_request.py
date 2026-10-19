@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.max_results
     import capo_arc_region_switch.types.next_token
@@ -51,9 +49,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListRoute53HealthChecksInRegionReque
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError(
-            "ListRoute53HealthChecksInRegionRequest.arn required"
-        )
+        out["arn"] = ""
     if data.get("hostedZoneId") is not None:
         out["hosted_zone_id"] = data["hostedZoneId"]
     if data.get("recordName") is not None:

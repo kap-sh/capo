@@ -112,9 +112,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartTargetedSentimentDetectionJobRe
     if data.get("DataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["DataAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "StartTargetedSentimentDetectionJobRequest.data_access_role_arn required"
-        )
+        out["data_access_role_arn"] = ""
     if data.get("JobName") is not None:
         out["job_name"] = data["JobName"]
     if data.get("LanguageCode") is not None:
@@ -126,8 +124,10 @@ def deserialize_aws_json_1_1(data: dict) -> StartTargetedSentimentDetectionJobRe
             )
         )
     else:
-        raise DeserializationError(
-            "StartTargetedSentimentDetectionJobRequest.language_code required"
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_comprehend.types.language_code.LanguageCode", ""
         )
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]

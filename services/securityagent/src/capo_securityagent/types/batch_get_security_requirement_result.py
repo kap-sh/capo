@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -60,27 +58,23 @@ def deserialize_json(data: dict) -> BatchGetSecurityRequirementResult:
     if data.get("packId") is not None:
         out["pack_id"] = data["packId"]
     else:
-        raise DeserializationError("BatchGetSecurityRequirementResult.pack_id required")
+        out["pack_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("BatchGetSecurityRequirementResult.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError(
-            "BatchGetSecurityRequirementResult.description required"
-        )
+        out["description"] = ""
     if data.get("domain") is not None:
         out["domain"] = data["domain"]
     else:
-        raise DeserializationError("BatchGetSecurityRequirementResult.domain required")
+        out["domain"] = ""
     if data.get("evaluation") is not None:
         out["evaluation"] = data["evaluation"]
     else:
-        raise DeserializationError(
-            "BatchGetSecurityRequirementResult.evaluation required"
-        )
+        out["evaluation"] = ""
     if data.get("remediation") is not None:
         out["remediation"] = data["remediation"]
     if data.get("createdAt") is not None:
@@ -90,9 +84,9 @@ def deserialize_json(data: dict) -> BatchGetSecurityRequirementResult:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "BatchGetSecurityRequirementResult.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import datetime
 
@@ -100,7 +94,7 @@ def deserialize_json(data: dict) -> BatchGetSecurityRequirementResult:
             data["updatedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "BatchGetSecurityRequirementResult.updated_at required"
-        )
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

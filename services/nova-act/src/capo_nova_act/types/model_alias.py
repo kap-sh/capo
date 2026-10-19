@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_nova_act.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_nova_act.types.model_id
 
@@ -34,11 +32,11 @@ def deserialize_json(data: dict) -> ModelAlias:
     if data.get("aliasName") is not None:
         out["alias_name"] = data["aliasName"]
     else:
-        raise DeserializationError("ModelAlias.alias_name required")
+        out["alias_name"] = ""
     if data.get("latestModelId") is not None:
         out["latest_model_id"] = data["latestModelId"]
     else:
-        raise DeserializationError("ModelAlias.latest_model_id required")
+        out["latest_model_id"] = ""
     if data.get("resolvedModelId") is not None:
         out["resolved_model_id"] = data["resolvedModelId"]
     return out

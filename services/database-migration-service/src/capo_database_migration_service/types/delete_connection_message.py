@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.string
 
@@ -30,11 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteConnectionMessage:
     if data.get("EndpointArn") is not None:
         out["endpoint_arn"] = data["EndpointArn"]
     else:
-        raise DeserializationError("DeleteConnectionMessage.endpoint_arn required")
+        out["endpoint_arn"] = ""
     if data.get("ReplicationInstanceArn") is not None:
         out["replication_instance_arn"] = data["ReplicationInstanceArn"]
     else:
-        raise DeserializationError(
-            "DeleteConnectionMessage.replication_instance_arn required"
-        )
+        out["replication_instance_arn"] = ""
     return out

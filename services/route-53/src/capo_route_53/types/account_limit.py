@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.account_limit_type
@@ -36,10 +35,14 @@ def deserialize_xml(el: Element) -> AccountLimit:
 
         out["type"] = capo_route_53.types.account_limit_type.deserialize_xml(child_type)
     else:
-        raise DeserializationError("AccountLimit.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_route_53.types.account_limit_type.AccountLimitType", ""
+        )
     child_value = el.find("Value")
     if child_value is not None:
         out["value"] = int(child_value.text or "")
     else:
-        raise DeserializationError("AccountLimit.value required")
+        out["value"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.data_partition_id
     import capo_iotfleetwise.types.max_sample_count
@@ -46,7 +44,7 @@ def deserialize_aws_json_1_0(data: dict) -> SignalInformation:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("SignalInformation.name required")
+        out["name"] = ""
     if data.get("maxSampleCount") is not None:
         out["max_sample_count"] = data["maxSampleCount"]
     if data.get("minimumSamplingIntervalMs") is not None:

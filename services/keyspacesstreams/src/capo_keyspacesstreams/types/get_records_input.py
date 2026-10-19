@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_keyspacesstreams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_keyspacesstreams.types.shard_iterator
 
@@ -31,7 +29,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetRecordsInput:
     if data.get("shardIterator") is not None:
         out["shard_iterator"] = data["shardIterator"]
     else:
-        raise DeserializationError("GetRecordsInput.shard_iterator required")
+        out["shard_iterator"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     return out

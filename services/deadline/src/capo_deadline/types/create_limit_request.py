@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.amount_requirement_name
     import capo_deadline.types.client_token
@@ -48,17 +46,15 @@ def deserialize_json(data: dict) -> CreateLimitRequest:
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("CreateLimitRequest.display_name required")
+        out["display_name"] = ""
     if data.get("amountRequirementName") is not None:
         out["amount_requirement_name"] = data["amountRequirementName"]
     else:
-        raise DeserializationError(
-            "CreateLimitRequest.amount_requirement_name required"
-        )
+        out["amount_requirement_name"] = ""
     if data.get("maxCount") is not None:
         out["max_count"] = data["maxCount"]
     else:
-        raise DeserializationError("CreateLimitRequest.max_count required")
+        out["max_count"] = 0
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

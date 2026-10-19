@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptunedata.errors import DeserializationError
-
 
 class CustomModelTransformParameters(TypedDict, closed=True):
     source_s3_directory_path: "str"
@@ -26,9 +24,7 @@ def deserialize_json(data: dict) -> CustomModelTransformParameters:
     if data.get("sourceS3DirectoryPath") is not None:
         out["source_s3_directory_path"] = data["sourceS3DirectoryPath"]
     else:
-        raise DeserializationError(
-            "CustomModelTransformParameters.source_s3_directory_path required"
-        )
+        out["source_s3_directory_path"] = ""
     if data.get("transformEntryPointScript") is not None:
         out["transform_entry_point_script"] = data["transformEntryPointScript"]
     return out

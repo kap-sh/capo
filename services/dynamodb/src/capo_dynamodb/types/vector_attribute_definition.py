@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.vector_attribute_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> VectorAttributeDefinition:
     if data.get("AttributeName") is not None:
         out["attribute_name"] = data["AttributeName"]
     else:
-        raise DeserializationError("VectorAttributeDefinition.attribute_name required")
+        out["attribute_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.communication_mode
     import capo_transfer.types.sftp_port
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> SftpPortWithOptions:
     if data.get("SftpPort") is not None:
         out["sftp_port"] = data["SftpPort"]
     else:
-        raise DeserializationError("SftpPortWithOptions.sftp_port required")
+        out["sftp_port"] = 0
     if data.get("CommunicationMode") is not None:
         import capo_transfer.types.communication_mode
 

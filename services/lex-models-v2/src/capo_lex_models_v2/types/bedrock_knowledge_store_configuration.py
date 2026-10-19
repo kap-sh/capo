@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.bedrock_knowledge_base_arn
     import capo_lex_models_v2.types.bedrock_knowledge_store_exact_response_fields
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> BedrockKnowledgeStoreConfiguration:
     if data.get("bedrockKnowledgeBaseArn") is not None:
         out["bedrock_knowledge_base_arn"] = data["bedrockKnowledgeBaseArn"]
     else:
-        raise DeserializationError(
-            "BedrockKnowledgeStoreConfiguration.bedrock_knowledge_base_arn required"
-        )
+        out["bedrock_knowledge_base_arn"] = ""
     if data.get("exactResponse") is not None:
         out["exact_response"] = data["exactResponse"]
     else:

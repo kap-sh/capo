@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.string
 
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> StopTaskRequest:
     if data.get("task") is not None:
         out["task"] = data["task"]
     else:
-        raise DeserializationError("StopTaskRequest.task required")
+        out["task"] = ""
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
     return out

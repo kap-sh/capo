@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.vpc_endpoint_service_name
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> DatabaseSourceVPCConfiguration:
     if data.get("VpcEndpointServiceName") is not None:
         out["vpc_endpoint_service_name"] = data["VpcEndpointServiceName"]
     else:
-        raise DeserializationError(
-            "DatabaseSourceVPCConfiguration.vpc_endpoint_service_name required"
-        )
+        out["vpc_endpoint_service_name"] = ""
     return out

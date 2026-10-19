@@ -42,7 +42,7 @@ def deserialize_json(data: dict) -> UpsolverDestinationProperties:
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError("UpsolverDestinationProperties.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("bucketPrefix") is not None:
         out["bucket_prefix"] = data["bucketPrefix"]
     if data.get("s3OutputFormatConfig") is not None:

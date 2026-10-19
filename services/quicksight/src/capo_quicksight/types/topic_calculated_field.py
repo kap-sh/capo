@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.author_specified_aggregations
     import capo_quicksight.types.boolean
@@ -175,15 +173,13 @@ def deserialize_json(data: dict) -> TopicCalculatedField:
     if data.get("CalculatedFieldName") is not None:
         out["calculated_field_name"] = data["CalculatedFieldName"]
     else:
-        raise DeserializationError(
-            "TopicCalculatedField.calculated_field_name required"
-        )
+        out["calculated_field_name"] = ""
     if data.get("CalculatedFieldDescription") is not None:
         out["calculated_field_description"] = data["CalculatedFieldDescription"]
     if data.get("Expression") is not None:
         out["expression"] = data["Expression"]
     else:
-        raise DeserializationError("TopicCalculatedField.expression required")
+        out["expression"] = ""
     if data.get("CalculatedFieldSynonyms") is not None:
         import capo_quicksight.types.synonyms
 

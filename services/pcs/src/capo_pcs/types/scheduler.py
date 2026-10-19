@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pcs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pcs.types.scheduler_type
 
@@ -36,9 +34,11 @@ def deserialize_aws_json_1_0(data: dict) -> Scheduler:
             data["type"]
         )
     else:
-        raise DeserializationError("Scheduler.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_pcs.types.scheduler_type.SchedulerType", "")
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("Scheduler.version required")
+        out["version"] = ""
     return out

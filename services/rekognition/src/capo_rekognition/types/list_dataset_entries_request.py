@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.dataset_arn
     import capo_rekognition.types.dataset_labels
@@ -67,7 +65,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListDatasetEntriesRequest:
     if data.get("DatasetArn") is not None:
         out["dataset_arn"] = data["DatasetArn"]
     else:
-        raise DeserializationError("ListDatasetEntriesRequest.dataset_arn required")
+        out["dataset_arn"] = ""
     if data.get("ContainsLabels") is not None:
         import capo_rekognition.types.dataset_labels
 

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_s3vectors.errors import DeserializationError
-
 
 class ValidationExceptionField(TypedDict, closed=True):
     path: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> ValidationExceptionField:
     if data.get("path") is not None:
         out["path"] = data["path"]
     else:
-        raise DeserializationError("ValidationExceptionField.path required")
+        out["path"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ValidationExceptionField.message required")
+        out["message"] = ""
     return out

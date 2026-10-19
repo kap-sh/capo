@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.rerank_document
 
@@ -50,11 +48,11 @@ def deserialize_json(data: dict) -> RerankResult:
     if data.get("index") is not None:
         out["index"] = data["index"]
     else:
-        raise DeserializationError("RerankResult.index required")
+        out["index"] = 0
     if data.get("relevanceScore") is not None:
         out["relevance_score"] = float(data["relevanceScore"])
     else:
-        raise DeserializationError("RerankResult.relevance_score required")
+        out["relevance_score"] = 0.0
     if data.get("document") is not None:
         import capo_bedrock_agent_runtime.types.rerank_document
 

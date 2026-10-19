@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.aws_location
     import capo_datazone.types.configurations
@@ -108,7 +106,7 @@ def deserialize_json(data: dict) -> CreateConnectionInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateConnectionInput.name required")
+        out["name"] = ""
     if data.get("props") is not None:
         import capo_datazone.types.connection_properties_input
 

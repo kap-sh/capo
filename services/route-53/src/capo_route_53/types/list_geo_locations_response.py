@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.geo_location_continent_code
@@ -70,9 +69,7 @@ def deserialize_xml(el: Element) -> ListGeoLocationsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListGeoLocationsResponse.geo_location_details_list required"
-        )
+        out["geo_location_details_list"] = []
     child_is_truncated = el.find("IsTruncated")
     if child_is_truncated is not None:
         out["is_truncated"] = (child_is_truncated.text or "").lower() == "true"
@@ -91,5 +88,5 @@ def deserialize_xml(el: Element) -> ListGeoLocationsResponse:
     if child_max_items is not None:
         out["max_items"] = int(child_max_items.text or "")
     else:
-        raise DeserializationError("ListGeoLocationsResponse.max_items required")
+        out["max_items"] = 0
     return out

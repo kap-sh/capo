@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.resource_arn_string
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> TargetRedshiftCatalog:
     if data.get("CatalogArn") is not None:
         out["catalog_arn"] = data["CatalogArn"]
     else:
-        raise DeserializationError("TargetRedshiftCatalog.catalog_arn required")
+        out["catalog_arn"] = ""
     return out

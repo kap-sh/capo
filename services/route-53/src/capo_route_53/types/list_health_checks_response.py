@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.health_checks
@@ -53,12 +52,12 @@ def deserialize_xml(el: Element) -> ListHealthChecksResponse:
             child_health_checks
         )
     else:
-        raise DeserializationError("ListHealthChecksResponse.health_checks required")
+        out["health_checks"] = []
     child_marker = el.find("Marker")
     if child_marker is not None:
         out["marker"] = str(child_marker.text or "")
     else:
-        raise DeserializationError("ListHealthChecksResponse.marker required")
+        out["marker"] = ""
     child_is_truncated = el.find("IsTruncated")
     if child_is_truncated is not None:
         out["is_truncated"] = (child_is_truncated.text or "").lower() == "true"
@@ -71,5 +70,5 @@ def deserialize_xml(el: Element) -> ListHealthChecksResponse:
     if child_max_items is not None:
         out["max_items"] = int(child_max_items.text or "")
     else:
-        raise DeserializationError("ListHealthChecksResponse.max_items required")
+        out["max_items"] = 0
     return out

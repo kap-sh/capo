@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.arn
     import capo_qconnect.types.uuid
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> SuggestedMessageReference:
     if data.get("aiAgentId") is not None:
         out["ai_agent_id"] = data["aiAgentId"]
     else:
-        raise DeserializationError("SuggestedMessageReference.ai_agent_id required")
+        out["ai_agent_id"] = ""
     if data.get("aiAgentArn") is not None:
         out["ai_agent_arn"] = data["aiAgentArn"]
     else:
-        raise DeserializationError("SuggestedMessageReference.ai_agent_arn required")
+        out["ai_agent_arn"] = ""
     return out

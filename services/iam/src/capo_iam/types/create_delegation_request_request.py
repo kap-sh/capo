@@ -88,9 +88,7 @@ def deserialize_query(el: Element) -> CreateDelegationRequestRequest:
     if child_description is not None:
         out["description"] = str(child_description.text or "")
     else:
-        raise DeserializationError(
-            "CreateDelegationRequestRequest.description required"
-        )
+        out["description"] = ""
     child_permissions = el.find("Permissions")
     if child_permissions is not None:
         import capo_iam.types.delegation_permission
@@ -109,9 +107,7 @@ def deserialize_query(el: Element) -> CreateDelegationRequestRequest:
     if child_requestor_workflow_id is not None:
         out["requestor_workflow_id"] = str(child_requestor_workflow_id.text or "")
     else:
-        raise DeserializationError(
-            "CreateDelegationRequestRequest.requestor_workflow_id required"
-        )
+        out["requestor_workflow_id"] = ""
     child_redirect_url = el.find("RedirectUrl")
     if child_redirect_url is not None:
         out["redirect_url"] = str(child_redirect_url.text or "")
@@ -119,16 +115,12 @@ def deserialize_query(el: Element) -> CreateDelegationRequestRequest:
     if child_notification_channel is not None:
         out["notification_channel"] = str(child_notification_channel.text or "")
     else:
-        raise DeserializationError(
-            "CreateDelegationRequestRequest.notification_channel required"
-        )
+        out["notification_channel"] = ""
     child_session_duration = el.find("SessionDuration")
     if child_session_duration is not None:
         out["session_duration"] = int(child_session_duration.text or "")
     else:
-        raise DeserializationError(
-            "CreateDelegationRequestRequest.session_duration required"
-        )
+        out["session_duration"] = 0
     child_only_send_by_owner = el.find("OnlySendByOwner")
     if child_only_send_by_owner is not None:
         out["only_send_by_owner"] = (

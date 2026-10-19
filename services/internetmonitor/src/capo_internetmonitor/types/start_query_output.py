@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_internetmonitor.errors import DeserializationError
-
 
 class StartQueryOutput(TypedDict, closed=True):
     query_id: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> StartQueryOutput:
     if data.get("QueryId") is not None:
         out["query_id"] = data["QueryId"]
     else:
-        raise DeserializationError("StartQueryOutput.query_id required")
+        out["query_id"] = ""
     return out

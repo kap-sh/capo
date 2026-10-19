@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_s3vectors.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3vectors.types.vector_data
     import capo_s3vectors.types.vector_key
@@ -37,13 +35,15 @@ def deserialize_json(data: dict) -> PutInputVector:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("PutInputVector.key required")
+        out["key"] = ""
     if data.get("data") is not None:
         import capo_s3vectors.types.vector_data
 
         out["data"] = capo_s3vectors.types.vector_data.deserialize_json(data["data"])
     else:
-        raise DeserializationError("PutInputVector.data required")
+        import capo_s3vectors.types._unknown
+
+        out["data"] = capo_s3vectors.types._unknown.UnknownUnionMember("")
     if data.get("metadata") is not None:
         out["metadata"] = data["metadata"]
     else:

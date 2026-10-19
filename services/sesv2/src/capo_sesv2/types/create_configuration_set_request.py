@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.archiving_options
     import capo_sesv2.types.configuration_set_name
@@ -118,9 +116,7 @@ def deserialize_json(data: dict) -> CreateConfigurationSetRequest:
     if data.get("ConfigurationSetName") is not None:
         out["configuration_set_name"] = data["ConfigurationSetName"]
     else:
-        raise DeserializationError(
-            "CreateConfigurationSetRequest.configuration_set_name required"
-        )
+        out["configuration_set_name"] = ""
     if data.get("TrackingOptions") is not None:
         import capo_sesv2.types.tracking_options
 

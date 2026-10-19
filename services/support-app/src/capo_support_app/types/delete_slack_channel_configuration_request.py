@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_support_app.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support_app.types.channel_id
     import capo_support_app.types.team_id
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> DeleteSlackChannelConfigurationRequest:
     if data.get("teamId") is not None:
         out["team_id"] = data["teamId"]
     else:
-        raise DeserializationError(
-            "DeleteSlackChannelConfigurationRequest.team_id required"
-        )
+        out["team_id"] = ""
     if data.get("channelId") is not None:
         out["channel_id"] = data["channelId"]
     else:
-        raise DeserializationError(
-            "DeleteSlackChannelConfigurationRequest.channel_id required"
-        )
+        out["channel_id"] = ""
     return out

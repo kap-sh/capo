@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.access_budget_type
     import capo_cleanrooms.types.auto_refresh_mode
@@ -46,11 +44,15 @@ def deserialize_json(data: dict) -> BudgetParameter:
             data["type"]
         )
     else:
-        raise DeserializationError("BudgetParameter.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cleanrooms.types.access_budget_type.AccessBudgetType", ""
+        )
     if data.get("budget") is not None:
         out["budget"] = data["budget"]
     else:
-        raise DeserializationError("BudgetParameter.budget required")
+        out["budget"] = 0
     if data.get("autoRefresh") is not None:
         import capo_cleanrooms.types.auto_refresh_mode
 

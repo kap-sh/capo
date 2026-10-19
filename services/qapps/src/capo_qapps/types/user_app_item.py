@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.app_arn
     import capo_qapps.types.description
@@ -59,15 +57,15 @@ def deserialize_json(data: dict) -> UserAppItem:
     if data.get("appId") is not None:
         out["app_id"] = data["appId"]
     else:
-        raise DeserializationError("UserAppItem.app_id required")
+        out["app_id"] = ""
     if data.get("appArn") is not None:
         out["app_arn"] = data["appArn"]
     else:
-        raise DeserializationError("UserAppItem.app_arn required")
+        out["app_arn"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("UserAppItem.title required")
+        out["title"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("createdAt") is not None:
@@ -77,7 +75,9 @@ def deserialize_json(data: dict) -> UserAppItem:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("UserAppItem.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("canEdit") is not None:
         out["can_edit"] = data["canEdit"]
     if data.get("status") is not None:

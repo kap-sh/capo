@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_snowball.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_snowball.types.cluster_id
     import capo_snowball.types.list_limit
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListClusterJobsRequest:
     if data.get("ClusterId") is not None:
         out["cluster_id"] = data["ClusterId"]
     else:
-        raise DeserializationError("ListClusterJobsRequest.cluster_id required")
+        out["cluster_id"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

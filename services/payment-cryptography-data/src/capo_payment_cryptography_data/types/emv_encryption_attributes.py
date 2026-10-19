@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.emv_encryption_mode
     import capo_payment_cryptography_data.types.emv_major_key_derivation_mode
@@ -73,27 +71,24 @@ def deserialize_json(data: dict) -> EmvEncryptionAttributes:
             )
         )
     else:
-        raise DeserializationError(
-            "EmvEncryptionAttributes.major_key_derivation_mode required"
+        import typing
+
+        out["major_key_derivation_mode"] = typing.cast(
+            "capo_payment_cryptography_data.types.emv_major_key_derivation_mode.EmvMajorKeyDerivationMode",
+            "",
         )
     if data.get("PrimaryAccountNumber") is not None:
         out["primary_account_number"] = data["PrimaryAccountNumber"]
     else:
-        raise DeserializationError(
-            "EmvEncryptionAttributes.primary_account_number required"
-        )
+        out["primary_account_number"] = ""
     if data.get("PanSequenceNumber") is not None:
         out["pan_sequence_number"] = data["PanSequenceNumber"]
     else:
-        raise DeserializationError(
-            "EmvEncryptionAttributes.pan_sequence_number required"
-        )
+        out["pan_sequence_number"] = ""
     if data.get("SessionDerivationData") is not None:
         out["session_derivation_data"] = data["SessionDerivationData"]
     else:
-        raise DeserializationError(
-            "EmvEncryptionAttributes.session_derivation_data required"
-        )
+        out["session_derivation_data"] = ""
     if data.get("Mode") is not None:
         import capo_payment_cryptography_data.types.emv_encryption_mode
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_events.types.auth_header_parameters
     import capo_cloudwatch_events.types.auth_header_parameters_sensitive
@@ -35,15 +33,11 @@ def deserialize_aws_json_1_1(
     if data.get("ClientID") is not None:
         out["client_id"] = data["ClientID"]
     else:
-        raise DeserializationError(
-            "CreateConnectionOAuthClientRequestParameters.client_id required"
-        )
+        out["client_id"] = ""
     if data.get("ClientSecret") is not None:
         out["client_secret"] = data["ClientSecret"]
     else:
-        raise DeserializationError(
-            "CreateConnectionOAuthClientRequestParameters.client_secret required"
-        )
+        out["client_secret"] = ""
     return out
 
 

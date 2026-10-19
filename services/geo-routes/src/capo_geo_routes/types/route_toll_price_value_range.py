@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.sensitive_double
 
@@ -46,11 +44,11 @@ def deserialize_json(data: dict) -> RouteTollPriceValueRange:
     if data.get("Min") is not None:
         out["min"] = float(data["Min"])
     else:
-        raise DeserializationError("RouteTollPriceValueRange.min required")
+        out["min"] = 0.0
     if data.get("Max") is not None:
         out["max"] = float(data["Max"])
     else:
-        raise DeserializationError("RouteTollPriceValueRange.max required")
+        out["max"] = 0.0
     return out
 
 

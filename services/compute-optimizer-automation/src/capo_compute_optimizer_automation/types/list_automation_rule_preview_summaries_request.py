@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_compute_optimizer_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_compute_optimizer_automation.types.criteria
     import capo_compute_optimizer_automation.types.next_token
@@ -83,8 +81,10 @@ def deserialize_aws_json_1_0(data: dict) -> ListAutomationRulePreviewSummariesRe
             )
         )
     else:
-        raise DeserializationError(
-            "ListAutomationRulePreviewSummariesRequest.rule_type required"
+        import typing
+
+        out["rule_type"] = typing.cast(
+            "capo_compute_optimizer_automation.types.rule_type.RuleType", ""
         )
     if data.get("organizationScope") is not None:
         import capo_compute_optimizer_automation.types.organization_scope
@@ -103,9 +103,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListAutomationRulePreviewSummariesRe
             )
         )
     else:
-        raise DeserializationError(
-            "ListAutomationRulePreviewSummariesRequest.recommended_action_types required"
-        )
+        out["recommended_action_types"] = []
     if data.get("criteria") is not None:
         import capo_compute_optimizer_automation.types.criteria
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_amp.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amp.types.cloud_watch_dataset_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CloudWatchConfiguration:
     if data.get("datasetArn") is not None:
         out["dataset_arn"] = data["datasetArn"]
     else:
-        raise DeserializationError("CloudWatchConfiguration.dataset_arn required")
+        out["dataset_arn"] = ""
     return out

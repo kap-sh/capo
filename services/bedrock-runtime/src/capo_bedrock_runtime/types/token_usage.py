@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.cache_details_list
 
@@ -53,15 +51,15 @@ def deserialize_json(data: dict) -> TokenUsage:
     if data.get("inputTokens") is not None:
         out["input_tokens"] = data["inputTokens"]
     else:
-        raise DeserializationError("TokenUsage.input_tokens required")
+        out["input_tokens"] = 0
     if data.get("outputTokens") is not None:
         out["output_tokens"] = data["outputTokens"]
     else:
-        raise DeserializationError("TokenUsage.output_tokens required")
+        out["output_tokens"] = 0
     if data.get("totalTokens") is not None:
         out["total_tokens"] = data["totalTokens"]
     else:
-        raise DeserializationError("TokenUsage.total_tokens required")
+        out["total_tokens"] = 0
     if data.get("cacheReadInputTokens") is not None:
         out["cache_read_input_tokens"] = data["cacheReadInputTokens"]
     if data.get("cacheWriteInputTokens") is not None:

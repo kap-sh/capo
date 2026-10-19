@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.common_name_length127
     import capo_connect.types.hours_of_operation_config_list
@@ -71,13 +69,13 @@ def deserialize_json(data: dict) -> CreateHoursOfOperationRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateHoursOfOperationRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("TimeZone") is not None:
         out["time_zone"] = data["TimeZone"]
     else:
-        raise DeserializationError("CreateHoursOfOperationRequest.time_zone required")
+        out["time_zone"] = ""
     if data.get("Config") is not None:
         import capo_connect.types.hours_of_operation_config_list
 
@@ -87,7 +85,7 @@ def deserialize_json(data: dict) -> CreateHoursOfOperationRequest:
             )
         )
     else:
-        raise DeserializationError("CreateHoursOfOperationRequest.config required")
+        out["config"] = []
     if data.get("ParentHoursOfOperationConfigs") is not None:
         import capo_connect.types.parent_hours_of_operation_config_list
 

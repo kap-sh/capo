@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.boolean
     import capo_connect.types.data_table_attribute_value_type
@@ -66,7 +64,7 @@ def deserialize_json(data: dict) -> CreateDataTableAttributeRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateDataTableAttributeRequest.name required")
+        out["name"] = ""
     if data.get("ValueType") is not None:
         import capo_connect.types.data_table_attribute_value_type
 
@@ -76,8 +74,11 @@ def deserialize_json(data: dict) -> CreateDataTableAttributeRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDataTableAttributeRequest.value_type required"
+        import typing
+
+        out["value_type"] = typing.cast(
+            "capo_connect.types.data_table_attribute_value_type.DataTableAttributeValueType",
+            "",
         )
     if data.get("Description") is not None:
         out["description"] = data["Description"]

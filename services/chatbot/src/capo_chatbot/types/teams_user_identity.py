@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chatbot.types.arn
     import capo_chatbot.types.aws_user_identity
@@ -57,15 +55,15 @@ def deserialize_json(data: dict) -> TeamsUserIdentity:
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     else:
-        raise DeserializationError("TeamsUserIdentity.iam_role_arn required")
+        out["iam_role_arn"] = ""
     if data.get("ChatConfigurationArn") is not None:
         out["chat_configuration_arn"] = data["ChatConfigurationArn"]
     else:
-        raise DeserializationError("TeamsUserIdentity.chat_configuration_arn required")
+        out["chat_configuration_arn"] = ""
     if data.get("TeamId") is not None:
         out["team_id"] = data["TeamId"]
     else:
-        raise DeserializationError("TeamsUserIdentity.team_id required")
+        out["team_id"] = ""
     if data.get("UserId") is not None:
         out["user_id"] = data["UserId"]
     if data.get("AwsUserIdentity") is not None:

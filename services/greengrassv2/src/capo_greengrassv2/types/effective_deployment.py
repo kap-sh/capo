@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_greengrassv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_greengrassv2.types.deployment_id
     import capo_greengrassv2.types.deployment_name
@@ -93,11 +91,11 @@ def deserialize_json(data: dict) -> EffectiveDeployment:
     if data.get("deploymentId") is not None:
         out["deployment_id"] = data["deploymentId"]
     else:
-        raise DeserializationError("EffectiveDeployment.deployment_id required")
+        out["deployment_id"] = ""
     if data.get("deploymentName") is not None:
         out["deployment_name"] = data["deploymentName"]
     else:
-        raise DeserializationError("EffectiveDeployment.deployment_name required")
+        out["deployment_name"] = ""
     if data.get("iotJobId") is not None:
         out["iot_job_id"] = data["iotJobId"]
     if data.get("iotJobArn") is not None:
@@ -107,7 +105,7 @@ def deserialize_json(data: dict) -> EffectiveDeployment:
     if data.get("targetArn") is not None:
         out["target_arn"] = data["targetArn"]
     else:
-        raise DeserializationError("EffectiveDeployment.target_arn required")
+        out["target_arn"] = ""
     if data.get("coreDeviceExecutionStatus") is not None:
         import capo_greengrassv2.types.effective_deployment_execution_status
 
@@ -117,8 +115,11 @@ def deserialize_json(data: dict) -> EffectiveDeployment:
             )
         )
     else:
-        raise DeserializationError(
-            "EffectiveDeployment.core_device_execution_status required"
+        import typing
+
+        out["core_device_execution_status"] = typing.cast(
+            "capo_greengrassv2.types.effective_deployment_execution_status.EffectiveDeploymentExecutionStatus",
+            "",
         )
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
@@ -129,7 +130,11 @@ def deserialize_json(data: dict) -> EffectiveDeployment:
             data["creationTimestamp"]
         )
     else:
-        raise DeserializationError("EffectiveDeployment.creation_timestamp required")
+        import datetime
+
+        out["creation_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("modifiedTimestamp") is not None:
         import capo_greengrassv2.types.timestamp
 
@@ -137,7 +142,11 @@ def deserialize_json(data: dict) -> EffectiveDeployment:
             data["modifiedTimestamp"]
         )
     else:
-        raise DeserializationError("EffectiveDeployment.modified_timestamp required")
+        import datetime
+
+        out["modified_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("statusDetails") is not None:
         import capo_greengrassv2.types.effective_deployment_status_details
 

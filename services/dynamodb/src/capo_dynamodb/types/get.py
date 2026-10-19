@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.expression_attribute_name_map
     import capo_dynamodb.types.key
@@ -55,11 +53,11 @@ def deserialize_aws_json_1_0(data: dict) -> Get:
 
         out["key"] = capo_dynamodb.types.key.deserialize_aws_json_1_0(data["Key"])
     else:
-        raise DeserializationError("Get.key required")
+        out["key"] = {}
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("Get.table_name required")
+        out["table_name"] = ""
     if data.get("ProjectionExpression") is not None:
         out["projection_expression"] = data["ProjectionExpression"]
     if data.get("ExpressionAttributeNames") is not None:

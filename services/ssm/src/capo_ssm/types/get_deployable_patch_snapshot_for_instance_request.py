@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.baseline_override
     import capo_ssm.types.boolean
@@ -49,15 +47,11 @@ def deserialize_aws_json_1_1(
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError(
-            "GetDeployablePatchSnapshotForInstanceRequest.instance_id required"
-        )
+        out["instance_id"] = ""
     if data.get("SnapshotId") is not None:
         out["snapshot_id"] = data["SnapshotId"]
     else:
-        raise DeserializationError(
-            "GetDeployablePatchSnapshotForInstanceRequest.snapshot_id required"
-        )
+        out["snapshot_id"] = ""
     if data.get("BaselineOverride") is not None:
         import capo_ssm.types.baseline_override
 

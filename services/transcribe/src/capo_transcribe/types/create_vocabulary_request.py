@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transcribe.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe.types.data_access_role_arn
     import capo_transcribe.types.encryption_configuration
@@ -78,7 +76,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateVocabularyRequest:
     if data.get("VocabularyName") is not None:
         out["vocabulary_name"] = data["VocabularyName"]
     else:
-        raise DeserializationError("CreateVocabularyRequest.vocabulary_name required")
+        out["vocabulary_name"] = ""
     if data.get("LanguageCode") is not None:
         import capo_transcribe.types.language_code
 
@@ -88,7 +86,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateVocabularyRequest:
             )
         )
     else:
-        raise DeserializationError("CreateVocabularyRequest.language_code required")
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_transcribe.types.language_code.LanguageCode", ""
+        )
     if data.get("Phrases") is not None:
         import capo_transcribe.types.phrases
 

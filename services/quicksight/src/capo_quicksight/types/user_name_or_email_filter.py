@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.filter_value
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> UserNameOrEmailFilter:
     if data.get("prefix") is not None:
         out["prefix"] = data["prefix"]
     else:
-        raise DeserializationError("UserNameOrEmailFilter.prefix required")
+        out["prefix"] = ""
     return out

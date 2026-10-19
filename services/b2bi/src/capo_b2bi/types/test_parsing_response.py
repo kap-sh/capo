@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.parsed_split_file_contents_list
     import capo_b2bi.types.validation_messages
@@ -52,7 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> TestParsingResponse:
     if data.get("parsedFileContent") is not None:
         out["parsed_file_content"] = data["parsedFileContent"]
     else:
-        raise DeserializationError("TestParsingResponse.parsed_file_content required")
+        out["parsed_file_content"] = ""
     if data.get("parsedSplitFileContents") is not None:
         import capo_b2bi.types.parsed_split_file_contents_list
 

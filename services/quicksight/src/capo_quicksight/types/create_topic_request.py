@@ -65,7 +65,7 @@ def deserialize_json(data: dict) -> CreateTopicRequest:
     if data.get("TopicId") is not None:
         out["topic_id"] = data["TopicId"]
     else:
-        raise DeserializationError("CreateTopicRequest.topic_id required")
+        out["topic_id"] = ""
     if data.get("Topic") is not None:
         import capo_quicksight.types.topic_details
 

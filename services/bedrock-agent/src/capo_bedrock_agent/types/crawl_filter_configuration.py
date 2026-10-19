@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.crawl_filter_configuration_type
     import capo_bedrock_agent.types.pattern_object_filter_configuration
@@ -52,7 +50,12 @@ def deserialize_json(data: dict) -> CrawlFilterConfiguration:
             )
         )
     else:
-        raise DeserializationError("CrawlFilterConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent.types.crawl_filter_configuration_type.CrawlFilterConfigurationType",
+            "",
+        )
     if data.get("patternObjectFilter") is not None:
         import capo_bedrock_agent.types.pattern_object_filter_configuration
 

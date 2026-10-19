@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.query_limit_type
     import capo_cognito_identity_provider.types.search_pagination_token_type
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListDevicesRequest:
     if data.get("AccessToken") is not None:
         out["access_token"] = data["AccessToken"]
     else:
-        raise DeserializationError("ListDevicesRequest.access_token required")
+        out["access_token"] = ""
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
     if data.get("PaginationToken") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_identitystore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_identitystore.types.groups
     import capo_identitystore.types.next_token
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListGroupsResponse:
             data["Groups"]
         )
     else:
-        raise DeserializationError("ListGroupsResponse.groups required")
+        out["groups"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

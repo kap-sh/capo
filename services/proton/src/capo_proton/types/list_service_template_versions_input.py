@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.max_page_results
     import capo_proton.types.next_token
@@ -48,9 +46,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListServiceTemplateVersionsInput:
     if data.get("templateName") is not None:
         out["template_name"] = data["templateName"]
     else:
-        raise DeserializationError(
-            "ListServiceTemplateVersionsInput.template_name required"
-        )
+        out["template_name"] = ""
     if data.get("majorVersion") is not None:
         out["major_version"] = data["majorVersion"]
     return out

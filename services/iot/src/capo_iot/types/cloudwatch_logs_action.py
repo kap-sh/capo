@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aws_arn
     import capo_iot.types.batch_mode
@@ -36,11 +34,11 @@ def deserialize_json(data: dict) -> CloudwatchLogsAction:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CloudwatchLogsAction.role_arn required")
+        out["role_arn"] = ""
     if data.get("logGroupName") is not None:
         out["log_group_name"] = data["logGroupName"]
     else:
-        raise DeserializationError("CloudwatchLogsAction.log_group_name required")
+        out["log_group_name"] = ""
     if data.get("batchMode") is not None:
         out["batch_mode"] = data["batchMode"]
     return out

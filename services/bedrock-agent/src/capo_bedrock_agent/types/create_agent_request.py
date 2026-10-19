@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.agent_collaboration
     import capo_bedrock_agent.types.agent_role_arn
@@ -155,7 +153,7 @@ def deserialize_json(data: dict) -> CreateAgentRequest:
     if data.get("agentName") is not None:
         out["agent_name"] = data["agentName"]
     else:
-        raise DeserializationError("CreateAgentRequest.agent_name required")
+        out["agent_name"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("instruction") is not None:

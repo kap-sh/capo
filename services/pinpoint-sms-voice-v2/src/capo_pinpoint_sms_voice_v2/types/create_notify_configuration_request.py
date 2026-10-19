@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.client_token
     import capo_pinpoint_sms_voice_v2.types.iso_country_code_list
@@ -86,13 +84,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateNotifyConfigurationRequest:
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     else:
-        raise DeserializationError(
-            "CreateNotifyConfigurationRequest.display_name required"
-        )
+        out["display_name"] = ""
     if data.get("UseCase") is not None:
         out["use_case"] = data["UseCase"]
     else:
-        raise DeserializationError("CreateNotifyConfigurationRequest.use_case required")
+        out["use_case"] = ""
     if data.get("DefaultTemplateId") is not None:
         out["default_template_id"] = data["DefaultTemplateId"]
     if data.get("PoolId") is not None:
@@ -114,9 +110,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateNotifyConfigurationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateNotifyConfigurationRequest.enabled_channels required"
-        )
+        out["enabled_channels"] = []
     if data.get("DeletionProtectionEnabled") is not None:
         out["deletion_protection_enabled"] = data["DeletionProtectionEnabled"]
     if data.get("ClientToken") is not None:

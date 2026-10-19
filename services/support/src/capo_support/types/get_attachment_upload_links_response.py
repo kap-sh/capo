@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_support.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support.types.integer
     import capo_support.types.part_size_bytes
@@ -46,15 +44,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetAttachmentUploadLinksResponse:
     if data.get("uploadId") is not None:
         out["upload_id"] = data["uploadId"]
     else:
-        raise DeserializationError(
-            "GetAttachmentUploadLinksResponse.upload_id required"
-        )
+        out["upload_id"] = ""
     if data.get("partSizeBytes") is not None:
         out["part_size_bytes"] = data["partSizeBytes"]
     else:
-        raise DeserializationError(
-            "GetAttachmentUploadLinksResponse.part_size_bytes required"
-        )
+        out["part_size_bytes"] = 0
     if data.get("totalParts") is not None:
         out["total_parts"] = data["totalParts"]
     else:
@@ -72,7 +66,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetAttachmentUploadLinksResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetAttachmentUploadLinksResponse.upload_urls required"
-        )
+        out["upload_urls"] = []
     return out

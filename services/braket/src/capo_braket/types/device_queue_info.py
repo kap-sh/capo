@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_braket.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_braket.types.queue_name
     import capo_braket.types.queue_priority
@@ -35,11 +33,11 @@ def deserialize_json(data: dict) -> DeviceQueueInfo:
     if data.get("queue") is not None:
         out["queue"] = data["queue"]
     else:
-        raise DeserializationError("DeviceQueueInfo.queue required")
+        out["queue"] = ""
     if data.get("queueSize") is not None:
         out["queue_size"] = data["queueSize"]
     else:
-        raise DeserializationError("DeviceQueueInfo.queue_size required")
+        out["queue_size"] = ""
     if data.get("queuePriority") is not None:
         out["queue_priority"] = data["queuePriority"]
     return out

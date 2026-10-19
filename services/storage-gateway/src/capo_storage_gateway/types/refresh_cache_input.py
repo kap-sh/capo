@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.boolean
     import capo_storage_gateway.types.file_share_arn
@@ -43,7 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> RefreshCacheInput:
     if data.get("FileShareARN") is not None:
         out["file_share_arn"] = data["FileShareARN"]
     else:
-        raise DeserializationError("RefreshCacheInput.file_share_arn required")
+        out["file_share_arn"] = ""
     if data.get("FolderList") is not None:
         import capo_storage_gateway.types.folder_list
 

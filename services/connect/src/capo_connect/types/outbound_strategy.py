@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.outbound_strategy_config
     import capo_connect.types.outbound_strategy_type
@@ -46,7 +44,11 @@ def deserialize_json(data: dict) -> OutboundStrategy:
             data["Type"]
         )
     else:
-        raise DeserializationError("OutboundStrategy.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_connect.types.outbound_strategy_type.OutboundStrategyType", ""
+        )
     if data.get("Config") is not None:
         import capo_connect.types.outbound_strategy_config
 

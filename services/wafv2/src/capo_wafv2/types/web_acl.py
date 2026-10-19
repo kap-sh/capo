@@ -213,15 +213,15 @@ def deserialize_aws_json_1_1(data: dict) -> WebACL:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("WebACL.name required")
+        out["name"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("WebACL.id required")
+        out["id"] = ""
     if data.get("ARN") is not None:
         out["arn"] = data["ARN"]
     else:
-        raise DeserializationError("WebACL.arn required")
+        out["arn"] = ""
     if data.get("DefaultAction") is not None:
         import capo_wafv2.types.default_action
 

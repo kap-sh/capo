@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.date_timestamp
     import capo_bedrock_agent.types.flow_arn
@@ -82,25 +80,23 @@ def deserialize_json(data: dict) -> CreateFlowVersionResponse:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateFlowVersionResponse.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:
-        raise DeserializationError(
-            "CreateFlowVersionResponse.execution_role_arn required"
-        )
+        out["execution_role_arn"] = ""
     if data.get("customerEncryptionKeyArn") is not None:
         out["customer_encryption_key_arn"] = data["customerEncryptionKeyArn"]
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CreateFlowVersionResponse.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CreateFlowVersionResponse.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agent.types.flow_status
 
@@ -108,7 +104,11 @@ def deserialize_json(data: dict) -> CreateFlowVersionResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("CreateFlowVersionResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agent.types.flow_status.FlowStatus", ""
+        )
     if data.get("createdAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -116,11 +116,13 @@ def deserialize_json(data: dict) -> CreateFlowVersionResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("CreateFlowVersionResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("CreateFlowVersionResponse.version required")
+        out["version"] = ""
     if data.get("definition") is not None:
         import capo_bedrock_agent.types.flow_definition
 

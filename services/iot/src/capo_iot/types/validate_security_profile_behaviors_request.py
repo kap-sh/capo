@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.behaviors
 
@@ -31,7 +29,5 @@ def deserialize_json(data: dict) -> ValidateSecurityProfileBehaviorsRequest:
 
         out["behaviors"] = capo_iot.types.behaviors.deserialize_json(data["behaviors"])
     else:
-        raise DeserializationError(
-            "ValidateSecurityProfileBehaviorsRequest.behaviors required"
-        )
+        out["behaviors"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.string
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DynamoDbSettings:
     if data.get("ServiceAccessRoleArn") is not None:
         out["service_access_role_arn"] = data["ServiceAccessRoleArn"]
     else:
-        raise DeserializationError("DynamoDbSettings.service_access_role_arn required")
+        out["service_access_role_arn"] = ""
     return out

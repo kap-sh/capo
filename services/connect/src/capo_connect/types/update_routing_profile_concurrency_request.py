@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.instance_id
     import capo_connect.types.media_concurrencies
@@ -43,7 +41,5 @@ def deserialize_json(data: dict) -> UpdateRoutingProfileConcurrencyRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateRoutingProfileConcurrencyRequest.media_concurrencies required"
-        )
+        out["media_concurrencies"] = []
     return out

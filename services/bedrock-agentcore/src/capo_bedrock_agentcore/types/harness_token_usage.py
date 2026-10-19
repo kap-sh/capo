@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 
 class HarnessTokenUsage(TypedDict, closed=True):
     input_tokens: "int"
@@ -36,15 +34,15 @@ def deserialize_json(data: dict) -> HarnessTokenUsage:
     if data.get("inputTokens") is not None:
         out["input_tokens"] = data["inputTokens"]
     else:
-        raise DeserializationError("HarnessTokenUsage.input_tokens required")
+        out["input_tokens"] = 0
     if data.get("outputTokens") is not None:
         out["output_tokens"] = data["outputTokens"]
     else:
-        raise DeserializationError("HarnessTokenUsage.output_tokens required")
+        out["output_tokens"] = 0
     if data.get("totalTokens") is not None:
         out["total_tokens"] = data["totalTokens"]
     else:
-        raise DeserializationError("HarnessTokenUsage.total_tokens required")
+        out["total_tokens"] = 0
     if data.get("cacheReadInputTokens") is not None:
         out["cache_read_input_tokens"] = data["cacheReadInputTokens"]
     if data.get("cacheWriteInputTokens") is not None:

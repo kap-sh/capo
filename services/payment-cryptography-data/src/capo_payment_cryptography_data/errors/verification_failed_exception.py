@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError, ServiceError
+from capo_payment_cryptography_data.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.verification_failed_reason
@@ -30,11 +30,11 @@ def deserialize_json(data: dict) -> VerificationFailedException_:
     if data.get("Reason") is not None:
         out["reason"] = data["Reason"]
     else:
-        raise DeserializationError("VerificationFailedException_.reason required")
+        out["reason"] = ""
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("VerificationFailedException_.message required")
+        out["message"] = ""
     return out
 
 

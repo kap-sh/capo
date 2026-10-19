@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.project_designation
     import capo_datazone.types.project_grant_filter
@@ -55,8 +53,10 @@ def deserialize_json(data: dict) -> ProjectPolicyGrantPrincipal:
             )
         )
     else:
-        raise DeserializationError(
-            "ProjectPolicyGrantPrincipal.project_designation required"
+        import typing
+
+        out["project_designation"] = typing.cast(
+            "capo_datazone.types.project_designation.ProjectDesignation", ""
         )
     if data.get("projectIdentifier") is not None:
         out["project_identifier"] = data["projectIdentifier"]

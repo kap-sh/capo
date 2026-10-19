@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 
 class GiMinorVersionSummary(TypedDict, closed=True):
     version: "str"
@@ -26,7 +24,7 @@ def deserialize_aws_json_1_0(data: dict) -> GiMinorVersionSummary:
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("GiMinorVersionSummary.version required")
+        out["version"] = ""
     if data.get("gridImageId") is not None:
         out["grid_image_id"] = data["gridImageId"]
     return out

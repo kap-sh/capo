@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.attribute_name_type
     import capo_cognito_identity_provider.types.confirmation_code_type
@@ -37,15 +35,15 @@ def deserialize_aws_json_1_1(data: dict) -> VerifyUserAttributeRequest:
     if data.get("AccessToken") is not None:
         out["access_token"] = data["AccessToken"]
     else:
-        raise DeserializationError("VerifyUserAttributeRequest.access_token required")
+        out["access_token"] = ""
     if data.get("AttributeName") is not None:
         out["attribute_name"] = data["AttributeName"]
     else:
-        raise DeserializationError("VerifyUserAttributeRequest.attribute_name required")
+        out["attribute_name"] = ""
     if data.get("Code") is not None:
         out["code"] = data["Code"]
     else:
-        raise DeserializationError("VerifyUserAttributeRequest.code required")
+        out["code"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.e164_phone_number_list
     import capo_chime_sdk_voice.types.non_empty_string
@@ -53,9 +51,7 @@ def deserialize_json(data: dict) -> AssociatePhoneNumbersWithVoiceConnectorGroup
             )
         )
     else:
-        raise DeserializationError(
-            "AssociatePhoneNumbersWithVoiceConnectorGroupRequest.e164_phone_numbers required"
-        )
+        out["e164_phone_numbers"] = []
     if data.get("ForceAssociate") is not None:
         out["force_associate"] = data["ForceAssociate"]
     return out

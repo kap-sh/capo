@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.acr_mapping_type
     import capo_cognito_identity_provider.types.attribute_mapping_type
@@ -96,15 +94,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateIdentityProviderRequest:
     if data.get("UserPoolId") is not None:
         out["user_pool_id"] = data["UserPoolId"]
     else:
-        raise DeserializationError(
-            "CreateIdentityProviderRequest.user_pool_id required"
-        )
+        out["user_pool_id"] = ""
     if data.get("ProviderName") is not None:
         out["provider_name"] = data["ProviderName"]
     else:
-        raise DeserializationError(
-            "CreateIdentityProviderRequest.provider_name required"
-        )
+        out["provider_name"] = ""
     if data.get("ProviderType") is not None:
         import capo_cognito_identity_provider.types.identity_provider_type_type
 
@@ -114,8 +108,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateIdentityProviderRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateIdentityProviderRequest.provider_type required"
+        import typing
+
+        out["provider_type"] = typing.cast(
+            "capo_cognito_identity_provider.types.identity_provider_type_type.IdentityProviderTypeType",
+            "",
         )
     if data.get("ProviderDetails") is not None:
         import capo_cognito_identity_provider.types.provider_details_type
@@ -126,9 +123,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateIdentityProviderRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateIdentityProviderRequest.provider_details required"
-        )
+        out["provider_details"] = {}
     if data.get("AttributeMapping") is not None:
         import capo_cognito_identity_provider.types.attribute_mapping_type
 

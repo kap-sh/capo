@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.change_request_action
     import capo_cleanrooms.types.collaboration_change_request_identifier
@@ -43,7 +41,9 @@ def deserialize_json(data: dict) -> UpdateCollaborationChangeRequestInput:
             data["action"]
         )
     else:
-        raise DeserializationError(
-            "UpdateCollaborationChangeRequestInput.action required"
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_cleanrooms.types.change_request_action.ChangeRequestAction", ""
         )
     return out

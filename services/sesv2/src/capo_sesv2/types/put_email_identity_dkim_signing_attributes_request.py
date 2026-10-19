@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.dkim_signing_attributes
     import capo_sesv2.types.dkim_signing_attributes_origin
@@ -57,8 +55,11 @@ def deserialize_json(data: dict) -> PutEmailIdentityDkimSigningAttributesRequest
             )
         )
     else:
-        raise DeserializationError(
-            "PutEmailIdentityDkimSigningAttributesRequest.signing_attributes_origin required"
+        import typing
+
+        out["signing_attributes_origin"] = typing.cast(
+            "capo_sesv2.types.dkim_signing_attributes_origin.DkimSigningAttributesOrigin",
+            "",
         )
     if data.get("SigningAttributes") is not None:
         import capo_sesv2.types.dkim_signing_attributes

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.compute_location
 
@@ -37,5 +35,9 @@ def deserialize_json(data: dict) -> MetricProcessingConfig:
             )
         )
     else:
-        raise DeserializationError("MetricProcessingConfig.compute_location required")
+        import typing
+
+        out["compute_location"] = typing.cast(
+            "capo_iotsitewise.types.compute_location.ComputeLocation", ""
+        )
     return out

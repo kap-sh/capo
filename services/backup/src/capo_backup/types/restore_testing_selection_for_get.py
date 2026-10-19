@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -91,17 +89,17 @@ def deserialize_json(data: dict) -> RestoreTestingSelectionForGet:
             data["CreationTime"]
         )
     else:
-        raise DeserializationError(
-            "RestoreTestingSelectionForGet.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("CreatorRequestId") is not None:
         out["creator_request_id"] = data["CreatorRequestId"]
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     else:
-        raise DeserializationError(
-            "RestoreTestingSelectionForGet.iam_role_arn required"
-        )
+        out["iam_role_arn"] = ""
     if data.get("ProtectedResourceArns") is not None:
         import capo_backup.types.string_list
 
@@ -119,9 +117,7 @@ def deserialize_json(data: dict) -> RestoreTestingSelectionForGet:
     if data.get("ProtectedResourceType") is not None:
         out["protected_resource_type"] = data["ProtectedResourceType"]
     else:
-        raise DeserializationError(
-            "RestoreTestingSelectionForGet.protected_resource_type required"
-        )
+        out["protected_resource_type"] = ""
     if data.get("RestoreMetadataOverrides") is not None:
         import capo_backup.types.sensitive_string_map
 
@@ -133,15 +129,11 @@ def deserialize_json(data: dict) -> RestoreTestingSelectionForGet:
     if data.get("RestoreTestingPlanName") is not None:
         out["restore_testing_plan_name"] = data["RestoreTestingPlanName"]
     else:
-        raise DeserializationError(
-            "RestoreTestingSelectionForGet.restore_testing_plan_name required"
-        )
+        out["restore_testing_plan_name"] = ""
     if data.get("RestoreTestingSelectionName") is not None:
         out["restore_testing_selection_name"] = data["RestoreTestingSelectionName"]
     else:
-        raise DeserializationError(
-            "RestoreTestingSelectionForGet.restore_testing_selection_name required"
-        )
+        out["restore_testing_selection_name"] = ""
     if data.get("ValidationWindowHours") is not None:
         out["validation_window_hours"] = data["ValidationWindowHours"]
     else:

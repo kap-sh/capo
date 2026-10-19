@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mturk.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mturk.types.entity_id
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteQualificationTypeRequest:
     if data.get("QualificationTypeId") is not None:
         out["qualification_type_id"] = data["QualificationTypeId"]
     else:
-        raise DeserializationError(
-            "DeleteQualificationTypeRequest.qualification_type_id required"
-        )
+        out["qualification_type_id"] = ""
     return out

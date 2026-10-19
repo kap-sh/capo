@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.arn
     import capo_inspector.types.arn_count
@@ -78,19 +76,19 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentTemplate:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("AssessmentTemplate.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AssessmentTemplate.name required")
+        out["name"] = ""
     if data.get("assessmentTargetArn") is not None:
         out["assessment_target_arn"] = data["assessmentTargetArn"]
     else:
-        raise DeserializationError("AssessmentTemplate.assessment_target_arn required")
+        out["assessment_target_arn"] = ""
     if data.get("durationInSeconds") is not None:
         out["duration_in_seconds"] = data["durationInSeconds"]
     else:
-        raise DeserializationError("AssessmentTemplate.duration_in_seconds required")
+        out["duration_in_seconds"] = 0
     if data.get("rulesPackageArns") is not None:
         import capo_inspector.types.assessment_template_rules_package_arn_list
 
@@ -100,7 +98,7 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentTemplate:
             )
         )
     else:
-        raise DeserializationError("AssessmentTemplate.rules_package_arns required")
+        out["rules_package_arns"] = []
     if data.get("userAttributesForFindings") is not None:
         import capo_inspector.types.user_attribute_list
 
@@ -110,15 +108,13 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentTemplate:
             )
         )
     else:
-        raise DeserializationError(
-            "AssessmentTemplate.user_attributes_for_findings required"
-        )
+        out["user_attributes_for_findings"] = []
     if data.get("lastAssessmentRunArn") is not None:
         out["last_assessment_run_arn"] = data["lastAssessmentRunArn"]
     if data.get("assessmentRunCount") is not None:
         out["assessment_run_count"] = data["assessmentRunCount"]
     else:
-        raise DeserializationError("AssessmentTemplate.assessment_run_count required")
+        out["assessment_run_count"] = 0
     if data.get("createdAt") is not None:
         import capo_inspector.types.timestamp
 
@@ -126,5 +122,7 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentTemplate:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("AssessmentTemplate.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

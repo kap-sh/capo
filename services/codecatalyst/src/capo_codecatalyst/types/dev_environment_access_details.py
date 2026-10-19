@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecatalyst.types.sensitive_string
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> DevEnvironmentAccessDetails:
     if data.get("streamUrl") is not None:
         out["stream_url"] = data["streamUrl"]
     else:
-        raise DeserializationError("DevEnvironmentAccessDetails.stream_url required")
+        out["stream_url"] = ""
     if data.get("tokenValue") is not None:
         out["token_value"] = data["tokenValue"]
     else:
-        raise DeserializationError("DevEnvironmentAccessDetails.token_value required")
+        out["token_value"] = ""
     return out

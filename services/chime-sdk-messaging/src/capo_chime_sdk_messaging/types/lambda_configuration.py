@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_messaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_messaging.types.invocation_type
     import capo_chime_sdk_messaging.types.lambda_function_arn
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> LambdaConfiguration:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("LambdaConfiguration.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("InvocationType") is not None:
         import capo_chime_sdk_messaging.types.invocation_type
 
@@ -47,5 +45,9 @@ def deserialize_json(data: dict) -> LambdaConfiguration:
             )
         )
     else:
-        raise DeserializationError("LambdaConfiguration.invocation_type required")
+        import typing
+
+        out["invocation_type"] = typing.cast(
+            "capo_chime_sdk_messaging.types.invocation_type.InvocationType", ""
+        )
     return out

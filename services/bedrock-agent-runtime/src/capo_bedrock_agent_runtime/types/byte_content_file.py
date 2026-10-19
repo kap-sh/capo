@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.byte_content_blob
     import capo_bedrock_agent_runtime.types.mime_type
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> ByteContentFile:
     if data.get("mediaType") is not None:
         out["media_type"] = data["mediaType"]
     else:
-        raise DeserializationError("ByteContentFile.media_type required")
+        out["media_type"] = ""
     if data.get("data") is not None:
         import capo_bedrock_agent_runtime.types.byte_content_blob
 
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> ByteContentFile:
             )
         )
     else:
-        raise DeserializationError("ByteContentFile.data required")
+        out["data"] = b""
     return out
 
 

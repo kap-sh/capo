@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.component_summaries
     import capo_iottwinmaker.types.next_token
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> ListComponentsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListComponentsResponse.component_summaries required"
-        )
+        out["component_summaries"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

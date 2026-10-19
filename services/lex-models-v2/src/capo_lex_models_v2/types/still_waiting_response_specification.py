@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.boxed_boolean
     import capo_lex_models_v2.types.message_groups_list
@@ -50,21 +48,15 @@ def deserialize_json(data: dict) -> StillWaitingResponseSpecification:
             )
         )
     else:
-        raise DeserializationError(
-            "StillWaitingResponseSpecification.message_groups required"
-        )
+        out["message_groups"] = []
     if data.get("frequencyInSeconds") is not None:
         out["frequency_in_seconds"] = data["frequencyInSeconds"]
     else:
-        raise DeserializationError(
-            "StillWaitingResponseSpecification.frequency_in_seconds required"
-        )
+        out["frequency_in_seconds"] = 0
     if data.get("timeoutInSeconds") is not None:
         out["timeout_in_seconds"] = data["timeoutInSeconds"]
     else:
-        raise DeserializationError(
-            "StillWaitingResponseSpecification.timeout_in_seconds required"
-        )
+        out["timeout_in_seconds"] = 0
     if data.get("allowInterrupt") is not None:
         out["allow_interrupt"] = data["allowInterrupt"]
     return out

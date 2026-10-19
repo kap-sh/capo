@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codedeploy.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codedeploy.types.instance_name_list
 
@@ -39,7 +37,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetOnPremisesInstancesInput:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetOnPremisesInstancesInput.instance_names required"
-        )
+        out["instance_names"] = []
     return out

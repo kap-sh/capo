@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.integration_config
     import capo_glue.types.integration_error_list
@@ -72,15 +70,15 @@ def deserialize_aws_json_1_1(data: dict) -> InboundIntegration:
     if data.get("SourceArn") is not None:
         out["source_arn"] = data["SourceArn"]
     else:
-        raise DeserializationError("InboundIntegration.source_arn required")
+        out["source_arn"] = ""
     if data.get("TargetArn") is not None:
         out["target_arn"] = data["TargetArn"]
     else:
-        raise DeserializationError("InboundIntegration.target_arn required")
+        out["target_arn"] = ""
     if data.get("IntegrationArn") is not None:
         out["integration_arn"] = data["IntegrationArn"]
     else:
-        raise DeserializationError("InboundIntegration.integration_arn required")
+        out["integration_arn"] = ""
     if data.get("Status") is not None:
         import capo_glue.types.integration_status
 
@@ -88,7 +86,11 @@ def deserialize_aws_json_1_1(data: dict) -> InboundIntegration:
             data["Status"]
         )
     else:
-        raise DeserializationError("InboundIntegration.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_glue.types.integration_status.IntegrationStatus", ""
+        )
     if data.get("CreateTime") is not None:
         import capo_glue.types.integration_timestamp
 
@@ -98,7 +100,11 @@ def deserialize_aws_json_1_1(data: dict) -> InboundIntegration:
             )
         )
     else:
-        raise DeserializationError("InboundIntegration.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("IntegrationConfig") is not None:
         import capo_glue.types.integration_config
 

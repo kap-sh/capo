@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_endusermessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -82,21 +80,15 @@ def deserialize_json(data: dict) -> NotifyCodeConfiguration:
     if data.get("notifyCodeConfigurationId") is not None:
         out["notify_code_configuration_id"] = data["notifyCodeConfigurationId"]
     else:
-        raise DeserializationError(
-            "NotifyCodeConfiguration.notify_code_configuration_id required"
-        )
+        out["notify_code_configuration_id"] = ""
     if data.get("notifyCodeConfigurationArn") is not None:
         out["notify_code_configuration_arn"] = data["notifyCodeConfigurationArn"]
     else:
-        raise DeserializationError(
-            "NotifyCodeConfiguration.notify_code_configuration_arn required"
-        )
+        out["notify_code_configuration_arn"] = ""
     if data.get("notifyCodeConfigurationName") is not None:
         out["notify_code_configuration_name"] = data["notifyCodeConfigurationName"]
     else:
-        raise DeserializationError(
-            "NotifyCodeConfiguration.notify_code_configuration_name required"
-        )
+        out["notify_code_configuration_name"] = ""
     if data.get("codeConfigurationParameters") is not None:
         import capo_endusermessaging.types.code_configuration_parameters
 
@@ -116,9 +108,7 @@ def deserialize_json(data: dict) -> NotifyCodeConfiguration:
     if data.get("deletionProtectionEnabled") is not None:
         out["deletion_protection_enabled"] = data["deletionProtectionEnabled"]
     else:
-        raise DeserializationError(
-            "NotifyCodeConfiguration.deletion_protection_enabled required"
-        )
+        out["deletion_protection_enabled"] = False
     if data.get("createdAt") is not None:
         import capo_endusermessaging.types._prelude.timestamp
 
@@ -128,7 +118,9 @@ def deserialize_json(data: dict) -> NotifyCodeConfiguration:
             )
         )
     else:
-        raise DeserializationError("NotifyCodeConfiguration.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_endusermessaging.types._prelude.timestamp
 
@@ -138,7 +130,9 @@ def deserialize_json(data: dict) -> NotifyCodeConfiguration:
             )
         )
     else:
-        raise DeserializationError("NotifyCodeConfiguration.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

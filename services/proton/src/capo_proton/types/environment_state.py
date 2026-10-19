@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.resource_name
     import capo_proton.types.spec_contents
@@ -45,15 +43,15 @@ def deserialize_aws_json_1_0(data: dict) -> EnvironmentState:
     if data.get("templateName") is not None:
         out["template_name"] = data["templateName"]
     else:
-        raise DeserializationError("EnvironmentState.template_name required")
+        out["template_name"] = ""
     if data.get("templateMajorVersion") is not None:
         out["template_major_version"] = data["templateMajorVersion"]
     else:
-        raise DeserializationError("EnvironmentState.template_major_version required")
+        out["template_major_version"] = ""
     if data.get("templateMinorVersion") is not None:
         out["template_minor_version"] = data["templateMinorVersion"]
     else:
-        raise DeserializationError("EnvironmentState.template_minor_version required")
+        out["template_minor_version"] = ""
     return out
 
 

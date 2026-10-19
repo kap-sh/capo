@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.next_token
     import capo_databrew.types.recipe_list
@@ -40,5 +38,5 @@ def deserialize_json(data: dict) -> ListRecipeVersionsResponse:
             data["Recipes"]
         )
     else:
-        raise DeserializationError("ListRecipeVersionsResponse.recipes required")
+        out["recipes"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_observabilityadmin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_observabilityadmin.types.telemetry_pipeline_configuration_body
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> TelemetryPipelineConfiguration:
     if data.get("Body") is not None:
         out["body"] = data["Body"]
     else:
-        raise DeserializationError("TelemetryPipelineConfiguration.body required")
+        out["body"] = ""
     return out

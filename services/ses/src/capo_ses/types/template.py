@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.html_part
@@ -43,7 +42,7 @@ def deserialize_query(el: Element) -> Template:
     if child_template_name is not None:
         out["template_name"] = str(child_template_name.text or "")
     else:
-        raise DeserializationError("Template.template_name required")
+        out["template_name"] = ""
     child_subject_part = el.find("SubjectPart")
     if child_subject_part is not None:
         out["subject_part"] = str(child_subject_part.text or "")

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_events_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events_data.types.state_name
     import capo_iot_events_data.types.timer_definitions
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> DetectorStateDefinition:
     if data.get("stateName") is not None:
         out["state_name"] = data["stateName"]
     else:
-        raise DeserializationError("DetectorStateDefinition.state_name required")
+        out["state_name"] = ""
     if data.get("variables") is not None:
         import capo_iot_events_data.types.variable_definitions
 
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> DetectorStateDefinition:
             )
         )
     else:
-        raise DeserializationError("DetectorStateDefinition.variables required")
+        out["variables"] = []
     if data.get("timers") is not None:
         import capo_iot_events_data.types.timer_definitions
 
@@ -61,5 +59,5 @@ def deserialize_json(data: dict) -> DetectorStateDefinition:
             data["timers"]
         )
     else:
-        raise DeserializationError("DetectorStateDefinition.timers required")
+        out["timers"] = []
     return out

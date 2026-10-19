@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_observabilityadmin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_observabilityadmin.types.log_group_name_pattern
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> LogGroupNameConfiguration:
     if data.get("LogGroupNamePattern") is not None:
         out["log_group_name_pattern"] = data["LogGroupNamePattern"]
     else:
-        raise DeserializationError(
-            "LogGroupNameConfiguration.log_group_name_pattern required"
-        )
+        out["log_group_name_pattern"] = ""
     return out

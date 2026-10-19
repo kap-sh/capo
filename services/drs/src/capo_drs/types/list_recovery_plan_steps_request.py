@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.max_results_type
     import capo_drs.types.pagination_token
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> ListRecoveryPlanStepsRequest:
     if data.get("recoveryPlanArn") is not None:
         out["recovery_plan_arn"] = data["recoveryPlanArn"]
     else:
-        raise DeserializationError(
-            "ListRecoveryPlanStepsRequest.recovery_plan_arn required"
-        )
+        out["recovery_plan_arn"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

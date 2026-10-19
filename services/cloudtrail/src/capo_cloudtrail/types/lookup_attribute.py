@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.lookup_attribute_key
     import capo_cloudtrail.types.lookup_attribute_value
@@ -43,9 +41,13 @@ def deserialize_aws_json_1_1(data: dict) -> LookupAttribute:
             )
         )
     else:
-        raise DeserializationError("LookupAttribute.attribute_key required")
+        import typing
+
+        out["attribute_key"] = typing.cast(
+            "capo_cloudtrail.types.lookup_attribute_key.LookupAttributeKey", ""
+        )
     if data.get("AttributeValue") is not None:
         out["attribute_value"] = data["AttributeValue"]
     else:
-        raise DeserializationError("LookupAttribute.attribute_value required")
+        out["attribute_value"] = ""
     return out

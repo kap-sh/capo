@@ -101,9 +101,7 @@ def deserialize_aws_json_1_1(
     if data.get("Role") is not None:
         out["role"] = data["Role"]
     else:
-        raise DeserializationError(
-            "StartDataQualityRuleRecommendationRunRequest.role required"
-        )
+        out["role"] = ""
     if data.get("NumberOfWorkers") is not None:
         out["number_of_workers"] = data["NumberOfWorkers"]
     if data.get("Timeout") is not None:

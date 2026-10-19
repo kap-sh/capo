@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.date_time
     import capo_devops_agent.types.usage_metric
@@ -144,8 +142,10 @@ def deserialize_json(data: dict) -> GetAccountUsageOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetAccountUsageOutput.usage_period_start_time required"
+        import datetime
+
+        out["usage_period_start_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("usagePeriodEndTime") is not None:
         import capo_devops_agent.types.date_time
@@ -156,7 +156,9 @@ def deserialize_json(data: dict) -> GetAccountUsageOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetAccountUsageOutput.usage_period_end_time required"
+        import datetime
+
+        out["usage_period_end_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

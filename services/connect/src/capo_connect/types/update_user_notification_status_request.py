@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.instance_id
     import capo_connect.types.notification_id
@@ -50,7 +48,9 @@ def deserialize_json(data: dict) -> UpdateUserNotificationStatusRequest:
             data["Status"]
         )
     else:
-        raise DeserializationError(
-            "UpdateUserNotificationStatusRequest.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_connect.types.notification_status.NotificationStatus", ""
         )
     return out

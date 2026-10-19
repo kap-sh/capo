@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_eventbridgev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.event_bus_arn
 
@@ -26,5 +24,5 @@ def deserialize_cbor(data: dict) -> DescribeEventBusRequest:
     if data.get("EventBusArn") is not None:
         out["event_bus_arn"] = data["EventBusArn"]
     else:
-        raise DeserializationError("DescribeEventBusRequest.event_bus_arn required")
+        out["event_bus_arn"] = ""
     return out

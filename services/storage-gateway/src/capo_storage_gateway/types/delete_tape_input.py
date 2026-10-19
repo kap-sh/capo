@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.boolean2
     import capo_storage_gateway.types.gateway_arn
@@ -38,11 +36,11 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteTapeInput:
     if data.get("GatewayARN") is not None:
         out["gateway_arn"] = data["GatewayARN"]
     else:
-        raise DeserializationError("DeleteTapeInput.gateway_arn required")
+        out["gateway_arn"] = ""
     if data.get("TapeARN") is not None:
         out["tape_arn"] = data["TapeARN"]
     else:
-        raise DeserializationError("DeleteTapeInput.tape_arn required")
+        out["tape_arn"] = ""
     if data.get("BypassGovernanceRetention") is not None:
         out["bypass_governance_retention"] = data["BypassGovernanceRetention"]
     return out

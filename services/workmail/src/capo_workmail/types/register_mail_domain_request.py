@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.idempotency_client_token
     import capo_workmail.types.organization_id
@@ -40,9 +38,9 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterMailDomainRequest:
     if data.get("OrganizationId") is not None:
         out["organization_id"] = data["OrganizationId"]
     else:
-        raise DeserializationError("RegisterMailDomainRequest.organization_id required")
+        out["organization_id"] = ""
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("RegisterMailDomainRequest.domain_name required")
+        out["domain_name"] = ""
     return out

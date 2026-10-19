@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.customer_input_string
 
@@ -27,7 +25,7 @@ def deserialize_aws_json_1_1(data: dict) -> TextSegment:
     if data.get("Text") is not None:
         out["text"] = data["Text"]
     else:
-        raise DeserializationError("TextSegment.text required")
+        out["text"] = ""
     return out
 
 

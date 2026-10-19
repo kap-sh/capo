@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.idc_trusted_token_issuer_arn
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> DataAccessorIdcTrustedTokenIssuerConfigurati
     if data.get("idcTrustedTokenIssuerArn") is not None:
         out["idc_trusted_token_issuer_arn"] = data["idcTrustedTokenIssuerArn"]
     else:
-        raise DeserializationError(
-            "DataAccessorIdcTrustedTokenIssuerConfiguration.idc_trusted_token_issuer_arn required"
-        )
+        out["idc_trusted_token_issuer_arn"] = ""
     return out

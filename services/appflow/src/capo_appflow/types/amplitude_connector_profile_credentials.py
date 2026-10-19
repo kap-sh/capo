@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.api_key
     import capo_appflow.types.secret_key
@@ -31,15 +29,11 @@ def deserialize_json(data: dict) -> AmplitudeConnectorProfileCredentials:
     if data.get("apiKey") is not None:
         out["api_key"] = data["apiKey"]
     else:
-        raise DeserializationError(
-            "AmplitudeConnectorProfileCredentials.api_key required"
-        )
+        out["api_key"] = ""
     if data.get("secretKey") is not None:
         out["secret_key"] = data["secretKey"]
     else:
-        raise DeserializationError(
-            "AmplitudeConnectorProfileCredentials.secret_key required"
-        )
+        out["secret_key"] = ""
     return out
 
 

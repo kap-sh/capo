@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_simpledbv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_simpledbv2.types.aws_account_id
     import capo_simpledbv2.types.domain_name
@@ -68,11 +66,11 @@ def deserialize_json(data: dict) -> StartDomainExportRequest:
     if data.get("domainName") is not None:
         out["domain_name"] = data["domainName"]
     else:
-        raise DeserializationError("StartDomainExportRequest.domain_name required")
+        out["domain_name"] = ""
     if data.get("s3Bucket") is not None:
         out["s3_bucket"] = data["s3Bucket"]
     else:
-        raise DeserializationError("StartDomainExportRequest.s3_bucket required")
+        out["s3_bucket"] = ""
     if data.get("s3KeyPrefix") is not None:
         out["s3_key_prefix"] = data["s3KeyPrefix"]
     if data.get("s3SseAlgorithm") is not None:

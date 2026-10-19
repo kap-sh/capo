@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_inspector.errors import DeserializationError, ServiceError
+from capo_inspector.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_inspector.types.error_message
@@ -27,9 +27,7 @@ def deserialize_aws_json_1_1(data: dict) -> PreviewGenerationInProgressException
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError(
-            "PreviewGenerationInProgressException_.message required"
-        )
+        out["message"] = ""
     return out
 
 

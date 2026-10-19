@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearchserverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearchserverless.types.client_token
     import capo_opensearchserverless.types.security_group_ids
@@ -61,11 +59,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateVpcEndpointRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateVpcEndpointRequest.name required")
+        out["name"] = ""
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
     else:
-        raise DeserializationError("CreateVpcEndpointRequest.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("subnetIds") is not None:
         import capo_opensearchserverless.types.subnet_ids
 
@@ -75,7 +73,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateVpcEndpointRequest:
             )
         )
     else:
-        raise DeserializationError("CreateVpcEndpointRequest.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("securityGroupIds") is not None:
         import capo_opensearchserverless.types.security_group_ids
 

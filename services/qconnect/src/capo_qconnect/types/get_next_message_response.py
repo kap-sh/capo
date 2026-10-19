@@ -69,7 +69,7 @@ def deserialize_json(data: dict) -> GetNextMessageResponse:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("GetNextMessageResponse.type required")
+        out["type"] = ""
     if data.get("response") is not None:
         import capo_qconnect.types.message_output
 
@@ -81,7 +81,7 @@ def deserialize_json(data: dict) -> GetNextMessageResponse:
     if data.get("requestMessageId") is not None:
         out["request_message_id"] = data["requestMessageId"]
     else:
-        raise DeserializationError("GetNextMessageResponse.request_message_id required")
+        out["request_message_id"] = ""
     if data.get("conversationState") is not None:
         import capo_qconnect.types.conversation_state
 

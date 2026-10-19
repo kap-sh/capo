@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_waf_regional.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf_regional.types.change_token
     import capo_waf_regional.types.resource_id
@@ -41,15 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateSqlInjectionMatchSetRequest:
     if data.get("SqlInjectionMatchSetId") is not None:
         out["sql_injection_match_set_id"] = data["SqlInjectionMatchSetId"]
     else:
-        raise DeserializationError(
-            "UpdateSqlInjectionMatchSetRequest.sql_injection_match_set_id required"
-        )
+        out["sql_injection_match_set_id"] = ""
     if data.get("ChangeToken") is not None:
         out["change_token"] = data["ChangeToken"]
     else:
-        raise DeserializationError(
-            "UpdateSqlInjectionMatchSetRequest.change_token required"
-        )
+        out["change_token"] = ""
     if data.get("Updates") is not None:
         import capo_waf_regional.types.sql_injection_match_set_updates
 
@@ -59,5 +53,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateSqlInjectionMatchSetRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateSqlInjectionMatchSetRequest.updates required")
+        out["updates"] = []
     return out

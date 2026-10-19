@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_auditmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auditmanager.types.s3_url
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> ValidateAssessmentReportIntegrityRequest:
     if data.get("s3RelativePath") is not None:
         out["s3_relative_path"] = data["s3RelativePath"]
     else:
-        raise DeserializationError(
-            "ValidateAssessmentReportIntegrityRequest.s3_relative_path required"
-        )
+        out["s3_relative_path"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.can_signal
     import capo_iotfleetwise.types.custom_decoding_signal
@@ -83,7 +81,7 @@ def deserialize_aws_json_1_0(data: dict) -> SignalDecoder:
     if data.get("fullyQualifiedName") is not None:
         out["fully_qualified_name"] = data["fullyQualifiedName"]
     else:
-        raise DeserializationError("SignalDecoder.fully_qualified_name required")
+        out["fully_qualified_name"] = ""
     if data.get("type") is not None:
         import capo_iotfleetwise.types.signal_decoder_type
 
@@ -93,11 +91,15 @@ def deserialize_aws_json_1_0(data: dict) -> SignalDecoder:
             )
         )
     else:
-        raise DeserializationError("SignalDecoder.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_iotfleetwise.types.signal_decoder_type.SignalDecoderType", ""
+        )
     if data.get("interfaceId") is not None:
         out["interface_id"] = data["interfaceId"]
     else:
-        raise DeserializationError("SignalDecoder.interface_id required")
+        out["interface_id"] = ""
     if data.get("canSignal") is not None:
         import capo_iotfleetwise.types.can_signal
 

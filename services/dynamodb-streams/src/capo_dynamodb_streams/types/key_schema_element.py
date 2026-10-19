@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dynamodb_streams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb_streams.types.key_schema_attribute_name
     import capo_dynamodb_streams.types.key_type
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> KeySchemaElement:
     if data.get("AttributeName") is not None:
         out["attribute_name"] = data["AttributeName"]
     else:
-        raise DeserializationError("KeySchemaElement.attribute_name required")
+        out["attribute_name"] = ""
     if data.get("KeyType") is not None:
         import capo_dynamodb_streams.types.key_type
 
@@ -45,5 +43,9 @@ def deserialize_aws_json_1_0(data: dict) -> KeySchemaElement:
             data["KeyType"]
         )
     else:
-        raise DeserializationError("KeySchemaElement.key_type required")
+        import typing
+
+        out["key_type"] = typing.cast(
+            "capo_dynamodb_streams.types.key_type.KeyType", ""
+        )
     return out

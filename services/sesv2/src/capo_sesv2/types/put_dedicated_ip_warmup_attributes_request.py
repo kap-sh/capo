@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.ip
     import capo_sesv2.types.percentage100_wrapper
@@ -30,7 +28,5 @@ def deserialize_json(data: dict) -> PutDedicatedIpWarmupAttributesRequest:
     if data.get("WarmupPercentage") is not None:
         out["warmup_percentage"] = data["WarmupPercentage"]
     else:
-        raise DeserializationError(
-            "PutDedicatedIpWarmupAttributesRequest.warmup_percentage required"
-        )
+        out["warmup_percentage"] = 0
     return out

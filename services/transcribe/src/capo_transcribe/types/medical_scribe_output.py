@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transcribe.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe.types.uri
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> MedicalScribeOutput:
     if data.get("TranscriptFileUri") is not None:
         out["transcript_file_uri"] = data["TranscriptFileUri"]
     else:
-        raise DeserializationError("MedicalScribeOutput.transcript_file_uri required")
+        out["transcript_file_uri"] = ""
     if data.get("ClinicalDocumentUri") is not None:
         out["clinical_document_uri"] = data["ClinicalDocumentUri"]
     else:
-        raise DeserializationError("MedicalScribeOutput.clinical_document_uri required")
+        out["clinical_document_uri"] = ""
     return out

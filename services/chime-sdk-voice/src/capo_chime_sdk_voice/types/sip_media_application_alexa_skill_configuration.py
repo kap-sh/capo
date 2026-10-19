@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.alexa_skill_id_list
     import capo_chime_sdk_voice.types.alexa_skill_status
@@ -49,8 +47,10 @@ def deserialize_json(data: dict) -> SipMediaApplicationAlexaSkillConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "SipMediaApplicationAlexaSkillConfiguration.alexa_skill_status required"
+        import typing
+
+        out["alexa_skill_status"] = typing.cast(
+            "capo_chime_sdk_voice.types.alexa_skill_status.AlexaSkillStatus", ""
         )
     if data.get("AlexaSkillIds") is not None:
         import capo_chime_sdk_voice.types.alexa_skill_id_list
@@ -61,9 +61,7 @@ def deserialize_json(data: dict) -> SipMediaApplicationAlexaSkillConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "SipMediaApplicationAlexaSkillConfiguration.alexa_skill_ids required"
-        )
+        out["alexa_skill_ids"] = []
     return out
 
 

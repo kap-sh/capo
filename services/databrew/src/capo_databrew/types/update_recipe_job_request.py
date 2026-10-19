@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.arn
     import capo_databrew.types.data_catalog_output_list
@@ -147,7 +145,7 @@ def deserialize_json(data: dict) -> UpdateRecipeJobRequest:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("UpdateRecipeJobRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("Timeout") is not None:
         out["timeout"] = data["Timeout"]
     return out

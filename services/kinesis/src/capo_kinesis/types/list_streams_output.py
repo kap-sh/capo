@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.boolean_object
     import capo_kinesis.types.next_token
@@ -59,11 +57,11 @@ def deserialize_aws_json_1_1(data: dict) -> ListStreamsOutput:
             )
         )
     else:
-        raise DeserializationError("ListStreamsOutput.stream_names required")
+        out["stream_names"] = []
     if data.get("HasMoreStreams") is not None:
         out["has_more_streams"] = data["HasMoreStreams"]
     else:
-        raise DeserializationError("ListStreamsOutput.has_more_streams required")
+        out["has_more_streams"] = False
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("StreamSummaries") is not None:

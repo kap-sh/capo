@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.grouping_attribute_definitions
 
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> PutGroupingConfigurationInput:
             )
         )
     else:
-        raise DeserializationError(
-            "PutGroupingConfigurationInput.grouping_attribute_definitions required"
-        )
+        out["grouping_attribute_definitions"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_interconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_interconnect.types.attach_point_type
 
@@ -43,13 +41,17 @@ def deserialize_aws_json_1_0(data: dict) -> AttachPointDescriptor:
             )
         )
     else:
-        raise DeserializationError("AttachPointDescriptor.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_interconnect.types.attach_point_type.AttachPointType", ""
+        )
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("AttachPointDescriptor.identifier required")
+        out["identifier"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AttachPointDescriptor.name required")
+        out["name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.component_type_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> FilterByComponentType:
     if data.get("componentTypeId") is not None:
         out["component_type_id"] = data["componentTypeId"]
     else:
-        raise DeserializationError("FilterByComponentType.component_type_id required")
+        out["component_type_id"] = ""
     return out

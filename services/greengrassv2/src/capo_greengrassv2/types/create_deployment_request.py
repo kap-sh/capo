@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_greengrassv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_greengrassv2.types.client_token_string
     import capo_greengrassv2.types.component_deployment_specifications
@@ -94,7 +92,7 @@ def deserialize_json(data: dict) -> CreateDeploymentRequest:
     if data.get("targetArn") is not None:
         out["target_arn"] = data["targetArn"]
     else:
-        raise DeserializationError("CreateDeploymentRequest.target_arn required")
+        out["target_arn"] = ""
     if data.get("deploymentName") is not None:
         out["deployment_name"] = data["deploymentName"]
     if data.get("components") is not None:

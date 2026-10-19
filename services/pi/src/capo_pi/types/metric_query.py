@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pi.types.dimension_group
     import capo_pi.types.metric_query_filter_map
@@ -45,7 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> MetricQuery:
     if data.get("Metric") is not None:
         out["metric"] = data["Metric"]
     else:
-        raise DeserializationError("MetricQuery.metric required")
+        out["metric"] = ""
     if data.get("GroupBy") is not None:
         import capo_pi.types.dimension_group
 

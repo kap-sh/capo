@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billingconductor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billingconductor.types.billing_group_arn
     import capo_billingconductor.types.billing_period_range
@@ -65,7 +63,7 @@ def deserialize_json(data: dict) -> GetBillingGroupCostReportInput:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("GetBillingGroupCostReportInput.arn required")
+        out["arn"] = ""
     if data.get("BillingPeriodRange") is not None:
         import capo_billingconductor.types.billing_period_range
 

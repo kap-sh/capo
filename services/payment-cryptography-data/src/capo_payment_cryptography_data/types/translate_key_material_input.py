@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.incoming_key_material
     import capo_payment_cryptography_data.types.key_check_value_algorithm
@@ -60,8 +58,10 @@ def deserialize_json(data: dict) -> TranslateKeyMaterialInput:
             )
         )
     else:
-        raise DeserializationError(
-            "TranslateKeyMaterialInput.incoming_key_material required"
+        import capo_payment_cryptography_data.types._unknown
+
+        out["incoming_key_material"] = (
+            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
         )
     if data.get("OutgoingKeyMaterial") is not None:
         import capo_payment_cryptography_data.types.outgoing_key_material
@@ -72,8 +72,10 @@ def deserialize_json(data: dict) -> TranslateKeyMaterialInput:
             )
         )
     else:
-        raise DeserializationError(
-            "TranslateKeyMaterialInput.outgoing_key_material required"
+        import capo_payment_cryptography_data.types._unknown
+
+        out["outgoing_key_material"] = (
+            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
         )
     if data.get("KeyCheckValueAlgorithm") is not None:
         out["key_check_value_algorithm"] = data["KeyCheckValueAlgorithm"]

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.composite_identifier_list
     import capo_bedrock_agentcore_control.types.stickiness_timeout
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> StickinessConfiguration:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("StickinessConfiguration.identifier required")
+        out["identifier"] = ""
     if data.get("timeout") is not None:
         out["timeout"] = data["timeout"]
     if data.get("compositeIdentifier") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.data_source_id
     import capo_kendra.types.data_source_sync_job_id
@@ -34,9 +32,7 @@ def deserialize_aws_json_1_1(data: dict) -> DataSourceSyncJobMetricTarget:
     if data.get("DataSourceId") is not None:
         out["data_source_id"] = data["DataSourceId"]
     else:
-        raise DeserializationError(
-            "DataSourceSyncJobMetricTarget.data_source_id required"
-        )
+        out["data_source_id"] = ""
     if data.get("DataSourceSyncJobId") is not None:
         out["data_source_sync_job_id"] = data["DataSourceSyncJobId"]
     return out

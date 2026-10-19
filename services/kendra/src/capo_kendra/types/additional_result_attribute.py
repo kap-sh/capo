@@ -47,7 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> AdditionalResultAttribute:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("AdditionalResultAttribute.key required")
+        out["key"] = ""
     if data.get("ValueType") is not None:
         import capo_kendra.types.additional_result_attribute_value_type
 
@@ -57,7 +57,12 @@ def deserialize_aws_json_1_1(data: dict) -> AdditionalResultAttribute:
             )
         )
     else:
-        raise DeserializationError("AdditionalResultAttribute.value_type required")
+        import typing
+
+        out["value_type"] = typing.cast(
+            "capo_kendra.types.additional_result_attribute_value_type.AdditionalResultAttributeValueType",
+            "",
+        )
     if data.get("Value") is not None:
         import capo_kendra.types.additional_result_attribute_value
 

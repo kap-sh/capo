@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.new_relic_service_authorization_config
 
@@ -39,8 +37,10 @@ def deserialize_json(data: dict) -> NewRelicServiceDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "NewRelicServiceDetails.authorization_config required"
+        import capo_devops_agent.types._unknown
+
+        out["authorization_config"] = (
+            capo_devops_agent.types._unknown.UnknownUnionMember("")
         )
     return out
 

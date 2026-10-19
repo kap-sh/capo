@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_inspector.errors import DeserializationError, ServiceError
+from capo_inspector.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_inspector.types.bool
@@ -42,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> InvalidInputException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("InvalidInputException_.message required")
+        out["message"] = ""
     if data.get("errorCode") is not None:
         import capo_inspector.types.invalid_input_error_code
 
@@ -52,11 +52,15 @@ def deserialize_aws_json_1_1(data: dict) -> InvalidInputException_:
             )
         )
     else:
-        raise DeserializationError("InvalidInputException_.error_code required")
+        import typing
+
+        out["error_code"] = typing.cast(
+            "capo_inspector.types.invalid_input_error_code.InvalidInputErrorCode", ""
+        )
     if data.get("canRetry") is not None:
         out["can_retry"] = data["canRetry"]
     else:
-        raise DeserializationError("InvalidInputException_.can_retry required")
+        out["can_retry"] = False
     return out
 
 

@@ -63,9 +63,7 @@ def deserialize_json(data: dict) -> BatchAddFacetToObject:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchAddFacetToObject.object_attribute_list required"
-        )
+        out["object_attribute_list"] = []
     if data.get("ObjectReference") is not None:
         import capo_clouddirectory.types.object_reference
 

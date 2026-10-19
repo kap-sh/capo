@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_applicationcostprofiler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_applicationcostprofiler.types.import_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> ImportApplicationUsageResult:
     if data.get("importId") is not None:
         out["import_id"] = data["importId"]
     else:
-        raise DeserializationError("ImportApplicationUsageResult.import_id required")
+        out["import_id"] = ""
     return out

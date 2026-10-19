@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.path_format
     import capo_deadline.types.string
@@ -42,13 +40,17 @@ def deserialize_json(data: dict) -> PathMappingRule:
             data["sourcePathFormat"]
         )
     else:
-        raise DeserializationError("PathMappingRule.source_path_format required")
+        import typing
+
+        out["source_path_format"] = typing.cast(
+            "capo_deadline.types.path_format.PathFormat", ""
+        )
     if data.get("sourcePath") is not None:
         out["source_path"] = data["sourcePath"]
     else:
-        raise DeserializationError("PathMappingRule.source_path required")
+        out["source_path"] = ""
     if data.get("destinationPath") is not None:
         out["destination_path"] = data["destinationPath"]
     else:
-        raise DeserializationError("PathMappingRule.destination_path required")
+        out["destination_path"] = ""
     return out

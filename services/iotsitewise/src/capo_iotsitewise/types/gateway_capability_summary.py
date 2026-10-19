@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.capability_namespace
     import capo_iotsitewise.types.capability_sync_status
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> GatewayCapabilitySummary:
     if data.get("capabilityNamespace") is not None:
         out["capability_namespace"] = data["capabilityNamespace"]
     else:
-        raise DeserializationError(
-            "GatewayCapabilitySummary.capability_namespace required"
-        )
+        out["capability_namespace"] = ""
     if data.get("capabilitySyncStatus") is not None:
         import capo_iotsitewise.types.capability_sync_status
 
@@ -53,7 +49,9 @@ def deserialize_json(data: dict) -> GatewayCapabilitySummary:
             )
         )
     else:
-        raise DeserializationError(
-            "GatewayCapabilitySummary.capability_sync_status required"
+        import typing
+
+        out["capability_sync_status"] = typing.cast(
+            "capo_iotsitewise.types.capability_sync_status.CapabilitySyncStatus", ""
         )
     return out

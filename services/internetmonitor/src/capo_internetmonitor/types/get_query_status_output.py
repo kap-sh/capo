@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_internetmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_internetmonitor.types.query_status
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> GetQueryStatusOutput:
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("GetQueryStatusOutput.status required")
+        out["status"] = ""
     return out

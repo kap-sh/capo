@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.arn
     import capo_iotfleetwise.types.description
@@ -66,11 +64,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetModelManifestResponse:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetModelManifestResponse.name required")
+        out["name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetModelManifestResponse.arn required")
+        out["arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("signalCatalogArn") is not None:
@@ -92,7 +90,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetModelManifestResponse:
             )
         )
     else:
-        raise DeserializationError("GetModelManifestResponse.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastModificationTime") is not None:
         import capo_iotfleetwise.types.timestamp
 
@@ -102,7 +104,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetModelManifestResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetModelManifestResponse.last_modification_time required"
+        import datetime
+
+        out["last_modification_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

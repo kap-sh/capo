@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.listener_port
     import capo_app_mesh.types.percent_int
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> WeightedTarget:
     if data.get("virtualNode") is not None:
         out["virtual_node"] = data["virtualNode"]
     else:
-        raise DeserializationError("WeightedTarget.virtual_node required")
+        out["virtual_node"] = ""
     if data.get("weight") is not None:
         out["weight"] = data["weight"]
     else:

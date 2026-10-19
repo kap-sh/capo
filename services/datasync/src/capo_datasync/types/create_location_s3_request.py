@@ -70,7 +70,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationS3Request:
     if data.get("S3BucketArn") is not None:
         out["s3_bucket_arn"] = data["S3BucketArn"]
     else:
-        raise DeserializationError("CreateLocationS3Request.s3_bucket_arn required")
+        out["s3_bucket_arn"] = ""
     if data.get("S3StorageClass") is not None:
         import capo_datasync.types.s3_storage_class
 

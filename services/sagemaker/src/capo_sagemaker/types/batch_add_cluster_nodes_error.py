@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker.types.batch_add_cluster_nodes_error_code
     import capo_sagemaker.types.batch_add_failure_count
@@ -72,9 +70,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchAddClusterNodesError:
     if data.get("InstanceGroupName") is not None:
         out["instance_group_name"] = data["InstanceGroupName"]
     else:
-        raise DeserializationError(
-            "BatchAddClusterNodesError.instance_group_name required"
-        )
+        out["instance_group_name"] = ""
     if data.get("ErrorCode") is not None:
         import capo_sagemaker.types.batch_add_cluster_nodes_error_code
 
@@ -84,11 +80,16 @@ def deserialize_aws_json_1_1(data: dict) -> BatchAddClusterNodesError:
             )
         )
     else:
-        raise DeserializationError("BatchAddClusterNodesError.error_code required")
+        import typing
+
+        out["error_code"] = typing.cast(
+            "capo_sagemaker.types.batch_add_cluster_nodes_error_code.BatchAddClusterNodesErrorCode",
+            "",
+        )
     if data.get("FailedCount") is not None:
         out["failed_count"] = data["FailedCount"]
     else:
-        raise DeserializationError("BatchAddClusterNodesError.failed_count required")
+        out["failed_count"] = 0
     if data.get("AvailabilityZones") is not None:
         import capo_sagemaker.types.cluster_availability_zones
 

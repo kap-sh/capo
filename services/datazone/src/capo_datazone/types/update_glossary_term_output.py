@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.domain_id
     import capo_datazone.types.glossary_id
@@ -83,19 +81,19 @@ def deserialize_json(data: dict) -> UpdateGlossaryTermOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("UpdateGlossaryTermOutput.id required")
+        out["id"] = ""
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("UpdateGlossaryTermOutput.domain_id required")
+        out["domain_id"] = ""
     if data.get("glossaryId") is not None:
         out["glossary_id"] = data["glossaryId"]
     else:
-        raise DeserializationError("UpdateGlossaryTermOutput.glossary_id required")
+        out["glossary_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateGlossaryTermOutput.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         import capo_datazone.types.glossary_term_status
 
@@ -103,7 +101,11 @@ def deserialize_json(data: dict) -> UpdateGlossaryTermOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("UpdateGlossaryTermOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_datazone.types.glossary_term_status.GlossaryTermStatus", ""
+        )
     if data.get("shortDescription") is not None:
         out["short_description"] = data["shortDescription"]
     if data.get("longDescription") is not None:

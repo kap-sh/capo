@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.failed_data_segment_disassociations
     import capo_iotsitewise.types.id
@@ -41,15 +39,11 @@ def deserialize_json(data: dict) -> BatchDisassociateDataSegmentsFromDatasetResp
     if data.get("datasetId") is not None:
         out["dataset_id"] = data["datasetId"]
     else:
-        raise DeserializationError(
-            "BatchDisassociateDataSegmentsFromDatasetResponse.dataset_id required"
-        )
+        out["dataset_id"] = ""
     if data.get("datasetVersion") is not None:
         out["dataset_version"] = data["datasetVersion"]
     else:
-        raise DeserializationError(
-            "BatchDisassociateDataSegmentsFromDatasetResponse.dataset_version required"
-        )
+        out["dataset_version"] = ""
     if data.get("failedDisassociations") is not None:
         import capo_iotsitewise.types.failed_data_segment_disassociations
 
@@ -59,7 +53,5 @@ def deserialize_json(data: dict) -> BatchDisassociateDataSegmentsFromDatasetResp
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDisassociateDataSegmentsFromDatasetResponse.failed_disassociations required"
-        )
+        out["failed_disassociations"] = []
     return out

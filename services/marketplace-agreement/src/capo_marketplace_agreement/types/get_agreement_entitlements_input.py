@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_agreement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.max_results
     import capo_marketplace_agreement.types.next_token
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetAgreementEntitlementsInput:
     if data.get("agreementId") is not None:
         out["agreement_id"] = data["agreementId"]
     else:
-        raise DeserializationError(
-            "GetAgreementEntitlementsInput.agreement_id required"
-        )
+        out["agreement_id"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

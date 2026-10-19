@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudsearch._protocol.xml import Element
-from capo_cloudsearch.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudsearch.types.domain_status_list
@@ -39,7 +38,5 @@ def deserialize_query(el: Element) -> DescribeDomainsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeDomainsResponse.domain_status_list required"
-        )
+        out["domain_status_list"] = []
     return out

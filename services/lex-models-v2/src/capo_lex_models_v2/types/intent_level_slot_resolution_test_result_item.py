@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.boolean
     import capo_lex_models_v2.types.name
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> IntentLevelSlotResolutionTestResultItem:
     if data.get("intentName") is not None:
         out["intent_name"] = data["intentName"]
     else:
-        raise DeserializationError(
-            "IntentLevelSlotResolutionTestResultItem.intent_name required"
-        )
+        out["intent_name"] = ""
     if data.get("multiTurnConversation") is not None:
         out["multi_turn_conversation"] = data["multiTurnConversation"]
     else:
@@ -57,7 +53,5 @@ def deserialize_json(data: dict) -> IntentLevelSlotResolutionTestResultItem:
             )
         )
     else:
-        raise DeserializationError(
-            "IntentLevelSlotResolutionTestResultItem.slot_resolution_results required"
-        )
+        out["slot_resolution_results"] = []
     return out

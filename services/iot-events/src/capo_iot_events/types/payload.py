@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.content_expression
     import capo_iot_events.types.payload_type
@@ -33,11 +31,13 @@ def deserialize_json(data: dict) -> Payload:
     if data.get("contentExpression") is not None:
         out["content_expression"] = data["contentExpression"]
     else:
-        raise DeserializationError("Payload.content_expression required")
+        out["content_expression"] = ""
     if data.get("type") is not None:
         import capo_iot_events.types.payload_type
 
         out["type"] = capo_iot_events.types.payload_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("Payload.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_iot_events.types.payload_type.PayloadType", "")
     return out

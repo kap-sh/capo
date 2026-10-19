@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.action_list
     import capo_accessanalyzer.types.condition_key_map
@@ -83,7 +81,7 @@ def deserialize_json(data: dict) -> ExternalAccessDetails:
             data["condition"]
         )
     else:
-        raise DeserializationError("ExternalAccessDetails.condition required")
+        out["condition"] = {}
     if data.get("isPublic") is not None:
         out["is_public"] = data["isPublic"]
     if data.get("principal") is not None:

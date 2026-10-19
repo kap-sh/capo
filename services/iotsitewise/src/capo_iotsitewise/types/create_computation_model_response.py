@@ -43,15 +43,11 @@ def deserialize_json(data: dict) -> CreateComputationModelResponse:
     if data.get("computationModelId") is not None:
         out["computation_model_id"] = data["computationModelId"]
     else:
-        raise DeserializationError(
-            "CreateComputationModelResponse.computation_model_id required"
-        )
+        out["computation_model_id"] = ""
     if data.get("computationModelArn") is not None:
         out["computation_model_arn"] = data["computationModelArn"]
     else:
-        raise DeserializationError(
-            "CreateComputationModelResponse.computation_model_arn required"
-        )
+        out["computation_model_arn"] = ""
     if data.get("computationModelStatus") is not None:
         import capo_iotsitewise.types.computation_model_status
 

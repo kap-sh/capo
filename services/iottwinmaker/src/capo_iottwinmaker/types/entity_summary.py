@@ -73,15 +73,15 @@ def deserialize_json(data: dict) -> EntitySummary:
     if data.get("entityId") is not None:
         out["entity_id"] = data["entityId"]
     else:
-        raise DeserializationError("EntitySummary.entity_id required")
+        out["entity_id"] = ""
     if data.get("entityName") is not None:
         out["entity_name"] = data["entityName"]
     else:
-        raise DeserializationError("EntitySummary.entity_name required")
+        out["entity_name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("EntitySummary.arn required")
+        out["arn"] = ""
     if data.get("parentEntityId") is not None:
         out["parent_entity_id"] = data["parentEntityId"]
     if data.get("status") is not None:
@@ -101,7 +101,11 @@ def deserialize_json(data: dict) -> EntitySummary:
             data["creationDateTime"]
         )
     else:
-        raise DeserializationError("EntitySummary.creation_date_time required")
+        import datetime
+
+        out["creation_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateDateTime") is not None:
         import capo_iottwinmaker.types.timestamp
 
@@ -109,5 +113,9 @@ def deserialize_json(data: dict) -> EntitySummary:
             data["updateDateTime"]
         )
     else:
-        raise DeserializationError("EntitySummary.update_date_time required")
+        import datetime
+
+        out["update_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

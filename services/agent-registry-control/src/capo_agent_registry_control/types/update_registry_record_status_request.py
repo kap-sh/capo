@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_agent_registry_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_agent_registry_control.types.record_identifier
     import capo_agent_registry_control.types.registry_identifier
@@ -52,11 +50,14 @@ def deserialize_json(data: dict) -> UpdateRegistryRecordStatusRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateRegistryRecordStatusRequest.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_agent_registry_control.types.registry_record_status.RegistryRecordStatus",
+            "",
+        )
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
     else:
-        raise DeserializationError(
-            "UpdateRegistryRecordStatusRequest.status_reason required"
-        )
+        out["status_reason"] = ""
     return out

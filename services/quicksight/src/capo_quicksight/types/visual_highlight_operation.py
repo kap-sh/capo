@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.visual_highlight_trigger
 
@@ -37,5 +35,9 @@ def deserialize_json(data: dict) -> VisualHighlightOperation:
             )
         )
     else:
-        raise DeserializationError("VisualHighlightOperation.trigger required")
+        import typing
+
+        out["trigger"] = typing.cast(
+            "capo_quicksight.types.visual_highlight_trigger.VisualHighlightTrigger", ""
+        )
     return out

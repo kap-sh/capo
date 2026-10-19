@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.dynamic_instrumentation_deletion_status
 
@@ -39,7 +37,10 @@ def deserialize_json(data: dict) -> DeleteInstrumentationConfigurationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DeleteInstrumentationConfigurationResponse.deletion_status required"
+        import typing
+
+        out["deletion_status"] = typing.cast(
+            "capo_application_signals.types.dynamic_instrumentation_deletion_status.DynamicInstrumentationDeletionStatus",
+            "",
         )
     return out

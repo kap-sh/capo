@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_arn
     import capo_bedrock.types.automated_reasoning_policy_hash
@@ -43,21 +41,15 @@ def deserialize_json(data: dict) -> UpdateAutomatedReasoningPolicyResponse:
     if data.get("policyArn") is not None:
         out["policy_arn"] = data["policyArn"]
     else:
-        raise DeserializationError(
-            "UpdateAutomatedReasoningPolicyResponse.policy_arn required"
-        )
+        out["policy_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "UpdateAutomatedReasoningPolicyResponse.name required"
-        )
+        out["name"] = ""
     if data.get("definitionHash") is not None:
         out["definition_hash"] = data["definitionHash"]
     else:
-        raise DeserializationError(
-            "UpdateAutomatedReasoningPolicyResponse.definition_hash required"
-        )
+        out["definition_hash"] = ""
     if data.get("updatedAt") is not None:
         import capo_bedrock.types.timestamp
 
@@ -65,9 +57,9 @@ def deserialize_json(data: dict) -> UpdateAutomatedReasoningPolicyResponse:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError(
-            "UpdateAutomatedReasoningPolicyResponse.updated_at required"
-        )
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

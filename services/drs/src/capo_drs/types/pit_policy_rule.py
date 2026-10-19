@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.pit_policy_rule_units
     import capo_drs.types.positive_integer
@@ -48,15 +46,15 @@ def deserialize_json(data: dict) -> PITPolicyRule:
     if data.get("units") is not None:
         out["units"] = data["units"]
     else:
-        raise DeserializationError("PITPolicyRule.units required")
+        out["units"] = ""
     if data.get("interval") is not None:
         out["interval"] = data["interval"]
     else:
-        raise DeserializationError("PITPolicyRule.interval required")
+        out["interval"] = 0
     if data.get("retentionDuration") is not None:
         out["retention_duration"] = data["retentionDuration"]
     else:
-        raise DeserializationError("PITPolicyRule.retention_duration required")
+        out["retention_duration"] = 0
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     return out

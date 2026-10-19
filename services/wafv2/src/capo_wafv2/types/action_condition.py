@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.action_value
 
@@ -35,5 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> ActionCondition:
             data["Action"]
         )
     else:
-        raise DeserializationError("ActionCondition.action required")
+        import typing
+
+        out["action"] = typing.cast("capo_wafv2.types.action_value.ActionValue", "")
     return out

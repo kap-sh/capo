@@ -60,15 +60,11 @@ def deserialize_json(data: dict) -> FailedDataSegmentAssociation:
     if data.get("sourceDatasetId") is not None:
         out["source_dataset_id"] = data["sourceDatasetId"]
     else:
-        raise DeserializationError(
-            "FailedDataSegmentAssociation.source_dataset_id required"
-        )
+        out["source_dataset_id"] = ""
     if data.get("timeSeriesId") is not None:
         out["time_series_id"] = data["timeSeriesId"]
     else:
-        raise DeserializationError(
-            "FailedDataSegmentAssociation.time_series_id required"
-        )
+        out["time_series_id"] = ""
     if data.get("startTimestamp") is not None:
         import capo_iotsitewise.types.time_in_nanos
 
@@ -98,11 +94,13 @@ def deserialize_json(data: dict) -> FailedDataSegmentAssociation:
             )
         )
     else:
-        raise DeserializationError("FailedDataSegmentAssociation.error_code required")
+        import typing
+
+        out["error_code"] = typing.cast(
+            "capo_iotsitewise.types.data_segment_error_code.DataSegmentErrorCode", ""
+        )
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     else:
-        raise DeserializationError(
-            "FailedDataSegmentAssociation.error_message required"
-        )
+        out["error_message"] = ""
     return out

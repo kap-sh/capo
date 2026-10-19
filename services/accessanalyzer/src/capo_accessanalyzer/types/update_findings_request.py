@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.analyzer_arn
     import capo_accessanalyzer.types.finding_id_list
@@ -49,11 +47,11 @@ def deserialize_json(data: dict) -> UpdateFindingsRequest:
     if data.get("analyzerArn") is not None:
         out["analyzer_arn"] = data["analyzerArn"]
     else:
-        raise DeserializationError("UpdateFindingsRequest.analyzer_arn required")
+        out["analyzer_arn"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("UpdateFindingsRequest.status required")
+        out["status"] = ""
     if data.get("ids") is not None:
         import capo_accessanalyzer.types.finding_id_list
 

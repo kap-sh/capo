@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.account_id
     import capo_cleanroomsml.types.glue_database_name
@@ -36,11 +34,11 @@ def deserialize_json(data: dict) -> GlueDataSource:
     if data.get("tableName") is not None:
         out["table_name"] = data["tableName"]
     else:
-        raise DeserializationError("GlueDataSource.table_name required")
+        out["table_name"] = ""
     if data.get("databaseName") is not None:
         out["database_name"] = data["databaseName"]
     else:
-        raise DeserializationError("GlueDataSource.database_name required")
+        out["database_name"] = ""
     if data.get("catalogId") is not None:
         out["catalog_id"] = data["catalogId"]
     return out

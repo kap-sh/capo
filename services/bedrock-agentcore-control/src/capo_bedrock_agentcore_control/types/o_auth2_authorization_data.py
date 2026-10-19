@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 
 class OAuth2AuthorizationData(TypedDict, closed=True):
     authorization_url: "str"
@@ -26,7 +24,7 @@ def deserialize_json(data: dict) -> OAuth2AuthorizationData:
     if data.get("authorizationUrl") is not None:
         out["authorization_url"] = data["authorizationUrl"]
     else:
-        raise DeserializationError("OAuth2AuthorizationData.authorization_url required")
+        out["authorization_url"] = ""
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
     return out

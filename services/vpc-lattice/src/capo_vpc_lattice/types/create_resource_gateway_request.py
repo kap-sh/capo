@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.client_token
     import capo_vpc_lattice.types.ipv4_addresses_per_eni
@@ -89,7 +87,7 @@ def deserialize_json(data: dict) -> CreateResourceGatewayRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateResourceGatewayRequest.name required")
+        out["name"] = ""
     if data.get("vpcIdentifier") is not None:
         out["vpc_identifier"] = data["vpcIdentifier"]
     if data.get("subnetIds") is not None:

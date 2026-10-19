@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.destination_arn_string
     import capo_customer_profiles.types.destination_role_arn
@@ -38,13 +36,9 @@ def deserialize_json(data: dict) -> AssociateStreamForSegmentsRequest:
     if data.get("DestinationArn") is not None:
         out["destination_arn"] = data["DestinationArn"]
     else:
-        raise DeserializationError(
-            "AssociateStreamForSegmentsRequest.destination_arn required"
-        )
+        out["destination_arn"] = ""
     if data.get("DestinationRoleArn") is not None:
         out["destination_role_arn"] = data["DestinationRoleArn"]
     else:
-        raise DeserializationError(
-            "AssociateStreamForSegmentsRequest.destination_role_arn required"
-        )
+        out["destination_role_arn"] = ""
     return out

@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appfabric.errors import DeserializationError, ServiceError
+from capo_appfabric.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_appfabric.types.integer
@@ -37,7 +37,7 @@ def deserialize_json(data: dict) -> ThrottlingException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ThrottlingException_.message required")
+        out["message"] = ""
     if data.get("serviceCode") is not None:
         out["service_code"] = data["serviceCode"]
     if data.get("quotaCode") is not None:

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import TypedDict
 
 from capo_sts._protocol.xml import Element
-from capo_sts.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sts.types.trade_in_token_type
@@ -30,9 +29,7 @@ def deserialize_query(el: Element) -> GetDelegatedAccessTokenRequest:
     if child_trade_in_token is not None:
         out["trade_in_token"] = str(child_trade_in_token.text or "")
     else:
-        raise DeserializationError(
-            "GetDelegatedAccessTokenRequest.trade_in_token required"
-        )
+        out["trade_in_token"] = ""
     return out
 
 

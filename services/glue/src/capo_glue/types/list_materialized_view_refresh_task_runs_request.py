@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.catalog_id_string
     import capo_glue.types.name_string
@@ -46,9 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListMaterializedViewRefreshTaskRunsR
     if data.get("CatalogId") is not None:
         out["catalog_id"] = data["CatalogId"]
     else:
-        raise DeserializationError(
-            "ListMaterializedViewRefreshTaskRunsRequest.catalog_id required"
-        )
+        out["catalog_id"] = ""
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     if data.get("TableName") is not None:

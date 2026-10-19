@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sns.types.message
@@ -88,7 +87,7 @@ def deserialize_query(el: Element) -> PublishInput:
     if child_message is not None:
         out["message"] = str(child_message.text or "")
     else:
-        raise DeserializationError("PublishInput.message required")
+        out["message"] = ""
     child_subject = el.find("Subject")
     if child_subject is not None:
         out["subject"] = str(child_subject.text or "")

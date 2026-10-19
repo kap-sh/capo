@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -74,7 +72,5 @@ def deserialize_json(data: dict) -> GetS3AccessPolicyResponse:
     if data.get("s3AccessPolicy") is not None:
         out["s3_access_policy"] = data["s3AccessPolicy"]
     else:
-        raise DeserializationError(
-            "GetS3AccessPolicyResponse.s3_access_policy required"
-        )
+        out["s3_access_policy"] = ""
     return out

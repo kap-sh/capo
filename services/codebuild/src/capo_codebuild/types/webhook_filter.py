@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.string
     import capo_codebuild.types.webhook_filter_type
@@ -46,11 +44,15 @@ def deserialize_aws_json_1_1(data: dict) -> WebhookFilter:
             data["type"]
         )
     else:
-        raise DeserializationError("WebhookFilter.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codebuild.types.webhook_filter_type.WebhookFilterType", ""
+        )
     if data.get("pattern") is not None:
         out["pattern"] = data["pattern"]
     else:
-        raise DeserializationError("WebhookFilter.pattern required")
+        out["pattern"] = ""
     if data.get("excludeMatchedPattern") is not None:
         out["exclude_matched_pattern"] = data["excludeMatchedPattern"]
     return out

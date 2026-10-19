@@ -119,7 +119,7 @@ def deserialize_json(data: dict) -> Dataset:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Dataset.name required")
+        out["name"] = ""
     if data.get("Format") is not None:
         import capo_databrew.types.input_format
 

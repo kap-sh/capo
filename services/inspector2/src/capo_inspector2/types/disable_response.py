@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.account_list
     import capo_inspector2.types.failed_account_list
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> DisableResponse:
             data["accounts"]
         )
     else:
-        raise DeserializationError("DisableResponse.accounts required")
+        out["accounts"] = []
     if data.get("failedAccounts") is not None:
         import capo_inspector2.types.failed_account_list
 

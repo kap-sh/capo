@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_agent_registry_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_agent_registry_control.types.filter_values
     import capo_agent_registry_control.types.registry_record_filter_name
@@ -47,7 +45,12 @@ def deserialize_json(data: dict) -> RegistryRecordFilter:
             )
         )
     else:
-        raise DeserializationError("RegistryRecordFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_agent_registry_control.types.registry_record_filter_name.RegistryRecordFilterName",
+            "",
+        )
     if data.get("values") is not None:
         import capo_agent_registry_control.types.filter_values
 
@@ -57,5 +60,5 @@ def deserialize_json(data: dict) -> RegistryRecordFilter:
             )
         )
     else:
-        raise DeserializationError("RegistryRecordFilter.values required")
+        out["values"] = []
     return out

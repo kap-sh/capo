@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.command_capabilities
     import capo_iot_managed_integrations.types.endpoint_id
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> CommandEndpoint:
     if data.get("endpointId") is not None:
         out["endpoint_id"] = data["endpointId"]
     else:
-        raise DeserializationError("CommandEndpoint.endpoint_id required")
+        out["endpoint_id"] = ""
     if data.get("capabilities") is not None:
         import capo_iot_managed_integrations.types.command_capabilities
 
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> CommandEndpoint:
             )
         )
     else:
-        raise DeserializationError("CommandEndpoint.capabilities required")
+        out["capabilities"] = []
     return out
 
 

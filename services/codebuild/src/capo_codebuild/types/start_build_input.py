@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.build_status_config
     import capo_codebuild.types.build_time_out
@@ -326,7 +324,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartBuildInput:
     if data.get("projectName") is not None:
         out["project_name"] = data["projectName"]
     else:
-        raise DeserializationError("StartBuildInput.project_name required")
+        out["project_name"] = ""
     if data.get("secondarySourcesOverride") is not None:
         import capo_codebuild.types.project_sources
 

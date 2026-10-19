@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.read_set_id_list
     import capo_omics.types.sequence_store_id
@@ -34,5 +32,5 @@ def deserialize_json(data: dict) -> BatchDeleteReadSetRequest:
 
         out["ids"] = capo_omics.types.read_set_id_list.deserialize_json(data["ids"])
     else:
-        raise DeserializationError("BatchDeleteReadSetRequest.ids required")
+        out["ids"] = []
     return out

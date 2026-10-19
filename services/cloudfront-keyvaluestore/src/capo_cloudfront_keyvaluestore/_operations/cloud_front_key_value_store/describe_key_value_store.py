@@ -61,7 +61,10 @@ def handle_response(
     out: capo_cloudfront_keyvaluestore.types.describe_key_value_store_response.DescribeKeyValueStoreResponse = capo_cloudfront_keyvaluestore.types.describe_key_value_store_response.deserialize_json(
         json.loads(response.read())
     )
-    out["e_tag"] = response.headers["ETag"]
+    if "ETag" in response.headers:
+        out["e_tag"] = response.headers["ETag"]
+    else:
+        out["e_tag"] = ""
     return out
 
 
@@ -71,7 +74,10 @@ async def async_handle_response(
     out: capo_cloudfront_keyvaluestore.types.describe_key_value_store_response.DescribeKeyValueStoreResponse = capo_cloudfront_keyvaluestore.types.describe_key_value_store_response.deserialize_json(
         json.loads(await response.aread())
     )
-    out["e_tag"] = response.headers["ETag"]
+    if "ETag" in response.headers:
+        out["e_tag"] = response.headers["ETag"]
+    else:
+        out["e_tag"] = ""
     return out
 
 

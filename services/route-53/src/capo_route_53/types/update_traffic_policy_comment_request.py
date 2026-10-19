@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.traffic_policy_comment
@@ -36,5 +35,5 @@ def deserialize_xml(el: Element) -> UpdateTrafficPolicyCommentRequest:
     if child_comment is not None:
         out["comment"] = str(child_comment.text or "")
     else:
-        raise DeserializationError("UpdateTrafficPolicyCommentRequest.comment required")
+        out["comment"] = ""
     return out

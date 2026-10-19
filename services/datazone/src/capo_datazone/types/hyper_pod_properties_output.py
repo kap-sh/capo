@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.hyper_pod_orchestrator
 
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> HyperPodPropertiesOutput:
     if data.get("clusterName") is not None:
         out["cluster_name"] = data["clusterName"]
     else:
-        raise DeserializationError("HyperPodPropertiesOutput.cluster_name required")
+        out["cluster_name"] = ""
     if data.get("clusterArn") is not None:
         out["cluster_arn"] = data["clusterArn"]
     if data.get("orchestrator") is not None:

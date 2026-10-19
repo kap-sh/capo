@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billing.types.currency_amount
     import capo_billing.types.currency_code
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> Amount:
     if data.get("currencyCode") is not None:
         out["currency_code"] = data["currencyCode"]
     else:
-        raise DeserializationError("Amount.currency_code required")
+        out["currency_code"] = ""
     if data.get("currencyAmount") is not None:
         out["currency_amount"] = data["currencyAmount"]
     else:
-        raise DeserializationError("Amount.currency_amount required")
+        out["currency_amount"] = ""
     return out

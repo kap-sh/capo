@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.target_id
     import capo_directory_service.types.target_type
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> UnshareTarget:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("UnshareTarget.id required")
+        out["id"] = ""
     if data.get("Type") is not None:
         import capo_directory_service.types.target_type
 
@@ -43,5 +41,9 @@ def deserialize_aws_json_1_1(data: dict) -> UnshareTarget:
             data["Type"]
         )
     else:
-        raise DeserializationError("UnshareTarget.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_directory_service.types.target_type.TargetType", ""
+        )
     return out

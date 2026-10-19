@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs_realtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.max_participant_replica_results
     import capo_ivs_realtime.types.pagination_token
@@ -43,15 +41,11 @@ def deserialize_json(data: dict) -> ListParticipantReplicasRequest:
     if data.get("sourceStageArn") is not None:
         out["source_stage_arn"] = data["sourceStageArn"]
     else:
-        raise DeserializationError(
-            "ListParticipantReplicasRequest.source_stage_arn required"
-        )
+        out["source_stage_arn"] = ""
     if data.get("participantId") is not None:
         out["participant_id"] = data["participantId"]
     else:
-        raise DeserializationError(
-            "ListParticipantReplicasRequest.participant_id required"
-        )
+        out["participant_id"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

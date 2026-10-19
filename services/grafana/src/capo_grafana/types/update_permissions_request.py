@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_grafana.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_grafana.types.update_instruction_batch
     import capo_grafana.types.workspace_id
@@ -44,7 +42,5 @@ def deserialize_json(data: dict) -> UpdatePermissionsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdatePermissionsRequest.update_instruction_batch required"
-        )
+        out["update_instruction_batch"] = []
     return out

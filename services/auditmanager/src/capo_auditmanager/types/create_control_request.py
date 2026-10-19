@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_auditmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auditmanager.types.action_plan_instructions
     import capo_auditmanager.types.action_plan_title
@@ -72,7 +70,7 @@ def deserialize_json(data: dict) -> CreateControlRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateControlRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("testingInformation") is not None:
@@ -90,9 +88,7 @@ def deserialize_json(data: dict) -> CreateControlRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateControlRequest.control_mapping_sources required"
-        )
+        out["control_mapping_sources"] = []
     if data.get("tags") is not None:
         import capo_auditmanager.types.tag_map
 

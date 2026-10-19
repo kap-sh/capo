@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.__string
 
@@ -46,11 +44,11 @@ def deserialize_json(data: dict) -> RedshiftDataShareDetails:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("RedshiftDataShareDetails.arn required")
+        out["arn"] = ""
     if data.get("Database") is not None:
         out["database"] = data["Database"]
     else:
-        raise DeserializationError("RedshiftDataShareDetails.database required")
+        out["database"] = ""
     if data.get("Function") is not None:
         out["function"] = data["Function"]
     if data.get("Table") is not None:

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_sts._protocol.xml import Element
-from capo_sts.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sts.types.access_key_id_type
@@ -30,5 +29,5 @@ def deserialize_query(el: Element) -> GetAccessKeyInfoRequest:
     if child_access_key_id is not None:
         out["access_key_id"] = str(child_access_key_id.text or "")
     else:
-        raise DeserializationError("GetAccessKeyInfoRequest.access_key_id required")
+        out["access_key_id"] = ""
     return out

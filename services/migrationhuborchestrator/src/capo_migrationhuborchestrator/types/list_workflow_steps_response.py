@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migrationhuborchestrator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migrationhuborchestrator.types.next_token
     import capo_migrationhuborchestrator.types.workflow_steps_summary_list
@@ -46,7 +44,5 @@ def deserialize_json(data: dict) -> ListWorkflowStepsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListWorkflowStepsResponse.workflow_steps_summary required"
-        )
+        out["workflow_steps_summary"] = []
     return out

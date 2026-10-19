@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 
 class DeleteEndpointAccessRequest(TypedDict, closed=True):
     endpoint_name: "str"
@@ -22,5 +20,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteEndpointAccessRequest:
     if data.get("endpointName") is not None:
         out["endpoint_name"] = data["endpointName"]
     else:
-        raise DeserializationError("DeleteEndpointAccessRequest.endpoint_name required")
+        out["endpoint_name"] = ""
     return out

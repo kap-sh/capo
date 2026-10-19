@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.contact_id
     import capo_connect.types.instance_id
@@ -69,8 +67,11 @@ def deserialize_json(data: dict) -> ListRealtimeContactAnalysisSegmentsV2Request
             )
         )
     else:
-        raise DeserializationError(
-            "ListRealtimeContactAnalysisSegmentsV2Request.output_type required"
+        import typing
+
+        out["output_type"] = typing.cast(
+            "capo_connect.types.real_time_contact_analysis_output_type.RealTimeContactAnalysisOutputType",
+            "",
         )
     if data.get("SegmentTypes") is not None:
         import capo_connect.types.real_time_contact_analysis_segment_types
@@ -81,7 +82,5 @@ def deserialize_json(data: dict) -> ListRealtimeContactAnalysisSegmentsV2Request
             )
         )
     else:
-        raise DeserializationError(
-            "ListRealtimeContactAnalysisSegmentsV2Request.segment_types required"
-        )
+        out["segment_types"] = []
     return out

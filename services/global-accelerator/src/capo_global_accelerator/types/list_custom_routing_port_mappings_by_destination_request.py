@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_global_accelerator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_global_accelerator.types.generic_string
     import capo_global_accelerator.types.port_mappings_max_results
@@ -47,15 +45,11 @@ def deserialize_aws_json_1_1(
     if data.get("EndpointId") is not None:
         out["endpoint_id"] = data["EndpointId"]
     else:
-        raise DeserializationError(
-            "ListCustomRoutingPortMappingsByDestinationRequest.endpoint_id required"
-        )
+        out["endpoint_id"] = ""
     if data.get("DestinationAddress") is not None:
         out["destination_address"] = data["DestinationAddress"]
     else:
-        raise DeserializationError(
-            "ListCustomRoutingPortMappingsByDestinationRequest.destination_address required"
-        )
+        out["destination_address"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

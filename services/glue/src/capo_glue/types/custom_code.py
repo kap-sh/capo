@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.enclosed_in_string_property
     import capo_glue.types.extended_string
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> CustomCode:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CustomCode.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.many_inputs
 
@@ -58,15 +56,15 @@ def deserialize_aws_json_1_1(data: dict) -> CustomCode:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("CustomCode.inputs required")
+        out["inputs"] = []
     if data.get("Code") is not None:
         out["code"] = data["Code"]
     else:
-        raise DeserializationError("CustomCode.code required")
+        out["code"] = ""
     if data.get("ClassName") is not None:
         out["class_name"] = data["ClassName"]
     else:
-        raise DeserializationError("CustomCode.class_name required")
+        out["class_name"] = ""
     if data.get("OutputSchemas") is not None:
         import capo_glue.types.glue_schemas
 

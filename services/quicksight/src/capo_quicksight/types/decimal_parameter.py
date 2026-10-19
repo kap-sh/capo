@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.non_empty_string
     import capo_quicksight.types.sensitive_double_list
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> DecimalParameter:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DecimalParameter.name required")
+        out["name"] = ""
     if data.get("Values") is not None:
         import capo_quicksight.types.sensitive_double_list
 
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> DecimalParameter:
             data["Values"]
         )
     else:
-        raise DeserializationError("DecimalParameter.values required")
+        out["values"] = []
     return out
 
 

@@ -77,7 +77,7 @@ def deserialize_json(data: dict) -> CreateFleetMetricRequest:
     if data.get("queryString") is not None:
         out["query_string"] = data["queryString"]
     else:
-        raise DeserializationError("CreateFleetMetricRequest.query_string required")
+        out["query_string"] = ""
     if data.get("aggregationType") is not None:
         import capo_iot.types.aggregation_type
 
@@ -89,13 +89,11 @@ def deserialize_json(data: dict) -> CreateFleetMetricRequest:
     if data.get("period") is not None:
         out["period"] = data["period"]
     else:
-        raise DeserializationError("CreateFleetMetricRequest.period required")
+        out["period"] = 0
     if data.get("aggregationField") is not None:
         out["aggregation_field"] = data["aggregationField"]
     else:
-        raise DeserializationError(
-            "CreateFleetMetricRequest.aggregation_field required"
-        )
+        out["aggregation_field"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("queryVersion") is not None:

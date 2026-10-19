@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -80,19 +78,19 @@ def deserialize_cbor(data: dict) -> AccessProfile:
     if data.get("profileId") is not None:
         out["profile_id"] = data["profileId"]
     else:
-        raise DeserializationError("AccessProfile.profile_id required")
+        out["profile_id"] = ""
     if data.get("spaceId") is not None:
         out["space_id"] = data["spaceId"]
     else:
-        raise DeserializationError("AccessProfile.space_id required")
+        out["space_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("AccessProfile.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AccessProfile.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("createdAt") is not None:
@@ -104,7 +102,9 @@ def deserialize_cbor(data: dict) -> AccessProfile:
             )
         )
     else:
-        raise DeserializationError("AccessProfile.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_cloudwatchomni.types._prelude.timestamp
 
@@ -114,7 +114,9 @@ def deserialize_cbor(data: dict) -> AccessProfile:
             )
         )
     else:
-        raise DeserializationError("AccessProfile.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("assumeStatus") is not None:
         import capo_cloudwatchomni.types.assume_status
 

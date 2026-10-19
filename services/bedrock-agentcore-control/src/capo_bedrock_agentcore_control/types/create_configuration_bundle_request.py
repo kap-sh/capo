@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.branch_name
     import capo_bedrock_agentcore_control.types.client_token
@@ -93,9 +91,7 @@ def deserialize_json(data: dict) -> CreateConfigurationBundleRequest:
     if data.get("bundleName") is not None:
         out["bundle_name"] = data["bundleName"]
     else:
-        raise DeserializationError(
-            "CreateConfigurationBundleRequest.bundle_name required"
-        )
+        out["bundle_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("components") is not None:
@@ -107,9 +103,7 @@ def deserialize_json(data: dict) -> CreateConfigurationBundleRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateConfigurationBundleRequest.components required"
-        )
+        out["components"] = {}
     if data.get("branchName") is not None:
         out["branch_name"] = data["branchName"]
     if data.get("commitMessage") is not None:

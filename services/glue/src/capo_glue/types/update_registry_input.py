@@ -43,5 +43,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateRegistryInput:
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("UpdateRegistryInput.description required")
+        out["description"] = ""
     return out

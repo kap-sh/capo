@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.configuration_error
     import capo_iot_managed_integrations.types.configuration_state
@@ -60,5 +58,10 @@ def deserialize_json(data: dict) -> ConfigurationStatus:
             )
         )
     else:
-        raise DeserializationError("ConfigurationStatus.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_iot_managed_integrations.types.configuration_state.ConfigurationState",
+            "",
+        )
     return out

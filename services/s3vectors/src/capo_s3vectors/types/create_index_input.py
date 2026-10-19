@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3vectors.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3vectors.types.data_type
     import capo_s3vectors.types.dimension
@@ -96,7 +94,7 @@ def deserialize_json(data: dict) -> CreateIndexInput:
     if data.get("indexName") is not None:
         out["index_name"] = data["indexName"]
     else:
-        raise DeserializationError("CreateIndexInput.index_name required")
+        out["index_name"] = ""
     if data.get("dataType") is not None:
         import capo_s3vectors.types.data_type
 
@@ -104,11 +102,13 @@ def deserialize_json(data: dict) -> CreateIndexInput:
             data["dataType"]
         )
     else:
-        raise DeserializationError("CreateIndexInput.data_type required")
+        import typing
+
+        out["data_type"] = typing.cast("capo_s3vectors.types.data_type.DataType", "")
     if data.get("dimension") is not None:
         out["dimension"] = data["dimension"]
     else:
-        raise DeserializationError("CreateIndexInput.dimension required")
+        out["dimension"] = 0
     if data.get("distanceMetric") is not None:
         import capo_s3vectors.types.distance_metric
 
@@ -116,7 +116,11 @@ def deserialize_json(data: dict) -> CreateIndexInput:
             data["distanceMetric"]
         )
     else:
-        raise DeserializationError("CreateIndexInput.distance_metric required")
+        import typing
+
+        out["distance_metric"] = typing.cast(
+            "capo_s3vectors.types.distance_metric.DistanceMetric", ""
+        )
     if data.get("metadataConfiguration") is not None:
         import capo_s3vectors.types.metadata_configuration
 

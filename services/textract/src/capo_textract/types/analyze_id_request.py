@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_textract.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_textract.types.document_pages
 
@@ -37,5 +35,5 @@ def deserialize_aws_json_1_1(data: dict) -> AnalyzeIDRequest:
             )
         )
     else:
-        raise DeserializationError("AnalyzeIDRequest.document_pages required")
+        out["document_pages"] = []
     return out

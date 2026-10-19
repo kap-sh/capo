@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.role_arn
     import capo_qbusiness.types.secret_arn
@@ -40,15 +38,11 @@ def deserialize_json(data: dict) -> OAuth2ClientCredentialConfiguration:
     if data.get("secretArn") is not None:
         out["secret_arn"] = data["secretArn"]
     else:
-        raise DeserializationError(
-            "OAuth2ClientCredentialConfiguration.secret_arn required"
-        )
+        out["secret_arn"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError(
-            "OAuth2ClientCredentialConfiguration.role_arn required"
-        )
+        out["role_arn"] = ""
     if data.get("authorizationUrl") is not None:
         out["authorization_url"] = data["authorizationUrl"]
     if data.get("tokenUrl") is not None:

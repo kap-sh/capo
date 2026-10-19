@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_directory_service_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service_data.types.group_name
     import capo_directory_service_data.types.group_scope
@@ -47,11 +45,11 @@ def deserialize_json(data: dict) -> GroupSummary:
     if data.get("SID") is not None:
         out["sid"] = data["SID"]
     else:
-        raise DeserializationError("GroupSummary.sid required")
+        out["sid"] = ""
     if data.get("SAMAccountName") is not None:
         out["sam_account_name"] = data["SAMAccountName"]
     else:
-        raise DeserializationError("GroupSummary.sam_account_name required")
+        out["sam_account_name"] = ""
     if data.get("GroupType") is not None:
         import capo_directory_service_data.types.group_type
 
@@ -61,7 +59,11 @@ def deserialize_json(data: dict) -> GroupSummary:
             )
         )
     else:
-        raise DeserializationError("GroupSummary.group_type required")
+        import typing
+
+        out["group_type"] = typing.cast(
+            "capo_directory_service_data.types.group_type.GroupType", ""
+        )
     if data.get("GroupScope") is not None:
         import capo_directory_service_data.types.group_scope
 
@@ -71,5 +73,9 @@ def deserialize_json(data: dict) -> GroupSummary:
             )
         )
     else:
-        raise DeserializationError("GroupSummary.group_scope required")
+        import typing
+
+        out["group_scope"] = typing.cast(
+            "capo_directory_service_data.types.group_scope.GroupScope", ""
+        )
     return out

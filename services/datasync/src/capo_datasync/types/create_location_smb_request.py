@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.agent_arn_list
     import capo_datasync.types.cmk_secret_config
@@ -155,11 +153,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationSmbRequest:
     if data.get("Subdirectory") is not None:
         out["subdirectory"] = data["Subdirectory"]
     else:
-        raise DeserializationError("CreateLocationSmbRequest.subdirectory required")
+        out["subdirectory"] = ""
     if data.get("ServerHostname") is not None:
         out["server_hostname"] = data["ServerHostname"]
     else:
-        raise DeserializationError("CreateLocationSmbRequest.server_hostname required")
+        out["server_hostname"] = ""
     if data.get("User") is not None:
         out["user"] = data["User"]
     if data.get("Domain") is not None:
@@ -189,7 +187,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationSmbRequest:
             data["AgentArns"]
         )
     else:
-        raise DeserializationError("CreateLocationSmbRequest.agent_arns required")
+        out["agent_arns"] = []
     if data.get("MountOptions") is not None:
         import capo_datasync.types.smb_mount_options
 

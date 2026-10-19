@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.data_source_error_message
     import capo_datazone.types.data_source_id
@@ -132,7 +130,7 @@ def deserialize_json(data: dict) -> DataSourceSummary:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("DataSourceSummary.domain_id required")
+        out["domain_id"] = ""
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     if data.get("connectionId") is not None:
@@ -140,15 +138,15 @@ def deserialize_json(data: dict) -> DataSourceSummary:
     if data.get("dataSourceId") is not None:
         out["data_source_id"] = data["dataSourceId"]
     else:
-        raise DeserializationError("DataSourceSummary.data_source_id required")
+        out["data_source_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DataSourceSummary.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("DataSourceSummary.type required")
+        out["type"] = ""
     if data.get("status") is not None:
         import capo_datazone.types.data_source_status
 
@@ -156,7 +154,11 @@ def deserialize_json(data: dict) -> DataSourceSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("DataSourceSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_datazone.types.data_source_status.DataSourceStatus", ""
+        )
     if data.get("enableSetting") is not None:
         import capo_datazone.types.enable_setting
 

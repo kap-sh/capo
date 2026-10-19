@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.date_timestamp
     import capo_bedrock_agentcore.types.payment_connector_id
@@ -94,19 +92,19 @@ def deserialize_json(data: dict) -> PaymentInstrument:
     if data.get("paymentInstrumentId") is not None:
         out["payment_instrument_id"] = data["paymentInstrumentId"]
     else:
-        raise DeserializationError("PaymentInstrument.payment_instrument_id required")
+        out["payment_instrument_id"] = ""
     if data.get("paymentManagerArn") is not None:
         out["payment_manager_arn"] = data["paymentManagerArn"]
     else:
-        raise DeserializationError("PaymentInstrument.payment_manager_arn required")
+        out["payment_manager_arn"] = ""
     if data.get("paymentConnectorId") is not None:
         out["payment_connector_id"] = data["paymentConnectorId"]
     else:
-        raise DeserializationError("PaymentInstrument.payment_connector_id required")
+        out["payment_connector_id"] = ""
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
     else:
-        raise DeserializationError("PaymentInstrument.user_id required")
+        out["user_id"] = ""
     if data.get("paymentInstrumentType") is not None:
         import capo_bedrock_agentcore.types.payment_instrument_type
 
@@ -116,7 +114,12 @@ def deserialize_json(data: dict) -> PaymentInstrument:
             )
         )
     else:
-        raise DeserializationError("PaymentInstrument.payment_instrument_type required")
+        import typing
+
+        out["payment_instrument_type"] = typing.cast(
+            "capo_bedrock_agentcore.types.payment_instrument_type.PaymentInstrumentType",
+            "",
+        )
     if data.get("paymentInstrumentDetails") is not None:
         import capo_bedrock_agentcore.types.payment_instrument_details
 
@@ -126,8 +129,10 @@ def deserialize_json(data: dict) -> PaymentInstrument:
             )
         )
     else:
-        raise DeserializationError(
-            "PaymentInstrument.payment_instrument_details required"
+        import capo_bedrock_agentcore.types._unknown
+
+        out["payment_instrument_details"] = (
+            capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
         )
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore.types.date_timestamp
@@ -138,7 +143,9 @@ def deserialize_json(data: dict) -> PaymentInstrument:
             )
         )
     else:
-        raise DeserializationError("PaymentInstrument.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         import capo_bedrock_agentcore.types.payment_instrument_status
 
@@ -148,7 +155,12 @@ def deserialize_json(data: dict) -> PaymentInstrument:
             )
         )
     else:
-        raise DeserializationError("PaymentInstrument.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore.types.payment_instrument_status.PaymentInstrumentStatus",
+            "",
+        )
     if data.get("updatedAt") is not None:
         import capo_bedrock_agentcore.types.date_timestamp
 
@@ -158,7 +170,9 @@ def deserialize_json(data: dict) -> PaymentInstrument:
             )
         )
     else:
-        raise DeserializationError("PaymentInstrument.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

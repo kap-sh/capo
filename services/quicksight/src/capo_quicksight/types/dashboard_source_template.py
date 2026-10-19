@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.data_set_reference_list
@@ -58,9 +56,7 @@ def deserialize_json(data: dict) -> DashboardSourceTemplate:
             )
         )
     else:
-        raise DeserializationError(
-            "DashboardSourceTemplate.data_set_references required"
-        )
+        out["data_set_references"] = []
     if data.get("TopicReferences") is not None:
         import capo_quicksight.types.topic_reference_list
 
@@ -72,5 +68,5 @@ def deserialize_json(data: dict) -> DashboardSourceTemplate:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("DashboardSourceTemplate.arn required")
+        out["arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_greengrassv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_greengrassv2.types.io_t_job_abort_action
     import capo_greengrassv2.types.io_t_job_abort_threshold_percentage
@@ -63,7 +61,12 @@ def deserialize_json(data: dict) -> IoTJobAbortCriteria:
             )
         )
     else:
-        raise DeserializationError("IoTJobAbortCriteria.failure_type required")
+        import typing
+
+        out["failure_type"] = typing.cast(
+            "capo_greengrassv2.types.io_t_job_execution_failure_type.IoTJobExecutionFailureType",
+            "",
+        )
     if data.get("action") is not None:
         import capo_greengrassv2.types.io_t_job_abort_action
 
@@ -71,7 +74,11 @@ def deserialize_json(data: dict) -> IoTJobAbortCriteria:
             data["action"]
         )
     else:
-        raise DeserializationError("IoTJobAbortCriteria.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_greengrassv2.types.io_t_job_abort_action.IoTJobAbortAction", ""
+        )
     if data.get("thresholdPercentage") is not None:
         out["threshold_percentage"] = float(data["thresholdPercentage"])
     else:
@@ -79,7 +86,5 @@ def deserialize_json(data: dict) -> IoTJobAbortCriteria:
     if data.get("minNumberOfExecutedThings") is not None:
         out["min_number_of_executed_things"] = data["minNumberOfExecutedThings"]
     else:
-        raise DeserializationError(
-            "IoTJobAbortCriteria.min_number_of_executed_things required"
-        )
+        out["min_number_of_executed_things"] = 0
     return out

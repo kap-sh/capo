@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.description
     import capo_panorama.types.node_category
@@ -78,35 +76,35 @@ def deserialize_json(data: dict) -> Node:
     if data.get("NodeId") is not None:
         out["node_id"] = data["NodeId"]
     else:
-        raise DeserializationError("Node.node_id required")
+        out["node_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Node.name required")
+        out["name"] = ""
     if data.get("Category") is not None:
         out["category"] = data["Category"]
     else:
-        raise DeserializationError("Node.category required")
+        out["category"] = ""
     if data.get("OwnerAccount") is not None:
         out["owner_account"] = data["OwnerAccount"]
     if data.get("PackageName") is not None:
         out["package_name"] = data["PackageName"]
     else:
-        raise DeserializationError("Node.package_name required")
+        out["package_name"] = ""
     if data.get("PackageId") is not None:
         out["package_id"] = data["PackageId"]
     else:
-        raise DeserializationError("Node.package_id required")
+        out["package_id"] = ""
     if data.get("PackageArn") is not None:
         out["package_arn"] = data["PackageArn"]
     if data.get("PackageVersion") is not None:
         out["package_version"] = data["PackageVersion"]
     else:
-        raise DeserializationError("Node.package_version required")
+        out["package_version"] = ""
     if data.get("PatchVersion") is not None:
         out["patch_version"] = data["PatchVersion"]
     else:
-        raise DeserializationError("Node.patch_version required")
+        out["patch_version"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("CreatedTime") is not None:
@@ -116,5 +114,9 @@ def deserialize_json(data: dict) -> Node:
             data["CreatedTime"]
         )
     else:
-        raise DeserializationError("Node.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

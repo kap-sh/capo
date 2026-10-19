@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearchserverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearchserverless.types.serverless_vector_acceleration_status
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> VectorOptions:
     if data.get("ServerlessVectorAcceleration") is not None:
         out["serverless_vector_acceleration"] = data["ServerlessVectorAcceleration"]
     else:
-        raise DeserializationError(
-            "VectorOptions.serverless_vector_acceleration required"
-        )
+        out["serverless_vector_acceleration"] = ""
     return out

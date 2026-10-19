@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.string
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> GetBackupPlanFromJSONInput:
     if data.get("BackupPlanTemplateJson") is not None:
         out["backup_plan_template_json"] = data["BackupPlanTemplateJson"]
     else:
-        raise DeserializationError(
-            "GetBackupPlanFromJSONInput.backup_plan_template_json required"
-        )
+        out["backup_plan_template_json"] = ""
     return out

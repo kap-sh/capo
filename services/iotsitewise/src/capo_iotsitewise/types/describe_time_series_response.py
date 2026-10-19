@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.arn
     import capo_iotsitewise.types.id
@@ -84,7 +82,7 @@ def deserialize_json(data: dict) -> DescribeTimeSeriesResponse:
     if data.get("timeSeriesId") is not None:
         out["time_series_id"] = data["timeSeriesId"]
     else:
-        raise DeserializationError("DescribeTimeSeriesResponse.time_series_id required")
+        out["time_series_id"] = ""
     if data.get("dataType") is not None:
         import capo_iotsitewise.types.property_data_type
 
@@ -92,7 +90,11 @@ def deserialize_json(data: dict) -> DescribeTimeSeriesResponse:
             data["dataType"]
         )
     else:
-        raise DeserializationError("DescribeTimeSeriesResponse.data_type required")
+        import typing
+
+        out["data_type"] = typing.cast(
+            "capo_iotsitewise.types.property_data_type.PropertyDataType", ""
+        )
     if data.get("dataTypeSpec") is not None:
         out["data_type_spec"] = data["dataTypeSpec"]
     if data.get("timeSeriesCreationDate") is not None:
@@ -104,8 +106,10 @@ def deserialize_json(data: dict) -> DescribeTimeSeriesResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeTimeSeriesResponse.time_series_creation_date required"
+        import datetime
+
+        out["time_series_creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("timeSeriesLastUpdateDate") is not None:
         import capo_iotsitewise.types.timestamp
@@ -116,15 +120,15 @@ def deserialize_json(data: dict) -> DescribeTimeSeriesResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeTimeSeriesResponse.time_series_last_update_date required"
+        import datetime
+
+        out["time_series_last_update_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("timeSeriesArn") is not None:
         out["time_series_arn"] = data["timeSeriesArn"]
     else:
-        raise DeserializationError(
-            "DescribeTimeSeriesResponse.time_series_arn required"
-        )
+        out["time_series_arn"] = ""
     if data.get("workspaceName") is not None:
         out["workspace_name"] = data["workspaceName"]
     return out

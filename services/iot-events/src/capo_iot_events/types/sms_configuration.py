@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.notification_additional_message
     import capo_iot_events.types.recipient_details
@@ -51,5 +49,5 @@ def deserialize_json(data: dict) -> SMSConfiguration:
             data["recipients"]
         )
     else:
-        raise DeserializationError("SMSConfiguration.recipients required")
+        out["recipients"] = []
     return out

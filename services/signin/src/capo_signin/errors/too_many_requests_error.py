@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_signin.errors import DeserializationError, ServiceError
+from capo_signin.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_signin.types.o_auth2_error_code
@@ -37,11 +37,15 @@ def deserialize_json(data: dict) -> TooManyRequestsError_:
             data["error"]
         )
     else:
-        raise DeserializationError("TooManyRequestsError_.error required")
+        import typing
+
+        out["error"] = typing.cast(
+            "capo_signin.types.o_auth2_error_code.OAuth2ErrorCode", ""
+        )
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("TooManyRequestsError_.message required")
+        out["message"] = ""
     return out
 
 

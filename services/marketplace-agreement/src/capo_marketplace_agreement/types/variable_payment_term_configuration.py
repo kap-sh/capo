@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_agreement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.iso8601_duration
     import capo_marketplace_agreement.types.payment_request_approval_strategy
@@ -46,8 +44,11 @@ def deserialize_aws_json_1_0(data: dict) -> VariablePaymentTermConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "VariablePaymentTermConfiguration.payment_request_approval_strategy required"
+        import typing
+
+        out["payment_request_approval_strategy"] = typing.cast(
+            "capo_marketplace_agreement.types.payment_request_approval_strategy.PaymentRequestApprovalStrategy",
+            "",
         )
     if data.get("expirationDuration") is not None:
         out["expiration_duration"] = data["expirationDuration"]

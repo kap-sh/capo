@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.export_encryption_configuration
     import capo_glue.types.export_setting
@@ -53,8 +51,10 @@ def deserialize_aws_json_1_1(data: dict) -> PutDataCatalogExportConfigurationInp
             data["ExportSetting"]
         )
     else:
-        raise DeserializationError(
-            "PutDataCatalogExportConfigurationInput.export_setting required"
+        import typing
+
+        out["export_setting"] = typing.cast(
+            "capo_glue.types.export_setting.ExportSetting", ""
         )
     if data.get("EncryptionConfiguration") is not None:
         import capo_glue.types.export_encryption_configuration

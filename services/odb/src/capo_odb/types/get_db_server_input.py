@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.resource_id
     import capo_odb.types.resource_id_or_arn
@@ -31,11 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetDbServerInput:
     if data.get("cloudExadataInfrastructureId") is not None:
         out["cloud_exadata_infrastructure_id"] = data["cloudExadataInfrastructureId"]
     else:
-        raise DeserializationError(
-            "GetDbServerInput.cloud_exadata_infrastructure_id required"
-        )
+        out["cloud_exadata_infrastructure_id"] = ""
     if data.get("dbServerId") is not None:
         out["db_server_id"] = data["dbServerId"]
     else:
-        raise DeserializationError("GetDbServerInput.db_server_id required")
+        out["db_server_id"] = ""
     return out

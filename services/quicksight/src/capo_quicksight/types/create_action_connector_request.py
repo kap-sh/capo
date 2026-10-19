@@ -84,13 +84,11 @@ def deserialize_json(data: dict) -> CreateActionConnectorRequest:
     if data.get("ActionConnectorId") is not None:
         out["action_connector_id"] = data["ActionConnectorId"]
     else:
-        raise DeserializationError(
-            "CreateActionConnectorRequest.action_connector_id required"
-        )
+        out["action_connector_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateActionConnectorRequest.name required")
+        out["name"] = ""
     if data.get("Type") is not None:
         import capo_quicksight.types.action_connector_type
 
@@ -98,7 +96,11 @@ def deserialize_json(data: dict) -> CreateActionConnectorRequest:
             data["Type"]
         )
     else:
-        raise DeserializationError("CreateActionConnectorRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_quicksight.types.action_connector_type.ActionConnectorType", ""
+        )
     if data.get("AuthenticationConfig") is not None:
         import capo_quicksight.types.auth_config
 

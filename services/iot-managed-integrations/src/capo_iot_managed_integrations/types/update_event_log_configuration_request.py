@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.log_configuration_id
     import capo_iot_managed_integrations.types.log_level
@@ -40,7 +38,9 @@ def deserialize_json(data: dict) -> UpdateEventLogConfigurationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateEventLogConfigurationRequest.event_log_level required"
+        import typing
+
+        out["event_log_level"] = typing.cast(
+            "capo_iot_managed_integrations.types.log_level.LogLevel", ""
         )
     return out

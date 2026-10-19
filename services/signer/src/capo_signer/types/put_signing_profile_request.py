@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_signer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_signer.types.platform_id
     import capo_signer.types.profile_name
@@ -95,7 +93,7 @@ def deserialize_json(data: dict) -> PutSigningProfileRequest:
     if data.get("platformId") is not None:
         out["platform_id"] = data["platformId"]
     else:
-        raise DeserializationError("PutSigningProfileRequest.platform_id required")
+        out["platform_id"] = ""
     if data.get("overrides") is not None:
         import capo_signer.types.signing_platform_overrides
 

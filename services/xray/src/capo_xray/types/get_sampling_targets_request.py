@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_xray.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_xray.types.sampling_boost_statistics_document_list
     import capo_xray.types.sampling_statistics_document_list
@@ -52,9 +50,7 @@ def deserialize_json(data: dict) -> GetSamplingTargetsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GetSamplingTargetsRequest.sampling_statistics_documents required"
-        )
+        out["sampling_statistics_documents"] = []
     if data.get("SamplingBoostStatisticsDocuments") is not None:
         import capo_xray.types.sampling_boost_statistics_document_list
 

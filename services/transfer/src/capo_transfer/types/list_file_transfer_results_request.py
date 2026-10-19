@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.connector_id
     import capo_transfer.types.max_results
@@ -41,15 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> ListFileTransferResultsRequest:
     if data.get("ConnectorId") is not None:
         out["connector_id"] = data["ConnectorId"]
     else:
-        raise DeserializationError(
-            "ListFileTransferResultsRequest.connector_id required"
-        )
+        out["connector_id"] = ""
     if data.get("TransferId") is not None:
         out["transfer_id"] = data["TransferId"]
     else:
-        raise DeserializationError(
-            "ListFileTransferResultsRequest.transfer_id required"
-        )
+        out["transfer_id"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

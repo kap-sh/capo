@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.data_automation_library_arn
 
@@ -26,5 +24,5 @@ def deserialize_json(data: dict) -> DataAutomationLibraryItem:
     if data.get("libraryArn") is not None:
         out["library_arn"] = data["libraryArn"]
     else:
-        raise DeserializationError("DataAutomationLibraryItem.library_arn required")
+        out["library_arn"] = ""
     return out

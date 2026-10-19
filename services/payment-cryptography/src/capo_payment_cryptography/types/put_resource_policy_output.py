@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.resource_arn
     import capo_payment_cryptography.types.resource_policy
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> PutResourcePolicyOutput:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("PutResourcePolicyOutput.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("Policy") is not None:
         out["policy"] = data["Policy"]
     else:
-        raise DeserializationError("PutResourcePolicyOutput.policy required")
+        out["policy"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.data
 
@@ -31,5 +29,5 @@ def deserialize_aws_json_1_1(data: dict) -> Record:
 
         out["data"] = capo_firehose.types.data.deserialize_aws_json_1_1(data["Data"])
     else:
-        raise DeserializationError("Record.data required")
+        out["data"] = b""
     return out

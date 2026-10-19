@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.project_arn
     import capo_rekognition.types.project_policy_name
@@ -38,11 +36,11 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteProjectPolicyRequest:
     if data.get("ProjectArn") is not None:
         out["project_arn"] = data["ProjectArn"]
     else:
-        raise DeserializationError("DeleteProjectPolicyRequest.project_arn required")
+        out["project_arn"] = ""
     if data.get("PolicyName") is not None:
         out["policy_name"] = data["PolicyName"]
     else:
-        raise DeserializationError("DeleteProjectPolicyRequest.policy_name required")
+        out["policy_name"] = ""
     if data.get("PolicyRevisionId") is not None:
         out["policy_revision_id"] = data["PolicyRevisionId"]
     return out

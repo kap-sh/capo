@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.listed_accesses
     import capo_transfer.types.next_token
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListAccessesResponse:
     if data.get("ServerId") is not None:
         out["server_id"] = data["ServerId"]
     else:
-        raise DeserializationError("ListAccessesResponse.server_id required")
+        out["server_id"] = ""
     if data.get("Accesses") is not None:
         import capo_transfer.types.listed_accesses
 
@@ -50,5 +48,5 @@ def deserialize_aws_json_1_1(data: dict) -> ListAccessesResponse:
             data["Accesses"]
         )
     else:
-        raise DeserializationError("ListAccessesResponse.accesses required")
+        out["accesses"] = []
     return out

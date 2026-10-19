@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.encryption_context
     import capo_verifiedpermissions.types.kms_key
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_0(data: dict) -> KmsEncryptionState:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("KmsEncryptionState.key required")
+        out["key"] = ""
     if data.get("encryptionContext") is not None:
         import capo_verifiedpermissions.types.encryption_context
 
@@ -49,5 +47,5 @@ def deserialize_aws_json_1_0(data: dict) -> KmsEncryptionState:
             )
         )
     else:
-        raise DeserializationError("KmsEncryptionState.encryption_context required")
+        out["encryption_context"] = {}
     return out

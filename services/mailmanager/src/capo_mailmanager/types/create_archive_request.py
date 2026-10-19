@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.archive_name_string
     import capo_mailmanager.types.archive_retention
@@ -61,7 +59,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateArchiveRequest:
     if data.get("ArchiveName") is not None:
         out["archive_name"] = data["ArchiveName"]
     else:
-        raise DeserializationError("CreateArchiveRequest.archive_name required")
+        out["archive_name"] = ""
     if data.get("Retention") is not None:
         import capo_mailmanager.types.archive_retention
 

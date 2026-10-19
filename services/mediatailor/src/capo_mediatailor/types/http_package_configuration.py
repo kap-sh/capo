@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__string
     import capo_mediatailor.types.type
@@ -36,15 +34,17 @@ def deserialize_json(data: dict) -> HttpPackageConfiguration:
     if data.get("Path") is not None:
         out["path"] = data["Path"]
     else:
-        raise DeserializationError("HttpPackageConfiguration.path required")
+        out["path"] = ""
     if data.get("SourceGroup") is not None:
         out["source_group"] = data["SourceGroup"]
     else:
-        raise DeserializationError("HttpPackageConfiguration.source_group required")
+        out["source_group"] = ""
     if data.get("Type") is not None:
         import capo_mediatailor.types.type
 
         out["type"] = capo_mediatailor.types.type.deserialize_json(data["Type"])
     else:
-        raise DeserializationError("HttpPackageConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_mediatailor.types.type.Type", "")
     return out

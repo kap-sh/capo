@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dax.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dax.types.string
 
@@ -31,9 +29,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateParameterGroupRequest:
     if data.get("ParameterGroupName") is not None:
         out["parameter_group_name"] = data["ParameterGroupName"]
     else:
-        raise DeserializationError(
-            "CreateParameterGroupRequest.parameter_group_name required"
-        )
+        out["parameter_group_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     return out

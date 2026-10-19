@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.identity_sources
     import capo_verifiedpermissions.types.next_token
@@ -46,9 +44,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListIdentitySourcesOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListIdentitySourcesOutput.identity_sources required"
-        )
+        out["identity_sources"] = []
     return out
 
 

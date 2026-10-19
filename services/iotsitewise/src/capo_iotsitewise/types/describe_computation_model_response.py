@@ -105,21 +105,15 @@ def deserialize_json(data: dict) -> DescribeComputationModelResponse:
     if data.get("computationModelId") is not None:
         out["computation_model_id"] = data["computationModelId"]
     else:
-        raise DeserializationError(
-            "DescribeComputationModelResponse.computation_model_id required"
-        )
+        out["computation_model_id"] = ""
     if data.get("computationModelArn") is not None:
         out["computation_model_arn"] = data["computationModelArn"]
     else:
-        raise DeserializationError(
-            "DescribeComputationModelResponse.computation_model_arn required"
-        )
+        out["computation_model_arn"] = ""
     if data.get("computationModelName") is not None:
         out["computation_model_name"] = data["computationModelName"]
     else:
-        raise DeserializationError(
-            "DescribeComputationModelResponse.computation_model_name required"
-        )
+        out["computation_model_name"] = ""
     if data.get("computationModelDescription") is not None:
         out["computation_model_description"] = data["computationModelDescription"]
     if data.get("computationModelConfiguration") is not None:
@@ -143,9 +137,7 @@ def deserialize_json(data: dict) -> DescribeComputationModelResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeComputationModelResponse.computation_model_data_binding required"
-        )
+        out["computation_model_data_binding"] = {}
     if data.get("computationModelCreationDate") is not None:
         import capo_iotsitewise.types.timestamp
 
@@ -155,8 +147,10 @@ def deserialize_json(data: dict) -> DescribeComputationModelResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeComputationModelResponse.computation_model_creation_date required"
+        import datetime
+
+        out["computation_model_creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("computationModelLastUpdateDate") is not None:
         import capo_iotsitewise.types.timestamp
@@ -167,8 +161,10 @@ def deserialize_json(data: dict) -> DescribeComputationModelResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeComputationModelResponse.computation_model_last_update_date required"
+        import datetime
+
+        out["computation_model_last_update_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("computationModelStatus") is not None:
         import capo_iotsitewise.types.computation_model_status
@@ -185,9 +181,7 @@ def deserialize_json(data: dict) -> DescribeComputationModelResponse:
     if data.get("computationModelVersion") is not None:
         out["computation_model_version"] = data["computationModelVersion"]
     else:
-        raise DeserializationError(
-            "DescribeComputationModelResponse.computation_model_version required"
-        )
+        out["computation_model_version"] = ""
     if data.get("actionDefinitions") is not None:
         import capo_iotsitewise.types.action_definitions
 
@@ -197,7 +191,5 @@ def deserialize_json(data: dict) -> DescribeComputationModelResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeComputationModelResponse.action_definitions required"
-        )
+        out["action_definitions"] = []
     return out

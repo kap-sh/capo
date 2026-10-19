@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager_linux_subscriptions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager_linux_subscriptions.types.secret_arn
     import capo_license_manager_linux_subscriptions.types.subscription_provider_source
@@ -42,15 +40,11 @@ def deserialize_json(data: dict) -> RegisterSubscriptionProviderRequest:
     if data.get("SubscriptionProviderSource") is not None:
         out["subscription_provider_source"] = data["SubscriptionProviderSource"]
     else:
-        raise DeserializationError(
-            "RegisterSubscriptionProviderRequest.subscription_provider_source required"
-        )
+        out["subscription_provider_source"] = ""
     if data.get("SecretArn") is not None:
         out["secret_arn"] = data["SecretArn"]
     else:
-        raise DeserializationError(
-            "RegisterSubscriptionProviderRequest.secret_arn required"
-        )
+        out["secret_arn"] = ""
     if data.get("Tags") is not None:
         import capo_license_manager_linux_subscriptions.types.tags
 

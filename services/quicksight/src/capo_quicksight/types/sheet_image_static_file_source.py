@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.short_restrictive_resource_id
 
@@ -29,5 +27,5 @@ def deserialize_json(data: dict) -> SheetImageStaticFileSource:
     if data.get("StaticFileId") is not None:
         out["static_file_id"] = data["StaticFileId"]
     else:
-        raise DeserializationError("SheetImageStaticFileSource.static_file_id required")
+        out["static_file_id"] = ""
     return out

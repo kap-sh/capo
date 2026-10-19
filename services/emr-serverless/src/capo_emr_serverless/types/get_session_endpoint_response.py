@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_emr_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_serverless.types.application_id
     import capo_emr_serverless.types.date
@@ -47,19 +45,19 @@ def deserialize_json(data: dict) -> GetSessionEndpointResponse:
     if data.get("applicationId") is not None:
         out["application_id"] = data["applicationId"]
     else:
-        raise DeserializationError("GetSessionEndpointResponse.application_id required")
+        out["application_id"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("GetSessionEndpointResponse.session_id required")
+        out["session_id"] = ""
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError("GetSessionEndpointResponse.endpoint required")
+        out["endpoint"] = ""
     if data.get("authToken") is not None:
         out["auth_token"] = data["authToken"]
     else:
-        raise DeserializationError("GetSessionEndpointResponse.auth_token required")
+        out["auth_token"] = ""
     if data.get("authTokenExpiresAt") is not None:
         import capo_emr_serverless.types.date
 
@@ -67,8 +65,10 @@ def deserialize_json(data: dict) -> GetSessionEndpointResponse:
             data["authTokenExpiresAt"]
         )
     else:
-        raise DeserializationError(
-            "GetSessionEndpointResponse.auth_token_expires_at required"
+        import datetime
+
+        out["auth_token_expires_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out
 

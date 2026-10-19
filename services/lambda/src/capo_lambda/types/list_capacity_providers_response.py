@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.capacity_providers_list
     import capo_lambda.types.string
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> ListCapacityProvidersResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListCapacityProvidersResponse.capacity_providers required"
-        )
+        out["capacity_providers"] = []
     if data.get("NextMarker") is not None:
         out["next_marker"] = data["NextMarker"]
     return out

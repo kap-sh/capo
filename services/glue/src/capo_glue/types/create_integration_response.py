@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.integration_additional_encryption_context_map
     import capo_glue.types.integration_config
@@ -113,23 +111,21 @@ def deserialize_aws_json_1_1(data: dict) -> CreateIntegrationResponse:
     if data.get("SourceArn") is not None:
         out["source_arn"] = data["SourceArn"]
     else:
-        raise DeserializationError("CreateIntegrationResponse.source_arn required")
+        out["source_arn"] = ""
     if data.get("TargetArn") is not None:
         out["target_arn"] = data["TargetArn"]
     else:
-        raise DeserializationError("CreateIntegrationResponse.target_arn required")
+        out["target_arn"] = ""
     if data.get("IntegrationName") is not None:
         out["integration_name"] = data["IntegrationName"]
     else:
-        raise DeserializationError(
-            "CreateIntegrationResponse.integration_name required"
-        )
+        out["integration_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("IntegrationArn") is not None:
         out["integration_arn"] = data["IntegrationArn"]
     else:
-        raise DeserializationError("CreateIntegrationResponse.integration_arn required")
+        out["integration_arn"] = ""
     if data.get("KmsKeyId") is not None:
         out["kms_key_id"] = data["KmsKeyId"]
     if data.get("AdditionalEncryptionContext") is not None:
@@ -153,7 +149,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateIntegrationResponse:
             data["Status"]
         )
     else:
-        raise DeserializationError("CreateIntegrationResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_glue.types.integration_status.IntegrationStatus", ""
+        )
     if data.get("CreateTime") is not None:
         import capo_glue.types.integration_timestamp
 
@@ -163,7 +163,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateIntegrationResponse:
             )
         )
     else:
-        raise DeserializationError("CreateIntegrationResponse.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("Errors") is not None:
         import capo_glue.types.integration_error_list
 

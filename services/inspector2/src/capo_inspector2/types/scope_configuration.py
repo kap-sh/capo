@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.scope_state
     import capo_inspector2.types.scope_type
@@ -55,7 +53,11 @@ def deserialize_json(data: dict) -> ScopeConfiguration:
             data["scopeType"]
         )
     else:
-        raise DeserializationError("ScopeConfiguration.scope_type required")
+        import typing
+
+        out["scope_type"] = typing.cast(
+            "capo_inspector2.types.scope_type.ScopeType", ""
+        )
     if data.get("scopeValues") is not None:
         import capo_inspector2.types.scope_value_list
 

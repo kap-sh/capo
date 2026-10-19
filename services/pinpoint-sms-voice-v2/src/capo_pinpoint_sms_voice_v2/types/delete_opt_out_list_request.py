@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.opt_out_list_name_or_arn
 
@@ -29,5 +27,5 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteOptOutListRequest:
     if data.get("OptOutListName") is not None:
         out["opt_out_list_name"] = data["OptOutListName"]
     else:
-        raise DeserializationError("DeleteOptOutListRequest.opt_out_list_name required")
+        out["opt_out_list_name"] = ""
     return out

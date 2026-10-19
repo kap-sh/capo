@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.client_token
     import capo_bedrock_agentcore_control.types.dataset_example_list
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> UpdateDatasetExamplesRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateDatasetExamplesRequest.examples required")
+        out["examples"] = []
     return out
 
 

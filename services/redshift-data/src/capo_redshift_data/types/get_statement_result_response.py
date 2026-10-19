@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_data.types.column_metadata_list
     import capo_redshift_data.types.long
@@ -57,7 +55,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetStatementResultResponse:
             data["Records"]
         )
     else:
-        raise DeserializationError("GetStatementResultResponse.records required")
+        out["records"] = []
     if data.get("ColumnMetadata") is not None:
         import capo_redshift_data.types.column_metadata_list
 

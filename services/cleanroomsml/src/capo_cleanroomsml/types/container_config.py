@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.algorithm_image
     import capo_cleanroomsml.types.container_arguments
@@ -62,7 +60,7 @@ def deserialize_json(data: dict) -> ContainerConfig:
     if data.get("imageUri") is not None:
         out["image_uri"] = data["imageUri"]
     else:
-        raise DeserializationError("ContainerConfig.image_uri required")
+        out["image_uri"] = ""
     if data.get("entrypoint") is not None:
         import capo_cleanroomsml.types.container_entrypoint
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.aga_mode_for_work_space_enum
     import capo_workspaces.types.aga_preferred_protocol_for_work_space
@@ -52,7 +50,12 @@ def deserialize_aws_json_1_1(data: dict) -> GlobalAcceleratorForWorkSpace:
             )
         )
     else:
-        raise DeserializationError("GlobalAcceleratorForWorkSpace.mode required")
+        import typing
+
+        out["mode"] = typing.cast(
+            "capo_workspaces.types.aga_mode_for_work_space_enum.AGAModeForWorkSpaceEnum",
+            "",
+        )
     if data.get("PreferredProtocol") is not None:
         import capo_workspaces.types.aga_preferred_protocol_for_work_space
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.iso8601_time
 
@@ -28,9 +26,9 @@ def deserialize_json(data: dict) -> TimeRange:
     if data.get("startTime") is not None:
         out["start_time"] = data["startTime"]
     else:
-        raise DeserializationError("TimeRange.start_time required")
+        out["start_time"] = ""
     if data.get("endTime") is not None:
         out["end_time"] = data["endTime"]
     else:
-        raise DeserializationError("TimeRange.end_time required")
+        out["end_time"] = ""
     return out

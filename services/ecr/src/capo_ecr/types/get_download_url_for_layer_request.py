@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr.types.layer_digest
     import capo_ecr.types.registry_id
@@ -38,13 +36,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetDownloadUrlForLayerRequest:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError(
-            "GetDownloadUrlForLayerRequest.repository_name required"
-        )
+        out["repository_name"] = ""
     if data.get("layerDigest") is not None:
         out["layer_digest"] = data["layerDigest"]
     else:
-        raise DeserializationError(
-            "GetDownloadUrlForLayerRequest.layer_digest required"
-        )
+        out["layer_digest"] = ""
     return out

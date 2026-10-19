@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.evaluator_instructions
     import capo_bedrock_agentcore_control.types.evaluator_model_config
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> LlmAsAJudgeEvaluatorConfig:
     if data.get("instructions") is not None:
         out["instructions"] = data["instructions"]
     else:
-        raise DeserializationError("LlmAsAJudgeEvaluatorConfig.instructions required")
+        out["instructions"] = ""
     if data.get("ratingScale") is not None:
         import capo_bedrock_agentcore_control.types.rating_scale
 
@@ -57,7 +55,11 @@ def deserialize_json(data: dict) -> LlmAsAJudgeEvaluatorConfig:
             )
         )
     else:
-        raise DeserializationError("LlmAsAJudgeEvaluatorConfig.rating_scale required")
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["rating_scale"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
+        )
     if data.get("modelConfig") is not None:
         import capo_bedrock_agentcore_control.types.evaluator_model_config
 
@@ -67,7 +69,11 @@ def deserialize_json(data: dict) -> LlmAsAJudgeEvaluatorConfig:
             )
         )
     else:
-        raise DeserializationError("LlmAsAJudgeEvaluatorConfig.model_config required")
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["model_config"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
+        )
     return out
 
 

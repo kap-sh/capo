@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.max_results
     import capo_lookoutequipment.types.model_name
@@ -99,7 +97,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListModelVersionsRequest:
     if data.get("ModelName") is not None:
         out["model_name"] = data["ModelName"]
     else:
-        raise DeserializationError("ListModelVersionsRequest.model_name required")
+        out["model_name"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

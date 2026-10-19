@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.user_apps_list
 
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> ListQAppsOutput:
 
         out["apps"] = capo_qapps.types.user_apps_list.deserialize_json(data["apps"])
     else:
-        raise DeserializationError("ListQAppsOutput.apps required")
+        out["apps"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

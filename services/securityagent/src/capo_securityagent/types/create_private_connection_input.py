@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.private_connection_mode
     import capo_securityagent.types.private_connection_name
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> CreatePrivateConnectionInput:
     if data.get("privateConnectionName") is not None:
         out["private_connection_name"] = data["privateConnectionName"]
     else:
-        raise DeserializationError(
-            "CreatePrivateConnectionInput.private_connection_name required"
-        )
+        out["private_connection_name"] = ""
     if data.get("mode") is not None:
         import capo_securityagent.types.private_connection_mode
 
@@ -54,7 +50,9 @@ def deserialize_json(data: dict) -> CreatePrivateConnectionInput:
             data["mode"]
         )
     else:
-        raise DeserializationError("CreatePrivateConnectionInput.mode required")
+        import capo_securityagent.types._unknown
+
+        out["mode"] = capo_securityagent.types._unknown.UnknownUnionMember("")
     if data.get("tags") is not None:
         import capo_securityagent.types.tag_map
 

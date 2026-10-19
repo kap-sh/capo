@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migration_hub_refactor_spaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migration_hub_refactor_spaces.types.client_token
     import capo_migration_hub_refactor_spaces.types.description
@@ -56,15 +54,13 @@ def deserialize_json(data: dict) -> CreateEnvironmentRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateEnvironmentRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("NetworkFabricType") is not None:
         out["network_fabric_type"] = data["NetworkFabricType"]
     else:
-        raise DeserializationError(
-            "CreateEnvironmentRequest.network_fabric_type required"
-        )
+        out["network_fabric_type"] = ""
     if data.get("Tags") is not None:
         import capo_migration_hub_refactor_spaces.types.tag_map
 

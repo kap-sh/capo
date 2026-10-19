@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.index_edition
     import capo_kendra.types.index_id
@@ -79,7 +77,9 @@ def deserialize_aws_json_1_1(data: dict) -> IndexConfigurationSummary:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("IndexConfigurationSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("UpdatedAt") is not None:
         import capo_kendra.types.timestamp
 
@@ -87,7 +87,9 @@ def deserialize_aws_json_1_1(data: dict) -> IndexConfigurationSummary:
             data["UpdatedAt"]
         )
     else:
-        raise DeserializationError("IndexConfigurationSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Status") is not None:
         import capo_kendra.types.index_status
 
@@ -95,5 +97,7 @@ def deserialize_aws_json_1_1(data: dict) -> IndexConfigurationSummary:
             data["Status"]
         )
     else:
-        raise DeserializationError("IndexConfigurationSummary.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_kendra.types.index_status.IndexStatus", "")
     return out

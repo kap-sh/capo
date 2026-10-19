@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_mpa.errors import DeserializationError, ServiceError
+from capo_mpa.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_mpa.types.string
@@ -28,7 +28,7 @@ def deserialize_json(data: dict) -> ResourceNotFoundException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("ResourceNotFoundException_.message required")
+        out["message"] = ""
     return out
 
 

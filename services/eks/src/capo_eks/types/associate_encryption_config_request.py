@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eks.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eks.types.encryption_config_list
     import capo_eks.types.string
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> AssociateEncryptionConfigRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "AssociateEncryptionConfigRequest.encryption_config required"
-        )
+        out["encryption_config"] = []
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     return out

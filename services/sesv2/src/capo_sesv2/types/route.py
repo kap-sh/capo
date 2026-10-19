@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.region
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> Route:
     if data.get("Region") is not None:
         out["region"] = data["Region"]
     else:
-        raise DeserializationError("Route.region required")
+        out["region"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.locale
     import capo_partnercentral_account.types.unicode_string
@@ -41,21 +39,21 @@ def deserialize_aws_json_1_0(data: dict) -> LocalizedContent:
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     else:
-        raise DeserializationError("LocalizedContent.display_name required")
+        out["display_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("LocalizedContent.description required")
+        out["description"] = ""
     if data.get("WebsiteUrl") is not None:
         out["website_url"] = data["WebsiteUrl"]
     else:
-        raise DeserializationError("LocalizedContent.website_url required")
+        out["website_url"] = ""
     if data.get("LogoUrl") is not None:
         out["logo_url"] = data["LogoUrl"]
     else:
-        raise DeserializationError("LocalizedContent.logo_url required")
+        out["logo_url"] = ""
     if data.get("Locale") is not None:
         out["locale"] = data["Locale"]
     else:
-        raise DeserializationError("LocalizedContent.locale required")
+        out["locale"] = ""
     return out

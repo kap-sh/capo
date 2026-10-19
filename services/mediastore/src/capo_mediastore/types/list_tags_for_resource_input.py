@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediastore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediastore.types.container_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsForResourceInput:
     if data.get("Resource") is not None:
         out["resource"] = data["Resource"]
     else:
-        raise DeserializationError("ListTagsForResourceInput.resource required")
+        out["resource"] = ""
     return out

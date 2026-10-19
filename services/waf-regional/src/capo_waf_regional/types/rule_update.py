@@ -43,7 +43,11 @@ def deserialize_aws_json_1_1(data: dict) -> RuleUpdate:
             data["Action"]
         )
     else:
-        raise DeserializationError("RuleUpdate.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_waf_regional.types.change_action.ChangeAction", ""
+        )
     if data.get("Predicate") is not None:
         import capo_waf_regional.types.predicate
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_invoicing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_invoicing.types.basic_string
     import capo_invoicing.types.feature_configurations
@@ -57,7 +55,7 @@ def deserialize_aws_json_1_0(data: dict) -> ProcurementPortal:
     if data.get("PortalIdentifier") is not None:
         out["portal_identifier"] = data["PortalIdentifier"]
     else:
-        raise DeserializationError("ProcurementPortal.portal_identifier required")
+        out["portal_identifier"] = ""
     if data.get("PortalName") is not None:
         import capo_invoicing.types.procurement_portal_name
 
@@ -67,7 +65,11 @@ def deserialize_aws_json_1_0(data: dict) -> ProcurementPortal:
             )
         )
     else:
-        raise DeserializationError("ProcurementPortal.portal_name required")
+        import typing
+
+        out["portal_name"] = typing.cast(
+            "capo_invoicing.types.procurement_portal_name.ProcurementPortalName", ""
+        )
     if data.get("PortalDisplayName") is not None:
         out["portal_display_name"] = data["PortalDisplayName"]
     if data.get("DefaultFeatureConfigurations") is not None:

@@ -57,7 +57,11 @@ def deserialize_json(data: dict) -> AgenticRetrieveMessage:
             )
         )
     else:
-        raise DeserializationError("AgenticRetrieveMessage.role required")
+        import typing
+
+        out["role"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.conversation_role.ConversationRole", ""
+        )
     return out
 
 

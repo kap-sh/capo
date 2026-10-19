@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.change_id
@@ -30,5 +29,5 @@ def deserialize_xml(el: Element) -> ChangeCidrCollectionResponse:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("ChangeCidrCollectionResponse.id required")
+        out["id"] = ""
     return out

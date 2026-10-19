@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector_scan.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector_scan.types.output_format
     import capo_inspector_scan.types.sbom
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> ScanSbomRequest:
     if data.get("sbom") is not None:
         out["sbom"] = data["sbom"]
     else:
-        raise DeserializationError("ScanSbomRequest.sbom required")
+        out["sbom"] = None
     if data.get("outputFormat") is not None:
         import capo_inspector_scan.types.output_format
 

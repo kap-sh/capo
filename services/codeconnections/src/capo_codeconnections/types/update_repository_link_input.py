@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeconnections.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeconnections.types.connection_arn
     import capo_codeconnections.types.kms_key_arn
@@ -43,7 +41,5 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateRepositoryLinkInput:
     if data.get("RepositoryLinkId") is not None:
         out["repository_link_id"] = data["RepositoryLinkId"]
     else:
-        raise DeserializationError(
-            "UpdateRepositoryLinkInput.repository_link_id required"
-        )
+        out["repository_link_id"] = ""
     return out

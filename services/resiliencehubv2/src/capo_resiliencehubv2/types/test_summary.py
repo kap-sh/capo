@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -50,23 +48,23 @@ def deserialize_json(data: dict) -> TestSummary:
     if data.get("testId") is not None:
         out["test_id"] = data["testId"]
     else:
-        raise DeserializationError("TestSummary.test_id required")
+        out["test_id"] = ""
     if data.get("testTemplateArn") is not None:
         out["test_template_arn"] = data["testTemplateArn"]
     else:
-        raise DeserializationError("TestSummary.test_template_arn required")
+        out["test_template_arn"] = ""
     if data.get("serviceArn") is not None:
         out["service_arn"] = data["serviceArn"]
     else:
-        raise DeserializationError("TestSummary.service_arn required")
+        out["service_arn"] = ""
     if data.get("totalTestRuns") is not None:
         out["total_test_runs"] = data["totalTestRuns"]
     else:
-        raise DeserializationError("TestSummary.total_test_runs required")
+        out["total_test_runs"] = 0
     if data.get("successfulTestRuns") is not None:
         out["successful_test_runs"] = data["successfulTestRuns"]
     else:
-        raise DeserializationError("TestSummary.successful_test_runs required")
+        out["successful_test_runs"] = 0
     if data.get("creationTime") is not None:
         import capo_resiliencehubv2.types._prelude.timestamp
 
@@ -76,5 +74,9 @@ def deserialize_json(data: dict) -> TestSummary:
             )
         )
     else:
-        raise DeserializationError("TestSummary.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

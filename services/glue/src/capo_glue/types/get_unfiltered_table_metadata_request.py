@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.arn_string
     import capo_glue.types.audit_context
@@ -104,19 +102,15 @@ def deserialize_aws_json_1_1(data: dict) -> GetUnfilteredTableMetadataRequest:
     if data.get("CatalogId") is not None:
         out["catalog_id"] = data["CatalogId"]
     else:
-        raise DeserializationError(
-            "GetUnfilteredTableMetadataRequest.catalog_id required"
-        )
+        out["catalog_id"] = ""
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError(
-            "GetUnfilteredTableMetadataRequest.database_name required"
-        )
+        out["database_name"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("GetUnfilteredTableMetadataRequest.name required")
+        out["name"] = ""
     if data.get("AuditContext") is not None:
         import capo_glue.types.audit_context
 
@@ -132,9 +126,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetUnfilteredTableMetadataRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GetUnfilteredTableMetadataRequest.supported_permission_types required"
-        )
+        out["supported_permission_types"] = []
     if data.get("ParentResourceArn") is not None:
         out["parent_resource_arn"] = data["ParentResourceArn"]
     if data.get("RootResourceArn") is not None:

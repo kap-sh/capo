@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.boolean
@@ -53,9 +52,7 @@ def deserialize_xml(el: Element) -> ObjectLambdaConfiguration:
     if child_supporting_access_point is not None:
         out["supporting_access_point"] = str(child_supporting_access_point.text or "")
     else:
-        raise DeserializationError(
-            "ObjectLambdaConfiguration.supporting_access_point required"
-        )
+        out["supporting_access_point"] = ""
     child_cloud_watch_metrics_enabled = el.find("CloudWatchMetricsEnabled")
     if child_cloud_watch_metrics_enabled is not None:
         out["cloud_watch_metrics_enabled"] = (
@@ -82,7 +79,5 @@ def deserialize_xml(el: Element) -> ObjectLambdaConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ObjectLambdaConfiguration.transformation_configurations required"
-        )
+        out["transformation_configurations"] = []
     return out

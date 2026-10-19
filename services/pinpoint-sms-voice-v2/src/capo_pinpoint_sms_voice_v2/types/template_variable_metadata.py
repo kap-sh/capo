@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.template_variable_source
     import capo_pinpoint_sms_voice_v2.types.template_variable_type
@@ -65,7 +63,7 @@ def deserialize_aws_json_1_0(data: dict) -> TemplateVariableMetadata:
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     else:
-        raise DeserializationError("TemplateVariableMetadata.type required")
+        out["type"] = ""
     if data.get("Required") is not None:
         out["required"] = data["Required"]
     else:

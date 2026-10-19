@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_medical_imaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_medical_imaging.types.image_set_properties_list
     import capo_medical_imaging.types.next_token
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> ListImageSetVersionsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListImageSetVersionsResponse.image_set_properties_list required"
-        )
+        out["image_set_properties_list"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

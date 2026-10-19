@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.arn
     import capo_chime_sdk_media_pipelines.types.media_pipeline_source_type
@@ -43,11 +41,16 @@ def deserialize_json(data: dict) -> MediaStreamSource:
             )
         )
     else:
-        raise DeserializationError("MediaStreamSource.source_type required")
+        import typing
+
+        out["source_type"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.media_pipeline_source_type.MediaPipelineSourceType",
+            "",
+        )
     if data.get("SourceArn") is not None:
         out["source_arn"] = data["SourceArn"]
     else:
-        raise DeserializationError("MediaStreamSource.source_arn required")
+        out["source_arn"] = ""
     return out
 
 

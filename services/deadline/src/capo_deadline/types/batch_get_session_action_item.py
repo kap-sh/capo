@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.acquired_limits
     import capo_deadline.types.ended_at
@@ -135,21 +133,19 @@ def deserialize_json(data: dict) -> BatchGetSessionActionItem:
     if data.get("farmId") is not None:
         out["farm_id"] = data["farmId"]
     else:
-        raise DeserializationError("BatchGetSessionActionItem.farm_id required")
+        out["farm_id"] = ""
     if data.get("queueId") is not None:
         out["queue_id"] = data["queueId"]
     else:
-        raise DeserializationError("BatchGetSessionActionItem.queue_id required")
+        out["queue_id"] = ""
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("BatchGetSessionActionItem.job_id required")
+        out["job_id"] = ""
     if data.get("sessionActionId") is not None:
         out["session_action_id"] = data["sessionActionId"]
     else:
-        raise DeserializationError(
-            "BatchGetSessionActionItem.session_action_id required"
-        )
+        out["session_action_id"] = ""
     if data.get("status") is not None:
         import capo_deadline.types.session_action_status
 
@@ -157,7 +153,11 @@ def deserialize_json(data: dict) -> BatchGetSessionActionItem:
             data["status"]
         )
     else:
-        raise DeserializationError("BatchGetSessionActionItem.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_deadline.types.session_action_status.SessionActionStatus", ""
+        )
     if data.get("startedAt") is not None:
         import capo_deadline.types.started_at
 
@@ -187,7 +187,7 @@ def deserialize_json(data: dict) -> BatchGetSessionActionItem:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("BatchGetSessionActionItem.session_id required")
+        out["session_id"] = ""
     if data.get("processExitCode") is not None:
         out["process_exit_code"] = data["processExitCode"]
     if data.get("progressMessage") is not None:
@@ -207,7 +207,9 @@ def deserialize_json(data: dict) -> BatchGetSessionActionItem:
             )
         )
     else:
-        raise DeserializationError("BatchGetSessionActionItem.definition required")
+        import capo_deadline.types._unknown
+
+        out["definition"] = capo_deadline.types._unknown.UnknownUnionMember("")
     return out
 
 

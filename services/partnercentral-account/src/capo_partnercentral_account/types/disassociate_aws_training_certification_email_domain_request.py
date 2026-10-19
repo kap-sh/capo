@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.catalog
     import capo_partnercentral_account.types.client_token
@@ -46,21 +44,15 @@ def deserialize_aws_json_1_0(
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError(
-            "DisassociateAwsTrainingCertificationEmailDomainRequest.catalog required"
-        )
+        out["catalog"] = ""
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError(
-            "DisassociateAwsTrainingCertificationEmailDomainRequest.identifier required"
-        )
+        out["identifier"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError(
-            "DisassociateAwsTrainingCertificationEmailDomainRequest.domain_name required"
-        )
+        out["domain_name"] = ""
     return out

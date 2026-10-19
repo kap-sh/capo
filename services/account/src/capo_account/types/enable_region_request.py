@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_account.types.account_id
     import capo_account.types.region_name
@@ -34,5 +32,5 @@ def deserialize_json(data: dict) -> EnableRegionRequest:
     if data.get("RegionName") is not None:
         out["region_name"] = data["RegionName"]
     else:
-        raise DeserializationError("EnableRegionRequest.region_name required")
+        out["region_name"] = ""
     return out

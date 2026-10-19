@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_guru.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_guru.types.account_id_list
     import capo_devops_guru.types.organization_resource_collection_max_results
@@ -73,8 +71,11 @@ def deserialize_json(data: dict) -> DescribeOrganizationResourceCollectionHealth
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeOrganizationResourceCollectionHealthRequest.organization_resource_collection_type required"
+        import typing
+
+        out["organization_resource_collection_type"] = typing.cast(
+            "capo_devops_guru.types.organization_resource_collection_type.OrganizationResourceCollectionType",
+            "",
         )
     if data.get("AccountIds") is not None:
         import capo_devops_guru.types.account_id_list

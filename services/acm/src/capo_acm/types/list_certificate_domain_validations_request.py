@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_acm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm.types.certificate_arn
     import capo_acm.types.max_items
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListCertificateDomainValidationsRequ
     if data.get("CertificateArn") is not None:
         out["certificate_arn"] = data["CertificateArn"]
     else:
-        raise DeserializationError(
-            "ListCertificateDomainValidationsRequest.certificate_arn required"
-        )
+        out["certificate_arn"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxItems") is not None:

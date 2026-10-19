@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.hash_string
 
@@ -30,13 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetDataQualityModelResultRequest:
     if data.get("StatisticId") is not None:
         out["statistic_id"] = data["StatisticId"]
     else:
-        raise DeserializationError(
-            "GetDataQualityModelResultRequest.statistic_id required"
-        )
+        out["statistic_id"] = ""
     if data.get("ProfileId") is not None:
         out["profile_id"] = data["ProfileId"]
     else:
-        raise DeserializationError(
-            "GetDataQualityModelResultRequest.profile_id required"
-        )
+        out["profile_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.iso_country_code
     import capo_pinpoint_sms_voice_v2.types.message_type_list
@@ -62,15 +60,15 @@ def deserialize_aws_json_1_0(data: dict) -> RequestSenderIdResult:
     if data.get("SenderIdArn") is not None:
         out["sender_id_arn"] = data["SenderIdArn"]
     else:
-        raise DeserializationError("RequestSenderIdResult.sender_id_arn required")
+        out["sender_id_arn"] = ""
     if data.get("SenderId") is not None:
         out["sender_id"] = data["SenderId"]
     else:
-        raise DeserializationError("RequestSenderIdResult.sender_id required")
+        out["sender_id"] = ""
     if data.get("IsoCountryCode") is not None:
         out["iso_country_code"] = data["IsoCountryCode"]
     else:
-        raise DeserializationError("RequestSenderIdResult.iso_country_code required")
+        out["iso_country_code"] = ""
     if data.get("MessageTypes") is not None:
         import capo_pinpoint_sms_voice_v2.types.message_type_list
 
@@ -80,13 +78,11 @@ def deserialize_aws_json_1_0(data: dict) -> RequestSenderIdResult:
             )
         )
     else:
-        raise DeserializationError("RequestSenderIdResult.message_types required")
+        out["message_types"] = []
     if data.get("MonthlyLeasingPrice") is not None:
         out["monthly_leasing_price"] = data["MonthlyLeasingPrice"]
     else:
-        raise DeserializationError(
-            "RequestSenderIdResult.monthly_leasing_price required"
-        )
+        out["monthly_leasing_price"] = ""
     if data.get("DeletionProtectionEnabled") is not None:
         out["deletion_protection_enabled"] = data["DeletionProtectionEnabled"]
     else:

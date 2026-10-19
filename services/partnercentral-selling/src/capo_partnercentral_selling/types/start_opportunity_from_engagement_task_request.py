@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.catalog_identifier
     import capo_partnercentral_selling.types.client_token
@@ -50,27 +48,19 @@ def deserialize_aws_json_1_0(data: dict) -> StartOpportunityFromEngagementTaskRe
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError(
-            "StartOpportunityFromEngagementTaskRequest.catalog required"
-        )
+        out["catalog"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError(
-            "StartOpportunityFromEngagementTaskRequest.client_token required"
-        )
+        out["client_token"] = ""
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError(
-            "StartOpportunityFromEngagementTaskRequest.identifier required"
-        )
+        out["identifier"] = ""
     if data.get("ContextIdentifier") is not None:
         out["context_identifier"] = data["ContextIdentifier"]
     else:
-        raise DeserializationError(
-            "StartOpportunityFromEngagementTaskRequest.context_identifier required"
-        )
+        out["context_identifier"] = ""
     if data.get("Tags") is not None:
         import capo_partnercentral_selling.types.tag_list
 

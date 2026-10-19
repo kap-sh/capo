@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resource_groups_tagging_api.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resource_groups_tagging_api.types.s3_bucket
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> StartReportCreationInput:
     if data.get("S3Bucket") is not None:
         out["s3_bucket"] = data["S3Bucket"]
     else:
-        raise DeserializationError("StartReportCreationInput.s3_bucket required")
+        out["s3_bucket"] = ""
     return out

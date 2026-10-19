@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.message_id
@@ -30,5 +29,5 @@ def deserialize_query(el: Element) -> SendEmailResponse:
     if child_message_id is not None:
         out["message_id"] = str(child_message_id.text or "")
     else:
-        raise DeserializationError("SendEmailResponse.message_id required")
+        out["message_id"] = ""
     return out

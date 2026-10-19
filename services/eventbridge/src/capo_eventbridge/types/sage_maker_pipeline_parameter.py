@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_eventbridge.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridge.types.sage_maker_pipeline_parameter_name
     import capo_eventbridge.types.sage_maker_pipeline_parameter_value
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> SageMakerPipelineParameter:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("SageMakerPipelineParameter.name required")
+        out["name"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("SageMakerPipelineParameter.value required")
+        out["value"] = ""
     return out

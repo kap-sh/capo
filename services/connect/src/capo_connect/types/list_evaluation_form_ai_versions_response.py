@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.evaluation_form_ai_version_summary_list
     import capo_connect.types.next_token
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> ListEvaluationFormAIVersionsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListEvaluationFormAIVersionsResponse.ai_version_summaries required"
-        )
+        out["ai_version_summaries"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

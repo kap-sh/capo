@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.configuration_type
     import capo_kinesis_analytics_v2.types.log_level
@@ -65,8 +63,10 @@ def deserialize_aws_json_1_1(data: dict) -> MonitoringConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "MonitoringConfiguration.configuration_type required"
+        import typing
+
+        out["configuration_type"] = typing.cast(
+            "capo_kinesis_analytics_v2.types.configuration_type.ConfigurationType", ""
         )
     if data.get("MetricsLevel") is not None:
         import capo_kinesis_analytics_v2.types.metrics_level

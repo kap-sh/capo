@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.approval_argument_pins
     import capo_devops_agent.types.tool_identifier
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> ApprovalPattern:
     if data.get("tool") is not None:
         out["tool"] = data["tool"]
     else:
-        raise DeserializationError("ApprovalPattern.tool required")
+        out["tool"] = ""
     if data.get("argumentPins") is not None:
         import capo_devops_agent.types.approval_argument_pins
 
@@ -45,5 +43,5 @@ def deserialize_json(data: dict) -> ApprovalPattern:
             )
         )
     else:
-        raise DeserializationError("ApprovalPattern.argument_pins required")
+        out["argument_pins"] = {}
     return out

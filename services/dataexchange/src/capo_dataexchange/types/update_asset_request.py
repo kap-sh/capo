@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.asset_name
     import capo_dataexchange.types.id
@@ -34,5 +32,5 @@ def deserialize_json(data: dict) -> UpdateAssetRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateAssetRequest.name required")
+        out["name"] = ""
     return out

@@ -62,9 +62,7 @@ def deserialize_xml(el: Element) -> GetBucketMetadataTableConfigurationResult:
     if child_status is not None:
         out["status"] = str(child_status.text or "")
     else:
-        raise DeserializationError(
-            "GetBucketMetadataTableConfigurationResult.status required"
-        )
+        out["status"] = ""
     child_error = el.find("Error")
     if child_error is not None:
         import capo_s3.types.error_details

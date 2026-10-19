@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.datastore_id
     import capo_healthlake.types.health_lake_timestamp
@@ -124,7 +122,7 @@ def deserialize_aws_json_1_0(data: dict) -> ImportJobProperties:
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError("ImportJobProperties.job_id required")
+        out["job_id"] = ""
     if data.get("JobName") is not None:
         out["job_name"] = data["JobName"]
     if data.get("JobStatus") is not None:
@@ -134,7 +132,11 @@ def deserialize_aws_json_1_0(data: dict) -> ImportJobProperties:
             data["JobStatus"]
         )
     else:
-        raise DeserializationError("ImportJobProperties.job_status required")
+        import typing
+
+        out["job_status"] = typing.cast(
+            "capo_healthlake.types.job_status.JobStatus", ""
+        )
     if data.get("SubmitTime") is not None:
         import capo_healthlake.types.health_lake_timestamp
 
@@ -144,7 +146,11 @@ def deserialize_aws_json_1_0(data: dict) -> ImportJobProperties:
             )
         )
     else:
-        raise DeserializationError("ImportJobProperties.submit_time required")
+        import datetime
+
+        out["submit_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("EndTime") is not None:
         import capo_healthlake.types.health_lake_timestamp
 
@@ -156,7 +162,7 @@ def deserialize_aws_json_1_0(data: dict) -> ImportJobProperties:
     if data.get("DatastoreId") is not None:
         out["datastore_id"] = data["DatastoreId"]
     else:
-        raise DeserializationError("ImportJobProperties.datastore_id required")
+        out["datastore_id"] = ""
     if data.get("InputDataConfig") is not None:
         import capo_healthlake.types.input_data_config
 
@@ -166,7 +172,9 @@ def deserialize_aws_json_1_0(data: dict) -> ImportJobProperties:
             )
         )
     else:
-        raise DeserializationError("ImportJobProperties.input_data_config required")
+        import capo_healthlake.types._unknown
+
+        out["input_data_config"] = capo_healthlake.types._unknown.UnknownUnionMember("")
     if data.get("JobOutputDataConfig") is not None:
         import capo_healthlake.types.output_data_config
 

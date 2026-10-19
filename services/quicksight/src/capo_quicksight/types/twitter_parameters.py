@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.positive_integer
     import capo_quicksight.types.query
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> TwitterParameters:
     if data.get("Query") is not None:
         out["query"] = data["Query"]
     else:
-        raise DeserializationError("TwitterParameters.query required")
+        out["query"] = ""
     if data.get("MaxRows") is not None:
         out["max_rows"] = data["MaxRows"]
     else:
-        raise DeserializationError("TwitterParameters.max_rows required")
+        out["max_rows"] = 0
     return out

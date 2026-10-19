@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.security_group_id
     import capo_datazone.types.vpc_connection_subnet_id_list
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> VpcPropertiesInput:
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
     else:
-        raise DeserializationError("VpcPropertiesInput.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("subnetIds") is not None:
         import capo_datazone.types.vpc_connection_subnet_id_list
 
@@ -54,7 +52,7 @@ def deserialize_json(data: dict) -> VpcPropertiesInput:
             )
         )
     else:
-        raise DeserializationError("VpcPropertiesInput.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("securityGroupId") is not None:
         out["security_group_id"] = data["securityGroupId"]
     return out

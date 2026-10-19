@@ -107,15 +107,15 @@ def deserialize_json(data: dict) -> Channel:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("Channel.arn required")
+        out["arn"] = ""
     if data.get("ChannelName") is not None:
         out["channel_name"] = data["ChannelName"]
     else:
-        raise DeserializationError("Channel.channel_name required")
+        out["channel_name"] = ""
     if data.get("ChannelState") is not None:
         out["channel_state"] = data["ChannelState"]
     else:
-        raise DeserializationError("Channel.channel_state required")
+        out["channel_state"] = ""
     if data.get("CreationTime") is not None:
         import capo_mediatailor.types.__timestamp_unix
 
@@ -143,11 +143,11 @@ def deserialize_json(data: dict) -> Channel:
             data["Outputs"]
         )
     else:
-        raise DeserializationError("Channel.outputs required")
+        out["outputs"] = []
     if data.get("PlaybackMode") is not None:
         out["playback_mode"] = data["PlaybackMode"]
     else:
-        raise DeserializationError("Channel.playback_mode required")
+        out["playback_mode"] = ""
     if data.get("tags") is not None:
         import capo_mediatailor.types.__map_of__string
 
@@ -157,7 +157,7 @@ def deserialize_json(data: dict) -> Channel:
     if data.get("Tier") is not None:
         out["tier"] = data["Tier"]
     else:
-        raise DeserializationError("Channel.tier required")
+        out["tier"] = ""
     if data.get("LogConfiguration") is not None:
         import capo_mediatailor.types.log_configuration_for_channel
 

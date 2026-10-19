@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.confirmation_state
     import capo_bedrock_agent_runtime.types.response_body
@@ -73,7 +71,7 @@ def deserialize_json(data: dict) -> FunctionResult:
     if data.get("actionGroup") is not None:
         out["action_group"] = data["actionGroup"]
     else:
-        raise DeserializationError("FunctionResult.action_group required")
+        out["action_group"] = ""
     if data.get("confirmationState") is not None:
         import capo_bedrock_agent_runtime.types.confirmation_state
 

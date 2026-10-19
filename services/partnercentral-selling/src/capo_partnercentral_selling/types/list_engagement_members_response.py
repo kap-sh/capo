@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.engagement_members
 
@@ -45,9 +43,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListEngagementMembersResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListEngagementMembersResponse.engagement_member_list required"
-        )
+        out["engagement_member_list"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

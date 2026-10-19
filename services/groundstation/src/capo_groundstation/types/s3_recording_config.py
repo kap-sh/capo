@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.bucket_arn
     import capo_groundstation.types.role_arn
@@ -36,11 +34,11 @@ def deserialize_json(data: dict) -> S3RecordingConfig:
     if data.get("bucketArn") is not None:
         out["bucket_arn"] = data["bucketArn"]
     else:
-        raise DeserializationError("S3RecordingConfig.bucket_arn required")
+        out["bucket_arn"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("S3RecordingConfig.role_arn required")
+        out["role_arn"] = ""
     if data.get("prefix") is not None:
         out["prefix"] = data["prefix"]
     return out

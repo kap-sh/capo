@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -76,9 +74,7 @@ def deserialize_json(data: dict) -> SaasFulfillmentOption:
     if data.get("fulfillmentOptionId") is not None:
         out["fulfillment_option_id"] = data["fulfillmentOptionId"]
     else:
-        raise DeserializationError(
-            "SaasFulfillmentOption.fulfillment_option_id required"
-        )
+        out["fulfillment_option_id"] = ""
     if data.get("fulfillmentOptionType") is not None:
         import capo_marketplace_discovery.types.fulfillment_option_type
 
@@ -88,15 +84,16 @@ def deserialize_json(data: dict) -> SaasFulfillmentOption:
             )
         )
     else:
-        raise DeserializationError(
-            "SaasFulfillmentOption.fulfillment_option_type required"
+        import typing
+
+        out["fulfillment_option_type"] = typing.cast(
+            "capo_marketplace_discovery.types.fulfillment_option_type.FulfillmentOptionType",
+            "",
         )
     if data.get("fulfillmentOptionDisplayName") is not None:
         out["fulfillment_option_display_name"] = data["fulfillmentOptionDisplayName"]
     else:
-        raise DeserializationError(
-            "SaasFulfillmentOption.fulfillment_option_display_name required"
-        )
+        out["fulfillment_option_display_name"] = ""
     if data.get("fulfillmentUrl") is not None:
         out["fulfillment_url"] = data["fulfillmentUrl"]
     if data.get("usageInstructions") is not None:
@@ -120,5 +117,10 @@ def deserialize_json(data: dict) -> SaasFulfillmentOption:
             )
         )
     else:
-        raise DeserializationError("SaasFulfillmentOption.quick_launch required")
+        import typing
+
+        out["quick_launch"] = typing.cast(
+            "capo_marketplace_discovery.types.saas_quick_launch_status.SaasQuickLaunchStatus",
+            "",
+        )
     return out

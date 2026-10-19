@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iam_toolbox.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iam_toolbox.types.authorization_context
     import capo_iam_toolbox.types.evaluations
@@ -57,9 +55,7 @@ def deserialize_json(data: dict) -> GetRequestAuthorizationDetailsOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetRequestAuthorizationDetailsOutput.request_context required"
-        )
+        out["request_context"] = {}
     if data.get("evaluations") is not None:
         import capo_iam_toolbox.types.evaluations
 
@@ -67,9 +63,7 @@ def deserialize_json(data: dict) -> GetRequestAuthorizationDetailsOutput:
             data["evaluations"]
         )
     else:
-        raise DeserializationError(
-            "GetRequestAuthorizationDetailsOutput.evaluations required"
-        )
+        out["evaluations"] = []
     if data.get("policies") is not None:
         import capo_iam_toolbox.types.policy_info_list
 
@@ -77,9 +71,7 @@ def deserialize_json(data: dict) -> GetRequestAuthorizationDetailsOutput:
             data["policies"]
         )
     else:
-        raise DeserializationError(
-            "GetRequestAuthorizationDetailsOutput.policies required"
-        )
+        out["policies"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

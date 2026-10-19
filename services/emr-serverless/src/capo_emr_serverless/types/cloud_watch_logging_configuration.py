@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_serverless.types.encryption_key_arn
     import capo_emr_serverless.types.log_group_name
@@ -54,7 +52,7 @@ def deserialize_json(data: dict) -> CloudWatchLoggingConfiguration:
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     else:
-        raise DeserializationError("CloudWatchLoggingConfiguration.enabled required")
+        out["enabled"] = False
     if data.get("logGroupName") is not None:
         out["log_group_name"] = data["logGroupName"]
     if data.get("logStreamNamePrefix") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.mutation_protection_status
     import capo_route53resolver.types.name
@@ -54,9 +52,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateFirewallRuleGroupAssociationRe
             "FirewallRuleGroupAssociationId"
         ]
     else:
-        raise DeserializationError(
-            "UpdateFirewallRuleGroupAssociationRequest.firewall_rule_group_association_id required"
-        )
+        out["firewall_rule_group_association_id"] = ""
     if data.get("Priority") is not None:
         out["priority"] = data["Priority"]
     if data.get("MutationProtection") is not None:

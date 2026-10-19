@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.scope_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> AssociatedScope:
     if data.get("scopeArn") is not None:
         out["scope_arn"] = data["scopeArn"]
     else:
-        raise DeserializationError("AssociatedScope.scope_arn required")
+        out["scope_arn"] = ""
     return out

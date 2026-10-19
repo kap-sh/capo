@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.autodefined_reverse_flag
     import capo_route53resolver.types.resource_id
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateResolverConfigRequest:
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("UpdateResolverConfigRequest.resource_id required")
+        out["resource_id"] = ""
     if data.get("AutodefinedReverseFlag") is not None:
         import capo_route53resolver.types.autodefined_reverse_flag
 
@@ -49,7 +47,10 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateResolverConfigRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateResolverConfigRequest.autodefined_reverse_flag required"
+        import typing
+
+        out["autodefined_reverse_flag"] = typing.cast(
+            "capo_route53resolver.types.autodefined_reverse_flag.AutodefinedReverseFlag",
+            "",
         )
     return out

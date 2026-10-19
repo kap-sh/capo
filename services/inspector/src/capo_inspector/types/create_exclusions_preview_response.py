@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.uuid
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreateExclusionsPreviewResponse:
     if data.get("previewToken") is not None:
         out["preview_token"] = data["previewToken"]
     else:
-        raise DeserializationError(
-            "CreateExclusionsPreviewResponse.preview_token required"
-        )
+        out["preview_token"] = ""
     return out

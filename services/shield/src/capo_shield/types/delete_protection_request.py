@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_shield.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_shield.types.protection_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteProtectionRequest:
     if data.get("ProtectionId") is not None:
         out["protection_id"] = data["ProtectionId"]
     else:
-        raise DeserializationError("DeleteProtectionRequest.protection_id required")
+        out["protection_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.string
     import capo_database_migration_service.types.subnet_identifier_list
@@ -51,9 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyReplicationSubnetGroupMessage:
             "ReplicationSubnetGroupIdentifier"
         ]
     else:
-        raise DeserializationError(
-            "ModifyReplicationSubnetGroupMessage.replication_subnet_group_identifier required"
-        )
+        out["replication_subnet_group_identifier"] = ""
     if data.get("ReplicationSubnetGroupDescription") is not None:
         out["replication_subnet_group_description"] = data[
             "ReplicationSubnetGroupDescription"
@@ -67,7 +63,5 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyReplicationSubnetGroupMessage:
             )
         )
     else:
-        raise DeserializationError(
-            "ModifyReplicationSubnetGroupMessage.subnet_ids required"
-        )
+        out["subnet_ids"] = []
     return out

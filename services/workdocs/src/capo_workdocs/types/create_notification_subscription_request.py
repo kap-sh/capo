@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workdocs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workdocs.types.id_type
     import capo_workdocs.types.subscription_end_point_type
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> CreateNotificationSubscriptionRequest:
     if data.get("Endpoint") is not None:
         out["endpoint"] = data["Endpoint"]
     else:
-        raise DeserializationError(
-            "CreateNotificationSubscriptionRequest.endpoint required"
-        )
+        out["endpoint"] = ""
     if data.get("Protocol") is not None:
         import capo_workdocs.types.subscription_protocol_type
 
@@ -58,8 +54,11 @@ def deserialize_json(data: dict) -> CreateNotificationSubscriptionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateNotificationSubscriptionRequest.protocol required"
+        import typing
+
+        out["protocol"] = typing.cast(
+            "capo_workdocs.types.subscription_protocol_type.SubscriptionProtocolType",
+            "",
         )
     if data.get("SubscriptionType") is not None:
         import capo_workdocs.types.subscription_type
@@ -70,7 +69,9 @@ def deserialize_json(data: dict) -> CreateNotificationSubscriptionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateNotificationSubscriptionRequest.subscription_type required"
+        import typing
+
+        out["subscription_type"] = typing.cast(
+            "capo_workdocs.types.subscription_type.SubscriptionType", ""
         )
     return out

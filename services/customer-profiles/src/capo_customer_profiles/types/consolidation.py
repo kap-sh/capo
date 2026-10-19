@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.matching_attributes_list
 
@@ -41,5 +39,5 @@ def deserialize_json(data: dict) -> Consolidation:
             )
         )
     else:
-        raise DeserializationError("Consolidation.matching_attributes_list required")
+        out["matching_attributes_list"] = []
     return out

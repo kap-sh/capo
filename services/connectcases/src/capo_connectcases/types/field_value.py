@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.field_id
     import capo_connectcases.types.field_value_union
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> FieldValue:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("FieldValue.id required")
+        out["id"] = ""
     if data.get("value") is not None:
         import capo_connectcases.types.field_value_union
 
@@ -43,5 +41,7 @@ def deserialize_json(data: dict) -> FieldValue:
             data["value"]
         )
     else:
-        raise DeserializationError("FieldValue.value required")
+        import capo_connectcases.types._unknown
+
+        out["value"] = capo_connectcases.types._unknown.UnknownUnionMember("")
     return out

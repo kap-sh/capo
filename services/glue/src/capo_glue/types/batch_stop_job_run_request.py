@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.batch_stop_job_run_job_run_id_list
     import capo_glue.types.name_string
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchStopJobRunRequest:
     if data.get("JobName") is not None:
         out["job_name"] = data["JobName"]
     else:
-        raise DeserializationError("BatchStopJobRunRequest.job_name required")
+        out["job_name"] = ""
     if data.get("JobRunIds") is not None:
         import capo_glue.types.batch_stop_job_run_job_run_id_list
 
@@ -49,5 +47,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchStopJobRunRequest:
             )
         )
     else:
-        raise DeserializationError("BatchStopJobRunRequest.job_run_ids required")
+        out["job_run_ids"] = []
     return out

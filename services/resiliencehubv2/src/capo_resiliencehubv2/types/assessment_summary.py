@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -121,11 +119,11 @@ def deserialize_json(data: dict) -> AssessmentSummary:
     if data.get("assessmentId") is not None:
         out["assessment_id"] = data["assessmentId"]
     else:
-        raise DeserializationError("AssessmentSummary.assessment_id required")
+        out["assessment_id"] = ""
     if data.get("serviceArn") is not None:
         out["service_arn"] = data["serviceArn"]
     else:
-        raise DeserializationError("AssessmentSummary.service_arn required")
+        out["service_arn"] = ""
     if data.get("assessmentStatus") is not None:
         import capo_resiliencehubv2.types.assessment_status
 

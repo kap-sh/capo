@@ -60,7 +60,7 @@ def deserialize_xml(el: Element) -> ContinuousDeploymentPolicyConfig:
     if child_enabled is not None:
         out["enabled"] = (child_enabled.text or "").lower() == "true"
     else:
-        raise DeserializationError("ContinuousDeploymentPolicyConfig.enabled required")
+        out["enabled"] = False
     child_traffic_config = el.find("TrafficConfig")
     if child_traffic_config is not None:
         import capo_cloudfront.types.traffic_config

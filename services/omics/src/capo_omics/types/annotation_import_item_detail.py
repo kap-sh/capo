@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.job_status
     import capo_omics.types.s3_uri
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> AnnotationImportItemDetail:
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("AnnotationImportItemDetail.source required")
+        out["source"] = ""
     if data.get("jobStatus") is not None:
         out["job_status"] = data["jobStatus"]
     else:
-        raise DeserializationError("AnnotationImportItemDetail.job_status required")
+        out["job_status"] = ""
     return out

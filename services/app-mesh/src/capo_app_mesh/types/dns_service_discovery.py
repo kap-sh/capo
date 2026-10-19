@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.dns_response_type
     import capo_app_mesh.types.hostname
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> DnsServiceDiscovery:
     if data.get("hostname") is not None:
         out["hostname"] = data["hostname"]
     else:
-        raise DeserializationError("DnsServiceDiscovery.hostname required")
+        out["hostname"] = ""
     if data.get("responseType") is not None:
         out["response_type"] = data["responseType"]
     if data.get("ipPreference") is not None:

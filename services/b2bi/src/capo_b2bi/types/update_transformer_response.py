@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.created_date
     import capo_b2bi.types.edi_type
@@ -127,15 +125,15 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateTransformerResponse:
     if data.get("transformerId") is not None:
         out["transformer_id"] = data["transformerId"]
     else:
-        raise DeserializationError("UpdateTransformerResponse.transformer_id required")
+        out["transformer_id"] = ""
     if data.get("transformerArn") is not None:
         out["transformer_arn"] = data["transformerArn"]
     else:
-        raise DeserializationError("UpdateTransformerResponse.transformer_arn required")
+        out["transformer_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateTransformerResponse.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         import capo_b2bi.types.transformer_status
 
@@ -143,7 +141,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateTransformerResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("UpdateTransformerResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_b2bi.types.transformer_status.TransformerStatus", ""
+        )
     if data.get("createdAt") is not None:
         import capo_b2bi.types.created_date
 
@@ -151,7 +153,9 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateTransformerResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("UpdateTransformerResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("modifiedAt") is not None:
         import capo_b2bi.types.modified_date
 
@@ -159,7 +163,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateTransformerResponse:
             data["modifiedAt"]
         )
     else:
-        raise DeserializationError("UpdateTransformerResponse.modified_at required")
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("fileFormat") is not None:
         import capo_b2bi.types.file_format
 

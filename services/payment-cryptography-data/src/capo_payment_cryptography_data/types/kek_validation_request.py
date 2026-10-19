@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.random_key_max_length
     import capo_payment_cryptography_data.types.symmetric_key_algorithm
@@ -52,7 +50,12 @@ def deserialize_json(data: dict) -> KekValidationRequest:
             )
         )
     else:
-        raise DeserializationError("KekValidationRequest.derive_key_algorithm required")
+        import typing
+
+        out["derive_key_algorithm"] = typing.cast(
+            "capo_payment_cryptography_data.types.symmetric_key_algorithm.SymmetricKeyAlgorithm",
+            "",
+        )
     if data.get("RandomKeyMaxLength") is not None:
         import capo_payment_cryptography_data.types.random_key_max_length
 

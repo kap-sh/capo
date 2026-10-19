@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_compute_optimizer_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_compute_optimizer_automation.types.filter_values
     import capo_compute_optimizer_automation.types.recommended_action_filter_name
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> RecommendedActionFilter:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RecommendedActionFilter.name required")
+        out["name"] = ""
     if data.get("values") is not None:
         import capo_compute_optimizer_automation.types.filter_values
 
@@ -47,5 +45,5 @@ def deserialize_aws_json_1_0(data: dict) -> RecommendedActionFilter:
             )
         )
     else:
-        raise DeserializationError("RecommendedActionFilter.values required")
+        out["values"] = []
     return out

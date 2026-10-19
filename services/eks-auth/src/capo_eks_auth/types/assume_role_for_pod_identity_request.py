@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eks_auth.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eks_auth.types.cluster_name
     import capo_eks_auth.types.jwt_token
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> AssumeRoleForPodIdentityRequest:
     if data.get("token") is not None:
         out["token"] = data["token"]
     else:
-        raise DeserializationError("AssumeRoleForPodIdentityRequest.token required")
+        out["token"] = ""
     if data.get("eksNodeName") is not None:
         out["eks_node_name"] = data["eksNodeName"]
     if data.get("instanceId") is not None:

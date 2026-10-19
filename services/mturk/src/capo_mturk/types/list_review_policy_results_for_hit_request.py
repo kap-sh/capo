@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mturk.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mturk.types.boolean
     import capo_mturk.types.entity_id
@@ -59,9 +57,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListReviewPolicyResultsForHITRequest
     if data.get("HITId") is not None:
         out["hit_id"] = data["HITId"]
     else:
-        raise DeserializationError(
-            "ListReviewPolicyResultsForHITRequest.hit_id required"
-        )
+        out["hit_id"] = ""
     if data.get("PolicyLevels") is not None:
         import capo_mturk.types.review_policy_level_list
 

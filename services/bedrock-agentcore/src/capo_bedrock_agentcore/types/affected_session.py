@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.failure_span_detail_list
 
@@ -47,19 +45,19 @@ def deserialize_json(data: dict) -> AffectedSession:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("AffectedSession.session_id required")
+        out["session_id"] = ""
     if data.get("explanation") is not None:
         out["explanation"] = data["explanation"]
     else:
-        raise DeserializationError("AffectedSession.explanation required")
+        out["explanation"] = ""
     if data.get("fixType") is not None:
         out["fix_type"] = data["fixType"]
     else:
-        raise DeserializationError("AffectedSession.fix_type required")
+        out["fix_type"] = ""
     if data.get("recommendation") is not None:
         out["recommendation"] = data["recommendation"]
     else:
-        raise DeserializationError("AffectedSession.recommendation required")
+        out["recommendation"] = ""
     if data.get("failureSpans") is not None:
         import capo_bedrock_agentcore.types.failure_span_detail_list
 
@@ -69,5 +67,5 @@ def deserialize_json(data: dict) -> AffectedSession:
             )
         )
     else:
-        raise DeserializationError("AffectedSession.failure_spans required")
+        out["failure_spans"] = []
     return out

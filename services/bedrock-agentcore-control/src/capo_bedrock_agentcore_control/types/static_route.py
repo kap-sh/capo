@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.target_name
 
@@ -27,7 +25,7 @@ def deserialize_json(data: dict) -> StaticRoute:
     if data.get("targetName") is not None:
         out["target_name"] = data["targetName"]
     else:
-        raise DeserializationError("StaticRoute.target_name required")
+        out["target_name"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_observabilityadmin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_observabilityadmin.types.region
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> MetricsBackupConfiguration:
     if data.get("Region") is not None:
         out["region"] = data["Region"]
     else:
-        raise DeserializationError("MetricsBackupConfiguration.region required")
+        out["region"] = ""
     return out

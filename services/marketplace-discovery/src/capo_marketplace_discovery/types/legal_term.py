@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.document_list
     import capo_marketplace_discovery.types.term_id
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> LegalTerm:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("LegalTerm.id required")
+        out["id"] = ""
     if data.get("type") is not None:
         import capo_marketplace_discovery.types.term_type
 
@@ -51,7 +49,11 @@ def deserialize_json(data: dict) -> LegalTerm:
             data["type"]
         )
     else:
-        raise DeserializationError("LegalTerm.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_marketplace_discovery.types.term_type.TermType", ""
+        )
     if data.get("documents") is not None:
         import capo_marketplace_discovery.types.document_list
 
@@ -61,5 +63,5 @@ def deserialize_json(data: dict) -> LegalTerm:
             )
         )
     else:
-        raise DeserializationError("LegalTerm.documents required")
+        out["documents"] = []
     return out

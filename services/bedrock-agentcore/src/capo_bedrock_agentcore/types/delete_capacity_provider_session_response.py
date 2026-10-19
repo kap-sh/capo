@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.capacity_provider_arn
     import capo_bedrock_agentcore.types.capacity_provider_session_status
@@ -43,15 +41,11 @@ def deserialize_json(data: dict) -> DeleteCapacityProviderSessionResponse:
     if data.get("capacityProviderArn") is not None:
         out["capacity_provider_arn"] = data["capacityProviderArn"]
     else:
-        raise DeserializationError(
-            "DeleteCapacityProviderSessionResponse.capacity_provider_arn required"
-        )
+        out["capacity_provider_arn"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError(
-            "DeleteCapacityProviderSessionResponse.session_id required"
-        )
+        out["session_id"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore.types.capacity_provider_session_status
 
@@ -61,7 +55,10 @@ def deserialize_json(data: dict) -> DeleteCapacityProviderSessionResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DeleteCapacityProviderSessionResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore.types.capacity_provider_session_status.CapacityProviderSessionStatus",
+            "",
         )
     return out

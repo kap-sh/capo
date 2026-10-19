@@ -62,11 +62,11 @@ def deserialize_aws_json_1_0(data: dict) -> KeySummary:
     if data.get("KeyArn") is not None:
         out["key_arn"] = data["KeyArn"]
     else:
-        raise DeserializationError("KeySummary.key_arn required")
+        out["key_arn"] = ""
     if data.get("KeyState") is not None:
         out["key_state"] = data["KeyState"]
     else:
-        raise DeserializationError("KeySummary.key_state required")
+        out["key_state"] = ""
     if data.get("KeyAttributes") is not None:
         import capo_payment_cryptography.types.key_attributes
 
@@ -80,15 +80,15 @@ def deserialize_aws_json_1_0(data: dict) -> KeySummary:
     if data.get("KeyCheckValue") is not None:
         out["key_check_value"] = data["KeyCheckValue"]
     else:
-        raise DeserializationError("KeySummary.key_check_value required")
+        out["key_check_value"] = ""
     if data.get("Exportable") is not None:
         out["exportable"] = data["Exportable"]
     else:
-        raise DeserializationError("KeySummary.exportable required")
+        out["exportable"] = False
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
-        raise DeserializationError("KeySummary.enabled required")
+        out["enabled"] = False
     if data.get("MultiRegionKeyType") is not None:
         out["multi_region_key_type"] = data["MultiRegionKeyType"]
     if data.get("PrimaryRegion") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.enrichment_strategy_method
 
@@ -39,5 +37,10 @@ def deserialize_json(data: dict) -> EnrichmentStrategyConfiguration:
             )
         )
     else:
-        raise DeserializationError("EnrichmentStrategyConfiguration.method required")
+        import typing
+
+        out["method"] = typing.cast(
+            "capo_bedrock_agent.types.enrichment_strategy_method.EnrichmentStrategyMethod",
+            "",
+        )
     return out

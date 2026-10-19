@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.cluster_information_list
     import capo_inspector2.types.get_clusters_for_image_next_token
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> GetClustersForImageResponse:
             )
         )
     else:
-        raise DeserializationError("GetClustersForImageResponse.cluster required")
+        out["cluster"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.cloud_watch_log_group_arn
     import capo_lex_models_v2.types.log_prefix
@@ -33,13 +31,9 @@ def deserialize_json(data: dict) -> CloudWatchLogGroupLogDestination:
     if data.get("cloudWatchLogGroupArn") is not None:
         out["cloud_watch_log_group_arn"] = data["cloudWatchLogGroupArn"]
     else:
-        raise DeserializationError(
-            "CloudWatchLogGroupLogDestination.cloud_watch_log_group_arn required"
-        )
+        out["cloud_watch_log_group_arn"] = ""
     if data.get("logPrefix") is not None:
         out["log_prefix"] = data["logPrefix"]
     else:
-        raise DeserializationError(
-            "CloudWatchLogGroupLogDestination.log_prefix required"
-        )
+        out["log_prefix"] = ""
     return out

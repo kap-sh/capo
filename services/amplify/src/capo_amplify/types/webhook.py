@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.app_id
     import capo_amplify.types.branch_name
@@ -64,25 +62,25 @@ def deserialize_json(data: dict) -> Webhook:
     if data.get("webhookArn") is not None:
         out["webhook_arn"] = data["webhookArn"]
     else:
-        raise DeserializationError("Webhook.webhook_arn required")
+        out["webhook_arn"] = ""
     if data.get("webhookId") is not None:
         out["webhook_id"] = data["webhookId"]
     else:
-        raise DeserializationError("Webhook.webhook_id required")
+        out["webhook_id"] = ""
     if data.get("webhookUrl") is not None:
         out["webhook_url"] = data["webhookUrl"]
     else:
-        raise DeserializationError("Webhook.webhook_url required")
+        out["webhook_url"] = ""
     if data.get("appId") is not None:
         out["app_id"] = data["appId"]
     if data.get("branchName") is not None:
         out["branch_name"] = data["branchName"]
     else:
-        raise DeserializationError("Webhook.branch_name required")
+        out["branch_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("Webhook.description required")
+        out["description"] = ""
     if data.get("createTime") is not None:
         import capo_amplify.types.create_time
 
@@ -90,7 +88,11 @@ def deserialize_json(data: dict) -> Webhook:
             data["createTime"]
         )
     else:
-        raise DeserializationError("Webhook.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import capo_amplify.types.update_time
 
@@ -98,5 +100,9 @@ def deserialize_json(data: dict) -> Webhook:
             data["updateTime"]
         )
     else:
-        raise DeserializationError("Webhook.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

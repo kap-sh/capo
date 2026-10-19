@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.guardrail_automated_reasoning_policies_processed
     import capo_bedrock_runtime.types.guardrail_automated_reasoning_policy_units_processed
@@ -70,39 +68,33 @@ def deserialize_json(data: dict) -> GuardrailUsage:
     if data.get("topicPolicyUnits") is not None:
         out["topic_policy_units"] = data["topicPolicyUnits"]
     else:
-        raise DeserializationError("GuardrailUsage.topic_policy_units required")
+        out["topic_policy_units"] = 0
     if data.get("contentPolicyUnits") is not None:
         out["content_policy_units"] = data["contentPolicyUnits"]
     else:
-        raise DeserializationError("GuardrailUsage.content_policy_units required")
+        out["content_policy_units"] = 0
     if data.get("wordPolicyUnits") is not None:
         out["word_policy_units"] = data["wordPolicyUnits"]
     else:
-        raise DeserializationError("GuardrailUsage.word_policy_units required")
+        out["word_policy_units"] = 0
     if data.get("sensitiveInformationPolicyUnits") is not None:
         out["sensitive_information_policy_units"] = data[
             "sensitiveInformationPolicyUnits"
         ]
     else:
-        raise DeserializationError(
-            "GuardrailUsage.sensitive_information_policy_units required"
-        )
+        out["sensitive_information_policy_units"] = 0
     if data.get("sensitiveInformationPolicyFreeUnits") is not None:
         out["sensitive_information_policy_free_units"] = data[
             "sensitiveInformationPolicyFreeUnits"
         ]
     else:
-        raise DeserializationError(
-            "GuardrailUsage.sensitive_information_policy_free_units required"
-        )
+        out["sensitive_information_policy_free_units"] = 0
     if data.get("contextualGroundingPolicyUnits") is not None:
         out["contextual_grounding_policy_units"] = data[
             "contextualGroundingPolicyUnits"
         ]
     else:
-        raise DeserializationError(
-            "GuardrailUsage.contextual_grounding_policy_units required"
-        )
+        out["contextual_grounding_policy_units"] = 0
     if data.get("contentPolicyImageUnits") is not None:
         out["content_policy_image_units"] = data["contentPolicyImageUnits"]
     if data.get("automatedReasoningPolicyUnits") is not None:

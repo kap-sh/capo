@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aws_arn
     import capo_iot.types.service_name
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> SigV4Authorization:
     if data.get("signingRegion") is not None:
         out["signing_region"] = data["signingRegion"]
     else:
-        raise DeserializationError("SigV4Authorization.signing_region required")
+        out["signing_region"] = ""
     if data.get("serviceName") is not None:
         out["service_name"] = data["serviceName"]
     else:
-        raise DeserializationError("SigV4Authorization.service_name required")
+        out["service_name"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("SigV4Authorization.role_arn required")
+        out["role_arn"] = ""
     return out

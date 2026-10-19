@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.custom_label
     import capo_quicksight.types.field_id
@@ -59,7 +57,7 @@ def deserialize_json(data: dict) -> TableFieldOption:
     if data.get("FieldId") is not None:
         out["field_id"] = data["FieldId"]
     else:
-        raise DeserializationError("TableFieldOption.field_id required")
+        out["field_id"] = ""
     if data.get("Width") is not None:
         out["width"] = data["Width"]
     if data.get("CustomLabel") is not None:

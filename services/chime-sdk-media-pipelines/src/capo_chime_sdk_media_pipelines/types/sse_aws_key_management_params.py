@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.string
 
@@ -33,7 +31,7 @@ def deserialize_json(data: dict) -> SseAwsKeyManagementParams:
     if data.get("AwsKmsKeyId") is not None:
         out["aws_kms_key_id"] = data["AwsKmsKeyId"]
     else:
-        raise DeserializationError("SseAwsKeyManagementParams.aws_kms_key_id required")
+        out["aws_kms_key_id"] = ""
     if data.get("AwsKmsEncryptionContext") is not None:
         out["aws_kms_encryption_context"] = data["AwsKmsEncryptionContext"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_eventbridge.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridge.types.auth_header_parameters
     import capo_eventbridge.types.auth_header_parameters_sensitive
@@ -31,15 +29,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateConnectionApiKeyAuthRequestPar
     if data.get("ApiKeyName") is not None:
         out["api_key_name"] = data["ApiKeyName"]
     else:
-        raise DeserializationError(
-            "CreateConnectionApiKeyAuthRequestParameters.api_key_name required"
-        )
+        out["api_key_name"] = ""
     if data.get("ApiKeyValue") is not None:
         out["api_key_value"] = data["ApiKeyValue"]
     else:
-        raise DeserializationError(
-            "CreateConnectionApiKeyAuthRequestParameters.api_key_value required"
-        )
+        out["api_key_value"] = ""
     return out
 
 

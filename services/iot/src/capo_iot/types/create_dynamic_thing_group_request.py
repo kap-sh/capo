@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.index_name
     import capo_iot.types.query_string
@@ -70,9 +68,7 @@ def deserialize_json(data: dict) -> CreateDynamicThingGroupRequest:
     if data.get("queryString") is not None:
         out["query_string"] = data["queryString"]
     else:
-        raise DeserializationError(
-            "CreateDynamicThingGroupRequest.query_string required"
-        )
+        out["query_string"] = ""
     if data.get("queryVersion") is not None:
         out["query_version"] = data["queryVersion"]
     if data.get("tags") is not None:

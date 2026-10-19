@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.bearer_token_authentication_enabled
     import capo_cloudwatch_logs.types.log_group_identifier
@@ -35,15 +33,11 @@ def deserialize_aws_json_1_1(data: dict) -> PutBearerTokenAuthenticationRequest:
     if data.get("logGroupIdentifier") is not None:
         out["log_group_identifier"] = data["logGroupIdentifier"]
     else:
-        raise DeserializationError(
-            "PutBearerTokenAuthenticationRequest.log_group_identifier required"
-        )
+        out["log_group_identifier"] = ""
     if data.get("bearerTokenAuthenticationEnabled") is not None:
         out["bearer_token_authentication_enabled"] = data[
             "bearerTokenAuthenticationEnabled"
         ]
     else:
-        raise DeserializationError(
-            "PutBearerTokenAuthenticationRequest.bearer_token_authentication_enabled required"
-        )
+        out["bearer_token_authentication_enabled"] = False
     return out

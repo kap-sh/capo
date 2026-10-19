@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.max_requests
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> VirtualGatewayHttp2ConnectionPool:
     if data.get("maxRequests") is not None:
         out["max_requests"] = data["maxRequests"]
     else:
-        raise DeserializationError(
-            "VirtualGatewayHttp2ConnectionPool.max_requests required"
-        )
+        out["max_requests"] = 0
     return out

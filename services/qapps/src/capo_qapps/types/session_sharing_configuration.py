@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.session_sharing_accept_responses
     import capo_qapps.types.session_sharing_enabled
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> SessionSharingConfiguration:
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     else:
-        raise DeserializationError("SessionSharingConfiguration.enabled required")
+        out["enabled"] = False
     if data.get("acceptResponses") is not None:
         out["accept_responses"] = data["acceptResponses"]
     if data.get("revealCards") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.general_input_string
     import capo_odb.types.peer_network_route_table_id_list
@@ -77,15 +75,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateOdbPeeringConnectionInput:
     if data.get("odbNetworkId") is not None:
         out["odb_network_id"] = data["odbNetworkId"]
     else:
-        raise DeserializationError(
-            "CreateOdbPeeringConnectionInput.odb_network_id required"
-        )
+        out["odb_network_id"] = ""
     if data.get("peerNetworkId") is not None:
         out["peer_network_id"] = data["peerNetworkId"]
     else:
-        raise DeserializationError(
-            "CreateOdbPeeringConnectionInput.peer_network_id required"
-        )
+        out["peer_network_id"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     if data.get("peerNetworkCidrsToBeAdded") is not None:

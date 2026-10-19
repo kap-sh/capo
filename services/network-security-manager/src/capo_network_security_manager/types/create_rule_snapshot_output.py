@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.date_timestamp
     import capo_network_security_manager.types.description
@@ -113,15 +111,15 @@ def deserialize_json(data: dict) -> CreateRuleSnapshotOutput:
     if data.get("ruleId") is not None:
         out["rule_id"] = data["ruleId"]
     else:
-        raise DeserializationError("CreateRuleSnapshotOutput.rule_id required")
+        out["rule_id"] = ""
     if data.get("ruleArn") is not None:
         out["rule_arn"] = data["ruleArn"]
     else:
-        raise DeserializationError("CreateRuleSnapshotOutput.rule_arn required")
+        out["rule_arn"] = ""
     if data.get("ruleName") is not None:
         out["rule_name"] = data["ruleName"]
     else:
-        raise DeserializationError("CreateRuleSnapshotOutput.rule_name required")
+        out["rule_name"] = ""
     if data.get("firewallType") is not None:
         import capo_network_security_manager.types.rule_firewall_type
 
@@ -131,7 +129,12 @@ def deserialize_json(data: dict) -> CreateRuleSnapshotOutput:
             )
         )
     else:
-        raise DeserializationError("CreateRuleSnapshotOutput.firewall_type required")
+        import typing
+
+        out["firewall_type"] = typing.cast(
+            "capo_network_security_manager.types.rule_firewall_type.RuleFirewallType",
+            "",
+        )
     if data.get("ruleType") is not None:
         import capo_network_security_manager.types.rule_type
 
@@ -145,7 +148,7 @@ def deserialize_json(data: dict) -> CreateRuleSnapshotOutput:
     if data.get("configuration") is not None:
         out["configuration"] = data["configuration"]
     else:
-        raise DeserializationError("CreateRuleSnapshotOutput.configuration required")
+        out["configuration"] = None
     if data.get("status") is not None:
         import capo_network_security_manager.types.entity_status
 
@@ -155,11 +158,15 @@ def deserialize_json(data: dict) -> CreateRuleSnapshotOutput:
             )
         )
     else:
-        raise DeserializationError("CreateRuleSnapshotOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_network_security_manager.types.entity_status.EntityStatus", ""
+        )
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("CreateRuleSnapshotOutput.version required")
+        out["version"] = ""
     if data.get("updateToken") is not None:
         out["update_token"] = data["updateToken"]
     if data.get("isSnapshot") is not None:

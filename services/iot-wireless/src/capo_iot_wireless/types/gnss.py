@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.assist_position
     import capo_iot_wireless.types.capture_time_accuracy
@@ -83,7 +81,7 @@ def deserialize_json(data: dict) -> Gnss:
     if data.get("Payload") is not None:
         out["payload"] = data["Payload"]
     else:
-        raise DeserializationError("Gnss.payload required")
+        out["payload"] = ""
     if data.get("CaptureTime") is not None:
         out["capture_time"] = float(data["CaptureTime"])
     if data.get("CaptureTimeAccuracy") is not None:

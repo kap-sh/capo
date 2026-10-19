@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.string
@@ -49,22 +48,22 @@ def deserialize_xml(el: Element) -> KeyValueStore:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("KeyValueStore.name required")
+        out["name"] = ""
     child_id = el.find("Id")
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("KeyValueStore.id required")
+        out["id"] = ""
     child_comment = el.find("Comment")
     if child_comment is not None:
         out["comment"] = str(child_comment.text or "")
     else:
-        raise DeserializationError("KeyValueStore.comment required")
+        out["comment"] = ""
     child_arn = el.find("ARN")
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("KeyValueStore.arn required")
+        out["arn"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         out["status"] = str(child_status.text or "")
@@ -76,5 +75,9 @@ def deserialize_xml(el: Element) -> KeyValueStore:
             child_last_modified_time
         )
     else:
-        raise DeserializationError("KeyValueStore.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

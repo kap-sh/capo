@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr.types.image_digest
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> SubjectIdentifier:
     if data.get("imageDigest") is not None:
         out["image_digest"] = data["imageDigest"]
     else:
-        raise DeserializationError("SubjectIdentifier.image_digest required")
+        out["image_digest"] = ""
     return out

@@ -59,7 +59,9 @@ def deserialize_aws_json_1_1(data: dict) -> SendTestEventNotificationRequest:
             data["TestEventType"]
         )
     else:
-        raise DeserializationError(
-            "SendTestEventNotificationRequest.test_event_type required"
+        import typing
+
+        out["test_event_type"] = typing.cast(
+            "capo_mturk.types.event_type.EventType", ""
         )
     return out

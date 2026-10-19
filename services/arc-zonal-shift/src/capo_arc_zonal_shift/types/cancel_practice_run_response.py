@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_arc_zonal_shift.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_zonal_shift.types.availability_zone
     import capo_arc_zonal_shift.types.expiry_time
@@ -65,17 +63,15 @@ def deserialize_json(data: dict) -> CancelPracticeRunResponse:
     if data.get("zonalShiftId") is not None:
         out["zonal_shift_id"] = data["zonalShiftId"]
     else:
-        raise DeserializationError("CancelPracticeRunResponse.zonal_shift_id required")
+        out["zonal_shift_id"] = ""
     if data.get("resourceIdentifier") is not None:
         out["resource_identifier"] = data["resourceIdentifier"]
     else:
-        raise DeserializationError(
-            "CancelPracticeRunResponse.resource_identifier required"
-        )
+        out["resource_identifier"] = ""
     if data.get("awayFrom") is not None:
         out["away_from"] = data["awayFrom"]
     else:
-        raise DeserializationError("CancelPracticeRunResponse.away_from required")
+        out["away_from"] = ""
     if data.get("expiryTime") is not None:
         import capo_arc_zonal_shift.types.expiry_time
 
@@ -83,7 +79,11 @@ def deserialize_json(data: dict) -> CancelPracticeRunResponse:
             data["expiryTime"]
         )
     else:
-        raise DeserializationError("CancelPracticeRunResponse.expiry_time required")
+        import datetime
+
+        out["expiry_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("startTime") is not None:
         import capo_arc_zonal_shift.types.start_time
 
@@ -91,7 +91,9 @@ def deserialize_json(data: dict) -> CancelPracticeRunResponse:
             data["startTime"]
         )
     else:
-        raise DeserializationError("CancelPracticeRunResponse.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         import capo_arc_zonal_shift.types.zonal_shift_status
 
@@ -99,9 +101,13 @@ def deserialize_json(data: dict) -> CancelPracticeRunResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("CancelPracticeRunResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_arc_zonal_shift.types.zonal_shift_status.ZonalShiftStatus", ""
+        )
     if data.get("comment") is not None:
         out["comment"] = data["comment"]
     else:
-        raise DeserializationError("CancelPracticeRunResponse.comment required")
+        out["comment"] = ""
     return out

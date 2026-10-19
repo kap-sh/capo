@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migrationhubstrategy.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migrationhubstrategy.types.data_source_type
     import capo_migrationhubstrategy.types.group_ids
@@ -56,15 +54,15 @@ def deserialize_json(data: dict) -> StartImportFileTaskRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("StartImportFileTaskRequest.name required")
+        out["name"] = ""
     if data.get("S3Bucket") is not None:
         out["s3_bucket"] = data["S3Bucket"]
     else:
-        raise DeserializationError("StartImportFileTaskRequest.s3_bucket required")
+        out["s3_bucket"] = ""
     if data.get("s3key") is not None:
         out["s3key"] = data["s3key"]
     else:
-        raise DeserializationError("StartImportFileTaskRequest.s3key required")
+        out["s3key"] = ""
     if data.get("dataSourceType") is not None:
         out["data_source_type"] = data["dataSourceType"]
     if data.get("groupId") is not None:

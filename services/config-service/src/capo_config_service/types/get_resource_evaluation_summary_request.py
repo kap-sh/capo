@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.resource_evaluation_id
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetResourceEvaluationSummaryRequest:
     if data.get("ResourceEvaluationId") is not None:
         out["resource_evaluation_id"] = data["ResourceEvaluationId"]
     else:
-        raise DeserializationError(
-            "GetResourceEvaluationSummaryRequest.resource_evaluation_id required"
-        )
+        out["resource_evaluation_id"] = ""
     return out

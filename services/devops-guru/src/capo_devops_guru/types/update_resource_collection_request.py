@@ -48,7 +48,12 @@ def deserialize_json(data: dict) -> UpdateResourceCollectionRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateResourceCollectionRequest.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_devops_guru.types.update_resource_collection_action.UpdateResourceCollectionAction",
+            "",
+        )
     if data.get("ResourceCollection") is not None:
         import capo_devops_guru.types.update_resource_collection_filter
 

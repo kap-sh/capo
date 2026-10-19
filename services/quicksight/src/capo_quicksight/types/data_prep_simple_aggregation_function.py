@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.column_name
     import capo_quicksight.types.data_prep_simple_aggregation_function_type
@@ -46,7 +44,10 @@ def deserialize_json(data: dict) -> DataPrepSimpleAggregationFunction:
             )
         )
     else:
-        raise DeserializationError(
-            "DataPrepSimpleAggregationFunction.function_type required"
+        import typing
+
+        out["function_type"] = typing.cast(
+            "capo_quicksight.types.data_prep_simple_aggregation_function_type.DataPrepSimpleAggregationFunctionType",
+            "",
         )
     return out

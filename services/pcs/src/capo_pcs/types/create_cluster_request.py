@@ -76,7 +76,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateClusterRequest:
     if data.get("clusterName") is not None:
         out["cluster_name"] = data["clusterName"]
     else:
-        raise DeserializationError("CreateClusterRequest.cluster_name required")
+        out["cluster_name"] = ""
     if data.get("scheduler") is not None:
         import capo_pcs.types.scheduler_request
 
@@ -90,7 +90,9 @@ def deserialize_aws_json_1_0(data: dict) -> CreateClusterRequest:
 
         out["size"] = capo_pcs.types.size.deserialize_aws_json_1_0(data["size"])
     else:
-        raise DeserializationError("CreateClusterRequest.size required")
+        import typing
+
+        out["size"] = typing.cast("capo_pcs.types.size.Size", "")
     if data.get("networking") is not None:
         import capo_pcs.types.networking_request
 

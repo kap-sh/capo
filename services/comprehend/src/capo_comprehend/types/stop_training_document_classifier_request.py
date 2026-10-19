@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.document_classifier_arn
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> StopTrainingDocumentClassifierReques
     if data.get("DocumentClassifierArn") is not None:
         out["document_classifier_arn"] = data["DocumentClassifierArn"]
     else:
-        raise DeserializationError(
-            "StopTrainingDocumentClassifierRequest.document_classifier_arn required"
-        )
+        out["document_classifier_arn"] = ""
     return out

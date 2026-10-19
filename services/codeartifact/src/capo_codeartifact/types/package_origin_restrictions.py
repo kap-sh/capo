@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codeartifact.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeartifact.types.allow_publish
     import capo_codeartifact.types.allow_upstream
@@ -43,7 +41,11 @@ def deserialize_json(data: dict) -> PackageOriginRestrictions:
             data["publish"]
         )
     else:
-        raise DeserializationError("PackageOriginRestrictions.publish required")
+        import typing
+
+        out["publish"] = typing.cast(
+            "capo_codeartifact.types.allow_publish.AllowPublish", ""
+        )
     if data.get("upstream") is not None:
         import capo_codeartifact.types.allow_upstream
 
@@ -51,5 +53,9 @@ def deserialize_json(data: dict) -> PackageOriginRestrictions:
             data["upstream"]
         )
     else:
-        raise DeserializationError("PackageOriginRestrictions.upstream required")
+        import typing
+
+        out["upstream"] = typing.cast(
+            "capo_codeartifact.types.allow_upstream.AllowUpstream", ""
+        )
     return out

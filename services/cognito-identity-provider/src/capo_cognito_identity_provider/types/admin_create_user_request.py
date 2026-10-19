@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.attribute_list_type
     import capo_cognito_identity_provider.types.client_metadata_type
@@ -111,11 +109,11 @@ def deserialize_aws_json_1_1(data: dict) -> AdminCreateUserRequest:
     if data.get("UserPoolId") is not None:
         out["user_pool_id"] = data["UserPoolId"]
     else:
-        raise DeserializationError("AdminCreateUserRequest.user_pool_id required")
+        out["user_pool_id"] = ""
     if data.get("Username") is not None:
         out["username"] = data["Username"]
     else:
-        raise DeserializationError("AdminCreateUserRequest.username required")
+        out["username"] = ""
     if data.get("UserAttributes") is not None:
         import capo_cognito_identity_provider.types.attribute_list_type
 

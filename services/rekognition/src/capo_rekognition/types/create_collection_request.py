@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.collection_id
     import capo_rekognition.types.tag_map
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCollectionRequest:
     if data.get("CollectionId") is not None:
         out["collection_id"] = data["CollectionId"]
     else:
-        raise DeserializationError("CreateCollectionRequest.collection_id required")
+        out["collection_id"] = ""
     if data.get("Tags") is not None:
         import capo_rekognition.types.tag_map
 

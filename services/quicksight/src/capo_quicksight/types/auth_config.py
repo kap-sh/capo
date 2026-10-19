@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.authentication_metadata
     import capo_quicksight.types.connection_auth_type
@@ -51,7 +49,11 @@ def deserialize_json(data: dict) -> AuthConfig:
             )
         )
     else:
-        raise DeserializationError("AuthConfig.authentication_type required")
+        import typing
+
+        out["authentication_type"] = typing.cast(
+            "capo_quicksight.types.connection_auth_type.ConnectionAuthType", ""
+        )
     if data.get("AuthenticationMetadata") is not None:
         import capo_quicksight.types.authentication_metadata
 
@@ -61,7 +63,11 @@ def deserialize_json(data: dict) -> AuthConfig:
             )
         )
     else:
-        raise DeserializationError("AuthConfig.authentication_metadata required")
+        import capo_quicksight.types._unknown
+
+        out["authentication_metadata"] = (
+            capo_quicksight.types._unknown.UnknownUnionMember("")
+        )
     return out
 
 

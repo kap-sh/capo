@@ -89,8 +89,10 @@ def deserialize_json(data: dict) -> CreateAccessPolicyRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAccessPolicyRequest.access_policy_permission required"
+        import typing
+
+        out["access_policy_permission"] = typing.cast(
+            "capo_iotsitewise.types.permission.Permission", ""
         )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]

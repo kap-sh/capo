@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -54,7 +52,11 @@ def deserialize_json(data: dict) -> ConnectorHealth:
             )
         )
     else:
-        raise DeserializationError("ConnectorHealth.connector_status required")
+        import typing
+
+        out["connector_status"] = typing.cast(
+            "capo_inspector2.types.connector_health_status.ConnectorHealthStatus", ""
+        )
     if data.get("lastCheckedAt") is not None:
         import datetime
 
@@ -62,7 +64,11 @@ def deserialize_json(data: dict) -> ConnectorHealth:
             data["lastCheckedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("ConnectorHealth.last_checked_at required")
+        import datetime
+
+        out["last_checked_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("message") is not None:
         out["message"] = data["message"]
     return out

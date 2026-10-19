@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager_user_subscriptions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager_user_subscriptions.types.identity_provider
     import capo_license_manager_user_subscriptions.types.settings
@@ -64,13 +62,17 @@ def deserialize_json(data: dict) -> RegisterIdentityProviderRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "RegisterIdentityProviderRequest.identity_provider required"
+        import capo_license_manager_user_subscriptions.types._unknown
+
+        out["identity_provider"] = (
+            capo_license_manager_user_subscriptions.types._unknown.UnknownUnionMember(
+                ""
+            )
         )
     if data.get("Product") is not None:
         out["product"] = data["Product"]
     else:
-        raise DeserializationError("RegisterIdentityProviderRequest.product required")
+        out["product"] = ""
     if data.get("Settings") is not None:
         import capo_license_manager_user_subscriptions.types.settings
 

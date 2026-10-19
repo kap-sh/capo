@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.inference_units
     import capo_rekognition.types.project_version_arn
@@ -37,15 +35,11 @@ def deserialize_aws_json_1_1(data: dict) -> StartProjectVersionRequest:
     if data.get("ProjectVersionArn") is not None:
         out["project_version_arn"] = data["ProjectVersionArn"]
     else:
-        raise DeserializationError(
-            "StartProjectVersionRequest.project_version_arn required"
-        )
+        out["project_version_arn"] = ""
     if data.get("MinInferenceUnits") is not None:
         out["min_inference_units"] = data["MinInferenceUnits"]
     else:
-        raise DeserializationError(
-            "StartProjectVersionRequest.min_inference_units required"
-        )
+        out["min_inference_units"] = 0
     if data.get("MaxInferenceUnits") is not None:
         out["max_inference_units"] = data["MaxInferenceUnits"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.glue_resource_type
     import capo_glue.types.name_string
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetDashboardUrlRequest:
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("GetDashboardUrlRequest.resource_id required")
+        out["resource_id"] = ""
     if data.get("ResourceType") is not None:
         import capo_glue.types.glue_resource_type
 
@@ -52,7 +50,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetDashboardUrlRequest:
             )
         )
     else:
-        raise DeserializationError("GetDashboardUrlRequest.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_glue.types.glue_resource_type.GlueResourceType", ""
+        )
     if data.get("RequestOrigin") is not None:
         out["request_origin"] = data["RequestOrigin"]
     return out

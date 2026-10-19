@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_containers.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_containers.types.client_token
     import capo_emr_containers.types.configuration_overrides
@@ -110,7 +108,7 @@ def deserialize_json(data: dict) -> StartJobRunRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("StartJobRunRequest.client_token required")
+        out["client_token"] = ""
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     if data.get("releaseLabel") is not None:

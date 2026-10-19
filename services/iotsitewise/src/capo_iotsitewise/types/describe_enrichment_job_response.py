@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -94,7 +92,7 @@ def deserialize_json(data: dict) -> DescribeEnrichmentJobResponse:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("DescribeEnrichmentJobResponse.job_id required")
+        out["job_id"] = ""
     if data.get("status") is not None:
         import capo_iotsitewise.types.enrichment_job_status
 
@@ -102,13 +100,15 @@ def deserialize_json(data: dict) -> DescribeEnrichmentJobResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("DescribeEnrichmentJobResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_iotsitewise.types.enrichment_job_status.EnrichmentJobStatus", ""
+        )
     if data.get("workspaceName") is not None:
         out["workspace_name"] = data["workspaceName"]
     else:
-        raise DeserializationError(
-            "DescribeEnrichmentJobResponse.workspace_name required"
-        )
+        out["workspace_name"] = ""
     if data.get("jobType") is not None:
         import capo_iotsitewise.types.job_type
 
@@ -116,7 +116,9 @@ def deserialize_json(data: dict) -> DescribeEnrichmentJobResponse:
             data["jobType"]
         )
     else:
-        raise DeserializationError("DescribeEnrichmentJobResponse.job_type required")
+        import typing
+
+        out["job_type"] = typing.cast("capo_iotsitewise.types.job_type.JobType", "")
     if data.get("jobConfiguration") is not None:
         import capo_iotsitewise.types.enrichment_job_configuration
 
@@ -126,8 +128,10 @@ def deserialize_json(data: dict) -> DescribeEnrichmentJobResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeEnrichmentJobResponse.job_configuration required"
+        import capo_iotsitewise.types._unknown
+
+        out["job_configuration"] = capo_iotsitewise.types._unknown.UnknownUnionMember(
+            ""
         )
     if data.get("createdAt") is not None:
         import capo_iotsitewise.types._prelude.timestamp
@@ -136,7 +140,9 @@ def deserialize_json(data: dict) -> DescribeEnrichmentJobResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("DescribeEnrichmentJobResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_iotsitewise.types._prelude.timestamp
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.non_empty_string
     import capo_codebuild.types.project_visibility_type
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateProjectVisibilityInput:
     if data.get("projectArn") is not None:
         out["project_arn"] = data["projectArn"]
     else:
-        raise DeserializationError("UpdateProjectVisibilityInput.project_arn required")
+        out["project_arn"] = ""
     if data.get("projectVisibility") is not None:
         import capo_codebuild.types.project_visibility_type
 
@@ -54,8 +52,10 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateProjectVisibilityInput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateProjectVisibilityInput.project_visibility required"
+        import typing
+
+        out["project_visibility"] = typing.cast(
+            "capo_codebuild.types.project_visibility_type.ProjectVisibilityType", ""
         )
     if data.get("resourceAccessRole") is not None:
         out["resource_access_role"] = data["resourceAccessRole"]

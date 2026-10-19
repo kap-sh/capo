@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.attributes
     import capo_application_signals.types.metric_references
@@ -66,7 +64,7 @@ def deserialize_json(data: dict) -> ServiceDependent:
             )
         )
     else:
-        raise DeserializationError("ServiceDependent.dependent_key_attributes required")
+        out["dependent_key_attributes"] = {}
     if data.get("DependentOperationName") is not None:
         out["dependent_operation_name"] = data["DependentOperationName"]
     if data.get("MetricReferences") is not None:
@@ -78,5 +76,5 @@ def deserialize_json(data: dict) -> ServiceDependent:
             )
         )
     else:
-        raise DeserializationError("ServiceDependent.metric_references required")
+        out["metric_references"] = []
     return out

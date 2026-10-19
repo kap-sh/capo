@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.attribute
     import capo_datazone.types.sort_order
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> SearchSort:
     if data.get("attribute") is not None:
         out["attribute"] = data["attribute"]
     else:
-        raise DeserializationError("SearchSort.attribute required")
+        out["attribute"] = ""
     if data.get("order") is not None:
         import capo_datazone.types.sort_order
 

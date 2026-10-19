@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.ephemeral_storage_configuration_storage_size_in_gi_b_integer
     import capo_iotsitewise.types.storage_class
@@ -39,13 +37,13 @@ def deserialize_json(data: dict) -> EphemeralStorageConfiguration:
             data["storageClass"]
         )
     else:
-        raise DeserializationError(
-            "EphemeralStorageConfiguration.storage_class required"
+        import typing
+
+        out["storage_class"] = typing.cast(
+            "capo_iotsitewise.types.storage_class.StorageClass", ""
         )
     if data.get("storageSizeInGiB") is not None:
         out["storage_size_in_gi_b"] = data["storageSizeInGiB"]
     else:
-        raise DeserializationError(
-            "EphemeralStorageConfiguration.storage_size_in_gi_b required"
-        )
+        out["storage_size_in_gi_b"] = 0
     return out

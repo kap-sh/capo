@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_memorydb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_memorydb.types.cluster_name_list
     import capo_memorydb.types.service_update_request
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchUpdateClusterRequest:
             )
         )
     else:
-        raise DeserializationError("BatchUpdateClusterRequest.cluster_names required")
+        out["cluster_names"] = []
     if data.get("ServiceUpdate") is not None:
         import capo_memorydb.types.service_update_request
 

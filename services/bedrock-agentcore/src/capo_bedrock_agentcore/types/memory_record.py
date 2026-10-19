@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -91,7 +89,7 @@ def deserialize_json(data: dict) -> MemoryRecord:
     if data.get("memoryRecordId") is not None:
         out["memory_record_id"] = data["memoryRecordId"]
     else:
-        raise DeserializationError("MemoryRecord.memory_record_id required")
+        out["memory_record_id"] = ""
     if data.get("content") is not None:
         import capo_bedrock_agentcore.types.memory_content
 
@@ -99,11 +97,13 @@ def deserialize_json(data: dict) -> MemoryRecord:
             data["content"]
         )
     else:
-        raise DeserializationError("MemoryRecord.content required")
+        import capo_bedrock_agentcore.types._unknown
+
+        out["content"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
     if data.get("memoryStrategyId") is not None:
         out["memory_strategy_id"] = data["memoryStrategyId"]
     else:
-        raise DeserializationError("MemoryRecord.memory_strategy_id required")
+        out["memory_strategy_id"] = ""
     if data.get("namespaces") is not None:
         import capo_bedrock_agentcore.types.namespaces_list
 
@@ -113,7 +113,7 @@ def deserialize_json(data: dict) -> MemoryRecord:
             )
         )
     else:
-        raise DeserializationError("MemoryRecord.namespaces required")
+        out["namespaces"] = []
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore.types._prelude.timestamp
 
@@ -123,7 +123,9 @@ def deserialize_json(data: dict) -> MemoryRecord:
             )
         )
     else:
-        raise DeserializationError("MemoryRecord.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("timestamp") is not None:
         import capo_bedrock_agentcore.types._prelude.timestamp
 

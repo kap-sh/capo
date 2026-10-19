@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_finspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace.types.client_token_string
     import capo_finspace.types.kx_cluster_name
@@ -65,7 +63,7 @@ def deserialize_json(data: dict) -> UpdateKxClusterDatabasesRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateKxClusterDatabasesRequest.databases required")
+        out["databases"] = []
     if data.get("deploymentConfiguration") is not None:
         import capo_finspace.types.kx_deployment_configuration
 

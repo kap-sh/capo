@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.recipe_error_list
     import capo_databrew.types.recipe_name
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> BatchDeleteRecipeVersionResponse:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("BatchDeleteRecipeVersionResponse.name required")
+        out["name"] = ""
     if data.get("Errors") is not None:
         import capo_databrew.types.recipe_error_list
 

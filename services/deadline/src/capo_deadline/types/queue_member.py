@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.deadline_principal_type
     import capo_deadline.types.farm_id
@@ -57,15 +55,15 @@ def deserialize_json(data: dict) -> QueueMember:
     if data.get("farmId") is not None:
         out["farm_id"] = data["farmId"]
     else:
-        raise DeserializationError("QueueMember.farm_id required")
+        out["farm_id"] = ""
     if data.get("queueId") is not None:
         out["queue_id"] = data["queueId"]
     else:
-        raise DeserializationError("QueueMember.queue_id required")
+        out["queue_id"] = ""
     if data.get("principalId") is not None:
         out["principal_id"] = data["principalId"]
     else:
-        raise DeserializationError("QueueMember.principal_id required")
+        out["principal_id"] = ""
     if data.get("principalType") is not None:
         import capo_deadline.types.deadline_principal_type
 
@@ -75,11 +73,15 @@ def deserialize_json(data: dict) -> QueueMember:
             )
         )
     else:
-        raise DeserializationError("QueueMember.principal_type required")
+        import typing
+
+        out["principal_type"] = typing.cast(
+            "capo_deadline.types.deadline_principal_type.DeadlinePrincipalType", ""
+        )
     if data.get("identityStoreId") is not None:
         out["identity_store_id"] = data["identityStoreId"]
     else:
-        raise DeserializationError("QueueMember.identity_store_id required")
+        out["identity_store_id"] = ""
     if data.get("membershipLevel") is not None:
         import capo_deadline.types.membership_level
 
@@ -87,5 +89,9 @@ def deserialize_json(data: dict) -> QueueMember:
             data["membershipLevel"]
         )
     else:
-        raise DeserializationError("QueueMember.membership_level required")
+        import typing
+
+        out["membership_level"] = typing.cast(
+            "capo_deadline.types.membership_level.MembershipLevel", ""
+        )
     return out

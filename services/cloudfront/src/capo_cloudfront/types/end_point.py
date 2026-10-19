@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.kinesis_stream_config
@@ -39,7 +38,7 @@ def deserialize_xml(el: Element) -> EndPoint:
     if child_stream_type is not None:
         out["stream_type"] = str(child_stream_type.text or "")
     else:
-        raise DeserializationError("EndPoint.stream_type required")
+        out["stream_type"] = ""
     child_kinesis_stream_config = el.find("KinesisStreamConfig")
     if child_kinesis_stream_config is not None:
         import capo_cloudfront.types.kinesis_stream_config

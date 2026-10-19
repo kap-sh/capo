@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup_gateway.types.day_of_month
     import capo_backup_gateway.types.day_of_week
@@ -45,9 +43,9 @@ def deserialize_aws_json_1_0(data: dict) -> MaintenanceStartTime:
     if data.get("HourOfDay") is not None:
         out["hour_of_day"] = data["HourOfDay"]
     else:
-        raise DeserializationError("MaintenanceStartTime.hour_of_day required")
+        out["hour_of_day"] = 0
     if data.get("MinuteOfHour") is not None:
         out["minute_of_hour"] = data["MinuteOfHour"]
     else:
-        raise DeserializationError("MaintenanceStartTime.minute_of_hour required")
+        out["minute_of_hour"] = 0
     return out

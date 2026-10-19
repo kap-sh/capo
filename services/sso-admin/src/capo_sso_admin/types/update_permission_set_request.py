@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sso_admin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_admin.types.duration
     import capo_sso_admin.types.instance_arn
@@ -48,13 +46,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdatePermissionSetRequest:
     if data.get("InstanceArn") is not None:
         out["instance_arn"] = data["InstanceArn"]
     else:
-        raise DeserializationError("UpdatePermissionSetRequest.instance_arn required")
+        out["instance_arn"] = ""
     if data.get("PermissionSetArn") is not None:
         out["permission_set_arn"] = data["PermissionSetArn"]
     else:
-        raise DeserializationError(
-            "UpdatePermissionSetRequest.permission_set_arn required"
-        )
+        out["permission_set_arn"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("SessionDuration") is not None:

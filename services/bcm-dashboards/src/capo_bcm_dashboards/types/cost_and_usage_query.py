@@ -75,7 +75,7 @@ def deserialize_aws_json_1_0(data: dict) -> CostAndUsageQuery:
             )
         )
     else:
-        raise DeserializationError("CostAndUsageQuery.metrics required")
+        out["metrics"] = []
     if data.get("timeRange") is not None:
         import capo_bcm_dashboards.types.date_time_range
 
@@ -95,7 +95,11 @@ def deserialize_aws_json_1_0(data: dict) -> CostAndUsageQuery:
             )
         )
     else:
-        raise DeserializationError("CostAndUsageQuery.granularity required")
+        import typing
+
+        out["granularity"] = typing.cast(
+            "capo_bcm_dashboards.types.granularity.Granularity", ""
+        )
     if data.get("groupBy") is not None:
         import capo_bcm_dashboards.types.group_definitions
 

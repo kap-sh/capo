@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_annotation_list
     import capo_bedrock.types.automated_reasoning_policy_arn
@@ -51,15 +49,11 @@ def deserialize_json(data: dict) -> UpdateAutomatedReasoningPolicyAnnotationsReq
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateAutomatedReasoningPolicyAnnotationsRequest.annotations required"
-        )
+        out["annotations"] = []
     if data.get("lastUpdatedAnnotationSetHash") is not None:
         out["last_updated_annotation_set_hash"] = data["lastUpdatedAnnotationSetHash"]
     else:
-        raise DeserializationError(
-            "UpdateAutomatedReasoningPolicyAnnotationsRequest.last_updated_annotation_set_hash required"
-        )
+        out["last_updated_annotation_set_hash"] = ""
     return out
 
 

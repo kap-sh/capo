@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.client_token
     import capo_vpc_lattice.types.listener_name
@@ -59,11 +57,11 @@ def deserialize_json(data: dict) -> CreateListenerRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateListenerRequest.name required")
+        out["name"] = ""
     if data.get("protocol") is not None:
         out["protocol"] = data["protocol"]
     else:
-        raise DeserializationError("CreateListenerRequest.protocol required")
+        out["protocol"] = ""
     if data.get("port") is not None:
         out["port"] = data["port"]
     if data.get("defaultAction") is not None:
@@ -73,7 +71,9 @@ def deserialize_json(data: dict) -> CreateListenerRequest:
             data["defaultAction"]
         )
     else:
-        raise DeserializationError("CreateListenerRequest.default_action required")
+        import capo_vpc_lattice.types._unknown
+
+        out["default_action"] = capo_vpc_lattice.types._unknown.UnknownUnionMember("")
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

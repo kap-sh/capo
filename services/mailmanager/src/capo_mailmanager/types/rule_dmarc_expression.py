@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.rule_dmarc_operator
     import capo_mailmanager.types.rule_dmarc_value_list
@@ -45,7 +43,11 @@ def deserialize_aws_json_1_0(data: dict) -> RuleDmarcExpression:
             )
         )
     else:
-        raise DeserializationError("RuleDmarcExpression.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_mailmanager.types.rule_dmarc_operator.RuleDmarcOperator", ""
+        )
     if data.get("Values") is not None:
         import capo_mailmanager.types.rule_dmarc_value_list
 
@@ -55,5 +57,5 @@ def deserialize_aws_json_1_0(data: dict) -> RuleDmarcExpression:
             )
         )
     else:
-        raise DeserializationError("RuleDmarcExpression.values required")
+        out["values"] = []
     return out

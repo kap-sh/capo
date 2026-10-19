@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_elementalinference.errors import DeserializationError, ServiceError
+from capo_elementalinference.errors import ServiceError
 
 
 class TooManyRequestException_(TypedDict, closed=True):
@@ -22,7 +22,7 @@ def deserialize_json(data: dict) -> TooManyRequestException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("TooManyRequestException_.message required")
+        out["message"] = ""
     return out
 
 

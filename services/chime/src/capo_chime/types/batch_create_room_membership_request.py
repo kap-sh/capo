@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime.types.membership_item_list
     import capo_chime.types.non_empty_string
@@ -42,7 +40,5 @@ def deserialize_json(data: dict) -> BatchCreateRoomMembershipRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchCreateRoomMembershipRequest.membership_item_list required"
-        )
+        out["membership_item_list"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.angle_units
 
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> Elevation:
     if data.get("value") is not None:
         out["value"] = float(data["value"])
     else:
-        raise DeserializationError("Elevation.value required")
+        out["value"] = 0.0
     if data.get("unit") is not None:
         import capo_groundstation.types.angle_units
 
@@ -48,5 +46,7 @@ def deserialize_json(data: dict) -> Elevation:
             data["unit"]
         )
     else:
-        raise DeserializationError("Elevation.unit required")
+        import typing
+
+        out["unit"] = typing.cast("capo_groundstation.types.angle_units.AngleUnits", "")
     return out

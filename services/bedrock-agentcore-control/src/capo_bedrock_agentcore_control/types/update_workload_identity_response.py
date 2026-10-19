@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -64,13 +62,11 @@ def deserialize_json(data: dict) -> UpdateWorkloadIdentityResponse:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateWorkloadIdentityResponse.name required")
+        out["name"] = ""
     if data.get("workloadIdentityArn") is not None:
         out["workload_identity_arn"] = data["workloadIdentityArn"]
     else:
-        raise DeserializationError(
-            "UpdateWorkloadIdentityResponse.workload_identity_arn required"
-        )
+        out["workload_identity_arn"] = ""
     if data.get("allowedResourceOauth2ReturnUrls") is not None:
         import capo_bedrock_agentcore_control.types.resource_oauth2_return_url_list_type
 
@@ -88,8 +84,10 @@ def deserialize_json(data: dict) -> UpdateWorkloadIdentityResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateWorkloadIdentityResponse.created_time required"
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("lastUpdatedTime") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
@@ -100,7 +98,9 @@ def deserialize_json(data: dict) -> UpdateWorkloadIdentityResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateWorkloadIdentityResponse.last_updated_time required"
+        import datetime
+
+        out["last_updated_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

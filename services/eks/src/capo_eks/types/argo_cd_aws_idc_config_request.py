@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eks.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eks.types.string
 
@@ -31,9 +29,7 @@ def deserialize_json(data: dict) -> ArgoCdAwsIdcConfigRequest:
     if data.get("idcInstanceArn") is not None:
         out["idc_instance_arn"] = data["idcInstanceArn"]
     else:
-        raise DeserializationError(
-            "ArgoCdAwsIdcConfigRequest.idc_instance_arn required"
-        )
+        out["idc_instance_arn"] = ""
     if data.get("idcRegion") is not None:
         out["idc_region"] = data["idcRegion"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_networkmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmanager.types.resource_arn
     import capo_networkmanager.types.synthesized_json_resource_policy_document
@@ -30,5 +28,5 @@ def deserialize_json(data: dict) -> PutResourcePolicyRequest:
     if data.get("PolicyDocument") is not None:
         out["policy_document"] = data["PolicyDocument"]
     else:
-        raise DeserializationError("PutResourcePolicyRequest.policy_document required")
+        out["policy_document"] = ""
     return out

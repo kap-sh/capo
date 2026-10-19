@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_acm_pca.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm_pca.types.arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> RestoreCertificateAuthorityRequest:
     if data.get("CertificateAuthorityArn") is not None:
         out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
     else:
-        raise DeserializationError(
-            "RestoreCertificateAuthorityRequest.certificate_authority_arn required"
-        )
+        out["certificate_authority_arn"] = ""
     return out

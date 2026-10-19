@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.analysis_defaults
     import capo_quicksight.types.asset_options
@@ -168,9 +166,7 @@ def deserialize_json(data: dict) -> AnalysisDefinition:
             )
         )
     else:
-        raise DeserializationError(
-            "AnalysisDefinition.data_set_identifier_declarations required"
-        )
+        out["data_set_identifier_declarations"] = []
     if data.get("TopicIdentifierDeclarations") is not None:
         import capo_quicksight.types.topic_identifier_declaration_list
 

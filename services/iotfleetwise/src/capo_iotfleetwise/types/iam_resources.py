@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.iam_role_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> IamResources:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("IamResources.role_arn required")
+        out["role_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dsql.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -44,7 +42,11 @@ def deserialize_json(data: dict) -> StatusReason:
             data["error"]
         )
     else:
-        raise DeserializationError("StatusReason.error required")
+        import typing
+
+        out["error"] = typing.cast(
+            "capo_dsql.types.stream_failure_error_code.StreamFailureErrorCode", ""
+        )
     if data.get("updatedAt") is not None:
         import capo_dsql.types._prelude.timestamp
 
@@ -52,5 +54,7 @@ def deserialize_json(data: dict) -> StatusReason:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("StatusReason.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

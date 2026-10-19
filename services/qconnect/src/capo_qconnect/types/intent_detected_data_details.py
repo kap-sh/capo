@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.relevance_level
     import capo_qconnect.types.sensitive_string
@@ -36,11 +34,11 @@ def deserialize_json(data: dict) -> IntentDetectedDataDetails:
     if data.get("intent") is not None:
         out["intent"] = data["intent"]
     else:
-        raise DeserializationError("IntentDetectedDataDetails.intent required")
+        out["intent"] = ""
     if data.get("intentId") is not None:
         out["intent_id"] = data["intentId"]
     else:
-        raise DeserializationError("IntentDetectedDataDetails.intent_id required")
+        out["intent_id"] = ""
     if data.get("relevanceLevel") is not None:
         out["relevance_level"] = data["relevanceLevel"]
     return out

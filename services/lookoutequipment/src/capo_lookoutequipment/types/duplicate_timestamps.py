@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.integer
 
@@ -31,7 +29,5 @@ def deserialize_aws_json_1_0(data: dict) -> DuplicateTimestamps:
             "TotalNumberOfDuplicateTimestamps"
         ]
     else:
-        raise DeserializationError(
-            "DuplicateTimestamps.total_number_of_duplicate_timestamps required"
-        )
+        out["total_number_of_duplicate_timestamps"] = 0
     return out

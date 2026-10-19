@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_signer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_signer.types.certificate_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> SigningMaterial:
     if data.get("certificateArn") is not None:
         out["certificate_arn"] = data["certificateArn"]
     else:
-        raise DeserializationError("SigningMaterial.certificate_arn required")
+        out["certificate_arn"] = ""
     return out

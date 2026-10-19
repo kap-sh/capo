@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_tnb.errors import DeserializationError
-
 
 class ProblemDetails(TypedDict, closed=True):
     detail: "str"
@@ -26,7 +24,7 @@ def deserialize_json(data: dict) -> ProblemDetails:
     if data.get("detail") is not None:
         out["detail"] = data["detail"]
     else:
-        raise DeserializationError("ProblemDetails.detail required")
+        out["detail"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     return out

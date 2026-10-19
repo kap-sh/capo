@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmanager.types.client_token
     import capo_networkmanager.types.constrained_string
@@ -67,13 +65,11 @@ def deserialize_json(data: dict) -> CreateVpcAttachmentRequest:
     if data.get("CoreNetworkId") is not None:
         out["core_network_id"] = data["CoreNetworkId"]
     else:
-        raise DeserializationError(
-            "CreateVpcAttachmentRequest.core_network_id required"
-        )
+        out["core_network_id"] = ""
     if data.get("VpcArn") is not None:
         out["vpc_arn"] = data["VpcArn"]
     else:
-        raise DeserializationError("CreateVpcAttachmentRequest.vpc_arn required")
+        out["vpc_arn"] = ""
     if data.get("SubnetArns") is not None:
         import capo_networkmanager.types.subnet_arn_list
 
@@ -81,7 +77,7 @@ def deserialize_json(data: dict) -> CreateVpcAttachmentRequest:
             data["SubnetArns"]
         )
     else:
-        raise DeserializationError("CreateVpcAttachmentRequest.subnet_arns required")
+        out["subnet_arns"] = []
     if data.get("Options") is not None:
         import capo_networkmanager.types.vpc_options
 

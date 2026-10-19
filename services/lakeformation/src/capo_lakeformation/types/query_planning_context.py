@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.catalog_id_string
     import capo_lakeformation.types.query_parameter_map
@@ -65,7 +63,7 @@ def deserialize_json(data: dict) -> QueryPlanningContext:
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError("QueryPlanningContext.database_name required")
+        out["database_name"] = ""
     if data.get("QueryAsOfTime") is not None:
         import capo_lakeformation.types.timestamp
 

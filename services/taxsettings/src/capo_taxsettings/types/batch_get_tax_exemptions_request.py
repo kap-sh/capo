@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_taxsettings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_taxsettings.types.account_ids
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> BatchGetTaxExemptionsRequest:
             data["accountIds"]
         )
     else:
-        raise DeserializationError("BatchGetTaxExemptionsRequest.account_ids required")
+        out["account_ids"] = []
     return out

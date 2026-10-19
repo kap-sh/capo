@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.data_collection_arn
     import capo_sagemaker_geospatial.types.data_collection_type
@@ -58,19 +56,19 @@ def deserialize_json(data: dict) -> RasterDataCollectionMetadata:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("RasterDataCollectionMetadata.name required")
+        out["name"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("RasterDataCollectionMetadata.arn required")
+        out["arn"] = ""
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     else:
-        raise DeserializationError("RasterDataCollectionMetadata.type required")
+        out["type"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("RasterDataCollectionMetadata.description required")
+        out["description"] = ""
     if data.get("DescriptionPageUrl") is not None:
         out["description_page_url"] = data["DescriptionPageUrl"]
     if data.get("SupportedFilters") is not None:
@@ -82,9 +80,7 @@ def deserialize_json(data: dict) -> RasterDataCollectionMetadata:
             )
         )
     else:
-        raise DeserializationError(
-            "RasterDataCollectionMetadata.supported_filters required"
-        )
+        out["supported_filters"] = []
     if data.get("Tags") is not None:
         import capo_sagemaker_geospatial.types.tags
 

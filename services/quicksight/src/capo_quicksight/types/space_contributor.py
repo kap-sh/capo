@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.double
     import capo_quicksight.types.long
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> SpaceContributor:
     if data.get("rawFileSizeBytes") is not None:
         out["raw_file_size_bytes"] = data["rawFileSizeBytes"]
     else:
-        raise DeserializationError("SpaceContributor.raw_file_size_bytes required")
+        out["raw_file_size_bytes"] = 0
     if data.get("percentage") is not None:
         out["percentage"] = float(data["percentage"])
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.can_interface
     import capo_iotfleetwise.types.custom_decoding_interface
@@ -83,7 +81,7 @@ def deserialize_aws_json_1_0(data: dict) -> NetworkInterface:
     if data.get("interfaceId") is not None:
         out["interface_id"] = data["interfaceId"]
     else:
-        raise DeserializationError("NetworkInterface.interface_id required")
+        out["interface_id"] = ""
     if data.get("type") is not None:
         import capo_iotfleetwise.types.network_interface_type
 
@@ -93,7 +91,11 @@ def deserialize_aws_json_1_0(data: dict) -> NetworkInterface:
             )
         )
     else:
-        raise DeserializationError("NetworkInterface.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_iotfleetwise.types.network_interface_type.NetworkInterfaceType", ""
+        )
     if data.get("canInterface") is not None:
         import capo_iotfleetwise.types.can_interface
 

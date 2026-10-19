@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.extraction_definition_id
@@ -33,13 +31,9 @@ def deserialize_json(data: dict) -> CreateExtractionDefinitionResponse:
     if data.get("ExtractionDefinitionArn") is not None:
         out["extraction_definition_arn"] = data["ExtractionDefinitionArn"]
     else:
-        raise DeserializationError(
-            "CreateExtractionDefinitionResponse.extraction_definition_arn required"
-        )
+        out["extraction_definition_arn"] = ""
     if data.get("ExtractionDefinitionId") is not None:
         out["extraction_definition_id"] = data["ExtractionDefinitionId"]
     else:
-        raise DeserializationError(
-            "CreateExtractionDefinitionResponse.extraction_definition_id required"
-        )
+        out["extraction_definition_id"] = ""
     return out

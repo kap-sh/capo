@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.template_arn
     import capo_connectcases.types.template_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> CreateTemplateResponse:
     if data.get("templateId") is not None:
         out["template_id"] = data["templateId"]
     else:
-        raise DeserializationError("CreateTemplateResponse.template_id required")
+        out["template_id"] = ""
     if data.get("templateArn") is not None:
         out["template_arn"] = data["templateArn"]
     else:
-        raise DeserializationError("CreateTemplateResponse.template_arn required")
+        out["template_arn"] = ""
     return out

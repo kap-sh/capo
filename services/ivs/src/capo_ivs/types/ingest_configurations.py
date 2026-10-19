@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ivs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs.types.audio_configuration_list
     import capo_ivs.types.video_configuration_list
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> IngestConfigurations:
             )
         )
     else:
-        raise DeserializationError("IngestConfigurations.video_configurations required")
+        out["video_configurations"] = []
     if data.get("audioConfigurations") is not None:
         import capo_ivs.types.audio_configuration_list
 
@@ -59,5 +57,5 @@ def deserialize_json(data: dict) -> IngestConfigurations:
             )
         )
     else:
-        raise DeserializationError("IngestConfigurations.audio_configurations required")
+        out["audio_configurations"] = []
     return out

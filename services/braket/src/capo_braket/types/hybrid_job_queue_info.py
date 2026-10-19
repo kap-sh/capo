@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_braket.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_braket.types.queue_name
 
@@ -34,11 +32,11 @@ def deserialize_json(data: dict) -> HybridJobQueueInfo:
     if data.get("queue") is not None:
         out["queue"] = data["queue"]
     else:
-        raise DeserializationError("HybridJobQueueInfo.queue required")
+        out["queue"] = ""
     if data.get("position") is not None:
         out["position"] = data["position"]
     else:
-        raise DeserializationError("HybridJobQueueInfo.position required")
+        out["position"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     return out

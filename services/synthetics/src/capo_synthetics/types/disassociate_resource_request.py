@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_synthetics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_synthetics.types.canary_arn
     import capo_synthetics.types.group_identifier
@@ -30,5 +28,5 @@ def deserialize_json(data: dict) -> DisassociateResourceRequest:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("DisassociateResourceRequest.resource_arn required")
+        out["resource_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_repostspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_repostspace.types.arn
     import capo_repostspace.types.kms_key
@@ -74,17 +72,19 @@ def deserialize_json(data: dict) -> CreateSpaceInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateSpaceInput.name required")
+        out["name"] = ""
     if data.get("subdomain") is not None:
         out["subdomain"] = data["subdomain"]
     else:
-        raise DeserializationError("CreateSpaceInput.subdomain required")
+        out["subdomain"] = ""
     if data.get("tier") is not None:
         import capo_repostspace.types.tier_level
 
         out["tier"] = capo_repostspace.types.tier_level.deserialize_json(data["tier"])
     else:
-        raise DeserializationError("CreateSpaceInput.tier required")
+        import typing
+
+        out["tier"] = typing.cast("capo_repostspace.types.tier_level.TierLevel", "")
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("userKMSKey") is not None:

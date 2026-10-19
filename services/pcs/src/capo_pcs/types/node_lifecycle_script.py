@@ -63,7 +63,7 @@ def deserialize_aws_json_1_0(data: dict) -> NodeLifecycleScript:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("NodeLifecycleScript.name required")
+        out["name"] = ""
     if data.get("scriptSource") is not None:
         import capo_pcs.types.script_source
 

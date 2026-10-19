@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_discovery_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_discovery_service.types.configuration_id_list
     import capo_application_discovery_service.types.deletion_configuration_item_type
@@ -49,8 +47,11 @@ def deserialize_aws_json_1_1(data: dict) -> StartBatchDeleteConfigurationTaskReq
             )
         )
     else:
-        raise DeserializationError(
-            "StartBatchDeleteConfigurationTaskRequest.configuration_type required"
+        import typing
+
+        out["configuration_type"] = typing.cast(
+            "capo_application_discovery_service.types.deletion_configuration_item_type.DeletionConfigurationItemType",
+            "",
         )
     if data.get("configurationIds") is not None:
         import capo_application_discovery_service.types.configuration_id_list
@@ -61,7 +62,5 @@ def deserialize_aws_json_1_1(data: dict) -> StartBatchDeleteConfigurationTaskReq
             )
         )
     else:
-        raise DeserializationError(
-            "StartBatchDeleteConfigurationTaskRequest.configuration_ids required"
-        )
+        out["configuration_ids"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.arn
     import capo_workspaces_web.types.vpc_id
@@ -32,9 +30,7 @@ def deserialize_json(data: dict) -> NetworkSettingsSummary:
     if data.get("networkSettingsArn") is not None:
         out["network_settings_arn"] = data["networkSettingsArn"]
     else:
-        raise DeserializationError(
-            "NetworkSettingsSummary.network_settings_arn required"
-        )
+        out["network_settings_arn"] = ""
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
     return out

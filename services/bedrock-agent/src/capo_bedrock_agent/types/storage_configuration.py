@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.knowledge_base_storage_type
     import capo_bedrock_agent.types.mongo_db_atlas_configuration
@@ -143,7 +141,12 @@ def deserialize_json(data: dict) -> StorageConfiguration:
             )
         )
     else:
-        raise DeserializationError("StorageConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent.types.knowledge_base_storage_type.KnowledgeBaseStorageType",
+            "",
+        )
     if data.get("opensearchServerlessConfiguration") is not None:
         import capo_bedrock_agent.types.open_search_serverless_configuration
 

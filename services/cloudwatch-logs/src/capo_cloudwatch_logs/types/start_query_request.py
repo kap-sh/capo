@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.events_limit_start_query
     import capo_cloudwatch_logs.types.log_group_identifiers
@@ -113,15 +111,15 @@ def deserialize_aws_json_1_1(data: dict) -> StartQueryRequest:
     if data.get("startTime") is not None:
         out["start_time"] = data["startTime"]
     else:
-        raise DeserializationError("StartQueryRequest.start_time required")
+        out["start_time"] = 0
     if data.get("endTime") is not None:
         out["end_time"] = data["endTime"]
     else:
-        raise DeserializationError("StartQueryRequest.end_time required")
+        out["end_time"] = 0
     if data.get("queryString") is not None:
         out["query_string"] = data["queryString"]
     else:
-        raise DeserializationError("StartQueryRequest.query_string required")
+        out["query_string"] = ""
     if data.get("limit") is not None:
         out["limit"] = data["limit"]
     return out

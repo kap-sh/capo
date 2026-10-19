@@ -43,11 +43,11 @@ def deserialize_json(data: dict) -> ProductInformation:
     if data.get("productId") is not None:
         out["product_id"] = data["productId"]
     else:
-        raise DeserializationError("ProductInformation.product_id required")
+        out["product_id"] = ""
     if data.get("productName") is not None:
         out["product_name"] = data["productName"]
     else:
-        raise DeserializationError("ProductInformation.product_name required")
+        out["product_name"] = ""
     if data.get("manufacturer") is not None:
         import capo_marketplace_discovery.types.seller_information
 

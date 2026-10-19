@@ -49,7 +49,12 @@ def deserialize_json(data: dict) -> LiveConnectorSinkConfiguration:
             )
         )
     else:
-        raise DeserializationError("LiveConnectorSinkConfiguration.sink_type required")
+        import typing
+
+        out["sink_type"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.live_connector_sink_type.LiveConnectorSinkType",
+            "",
+        )
     if data.get("RTMPConfiguration") is not None:
         import capo_chime_sdk_media_pipelines.types.live_connector_rtmp_configuration
 

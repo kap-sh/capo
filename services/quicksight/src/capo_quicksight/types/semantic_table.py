@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.data_set_entity_resource_id
     import capo_quicksight.types.row_level_permission_configuration
@@ -59,11 +57,11 @@ def deserialize_json(data: dict) -> SemanticTable:
     if data.get("Alias") is not None:
         out["alias"] = data["Alias"]
     else:
-        raise DeserializationError("SemanticTable.alias required")
+        out["alias"] = ""
     if data.get("DestinationTableId") is not None:
         out["destination_table_id"] = data["DestinationTableId"]
     else:
-        raise DeserializationError("SemanticTable.destination_table_id required")
+        out["destination_table_id"] = ""
     if data.get("RowLevelPermissionConfiguration") is not None:
         import capo_quicksight.types.row_level_permission_configuration
 

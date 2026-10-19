@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.anomaly_detector_arn
     import capo_cloudwatch_logs.types.anomaly_id
@@ -126,19 +124,19 @@ def deserialize_aws_json_1_1(data: dict) -> Anomaly:
     if data.get("anomalyId") is not None:
         out["anomaly_id"] = data["anomalyId"]
     else:
-        raise DeserializationError("Anomaly.anomaly_id required")
+        out["anomaly_id"] = ""
     if data.get("patternId") is not None:
         out["pattern_id"] = data["patternId"]
     else:
-        raise DeserializationError("Anomaly.pattern_id required")
+        out["pattern_id"] = ""
     if data.get("anomalyDetectorArn") is not None:
         out["anomaly_detector_arn"] = data["anomalyDetectorArn"]
     else:
-        raise DeserializationError("Anomaly.anomaly_detector_arn required")
+        out["anomaly_detector_arn"] = ""
     if data.get("patternString") is not None:
         out["pattern_string"] = data["patternString"]
     else:
-        raise DeserializationError("Anomaly.pattern_string required")
+        out["pattern_string"] = ""
     if data.get("patternRegex") is not None:
         out["pattern_regex"] = data["patternRegex"]
     if data.get("priority") is not None:
@@ -154,11 +152,11 @@ def deserialize_aws_json_1_1(data: dict) -> Anomaly:
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("Anomaly.description required")
+        out["description"] = ""
     if data.get("active") is not None:
         out["active"] = data["active"]
     else:
-        raise DeserializationError("Anomaly.active required")
+        out["active"] = False
     if data.get("state") is not None:
         import capo_cloudwatch_logs.types.state
 
@@ -166,7 +164,9 @@ def deserialize_aws_json_1_1(data: dict) -> Anomaly:
             data["state"]
         )
     else:
-        raise DeserializationError("Anomaly.state required")
+        import typing
+
+        out["state"] = typing.cast("capo_cloudwatch_logs.types.state.State", "")
     if data.get("histogram") is not None:
         import capo_cloudwatch_logs.types.histogram
 
@@ -176,7 +176,7 @@ def deserialize_aws_json_1_1(data: dict) -> Anomaly:
             )
         )
     else:
-        raise DeserializationError("Anomaly.histogram required")
+        out["histogram"] = {}
     if data.get("logSamples") is not None:
         import capo_cloudwatch_logs.types.log_samples
 
@@ -186,7 +186,7 @@ def deserialize_aws_json_1_1(data: dict) -> Anomaly:
             )
         )
     else:
-        raise DeserializationError("Anomaly.log_samples required")
+        out["log_samples"] = []
     if data.get("patternTokens") is not None:
         import capo_cloudwatch_logs.types.pattern_tokens
 
@@ -196,7 +196,7 @@ def deserialize_aws_json_1_1(data: dict) -> Anomaly:
             )
         )
     else:
-        raise DeserializationError("Anomaly.pattern_tokens required")
+        out["pattern_tokens"] = []
     if data.get("logGroupArnList") is not None:
         import capo_cloudwatch_logs.types.log_group_arn_list
 
@@ -206,7 +206,7 @@ def deserialize_aws_json_1_1(data: dict) -> Anomaly:
             )
         )
     else:
-        raise DeserializationError("Anomaly.log_group_arn_list required")
+        out["log_group_arn_list"] = []
     if data.get("suppressed") is not None:
         out["suppressed"] = data["suppressed"]
     if data.get("suppressedDate") is not None:

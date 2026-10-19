@@ -48,7 +48,9 @@ def deserialize_json(data: dict) -> AggregatedValue:
             data["timestamp"]
         )
     else:
-        raise DeserializationError("AggregatedValue.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("quality") is not None:
         import capo_iotsitewise.types.quality
 

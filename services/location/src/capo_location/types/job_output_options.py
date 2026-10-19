@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.job_output_format
     import capo_location.types.job_output_location
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> JobOutputOptions:
     if data.get("Format") is not None:
         out["format"] = data["Format"]
     else:
-        raise DeserializationError("JobOutputOptions.format required")
+        out["format"] = ""
     if data.get("Location") is not None:
         out["location"] = data["Location"]
     else:
-        raise DeserializationError("JobOutputOptions.location required")
+        out["location"] = ""
     return out

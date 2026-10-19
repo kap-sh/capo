@@ -60,7 +60,11 @@ def deserialize_aws_json_1_1(data: dict) -> DataProtection:
             )
         )
     else:
-        raise DeserializationError("DataProtection.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_wafv2.types.data_protection_action.DataProtectionAction", ""
+        )
     if data.get("ExcludeRuleMatchDetails") is not None:
         out["exclude_rule_match_details"] = data["ExcludeRuleMatchDetails"]
     else:

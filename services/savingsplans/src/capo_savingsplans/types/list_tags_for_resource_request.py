@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_savingsplans.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_savingsplans.types.savings_plan_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> ListTagsForResourceRequest:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("ListTagsForResourceRequest.resource_arn required")
+        out["resource_arn"] = ""
     return out

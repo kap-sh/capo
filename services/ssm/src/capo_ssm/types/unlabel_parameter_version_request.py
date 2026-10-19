@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.parameter_label_list
     import capo_ssm.types.ps_parameter_name
@@ -39,13 +37,11 @@ def deserialize_aws_json_1_1(data: dict) -> UnlabelParameterVersionRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UnlabelParameterVersionRequest.name required")
+        out["name"] = ""
     if data.get("ParameterVersion") is not None:
         out["parameter_version"] = data["ParameterVersion"]
     else:
-        raise DeserializationError(
-            "UnlabelParameterVersionRequest.parameter_version required"
-        )
+        out["parameter_version"] = 0
     if data.get("Labels") is not None:
         import capo_ssm.types.parameter_label_list
 
@@ -53,5 +49,5 @@ def deserialize_aws_json_1_1(data: dict) -> UnlabelParameterVersionRequest:
             data["Labels"]
         )
     else:
-        raise DeserializationError("UnlabelParameterVersionRequest.labels required")
+        out["labels"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.asset_property_value_history
     import capo_iotsitewise.types.entry_id
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> BatchGetAssetPropertyValueHistorySuccessEntr
     if data.get("entryId") is not None:
         out["entry_id"] = data["entryId"]
     else:
-        raise DeserializationError(
-            "BatchGetAssetPropertyValueHistorySuccessEntry.entry_id required"
-        )
+        out["entry_id"] = ""
     if data.get("assetPropertyValueHistory") is not None:
         import capo_iotsitewise.types.asset_property_value_history
 
@@ -51,7 +47,5 @@ def deserialize_json(data: dict) -> BatchGetAssetPropertyValueHistorySuccessEntr
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetAssetPropertyValueHistorySuccessEntry.asset_property_value_history required"
-        )
+        out["asset_property_value_history"] = []
     return out

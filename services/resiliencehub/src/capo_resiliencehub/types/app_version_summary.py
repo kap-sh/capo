@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.entity_version
     import capo_resiliencehub.types.long_optional
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> AppVersionSummary:
     if data.get("appVersion") is not None:
         out["app_version"] = data["appVersion"]
     else:
-        raise DeserializationError("AppVersionSummary.app_version required")
+        out["app_version"] = ""
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     if data.get("creationTime") is not None:

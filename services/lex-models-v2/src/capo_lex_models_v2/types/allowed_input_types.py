@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.boxed_boolean
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> AllowedInputTypes:
     if data.get("allowAudioInput") is not None:
         out["allow_audio_input"] = data["allowAudioInput"]
     else:
-        raise DeserializationError("AllowedInputTypes.allow_audio_input required")
+        out["allow_audio_input"] = False
     if data.get("allowDTMFInput") is not None:
         out["allow_dtmf_input"] = data["allowDTMFInput"]
     else:
-        raise DeserializationError("AllowedInputTypes.allow_dtmf_input required")
+        out["allow_dtmf_input"] = False
     return out

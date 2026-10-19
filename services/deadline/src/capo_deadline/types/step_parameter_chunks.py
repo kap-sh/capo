@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.default_task_count
     import capo_deadline.types.range_constraint
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> StepParameterChunks:
     if data.get("defaultTaskCount") is not None:
         out["default_task_count"] = data["defaultTaskCount"]
     else:
-        raise DeserializationError("StepParameterChunks.default_task_count required")
+        out["default_task_count"] = 0
     if data.get("targetRuntimeSeconds") is not None:
         out["target_runtime_seconds"] = data["targetRuntimeSeconds"]
     if data.get("rangeConstraint") is not None:
@@ -52,5 +50,9 @@ def deserialize_json(data: dict) -> StepParameterChunks:
             data["rangeConstraint"]
         )
     else:
-        raise DeserializationError("StepParameterChunks.range_constraint required")
+        import typing
+
+        out["range_constraint"] = typing.cast(
+            "capo_deadline.types.range_constraint.RangeConstraint", ""
+        )
     return out

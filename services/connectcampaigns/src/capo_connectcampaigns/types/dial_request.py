@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_connectcampaigns.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaigns.types.attributes
     import capo_connectcampaigns.types.client_token
@@ -45,11 +43,11 @@ def deserialize_json(data: dict) -> DialRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("DialRequest.client_token required")
+        out["client_token"] = ""
     if data.get("phoneNumber") is not None:
         out["phone_number"] = data["phoneNumber"]
     else:
-        raise DeserializationError("DialRequest.phone_number required")
+        out["phone_number"] = ""
     if data.get("expirationTime") is not None:
         import capo_connectcampaigns.types.time_stamp
 
@@ -59,7 +57,11 @@ def deserialize_json(data: dict) -> DialRequest:
             )
         )
     else:
-        raise DeserializationError("DialRequest.expiration_time required")
+        import datetime
+
+        out["expiration_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("attributes") is not None:
         import capo_connectcampaigns.types.attributes
 
@@ -67,7 +69,7 @@ def deserialize_json(data: dict) -> DialRequest:
             data["attributes"]
         )
     else:
-        raise DeserializationError("DialRequest.attributes required")
+        out["attributes"] = {}
     return out
 
 

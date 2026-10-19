@@ -40,7 +40,7 @@ def deserialize_query(el: Element) -> Suggester:
     if child_suggester_name is not None:
         out["suggester_name"] = str(child_suggester_name.text or "")
     else:
-        raise DeserializationError("Suggester.suggester_name required")
+        out["suggester_name"] = ""
     child_document_suggester_options = el.find("DocumentSuggesterOptions")
     if child_document_suggester_options is not None:
         import capo_cloudsearch.types.document_suggester_options

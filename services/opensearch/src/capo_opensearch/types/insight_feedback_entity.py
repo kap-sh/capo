@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.insight_entity_value
     import capo_opensearch.types.insight_feedback_entity_type
@@ -41,9 +39,14 @@ def deserialize_json(data: dict) -> InsightFeedbackEntity:
             )
         )
     else:
-        raise DeserializationError("InsightFeedbackEntity.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_opensearch.types.insight_feedback_entity_type.InsightFeedbackEntityType",
+            "",
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("InsightFeedbackEntity.value required")
+        out["value"] = ""
     return out

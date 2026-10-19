@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.artifact_file_name
     import capo_amplify.types.artifact_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> Artifact:
     if data.get("artifactFileName") is not None:
         out["artifact_file_name"] = data["artifactFileName"]
     else:
-        raise DeserializationError("Artifact.artifact_file_name required")
+        out["artifact_file_name"] = ""
     if data.get("artifactId") is not None:
         out["artifact_id"] = data["artifactId"]
     else:
-        raise DeserializationError("Artifact.artifact_id required")
+        out["artifact_id"] = ""
     return out

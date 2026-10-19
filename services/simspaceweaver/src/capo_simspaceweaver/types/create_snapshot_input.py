@@ -35,7 +35,7 @@ def deserialize_json(data: dict) -> CreateSnapshotInput:
     if data.get("Simulation") is not None:
         out["simulation"] = data["Simulation"]
     else:
-        raise DeserializationError("CreateSnapshotInput.simulation required")
+        out["simulation"] = ""
     if data.get("Destination") is not None:
         import capo_simspaceweaver.types.s3_destination
 

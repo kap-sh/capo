@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.add_on_request_list
     import capo_lightsail.types.attached_disk_map
@@ -119,9 +117,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateInstancesFromSnapshotRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateInstancesFromSnapshotRequest.instance_names required"
-        )
+        out["instance_names"] = []
     if data.get("attachedDiskMapping") is not None:
         import capo_lightsail.types.attached_disk_map
 
@@ -133,17 +129,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateInstancesFromSnapshotRequest:
     if data.get("availabilityZone") is not None:
         out["availability_zone"] = data["availabilityZone"]
     else:
-        raise DeserializationError(
-            "CreateInstancesFromSnapshotRequest.availability_zone required"
-        )
+        out["availability_zone"] = ""
     if data.get("instanceSnapshotName") is not None:
         out["instance_snapshot_name"] = data["instanceSnapshotName"]
     if data.get("bundleId") is not None:
         out["bundle_id"] = data["bundleId"]
     else:
-        raise DeserializationError(
-            "CreateInstancesFromSnapshotRequest.bundle_id required"
-        )
+        out["bundle_id"] = ""
     if data.get("userData") is not None:
         out["user_data"] = data["userData"]
     if data.get("keyPairName") is not None:

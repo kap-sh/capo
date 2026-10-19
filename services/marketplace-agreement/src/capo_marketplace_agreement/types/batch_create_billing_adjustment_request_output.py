@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_agreement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.batch_create_billing_adjustment_error_list
     import capo_marketplace_agreement.types.batch_create_billing_adjustment_item_list
@@ -49,9 +47,7 @@ def deserialize_aws_json_1_0(data: dict) -> BatchCreateBillingAdjustmentRequestO
             )
         )
     else:
-        raise DeserializationError(
-            "BatchCreateBillingAdjustmentRequestOutput.items required"
-        )
+        out["items"] = []
     if data.get("errors") is not None:
         import capo_marketplace_agreement.types.batch_create_billing_adjustment_error_list
 
@@ -61,7 +57,5 @@ def deserialize_aws_json_1_0(data: dict) -> BatchCreateBillingAdjustmentRequestO
             )
         )
     else:
-        raise DeserializationError(
-            "BatchCreateBillingAdjustmentRequestOutput.errors required"
-        )
+        out["errors"] = []
     return out

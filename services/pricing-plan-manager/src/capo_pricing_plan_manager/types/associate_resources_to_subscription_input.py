@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pricing_plan_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pricing_plan_manager.types.idempotency_token
     import capo_pricing_plan_manager.types.resource_arns
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> AssociateResourcesToSubscriptionInput:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("AssociateResourcesToSubscriptionInput.arn required")
+        out["arn"] = ""
     if data.get("resourceArns") is not None:
         import capo_pricing_plan_manager.types.resource_arns
 
@@ -54,9 +52,7 @@ def deserialize_json(data: dict) -> AssociateResourcesToSubscriptionInput:
             )
         )
     else:
-        raise DeserializationError(
-            "AssociateResourcesToSubscriptionInput.resource_arns required"
-        )
+        out["resource_arns"] = []
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.interval_positive_integer
     import capo_connect.types.month_day_list
@@ -68,11 +66,15 @@ def deserialize_json(data: dict) -> RecurrencePattern:
             data["Frequency"]
         )
     else:
-        raise DeserializationError("RecurrencePattern.frequency required")
+        import typing
+
+        out["frequency"] = typing.cast(
+            "capo_connect.types.recurrence_frequency.RecurrenceFrequency", ""
+        )
     if data.get("Interval") is not None:
         out["interval"] = data["Interval"]
     else:
-        raise DeserializationError("RecurrencePattern.interval required")
+        out["interval"] = 0
     if data.get("ByMonth") is not None:
         import capo_connect.types.month_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_recommended_actions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_recommended_actions.types.next_token
     import capo_bcm_recommended_actions.types.recommended_actions
@@ -46,9 +44,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListRecommendedActionsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListRecommendedActionsResponse.recommended_actions required"
-        )
+        out["recommended_actions"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

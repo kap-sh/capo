@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.router_output_arn
     import capo_mediaconnect.types.router_output_state
@@ -38,11 +36,11 @@ def deserialize_json(data: dict) -> DeleteRouterOutputResponse:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("DeleteRouterOutputResponse.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DeleteRouterOutputResponse.name required")
+        out["name"] = ""
     if data.get("state") is not None:
         import capo_mediaconnect.types.router_output_state
 
@@ -50,5 +48,9 @@ def deserialize_json(data: dict) -> DeleteRouterOutputResponse:
             data["state"]
         )
     else:
-        raise DeserializationError("DeleteRouterOutputResponse.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_mediaconnect.types.router_output_state.RouterOutputState", ""
+        )
     return out

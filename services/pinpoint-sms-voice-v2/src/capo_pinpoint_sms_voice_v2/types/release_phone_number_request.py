@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.phone_number_id_or_arn
 
@@ -29,5 +27,5 @@ def deserialize_aws_json_1_0(data: dict) -> ReleasePhoneNumberRequest:
     if data.get("PhoneNumberId") is not None:
         out["phone_number_id"] = data["PhoneNumberId"]
     else:
-        raise DeserializationError("ReleasePhoneNumberRequest.phone_number_id required")
+        out["phone_number_id"] = ""
     return out

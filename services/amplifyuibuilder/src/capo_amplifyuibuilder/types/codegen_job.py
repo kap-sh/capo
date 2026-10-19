@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -136,15 +134,15 @@ def deserialize_json(data: dict) -> CodegenJob:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CodegenJob.id required")
+        out["id"] = ""
     if data.get("appId") is not None:
         out["app_id"] = data["appId"]
     else:
-        raise DeserializationError("CodegenJob.app_id required")
+        out["app_id"] = ""
     if data.get("environmentName") is not None:
         out["environment_name"] = data["environmentName"]
     else:
-        raise DeserializationError("CodegenJob.environment_name required")
+        out["environment_name"] = ""
     if data.get("renderConfig") is not None:
         import capo_amplifyuibuilder.types.codegen_job_render_config
 

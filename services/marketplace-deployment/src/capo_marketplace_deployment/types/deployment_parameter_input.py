@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_deployment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_deployment.types.deployment_parameter_name
     import capo_marketplace_deployment.types.secret_string
@@ -31,11 +29,11 @@ def deserialize_json(data: dict) -> DeploymentParameterInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DeploymentParameterInput.name required")
+        out["name"] = ""
     if data.get("secretString") is not None:
         out["secret_string"] = data["secretString"]
     else:
-        raise DeserializationError("DeploymentParameterInput.secret_string required")
+        out["secret_string"] = ""
     return out
 
 

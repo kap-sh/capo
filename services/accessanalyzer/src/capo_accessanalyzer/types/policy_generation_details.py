@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.principal_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> PolicyGenerationDetails:
     if data.get("principalArn") is not None:
         out["principal_arn"] = data["principalArn"]
     else:
-        raise DeserializationError("PolicyGenerationDetails.principal_arn required")
+        out["principal_arn"] = ""
     return out

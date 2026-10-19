@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.windows_configuration_image_index
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> WindowsConfiguration:
     if data.get("imageIndex") is not None:
         out["image_index"] = data["imageIndex"]
     else:
-        raise DeserializationError("WindowsConfiguration.image_index required")
+        out["image_index"] = 0
     return out

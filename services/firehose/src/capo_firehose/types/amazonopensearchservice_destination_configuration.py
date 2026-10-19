@@ -168,9 +168,7 @@ def deserialize_aws_json_1_1(
     if data.get("RoleARN") is not None:
         out["role_arn"] = data["RoleARN"]
     else:
-        raise DeserializationError(
-            "AmazonopensearchserviceDestinationConfiguration.role_arn required"
-        )
+        out["role_arn"] = ""
     if data.get("DomainARN") is not None:
         out["domain_arn"] = data["DomainARN"]
     if data.get("ClusterEndpoint") is not None:
@@ -178,9 +176,7 @@ def deserialize_aws_json_1_1(
     if data.get("IndexName") is not None:
         out["index_name"] = data["IndexName"]
     else:
-        raise DeserializationError(
-            "AmazonopensearchserviceDestinationConfiguration.index_name required"
-        )
+        out["index_name"] = ""
     if data.get("TypeName") is not None:
         out["type_name"] = data["TypeName"]
     if data.get("IndexRotationPeriod") is not None:

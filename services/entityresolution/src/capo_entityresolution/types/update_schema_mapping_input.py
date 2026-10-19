@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.description
     import capo_entityresolution.types.entity_name
@@ -51,7 +49,5 @@ def deserialize_json(data: dict) -> UpdateSchemaMappingInput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateSchemaMappingInput.mapped_input_fields required"
-        )
+        out["mapped_input_fields"] = []
     return out

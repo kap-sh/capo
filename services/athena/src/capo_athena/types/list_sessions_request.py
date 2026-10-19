@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.max_sessions_count
     import capo_athena.types.session_manager_token
@@ -48,7 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListSessionsRequest:
     if data.get("WorkGroup") is not None:
         out["work_group"] = data["WorkGroup"]
     else:
-        raise DeserializationError("ListSessionsRequest.work_group required")
+        out["work_group"] = ""
     if data.get("StateFilter") is not None:
         import capo_athena.types.session_state
 

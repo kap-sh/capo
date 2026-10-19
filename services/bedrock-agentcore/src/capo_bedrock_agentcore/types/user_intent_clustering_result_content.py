@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.user_intent_cluster_list
 
@@ -41,7 +39,5 @@ def deserialize_json(data: dict) -> UserIntentClusteringResultContent:
             )
         )
     else:
-        raise DeserializationError(
-            "UserIntentClusteringResultContent.user_intents required"
-        )
+        out["user_intents"] = []
     return out

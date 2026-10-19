@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.pagination_token
     import capo_workspaces_web.types.session_summary_list
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> ListSessionsResponse:
             )
         )
     else:
-        raise DeserializationError("ListSessionsResponse.sessions required")
+        out["sessions"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

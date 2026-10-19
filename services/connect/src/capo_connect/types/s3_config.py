@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.bucket_name
     import capo_connect.types.encryption_config
@@ -42,11 +40,11 @@ def deserialize_json(data: dict) -> S3Config:
     if data.get("BucketName") is not None:
         out["bucket_name"] = data["BucketName"]
     else:
-        raise DeserializationError("S3Config.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("BucketPrefix") is not None:
         out["bucket_prefix"] = data["BucketPrefix"]
     else:
-        raise DeserializationError("S3Config.bucket_prefix required")
+        out["bucket_prefix"] = ""
     if data.get("EncryptionConfig") is not None:
         import capo_connect.types.encryption_config
 

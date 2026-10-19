@@ -78,15 +78,15 @@ def deserialize_json(data: dict) -> DescribeKeyResponse:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("DescribeKeyResponse.key required")
+        out["key"] = ""
     if data.get("KeyArn") is not None:
         out["key_arn"] = data["KeyArn"]
     else:
-        raise DeserializationError("DescribeKeyResponse.key_arn required")
+        out["key_arn"] = ""
     if data.get("KeyName") is not None:
         out["key_name"] = data["KeyName"]
     else:
-        raise DeserializationError("DescribeKeyResponse.key_name required")
+        out["key_name"] = ""
     if data.get("Restrictions") is not None:
         import capo_location.types.api_key_restrictions
 
@@ -102,7 +102,11 @@ def deserialize_json(data: dict) -> DescribeKeyResponse:
             data["CreateTime"]
         )
     else:
-        raise DeserializationError("DescribeKeyResponse.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("ExpireTime") is not None:
         import capo_location.types.timestamp
 
@@ -110,7 +114,11 @@ def deserialize_json(data: dict) -> DescribeKeyResponse:
             data["ExpireTime"]
         )
     else:
-        raise DeserializationError("DescribeKeyResponse.expire_time required")
+        import datetime
+
+        out["expire_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("UpdateTime") is not None:
         import capo_location.types.timestamp
 
@@ -118,7 +126,11 @@ def deserialize_json(data: dict) -> DescribeKeyResponse:
             data["UpdateTime"]
         )
     else:
-        raise DeserializationError("DescribeKeyResponse.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Tags") is not None:

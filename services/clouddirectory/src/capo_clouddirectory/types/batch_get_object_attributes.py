@@ -73,5 +73,5 @@ def deserialize_json(data: dict) -> BatchGetObjectAttributes:
             )
         )
     else:
-        raise DeserializationError("BatchGetObjectAttributes.attribute_names required")
+        out["attribute_names"] = []
     return out

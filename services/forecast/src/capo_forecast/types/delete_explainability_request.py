@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_forecast.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_forecast.types.arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteExplainabilityRequest:
     if data.get("ExplainabilityArn") is not None:
         out["explainability_arn"] = data["ExplainabilityArn"]
     else:
-        raise DeserializationError(
-            "DeleteExplainabilityRequest.explainability_arn required"
-        )
+        out["explainability_arn"] = ""
     return out

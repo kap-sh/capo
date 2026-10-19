@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.page_token
     import capo_swf.types.workflow_execution_info_list
@@ -46,7 +44,7 @@ def deserialize_aws_json_1_0(data: dict) -> WorkflowExecutionInfos:
             )
         )
     else:
-        raise DeserializationError("WorkflowExecutionInfos.execution_infos required")
+        out["execution_infos"] = []
     if data.get("nextPageToken") is not None:
         out["next_page_token"] = data["nextPageToken"]
     return out

@@ -93,5 +93,5 @@ def deserialize_json(data: dict) -> CreateCustomActionRequest:
     if data.get("ActionName") is not None:
         out["action_name"] = data["ActionName"]
     else:
-        raise DeserializationError("CreateCustomActionRequest.action_name required")
+        out["action_name"] = ""
     return out

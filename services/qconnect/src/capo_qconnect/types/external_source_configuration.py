@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.configuration
     import capo_qconnect.types.external_source
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> ExternalSourceConfiguration:
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("ExternalSourceConfiguration.source required")
+        out["source"] = ""
     if data.get("configuration") is not None:
         import capo_qconnect.types.configuration
 
@@ -43,5 +41,7 @@ def deserialize_json(data: dict) -> ExternalSourceConfiguration:
             data["configuration"]
         )
     else:
-        raise DeserializationError("ExternalSourceConfiguration.configuration required")
+        import capo_qconnect.types._unknown
+
+        out["configuration"] = capo_qconnect.types._unknown.UnknownUnionMember("")
     return out

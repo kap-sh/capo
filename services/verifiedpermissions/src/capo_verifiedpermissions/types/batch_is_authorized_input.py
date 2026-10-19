@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.batch_is_authorized_input_list
     import capo_verifiedpermissions.types.entities_definition
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_0(data: dict) -> BatchIsAuthorizedInput:
     if data.get("policyStoreId") is not None:
         out["policy_store_id"] = data["policyStoreId"]
     else:
-        raise DeserializationError("BatchIsAuthorizedInput.policy_store_id required")
+        out["policy_store_id"] = ""
     if data.get("entities") is not None:
         import capo_verifiedpermissions.types.entities_definition
 
@@ -68,7 +66,7 @@ def deserialize_aws_json_1_0(data: dict) -> BatchIsAuthorizedInput:
             )
         )
     else:
-        raise DeserializationError("BatchIsAuthorizedInput.requests required")
+        out["requests"] = []
     return out
 
 

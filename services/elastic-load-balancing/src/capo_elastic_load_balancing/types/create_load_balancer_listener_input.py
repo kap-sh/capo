@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_elastic_load_balancing._protocol.xml import Element
-from capo_elastic_load_balancing.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_elastic_load_balancing.types.access_point_name
@@ -40,9 +39,7 @@ def deserialize_query(el: Element) -> CreateLoadBalancerListenerInput:
     if child_load_balancer_name is not None:
         out["load_balancer_name"] = str(child_load_balancer_name.text or "")
     else:
-        raise DeserializationError(
-            "CreateLoadBalancerListenerInput.load_balancer_name required"
-        )
+        out["load_balancer_name"] = ""
     child_listeners = el.find("Listeners")
     if child_listeners is not None:
         import capo_elastic_load_balancing.types.listeners
@@ -53,5 +50,5 @@ def deserialize_query(el: Element) -> CreateLoadBalancerListenerInput:
             )
         )
     else:
-        raise DeserializationError("CreateLoadBalancerListenerInput.listeners required")
+        out["listeners"] = []
     return out

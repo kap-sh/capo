@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rds_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rds_data.types.arn
     import capo_rds_data.types.id
@@ -34,13 +32,13 @@ def deserialize_json(data: dict) -> CommitTransactionRequest:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("CommitTransactionRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("secretArn") is not None:
         out["secret_arn"] = data["secretArn"]
     else:
-        raise DeserializationError("CommitTransactionRequest.secret_arn required")
+        out["secret_arn"] = ""
     if data.get("transactionId") is not None:
         out["transaction_id"] = data["transactionId"]
     else:
-        raise DeserializationError("CommitTransactionRequest.transaction_id required")
+        out["transaction_id"] = ""
     return out

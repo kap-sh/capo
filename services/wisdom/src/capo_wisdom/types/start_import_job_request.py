@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wisdom.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wisdom.types.content_metadata
     import capo_wisdom.types.external_source_configuration
@@ -61,11 +59,11 @@ def deserialize_json(data: dict) -> StartImportJobRequest:
     if data.get("importJobType") is not None:
         out["import_job_type"] = data["importJobType"]
     else:
-        raise DeserializationError("StartImportJobRequest.import_job_type required")
+        out["import_job_type"] = ""
     if data.get("uploadId") is not None:
         out["upload_id"] = data["uploadId"]
     else:
-        raise DeserializationError("StartImportJobRequest.upload_id required")
+        out["upload_id"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("metadata") is not None:

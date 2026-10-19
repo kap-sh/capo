@@ -104,9 +104,7 @@ def deserialize_aws_json_1_0(
     if data.get("newExecutionRunId") is not None:
         out["new_execution_run_id"] = data["newExecutionRunId"]
     else:
-        raise DeserializationError(
-            "WorkflowExecutionContinuedAsNewEventAttributes.new_execution_run_id required"
-        )
+        out["new_execution_run_id"] = ""
     if data.get("executionStartToCloseTimeout") is not None:
         out["execution_start_to_close_timeout"] = data["executionStartToCloseTimeout"]
     if data.get("taskList") is not None:
@@ -130,9 +128,9 @@ def deserialize_aws_json_1_0(
             data["childPolicy"]
         )
     else:
-        raise DeserializationError(
-            "WorkflowExecutionContinuedAsNewEventAttributes.child_policy required"
-        )
+        import typing
+
+        out["child_policy"] = typing.cast("capo_swf.types.child_policy.ChildPolicy", "")
     if data.get("tagList") is not None:
         import capo_swf.types.tag_list
 

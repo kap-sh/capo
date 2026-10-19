@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.nonce
@@ -48,31 +47,27 @@ def deserialize_xml(el: Element) -> CreateKeySigningKeyRequest:
     if child_caller_reference is not None:
         out["caller_reference"] = str(child_caller_reference.text or "")
     else:
-        raise DeserializationError(
-            "CreateKeySigningKeyRequest.caller_reference required"
-        )
+        out["caller_reference"] = ""
     child_hosted_zone_id = el.find("HostedZoneId")
     if child_hosted_zone_id is not None:
         out["hosted_zone_id"] = str(child_hosted_zone_id.text or "")
     else:
-        raise DeserializationError("CreateKeySigningKeyRequest.hosted_zone_id required")
+        out["hosted_zone_id"] = ""
     child_key_management_service_arn = el.find("KeyManagementServiceArn")
     if child_key_management_service_arn is not None:
         out["key_management_service_arn"] = str(
             child_key_management_service_arn.text or ""
         )
     else:
-        raise DeserializationError(
-            "CreateKeySigningKeyRequest.key_management_service_arn required"
-        )
+        out["key_management_service_arn"] = ""
     child_name = el.find("Name")
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("CreateKeySigningKeyRequest.name required")
+        out["name"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         out["status"] = str(child_status.text or "")
     else:
-        raise DeserializationError("CreateKeySigningKeyRequest.status required")
+        out["status"] = ""
     return out

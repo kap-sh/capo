@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.arn
     import capo_codecommit.types.branch_name_list
@@ -59,11 +57,11 @@ def deserialize_aws_json_1_1(data: dict) -> RepositoryTrigger:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RepositoryTrigger.name required")
+        out["name"] = ""
     if data.get("destinationArn") is not None:
         out["destination_arn"] = data["destinationArn"]
     else:
-        raise DeserializationError("RepositoryTrigger.destination_arn required")
+        out["destination_arn"] = ""
     if data.get("customData") is not None:
         out["custom_data"] = data["customData"]
     if data.get("branches") is not None:
@@ -83,5 +81,5 @@ def deserialize_aws_json_1_1(data: dict) -> RepositoryTrigger:
             )
         )
     else:
-        raise DeserializationError("RepositoryTrigger.events required")
+        out["events"] = []
     return out

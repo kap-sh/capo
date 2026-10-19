@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eventbridge.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridge.types.event_bus_name_or_arn
     import capo_eventbridge.types.rule_name
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_1(data: dict) -> EnableRuleRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("EnableRuleRequest.name required")
+        out["name"] = ""
     if data.get("EventBusName") is not None:
         out["event_bus_name"] = data["EventBusName"]
     return out

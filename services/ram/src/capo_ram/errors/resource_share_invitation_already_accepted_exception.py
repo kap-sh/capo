@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_ram.errors import DeserializationError, ServiceError
+from capo_ram.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_ram.types.string
@@ -27,9 +27,7 @@ def deserialize_json(data: dict) -> ResourceShareInvitationAlreadyAcceptedExcept
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError(
-            "ResourceShareInvitationAlreadyAcceptedException_.message required"
-        )
+        out["message"] = ""
     return out
 
 

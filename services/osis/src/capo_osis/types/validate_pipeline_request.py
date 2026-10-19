@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_osis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_osis.types.pipeline_configuration_body
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> ValidatePipelineRequest:
     if data.get("PipelineConfigurationBody") is not None:
         out["pipeline_configuration_body"] = data["PipelineConfigurationBody"]
     else:
-        raise DeserializationError(
-            "ValidatePipelineRequest.pipeline_configuration_body required"
-        )
+        out["pipeline_configuration_body"] = ""
     return out

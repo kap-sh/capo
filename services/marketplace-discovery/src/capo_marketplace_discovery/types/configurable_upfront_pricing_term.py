@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.configurable_upfront_rate_card_list
     import capo_marketplace_discovery.types.currency_code
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> ConfigurableUpfrontPricingTerm:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ConfigurableUpfrontPricingTerm.id required")
+        out["id"] = ""
     if data.get("type") is not None:
         import capo_marketplace_discovery.types.term_type
 
@@ -60,13 +58,15 @@ def deserialize_json(data: dict) -> ConfigurableUpfrontPricingTerm:
             data["type"]
         )
     else:
-        raise DeserializationError("ConfigurableUpfrontPricingTerm.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_marketplace_discovery.types.term_type.TermType", ""
+        )
     if data.get("currencyCode") is not None:
         out["currency_code"] = data["currencyCode"]
     else:
-        raise DeserializationError(
-            "ConfigurableUpfrontPricingTerm.currency_code required"
-        )
+        out["currency_code"] = ""
     if data.get("rateCards") is not None:
         import capo_marketplace_discovery.types.configurable_upfront_rate_card_list
 

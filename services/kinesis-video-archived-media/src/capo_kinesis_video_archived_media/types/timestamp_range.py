@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_video_archived_media.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_video_archived_media.types.timestamp
 
@@ -48,7 +46,11 @@ def deserialize_json(data: dict) -> TimestampRange:
             )
         )
     else:
-        raise DeserializationError("TimestampRange.start_timestamp required")
+        import datetime
+
+        out["start_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("EndTimestamp") is not None:
         import capo_kinesis_video_archived_media.types.timestamp
 
@@ -58,5 +60,9 @@ def deserialize_json(data: dict) -> TimestampRange:
             )
         )
     else:
-        raise DeserializationError("TimestampRange.end_timestamp required")
+        import datetime
+
+        out["end_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

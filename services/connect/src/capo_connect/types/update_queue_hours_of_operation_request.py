@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.hours_of_operation_id
     import capo_connect.types.instance_id
@@ -33,7 +31,5 @@ def deserialize_json(data: dict) -> UpdateQueueHoursOfOperationRequest:
     if data.get("HoursOfOperationId") is not None:
         out["hours_of_operation_id"] = data["HoursOfOperationId"]
     else:
-        raise DeserializationError(
-            "UpdateQueueHoursOfOperationRequest.hours_of_operation_id required"
-        )
+        out["hours_of_operation_id"] = ""
     return out

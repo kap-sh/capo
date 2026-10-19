@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.transit_gateway_attachment_id
     import capo_network_firewall.types.transit_gateway_attachment_status
@@ -41,9 +39,7 @@ def deserialize_aws_json_1_0(
     if data.get("TransitGatewayAttachmentId") is not None:
         out["transit_gateway_attachment_id"] = data["TransitGatewayAttachmentId"]
     else:
-        raise DeserializationError(
-            "AcceptNetworkFirewallTransitGatewayAttachmentResponse.transit_gateway_attachment_id required"
-        )
+        out["transit_gateway_attachment_id"] = ""
     if data.get("TransitGatewayAttachmentStatus") is not None:
         import capo_network_firewall.types.transit_gateway_attachment_status
 
@@ -53,7 +49,10 @@ def deserialize_aws_json_1_0(
             )
         )
     else:
-        raise DeserializationError(
-            "AcceptNetworkFirewallTransitGatewayAttachmentResponse.transit_gateway_attachment_status required"
+        import typing
+
+        out["transit_gateway_attachment_status"] = typing.cast(
+            "capo_network_firewall.types.transit_gateway_attachment_status.TransitGatewayAttachmentStatus",
+            "",
         )
     return out

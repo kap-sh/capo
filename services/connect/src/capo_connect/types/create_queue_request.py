@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.common_name_length127
     import capo_connect.types.email_address_config_list
@@ -101,7 +99,7 @@ def deserialize_json(data: dict) -> CreateQueueRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateQueueRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("OutboundCallerConfig") is not None:
@@ -123,7 +121,7 @@ def deserialize_json(data: dict) -> CreateQueueRequest:
     if data.get("HoursOfOperationId") is not None:
         out["hours_of_operation_id"] = data["HoursOfOperationId"]
     else:
-        raise DeserializationError("CreateQueueRequest.hours_of_operation_id required")
+        out["hours_of_operation_id"] = ""
     if data.get("MaxContacts") is not None:
         out["max_contacts"] = data["MaxContacts"]
     if data.get("QuickConnectIds") is not None:

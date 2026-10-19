@@ -231,13 +231,13 @@ def deserialize_json(data: dict) -> CreateClusterRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateClusterRequest.name required")
+        out["name"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateClusterRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("resourcesVpcConfig") is not None:
         import capo_eks.types.vpc_config_request
 

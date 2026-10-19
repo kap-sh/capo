@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_nova_act.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_nova_act.types.call_id
     import capo_nova_act.types.call_result_contents
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> CallResult:
             data["content"]
         )
     else:
-        raise DeserializationError("CallResult.content required")
+        out["content"] = []
     return out
 
 

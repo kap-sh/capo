@@ -71,11 +71,11 @@ def deserialize_json(data: dict) -> DataSegmentSummary:
     if data.get("sourceDatasetId") is not None:
         out["source_dataset_id"] = data["sourceDatasetId"]
     else:
-        raise DeserializationError("DataSegmentSummary.source_dataset_id required")
+        out["source_dataset_id"] = ""
     if data.get("timeSeriesId") is not None:
         out["time_series_id"] = data["timeSeriesId"]
     else:
-        raise DeserializationError("DataSegmentSummary.time_series_id required")
+        out["time_series_id"] = ""
     if data.get("startTimestamp") is not None:
         import capo_iotsitewise.types.time_in_nanos
 
@@ -95,7 +95,7 @@ def deserialize_json(data: dict) -> DataSegmentSummary:
     if data.get("alias") is not None:
         out["alias"] = data["alias"]
     else:
-        raise DeserializationError("DataSegmentSummary.alias required")
+        out["alias"] = ""
     if data.get("dataType") is not None:
         import capo_iotsitewise.types.property_data_type
 
@@ -103,7 +103,11 @@ def deserialize_json(data: dict) -> DataSegmentSummary:
             data["dataType"]
         )
     else:
-        raise DeserializationError("DataSegmentSummary.data_type required")
+        import typing
+
+        out["data_type"] = typing.cast(
+            "capo_iotsitewise.types.property_data_type.PropertyDataType", ""
+        )
     if data.get("enrichment") is not None:
         import capo_iotsitewise.types.data_segment_enrichment
 

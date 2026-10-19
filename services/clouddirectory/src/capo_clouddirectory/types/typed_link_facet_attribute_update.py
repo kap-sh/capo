@@ -55,5 +55,9 @@ def deserialize_json(data: dict) -> TypedLinkFacetAttributeUpdate:
             data["Action"]
         )
     else:
-        raise DeserializationError("TypedLinkFacetAttributeUpdate.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_clouddirectory.types.update_action_type.UpdateActionType", ""
+        )
     return out

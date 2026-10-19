@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.alternate_key_list
     import capo_m2.types.boolean
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> VsamAttributes:
     if data.get("format") is not None:
         out["format"] = data["format"]
     else:
-        raise DeserializationError("VsamAttributes.format required")
+        out["format"] = ""
     if data.get("encoding") is not None:
         out["encoding"] = data["encoding"]
     if data.get("compressed") is not None:

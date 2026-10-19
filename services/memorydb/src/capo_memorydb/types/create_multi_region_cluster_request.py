@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_memorydb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_memorydb.types.boolean_optional
     import capo_memorydb.types.integer_optional
@@ -65,9 +63,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMultiRegionClusterRequest:
     if data.get("MultiRegionClusterNameSuffix") is not None:
         out["multi_region_cluster_name_suffix"] = data["MultiRegionClusterNameSuffix"]
     else:
-        raise DeserializationError(
-            "CreateMultiRegionClusterRequest.multi_region_cluster_name_suffix required"
-        )
+        out["multi_region_cluster_name_suffix"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Engine") is not None:
@@ -77,7 +73,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMultiRegionClusterRequest:
     if data.get("NodeType") is not None:
         out["node_type"] = data["NodeType"]
     else:
-        raise DeserializationError("CreateMultiRegionClusterRequest.node_type required")
+        out["node_type"] = ""
     if data.get("MultiRegionParameterGroupName") is not None:
         out["multi_region_parameter_group_name"] = data["MultiRegionParameterGroupName"]
     if data.get("NumShards") is not None:

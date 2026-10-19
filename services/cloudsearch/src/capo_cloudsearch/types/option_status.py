@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudsearch._protocol.xml import Element
-from capo_cloudsearch.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudsearch.types.boolean
@@ -69,7 +68,11 @@ def deserialize_query(el: Element) -> OptionStatus:
             )
         )
     else:
-        raise DeserializationError("OptionStatus.creation_date required")
+        import datetime
+
+        out["creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_update_date = el.find("UpdateDate")
     if child_update_date is not None:
         import capo_cloudsearch.types.update_timestamp
@@ -78,7 +81,11 @@ def deserialize_query(el: Element) -> OptionStatus:
             child_update_date
         )
     else:
-        raise DeserializationError("OptionStatus.update_date required")
+        import datetime
+
+        out["update_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_update_version = el.find("UpdateVersion")
     if child_update_version is not None:
         out["update_version"] = int(child_update_version.text or "")
@@ -92,7 +99,11 @@ def deserialize_query(el: Element) -> OptionStatus:
             child_state
         )
     else:
-        raise DeserializationError("OptionStatus.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_cloudsearch.types.option_state.OptionState", ""
+        )
     child_pending_deletion = el.find("PendingDeletion")
     if child_pending_deletion is not None:
         out["pending_deletion"] = (child_pending_deletion.text or "").lower() == "true"

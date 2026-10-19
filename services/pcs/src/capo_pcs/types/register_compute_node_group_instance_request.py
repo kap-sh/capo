@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pcs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pcs.types.bootstrap_id
     import capo_pcs.types.cluster_identifier
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> RegisterComputeNodeGroupInstanceRequ
     if data.get("clusterIdentifier") is not None:
         out["cluster_identifier"] = data["clusterIdentifier"]
     else:
-        raise DeserializationError(
-            "RegisterComputeNodeGroupInstanceRequest.cluster_identifier required"
-        )
+        out["cluster_identifier"] = ""
     if data.get("bootstrapId") is not None:
         out["bootstrap_id"] = data["bootstrapId"]
     else:
-        raise DeserializationError(
-            "RegisterComputeNodeGroupInstanceRequest.bootstrap_id required"
-        )
+        out["bootstrap_id"] = ""
     return out

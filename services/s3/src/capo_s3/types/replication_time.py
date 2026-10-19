@@ -40,7 +40,11 @@ def deserialize_xml(el: Element) -> ReplicationTime:
             child_status
         )
     else:
-        raise DeserializationError("ReplicationTime.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_s3.types.replication_time_status.ReplicationTimeStatus", ""
+        )
     child_time = el.find("Time")
     if child_time is not None:
         import capo_s3.types.replication_time_value

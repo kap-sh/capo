@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_dashboards.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_dashboards.types.dashboard_reference_list
     import capo_bcm_dashboards.types.next_page_token
@@ -46,7 +44,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListDashboardsResponse:
             )
         )
     else:
-        raise DeserializationError("ListDashboardsResponse.dashboards required")
+        out["dashboards"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

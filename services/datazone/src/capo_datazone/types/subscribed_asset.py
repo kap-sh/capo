@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -88,11 +86,11 @@ def deserialize_json(data: dict) -> SubscribedAsset:
     if data.get("assetId") is not None:
         out["asset_id"] = data["assetId"]
     else:
-        raise DeserializationError("SubscribedAsset.asset_id required")
+        out["asset_id"] = ""
     if data.get("assetRevision") is not None:
         out["asset_revision"] = data["assetRevision"]
     else:
-        raise DeserializationError("SubscribedAsset.asset_revision required")
+        out["asset_revision"] = ""
     if data.get("status") is not None:
         import capo_datazone.types.subscription_grant_status
 
@@ -100,7 +98,11 @@ def deserialize_json(data: dict) -> SubscribedAsset:
             data["status"]
         )
     else:
-        raise DeserializationError("SubscribedAsset.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_datazone.types.subscription_grant_status.SubscriptionGrantStatus", ""
+        )
     if data.get("targetName") is not None:
         out["target_name"] = data["targetName"]
     if data.get("failureCause") is not None:

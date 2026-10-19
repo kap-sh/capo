@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.field_level_encryption_profile_summary_list
@@ -52,12 +51,12 @@ def deserialize_xml(el: Element) -> FieldLevelEncryptionProfileList:
     if child_max_items is not None:
         out["max_items"] = int(child_max_items.text or "")
     else:
-        raise DeserializationError("FieldLevelEncryptionProfileList.max_items required")
+        out["max_items"] = 0
     child_quantity = el.find("Quantity")
     if child_quantity is not None:
         out["quantity"] = int(child_quantity.text or "")
     else:
-        raise DeserializationError("FieldLevelEncryptionProfileList.quantity required")
+        out["quantity"] = 0
     child_items = el.find("Items")
     if child_items is not None:
         import capo_cloudfront.types.field_level_encryption_profile_summary_list

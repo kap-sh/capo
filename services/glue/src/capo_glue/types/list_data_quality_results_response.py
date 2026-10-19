@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.data_quality_result_description_list
     import capo_glue.types.pagination_token
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListDataQualityResultsResponse:
             )
         )
     else:
-        raise DeserializationError("ListDataQualityResultsResponse.results required")
+        out["results"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

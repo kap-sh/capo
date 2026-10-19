@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_xray.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_xray.types.encryption_key_id
     import capo_xray.types.encryption_type
@@ -38,5 +36,7 @@ def deserialize_json(data: dict) -> PutEncryptionConfigRequest:
 
         out["type"] = capo_xray.types.encryption_type.deserialize_json(data["Type"])
     else:
-        raise DeserializationError("PutEncryptionConfigRequest.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_xray.types.encryption_type.EncryptionType", "")
     return out

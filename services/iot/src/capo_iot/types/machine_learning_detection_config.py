@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.confidence_level
 
@@ -35,7 +33,9 @@ def deserialize_json(data: dict) -> MachineLearningDetectionConfig:
             data["confidenceLevel"]
         )
     else:
-        raise DeserializationError(
-            "MachineLearningDetectionConfig.confidence_level required"
+        import typing
+
+        out["confidence_level"] = typing.cast(
+            "capo_iot.types.confidence_level.ConfidenceLevel", ""
         )
     return out

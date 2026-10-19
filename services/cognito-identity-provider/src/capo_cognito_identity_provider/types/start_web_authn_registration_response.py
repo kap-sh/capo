@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.document
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> StartWebAuthnRegistrationResponse:
     if data.get("CredentialCreationOptions") is not None:
         out["credential_creation_options"] = data["CredentialCreationOptions"]
     else:
-        raise DeserializationError(
-            "StartWebAuthnRegistrationResponse.credential_creation_options required"
-        )
+        out["credential_creation_options"] = None
     return out

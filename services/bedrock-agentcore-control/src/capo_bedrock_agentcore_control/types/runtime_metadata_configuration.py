@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 
 class RuntimeMetadataConfiguration(TypedDict, closed=True):
     require_mmdsv2: "bool"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> RuntimeMetadataConfiguration:
     if data.get("requireMMDSV2") is not None:
         out["require_mmdsv2"] = data["requireMMDSV2"]
     else:
-        raise DeserializationError(
-            "RuntimeMetadataConfiguration.require_mmdsv2 required"
-        )
+        out["require_mmdsv2"] = False
     return out

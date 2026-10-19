@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.dq_results_publishing_options
     import capo_glue.types.dq_stop_job_on_failure_options
@@ -72,7 +70,7 @@ def deserialize_aws_json_1_1(data: dict) -> EvaluateDataQuality:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("EvaluateDataQuality.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.one_input
 
@@ -80,11 +78,11 @@ def deserialize_aws_json_1_1(data: dict) -> EvaluateDataQuality:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("EvaluateDataQuality.inputs required")
+        out["inputs"] = []
     if data.get("Ruleset") is not None:
         out["ruleset"] = data["Ruleset"]
     else:
-        raise DeserializationError("EvaluateDataQuality.ruleset required")
+        out["ruleset"] = ""
     if data.get("Output") is not None:
         import capo_glue.types.dq_transform_output
 

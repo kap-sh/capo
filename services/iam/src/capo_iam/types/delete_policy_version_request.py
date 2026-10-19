@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -34,10 +33,10 @@ def deserialize_query(el: Element) -> DeletePolicyVersionRequest:
     if child_policy_arn is not None:
         out["policy_arn"] = str(child_policy_arn.text or "")
     else:
-        raise DeserializationError("DeletePolicyVersionRequest.policy_arn required")
+        out["policy_arn"] = ""
     child_version_id = el.find("VersionId")
     if child_version_id is not None:
         out["version_id"] = str(child_version_id.text or "")
     else:
-        raise DeserializationError("DeletePolicyVersionRequest.version_id required")
+        out["version_id"] = ""
     return out

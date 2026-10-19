@@ -222,7 +222,9 @@ def deserialize_json(data: dict) -> WorkspaceDescription:
             data["created"]
         )
     else:
-        raise DeserializationError("WorkspaceDescription.created required")
+        import datetime
+
+        out["created"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("dataSources") is not None:
         import capo_grafana.types.data_source_types_list
 
@@ -232,21 +234,21 @@ def deserialize_json(data: dict) -> WorkspaceDescription:
             )
         )
     else:
-        raise DeserializationError("WorkspaceDescription.data_sources required")
+        out["data_sources"] = []
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError("WorkspaceDescription.endpoint required")
+        out["endpoint"] = ""
     if data.get("grafanaVersion") is not None:
         out["grafana_version"] = data["grafanaVersion"]
     else:
-        raise DeserializationError("WorkspaceDescription.grafana_version required")
+        out["grafana_version"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("WorkspaceDescription.id required")
+        out["id"] = ""
     if data.get("modified") is not None:
         import capo_grafana.types._prelude.timestamp
 
@@ -254,7 +256,9 @@ def deserialize_json(data: dict) -> WorkspaceDescription:
             data["modified"]
         )
     else:
-        raise DeserializationError("WorkspaceDescription.modified required")
+        import datetime
+
+        out["modified"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("organizationRoleName") is not None:
@@ -282,7 +286,7 @@ def deserialize_json(data: dict) -> WorkspaceDescription:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("WorkspaceDescription.status required")
+        out["status"] = ""
     if data.get("workspaceRoleArn") is not None:
         out["workspace_role_arn"] = data["workspaceRoleArn"]
     if data.get("licenseType") is not None:

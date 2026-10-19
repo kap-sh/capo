@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_elementalinference.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elementalinference.types.aspect_ratio
     import capo_elementalinference.types.dictionary_id
@@ -68,7 +66,12 @@ def deserialize_json(data: dict) -> SubtitlingConfig:
             )
         )
     else:
-        raise DeserializationError("SubtitlingConfig.language required")
+        import typing
+
+        out["language"] = typing.cast(
+            "capo_elementalinference.types.transcription_language.TranscriptionLanguage",
+            "",
+        )
     if data.get("aspectRatio") is not None:
         import capo_elementalinference.types.aspect_ratio
 

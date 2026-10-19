@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.bedrock_model_arn
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> AgenticRetrieveBedrockRerankingModelConfigur
     if data.get("modelArn") is not None:
         out["model_arn"] = data["modelArn"]
     else:
-        raise DeserializationError(
-            "AgenticRetrieveBedrockRerankingModelConfiguration.model_arn required"
-        )
+        out["model_arn"] = ""
     return out

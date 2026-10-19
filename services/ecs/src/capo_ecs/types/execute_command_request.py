@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.boolean
     import capo_ecs.types.string
@@ -46,13 +44,13 @@ def deserialize_aws_json_1_1(data: dict) -> ExecuteCommandRequest:
     if data.get("command") is not None:
         out["command"] = data["command"]
     else:
-        raise DeserializationError("ExecuteCommandRequest.command required")
+        out["command"] = ""
     if data.get("interactive") is not None:
         out["interactive"] = data["interactive"]
     else:
-        raise DeserializationError("ExecuteCommandRequest.interactive required")
+        out["interactive"] = False
     if data.get("task") is not None:
         out["task"] = data["task"]
     else:
-        raise DeserializationError("ExecuteCommandRequest.task required")
+        out["task"] = ""
     return out

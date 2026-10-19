@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_meetings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_meetings.types.media_capabilities
 
@@ -51,7 +49,11 @@ def deserialize_json(data: dict) -> AttendeeCapabilities:
             )
         )
     else:
-        raise DeserializationError("AttendeeCapabilities.audio required")
+        import typing
+
+        out["audio"] = typing.cast(
+            "capo_chime_sdk_meetings.types.media_capabilities.MediaCapabilities", ""
+        )
     if data.get("Video") is not None:
         import capo_chime_sdk_meetings.types.media_capabilities
 
@@ -61,7 +63,11 @@ def deserialize_json(data: dict) -> AttendeeCapabilities:
             )
         )
     else:
-        raise DeserializationError("AttendeeCapabilities.video required")
+        import typing
+
+        out["video"] = typing.cast(
+            "capo_chime_sdk_meetings.types.media_capabilities.MediaCapabilities", ""
+        )
     if data.get("Content") is not None:
         import capo_chime_sdk_meetings.types.media_capabilities
 
@@ -71,5 +77,9 @@ def deserialize_json(data: dict) -> AttendeeCapabilities:
             )
         )
     else:
-        raise DeserializationError("AttendeeCapabilities.content required")
+        import typing
+
+        out["content"] = typing.cast(
+            "capo_chime_sdk_meetings.types.media_capabilities.MediaCapabilities", ""
+        )
     return out

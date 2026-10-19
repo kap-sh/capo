@@ -56,7 +56,7 @@ def deserialize_query(el: Element) -> AssumeRootRequest:
     if child_target_principal is not None:
         out["target_principal"] = str(child_target_principal.text or "")
     else:
-        raise DeserializationError("AssumeRootRequest.target_principal required")
+        out["target_principal"] = ""
     child_task_policy_arn = el.find("TaskPolicyArn")
     if child_task_policy_arn is not None:
         import capo_sts.types.policy_descriptor_type

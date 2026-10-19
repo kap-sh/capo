@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.identity
     import capo_sesv2.types.max_items
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> ListEmailIdentityCertificatesRequest:
     if data.get("EmailIdentity") is not None:
         out["email_identity"] = data["EmailIdentity"]
     else:
-        raise DeserializationError(
-            "ListEmailIdentityCertificatesRequest.email_identity required"
-        )
+        out["email_identity"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("PageSize") is not None:

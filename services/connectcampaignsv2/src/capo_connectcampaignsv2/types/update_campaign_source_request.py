@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.campaign_id
     import capo_connectcampaignsv2.types.source
@@ -34,5 +32,7 @@ def deserialize_json(data: dict) -> UpdateCampaignSourceRequest:
             data["source"]
         )
     else:
-        raise DeserializationError("UpdateCampaignSourceRequest.source required")
+        import capo_connectcampaignsv2.types._unknown
+
+        out["source"] = capo_connectcampaignsv2.types._unknown.UnknownUnionMember("")
     return out

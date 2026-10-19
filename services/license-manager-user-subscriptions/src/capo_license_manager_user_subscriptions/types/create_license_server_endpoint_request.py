@@ -46,9 +46,7 @@ def deserialize_json(data: dict) -> CreateLicenseServerEndpointRequest:
     if data.get("IdentityProviderArn") is not None:
         out["identity_provider_arn"] = data["IdentityProviderArn"]
     else:
-        raise DeserializationError(
-            "CreateLicenseServerEndpointRequest.identity_provider_arn required"
-        )
+        out["identity_provider_arn"] = ""
     if data.get("LicenseServerSettings") is not None:
         import capo_license_manager_user_subscriptions.types.license_server_settings
 

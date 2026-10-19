@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.max_results
     import capo_ssm.types.next_token
@@ -71,7 +69,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListNodesSummaryRequest:
             )
         )
     else:
-        raise DeserializationError("ListNodesSummaryRequest.aggregators required")
+        out["aggregators"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

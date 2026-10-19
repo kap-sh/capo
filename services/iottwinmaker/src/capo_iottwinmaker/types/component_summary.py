@@ -70,11 +70,11 @@ def deserialize_json(data: dict) -> ComponentSummary:
     if data.get("componentName") is not None:
         out["component_name"] = data["componentName"]
     else:
-        raise DeserializationError("ComponentSummary.component_name required")
+        out["component_name"] = ""
     if data.get("componentTypeId") is not None:
         out["component_type_id"] = data["componentTypeId"]
     else:
-        raise DeserializationError("ComponentSummary.component_type_id required")
+        out["component_type_id"] = ""
     if data.get("definedIn") is not None:
         out["defined_in"] = data["definedIn"]
     if data.get("description") is not None:

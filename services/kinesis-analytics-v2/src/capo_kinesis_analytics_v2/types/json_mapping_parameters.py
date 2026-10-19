@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.record_row_path
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> JSONMappingParameters:
     if data.get("RecordRowPath") is not None:
         out["record_row_path"] = data["RecordRowPath"]
     else:
-        raise DeserializationError("JSONMappingParameters.record_row_path required")
+        out["record_row_path"] = ""
     return out

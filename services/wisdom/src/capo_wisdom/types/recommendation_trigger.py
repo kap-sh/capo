@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_wisdom.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wisdom.types.recommendation_id_list
     import capo_wisdom.types.recommendation_source_type
@@ -51,15 +49,15 @@ def deserialize_json(data: dict) -> RecommendationTrigger:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("RecommendationTrigger.id required")
+        out["id"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("RecommendationTrigger.type required")
+        out["type"] = ""
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("RecommendationTrigger.source required")
+        out["source"] = ""
     if data.get("data") is not None:
         import capo_wisdom.types.recommendation_trigger_data
 
@@ -67,7 +65,9 @@ def deserialize_json(data: dict) -> RecommendationTrigger:
             data["data"]
         )
     else:
-        raise DeserializationError("RecommendationTrigger.data required")
+        import capo_wisdom.types._unknown
+
+        out["data"] = capo_wisdom.types._unknown.UnknownUnionMember("")
     if data.get("recommendationIds") is not None:
         import capo_wisdom.types.recommendation_id_list
 
@@ -77,7 +77,7 @@ def deserialize_json(data: dict) -> RecommendationTrigger:
             )
         )
     else:
-        raise DeserializationError("RecommendationTrigger.recommendation_ids required")
+        out["recommendation_ids"] = []
     return out
 
 

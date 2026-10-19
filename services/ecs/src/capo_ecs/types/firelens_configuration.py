@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.firelens_configuration_options_map
     import capo_ecs.types.firelens_configuration_type
@@ -50,7 +48,11 @@ def deserialize_aws_json_1_1(data: dict) -> FirelensConfiguration:
             )
         )
     else:
-        raise DeserializationError("FirelensConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_ecs.types.firelens_configuration_type.FirelensConfigurationType", ""
+        )
     if data.get("options") is not None:
         import capo_ecs.types.firelens_configuration_options_map
 

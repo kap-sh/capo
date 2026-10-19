@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.address_list_name
     import capo_mailmanager.types.idempotency_token
@@ -45,9 +43,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateAddressListRequest:
     if data.get("AddressListName") is not None:
         out["address_list_name"] = data["AddressListName"]
     else:
-        raise DeserializationError(
-            "CreateAddressListRequest.address_list_name required"
-        )
+        out["address_list_name"] = ""
     if data.get("Tags") is not None:
         import capo_mailmanager.types.tag_list
 

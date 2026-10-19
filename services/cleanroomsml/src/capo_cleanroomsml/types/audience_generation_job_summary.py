@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -84,7 +82,11 @@ def deserialize_json(data: dict) -> AudienceGenerationJobSummary:
             data["createTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("AudienceGenerationJobSummary.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import datetime
 
@@ -92,17 +94,19 @@ def deserialize_json(data: dict) -> AudienceGenerationJobSummary:
             data["updateTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("AudienceGenerationJobSummary.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("audienceGenerationJobArn") is not None:
         out["audience_generation_job_arn"] = data["audienceGenerationJobArn"]
     else:
-        raise DeserializationError(
-            "AudienceGenerationJobSummary.audience_generation_job_arn required"
-        )
+        out["audience_generation_job_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AudienceGenerationJobSummary.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("status") is not None:
@@ -114,13 +118,16 @@ def deserialize_json(data: dict) -> AudienceGenerationJobSummary:
             )
         )
     else:
-        raise DeserializationError("AudienceGenerationJobSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cleanroomsml.types.audience_generation_job_status.AudienceGenerationJobStatus",
+            "",
+        )
     if data.get("configuredAudienceModelArn") is not None:
         out["configured_audience_model_arn"] = data["configuredAudienceModelArn"]
     else:
-        raise DeserializationError(
-            "AudienceGenerationJobSummary.configured_audience_model_arn required"
-        )
+        out["configured_audience_model_arn"] = ""
     if data.get("collaborationId") is not None:
         out["collaboration_id"] = data["collaborationId"]
     if data.get("startedBy") is not None:

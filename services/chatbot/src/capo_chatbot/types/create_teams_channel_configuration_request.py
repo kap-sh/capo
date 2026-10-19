@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chatbot.types.arn
     import capo_chatbot.types.boolean_account_preference
@@ -95,25 +93,19 @@ def deserialize_json(data: dict) -> CreateTeamsChannelConfigurationRequest:
     if data.get("ChannelId") is not None:
         out["channel_id"] = data["ChannelId"]
     else:
-        raise DeserializationError(
-            "CreateTeamsChannelConfigurationRequest.channel_id required"
-        )
+        out["channel_id"] = ""
     if data.get("ChannelName") is not None:
         out["channel_name"] = data["ChannelName"]
     if data.get("TeamId") is not None:
         out["team_id"] = data["TeamId"]
     else:
-        raise DeserializationError(
-            "CreateTeamsChannelConfigurationRequest.team_id required"
-        )
+        out["team_id"] = ""
     if data.get("TeamName") is not None:
         out["team_name"] = data["TeamName"]
     if data.get("TenantId") is not None:
         out["tenant_id"] = data["TenantId"]
     else:
-        raise DeserializationError(
-            "CreateTeamsChannelConfigurationRequest.tenant_id required"
-        )
+        out["tenant_id"] = ""
     if data.get("SnsTopicArns") is not None:
         import capo_chatbot.types.sns_topic_arn_list
 
@@ -123,15 +115,11 @@ def deserialize_json(data: dict) -> CreateTeamsChannelConfigurationRequest:
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     else:
-        raise DeserializationError(
-            "CreateTeamsChannelConfigurationRequest.iam_role_arn required"
-        )
+        out["iam_role_arn"] = ""
     if data.get("ConfigurationName") is not None:
         out["configuration_name"] = data["ConfigurationName"]
     else:
-        raise DeserializationError(
-            "CreateTeamsChannelConfigurationRequest.configuration_name required"
-        )
+        out["configuration_name"] = ""
     if data.get("LoggingLevel") is not None:
         out["logging_level"] = data["LoggingLevel"]
     if data.get("GuardrailPolicyArns") is not None:

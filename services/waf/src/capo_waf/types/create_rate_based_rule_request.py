@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_waf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf.types.change_token
     import capo_waf.types.metric_name
@@ -52,11 +50,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRateBasedRuleRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateRateBasedRuleRequest.name required")
+        out["name"] = ""
     if data.get("MetricName") is not None:
         out["metric_name"] = data["MetricName"]
     else:
-        raise DeserializationError("CreateRateBasedRuleRequest.metric_name required")
+        out["metric_name"] = ""
     if data.get("RateKey") is not None:
         import capo_waf.types.rate_key
 
@@ -64,15 +62,17 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRateBasedRuleRequest:
             data["RateKey"]
         )
     else:
-        raise DeserializationError("CreateRateBasedRuleRequest.rate_key required")
+        import typing
+
+        out["rate_key"] = typing.cast("capo_waf.types.rate_key.RateKey", "")
     if data.get("RateLimit") is not None:
         out["rate_limit"] = data["RateLimit"]
     else:
-        raise DeserializationError("CreateRateBasedRuleRequest.rate_limit required")
+        out["rate_limit"] = 0
     if data.get("ChangeToken") is not None:
         out["change_token"] = data["ChangeToken"]
     else:
-        raise DeserializationError("CreateRateBasedRuleRequest.change_token required")
+        out["change_token"] = ""
     if data.get("Tags") is not None:
         import capo_waf.types.tag_list
 

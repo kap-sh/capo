@@ -46,9 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateUserDefinedFunctionRequest:
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError(
-            "CreateUserDefinedFunctionRequest.database_name required"
-        )
+        out["database_name"] = ""
     if data.get("FunctionInput") is not None:
         import capo_glue.types.user_defined_function_input
 

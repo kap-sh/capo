@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_mpa.errors import DeserializationError
-
 
 class MofNApprovalStrategy(TypedDict, closed=True):
     min_approvals_required: "int"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> MofNApprovalStrategy:
     if data.get("MinApprovalsRequired") is not None:
         out["min_approvals_required"] = data["MinApprovalsRequired"]
     else:
-        raise DeserializationError(
-            "MofNApprovalStrategy.min_approvals_required required"
-        )
+        out["min_approvals_required"] = 0
     return out

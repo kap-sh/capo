@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.string
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> PosixUser:
     if data.get("user") is not None:
         out["user"] = data["user"]
     else:
-        raise DeserializationError("PosixUser.user required")
+        out["user"] = ""
     if data.get("group") is not None:
         out["group"] = data["group"]
     else:
-        raise DeserializationError("PosixUser.group required")
+        out["group"] = ""
     return out

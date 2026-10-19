@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.dns_ip_addrs
     import capo_directory_service.types.dns_ipv6_addrs
@@ -62,7 +60,7 @@ def deserialize_aws_json_1_1(data: dict) -> DirectoryConnectSettings:
     if data.get("VpcId") is not None:
         out["vpc_id"] = data["VpcId"]
     else:
-        raise DeserializationError("DirectoryConnectSettings.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("SubnetIds") is not None:
         import capo_directory_service.types.subnet_ids
 
@@ -72,7 +70,7 @@ def deserialize_aws_json_1_1(data: dict) -> DirectoryConnectSettings:
             )
         )
     else:
-        raise DeserializationError("DirectoryConnectSettings.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("CustomerDnsIps") is not None:
         import capo_directory_service.types.dns_ip_addrs
 
@@ -94,7 +92,5 @@ def deserialize_aws_json_1_1(data: dict) -> DirectoryConnectSettings:
     if data.get("CustomerUserName") is not None:
         out["customer_user_name"] = data["CustomerUserName"]
     else:
-        raise DeserializationError(
-            "DirectoryConnectSettings.customer_user_name required"
-        )
+        out["customer_user_name"] = ""
     return out

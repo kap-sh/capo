@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3tables.types.encryption_configuration
     import capo_s3tables.types.namespace_name
@@ -83,7 +81,7 @@ def deserialize_json(data: dict) -> CreateTableRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateTableRequest.name required")
+        out["name"] = ""
     if data.get("format") is not None:
         import capo_s3tables.types.open_table_format
 
@@ -91,7 +89,11 @@ def deserialize_json(data: dict) -> CreateTableRequest:
             data["format"]
         )
     else:
-        raise DeserializationError("CreateTableRequest.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_s3tables.types.open_table_format.OpenTableFormat", ""
+        )
     if data.get("metadata") is not None:
         import capo_s3tables.types.table_metadata
 

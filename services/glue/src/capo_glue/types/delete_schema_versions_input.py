@@ -43,5 +43,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteSchemaVersionsInput:
     if data.get("Versions") is not None:
         out["versions"] = data["Versions"]
     else:
-        raise DeserializationError("DeleteSchemaVersionsInput.versions required")
+        out["versions"] = ""
     return out

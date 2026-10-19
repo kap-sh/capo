@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.action_identifier_list
     import capo_verifiedpermissions.types.entity_identifier
@@ -109,11 +107,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdatePolicyOutput:
     if data.get("policyStoreId") is not None:
         out["policy_store_id"] = data["policyStoreId"]
     else:
-        raise DeserializationError("UpdatePolicyOutput.policy_store_id required")
+        out["policy_store_id"] = ""
     if data.get("policyId") is not None:
         out["policy_id"] = data["policyId"]
     else:
-        raise DeserializationError("UpdatePolicyOutput.policy_id required")
+        out["policy_id"] = ""
     if data.get("policyType") is not None:
         import capo_verifiedpermissions.types.policy_type
 
@@ -123,7 +121,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdatePolicyOutput:
             )
         )
     else:
-        raise DeserializationError("UpdatePolicyOutput.policy_type required")
+        import typing
+
+        out["policy_type"] = typing.cast(
+            "capo_verifiedpermissions.types.policy_type.PolicyType", ""
+        )
     if data.get("principal") is not None:
         import capo_verifiedpermissions.types.entity_identifier
 
@@ -157,7 +159,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdatePolicyOutput:
             )
         )
     else:
-        raise DeserializationError("UpdatePolicyOutput.created_date required")
+        import datetime
+
+        out["created_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastUpdatedDate") is not None:
         import capo_verifiedpermissions.types.timestamp_format
 
@@ -167,7 +173,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdatePolicyOutput:
             )
         )
     else:
-        raise DeserializationError("UpdatePolicyOutput.last_updated_date required")
+        import datetime
+
+        out["last_updated_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("effect") is not None:
         import capo_verifiedpermissions.types.policy_effect
 

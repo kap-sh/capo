@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.boolean
     import capo_appsync.types.field_log_level
@@ -43,11 +41,15 @@ def deserialize_json(data: dict) -> LogConfig:
             data["fieldLogLevel"]
         )
     else:
-        raise DeserializationError("LogConfig.field_log_level required")
+        import typing
+
+        out["field_log_level"] = typing.cast(
+            "capo_appsync.types.field_log_level.FieldLogLevel", ""
+        )
     if data.get("cloudWatchLogsRoleArn") is not None:
         out["cloud_watch_logs_role_arn"] = data["cloudWatchLogsRoleArn"]
     else:
-        raise DeserializationError("LogConfig.cloud_watch_logs_role_arn required")
+        out["cloud_watch_logs_role_arn"] = ""
     if data.get("excludeVerboseContent") is not None:
         out["exclude_verbose_content"] = data["excludeVerboseContent"]
     else:

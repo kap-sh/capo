@@ -60,5 +60,5 @@ def deserialize_json(data: dict) -> AddLFTagsToResourceRequest:
             data["LFTags"]
         )
     else:
-        raise DeserializationError("AddLFTagsToResourceRequest.lf_tags required")
+        out["lf_tags"] = []
     return out

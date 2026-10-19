@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sso_admin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_admin.types.account_id
     import capo_sso_admin.types.instance_arn
@@ -58,15 +56,11 @@ def deserialize_aws_json_1_1(
     if data.get("InstanceArn") is not None:
         out["instance_arn"] = data["InstanceArn"]
     else:
-        raise DeserializationError(
-            "ListPermissionSetsProvisionedToAccountRequest.instance_arn required"
-        )
+        out["instance_arn"] = ""
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     else:
-        raise DeserializationError(
-            "ListPermissionSetsProvisionedToAccountRequest.account_id required"
-        )
+        out["account_id"] = ""
     if data.get("ProvisioningStatus") is not None:
         import capo_sso_admin.types.provisioning_status
 

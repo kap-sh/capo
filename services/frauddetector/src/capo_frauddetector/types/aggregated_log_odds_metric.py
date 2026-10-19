@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.float
     import capo_frauddetector.types.list_of_strings
@@ -52,13 +50,11 @@ def deserialize_aws_json_1_1(data: dict) -> AggregatedLogOddsMetric:
             )
         )
     else:
-        raise DeserializationError("AggregatedLogOddsMetric.variable_names required")
+        out["variable_names"] = []
     if data.get("aggregatedVariablesImportance") is not None:
         out["aggregated_variables_importance"] = float(
             data["aggregatedVariablesImportance"]
         )
     else:
-        raise DeserializationError(
-            "AggregatedLogOddsMetric.aggregated_variables_importance required"
-        )
+        out["aggregated_variables_importance"] = 0.0
     return out

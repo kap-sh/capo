@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -59,21 +57,15 @@ def deserialize_json(data: dict) -> ConfigurationBundleVersionSummary:
     if data.get("bundleArn") is not None:
         out["bundle_arn"] = data["bundleArn"]
     else:
-        raise DeserializationError(
-            "ConfigurationBundleVersionSummary.bundle_arn required"
-        )
+        out["bundle_arn"] = ""
     if data.get("bundleId") is not None:
         out["bundle_id"] = data["bundleId"]
     else:
-        raise DeserializationError(
-            "ConfigurationBundleVersionSummary.bundle_id required"
-        )
+        out["bundle_id"] = ""
     if data.get("versionId") is not None:
         out["version_id"] = data["versionId"]
     else:
-        raise DeserializationError(
-            "ConfigurationBundleVersionSummary.version_id required"
-        )
+        out["version_id"] = ""
     if data.get("lineageMetadata") is not None:
         import capo_bedrock_agentcore_control.types.version_lineage_metadata
 
@@ -91,7 +83,9 @@ def deserialize_json(data: dict) -> ConfigurationBundleVersionSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "ConfigurationBundleVersionSummary.version_created_at required"
+        import datetime
+
+        out["version_created_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

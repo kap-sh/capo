@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_build_feedback
     import capo_bedrock.types.automated_reasoning_policy_iterative_refinement_document_list
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyIterativeRefinementC
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyIterativeRefinementContent.documents required"
-        )
+        out["documents"] = []
     if data.get("feedback") is not None:
         out["feedback"] = data["feedback"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.self_grant_status_details
 
@@ -41,7 +39,5 @@ def deserialize_json(data: dict) -> RedshiftSelfGrantStatusOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "RedshiftSelfGrantStatusOutput.self_grant_status_details required"
-        )
+        out["self_grant_status_details"] = []
     return out

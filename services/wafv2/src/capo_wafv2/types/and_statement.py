@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.statements
 
@@ -35,5 +33,5 @@ def deserialize_aws_json_1_1(data: dict) -> AndStatement:
             data["Statements"]
         )
     else:
-        raise DeserializationError("AndStatement.statements required")
+        out["statements"] = []
     return out

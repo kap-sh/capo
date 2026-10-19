@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.error_message
     import capo_bedrock_agent.types.flow_condition_name
@@ -35,19 +33,13 @@ def deserialize_json(data: dict) -> MalformedConditionExpressionFlowValidationDe
     if data.get("node") is not None:
         out["node"] = data["node"]
     else:
-        raise DeserializationError(
-            "MalformedConditionExpressionFlowValidationDetails.node required"
-        )
+        out["node"] = ""
     if data.get("condition") is not None:
         out["condition"] = data["condition"]
     else:
-        raise DeserializationError(
-            "MalformedConditionExpressionFlowValidationDetails.condition required"
-        )
+        out["condition"] = ""
     if data.get("cause") is not None:
         out["cause"] = data["cause"]
     else:
-        raise DeserializationError(
-            "MalformedConditionExpressionFlowValidationDetails.cause required"
-        )
+        out["cause"] = ""
     return out

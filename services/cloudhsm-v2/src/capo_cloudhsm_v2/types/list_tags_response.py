@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudhsm_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudhsm_v2.types.next_token
     import capo_cloudhsm_v2.types.tag_list
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsResponse:
             data["TagList"]
         )
     else:
-        raise DeserializationError("ListTagsResponse.tag_list required")
+        out["tag_list"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

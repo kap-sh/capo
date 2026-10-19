@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_model_building_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_model_building_service.types.destination
     import capo_lex_model_building_service.types.kms_key_arn
@@ -58,7 +56,11 @@ def deserialize_json(data: dict) -> LogSettingsRequest:
             )
         )
     else:
-        raise DeserializationError("LogSettingsRequest.log_type required")
+        import typing
+
+        out["log_type"] = typing.cast(
+            "capo_lex_model_building_service.types.log_type.LogType", ""
+        )
     if data.get("destination") is not None:
         import capo_lex_model_building_service.types.destination
 
@@ -68,11 +70,15 @@ def deserialize_json(data: dict) -> LogSettingsRequest:
             )
         )
     else:
-        raise DeserializationError("LogSettingsRequest.destination required")
+        import typing
+
+        out["destination"] = typing.cast(
+            "capo_lex_model_building_service.types.destination.Destination", ""
+        )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("LogSettingsRequest.resource_arn required")
+        out["resource_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_outposts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_outposts.types.availability_zone
     import capo_outposts.types.availability_zone_id
@@ -68,13 +66,13 @@ def deserialize_json(data: dict) -> CreateOutpostInput:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateOutpostInput.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("SiteId") is not None:
         out["site_id"] = data["SiteId"]
     else:
-        raise DeserializationError("CreateOutpostInput.site_id required")
+        out["site_id"] = ""
     if data.get("AvailabilityZone") is not None:
         out["availability_zone"] = data["AvailabilityZone"]
     if data.get("AvailabilityZoneId") is not None:

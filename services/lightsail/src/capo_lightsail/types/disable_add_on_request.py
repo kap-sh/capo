@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.add_on_type
     import capo_lightsail.types.resource_name
@@ -39,9 +37,13 @@ def deserialize_aws_json_1_1(data: dict) -> DisableAddOnRequest:
             data["addOnType"]
         )
     else:
-        raise DeserializationError("DisableAddOnRequest.add_on_type required")
+        import typing
+
+        out["add_on_type"] = typing.cast(
+            "capo_lightsail.types.add_on_type.AddOnType", ""
+        )
     if data.get("resourceName") is not None:
         out["resource_name"] = data["resourceName"]
     else:
-        raise DeserializationError("DisableAddOnRequest.resource_name required")
+        out["resource_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.batch_create_data_table_value_failure_result_list
     import capo_connect.types.batch_create_data_table_value_success_result_list
@@ -49,9 +47,7 @@ def deserialize_json(data: dict) -> BatchCreateDataTableValueResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchCreateDataTableValueResponse.successful required"
-        )
+        out["successful"] = []
     if data.get("Failed") is not None:
         import capo_connect.types.batch_create_data_table_value_failure_result_list
 
@@ -61,5 +57,5 @@ def deserialize_json(data: dict) -> BatchCreateDataTableValueResponse:
             )
         )
     else:
-        raise DeserializationError("BatchCreateDataTableValueResponse.failed required")
+        out["failed"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_email.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_email.types.charset
     import capo_pinpoint_email.types.message_data
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> Content:
     if data.get("Data") is not None:
         out["data"] = data["Data"]
     else:
-        raise DeserializationError("Content.data required")
+        out["data"] = ""
     if data.get("Charset") is not None:
         out["charset"] = data["Charset"]
     return out

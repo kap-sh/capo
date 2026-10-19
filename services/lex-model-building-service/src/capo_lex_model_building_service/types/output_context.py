@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_model_building_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_model_building_service.types.context_time_to_live_in_seconds
     import capo_lex_model_building_service.types.context_turns_to_live
@@ -37,13 +35,13 @@ def deserialize_json(data: dict) -> OutputContext:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("OutputContext.name required")
+        out["name"] = ""
     if data.get("timeToLiveInSeconds") is not None:
         out["time_to_live_in_seconds"] = data["timeToLiveInSeconds"]
     else:
-        raise DeserializationError("OutputContext.time_to_live_in_seconds required")
+        out["time_to_live_in_seconds"] = 0
     if data.get("turnsToLive") is not None:
         out["turns_to_live"] = data["turnsToLive"]
     else:
-        raise DeserializationError("OutputContext.turns_to_live required")
+        out["turns_to_live"] = 0
     return out

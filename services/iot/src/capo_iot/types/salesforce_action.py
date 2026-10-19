@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.salesforce_endpoint
     import capo_iot.types.salesforce_token
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> SalesforceAction:
     if data.get("token") is not None:
         out["token"] = data["token"]
     else:
-        raise DeserializationError("SalesforceAction.token required")
+        out["token"] = ""
     if data.get("url") is not None:
         out["url"] = data["url"]
     else:
-        raise DeserializationError("SalesforceAction.url required")
+        out["url"] = ""
     return out

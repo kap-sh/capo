@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_global_accelerator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_global_accelerator.types.destination_addresses
     import capo_global_accelerator.types.destination_ports
@@ -63,15 +61,11 @@ def deserialize_aws_json_1_1(data: dict) -> AllowCustomRoutingTrafficRequest:
     if data.get("EndpointGroupArn") is not None:
         out["endpoint_group_arn"] = data["EndpointGroupArn"]
     else:
-        raise DeserializationError(
-            "AllowCustomRoutingTrafficRequest.endpoint_group_arn required"
-        )
+        out["endpoint_group_arn"] = ""
     if data.get("EndpointId") is not None:
         out["endpoint_id"] = data["EndpointId"]
     else:
-        raise DeserializationError(
-            "AllowCustomRoutingTrafficRequest.endpoint_id required"
-        )
+        out["endpoint_id"] = ""
     if data.get("DestinationAddresses") is not None:
         import capo_global_accelerator.types.destination_addresses
 

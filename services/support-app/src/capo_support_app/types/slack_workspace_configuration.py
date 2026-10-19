@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_support_app.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support_app.types.boolean_value
     import capo_support_app.types.team_id
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> SlackWorkspaceConfiguration:
     if data.get("teamId") is not None:
         out["team_id"] = data["teamId"]
     else:
-        raise DeserializationError("SlackWorkspaceConfiguration.team_id required")
+        out["team_id"] = ""
     if data.get("teamName") is not None:
         out["team_name"] = data["teamName"]
     if data.get("allowOrganizationMemberAccount") is not None:

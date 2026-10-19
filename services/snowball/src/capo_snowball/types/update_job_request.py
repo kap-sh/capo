@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_snowball.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_snowball.types.address_id
     import capo_snowball.types.job_id
@@ -111,7 +109,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateJobRequest:
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError("UpdateJobRequest.job_id required")
+        out["job_id"] = ""
     if data.get("RoleARN") is not None:
         out["role_arn"] = data["RoleARN"]
     if data.get("Notification") is not None:

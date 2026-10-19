@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mturk.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mturk.types.boolean
     import capo_mturk.types.comparator
@@ -69,9 +67,7 @@ def deserialize_aws_json_1_1(data: dict) -> QualificationRequirement:
     if data.get("QualificationTypeId") is not None:
         out["qualification_type_id"] = data["QualificationTypeId"]
     else:
-        raise DeserializationError(
-            "QualificationRequirement.qualification_type_id required"
-        )
+        out["qualification_type_id"] = ""
     if data.get("Comparator") is not None:
         import capo_mturk.types.comparator
 
@@ -79,7 +75,9 @@ def deserialize_aws_json_1_1(data: dict) -> QualificationRequirement:
             data["Comparator"]
         )
     else:
-        raise DeserializationError("QualificationRequirement.comparator required")
+        import typing
+
+        out["comparator"] = typing.cast("capo_mturk.types.comparator.Comparator", "")
     if data.get("IntegerValues") is not None:
         import capo_mturk.types.integer_list
 

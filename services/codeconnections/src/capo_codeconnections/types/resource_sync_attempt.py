@@ -76,7 +76,7 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceSyncAttempt:
             )
         )
     else:
-        raise DeserializationError("ResourceSyncAttempt.events required")
+        out["events"] = []
     if data.get("InitialRevision") is not None:
         import capo_codeconnections.types.revision
 
@@ -96,7 +96,9 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceSyncAttempt:
             )
         )
     else:
-        raise DeserializationError("ResourceSyncAttempt.started_at required")
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Status") is not None:
         import capo_codeconnections.types.resource_sync_status
 
@@ -106,7 +108,11 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceSyncAttempt:
             )
         )
     else:
-        raise DeserializationError("ResourceSyncAttempt.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_codeconnections.types.resource_sync_status.ResourceSyncStatus", ""
+        )
     if data.get("TargetRevision") is not None:
         import capo_codeconnections.types.revision
 
@@ -120,5 +126,5 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceSyncAttempt:
     if data.get("Target") is not None:
         out["target"] = data["Target"]
     else:
-        raise DeserializationError("ResourceSyncAttempt.target required")
+        out["target"] = ""
     return out

@@ -149,15 +149,15 @@ def deserialize_json(data: dict) -> FileSystemDescription:
     if data.get("OwnerId") is not None:
         out["owner_id"] = data["OwnerId"]
     else:
-        raise DeserializationError("FileSystemDescription.owner_id required")
+        out["owner_id"] = ""
     if data.get("CreationToken") is not None:
         out["creation_token"] = data["CreationToken"]
     else:
-        raise DeserializationError("FileSystemDescription.creation_token required")
+        out["creation_token"] = ""
     if data.get("FileSystemId") is not None:
         out["file_system_id"] = data["FileSystemId"]
     else:
-        raise DeserializationError("FileSystemDescription.file_system_id required")
+        out["file_system_id"] = ""
     if data.get("FileSystemArn") is not None:
         out["file_system_arn"] = data["FileSystemArn"]
     if data.get("CreationTime") is not None:
@@ -167,7 +167,11 @@ def deserialize_json(data: dict) -> FileSystemDescription:
             data["CreationTime"]
         )
     else:
-        raise DeserializationError("FileSystemDescription.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("LifeCycleState") is not None:
         import capo_efs.types.life_cycle_state
 
@@ -175,7 +179,11 @@ def deserialize_json(data: dict) -> FileSystemDescription:
             data["LifeCycleState"]
         )
     else:
-        raise DeserializationError("FileSystemDescription.life_cycle_state required")
+        import typing
+
+        out["life_cycle_state"] = typing.cast(
+            "capo_efs.types.life_cycle_state.LifeCycleState", ""
+        )
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("NumberOfMountTargets") is not None:
@@ -197,7 +205,11 @@ def deserialize_json(data: dict) -> FileSystemDescription:
             data["PerformanceMode"]
         )
     else:
-        raise DeserializationError("FileSystemDescription.performance_mode required")
+        import typing
+
+        out["performance_mode"] = typing.cast(
+            "capo_efs.types.performance_mode.PerformanceMode", ""
+        )
     if data.get("Encrypted") is not None:
         out["encrypted"] = data["Encrypted"]
     if data.get("KmsKeyId") is not None:
@@ -221,7 +233,7 @@ def deserialize_json(data: dict) -> FileSystemDescription:
 
         out["tags"] = capo_efs.types.tags.deserialize_json(data["Tags"])
     else:
-        raise DeserializationError("FileSystemDescription.tags required")
+        out["tags"] = []
     if data.get("FileSystemProtection") is not None:
         import capo_efs.types.file_system_protection_description
 

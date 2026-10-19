@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.instance_id
     import capo_qapps.types.uuid
@@ -30,5 +28,5 @@ def deserialize_json(data: dict) -> DeleteQAppInput:
     if data.get("appId") is not None:
         out["app_id"] = data["appId"]
     else:
-        raise DeserializationError("DeleteQAppInput.app_id required")
+        out["app_id"] = ""
     return out

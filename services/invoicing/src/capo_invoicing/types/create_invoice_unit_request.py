@@ -71,11 +71,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateInvoiceUnitRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateInvoiceUnitRequest.name required")
+        out["name"] = ""
     if data.get("InvoiceReceiver") is not None:
         out["invoice_receiver"] = data["InvoiceReceiver"]
     else:
-        raise DeserializationError("CreateInvoiceUnitRequest.invoice_receiver required")
+        out["invoice_receiver"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("TaxInheritanceDisabled") is not None:

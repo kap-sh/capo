@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_networkmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmanager.types.action
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> StartOrganizationServiceAccessUpdateRequest:
     if data.get("Action") is not None:
         out["action"] = data["Action"]
     else:
-        raise DeserializationError(
-            "StartOrganizationServiceAccessUpdateRequest.action required"
-        )
+        out["action"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.dashboard_filter_attribute
     import capo_quicksight.types.filter_operator
@@ -51,7 +49,11 @@ def deserialize_json(data: dict) -> DashboardSearchFilter:
             data["Operator"]
         )
     else:
-        raise DeserializationError("DashboardSearchFilter.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_quicksight.types.filter_operator.FilterOperator", ""
+        )
     if data.get("Name") is not None:
         import capo_quicksight.types.dashboard_filter_attribute
 

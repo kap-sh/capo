@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.conflict_resolution
     import capo_customer_profiles.types.consolidation
@@ -69,7 +67,7 @@ def deserialize_json(data: dict) -> AutoMerging:
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
-        raise DeserializationError("AutoMerging.enabled required")
+        out["enabled"] = False
     if data.get("Consolidation") is not None:
         import capo_customer_profiles.types.consolidation
 

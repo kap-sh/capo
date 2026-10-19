@@ -49,9 +49,7 @@ def deserialize_json(data: dict) -> CreateVirtualGatewayInput:
     if data.get("virtualGatewayName") is not None:
         out["virtual_gateway_name"] = data["virtualGatewayName"]
     else:
-        raise DeserializationError(
-            "CreateVirtualGatewayInput.virtual_gateway_name required"
-        )
+        out["virtual_gateway_name"] = ""
     if data.get("spec") is not None:
         import capo_app_mesh.types.virtual_gateway_spec
 

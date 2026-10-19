@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.regions
 
@@ -39,7 +37,5 @@ def deserialize_aws_json_1_0(data: dict) -> EnableDefaultKeyReplicationRegionsOu
             )
         )
     else:
-        raise DeserializationError(
-            "EnableDefaultKeyReplicationRegionsOutput.enabled_replication_regions required"
-        )
+        out["enabled_replication_regions"] = []
     return out

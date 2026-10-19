@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sns.types.authenticate_on_unsubscribe
@@ -46,12 +45,12 @@ def deserialize_query(el: Element) -> ConfirmSubscriptionInput:
     if child_topic_arn is not None:
         out["topic_arn"] = str(child_topic_arn.text or "")
     else:
-        raise DeserializationError("ConfirmSubscriptionInput.topic_arn required")
+        out["topic_arn"] = ""
     child_token = el.find("Token")
     if child_token is not None:
         out["token"] = str(child_token.text or "")
     else:
-        raise DeserializationError("ConfirmSubscriptionInput.token required")
+        out["token"] = ""
     child_authenticate_on_unsubscribe = el.find("AuthenticateOnUnsubscribe")
     if child_authenticate_on_unsubscribe is not None:
         out["authenticate_on_unsubscribe"] = str(

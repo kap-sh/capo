@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.field_identifier
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> PasswordField:
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("PasswordField.identifier required")
+        out["identifier"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_sap.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_sap.types.application_credential_list
     import capo_ssm_sap.types.application_id
@@ -88,7 +86,7 @@ def deserialize_json(data: dict) -> RegisterApplicationInput:
     if data.get("ApplicationId") is not None:
         out["application_id"] = data["ApplicationId"]
     else:
-        raise DeserializationError("RegisterApplicationInput.application_id required")
+        out["application_id"] = ""
     if data.get("ApplicationType") is not None:
         import capo_ssm_sap.types.application_type
 
@@ -96,7 +94,11 @@ def deserialize_json(data: dict) -> RegisterApplicationInput:
             data["ApplicationType"]
         )
     else:
-        raise DeserializationError("RegisterApplicationInput.application_type required")
+        import typing
+
+        out["application_type"] = typing.cast(
+            "capo_ssm_sap.types.application_type.ApplicationType", ""
+        )
     if data.get("Instances") is not None:
         import capo_ssm_sap.types.instance_list
 
@@ -104,7 +106,7 @@ def deserialize_json(data: dict) -> RegisterApplicationInput:
             data["Instances"]
         )
     else:
-        raise DeserializationError("RegisterApplicationInput.instances required")
+        out["instances"] = []
     if data.get("SapInstanceNumber") is not None:
         out["sap_instance_number"] = data["SapInstanceNumber"]
     if data.get("Sid") is not None:

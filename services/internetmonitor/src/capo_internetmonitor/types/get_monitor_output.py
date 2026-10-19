@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_internetmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -117,11 +115,11 @@ def deserialize_json(data: dict) -> GetMonitorOutput:
     if data.get("MonitorName") is not None:
         out["monitor_name"] = data["MonitorName"]
     else:
-        raise DeserializationError("GetMonitorOutput.monitor_name required")
+        out["monitor_name"] = ""
     if data.get("MonitorArn") is not None:
         out["monitor_arn"] = data["MonitorArn"]
     else:
-        raise DeserializationError("GetMonitorOutput.monitor_arn required")
+        out["monitor_arn"] = ""
     if data.get("Resources") is not None:
         import capo_internetmonitor.types.set_of_ar_ns
 
@@ -129,11 +127,11 @@ def deserialize_json(data: dict) -> GetMonitorOutput:
             data["Resources"]
         )
     else:
-        raise DeserializationError("GetMonitorOutput.resources required")
+        out["resources"] = []
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("GetMonitorOutput.status required")
+        out["status"] = ""
     if data.get("CreatedAt") is not None:
         import datetime
 
@@ -141,7 +139,9 @@ def deserialize_json(data: dict) -> GetMonitorOutput:
             data["CreatedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetMonitorOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("ModifiedAt") is not None:
         import datetime
 
@@ -149,7 +149,11 @@ def deserialize_json(data: dict) -> GetMonitorOutput:
             data["ModifiedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetMonitorOutput.modified_at required")
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("ProcessingStatus") is not None:
         out["processing_status"] = data["ProcessingStatus"]
     if data.get("ProcessingStatusInfo") is not None:

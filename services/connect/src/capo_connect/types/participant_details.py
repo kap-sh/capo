@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.display_name
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> ParticipantDetails:
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     else:
-        raise DeserializationError("ParticipantDetails.display_name required")
+        out["display_name"] = ""
     return out

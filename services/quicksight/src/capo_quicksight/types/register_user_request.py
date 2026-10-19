@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.identity_type
@@ -93,11 +91,15 @@ def deserialize_json(data: dict) -> RegisterUserRequest:
             data["IdentityType"]
         )
     else:
-        raise DeserializationError("RegisterUserRequest.identity_type required")
+        import typing
+
+        out["identity_type"] = typing.cast(
+            "capo_quicksight.types.identity_type.IdentityType", ""
+        )
     if data.get("Email") is not None:
         out["email"] = data["Email"]
     else:
-        raise DeserializationError("RegisterUserRequest.email required")
+        out["email"] = ""
     if data.get("UserRole") is not None:
         import capo_quicksight.types.user_role
 
@@ -105,7 +107,9 @@ def deserialize_json(data: dict) -> RegisterUserRequest:
             data["UserRole"]
         )
     else:
-        raise DeserializationError("RegisterUserRequest.user_role required")
+        import typing
+
+        out["user_role"] = typing.cast("capo_quicksight.types.user_role.UserRole", "")
     if data.get("IamArn") is not None:
         out["iam_arn"] = data["IamArn"]
     if data.get("SessionName") is not None:

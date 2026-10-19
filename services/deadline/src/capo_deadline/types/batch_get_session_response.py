@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.batch_get_session_errors
     import capo_deadline.types.batch_get_session_items
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> BatchGetSessionResponse:
             data["sessions"]
         )
     else:
-        raise DeserializationError("BatchGetSessionResponse.sessions required")
+        out["sessions"] = []
     if data.get("errors") is not None:
         import capo_deadline.types.batch_get_session_errors
 
@@ -51,5 +49,5 @@ def deserialize_json(data: dict) -> BatchGetSessionResponse:
             data["errors"]
         )
     else:
-        raise DeserializationError("BatchGetSessionResponse.errors required")
+        out["errors"] = []
     return out

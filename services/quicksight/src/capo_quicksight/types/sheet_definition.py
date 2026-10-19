@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.filter_control_list
     import capo_quicksight.types.layout_list
@@ -145,7 +143,7 @@ def deserialize_json(data: dict) -> SheetDefinition:
     if data.get("SheetId") is not None:
         out["sheet_id"] = data["SheetId"]
     else:
-        raise DeserializationError("SheetDefinition.sheet_id required")
+        out["sheet_id"] = ""
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     if data.get("Description") is not None:

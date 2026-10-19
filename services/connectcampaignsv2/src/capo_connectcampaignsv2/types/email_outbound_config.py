@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.arn
     import capo_connectcampaignsv2.types.email_address
@@ -39,15 +37,13 @@ def deserialize_json(data: dict) -> EmailOutboundConfig:
     if data.get("connectSourceEmailAddress") is not None:
         out["connect_source_email_address"] = data["connectSourceEmailAddress"]
     else:
-        raise DeserializationError(
-            "EmailOutboundConfig.connect_source_email_address required"
-        )
+        out["connect_source_email_address"] = ""
     if data.get("sourceEmailAddressDisplayName") is not None:
         out["source_email_address_display_name"] = data["sourceEmailAddressDisplayName"]
     if data.get("wisdomTemplateArn") is not None:
         out["wisdom_template_arn"] = data["wisdomTemplateArn"]
     else:
-        raise DeserializationError("EmailOutboundConfig.wisdom_template_arn required")
+        out["wisdom_template_arn"] = ""
     return out
 
 

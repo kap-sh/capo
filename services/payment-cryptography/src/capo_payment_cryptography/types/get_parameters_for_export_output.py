@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.certificate_type
     import capo_payment_cryptography.types.export_token_id
@@ -54,25 +52,19 @@ def deserialize_aws_json_1_0(data: dict) -> GetParametersForExportOutput:
     if data.get("SigningKeyCertificate") is not None:
         out["signing_key_certificate"] = data["SigningKeyCertificate"]
     else:
-        raise DeserializationError(
-            "GetParametersForExportOutput.signing_key_certificate required"
-        )
+        out["signing_key_certificate"] = ""
     if data.get("SigningKeyCertificateChain") is not None:
         out["signing_key_certificate_chain"] = data["SigningKeyCertificateChain"]
     else:
-        raise DeserializationError(
-            "GetParametersForExportOutput.signing_key_certificate_chain required"
-        )
+        out["signing_key_certificate_chain"] = ""
     if data.get("SigningKeyAlgorithm") is not None:
         out["signing_key_algorithm"] = data["SigningKeyAlgorithm"]
     else:
-        raise DeserializationError(
-            "GetParametersForExportOutput.signing_key_algorithm required"
-        )
+        out["signing_key_algorithm"] = ""
     if data.get("ExportToken") is not None:
         out["export_token"] = data["ExportToken"]
     else:
-        raise DeserializationError("GetParametersForExportOutput.export_token required")
+        out["export_token"] = ""
     if data.get("ParametersValidUntilTimestamp") is not None:
         import capo_payment_cryptography.types.timestamp
 
@@ -82,7 +74,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetParametersForExportOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetParametersForExportOutput.parameters_valid_until_timestamp required"
+        import datetime
+
+        out["parameters_valid_until_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

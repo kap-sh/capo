@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.form_type_identifier
     import capo_datazone.types.revision
@@ -35,11 +33,11 @@ def deserialize_json(data: dict) -> FormEntryInput:
     if data.get("typeIdentifier") is not None:
         out["type_identifier"] = data["typeIdentifier"]
     else:
-        raise DeserializationError("FormEntryInput.type_identifier required")
+        out["type_identifier"] = ""
     if data.get("typeRevision") is not None:
         out["type_revision"] = data["typeRevision"]
     else:
-        raise DeserializationError("FormEntryInput.type_revision required")
+        out["type_revision"] = ""
     if data.get("required") is not None:
         out["required"] = data["required"]
     return out

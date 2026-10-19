@@ -171,15 +171,15 @@ def deserialize_json(data: dict) -> CreateEnvironmentInput:
     if data.get("ExecutionRoleArn") is not None:
         out["execution_role_arn"] = data["ExecutionRoleArn"]
     else:
-        raise DeserializationError("CreateEnvironmentInput.execution_role_arn required")
+        out["execution_role_arn"] = ""
     if data.get("SourceBucketArn") is not None:
         out["source_bucket_arn"] = data["SourceBucketArn"]
     else:
-        raise DeserializationError("CreateEnvironmentInput.source_bucket_arn required")
+        out["source_bucket_arn"] = ""
     if data.get("DagS3Path") is not None:
         out["dag_s3_path"] = data["DagS3Path"]
     else:
-        raise DeserializationError("CreateEnvironmentInput.dag_s3_path required")
+        out["dag_s3_path"] = ""
     if data.get("NetworkConfiguration") is not None:
         import capo_mwaa.types.network_configuration
 

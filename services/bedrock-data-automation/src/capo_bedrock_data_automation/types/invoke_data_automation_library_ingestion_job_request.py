@@ -117,8 +117,10 @@ def deserialize_json(data: dict) -> InvokeDataAutomationLibraryIngestionJobReque
             )
         )
     else:
-        raise DeserializationError(
-            "InvokeDataAutomationLibraryIngestionJobRequest.entity_type required"
+        import typing
+
+        out["entity_type"] = typing.cast(
+            "capo_bedrock_data_automation.types.entity_type.EntityType", ""
         )
     if data.get("operationType") is not None:
         import capo_bedrock_data_automation.types.library_ingestion_job_operation_type
@@ -129,8 +131,11 @@ def deserialize_json(data: dict) -> InvokeDataAutomationLibraryIngestionJobReque
             )
         )
     else:
-        raise DeserializationError(
-            "InvokeDataAutomationLibraryIngestionJobRequest.operation_type required"
+        import typing
+
+        out["operation_type"] = typing.cast(
+            "capo_bedrock_data_automation.types.library_ingestion_job_operation_type.LibraryIngestionJobOperationType",
+            "",
         )
     if data.get("outputConfiguration") is not None:
         import capo_bedrock_data_automation.types.output_configuration

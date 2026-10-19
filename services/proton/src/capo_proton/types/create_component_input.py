@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.client_token
     import capo_proton.types.description
@@ -69,7 +67,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateComponentInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateComponentInput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("serviceName") is not None:
@@ -81,11 +79,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateComponentInput:
     if data.get("templateFile") is not None:
         out["template_file"] = data["templateFile"]
     else:
-        raise DeserializationError("CreateComponentInput.template_file required")
+        out["template_file"] = ""
     if data.get("manifest") is not None:
         out["manifest"] = data["manifest"]
     else:
-        raise DeserializationError("CreateComponentInput.manifest required")
+        out["manifest"] = ""
     if data.get("serviceSpec") is not None:
         out["service_spec"] = data["serviceSpec"]
     if data.get("tags") is not None:

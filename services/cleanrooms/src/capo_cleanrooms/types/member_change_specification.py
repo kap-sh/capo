@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.account_id
     import capo_cleanrooms.types.display_name
@@ -64,7 +62,7 @@ def deserialize_json(data: dict) -> MemberChangeSpecification:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("MemberChangeSpecification.account_id required")
+        out["account_id"] = ""
     if data.get("memberAbilities") is not None:
         import capo_cleanrooms.types.member_abilities
 
@@ -74,9 +72,7 @@ def deserialize_json(data: dict) -> MemberChangeSpecification:
             )
         )
     else:
-        raise DeserializationError(
-            "MemberChangeSpecification.member_abilities required"
-        )
+        out["member_abilities"] = []
     if data.get("mlMemberAbilities") is not None:
         import capo_cleanrooms.types.ml_member_abilities
 

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -58,7 +57,7 @@ def deserialize_query(el: Element) -> PolicyGrantingServiceAccess:
     if child_policy_name is not None:
         out["policy_name"] = str(child_policy_name.text or "")
     else:
-        raise DeserializationError("PolicyGrantingServiceAccess.policy_name required")
+        out["policy_name"] = ""
     child_policy_type = el.find("PolicyType")
     if child_policy_type is not None:
         import capo_iam.types.policy_type
@@ -67,7 +66,9 @@ def deserialize_query(el: Element) -> PolicyGrantingServiceAccess:
             child_policy_type
         )
     else:
-        raise DeserializationError("PolicyGrantingServiceAccess.policy_type required")
+        import typing
+
+        out["policy_type"] = typing.cast("capo_iam.types.policy_type.policyType", "")
     child_policy_arn = el.find("PolicyArn")
     if child_policy_arn is not None:
         out["policy_arn"] = str(child_policy_arn.text or "")

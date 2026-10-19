@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.data_source_date_field_format
     import capo_kendra.types.data_source_field_name
@@ -40,15 +38,11 @@ def deserialize_aws_json_1_1(data: dict) -> DataSourceToIndexFieldMapping:
     if data.get("DataSourceFieldName") is not None:
         out["data_source_field_name"] = data["DataSourceFieldName"]
     else:
-        raise DeserializationError(
-            "DataSourceToIndexFieldMapping.data_source_field_name required"
-        )
+        out["data_source_field_name"] = ""
     if data.get("DateFieldFormat") is not None:
         out["date_field_format"] = data["DateFieldFormat"]
     if data.get("IndexFieldName") is not None:
         out["index_field_name"] = data["IndexFieldName"]
     else:
-        raise DeserializationError(
-            "DataSourceToIndexFieldMapping.index_field_name required"
-        )
+        out["index_field_name"] = ""
     return out

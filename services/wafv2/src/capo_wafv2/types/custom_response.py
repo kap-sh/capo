@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.custom_http_headers
     import capo_wafv2.types.entity_name
@@ -45,7 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> CustomResponse:
     if data.get("ResponseCode") is not None:
         out["response_code"] = data["ResponseCode"]
     else:
-        raise DeserializationError("CustomResponse.response_code required")
+        out["response_code"] = 0
     if data.get("CustomResponseBodyKey") is not None:
         out["custom_response_body_key"] = data["CustomResponseBodyKey"]
     if data.get("ResponseHeaders") is not None:

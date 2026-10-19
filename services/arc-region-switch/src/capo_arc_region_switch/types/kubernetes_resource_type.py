@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 
 class KubernetesResourceType(TypedDict, closed=True):
     api_version: "str"
@@ -25,9 +23,9 @@ def deserialize_aws_json_1_0(data: dict) -> KubernetesResourceType:
     if data.get("apiVersion") is not None:
         out["api_version"] = data["apiVersion"]
     else:
-        raise DeserializationError("KubernetesResourceType.api_version required")
+        out["api_version"] = ""
     if data.get("kind") is not None:
         out["kind"] = data["kind"]
     else:
-        raise DeserializationError("KubernetesResourceType.kind required")
+        out["kind"] = ""
     return out

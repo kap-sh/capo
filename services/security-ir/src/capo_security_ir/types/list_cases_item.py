@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_security_ir.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -103,7 +101,7 @@ def deserialize_json(data: dict) -> ListCasesItem:
     if data.get("caseId") is not None:
         out["case_id"] = data["caseId"]
     else:
-        raise DeserializationError("ListCasesItem.case_id required")
+        out["case_id"] = ""
     if data.get("lastUpdatedDate") is not None:
         import capo_security_ir.types._prelude.timestamp
 

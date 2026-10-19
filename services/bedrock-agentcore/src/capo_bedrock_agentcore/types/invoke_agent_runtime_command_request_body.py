@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 
 class InvokeAgentRuntimeCommandRequestBody(TypedDict, closed=True):
     command: "str"
@@ -26,9 +24,7 @@ def deserialize_json(data: dict) -> InvokeAgentRuntimeCommandRequestBody:
     if data.get("command") is not None:
         out["command"] = data["command"]
     else:
-        raise DeserializationError(
-            "InvokeAgentRuntimeCommandRequestBody.command required"
-        )
+        out["command"] = ""
     if data.get("timeout") is not None:
         out["timeout"] = data["timeout"]
     return out

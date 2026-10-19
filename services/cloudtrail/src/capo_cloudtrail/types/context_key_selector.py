@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.operator_target_list
     import capo_cloudtrail.types.type
@@ -39,7 +37,9 @@ def deserialize_aws_json_1_1(data: dict) -> ContextKeySelector:
 
         out["type"] = capo_cloudtrail.types.type.deserialize_aws_json_1_1(data["Type"])
     else:
-        raise DeserializationError("ContextKeySelector.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_cloudtrail.types.type.Type", "")
     if data.get("Equals") is not None:
         import capo_cloudtrail.types.operator_target_list
 
@@ -49,5 +49,5 @@ def deserialize_aws_json_1_1(data: dict) -> ContextKeySelector:
             )
         )
     else:
-        raise DeserializationError("ContextKeySelector.equals required")
+        out["equals"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.boolean
     import capo_opensearch.types.option_state
@@ -57,7 +55,11 @@ def deserialize_json(data: dict) -> OptionStatus:
             data["CreationDate"]
         )
     else:
-        raise DeserializationError("OptionStatus.creation_date required")
+        import datetime
+
+        out["creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("UpdateDate") is not None:
         import capo_opensearch.types.update_timestamp
 
@@ -65,7 +67,11 @@ def deserialize_json(data: dict) -> OptionStatus:
             data["UpdateDate"]
         )
     else:
-        raise DeserializationError("OptionStatus.update_date required")
+        import datetime
+
+        out["update_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("UpdateVersion") is not None:
         out["update_version"] = data["UpdateVersion"]
     else:
@@ -77,7 +83,9 @@ def deserialize_json(data: dict) -> OptionStatus:
             data["State"]
         )
     else:
-        raise DeserializationError("OptionStatus.state required")
+        import typing
+
+        out["state"] = typing.cast("capo_opensearch.types.option_state.OptionState", "")
     if data.get("PendingDeletion") is not None:
         out["pending_deletion"] = data["PendingDeletion"]
     return out

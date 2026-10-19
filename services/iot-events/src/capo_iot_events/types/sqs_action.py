@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.payload
     import capo_iot_events.types.queue_url
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> SqsAction:
     if data.get("queueUrl") is not None:
         out["queue_url"] = data["queueUrl"]
     else:
-        raise DeserializationError("SqsAction.queue_url required")
+        out["queue_url"] = ""
     if data.get("useBase64") is not None:
         out["use_base64"] = data["useBase64"]
     if data.get("payload") is not None:

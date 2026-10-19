@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.customer_profile_id
     import capo_connect.types.widget_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> WidgetDestination:
     if data.get("WidgetId") is not None:
         out["widget_id"] = data["WidgetId"]
     else:
-        raise DeserializationError("WidgetDestination.widget_id required")
+        out["widget_id"] = ""
     if data.get("ProfileId") is not None:
         out["profile_id"] = data["ProfileId"]
     else:
-        raise DeserializationError("WidgetDestination.profile_id required")
+        out["profile_id"] = ""
     return out

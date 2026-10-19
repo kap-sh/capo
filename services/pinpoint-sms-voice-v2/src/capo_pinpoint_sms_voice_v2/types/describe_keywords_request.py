@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.keyword_filter_list
     import capo_pinpoint_sms_voice_v2.types.keyword_list
@@ -63,9 +61,7 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeKeywordsRequest:
     if data.get("OriginationIdentity") is not None:
         out["origination_identity"] = data["OriginationIdentity"]
     else:
-        raise DeserializationError(
-            "DescribeKeywordsRequest.origination_identity required"
-        )
+        out["origination_identity"] = ""
     if data.get("Keywords") is not None:
         import capo_pinpoint_sms_voice_v2.types.keyword_list
 

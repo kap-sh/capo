@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.maintenance_window_execution_id
     import capo_ssm.types.maintenance_window_execution_task_id
@@ -41,19 +39,13 @@ def deserialize_aws_json_1_1(
     if data.get("WindowExecutionId") is not None:
         out["window_execution_id"] = data["WindowExecutionId"]
     else:
-        raise DeserializationError(
-            "GetMaintenanceWindowExecutionTaskInvocationRequest.window_execution_id required"
-        )
+        out["window_execution_id"] = ""
     if data.get("TaskId") is not None:
         out["task_id"] = data["TaskId"]
     else:
-        raise DeserializationError(
-            "GetMaintenanceWindowExecutionTaskInvocationRequest.task_id required"
-        )
+        out["task_id"] = ""
     if data.get("InvocationId") is not None:
         out["invocation_id"] = data["InvocationId"]
     else:
-        raise DeserializationError(
-            "GetMaintenanceWindowExecutionTaskInvocationRequest.invocation_id required"
-        )
+        out["invocation_id"] = ""
     return out

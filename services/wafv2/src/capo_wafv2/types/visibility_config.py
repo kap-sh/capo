@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.boolean
     import capo_wafv2.types.metric_name
@@ -42,5 +40,5 @@ def deserialize_aws_json_1_1(data: dict) -> VisibilityConfig:
     if data.get("MetricName") is not None:
         out["metric_name"] = data["MetricName"]
     else:
-        raise DeserializationError("VisibilityConfig.metric_name required")
+        out["metric_name"] = ""
     return out

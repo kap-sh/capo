@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.name
     import capo_customer_profiles.types.segment_group
@@ -75,9 +73,7 @@ def deserialize_json(data: dict) -> CreateSegmentDefinitionRequest:
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     else:
-        raise DeserializationError(
-            "CreateSegmentDefinitionRequest.display_name required"
-        )
+        out["display_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("SegmentGroups") is not None:

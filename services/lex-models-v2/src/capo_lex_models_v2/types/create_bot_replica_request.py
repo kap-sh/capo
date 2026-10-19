@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.id
     import capo_lex_models_v2.types.replica_region
@@ -30,5 +28,5 @@ def deserialize_json(data: dict) -> CreateBotReplicaRequest:
     if data.get("replicaRegion") is not None:
         out["replica_region"] = data["replicaRegion"]
     else:
-        raise DeserializationError("CreateBotReplicaRequest.replica_region required")
+        out["replica_region"] = ""
     return out

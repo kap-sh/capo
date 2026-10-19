@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_grafana.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_grafana.types.pagination_token
     import capo_grafana.types.permission_entry_list
@@ -42,5 +40,5 @@ def deserialize_json(data: dict) -> ListPermissionsResponse:
             data["permissions"]
         )
     else:
-        raise DeserializationError("ListPermissionsResponse.permissions required")
+        out["permissions"] = []
     return out

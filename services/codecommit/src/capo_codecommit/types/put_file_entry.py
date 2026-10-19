@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.file_content
     import capo_codecommit.types.file_mode_type_enum
@@ -60,7 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutFileEntry:
     if data.get("filePath") is not None:
         out["file_path"] = data["filePath"]
     else:
-        raise DeserializationError("PutFileEntry.file_path required")
+        out["file_path"] = ""
     if data.get("fileMode") is not None:
         import capo_codecommit.types.file_mode_type_enum
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.space_quick_sight_resource_details
     import capo_quicksight.types.space_quick_sight_resource_type
@@ -49,7 +47,12 @@ def deserialize_json(data: dict) -> SpaceQuickSightResource:
             )
         )
     else:
-        raise DeserializationError("SpaceQuickSightResource.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_quicksight.types.space_quick_sight_resource_type.SpaceQuickSightResourceType",
+            "",
+        )
     if data.get("resourceDetails") is not None:
         import capo_quicksight.types.space_quick_sight_resource_details
 
@@ -59,5 +62,7 @@ def deserialize_json(data: dict) -> SpaceQuickSightResource:
             )
         )
     else:
-        raise DeserializationError("SpaceQuickSightResource.resource_details required")
+        import capo_quicksight.types._unknown
+
+        out["resource_details"] = capo_quicksight.types._unknown.UnknownUnionMember("")
     return out

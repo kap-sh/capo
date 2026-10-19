@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.agent_space_id
     import capo_devops_agent.types.auth_flow
@@ -66,13 +64,13 @@ def deserialize_json(data: dict) -> EnableOperatorAppInput:
             data["authFlow"]
         )
     else:
-        raise DeserializationError("EnableOperatorAppInput.auth_flow required")
+        import typing
+
+        out["auth_flow"] = typing.cast("capo_devops_agent.types.auth_flow.AuthFlow", "")
     if data.get("operatorAppRoleArn") is not None:
         out["operator_app_role_arn"] = data["operatorAppRoleArn"]
     else:
-        raise DeserializationError(
-            "EnableOperatorAppInput.operator_app_role_arn required"
-        )
+        out["operator_app_role_arn"] = ""
     if data.get("idcInstanceArn") is not None:
         out["idc_instance_arn"] = data["idcInstanceArn"]
     if data.get("issuerUrl") is not None:

@@ -45,5 +45,5 @@ def deserialize_json(data: dict) -> WeeklySchedule:
 
         out["days"] = capo_inspector2.types.days_list.deserialize_json(data["days"])
     else:
-        raise DeserializationError("WeeklySchedule.days required")
+        out["days"] = []
     return out

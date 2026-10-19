@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.certificate_provider_account_default_for_operations
     import capo_iot.types.certificate_provider_function_arn
@@ -54,9 +52,7 @@ def deserialize_json(data: dict) -> CreateCertificateProviderRequest:
     if data.get("lambdaFunctionArn") is not None:
         out["lambda_function_arn"] = data["lambdaFunctionArn"]
     else:
-        raise DeserializationError(
-            "CreateCertificateProviderRequest.lambda_function_arn required"
-        )
+        out["lambda_function_arn"] = ""
     if data.get("accountDefaultForOperations") is not None:
         import capo_iot.types.certificate_provider_account_default_for_operations
 
@@ -66,9 +62,7 @@ def deserialize_json(data: dict) -> CreateCertificateProviderRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateCertificateProviderRequest.account_default_for_operations required"
-        )
+        out["account_default_for_operations"] = []
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_pricing_calculator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -68,7 +66,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateBillScenarioRequest:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("UpdateBillScenarioRequest.identifier required")
+        out["identifier"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("expiresAt") is not None:

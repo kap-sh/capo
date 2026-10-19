@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.container_service_deployment_request
     import capo_lightsail.types.container_service_name
@@ -89,9 +87,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateContainerServiceRequest:
     if data.get("serviceName") is not None:
         out["service_name"] = data["serviceName"]
     else:
-        raise DeserializationError(
-            "CreateContainerServiceRequest.service_name required"
-        )
+        out["service_name"] = ""
     if data.get("power") is not None:
         import capo_lightsail.types.container_service_power_name
 
@@ -101,11 +97,16 @@ def deserialize_aws_json_1_1(data: dict) -> CreateContainerServiceRequest:
             )
         )
     else:
-        raise DeserializationError("CreateContainerServiceRequest.power required")
+        import typing
+
+        out["power"] = typing.cast(
+            "capo_lightsail.types.container_service_power_name.ContainerServicePowerName",
+            "",
+        )
     if data.get("scale") is not None:
         out["scale"] = data["scale"]
     else:
-        raise DeserializationError("CreateContainerServiceRequest.scale required")
+        out["scale"] = 0
     if data.get("tags") is not None:
         import capo_lightsail.types.tag_list
 

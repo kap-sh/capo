@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.assessment_run_agent_list
     import capo_inspector.types.pagination_token
@@ -46,9 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListAssessmentRunAgentsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListAssessmentRunAgentsResponse.assessment_run_agents required"
-        )
+        out["assessment_run_agents"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

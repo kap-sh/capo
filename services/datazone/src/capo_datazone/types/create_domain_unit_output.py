@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.created_at
     import capo_datazone.types.created_by
@@ -78,15 +76,15 @@ def deserialize_json(data: dict) -> CreateDomainUnitOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CreateDomainUnitOutput.id required")
+        out["id"] = ""
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("CreateDomainUnitOutput.domain_id required")
+        out["domain_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateDomainUnitOutput.name required")
+        out["name"] = ""
     if data.get("parentDomainUnitId") is not None:
         out["parent_domain_unit_id"] = data["parentDomainUnitId"]
     if data.get("description") is not None:
@@ -98,7 +96,7 @@ def deserialize_json(data: dict) -> CreateDomainUnitOutput:
             data["owners"]
         )
     else:
-        raise DeserializationError("CreateDomainUnitOutput.owners required")
+        out["owners"] = []
     if data.get("ancestorDomainUnitIds") is not None:
         import capo_datazone.types.domain_unit_ids
 
@@ -108,9 +106,7 @@ def deserialize_json(data: dict) -> CreateDomainUnitOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDomainUnitOutput.ancestor_domain_unit_ids required"
-        )
+        out["ancestor_domain_unit_ids"] = []
     if data.get("createdAt") is not None:
         import capo_datazone.types.created_at
 

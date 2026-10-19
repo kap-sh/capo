@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.cost_category_split_charge_rule_parameter_type
     import capo_cost_explorer.types.cost_category_split_charge_rule_parameter_values_list
@@ -49,7 +47,12 @@ def deserialize_aws_json_1_1(data: dict) -> CostCategorySplitChargeRuleParameter
             )
         )
     else:
-        raise DeserializationError("CostCategorySplitChargeRuleParameter.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cost_explorer.types.cost_category_split_charge_rule_parameter_type.CostCategorySplitChargeRuleParameterType",
+            "",
+        )
     if data.get("Values") is not None:
         import capo_cost_explorer.types.cost_category_split_charge_rule_parameter_values_list
 
@@ -59,7 +62,5 @@ def deserialize_aws_json_1_1(data: dict) -> CostCategorySplitChargeRuleParameter
             )
         )
     else:
-        raise DeserializationError(
-            "CostCategorySplitChargeRuleParameter.values required"
-        )
+        out["values"] = []
     return out

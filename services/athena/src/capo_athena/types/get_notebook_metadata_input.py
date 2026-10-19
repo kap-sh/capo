@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.notebook_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetNotebookMetadataInput:
     if data.get("NotebookId") is not None:
         out["notebook_id"] = data["NotebookId"]
     else:
-        raise DeserializationError("GetNotebookMetadataInput.notebook_id required")
+        out["notebook_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.non_empty_string_without_whitespace
     import capo_firehose.types.role_arn
@@ -53,11 +51,11 @@ def deserialize_aws_json_1_1(data: dict) -> VpcConfigurationDescription:
             data["SubnetIds"]
         )
     else:
-        raise DeserializationError("VpcConfigurationDescription.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("RoleARN") is not None:
         out["role_arn"] = data["RoleARN"]
     else:
-        raise DeserializationError("VpcConfigurationDescription.role_arn required")
+        out["role_arn"] = ""
     if data.get("SecurityGroupIds") is not None:
         import capo_firehose.types.security_group_id_list
 
@@ -67,11 +65,9 @@ def deserialize_aws_json_1_1(data: dict) -> VpcConfigurationDescription:
             )
         )
     else:
-        raise DeserializationError(
-            "VpcConfigurationDescription.security_group_ids required"
-        )
+        out["security_group_ids"] = []
     if data.get("VpcId") is not None:
         out["vpc_id"] = data["VpcId"]
     else:
-        raise DeserializationError("VpcConfigurationDescription.vpc_id required")
+        out["vpc_id"] = ""
     return out

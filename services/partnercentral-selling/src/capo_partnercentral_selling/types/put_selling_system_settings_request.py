@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.catalog_identifier
     import capo_partnercentral_selling.types.resource_snapshot_job_role_identifier
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_0(data: dict) -> PutSellingSystemSettingsRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("PutSellingSystemSettingsRequest.catalog required")
+        out["catalog"] = ""
     if data.get("ResourceSnapshotJobRoleIdentifier") is not None:
         out["resource_snapshot_job_role_identifier"] = data[
             "ResourceSnapshotJobRoleIdentifier"

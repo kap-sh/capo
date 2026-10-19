@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.nonce
@@ -35,9 +34,7 @@ def deserialize_xml(el: Element) -> CreateReusableDelegationSetRequest:
     if child_caller_reference is not None:
         out["caller_reference"] = str(child_caller_reference.text or "")
     else:
-        raise DeserializationError(
-            "CreateReusableDelegationSetRequest.caller_reference required"
-        )
+        out["caller_reference"] = ""
     child_hosted_zone_id = el.find("HostedZoneId")
     if child_hosted_zone_id is not None:
         out["hosted_zone_id"] = str(child_hosted_zone_id.text or "")

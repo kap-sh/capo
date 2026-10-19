@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.maximum_execution_frequency
     import capo_config_service.types.resource_types_scope
@@ -91,9 +89,7 @@ def deserialize_aws_json_1_1(data: dict) -> OrganizationManagedRuleMetadata:
     if data.get("RuleIdentifier") is not None:
         out["rule_identifier"] = data["RuleIdentifier"]
     else:
-        raise DeserializationError(
-            "OrganizationManagedRuleMetadata.rule_identifier required"
-        )
+        out["rule_identifier"] = ""
     if data.get("InputParameters") is not None:
         out["input_parameters"] = data["InputParameters"]
     if data.get("MaximumExecutionFrequency") is not None:

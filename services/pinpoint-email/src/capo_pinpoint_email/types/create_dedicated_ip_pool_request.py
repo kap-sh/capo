@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_email.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_email.types.pool_name
     import capo_pinpoint_email.types.tag_list
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> CreateDedicatedIpPoolRequest:
     if data.get("PoolName") is not None:
         out["pool_name"] = data["PoolName"]
     else:
-        raise DeserializationError("CreateDedicatedIpPoolRequest.pool_name required")
+        out["pool_name"] = ""
     if data.get("Tags") is not None:
         import capo_pinpoint_email.types.tag_list
 

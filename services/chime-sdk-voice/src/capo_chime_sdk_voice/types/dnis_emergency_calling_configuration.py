@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.alpha2_country_code
     import capo_chime_sdk_voice.types.e164_phone_number
@@ -39,17 +37,13 @@ def deserialize_json(data: dict) -> DNISEmergencyCallingConfiguration:
     if data.get("EmergencyPhoneNumber") is not None:
         out["emergency_phone_number"] = data["EmergencyPhoneNumber"]
     else:
-        raise DeserializationError(
-            "DNISEmergencyCallingConfiguration.emergency_phone_number required"
-        )
+        out["emergency_phone_number"] = ""
     if data.get("TestPhoneNumber") is not None:
         out["test_phone_number"] = data["TestPhoneNumber"]
     if data.get("CallingCountry") is not None:
         out["calling_country"] = data["CallingCountry"]
     else:
-        raise DeserializationError(
-            "DNISEmergencyCallingConfiguration.calling_country required"
-        )
+        out["calling_country"] = ""
     return out
 
 

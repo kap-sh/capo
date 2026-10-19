@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -112,7 +110,7 @@ def deserialize_cbor(data: dict) -> Integration:
     if data.get("integrationId") is not None:
         out["integration_id"] = data["integrationId"]
     else:
-        raise DeserializationError("Integration.integration_id required")
+        out["integration_id"] = ""
     if data.get("integrationArn") is not None:
         out["integration_arn"] = data["integrationArn"]
     if data.get("integrationType") is not None:
@@ -124,11 +122,15 @@ def deserialize_cbor(data: dict) -> Integration:
             )
         )
     else:
-        raise DeserializationError("Integration.integration_type required")
+        import typing
+
+        out["integration_type"] = typing.cast(
+            "capo_cloudwatchomni.types.integration_type.IntegrationType", ""
+        )
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Integration.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         import capo_cloudwatchomni.types.integration_status
 
@@ -136,7 +138,11 @@ def deserialize_cbor(data: dict) -> Integration:
             data["status"]
         )
     else:
-        raise DeserializationError("Integration.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cloudwatchomni.types.integration_status.IntegrationStatus", ""
+        )
     if data.get("authType") is not None:
         import capo_cloudwatchomni.types.auth_type
 

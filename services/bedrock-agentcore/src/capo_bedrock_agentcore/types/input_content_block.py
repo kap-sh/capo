@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.body
     import capo_bedrock_agentcore.types.max_len_string
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> InputContentBlock:
     if data.get("path") is not None:
         out["path"] = data["path"]
     else:
-        raise DeserializationError("InputContentBlock.path required")
+        out["path"] = ""
     if data.get("text") is not None:
         out["text"] = data["text"]
     if data.get("blob") is not None:

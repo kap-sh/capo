@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_health.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_health.types.organization_account_ids_list
     import capo_health.types.organization_event_arns_list
@@ -58,9 +56,7 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeEntityAggregatesForOrganizationRequest.event_arns required"
-        )
+        out["event_arns"] = []
     if data.get("awsAccountIds") is not None:
         import capo_health.types.organization_account_ids_list
 

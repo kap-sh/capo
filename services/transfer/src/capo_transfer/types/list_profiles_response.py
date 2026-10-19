@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.listed_profiles
     import capo_transfer.types.next_token
@@ -42,5 +40,5 @@ def deserialize_aws_json_1_1(data: dict) -> ListProfilesResponse:
             data["Profiles"]
         )
     else:
-        raise DeserializationError("ListProfilesResponse.profiles required")
+        out["profiles"] = []
     return out

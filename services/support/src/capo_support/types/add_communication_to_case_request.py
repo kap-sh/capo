@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_support.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support.types.attachment_set_id
     import capo_support.types.case_id
@@ -68,9 +66,7 @@ def deserialize_aws_json_1_1(data: dict) -> AddCommunicationToCaseRequest:
     if data.get("communicationBody") is not None:
         out["communication_body"] = data["communicationBody"]
     else:
-        raise DeserializationError(
-            "AddCommunicationToCaseRequest.communication_body required"
-        )
+        out["communication_body"] = ""
     if data.get("ccEmailAddresses") is not None:
         import capo_support.types.cc_email_address_list
 

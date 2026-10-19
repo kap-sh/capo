@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.cors
     import capo_lambda.types.function_url_auth_type
@@ -61,7 +59,11 @@ def deserialize_json(data: dict) -> CreateFunctionUrlConfigRequest:
             data["AuthType"]
         )
     else:
-        raise DeserializationError("CreateFunctionUrlConfigRequest.auth_type required")
+        import typing
+
+        out["auth_type"] = typing.cast(
+            "capo_lambda.types.function_url_auth_type.FunctionUrlAuthType", ""
+        )
     if data.get("Cors") is not None:
         import capo_lambda.types.cors
 

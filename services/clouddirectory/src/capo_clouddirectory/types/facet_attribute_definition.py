@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_clouddirectory.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_clouddirectory.types.bool
     import capo_clouddirectory.types.facet_attribute_type
@@ -59,7 +57,11 @@ def deserialize_json(data: dict) -> FacetAttributeDefinition:
             data["Type"]
         )
     else:
-        raise DeserializationError("FacetAttributeDefinition.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_clouddirectory.types.facet_attribute_type.FacetAttributeType", ""
+        )
     if data.get("DefaultValue") is not None:
         import capo_clouddirectory.types.typed_attribute_value
 

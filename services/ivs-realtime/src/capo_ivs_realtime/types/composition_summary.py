@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs_realtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.composition_arn
     import capo_ivs_realtime.types.composition_state
@@ -69,11 +67,11 @@ def deserialize_json(data: dict) -> CompositionSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CompositionSummary.arn required")
+        out["arn"] = ""
     if data.get("stageArn") is not None:
         out["stage_arn"] = data["stageArn"]
     else:
-        raise DeserializationError("CompositionSummary.stage_arn required")
+        out["stage_arn"] = ""
     if data.get("destinations") is not None:
         import capo_ivs_realtime.types.destination_summary_list
 
@@ -83,11 +81,11 @@ def deserialize_json(data: dict) -> CompositionSummary:
             )
         )
     else:
-        raise DeserializationError("CompositionSummary.destinations required")
+        out["destinations"] = []
     if data.get("state") is not None:
         out["state"] = data["state"]
     else:
-        raise DeserializationError("CompositionSummary.state required")
+        out["state"] = ""
     if data.get("tags") is not None:
         import capo_ivs_realtime.types.tags
 

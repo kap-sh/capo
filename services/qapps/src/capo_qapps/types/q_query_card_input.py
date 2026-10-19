@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.attribute_filter
     import capo_qapps.types.card_output_source
@@ -60,11 +58,11 @@ def deserialize_json(data: dict) -> QQueryCardInput:
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("QQueryCardInput.title required")
+        out["title"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("QQueryCardInput.id required")
+        out["id"] = ""
     if data.get("type") is not None:
         import capo_qapps.types.card_type
 
@@ -74,7 +72,7 @@ def deserialize_json(data: dict) -> QQueryCardInput:
     if data.get("prompt") is not None:
         out["prompt"] = data["prompt"]
     else:
-        raise DeserializationError("QQueryCardInput.prompt required")
+        out["prompt"] = ""
     if data.get("outputSource") is not None:
         import capo_qapps.types.card_output_source
 

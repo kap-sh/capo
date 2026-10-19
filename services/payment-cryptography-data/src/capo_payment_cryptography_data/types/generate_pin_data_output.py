@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.encrypted_pin_block_type
     import capo_payment_cryptography_data.types.key_arn
@@ -53,27 +51,23 @@ def deserialize_json(data: dict) -> GeneratePinDataOutput:
     if data.get("GenerationKeyArn") is not None:
         out["generation_key_arn"] = data["GenerationKeyArn"]
     else:
-        raise DeserializationError("GeneratePinDataOutput.generation_key_arn required")
+        out["generation_key_arn"] = ""
     if data.get("GenerationKeyCheckValue") is not None:
         out["generation_key_check_value"] = data["GenerationKeyCheckValue"]
     else:
-        raise DeserializationError(
-            "GeneratePinDataOutput.generation_key_check_value required"
-        )
+        out["generation_key_check_value"] = ""
     if data.get("EncryptionKeyArn") is not None:
         out["encryption_key_arn"] = data["EncryptionKeyArn"]
     else:
-        raise DeserializationError("GeneratePinDataOutput.encryption_key_arn required")
+        out["encryption_key_arn"] = ""
     if data.get("EncryptionKeyCheckValue") is not None:
         out["encryption_key_check_value"] = data["EncryptionKeyCheckValue"]
     else:
-        raise DeserializationError(
-            "GeneratePinDataOutput.encryption_key_check_value required"
-        )
+        out["encryption_key_check_value"] = ""
     if data.get("EncryptedPinBlock") is not None:
         out["encrypted_pin_block"] = data["EncryptedPinBlock"]
     else:
-        raise DeserializationError("GeneratePinDataOutput.encrypted_pin_block required")
+        out["encrypted_pin_block"] = ""
     if data.get("PinData") is not None:
         import capo_payment_cryptography_data.types.pin_data
 
@@ -83,7 +77,11 @@ def deserialize_json(data: dict) -> GeneratePinDataOutput:
             )
         )
     else:
-        raise DeserializationError("GeneratePinDataOutput.pin_data required")
+        import capo_payment_cryptography_data.types._unknown
+
+        out["pin_data"] = (
+            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
+        )
     return out
 
 

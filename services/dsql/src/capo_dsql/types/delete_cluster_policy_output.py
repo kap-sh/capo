@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dsql.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dsql.types.policy_version
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DeleteClusterPolicyOutput:
     if data.get("policyVersion") is not None:
         out["policy_version"] = data["policyVersion"]
     else:
-        raise DeserializationError("DeleteClusterPolicyOutput.policy_version required")
+        out["policy_version"] = ""
     return out

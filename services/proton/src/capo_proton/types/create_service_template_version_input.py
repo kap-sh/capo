@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.client_token
     import capo_proton.types.compatible_environment_template_input_list
@@ -86,9 +84,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateServiceTemplateVersionInput:
     if data.get("templateName") is not None:
         out["template_name"] = data["templateName"]
     else:
-        raise DeserializationError(
-            "CreateServiceTemplateVersionInput.template_name required"
-        )
+        out["template_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("majorVersion") is not None:
@@ -102,7 +98,9 @@ def deserialize_aws_json_1_0(data: dict) -> CreateServiceTemplateVersionInput:
             )
         )
     else:
-        raise DeserializationError("CreateServiceTemplateVersionInput.source required")
+        import capo_proton.types._unknown
+
+        out["source"] = capo_proton.types._unknown.UnknownUnionMember("")
     if data.get("compatibleEnvironmentTemplates") is not None:
         import capo_proton.types.compatible_environment_template_input_list
 
@@ -112,9 +110,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateServiceTemplateVersionInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateServiceTemplateVersionInput.compatible_environment_templates required"
-        )
+        out["compatible_environment_templates"] = []
     if data.get("tags") is not None:
         import capo_proton.types.tag_list
 

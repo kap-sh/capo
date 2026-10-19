@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 
 class MouseScrollArguments(TypedDict, closed=True):
     x: "int"
@@ -33,11 +31,11 @@ def deserialize_json(data: dict) -> MouseScrollArguments:
     if data.get("x") is not None:
         out["x"] = data["x"]
     else:
-        raise DeserializationError("MouseScrollArguments.x required")
+        out["x"] = 0
     if data.get("y") is not None:
         out["y"] = data["y"]
     else:
-        raise DeserializationError("MouseScrollArguments.y required")
+        out["y"] = 0
     if data.get("deltaX") is not None:
         out["delta_x"] = data["deltaX"]
     if data.get("deltaY") is not None:

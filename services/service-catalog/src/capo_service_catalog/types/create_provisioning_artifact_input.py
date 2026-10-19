@@ -50,9 +50,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProvisioningArtifactInput:
     if data.get("ProductId") is not None:
         out["product_id"] = data["ProductId"]
     else:
-        raise DeserializationError(
-            "CreateProvisioningArtifactInput.product_id required"
-        )
+        out["product_id"] = ""
     if data.get("Parameters") is not None:
         import capo_service_catalog.types.provisioning_artifact_properties
 
@@ -68,7 +66,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProvisioningArtifactInput:
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     else:
-        raise DeserializationError(
-            "CreateProvisioningArtifactInput.idempotency_token required"
-        )
+        out["idempotency_token"] = ""
     return out

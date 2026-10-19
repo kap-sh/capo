@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -72,13 +70,11 @@ def deserialize_json(data: dict) -> CollaborationChangeRequest:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CollaborationChangeRequest.id required")
+        out["id"] = ""
     if data.get("collaborationId") is not None:
         out["collaboration_id"] = data["collaborationId"]
     else:
-        raise DeserializationError(
-            "CollaborationChangeRequest.collaboration_id required"
-        )
+        out["collaboration_id"] = ""
     if data.get("createTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -86,7 +82,11 @@ def deserialize_json(data: dict) -> CollaborationChangeRequest:
             data["createTime"]
         )
     else:
-        raise DeserializationError("CollaborationChangeRequest.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -94,7 +94,11 @@ def deserialize_json(data: dict) -> CollaborationChangeRequest:
             data["updateTime"]
         )
     else:
-        raise DeserializationError("CollaborationChangeRequest.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("status") is not None:
         import capo_cleanrooms.types.change_request_status
 
@@ -102,13 +106,15 @@ def deserialize_json(data: dict) -> CollaborationChangeRequest:
             data["status"]
         )
     else:
-        raise DeserializationError("CollaborationChangeRequest.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cleanrooms.types.change_request_status.ChangeRequestStatus", ""
+        )
     if data.get("isAutoApproved") is not None:
         out["is_auto_approved"] = data["isAutoApproved"]
     else:
-        raise DeserializationError(
-            "CollaborationChangeRequest.is_auto_approved required"
-        )
+        out["is_auto_approved"] = False
     if data.get("changes") is not None:
         import capo_cleanrooms.types.change_list
 
@@ -116,7 +122,7 @@ def deserialize_json(data: dict) -> CollaborationChangeRequest:
             data["changes"]
         )
     else:
-        raise DeserializationError("CollaborationChangeRequest.changes required")
+        out["changes"] = []
     if data.get("approvals") is not None:
         import capo_cleanrooms.types.approval_statuses
 

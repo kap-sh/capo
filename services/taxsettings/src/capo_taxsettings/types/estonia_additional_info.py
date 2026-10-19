@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_taxsettings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_taxsettings.types.registry_commercial_code
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> EstoniaAdditionalInfo:
     if data.get("registryCommercialCode") is not None:
         out["registry_commercial_code"] = data["registryCommercialCode"]
     else:
-        raise DeserializationError(
-            "EstoniaAdditionalInfo.registry_commercial_code required"
-        )
+        out["registry_commercial_code"] = ""
     return out

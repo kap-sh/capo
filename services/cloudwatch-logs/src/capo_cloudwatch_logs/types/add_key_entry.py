@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.add_key_value
     import capo_cloudwatch_logs.types.key
@@ -37,11 +35,11 @@ def deserialize_aws_json_1_1(data: dict) -> AddKeyEntry:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("AddKeyEntry.key required")
+        out["key"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("AddKeyEntry.value required")
+        out["value"] = ""
     if data.get("overwriteIfExists") is not None:
         out["overwrite_if_exists"] = data["overwriteIfExists"]
     else:

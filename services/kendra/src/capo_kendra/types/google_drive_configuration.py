@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.data_source_inclusions_exclusions_strings
     import capo_kendra.types.data_source_to_index_field_mapping_list
@@ -104,7 +102,7 @@ def deserialize_aws_json_1_1(data: dict) -> GoogleDriveConfiguration:
     if data.get("SecretArn") is not None:
         out["secret_arn"] = data["SecretArn"]
     else:
-        raise DeserializationError("GoogleDriveConfiguration.secret_arn required")
+        out["secret_arn"] = ""
     if data.get("InclusionPatterns") is not None:
         import capo_kendra.types.data_source_inclusions_exclusions_strings
 

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.default_dimension_value
@@ -46,9 +45,7 @@ def deserialize_query(el: Element) -> CloudWatchDimensionConfiguration:
     if child_dimension_name is not None:
         out["dimension_name"] = str(child_dimension_name.text or "")
     else:
-        raise DeserializationError(
-            "CloudWatchDimensionConfiguration.dimension_name required"
-        )
+        out["dimension_name"] = ""
     child_dimension_value_source = el.find("DimensionValueSource")
     if child_dimension_value_source is not None:
         import capo_ses.types.dimension_value_source
@@ -59,14 +56,14 @@ def deserialize_query(el: Element) -> CloudWatchDimensionConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "CloudWatchDimensionConfiguration.dimension_value_source required"
+        import typing
+
+        out["dimension_value_source"] = typing.cast(
+            "capo_ses.types.dimension_value_source.DimensionValueSource", ""
         )
     child_default_dimension_value = el.find("DefaultDimensionValue")
     if child_default_dimension_value is not None:
         out["default_dimension_value"] = str(child_default_dimension_value.text or "")
     else:
-        raise DeserializationError(
-            "CloudWatchDimensionConfiguration.default_dimension_value required"
-        )
+        out["default_dimension_value"] = ""
     return out

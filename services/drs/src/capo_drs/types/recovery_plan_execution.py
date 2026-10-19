@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.error_detail
     import capo_drs.types.iso8601_datetime_string
@@ -64,25 +62,23 @@ def deserialize_json(data: dict) -> RecoveryPlanExecution:
     if data.get("recoveryPlanExecutionArn") is not None:
         out["recovery_plan_execution_arn"] = data["recoveryPlanExecutionArn"]
     else:
-        raise DeserializationError(
-            "RecoveryPlanExecution.recovery_plan_execution_arn required"
-        )
+        out["recovery_plan_execution_arn"] = ""
     if data.get("recoveryPlanArn") is not None:
         out["recovery_plan_arn"] = data["recoveryPlanArn"]
     else:
-        raise DeserializationError("RecoveryPlanExecution.recovery_plan_arn required")
+        out["recovery_plan_arn"] = ""
     if data.get("mode") is not None:
         out["mode"] = data["mode"]
     else:
-        raise DeserializationError("RecoveryPlanExecution.mode required")
+        out["mode"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("RecoveryPlanExecution.status required")
+        out["status"] = ""
     if data.get("startedAt") is not None:
         out["started_at"] = data["startedAt"]
     else:
-        raise DeserializationError("RecoveryPlanExecution.started_at required")
+        out["started_at"] = ""
     if data.get("completedAt") is not None:
         out["completed_at"] = data["completedAt"]
     if data.get("errorDetail") is not None:

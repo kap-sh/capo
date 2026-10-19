@@ -75,7 +75,11 @@ def deserialize_aws_json_1_0(data: dict) -> ListEfficiencyMetricsRequest:
             )
         )
     else:
-        raise DeserializationError("ListEfficiencyMetricsRequest.granularity required")
+        import typing
+
+        out["granularity"] = typing.cast(
+            "capo_cost_optimization_hub.types.granularity_type.GranularityType", ""
+        )
     if data.get("timePeriod") is not None:
         import capo_cost_optimization_hub.types.time_period
 

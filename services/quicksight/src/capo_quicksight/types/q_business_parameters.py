@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.application_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> QBusinessParameters:
     if data.get("ApplicationArn") is not None:
         out["application_arn"] = data["ApplicationArn"]
     else:
-        raise DeserializationError("QBusinessParameters.application_arn required")
+        out["application_arn"] = ""
     return out

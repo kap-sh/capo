@@ -59,7 +59,7 @@ def deserialize_aws_json_1_1(data: dict) -> LoadForecast:
             )
         )
     else:
-        raise DeserializationError("LoadForecast.timestamps required")
+        out["timestamps"] = []
     if data.get("Values") is not None:
         import capo_application_auto_scaling.types.predictive_scaling_forecast_values
 
@@ -69,7 +69,7 @@ def deserialize_aws_json_1_1(data: dict) -> LoadForecast:
             )
         )
     else:
-        raise DeserializationError("LoadForecast.values required")
+        out["values"] = []
     if data.get("MetricSpecification") is not None:
         import capo_application_auto_scaling.types.predictive_scaling_metric_specification
 

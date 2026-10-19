@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.durable_config
     import capo_lambda.types.durable_execution_arn
@@ -110,19 +108,15 @@ def deserialize_json(data: dict) -> GetDurableExecutionResponse:
     if data.get("DurableExecutionArn") is not None:
         out["durable_execution_arn"] = data["DurableExecutionArn"]
     else:
-        raise DeserializationError(
-            "GetDurableExecutionResponse.durable_execution_arn required"
-        )
+        out["durable_execution_arn"] = ""
     if data.get("DurableExecutionName") is not None:
         out["durable_execution_name"] = data["DurableExecutionName"]
     else:
-        raise DeserializationError(
-            "GetDurableExecutionResponse.durable_execution_name required"
-        )
+        out["durable_execution_name"] = ""
     if data.get("FunctionArn") is not None:
         out["function_arn"] = data["FunctionArn"]
     else:
-        raise DeserializationError("GetDurableExecutionResponse.function_arn required")
+        out["function_arn"] = ""
     if data.get("InputPayload") is not None:
         out["input_payload"] = data["InputPayload"]
     if data.get("Result") is not None:
@@ -138,8 +132,10 @@ def deserialize_json(data: dict) -> GetDurableExecutionResponse:
             data["StartTimestamp"]
         )
     else:
-        raise DeserializationError(
-            "GetDurableExecutionResponse.start_timestamp required"
+        import datetime
+
+        out["start_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("Status") is not None:
         import capo_lambda.types.execution_status
@@ -148,7 +144,11 @@ def deserialize_json(data: dict) -> GetDurableExecutionResponse:
             data["Status"]
         )
     else:
-        raise DeserializationError("GetDurableExecutionResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_lambda.types.execution_status.ExecutionStatus", ""
+        )
     if data.get("EndTimestamp") is not None:
         import capo_lambda.types.execution_timestamp
 

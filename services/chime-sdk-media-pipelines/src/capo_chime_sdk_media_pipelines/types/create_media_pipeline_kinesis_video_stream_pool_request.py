@@ -65,9 +65,7 @@ def deserialize_json(data: dict) -> CreateMediaPipelineKinesisVideoStreamPoolReq
     if data.get("PoolName") is not None:
         out["pool_name"] = data["PoolName"]
     else:
-        raise DeserializationError(
-            "CreateMediaPipelineKinesisVideoStreamPoolRequest.pool_name required"
-        )
+        out["pool_name"] = ""
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     if data.get("Tags") is not None:

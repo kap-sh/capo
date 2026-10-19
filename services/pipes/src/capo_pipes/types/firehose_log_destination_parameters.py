@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pipes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pipes.types.firehose_arn
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> FirehoseLogDestinationParameters:
     if data.get("DeliveryStreamArn") is not None:
         out["delivery_stream_arn"] = data["DeliveryStreamArn"]
     else:
-        raise DeserializationError(
-            "FirehoseLogDestinationParameters.delivery_stream_arn required"
-        )
+        out["delivery_stream_arn"] = ""
     return out

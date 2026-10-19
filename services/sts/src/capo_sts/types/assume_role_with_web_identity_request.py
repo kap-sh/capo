@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sts._protocol.xml import Element
-from capo_sts.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sts.types.arn_type
@@ -79,21 +78,17 @@ def deserialize_query(el: Element) -> AssumeRoleWithWebIdentityRequest:
     if child_role_arn is not None:
         out["role_arn"] = str(child_role_arn.text or "")
     else:
-        raise DeserializationError("AssumeRoleWithWebIdentityRequest.role_arn required")
+        out["role_arn"] = ""
     child_role_session_name = el.find("RoleSessionName")
     if child_role_session_name is not None:
         out["role_session_name"] = str(child_role_session_name.text or "")
     else:
-        raise DeserializationError(
-            "AssumeRoleWithWebIdentityRequest.role_session_name required"
-        )
+        out["role_session_name"] = ""
     child_web_identity_token = el.find("WebIdentityToken")
     if child_web_identity_token is not None:
         out["web_identity_token"] = str(child_web_identity_token.text or "")
     else:
-        raise DeserializationError(
-            "AssumeRoleWithWebIdentityRequest.web_identity_token required"
-        )
+        out["web_identity_token"] = ""
     child_provider_id = el.find("ProviderId")
     if child_provider_id is not None:
         out["provider_id"] = str(child_provider_id.text or "")

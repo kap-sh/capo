@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_docdb_elastic.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_docdb_elastic.types.status
 
@@ -39,23 +37,21 @@ def deserialize_json(data: dict) -> ClusterSnapshotInList:
     if data.get("snapshotName") is not None:
         out["snapshot_name"] = data["snapshotName"]
     else:
-        raise DeserializationError("ClusterSnapshotInList.snapshot_name required")
+        out["snapshot_name"] = ""
     if data.get("snapshotArn") is not None:
         out["snapshot_arn"] = data["snapshotArn"]
     else:
-        raise DeserializationError("ClusterSnapshotInList.snapshot_arn required")
+        out["snapshot_arn"] = ""
     if data.get("clusterArn") is not None:
         out["cluster_arn"] = data["clusterArn"]
     else:
-        raise DeserializationError("ClusterSnapshotInList.cluster_arn required")
+        out["cluster_arn"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("ClusterSnapshotInList.status required")
+        out["status"] = ""
     if data.get("snapshotCreationTime") is not None:
         out["snapshot_creation_time"] = data["snapshotCreationTime"]
     else:
-        raise DeserializationError(
-            "ClusterSnapshotInList.snapshot_creation_time required"
-        )
+        out["snapshot_creation_time"] = ""
     return out

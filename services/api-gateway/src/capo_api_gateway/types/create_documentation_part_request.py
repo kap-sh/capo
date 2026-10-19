@@ -49,5 +49,5 @@ def deserialize_json(data: dict) -> CreateDocumentationPartRequest:
     if data.get("properties") is not None:
         out["properties"] = data["properties"]
     else:
-        raise DeserializationError("CreateDocumentationPartRequest.properties required")
+        out["properties"] = ""
     return out

@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 
 class FileBatchJobIdentifier(TypedDict, closed=True):
     file_name: "str"
@@ -26,7 +24,7 @@ def deserialize_json(data: dict) -> FileBatchJobIdentifier:
     if data.get("fileName") is not None:
         out["file_name"] = data["fileName"]
     else:
-        raise DeserializationError("FileBatchJobIdentifier.file_name required")
+        out["file_name"] = ""
     if data.get("folderPath") is not None:
         out["folder_path"] = data["folderPath"]
     return out

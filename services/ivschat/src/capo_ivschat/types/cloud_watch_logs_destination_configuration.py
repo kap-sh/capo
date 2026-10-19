@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ivschat.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivschat.types.log_group_name
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> CloudWatchLogsDestinationConfiguration:
     if data.get("logGroupName") is not None:
         out["log_group_name"] = data["logGroupName"]
     else:
-        raise DeserializationError(
-            "CloudWatchLogsDestinationConfiguration.log_group_name required"
-        )
+        out["log_group_name"] = ""
     return out

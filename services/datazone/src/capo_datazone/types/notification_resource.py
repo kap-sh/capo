@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.notification_resource_type
 
@@ -42,11 +40,16 @@ def deserialize_json(data: dict) -> NotificationResource:
             data["type"]
         )
     else:
-        raise DeserializationError("NotificationResource.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_datazone.types.notification_resource_type.NotificationResourceType",
+            "",
+        )
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("NotificationResource.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     return out

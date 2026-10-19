@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_account.types.account_id
     import capo_account.types.account_name
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> PutAccountNameRequest:
     if data.get("AccountName") is not None:
         out["account_name"] = data["AccountName"]
     else:
-        raise DeserializationError("PutAccountNameRequest.account_name required")
+        out["account_name"] = ""
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     return out

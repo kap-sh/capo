@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connecthealth.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connecthealth.types.insights_type
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> InsightsContext:
             data["insightsType"]
         )
     else:
-        raise DeserializationError("InsightsContext.insights_type required")
+        import typing
+
+        out["insights_type"] = typing.cast(
+            "capo_connecthealth.types.insights_type.InsightsType", ""
+        )
     return out

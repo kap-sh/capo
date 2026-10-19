@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.agent_target
     import capo_qconnect.types.multi_agent_instruction
@@ -46,7 +44,9 @@ def deserialize_json(data: dict) -> DelegateAgentConfiguration:
             data["agentTarget"]
         )
     else:
-        raise DeserializationError("DelegateAgentConfiguration.agent_target required")
+        import capo_qconnect.types._unknown
+
+        out["agent_target"] = capo_qconnect.types._unknown.UnknownUnionMember("")
     if data.get("instruction") is not None:
         import capo_qconnect.types.multi_agent_instruction
 

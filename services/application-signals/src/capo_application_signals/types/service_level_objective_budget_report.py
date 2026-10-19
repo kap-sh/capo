@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.attainment
     import capo_application_signals.types.budget_requests_remaining
@@ -126,11 +124,11 @@ def deserialize_json(data: dict) -> ServiceLevelObjectiveBudgetReport:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("ServiceLevelObjectiveBudgetReport.arn required")
+        out["arn"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ServiceLevelObjectiveBudgetReport.name required")
+        out["name"] = ""
     if data.get("EvaluationType") is not None:
         import capo_application_signals.types.evaluation_type
 
@@ -148,8 +146,11 @@ def deserialize_json(data: dict) -> ServiceLevelObjectiveBudgetReport:
             )
         )
     else:
-        raise DeserializationError(
-            "ServiceLevelObjectiveBudgetReport.budget_status required"
+        import typing
+
+        out["budget_status"] = typing.cast(
+            "capo_application_signals.types.service_level_objective_budget_status.ServiceLevelObjectiveBudgetStatus",
+            "",
         )
     if data.get("Attainment") is not None:
         out["attainment"] = float(data["Attainment"])

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.sheet_text_box_content
     import capo_quicksight.types.short_restrictive_resource_id
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> SheetTextBox:
     if data.get("SheetTextBoxId") is not None:
         out["sheet_text_box_id"] = data["SheetTextBoxId"]
     else:
-        raise DeserializationError("SheetTextBox.sheet_text_box_id required")
+        out["sheet_text_box_id"] = ""
     if data.get("Content") is not None:
         out["content"] = data["Content"]
     if data.get("Interactions") is not None:

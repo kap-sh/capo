@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.route_leg_list
     import capo_geo_routes.types.route_major_road_label_list
@@ -54,7 +52,7 @@ def deserialize_json(data: dict) -> Route:
             data["Legs"]
         )
     else:
-        raise DeserializationError("Route.legs required")
+        out["legs"] = []
     if data.get("MajorRoadLabels") is not None:
         import capo_geo_routes.types.route_major_road_label_list
 
@@ -64,7 +62,7 @@ def deserialize_json(data: dict) -> Route:
             )
         )
     else:
-        raise DeserializationError("Route.major_road_labels required")
+        out["major_road_labels"] = []
     if data.get("Summary") is not None:
         import capo_geo_routes.types.route_summary
 

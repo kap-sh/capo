@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_scheduler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_scheduler.types.schedule_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CreateScheduleOutput:
     if data.get("ScheduleArn") is not None:
         out["schedule_arn"] = data["ScheduleArn"]
     else:
-        raise DeserializationError("CreateScheduleOutput.schedule_arn required")
+        out["schedule_arn"] = ""
     return out

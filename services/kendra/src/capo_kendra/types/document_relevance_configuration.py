@@ -35,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentRelevanceConfiguration:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DocumentRelevanceConfiguration.name required")
+        out["name"] = ""
     if data.get("Relevance") is not None:
         import capo_kendra.types.relevance
 

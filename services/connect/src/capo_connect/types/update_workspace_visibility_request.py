@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.instance_id
     import capo_connect.types.visibility
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> UpdateWorkspaceVisibilityRequest:
             data["Visibility"]
         )
     else:
-        raise DeserializationError(
-            "UpdateWorkspaceVisibilityRequest.visibility required"
-        )
+        import typing
+
+        out["visibility"] = typing.cast("capo_connect.types.visibility.Visibility", "")
     return out

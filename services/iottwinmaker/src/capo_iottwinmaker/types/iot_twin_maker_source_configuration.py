@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.iot_twin_maker_source_configuration_filters
     import capo_iottwinmaker.types.twin_maker_arn
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> IotTwinMakerSourceConfiguration:
     if data.get("workspace") is not None:
         out["workspace"] = data["workspace"]
     else:
-        raise DeserializationError("IotTwinMakerSourceConfiguration.workspace required")
+        out["workspace"] = ""
     if data.get("filters") is not None:
         import capo_iottwinmaker.types.iot_twin_maker_source_configuration_filters
 

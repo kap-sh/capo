@@ -98,7 +98,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSystemInstanceRequest:
             )
         )
     else:
-        raise DeserializationError("CreateSystemInstanceRequest.target required")
+        import typing
+
+        out["target"] = typing.cast(
+            "capo_iotthingsgraph.types.deployment_target.DeploymentTarget", ""
+        )
     if data.get("greengrassGroupName") is not None:
         out["greengrass_group_name"] = data["greengrassGroupName"]
     if data.get("s3BucketName") is not None:

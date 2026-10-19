@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.arn
     import capo_iotfleetwise.types.attributes_map
@@ -65,19 +63,19 @@ def deserialize_aws_json_1_0(data: dict) -> VehicleSummary:
     if data.get("vehicleName") is not None:
         out["vehicle_name"] = data["vehicleName"]
     else:
-        raise DeserializationError("VehicleSummary.vehicle_name required")
+        out["vehicle_name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("VehicleSummary.arn required")
+        out["arn"] = ""
     if data.get("modelManifestArn") is not None:
         out["model_manifest_arn"] = data["modelManifestArn"]
     else:
-        raise DeserializationError("VehicleSummary.model_manifest_arn required")
+        out["model_manifest_arn"] = ""
     if data.get("decoderManifestArn") is not None:
         out["decoder_manifest_arn"] = data["decoderManifestArn"]
     else:
-        raise DeserializationError("VehicleSummary.decoder_manifest_arn required")
+        out["decoder_manifest_arn"] = ""
     if data.get("creationTime") is not None:
         import capo_iotfleetwise.types.timestamp
 
@@ -87,7 +85,11 @@ def deserialize_aws_json_1_0(data: dict) -> VehicleSummary:
             )
         )
     else:
-        raise DeserializationError("VehicleSummary.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastModificationTime") is not None:
         import capo_iotfleetwise.types.timestamp
 
@@ -97,7 +99,11 @@ def deserialize_aws_json_1_0(data: dict) -> VehicleSummary:
             )
         )
     else:
-        raise DeserializationError("VehicleSummary.last_modification_time required")
+        import datetime
+
+        out["last_modification_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("attributes") is not None:
         import capo_iotfleetwise.types.attributes_map
 

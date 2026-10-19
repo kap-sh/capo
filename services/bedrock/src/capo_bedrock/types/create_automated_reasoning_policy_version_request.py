@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_arn
     import capo_bedrock.types.automated_reasoning_policy_hash
@@ -48,9 +46,7 @@ def deserialize_json(data: dict) -> CreateAutomatedReasoningPolicyVersionRequest
     if data.get("lastUpdatedDefinitionHash") is not None:
         out["last_updated_definition_hash"] = data["lastUpdatedDefinitionHash"]
     else:
-        raise DeserializationError(
-            "CreateAutomatedReasoningPolicyVersionRequest.last_updated_definition_hash required"
-        )
+        out["last_updated_definition_hash"] = ""
     if data.get("tags") is not None:
         import capo_bedrock.types.tag_list
 

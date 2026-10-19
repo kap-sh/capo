@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb_streams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb_streams.types.positive_integer_object
     import capo_dynamodb_streams.types.shard_filter
@@ -52,7 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeStreamInput:
     if data.get("StreamArn") is not None:
         out["stream_arn"] = data["StreamArn"]
     else:
-        raise DeserializationError("DescribeStreamInput.stream_arn required")
+        out["stream_arn"] = ""
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
     if data.get("ExclusiveStartShardId") is not None:

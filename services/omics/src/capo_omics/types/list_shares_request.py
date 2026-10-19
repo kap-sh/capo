@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.filter
     import capo_omics.types.resource_owner
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> ListSharesRequest:
     if data.get("resourceOwner") is not None:
         out["resource_owner"] = data["resourceOwner"]
     else:
-        raise DeserializationError("ListSharesRequest.resource_owner required")
+        out["resource_owner"] = ""
     if data.get("filter") is not None:
         import capo_omics.types.filter
 

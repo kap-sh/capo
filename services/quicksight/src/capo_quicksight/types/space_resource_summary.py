@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -63,7 +61,12 @@ def deserialize_json(data: dict) -> SpaceResourceSummary:
             )
         )
     else:
-        raise DeserializationError("SpaceResourceSummary.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_quicksight.types.space_quick_sight_resource_type.SpaceQuickSightResourceType",
+            "",
+        )
     if data.get("ResourceDetails") is not None:
         import capo_quicksight.types.space_quick_sight_resource_details
 
@@ -73,7 +76,9 @@ def deserialize_json(data: dict) -> SpaceResourceSummary:
             )
         )
     else:
-        raise DeserializationError("SpaceResourceSummary.resource_details required")
+        import capo_quicksight.types._unknown
+
+        out["resource_details"] = capo_quicksight.types._unknown.UnknownUnionMember("")
     if data.get("ResourceName") is not None:
         out["resource_name"] = data["ResourceName"]
     if data.get("UpdatedAt") is not None:

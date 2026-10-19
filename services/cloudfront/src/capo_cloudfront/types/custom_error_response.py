@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.integer
@@ -42,7 +41,7 @@ def deserialize_xml(el: Element) -> CustomErrorResponse:
     if child_error_code is not None:
         out["error_code"] = int(child_error_code.text or "")
     else:
-        raise DeserializationError("CustomErrorResponse.error_code required")
+        out["error_code"] = 0
     child_response_page_path = el.find("ResponsePagePath")
     if child_response_page_path is not None:
         out["response_page_path"] = str(child_response_page_path.text or "")

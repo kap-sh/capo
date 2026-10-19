@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.client_request_token
     import capo_iot_wireless.types.description
@@ -99,15 +97,11 @@ def deserialize_json(data: dict) -> CreateFuotaTaskRequest:
     if data.get("FirmwareUpdateImage") is not None:
         out["firmware_update_image"] = data["FirmwareUpdateImage"]
     else:
-        raise DeserializationError(
-            "CreateFuotaTaskRequest.firmware_update_image required"
-        )
+        out["firmware_update_image"] = ""
     if data.get("FirmwareUpdateRole") is not None:
         out["firmware_update_role"] = data["FirmwareUpdateRole"]
     else:
-        raise DeserializationError(
-            "CreateFuotaTaskRequest.firmware_update_role required"
-        )
+        out["firmware_update_role"] = ""
     if data.get("Tags") is not None:
         import capo_iot_wireless.types.tag_list
 

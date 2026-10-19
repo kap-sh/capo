@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pi.types.identifier_string
     import capo_pi.types.service_type
@@ -39,9 +37,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetResourceMetadataRequest:
             data["ServiceType"]
         )
     else:
-        raise DeserializationError("GetResourceMetadataRequest.service_type required")
+        import typing
+
+        out["service_type"] = typing.cast("capo_pi.types.service_type.ServiceType", "")
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("GetResourceMetadataRequest.identifier required")
+        out["identifier"] = ""
     return out

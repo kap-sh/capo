@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.keyword
     import capo_pinpoint_sms_voice_v2.types.keyword_action
@@ -35,13 +33,13 @@ def deserialize_aws_json_1_0(data: dict) -> KeywordInformation:
     if data.get("Keyword") is not None:
         out["keyword"] = data["Keyword"]
     else:
-        raise DeserializationError("KeywordInformation.keyword required")
+        out["keyword"] = ""
     if data.get("KeywordMessage") is not None:
         out["keyword_message"] = data["KeywordMessage"]
     else:
-        raise DeserializationError("KeywordInformation.keyword_message required")
+        out["keyword_message"] = ""
     if data.get("KeywordAction") is not None:
         out["keyword_action"] = data["KeywordAction"]
     else:
-        raise DeserializationError("KeywordInformation.keyword_action required")
+        out["keyword_action"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.key_arn_or_key_alias_type
     import capo_payment_cryptography_data.types.pin_block_length_equals16
@@ -31,15 +29,11 @@ def deserialize_json(data: dict) -> CurrentPinAttributes:
     if data.get("CurrentPinPekIdentifier") is not None:
         out["current_pin_pek_identifier"] = data["CurrentPinPekIdentifier"]
     else:
-        raise DeserializationError(
-            "CurrentPinAttributes.current_pin_pek_identifier required"
-        )
+        out["current_pin_pek_identifier"] = ""
     if data.get("CurrentEncryptedPinBlock") is not None:
         out["current_encrypted_pin_block"] = data["CurrentEncryptedPinBlock"]
     else:
-        raise DeserializationError(
-            "CurrentPinAttributes.current_encrypted_pin_block required"
-        )
+        out["current_encrypted_pin_block"] = ""
     return out
 
 

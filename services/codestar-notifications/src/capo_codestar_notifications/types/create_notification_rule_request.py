@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codestar_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codestar_notifications.types.client_request_token
     import capo_codestar_notifications.types.detail_type
@@ -88,7 +86,7 @@ def deserialize_json(data: dict) -> CreateNotificationRuleRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateNotificationRuleRequest.name required")
+        out["name"] = ""
     if data.get("EventTypeIds") is not None:
         import capo_codestar_notifications.types.event_type_ids
 
@@ -98,13 +96,11 @@ def deserialize_json(data: dict) -> CreateNotificationRuleRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateNotificationRuleRequest.event_type_ids required"
-        )
+        out["event_type_ids"] = []
     if data.get("Resource") is not None:
         out["resource"] = data["Resource"]
     else:
-        raise DeserializationError("CreateNotificationRuleRequest.resource required")
+        out["resource"] = ""
     if data.get("Targets") is not None:
         import capo_codestar_notifications.types.targets
 
@@ -112,7 +108,7 @@ def deserialize_json(data: dict) -> CreateNotificationRuleRequest:
             data["Targets"]
         )
     else:
-        raise DeserializationError("CreateNotificationRuleRequest.targets required")
+        out["targets"] = []
     if data.get("DetailType") is not None:
         import capo_codestar_notifications.types.detail_type
 
@@ -122,7 +118,11 @@ def deserialize_json(data: dict) -> CreateNotificationRuleRequest:
             )
         )
     else:
-        raise DeserializationError("CreateNotificationRuleRequest.detail_type required")
+        import typing
+
+        out["detail_type"] = typing.cast(
+            "capo_codestar_notifications.types.detail_type.DetailType", ""
+        )
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     if data.get("Tags") is not None:

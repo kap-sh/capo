@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.virtual_node_status_code
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> VirtualNodeStatus:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("VirtualNodeStatus.status required")
+        out["status"] = ""
     return out

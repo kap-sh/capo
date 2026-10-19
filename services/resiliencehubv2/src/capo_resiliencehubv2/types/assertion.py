@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -60,15 +58,15 @@ def deserialize_json(data: dict) -> Assertion:
     if data.get("serviceArn") is not None:
         out["service_arn"] = data["serviceArn"]
     else:
-        raise DeserializationError("Assertion.service_arn required")
+        out["service_arn"] = ""
     if data.get("assertionId") is not None:
         out["assertion_id"] = data["assertionId"]
     else:
-        raise DeserializationError("Assertion.assertion_id required")
+        out["assertion_id"] = ""
     if data.get("text") is not None:
         out["text"] = data["text"]
     else:
-        raise DeserializationError("Assertion.text required")
+        out["text"] = ""
     if data.get("source") is not None:
         import capo_resiliencehubv2.types.assertion_source
 
@@ -76,7 +74,11 @@ def deserialize_json(data: dict) -> Assertion:
             data["source"]
         )
     else:
-        raise DeserializationError("Assertion.source required")
+        import typing
+
+        out["source"] = typing.cast(
+            "capo_resiliencehubv2.types.assertion_source.AssertionSource", ""
+        )
     if data.get("createdAt") is not None:
         import capo_resiliencehubv2.types._prelude.timestamp
 

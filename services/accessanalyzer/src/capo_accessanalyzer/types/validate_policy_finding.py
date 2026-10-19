@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.issue_code
     import capo_accessanalyzer.types.learn_more_link
@@ -46,19 +44,19 @@ def deserialize_json(data: dict) -> ValidatePolicyFinding:
     if data.get("findingDetails") is not None:
         out["finding_details"] = data["findingDetails"]
     else:
-        raise DeserializationError("ValidatePolicyFinding.finding_details required")
+        out["finding_details"] = ""
     if data.get("findingType") is not None:
         out["finding_type"] = data["findingType"]
     else:
-        raise DeserializationError("ValidatePolicyFinding.finding_type required")
+        out["finding_type"] = ""
     if data.get("issueCode") is not None:
         out["issue_code"] = data["issueCode"]
     else:
-        raise DeserializationError("ValidatePolicyFinding.issue_code required")
+        out["issue_code"] = ""
     if data.get("learnMoreLink") is not None:
         out["learn_more_link"] = data["learnMoreLink"]
     else:
-        raise DeserializationError("ValidatePolicyFinding.learn_more_link required")
+        out["learn_more_link"] = ""
     if data.get("locations") is not None:
         import capo_accessanalyzer.types.location_list
 
@@ -66,5 +64,5 @@ def deserialize_json(data: dict) -> ValidatePolicyFinding:
             data["locations"]
         )
     else:
-        raise DeserializationError("ValidatePolicyFinding.locations required")
+        out["locations"] = []
     return out

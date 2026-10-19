@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.custom_header_names
     import capo_devops_agent.types.description
@@ -61,11 +59,11 @@ def deserialize_json(data: dict) -> RegisteredMCPServerDetails:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RegisteredMCPServerDetails.name required")
+        out["name"] = ""
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError("RegisteredMCPServerDetails.endpoint required")
+        out["endpoint"] = ""
     if data.get("authorizationMethod") is not None:
         import capo_devops_agent.types.mcp_server_authorization_method
 
@@ -75,8 +73,11 @@ def deserialize_json(data: dict) -> RegisteredMCPServerDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "RegisteredMCPServerDetails.authorization_method required"
+        import typing
+
+        out["authorization_method"] = typing.cast(
+            "capo_devops_agent.types.mcp_server_authorization_method.MCPServerAuthorizationMethod",
+            "",
         )
     if data.get("description") is not None:
         out["description"] = data["description"]

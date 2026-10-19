@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecatalyst.types.event_log_entries
 
@@ -41,5 +39,5 @@ def deserialize_json(data: dict) -> ListEventLogsResponse:
             data["items"]
         )
     else:
-        raise DeserializationError("ListEventLogsResponse.items required")
+        out["items"] = []
     return out

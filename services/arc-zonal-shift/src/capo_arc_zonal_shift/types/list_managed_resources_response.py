@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_zonal_shift.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_zonal_shift.types.managed_resource_summaries
 
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> ListManagedResourcesResponse:
             )
         )
     else:
-        raise DeserializationError("ListManagedResourcesResponse.items required")
+        out["items"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

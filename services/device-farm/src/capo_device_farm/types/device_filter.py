@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_device_farm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_device_farm.types.device_filter_attribute
     import capo_device_farm.types.device_filter_values
@@ -55,7 +53,11 @@ def deserialize_aws_json_1_1(data: dict) -> DeviceFilter:
             )
         )
     else:
-        raise DeserializationError("DeviceFilter.attribute required")
+        import typing
+
+        out["attribute"] = typing.cast(
+            "capo_device_farm.types.device_filter_attribute.DeviceFilterAttribute", ""
+        )
     if data.get("operator") is not None:
         import capo_device_farm.types.rule_operator
 
@@ -63,7 +65,11 @@ def deserialize_aws_json_1_1(data: dict) -> DeviceFilter:
             data["operator"]
         )
     else:
-        raise DeserializationError("DeviceFilter.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_device_farm.types.rule_operator.RuleOperator", ""
+        )
     if data.get("values") is not None:
         import capo_device_farm.types.device_filter_values
 
@@ -73,5 +79,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeviceFilter:
             )
         )
     else:
-        raise DeserializationError("DeviceFilter.values required")
+        out["values"] = []
     return out

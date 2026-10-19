@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -98,7 +96,9 @@ def deserialize_cbor(data: dict) -> GetContextGraphInput:
             )
         )
     else:
-        raise DeserializationError("GetContextGraphInput.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_cloudwatchomni.types._prelude.timestamp
 
@@ -106,7 +106,9 @@ def deserialize_cbor(data: dict) -> GetContextGraphInput:
             data["endTime"]
         )
     else:
-        raise DeserializationError("GetContextGraphInput.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("depth") is not None:
         out["depth"] = data["depth"]
     if data.get("maxResults") is not None:

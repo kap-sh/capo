@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.backup_arn
     import capo_dynamodb.types.date
@@ -53,9 +51,13 @@ def deserialize_aws_json_1_0(data: dict) -> RestoreSummary:
             data["RestoreDateTime"]
         )
     else:
-        raise DeserializationError("RestoreSummary.restore_date_time required")
+        import datetime
+
+        out["restore_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("RestoreInProgress") is not None:
         out["restore_in_progress"] = data["RestoreInProgress"]
     else:
-        raise DeserializationError("RestoreSummary.restore_in_progress required")
+        out["restore_in_progress"] = False
     return out

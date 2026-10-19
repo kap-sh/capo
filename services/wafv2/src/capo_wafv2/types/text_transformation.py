@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.text_transformation_priority
     import capo_wafv2.types.text_transformation_type
@@ -45,5 +43,9 @@ def deserialize_aws_json_1_1(data: dict) -> TextTransformation:
             )
         )
     else:
-        raise DeserializationError("TextTransformation.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_wafv2.types.text_transformation_type.TextTransformationType", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_invoicing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_invoicing.types.list_invoice_summaries_resource_type
     import capo_invoicing.types.string_without_new_line
@@ -43,9 +41,14 @@ def deserialize_aws_json_1_0(data: dict) -> InvoiceSummariesSelector:
             )
         )
     else:
-        raise DeserializationError("InvoiceSummariesSelector.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_invoicing.types.list_invoice_summaries_resource_type.ListInvoiceSummariesResourceType",
+            "",
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("InvoiceSummariesSelector.value required")
+        out["value"] = ""
     return out

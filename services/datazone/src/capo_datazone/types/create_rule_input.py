@@ -64,19 +64,23 @@ def deserialize_json(data: dict) -> CreateRuleInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateRuleInput.name required")
+        out["name"] = ""
     if data.get("target") is not None:
         import capo_datazone.types.rule_target
 
         out["target"] = capo_datazone.types.rule_target.deserialize_json(data["target"])
     else:
-        raise DeserializationError("CreateRuleInput.target required")
+        import capo_datazone.types._unknown
+
+        out["target"] = capo_datazone.types._unknown.UnknownUnionMember("")
     if data.get("action") is not None:
         import capo_datazone.types.rule_action
 
         out["action"] = capo_datazone.types.rule_action.deserialize_json(data["action"])
     else:
-        raise DeserializationError("CreateRuleInput.action required")
+        import typing
+
+        out["action"] = typing.cast("capo_datazone.types.rule_action.RuleAction", "")
     if data.get("scope") is not None:
         import capo_datazone.types.rule_scope
 
@@ -88,7 +92,9 @@ def deserialize_json(data: dict) -> CreateRuleInput:
 
         out["detail"] = capo_datazone.types.rule_detail.deserialize_json(data["detail"])
     else:
-        raise DeserializationError("CreateRuleInput.detail required")
+        import capo_datazone.types._unknown
+
+        out["detail"] = capo_datazone.types._unknown.UnknownUnionMember("")
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("clientToken") is not None:

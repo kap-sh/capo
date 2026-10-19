@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.share_name
 
@@ -34,11 +32,11 @@ def deserialize_json(data: dict) -> CreateShareRequest:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("CreateShareRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("principalSubscriber") is not None:
         out["principal_subscriber"] = data["principalSubscriber"]
     else:
-        raise DeserializationError("CreateShareRequest.principal_subscriber required")
+        out["principal_subscriber"] = ""
     if data.get("shareName") is not None:
         out["share_name"] = data["shareName"]
     return out

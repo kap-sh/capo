@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.additional_options
     import capo_glue.types.enclosed_in_string_property
@@ -65,19 +63,19 @@ def deserialize_aws_json_1_1(data: dict) -> SparkConnectorSource:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("SparkConnectorSource.name required")
+        out["name"] = ""
     if data.get("ConnectionName") is not None:
         out["connection_name"] = data["ConnectionName"]
     else:
-        raise DeserializationError("SparkConnectorSource.connection_name required")
+        out["connection_name"] = ""
     if data.get("ConnectorName") is not None:
         out["connector_name"] = data["ConnectorName"]
     else:
-        raise DeserializationError("SparkConnectorSource.connector_name required")
+        out["connector_name"] = ""
     if data.get("ConnectionType") is not None:
         out["connection_type"] = data["ConnectionType"]
     else:
-        raise DeserializationError("SparkConnectorSource.connection_type required")
+        out["connection_type"] = ""
     if data.get("AdditionalOptions") is not None:
         import capo_glue.types.additional_options
 

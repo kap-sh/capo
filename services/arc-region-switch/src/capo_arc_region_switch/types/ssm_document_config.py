@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.iam_role_arn
     import capo_arc_region_switch.types.ssm_document_arn
@@ -72,7 +70,7 @@ def deserialize_aws_json_1_0(data: dict) -> SsmDocumentConfig:
     if data.get("documentArn") is not None:
         out["document_arn"] = data["documentArn"]
     else:
-        raise DeserializationError("SsmDocumentConfig.document_arn required")
+        out["document_arn"] = ""
     if data.get("targets") is not None:
         import capo_arc_region_switch.types.ssm_target_list
 
@@ -82,7 +80,7 @@ def deserialize_aws_json_1_0(data: dict) -> SsmDocumentConfig:
             )
         )
     else:
-        raise DeserializationError("SsmDocumentConfig.targets required")
+        out["targets"] = []
     if data.get("parameters") is not None:
         import capo_arc_region_switch.types.ssm_document_parameters
 

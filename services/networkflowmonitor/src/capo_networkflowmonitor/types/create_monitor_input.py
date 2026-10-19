@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkflowmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkflowmonitor.types.arn
     import capo_networkflowmonitor.types.monitor_local_resources
@@ -70,7 +68,7 @@ def deserialize_json(data: dict) -> CreateMonitorInput:
     if data.get("monitorName") is not None:
         out["monitor_name"] = data["monitorName"]
     else:
-        raise DeserializationError("CreateMonitorInput.monitor_name required")
+        out["monitor_name"] = ""
     if data.get("localResources") is not None:
         import capo_networkflowmonitor.types.monitor_local_resources
 
@@ -80,7 +78,7 @@ def deserialize_json(data: dict) -> CreateMonitorInput:
             )
         )
     else:
-        raise DeserializationError("CreateMonitorInput.local_resources required")
+        out["local_resources"] = []
     if data.get("remoteResources") is not None:
         import capo_networkflowmonitor.types.monitor_remote_resources
 
@@ -92,7 +90,7 @@ def deserialize_json(data: dict) -> CreateMonitorInput:
     if data.get("scopeArn") is not None:
         out["scope_arn"] = data["scopeArn"]
     else:
-        raise DeserializationError("CreateMonitorInput.scope_arn required")
+        out["scope_arn"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.encrypted_pin_block_type
     import capo_payment_cryptography_data.types.key_arn
@@ -80,57 +78,43 @@ def deserialize_json(data: dict) -> GenerateMacEmvPinChangeOutput:
     if data.get("NewPinPekArn") is not None:
         out["new_pin_pek_arn"] = data["NewPinPekArn"]
     else:
-        raise DeserializationError(
-            "GenerateMacEmvPinChangeOutput.new_pin_pek_arn required"
-        )
+        out["new_pin_pek_arn"] = ""
     if data.get("SecureMessagingIntegrityKeyArn") is not None:
         out["secure_messaging_integrity_key_arn"] = data[
             "SecureMessagingIntegrityKeyArn"
         ]
     else:
-        raise DeserializationError(
-            "GenerateMacEmvPinChangeOutput.secure_messaging_integrity_key_arn required"
-        )
+        out["secure_messaging_integrity_key_arn"] = ""
     if data.get("SecureMessagingConfidentialityKeyArn") is not None:
         out["secure_messaging_confidentiality_key_arn"] = data[
             "SecureMessagingConfidentialityKeyArn"
         ]
     else:
-        raise DeserializationError(
-            "GenerateMacEmvPinChangeOutput.secure_messaging_confidentiality_key_arn required"
-        )
+        out["secure_messaging_confidentiality_key_arn"] = ""
     if data.get("Mac") is not None:
         out["mac"] = data["Mac"]
     else:
-        raise DeserializationError("GenerateMacEmvPinChangeOutput.mac required")
+        out["mac"] = ""
     if data.get("EncryptedPinBlock") is not None:
         out["encrypted_pin_block"] = data["EncryptedPinBlock"]
     else:
-        raise DeserializationError(
-            "GenerateMacEmvPinChangeOutput.encrypted_pin_block required"
-        )
+        out["encrypted_pin_block"] = ""
     if data.get("NewPinPekKeyCheckValue") is not None:
         out["new_pin_pek_key_check_value"] = data["NewPinPekKeyCheckValue"]
     else:
-        raise DeserializationError(
-            "GenerateMacEmvPinChangeOutput.new_pin_pek_key_check_value required"
-        )
+        out["new_pin_pek_key_check_value"] = ""
     if data.get("SecureMessagingIntegrityKeyCheckValue") is not None:
         out["secure_messaging_integrity_key_check_value"] = data[
             "SecureMessagingIntegrityKeyCheckValue"
         ]
     else:
-        raise DeserializationError(
-            "GenerateMacEmvPinChangeOutput.secure_messaging_integrity_key_check_value required"
-        )
+        out["secure_messaging_integrity_key_check_value"] = ""
     if data.get("SecureMessagingConfidentialityKeyCheckValue") is not None:
         out["secure_messaging_confidentiality_key_check_value"] = data[
             "SecureMessagingConfidentialityKeyCheckValue"
         ]
     else:
-        raise DeserializationError(
-            "GenerateMacEmvPinChangeOutput.secure_messaging_confidentiality_key_check_value required"
-        )
+        out["secure_messaging_confidentiality_key_check_value"] = ""
     if data.get("VisaAmexDerivationOutputs") is not None:
         import capo_payment_cryptography_data.types.visa_amex_derivation_outputs
 

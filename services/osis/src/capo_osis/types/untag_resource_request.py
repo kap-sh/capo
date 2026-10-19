@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_osis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_osis.types.pipeline_arn
     import capo_osis.types.string_list
@@ -34,5 +32,5 @@ def deserialize_json(data: dict) -> UntagResourceRequest:
 
         out["tag_keys"] = capo_osis.types.string_list.deserialize_json(data["TagKeys"])
     else:
-        raise DeserializationError("UntagResourceRequest.tag_keys required")
+        out["tag_keys"] = []
     return out

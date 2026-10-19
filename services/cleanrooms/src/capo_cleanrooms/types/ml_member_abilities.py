@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.custom_ml_member_abilities
 
@@ -41,7 +39,5 @@ def deserialize_json(data: dict) -> MLMemberAbilities:
             )
         )
     else:
-        raise DeserializationError(
-            "MLMemberAbilities.custom_ml_member_abilities required"
-        )
+        out["custom_ml_member_abilities"] = []
     return out

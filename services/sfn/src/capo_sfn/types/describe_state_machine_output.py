@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.arn
     import capo_sfn.types.definition
@@ -129,13 +127,11 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeStateMachineOutput:
     if data.get("stateMachineArn") is not None:
         out["state_machine_arn"] = data["stateMachineArn"]
     else:
-        raise DeserializationError(
-            "DescribeStateMachineOutput.state_machine_arn required"
-        )
+        out["state_machine_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DescribeStateMachineOutput.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         import capo_sfn.types.state_machine_status
 
@@ -145,11 +141,11 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeStateMachineOutput:
     if data.get("definition") is not None:
         out["definition"] = data["definition"]
     else:
-        raise DeserializationError("DescribeStateMachineOutput.definition required")
+        out["definition"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("DescribeStateMachineOutput.role_arn required")
+        out["role_arn"] = ""
     if data.get("type") is not None:
         import capo_sfn.types.state_machine_type
 
@@ -157,7 +153,11 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeStateMachineOutput:
             data["type"]
         )
     else:
-        raise DeserializationError("DescribeStateMachineOutput.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_sfn.types.state_machine_type.StateMachineType", ""
+        )
     if data.get("creationDate") is not None:
         import capo_sfn.types.timestamp
 
@@ -165,7 +165,11 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeStateMachineOutput:
             data["creationDate"]
         )
     else:
-        raise DeserializationError("DescribeStateMachineOutput.creation_date required")
+        import datetime
+
+        out["creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("loggingConfiguration") is not None:
         import capo_sfn.types.logging_configuration
 

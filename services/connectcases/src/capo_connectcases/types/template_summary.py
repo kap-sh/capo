@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.tag_propagation_configuration_list
     import capo_connectcases.types.template_arn
@@ -52,19 +50,19 @@ def deserialize_json(data: dict) -> TemplateSummary:
     if data.get("templateId") is not None:
         out["template_id"] = data["templateId"]
     else:
-        raise DeserializationError("TemplateSummary.template_id required")
+        out["template_id"] = ""
     if data.get("templateArn") is not None:
         out["template_arn"] = data["templateArn"]
     else:
-        raise DeserializationError("TemplateSummary.template_arn required")
+        out["template_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("TemplateSummary.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("TemplateSummary.status required")
+        out["status"] = ""
     if data.get("tagPropagationConfigurations") is not None:
         import capo_connectcases.types.tag_propagation_configuration_list
 

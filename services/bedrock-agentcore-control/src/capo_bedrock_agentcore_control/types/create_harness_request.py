@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.authorizer_configuration
     import capo_bedrock_agentcore_control.types.client_token
@@ -214,13 +212,13 @@ def deserialize_json(data: dict) -> CreateHarnessRequest:
     if data.get("harnessName") is not None:
         out["harness_name"] = data["harnessName"]
     else:
-        raise DeserializationError("CreateHarnessRequest.harness_name required")
+        out["harness_name"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:
-        raise DeserializationError("CreateHarnessRequest.execution_role_arn required")
+        out["execution_role_arn"] = ""
     if data.get("environment") is not None:
         import capo_bedrock_agentcore_control.types.harness_environment_provider_request
 

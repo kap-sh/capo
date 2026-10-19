@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.q_apps_timestamp
     import capo_qapps.types.uuid
@@ -60,11 +58,11 @@ def deserialize_json(data: dict) -> CreateLibraryItemOutput:
     if data.get("libraryItemId") is not None:
         out["library_item_id"] = data["libraryItemId"]
     else:
-        raise DeserializationError("CreateLibraryItemOutput.library_item_id required")
+        out["library_item_id"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("CreateLibraryItemOutput.status required")
+        out["status"] = ""
     if data.get("createdAt") is not None:
         import capo_qapps.types.q_apps_timestamp
 
@@ -72,11 +70,13 @@ def deserialize_json(data: dict) -> CreateLibraryItemOutput:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("CreateLibraryItemOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("CreateLibraryItemOutput.created_by required")
+        out["created_by"] = ""
     if data.get("updatedAt") is not None:
         import capo_qapps.types.q_apps_timestamp
 
@@ -88,7 +88,7 @@ def deserialize_json(data: dict) -> CreateLibraryItemOutput:
     if data.get("ratingCount") is not None:
         out["rating_count"] = data["ratingCount"]
     else:
-        raise DeserializationError("CreateLibraryItemOutput.rating_count required")
+        out["rating_count"] = 0
     if data.get("isVerified") is not None:
         out["is_verified"] = data["isVerified"]
     return out

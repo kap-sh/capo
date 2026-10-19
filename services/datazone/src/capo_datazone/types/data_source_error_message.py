@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.data_source_error_type
 
@@ -39,7 +37,11 @@ def deserialize_json(data: dict) -> DataSourceErrorMessage:
             data["errorType"]
         )
     else:
-        raise DeserializationError("DataSourceErrorMessage.error_type required")
+        import typing
+
+        out["error_type"] = typing.cast(
+            "capo_datazone.types.data_source_error_type.DataSourceErrorType", ""
+        )
     if data.get("errorDetail") is not None:
         out["error_detail"] = data["errorDetail"]
     return out

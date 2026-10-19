@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.audio_file_s3_location
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> UtteranceAudioInputSpecification:
     if data.get("audioFileS3Location") is not None:
         out["audio_file_s3_location"] = data["audioFileS3Location"]
     else:
-        raise DeserializationError(
-            "UtteranceAudioInputSpecification.audio_file_s3_location required"
-        )
+        out["audio_file_s3_location"] = ""
     return out

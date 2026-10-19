@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.boolean_optional
     import capo_resiliencehub.types.string255
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> Sort:
     if data.get("field") is not None:
         out["field"] = data["field"]
     else:
-        raise DeserializationError("Sort.field required")
+        out["field"] = ""
     if data.get("ascending") is not None:
         out["ascending"] = data["ascending"]
     return out

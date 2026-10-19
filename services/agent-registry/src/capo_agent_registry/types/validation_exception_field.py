@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_agent_registry.errors import DeserializationError
-
 
 class ValidationExceptionField(TypedDict, closed=True):
     name: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> ValidationExceptionField:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ValidationExceptionField.name required")
+        out["name"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ValidationExceptionField.message required")
+        out["message"] = ""
     return out

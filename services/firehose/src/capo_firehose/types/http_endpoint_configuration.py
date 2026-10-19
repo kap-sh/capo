@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.http_endpoint_access_key
     import capo_firehose.types.http_endpoint_name
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> HttpEndpointConfiguration:
     if data.get("Url") is not None:
         out["url"] = data["Url"]
     else:
-        raise DeserializationError("HttpEndpointConfiguration.url required")
+        out["url"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("AccessKey") is not None:

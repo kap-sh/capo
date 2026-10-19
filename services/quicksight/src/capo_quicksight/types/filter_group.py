@@ -64,7 +64,7 @@ def deserialize_json(data: dict) -> FilterGroup:
     if data.get("FilterGroupId") is not None:
         out["filter_group_id"] = data["FilterGroupId"]
     else:
-        raise DeserializationError("FilterGroup.filter_group_id required")
+        out["filter_group_id"] = ""
     if data.get("Filters") is not None:
         import capo_quicksight.types.filter_list
 
@@ -72,7 +72,7 @@ def deserialize_json(data: dict) -> FilterGroup:
             data["Filters"]
         )
     else:
-        raise DeserializationError("FilterGroup.filters required")
+        out["filters"] = []
     if data.get("ScopeConfiguration") is not None:
         import capo_quicksight.types.filter_scope_configuration
 
@@ -98,7 +98,11 @@ def deserialize_json(data: dict) -> FilterGroup:
             )
         )
     else:
-        raise DeserializationError("FilterGroup.cross_dataset required")
+        import typing
+
+        out["cross_dataset"] = typing.cast(
+            "capo_quicksight.types.cross_dataset_types.CrossDatasetTypes", ""
+        )
     return out
 
 

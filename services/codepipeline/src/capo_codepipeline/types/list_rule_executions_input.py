@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.max_results
     import capo_codepipeline.types.next_token
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListRuleExecutionsInput:
     if data.get("pipelineName") is not None:
         out["pipeline_name"] = data["pipelineName"]
     else:
-        raise DeserializationError("ListRuleExecutionsInput.pipeline_name required")
+        out["pipeline_name"] = ""
     if data.get("filter") is not None:
         import capo_codepipeline.types.rule_execution_filter
 

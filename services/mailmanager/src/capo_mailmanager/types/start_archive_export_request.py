@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -77,7 +75,7 @@ def deserialize_aws_json_1_0(data: dict) -> StartArchiveExportRequest:
     if data.get("ArchiveId") is not None:
         out["archive_id"] = data["ArchiveId"]
     else:
-        raise DeserializationError("StartArchiveExportRequest.archive_id required")
+        out["archive_id"] = ""
     if data.get("Filters") is not None:
         import capo_mailmanager.types.archive_filters
 
@@ -95,7 +93,11 @@ def deserialize_aws_json_1_0(data: dict) -> StartArchiveExportRequest:
             )
         )
     else:
-        raise DeserializationError("StartArchiveExportRequest.from_timestamp required")
+        import datetime
+
+        out["from_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("ToTimestamp") is not None:
         import capo_mailmanager.types._prelude.timestamp
 
@@ -105,7 +107,11 @@ def deserialize_aws_json_1_0(data: dict) -> StartArchiveExportRequest:
             )
         )
     else:
-        raise DeserializationError("StartArchiveExportRequest.to_timestamp required")
+        import datetime
+
+        out["to_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("ExportDestinationConfiguration") is not None:
@@ -117,8 +123,10 @@ def deserialize_aws_json_1_0(data: dict) -> StartArchiveExportRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartArchiveExportRequest.export_destination_configuration required"
+        import capo_mailmanager.types._unknown
+
+        out["export_destination_configuration"] = (
+            capo_mailmanager.types._unknown.UnknownUnionMember("")
         )
     if data.get("IncludeMetadata") is not None:
         out["include_metadata"] = data["IncludeMetadata"]

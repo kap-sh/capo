@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -73,21 +71,19 @@ def deserialize_json(data: dict) -> GroundStationReservationListItem:
             )
         )
     else:
-        raise DeserializationError(
-            "GroundStationReservationListItem.reservation_type required"
+        import typing
+
+        out["reservation_type"] = typing.cast(
+            "capo_groundstation.types.reservation_type.ReservationType", ""
         )
     if data.get("groundStationId") is not None:
         out["ground_station_id"] = data["groundStationId"]
     else:
-        raise DeserializationError(
-            "GroundStationReservationListItem.ground_station_id required"
-        )
+        out["ground_station_id"] = ""
     if data.get("antennaName") is not None:
         out["antenna_name"] = data["antennaName"]
     else:
-        raise DeserializationError(
-            "GroundStationReservationListItem.antenna_name required"
-        )
+        out["antenna_name"] = ""
     if data.get("startTime") is not None:
         import capo_groundstation.types._prelude.timestamp
 
@@ -97,9 +93,9 @@ def deserialize_json(data: dict) -> GroundStationReservationListItem:
             )
         )
     else:
-        raise DeserializationError(
-            "GroundStationReservationListItem.start_time required"
-        )
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_groundstation.types._prelude.timestamp
 
@@ -107,7 +103,9 @@ def deserialize_json(data: dict) -> GroundStationReservationListItem:
             data["endTime"]
         )
     else:
-        raise DeserializationError("GroundStationReservationListItem.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("reservationDetails") is not None:
         import capo_groundstation.types.reservation_details
 
@@ -117,7 +115,9 @@ def deserialize_json(data: dict) -> GroundStationReservationListItem:
             )
         )
     else:
-        raise DeserializationError(
-            "GroundStationReservationListItem.reservation_details required"
+        import capo_groundstation.types._unknown
+
+        out["reservation_details"] = (
+            capo_groundstation.types._unknown.UnknownUnionMember("")
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.parameter_string_filter_key
     import capo_ssm.types.parameter_string_filter_value_list
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> ParameterStringFilter:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("ParameterStringFilter.key required")
+        out["key"] = ""
     if data.get("Option") is not None:
         out["option"] = data["Option"]
     if data.get("Values") is not None:

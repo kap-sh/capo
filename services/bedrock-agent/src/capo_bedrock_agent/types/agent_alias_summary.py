@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.agent_alias_id
     import capo_bedrock_agent.types.agent_alias_routing_configuration
@@ -87,11 +85,11 @@ def deserialize_json(data: dict) -> AgentAliasSummary:
     if data.get("agentAliasId") is not None:
         out["agent_alias_id"] = data["agentAliasId"]
     else:
-        raise DeserializationError("AgentAliasSummary.agent_alias_id required")
+        out["agent_alias_id"] = ""
     if data.get("agentAliasName") is not None:
         out["agent_alias_name"] = data["agentAliasName"]
     else:
-        raise DeserializationError("AgentAliasSummary.agent_alias_name required")
+        out["agent_alias_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("routingConfiguration") is not None:
@@ -111,7 +109,11 @@ def deserialize_json(data: dict) -> AgentAliasSummary:
             )
         )
     else:
-        raise DeserializationError("AgentAliasSummary.agent_alias_status required")
+        import typing
+
+        out["agent_alias_status"] = typing.cast(
+            "capo_bedrock_agent.types.agent_alias_status.AgentAliasStatus", ""
+        )
     if data.get("createdAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -119,7 +121,9 @@ def deserialize_json(data: dict) -> AgentAliasSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("AgentAliasSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -127,7 +131,9 @@ def deserialize_json(data: dict) -> AgentAliasSummary:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("AgentAliasSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("aliasInvocationState") is not None:
         import capo_bedrock_agent.types.alias_invocation_state
 

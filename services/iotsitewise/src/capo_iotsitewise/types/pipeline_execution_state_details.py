@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.detailed_error_list
     import capo_iotsitewise.types.pipeline_error_code
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> PipelineExecutionStateDetails:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("PipelineExecutionStateDetails.message required")
+        out["message"] = ""
     if data.get("details") is not None:
         import capo_iotsitewise.types.detailed_error_list
 

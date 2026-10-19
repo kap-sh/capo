@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3files.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3files.types.client_token
     import capo_s3files.types.file_system_id
@@ -63,7 +61,7 @@ def deserialize_json(data: dict) -> CreateAccessPointRequest:
     if data.get("fileSystemId") is not None:
         out["file_system_id"] = data["fileSystemId"]
     else:
-        raise DeserializationError("CreateAccessPointRequest.file_system_id required")
+        out["file_system_id"] = ""
     if data.get("posixUser") is not None:
         import capo_s3files.types.posix_user
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.evaluator_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> Evaluator:
     if data.get("evaluatorId") is not None:
         out["evaluator_id"] = data["evaluatorId"]
     else:
-        raise DeserializationError("Evaluator.evaluator_id required")
+        out["evaluator_id"] = ""
     return out

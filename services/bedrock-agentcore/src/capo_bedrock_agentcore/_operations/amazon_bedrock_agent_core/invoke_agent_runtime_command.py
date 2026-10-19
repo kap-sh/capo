@@ -107,7 +107,10 @@ def handle_response(
         out["trace_state"] = response.headers["tracestate"]
     if "baggage" in response.headers:
         out["baggage"] = response.headers["baggage"]
-    out["content_type"] = response.headers["Content-Type"]
+    if "Content-Type" in response.headers:
+        out["content_type"] = response.headers["Content-Type"]
+    else:
+        out["content_type"] = ""
     out["status_code"] = response.status
     return out
 
@@ -138,7 +141,10 @@ async def async_handle_response(
         out["trace_state"] = response.headers["tracestate"]
     if "baggage" in response.headers:
         out["baggage"] = response.headers["baggage"]
-    out["content_type"] = response.headers["Content-Type"]
+    if "Content-Type" in response.headers:
+        out["content_type"] = response.headers["Content-Type"]
+    else:
+        out["content_type"] = ""
     out["status_code"] = response.status
     return out
 

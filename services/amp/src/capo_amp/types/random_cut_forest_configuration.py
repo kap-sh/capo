@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amp.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amp.types.ignore_near_expected
     import capo_amp.types.random_cut_forest_query
@@ -58,7 +56,7 @@ def deserialize_json(data: dict) -> RandomCutForestConfiguration:
     if data.get("query") is not None:
         out["query"] = data["query"]
     else:
-        raise DeserializationError("RandomCutForestConfiguration.query required")
+        out["query"] = ""
     if data.get("shingleSize") is not None:
         out["shingle_size"] = data["shingleSize"]
     else:

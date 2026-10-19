@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_rds._protocol.xml import Element
-from capo_rds.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_rds.types.iam_role_arn
@@ -35,7 +34,7 @@ def deserialize_query(el: Element) -> DBClusterAssociatedRole:
     if child_role_arn is not None:
         out["role_arn"] = str(child_role_arn.text or "")
     else:
-        raise DeserializationError("DBClusterAssociatedRole.role_arn required")
+        out["role_arn"] = ""
     child_feature_name = el.find("FeatureName")
     if child_feature_name is not None:
         out["feature_name"] = str(child_feature_name.text or "")

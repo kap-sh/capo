@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.hosted_zone_association_status
     import capo_route53globalresolver.types.hosted_zone_id
@@ -72,25 +70,23 @@ def deserialize_json(data: dict) -> AssociateHostedZoneOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("AssociateHostedZoneOutput.id required")
+        out["id"] = ""
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("AssociateHostedZoneOutput.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("hostedZoneId") is not None:
         out["hosted_zone_id"] = data["hostedZoneId"]
     else:
-        raise DeserializationError("AssociateHostedZoneOutput.hosted_zone_id required")
+        out["hosted_zone_id"] = ""
     if data.get("hostedZoneName") is not None:
         out["hosted_zone_name"] = data["hostedZoneName"]
     else:
-        raise DeserializationError(
-            "AssociateHostedZoneOutput.hosted_zone_name required"
-        )
+        out["hosted_zone_name"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AssociateHostedZoneOutput.name required")
+        out["name"] = ""
     if data.get("createdAt") is not None:
         import capo_route53globalresolver.types.iso8601_time_string
 
@@ -100,7 +96,9 @@ def deserialize_json(data: dict) -> AssociateHostedZoneOutput:
             )
         )
     else:
-        raise DeserializationError("AssociateHostedZoneOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_route53globalresolver.types.iso8601_time_string
 
@@ -110,7 +108,9 @@ def deserialize_json(data: dict) -> AssociateHostedZoneOutput:
             )
         )
     else:
-        raise DeserializationError("AssociateHostedZoneOutput.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         import capo_route53globalresolver.types.hosted_zone_association_status
 
@@ -120,5 +120,10 @@ def deserialize_json(data: dict) -> AssociateHostedZoneOutput:
             )
         )
     else:
-        raise DeserializationError("AssociateHostedZoneOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_route53globalresolver.types.hosted_zone_association_status.HostedZoneAssociationStatus",
+            "",
+        )
     return out

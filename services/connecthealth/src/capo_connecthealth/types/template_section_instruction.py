@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_connecthealth.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connecthealth.types.sensitive_markdown_string
     import capo_connecthealth.types.sensitive_section_header_string
@@ -33,13 +31,11 @@ def deserialize_json(data: dict) -> TemplateSectionInstruction:
     if data.get("sectionHeader") is not None:
         out["section_header"] = data["sectionHeader"]
     else:
-        raise DeserializationError("TemplateSectionInstruction.section_header required")
+        out["section_header"] = ""
     if data.get("sectionInstruction") is not None:
         out["section_instruction"] = data["sectionInstruction"]
     else:
-        raise DeserializationError(
-            "TemplateSectionInstruction.section_instruction required"
-        )
+        out["section_instruction"] = ""
     return out
 
 

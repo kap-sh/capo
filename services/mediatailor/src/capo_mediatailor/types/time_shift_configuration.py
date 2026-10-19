@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__integer
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> TimeShiftConfiguration:
     if data.get("MaxTimeDelaySeconds") is not None:
         out["max_time_delay_seconds"] = data["MaxTimeDelaySeconds"]
     else:
-        raise DeserializationError(
-            "TimeShiftConfiguration.max_time_delay_seconds required"
-        )
+        out["max_time_delay_seconds"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.description
     import capo_iotfleetwise.types.double
@@ -100,7 +98,7 @@ def deserialize_aws_json_1_0(data: dict) -> Actuator:
     if data.get("fullyQualifiedName") is not None:
         out["fully_qualified_name"] = data["fullyQualifiedName"]
     else:
-        raise DeserializationError("Actuator.fully_qualified_name required")
+        out["fully_qualified_name"] = ""
     if data.get("dataType") is not None:
         import capo_iotfleetwise.types.node_data_type
 
@@ -110,7 +108,11 @@ def deserialize_aws_json_1_0(data: dict) -> Actuator:
             )
         )
     else:
-        raise DeserializationError("Actuator.data_type required")
+        import typing
+
+        out["data_type"] = typing.cast(
+            "capo_iotfleetwise.types.node_data_type.NodeDataType", ""
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("unit") is not None:

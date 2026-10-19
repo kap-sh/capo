@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.data_store_response
     import capo_customer_profiles.types.encryption_key
@@ -106,13 +104,11 @@ def deserialize_json(data: dict) -> CreateDomainResponse:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("CreateDomainResponse.domain_name required")
+        out["domain_name"] = ""
     if data.get("DefaultExpirationDays") is not None:
         out["default_expiration_days"] = data["DefaultExpirationDays"]
     else:
-        raise DeserializationError(
-            "CreateDomainResponse.default_expiration_days required"
-        )
+        out["default_expiration_days"] = 0
     if data.get("DefaultEncryptionKey") is not None:
         out["default_encryption_key"] = data["DefaultEncryptionKey"]
     if data.get("DeadLetterQueueUrl") is not None:
@@ -148,7 +144,9 @@ def deserialize_json(data: dict) -> CreateDomainResponse:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("CreateDomainResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("LastUpdatedAt") is not None:
         import capo_customer_profiles.types.timestamp
 
@@ -158,7 +156,11 @@ def deserialize_json(data: dict) -> CreateDomainResponse:
             )
         )
     else:
-        raise DeserializationError("CreateDomainResponse.last_updated_at required")
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("Tags") is not None:
         import capo_customer_profiles.types.tag_map
 

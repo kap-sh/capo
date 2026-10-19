@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.firewall_domain_lists
 
@@ -47,7 +45,5 @@ def deserialize_json(data: dict) -> ListFirewallDomainListsOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListFirewallDomainListsOutput.firewall_domain_lists required"
-        )
+        out["firewall_domain_lists"] = []
     return out

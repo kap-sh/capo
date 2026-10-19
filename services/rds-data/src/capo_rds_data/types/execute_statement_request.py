@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rds_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rds_data.types.arn
     import capo_rds_data.types.boolean
@@ -86,15 +84,15 @@ def deserialize_json(data: dict) -> ExecuteStatementRequest:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("ExecuteStatementRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("secretArn") is not None:
         out["secret_arn"] = data["secretArn"]
     else:
-        raise DeserializationError("ExecuteStatementRequest.secret_arn required")
+        out["secret_arn"] = ""
     if data.get("sql") is not None:
         out["sql"] = data["sql"]
     else:
-        raise DeserializationError("ExecuteStatementRequest.sql required")
+        out["sql"] = ""
     if data.get("database") is not None:
         out["database"] = data["database"]
     if data.get("schema") is not None:

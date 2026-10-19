@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_data_pipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_data_pipeline.types.pipeline_description_list
 
@@ -41,7 +39,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribePipelinesOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribePipelinesOutput.pipeline_description_list required"
-        )
+        out["pipeline_description_list"] = []
     return out

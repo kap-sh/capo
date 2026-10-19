@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_apprunner.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_apprunner.types.tracing_vendor
 
@@ -35,5 +33,9 @@ def deserialize_aws_json_1_0(data: dict) -> TraceConfiguration:
             data["Vendor"]
         )
     else:
-        raise DeserializationError("TraceConfiguration.vendor required")
+        import typing
+
+        out["vendor"] = typing.cast(
+            "capo_apprunner.types.tracing_vendor.TracingVendor", ""
+        )
     return out

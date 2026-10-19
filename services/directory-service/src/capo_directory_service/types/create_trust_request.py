@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.directory_id
     import capo_directory_service.types.dns_ip_addrs
@@ -97,15 +95,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTrustRequest:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError("CreateTrustRequest.directory_id required")
+        out["directory_id"] = ""
     if data.get("RemoteDomainName") is not None:
         out["remote_domain_name"] = data["RemoteDomainName"]
     else:
-        raise DeserializationError("CreateTrustRequest.remote_domain_name required")
+        out["remote_domain_name"] = ""
     if data.get("TrustPassword") is not None:
         out["trust_password"] = data["TrustPassword"]
     else:
-        raise DeserializationError("CreateTrustRequest.trust_password required")
+        out["trust_password"] = ""
     if data.get("TrustDirection") is not None:
         import capo_directory_service.types.trust_direction
 
@@ -115,7 +113,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTrustRequest:
             )
         )
     else:
-        raise DeserializationError("CreateTrustRequest.trust_direction required")
+        import typing
+
+        out["trust_direction"] = typing.cast(
+            "capo_directory_service.types.trust_direction.TrustDirection", ""
+        )
     if data.get("TrustType") is not None:
         import capo_directory_service.types.trust_type
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.client_request_token
     import capo_codecommit.types.description
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePullRequestInput:
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("CreatePullRequestInput.title required")
+        out["title"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("targets") is not None:
@@ -57,7 +55,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePullRequestInput:
             data["targets"]
         )
     else:
-        raise DeserializationError("CreatePullRequestInput.targets required")
+        out["targets"] = []
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.ended_at
     import capo_deadline.types.session_action_definition_summary
@@ -98,7 +96,7 @@ def deserialize_json(data: dict) -> SessionActionSummary:
     if data.get("sessionActionId") is not None:
         out["session_action_id"] = data["sessionActionId"]
     else:
-        raise DeserializationError("SessionActionSummary.session_action_id required")
+        out["session_action_id"] = ""
     if data.get("status") is not None:
         import capo_deadline.types.session_action_status
 
@@ -106,7 +104,11 @@ def deserialize_json(data: dict) -> SessionActionSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("SessionActionSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_deadline.types.session_action_status.SessionActionStatus", ""
+        )
     if data.get("startedAt") is not None:
         import capo_deadline.types.started_at
 
@@ -142,7 +144,9 @@ def deserialize_json(data: dict) -> SessionActionSummary:
             )
         )
     else:
-        raise DeserializationError("SessionActionSummary.definition required")
+        import capo_deadline.types._unknown
+
+        out["definition"] = capo_deadline.types._unknown.UnknownUnionMember("")
     return out
 
 

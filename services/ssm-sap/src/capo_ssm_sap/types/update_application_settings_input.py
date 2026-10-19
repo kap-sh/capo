@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_sap.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_sap.types.application_credential_list
     import capo_ssm_sap.types.application_id
@@ -66,9 +64,7 @@ def deserialize_json(data: dict) -> UpdateApplicationSettingsInput:
     if data.get("ApplicationId") is not None:
         out["application_id"] = data["ApplicationId"]
     else:
-        raise DeserializationError(
-            "UpdateApplicationSettingsInput.application_id required"
-        )
+        out["application_id"] = ""
     if data.get("CredentialsToAddOrUpdate") is not None:
         import capo_ssm_sap.types.application_credential_list
 

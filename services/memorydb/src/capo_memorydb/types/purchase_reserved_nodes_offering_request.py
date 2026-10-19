@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_memorydb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_memorydb.types.integer_optional
     import capo_memorydb.types.string
@@ -43,9 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> PurchaseReservedNodesOfferingRequest
     if data.get("ReservedNodesOfferingId") is not None:
         out["reserved_nodes_offering_id"] = data["ReservedNodesOfferingId"]
     else:
-        raise DeserializationError(
-            "PurchaseReservedNodesOfferingRequest.reserved_nodes_offering_id required"
-        )
+        out["reserved_nodes_offering_id"] = ""
     if data.get("ReservationId") is not None:
         out["reservation_id"] = data["ReservationId"]
     if data.get("NodeCount") is not None:

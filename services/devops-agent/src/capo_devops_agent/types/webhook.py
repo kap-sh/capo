@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.webhook_type
 
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> Webhook:
     if data.get("webhookUrl") is not None:
         out["webhook_url"] = data["webhookUrl"]
     else:
-        raise DeserializationError("Webhook.webhook_url required")
+        out["webhook_url"] = ""
     if data.get("webhookType") is not None:
         import capo_devops_agent.types.webhook_type
 
@@ -48,5 +46,5 @@ def deserialize_json(data: dict) -> Webhook:
     if data.get("webhookId") is not None:
         out["webhook_id"] = data["webhookId"]
     else:
-        raise DeserializationError("Webhook.webhook_id required")
+        out["webhook_id"] = ""
     return out

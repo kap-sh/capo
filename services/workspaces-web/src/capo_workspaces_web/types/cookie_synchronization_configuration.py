@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.cookie_specifications
 
@@ -49,9 +47,7 @@ def deserialize_json(data: dict) -> CookieSynchronizationConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "CookieSynchronizationConfiguration.allowlist required"
-        )
+        out["allowlist"] = []
     if data.get("blocklist") is not None:
         import capo_workspaces_web.types.cookie_specifications
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.sensitive_string1_to10000
     import capo_customer_profiles.types.tag_map
@@ -58,9 +56,7 @@ def deserialize_json(data: dict) -> DomainObjectTypesListItem:
     if data.get("ObjectTypeName") is not None:
         out["object_type_name"] = data["ObjectTypeName"]
     else:
-        raise DeserializationError(
-            "DomainObjectTypesListItem.object_type_name required"
-        )
+        out["object_type_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("CreatedAt") is not None:

@@ -62,9 +62,7 @@ def deserialize_json(data: dict) -> UpdateComputationModelRequest:
     if data.get("computationModelName") is not None:
         out["computation_model_name"] = data["computationModelName"]
     else:
-        raise DeserializationError(
-            "UpdateComputationModelRequest.computation_model_name required"
-        )
+        out["computation_model_name"] = ""
     if data.get("computationModelDescription") is not None:
         out["computation_model_description"] = data["computationModelDescription"]
     if data.get("computationModelConfiguration") is not None:
@@ -88,9 +86,7 @@ def deserialize_json(data: dict) -> UpdateComputationModelRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateComputationModelRequest.computation_model_data_binding required"
-        )
+        out["computation_model_data_binding"] = {}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

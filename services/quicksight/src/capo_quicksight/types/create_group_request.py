@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.group_description
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> CreateGroupRequest:
     if data.get("GroupName") is not None:
         out["group_name"] = data["GroupName"]
     else:
-        raise DeserializationError("CreateGroupRequest.group_name required")
+        out["group_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     return out

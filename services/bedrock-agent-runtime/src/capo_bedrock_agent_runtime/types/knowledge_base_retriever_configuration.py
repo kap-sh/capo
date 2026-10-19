@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.knowledge_base_id
     import capo_bedrock_agent_runtime.types.retrieval_overrides
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> KnowledgeBaseRetrieverConfiguration:
     if data.get("knowledgeBaseId") is not None:
         out["knowledge_base_id"] = data["knowledgeBaseId"]
     else:
-        raise DeserializationError(
-            "KnowledgeBaseRetrieverConfiguration.knowledge_base_id required"
-        )
+        out["knowledge_base_id"] = ""
     if data.get("retrievalOverrides") is not None:
         import capo_bedrock_agent_runtime.types.retrieval_overrides
 

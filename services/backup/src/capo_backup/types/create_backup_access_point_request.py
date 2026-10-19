@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.access_point_metadata_map
     import capo_backup.types.access_point_name
@@ -68,13 +66,11 @@ def deserialize_json(data: dict) -> CreateBackupAccessPointRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateBackupAccessPointRequest.name required")
+        out["name"] = ""
     if data.get("RecoveryPointArn") is not None:
         out["recovery_point_arn"] = data["RecoveryPointArn"]
     else:
-        raise DeserializationError(
-            "CreateBackupAccessPointRequest.recovery_point_arn required"
-        )
+        out["recovery_point_arn"] = ""
     if data.get("Tags") is not None:
         import capo_backup.types.tag_map
 

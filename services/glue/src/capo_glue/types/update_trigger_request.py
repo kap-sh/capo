@@ -35,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateTriggerRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateTriggerRequest.name required")
+        out["name"] = ""
     if data.get("TriggerUpdate") is not None:
         import capo_glue.types.trigger_update
 

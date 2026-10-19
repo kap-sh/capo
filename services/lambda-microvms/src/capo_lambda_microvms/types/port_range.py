@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda_microvms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_microvms.types.port_number
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> PortRange:
     if data.get("startPort") is not None:
         out["start_port"] = data["startPort"]
     else:
-        raise DeserializationError("PortRange.start_port required")
+        out["start_port"] = 0
     if data.get("endPort") is not None:
         out["end_port"] = data["endPort"]
     else:
-        raise DeserializationError("PortRange.end_port required")
+        out["end_port"] = 0
     return out

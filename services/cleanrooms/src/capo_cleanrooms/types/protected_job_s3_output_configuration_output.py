@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.key_prefix
 
@@ -31,9 +29,7 @@ def deserialize_json(data: dict) -> ProtectedJobS3OutputConfigurationOutput:
     if data.get("bucket") is not None:
         out["bucket"] = data["bucket"]
     else:
-        raise DeserializationError(
-            "ProtectedJobS3OutputConfigurationOutput.bucket required"
-        )
+        out["bucket"] = ""
     if data.get("keyPrefix") is not None:
         out["key_prefix"] = data["keyPrefix"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.namespace_name
     import capo_redshift_serverless.types.snapshot_name_prefix
@@ -46,15 +44,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSnapshotScheduleActionParamete
     if data.get("namespaceName") is not None:
         out["namespace_name"] = data["namespaceName"]
     else:
-        raise DeserializationError(
-            "CreateSnapshotScheduleActionParameters.namespace_name required"
-        )
+        out["namespace_name"] = ""
     if data.get("snapshotNamePrefix") is not None:
         out["snapshot_name_prefix"] = data["snapshotNamePrefix"]
     else:
-        raise DeserializationError(
-            "CreateSnapshotScheduleActionParameters.snapshot_name_prefix required"
-        )
+        out["snapshot_name_prefix"] = ""
     if data.get("retentionPeriod") is not None:
         out["retention_period"] = data["retentionPeriod"]
     if data.get("tags") is not None:

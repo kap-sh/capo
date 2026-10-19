@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.listing_summary_list
     import capo_marketplace_discovery.types.next_token
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> SearchListingsOutput:
     if data.get("totalResults") is not None:
         out["total_results"] = data["totalResults"]
     else:
-        raise DeserializationError("SearchListingsOutput.total_results required")
+        out["total_results"] = 0
     if data.get("listingSummaries") is not None:
         import capo_marketplace_discovery.types.listing_summary_list
 
@@ -56,7 +54,7 @@ def deserialize_json(data: dict) -> SearchListingsOutput:
             )
         )
     else:
-        raise DeserializationError("SearchListingsOutput.listing_summaries required")
+        out["listing_summaries"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

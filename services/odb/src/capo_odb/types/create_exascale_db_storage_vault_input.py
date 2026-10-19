@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.general_input_string
     import capo_odb.types.request_tag_map
@@ -76,17 +74,13 @@ def deserialize_aws_json_1_0(data: dict) -> CreateExascaleDbStorageVaultInput:
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError(
-            "CreateExascaleDbStorageVaultInput.display_name required"
-        )
+        out["display_name"] = ""
     if data.get("highCapacityDatabaseStorageTotalSizeInGBs") is not None:
         out["high_capacity_database_storage_total_size_in_g_bs"] = data[
             "highCapacityDatabaseStorageTotalSizeInGBs"
         ]
     else:
-        raise DeserializationError(
-            "CreateExascaleDbStorageVaultInput.high_capacity_database_storage_total_size_in_g_bs required"
-        )
+        out["high_capacity_database_storage_total_size_in_g_bs"] = 0
     if data.get("additionalFlashCacheInPercent") is not None:
         out["additional_flash_cache_in_percent"] = data["additionalFlashCacheInPercent"]
     if data.get("autoscaleLimitInGBs") is not None:

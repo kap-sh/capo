@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.required_properties
     import capo_bedrock_agentcore_control.types.schema_definition
@@ -78,7 +76,11 @@ def deserialize_json(data: dict) -> SchemaDefinition:
             data["type"]
         )
     else:
-        raise DeserializationError("SchemaDefinition.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.schema_type.SchemaType", ""
+        )
     if data.get("properties") is not None:
         import capo_bedrock_agentcore_control.types.schema_properties
 

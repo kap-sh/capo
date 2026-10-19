@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.back_log_timestamp
     import capo_devops_agent.types.priority
@@ -106,17 +104,17 @@ def deserialize_json(data: dict) -> Task:
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError("Task.agent_space_id required")
+        out["agent_space_id"] = ""
     if data.get("taskId") is not None:
         out["task_id"] = data["taskId"]
     else:
-        raise DeserializationError("Task.task_id required")
+        out["task_id"] = ""
     if data.get("executionId") is not None:
         out["execution_id"] = data["executionId"]
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("Task.title required")
+        out["title"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("reference") is not None:
@@ -132,7 +130,9 @@ def deserialize_json(data: dict) -> Task:
             data["taskType"]
         )
     else:
-        raise DeserializationError("Task.task_type required")
+        import typing
+
+        out["task_type"] = typing.cast("capo_devops_agent.types.task_type.TaskType", "")
     if data.get("priority") is not None:
         import capo_devops_agent.types.priority
 
@@ -140,7 +140,9 @@ def deserialize_json(data: dict) -> Task:
             data["priority"]
         )
     else:
-        raise DeserializationError("Task.priority required")
+        import typing
+
+        out["priority"] = typing.cast("capo_devops_agent.types.priority.Priority", "")
     if data.get("status") is not None:
         import capo_devops_agent.types.task_status
 
@@ -148,7 +150,11 @@ def deserialize_json(data: dict) -> Task:
             data["status"]
         )
     else:
-        raise DeserializationError("Task.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_devops_agent.types.task_status.TaskStatus", ""
+        )
     if data.get("createdAt") is not None:
         import capo_devops_agent.types.back_log_timestamp
 
@@ -156,7 +162,9 @@ def deserialize_json(data: dict) -> Task:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("Task.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_devops_agent.types.back_log_timestamp
 
@@ -164,11 +172,13 @@ def deserialize_json(data: dict) -> Task:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("Task.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("Task.version required")
+        out["version"] = 0
     if data.get("supportMetadata") is not None:
         out["support_metadata"] = data["supportMetadata"]
     if data.get("metadata") is not None:

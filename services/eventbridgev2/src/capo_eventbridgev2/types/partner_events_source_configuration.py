@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eventbridgev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.event_pattern
     import capo_eventbridgev2.types.kms_key_identifier
@@ -52,9 +50,7 @@ def deserialize_cbor(data: dict) -> PartnerEventsSourceConfiguration:
     if data.get("PartnerEventSourceArn") is not None:
         out["partner_event_source_arn"] = data["PartnerEventSourceArn"]
     else:
-        raise DeserializationError(
-            "PartnerEventsSourceConfiguration.partner_event_source_arn required"
-        )
+        out["partner_event_source_arn"] = ""
     if data.get("Pattern") is not None:
         out["pattern"] = data["Pattern"]
     if data.get("PartnerBusKmsKeyIdentifier") is not None:

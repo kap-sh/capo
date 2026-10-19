@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.view_definition
     import capo_cloudwatchomni.types.view_description
@@ -39,7 +37,7 @@ def deserialize_cbor(data: dict) -> UpdateViewRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateViewRequest.name required")
+        out["name"] = ""
     if data.get("definition") is not None:
         out["definition"] = data["definition"]
     if data.get("description") is not None:

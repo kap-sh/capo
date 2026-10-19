@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.tag_key
@@ -33,7 +32,7 @@ def deserialize_xml(el: Element) -> Tag:
     if child_key is not None:
         out["key"] = str(child_key.text or "")
     else:
-        raise DeserializationError("Tag.key required")
+        out["key"] = ""
     child_value = el.find("Value")
     if child_value is not None:
         out["value"] = str(child_value.text or "")

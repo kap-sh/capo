@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_signin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_signin.types.client_credentials_grant_type
 
@@ -32,11 +30,9 @@ def deserialize_json(data: dict) -> CreateOAuth2TokenWithIAMRequest:
     if data.get("grant_type") is not None:
         out["grant_type"] = data["grant_type"]
     else:
-        raise DeserializationError(
-            "CreateOAuth2TokenWithIAMRequest.grant_type required"
-        )
+        out["grant_type"] = ""
     if data.get("resource") is not None:
         out["resource"] = data["resource"]
     else:
-        raise DeserializationError("CreateOAuth2TokenWithIAMRequest.resource required")
+        out["resource"] = ""
     return out

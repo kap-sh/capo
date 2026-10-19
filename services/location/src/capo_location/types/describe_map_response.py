@@ -73,17 +73,17 @@ def deserialize_json(data: dict) -> DescribeMapResponse:
     if data.get("MapName") is not None:
         out["map_name"] = data["MapName"]
     else:
-        raise DeserializationError("DescribeMapResponse.map_name required")
+        out["map_name"] = ""
     if data.get("MapArn") is not None:
         out["map_arn"] = data["MapArn"]
     else:
-        raise DeserializationError("DescribeMapResponse.map_arn required")
+        out["map_arn"] = ""
     if data.get("PricingPlan") is not None:
         out["pricing_plan"] = data["PricingPlan"]
     if data.get("DataSource") is not None:
         out["data_source"] = data["DataSource"]
     else:
-        raise DeserializationError("DescribeMapResponse.data_source required")
+        out["data_source"] = ""
     if data.get("Configuration") is not None:
         import capo_location.types.map_configuration
 
@@ -95,7 +95,7 @@ def deserialize_json(data: dict) -> DescribeMapResponse:
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("DescribeMapResponse.description required")
+        out["description"] = ""
     if data.get("Tags") is not None:
         import capo_location.types.tag_map
 
@@ -107,7 +107,11 @@ def deserialize_json(data: dict) -> DescribeMapResponse:
             data["CreateTime"]
         )
     else:
-        raise DeserializationError("DescribeMapResponse.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("UpdateTime") is not None:
         import capo_location.types.timestamp
 
@@ -115,7 +119,11 @@ def deserialize_json(data: dict) -> DescribeMapResponse:
             data["UpdateTime"]
         )
     else:
-        raise DeserializationError("DescribeMapResponse.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out
 
 

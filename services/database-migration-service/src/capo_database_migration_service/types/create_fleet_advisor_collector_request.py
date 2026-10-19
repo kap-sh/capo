@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.string
 
@@ -37,21 +35,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateFleetAdvisorCollectorRequest:
     if data.get("CollectorName") is not None:
         out["collector_name"] = data["CollectorName"]
     else:
-        raise DeserializationError(
-            "CreateFleetAdvisorCollectorRequest.collector_name required"
-        )
+        out["collector_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("ServiceAccessRoleArn") is not None:
         out["service_access_role_arn"] = data["ServiceAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "CreateFleetAdvisorCollectorRequest.service_access_role_arn required"
-        )
+        out["service_access_role_arn"] = ""
     if data.get("S3BucketName") is not None:
         out["s3_bucket_name"] = data["S3BucketName"]
     else:
-        raise DeserializationError(
-            "CreateFleetAdvisorCollectorRequest.s3_bucket_name required"
-        )
+        out["s3_bucket_name"] = ""
     return out

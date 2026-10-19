@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fis.types.s3_bucket_name
     import capo_fis.types.s3_object_key
@@ -32,9 +30,7 @@ def deserialize_json(data: dict) -> ExperimentTemplateS3LogConfigurationInput:
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError(
-            "ExperimentTemplateS3LogConfigurationInput.bucket_name required"
-        )
+        out["bucket_name"] = ""
     if data.get("prefix") is not None:
         out["prefix"] = data["prefix"]
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sns.types.map_string_to_string
@@ -41,12 +40,12 @@ def deserialize_query(el: Element) -> CreatePlatformApplicationInput:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("CreatePlatformApplicationInput.name required")
+        out["name"] = ""
     child_platform = el.find("Platform")
     if child_platform is not None:
         out["platform"] = str(child_platform.text or "")
     else:
-        raise DeserializationError("CreatePlatformApplicationInput.platform required")
+        out["platform"] = ""
     child_attributes = el.find("Attributes")
     if child_attributes is not None:
         import capo_sns.types.map_string_to_string
@@ -55,5 +54,5 @@ def deserialize_query(el: Element) -> CreatePlatformApplicationInput:
             child_attributes
         )
     else:
-        raise DeserializationError("CreatePlatformApplicationInput.attributes required")
+        out["attributes"] = {}
     return out

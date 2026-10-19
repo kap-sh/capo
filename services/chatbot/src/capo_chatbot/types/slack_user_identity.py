@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chatbot.types.arn
     import capo_chatbot.types.aws_user_identity
@@ -48,19 +46,19 @@ def deserialize_json(data: dict) -> SlackUserIdentity:
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     else:
-        raise DeserializationError("SlackUserIdentity.iam_role_arn required")
+        out["iam_role_arn"] = ""
     if data.get("ChatConfigurationArn") is not None:
         out["chat_configuration_arn"] = data["ChatConfigurationArn"]
     else:
-        raise DeserializationError("SlackUserIdentity.chat_configuration_arn required")
+        out["chat_configuration_arn"] = ""
     if data.get("SlackTeamId") is not None:
         out["slack_team_id"] = data["SlackTeamId"]
     else:
-        raise DeserializationError("SlackUserIdentity.slack_team_id required")
+        out["slack_team_id"] = ""
     if data.get("SlackUserId") is not None:
         out["slack_user_id"] = data["SlackUserId"]
     else:
-        raise DeserializationError("SlackUserIdentity.slack_user_id required")
+        out["slack_user_id"] = ""
     if data.get("AwsUserIdentity") is not None:
         out["aws_user_identity"] = data["AwsUserIdentity"]
     return out

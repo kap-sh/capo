@@ -110,8 +110,14 @@ def handle_response(
             Any, raw_stream_to_events(_iter, _message_decoder, _union_deser)
         )
     }  # type: ignore[reportAssignmentType]
-    out["content_type"] = response.headers["x-amzn-bedrock-agent-content-type"]
-    out["session_id"] = response.headers["x-amz-bedrock-agent-session-id"]
+    if "x-amzn-bedrock-agent-content-type" in response.headers:
+        out["content_type"] = response.headers["x-amzn-bedrock-agent-content-type"]
+    else:
+        out["content_type"] = ""
+    if "x-amz-bedrock-agent-session-id" in response.headers:
+        out["session_id"] = response.headers["x-amz-bedrock-agent-session-id"]
+    else:
+        out["session_id"] = ""
     if "x-amz-bedrock-agent-memory-id" in response.headers:
         out["memory_id"] = response.headers["x-amz-bedrock-agent-memory-id"]
     return out
@@ -131,8 +137,14 @@ async def async_handle_response(
             Any, async_raw_stream_to_events(_iter, _message_decoder, _union_deser)
         )
     }  # type: ignore[reportAssignmentType]
-    out["content_type"] = response.headers["x-amzn-bedrock-agent-content-type"]
-    out["session_id"] = response.headers["x-amz-bedrock-agent-session-id"]
+    if "x-amzn-bedrock-agent-content-type" in response.headers:
+        out["content_type"] = response.headers["x-amzn-bedrock-agent-content-type"]
+    else:
+        out["content_type"] = ""
+    if "x-amz-bedrock-agent-session-id" in response.headers:
+        out["session_id"] = response.headers["x-amz-bedrock-agent-session-id"]
+    else:
+        out["session_id"] = ""
     if "x-amz-bedrock-agent-memory-id" in response.headers:
         out["memory_id"] = response.headers["x-amz-bedrock-agent-memory-id"]
     return out

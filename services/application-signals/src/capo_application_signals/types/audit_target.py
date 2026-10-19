@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.audit_target_entity
 
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> AuditTarget:
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     else:
-        raise DeserializationError("AuditTarget.type required")
+        out["type"] = ""
     if data.get("Data") is not None:
         import capo_application_signals.types.audit_target_entity
 
@@ -44,5 +42,7 @@ def deserialize_json(data: dict) -> AuditTarget:
             )
         )
     else:
-        raise DeserializationError("AuditTarget.data required")
+        import capo_application_signals.types._unknown
+
+        out["data"] = capo_application_signals.types._unknown.UnknownUnionMember("")
     return out

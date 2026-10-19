@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.job_error_code
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> JobError:
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("JobError.code required")
+        out["code"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("JobError.message required")
+        out["message"] = ""
     return out

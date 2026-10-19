@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.bool
     import capo_glue.types.field_data_type
@@ -66,7 +64,7 @@ def deserialize_aws_json_1_1(data: dict) -> FieldDefinition:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("FieldDefinition.name required")
+        out["name"] = ""
     if data.get("FieldDataType") is not None:
         import capo_glue.types.field_data_type
 
@@ -76,7 +74,11 @@ def deserialize_aws_json_1_1(data: dict) -> FieldDefinition:
             )
         )
     else:
-        raise DeserializationError("FieldDefinition.field_data_type required")
+        import typing
+
+        out["field_data_type"] = typing.cast(
+            "capo_glue.types.field_data_type.FieldDataType", ""
+        )
     if data.get("ResponseDateFormat") is not None:
         out["response_date_format"] = data["ResponseDateFormat"]
     if data.get("IsPartitionable") is not None:

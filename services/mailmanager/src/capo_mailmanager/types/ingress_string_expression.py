@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.ingress_string_operator
     import capo_mailmanager.types.ingress_string_to_evaluate
@@ -59,7 +57,9 @@ def deserialize_aws_json_1_0(data: dict) -> IngressStringExpression:
             )
         )
     else:
-        raise DeserializationError("IngressStringExpression.evaluate required")
+        import capo_mailmanager.types._unknown
+
+        out["evaluate"] = capo_mailmanager.types._unknown.UnknownUnionMember("")
     if data.get("Operator") is not None:
         import capo_mailmanager.types.ingress_string_operator
 
@@ -69,7 +69,11 @@ def deserialize_aws_json_1_0(data: dict) -> IngressStringExpression:
             )
         )
     else:
-        raise DeserializationError("IngressStringExpression.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_mailmanager.types.ingress_string_operator.IngressStringOperator", ""
+        )
     if data.get("Values") is not None:
         import capo_mailmanager.types.string_list
 
@@ -77,5 +81,5 @@ def deserialize_aws_json_1_0(data: dict) -> IngressStringExpression:
             data["Values"]
         )
     else:
-        raise DeserializationError("IngressStringExpression.values required")
+        out["values"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.entity_restricted_string
     import capo_frauddetector.types.string
@@ -33,9 +31,9 @@ def deserialize_aws_json_1_1(data: dict) -> Entity:
     if data.get("entityType") is not None:
         out["entity_type"] = data["entityType"]
     else:
-        raise DeserializationError("Entity.entity_type required")
+        out["entity_type"] = ""
     if data.get("entityId") is not None:
         out["entity_id"] = data["entityId"]
     else:
-        raise DeserializationError("Entity.entity_id required")
+        out["entity_id"] = ""
     return out

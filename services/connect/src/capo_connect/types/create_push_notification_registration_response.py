@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.registration_id
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> CreatePushNotificationRegistrationResponse:
     if data.get("RegistrationId") is not None:
         out["registration_id"] = data["RegistrationId"]
     else:
-        raise DeserializationError(
-            "CreatePushNotificationRegistrationResponse.registration_id required"
-        )
+        out["registration_id"] = ""
     return out

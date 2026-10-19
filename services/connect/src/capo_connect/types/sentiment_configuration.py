@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.behavior
 
@@ -31,5 +29,7 @@ def deserialize_json(data: dict) -> SentimentConfiguration:
 
         out["behavior"] = capo_connect.types.behavior.deserialize_json(data["Behavior"])
     else:
-        raise DeserializationError("SentimentConfiguration.behavior required")
+        import typing
+
+        out["behavior"] = typing.cast("capo_connect.types.behavior.Behavior", "")
     return out

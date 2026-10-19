@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pipes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pipes.types.ecs_resource_requirement_type
     import capo_pipes.types.string
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> EcsResourceRequirement:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("EcsResourceRequirement.type required")
+        out["type"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("EcsResourceRequirement.value required")
+        out["value"] = ""
     return out

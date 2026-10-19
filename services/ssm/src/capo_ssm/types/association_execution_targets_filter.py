@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.association_execution_targets_filter_key
     import capo_ssm.types.association_execution_targets_filter_value
@@ -43,9 +41,14 @@ def deserialize_aws_json_1_1(data: dict) -> AssociationExecutionTargetsFilter:
             )
         )
     else:
-        raise DeserializationError("AssociationExecutionTargetsFilter.key required")
+        import typing
+
+        out["key"] = typing.cast(
+            "capo_ssm.types.association_execution_targets_filter_key.AssociationExecutionTargetsFilterKey",
+            "",
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("AssociationExecutionTargetsFilter.value required")
+        out["value"] = ""
     return out

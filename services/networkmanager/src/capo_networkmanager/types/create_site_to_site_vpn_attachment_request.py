@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmanager.types.client_token
     import capo_networkmanager.types.constrained_string
@@ -50,15 +48,11 @@ def deserialize_json(data: dict) -> CreateSiteToSiteVpnAttachmentRequest:
     if data.get("CoreNetworkId") is not None:
         out["core_network_id"] = data["CoreNetworkId"]
     else:
-        raise DeserializationError(
-            "CreateSiteToSiteVpnAttachmentRequest.core_network_id required"
-        )
+        out["core_network_id"] = ""
     if data.get("VpnConnectionArn") is not None:
         out["vpn_connection_arn"] = data["VpnConnectionArn"]
     else:
-        raise DeserializationError(
-            "CreateSiteToSiteVpnAttachmentRequest.vpn_connection_arn required"
-        )
+        out["vpn_connection_arn"] = ""
     if data.get("RoutingPolicyLabel") is not None:
         out["routing_policy_label"] = data["RoutingPolicyLabel"]
     if data.get("Tags") is not None:

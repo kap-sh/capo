@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_greengrassv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_greengrassv2.types.file_system_path
     import capo_greengrassv2.types.lambda_filesystem_permission
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> LambdaDeviceMount:
     if data.get("path") is not None:
         out["path"] = data["path"]
     else:
-        raise DeserializationError("LambdaDeviceMount.path required")
+        out["path"] = ""
     if data.get("permission") is not None:
         import capo_greengrassv2.types.lambda_filesystem_permission
 

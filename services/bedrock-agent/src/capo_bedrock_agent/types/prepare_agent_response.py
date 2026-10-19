@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.agent_status
     import capo_bedrock_agent.types.date_timestamp
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> PrepareAgentResponse:
     if data.get("agentId") is not None:
         out["agent_id"] = data["agentId"]
     else:
-        raise DeserializationError("PrepareAgentResponse.agent_id required")
+        out["agent_id"] = ""
     if data.get("agentStatus") is not None:
         import capo_bedrock_agent.types.agent_status
 
@@ -55,11 +53,15 @@ def deserialize_json(data: dict) -> PrepareAgentResponse:
             data["agentStatus"]
         )
     else:
-        raise DeserializationError("PrepareAgentResponse.agent_status required")
+        import typing
+
+        out["agent_status"] = typing.cast(
+            "capo_bedrock_agent.types.agent_status.AgentStatus", ""
+        )
     if data.get("agentVersion") is not None:
         out["agent_version"] = data["agentVersion"]
     else:
-        raise DeserializationError("PrepareAgentResponse.agent_version required")
+        out["agent_version"] = ""
     if data.get("preparedAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -67,5 +69,9 @@ def deserialize_json(data: dict) -> PrepareAgentResponse:
             data["preparedAt"]
         )
     else:
-        raise DeserializationError("PrepareAgentResponse.prepared_at required")
+        import datetime
+
+        out["prepared_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.alias
     import capo_partnercentral_selling.types.aws_account
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_0(data: dict) -> AccountReceiver:
     if data.get("AwsAccountId") is not None:
         out["aws_account_id"] = data["AwsAccountId"]
     else:
-        raise DeserializationError("AccountReceiver.aws_account_id required")
+        out["aws_account_id"] = ""
     return out
 
 

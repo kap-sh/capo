@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.block_override_dns_query_type
     import capo_route53globalresolver.types.block_override_ttl
@@ -167,7 +165,12 @@ def deserialize_json(data: dict) -> CreateFirewallRuleOutput:
             )
         )
     else:
-        raise DeserializationError("CreateFirewallRuleOutput.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_route53globalresolver.types.firewall_rule_action.FirewallRuleAction",
+            "",
+        )
     if data.get("blockOverrideDnsType") is not None:
         import capo_route53globalresolver.types.block_override_dns_query_type
 
@@ -205,7 +208,9 @@ def deserialize_json(data: dict) -> CreateFirewallRuleOutput:
             )
         )
     else:
-        raise DeserializationError("CreateFirewallRuleOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("dnsAdvancedProtection") is not None:
@@ -221,19 +226,19 @@ def deserialize_json(data: dict) -> CreateFirewallRuleOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CreateFirewallRuleOutput.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateFirewallRuleOutput.name required")
+        out["name"] = ""
     if data.get("priority") is not None:
         out["priority"] = data["priority"]
     else:
-        raise DeserializationError("CreateFirewallRuleOutput.priority required")
+        out["priority"] = 0
     if data.get("dnsViewId") is not None:
         out["dns_view_id"] = data["dnsViewId"]
     else:
-        raise DeserializationError("CreateFirewallRuleOutput.dns_view_id required")
+        out["dns_view_id"] = ""
     if data.get("queryType") is not None:
         out["query_type"] = data["queryType"]
     if data.get("status") is not None:
@@ -245,7 +250,11 @@ def deserialize_json(data: dict) -> CreateFirewallRuleOutput:
             )
         )
     else:
-        raise DeserializationError("CreateFirewallRuleOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_route53globalresolver.types.cr_resource_status.CRResourceStatus", ""
+        )
     if data.get("updatedAt") is not None:
         import capo_route53globalresolver.types.iso8601_time_string
 
@@ -255,5 +264,7 @@ def deserialize_json(data: dict) -> CreateFirewallRuleOutput:
             )
         )
     else:
-        raise DeserializationError("CreateFirewallRuleOutput.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

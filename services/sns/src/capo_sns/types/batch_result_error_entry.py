@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sns.types.boolean
@@ -46,12 +45,12 @@ def deserialize_query(el: Element) -> BatchResultErrorEntry:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("BatchResultErrorEntry.id required")
+        out["id"] = ""
     child_code = el.find("Code")
     if child_code is not None:
         out["code"] = str(child_code.text or "")
     else:
-        raise DeserializationError("BatchResultErrorEntry.code required")
+        out["code"] = ""
     child_message = el.find("Message")
     if child_message is not None:
         out["message"] = str(child_message.text or "")

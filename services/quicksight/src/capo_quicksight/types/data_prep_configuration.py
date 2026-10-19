@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.destination_table_map
     import capo_quicksight.types.source_table_map
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> DataPrepConfiguration:
             )
         )
     else:
-        raise DeserializationError("DataPrepConfiguration.source_table_map required")
+        out["source_table_map"] = {}
     if data.get("TransformStepMap") is not None:
         import capo_quicksight.types.transform_step_map
 
@@ -67,7 +65,7 @@ def deserialize_json(data: dict) -> DataPrepConfiguration:
             )
         )
     else:
-        raise DeserializationError("DataPrepConfiguration.transform_step_map required")
+        out["transform_step_map"] = {}
     if data.get("DestinationTableMap") is not None:
         import capo_quicksight.types.destination_table_map
 
@@ -77,9 +75,7 @@ def deserialize_json(data: dict) -> DataPrepConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "DataPrepConfiguration.destination_table_map required"
-        )
+        out["destination_table_map"] = {}
     return out
 
 

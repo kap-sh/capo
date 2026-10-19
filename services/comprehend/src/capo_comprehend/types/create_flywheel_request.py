@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.client_request_token_string
     import capo_comprehend.types.comprehend_arn_name
@@ -89,15 +87,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateFlywheelRequest:
     if data.get("FlywheelName") is not None:
         out["flywheel_name"] = data["FlywheelName"]
     else:
-        raise DeserializationError("CreateFlywheelRequest.flywheel_name required")
+        out["flywheel_name"] = ""
     if data.get("ActiveModelArn") is not None:
         out["active_model_arn"] = data["ActiveModelArn"]
     if data.get("DataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["DataAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "CreateFlywheelRequest.data_access_role_arn required"
-        )
+        out["data_access_role_arn"] = ""
     if data.get("TaskConfig") is not None:
         import capo_comprehend.types.task_config
 
@@ -113,7 +109,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateFlywheelRequest:
     if data.get("DataLakeS3Uri") is not None:
         out["data_lake_s3_uri"] = data["DataLakeS3Uri"]
     else:
-        raise DeserializationError("CreateFlywheelRequest.data_lake_s3_uri required")
+        out["data_lake_s3_uri"] = ""
     if data.get("DataSecurityConfig") is not None:
         import capo_comprehend.types.data_security_config
 

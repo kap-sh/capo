@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.authentication_type
     import capo_athena.types.boxed_boolean
@@ -43,9 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> QueryResultsS3AccessGrantsConfigurat
     if data.get("EnableS3AccessGrants") is not None:
         out["enable_s3_access_grants"] = data["EnableS3AccessGrants"]
     else:
-        raise DeserializationError(
-            "QueryResultsS3AccessGrantsConfiguration.enable_s3_access_grants required"
-        )
+        out["enable_s3_access_grants"] = False
     if data.get("CreateUserLevelPrefix") is not None:
         out["create_user_level_prefix"] = data["CreateUserLevelPrefix"]
     if data.get("AuthenticationType") is not None:
@@ -57,7 +53,9 @@ def deserialize_aws_json_1_1(data: dict) -> QueryResultsS3AccessGrantsConfigurat
             )
         )
     else:
-        raise DeserializationError(
-            "QueryResultsS3AccessGrantsConfiguration.authentication_type required"
+        import typing
+
+        out["authentication_type"] = typing.cast(
+            "capo_athena.types.authentication_type.AuthenticationType", ""
         )
     return out

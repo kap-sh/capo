@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fms.types.boolean
     import capo_fms.types.pagination_max_results
@@ -41,5 +39,5 @@ def deserialize_aws_json_1_1(data: dict) -> ListAppsListsRequest:
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     else:
-        raise DeserializationError("ListAppsListsRequest.max_results required")
+        out["max_results"] = 0
     return out

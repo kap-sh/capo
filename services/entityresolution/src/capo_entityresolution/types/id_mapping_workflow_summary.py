@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -49,11 +47,11 @@ def deserialize_json(data: dict) -> IdMappingWorkflowSummary:
     if data.get("workflowName") is not None:
         out["workflow_name"] = data["workflowName"]
     else:
-        raise DeserializationError("IdMappingWorkflowSummary.workflow_name required")
+        out["workflow_name"] = ""
     if data.get("workflowArn") is not None:
         out["workflow_arn"] = data["workflowArn"]
     else:
-        raise DeserializationError("IdMappingWorkflowSummary.workflow_arn required")
+        out["workflow_arn"] = ""
     if data.get("createdAt") is not None:
         import capo_entityresolution.types._prelude.timestamp
 
@@ -63,7 +61,9 @@ def deserialize_json(data: dict) -> IdMappingWorkflowSummary:
             )
         )
     else:
-        raise DeserializationError("IdMappingWorkflowSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_entityresolution.types._prelude.timestamp
 
@@ -73,5 +73,7 @@ def deserialize_json(data: dict) -> IdMappingWorkflowSummary:
             )
         )
     else:
-        raise DeserializationError("IdMappingWorkflowSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

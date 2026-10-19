@@ -41,9 +41,7 @@ def deserialize_json(data: dict) -> IntentClassificationTestResultItem:
     if data.get("intentName") is not None:
         out["intent_name"] = data["intentName"]
     else:
-        raise DeserializationError(
-            "IntentClassificationTestResultItem.intent_name required"
-        )
+        out["intent_name"] = ""
     if data.get("multiTurnConversation") is not None:
         out["multi_turn_conversation"] = data["multiTurnConversation"]
     else:

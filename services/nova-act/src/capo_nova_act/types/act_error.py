@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_nova_act.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_nova_act.types.sensitive_string
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> ActError:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ActError.message required")
+        out["message"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     return out

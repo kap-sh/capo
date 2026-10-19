@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sso_admin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_admin.types.instance_arn
     import capo_sso_admin.types.permission_set_arn
@@ -46,15 +44,11 @@ def deserialize_aws_json_1_1(data: dict) -> ProvisionPermissionSetRequest:
     if data.get("InstanceArn") is not None:
         out["instance_arn"] = data["InstanceArn"]
     else:
-        raise DeserializationError(
-            "ProvisionPermissionSetRequest.instance_arn required"
-        )
+        out["instance_arn"] = ""
     if data.get("PermissionSetArn") is not None:
         out["permission_set_arn"] = data["PermissionSetArn"]
     else:
-        raise DeserializationError(
-            "ProvisionPermissionSetRequest.permission_set_arn required"
-        )
+        out["permission_set_arn"] = ""
     if data.get("TargetId") is not None:
         out["target_id"] = data["TargetId"]
     if data.get("TargetType") is not None:
@@ -66,5 +60,9 @@ def deserialize_aws_json_1_1(data: dict) -> ProvisionPermissionSetRequest:
             )
         )
     else:
-        raise DeserializationError("ProvisionPermissionSetRequest.target_type required")
+        import typing
+
+        out["target_type"] = typing.cast(
+            "capo_sso_admin.types.provision_target_type.ProvisionTargetType", ""
+        )
     return out

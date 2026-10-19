@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.boxed_integer
     import capo_ecs.types.string
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListServicesByNamespaceRequest:
     if data.get("namespace") is not None:
         out["namespace"] = data["namespace"]
     else:
-        raise DeserializationError("ListServicesByNamespaceRequest.namespace required")
+        out["namespace"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

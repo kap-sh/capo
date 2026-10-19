@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.log_configuration_options_map
     import capo_ecs.types.log_driver
@@ -57,7 +55,9 @@ def deserialize_aws_json_1_1(data: dict) -> LogConfiguration:
             data["logDriver"]
         )
     else:
-        raise DeserializationError("LogConfiguration.log_driver required")
+        import typing
+
+        out["log_driver"] = typing.cast("capo_ecs.types.log_driver.LogDriver", "")
     if data.get("options") is not None:
         import capo_ecs.types.log_configuration_options_map
 

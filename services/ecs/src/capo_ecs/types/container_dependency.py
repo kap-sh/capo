@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.container_condition
     import capo_ecs.types.string
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> ContainerDependency:
     if data.get("containerName") is not None:
         out["container_name"] = data["containerName"]
     else:
-        raise DeserializationError("ContainerDependency.container_name required")
+        out["container_name"] = ""
     if data.get("condition") is not None:
         import capo_ecs.types.container_condition
 
@@ -43,5 +41,9 @@ def deserialize_aws_json_1_1(data: dict) -> ContainerDependency:
             data["condition"]
         )
     else:
-        raise DeserializationError("ContainerDependency.condition required")
+        import typing
+
+        out["condition"] = typing.cast(
+            "capo_ecs.types.container_condition.ContainerCondition", ""
+        )
     return out

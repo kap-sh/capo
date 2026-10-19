@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -55,15 +53,15 @@ def deserialize_aws_json_1_0(data: dict) -> AddressList:
     if data.get("AddressListId") is not None:
         out["address_list_id"] = data["AddressListId"]
     else:
-        raise DeserializationError("AddressList.address_list_id required")
+        out["address_list_id"] = ""
     if data.get("AddressListArn") is not None:
         out["address_list_arn"] = data["AddressListArn"]
     else:
-        raise DeserializationError("AddressList.address_list_arn required")
+        out["address_list_arn"] = ""
     if data.get("AddressListName") is not None:
         out["address_list_name"] = data["AddressListName"]
     else:
-        raise DeserializationError("AddressList.address_list_name required")
+        out["address_list_name"] = ""
     if data.get("CreatedTimestamp") is not None:
         import capo_mailmanager.types._prelude.timestamp
 
@@ -73,7 +71,11 @@ def deserialize_aws_json_1_0(data: dict) -> AddressList:
             )
         )
     else:
-        raise DeserializationError("AddressList.created_timestamp required")
+        import datetime
+
+        out["created_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("LastUpdatedTimestamp") is not None:
         import capo_mailmanager.types._prelude.timestamp
 
@@ -83,5 +85,9 @@ def deserialize_aws_json_1_0(data: dict) -> AddressList:
             )
         )
     else:
-        raise DeserializationError("AddressList.last_updated_timestamp required")
+        import datetime
+
+        out["last_updated_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

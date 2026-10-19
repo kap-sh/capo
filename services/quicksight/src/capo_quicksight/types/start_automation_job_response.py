@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.automate_id
@@ -38,11 +36,11 @@ def deserialize_json(data: dict) -> StartAutomationJobResponse:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("StartAutomationJobResponse.arn required")
+        out["arn"] = ""
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError("StartAutomationJobResponse.job_id required")
+        out["job_id"] = ""
     if data.get("RequestId") is not None:
         out["request_id"] = data["RequestId"]
     return out

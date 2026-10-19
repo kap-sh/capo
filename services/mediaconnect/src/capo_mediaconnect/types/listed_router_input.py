@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -121,15 +119,15 @@ def deserialize_json(data: dict) -> ListedRouterInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ListedRouterInput.name required")
+        out["name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ListedRouterInput.arn required")
+        out["arn"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ListedRouterInput.id required")
+        out["id"] = ""
     if data.get("inputType") is not None:
         import capo_mediaconnect.types.router_input_type
 
@@ -137,7 +135,11 @@ def deserialize_json(data: dict) -> ListedRouterInput:
             data["inputType"]
         )
     else:
-        raise DeserializationError("ListedRouterInput.input_type required")
+        import typing
+
+        out["input_type"] = typing.cast(
+            "capo_mediaconnect.types.router_input_type.RouterInputType", ""
+        )
     if data.get("state") is not None:
         import capo_mediaconnect.types.router_input_state
 
@@ -145,23 +147,27 @@ def deserialize_json(data: dict) -> ListedRouterInput:
             data["state"]
         )
     else:
-        raise DeserializationError("ListedRouterInput.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_mediaconnect.types.router_input_state.RouterInputState", ""
+        )
     if data.get("routedOutputs") is not None:
         out["routed_outputs"] = data["routedOutputs"]
     else:
-        raise DeserializationError("ListedRouterInput.routed_outputs required")
+        out["routed_outputs"] = 0
     if data.get("regionName") is not None:
         out["region_name"] = data["regionName"]
     else:
-        raise DeserializationError("ListedRouterInput.region_name required")
+        out["region_name"] = ""
     if data.get("availabilityZone") is not None:
         out["availability_zone"] = data["availabilityZone"]
     else:
-        raise DeserializationError("ListedRouterInput.availability_zone required")
+        out["availability_zone"] = ""
     if data.get("maximumBitrate") is not None:
         out["maximum_bitrate"] = data["maximumBitrate"]
     else:
-        raise DeserializationError("ListedRouterInput.maximum_bitrate required")
+        out["maximum_bitrate"] = 0
     if data.get("routingScope") is not None:
         import capo_mediaconnect.types.routing_scope
 
@@ -169,7 +175,11 @@ def deserialize_json(data: dict) -> ListedRouterInput:
             data["routingScope"]
         )
     else:
-        raise DeserializationError("ListedRouterInput.routing_scope required")
+        import typing
+
+        out["routing_scope"] = typing.cast(
+            "capo_mediaconnect.types.routing_scope.RoutingScope", ""
+        )
     if data.get("createdAt") is not None:
         import datetime
 
@@ -177,7 +187,9 @@ def deserialize_json(data: dict) -> ListedRouterInput:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("ListedRouterInput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import datetime
 
@@ -185,11 +197,13 @@ def deserialize_json(data: dict) -> ListedRouterInput:
             data["updatedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("ListedRouterInput.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("messageCount") is not None:
         out["message_count"] = data["messageCount"]
     else:
-        raise DeserializationError("ListedRouterInput.message_count required")
+        out["message_count"] = 0
     if data.get("networkInterfaceArn") is not None:
         out["network_interface_arn"] = data["networkInterfaceArn"]
     if data.get("maintenanceScheduleType") is not None:

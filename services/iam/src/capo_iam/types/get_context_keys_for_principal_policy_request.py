@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -43,9 +42,7 @@ def deserialize_query(el: Element) -> GetContextKeysForPrincipalPolicyRequest:
     if child_policy_source_arn is not None:
         out["policy_source_arn"] = str(child_policy_source_arn.text or "")
     else:
-        raise DeserializationError(
-            "GetContextKeysForPrincipalPolicyRequest.policy_source_arn required"
-        )
+        out["policy_source_arn"] = ""
     child_policy_input_list = el.find("PolicyInputList")
     if child_policy_input_list is not None:
         import capo_iam.types.simulation_policy_list_type

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wellarchitected.types.account_id
     import capo_wellarchitected.types.regions
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> AggregationConfiguration:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("AggregationConfiguration.account_id required")
+        out["account_id"] = ""
     if data.get("regions") is not None:
         import capo_wellarchitected.types.regions
 
@@ -45,9 +43,9 @@ def deserialize_json(data: dict) -> AggregationConfiguration:
             data["regions"]
         )
     else:
-        raise DeserializationError("AggregationConfiguration.regions required")
+        out["regions"] = []
     if data.get("accessRoleArn") is not None:
         out["access_role_arn"] = data["accessRoleArn"]
     else:
-        raise DeserializationError("AggregationConfiguration.access_role_arn required")
+        out["access_role_arn"] = ""
     return out

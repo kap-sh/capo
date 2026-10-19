@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptunedata.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_neptunedata.types.open_cypher_explain_mode
 
@@ -40,9 +38,7 @@ def deserialize_json(data: dict) -> ExecuteOpenCypherExplainQueryInput:
     if data.get("query") is not None:
         out["open_cypher_query"] = data["query"]
     else:
-        raise DeserializationError(
-            "ExecuteOpenCypherExplainQueryInput.open_cypher_query required"
-        )
+        out["open_cypher_query"] = ""
     if data.get("parameters") is not None:
         out["parameters"] = data["parameters"]
     if data.get("explain") is not None:
@@ -54,7 +50,9 @@ def deserialize_json(data: dict) -> ExecuteOpenCypherExplainQueryInput:
             )
         )
     else:
-        raise DeserializationError(
-            "ExecuteOpenCypherExplainQueryInput.explain_mode required"
+        import typing
+
+        out["explain_mode"] = typing.cast(
+            "capo_neptunedata.types.open_cypher_explain_mode.OpenCypherExplainMode", ""
         )
     return out

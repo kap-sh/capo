@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.guardrail_topic_action
     import capo_bedrock.types.guardrail_topic_definition
@@ -77,11 +75,11 @@ def deserialize_json(data: dict) -> GuardrailTopicConfig:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GuardrailTopicConfig.name required")
+        out["name"] = ""
     if data.get("definition") is not None:
         out["definition"] = data["definition"]
     else:
-        raise DeserializationError("GuardrailTopicConfig.definition required")
+        out["definition"] = ""
     if data.get("examples") is not None:
         import capo_bedrock.types.guardrail_topic_examples
 
@@ -95,7 +93,11 @@ def deserialize_json(data: dict) -> GuardrailTopicConfig:
             data["type"]
         )
     else:
-        raise DeserializationError("GuardrailTopicConfig.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock.types.guardrail_topic_type.GuardrailTopicType", ""
+        )
     if data.get("inputAction") is not None:
         import capo_bedrock.types.guardrail_topic_action
 

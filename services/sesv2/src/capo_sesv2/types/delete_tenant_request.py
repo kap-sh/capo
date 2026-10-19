@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.tenant_name
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DeleteTenantRequest:
     if data.get("TenantName") is not None:
         out["tenant_name"] = data["TenantName"]
     else:
-        raise DeserializationError("DeleteTenantRequest.tenant_name required")
+        out["tenant_name"] = ""
     return out

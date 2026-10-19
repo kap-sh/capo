@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.service_authorization
 
@@ -39,5 +37,9 @@ def deserialize_json(data: dict) -> RedshiftConnect:
             )
         )
     else:
-        raise DeserializationError("RedshiftConnect.authorization required")
+        import typing
+
+        out["authorization"] = typing.cast(
+            "capo_lakeformation.types.service_authorization.ServiceAuthorization", ""
+        )
     return out

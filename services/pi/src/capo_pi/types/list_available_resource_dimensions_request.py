@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pi.types.authorized_actions_list
     import capo_pi.types.dimensions_metric_list
@@ -70,15 +68,13 @@ def deserialize_aws_json_1_1(data: dict) -> ListAvailableResourceDimensionsReque
             data["ServiceType"]
         )
     else:
-        raise DeserializationError(
-            "ListAvailableResourceDimensionsRequest.service_type required"
-        )
+        import typing
+
+        out["service_type"] = typing.cast("capo_pi.types.service_type.ServiceType", "")
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError(
-            "ListAvailableResourceDimensionsRequest.identifier required"
-        )
+        out["identifier"] = ""
     if data.get("Metrics") is not None:
         import capo_pi.types.dimensions_metric_list
 
@@ -86,9 +82,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListAvailableResourceDimensionsReque
             data["Metrics"]
         )
     else:
-        raise DeserializationError(
-            "ListAvailableResourceDimensionsRequest.metrics required"
-        )
+        out["metrics"] = []
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

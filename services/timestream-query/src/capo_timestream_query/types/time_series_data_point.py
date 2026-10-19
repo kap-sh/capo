@@ -35,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> TimeSeriesDataPoint:
     if data.get("Time") is not None:
         out["time"] = data["Time"]
     else:
-        raise DeserializationError("TimeSeriesDataPoint.time required")
+        out["time"] = ""
     if data.get("Value") is not None:
         import capo_timestream_query.types.datum
 

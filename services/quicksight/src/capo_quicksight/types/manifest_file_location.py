@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.s3_bucket
     import capo_quicksight.types.s3_key
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> ManifestFileLocation:
     if data.get("Bucket") is not None:
         out["bucket"] = data["Bucket"]
     else:
-        raise DeserializationError("ManifestFileLocation.bucket required")
+        out["bucket"] = ""
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("ManifestFileLocation.key required")
+        out["key"] = ""
     return out

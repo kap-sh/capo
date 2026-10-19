@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_greengrassv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_greengrassv2.types.recipe_blob
     import capo_greengrassv2.types.recipe_output_format
@@ -54,7 +52,11 @@ def deserialize_json(data: dict) -> GetComponentResponse:
             )
         )
     else:
-        raise DeserializationError("GetComponentResponse.recipe_output_format required")
+        import typing
+
+        out["recipe_output_format"] = typing.cast(
+            "capo_greengrassv2.types.recipe_output_format.RecipeOutputFormat", ""
+        )
     if data.get("recipe") is not None:
         import capo_greengrassv2.types.recipe_blob
 
@@ -62,7 +64,7 @@ def deserialize_json(data: dict) -> GetComponentResponse:
             data["recipe"]
         )
     else:
-        raise DeserializationError("GetComponentResponse.recipe required")
+        out["recipe"] = b""
     if data.get("tags") is not None:
         import capo_greengrassv2.types.tag_map
 

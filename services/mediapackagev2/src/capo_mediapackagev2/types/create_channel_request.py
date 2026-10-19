@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediapackagev2.types.idempotency_token
     import capo_mediapackagev2.types.input_switch_configuration
@@ -109,7 +107,7 @@ def deserialize_json(data: dict) -> CreateChannelRequest:
     if data.get("ChannelName") is not None:
         out["channel_name"] = data["ChannelName"]
     else:
-        raise DeserializationError("CreateChannelRequest.channel_name required")
+        out["channel_name"] = ""
     if data.get("InputType") is not None:
         import capo_mediapackagev2.types.input_type
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appfabric.types.arn
     import capo_appfabric.types.ingestion_state
@@ -41,15 +39,15 @@ def deserialize_json(data: dict) -> IngestionSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("IngestionSummary.arn required")
+        out["arn"] = ""
     if data.get("app") is not None:
         out["app"] = data["app"]
     else:
-        raise DeserializationError("IngestionSummary.app required")
+        out["app"] = ""
     if data.get("tenantId") is not None:
         out["tenant_id"] = data["tenantId"]
     else:
-        raise DeserializationError("IngestionSummary.tenant_id required")
+        out["tenant_id"] = ""
     if data.get("state") is not None:
         import capo_appfabric.types.ingestion_state
 
@@ -57,5 +55,9 @@ def deserialize_json(data: dict) -> IngestionSummary:
             data["state"]
         )
     else:
-        raise DeserializationError("IngestionSummary.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_appfabric.types.ingestion_state.IngestionState", ""
+        )
     return out

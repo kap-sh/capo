@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.boolean
     import capo_kendra.types.data_source_inclusions_exclusions_strings
@@ -72,7 +70,7 @@ def deserialize_aws_json_1_1(data: dict) -> WorkDocsConfiguration:
     if data.get("OrganizationId") is not None:
         out["organization_id"] = data["OrganizationId"]
     else:
-        raise DeserializationError("WorkDocsConfiguration.organization_id required")
+        out["organization_id"] = ""
     if data.get("CrawlComments") is not None:
         out["crawl_comments"] = data["CrawlComments"]
     else:

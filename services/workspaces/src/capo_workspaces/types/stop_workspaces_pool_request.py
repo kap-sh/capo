@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.workspaces_pool_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> StopWorkspacesPoolRequest:
     if data.get("PoolId") is not None:
         out["pool_id"] = data["PoolId"]
     else:
-        raise DeserializationError("StopWorkspacesPoolRequest.pool_id required")
+        out["pool_id"] = ""
     return out

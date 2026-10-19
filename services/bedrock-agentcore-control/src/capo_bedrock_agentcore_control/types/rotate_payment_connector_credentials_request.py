@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.client_token
     import capo_bedrock_agentcore_control.types.credential_rotation_config
@@ -56,8 +54,10 @@ def deserialize_json(data: dict) -> RotatePaymentConnectorCredentialsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "RotatePaymentConnectorCredentialsRequest.credentials_to_rotate required"
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["credentials_to_rotate"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
         )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_translate.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_translate.types.translated_document_content
 
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> TranslatedDocument:
             )
         )
     else:
-        raise DeserializationError("TranslatedDocument.content required")
+        out["content"] = b""
     return out
 
 

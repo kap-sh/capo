@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_revenue_measurement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -102,9 +100,7 @@ def deserialize_cbor(data: dict) -> GetRevenueAttributionAllocationsTaskOutput:
     if data.get("TaskId") is not None:
         out["task_id"] = data["TaskId"]
     else:
-        raise DeserializationError(
-            "GetRevenueAttributionAllocationsTaskOutput.task_id required"
-        )
+        out["task_id"] = ""
     if data.get("Status") is not None:
         import capo_partnercentral_revenue_measurement.types.revenue_attribution_allocation_task_status
 
@@ -114,8 +110,11 @@ def deserialize_cbor(data: dict) -> GetRevenueAttributionAllocationsTaskOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetRevenueAttributionAllocationsTaskOutput.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_partnercentral_revenue_measurement.types.revenue_attribution_allocation_task_status.RevenueAttributionAllocationTaskStatus",
+            "",
         )
     if data.get("Catalog") is not None:
         import capo_partnercentral_revenue_measurement.types.catalog_name
@@ -126,15 +125,15 @@ def deserialize_cbor(data: dict) -> GetRevenueAttributionAllocationsTaskOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetRevenueAttributionAllocationsTaskOutput.catalog required"
+        import typing
+
+        out["catalog"] = typing.cast(
+            "capo_partnercentral_revenue_measurement.types.catalog_name.CatalogName", ""
         )
     if data.get("RevenueAttributionArn") is not None:
         out["revenue_attribution_arn"] = data["RevenueAttributionArn"]
     else:
-        raise DeserializationError(
-            "GetRevenueAttributionAllocationsTaskOutput.revenue_attribution_arn required"
-        )
+        out["revenue_attribution_arn"] = ""
     if data.get("StartedAt") is not None:
         import capo_partnercentral_revenue_measurement.types._prelude.timestamp
 
@@ -144,9 +143,9 @@ def deserialize_cbor(data: dict) -> GetRevenueAttributionAllocationsTaskOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetRevenueAttributionAllocationsTaskOutput.started_at required"
-        )
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndedAt") is not None:
         import capo_partnercentral_revenue_measurement.types._prelude.timestamp
 
@@ -160,9 +159,7 @@ def deserialize_cbor(data: dict) -> GetRevenueAttributionAllocationsTaskOutput:
             "TotalRevenueAttributionAllocationRecords"
         ]
     else:
-        raise DeserializationError(
-            "GetRevenueAttributionAllocationsTaskOutput.total_revenue_attribution_allocation_records required"
-        )
+        out["total_revenue_attribution_allocation_records"] = 0
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("RevenueAttributionLatestRevision") is not None:

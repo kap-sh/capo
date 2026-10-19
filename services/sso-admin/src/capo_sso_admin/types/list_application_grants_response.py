@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sso_admin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_admin.types.grants
     import capo_sso_admin.types.token
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListApplicationGrantsResponse:
             data["Grants"]
         )
     else:
-        raise DeserializationError("ListApplicationGrantsResponse.grants required")
+        out["grants"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

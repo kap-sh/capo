@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fms.types.boolean_object
     import capo_fms.types.network_acl_entries
@@ -55,9 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> NetworkAclEntrySet:
     if data.get("ForceRemediateForFirstEntries") is not None:
         out["force_remediate_for_first_entries"] = data["ForceRemediateForFirstEntries"]
     else:
-        raise DeserializationError(
-            "NetworkAclEntrySet.force_remediate_for_first_entries required"
-        )
+        out["force_remediate_for_first_entries"] = False
     if data.get("LastEntries") is not None:
         import capo_fms.types.network_acl_entries
 
@@ -69,7 +65,5 @@ def deserialize_aws_json_1_1(data: dict) -> NetworkAclEntrySet:
     if data.get("ForceRemediateForLastEntries") is not None:
         out["force_remediate_for_last_entries"] = data["ForceRemediateForLastEntries"]
     else:
-        raise DeserializationError(
-            "NetworkAclEntrySet.force_remediate_for_last_entries required"
-        )
+        out["force_remediate_for_last_entries"] = False
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_apprunner.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_apprunner.types.observability_configuration_name
     import capo_apprunner.types.tag_list
@@ -49,9 +47,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateObservabilityConfigurationRequ
     if data.get("ObservabilityConfigurationName") is not None:
         out["observability_configuration_name"] = data["ObservabilityConfigurationName"]
     else:
-        raise DeserializationError(
-            "CreateObservabilityConfigurationRequest.observability_configuration_name required"
-        )
+        out["observability_configuration_name"] = ""
     if data.get("TraceConfiguration") is not None:
         import capo_apprunner.types.trace_configuration
 

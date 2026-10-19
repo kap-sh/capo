@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3tables.types.table_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> ReplicationInformation:
     if data.get("sourceTableARN") is not None:
         out["source_table_arn"] = data["sourceTableARN"]
     else:
-        raise DeserializationError("ReplicationInformation.source_table_arn required")
+        out["source_table_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.agentic_retrieve_actions
     import capo_bedrock_agent_runtime.types.agentic_retrieve_failures
@@ -117,7 +115,12 @@ def deserialize_json(data: dict) -> AgenticRetrieveTraceEventAttributes:
             )
         )
     else:
-        raise DeserializationError("AgenticRetrieveTraceEventAttributes.step required")
+        import typing
+
+        out["step"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.agentic_retrieve_step.AgenticRetrieveStep",
+            "",
+        )
     if data.get("status") is not None:
         import capo_bedrock_agent_runtime.types.agentic_retrieve_status
 
@@ -127,15 +130,16 @@ def deserialize_json(data: dict) -> AgenticRetrieveTraceEventAttributes:
             )
         )
     else:
-        raise DeserializationError(
-            "AgenticRetrieveTraceEventAttributes.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.agentic_retrieve_status.AgenticRetrieveStatus",
+            "",
         )
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError(
-            "AgenticRetrieveTraceEventAttributes.message required"
-        )
+        out["message"] = ""
     if data.get("actions") is not None:
         import capo_bedrock_agent_runtime.types.agentic_retrieve_actions
 

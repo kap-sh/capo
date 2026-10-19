@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.timestamp
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> UpdateWorkspaceResponse:
             data["updateDateTime"]
         )
     else:
-        raise DeserializationError("UpdateWorkspaceResponse.update_date_time required")
+        import datetime
+
+        out["update_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

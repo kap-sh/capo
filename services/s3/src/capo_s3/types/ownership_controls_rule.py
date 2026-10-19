@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.object_ownership
@@ -35,5 +34,9 @@ def deserialize_xml(el: Element) -> OwnershipControlsRule:
             child_object_ownership
         )
     else:
-        raise DeserializationError("OwnershipControlsRule.object_ownership required")
+        import typing
+
+        out["object_ownership"] = typing.cast(
+            "capo_s3.types.object_ownership.ObjectOwnership", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.arn
     import capo_opensearch.types.boolean
@@ -30,13 +28,9 @@ def deserialize_json(data: dict) -> PutDefaultApplicationSettingRequest:
     if data.get("applicationArn") is not None:
         out["application_arn"] = data["applicationArn"]
     else:
-        raise DeserializationError(
-            "PutDefaultApplicationSettingRequest.application_arn required"
-        )
+        out["application_arn"] = ""
     if data.get("setAsDefault") is not None:
         out["set_as_default"] = data["setAsDefault"]
     else:
-        raise DeserializationError(
-            "PutDefaultApplicationSettingRequest.set_as_default required"
-        )
+        out["set_as_default"] = False
     return out

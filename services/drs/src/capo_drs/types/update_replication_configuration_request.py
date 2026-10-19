@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.arn
     import capo_drs.types.ec2_instance_type
@@ -137,9 +135,7 @@ def deserialize_json(data: dict) -> UpdateReplicationConfigurationRequest:
     if data.get("sourceServerID") is not None:
         out["source_server_id"] = data["sourceServerID"]
     else:
-        raise DeserializationError(
-            "UpdateReplicationConfigurationRequest.source_server_id required"
-        )
+        out["source_server_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("stagingAreaSubnetId") is not None:

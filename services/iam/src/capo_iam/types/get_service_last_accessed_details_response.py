@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.access_advisor_usage_granularity_type
@@ -97,8 +96,10 @@ def deserialize_query(el: Element) -> GetServiceLastAccessedDetailsResponse:
             child_job_status
         )
     else:
-        raise DeserializationError(
-            "GetServiceLastAccessedDetailsResponse.job_status required"
+        import typing
+
+        out["job_status"] = typing.cast(
+            "capo_iam.types.job_status_type.jobStatusType", ""
         )
     child_job_type = el.find("JobType")
     if child_job_type is not None:
@@ -117,8 +118,10 @@ def deserialize_query(el: Element) -> GetServiceLastAccessedDetailsResponse:
             child_job_creation_date
         )
     else:
-        raise DeserializationError(
-            "GetServiceLastAccessedDetailsResponse.job_creation_date required"
+        import datetime
+
+        out["job_creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     child_services_last_accessed = el.find("ServicesLastAccessed")
     if child_services_last_accessed is not None:
@@ -130,9 +133,7 @@ def deserialize_query(el: Element) -> GetServiceLastAccessedDetailsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetServiceLastAccessedDetailsResponse.services_last_accessed required"
-        )
+        out["services_last_accessed"] = []
     child_job_completion_date = el.find("JobCompletionDate")
     if child_job_completion_date is not None:
         import capo_iam.types.date_type
@@ -141,8 +142,10 @@ def deserialize_query(el: Element) -> GetServiceLastAccessedDetailsResponse:
             child_job_completion_date
         )
     else:
-        raise DeserializationError(
-            "GetServiceLastAccessedDetailsResponse.job_completion_date required"
+        import datetime
+
+        out["job_completion_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     child_is_truncated = el.find("IsTruncated")
     if child_is_truncated is not None:

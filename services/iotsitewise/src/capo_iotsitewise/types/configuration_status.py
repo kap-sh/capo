@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.configuration_error_details
     import capo_iotsitewise.types.configuration_state
@@ -48,7 +46,11 @@ def deserialize_json(data: dict) -> ConfigurationStatus:
             data["state"]
         )
     else:
-        raise DeserializationError("ConfigurationStatus.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_iotsitewise.types.configuration_state.ConfigurationState", ""
+        )
     if data.get("error") is not None:
         import capo_iotsitewise.types.configuration_error_details
 

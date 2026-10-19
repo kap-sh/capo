@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.bounded_string
 
@@ -33,13 +31,13 @@ def deserialize_json(data: dict) -> PercentageRange:
     if data.get("minimumValue") is not None:
         out["minimum_value"] = data["minimumValue"]
     else:
-        raise DeserializationError("PercentageRange.minimum_value required")
+        out["minimum_value"] = ""
     if data.get("maximumValue") is not None:
         out["maximum_value"] = data["maximumValue"]
     else:
-        raise DeserializationError("PercentageRange.maximum_value required")
+        out["maximum_value"] = ""
     if data.get("defaultValue") is not None:
         out["default_value"] = data["defaultValue"]
     else:
-        raise DeserializationError("PercentageRange.default_value required")
+        out["default_value"] = ""
     return out

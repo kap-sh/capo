@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.s3_uri
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> SourceFiles:
     if data.get("source1") is not None:
         out["source1"] = data["source1"]
     else:
-        raise DeserializationError("SourceFiles.source1 required")
+        out["source1"] = ""
     if data.get("source2") is not None:
         out["source2"] = data["source2"]
     return out

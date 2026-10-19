@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.access_preview_finding_id
     import capo_accessanalyzer.types.action_list
@@ -122,7 +120,7 @@ def deserialize_json(data: dict) -> AccessPreviewFinding:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("AccessPreviewFinding.id required")
+        out["id"] = ""
     if data.get("existingFindingId") is not None:
         out["existing_finding_id"] = data["existingFindingId"]
     if data.get("existingFindingStatus") is not None:
@@ -152,7 +150,7 @@ def deserialize_json(data: dict) -> AccessPreviewFinding:
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError("AccessPreviewFinding.resource_type required")
+        out["resource_type"] = ""
     if data.get("createdAt") is not None:
         import capo_accessanalyzer.types.timestamp
 
@@ -160,21 +158,21 @@ def deserialize_json(data: dict) -> AccessPreviewFinding:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("AccessPreviewFinding.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("changeType") is not None:
         out["change_type"] = data["changeType"]
     else:
-        raise DeserializationError("AccessPreviewFinding.change_type required")
+        out["change_type"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("AccessPreviewFinding.status required")
+        out["status"] = ""
     if data.get("resourceOwnerAccount") is not None:
         out["resource_owner_account"] = data["resourceOwnerAccount"]
     else:
-        raise DeserializationError(
-            "AccessPreviewFinding.resource_owner_account required"
-        )
+        out["resource_owner_account"] = ""
     if data.get("error") is not None:
         out["error"] = data["error"]
     if data.get("sources") is not None:

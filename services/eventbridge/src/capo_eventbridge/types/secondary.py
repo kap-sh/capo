@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_eventbridge.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridge.types.route
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> Secondary:
     if data.get("Route") is not None:
         out["route"] = data["Route"]
     else:
-        raise DeserializationError("Secondary.route required")
+        out["route"] = ""
     return out

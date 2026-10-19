@@ -65,7 +65,9 @@ def deserialize_json(data: dict) -> CreateViewRequest:
 
         out["status"] = capo_connect.types.view_status.deserialize_json(data["Status"])
     else:
-        raise DeserializationError("CreateViewRequest.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_connect.types.view_status.ViewStatus", "")
     if data.get("Content") is not None:
         import capo_connect.types.view_input_content
 
@@ -79,7 +81,7 @@ def deserialize_json(data: dict) -> CreateViewRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateViewRequest.name required")
+        out["name"] = ""
     if data.get("Tags") is not None:
         import capo_connect.types.tag_map
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billing.types.tag_key
     import capo_billing.types.values
@@ -33,7 +31,7 @@ def deserialize_aws_json_1_0(data: dict) -> TagValues:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("TagValues.key required")
+        out["key"] = ""
     if data.get("values") is not None:
         import capo_billing.types.values
 
@@ -41,5 +39,5 @@ def deserialize_aws_json_1_0(data: dict) -> TagValues:
             data["values"]
         )
     else:
-        raise DeserializationError("TagValues.values required")
+        out["values"] = []
     return out

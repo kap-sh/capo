@@ -131,7 +131,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateStreamProcessorRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateStreamProcessorRequest.name required")
+        out["name"] = ""
     if data.get("Settings") is not None:
         import capo_rekognition.types.stream_processor_settings
 
@@ -145,7 +145,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateStreamProcessorRequest:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("CreateStreamProcessorRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("Tags") is not None:
         import capo_rekognition.types.tag_map
 

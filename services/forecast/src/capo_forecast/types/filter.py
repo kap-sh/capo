@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_forecast.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_forecast.types.arn
     import capo_forecast.types.filter_condition_string
@@ -41,11 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> Filter:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("Filter.key required")
+        out["key"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("Filter.value required")
+        out["value"] = ""
     if data.get("Condition") is not None:
         import capo_forecast.types.filter_condition_string
 
@@ -55,5 +53,9 @@ def deserialize_aws_json_1_1(data: dict) -> Filter:
             )
         )
     else:
-        raise DeserializationError("Filter.condition required")
+        import typing
+
+        out["condition"] = typing.cast(
+            "capo_forecast.types.filter_condition_string.FilterConditionString", ""
+        )
     return out

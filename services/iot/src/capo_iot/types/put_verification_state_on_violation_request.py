@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.verification_state
     import capo_iot.types.verification_state_description
@@ -45,8 +43,10 @@ def deserialize_json(data: dict) -> PutVerificationStateOnViolationRequest:
             data["verificationState"]
         )
     else:
-        raise DeserializationError(
-            "PutVerificationStateOnViolationRequest.verification_state required"
+        import typing
+
+        out["verification_state"] = typing.cast(
+            "capo_iot.types.verification_state.VerificationState", ""
         )
     if data.get("verificationStateDescription") is not None:
         out["verification_state_description"] = data["verificationStateDescription"]

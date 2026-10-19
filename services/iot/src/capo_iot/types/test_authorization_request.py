@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.auth_infos
     import capo_iot.types.client_id
@@ -69,7 +67,7 @@ def deserialize_json(data: dict) -> TestAuthorizationRequest:
             data["authInfos"]
         )
     else:
-        raise DeserializationError("TestAuthorizationRequest.auth_infos required")
+        out["auth_infos"] = []
     if data.get("policyNamesToAdd") is not None:
         import capo_iot.types.policy_names
 

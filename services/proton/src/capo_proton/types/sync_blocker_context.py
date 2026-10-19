@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_proton.errors import DeserializationError
-
 
 class SyncBlockerContext(TypedDict, closed=True):
     key: "str"
@@ -25,9 +23,9 @@ def deserialize_aws_json_1_0(data: dict) -> SyncBlockerContext:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("SyncBlockerContext.key required")
+        out["key"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("SyncBlockerContext.value required")
+        out["value"] = ""
     return out

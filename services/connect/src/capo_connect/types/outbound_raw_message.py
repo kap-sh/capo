@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.body
     import capo_connect.types.email_message_content_type
@@ -37,15 +35,15 @@ def deserialize_json(data: dict) -> OutboundRawMessage:
     if data.get("Subject") is not None:
         out["subject"] = data["Subject"]
     else:
-        raise DeserializationError("OutboundRawMessage.subject required")
+        out["subject"] = ""
     if data.get("Body") is not None:
         out["body"] = data["Body"]
     else:
-        raise DeserializationError("OutboundRawMessage.body required")
+        out["body"] = ""
     if data.get("ContentType") is not None:
         out["content_type"] = data["ContentType"]
     else:
-        raise DeserializationError("OutboundRawMessage.content_type required")
+        out["content_type"] = ""
     return out
 
 

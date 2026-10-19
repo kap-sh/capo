@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker.types.cluster_accounting_database_endpoint
     import capo_sagemaker.types.cluster_accounting_database_name
@@ -45,7 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> ClusterAccountingDatabase:
     if data.get("Endpoint") is not None:
         out["endpoint"] = data["Endpoint"]
     else:
-        raise DeserializationError("ClusterAccountingDatabase.endpoint required")
+        out["endpoint"] = ""
     if data.get("Port") is not None:
         out["port"] = data["Port"]
     if data.get("Name") is not None:
@@ -53,5 +51,5 @@ def deserialize_aws_json_1_1(data: dict) -> ClusterAccountingDatabase:
     if data.get("SecretArn") is not None:
         out["secret_arn"] = data["SecretArn"]
     else:
-        raise DeserializationError("ClusterAccountingDatabase.secret_arn required")
+        out["secret_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.query_arn
     import capo_config_service.types.query_description
@@ -55,7 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> StoredQuery:
     if data.get("QueryName") is not None:
         out["query_name"] = data["QueryName"]
     else:
-        raise DeserializationError("StoredQuery.query_name required")
+        out["query_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Expression") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.float_version_string
     import capo_frauddetector.types.fraud_detector_arn
@@ -46,7 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> ModelVersion:
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:
-        raise DeserializationError("ModelVersion.model_id required")
+        out["model_id"] = ""
     if data.get("modelType") is not None:
         import capo_frauddetector.types.model_type_enum
 
@@ -56,11 +54,15 @@ def deserialize_aws_json_1_1(data: dict) -> ModelVersion:
             )
         )
     else:
-        raise DeserializationError("ModelVersion.model_type required")
+        import typing
+
+        out["model_type"] = typing.cast(
+            "capo_frauddetector.types.model_type_enum.ModelTypeEnum", ""
+        )
     if data.get("modelVersionNumber") is not None:
         out["model_version_number"] = data["modelVersionNumber"]
     else:
-        raise DeserializationError("ModelVersion.model_version_number required")
+        out["model_version_number"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     return out

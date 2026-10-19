@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.principal_search_result_list
     import capo_cloudwatchomni.types.search_principals_next_token
@@ -46,7 +44,7 @@ def deserialize_cbor(data: dict) -> SearchPrincipalsOutput:
             )
         )
     else:
-        raise DeserializationError("SearchPrincipalsOutput.results required")
+        out["results"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

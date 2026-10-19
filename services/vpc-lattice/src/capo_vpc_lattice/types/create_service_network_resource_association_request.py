@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.boolean
     import capo_vpc_lattice.types.client_token
@@ -52,15 +50,11 @@ def deserialize_json(data: dict) -> CreateServiceNetworkResourceAssociationReque
             "resourceConfigurationIdentifier"
         ]
     else:
-        raise DeserializationError(
-            "CreateServiceNetworkResourceAssociationRequest.resource_configuration_identifier required"
-        )
+        out["resource_configuration_identifier"] = ""
     if data.get("serviceNetworkIdentifier") is not None:
         out["service_network_identifier"] = data["serviceNetworkIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateServiceNetworkResourceAssociationRequest.service_network_identifier required"
-        )
+        out["service_network_identifier"] = ""
     if data.get("privateDnsEnabled") is not None:
         out["private_dns_enabled"] = data["privateDnsEnabled"]
     if data.get("tags") is not None:

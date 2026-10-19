@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.add_on_request_list
     import capo_lightsail.types.integer
@@ -53,15 +51,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDiskRequest:
     if data.get("diskName") is not None:
         out["disk_name"] = data["diskName"]
     else:
-        raise DeserializationError("CreateDiskRequest.disk_name required")
+        out["disk_name"] = ""
     if data.get("availabilityZone") is not None:
         out["availability_zone"] = data["availabilityZone"]
     else:
-        raise DeserializationError("CreateDiskRequest.availability_zone required")
+        out["availability_zone"] = ""
     if data.get("sizeInGb") is not None:
         out["size_in_gb"] = data["sizeInGb"]
     else:
-        raise DeserializationError("CreateDiskRequest.size_in_gb required")
+        out["size_in_gb"] = 0
     if data.get("tags") is not None:
         import capo_lightsail.types.tag_list
 

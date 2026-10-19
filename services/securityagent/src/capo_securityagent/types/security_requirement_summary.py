@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -50,15 +48,15 @@ def deserialize_json(data: dict) -> SecurityRequirementSummary:
     if data.get("packId") is not None:
         out["pack_id"] = data["packId"]
     else:
-        raise DeserializationError("SecurityRequirementSummary.pack_id required")
+        out["pack_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("SecurityRequirementSummary.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("SecurityRequirementSummary.description required")
+        out["description"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -66,7 +64,9 @@ def deserialize_json(data: dict) -> SecurityRequirementSummary:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("SecurityRequirementSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import datetime
 
@@ -74,5 +74,7 @@ def deserialize_json(data: dict) -> SecurityRequirementSummary:
             data["updatedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("SecurityRequirementSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.access_control_configuration_id
     import capo_kendra.types.blob
@@ -100,7 +98,7 @@ def deserialize_aws_json_1_1(data: dict) -> Document:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("Document.id required")
+        out["id"] = ""
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     if data.get("Blob") is not None:

@@ -74,7 +74,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateFirewallPolicyRequest:
     if data.get("UpdateToken") is not None:
         out["update_token"] = data["UpdateToken"]
     else:
-        raise DeserializationError("UpdateFirewallPolicyRequest.update_token required")
+        out["update_token"] = ""
     if data.get("FirewallPolicyArn") is not None:
         out["firewall_policy_arn"] = data["FirewallPolicyArn"]
     if data.get("FirewallPolicyName") is not None:

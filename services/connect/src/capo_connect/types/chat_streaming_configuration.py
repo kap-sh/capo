@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.chat_streaming_endpoint_arn
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> ChatStreamingConfiguration:
     if data.get("StreamingEndpointArn") is not None:
         out["streaming_endpoint_arn"] = data["StreamingEndpointArn"]
     else:
-        raise DeserializationError(
-            "ChatStreamingConfiguration.streaming_endpoint_arn required"
-        )
+        out["streaming_endpoint_arn"] = ""
     return out

@@ -42,7 +42,7 @@ def deserialize_json(data: dict) -> WhatsAppHolidayScheduleEntry:
     if data.get("date") is not None:
         out["date"] = data["date"]
     else:
-        raise DeserializationError("WhatsAppHolidayScheduleEntry.date required")
+        out["date"] = ""
     if data.get("startTime") is not None:
         import capo_socialmessaging.types.whats_app_time_of_day
 

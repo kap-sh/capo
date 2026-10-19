@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.glue_table_additional_options
     import capo_glue.types.name_string
@@ -58,11 +56,11 @@ def deserialize_aws_json_1_1(data: dict) -> DataQualityGlueTable:
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError("DataQualityGlueTable.database_name required")
+        out["database_name"] = ""
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("DataQualityGlueTable.table_name required")
+        out["table_name"] = ""
     if data.get("CatalogId") is not None:
         out["catalog_id"] = data["CatalogId"]
     if data.get("ConnectionName") is not None:

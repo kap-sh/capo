@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.credential_provider_name
     import capo_bedrock_agentcore_control.types.payment_credential_provider_arn_type
@@ -51,9 +49,7 @@ def deserialize_json(data: dict) -> CreatePaymentCredentialProviderResponse:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "CreatePaymentCredentialProviderResponse.name required"
-        )
+        out["name"] = ""
     if data.get("credentialProviderVendor") is not None:
         import capo_bedrock_agentcore_control.types.payment_credential_provider_vendor_type
 
@@ -63,15 +59,16 @@ def deserialize_json(data: dict) -> CreatePaymentCredentialProviderResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "CreatePaymentCredentialProviderResponse.credential_provider_vendor required"
+        import typing
+
+        out["credential_provider_vendor"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.payment_credential_provider_vendor_type.PaymentCredentialProviderVendorType",
+            "",
         )
     if data.get("credentialProviderArn") is not None:
         out["credential_provider_arn"] = data["credentialProviderArn"]
     else:
-        raise DeserializationError(
-            "CreatePaymentCredentialProviderResponse.credential_provider_arn required"
-        )
+        out["credential_provider_arn"] = ""
     if data.get("providerConfigurationOutput") is not None:
         import capo_bedrock_agentcore_control.types.payment_provider_configuration_output
 
@@ -81,7 +78,9 @@ def deserialize_json(data: dict) -> CreatePaymentCredentialProviderResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "CreatePaymentCredentialProviderResponse.provider_configuration_output required"
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["provider_configuration_output"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.non_empty_sensitive_string
 
@@ -29,7 +27,7 @@ def deserialize_json(data: dict) -> SuggestedMessageDataDetails:
     if data.get("messageText") is not None:
         out["message_text"] = data["messageText"]
     else:
-        raise DeserializationError("SuggestedMessageDataDetails.message_text required")
+        out["message_text"] = ""
     return out
 
 

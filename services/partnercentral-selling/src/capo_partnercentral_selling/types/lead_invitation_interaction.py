@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.engagement_use_case
     import capo_partnercentral_selling.types.job_title
@@ -60,9 +58,7 @@ def deserialize_aws_json_1_0(data: dict) -> LeadInvitationInteraction:
     if data.get("ContactBusinessTitle") is not None:
         out["contact_business_title"] = data["ContactBusinessTitle"]
     else:
-        raise DeserializationError(
-            "LeadInvitationInteraction.contact_business_title required"
-        )
+        out["contact_business_title"] = ""
     return out
 
 

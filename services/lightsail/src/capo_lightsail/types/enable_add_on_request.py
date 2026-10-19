@@ -35,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> EnableAddOnRequest:
     if data.get("resourceName") is not None:
         out["resource_name"] = data["resourceName"]
     else:
-        raise DeserializationError("EnableAddOnRequest.resource_name required")
+        out["resource_name"] = ""
     if data.get("addOnRequest") is not None:
         import capo_lightsail.types.add_on_request
 

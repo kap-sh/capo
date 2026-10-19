@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.connector_list
     import capo_inspector2.types.connector_next_token
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ListConnectorsResponse:
             data["items"]
         )
     else:
-        raise DeserializationError("ListConnectorsResponse.items required")
+        out["items"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

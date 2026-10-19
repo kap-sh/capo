@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.library_template_body_inputs
     import capo_socialmessaging.types.meta_library_template_button_inputs
@@ -70,19 +68,19 @@ def deserialize_json(data: dict) -> MetaLibraryTemplate:
     if data.get("templateName") is not None:
         out["template_name"] = data["templateName"]
     else:
-        raise DeserializationError("MetaLibraryTemplate.template_name required")
+        out["template_name"] = ""
     if data.get("libraryTemplateName") is not None:
         out["library_template_name"] = data["libraryTemplateName"]
     else:
-        raise DeserializationError("MetaLibraryTemplate.library_template_name required")
+        out["library_template_name"] = ""
     if data.get("templateCategory") is not None:
         out["template_category"] = data["templateCategory"]
     else:
-        raise DeserializationError("MetaLibraryTemplate.template_category required")
+        out["template_category"] = ""
     if data.get("templateLanguage") is not None:
         out["template_language"] = data["templateLanguage"]
     else:
-        raise DeserializationError("MetaLibraryTemplate.template_language required")
+        out["template_language"] = ""
     if data.get("libraryTemplateButtonInputs") is not None:
         import capo_socialmessaging.types.meta_library_template_button_inputs
 

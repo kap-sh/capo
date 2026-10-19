@@ -42,9 +42,7 @@ def deserialize_json(data: dict) -> UtteranceLevelTestResultItem:
     if data.get("recordNumber") is not None:
         out["record_number"] = data["recordNumber"]
     else:
-        raise DeserializationError(
-            "UtteranceLevelTestResultItem.record_number required"
-        )
+        out["record_number"] = 0
     if data.get("conversationId") is not None:
         out["conversation_id"] = data["conversationId"]
     if data.get("turnResult") is not None:

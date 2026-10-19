@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.associate_in_progress_token
     import capo_socialmessaging.types.linked_whats_app_business_account_id
@@ -55,9 +53,7 @@ def deserialize_json(data: dict) -> WhatsAppSetupFinalization:
     if data.get("associateInProgressToken") is not None:
         out["associate_in_progress_token"] = data["associateInProgressToken"]
     else:
-        raise DeserializationError(
-            "WhatsAppSetupFinalization.associate_in_progress_token required"
-        )
+        out["associate_in_progress_token"] = ""
     if data.get("phoneNumbers") is not None:
         import capo_socialmessaging.types.waba_phone_number_setup_finalization_list
 
@@ -67,7 +63,7 @@ def deserialize_json(data: dict) -> WhatsAppSetupFinalization:
             )
         )
     else:
-        raise DeserializationError("WhatsAppSetupFinalization.phone_numbers required")
+        out["phone_numbers"] = []
     if data.get("phoneNumberParent") is not None:
         out["phone_number_parent"] = data["phoneNumberParent"]
     if data.get("waba") is not None:

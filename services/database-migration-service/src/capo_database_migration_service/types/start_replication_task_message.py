@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.start_replication_task_type_value
     import capo_database_migration_service.types.string
@@ -60,9 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartReplicationTaskMessage:
     if data.get("ReplicationTaskArn") is not None:
         out["replication_task_arn"] = data["ReplicationTaskArn"]
     else:
-        raise DeserializationError(
-            "StartReplicationTaskMessage.replication_task_arn required"
-        )
+        out["replication_task_arn"] = ""
     if data.get("StartReplicationTaskType") is not None:
         import capo_database_migration_service.types.start_replication_task_type_value
 
@@ -72,8 +68,11 @@ def deserialize_aws_json_1_1(data: dict) -> StartReplicationTaskMessage:
             )
         )
     else:
-        raise DeserializationError(
-            "StartReplicationTaskMessage.start_replication_task_type required"
+        import typing
+
+        out["start_replication_task_type"] = typing.cast(
+            "capo_database_migration_service.types.start_replication_task_type_value.StartReplicationTaskTypeValue",
+            "",
         )
     if data.get("CdcStartTime") is not None:
         import capo_database_migration_service.types.t_stamp

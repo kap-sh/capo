@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.realtime_metrics_subscription_status
@@ -44,7 +43,10 @@ def deserialize_xml(el: Element) -> RealtimeMetricsSubscriptionConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "RealtimeMetricsSubscriptionConfig.realtime_metrics_subscription_status required"
+        import typing
+
+        out["realtime_metrics_subscription_status"] = typing.cast(
+            "capo_cloudfront.types.realtime_metrics_subscription_status.RealtimeMetricsSubscriptionStatus",
+            "",
         )
     return out

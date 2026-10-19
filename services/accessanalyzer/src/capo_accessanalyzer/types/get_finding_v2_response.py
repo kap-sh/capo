@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.finding_details_list
     import capo_accessanalyzer.types.finding_id
@@ -92,7 +90,11 @@ def deserialize_json(data: dict) -> GetFindingV2Response:
             data["analyzedAt"]
         )
     else:
-        raise DeserializationError("GetFindingV2Response.analyzed_at required")
+        import datetime
+
+        out["analyzed_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("createdAt") is not None:
         import capo_accessanalyzer.types.timestamp
 
@@ -100,13 +102,15 @@ def deserialize_json(data: dict) -> GetFindingV2Response:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("GetFindingV2Response.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("error") is not None:
         out["error"] = data["error"]
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetFindingV2Response.id required")
+        out["id"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("resource") is not None:
@@ -114,17 +118,15 @@ def deserialize_json(data: dict) -> GetFindingV2Response:
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError("GetFindingV2Response.resource_type required")
+        out["resource_type"] = ""
     if data.get("resourceOwnerAccount") is not None:
         out["resource_owner_account"] = data["resourceOwnerAccount"]
     else:
-        raise DeserializationError(
-            "GetFindingV2Response.resource_owner_account required"
-        )
+        out["resource_owner_account"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("GetFindingV2Response.status required")
+        out["status"] = ""
     if data.get("updatedAt") is not None:
         import capo_accessanalyzer.types.timestamp
 
@@ -132,7 +134,9 @@ def deserialize_json(data: dict) -> GetFindingV2Response:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("GetFindingV2Response.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("findingDetails") is not None:
         import capo_accessanalyzer.types.finding_details_list
 
@@ -142,7 +146,7 @@ def deserialize_json(data: dict) -> GetFindingV2Response:
             )
         )
     else:
-        raise DeserializationError("GetFindingV2Response.finding_details required")
+        out["finding_details"] = []
     if data.get("findingType") is not None:
         out["finding_type"] = data["findingType"]
     return out

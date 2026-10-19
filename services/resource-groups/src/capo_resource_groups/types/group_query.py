@@ -35,7 +35,7 @@ def deserialize_json(data: dict) -> GroupQuery:
     if data.get("GroupName") is not None:
         out["group_name"] = data["GroupName"]
     else:
-        raise DeserializationError("GroupQuery.group_name required")
+        out["group_name"] = ""
     if data.get("ResourceQuery") is not None:
         import capo_resource_groups.types.resource_query
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.document_attribute_condition
     import capo_kendra.types.lambda_arn
@@ -52,9 +50,9 @@ def deserialize_aws_json_1_1(data: dict) -> HookConfiguration:
     if data.get("LambdaArn") is not None:
         out["lambda_arn"] = data["LambdaArn"]
     else:
-        raise DeserializationError("HookConfiguration.lambda_arn required")
+        out["lambda_arn"] = ""
     if data.get("S3Bucket") is not None:
         out["s3_bucket"] = data["S3Bucket"]
     else:
-        raise DeserializationError("HookConfiguration.s3_bucket required")
+        out["s3_bucket"] = ""
     return out

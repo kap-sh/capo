@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.arn
     import capo_databrew.types.rule_list
@@ -51,19 +49,19 @@ def deserialize_json(data: dict) -> CreateRulesetRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateRulesetRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("TargetArn") is not None:
         out["target_arn"] = data["TargetArn"]
     else:
-        raise DeserializationError("CreateRulesetRequest.target_arn required")
+        out["target_arn"] = ""
     if data.get("Rules") is not None:
         import capo_databrew.types.rule_list
 
         out["rules"] = capo_databrew.types.rule_list.deserialize_json(data["Rules"])
     else:
-        raise DeserializationError("CreateRulesetRequest.rules required")
+        out["rules"] = []
     if data.get("Tags") is not None:
         import capo_databrew.types.tag_map
 

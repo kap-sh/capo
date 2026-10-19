@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_runtime_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_runtime_v2.types.elicit_sub_slot
     import capo_lex_runtime_v2.types.non_empty_string
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ElicitSubSlot:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ElicitSubSlot.name required")
+        out["name"] = ""
     if data.get("subSlotToElicit") is not None:
         import capo_lex_runtime_v2.types.elicit_sub_slot
 

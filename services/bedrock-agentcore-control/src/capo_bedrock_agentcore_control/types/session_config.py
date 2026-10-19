@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 
 class SessionConfig(TypedDict, closed=True):
     session_timeout_minutes: "int"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> SessionConfig:
     if data.get("sessionTimeoutMinutes") is not None:
         out["session_timeout_minutes"] = data["sessionTimeoutMinutes"]
     else:
-        raise DeserializationError("SessionConfig.session_timeout_minutes required")
+        out["session_timeout_minutes"] = 0
     return out

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 
 class SendWhatsAppConversionEventOutput(TypedDict, closed=True):
     request_id: "str"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> SendWhatsAppConversionEventOutput:
     if data.get("requestId") is not None:
         out["request_id"] = data["requestId"]
     else:
-        raise DeserializationError(
-            "SendWhatsAppConversionEventOutput.request_id required"
-        )
+        out["request_id"] = ""
     return out

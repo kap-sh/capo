@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.synthetic_data_column_name
     import capo_cleanrooms.types.synthetic_data_column_type
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> SyntheticDataColumnProperties:
     if data.get("columnName") is not None:
         out["column_name"] = data["columnName"]
     else:
-        raise DeserializationError("SyntheticDataColumnProperties.column_name required")
+        out["column_name"] = ""
     if data.get("columnType") is not None:
         import capo_cleanrooms.types.synthetic_data_column_type
 
@@ -52,11 +50,14 @@ def deserialize_json(data: dict) -> SyntheticDataColumnProperties:
             )
         )
     else:
-        raise DeserializationError("SyntheticDataColumnProperties.column_type required")
+        import typing
+
+        out["column_type"] = typing.cast(
+            "capo_cleanrooms.types.synthetic_data_column_type.SyntheticDataColumnType",
+            "",
+        )
     if data.get("isPredictiveValue") is not None:
         out["is_predictive_value"] = data["isPredictiveValue"]
     else:
-        raise DeserializationError(
-            "SyntheticDataColumnProperties.is_predictive_value required"
-        )
+        out["is_predictive_value"] = False
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.form_data_source_type
 
@@ -32,9 +30,9 @@ def deserialize_json(data: dict) -> FormDataTypeConfig:
     if data.get("dataSourceType") is not None:
         out["data_source_type"] = data["dataSourceType"]
     else:
-        raise DeserializationError("FormDataTypeConfig.data_source_type required")
+        out["data_source_type"] = ""
     if data.get("dataTypeName") is not None:
         out["data_type_name"] = data["dataTypeName"]
     else:
-        raise DeserializationError("FormDataTypeConfig.data_type_name required")
+        out["data_type_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.additional_search_keys_list
     import capo_customer_profiles.types.logical_operator
@@ -69,7 +67,7 @@ def deserialize_json(data: dict) -> SearchProfilesRequest:
     if data.get("KeyName") is not None:
         out["key_name"] = data["KeyName"]
     else:
-        raise DeserializationError("SearchProfilesRequest.key_name required")
+        out["key_name"] = ""
     if data.get("Values") is not None:
         import capo_customer_profiles.types.request_value_list
 
@@ -79,7 +77,7 @@ def deserialize_json(data: dict) -> SearchProfilesRequest:
             )
         )
     else:
-        raise DeserializationError("SearchProfilesRequest.values required")
+        out["values"] = []
     if data.get("AdditionalSearchKeys") is not None:
         import capo_customer_profiles.types.additional_search_keys_list
 

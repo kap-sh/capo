@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.attachment_file_name
     import capo_qconnect.types.client_token
@@ -46,21 +44,15 @@ def deserialize_json(data: dict) -> CreateMessageTemplateAttachmentRequest:
     if data.get("contentDisposition") is not None:
         out["content_disposition"] = data["contentDisposition"]
     else:
-        raise DeserializationError(
-            "CreateMessageTemplateAttachmentRequest.content_disposition required"
-        )
+        out["content_disposition"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "CreateMessageTemplateAttachmentRequest.name required"
-        )
+        out["name"] = ""
     if data.get("body") is not None:
         out["body"] = data["body"]
     else:
-        raise DeserializationError(
-            "CreateMessageTemplateAttachmentRequest.body required"
-        )
+        out["body"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

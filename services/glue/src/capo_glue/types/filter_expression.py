@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.boxed_boolean
     import capo_glue.types.filter_operation
@@ -48,7 +46,11 @@ def deserialize_aws_json_1_1(data: dict) -> FilterExpression:
             data["Operation"]
         )
     else:
-        raise DeserializationError("FilterExpression.operation required")
+        import typing
+
+        out["operation"] = typing.cast(
+            "capo_glue.types.filter_operation.FilterOperation", ""
+        )
     if data.get("Negated") is not None:
         out["negated"] = data["Negated"]
     if data.get("Values") is not None:
@@ -58,5 +60,5 @@ def deserialize_aws_json_1_1(data: dict) -> FilterExpression:
             data["Values"]
         )
     else:
-        raise DeserializationError("FilterExpression.values required")
+        out["values"] = []
     return out

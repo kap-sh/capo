@@ -50,11 +50,11 @@ def deserialize_aws_json_1_0(data: dict) -> PutAllianceLeadContactRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("PutAllianceLeadContactRequest.catalog required")
+        out["catalog"] = ""
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("PutAllianceLeadContactRequest.identifier required")
+        out["identifier"] = ""
     if data.get("AllianceLeadContact") is not None:
         import capo_partnercentral_account.types.alliance_lead_contact
 

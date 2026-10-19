@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_video.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_video.types.hub_device_arn
     import capo_kinesis_video.types.list_edge_agent_configurations_input_limit
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> ListEdgeAgentConfigurationsInput:
     if data.get("HubDeviceArn") is not None:
         out["hub_device_arn"] = data["HubDeviceArn"]
     else:
-        raise DeserializationError(
-            "ListEdgeAgentConfigurationsInput.hub_device_arn required"
-        )
+        out["hub_device_arn"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

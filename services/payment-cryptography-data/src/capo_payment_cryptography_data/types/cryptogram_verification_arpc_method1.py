@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.hex_length_equals4
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> CryptogramVerificationArpcMethod1:
     if data.get("AuthResponseCode") is not None:
         out["auth_response_code"] = data["AuthResponseCode"]
     else:
-        raise DeserializationError(
-            "CryptogramVerificationArpcMethod1.auth_response_code required"
-        )
+        out["auth_response_code"] = ""
     return out

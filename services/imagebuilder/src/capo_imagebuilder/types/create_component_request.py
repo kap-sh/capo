@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.boolean
     import capo_imagebuilder.types.client_token
@@ -93,11 +91,11 @@ def deserialize_json(data: dict) -> CreateComponentRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateComponentRequest.name required")
+        out["name"] = ""
     if data.get("semanticVersion") is not None:
         out["semantic_version"] = data["semanticVersion"]
     else:
-        raise DeserializationError("CreateComponentRequest.semantic_version required")
+        out["semantic_version"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("changeDescription") is not None:
@@ -109,7 +107,9 @@ def deserialize_json(data: dict) -> CreateComponentRequest:
             data["platform"]
         )
     else:
-        raise DeserializationError("CreateComponentRequest.platform required")
+        import typing
+
+        out["platform"] = typing.cast("capo_imagebuilder.types.platform.Platform", "")
     if data.get("supportedOsVersions") is not None:
         import capo_imagebuilder.types.os_version_list
 
@@ -131,7 +131,7 @@ def deserialize_json(data: dict) -> CreateComponentRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CreateComponentRequest.client_token required")
+        out["client_token"] = ""
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
     return out

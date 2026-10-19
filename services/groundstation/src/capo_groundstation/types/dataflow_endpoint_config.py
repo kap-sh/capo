@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 
 class DataflowEndpointConfig(TypedDict, closed=True):
     dataflow_endpoint_name: "str"
@@ -26,9 +24,7 @@ def deserialize_json(data: dict) -> DataflowEndpointConfig:
     if data.get("dataflowEndpointName") is not None:
         out["dataflow_endpoint_name"] = data["dataflowEndpointName"]
     else:
-        raise DeserializationError(
-            "DataflowEndpointConfig.dataflow_endpoint_name required"
-        )
+        out["dataflow_endpoint_name"] = ""
     if data.get("dataflowEndpointRegion") is not None:
         out["dataflow_endpoint_region"] = data["dataflowEndpointRegion"]
     return out

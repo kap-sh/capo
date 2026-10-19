@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_acm_pca.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm_pca.types.arn
     import capo_acm_pca.types.certificate_body_blob
@@ -52,9 +50,7 @@ def deserialize_aws_json_1_1(
     if data.get("CertificateAuthorityArn") is not None:
         out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
     else:
-        raise DeserializationError(
-            "ImportCertificateAuthorityCertificateRequest.certificate_authority_arn required"
-        )
+        out["certificate_authority_arn"] = ""
     if data.get("Certificate") is not None:
         import capo_acm_pca.types.certificate_body_blob
 
@@ -64,9 +60,7 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "ImportCertificateAuthorityCertificateRequest.certificate required"
-        )
+        out["certificate"] = b""
     if data.get("CertificateChain") is not None:
         import capo_acm_pca.types.certificate_chain_blob
 

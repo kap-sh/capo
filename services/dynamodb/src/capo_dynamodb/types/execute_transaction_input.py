@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.client_request_token
     import capo_dynamodb.types.parameterized_statements
@@ -61,9 +59,7 @@ def deserialize_aws_json_1_0(data: dict) -> ExecuteTransactionInput:
             )
         )
     else:
-        raise DeserializationError(
-            "ExecuteTransactionInput.transact_statements required"
-        )
+        out["transact_statements"] = []
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     if data.get("ReturnConsumedCapacity") is not None:

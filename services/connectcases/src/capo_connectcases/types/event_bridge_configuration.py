@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.event_included_data
 
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> EventBridgeConfiguration:
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     else:
-        raise DeserializationError("EventBridgeConfiguration.enabled required")
+        out["enabled"] = False
     if data.get("includedData") is not None:
         import capo_connectcases.types.event_included_data
 

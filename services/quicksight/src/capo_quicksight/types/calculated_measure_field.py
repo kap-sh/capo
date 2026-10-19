@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.expression
     import capo_quicksight.types.field_id
@@ -31,11 +29,11 @@ def deserialize_json(data: dict) -> CalculatedMeasureField:
     if data.get("FieldId") is not None:
         out["field_id"] = data["FieldId"]
     else:
-        raise DeserializationError("CalculatedMeasureField.field_id required")
+        out["field_id"] = ""
     if data.get("Expression") is not None:
         out["expression"] = data["Expression"]
     else:
-        raise DeserializationError("CalculatedMeasureField.expression required")
+        out["expression"] = ""
     return out
 
 

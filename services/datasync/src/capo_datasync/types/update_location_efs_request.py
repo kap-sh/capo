@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.efs_in_transit_encryption
     import capo_datasync.types.efs_subdirectory
@@ -59,7 +57,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLocationEfsRequest:
     if data.get("LocationArn") is not None:
         out["location_arn"] = data["LocationArn"]
     else:
-        raise DeserializationError("UpdateLocationEfsRequest.location_arn required")
+        out["location_arn"] = ""
     if data.get("Subdirectory") is not None:
         out["subdirectory"] = data["Subdirectory"]
     if data.get("AccessPointArn") is not None:

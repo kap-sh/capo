@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.boolean_object
     import capo_kinesis_analytics_v2.types.checkpoint_interval
@@ -62,8 +60,10 @@ def deserialize_aws_json_1_1(data: dict) -> CheckpointConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "CheckpointConfiguration.configuration_type required"
+        import typing
+
+        out["configuration_type"] = typing.cast(
+            "capo_kinesis_analytics_v2.types.configuration_type.ConfigurationType", ""
         )
     if data.get("CheckpointingEnabled") is not None:
         out["checkpointing_enabled"] = data["CheckpointingEnabled"]

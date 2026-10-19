@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_braket.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_braket.types.device_arn
     import capo_braket.types.device_queue_info_list
@@ -58,27 +56,27 @@ def deserialize_json(data: dict) -> GetDeviceResponse:
     if data.get("deviceArn") is not None:
         out["device_arn"] = data["deviceArn"]
     else:
-        raise DeserializationError("GetDeviceResponse.device_arn required")
+        out["device_arn"] = ""
     if data.get("deviceName") is not None:
         out["device_name"] = data["deviceName"]
     else:
-        raise DeserializationError("GetDeviceResponse.device_name required")
+        out["device_name"] = ""
     if data.get("providerName") is not None:
         out["provider_name"] = data["providerName"]
     else:
-        raise DeserializationError("GetDeviceResponse.provider_name required")
+        out["provider_name"] = ""
     if data.get("deviceType") is not None:
         out["device_type"] = data["deviceType"]
     else:
-        raise DeserializationError("GetDeviceResponse.device_type required")
+        out["device_type"] = ""
     if data.get("deviceStatus") is not None:
         out["device_status"] = data["deviceStatus"]
     else:
-        raise DeserializationError("GetDeviceResponse.device_status required")
+        out["device_status"] = ""
     if data.get("deviceCapabilities") is not None:
         out["device_capabilities"] = data["deviceCapabilities"]
     else:
-        raise DeserializationError("GetDeviceResponse.device_capabilities required")
+        out["device_capabilities"] = ""
     if data.get("deviceQueueInfo") is not None:
         import capo_braket.types.device_queue_info_list
 

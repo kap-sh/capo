@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53_recovery_cluster.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53_recovery_cluster.types.page_token
     import capo_route53_recovery_cluster.types.routing_controls
@@ -46,9 +44,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListRoutingControlsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListRoutingControlsResponse.routing_controls required"
-        )
+        out["routing_controls"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.boolean_optional
     import capo_resiliencehub.types.entity_name255
@@ -68,15 +66,11 @@ def deserialize_json(data: dict) -> UpdateRecommendationStatusRequestEntry:
     if data.get("entryId") is not None:
         out["entry_id"] = data["entryId"]
     else:
-        raise DeserializationError(
-            "UpdateRecommendationStatusRequestEntry.entry_id required"
-        )
+        out["entry_id"] = ""
     if data.get("referenceId") is not None:
         out["reference_id"] = data["referenceId"]
     else:
-        raise DeserializationError(
-            "UpdateRecommendationStatusRequestEntry.reference_id required"
-        )
+        out["reference_id"] = ""
     if data.get("item") is not None:
         import capo_resiliencehub.types.update_recommendation_status_item
 
@@ -88,9 +82,7 @@ def deserialize_json(data: dict) -> UpdateRecommendationStatusRequestEntry:
     if data.get("excluded") is not None:
         out["excluded"] = data["excluded"]
     else:
-        raise DeserializationError(
-            "UpdateRecommendationStatusRequestEntry.excluded required"
-        )
+        out["excluded"] = False
     if data.get("appComponentId") is not None:
         out["app_component_id"] = data["appComponentId"]
     if data.get("excludeReason") is not None:

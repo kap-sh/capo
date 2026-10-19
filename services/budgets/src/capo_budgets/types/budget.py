@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_budgets.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_budgets.types.auto_adjust_data
     import capo_budgets.types.billing_view_arn
@@ -159,7 +157,7 @@ def deserialize_aws_json_1_1(data: dict) -> Budget:
     if data.get("BudgetName") is not None:
         out["budget_name"] = data["BudgetName"]
     else:
-        raise DeserializationError("Budget.budget_name required")
+        out["budget_name"] = ""
     if data.get("BudgetLimit") is not None:
         import capo_budgets.types.spend
 
@@ -193,7 +191,9 @@ def deserialize_aws_json_1_1(data: dict) -> Budget:
             data["TimeUnit"]
         )
     else:
-        raise DeserializationError("Budget.time_unit required")
+        import typing
+
+        out["time_unit"] = typing.cast("capo_budgets.types.time_unit.TimeUnit", "")
     if data.get("TimePeriod") is not None:
         import capo_budgets.types.time_period
 
@@ -215,7 +215,11 @@ def deserialize_aws_json_1_1(data: dict) -> Budget:
             data["BudgetType"]
         )
     else:
-        raise DeserializationError("Budget.budget_type required")
+        import typing
+
+        out["budget_type"] = typing.cast(
+            "capo_budgets.types.budget_type.BudgetType", ""
+        )
     if data.get("LastUpdatedTime") is not None:
         import capo_budgets.types.generic_timestamp
 

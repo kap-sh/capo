@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.relay_authentication
     import capo_mailmanager.types.relay_id
@@ -55,7 +53,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateRelayRequest:
     if data.get("RelayId") is not None:
         out["relay_id"] = data["RelayId"]
     else:
-        raise DeserializationError("UpdateRelayRequest.relay_id required")
+        out["relay_id"] = ""
     if data.get("RelayName") is not None:
         out["relay_name"] = data["RelayName"]
     if data.get("ServerName") is not None:

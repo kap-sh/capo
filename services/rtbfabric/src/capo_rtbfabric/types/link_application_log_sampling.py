@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 
 class LinkApplicationLogSampling(TypedDict, closed=True):
     error_log: "float"
@@ -41,9 +39,9 @@ def deserialize_json(data: dict) -> LinkApplicationLogSampling:
     if data.get("errorLog") is not None:
         out["error_log"] = float(data["errorLog"])
     else:
-        raise DeserializationError("LinkApplicationLogSampling.error_log required")
+        out["error_log"] = 0.0
     if data.get("filterLog") is not None:
         out["filter_log"] = float(data["filterLog"])
     else:
-        raise DeserializationError("LinkApplicationLogSampling.filter_log required")
+        out["filter_log"] = 0.0
     return out

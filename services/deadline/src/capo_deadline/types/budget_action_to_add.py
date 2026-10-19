@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.budget_action_type
     import capo_deadline.types.description
@@ -50,11 +48,15 @@ def deserialize_json(data: dict) -> BudgetActionToAdd:
             data["type"]
         )
     else:
-        raise DeserializationError("BudgetActionToAdd.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_deadline.types.budget_action_type.BudgetActionType", ""
+        )
     if data.get("thresholdPercentage") is not None:
         out["threshold_percentage"] = float(data["thresholdPercentage"])
     else:
-        raise DeserializationError("BudgetActionToAdd.threshold_percentage required")
+        out["threshold_percentage"] = 0.0
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

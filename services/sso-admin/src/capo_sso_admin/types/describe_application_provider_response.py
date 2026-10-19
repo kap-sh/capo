@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sso_admin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_admin.types.application_provider_arn
     import capo_sso_admin.types.display_data
@@ -64,9 +62,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeApplicationProviderResponse:
     if data.get("ApplicationProviderArn") is not None:
         out["application_provider_arn"] = data["ApplicationProviderArn"]
     else:
-        raise DeserializationError(
-            "DescribeApplicationProviderResponse.application_provider_arn required"
-        )
+        out["application_provider_arn"] = ""
     if data.get("FederationProtocol") is not None:
         import capo_sso_admin.types.federation_protocol
 

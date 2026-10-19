@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.long_arn
     import capo_sfn.types.max_concurrency
@@ -55,7 +53,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateMapRunInput:
     if data.get("mapRunArn") is not None:
         out["map_run_arn"] = data["mapRunArn"]
     else:
-        raise DeserializationError("UpdateMapRunInput.map_run_arn required")
+        out["map_run_arn"] = ""
     if data.get("maxConcurrency") is not None:
         out["max_concurrency"] = data["maxConcurrency"]
     if data.get("toleratedFailurePercentage") is not None:

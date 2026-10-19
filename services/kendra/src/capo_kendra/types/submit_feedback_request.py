@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.click_feedback_list
     import capo_kendra.types.index_id
@@ -57,11 +55,11 @@ def deserialize_aws_json_1_1(data: dict) -> SubmitFeedbackRequest:
     if data.get("IndexId") is not None:
         out["index_id"] = data["IndexId"]
     else:
-        raise DeserializationError("SubmitFeedbackRequest.index_id required")
+        out["index_id"] = ""
     if data.get("QueryId") is not None:
         out["query_id"] = data["QueryId"]
     else:
-        raise DeserializationError("SubmitFeedbackRequest.query_id required")
+        out["query_id"] = ""
     if data.get("ClickFeedbackItems") is not None:
         import capo_kendra.types.click_feedback_list
 

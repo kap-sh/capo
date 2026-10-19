@@ -92,19 +92,19 @@ def deserialize_aws_json_1_0(data: dict) -> CancelProfileUpdateTaskResponse:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("CancelProfileUpdateTaskResponse.catalog required")
+        out["catalog"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("CancelProfileUpdateTaskResponse.arn required")
+        out["arn"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("CancelProfileUpdateTaskResponse.id required")
+        out["id"] = ""
     if data.get("TaskId") is not None:
         out["task_id"] = data["TaskId"]
     else:
-        raise DeserializationError("CancelProfileUpdateTaskResponse.task_id required")
+        out["task_id"] = ""
     if data.get("TaskDetails") is not None:
         import capo_partnercentral_account.types.task_details
 
@@ -126,9 +126,9 @@ def deserialize_aws_json_1_0(data: dict) -> CancelProfileUpdateTaskResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "CancelProfileUpdateTaskResponse.started_at required"
-        )
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Status") is not None:
         import capo_partnercentral_account.types.profile_task_status
 
@@ -138,7 +138,12 @@ def deserialize_aws_json_1_0(data: dict) -> CancelProfileUpdateTaskResponse:
             )
         )
     else:
-        raise DeserializationError("CancelProfileUpdateTaskResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_partnercentral_account.types.profile_task_status.ProfileTaskStatus",
+            "",
+        )
     if data.get("EndedAt") is not None:
         import capo_partnercentral_account.types.date_time
 

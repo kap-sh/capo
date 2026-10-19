@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.alarm_configuration
     import capo_ssm.types.cloud_watch_output_config
@@ -166,7 +164,7 @@ def deserialize_aws_json_1_1(data: dict) -> SendCommandRequest:
     if data.get("DocumentName") is not None:
         out["document_name"] = data["DocumentName"]
     else:
-        raise DeserializationError("SendCommandRequest.document_name required")
+        out["document_name"] = ""
     if data.get("DocumentVersion") is not None:
         out["document_version"] = data["DocumentVersion"]
     if data.get("DocumentHash") is not None:

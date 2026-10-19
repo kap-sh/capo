@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 
 class SemanticChunkingConfiguration(TypedDict, closed=True):
     max_tokens: "int"
@@ -28,15 +26,13 @@ def deserialize_json(data: dict) -> SemanticChunkingConfiguration:
     if data.get("maxTokens") is not None:
         out["max_tokens"] = data["maxTokens"]
     else:
-        raise DeserializationError("SemanticChunkingConfiguration.max_tokens required")
+        out["max_tokens"] = 0
     if data.get("bufferSize") is not None:
         out["buffer_size"] = data["bufferSize"]
     else:
-        raise DeserializationError("SemanticChunkingConfiguration.buffer_size required")
+        out["buffer_size"] = 0
     if data.get("breakpointPercentileThreshold") is not None:
         out["breakpoint_percentile_threshold"] = data["breakpointPercentileThreshold"]
     else:
-        raise DeserializationError(
-            "SemanticChunkingConfiguration.breakpoint_percentile_threshold required"
-        )
+        out["breakpoint_percentile_threshold"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_insights.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_insights.types.custom_component_name
     import capo_application_insights.types.resource_group_name
@@ -54,13 +52,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateComponentRequest:
     if data.get("ResourceGroupName") is not None:
         out["resource_group_name"] = data["ResourceGroupName"]
     else:
-        raise DeserializationError(
-            "UpdateComponentRequest.resource_group_name required"
-        )
+        out["resource_group_name"] = ""
     if data.get("ComponentName") is not None:
         out["component_name"] = data["ComponentName"]
     else:
-        raise DeserializationError("UpdateComponentRequest.component_name required")
+        out["component_name"] = ""
     if data.get("NewComponentName") is not None:
         out["new_component_name"] = data["NewComponentName"]
     if data.get("ResourceList") is not None:

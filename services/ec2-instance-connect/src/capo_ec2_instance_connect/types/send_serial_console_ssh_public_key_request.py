@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ec2_instance_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ec2_instance_connect.types.instance_id
     import capo_ec2_instance_connect.types.serial_port
@@ -36,15 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> SendSerialConsoleSSHPublicKeyRequest
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError(
-            "SendSerialConsoleSSHPublicKeyRequest.instance_id required"
-        )
+        out["instance_id"] = ""
     if data.get("SerialPort") is not None:
         out["serial_port"] = data["SerialPort"]
     if data.get("SSHPublicKey") is not None:
         out["ssh_public_key"] = data["SSHPublicKey"]
     else:
-        raise DeserializationError(
-            "SendSerialConsoleSSHPublicKeyRequest.ssh_public_key required"
-        )
+        out["ssh_public_key"] = ""
     return out

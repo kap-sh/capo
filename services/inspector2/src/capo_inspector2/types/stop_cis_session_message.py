@@ -73,7 +73,11 @@ def deserialize_json(data: dict) -> StopCisSessionMessage:
             data["status"]
         )
     else:
-        raise DeserializationError("StopCisSessionMessage.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_inspector2.types.stop_cis_session_status.StopCisSessionStatus", ""
+        )
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
     if data.get("progress") is not None:

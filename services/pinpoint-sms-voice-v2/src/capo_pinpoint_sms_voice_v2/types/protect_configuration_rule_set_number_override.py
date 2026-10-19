@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -61,9 +59,7 @@ def deserialize_aws_json_1_0(data: dict) -> ProtectConfigurationRuleSetNumberOve
     if data.get("DestinationPhoneNumber") is not None:
         out["destination_phone_number"] = data["DestinationPhoneNumber"]
     else:
-        raise DeserializationError(
-            "ProtectConfigurationRuleSetNumberOverride.destination_phone_number required"
-        )
+        out["destination_phone_number"] = ""
     if data.get("CreatedTimestamp") is not None:
         import capo_pinpoint_sms_voice_v2.types._prelude.timestamp
 
@@ -73,15 +69,15 @@ def deserialize_aws_json_1_0(data: dict) -> ProtectConfigurationRuleSetNumberOve
             )
         )
     else:
-        raise DeserializationError(
-            "ProtectConfigurationRuleSetNumberOverride.created_timestamp required"
+        import datetime
+
+        out["created_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("Action") is not None:
         out["action"] = data["Action"]
     else:
-        raise DeserializationError(
-            "ProtectConfigurationRuleSetNumberOverride.action required"
-        )
+        out["action"] = ""
     if data.get("IsoCountryCode") is not None:
         out["iso_country_code"] = data["IsoCountryCode"]
     if data.get("ExpirationTimestamp") is not None:

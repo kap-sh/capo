@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.change_description
     import capo_healthlake.types.date_time
@@ -70,15 +68,11 @@ def deserialize_aws_json_1_0(data: dict) -> DataTransformationProfileVersionSumm
     if data.get("ProfileId") is not None:
         out["profile_id"] = data["ProfileId"]
     else:
-        raise DeserializationError(
-            "DataTransformationProfileVersionSummary.profile_id required"
-        )
+        out["profile_id"] = ""
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     else:
-        raise DeserializationError(
-            "DataTransformationProfileVersionSummary.version required"
-        )
+        out["version"] = 0
     if data.get("SourceFormat") is not None:
         import capo_healthlake.types.source_format
 
@@ -88,8 +82,10 @@ def deserialize_aws_json_1_0(data: dict) -> DataTransformationProfileVersionSumm
             )
         )
     else:
-        raise DeserializationError(
-            "DataTransformationProfileVersionSummary.source_format required"
+        import typing
+
+        out["source_format"] = typing.cast(
+            "capo_healthlake.types.source_format.SourceFormat", ""
         )
     if data.get("TargetFormat") is not None:
         import capo_healthlake.types.target_format
@@ -100,8 +96,10 @@ def deserialize_aws_json_1_0(data: dict) -> DataTransformationProfileVersionSumm
             )
         )
     else:
-        raise DeserializationError(
-            "DataTransformationProfileVersionSummary.target_format required"
+        import typing
+
+        out["target_format"] = typing.cast(
+            "capo_healthlake.types.target_format.TargetFormat", ""
         )
     if data.get("ProfileName") is not None:
         out["profile_name"] = data["ProfileName"]

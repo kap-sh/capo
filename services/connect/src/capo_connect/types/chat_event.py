@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.chat_content
     import capo_connect.types.chat_content_type
@@ -41,7 +39,11 @@ def deserialize_json(data: dict) -> ChatEvent:
 
         out["type"] = capo_connect.types.chat_event_type.deserialize_json(data["Type"])
     else:
-        raise DeserializationError("ChatEvent.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_connect.types.chat_event_type.ChatEventType", ""
+        )
     if data.get("ContentType") is not None:
         out["content_type"] = data["ContentType"]
     if data.get("Content") is not None:

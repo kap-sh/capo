@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 
 class ReverseGeocodingConfig(TypedDict, closed=True):
     y_attribute_name: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> ReverseGeocodingConfig:
     if data.get("YAttributeName") is not None:
         out["y_attribute_name"] = data["YAttributeName"]
     else:
-        raise DeserializationError("ReverseGeocodingConfig.y_attribute_name required")
+        out["y_attribute_name"] = ""
     if data.get("XAttributeName") is not None:
         out["x_attribute_name"] = data["XAttributeName"]
     else:
-        raise DeserializationError("ReverseGeocodingConfig.x_attribute_name required")
+        out["x_attribute_name"] = ""
     return out

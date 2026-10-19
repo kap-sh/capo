@@ -53,5 +53,7 @@ def deserialize_json(data: dict) -> GeocodePreference:
             )
         )
     else:
-        raise DeserializationError("GeocodePreference.preference required")
+        import capo_quicksight.types._unknown
+
+        out["preference"] = capo_quicksight.types._unknown.UnknownUnionMember("")
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_arn
     import capo_bedrock.types.automated_reasoning_policy_build_result_assets
@@ -52,15 +50,11 @@ def deserialize_json(
     if data.get("policyArn") is not None:
         out["policy_arn"] = data["policyArn"]
     else:
-        raise DeserializationError(
-            "GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse.policy_arn required"
-        )
+        out["policy_arn"] = ""
     if data.get("buildWorkflowId") is not None:
         out["build_workflow_id"] = data["buildWorkflowId"]
     else:
-        raise DeserializationError(
-            "GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse.build_workflow_id required"
-        )
+        out["build_workflow_id"] = ""
     if data.get("buildWorkflowAssets") is not None:
         import capo_bedrock.types.automated_reasoning_policy_build_result_assets
 

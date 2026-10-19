@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecatalyst.types.name_string
     import capo_codecatalyst.types.source_repository_description_string
@@ -56,15 +54,15 @@ def deserialize_json(data: dict) -> GetSourceRepositoryResponse:
     if data.get("spaceName") is not None:
         out["space_name"] = data["spaceName"]
     else:
-        raise DeserializationError("GetSourceRepositoryResponse.space_name required")
+        out["space_name"] = ""
     if data.get("projectName") is not None:
         out["project_name"] = data["projectName"]
     else:
-        raise DeserializationError("GetSourceRepositoryResponse.project_name required")
+        out["project_name"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetSourceRepositoryResponse.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("lastUpdatedTime") is not None:
@@ -74,8 +72,10 @@ def deserialize_json(data: dict) -> GetSourceRepositoryResponse:
             data["lastUpdatedTime"]
         )
     else:
-        raise DeserializationError(
-            "GetSourceRepositoryResponse.last_updated_time required"
+        import datetime
+
+        out["last_updated_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("createdTime") is not None:
         import capo_codecatalyst.types.timestamp
@@ -84,5 +84,9 @@ def deserialize_json(data: dict) -> GetSourceRepositoryResponse:
             data["createdTime"]
         )
     else:
-        raise DeserializationError("GetSourceRepositoryResponse.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

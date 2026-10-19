@@ -41,7 +41,7 @@ def deserialize_json(data: dict) -> SubscribeRequest:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("SubscribeRequest.arn required")
+        out["arn"] = ""
     if data.get("Target") is not None:
         import capo_codestar_notifications.types.target
 

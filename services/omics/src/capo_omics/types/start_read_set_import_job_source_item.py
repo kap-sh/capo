@@ -80,19 +80,15 @@ def deserialize_json(data: dict) -> StartReadSetImportJobSourceItem:
     if data.get("sourceFileType") is not None:
         out["source_file_type"] = data["sourceFileType"]
     else:
-        raise DeserializationError(
-            "StartReadSetImportJobSourceItem.source_file_type required"
-        )
+        out["source_file_type"] = ""
     if data.get("subjectId") is not None:
         out["subject_id"] = data["subjectId"]
     else:
-        raise DeserializationError(
-            "StartReadSetImportJobSourceItem.subject_id required"
-        )
+        out["subject_id"] = ""
     if data.get("sampleId") is not None:
         out["sample_id"] = data["sampleId"]
     else:
-        raise DeserializationError("StartReadSetImportJobSourceItem.sample_id required")
+        out["sample_id"] = ""
     if data.get("generatedFrom") is not None:
         out["generated_from"] = data["generatedFrom"]
     if data.get("referenceArn") is not None:

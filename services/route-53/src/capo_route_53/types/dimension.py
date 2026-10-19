@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.dimension_field
@@ -31,10 +30,10 @@ def deserialize_xml(el: Element) -> Dimension:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("Dimension.name required")
+        out["name"] = ""
     child_value = el.find("Value")
     if child_value is not None:
         out["value"] = str(child_value.text or "")
     else:
-        raise DeserializationError("Dimension.value required")
+        out["value"] = ""
     return out

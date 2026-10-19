@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.comparison_operator
     import capo_customer_profiles.types.event_trigger_values
@@ -63,7 +61,11 @@ def deserialize_json(data: dict) -> ObjectAttribute:
             )
         )
     else:
-        raise DeserializationError("ObjectAttribute.comparison_operator required")
+        import typing
+
+        out["comparison_operator"] = typing.cast(
+            "capo_customer_profiles.types.comparison_operator.ComparisonOperator", ""
+        )
     if data.get("Values") is not None:
         import capo_customer_profiles.types.event_trigger_values
 
@@ -73,5 +75,5 @@ def deserialize_json(data: dict) -> ObjectAttribute:
             )
         )
     else:
-        raise DeserializationError("ObjectAttribute.values required")
+        out["values"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.domain_name
     import capo_vpc_lattice.types.domain_verification_arn
@@ -75,19 +73,19 @@ def deserialize_json(data: dict) -> DomainVerificationSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("DomainVerificationSummary.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("DomainVerificationSummary.arn required")
+        out["arn"] = ""
     if data.get("domainName") is not None:
         out["domain_name"] = data["domainName"]
     else:
-        raise DeserializationError("DomainVerificationSummary.domain_name required")
+        out["domain_name"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("DomainVerificationSummary.status required")
+        out["status"] = ""
     if data.get("txtMethodConfig") is not None:
         import capo_vpc_lattice.types.txt_method_config
 
@@ -103,7 +101,9 @@ def deserialize_json(data: dict) -> DomainVerificationSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("DomainVerificationSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastVerifiedTime") is not None:
         import capo_vpc_lattice.types.timestamp
 

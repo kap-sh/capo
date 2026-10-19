@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -71,11 +69,11 @@ def deserialize_json(data: dict) -> GoalSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GoalSummary.id required")
+        out["id"] = ""
     if data.get("profileArn") is not None:
         out["profile_arn"] = data["profileArn"]
     else:
-        raise DeserializationError("GoalSummary.profile_arn required")
+        out["profile_arn"] = ""
     if data.get("pillars") is not None:
         import capo_wellarchitected.types.pillars
 
@@ -83,17 +81,17 @@ def deserialize_json(data: dict) -> GoalSummary:
             data["pillars"]
         )
     else:
-        raise DeserializationError("GoalSummary.pillars required")
+        out["pillars"] = []
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("GoalSummary.title required")
+        out["title"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("GoalSummary.created_by required")
+        out["created_by"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -101,7 +99,9 @@ def deserialize_json(data: dict) -> GoalSummary:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GoalSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastModifiedBy") is not None:
         out["last_modified_by"] = data["lastModifiedBy"]
     if data.get("lastModifiedAt") is not None:

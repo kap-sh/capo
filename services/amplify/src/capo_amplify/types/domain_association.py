@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.auto_sub_domain_creation_patterns
     import capo_amplify.types.auto_sub_domain_iam_role
@@ -106,15 +104,15 @@ def deserialize_json(data: dict) -> DomainAssociation:
     if data.get("domainAssociationArn") is not None:
         out["domain_association_arn"] = data["domainAssociationArn"]
     else:
-        raise DeserializationError("DomainAssociation.domain_association_arn required")
+        out["domain_association_arn"] = ""
     if data.get("domainName") is not None:
         out["domain_name"] = data["domainName"]
     else:
-        raise DeserializationError("DomainAssociation.domain_name required")
+        out["domain_name"] = ""
     if data.get("enableAutoSubDomain") is not None:
         out["enable_auto_sub_domain"] = data["enableAutoSubDomain"]
     else:
-        raise DeserializationError("DomainAssociation.enable_auto_sub_domain required")
+        out["enable_auto_sub_domain"] = False
     if data.get("autoSubDomainCreationPatterns") is not None:
         import capo_amplify.types.auto_sub_domain_creation_patterns
 
@@ -132,7 +130,11 @@ def deserialize_json(data: dict) -> DomainAssociation:
             data["domainStatus"]
         )
     else:
-        raise DeserializationError("DomainAssociation.domain_status required")
+        import typing
+
+        out["domain_status"] = typing.cast(
+            "capo_amplify.types.domain_status.DomainStatus", ""
+        )
     if data.get("updateStatus") is not None:
         import capo_amplify.types.update_status
 
@@ -142,7 +144,7 @@ def deserialize_json(data: dict) -> DomainAssociation:
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
     else:
-        raise DeserializationError("DomainAssociation.status_reason required")
+        out["status_reason"] = ""
     if data.get("certificateVerificationDNSRecord") is not None:
         out["certificate_verification_dns_record"] = data[
             "certificateVerificationDNSRecord"
@@ -154,7 +156,7 @@ def deserialize_json(data: dict) -> DomainAssociation:
             data["subDomains"]
         )
     else:
-        raise DeserializationError("DomainAssociation.sub_domains required")
+        out["sub_domains"] = []
     if data.get("certificate") is not None:
         import capo_amplify.types.certificate
 

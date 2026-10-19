@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_support.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support.types.end_index
     import capo_support.types.start_index
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> UploadRange:
     if data.get("startIndex") is not None:
         out["start_index"] = data["startIndex"]
     else:
-        raise DeserializationError("UploadRange.start_index required")
+        out["start_index"] = 0
     if data.get("endIndex") is not None:
         out["end_index"] = data["endIndex"]
     return out

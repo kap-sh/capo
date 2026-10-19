@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.assertion_encryption_mode_type
@@ -65,14 +64,12 @@ def deserialize_query(el: Element) -> CreateSAMLProviderRequest:
     if child_saml_metadata_document is not None:
         out["saml_metadata_document"] = str(child_saml_metadata_document.text or "")
     else:
-        raise DeserializationError(
-            "CreateSAMLProviderRequest.saml_metadata_document required"
-        )
+        out["saml_metadata_document"] = ""
     child_name = el.find("Name")
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("CreateSAMLProviderRequest.name required")
+        out["name"] = ""
     child_tags = el.find("Tags")
     if child_tags is not None:
         import capo_iam.types.tag_list_type

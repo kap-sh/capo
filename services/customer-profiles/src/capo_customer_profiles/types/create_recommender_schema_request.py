@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.name
     import capo_customer_profiles.types.recommender_schema_fields
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> CreateRecommenderSchemaRequest:
             )
         )
     else:
-        raise DeserializationError("CreateRecommenderSchemaRequest.fields required")
+        out["fields"] = {}
     if data.get("Tags") is not None:
         import capo_customer_profiles.types.tag_map
 

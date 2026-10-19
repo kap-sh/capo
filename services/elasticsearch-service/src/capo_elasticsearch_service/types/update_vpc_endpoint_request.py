@@ -35,7 +35,7 @@ def deserialize_json(data: dict) -> UpdateVpcEndpointRequest:
     if data.get("VpcEndpointId") is not None:
         out["vpc_endpoint_id"] = data["VpcEndpointId"]
     else:
-        raise DeserializationError("UpdateVpcEndpointRequest.vpc_endpoint_id required")
+        out["vpc_endpoint_id"] = ""
     if data.get("VpcOptions") is not None:
         import capo_elasticsearch_service.types.vpc_options
 

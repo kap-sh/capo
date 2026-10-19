@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 
 class IntegratedDocument(TypedDict, closed=True):
     integration_id: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> IntegratedDocument:
     if data.get("integrationId") is not None:
         out["integration_id"] = data["integrationId"]
     else:
-        raise DeserializationError("IntegratedDocument.integration_id required")
+        out["integration_id"] = ""
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     else:
-        raise DeserializationError("IntegratedDocument.resource_id required")
+        out["resource_id"] = ""
     return out

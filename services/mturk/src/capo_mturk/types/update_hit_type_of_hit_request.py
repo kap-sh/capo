@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mturk.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mturk.types.entity_id
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateHITTypeOfHITRequest:
     if data.get("HITId") is not None:
         out["hit_id"] = data["HITId"]
     else:
-        raise DeserializationError("UpdateHITTypeOfHITRequest.hit_id required")
+        out["hit_id"] = ""
     if data.get("HITTypeId") is not None:
         out["hit_type_id"] = data["HITTypeId"]
     else:
-        raise DeserializationError("UpdateHITTypeOfHITRequest.hit_type_id required")
+        out["hit_type_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.deployment_lifecycle_hook_action
     import capo_ecs.types.string
@@ -43,13 +41,11 @@ def deserialize_aws_json_1_1(data: dict) -> ContinueServiceDeploymentRequest:
     if data.get("serviceDeploymentArn") is not None:
         out["service_deployment_arn"] = data["serviceDeploymentArn"]
     else:
-        raise DeserializationError(
-            "ContinueServiceDeploymentRequest.service_deployment_arn required"
-        )
+        out["service_deployment_arn"] = ""
     if data.get("hookId") is not None:
         out["hook_id"] = data["hookId"]
     else:
-        raise DeserializationError("ContinueServiceDeploymentRequest.hook_id required")
+        out["hook_id"] = ""
     if data.get("action") is not None:
         import capo_ecs.types.deployment_lifecycle_hook_action
 

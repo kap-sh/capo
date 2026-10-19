@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_shield.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_shield.types.string
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> AttackVectorDescription:
     if data.get("VectorType") is not None:
         out["vector_type"] = data["VectorType"]
     else:
-        raise DeserializationError("AttackVectorDescription.vector_type required")
+        out["vector_type"] = ""
     return out

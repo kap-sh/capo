@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.audit_event_field_id
     import capo_connectcases.types.audit_event_field_value_union
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> AuditEventField:
     if data.get("eventFieldId") is not None:
         out["event_field_id"] = data["eventFieldId"]
     else:
-        raise DeserializationError("AuditEventField.event_field_id required")
+        out["event_field_id"] = ""
     if data.get("oldValue") is not None:
         import capo_connectcases.types.audit_event_field_value_union
 
@@ -67,5 +65,7 @@ def deserialize_json(data: dict) -> AuditEventField:
             )
         )
     else:
-        raise DeserializationError("AuditEventField.new_value required")
+        import capo_connectcases.types._unknown
+
+        out["new_value"] = capo_connectcases.types._unknown.UnknownUnionMember("")
     return out

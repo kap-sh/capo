@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.content_attributes
     import capo_connect.types.notification_type
@@ -47,7 +45,11 @@ def deserialize_json(data: dict) -> WebNotificationContent:
             data["Type"]
         )
     else:
-        raise DeserializationError("WebNotificationContent.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_connect.types.notification_type.NotificationType", ""
+        )
     if data.get("ViewArn") is not None:
         out["view_arn"] = data["ViewArn"]
     if data.get("Attributes") is not None:

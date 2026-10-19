@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -36,14 +35,10 @@ def deserialize_query(el: Element) -> PutRolePermissionsBoundaryRequest:
     if child_role_name is not None:
         out["role_name"] = str(child_role_name.text or "")
     else:
-        raise DeserializationError(
-            "PutRolePermissionsBoundaryRequest.role_name required"
-        )
+        out["role_name"] = ""
     child_permissions_boundary = el.find("PermissionsBoundary")
     if child_permissions_boundary is not None:
         out["permissions_boundary"] = str(child_permissions_boundary.text or "")
     else:
-        raise DeserializationError(
-            "PutRolePermissionsBoundaryRequest.permissions_boundary required"
-        )
+        out["permissions_boundary"] = ""
     return out

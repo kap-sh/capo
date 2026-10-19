@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.arn
     import capo_resiliencehubv2.types.assertion_text
@@ -34,11 +32,11 @@ def deserialize_json(data: dict) -> CreateAssertionRequest:
     if data.get("serviceArn") is not None:
         out["service_arn"] = data["serviceArn"]
     else:
-        raise DeserializationError("CreateAssertionRequest.service_arn required")
+        out["service_arn"] = ""
     if data.get("text") is not None:
         out["text"] = data["text"]
     else:
-        raise DeserializationError("CreateAssertionRequest.text required")
+        out["text"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

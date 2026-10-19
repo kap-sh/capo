@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.data_lake_namespace_name
     import capo_supplychain.types.uuid
@@ -31,11 +29,9 @@ def deserialize_json(data: dict) -> DeleteDataLakeNamespaceResponse:
     if data.get("instanceId") is not None:
         out["instance_id"] = data["instanceId"]
     else:
-        raise DeserializationError(
-            "DeleteDataLakeNamespaceResponse.instance_id required"
-        )
+        out["instance_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DeleteDataLakeNamespaceResponse.name required")
+        out["name"] = ""
     return out

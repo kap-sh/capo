@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.string_list
 
@@ -37,7 +35,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeServiceRevisionsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeServiceRevisionsRequest.service_revision_arns required"
-        )
+        out["service_revision_arns"] = []
     return out

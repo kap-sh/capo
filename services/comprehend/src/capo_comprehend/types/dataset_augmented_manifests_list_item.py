@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.attribute_names_list
     import capo_comprehend.types.augmented_manifests_document_type_format
@@ -64,13 +62,11 @@ def deserialize_aws_json_1_1(data: dict) -> DatasetAugmentedManifestsListItem:
             )
         )
     else:
-        raise DeserializationError(
-            "DatasetAugmentedManifestsListItem.attribute_names required"
-        )
+        out["attribute_names"] = []
     if data.get("S3Uri") is not None:
         out["s3_uri"] = data["S3Uri"]
     else:
-        raise DeserializationError("DatasetAugmentedManifestsListItem.s3_uri required")
+        out["s3_uri"] = ""
     if data.get("AnnotationDataS3Uri") is not None:
         out["annotation_data_s3_uri"] = data["AnnotationDataS3Uri"]
     if data.get("SourceDocumentsS3Uri") is not None:

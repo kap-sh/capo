@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eks.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eks.types.boolean
     import capo_eks.types.rollback_config
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> UpdateClusterVersionRequest:
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("UpdateClusterVersionRequest.version required")
+        out["version"] = ""
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     if data.get("force") is not None:

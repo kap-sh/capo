@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_elasticsearch_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elasticsearch_service.types.boolean
     import capo_elasticsearch_service.types.domain_name
@@ -35,15 +33,11 @@ def deserialize_json(data: dict) -> UpgradeElasticsearchDomainRequest:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError(
-            "UpgradeElasticsearchDomainRequest.domain_name required"
-        )
+        out["domain_name"] = ""
     if data.get("TargetVersion") is not None:
         out["target_version"] = data["TargetVersion"]
     else:
-        raise DeserializationError(
-            "UpgradeElasticsearchDomainRequest.target_version required"
-        )
+        out["target_version"] = ""
     if data.get("PerformCheckOnly") is not None:
         out["perform_check_only"] = data["PerformCheckOnly"]
     return out

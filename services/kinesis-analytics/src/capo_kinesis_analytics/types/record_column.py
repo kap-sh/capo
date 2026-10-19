@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics.types.record_column_mapping
     import capo_kinesis_analytics.types.record_column_name
@@ -38,11 +36,11 @@ def deserialize_aws_json_1_1(data: dict) -> RecordColumn:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("RecordColumn.name required")
+        out["name"] = ""
     if data.get("Mapping") is not None:
         out["mapping"] = data["Mapping"]
     if data.get("SqlType") is not None:
         out["sql_type"] = data["SqlType"]
     else:
-        raise DeserializationError("RecordColumn.sql_type required")
+        out["sql_type"] = ""
     return out

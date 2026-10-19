@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -80,11 +78,11 @@ def deserialize_json(data: dict) -> ModelSummary:
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:
-        raise DeserializationError("ModelSummary.model_id required")
+        out["model_id"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("ModelSummary.display_name required")
+        out["display_name"] = ""
     if data.get("crossRegionStatus") is not None:
         out["cross_region_status"] = data["crossRegionStatus"]
     if data.get("supportsPromptCaching") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.account_association_id
     import capo_iot_managed_integrations.types.command_endpoints
@@ -58,7 +56,7 @@ def deserialize_json(data: dict) -> SendManagedThingCommandRequest:
             )
         )
     else:
-        raise DeserializationError("SendManagedThingCommandRequest.endpoints required")
+        out["endpoints"] = []
     if data.get("ConnectorAssociationId") is not None:
         out["connector_association_id"] = data["ConnectorAssociationId"]
     if data.get("AccountAssociationId") is not None:

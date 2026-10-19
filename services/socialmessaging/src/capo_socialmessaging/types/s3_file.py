@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 
 class S3File(TypedDict, closed=True):
     bucket_name: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> S3File:
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError("S3File.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("S3File.key required")
+        out["key"] = ""
     return out

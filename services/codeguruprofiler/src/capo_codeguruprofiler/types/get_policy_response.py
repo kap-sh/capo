@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codeguruprofiler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguruprofiler.types.revision_id
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> GetPolicyResponse:
     if data.get("policy") is not None:
         out["policy"] = data["policy"]
     else:
-        raise DeserializationError("GetPolicyResponse.policy required")
+        out["policy"] = ""
     if data.get("revisionId") is not None:
         out["revision_id"] = data["revisionId"]
     else:
-        raise DeserializationError("GetPolicyResponse.revision_id required")
+        out["revision_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.database
     import capo_quicksight.types.instance_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> RdsParameters:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("RdsParameters.instance_id required")
+        out["instance_id"] = ""
     if data.get("Database") is not None:
         out["database"] = data["Database"]
     else:
-        raise DeserializationError("RdsParameters.database required")
+        out["database"] = ""
     return out

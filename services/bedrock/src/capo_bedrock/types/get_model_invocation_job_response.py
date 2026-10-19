@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.message
     import capo_bedrock.types.model_id
@@ -169,19 +167,19 @@ def deserialize_json(data: dict) -> GetModelInvocationJobResponse:
     if data.get("jobArn") is not None:
         out["job_arn"] = data["jobArn"]
     else:
-        raise DeserializationError("GetModelInvocationJobResponse.job_arn required")
+        out["job_arn"] = ""
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:
-        raise DeserializationError("GetModelInvocationJobResponse.model_id required")
+        out["model_id"] = ""
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("GetModelInvocationJobResponse.role_arn required")
+        out["role_arn"] = ""
     if data.get("status") is not None:
         import capo_bedrock.types.model_invocation_job_status
 
@@ -197,7 +195,11 @@ def deserialize_json(data: dict) -> GetModelInvocationJobResponse:
             data["submitTime"]
         )
     else:
-        raise DeserializationError("GetModelInvocationJobResponse.submit_time required")
+        import datetime
+
+        out["submit_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastModifiedTime") is not None:
         import capo_bedrock.types.timestamp
 
@@ -217,9 +219,9 @@ def deserialize_json(data: dict) -> GetModelInvocationJobResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetModelInvocationJobResponse.input_data_config required"
-        )
+        import capo_bedrock.types._unknown
+
+        out["input_data_config"] = capo_bedrock.types._unknown.UnknownUnionMember("")
     if data.get("outputDataConfig") is not None:
         import capo_bedrock.types.model_invocation_job_output_data_config
 
@@ -229,9 +231,9 @@ def deserialize_json(data: dict) -> GetModelInvocationJobResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetModelInvocationJobResponse.output_data_config required"
-        )
+        import capo_bedrock.types._unknown
+
+        out["output_data_config"] = capo_bedrock.types._unknown.UnknownUnionMember("")
     if data.get("vpcConfig") is not None:
         import capo_bedrock.types.vpc_config
 

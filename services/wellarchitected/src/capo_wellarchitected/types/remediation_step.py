@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wellarchitected.types.sensitive_string
 
@@ -33,7 +31,7 @@ def deserialize_json(data: dict) -> RemediationStep:
     if data.get("content") is not None:
         out["content"] = data["content"]
     else:
-        raise DeserializationError("RemediationStep.content required")
+        out["content"] = ""
     return out
 
 

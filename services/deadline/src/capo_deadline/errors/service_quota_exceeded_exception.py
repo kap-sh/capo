@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError, ServiceError
+from capo_deadline.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_deadline.types.exception_context
@@ -59,7 +59,7 @@ def deserialize_json(data: dict) -> ServiceQuotaExceededException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ServiceQuotaExceededException_.message required")
+        out["message"] = ""
     if data.get("reason") is not None:
         import capo_deadline.types.service_quota_exceeded_exception_reason
 
@@ -69,23 +69,24 @@ def deserialize_json(data: dict) -> ServiceQuotaExceededException_:
             )
         )
     else:
-        raise DeserializationError("ServiceQuotaExceededException_.reason required")
+        import typing
+
+        out["reason"] = typing.cast(
+            "capo_deadline.types.service_quota_exceeded_exception_reason.ServiceQuotaExceededExceptionReason",
+            "",
+        )
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError(
-            "ServiceQuotaExceededException_.resource_type required"
-        )
+        out["resource_type"] = ""
     if data.get("serviceCode") is not None:
         out["service_code"] = data["serviceCode"]
     else:
-        raise DeserializationError(
-            "ServiceQuotaExceededException_.service_code required"
-        )
+        out["service_code"] = ""
     if data.get("quotaCode") is not None:
         out["quota_code"] = data["quotaCode"]
     else:
-        raise DeserializationError("ServiceQuotaExceededException_.quota_code required")
+        out["quota_code"] = ""
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     if data.get("context") is not None:

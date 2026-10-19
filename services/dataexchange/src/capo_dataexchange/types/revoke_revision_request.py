@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.__string_min10_max512
     import capo_dataexchange.types.id
@@ -34,5 +32,5 @@ def deserialize_json(data: dict) -> RevokeRevisionRequest:
     if data.get("RevocationComment") is not None:
         out["revocation_comment"] = data["RevocationComment"]
     else:
-        raise DeserializationError("RevokeRevisionRequest.revocation_comment required")
+        out["revocation_comment"] = ""
     return out

@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent_runtime._protocol.eventstream import HeaderValue, Message
-from capo_bedrock_agent_runtime.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.flow_output_content
@@ -47,7 +46,7 @@ def deserialize_json(data: dict) -> FlowOutputEvent:
     if data.get("nodeName") is not None:
         out["node_name"] = data["nodeName"]
     else:
-        raise DeserializationError("FlowOutputEvent.node_name required")
+        out["node_name"] = ""
     if data.get("nodeType") is not None:
         import capo_bedrock_agent_runtime.types.node_type
 
@@ -55,7 +54,11 @@ def deserialize_json(data: dict) -> FlowOutputEvent:
             data["nodeType"]
         )
     else:
-        raise DeserializationError("FlowOutputEvent.node_type required")
+        import typing
+
+        out["node_type"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.node_type.NodeType", ""
+        )
     if data.get("content") is not None:
         import capo_bedrock_agent_runtime.types.flow_output_content
 
@@ -65,7 +68,11 @@ def deserialize_json(data: dict) -> FlowOutputEvent:
             )
         )
     else:
-        raise DeserializationError("FlowOutputEvent.content required")
+        import capo_bedrock_agent_runtime.types._unknown
+
+        out["content"] = capo_bedrock_agent_runtime.types._unknown.UnknownUnionMember(
+            ""
+        )
     return out
 
 

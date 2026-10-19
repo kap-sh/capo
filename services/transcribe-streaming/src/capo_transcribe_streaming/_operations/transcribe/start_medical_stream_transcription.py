@@ -115,15 +115,21 @@ def handle_response(
         out["type"] = capo_transcribe_streaming.types.type.deserialize_json(
             response.headers["x-amzn-transcribe-type"]
         )
-    out["show_speaker_label"] = (
-        response.headers["x-amzn-transcribe-show-speaker-label"].lower() == "true"
-    )
+    if "x-amzn-transcribe-show-speaker-label" in response.headers:
+        out["show_speaker_label"] = (
+            response.headers["x-amzn-transcribe-show-speaker-label"].lower() == "true"
+        )
+    else:
+        out["show_speaker_label"] = False
     if "x-amzn-transcribe-session-id" in response.headers:
         out["session_id"] = response.headers["x-amzn-transcribe-session-id"]
-    out["enable_channel_identification"] = (
-        response.headers["x-amzn-transcribe-enable-channel-identification"].lower()
-        == "true"
-    )
+    if "x-amzn-transcribe-enable-channel-identification" in response.headers:
+        out["enable_channel_identification"] = (
+            response.headers["x-amzn-transcribe-enable-channel-identification"].lower()
+            == "true"
+        )
+    else:
+        out["enable_channel_identification"] = False
     if "x-amzn-transcribe-number-of-channels" in response.headers:
         out["number_of_channels"] = int(
             response.headers["x-amzn-transcribe-number-of-channels"]
@@ -179,15 +185,21 @@ async def async_handle_response(
         out["type"] = capo_transcribe_streaming.types.type.deserialize_json(
             response.headers["x-amzn-transcribe-type"]
         )
-    out["show_speaker_label"] = (
-        response.headers["x-amzn-transcribe-show-speaker-label"].lower() == "true"
-    )
+    if "x-amzn-transcribe-show-speaker-label" in response.headers:
+        out["show_speaker_label"] = (
+            response.headers["x-amzn-transcribe-show-speaker-label"].lower() == "true"
+        )
+    else:
+        out["show_speaker_label"] = False
     if "x-amzn-transcribe-session-id" in response.headers:
         out["session_id"] = response.headers["x-amzn-transcribe-session-id"]
-    out["enable_channel_identification"] = (
-        response.headers["x-amzn-transcribe-enable-channel-identification"].lower()
-        == "true"
-    )
+    if "x-amzn-transcribe-enable-channel-identification" in response.headers:
+        out["enable_channel_identification"] = (
+            response.headers["x-amzn-transcribe-enable-channel-identification"].lower()
+            == "true"
+        )
+    else:
+        out["enable_channel_identification"] = False
     if "x-amzn-transcribe-number-of-channels" in response.headers:
         out["number_of_channels"] = int(
             response.headers["x-amzn-transcribe-number-of-channels"]

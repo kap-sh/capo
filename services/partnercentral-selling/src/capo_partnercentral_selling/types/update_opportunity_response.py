@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.date_time
     import capo_partnercentral_selling.types.opportunity_identifier
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateOpportunityResponse:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("UpdateOpportunityResponse.id required")
+        out["id"] = ""
     if data.get("LastModifiedDate") is not None:
         import capo_partnercentral_selling.types.date_time
 
@@ -47,7 +45,9 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateOpportunityResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateOpportunityResponse.last_modified_date required"
+        import datetime
+
+        out["last_modified_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

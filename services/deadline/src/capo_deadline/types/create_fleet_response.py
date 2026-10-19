@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.fleet_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CreateFleetResponse:
     if data.get("fleetId") is not None:
         out["fleet_id"] = data["fleetId"]
     else:
-        raise DeserializationError("CreateFleetResponse.fleet_id required")
+        out["fleet_id"] = ""
     return out

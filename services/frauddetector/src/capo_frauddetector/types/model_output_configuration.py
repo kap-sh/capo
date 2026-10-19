@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.csv_index_to_variable_map
     import capo_frauddetector.types.json_key_to_variable_map
@@ -65,7 +63,12 @@ def deserialize_aws_json_1_1(data: dict) -> ModelOutputConfiguration:
             )
         )
     else:
-        raise DeserializationError("ModelOutputConfiguration.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_frauddetector.types.model_output_data_format.ModelOutputDataFormat",
+            "",
+        )
     if data.get("jsonKeyToVariableMap") is not None:
         import capo_frauddetector.types.json_key_to_variable_map
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.dashboard_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteDashboardRequest:
     if data.get("DashboardId") is not None:
         out["dashboard_id"] = data["DashboardId"]
     else:
-        raise DeserializationError("DeleteDashboardRequest.dashboard_id required")
+        out["dashboard_id"] = ""
     return out

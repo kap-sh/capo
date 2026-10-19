@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.lineage_sync_schedule_cron_string
     import capo_datazone.types.timezone
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> LineageSyncInput:
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     else:
-        raise DeserializationError("LineageSyncInput.enabled required")
+        out["enabled"] = False
     if data.get("schedule") is not None:
         out["schedule"] = data["schedule"]
     return out

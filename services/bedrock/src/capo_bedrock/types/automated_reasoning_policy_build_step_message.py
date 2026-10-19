@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_build_message_type
 
@@ -36,9 +34,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildStepMessage:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyBuildStepMessage.message required"
-        )
+        out["message"] = ""
     if data.get("messageType") is not None:
         import capo_bedrock.types.automated_reasoning_policy_build_message_type
 
@@ -48,7 +44,10 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildStepMessage:
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyBuildStepMessage.message_type required"
+        import typing
+
+        out["message_type"] = typing.cast(
+            "capo_bedrock.types.automated_reasoning_policy_build_message_type.AutomatedReasoningPolicyBuildMessageType",
+            "",
         )
     return out

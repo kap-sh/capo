@@ -63,7 +63,7 @@ def deserialize_json(data: dict) -> DescribeActionResponse:
     if data.get("actionId") is not None:
         out["action_id"] = data["actionId"]
     else:
-        raise DeserializationError("DescribeActionResponse.action_id required")
+        out["action_id"] = ""
     if data.get("targetResource") is not None:
         import capo_iotsitewise.types.target_resource
 
@@ -77,9 +77,7 @@ def deserialize_json(data: dict) -> DescribeActionResponse:
     if data.get("actionDefinitionId") is not None:
         out["action_definition_id"] = data["actionDefinitionId"]
     else:
-        raise DeserializationError(
-            "DescribeActionResponse.action_definition_id required"
-        )
+        out["action_definition_id"] = ""
     if data.get("actionPayload") is not None:
         import capo_iotsitewise.types.action_payload
 
@@ -95,7 +93,11 @@ def deserialize_json(data: dict) -> DescribeActionResponse:
             data["executionTime"]
         )
     else:
-        raise DeserializationError("DescribeActionResponse.execution_time required")
+        import datetime
+
+        out["execution_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("resolveTo") is not None:
         import capo_iotsitewise.types.resolve_to
 

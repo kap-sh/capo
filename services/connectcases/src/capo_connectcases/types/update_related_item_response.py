@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.association_time
     import capo_connectcases.types.related_item_arn
@@ -75,17 +73,15 @@ def deserialize_json(data: dict) -> UpdateRelatedItemResponse:
     if data.get("relatedItemId") is not None:
         out["related_item_id"] = data["relatedItemId"]
     else:
-        raise DeserializationError("UpdateRelatedItemResponse.related_item_id required")
+        out["related_item_id"] = ""
     if data.get("relatedItemArn") is not None:
         out["related_item_arn"] = data["relatedItemArn"]
     else:
-        raise DeserializationError(
-            "UpdateRelatedItemResponse.related_item_arn required"
-        )
+        out["related_item_arn"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("UpdateRelatedItemResponse.type required")
+        out["type"] = ""
     if data.get("content") is not None:
         import capo_connectcases.types.related_item_content
 
@@ -93,7 +89,9 @@ def deserialize_json(data: dict) -> UpdateRelatedItemResponse:
             data["content"]
         )
     else:
-        raise DeserializationError("UpdateRelatedItemResponse.content required")
+        import capo_connectcases.types._unknown
+
+        out["content"] = capo_connectcases.types._unknown.UnknownUnionMember("")
     if data.get("associationTime") is not None:
         import capo_connectcases.types.association_time
 
@@ -103,8 +101,10 @@ def deserialize_json(data: dict) -> UpdateRelatedItemResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateRelatedItemResponse.association_time required"
+        import datetime
+
+        out["association_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("tags") is not None:
         import capo_connectcases.types.tags

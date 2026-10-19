@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.s3_bucket_name
     import capo_ssm.types.s3_key_prefix
@@ -36,11 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> LoggingInfo:
     if data.get("S3BucketName") is not None:
         out["s3_bucket_name"] = data["S3BucketName"]
     else:
-        raise DeserializationError("LoggingInfo.s3_bucket_name required")
+        out["s3_bucket_name"] = ""
     if data.get("S3KeyPrefix") is not None:
         out["s3_key_prefix"] = data["S3KeyPrefix"]
     if data.get("S3Region") is not None:
         out["s3_region"] = data["S3Region"]
     else:
-        raise DeserializationError("LoggingInfo.s3_region required")
+        out["s3_region"] = ""
     return out

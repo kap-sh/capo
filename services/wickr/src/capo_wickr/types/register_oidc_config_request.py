@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.generic_string
     import capo_wickr.types.network_id
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> RegisterOidcConfigRequest:
     if data.get("companyId") is not None:
         out["company_id"] = data["companyId"]
     else:
-        raise DeserializationError("RegisterOidcConfigRequest.company_id required")
+        out["company_id"] = ""
     if data.get("customUsername") is not None:
         out["custom_username"] = data["customUsername"]
     if data.get("extraAuthParams") is not None:
@@ -65,11 +63,11 @@ def deserialize_json(data: dict) -> RegisterOidcConfigRequest:
     if data.get("issuer") is not None:
         out["issuer"] = data["issuer"]
     else:
-        raise DeserializationError("RegisterOidcConfigRequest.issuer required")
+        out["issuer"] = ""
     if data.get("scopes") is not None:
         out["scopes"] = data["scopes"]
     else:
-        raise DeserializationError("RegisterOidcConfigRequest.scopes required")
+        out["scopes"] = ""
     if data.get("secret") is not None:
         out["secret"] = data["secret"]
     if data.get("ssoTokenBufferMinutes") is not None:

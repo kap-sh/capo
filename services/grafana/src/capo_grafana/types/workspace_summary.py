@@ -107,21 +107,23 @@ def deserialize_json(data: dict) -> WorkspaceSummary:
             data["created"]
         )
     else:
-        raise DeserializationError("WorkspaceSummary.created required")
+        import datetime
+
+        out["created"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError("WorkspaceSummary.endpoint required")
+        out["endpoint"] = ""
     if data.get("grafanaVersion") is not None:
         out["grafana_version"] = data["grafanaVersion"]
     else:
-        raise DeserializationError("WorkspaceSummary.grafana_version required")
+        out["grafana_version"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("WorkspaceSummary.id required")
+        out["id"] = ""
     if data.get("modified") is not None:
         import capo_grafana.types._prelude.timestamp
 
@@ -129,7 +131,9 @@ def deserialize_json(data: dict) -> WorkspaceSummary:
             data["modified"]
         )
     else:
-        raise DeserializationError("WorkspaceSummary.modified required")
+        import datetime
+
+        out["modified"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("notificationDestinations") is not None:
@@ -143,7 +147,7 @@ def deserialize_json(data: dict) -> WorkspaceSummary:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("WorkspaceSummary.status required")
+        out["status"] = ""
     if data.get("authentication") is not None:
         import capo_grafana.types.authentication_summary
 

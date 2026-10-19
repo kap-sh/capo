@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.cloud_connector_configuration
     import capo_ssm.types.cloud_connector_description
@@ -61,11 +59,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCloudConnectorRequest:
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     else:
-        raise DeserializationError("CreateCloudConnectorRequest.display_name required")
+        out["display_name"] = ""
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("CreateCloudConnectorRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Configuration") is not None:
@@ -77,13 +75,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCloudConnectorRequest:
             )
         )
     else:
-        raise DeserializationError("CreateCloudConnectorRequest.configuration required")
+        import capo_ssm.types._unknown
+
+        out["configuration"] = capo_ssm.types._unknown.UnknownUnionMember("")
     if data.get("ConfigConnectorArn") is not None:
         out["config_connector_arn"] = data["ConfigConnectorArn"]
     else:
-        raise DeserializationError(
-            "CreateCloudConnectorRequest.config_connector_arn required"
-        )
+        out["config_connector_arn"] = ""
     if data.get("Tags") is not None:
         import capo_ssm.types.tag_list
 

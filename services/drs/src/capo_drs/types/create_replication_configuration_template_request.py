@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.arn
     import capo_drs.types.ec2_instance_type
@@ -112,9 +110,7 @@ def deserialize_json(data: dict) -> CreateReplicationConfigurationTemplateReques
     if data.get("stagingAreaSubnetId") is not None:
         out["staging_area_subnet_id"] = data["stagingAreaSubnetId"]
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigurationTemplateRequest.staging_area_subnet_id required"
-        )
+        out["staging_area_subnet_id"] = ""
     if data.get("associateDefaultSecurityGroup") is not None:
         out["associate_default_security_group"] = data["associateDefaultSecurityGroup"]
     if data.get("replicationServersSecurityGroupsIDs") is not None:
@@ -126,9 +122,7 @@ def deserialize_json(data: dict) -> CreateReplicationConfigurationTemplateReques
             )
         )
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigurationTemplateRequest.replication_servers_security_groups_i_ds required"
-        )
+        out["replication_servers_security_groups_i_ds"] = []
     if data.get("replicationServerInstanceType") is not None:
         out["replication_server_instance_type"] = data["replicationServerInstanceType"]
     if data.get("useDedicatedReplicationServer") is not None:
@@ -138,17 +132,13 @@ def deserialize_json(data: dict) -> CreateReplicationConfigurationTemplateReques
     if data.get("ebsEncryption") is not None:
         out["ebs_encryption"] = data["ebsEncryption"]
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigurationTemplateRequest.ebs_encryption required"
-        )
+        out["ebs_encryption"] = ""
     if data.get("ebsEncryptionKeyArn") is not None:
         out["ebs_encryption_key_arn"] = data["ebsEncryptionKeyArn"]
     if data.get("bandwidthThrottling") is not None:
         out["bandwidth_throttling"] = data["bandwidthThrottling"]
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigurationTemplateRequest.bandwidth_throttling required"
-        )
+        out["bandwidth_throttling"] = 0
     if data.get("dataPlaneRouting") is not None:
         out["data_plane_routing"] = data["dataPlaneRouting"]
     if data.get("createPublicIP") is not None:
@@ -160,9 +150,7 @@ def deserialize_json(data: dict) -> CreateReplicationConfigurationTemplateReques
             data["stagingAreaTags"]
         )
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigurationTemplateRequest.staging_area_tags required"
-        )
+        out["staging_area_tags"] = {}
     if data.get("pitPolicy") is not None:
         import capo_drs.types.pit_policy
 
@@ -170,9 +158,7 @@ def deserialize_json(data: dict) -> CreateReplicationConfigurationTemplateReques
             data["pitPolicy"]
         )
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigurationTemplateRequest.pit_policy required"
-        )
+        out["pit_policy"] = []
     if data.get("tags") is not None:
         import capo_drs.types.tags_map
 

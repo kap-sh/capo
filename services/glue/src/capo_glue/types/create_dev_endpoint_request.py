@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.generic_string
     import capo_glue.types.glue_version_string
@@ -112,11 +110,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDevEndpointRequest:
     if data.get("EndpointName") is not None:
         out["endpoint_name"] = data["EndpointName"]
     else:
-        raise DeserializationError("CreateDevEndpointRequest.endpoint_name required")
+        out["endpoint_name"] = ""
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("CreateDevEndpointRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("SecurityGroupIds") is not None:
         import capo_glue.types.string_list
 

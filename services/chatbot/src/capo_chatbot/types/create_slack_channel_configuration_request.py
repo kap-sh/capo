@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chatbot.types.arn
     import capo_chatbot.types.boolean_account_preference
@@ -89,15 +87,11 @@ def deserialize_json(data: dict) -> CreateSlackChannelConfigurationRequest:
     if data.get("SlackTeamId") is not None:
         out["slack_team_id"] = data["SlackTeamId"]
     else:
-        raise DeserializationError(
-            "CreateSlackChannelConfigurationRequest.slack_team_id required"
-        )
+        out["slack_team_id"] = ""
     if data.get("SlackChannelId") is not None:
         out["slack_channel_id"] = data["SlackChannelId"]
     else:
-        raise DeserializationError(
-            "CreateSlackChannelConfigurationRequest.slack_channel_id required"
-        )
+        out["slack_channel_id"] = ""
     if data.get("SlackChannelName") is not None:
         out["slack_channel_name"] = data["SlackChannelName"]
     if data.get("SnsTopicArns") is not None:
@@ -109,15 +103,11 @@ def deserialize_json(data: dict) -> CreateSlackChannelConfigurationRequest:
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     else:
-        raise DeserializationError(
-            "CreateSlackChannelConfigurationRequest.iam_role_arn required"
-        )
+        out["iam_role_arn"] = ""
     if data.get("ConfigurationName") is not None:
         out["configuration_name"] = data["ConfigurationName"]
     else:
-        raise DeserializationError(
-            "CreateSlackChannelConfigurationRequest.configuration_name required"
-        )
+        out["configuration_name"] = ""
     if data.get("LoggingLevel") is not None:
         out["logging_level"] = data["LoggingLevel"]
     if data.get("GuardrailPolicyArns") is not None:

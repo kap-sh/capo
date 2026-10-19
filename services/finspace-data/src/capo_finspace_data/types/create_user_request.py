@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_finspace_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace_data.types.api_access
     import capo_finspace_data.types.client_token
@@ -62,13 +60,15 @@ def deserialize_json(data: dict) -> CreateUserRequest:
     if data.get("emailAddress") is not None:
         out["email_address"] = data["emailAddress"]
     else:
-        raise DeserializationError("CreateUserRequest.email_address required")
+        out["email_address"] = ""
     if data.get("type") is not None:
         import capo_finspace_data.types.user_type
 
         out["type"] = capo_finspace_data.types.user_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("CreateUserRequest.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_finspace_data.types.user_type.UserType", "")
     if data.get("firstName") is not None:
         out["first_name"] = data["firstName"]
     if data.get("lastName") is not None:

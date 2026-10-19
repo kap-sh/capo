@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.boolean_optional
     import capo_database_migration_service.types.event_categories_list
@@ -78,15 +76,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEventSubscriptionMessage:
     if data.get("SubscriptionName") is not None:
         out["subscription_name"] = data["SubscriptionName"]
     else:
-        raise DeserializationError(
-            "CreateEventSubscriptionMessage.subscription_name required"
-        )
+        out["subscription_name"] = ""
     if data.get("SnsTopicArn") is not None:
         out["sns_topic_arn"] = data["SnsTopicArn"]
     else:
-        raise DeserializationError(
-            "CreateEventSubscriptionMessage.sns_topic_arn required"
-        )
+        out["sns_topic_arn"] = ""
     if data.get("SourceType") is not None:
         out["source_type"] = data["SourceType"]
     if data.get("EventCategories") is not None:

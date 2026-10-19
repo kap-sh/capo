@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.boolean
     import capo_kendra.types.data_source_field_name
@@ -104,9 +102,7 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceNowKnowledgeArticleConfigurat
     if data.get("DocumentDataFieldName") is not None:
         out["document_data_field_name"] = data["DocumentDataFieldName"]
     else:
-        raise DeserializationError(
-            "ServiceNowKnowledgeArticleConfiguration.document_data_field_name required"
-        )
+        out["document_data_field_name"] = ""
     if data.get("DocumentTitleFieldName") is not None:
         out["document_title_field_name"] = data["DocumentTitleFieldName"]
     if data.get("FieldMappings") is not None:

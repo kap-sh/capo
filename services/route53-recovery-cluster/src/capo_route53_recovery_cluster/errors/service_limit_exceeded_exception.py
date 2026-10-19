@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53_recovery_cluster.errors import DeserializationError, ServiceError
+from capo_route53_recovery_cluster.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_route53_recovery_cluster.types.string
@@ -41,7 +41,7 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceLimitExceededException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ServiceLimitExceededException_.message required")
+        out["message"] = ""
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     if data.get("resourceType") is not None:
@@ -49,13 +49,11 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceLimitExceededException_:
     if data.get("limitCode") is not None:
         out["limit_code"] = data["limitCode"]
     else:
-        raise DeserializationError("ServiceLimitExceededException_.limit_code required")
+        out["limit_code"] = ""
     if data.get("serviceCode") is not None:
         out["service_code"] = data["serviceCode"]
     else:
-        raise DeserializationError(
-            "ServiceLimitExceededException_.service_code required"
-        )
+        out["service_code"] = ""
     return out
 
 

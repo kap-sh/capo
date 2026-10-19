@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.compute_config
     import capo_database_migration_service.types.migration_type_value
@@ -87,9 +85,7 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyReplicationConfigMessage:
     if data.get("ReplicationConfigArn") is not None:
         out["replication_config_arn"] = data["ReplicationConfigArn"]
     else:
-        raise DeserializationError(
-            "ModifyReplicationConfigMessage.replication_config_arn required"
-        )
+        out["replication_config_arn"] = ""
     if data.get("ReplicationConfigIdentifier") is not None:
         out["replication_config_identifier"] = data["ReplicationConfigIdentifier"]
     if data.get("ReplicationType") is not None:

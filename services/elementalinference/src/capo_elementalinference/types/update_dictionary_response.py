@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_elementalinference.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elementalinference.types.dictionary_arn
     import capo_elementalinference.types.dictionary_id
@@ -73,15 +71,15 @@ def deserialize_json(data: dict) -> UpdateDictionaryResponse:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateDictionaryResponse.name required")
+        out["name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("UpdateDictionaryResponse.arn required")
+        out["arn"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("UpdateDictionaryResponse.id required")
+        out["id"] = ""
     if data.get("language") is not None:
         import capo_elementalinference.types.dictionary_language
 
@@ -91,7 +89,11 @@ def deserialize_json(data: dict) -> UpdateDictionaryResponse:
             )
         )
     else:
-        raise DeserializationError("UpdateDictionaryResponse.language required")
+        import typing
+
+        out["language"] = typing.cast(
+            "capo_elementalinference.types.dictionary_language.DictionaryLanguage", ""
+        )
     if data.get("status") is not None:
         import capo_elementalinference.types.dictionary_status
 
@@ -101,7 +103,11 @@ def deserialize_json(data: dict) -> UpdateDictionaryResponse:
             )
         )
     else:
-        raise DeserializationError("UpdateDictionaryResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_elementalinference.types.dictionary_status.DictionaryStatus", ""
+        )
     if data.get("references") is not None:
         import capo_elementalinference.types.feed_references
 

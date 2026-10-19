@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.import_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeImportInput:
     if data.get("ImportArn") is not None:
         out["import_arn"] = data["ImportArn"]
     else:
-        raise DeserializationError("DescribeImportInput.import_arn required")
+        out["import_arn"] = ""
     return out

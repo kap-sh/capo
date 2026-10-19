@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_email.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_email.types.tag_list
 
@@ -31,5 +29,5 @@ def deserialize_json(data: dict) -> ListTagsForResourceResponse:
 
         out["tags"] = capo_pinpoint_email.types.tag_list.deserialize_json(data["Tags"])
     else:
-        raise DeserializationError("ListTagsForResourceResponse.tags required")
+        out["tags"] = []
     return out

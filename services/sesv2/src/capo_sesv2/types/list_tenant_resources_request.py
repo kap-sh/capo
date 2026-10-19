@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.list_tenant_resources_filter
     import capo_sesv2.types.max_items
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> ListTenantResourcesRequest:
     if data.get("TenantName") is not None:
         out["tenant_name"] = data["TenantName"]
     else:
-        raise DeserializationError("ListTenantResourcesRequest.tenant_name required")
+        out["tenant_name"] = ""
     if data.get("Filter") is not None:
         import capo_sesv2.types.list_tenant_resources_filter
 

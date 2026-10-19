@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -69,9 +68,7 @@ def deserialize_query(el: Element) -> UpdateSAMLProviderRequest:
     if child_saml_provider_arn is not None:
         out["saml_provider_arn"] = str(child_saml_provider_arn.text or "")
     else:
-        raise DeserializationError(
-            "UpdateSAMLProviderRequest.saml_provider_arn required"
-        )
+        out["saml_provider_arn"] = ""
     child_assertion_encryption_mode = el.find("AssertionEncryptionMode")
     if child_assertion_encryption_mode is not None:
         import capo_iam.types.assertion_encryption_mode_type

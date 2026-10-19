@@ -39,7 +39,9 @@ def deserialize_json(data: dict) -> EngineModeStatus:
             data["Options"]
         )
     else:
-        raise DeserializationError("EngineModeStatus.options required")
+        import typing
+
+        out["options"] = typing.cast("capo_opensearch.types.engine_mode.EngineMode", "")
     if data.get("Status") is not None:
         import capo_opensearch.types.option_status
 

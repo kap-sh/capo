@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.access_advisor_usage_granularity_type
@@ -43,9 +42,7 @@ def deserialize_query(el: Element) -> GenerateServiceLastAccessedDetailsRequest:
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError(
-            "GenerateServiceLastAccessedDetailsRequest.arn required"
-        )
+        out["arn"] = ""
     child_granularity = el.find("Granularity")
     if child_granularity is not None:
         import capo_iam.types.access_advisor_usage_granularity_type

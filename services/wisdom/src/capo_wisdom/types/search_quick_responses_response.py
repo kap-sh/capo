@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wisdom.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wisdom.types.non_empty_string
     import capo_wisdom.types.quick_response_search_results_list
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> SearchQuickResponsesResponse:
             )
         )
     else:
-        raise DeserializationError("SearchQuickResponsesResponse.results required")
+        out["results"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

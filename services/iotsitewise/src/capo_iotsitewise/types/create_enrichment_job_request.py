@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.client_token
     import capo_iotsitewise.types.enrichment_job_configuration
@@ -49,8 +47,10 @@ def deserialize_json(data: dict) -> CreateEnrichmentJobRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateEnrichmentJobRequest.job_configuration required"
+        import capo_iotsitewise.types._unknown
+
+        out["job_configuration"] = capo_iotsitewise.types._unknown.UnknownUnionMember(
+            ""
         )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]

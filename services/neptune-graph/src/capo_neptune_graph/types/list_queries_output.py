@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_neptune_graph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_neptune_graph.types.query_summary_list
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> ListQueriesOutput:
             data["queries"]
         )
     else:
-        raise DeserializationError("ListQueriesOutput.queries required")
+        out["queries"] = []
     return out

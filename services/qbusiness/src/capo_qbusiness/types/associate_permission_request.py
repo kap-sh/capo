@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.application_id
     import capo_qbusiness.types.permission_conditions
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> AssociatePermissionRequest:
     if data.get("statementId") is not None:
         out["statement_id"] = data["statementId"]
     else:
-        raise DeserializationError("AssociatePermissionRequest.statement_id required")
+        out["statement_id"] = ""
     if data.get("actions") is not None:
         import capo_qbusiness.types.q_iam_actions
 
@@ -59,7 +57,7 @@ def deserialize_json(data: dict) -> AssociatePermissionRequest:
             data["actions"]
         )
     else:
-        raise DeserializationError("AssociatePermissionRequest.actions required")
+        out["actions"] = []
     if data.get("conditions") is not None:
         import capo_qbusiness.types.permission_conditions
 
@@ -69,5 +67,5 @@ def deserialize_json(data: dict) -> AssociatePermissionRequest:
     if data.get("principal") is not None:
         out["principal"] = data["principal"]
     else:
-        raise DeserializationError("AssociatePermissionRequest.principal required")
+        out["principal"] = ""
     return out

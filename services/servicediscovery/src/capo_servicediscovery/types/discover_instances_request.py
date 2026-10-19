@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_servicediscovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_servicediscovery.types.attributes
     import capo_servicediscovery.types.aws_account_id
@@ -81,11 +79,11 @@ def deserialize_aws_json_1_1(data: dict) -> DiscoverInstancesRequest:
     if data.get("NamespaceName") is not None:
         out["namespace_name"] = data["NamespaceName"]
     else:
-        raise DeserializationError("DiscoverInstancesRequest.namespace_name required")
+        out["namespace_name"] = ""
     if data.get("ServiceName") is not None:
         out["service_name"] = data["ServiceName"]
     else:
-        raise DeserializationError("DiscoverInstancesRequest.service_name required")
+        out["service_name"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("QueryParameters") is not None:

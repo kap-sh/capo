@@ -5,10 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_partnercentral_revenue_measurement.errors import (
-    DeserializationError,
-    ServiceError,
-)
+from capo_partnercentral_revenue_measurement.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_partnercentral_revenue_measurement.types.service_quota_exceeded_exception_reason
@@ -39,7 +36,7 @@ def deserialize_cbor(data: dict) -> ServiceQuotaExceededException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("ServiceQuotaExceededException_.message required")
+        out["message"] = ""
     if data.get("Reason") is not None:
         import capo_partnercentral_revenue_measurement.types.service_quota_exceeded_exception_reason
 
@@ -49,7 +46,12 @@ def deserialize_cbor(data: dict) -> ServiceQuotaExceededException_:
             )
         )
     else:
-        raise DeserializationError("ServiceQuotaExceededException_.reason required")
+        import typing
+
+        out["reason"] = typing.cast(
+            "capo_partnercentral_revenue_measurement.types.service_quota_exceeded_exception_reason.ServiceQuotaExceededExceptionReason",
+            "",
+        )
     return out
 
 

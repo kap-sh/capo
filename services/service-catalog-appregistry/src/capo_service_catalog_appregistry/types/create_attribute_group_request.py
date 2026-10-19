@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_catalog_appregistry.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog_appregistry.types.attributes
     import capo_service_catalog_appregistry.types.client_token
@@ -51,13 +49,13 @@ def deserialize_json(data: dict) -> CreateAttributeGroupRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateAttributeGroupRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("attributes") is not None:
         out["attributes"] = data["attributes"]
     else:
-        raise DeserializationError("CreateAttributeGroupRequest.attributes required")
+        out["attributes"] = ""
     if data.get("tags") is not None:
         import capo_service_catalog_appregistry.types.tags
 
@@ -67,5 +65,5 @@ def deserialize_json(data: dict) -> CreateAttributeGroupRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CreateAttributeGroupRequest.client_token required")
+        out["client_token"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.configured_table_analysis_rule_policy
     import capo_cleanrooms.types.configured_table_analysis_rule_type
@@ -47,7 +45,9 @@ def deserialize_json(data: dict) -> UpdateConfiguredTableAnalysisRuleInput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateConfiguredTableAnalysisRuleInput.analysis_rule_policy required"
+        import capo_cleanrooms.types._unknown
+
+        out["analysis_rule_policy"] = capo_cleanrooms.types._unknown.UnknownUnionMember(
+            ""
         )
     return out

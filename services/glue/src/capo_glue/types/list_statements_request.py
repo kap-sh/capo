@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.name_string
     import capo_glue.types.orchestration_name_string
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListStatementsRequest:
     if data.get("SessionId") is not None:
         out["session_id"] = data["SessionId"]
     else:
-        raise DeserializationError("ListStatementsRequest.session_id required")
+        out["session_id"] = ""
     if data.get("RequestOrigin") is not None:
         out["request_origin"] = data["RequestOrigin"]
     if data.get("NextToken") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3files.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3files.types.access_point_arn
     import capo_s3files.types.access_point_id
@@ -79,21 +77,19 @@ def deserialize_json(data: dict) -> CreateAccessPointResponse:
     if data.get("accessPointArn") is not None:
         out["access_point_arn"] = data["accessPointArn"]
     else:
-        raise DeserializationError(
-            "CreateAccessPointResponse.access_point_arn required"
-        )
+        out["access_point_arn"] = ""
     if data.get("accessPointId") is not None:
         out["access_point_id"] = data["accessPointId"]
     else:
-        raise DeserializationError("CreateAccessPointResponse.access_point_id required")
+        out["access_point_id"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CreateAccessPointResponse.client_token required")
+        out["client_token"] = ""
     if data.get("fileSystemId") is not None:
         out["file_system_id"] = data["fileSystemId"]
     else:
-        raise DeserializationError("CreateAccessPointResponse.file_system_id required")
+        out["file_system_id"] = ""
     if data.get("status") is not None:
         import capo_s3files.types.life_cycle_state
 
@@ -101,11 +97,15 @@ def deserialize_json(data: dict) -> CreateAccessPointResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("CreateAccessPointResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_s3files.types.life_cycle_state.LifeCycleState", ""
+        )
     if data.get("ownerId") is not None:
         out["owner_id"] = data["ownerId"]
     else:
-        raise DeserializationError("CreateAccessPointResponse.owner_id required")
+        out["owner_id"] = ""
     if data.get("posixUser") is not None:
         import capo_s3files.types.posix_user
 

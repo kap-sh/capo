@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.input_source_arn
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> MatchedRecord:
     if data.get("inputSourceARN") is not None:
         out["input_source_arn"] = data["inputSourceARN"]
     else:
-        raise DeserializationError("MatchedRecord.input_source_arn required")
+        out["input_source_arn"] = ""
     if data.get("recordId") is not None:
         out["record_id"] = data["recordId"]
     else:
-        raise DeserializationError("MatchedRecord.record_id required")
+        out["record_id"] = ""
     return out

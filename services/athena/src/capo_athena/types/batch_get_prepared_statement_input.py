@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.prepared_statement_name_list
     import capo_athena.types.work_group_name
@@ -45,11 +43,9 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetPreparedStatementInput:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetPreparedStatementInput.prepared_statement_names required"
-        )
+        out["prepared_statement_names"] = []
     if data.get("WorkGroup") is not None:
         out["work_group"] = data["WorkGroup"]
     else:
-        raise DeserializationError("BatchGetPreparedStatementInput.work_group required")
+        out["work_group"] = ""
     return out

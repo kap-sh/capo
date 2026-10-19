@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.encrypted_key_metadata_string
     import capo_glue.types.encryption_key_id_string
@@ -48,13 +46,11 @@ def deserialize_aws_json_1_1(data: dict) -> IcebergEncryptedKey:
     if data.get("KeyId") is not None:
         out["key_id"] = data["KeyId"]
     else:
-        raise DeserializationError("IcebergEncryptedKey.key_id required")
+        out["key_id"] = ""
     if data.get("EncryptedKeyMetadata") is not None:
         out["encrypted_key_metadata"] = data["EncryptedKeyMetadata"]
     else:
-        raise DeserializationError(
-            "IcebergEncryptedKey.encrypted_key_metadata required"
-        )
+        out["encrypted_key_metadata"] = ""
     if data.get("EncryptedById") is not None:
         out["encrypted_by_id"] = data["EncryptedById"]
     if data.get("Properties") is not None:

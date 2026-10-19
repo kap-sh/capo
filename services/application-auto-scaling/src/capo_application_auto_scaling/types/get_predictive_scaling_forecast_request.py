@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_auto_scaling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_auto_scaling.types.policy_name
     import capo_application_auto_scaling.types.resource_id_max_len1600
@@ -80,15 +78,15 @@ def deserialize_aws_json_1_1(data: dict) -> GetPredictiveScalingForecastRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GetPredictiveScalingForecastRequest.service_namespace required"
+        import typing
+
+        out["service_namespace"] = typing.cast(
+            "capo_application_auto_scaling.types.service_namespace.ServiceNamespace", ""
         )
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError(
-            "GetPredictiveScalingForecastRequest.resource_id required"
-        )
+        out["resource_id"] = ""
     if data.get("ScalableDimension") is not None:
         import capo_application_auto_scaling.types.scalable_dimension
 
@@ -98,15 +96,16 @@ def deserialize_aws_json_1_1(data: dict) -> GetPredictiveScalingForecastRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GetPredictiveScalingForecastRequest.scalable_dimension required"
+        import typing
+
+        out["scalable_dimension"] = typing.cast(
+            "capo_application_auto_scaling.types.scalable_dimension.ScalableDimension",
+            "",
         )
     if data.get("PolicyName") is not None:
         out["policy_name"] = data["PolicyName"]
     else:
-        raise DeserializationError(
-            "GetPredictiveScalingForecastRequest.policy_name required"
-        )
+        out["policy_name"] = ""
     if data.get("StartTime") is not None:
         import capo_application_auto_scaling.types.timestamp_type
 
@@ -116,9 +115,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetPredictiveScalingForecastRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GetPredictiveScalingForecastRequest.start_time required"
-        )
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_application_auto_scaling.types.timestamp_type
 
@@ -128,7 +127,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetPredictiveScalingForecastRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GetPredictiveScalingForecastRequest.end_time required"
-        )
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.approval_status
     import capo_codepipeline.types.approval_summary
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> ApprovalResult:
     if data.get("summary") is not None:
         out["summary"] = data["summary"]
     else:
-        raise DeserializationError("ApprovalResult.summary required")
+        out["summary"] = ""
     if data.get("status") is not None:
         import capo_codepipeline.types.approval_status
 
@@ -45,5 +43,9 @@ def deserialize_aws_json_1_1(data: dict) -> ApprovalResult:
             )
         )
     else:
-        raise DeserializationError("ApprovalResult.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_codepipeline.types.approval_status.ApprovalStatus", ""
+        )
     return out

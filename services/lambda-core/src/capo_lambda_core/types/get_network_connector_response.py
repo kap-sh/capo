@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda_core.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_core.types.core_timestamp
     import capo_lambda_core.types.network_connector_arn
@@ -151,15 +149,15 @@ def deserialize_json(data: dict) -> GetNetworkConnectorResponse:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("GetNetworkConnectorResponse.arn required")
+        out["arn"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("GetNetworkConnectorResponse.name required")
+        out["name"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("GetNetworkConnectorResponse.id required")
+        out["id"] = ""
     if data.get("VersionArn") is not None:
         out["version_arn"] = data["VersionArn"]
     if data.get("Version") is not None:

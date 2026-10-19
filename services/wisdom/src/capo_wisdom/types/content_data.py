@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wisdom.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -86,39 +84,39 @@ def deserialize_json(data: dict) -> ContentData:
     if data.get("contentArn") is not None:
         out["content_arn"] = data["contentArn"]
     else:
-        raise DeserializationError("ContentData.content_arn required")
+        out["content_arn"] = ""
     if data.get("contentId") is not None:
         out["content_id"] = data["contentId"]
     else:
-        raise DeserializationError("ContentData.content_id required")
+        out["content_id"] = ""
     if data.get("knowledgeBaseArn") is not None:
         out["knowledge_base_arn"] = data["knowledgeBaseArn"]
     else:
-        raise DeserializationError("ContentData.knowledge_base_arn required")
+        out["knowledge_base_arn"] = ""
     if data.get("knowledgeBaseId") is not None:
         out["knowledge_base_id"] = data["knowledgeBaseId"]
     else:
-        raise DeserializationError("ContentData.knowledge_base_id required")
+        out["knowledge_base_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ContentData.name required")
+        out["name"] = ""
     if data.get("revisionId") is not None:
         out["revision_id"] = data["revisionId"]
     else:
-        raise DeserializationError("ContentData.revision_id required")
+        out["revision_id"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("ContentData.title required")
+        out["title"] = ""
     if data.get("contentType") is not None:
         out["content_type"] = data["contentType"]
     else:
-        raise DeserializationError("ContentData.content_type required")
+        out["content_type"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("ContentData.status required")
+        out["status"] = ""
     if data.get("metadata") is not None:
         import capo_wisdom.types.content_metadata
 
@@ -126,7 +124,7 @@ def deserialize_json(data: dict) -> ContentData:
             data["metadata"]
         )
     else:
-        raise DeserializationError("ContentData.metadata required")
+        out["metadata"] = {}
     if data.get("tags") is not None:
         import capo_wisdom.types.tags
 
@@ -136,7 +134,7 @@ def deserialize_json(data: dict) -> ContentData:
     if data.get("url") is not None:
         out["url"] = data["url"]
     else:
-        raise DeserializationError("ContentData.url required")
+        out["url"] = ""
     if data.get("urlExpiry") is not None:
         import datetime
 
@@ -144,7 +142,9 @@ def deserialize_json(data: dict) -> ContentData:
             float(data["urlExpiry"]), tz=datetime.timezone.utc
         )
     else:
-        raise DeserializationError("ContentData.url_expiry required")
+        import datetime
+
+        out["url_expiry"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

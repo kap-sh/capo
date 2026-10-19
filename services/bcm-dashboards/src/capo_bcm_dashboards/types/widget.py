@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_dashboards.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_dashboards.types.description
     import capo_bcm_dashboards.types.widget_config_list
@@ -60,7 +58,7 @@ def deserialize_aws_json_1_0(data: dict) -> Widget:
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("Widget.title required")
+        out["title"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("width") is not None:
@@ -84,5 +82,5 @@ def deserialize_aws_json_1_0(data: dict) -> Widget:
             )
         )
     else:
-        raise DeserializationError("Widget.configs required")
+        out["configs"] = []
     return out

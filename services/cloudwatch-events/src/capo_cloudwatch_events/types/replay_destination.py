@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_events.types.arn
     import capo_cloudwatch_events.types.replay_destination_filters
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> ReplayDestination:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("ReplayDestination.arn required")
+        out["arn"] = ""
     if data.get("FilterArns") is not None:
         import capo_cloudwatch_events.types.replay_destination_filters
 

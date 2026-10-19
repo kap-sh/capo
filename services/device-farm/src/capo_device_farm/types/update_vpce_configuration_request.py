@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_device_farm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_device_farm.types.amazon_resource_name
     import capo_device_farm.types.service_dns_name
@@ -55,7 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateVPCEConfigurationRequest:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("UpdateVPCEConfigurationRequest.arn required")
+        out["arn"] = ""
     if data.get("vpceConfigurationName") is not None:
         out["vpce_configuration_name"] = data["vpceConfigurationName"]
     if data.get("vpceServiceName") is not None:

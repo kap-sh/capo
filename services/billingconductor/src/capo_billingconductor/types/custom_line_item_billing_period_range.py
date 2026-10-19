@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billingconductor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billingconductor.types.billing_period
 
@@ -35,9 +33,7 @@ def deserialize_json(data: dict) -> CustomLineItemBillingPeriodRange:
     if data.get("InclusiveStartBillingPeriod") is not None:
         out["inclusive_start_billing_period"] = data["InclusiveStartBillingPeriod"]
     else:
-        raise DeserializationError(
-            "CustomLineItemBillingPeriodRange.inclusive_start_billing_period required"
-        )
+        out["inclusive_start_billing_period"] = ""
     if data.get("ExclusiveEndBillingPeriod") is not None:
         out["exclusive_end_billing_period"] = data["ExclusiveEndBillingPeriod"]
     return out

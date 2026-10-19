@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chatbot.types.tag_key
     import capo_chatbot.types.tag_value
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> Tag:
     if data.get("TagKey") is not None:
         out["tag_key"] = data["TagKey"]
     else:
-        raise DeserializationError("Tag.tag_key required")
+        out["tag_key"] = ""
     if data.get("TagValue") is not None:
         out["tag_value"] = data["TagValue"]
     else:
-        raise DeserializationError("Tag.tag_value required")
+        out["tag_value"] = ""
     return out

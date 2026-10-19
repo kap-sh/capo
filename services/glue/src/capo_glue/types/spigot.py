@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.enclosed_in_string_property
     import capo_glue.types.node_name
@@ -55,7 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> Spigot:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Spigot.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.one_input
 
@@ -63,11 +61,11 @@ def deserialize_aws_json_1_1(data: dict) -> Spigot:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("Spigot.inputs required")
+        out["inputs"] = []
     if data.get("Path") is not None:
         out["path"] = data["Path"]
     else:
-        raise DeserializationError("Spigot.path required")
+        out["path"] = ""
     if data.get("Topk") is not None:
         out["topk"] = data["Topk"]
     if data.get("Prob") is not None:

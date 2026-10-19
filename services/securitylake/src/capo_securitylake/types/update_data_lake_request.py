@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securitylake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securitylake.types.data_lake_configuration_list
     import capo_securitylake.types.role_arn
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> UpdateDataLakeRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateDataLakeRequest.configurations required")
+        out["configurations"] = []
     if data.get("metaStoreManagerRoleArn") is not None:
         out["meta_store_manager_role_arn"] = data["metaStoreManagerRoleArn"]
     return out

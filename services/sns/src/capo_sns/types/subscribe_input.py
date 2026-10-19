@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sns.types.boolean
@@ -60,12 +59,12 @@ def deserialize_query(el: Element) -> SubscribeInput:
     if child_topic_arn is not None:
         out["topic_arn"] = str(child_topic_arn.text or "")
     else:
-        raise DeserializationError("SubscribeInput.topic_arn required")
+        out["topic_arn"] = ""
     child_protocol = el.find("Protocol")
     if child_protocol is not None:
         out["protocol"] = str(child_protocol.text or "")
     else:
-        raise DeserializationError("SubscribeInput.protocol required")
+        out["protocol"] = ""
     child_endpoint = el.find("Endpoint")
     if child_endpoint is not None:
         out["endpoint"] = str(child_endpoint.text or "")

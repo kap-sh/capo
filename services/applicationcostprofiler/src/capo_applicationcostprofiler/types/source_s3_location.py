@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_applicationcostprofiler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_applicationcostprofiler.types.s3_bucket
     import capo_applicationcostprofiler.types.s3_bucket_region
@@ -44,11 +42,11 @@ def deserialize_json(data: dict) -> SourceS3Location:
     if data.get("bucket") is not None:
         out["bucket"] = data["bucket"]
     else:
-        raise DeserializationError("SourceS3Location.bucket required")
+        out["bucket"] = ""
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("SourceS3Location.key required")
+        out["key"] = ""
     if data.get("region") is not None:
         import capo_applicationcostprofiler.types.s3_bucket_region
 

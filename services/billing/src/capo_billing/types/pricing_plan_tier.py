@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billing.errors import DeserializationError
-
 
 class PricingPlanTier(TypedDict, closed=True):
     tier_minimum: "str"
@@ -48,31 +46,27 @@ def deserialize_aws_json_1_0(data: dict) -> PricingPlanTier:
     if data.get("tierMinimum") is not None:
         out["tier_minimum"] = data["tierMinimum"]
     else:
-        raise DeserializationError("PricingPlanTier.tier_minimum required")
+        out["tier_minimum"] = ""
     if data.get("tierMaximum") is not None:
         out["tier_maximum"] = data["tierMaximum"]
     if data.get("baseCharge") is not None:
         out["base_charge"] = data["baseCharge"]
     else:
-        raise DeserializationError("PricingPlanTier.base_charge required")
+        out["base_charge"] = ""
     if data.get("additionalPercentageOfAggregateCharges") is not None:
         out["additional_percentage_of_aggregate_charges"] = data[
             "additionalPercentageOfAggregateCharges"
         ]
     else:
-        raise DeserializationError(
-            "PricingPlanTier.additional_percentage_of_aggregate_charges required"
-        )
+        out["additional_percentage_of_aggregate_charges"] = ""
     if data.get("aggregateChargesAdjustment") is not None:
         out["aggregate_charges_adjustment"] = data["aggregateChargesAdjustment"]
     else:
-        raise DeserializationError(
-            "PricingPlanTier.aggregate_charges_adjustment required"
-        )
+        out["aggregate_charges_adjustment"] = ""
     if data.get("incremental") is not None:
         out["incremental"] = data["incremental"]
     else:
-        raise DeserializationError("PricingPlanTier.incremental required")
+        out["incremental"] = False
     if data.get("increment") is not None:
         out["increment"] = data["increment"]
     if data.get("incrementCharge") is not None:

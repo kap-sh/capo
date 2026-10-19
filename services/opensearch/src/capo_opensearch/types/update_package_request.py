@@ -73,7 +73,7 @@ def deserialize_json(data: dict) -> UpdatePackageRequest:
     if data.get("PackageID") is not None:
         out["package_id"] = data["PackageID"]
     else:
-        raise DeserializationError("UpdatePackageRequest.package_id required")
+        out["package_id"] = ""
     if data.get("PackageSource") is not None:
         import capo_opensearch.types.package_source
 

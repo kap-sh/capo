@@ -90,21 +90,19 @@ def deserialize_aws_json_1_0(data: dict) -> RegistrationFieldDefinition:
     if data.get("SectionPath") is not None:
         out["section_path"] = data["SectionPath"]
     else:
-        raise DeserializationError("RegistrationFieldDefinition.section_path required")
+        out["section_path"] = ""
     if data.get("FieldPath") is not None:
         out["field_path"] = data["FieldPath"]
     else:
-        raise DeserializationError("RegistrationFieldDefinition.field_path required")
+        out["field_path"] = ""
     if data.get("FieldType") is not None:
         out["field_type"] = data["FieldType"]
     else:
-        raise DeserializationError("RegistrationFieldDefinition.field_type required")
+        out["field_type"] = ""
     if data.get("FieldRequirement") is not None:
         out["field_requirement"] = data["FieldRequirement"]
     else:
-        raise DeserializationError(
-            "RegistrationFieldDefinition.field_requirement required"
-        )
+        out["field_requirement"] = ""
     if data.get("SelectValidation") is not None:
         import capo_pinpoint_sms_voice_v2.types.select_validation
 

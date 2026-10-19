@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.asset_identifier
     import capo_datazone.types.asset_item_additional_attributes
@@ -120,23 +118,23 @@ def deserialize_json(data: dict) -> AssetItem:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("AssetItem.domain_id required")
+        out["domain_id"] = ""
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("AssetItem.identifier required")
+        out["identifier"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AssetItem.name required")
+        out["name"] = ""
     if data.get("typeIdentifier") is not None:
         out["type_identifier"] = data["typeIdentifier"]
     else:
-        raise DeserializationError("AssetItem.type_identifier required")
+        out["type_identifier"] = ""
     if data.get("typeRevision") is not None:
         out["type_revision"] = data["typeRevision"]
     else:
-        raise DeserializationError("AssetItem.type_revision required")
+        out["type_revision"] = ""
     if data.get("externalIdentifier") is not None:
         out["external_identifier"] = data["externalIdentifier"]
     if data.get("description") is not None:
@@ -168,7 +166,7 @@ def deserialize_json(data: dict) -> AssetItem:
     if data.get("owningProjectId") is not None:
         out["owning_project_id"] = data["owningProjectId"]
     else:
-        raise DeserializationError("AssetItem.owning_project_id required")
+        out["owning_project_id"] = ""
     if data.get("additionalAttributes") is not None:
         import capo_datazone.types.asset_item_additional_attributes
 

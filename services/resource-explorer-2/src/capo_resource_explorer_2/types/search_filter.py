@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_resource_explorer_2.errors import DeserializationError
-
 
 class SearchFilter(TypedDict, closed=True):
     filter_string: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> SearchFilter:
     if data.get("FilterString") is not None:
         out["filter_string"] = data["FilterString"]
     else:
-        raise DeserializationError("SearchFilter.filter_string required")
+        out["filter_string"] = ""
     return out

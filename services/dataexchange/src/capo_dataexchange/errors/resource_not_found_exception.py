@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dataexchange.errors import DeserializationError, ServiceError
+from capo_dataexchange.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_dataexchange.types.__string
@@ -37,7 +37,7 @@ def deserialize_json(data: dict) -> ResourceNotFoundException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("ResourceNotFoundException_.message required")
+        out["message"] = ""
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     if data.get("ResourceType") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codestar_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codestar_notifications.types.notification_rule_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DescribeNotificationRuleRequest:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("DescribeNotificationRuleRequest.arn required")
+        out["arn"] = ""
     return out

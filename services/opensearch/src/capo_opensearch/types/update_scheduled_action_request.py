@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.action_type
     import capo_opensearch.types.domain_name
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> UpdateScheduledActionRequest:
     if data.get("ActionID") is not None:
         out["action_id"] = data["ActionID"]
     else:
-        raise DeserializationError("UpdateScheduledActionRequest.action_id required")
+        out["action_id"] = ""
     if data.get("ActionType") is not None:
         import capo_opensearch.types.action_type
 
@@ -59,7 +57,11 @@ def deserialize_json(data: dict) -> UpdateScheduledActionRequest:
             data["ActionType"]
         )
     else:
-        raise DeserializationError("UpdateScheduledActionRequest.action_type required")
+        import typing
+
+        out["action_type"] = typing.cast(
+            "capo_opensearch.types.action_type.ActionType", ""
+        )
     if data.get("ScheduleAt") is not None:
         import capo_opensearch.types.schedule_at
 
@@ -67,7 +69,11 @@ def deserialize_json(data: dict) -> UpdateScheduledActionRequest:
             data["ScheduleAt"]
         )
     else:
-        raise DeserializationError("UpdateScheduledActionRequest.schedule_at required")
+        import typing
+
+        out["schedule_at"] = typing.cast(
+            "capo_opensearch.types.schedule_at.ScheduleAt", ""
+        )
     if data.get("DesiredStartTime") is not None:
         out["desired_start_time"] = data["DesiredStartTime"]
     return out

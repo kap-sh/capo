@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_detective.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_detective.types.account_list
     import capo_detective.types.boolean
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> CreateMembersRequest:
     if data.get("GraphArn") is not None:
         out["graph_arn"] = data["GraphArn"]
     else:
-        raise DeserializationError("CreateMembersRequest.graph_arn required")
+        out["graph_arn"] = ""
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     if data.get("DisableEmailNotification") is not None:
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> CreateMembersRequest:
             data["Accounts"]
         )
     else:
-        raise DeserializationError("CreateMembersRequest.accounts required")
+        out["accounts"] = []
     return out
 
 

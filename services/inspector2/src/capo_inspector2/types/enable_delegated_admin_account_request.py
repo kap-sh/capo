@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.account_id
     import capo_inspector2.types.client_token
@@ -32,9 +30,7 @@ def deserialize_json(data: dict) -> EnableDelegatedAdminAccountRequest:
     if data.get("delegatedAdminAccountId") is not None:
         out["delegated_admin_account_id"] = data["delegatedAdminAccountId"]
     else:
-        raise DeserializationError(
-            "EnableDelegatedAdminAccountRequest.delegated_admin_account_id required"
-        )
+        out["delegated_admin_account_id"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

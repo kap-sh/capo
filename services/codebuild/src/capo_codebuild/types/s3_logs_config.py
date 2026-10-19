@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.bucket_owner_access
     import capo_codebuild.types.logs_config_status_type
@@ -61,7 +59,11 @@ def deserialize_aws_json_1_1(data: dict) -> S3LogsConfig:
             )
         )
     else:
-        raise DeserializationError("S3LogsConfig.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_codebuild.types.logs_config_status_type.LogsConfigStatusType", ""
+        )
     if data.get("location") is not None:
         out["location"] = data["location"]
     if data.get("encryptionDisabled") is not None:

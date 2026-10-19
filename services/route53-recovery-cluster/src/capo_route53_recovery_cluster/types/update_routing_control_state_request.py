@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53_recovery_cluster.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53_recovery_cluster.types.arn
     import capo_route53_recovery_cluster.types.arns
@@ -52,9 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateRoutingControlStateRequest:
     if data.get("RoutingControlArn") is not None:
         out["routing_control_arn"] = data["RoutingControlArn"]
     else:
-        raise DeserializationError(
-            "UpdateRoutingControlStateRequest.routing_control_arn required"
-        )
+        out["routing_control_arn"] = ""
     if data.get("RoutingControlState") is not None:
         import capo_route53_recovery_cluster.types.routing_control_state
 
@@ -64,8 +60,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateRoutingControlStateRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateRoutingControlStateRequest.routing_control_state required"
+        import typing
+
+        out["routing_control_state"] = typing.cast(
+            "capo_route53_recovery_cluster.types.routing_control_state.RoutingControlState",
+            "",
         )
     if data.get("SafetyRulesToOverride") is not None:
         import capo_route53_recovery_cluster.types.arns

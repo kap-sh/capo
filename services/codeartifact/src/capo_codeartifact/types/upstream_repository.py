@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codeartifact.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeartifact.types.repository_name
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> UpstreamRepository:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError("UpstreamRepository.repository_name required")
+        out["repository_name"] = ""
     return out

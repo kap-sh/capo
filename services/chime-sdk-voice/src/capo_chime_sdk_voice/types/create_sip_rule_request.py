@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.non_empty_string
     import capo_chime_sdk_voice.types.nullable_boolean
@@ -56,7 +54,7 @@ def deserialize_json(data: dict) -> CreateSipRuleRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateSipRuleRequest.name required")
+        out["name"] = ""
     if data.get("TriggerType") is not None:
         import capo_chime_sdk_voice.types.sip_rule_trigger_type
 
@@ -66,11 +64,15 @@ def deserialize_json(data: dict) -> CreateSipRuleRequest:
             )
         )
     else:
-        raise DeserializationError("CreateSipRuleRequest.trigger_type required")
+        import typing
+
+        out["trigger_type"] = typing.cast(
+            "capo_chime_sdk_voice.types.sip_rule_trigger_type.SipRuleTriggerType", ""
+        )
     if data.get("TriggerValue") is not None:
         out["trigger_value"] = data["TriggerValue"]
     else:
-        raise DeserializationError("CreateSipRuleRequest.trigger_value required")
+        out["trigger_value"] = ""
     if data.get("Disabled") is not None:
         out["disabled"] = data["Disabled"]
     if data.get("TargetApplications") is not None:
@@ -82,5 +84,5 @@ def deserialize_json(data: dict) -> CreateSipRuleRequest:
             )
         )
     else:
-        raise DeserializationError("CreateSipRuleRequest.target_applications required")
+        out["target_applications"] = []
     return out

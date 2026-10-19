@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError, ServiceError
+from capo_redshift_serverless.errors import ServiceError
 
 
 class DryRunException_(TypedDict, closed=True):
@@ -22,7 +22,7 @@ def deserialize_aws_json_1_1(data: dict) -> DryRunException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("DryRunException_.message required")
+        out["message"] = ""
     return out
 
 

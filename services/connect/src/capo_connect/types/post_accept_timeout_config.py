@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.post_accept_preview_timeout_duration_in_seconds
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> PostAcceptTimeoutConfig:
     if data.get("DurationInSeconds") is not None:
         out["duration_in_seconds"] = data["DurationInSeconds"]
     else:
-        raise DeserializationError(
-            "PostAcceptTimeoutConfig.duration_in_seconds required"
-        )
+        out["duration_in_seconds"] = 0
     return out

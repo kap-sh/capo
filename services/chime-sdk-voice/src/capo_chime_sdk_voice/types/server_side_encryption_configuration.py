@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.arn
 
@@ -27,9 +25,7 @@ def deserialize_json(data: dict) -> ServerSideEncryptionConfiguration:
     if data.get("KmsKeyArn") is not None:
         out["kms_key_arn"] = data["KmsKeyArn"]
     else:
-        raise DeserializationError(
-            "ServerSideEncryptionConfiguration.kms_key_arn required"
-        )
+        out["kms_key_arn"] = ""
     return out
 
 

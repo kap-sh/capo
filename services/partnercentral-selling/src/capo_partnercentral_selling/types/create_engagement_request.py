@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.catalog_identifier
     import capo_partnercentral_selling.types.client_token
@@ -58,11 +56,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateEngagementRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("CreateEngagementRequest.catalog required")
+        out["catalog"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("CreateEngagementRequest.client_token required")
+        out["client_token"] = ""
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     if data.get("Description") is not None:

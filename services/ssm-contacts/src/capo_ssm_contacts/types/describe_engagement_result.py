@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.content
     import capo_ssm_contacts.types.date_time
@@ -74,23 +72,23 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEngagementResult:
     if data.get("ContactArn") is not None:
         out["contact_arn"] = data["ContactArn"]
     else:
-        raise DeserializationError("DescribeEngagementResult.contact_arn required")
+        out["contact_arn"] = ""
     if data.get("EngagementArn") is not None:
         out["engagement_arn"] = data["EngagementArn"]
     else:
-        raise DeserializationError("DescribeEngagementResult.engagement_arn required")
+        out["engagement_arn"] = ""
     if data.get("Sender") is not None:
         out["sender"] = data["Sender"]
     else:
-        raise DeserializationError("DescribeEngagementResult.sender required")
+        out["sender"] = ""
     if data.get("Subject") is not None:
         out["subject"] = data["Subject"]
     else:
-        raise DeserializationError("DescribeEngagementResult.subject required")
+        out["subject"] = ""
     if data.get("Content") is not None:
         out["content"] = data["Content"]
     else:
-        raise DeserializationError("DescribeEngagementResult.content required")
+        out["content"] = ""
     if data.get("PublicSubject") is not None:
         out["public_subject"] = data["PublicSubject"]
     if data.get("PublicContent") is not None:

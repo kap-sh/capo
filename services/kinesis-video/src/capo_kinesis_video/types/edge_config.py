@@ -57,7 +57,7 @@ def deserialize_json(data: dict) -> EdgeConfig:
     if data.get("HubDeviceArn") is not None:
         out["hub_device_arn"] = data["HubDeviceArn"]
     else:
-        raise DeserializationError("EdgeConfig.hub_device_arn required")
+        out["hub_device_arn"] = ""
     if data.get("RecorderConfig") is not None:
         import capo_kinesis_video.types.recorder_config
 

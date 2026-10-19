@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.affected_session_list
 
@@ -50,23 +48,23 @@ def deserialize_json(data: dict) -> RootCauseCluster:
     if data.get("clusterId") is not None:
         out["cluster_id"] = data["clusterId"]
     else:
-        raise DeserializationError("RootCauseCluster.cluster_id required")
+        out["cluster_id"] = 0
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RootCauseCluster.name required")
+        out["name"] = ""
     if data.get("rootCause") is not None:
         out["root_cause"] = data["rootCause"]
     else:
-        raise DeserializationError("RootCauseCluster.root_cause required")
+        out["root_cause"] = ""
     if data.get("recommendation") is not None:
         out["recommendation"] = data["recommendation"]
     else:
-        raise DeserializationError("RootCauseCluster.recommendation required")
+        out["recommendation"] = ""
     if data.get("affectedSessionCount") is not None:
         out["affected_session_count"] = data["affectedSessionCount"]
     else:
-        raise DeserializationError("RootCauseCluster.affected_session_count required")
+        out["affected_session_count"] = 0
     if data.get("affectedSessions") is not None:
         import capo_bedrock_agentcore.types.affected_session_list
 
@@ -76,5 +74,5 @@ def deserialize_json(data: dict) -> RootCauseCluster:
             )
         )
     else:
-        raise DeserializationError("RootCauseCluster.affected_sessions required")
+        out["affected_sessions"] = []
     return out

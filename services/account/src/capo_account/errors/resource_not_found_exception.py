@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_account.errors import DeserializationError, ServiceError
+from capo_account.errors import ServiceError
 
 
 class ResourceNotFoundException_(TypedDict, closed=True):
@@ -24,7 +24,7 @@ def deserialize_json(data: dict) -> ResourceNotFoundException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ResourceNotFoundException_.message required")
+        out["message"] = ""
     return out
 
 

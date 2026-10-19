@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_quicksetup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_quicksetup.types.configuration_definitions_input_list
     import capo_ssm_quicksetup.types.tags_map
@@ -58,9 +56,7 @@ def deserialize_json(data: dict) -> CreateConfigurationManagerInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateConfigurationManagerInput.configuration_definitions required"
-        )
+        out["configuration_definitions"] = []
     if data.get("Tags") is not None:
         import capo_ssm_quicksetup.types.tags_map
 

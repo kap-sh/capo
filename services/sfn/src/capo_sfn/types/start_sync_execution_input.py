@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.arn
     import capo_sfn.types.included_data
@@ -51,7 +49,7 @@ def deserialize_aws_json_1_0(data: dict) -> StartSyncExecutionInput:
     if data.get("stateMachineArn") is not None:
         out["state_machine_arn"] = data["stateMachineArn"]
     else:
-        raise DeserializationError("StartSyncExecutionInput.state_machine_arn required")
+        out["state_machine_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("input") is not None:

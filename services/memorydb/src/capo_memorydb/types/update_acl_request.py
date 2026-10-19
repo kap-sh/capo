@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_memorydb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_memorydb.types.string
     import capo_memorydb.types.user_name_list_input
@@ -52,7 +50,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateACLRequest:
     if data.get("ACLName") is not None:
         out["acl_name"] = data["ACLName"]
     else:
-        raise DeserializationError("UpdateACLRequest.acl_name required")
+        out["acl_name"] = ""
     if data.get("UserNamesToAdd") is not None:
         import capo_memorydb.types.user_name_list_input
 

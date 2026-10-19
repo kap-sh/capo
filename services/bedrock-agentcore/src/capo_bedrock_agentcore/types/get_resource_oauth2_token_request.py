@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.audiences_list_type
     import capo_bedrock_agentcore.types.credential_provider_name
@@ -109,17 +107,13 @@ def deserialize_json(data: dict) -> GetResourceOauth2TokenRequest:
     if data.get("workloadIdentityToken") is not None:
         out["workload_identity_token"] = data["workloadIdentityToken"]
     else:
-        raise DeserializationError(
-            "GetResourceOauth2TokenRequest.workload_identity_token required"
-        )
+        out["workload_identity_token"] = ""
     if data.get("resourceCredentialProviderName") is not None:
         out["resource_credential_provider_name"] = data[
             "resourceCredentialProviderName"
         ]
     else:
-        raise DeserializationError(
-            "GetResourceOauth2TokenRequest.resource_credential_provider_name required"
-        )
+        out["resource_credential_provider_name"] = ""
     if data.get("scopes") is not None:
         import capo_bedrock_agentcore.types.scopes_list_type
 
@@ -127,7 +121,7 @@ def deserialize_json(data: dict) -> GetResourceOauth2TokenRequest:
             data["scopes"]
         )
     else:
-        raise DeserializationError("GetResourceOauth2TokenRequest.scopes required")
+        out["scopes"] = []
     if data.get("oauth2Flow") is not None:
         import capo_bedrock_agentcore.types.oauth2_flow_type
 
@@ -137,7 +131,11 @@ def deserialize_json(data: dict) -> GetResourceOauth2TokenRequest:
             )
         )
     else:
-        raise DeserializationError("GetResourceOauth2TokenRequest.oauth2_flow required")
+        import typing
+
+        out["oauth2_flow"] = typing.cast(
+            "capo_bedrock_agentcore.types.oauth2_flow_type.Oauth2FlowType", ""
+        )
     if data.get("sessionUri") is not None:
         out["session_uri"] = data["sessionUri"]
     if data.get("resourceOauth2ReturnUrl") is not None:

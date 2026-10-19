@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.string
@@ -33,14 +32,10 @@ def deserialize_xml(el: Element) -> ContinuousDeploymentSingleHeaderConfig:
     if child_header is not None:
         out["header"] = str(child_header.text or "")
     else:
-        raise DeserializationError(
-            "ContinuousDeploymentSingleHeaderConfig.header required"
-        )
+        out["header"] = ""
     child_value = el.find("Value")
     if child_value is not None:
         out["value"] = str(child_value.text or "")
     else:
-        raise DeserializationError(
-            "ContinuousDeploymentSingleHeaderConfig.value required"
-        )
+        out["value"] = ""
     return out

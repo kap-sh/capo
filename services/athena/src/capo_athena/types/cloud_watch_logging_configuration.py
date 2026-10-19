@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.boxed_boolean
     import capo_athena.types.log_group_name
@@ -48,7 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> CloudWatchLoggingConfiguration:
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
-        raise DeserializationError("CloudWatchLoggingConfiguration.enabled required")
+        out["enabled"] = False
     if data.get("LogGroup") is not None:
         out["log_group"] = data["LogGroup"]
     if data.get("LogStreamNamePrefix") is not None:

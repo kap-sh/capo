@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.resource_id
     import capo_quicksight.types.string
@@ -44,15 +42,11 @@ def deserialize_json(
     if data.get("DataSetId") is not None:
         out["data_set_id"] = data["DataSetId"]
     else:
-        raise DeserializationError(
-            "AssetBundleImportJobRefreshScheduleOverrideParameters.data_set_id required"
-        )
+        out["data_set_id"] = ""
     if data.get("ScheduleId") is not None:
         out["schedule_id"] = data["ScheduleId"]
     else:
-        raise DeserializationError(
-            "AssetBundleImportJobRefreshScheduleOverrideParameters.schedule_id required"
-        )
+        out["schedule_id"] = ""
     if data.get("StartAfterDateTime") is not None:
         import capo_quicksight.types.timestamp
 

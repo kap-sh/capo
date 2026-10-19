@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.domain_arn
     import capo_connectcases.types.domain_id
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> DomainSummary:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("DomainSummary.domain_id required")
+        out["domain_id"] = ""
     if data.get("domainArn") is not None:
         out["domain_arn"] = data["domainArn"]
     else:
-        raise DeserializationError("DomainSummary.domain_arn required")
+        out["domain_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DomainSummary.name required")
+        out["name"] = ""
     return out

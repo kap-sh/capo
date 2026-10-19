@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.address_fields
     import capo_wafv2.types.email_field
@@ -84,7 +82,11 @@ def deserialize_aws_json_1_1(data: dict) -> RequestInspectionACFP:
             data["PayloadType"]
         )
     else:
-        raise DeserializationError("RequestInspectionACFP.payload_type required")
+        import typing
+
+        out["payload_type"] = typing.cast(
+            "capo_wafv2.types.payload_type.PayloadType", ""
+        )
     if data.get("UsernameField") is not None:
         import capo_wafv2.types.username_field
 

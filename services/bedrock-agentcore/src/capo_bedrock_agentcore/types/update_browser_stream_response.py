@@ -45,13 +45,11 @@ def deserialize_json(data: dict) -> UpdateBrowserStreamResponse:
     if data.get("browserIdentifier") is not None:
         out["browser_identifier"] = data["browserIdentifier"]
     else:
-        raise DeserializationError(
-            "UpdateBrowserStreamResponse.browser_identifier required"
-        )
+        out["browser_identifier"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("UpdateBrowserStreamResponse.session_id required")
+        out["session_id"] = ""
     if data.get("streams") is not None:
         import capo_bedrock_agentcore.types.browser_session_stream
 
@@ -71,5 +69,7 @@ def deserialize_json(data: dict) -> UpdateBrowserStreamResponse:
             )
         )
     else:
-        raise DeserializationError("UpdateBrowserStreamResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

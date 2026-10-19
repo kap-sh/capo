@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs.types.channel_arn
     import capo_ivs.types.error_code
@@ -41,15 +39,11 @@ def deserialize_json(data: dict) -> BatchStartViewerSessionRevocationError:
     if data.get("channelArn") is not None:
         out["channel_arn"] = data["channelArn"]
     else:
-        raise DeserializationError(
-            "BatchStartViewerSessionRevocationError.channel_arn required"
-        )
+        out["channel_arn"] = ""
     if data.get("viewerId") is not None:
         out["viewer_id"] = data["viewerId"]
     else:
-        raise DeserializationError(
-            "BatchStartViewerSessionRevocationError.viewer_id required"
-        )
+        out["viewer_id"] = ""
     if data.get("code") is not None:
         out["code"] = data["code"]
     if data.get("message") is not None:

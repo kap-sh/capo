@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_internetmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_internetmonitor.types.monitor_arn
     import capo_internetmonitor.types.monitor_config_state
@@ -42,15 +40,15 @@ def deserialize_json(data: dict) -> Monitor:
     if data.get("MonitorName") is not None:
         out["monitor_name"] = data["MonitorName"]
     else:
-        raise DeserializationError("Monitor.monitor_name required")
+        out["monitor_name"] = ""
     if data.get("MonitorArn") is not None:
         out["monitor_arn"] = data["MonitorArn"]
     else:
-        raise DeserializationError("Monitor.monitor_arn required")
+        out["monitor_arn"] = ""
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("Monitor.status required")
+        out["status"] = ""
     if data.get("ProcessingStatus") is not None:
         out["processing_status"] = data["ProcessingStatus"]
     return out

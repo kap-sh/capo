@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_organizations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_organizations.types.account_id
     import capo_organizations.types.max_results
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListDelegatedServicesForAccountReque
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     else:
-        raise DeserializationError(
-            "ListDelegatedServicesForAccountRequest.account_id required"
-        )
+        out["account_id"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

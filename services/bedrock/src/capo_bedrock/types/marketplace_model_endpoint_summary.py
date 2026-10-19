@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.arn
     import capo_bedrock.types.model_source_identifier
@@ -55,15 +53,11 @@ def deserialize_json(data: dict) -> MarketplaceModelEndpointSummary:
     if data.get("endpointArn") is not None:
         out["endpoint_arn"] = data["endpointArn"]
     else:
-        raise DeserializationError(
-            "MarketplaceModelEndpointSummary.endpoint_arn required"
-        )
+        out["endpoint_arn"] = ""
     if data.get("modelSourceIdentifier") is not None:
         out["model_source_identifier"] = data["modelSourceIdentifier"]
     else:
-        raise DeserializationError(
-            "MarketplaceModelEndpointSummary.model_source_identifier required"
-        )
+        out["model_source_identifier"] = ""
     if data.get("status") is not None:
         import capo_bedrock.types.status
 
@@ -77,9 +71,9 @@ def deserialize_json(data: dict) -> MarketplaceModelEndpointSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError(
-            "MarketplaceModelEndpointSummary.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock.types.timestamp
 
@@ -87,7 +81,7 @@ def deserialize_json(data: dict) -> MarketplaceModelEndpointSummary:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError(
-            "MarketplaceModelEndpointSummary.updated_at required"
-        )
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

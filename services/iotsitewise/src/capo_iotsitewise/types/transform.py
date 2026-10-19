@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.expression
     import capo_iotsitewise.types.expression_variables
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> Transform:
     if data.get("expression") is not None:
         out["expression"] = data["expression"]
     else:
-        raise DeserializationError("Transform.expression required")
+        out["expression"] = ""
     if data.get("variables") is not None:
         import capo_iotsitewise.types.expression_variables
 
@@ -56,7 +54,7 @@ def deserialize_json(data: dict) -> Transform:
             data["variables"]
         )
     else:
-        raise DeserializationError("Transform.variables required")
+        out["variables"] = []
     if data.get("processingConfig") is not None:
         import capo_iotsitewise.types.transform_processing_config
 

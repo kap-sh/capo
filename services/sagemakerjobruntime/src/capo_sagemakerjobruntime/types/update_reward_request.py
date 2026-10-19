@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemakerjobruntime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemakerjobruntime.types.double_list
     import capo_sagemakerjobruntime.types.job_arn
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> UpdateRewardRequest:
     if data.get("TrajectoryId") is not None:
         out["trajectory_id"] = data["TrajectoryId"]
     else:
-        raise DeserializationError("UpdateRewardRequest.trajectory_id required")
+        out["trajectory_id"] = ""
     if data.get("Rewards") is not None:
         import capo_sagemakerjobruntime.types.double_list
 
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> UpdateRewardRequest:
             data["Rewards"]
         )
     else:
-        raise DeserializationError("UpdateRewardRequest.rewards required")
+        out["rewards"] = []
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     return out

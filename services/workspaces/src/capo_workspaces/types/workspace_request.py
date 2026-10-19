@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.boolean_object
     import capo_workspaces.types.bundle_id
@@ -87,15 +85,15 @@ def deserialize_aws_json_1_1(data: dict) -> WorkspaceRequest:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError("WorkspaceRequest.directory_id required")
+        out["directory_id"] = ""
     if data.get("UserName") is not None:
         out["user_name"] = data["UserName"]
     else:
-        raise DeserializationError("WorkspaceRequest.user_name required")
+        out["user_name"] = ""
     if data.get("BundleId") is not None:
         out["bundle_id"] = data["BundleId"]
     else:
-        raise DeserializationError("WorkspaceRequest.bundle_id required")
+        out["bundle_id"] = ""
     if data.get("VolumeEncryptionKey") is not None:
         out["volume_encryption_key"] = data["VolumeEncryptionKey"]
     if data.get("UserVolumeEncryptionEnabled") is not None:

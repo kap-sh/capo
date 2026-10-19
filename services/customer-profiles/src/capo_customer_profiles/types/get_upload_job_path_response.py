@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.string_to2048
     import capo_customer_profiles.types.text
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> GetUploadJobPathResponse:
     if data.get("Url") is not None:
         out["url"] = data["Url"]
     else:
-        raise DeserializationError("GetUploadJobPathResponse.url required")
+        out["url"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("ValidUntil") is not None:

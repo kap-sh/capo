@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -233,9 +231,7 @@ def deserialize_aws_json_1_0(data: dict) -> CloudExadataInfrastructureSummary:
     if data.get("cloudExadataInfrastructureId") is not None:
         out["cloud_exadata_infrastructure_id"] = data["cloudExadataInfrastructureId"]
     else:
-        raise DeserializationError(
-            "CloudExadataInfrastructureSummary.cloud_exadata_infrastructure_id required"
-        )
+        out["cloud_exadata_infrastructure_id"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     if data.get("status") is not None:

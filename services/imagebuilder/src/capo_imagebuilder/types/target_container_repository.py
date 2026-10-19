@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.container_repository_service
     import capo_imagebuilder.types.non_empty_string
@@ -43,9 +41,14 @@ def deserialize_json(data: dict) -> TargetContainerRepository:
             )
         )
     else:
-        raise DeserializationError("TargetContainerRepository.service required")
+        import typing
+
+        out["service"] = typing.cast(
+            "capo_imagebuilder.types.container_repository_service.ContainerRepositoryService",
+            "",
+        )
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError("TargetContainerRepository.repository_name required")
+        out["repository_name"] = ""
     return out

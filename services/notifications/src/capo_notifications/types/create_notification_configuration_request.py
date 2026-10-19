@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notifications.types.aggregation_duration
     import capo_notifications.types.notification_configuration_description
@@ -45,15 +43,11 @@ def deserialize_json(data: dict) -> CreateNotificationConfigurationRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "CreateNotificationConfigurationRequest.name required"
-        )
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError(
-            "CreateNotificationConfigurationRequest.description required"
-        )
+        out["description"] = ""
     if data.get("aggregationDuration") is not None:
         out["aggregation_duration"] = data["aggregationDuration"]
     if data.get("tags") is not None:

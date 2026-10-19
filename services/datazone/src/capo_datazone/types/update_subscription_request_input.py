@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.domain_id
     import capo_datazone.types.request_reason
@@ -33,9 +31,7 @@ def deserialize_json(data: dict) -> UpdateSubscriptionRequestInput:
     if data.get("requestReason") is not None:
         out["request_reason"] = data["requestReason"]
     else:
-        raise DeserializationError(
-            "UpdateSubscriptionRequestInput.request_reason required"
-        )
+        out["request_reason"] = ""
     return out
 
 

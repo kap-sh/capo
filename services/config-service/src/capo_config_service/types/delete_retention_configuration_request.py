@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.retention_configuration_name
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteRetentionConfigurationRequest:
     if data.get("RetentionConfigurationName") is not None:
         out["retention_configuration_name"] = data["RetentionConfigurationName"]
     else:
-        raise DeserializationError(
-            "DeleteRetentionConfigurationRequest.retention_configuration_name required"
-        )
+        out["retention_configuration_name"] = ""
     return out

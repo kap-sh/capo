@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.code_hook_interface_version
     import capo_lex_models_v2.types.lambda_arn
@@ -33,11 +31,9 @@ def deserialize_json(data: dict) -> LambdaCodeHook:
     if data.get("lambdaARN") is not None:
         out["lambda_arn"] = data["lambdaARN"]
     else:
-        raise DeserializationError("LambdaCodeHook.lambda_arn required")
+        out["lambda_arn"] = ""
     if data.get("codeHookInterfaceVersion") is not None:
         out["code_hook_interface_version"] = data["codeHookInterfaceVersion"]
     else:
-        raise DeserializationError(
-            "LambdaCodeHook.code_hook_interface_version required"
-        )
+        out["code_hook_interface_version"] = ""
     return out

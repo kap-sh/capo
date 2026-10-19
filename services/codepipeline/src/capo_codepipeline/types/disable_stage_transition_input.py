@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.disabled_reason
     import capo_codepipeline.types.pipeline_name
@@ -45,11 +43,11 @@ def deserialize_aws_json_1_1(data: dict) -> DisableStageTransitionInput:
     if data.get("pipelineName") is not None:
         out["pipeline_name"] = data["pipelineName"]
     else:
-        raise DeserializationError("DisableStageTransitionInput.pipeline_name required")
+        out["pipeline_name"] = ""
     if data.get("stageName") is not None:
         out["stage_name"] = data["stageName"]
     else:
-        raise DeserializationError("DisableStageTransitionInput.stage_name required")
+        out["stage_name"] = ""
     if data.get("transitionType") is not None:
         import capo_codepipeline.types.stage_transition_type
 
@@ -59,11 +57,13 @@ def deserialize_aws_json_1_1(data: dict) -> DisableStageTransitionInput:
             )
         )
     else:
-        raise DeserializationError(
-            "DisableStageTransitionInput.transition_type required"
+        import typing
+
+        out["transition_type"] = typing.cast(
+            "capo_codepipeline.types.stage_transition_type.StageTransitionType", ""
         )
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
     else:
-        raise DeserializationError("DisableStageTransitionInput.reason required")
+        out["reason"] = ""
     return out

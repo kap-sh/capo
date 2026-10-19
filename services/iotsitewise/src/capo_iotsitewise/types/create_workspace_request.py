@@ -54,7 +54,7 @@ def deserialize_json(data: dict) -> CreateWorkspaceRequest:
     if data.get("workspaceName") is not None:
         out["workspace_name"] = data["workspaceName"]
     else:
-        raise DeserializationError("CreateWorkspaceRequest.workspace_name required")
+        out["workspace_name"] = ""
     if data.get("workspaceDescription") is not None:
         out["workspace_description"] = data["workspaceDescription"]
     if data.get("encryptionConfiguration") is not None:

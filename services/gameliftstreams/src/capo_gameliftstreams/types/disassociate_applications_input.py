@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_gameliftstreams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_gameliftstreams.types.identifier
     import capo_gameliftstreams.types.identifiers
@@ -42,7 +40,5 @@ def deserialize_json(data: dict) -> DisassociateApplicationsInput:
             )
         )
     else:
-        raise DeserializationError(
-            "DisassociateApplicationsInput.application_identifiers required"
-        )
+        out["application_identifiers"] = []
     return out

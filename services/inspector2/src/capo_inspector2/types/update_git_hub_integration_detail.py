@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.git_hub_auth_code
     import capo_inspector2.types.git_hub_installation_id
@@ -33,13 +31,11 @@ def deserialize_json(data: dict) -> UpdateGitHubIntegrationDetail:
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("UpdateGitHubIntegrationDetail.code required")
+        out["code"] = ""
     if data.get("installationId") is not None:
         out["installation_id"] = data["installationId"]
     else:
-        raise DeserializationError(
-            "UpdateGitHubIntegrationDetail.installation_id required"
-        )
+        out["installation_id"] = ""
     return out
 
 

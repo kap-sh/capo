@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.natural_language_string
     import capo_bedrock_agent.types.sql_string
@@ -33,9 +31,9 @@ def deserialize_json(data: dict) -> CuratedQuery:
     if data.get("naturalLanguage") is not None:
         out["natural_language"] = data["naturalLanguage"]
     else:
-        raise DeserializationError("CuratedQuery.natural_language required")
+        out["natural_language"] = ""
     if data.get("sql") is not None:
         out["sql"] = data["sql"]
     else:
-        raise DeserializationError("CuratedQuery.sql required")
+        out["sql"] = ""
     return out

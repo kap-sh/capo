@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.description
     import capo_datazone.types.listing_id
@@ -56,17 +54,17 @@ def deserialize_json(data: dict) -> SubscribedListing:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("SubscribedListing.id required")
+        out["id"] = ""
     if data.get("revision") is not None:
         out["revision"] = data["revision"]
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("SubscribedListing.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("SubscribedListing.description required")
+        out["description"] = ""
     if data.get("item") is not None:
         import capo_datazone.types.subscribed_listing_item
 
@@ -74,11 +72,13 @@ def deserialize_json(data: dict) -> SubscribedListing:
             data["item"]
         )
     else:
-        raise DeserializationError("SubscribedListing.item required")
+        import capo_datazone.types._unknown
+
+        out["item"] = capo_datazone.types._unknown.UnknownUnionMember("")
     if data.get("ownerProjectId") is not None:
         out["owner_project_id"] = data["ownerProjectId"]
     else:
-        raise DeserializationError("SubscribedListing.owner_project_id required")
+        out["owner_project_id"] = ""
     if data.get("ownerProjectName") is not None:
         out["owner_project_name"] = data["ownerProjectName"]
     return out

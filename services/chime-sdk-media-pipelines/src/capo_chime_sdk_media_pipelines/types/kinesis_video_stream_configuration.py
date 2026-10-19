@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.aws_region
     import capo_chime_sdk_media_pipelines.types.data_retention_in_hours
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> KinesisVideoStreamConfiguration:
     if data.get("Region") is not None:
         out["region"] = data["Region"]
     else:
-        raise DeserializationError("KinesisVideoStreamConfiguration.region required")
+        out["region"] = ""
     if data.get("DataRetentionInHours") is not None:
         out["data_retention_in_hours"] = data["DataRetentionInHours"]
     return out

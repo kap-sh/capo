@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.linear_rings
 
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> Geometry:
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     else:
-        raise DeserializationError("Geometry.type required")
+        out["type"] = ""
     if data.get("Coordinates") is not None:
         import capo_sagemaker_geospatial.types.linear_rings
 
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> Geometry:
             )
         )
     else:
-        raise DeserializationError("Geometry.coordinates required")
+        out["coordinates"] = []
     return out
 
 

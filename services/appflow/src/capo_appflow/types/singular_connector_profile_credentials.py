@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.api_key
 
@@ -27,9 +25,7 @@ def deserialize_json(data: dict) -> SingularConnectorProfileCredentials:
     if data.get("apiKey") is not None:
         out["api_key"] = data["apiKey"]
     else:
-        raise DeserializationError(
-            "SingularConnectorProfileCredentials.api_key required"
-        )
+        out["api_key"] = ""
     return out
 
 

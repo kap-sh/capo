@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.severity_counts
 
@@ -58,9 +56,7 @@ def deserialize_json(data: dict) -> CodeRepositoryAggregationResponse:
     if data.get("projectNames") is not None:
         out["project_names"] = data["projectNames"]
     else:
-        raise DeserializationError(
-            "CodeRepositoryAggregationResponse.project_names required"
-        )
+        out["project_names"] = ""
     if data.get("providerType") is not None:
         out["provider_type"] = data["providerType"]
     if data.get("severityCounts") is not None:

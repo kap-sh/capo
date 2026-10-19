@@ -37,9 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateResolverEndpointIpAddressRe
     if data.get("ResolverEndpointId") is not None:
         out["resolver_endpoint_id"] = data["ResolverEndpointId"]
     else:
-        raise DeserializationError(
-            "AssociateResolverEndpointIpAddressRequest.resolver_endpoint_id required"
-        )
+        out["resolver_endpoint_id"] = ""
     if data.get("IpAddress") is not None:
         import capo_route53resolver.types.ip_address_update
 

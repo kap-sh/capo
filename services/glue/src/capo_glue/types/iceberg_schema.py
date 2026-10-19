@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.iceberg_struct_field_list
     import capo_glue.types.iceberg_struct_type_enum
@@ -77,5 +75,5 @@ def deserialize_aws_json_1_1(data: dict) -> IcebergSchema:
             )
         )
     else:
-        raise DeserializationError("IcebergSchema.fields required")
+        out["fields"] = []
     return out

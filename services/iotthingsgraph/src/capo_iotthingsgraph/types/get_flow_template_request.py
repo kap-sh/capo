@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotthingsgraph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotthingsgraph.types.urn
     import capo_iotthingsgraph.types.version
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetFlowTemplateRequest:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetFlowTemplateRequest.id required")
+        out["id"] = ""
     if data.get("revisionNumber") is not None:
         out["revision_number"] = data["revisionNumber"]
     return out

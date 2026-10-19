@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_discovery_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_discovery_service.types.configurations_export_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> StopContinuousExportRequest:
     if data.get("exportId") is not None:
         out["export_id"] = data["exportId"]
     else:
-        raise DeserializationError("StopContinuousExportRequest.export_id required")
+        out["export_id"] = ""
     return out

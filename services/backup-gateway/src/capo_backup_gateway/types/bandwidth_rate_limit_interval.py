@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup_gateway.types.average_upload_rate_limit
     import capo_backup_gateway.types.days_of_week
@@ -58,27 +56,19 @@ def deserialize_aws_json_1_0(data: dict) -> BandwidthRateLimitInterval:
     if data.get("StartHourOfDay") is not None:
         out["start_hour_of_day"] = data["StartHourOfDay"]
     else:
-        raise DeserializationError(
-            "BandwidthRateLimitInterval.start_hour_of_day required"
-        )
+        out["start_hour_of_day"] = 0
     if data.get("EndHourOfDay") is not None:
         out["end_hour_of_day"] = data["EndHourOfDay"]
     else:
-        raise DeserializationError(
-            "BandwidthRateLimitInterval.end_hour_of_day required"
-        )
+        out["end_hour_of_day"] = 0
     if data.get("StartMinuteOfHour") is not None:
         out["start_minute_of_hour"] = data["StartMinuteOfHour"]
     else:
-        raise DeserializationError(
-            "BandwidthRateLimitInterval.start_minute_of_hour required"
-        )
+        out["start_minute_of_hour"] = 0
     if data.get("EndMinuteOfHour") is not None:
         out["end_minute_of_hour"] = data["EndMinuteOfHour"]
     else:
-        raise DeserializationError(
-            "BandwidthRateLimitInterval.end_minute_of_hour required"
-        )
+        out["end_minute_of_hour"] = 0
     if data.get("DaysOfWeek") is not None:
         import capo_backup_gateway.types.days_of_week
 
@@ -88,5 +78,5 @@ def deserialize_aws_json_1_0(data: dict) -> BandwidthRateLimitInterval:
             )
         )
     else:
-        raise DeserializationError("BandwidthRateLimitInterval.days_of_week required")
+        out["days_of_week"] = []
     return out

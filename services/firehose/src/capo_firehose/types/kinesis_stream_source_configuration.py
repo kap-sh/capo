@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.kinesis_stream_arn
     import capo_firehose.types.role_arn
@@ -31,11 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> KinesisStreamSourceConfiguration:
     if data.get("KinesisStreamARN") is not None:
         out["kinesis_stream_arn"] = data["KinesisStreamARN"]
     else:
-        raise DeserializationError(
-            "KinesisStreamSourceConfiguration.kinesis_stream_arn required"
-        )
+        out["kinesis_stream_arn"] = ""
     if data.get("RoleARN") is not None:
         out["role_arn"] = data["RoleARN"]
     else:
-        raise DeserializationError("KinesisStreamSourceConfiguration.role_arn required")
+        out["role_arn"] = ""
     return out

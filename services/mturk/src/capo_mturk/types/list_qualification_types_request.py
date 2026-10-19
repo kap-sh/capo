@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mturk.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mturk.types.boolean
     import capo_mturk.types.pagination_token
@@ -47,9 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListQualificationTypesRequest:
     if data.get("MustBeRequestable") is not None:
         out["must_be_requestable"] = data["MustBeRequestable"]
     else:
-        raise DeserializationError(
-            "ListQualificationTypesRequest.must_be_requestable required"
-        )
+        out["must_be_requestable"] = False
     if data.get("MustBeOwnedByCaller") is not None:
         out["must_be_owned_by_caller"] = data["MustBeOwnedByCaller"]
     if data.get("NextToken") is not None:

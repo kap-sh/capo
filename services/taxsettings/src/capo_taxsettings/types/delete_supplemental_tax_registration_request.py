@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_taxsettings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_taxsettings.types.generic_string
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> DeleteSupplementalTaxRegistrationRequest:
     if data.get("authorityId") is not None:
         out["authority_id"] = data["authorityId"]
     else:
-        raise DeserializationError(
-            "DeleteSupplementalTaxRegistrationRequest.authority_id required"
-        )
+        out["authority_id"] = ""
     return out

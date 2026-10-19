@@ -53,9 +53,7 @@ def deserialize_xml(el: Element) -> JournalTableConfigurationResult:
     if child_table_status is not None:
         out["table_status"] = str(child_table_status.text or "")
     else:
-        raise DeserializationError(
-            "JournalTableConfigurationResult.table_status required"
-        )
+        out["table_status"] = ""
     child_error = el.find("Error")
     if child_error is not None:
         import capo_s3.types.error_details
@@ -65,9 +63,7 @@ def deserialize_xml(el: Element) -> JournalTableConfigurationResult:
     if child_table_name is not None:
         out["table_name"] = str(child_table_name.text or "")
     else:
-        raise DeserializationError(
-            "JournalTableConfigurationResult.table_name required"
-        )
+        out["table_name"] = ""
     child_table_arn = el.find("TableArn")
     if child_table_arn is not None:
         out["table_arn"] = str(child_table_arn.text or "")

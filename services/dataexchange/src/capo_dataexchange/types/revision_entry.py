@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.__boolean
     import capo_dataexchange.types.__string_min0_max16384
@@ -82,7 +80,7 @@ def deserialize_json(data: dict) -> RevisionEntry:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("RevisionEntry.arn required")
+        out["arn"] = ""
     if data.get("Comment") is not None:
         out["comment"] = data["Comment"]
     if data.get("CreatedAt") is not None:
@@ -92,11 +90,13 @@ def deserialize_json(data: dict) -> RevisionEntry:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("RevisionEntry.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("DataSetId") is not None:
         out["data_set_id"] = data["DataSetId"]
     else:
-        raise DeserializationError("RevisionEntry.data_set_id required")
+        out["data_set_id"] = ""
     if data.get("Finalized") is not None:
         out["finalized"] = data["Finalized"]
     else:
@@ -104,7 +104,7 @@ def deserialize_json(data: dict) -> RevisionEntry:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("RevisionEntry.id required")
+        out["id"] = ""
     if data.get("SourceId") is not None:
         out["source_id"] = data["SourceId"]
     if data.get("UpdatedAt") is not None:
@@ -114,7 +114,9 @@ def deserialize_json(data: dict) -> RevisionEntry:
             data["UpdatedAt"]
         )
     else:
-        raise DeserializationError("RevisionEntry.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("RevocationComment") is not None:
         out["revocation_comment"] = data["RevocationComment"]
     if data.get("Revoked") is not None:

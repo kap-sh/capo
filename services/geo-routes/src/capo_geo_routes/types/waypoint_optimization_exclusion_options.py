@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.country_code_list
 
@@ -35,9 +33,7 @@ def deserialize_json(data: dict) -> WaypointOptimizationExclusionOptions:
             data["Countries"]
         )
     else:
-        raise DeserializationError(
-            "WaypointOptimizationExclusionOptions.countries required"
-        )
+        out["countries"] = []
     return out
 
 

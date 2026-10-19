@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -62,15 +60,11 @@ def deserialize_json(data: dict) -> ListInstrumentationConfigurationsRequest:
     if data.get("Service") is not None:
         out["service"] = data["Service"]
     else:
-        raise DeserializationError(
-            "ListInstrumentationConfigurationsRequest.service required"
-        )
+        out["service"] = ""
     if data.get("Environment") is not None:
         out["environment"] = data["Environment"]
     else:
-        raise DeserializationError(
-            "ListInstrumentationConfigurationsRequest.environment required"
-        )
+        out["environment"] = ""
     if data.get("InstrumentationType") is not None:
         import capo_application_signals.types.instrumentation_type
 
@@ -80,8 +74,11 @@ def deserialize_json(data: dict) -> ListInstrumentationConfigurationsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ListInstrumentationConfigurationsRequest.instrumentation_type required"
+        import typing
+
+        out["instrumentation_type"] = typing.cast(
+            "capo_application_signals.types.instrumentation_type.InstrumentationType",
+            "",
         )
     if data.get("SyncedAt") is not None:
         import capo_application_signals.types._prelude.timestamp

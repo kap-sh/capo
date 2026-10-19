@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -224,11 +222,11 @@ def deserialize_json(data: dict) -> TestRun:
     if data.get("testRunId") is not None:
         out["test_run_id"] = data["testRunId"]
     else:
-        raise DeserializationError("TestRun.test_run_id required")
+        out["test_run_id"] = ""
     if data.get("testId") is not None:
         out["test_id"] = data["testId"]
     else:
-        raise DeserializationError("TestRun.test_id required")
+        out["test_id"] = ""
     if data.get("status") is not None:
         import capo_resiliencehubv2.types.test_run_status
 
@@ -236,7 +234,11 @@ def deserialize_json(data: dict) -> TestRun:
             data["status"]
         )
     else:
-        raise DeserializationError("TestRun.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_resiliencehubv2.types.test_run_status.TestRunStatus", ""
+        )
     if data.get("serviceArn") is not None:
         out["service_arn"] = data["serviceArn"]
     if data.get("startedAt") is not None:
@@ -248,7 +250,9 @@ def deserialize_json(data: dict) -> TestRun:
             )
         )
     else:
-        raise DeserializationError("TestRun.started_at required")
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endedAt") is not None:
         import capo_resiliencehubv2.types._prelude.timestamp
 
@@ -296,7 +300,7 @@ def deserialize_json(data: dict) -> TestRun:
     if data.get("testTemplateArn") is not None:
         out["test_template_arn"] = data["testTemplateArn"]
     else:
-        raise DeserializationError("TestRun.test_template_arn required")
+        out["test_template_arn"] = ""
     if data.get("reportConfiguration") is not None:
         import capo_resiliencehubv2.types.test_run_report_configuration
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -62,15 +60,15 @@ def deserialize_json(data: dict) -> UpdateDependencyResponse:
     if data.get("dependencyId") is not None:
         out["dependency_id"] = data["dependencyId"]
     else:
-        raise DeserializationError("UpdateDependencyResponse.dependency_id required")
+        out["dependency_id"] = ""
     if data.get("dependencyName") is not None:
         out["dependency_name"] = data["dependencyName"]
     else:
-        raise DeserializationError("UpdateDependencyResponse.dependency_name required")
+        out["dependency_name"] = ""
     if data.get("location") is not None:
         out["location"] = data["location"]
     else:
-        raise DeserializationError("UpdateDependencyResponse.location required")
+        out["location"] = ""
     if data.get("criticality") is not None:
         import capo_resiliencehubv2.types.dependency_criticality
 
@@ -80,7 +78,12 @@ def deserialize_json(data: dict) -> UpdateDependencyResponse:
             )
         )
     else:
-        raise DeserializationError("UpdateDependencyResponse.criticality required")
+        import typing
+
+        out["criticality"] = typing.cast(
+            "capo_resiliencehubv2.types.dependency_criticality.DependencyCriticality",
+            "",
+        )
     if data.get("comment") is not None:
         out["comment"] = data["comment"]
     if data.get("provider") is not None:
@@ -94,5 +97,7 @@ def deserialize_json(data: dict) -> UpdateDependencyResponse:
             )
         )
     else:
-        raise DeserializationError("UpdateDependencyResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

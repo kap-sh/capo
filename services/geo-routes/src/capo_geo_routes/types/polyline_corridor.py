@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.polyline
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> PolylineCorridor:
     if data.get("Polyline") is not None:
         out["polyline"] = data["Polyline"]
     else:
-        raise DeserializationError("PolylineCorridor.polyline required")
+        out["polyline"] = ""
     if data.get("Radius") is not None:
         out["radius"] = data["Radius"]
     else:
-        raise DeserializationError("PolylineCorridor.radius required")
+        out["radius"] = 0
     return out

@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> DatabaseOutput:
     if data.get("GlueConnectionName") is not None:
         out["glue_connection_name"] = data["GlueConnectionName"]
     else:
-        raise DeserializationError("DatabaseOutput.glue_connection_name required")
+        out["glue_connection_name"] = ""
     if data.get("DatabaseOptions") is not None:
         import capo_databrew.types.database_table_output_options
 

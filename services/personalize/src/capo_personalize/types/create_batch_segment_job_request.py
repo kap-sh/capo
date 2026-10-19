@@ -71,13 +71,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateBatchSegmentJobRequest:
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError("CreateBatchSegmentJobRequest.job_name required")
+        out["job_name"] = ""
     if data.get("solutionVersionArn") is not None:
         out["solution_version_arn"] = data["solutionVersionArn"]
     else:
-        raise DeserializationError(
-            "CreateBatchSegmentJobRequest.solution_version_arn required"
-        )
+        out["solution_version_arn"] = ""
     if data.get("filterArn") is not None:
         out["filter_arn"] = data["filterArn"]
     if data.get("numResults") is not None:
@@ -105,7 +103,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateBatchSegmentJobRequest:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateBatchSegmentJobRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("tags") is not None:
         import capo_personalize.types.tags
 

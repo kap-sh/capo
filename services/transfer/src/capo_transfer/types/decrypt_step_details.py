@@ -74,7 +74,11 @@ def deserialize_aws_json_1_1(data: dict) -> DecryptStepDetails:
             data["Type"]
         )
     else:
-        raise DeserializationError("DecryptStepDetails.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_transfer.types.encryption_type.EncryptionType", ""
+        )
     if data.get("SourceFileLocation") is not None:
         out["source_file_location"] = data["SourceFileLocation"]
     if data.get("OverwriteExisting") is not None:

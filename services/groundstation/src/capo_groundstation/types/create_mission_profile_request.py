@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.config_arn
     import capo_groundstation.types.dataflow_edge_list
@@ -89,7 +87,7 @@ def deserialize_json(data: dict) -> CreateMissionProfileRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateMissionProfileRequest.name required")
+        out["name"] = ""
     if data.get("contactPrePassDurationSeconds") is not None:
         out["contact_pre_pass_duration_seconds"] = data["contactPrePassDurationSeconds"]
     if data.get("contactPostPassDurationSeconds") is not None:
@@ -101,9 +99,7 @@ def deserialize_json(data: dict) -> CreateMissionProfileRequest:
             "minimumViableContactDurationSeconds"
         ]
     else:
-        raise DeserializationError(
-            "CreateMissionProfileRequest.minimum_viable_contact_duration_seconds required"
-        )
+        out["minimum_viable_contact_duration_seconds"] = 0
     if data.get("dataflowEdges") is not None:
         import capo_groundstation.types.dataflow_edge_list
 
@@ -113,15 +109,11 @@ def deserialize_json(data: dict) -> CreateMissionProfileRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateMissionProfileRequest.dataflow_edges required"
-        )
+        out["dataflow_edges"] = []
     if data.get("trackingConfigArn") is not None:
         out["tracking_config_arn"] = data["trackingConfigArn"]
     else:
-        raise DeserializationError(
-            "CreateMissionProfileRequest.tracking_config_arn required"
-        )
+        out["tracking_config_arn"] = ""
     if data.get("telemetrySinkConfigArn") is not None:
         out["telemetry_sink_config_arn"] = data["telemetrySinkConfigArn"]
     if data.get("tags") is not None:

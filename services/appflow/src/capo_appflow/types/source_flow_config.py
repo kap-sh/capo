@@ -72,7 +72,11 @@ def deserialize_json(data: dict) -> SourceFlowConfig:
             data["connectorType"]
         )
     else:
-        raise DeserializationError("SourceFlowConfig.connector_type required")
+        import typing
+
+        out["connector_type"] = typing.cast(
+            "capo_appflow.types.connector_type.ConnectorType", ""
+        )
     if data.get("apiVersion") is not None:
         out["api_version"] = data["apiVersion"]
     if data.get("connectorProfileName") is not None:

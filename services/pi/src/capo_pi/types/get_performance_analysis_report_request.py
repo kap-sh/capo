@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pi.types.accept_language
     import capo_pi.types.analysis_report_id
@@ -61,21 +59,17 @@ def deserialize_aws_json_1_1(data: dict) -> GetPerformanceAnalysisReportRequest:
             data["ServiceType"]
         )
     else:
-        raise DeserializationError(
-            "GetPerformanceAnalysisReportRequest.service_type required"
-        )
+        import typing
+
+        out["service_type"] = typing.cast("capo_pi.types.service_type.ServiceType", "")
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError(
-            "GetPerformanceAnalysisReportRequest.identifier required"
-        )
+        out["identifier"] = ""
     if data.get("AnalysisReportId") is not None:
         out["analysis_report_id"] = data["AnalysisReportId"]
     else:
-        raise DeserializationError(
-            "GetPerformanceAnalysisReportRequest.analysis_report_id required"
-        )
+        out["analysis_report_id"] = ""
     if data.get("TextFormat") is not None:
         import capo_pi.types.text_format
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.geometry_format
     import capo_geo_routes.types.road_snap_notice_list
@@ -68,7 +66,7 @@ def deserialize_json(data: dict) -> SnapToRoadsResponse:
             data["Notices"]
         )
     else:
-        raise DeserializationError("SnapToRoadsResponse.notices required")
+        out["notices"] = []
     if data.get("SnappedGeometry") is not None:
         import capo_geo_routes.types.road_snap_snapped_geometry
 
@@ -86,8 +84,10 @@ def deserialize_json(data: dict) -> SnapToRoadsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "SnapToRoadsResponse.snapped_geometry_format required"
+        import typing
+
+        out["snapped_geometry_format"] = typing.cast(
+            "capo_geo_routes.types.geometry_format.GeometryFormat", ""
         )
     if data.get("SnappedTracePoints") is not None:
         import capo_geo_routes.types.road_snap_snapped_trace_point_list
@@ -98,7 +98,7 @@ def deserialize_json(data: dict) -> SnapToRoadsResponse:
             )
         )
     else:
-        raise DeserializationError("SnapToRoadsResponse.snapped_trace_points required")
+        out["snapped_trace_points"] = []
     return out
 
 

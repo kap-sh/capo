@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.account_id_string
     import capo_lakeformation.types.boolean
@@ -63,7 +61,7 @@ def deserialize_json(data: dict) -> RegisterResourceRequest:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("RegisterResourceRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("UseServiceLinkedRole") is not None:
         out["use_service_linked_role"] = data["UseServiceLinkedRole"]
     if data.get("RoleArn") is not None:

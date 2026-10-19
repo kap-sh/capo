@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.latest_sync_blockers
 
@@ -43,7 +41,7 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceSyncBlockerSummary:
     if data.get("serviceName") is not None:
         out["service_name"] = data["serviceName"]
     else:
-        raise DeserializationError("ServiceSyncBlockerSummary.service_name required")
+        out["service_name"] = ""
     if data.get("serviceInstanceName") is not None:
         out["service_instance_name"] = data["serviceInstanceName"]
     if data.get("latestBlockers") is not None:

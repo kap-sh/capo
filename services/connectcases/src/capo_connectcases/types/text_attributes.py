@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 
 class TextAttributes(TypedDict, closed=True):
     is_multiline: "bool"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> TextAttributes:
     if data.get("isMultiline") is not None:
         out["is_multiline"] = data["isMultiline"]
     else:
-        raise DeserializationError("TextAttributes.is_multiline required")
+        out["is_multiline"] = False
     return out

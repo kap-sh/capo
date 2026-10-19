@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.integer
     import capo_lookoutequipment.types.list_of_discarded_files
@@ -43,15 +41,11 @@ def deserialize_aws_json_1_0(data: dict) -> IngestedFilesSummary:
     if data.get("TotalNumberOfFiles") is not None:
         out["total_number_of_files"] = data["TotalNumberOfFiles"]
     else:
-        raise DeserializationError(
-            "IngestedFilesSummary.total_number_of_files required"
-        )
+        out["total_number_of_files"] = 0
     if data.get("IngestedNumberOfFiles") is not None:
         out["ingested_number_of_files"] = data["IngestedNumberOfFiles"]
     else:
-        raise DeserializationError(
-            "IngestedFilesSummary.ingested_number_of_files required"
-        )
+        out["ingested_number_of_files"] = 0
     if data.get("DiscardedFiles") is not None:
         import capo_lookoutequipment.types.list_of_discarded_files
 

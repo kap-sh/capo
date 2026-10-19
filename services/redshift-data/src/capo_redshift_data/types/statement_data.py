@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -114,7 +112,7 @@ def deserialize_aws_json_1_1(data: dict) -> StatementData:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("StatementData.id required")
+        out["id"] = ""
     if data.get("QueryString") is not None:
         out["query_string"] = data["QueryString"]
     if data.get("QueryStrings") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.continuous_integration_scan_supported_events
     import capo_inspector2.types.frequency_expression
@@ -87,19 +85,15 @@ def deserialize_json(data: dict) -> CodeSecurityScanConfigurationSummary:
     if data.get("scanConfigurationArn") is not None:
         out["scan_configuration_arn"] = data["scanConfigurationArn"]
     else:
-        raise DeserializationError(
-            "CodeSecurityScanConfigurationSummary.scan_configuration_arn required"
-        )
+        out["scan_configuration_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CodeSecurityScanConfigurationSummary.name required")
+        out["name"] = ""
     if data.get("ownerAccountId") is not None:
         out["owner_account_id"] = data["ownerAccountId"]
     else:
-        raise DeserializationError(
-            "CodeSecurityScanConfigurationSummary.owner_account_id required"
-        )
+        out["owner_account_id"] = ""
     if data.get("periodicScanFrequency") is not None:
         import capo_inspector2.types.periodic_scan_frequency
 
@@ -127,9 +121,7 @@ def deserialize_json(data: dict) -> CodeSecurityScanConfigurationSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "CodeSecurityScanConfigurationSummary.rule_set_categories required"
-        )
+        out["rule_set_categories"] = []
     if data.get("scopeSettings") is not None:
         import capo_inspector2.types.scope_settings
 

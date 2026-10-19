@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transcribe.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe.types.data_access_role_arn
     import capo_transcribe.types.encryption_configuration
@@ -63,9 +61,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateVocabularyFilterRequest:
     if data.get("VocabularyFilterName") is not None:
         out["vocabulary_filter_name"] = data["VocabularyFilterName"]
     else:
-        raise DeserializationError(
-            "UpdateVocabularyFilterRequest.vocabulary_filter_name required"
-        )
+        out["vocabulary_filter_name"] = ""
     if data.get("Words") is not None:
         import capo_transcribe.types.words
 

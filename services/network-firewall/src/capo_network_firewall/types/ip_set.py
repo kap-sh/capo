@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.variable_definition_list
 
@@ -41,5 +39,5 @@ def deserialize_aws_json_1_0(data: dict) -> IPSet:
             )
         )
     else:
-        raise DeserializationError("IPSet.definition required")
+        out["definition"] = []
     return out

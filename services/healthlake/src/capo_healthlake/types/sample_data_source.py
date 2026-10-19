@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.sample_data_s3_uri
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> SampleDataSource:
     if data.get("S3Uri") is not None:
         out["s3_uri"] = data["S3Uri"]
     else:
-        raise DeserializationError("SampleDataSource.s3_uri required")
+        out["s3_uri"] = ""
     return out

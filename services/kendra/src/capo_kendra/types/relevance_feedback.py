@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.relevance_type
     import capo_kendra.types.result_id
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> RelevanceFeedback:
     if data.get("ResultId") is not None:
         out["result_id"] = data["ResultId"]
     else:
-        raise DeserializationError("RelevanceFeedback.result_id required")
+        out["result_id"] = ""
     if data.get("RelevanceValue") is not None:
         import capo_kendra.types.relevance_type
 
@@ -45,5 +43,9 @@ def deserialize_aws_json_1_1(data: dict) -> RelevanceFeedback:
             )
         )
     else:
-        raise DeserializationError("RelevanceFeedback.relevance_value required")
+        import typing
+
+        out["relevance_value"] = typing.cast(
+            "capo_kendra.types.relevance_type.RelevanceType", ""
+        )
     return out

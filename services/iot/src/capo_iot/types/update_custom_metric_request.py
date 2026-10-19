@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.custom_metric_display_name
     import capo_iot.types.metric_name
@@ -30,5 +28,5 @@ def deserialize_json(data: dict) -> UpdateCustomMetricRequest:
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("UpdateCustomMetricRequest.display_name required")
+        out["display_name"] = ""
     return out

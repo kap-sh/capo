@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.allowed_headers
@@ -80,7 +79,7 @@ def deserialize_xml(el: Element) -> CORSRule:
             el, "AllowedMethod"
         )
     else:
-        raise DeserializationError("CORSRule.allowed_methods required")
+        out["allowed_methods"] = []
     if el.find("AllowedOrigin") is not None:
         import capo_s3.types.allowed_origins
 
@@ -88,7 +87,7 @@ def deserialize_xml(el: Element) -> CORSRule:
             el, "AllowedOrigin"
         )
     else:
-        raise DeserializationError("CORSRule.allowed_origins required")
+        out["allowed_origins"] = []
     if el.find("ExposeHeader") is not None:
         import capo_s3.types.expose_headers
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.entity_identifier
     import capo_workmail.types.mailbox_quota
@@ -35,13 +33,13 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateMailboxQuotaRequest:
     if data.get("OrganizationId") is not None:
         out["organization_id"] = data["OrganizationId"]
     else:
-        raise DeserializationError("UpdateMailboxQuotaRequest.organization_id required")
+        out["organization_id"] = ""
     if data.get("UserId") is not None:
         out["user_id"] = data["UserId"]
     else:
-        raise DeserializationError("UpdateMailboxQuotaRequest.user_id required")
+        out["user_id"] = ""
     if data.get("MailboxQuota") is not None:
         out["mailbox_quota"] = data["MailboxQuota"]
     else:
-        raise DeserializationError("UpdateMailboxQuotaRequest.mailbox_quota required")
+        out["mailbox_quota"] = 0
     return out

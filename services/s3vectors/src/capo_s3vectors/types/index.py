@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3vectors.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -97,15 +95,15 @@ def deserialize_json(data: dict) -> Index:
     if data.get("vectorBucketName") is not None:
         out["vector_bucket_name"] = data["vectorBucketName"]
     else:
-        raise DeserializationError("Index.vector_bucket_name required")
+        out["vector_bucket_name"] = ""
     if data.get("indexName") is not None:
         out["index_name"] = data["indexName"]
     else:
-        raise DeserializationError("Index.index_name required")
+        out["index_name"] = ""
     if data.get("indexArn") is not None:
         out["index_arn"] = data["indexArn"]
     else:
-        raise DeserializationError("Index.index_arn required")
+        out["index_arn"] = ""
     if data.get("creationTime") is not None:
         import capo_s3vectors.types._prelude.timestamp
 
@@ -113,7 +111,11 @@ def deserialize_json(data: dict) -> Index:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("Index.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("dataType") is not None:
         import capo_s3vectors.types.data_type
 
@@ -121,11 +123,13 @@ def deserialize_json(data: dict) -> Index:
             data["dataType"]
         )
     else:
-        raise DeserializationError("Index.data_type required")
+        import typing
+
+        out["data_type"] = typing.cast("capo_s3vectors.types.data_type.DataType", "")
     if data.get("dimension") is not None:
         out["dimension"] = data["dimension"]
     else:
-        raise DeserializationError("Index.dimension required")
+        out["dimension"] = 0
     if data.get("distanceMetric") is not None:
         import capo_s3vectors.types.distance_metric
 
@@ -133,7 +137,11 @@ def deserialize_json(data: dict) -> Index:
             data["distanceMetric"]
         )
     else:
-        raise DeserializationError("Index.distance_metric required")
+        import typing
+
+        out["distance_metric"] = typing.cast(
+            "capo_s3vectors.types.distance_metric.DistanceMetric", ""
+        )
     if data.get("metadataConfiguration") is not None:
         import capo_s3vectors.types.metadata_configuration
 

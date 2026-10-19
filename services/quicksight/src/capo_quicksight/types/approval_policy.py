@@ -89,15 +89,15 @@ def deserialize_json(data: dict) -> ApprovalPolicy:
     if data.get("PolicyId") is not None:
         out["policy_id"] = data["PolicyId"]
     else:
-        raise DeserializationError("ApprovalPolicy.policy_id required")
+        out["policy_id"] = ""
     if data.get("PolicyArn") is not None:
         out["policy_arn"] = data["PolicyArn"]
     else:
-        raise DeserializationError("ApprovalPolicy.policy_arn required")
+        out["policy_arn"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ApprovalPolicy.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Actions") is not None:
@@ -107,7 +107,7 @@ def deserialize_json(data: dict) -> ApprovalPolicy:
             data["Actions"]
         )
     else:
-        raise DeserializationError("ApprovalPolicy.actions required")
+        out["actions"] = []
     if data.get("AssetTypes") is not None:
         import capo_quicksight.types.asset_type_list
 
@@ -115,7 +115,7 @@ def deserialize_json(data: dict) -> ApprovalPolicy:
             data["AssetTypes"]
         )
     else:
-        raise DeserializationError("ApprovalPolicy.asset_types required")
+        out["asset_types"] = []
     if data.get("ApplicableTo") is not None:
         import capo_quicksight.types.applicable_to
 
@@ -133,7 +133,7 @@ def deserialize_json(data: dict) -> ApprovalPolicy:
             )
         )
     else:
-        raise DeserializationError("ApprovalPolicy.approval_groups required")
+        out["approval_groups"] = []
     if data.get("CreatedAt") is not None:
         import capo_quicksight.types.timestamp
 
@@ -141,7 +141,9 @@ def deserialize_json(data: dict) -> ApprovalPolicy:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("ApprovalPolicy.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("UpdatedAt") is not None:
         import capo_quicksight.types.timestamp
 
@@ -149,5 +151,7 @@ def deserialize_json(data: dict) -> ApprovalPolicy:
             data["UpdatedAt"]
         )
     else:
-        raise DeserializationError("ApprovalPolicy.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

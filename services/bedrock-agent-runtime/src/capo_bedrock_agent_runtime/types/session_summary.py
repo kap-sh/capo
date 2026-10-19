@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.date_timestamp
     import capo_bedrock_agent_runtime.types.session_arn
@@ -58,11 +56,11 @@ def deserialize_json(data: dict) -> SessionSummary:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("SessionSummary.session_id required")
+        out["session_id"] = ""
     if data.get("sessionArn") is not None:
         out["session_arn"] = data["sessionArn"]
     else:
-        raise DeserializationError("SessionSummary.session_arn required")
+        out["session_arn"] = ""
     if data.get("sessionStatus") is not None:
         import capo_bedrock_agent_runtime.types.session_status
 
@@ -72,7 +70,11 @@ def deserialize_json(data: dict) -> SessionSummary:
             )
         )
     else:
-        raise DeserializationError("SessionSummary.session_status required")
+        import typing
+
+        out["session_status"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.session_status.SessionStatus", ""
+        )
     if data.get("createdAt") is not None:
         import capo_bedrock_agent_runtime.types.date_timestamp
 
@@ -82,7 +84,9 @@ def deserialize_json(data: dict) -> SessionSummary:
             )
         )
     else:
-        raise DeserializationError("SessionSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastUpdatedAt") is not None:
         import capo_bedrock_agent_runtime.types.date_timestamp
 
@@ -92,5 +96,9 @@ def deserialize_json(data: dict) -> SessionSummary:
             )
         )
     else:
-        raise DeserializationError("SessionSummary.last_updated_at required")
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

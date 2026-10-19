@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sns.types.attribute_name
@@ -39,16 +38,12 @@ def deserialize_query(el: Element) -> SetSubscriptionAttributesInput:
     if child_subscription_arn is not None:
         out["subscription_arn"] = str(child_subscription_arn.text or "")
     else:
-        raise DeserializationError(
-            "SetSubscriptionAttributesInput.subscription_arn required"
-        )
+        out["subscription_arn"] = ""
     child_attribute_name = el.find("AttributeName")
     if child_attribute_name is not None:
         out["attribute_name"] = str(child_attribute_name.text or "")
     else:
-        raise DeserializationError(
-            "SetSubscriptionAttributesInput.attribute_name required"
-        )
+        out["attribute_name"] = ""
     child_attribute_value = el.find("AttributeValue")
     if child_attribute_value is not None:
         out["attribute_value"] = str(child_attribute_value.text or "")

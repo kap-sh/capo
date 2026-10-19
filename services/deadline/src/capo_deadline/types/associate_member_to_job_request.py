@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.deadline_principal_type
     import capo_deadline.types.farm_id
@@ -68,15 +66,15 @@ def deserialize_json(data: dict) -> AssociateMemberToJobRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "AssociateMemberToJobRequest.principal_type required"
+        import typing
+
+        out["principal_type"] = typing.cast(
+            "capo_deadline.types.deadline_principal_type.DeadlinePrincipalType", ""
         )
     if data.get("identityStoreId") is not None:
         out["identity_store_id"] = data["identityStoreId"]
     else:
-        raise DeserializationError(
-            "AssociateMemberToJobRequest.identity_store_id required"
-        )
+        out["identity_store_id"] = ""
     if data.get("membershipLevel") is not None:
         import capo_deadline.types.membership_level
 
@@ -84,8 +82,10 @@ def deserialize_json(data: dict) -> AssociateMemberToJobRequest:
             data["membershipLevel"]
         )
     else:
-        raise DeserializationError(
-            "AssociateMemberToJobRequest.membership_level required"
+        import typing
+
+        out["membership_level"] = typing.cast(
+            "capo_deadline.types.membership_level.MembershipLevel", ""
         )
     if data.get("identityCenterRegion") is not None:
         out["identity_center_region"] = data["identityCenterRegion"]

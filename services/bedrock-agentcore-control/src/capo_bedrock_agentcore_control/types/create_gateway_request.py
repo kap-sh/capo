@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.authorizer_configuration
     import capo_bedrock_agentcore_control.types.authorizer_type
@@ -151,7 +149,7 @@ def deserialize_json(data: dict) -> CreateGatewayRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateGatewayRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("clientToken") is not None:
@@ -159,7 +157,7 @@ def deserialize_json(data: dict) -> CreateGatewayRequest:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateGatewayRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("protocolType") is not None:
         import capo_bedrock_agentcore_control.types.gateway_protocol_type
 
@@ -185,7 +183,11 @@ def deserialize_json(data: dict) -> CreateGatewayRequest:
             )
         )
     else:
-        raise DeserializationError("CreateGatewayRequest.authorizer_type required")
+        import typing
+
+        out["authorizer_type"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.authorizer_type.AuthorizerType", ""
+        )
     if data.get("authorizerConfiguration") is not None:
         import capo_bedrock_agentcore_control.types.authorizer_configuration
 

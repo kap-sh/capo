@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_launch_wizard.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_launch_wizard.types.deployment_pattern_name
     import capo_launch_wizard.types.filter_list
@@ -54,15 +52,11 @@ def deserialize_json(data: dict) -> ListDeploymentPatternVersionsInput:
     if data.get("workloadName") is not None:
         out["workload_name"] = data["workloadName"]
     else:
-        raise DeserializationError(
-            "ListDeploymentPatternVersionsInput.workload_name required"
-        )
+        out["workload_name"] = ""
     if data.get("deploymentPatternName") is not None:
         out["deployment_pattern_name"] = data["deploymentPatternName"]
     else:
-        raise DeserializationError(
-            "ListDeploymentPatternVersionsInput.deployment_pattern_name required"
-        )
+        out["deployment_pattern_name"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.cache_report_filter_list
     import capo_storage_gateway.types.client_token
@@ -83,19 +81,19 @@ def deserialize_aws_json_1_1(data: dict) -> StartCacheReportInput:
     if data.get("FileShareARN") is not None:
         out["file_share_arn"] = data["FileShareARN"]
     else:
-        raise DeserializationError("StartCacheReportInput.file_share_arn required")
+        out["file_share_arn"] = ""
     if data.get("Role") is not None:
         out["role"] = data["Role"]
     else:
-        raise DeserializationError("StartCacheReportInput.role required")
+        out["role"] = ""
     if data.get("LocationARN") is not None:
         out["location_arn"] = data["LocationARN"]
     else:
-        raise DeserializationError("StartCacheReportInput.location_arn required")
+        out["location_arn"] = ""
     if data.get("BucketRegion") is not None:
         out["bucket_region"] = data["BucketRegion"]
     else:
-        raise DeserializationError("StartCacheReportInput.bucket_region required")
+        out["bucket_region"] = ""
     if data.get("VPCEndpointDNSName") is not None:
         out["vpc_endpoint_dns_name"] = data["VPCEndpointDNSName"]
     if data.get("InclusionFilters") is not None:
@@ -117,7 +115,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartCacheReportInput:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("StartCacheReportInput.client_token required")
+        out["client_token"] = ""
     if data.get("Tags") is not None:
         import capo_storage_gateway.types.tags
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.field_source_profile_ids
     import capo_customer_profiles.types.name
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> MergeProfilesRequest:
     if data.get("MainProfileId") is not None:
         out["main_profile_id"] = data["MainProfileId"]
     else:
-        raise DeserializationError("MergeProfilesRequest.main_profile_id required")
+        out["main_profile_id"] = ""
     if data.get("ProfileIdsToBeMerged") is not None:
         import capo_customer_profiles.types.profile_id_to_be_merged_list
 
@@ -63,9 +61,7 @@ def deserialize_json(data: dict) -> MergeProfilesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "MergeProfilesRequest.profile_ids_to_be_merged required"
-        )
+        out["profile_ids_to_be_merged"] = []
     if data.get("FieldSourceProfileIds") is not None:
         import capo_customer_profiles.types.field_source_profile_ids
 

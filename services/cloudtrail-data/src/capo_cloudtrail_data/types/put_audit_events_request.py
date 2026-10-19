@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudtrail_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail_data.types.audit_events
     import capo_cloudtrail_data.types.channel_arn
@@ -41,5 +39,5 @@ def deserialize_json(data: dict) -> PutAuditEventsRequest:
             data["auditEvents"]
         )
     else:
-        raise DeserializationError("PutAuditEventsRequest.audit_events required")
+        out["audit_events"] = []
     return out

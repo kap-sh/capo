@@ -69,9 +69,7 @@ def deserialize_json(data: dict) -> QueryLoggingConfigurationMetadata:
     if data.get("workspace") is not None:
         out["workspace"] = data["workspace"]
     else:
-        raise DeserializationError(
-            "QueryLoggingConfigurationMetadata.workspace required"
-        )
+        out["workspace"] = ""
     if data.get("destinations") is not None:
         import capo_amp.types.logging_destinations
 
@@ -79,9 +77,7 @@ def deserialize_json(data: dict) -> QueryLoggingConfigurationMetadata:
             data["destinations"]
         )
     else:
-        raise DeserializationError(
-            "QueryLoggingConfigurationMetadata.destinations required"
-        )
+        out["destinations"] = []
     if data.get("createdAt") is not None:
         import capo_amp.types._prelude.timestamp
 
@@ -89,9 +85,9 @@ def deserialize_json(data: dict) -> QueryLoggingConfigurationMetadata:
             data["createdAt"]
         )
     else:
-        raise DeserializationError(
-            "QueryLoggingConfigurationMetadata.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("modifiedAt") is not None:
         import capo_amp.types._prelude.timestamp
 
@@ -99,7 +95,9 @@ def deserialize_json(data: dict) -> QueryLoggingConfigurationMetadata:
             data["modifiedAt"]
         )
     else:
-        raise DeserializationError(
-            "QueryLoggingConfigurationMetadata.modified_at required"
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

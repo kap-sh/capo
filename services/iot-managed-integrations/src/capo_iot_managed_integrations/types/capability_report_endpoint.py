@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.capability_report_capabilities
     import capo_iot_managed_integrations.types.device_types
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> CapabilityReportEndpoint:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CapabilityReportEndpoint.id required")
+        out["id"] = ""
     if data.get("deviceTypes") is not None:
         import capo_iot_managed_integrations.types.device_types
 
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> CapabilityReportEndpoint:
             )
         )
     else:
-        raise DeserializationError("CapabilityReportEndpoint.device_types required")
+        out["device_types"] = []
     if data.get("capabilities") is not None:
         import capo_iot_managed_integrations.types.capability_report_capabilities
 
@@ -67,5 +65,5 @@ def deserialize_json(data: dict) -> CapabilityReportEndpoint:
             )
         )
     else:
-        raise DeserializationError("CapabilityReportEndpoint.capabilities required")
+        out["capabilities"] = []
     return out

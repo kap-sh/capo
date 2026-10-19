@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.copy_options
     import capo_firehose.types.data_table_columns
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> CopyCommand:
     if data.get("DataTableName") is not None:
         out["data_table_name"] = data["DataTableName"]
     else:
-        raise DeserializationError("CopyCommand.data_table_name required")
+        out["data_table_name"] = ""
     if data.get("DataTableColumns") is not None:
         out["data_table_columns"] = data["DataTableColumns"]
     if data.get("CopyOptions") is not None:

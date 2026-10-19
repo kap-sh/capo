@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.epsilon
     import capo_cleanrooms.types.users_noise_per_query
@@ -33,13 +31,9 @@ def deserialize_json(data: dict) -> DifferentialPrivacyPreviewParametersInput:
     if data.get("epsilon") is not None:
         out["epsilon"] = data["epsilon"]
     else:
-        raise DeserializationError(
-            "DifferentialPrivacyPreviewParametersInput.epsilon required"
-        )
+        out["epsilon"] = 0
     if data.get("usersNoisePerQuery") is not None:
         out["users_noise_per_query"] = data["usersNoisePerQuery"]
     else:
-        raise DeserializationError(
-            "DifferentialPrivacyPreviewParametersInput.users_noise_per_query required"
-        )
+        out["users_noise_per_query"] = 0
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.bootstrap_datum
@@ -72,7 +71,7 @@ def deserialize_query(el: Element) -> VirtualMFADevice:
     if child_serial_number is not None:
         out["serial_number"] = str(child_serial_number.text or "")
     else:
-        raise DeserializationError("VirtualMFADevice.serial_number required")
+        out["serial_number"] = ""
     child_base32_string_seed = el.find("Base32StringSeed")
     if child_base32_string_seed is not None:
         import capo_iam.types.bootstrap_datum

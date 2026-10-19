@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_billingconductor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billingconductor.types.custom_line_item_charge_value
 
@@ -35,7 +33,5 @@ def deserialize_json(data: dict) -> ListCustomLineItemFlatChargeDetails:
     if data.get("ChargeValue") is not None:
         out["charge_value"] = float(data["ChargeValue"])
     else:
-        raise DeserializationError(
-            "ListCustomLineItemFlatChargeDetails.charge_value required"
-        )
+        out["charge_value"] = 0.0
     return out

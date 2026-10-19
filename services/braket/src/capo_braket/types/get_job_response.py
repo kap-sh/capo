@@ -189,21 +189,21 @@ def deserialize_json(data: dict) -> GetJobResponse:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("GetJobResponse.status required")
+        out["status"] = ""
     if data.get("jobArn") is not None:
         out["job_arn"] = data["jobArn"]
     else:
-        raise DeserializationError("GetJobResponse.job_arn required")
+        out["job_arn"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("GetJobResponse.role_arn required")
+        out["role_arn"] = ""
     if data.get("failureReason") is not None:
         out["failure_reason"] = data["failureReason"]
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError("GetJobResponse.job_name required")
+        out["job_name"] = ""
     if data.get("hyperParameters") is not None:
         import capo_braket.types.hyper_parameters
 
@@ -267,7 +267,9 @@ def deserialize_json(data: dict) -> GetJobResponse:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetJobResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("startedAt") is not None:
         import datetime
 

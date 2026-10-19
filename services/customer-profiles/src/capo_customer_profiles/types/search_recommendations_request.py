@@ -104,7 +104,7 @@ def deserialize_json(data: dict) -> SearchRecommendationsRequest:
     if data.get("KeyName") is not None:
         out["key_name"] = data["KeyName"]
     else:
-        raise DeserializationError("SearchRecommendationsRequest.key_name required")
+        out["key_name"] = ""
     if data.get("KeyValues") is not None:
         import capo_customer_profiles.types.key_values_list
 
@@ -114,7 +114,7 @@ def deserialize_json(data: dict) -> SearchRecommendationsRequest:
             )
         )
     else:
-        raise DeserializationError("SearchRecommendationsRequest.key_values required")
+        out["key_values"] = []
     if data.get("Recommender") is not None:
         import capo_customer_profiles.types.recommender
 

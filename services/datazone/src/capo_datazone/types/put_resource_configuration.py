@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.region_name
     import capo_datazone.types.resource_configuration_parameter_map
@@ -44,13 +42,13 @@ def deserialize_json(data: dict) -> PutResourceConfiguration:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("PutResourceConfiguration.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("region") is not None:
         out["region"] = data["region"]
     else:
-        raise DeserializationError("PutResourceConfiguration.region required")
+        out["region"] = ""
     if data.get("parameters") is not None:
         import capo_datazone.types.resource_configuration_parameter_map
 
@@ -60,5 +58,5 @@ def deserialize_json(data: dict) -> PutResourceConfiguration:
             )
         )
     else:
-        raise DeserializationError("PutResourceConfiguration.parameters required")
+        out["parameters"] = {}
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_endusermessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_endusermessaging.types.verification_status
 
@@ -37,7 +35,9 @@ def deserialize_json(data: dict) -> ValidateNotifyCodeVerificationOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ValidateNotifyCodeVerificationOutput.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_endusermessaging.types.verification_status.VerificationStatus", ""
         )
     return out

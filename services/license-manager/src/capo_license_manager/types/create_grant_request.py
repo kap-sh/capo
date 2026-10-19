@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.allowed_operation_list
     import capo_license_manager.types.arn
@@ -69,15 +67,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateGrantRequest:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("CreateGrantRequest.client_token required")
+        out["client_token"] = ""
     if data.get("GrantName") is not None:
         out["grant_name"] = data["GrantName"]
     else:
-        raise DeserializationError("CreateGrantRequest.grant_name required")
+        out["grant_name"] = ""
     if data.get("LicenseArn") is not None:
         out["license_arn"] = data["LicenseArn"]
     else:
-        raise DeserializationError("CreateGrantRequest.license_arn required")
+        out["license_arn"] = ""
     if data.get("Principals") is not None:
         import capo_license_manager.types.principal_arn_list
 
@@ -87,11 +85,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateGrantRequest:
             )
         )
     else:
-        raise DeserializationError("CreateGrantRequest.principals required")
+        out["principals"] = []
     if data.get("HomeRegion") is not None:
         out["home_region"] = data["HomeRegion"]
     else:
-        raise DeserializationError("CreateGrantRequest.home_region required")
+        out["home_region"] = ""
     if data.get("AllowedOperations") is not None:
         import capo_license_manager.types.allowed_operation_list
 
@@ -101,7 +99,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateGrantRequest:
             )
         )
     else:
-        raise DeserializationError("CreateGrantRequest.allowed_operations required")
+        out["allowed_operations"] = []
     if data.get("Tags") is not None:
         import capo_license_manager.types.tag_list
 

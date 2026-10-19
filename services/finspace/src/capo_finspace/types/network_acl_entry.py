@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_finspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace.types.icmp_type_code
     import capo_finspace.types.port_range
@@ -61,11 +59,11 @@ def deserialize_json(data: dict) -> NetworkACLEntry:
     if data.get("ruleNumber") is not None:
         out["rule_number"] = data["ruleNumber"]
     else:
-        raise DeserializationError("NetworkACLEntry.rule_number required")
+        out["rule_number"] = 0
     if data.get("protocol") is not None:
         out["protocol"] = data["protocol"]
     else:
-        raise DeserializationError("NetworkACLEntry.protocol required")
+        out["protocol"] = ""
     if data.get("ruleAction") is not None:
         import capo_finspace.types.rule_action
 
@@ -73,7 +71,11 @@ def deserialize_json(data: dict) -> NetworkACLEntry:
             data["ruleAction"]
         )
     else:
-        raise DeserializationError("NetworkACLEntry.rule_action required")
+        import typing
+
+        out["rule_action"] = typing.cast(
+            "capo_finspace.types.rule_action.RuleAction", ""
+        )
     if data.get("portRange") is not None:
         import capo_finspace.types.port_range
 
@@ -89,5 +91,5 @@ def deserialize_json(data: dict) -> NetworkACLEntry:
     if data.get("cidrBlock") is not None:
         out["cidr_block"] = data["cidrBlock"]
     else:
-        raise DeserializationError("NetworkACLEntry.cidr_block required")
+        out["cidr_block"] = ""
     return out

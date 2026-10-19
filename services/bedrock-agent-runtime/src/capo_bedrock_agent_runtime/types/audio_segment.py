@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 
 class AudioSegment(TypedDict, closed=True):
     s3_uri: "str"
@@ -26,7 +24,7 @@ def deserialize_json(data: dict) -> AudioSegment:
     if data.get("s3Uri") is not None:
         out["s3_uri"] = data["s3Uri"]
     else:
-        raise DeserializationError("AudioSegment.s3_uri required")
+        out["s3_uri"] = ""
     if data.get("transcription") is not None:
         out["transcription"] = data["transcription"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.insights_failure_category
 
@@ -55,13 +53,18 @@ def deserialize_json(data: dict) -> InsightsFailureSignal:
             )
         )
     else:
-        raise DeserializationError("InsightsFailureSignal.category required")
+        import typing
+
+        out["category"] = typing.cast(
+            "capo_bedrock_agentcore.types.insights_failure_category.InsightsFailureCategory",
+            "",
+        )
     if data.get("evidence") is not None:
         out["evidence"] = data["evidence"]
     else:
-        raise DeserializationError("InsightsFailureSignal.evidence required")
+        out["evidence"] = ""
     if data.get("confidence") is not None:
         out["confidence"] = float(data["confidence"])
     else:
-        raise DeserializationError("InsightsFailureSignal.confidence required")
+        out["confidence"] = 0.0
     return out

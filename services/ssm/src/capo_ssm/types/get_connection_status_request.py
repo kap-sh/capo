@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.session_target
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetConnectionStatusRequest:
     if data.get("Target") is not None:
         out["target"] = data["Target"]
     else:
-        raise DeserializationError("GetConnectionStatusRequest.target required")
+        out["target"] = ""
     return out

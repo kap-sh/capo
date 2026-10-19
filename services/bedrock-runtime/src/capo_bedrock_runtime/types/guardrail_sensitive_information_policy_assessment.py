@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.guardrail_pii_entity_filter_list
     import capo_bedrock_runtime.types.guardrail_regex_filter_list
@@ -49,9 +47,7 @@ def deserialize_json(data: dict) -> GuardrailSensitiveInformationPolicyAssessmen
             )
         )
     else:
-        raise DeserializationError(
-            "GuardrailSensitiveInformationPolicyAssessment.pii_entities required"
-        )
+        out["pii_entities"] = []
     if data.get("regexes") is not None:
         import capo_bedrock_runtime.types.guardrail_regex_filter_list
 
@@ -61,7 +57,5 @@ def deserialize_json(data: dict) -> GuardrailSensitiveInformationPolicyAssessmen
             )
         )
     else:
-        raise DeserializationError(
-            "GuardrailSensitiveInformationPolicyAssessment.regexes required"
-        )
+        out["regexes"] = []
     return out

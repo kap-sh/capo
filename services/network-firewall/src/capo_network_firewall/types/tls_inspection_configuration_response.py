@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.certificates
     import capo_network_firewall.types.description
@@ -124,23 +122,17 @@ def deserialize_aws_json_1_0(data: dict) -> TLSInspectionConfigurationResponse:
     if data.get("TLSInspectionConfigurationArn") is not None:
         out["tls_inspection_configuration_arn"] = data["TLSInspectionConfigurationArn"]
     else:
-        raise DeserializationError(
-            "TLSInspectionConfigurationResponse.tls_inspection_configuration_arn required"
-        )
+        out["tls_inspection_configuration_arn"] = ""
     if data.get("TLSInspectionConfigurationName") is not None:
         out["tls_inspection_configuration_name"] = data[
             "TLSInspectionConfigurationName"
         ]
     else:
-        raise DeserializationError(
-            "TLSInspectionConfigurationResponse.tls_inspection_configuration_name required"
-        )
+        out["tls_inspection_configuration_name"] = ""
     if data.get("TLSInspectionConfigurationId") is not None:
         out["tls_inspection_configuration_id"] = data["TLSInspectionConfigurationId"]
     else:
-        raise DeserializationError(
-            "TLSInspectionConfigurationResponse.tls_inspection_configuration_id required"
-        )
+        out["tls_inspection_configuration_id"] = ""
     if data.get("TLSInspectionConfigurationStatus") is not None:
         import capo_network_firewall.types.resource_status
 

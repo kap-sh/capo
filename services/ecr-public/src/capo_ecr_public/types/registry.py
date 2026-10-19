@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecr_public.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr_public.types.arn
     import capo_ecr_public.types.registry_alias_list
@@ -47,19 +45,19 @@ def deserialize_aws_json_1_1(data: dict) -> Registry:
     if data.get("registryId") is not None:
         out["registry_id"] = data["registryId"]
     else:
-        raise DeserializationError("Registry.registry_id required")
+        out["registry_id"] = ""
     if data.get("registryArn") is not None:
         out["registry_arn"] = data["registryArn"]
     else:
-        raise DeserializationError("Registry.registry_arn required")
+        out["registry_arn"] = ""
     if data.get("registryUri") is not None:
         out["registry_uri"] = data["registryUri"]
     else:
-        raise DeserializationError("Registry.registry_uri required")
+        out["registry_uri"] = ""
     if data.get("verified") is not None:
         out["verified"] = data["verified"]
     else:
-        raise DeserializationError("Registry.verified required")
+        out["verified"] = False
     if data.get("aliases") is not None:
         import capo_ecr_public.types.registry_alias_list
 
@@ -69,5 +67,5 @@ def deserialize_aws_json_1_1(data: dict) -> Registry:
             )
         )
     else:
-        raise DeserializationError("Registry.aliases required")
+        out["aliases"] = []
     return out

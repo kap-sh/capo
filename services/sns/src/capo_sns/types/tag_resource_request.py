@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sns.types.amazon_resource_name
@@ -36,12 +35,12 @@ def deserialize_query(el: Element) -> TagResourceRequest:
     if child_resource_arn is not None:
         out["resource_arn"] = str(child_resource_arn.text or "")
     else:
-        raise DeserializationError("TagResourceRequest.resource_arn required")
+        out["resource_arn"] = ""
     child_tags = el.find("Tags")
     if child_tags is not None:
         import capo_sns.types.tag_list
 
         out["tags"] = capo_sns.types.tag_list.deserialize_query(child_tags)
     else:
-        raise DeserializationError("TagResourceRequest.tags required")
+        out["tags"] = []
     return out

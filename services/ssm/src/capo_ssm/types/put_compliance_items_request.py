@@ -75,15 +75,15 @@ def deserialize_aws_json_1_1(data: dict) -> PutComplianceItemsRequest:
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("PutComplianceItemsRequest.resource_id required")
+        out["resource_id"] = ""
     if data.get("ResourceType") is not None:
         out["resource_type"] = data["ResourceType"]
     else:
-        raise DeserializationError("PutComplianceItemsRequest.resource_type required")
+        out["resource_type"] = ""
     if data.get("ComplianceType") is not None:
         out["compliance_type"] = data["ComplianceType"]
     else:
-        raise DeserializationError("PutComplianceItemsRequest.compliance_type required")
+        out["compliance_type"] = ""
     if data.get("ExecutionSummary") is not None:
         import capo_ssm.types.compliance_execution_summary
 
@@ -105,7 +105,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutComplianceItemsRequest:
             )
         )
     else:
-        raise DeserializationError("PutComplianceItemsRequest.items required")
+        out["items"] = []
     if data.get("ItemContentHash") is not None:
         out["item_content_hash"] = data["ItemContentHash"]
     if data.get("UploadType") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.arn
     import capo_license_manager.types.license_asset_rule_list
@@ -45,7 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> LicenseAssetRuleset:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("LicenseAssetRuleset.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Rules") is not None:
@@ -57,11 +55,9 @@ def deserialize_aws_json_1_1(data: dict) -> LicenseAssetRuleset:
             )
         )
     else:
-        raise DeserializationError("LicenseAssetRuleset.rules required")
+        out["rules"] = []
     if data.get("LicenseAssetRulesetArn") is not None:
         out["license_asset_ruleset_arn"] = data["LicenseAssetRulesetArn"]
     else:
-        raise DeserializationError(
-            "LicenseAssetRuleset.license_asset_ruleset_arn required"
-        )
+        out["license_asset_ruleset_arn"] = ""
     return out

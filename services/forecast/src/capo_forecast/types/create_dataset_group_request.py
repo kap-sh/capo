@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_forecast.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_forecast.types.arn_list
     import capo_forecast.types.domain
@@ -49,9 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDatasetGroupRequest:
     if data.get("DatasetGroupName") is not None:
         out["dataset_group_name"] = data["DatasetGroupName"]
     else:
-        raise DeserializationError(
-            "CreateDatasetGroupRequest.dataset_group_name required"
-        )
+        out["dataset_group_name"] = ""
     if data.get("Domain") is not None:
         import capo_forecast.types.domain
 
@@ -59,7 +55,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDatasetGroupRequest:
             data["Domain"]
         )
     else:
-        raise DeserializationError("CreateDatasetGroupRequest.domain required")
+        import typing
+
+        out["domain"] = typing.cast("capo_forecast.types.domain.Domain", "")
     if data.get("DatasetArns") is not None:
         import capo_forecast.types.arn_list
 

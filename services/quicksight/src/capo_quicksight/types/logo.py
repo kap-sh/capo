@@ -33,7 +33,7 @@ def deserialize_json(data: dict) -> Logo:
     if data.get("AltText") is not None:
         out["alt_text"] = data["AltText"]
     else:
-        raise DeserializationError("Logo.alt_text required")
+        out["alt_text"] = ""
     if data.get("LogoSet") is not None:
         import capo_quicksight.types.logo_set
 

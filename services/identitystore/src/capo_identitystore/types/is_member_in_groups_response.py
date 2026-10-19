@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_identitystore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_identitystore.types.group_membership_existence_results
 
@@ -39,5 +37,5 @@ def deserialize_aws_json_1_1(data: dict) -> IsMemberInGroupsResponse:
             )
         )
     else:
-        raise DeserializationError("IsMemberInGroupsResponse.results required")
+        out["results"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.aggregator_region_list
     import capo_config_service.types.boolean
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> OrganizationAggregationSource:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("OrganizationAggregationSource.role_arn required")
+        out["role_arn"] = ""
     if data.get("AwsRegions") is not None:
         import capo_config_service.types.aggregator_region_list
 

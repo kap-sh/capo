@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_sagemakerjobruntime.errors import DeserializationError, ServiceError
+from capo_sagemakerjobruntime.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_sagemakerjobruntime.types.failure_reason
@@ -27,7 +27,7 @@ def deserialize_json(data: dict) -> ServiceQuotaExceededException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("ServiceQuotaExceededException_.message required")
+        out["message"] = ""
     return out
 
 

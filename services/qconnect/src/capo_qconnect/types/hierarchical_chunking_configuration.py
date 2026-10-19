@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.hierarchical_chunking_level_configurations
 
@@ -42,13 +40,9 @@ def deserialize_json(data: dict) -> HierarchicalChunkingConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "HierarchicalChunkingConfiguration.level_configurations required"
-        )
+        out["level_configurations"] = []
     if data.get("overlapTokens") is not None:
         out["overlap_tokens"] = data["overlapTokens"]
     else:
-        raise DeserializationError(
-            "HierarchicalChunkingConfiguration.overlap_tokens required"
-        )
+        out["overlap_tokens"] = 0
     return out

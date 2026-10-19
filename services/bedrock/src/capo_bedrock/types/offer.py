@@ -42,7 +42,7 @@ def deserialize_json(data: dict) -> Offer:
     if data.get("offerToken") is not None:
         out["offer_token"] = data["offerToken"]
     else:
-        raise DeserializationError("Offer.offer_token required")
+        out["offer_token"] = ""
     if data.get("termDetails") is not None:
         import capo_bedrock.types.term_details
 

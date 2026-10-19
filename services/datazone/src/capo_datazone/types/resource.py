@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 
 class Resource(TypedDict, closed=True):
     provider: NotRequired["str"]
@@ -37,9 +35,9 @@ def deserialize_json(data: dict) -> Resource:
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("Resource.value required")
+        out["value"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("Resource.type required")
+        out["type"] = ""
     return out

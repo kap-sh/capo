@@ -92,9 +92,7 @@ def deserialize_json(data: dict) -> StartDetectMitigationActionsTaskRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartDetectMitigationActionsTaskRequest.actions required"
-        )
+        out["actions"] = []
     if data.get("violationEventOccurrenceRange") is not None:
         import capo_iot.types.violation_event_occurrence_range
 
@@ -110,7 +108,5 @@ def deserialize_json(data: dict) -> StartDetectMitigationActionsTaskRequest:
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     else:
-        raise DeserializationError(
-            "StartDetectMitigationActionsTaskRequest.client_request_token required"
-        )
+        out["client_request_token"] = ""
     return out

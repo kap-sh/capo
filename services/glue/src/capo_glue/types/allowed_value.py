@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.allowed_value_description_string
     import capo_glue.types.allowed_value_value_string
@@ -36,5 +34,5 @@ def deserialize_aws_json_1_1(data: dict) -> AllowedValue:
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("AllowedValue.value required")
+        out["value"] = ""
     return out

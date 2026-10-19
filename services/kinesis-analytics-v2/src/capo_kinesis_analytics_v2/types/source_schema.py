@@ -68,5 +68,5 @@ def deserialize_aws_json_1_1(data: dict) -> SourceSchema:
             )
         )
     else:
-        raise DeserializationError("SourceSchema.record_columns required")
+        out["record_columns"] = []
     return out

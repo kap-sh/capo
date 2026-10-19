@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_eventbridgev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.event_pattern
     import capo_eventbridgev2.types.filter_scope
@@ -31,7 +29,7 @@ def deserialize_cbor(data: dict) -> Filter:
     if data.get("Pattern") is not None:
         out["pattern"] = data["Pattern"]
     else:
-        raise DeserializationError("Filter.pattern required")
+        out["pattern"] = ""
     if data.get("Scope") is not None:
         import capo_eventbridgev2.types.filter_scope
 
@@ -39,7 +37,11 @@ def deserialize_cbor(data: dict) -> Filter:
             data["Scope"]
         )
     else:
-        raise DeserializationError("Filter.scope required")
+        import typing
+
+        out["scope"] = typing.cast(
+            "capo_eventbridgev2.types.filter_scope.FilterScope", ""
+        )
     return out
 
 

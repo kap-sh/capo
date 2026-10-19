@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.bounded_string
     import capo_deadline.types.metered_product_id
@@ -38,17 +36,17 @@ def deserialize_json(data: dict) -> MeteredProductSummary:
     if data.get("productId") is not None:
         out["product_id"] = data["productId"]
     else:
-        raise DeserializationError("MeteredProductSummary.product_id required")
+        out["product_id"] = ""
     if data.get("family") is not None:
         out["family"] = data["family"]
     else:
-        raise DeserializationError("MeteredProductSummary.family required")
+        out["family"] = ""
     if data.get("vendor") is not None:
         out["vendor"] = data["vendor"]
     else:
-        raise DeserializationError("MeteredProductSummary.vendor required")
+        out["vendor"] = ""
     if data.get("port") is not None:
         out["port"] = data["port"]
     else:
-        raise DeserializationError("MeteredProductSummary.port required")
+        out["port"] = 0
     return out

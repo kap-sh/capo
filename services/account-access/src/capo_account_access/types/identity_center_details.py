@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_account_access.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_account_access.types.identity_center_application_arn
     import capo_account_access.types.identity_center_instance_arn
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> IdentityCenterDetails:
     if data.get("instanceArn") is not None:
         out["instance_arn"] = data["instanceArn"]
     else:
-        raise DeserializationError("IdentityCenterDetails.instance_arn required")
+        out["instance_arn"] = ""
     if data.get("applicationArn") is not None:
         out["application_arn"] = data["applicationArn"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.allocated_dpus_integer
     import capo_athena.types.capacity_allocation
@@ -77,7 +75,7 @@ def deserialize_aws_json_1_1(data: dict) -> CapacityReservation:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CapacityReservation.name required")
+        out["name"] = ""
     if data.get("Status") is not None:
         import capo_athena.types.capacity_reservation_status
 
@@ -87,15 +85,20 @@ def deserialize_aws_json_1_1(data: dict) -> CapacityReservation:
             )
         )
     else:
-        raise DeserializationError("CapacityReservation.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_athena.types.capacity_reservation_status.CapacityReservationStatus",
+            "",
+        )
     if data.get("TargetDpus") is not None:
         out["target_dpus"] = data["TargetDpus"]
     else:
-        raise DeserializationError("CapacityReservation.target_dpus required")
+        out["target_dpus"] = 0
     if data.get("AllocatedDpus") is not None:
         out["allocated_dpus"] = data["AllocatedDpus"]
     else:
-        raise DeserializationError("CapacityReservation.allocated_dpus required")
+        out["allocated_dpus"] = 0
     if data.get("LastAllocation") is not None:
         import capo_athena.types.capacity_allocation
 
@@ -119,5 +122,9 @@ def deserialize_aws_json_1_1(data: dict) -> CapacityReservation:
             data["CreationTime"]
         )
     else:
-        raise DeserializationError("CapacityReservation.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

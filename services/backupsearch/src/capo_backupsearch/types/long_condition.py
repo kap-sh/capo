@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_backupsearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backupsearch.types.long_condition_operator
 
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> LongCondition:
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("LongCondition.value required")
+        out["value"] = 0
     if data.get("Operator") is not None:
         import capo_backupsearch.types.long_condition_operator
 

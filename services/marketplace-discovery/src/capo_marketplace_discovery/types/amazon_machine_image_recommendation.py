@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.amazon_machine_image_security_group_list
 
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> AmazonMachineImageRecommendation:
     if data.get("instanceType") is not None:
         out["instance_type"] = data["instanceType"]
     else:
-        raise DeserializationError(
-            "AmazonMachineImageRecommendation.instance_type required"
-        )
+        out["instance_type"] = ""
     if data.get("securityGroups") is not None:
         import capo_marketplace_discovery.types.amazon_machine_image_security_group_list
 

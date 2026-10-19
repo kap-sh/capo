@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_outposts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_outposts.types.auto_fill_idempotency_token
     import capo_outposts.types.outpost_identifier
@@ -54,7 +52,11 @@ def deserialize_json(data: dict) -> CreateRenewalInput:
             data["PaymentOption"]
         )
     else:
-        raise DeserializationError("CreateRenewalInput.payment_option required")
+        import typing
+
+        out["payment_option"] = typing.cast(
+            "capo_outposts.types.payment_option.PaymentOption", ""
+        )
     if data.get("PaymentTerm") is not None:
         import capo_outposts.types.payment_term
 
@@ -62,11 +64,15 @@ def deserialize_json(data: dict) -> CreateRenewalInput:
             data["PaymentTerm"]
         )
     else:
-        raise DeserializationError("CreateRenewalInput.payment_term required")
+        import typing
+
+        out["payment_term"] = typing.cast(
+            "capo_outposts.types.payment_term.PaymentTerm", ""
+        )
     if data.get("OutpostIdentifier") is not None:
         out["outpost_identifier"] = data["OutpostIdentifier"]
     else:
-        raise DeserializationError("CreateRenewalInput.outpost_identifier required")
+        out["outpost_identifier"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     return out

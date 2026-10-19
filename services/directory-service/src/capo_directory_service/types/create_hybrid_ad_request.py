@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.assessment_id
     import capo_directory_service.types.secret_arn
@@ -40,11 +38,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateHybridADRequest:
     if data.get("SecretArn") is not None:
         out["secret_arn"] = data["SecretArn"]
     else:
-        raise DeserializationError("CreateHybridADRequest.secret_arn required")
+        out["secret_arn"] = ""
     if data.get("AssessmentId") is not None:
         out["assessment_id"] = data["AssessmentId"]
     else:
-        raise DeserializationError("CreateHybridADRequest.assessment_id required")
+        out["assessment_id"] = ""
     if data.get("Tags") is not None:
         import capo_directory_service.types.tags
 

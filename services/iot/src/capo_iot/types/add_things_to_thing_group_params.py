@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.nullable_boolean
     import capo_iot.types.thing_group_names
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> AddThingsToThingGroupParams:
             data["thingGroupNames"]
         )
     else:
-        raise DeserializationError(
-            "AddThingsToThingGroupParams.thing_group_names required"
-        )
+        out["thing_group_names"] = []
     if data.get("overrideDynamicGroups") is not None:
         out["override_dynamic_groups"] = data["overrideDynamicGroups"]
     return out

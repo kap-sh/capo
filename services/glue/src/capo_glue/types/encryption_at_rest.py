@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.catalog_encryption_mode
     import capo_glue.types.iam_role_arn
@@ -53,7 +51,11 @@ def deserialize_aws_json_1_1(data: dict) -> EncryptionAtRest:
             )
         )
     else:
-        raise DeserializationError("EncryptionAtRest.catalog_encryption_mode required")
+        import typing
+
+        out["catalog_encryption_mode"] = typing.cast(
+            "capo_glue.types.catalog_encryption_mode.CatalogEncryptionMode", ""
+        )
     if data.get("SseAwsKmsKeyId") is not None:
         out["sse_aws_kms_key_id"] = data["SseAwsKmsKeyId"]
     if data.get("CatalogEncryptionServiceRole") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.days
     import capo_cloudwatch_logs.types.log_group_name
@@ -30,11 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> PutRetentionPolicyRequest:
     if data.get("logGroupName") is not None:
         out["log_group_name"] = data["logGroupName"]
     else:
-        raise DeserializationError("PutRetentionPolicyRequest.log_group_name required")
+        out["log_group_name"] = ""
     if data.get("retentionInDays") is not None:
         out["retention_in_days"] = data["retentionInDays"]
     else:
-        raise DeserializationError(
-            "PutRetentionPolicyRequest.retention_in_days required"
-        )
+        out["retention_in_days"] = 0
     return out

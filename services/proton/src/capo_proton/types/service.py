@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -92,17 +90,17 @@ def deserialize_aws_json_1_0(data: dict) -> Service:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Service.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("Service.arn required")
+        out["arn"] = ""
     if data.get("templateName") is not None:
         out["template_name"] = data["templateName"]
     else:
-        raise DeserializationError("Service.template_name required")
+        out["template_name"] = ""
     if data.get("createdAt") is not None:
         import capo_proton.types._prelude.timestamp
 
@@ -112,7 +110,9 @@ def deserialize_aws_json_1_0(data: dict) -> Service:
             )
         )
     else:
-        raise DeserializationError("Service.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastModifiedAt") is not None:
         import capo_proton.types._prelude.timestamp
 
@@ -122,17 +122,21 @@ def deserialize_aws_json_1_0(data: dict) -> Service:
             )
         )
     else:
-        raise DeserializationError("Service.last_modified_at required")
+        import datetime
+
+        out["last_modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("Service.status required")
+        out["status"] = ""
     if data.get("statusMessage") is not None:
         out["status_message"] = data["statusMessage"]
     if data.get("spec") is not None:
         out["spec"] = data["spec"]
     else:
-        raise DeserializationError("Service.spec required")
+        out["spec"] = ""
     if data.get("pipeline") is not None:
         import capo_proton.types.service_pipeline
 

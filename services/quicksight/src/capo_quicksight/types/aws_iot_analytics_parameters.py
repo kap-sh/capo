@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.data_set_name
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> AwsIotAnalyticsParameters:
     if data.get("DataSetName") is not None:
         out["data_set_name"] = data["DataSetName"]
     else:
-        raise DeserializationError("AwsIotAnalyticsParameters.data_set_name required")
+        out["data_set_name"] = ""
     return out

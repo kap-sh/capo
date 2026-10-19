@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.create_security_requirement_entry_list
     import capo_securityagent.types.security_requirement_pack_id
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> BatchCreateSecurityRequirementsInput:
     if data.get("packId") is not None:
         out["pack_id"] = data["packId"]
     else:
-        raise DeserializationError(
-            "BatchCreateSecurityRequirementsInput.pack_id required"
-        )
+        out["pack_id"] = ""
     if data.get("securityRequirements") is not None:
         import capo_securityagent.types.create_security_requirement_entry_list
 
@@ -49,7 +45,5 @@ def deserialize_json(data: dict) -> BatchCreateSecurityRequirementsInput:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchCreateSecurityRequirementsInput.security_requirements required"
-        )
+        out["security_requirements"] = []
     return out

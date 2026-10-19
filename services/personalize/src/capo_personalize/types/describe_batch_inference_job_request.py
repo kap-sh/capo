@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeBatchInferenceJobRequest:
     if data.get("batchInferenceJobArn") is not None:
         out["batch_inference_job_arn"] = data["batchInferenceJobArn"]
     else:
-        raise DeserializationError(
-            "DescribeBatchInferenceJobRequest.batch_inference_job_arn required"
-        )
+        out["batch_inference_job_arn"] = ""
     return out

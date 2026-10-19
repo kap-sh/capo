@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.relevance_metrics
 
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> AudienceQualityMetrics:
             )
         )
     else:
-        raise DeserializationError("AudienceQualityMetrics.relevance_metrics required")
+        out["relevance_metrics"] = []
     if data.get("recallMetric") is not None:
         out["recall_metric"] = float(data["recallMetric"])
     return out

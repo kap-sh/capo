@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.aws_region
     import capo_connect.types.percentage
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> Distribution:
     if data.get("Region") is not None:
         out["region"] = data["Region"]
     else:
-        raise DeserializationError("Distribution.region required")
+        out["region"] = ""
     if data.get("Percentage") is not None:
         out["percentage"] = data["Percentage"]
     else:

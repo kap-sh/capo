@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.bandwidth_units
 
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> FrequencyBandwidth:
     if data.get("value") is not None:
         out["value"] = float(data["value"])
     else:
-        raise DeserializationError("FrequencyBandwidth.value required")
+        out["value"] = 0.0
     if data.get("units") is not None:
         import capo_groundstation.types.bandwidth_units
 
@@ -50,5 +48,9 @@ def deserialize_json(data: dict) -> FrequencyBandwidth:
             data["units"]
         )
     else:
-        raise DeserializationError("FrequencyBandwidth.units required")
+        import typing
+
+        out["units"] = typing.cast(
+            "capo_groundstation.types.bandwidth_units.BandwidthUnits", ""
+        )
     return out

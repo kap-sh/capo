@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.amazon_resource_name
     import capo_qbusiness.types.tags
@@ -34,5 +32,5 @@ def deserialize_json(data: dict) -> TagResourceRequest:
 
         out["tags"] = capo_qbusiness.types.tags.deserialize_json(data["tags"])
     else:
-        raise DeserializationError("TagResourceRequest.tags required")
+        out["tags"] = []
     return out

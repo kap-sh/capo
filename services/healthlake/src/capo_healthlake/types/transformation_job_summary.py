@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.data_transformation_job_id
     import capo_healthlake.types.data_transformation_job_name
@@ -73,7 +71,7 @@ def deserialize_aws_json_1_0(data: dict) -> TransformationJobSummary:
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError("TransformationJobSummary.job_id required")
+        out["job_id"] = ""
     if data.get("JobStatus") is not None:
         import capo_healthlake.types.transformation_job_status
 
@@ -83,7 +81,12 @@ def deserialize_aws_json_1_0(data: dict) -> TransformationJobSummary:
             )
         )
     else:
-        raise DeserializationError("TransformationJobSummary.job_status required")
+        import typing
+
+        out["job_status"] = typing.cast(
+            "capo_healthlake.types.transformation_job_status.TransformationJobStatus",
+            "",
+        )
     if data.get("SubmitTime") is not None:
         import capo_healthlake.types.date_time
 
@@ -91,7 +94,11 @@ def deserialize_aws_json_1_0(data: dict) -> TransformationJobSummary:
             data["SubmitTime"]
         )
     else:
-        raise DeserializationError("TransformationJobSummary.submit_time required")
+        import datetime
+
+        out["submit_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("JobName") is not None:
         out["job_name"] = data["JobName"]
     if data.get("EndTime") is not None:

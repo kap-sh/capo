@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ram.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ram.types.integer
     import capo_ram.types.max_results
@@ -109,7 +107,11 @@ def deserialize_json(data: dict) -> GetResourceSharesRequest:
             data["resourceOwner"]
         )
     else:
-        raise DeserializationError("GetResourceSharesRequest.resource_owner required")
+        import typing
+
+        out["resource_owner"] = typing.cast(
+            "capo_ram.types.resource_owner.ResourceOwner", ""
+        )
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("tagFilters") is not None:

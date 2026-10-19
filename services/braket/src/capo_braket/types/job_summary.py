@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_braket.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -70,19 +68,19 @@ def deserialize_json(data: dict) -> JobSummary:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("JobSummary.status required")
+        out["status"] = ""
     if data.get("jobArn") is not None:
         out["job_arn"] = data["jobArn"]
     else:
-        raise DeserializationError("JobSummary.job_arn required")
+        out["job_arn"] = ""
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError("JobSummary.job_name required")
+        out["job_name"] = ""
     if data.get("device") is not None:
         out["device"] = data["device"]
     else:
-        raise DeserializationError("JobSummary.device required")
+        out["device"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -90,7 +88,9 @@ def deserialize_json(data: dict) -> JobSummary:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("JobSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("startedAt") is not None:
         import datetime
 

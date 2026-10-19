@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.boolean
     import capo_ecs.types.boxed_integer
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateTaskProtectionRequest:
     if data.get("cluster") is not None:
         out["cluster"] = data["cluster"]
     else:
-        raise DeserializationError("UpdateTaskProtectionRequest.cluster required")
+        out["cluster"] = ""
     if data.get("tasks") is not None:
         import capo_ecs.types.string_list
 
@@ -50,13 +48,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateTaskProtectionRequest:
             data["tasks"]
         )
     else:
-        raise DeserializationError("UpdateTaskProtectionRequest.tasks required")
+        out["tasks"] = []
     if data.get("protectionEnabled") is not None:
         out["protection_enabled"] = data["protectionEnabled"]
     else:
-        raise DeserializationError(
-            "UpdateTaskProtectionRequest.protection_enabled required"
-        )
+        out["protection_enabled"] = False
     if data.get("expiresInMinutes") is not None:
         out["expires_in_minutes"] = data["expiresInMinutes"]
     return out

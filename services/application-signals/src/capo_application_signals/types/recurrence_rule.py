@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.expression
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> RecurrenceRule:
     if data.get("Expression") is not None:
         out["expression"] = data["Expression"]
     else:
-        raise DeserializationError("RecurrenceRule.expression required")
+        out["expression"] = ""
     return out

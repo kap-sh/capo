@@ -88,15 +88,16 @@ def deserialize_json(data: dict) -> RegisterAppInstanceUserEndpointRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "RegisterAppInstanceUserEndpointRequest.type required"
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_chime_sdk_identity.types.app_instance_user_endpoint_type.AppInstanceUserEndpointType",
+            "",
         )
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError(
-            "RegisterAppInstanceUserEndpointRequest.resource_arn required"
-        )
+        out["resource_arn"] = ""
     if data.get("EndpointAttributes") is not None:
         import capo_chime_sdk_identity.types.endpoint_attributes
 
@@ -112,9 +113,7 @@ def deserialize_json(data: dict) -> RegisterAppInstanceUserEndpointRequest:
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     else:
-        raise DeserializationError(
-            "RegisterAppInstanceUserEndpointRequest.client_request_token required"
-        )
+        out["client_request_token"] = ""
     if data.get("AllowMessages") is not None:
         import capo_chime_sdk_identity.types.allow_messages
 

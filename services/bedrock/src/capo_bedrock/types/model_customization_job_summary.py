@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.custom_model_arn
     import capo_bedrock.types.custom_model_name
@@ -99,17 +97,15 @@ def deserialize_json(data: dict) -> ModelCustomizationJobSummary:
     if data.get("jobArn") is not None:
         out["job_arn"] = data["jobArn"]
     else:
-        raise DeserializationError("ModelCustomizationJobSummary.job_arn required")
+        out["job_arn"] = ""
     if data.get("baseModelArn") is not None:
         out["base_model_arn"] = data["baseModelArn"]
     else:
-        raise DeserializationError(
-            "ModelCustomizationJobSummary.base_model_arn required"
-        )
+        out["base_model_arn"] = ""
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError("ModelCustomizationJobSummary.job_name required")
+        out["job_name"] = ""
     if data.get("status") is not None:
         import capo_bedrock.types.model_customization_job_status
 
@@ -119,7 +115,12 @@ def deserialize_json(data: dict) -> ModelCustomizationJobSummary:
             )
         )
     else:
-        raise DeserializationError("ModelCustomizationJobSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock.types.model_customization_job_status.ModelCustomizationJobStatus",
+            "",
+        )
     if data.get("statusDetails") is not None:
         import capo_bedrock.types.status_details
 
@@ -139,8 +140,10 @@ def deserialize_json(data: dict) -> ModelCustomizationJobSummary:
             data["creationTime"]
         )
     else:
-        raise DeserializationError(
-            "ModelCustomizationJobSummary.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("endTime") is not None:
         import capo_bedrock.types.timestamp

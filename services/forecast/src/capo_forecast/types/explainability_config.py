@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_forecast.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_forecast.types.time_point_granularity
     import capo_forecast.types.time_series_granularity
@@ -53,8 +51,10 @@ def deserialize_aws_json_1_1(data: dict) -> ExplainabilityConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "ExplainabilityConfig.time_series_granularity required"
+        import typing
+
+        out["time_series_granularity"] = typing.cast(
+            "capo_forecast.types.time_series_granularity.TimeSeriesGranularity", ""
         )
     if data.get("TimePointGranularity") is not None:
         import capo_forecast.types.time_point_granularity
@@ -65,7 +65,9 @@ def deserialize_aws_json_1_1(data: dict) -> ExplainabilityConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "ExplainabilityConfig.time_point_granularity required"
+        import typing
+
+        out["time_point_granularity"] = typing.cast(
+            "capo_forecast.types.time_point_granularity.TimePointGranularity", ""
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.action_summaries
     import capo_iotsitewise.types.next_token
@@ -41,9 +39,9 @@ def deserialize_json(data: dict) -> ListActionsResponse:
             )
         )
     else:
-        raise DeserializationError("ListActionsResponse.action_summaries required")
+        out["action_summaries"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     else:
-        raise DeserializationError("ListActionsResponse.next_token required")
+        out["next_token"] = ""
     return out

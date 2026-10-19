@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.audit_events_list
     import capo_connectcases.types.next_token
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> GetCaseAuditEventsResponse:
             )
         )
     else:
-        raise DeserializationError("GetCaseAuditEventsResponse.audit_events required")
+        out["audit_events"] = []
     return out
 
 

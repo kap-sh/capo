@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.application_version_id
 
@@ -34,13 +32,9 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationVersionChangeDetails:
     if data.get("ApplicationVersionUpdatedFrom") is not None:
         out["application_version_updated_from"] = data["ApplicationVersionUpdatedFrom"]
     else:
-        raise DeserializationError(
-            "ApplicationVersionChangeDetails.application_version_updated_from required"
-        )
+        out["application_version_updated_from"] = 0
     if data.get("ApplicationVersionUpdatedTo") is not None:
         out["application_version_updated_to"] = data["ApplicationVersionUpdatedTo"]
     else:
-        raise DeserializationError(
-            "ApplicationVersionChangeDetails.application_version_updated_to required"
-        )
+        out["application_version_updated_to"] = 0
     return out

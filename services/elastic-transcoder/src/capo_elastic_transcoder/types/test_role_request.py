@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_elastic_transcoder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elastic_transcoder.types.bucket_name
     import capo_elastic_transcoder.types.role
@@ -42,15 +40,15 @@ def deserialize_json(data: dict) -> TestRoleRequest:
     if data.get("Role") is not None:
         out["role"] = data["Role"]
     else:
-        raise DeserializationError("TestRoleRequest.role required")
+        out["role"] = ""
     if data.get("InputBucket") is not None:
         out["input_bucket"] = data["InputBucket"]
     else:
-        raise DeserializationError("TestRoleRequest.input_bucket required")
+        out["input_bucket"] = ""
     if data.get("OutputBucket") is not None:
         out["output_bucket"] = data["OutputBucket"]
     else:
-        raise DeserializationError("TestRoleRequest.output_bucket required")
+        out["output_bucket"] = ""
     if data.get("Topics") is not None:
         import capo_elastic_transcoder.types.sns_topics
 
@@ -58,5 +56,5 @@ def deserialize_json(data: dict) -> TestRoleRequest:
             data["Topics"]
         )
     else:
-        raise DeserializationError("TestRoleRequest.topics required")
+        out["topics"] = []
     return out

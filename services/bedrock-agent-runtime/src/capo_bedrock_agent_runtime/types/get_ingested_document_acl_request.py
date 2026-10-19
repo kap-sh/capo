@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.data_source_id
     import capo_bedrock_agent_runtime.types.document_id
@@ -33,5 +31,5 @@ def deserialize_json(data: dict) -> GetIngestedDocumentAclRequest:
     if data.get("documentId") is not None:
         out["document_id"] = data["documentId"]
     else:
-        raise DeserializationError("GetIngestedDocumentAclRequest.document_id required")
+        out["document_id"] = ""
     return out

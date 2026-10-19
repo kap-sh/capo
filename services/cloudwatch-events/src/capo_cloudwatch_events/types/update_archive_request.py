@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_events.types.archive_description
     import capo_cloudwatch_events.types.archive_name
@@ -48,7 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateArchiveRequest:
     if data.get("ArchiveName") is not None:
         out["archive_name"] = data["ArchiveName"]
     else:
-        raise DeserializationError("UpdateArchiveRequest.archive_name required")
+        out["archive_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("EventPattern") is not None:

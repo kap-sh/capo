@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.rate_card_constraint_type
 
@@ -48,7 +46,12 @@ def deserialize_json(data: dict) -> Constraints:
             )
         )
     else:
-        raise DeserializationError("Constraints.multiple_dimension_selection required")
+        import typing
+
+        out["multiple_dimension_selection"] = typing.cast(
+            "capo_marketplace_discovery.types.rate_card_constraint_type.RateCardConstraintType",
+            "",
+        )
     if data.get("quantityConfiguration") is not None:
         import capo_marketplace_discovery.types.rate_card_constraint_type
 
@@ -58,5 +61,10 @@ def deserialize_json(data: dict) -> Constraints:
             )
         )
     else:
-        raise DeserializationError("Constraints.quantity_configuration required")
+        import typing
+
+        out["quantity_configuration"] = typing.cast(
+            "capo_marketplace_discovery.types.rate_card_constraint_type.RateCardConstraintType",
+            "",
+        )
     return out

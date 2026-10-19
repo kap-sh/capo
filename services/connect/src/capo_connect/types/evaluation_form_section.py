@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.boolean
     import capo_connect.types.evaluation_form_item_weight
@@ -75,11 +73,11 @@ def deserialize_json(data: dict) -> EvaluationFormSection:
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     else:
-        raise DeserializationError("EvaluationFormSection.title required")
+        out["title"] = ""
     if data.get("RefId") is not None:
         out["ref_id"] = data["RefId"]
     else:
-        raise DeserializationError("EvaluationFormSection.ref_id required")
+        out["ref_id"] = ""
     if data.get("Instructions") is not None:
         out["instructions"] = data["Instructions"]
     if data.get("Items") is not None:
@@ -89,7 +87,7 @@ def deserialize_json(data: dict) -> EvaluationFormSection:
             data["Items"]
         )
     else:
-        raise DeserializationError("EvaluationFormSection.items required")
+        out["items"] = []
     if data.get("Weight") is not None:
         out["weight"] = float(data["Weight"])
     else:

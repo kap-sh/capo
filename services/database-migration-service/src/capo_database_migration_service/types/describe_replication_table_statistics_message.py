@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.filter_list
     import capo_database_migration_service.types.integer_optional
@@ -49,9 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeReplicationTableStatisticsMe
     if data.get("ReplicationConfigArn") is not None:
         out["replication_config_arn"] = data["ReplicationConfigArn"]
     else:
-        raise DeserializationError(
-            "DescribeReplicationTableStatisticsMessage.replication_config_arn required"
-        )
+        out["replication_config_arn"] = ""
     if data.get("MaxRecords") is not None:
         out["max_records"] = data["MaxRecords"]
     if data.get("Marker") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.fips
     import capo_transfer.types.security_policy_name
@@ -121,9 +119,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribedSecurityPolicy:
     if data.get("SecurityPolicyName") is not None:
         out["security_policy_name"] = data["SecurityPolicyName"]
     else:
-        raise DeserializationError(
-            "DescribedSecurityPolicy.security_policy_name required"
-        )
+        out["security_policy_name"] = ""
     if data.get("SshCiphers") is not None:
         import capo_transfer.types.security_policy_options
 

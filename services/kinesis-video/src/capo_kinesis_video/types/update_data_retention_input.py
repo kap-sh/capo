@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_video.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_video.types.data_retention_change_in_hours
     import capo_kinesis_video.types.resource_arn
@@ -55,7 +53,7 @@ def deserialize_json(data: dict) -> UpdateDataRetentionInput:
     if data.get("CurrentVersion") is not None:
         out["current_version"] = data["CurrentVersion"]
     else:
-        raise DeserializationError("UpdateDataRetentionInput.current_version required")
+        out["current_version"] = ""
     if data.get("Operation") is not None:
         import capo_kinesis_video.types.update_data_retention_operation
 
@@ -65,11 +63,14 @@ def deserialize_json(data: dict) -> UpdateDataRetentionInput:
             )
         )
     else:
-        raise DeserializationError("UpdateDataRetentionInput.operation required")
+        import typing
+
+        out["operation"] = typing.cast(
+            "capo_kinesis_video.types.update_data_retention_operation.UpdateDataRetentionOperation",
+            "",
+        )
     if data.get("DataRetentionChangeInHours") is not None:
         out["data_retention_change_in_hours"] = data["DataRetentionChangeInHours"]
     else:
-        raise DeserializationError(
-            "UpdateDataRetentionInput.data_retention_change_in_hours required"
-        )
+        out["data_retention_change_in_hours"] = 0
     return out

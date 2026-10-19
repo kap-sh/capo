@@ -37,9 +37,7 @@ def deserialize_json(data: dict) -> DeregisterNotificationHubResponse:
     if data.get("notificationHubRegion") is not None:
         out["notification_hub_region"] = data["notificationHubRegion"]
     else:
-        raise DeserializationError(
-            "DeregisterNotificationHubResponse.notification_hub_region required"
-        )
+        out["notification_hub_region"] = ""
     if data.get("statusSummary") is not None:
         import capo_notifications.types.notification_hub_status_summary
 

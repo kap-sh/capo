@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_elastic_transcoder.errors import DeserializationError, ServiceError
+from capo_elastic_transcoder.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_elastic_transcoder.types.exception_message
@@ -27,7 +27,7 @@ def deserialize_json(data: dict) -> IncompatibleVersionException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("IncompatibleVersionException_.message required")
+        out["message"] = ""
     return out
 
 

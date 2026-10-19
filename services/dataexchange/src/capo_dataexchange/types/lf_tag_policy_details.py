@@ -39,11 +39,11 @@ def deserialize_json(data: dict) -> LFTagPolicyDetails:
     if data.get("CatalogId") is not None:
         out["catalog_id"] = data["CatalogId"]
     else:
-        raise DeserializationError("LFTagPolicyDetails.catalog_id required")
+        out["catalog_id"] = ""
     if data.get("ResourceType") is not None:
         out["resource_type"] = data["ResourceType"]
     else:
-        raise DeserializationError("LFTagPolicyDetails.resource_type required")
+        out["resource_type"] = ""
     if data.get("ResourceDetails") is not None:
         import capo_dataexchange.types.lf_resource_details
 

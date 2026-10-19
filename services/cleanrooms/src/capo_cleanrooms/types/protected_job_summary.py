@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -69,15 +67,15 @@ def deserialize_json(data: dict) -> ProtectedJobSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ProtectedJobSummary.id required")
+        out["id"] = ""
     if data.get("membershipId") is not None:
         out["membership_id"] = data["membershipId"]
     else:
-        raise DeserializationError("ProtectedJobSummary.membership_id required")
+        out["membership_id"] = ""
     if data.get("membershipArn") is not None:
         out["membership_arn"] = data["membershipArn"]
     else:
-        raise DeserializationError("ProtectedJobSummary.membership_arn required")
+        out["membership_arn"] = ""
     if data.get("createTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -85,7 +83,11 @@ def deserialize_json(data: dict) -> ProtectedJobSummary:
             data["createTime"]
         )
     else:
-        raise DeserializationError("ProtectedJobSummary.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("status") is not None:
         import capo_cleanrooms.types.protected_job_status
 
@@ -93,7 +95,11 @@ def deserialize_json(data: dict) -> ProtectedJobSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("ProtectedJobSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cleanrooms.types.protected_job_status.ProtectedJobStatus", ""
+        )
     if data.get("receiverConfigurations") is not None:
         import capo_cleanrooms.types.protected_job_receiver_configurations
 

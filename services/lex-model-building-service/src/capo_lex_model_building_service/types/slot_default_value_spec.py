@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_model_building_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_model_building_service.types.slot_default_value_list
 
@@ -39,5 +37,5 @@ def deserialize_json(data: dict) -> SlotDefaultValueSpec:
             )
         )
     else:
-        raise DeserializationError("SlotDefaultValueSpec.default_value_list required")
+        out["default_value_list"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_acm_pca.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm_pca.types.arn
     import capo_acm_pca.types.aws_policy
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> PutPolicyRequest:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("PutPolicyRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("Policy") is not None:
         out["policy"] = data["Policy"]
     else:
-        raise DeserializationError("PutPolicyRequest.policy required")
+        out["policy"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.data
     import capo_kinesis.types.hash_key
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutRecordsRequestEntry:
 
         out["data"] = capo_kinesis.types.data.deserialize_aws_json_1_1(data["Data"])
     else:
-        raise DeserializationError("PutRecordsRequestEntry.data required")
+        out["data"] = b""
     if data.get("ExplicitHashKey") is not None:
         out["explicit_hash_key"] = data["ExplicitHashKey"]
     if data.get("PartitionKey") is not None:

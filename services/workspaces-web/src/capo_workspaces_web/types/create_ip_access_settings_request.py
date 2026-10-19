@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.client_token
     import capo_workspaces_web.types.description
@@ -93,7 +91,7 @@ def deserialize_json(data: dict) -> CreateIpAccessSettingsRequest:
             data["ipRules"]
         )
     else:
-        raise DeserializationError("CreateIpAccessSettingsRequest.ip_rules required")
+        out["ip_rules"] = []
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

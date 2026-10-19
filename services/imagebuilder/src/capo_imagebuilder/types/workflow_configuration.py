@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.on_workflow_failure
     import capo_imagebuilder.types.parallel_group
@@ -56,7 +54,7 @@ def deserialize_json(data: dict) -> WorkflowConfiguration:
     if data.get("workflowArn") is not None:
         out["workflow_arn"] = data["workflowArn"]
     else:
-        raise DeserializationError("WorkflowConfiguration.workflow_arn required")
+        out["workflow_arn"] = ""
     if data.get("parameters") is not None:
         import capo_imagebuilder.types.workflow_parameter_list
 

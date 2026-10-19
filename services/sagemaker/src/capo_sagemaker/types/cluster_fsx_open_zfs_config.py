@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker.types.cluster_dns_name
     import capo_sagemaker.types.cluster_fsx_mount_path
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_1(data: dict) -> ClusterFsxOpenZfsConfig:
     if data.get("DnsName") is not None:
         out["dns_name"] = data["DnsName"]
     else:
-        raise DeserializationError("ClusterFsxOpenZfsConfig.dns_name required")
+        out["dns_name"] = ""
     if data.get("MountPath") is not None:
         out["mount_path"] = data["MountPath"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.rule_configuration
     import capo_qbusiness.types.rule_type
@@ -87,7 +85,9 @@ def deserialize_json(data: dict) -> Rule:
             data["ruleType"]
         )
     else:
-        raise DeserializationError("Rule.rule_type required")
+        import typing
+
+        out["rule_type"] = typing.cast("capo_qbusiness.types.rule_type.RuleType", "")
     if data.get("ruleConfiguration") is not None:
         import capo_qbusiness.types.rule_configuration
 

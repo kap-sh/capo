@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.suffix
@@ -28,5 +27,5 @@ def deserialize_xml(el: Element) -> IndexDocument:
     if child_suffix is not None:
         out["suffix"] = str(child_suffix.text or "")
     else:
-        raise DeserializationError("IndexDocument.suffix required")
+        out["suffix"] = ""
     return out

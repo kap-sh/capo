@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.domain_id
     import capo_datazone.types.group_search_text
@@ -53,7 +51,11 @@ def deserialize_json(data: dict) -> SearchGroupProfilesInput:
             data["groupType"]
         )
     else:
-        raise DeserializationError("SearchGroupProfilesInput.group_type required")
+        import typing
+
+        out["group_type"] = typing.cast(
+            "capo_datazone.types.group_search_type.GroupSearchType", ""
+        )
     if data.get("searchText") is not None:
         out["search_text"] = data["searchText"]
     if data.get("maxResults") is not None:

@@ -83,7 +83,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetPlanRequest:
             data["Mapping"]
         )
     else:
-        raise DeserializationError("GetPlanRequest.mapping required")
+        out["mapping"] = []
     if data.get("Source") is not None:
         import capo_glue.types.catalog_entry
 

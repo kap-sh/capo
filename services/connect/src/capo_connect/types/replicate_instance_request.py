@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.acgr_instance_id_or_arn
     import capo_connect.types.aws_region
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ReplicateInstanceRequest:
     if data.get("ReplicaRegion") is not None:
         out["replica_region"] = data["ReplicaRegion"]
     else:
-        raise DeserializationError("ReplicateInstanceRequest.replica_region required")
+        out["replica_region"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("ReplicaAlias") is not None:

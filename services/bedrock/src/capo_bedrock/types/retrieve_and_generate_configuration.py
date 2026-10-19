@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.external_sources_retrieve_and_generate_configuration
     import capo_bedrock.types.knowledge_base_retrieve_and_generate_configuration
@@ -61,7 +59,11 @@ def deserialize_json(data: dict) -> RetrieveAndGenerateConfiguration:
             data["type"]
         )
     else:
-        raise DeserializationError("RetrieveAndGenerateConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock.types.retrieve_and_generate_type.RetrieveAndGenerateType", ""
+        )
     if data.get("knowledgeBaseConfiguration") is not None:
         import capo_bedrock.types.knowledge_base_retrieve_and_generate_configuration
 

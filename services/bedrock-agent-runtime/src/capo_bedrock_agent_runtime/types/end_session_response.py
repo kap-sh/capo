@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.session_arn
     import capo_bedrock_agent_runtime.types.session_status
@@ -41,11 +39,11 @@ def deserialize_json(data: dict) -> EndSessionResponse:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("EndSessionResponse.session_id required")
+        out["session_id"] = ""
     if data.get("sessionArn") is not None:
         out["session_arn"] = data["sessionArn"]
     else:
-        raise DeserializationError("EndSessionResponse.session_arn required")
+        out["session_arn"] = ""
     if data.get("sessionStatus") is not None:
         import capo_bedrock_agent_runtime.types.session_status
 
@@ -55,5 +53,9 @@ def deserialize_json(data: dict) -> EndSessionResponse:
             )
         )
     else:
-        raise DeserializationError("EndSessionResponse.session_status required")
+        import typing
+
+        out["session_status"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.session_status.SessionStatus", ""
+        )
     return out

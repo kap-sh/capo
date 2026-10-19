@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eks.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eks.types.ami_types
     import capo_eks.types.boxed_integer
@@ -164,7 +162,7 @@ def deserialize_json(data: dict) -> CreateNodegroupRequest:
     if data.get("nodegroupName") is not None:
         out["nodegroup_name"] = data["nodegroupName"]
     else:
-        raise DeserializationError("CreateNodegroupRequest.nodegroup_name required")
+        out["nodegroup_name"] = ""
     if data.get("scalingConfig") is not None:
         import capo_eks.types.nodegroup_scaling_config
 
@@ -180,7 +178,7 @@ def deserialize_json(data: dict) -> CreateNodegroupRequest:
 
         out["subnets"] = capo_eks.types.string_list.deserialize_json(data["subnets"])
     else:
-        raise DeserializationError("CreateNodegroupRequest.subnets required")
+        out["subnets"] = []
     if data.get("instanceTypes") is not None:
         import capo_eks.types.string_list
 
@@ -200,7 +198,7 @@ def deserialize_json(data: dict) -> CreateNodegroupRequest:
     if data.get("nodeRole") is not None:
         out["node_role"] = data["nodeRole"]
     else:
-        raise DeserializationError("CreateNodegroupRequest.node_role required")
+        out["node_role"] = ""
     if data.get("labels") is not None:
         import capo_eks.types.labels_map
 

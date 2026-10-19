@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.arn
     import capo_swf.types.child_policy
@@ -85,15 +83,15 @@ def deserialize_aws_json_1_0(data: dict) -> RegisterWorkflowTypeInput:
     if data.get("domain") is not None:
         out["domain"] = data["domain"]
     else:
-        raise DeserializationError("RegisterWorkflowTypeInput.domain required")
+        out["domain"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RegisterWorkflowTypeInput.name required")
+        out["name"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("RegisterWorkflowTypeInput.version required")
+        out["version"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("defaultTaskStartToCloseTimeout") is not None:

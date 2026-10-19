@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.launch_action_id
     import capo_drs.types.launch_action_resource_id
@@ -29,9 +27,9 @@ def deserialize_json(data: dict) -> DeleteLaunchActionRequest:
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     else:
-        raise DeserializationError("DeleteLaunchActionRequest.resource_id required")
+        out["resource_id"] = ""
     if data.get("actionId") is not None:
         out["action_id"] = data["actionId"]
     else:
-        raise DeserializationError("DeleteLaunchActionRequest.action_id required")
+        out["action_id"] = ""
     return out

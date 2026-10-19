@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codedeploy.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codedeploy.types.application_name
     import capo_codedeploy.types.deployment_groups_list
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetDeploymentGroupsInput:
     if data.get("applicationName") is not None:
         out["application_name"] = data["applicationName"]
     else:
-        raise DeserializationError(
-            "BatchGetDeploymentGroupsInput.application_name required"
-        )
+        out["application_name"] = ""
     if data.get("deploymentGroupNames") is not None:
         import capo_codedeploy.types.deployment_groups_list
 
@@ -51,7 +47,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetDeploymentGroupsInput:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetDeploymentGroupsInput.deployment_group_names required"
-        )
+        out["deployment_group_names"] = []
     return out

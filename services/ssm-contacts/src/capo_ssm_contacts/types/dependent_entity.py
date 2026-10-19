@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.ssm_contacts_arn_list
     import capo_ssm_contacts.types.string
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> DependentEntity:
     if data.get("RelationType") is not None:
         out["relation_type"] = data["RelationType"]
     else:
-        raise DeserializationError("DependentEntity.relation_type required")
+        out["relation_type"] = ""
     if data.get("DependentResourceIds") is not None:
         import capo_ssm_contacts.types.ssm_contacts_arn_list
 
@@ -49,5 +47,5 @@ def deserialize_aws_json_1_1(data: dict) -> DependentEntity:
             )
         )
     else:
-        raise DeserializationError("DependentEntity.dependent_resource_ids required")
+        out["dependent_resource_ids"] = []
     return out

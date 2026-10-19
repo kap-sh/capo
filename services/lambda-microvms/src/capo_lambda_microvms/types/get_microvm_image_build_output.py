@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda_microvms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -82,15 +80,15 @@ def deserialize_json(data: dict) -> GetMicrovmImageBuildOutput:
     if data.get("imageArn") is not None:
         out["image_arn"] = data["imageArn"]
     else:
-        raise DeserializationError("GetMicrovmImageBuildOutput.image_arn required")
+        out["image_arn"] = ""
     if data.get("imageVersion") is not None:
         out["image_version"] = data["imageVersion"]
     else:
-        raise DeserializationError("GetMicrovmImageBuildOutput.image_version required")
+        out["image_version"] = ""
     if data.get("buildId") is not None:
         out["build_id"] = data["buildId"]
     else:
-        raise DeserializationError("GetMicrovmImageBuildOutput.build_id required")
+        out["build_id"] = ""
     if data.get("buildState") is not None:
         import capo_lambda_microvms.types.build_state
 
@@ -98,7 +96,11 @@ def deserialize_json(data: dict) -> GetMicrovmImageBuildOutput:
             data["buildState"]
         )
     else:
-        raise DeserializationError("GetMicrovmImageBuildOutput.build_state required")
+        import typing
+
+        out["build_state"] = typing.cast(
+            "capo_lambda_microvms.types.build_state.BuildState", ""
+        )
     if data.get("architecture") is not None:
         import capo_lambda_microvms.types.architecture
 
@@ -106,7 +108,11 @@ def deserialize_json(data: dict) -> GetMicrovmImageBuildOutput:
             data["architecture"]
         )
     else:
-        raise DeserializationError("GetMicrovmImageBuildOutput.architecture required")
+        import typing
+
+        out["architecture"] = typing.cast(
+            "capo_lambda_microvms.types.architecture.Architecture", ""
+        )
     if data.get("chipset") is not None:
         import capo_lambda_microvms.types.chipset
 
@@ -114,13 +120,13 @@ def deserialize_json(data: dict) -> GetMicrovmImageBuildOutput:
             data["chipset"]
         )
     else:
-        raise DeserializationError("GetMicrovmImageBuildOutput.chipset required")
+        import typing
+
+        out["chipset"] = typing.cast("capo_lambda_microvms.types.chipset.Chipset", "")
     if data.get("chipsetGeneration") is not None:
         out["chipset_generation"] = data["chipsetGeneration"]
     else:
-        raise DeserializationError(
-            "GetMicrovmImageBuildOutput.chipset_generation required"
-        )
+        out["chipset_generation"] = ""
     if data.get("stateReason") is not None:
         out["state_reason"] = data["stateReason"]
     if data.get("createdAt") is not None:
@@ -132,7 +138,9 @@ def deserialize_json(data: dict) -> GetMicrovmImageBuildOutput:
             )
         )
     else:
-        raise DeserializationError("GetMicrovmImageBuildOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("snapshotBuild") is not None:
         import capo_lambda_microvms.types.snapshot_build
 

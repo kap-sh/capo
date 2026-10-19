@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.named_query_id_list
 
@@ -37,5 +35,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetNamedQueryInput:
             )
         )
     else:
-        raise DeserializationError("BatchGetNamedQueryInput.named_query_ids required")
+        out["named_query_ids"] = []
     return out

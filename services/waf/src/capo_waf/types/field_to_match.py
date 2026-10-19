@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_waf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf.types.match_field_data
     import capo_waf.types.match_field_type
@@ -38,7 +36,9 @@ def deserialize_aws_json_1_1(data: dict) -> FieldToMatch:
             data["Type"]
         )
     else:
-        raise DeserializationError("FieldToMatch.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_waf.types.match_field_type.MatchFieldType", "")
     if data.get("Data") is not None:
         out["data"] = data["Data"]
     return out

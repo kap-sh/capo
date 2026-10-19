@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.business_name
     import capo_b2bi.types.created_date
@@ -79,25 +77,25 @@ def deserialize_aws_json_1_0(data: dict) -> GetProfileResponse:
     if data.get("profileId") is not None:
         out["profile_id"] = data["profileId"]
     else:
-        raise DeserializationError("GetProfileResponse.profile_id required")
+        out["profile_id"] = ""
     if data.get("profileArn") is not None:
         out["profile_arn"] = data["profileArn"]
     else:
-        raise DeserializationError("GetProfileResponse.profile_arn required")
+        out["profile_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetProfileResponse.name required")
+        out["name"] = ""
     if data.get("email") is not None:
         out["email"] = data["email"]
     if data.get("phone") is not None:
         out["phone"] = data["phone"]
     else:
-        raise DeserializationError("GetProfileResponse.phone required")
+        out["phone"] = ""
     if data.get("businessName") is not None:
         out["business_name"] = data["businessName"]
     else:
-        raise DeserializationError("GetProfileResponse.business_name required")
+        out["business_name"] = ""
     if data.get("logging") is not None:
         import capo_b2bi.types.logging
 
@@ -113,7 +111,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetProfileResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("GetProfileResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("modifiedAt") is not None:
         import capo_b2bi.types.modified_date
 

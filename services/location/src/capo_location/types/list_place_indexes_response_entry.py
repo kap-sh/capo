@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.pricing_plan
     import capo_location.types.resource_description
@@ -54,15 +52,15 @@ def deserialize_json(data: dict) -> ListPlaceIndexesResponseEntry:
     if data.get("IndexName") is not None:
         out["index_name"] = data["IndexName"]
     else:
-        raise DeserializationError("ListPlaceIndexesResponseEntry.index_name required")
+        out["index_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("ListPlaceIndexesResponseEntry.description required")
+        out["description"] = ""
     if data.get("DataSource") is not None:
         out["data_source"] = data["DataSource"]
     else:
-        raise DeserializationError("ListPlaceIndexesResponseEntry.data_source required")
+        out["data_source"] = ""
     if data.get("PricingPlan") is not None:
         out["pricing_plan"] = data["PricingPlan"]
     if data.get("CreateTime") is not None:
@@ -72,7 +70,11 @@ def deserialize_json(data: dict) -> ListPlaceIndexesResponseEntry:
             data["CreateTime"]
         )
     else:
-        raise DeserializationError("ListPlaceIndexesResponseEntry.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("UpdateTime") is not None:
         import capo_location.types.timestamp
 
@@ -80,7 +82,11 @@ def deserialize_json(data: dict) -> ListPlaceIndexesResponseEntry:
             data["UpdateTime"]
         )
     else:
-        raise DeserializationError("ListPlaceIndexesResponseEntry.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.heading
     import capo_geo_routes.types.position
@@ -68,7 +66,7 @@ def deserialize_json(data: dict) -> RoadSnapTracePoint:
             data["Position"]
         )
     else:
-        raise DeserializationError("RoadSnapTracePoint.position required")
+        out["position"] = []
     if data.get("Speed") is not None:
         out["speed"] = float(data["Speed"])
     else:

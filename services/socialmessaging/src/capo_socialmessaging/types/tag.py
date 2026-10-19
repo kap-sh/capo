@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 
 class Tag(TypedDict, closed=True):
     key: "str"
@@ -26,7 +24,7 @@ def deserialize_json(data: dict) -> Tag:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("Tag.key required")
+        out["key"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     return out

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 
 class AgenticRetrieveWarningMessage(TypedDict, closed=True):
     message: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> AgenticRetrieveWarningMessage:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("AgenticRetrieveWarningMessage.message required")
+        out["message"] = ""
     return out

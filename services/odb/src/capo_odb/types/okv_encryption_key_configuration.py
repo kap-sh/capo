@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 
 class OkvEncryptionKeyConfiguration(TypedDict, closed=True):
     certificate_directory_name: "str"
@@ -35,23 +33,19 @@ def deserialize_aws_json_1_0(data: dict) -> OkvEncryptionKeyConfiguration:
     if data.get("certificateDirectoryName") is not None:
         out["certificate_directory_name"] = data["certificateDirectoryName"]
     else:
-        raise DeserializationError(
-            "OkvEncryptionKeyConfiguration.certificate_directory_name required"
-        )
+        out["certificate_directory_name"] = ""
     if data.get("certificateId") is not None:
         out["certificate_id"] = data["certificateId"]
     if data.get("directoryName") is not None:
         out["directory_name"] = data["directoryName"]
     else:
-        raise DeserializationError(
-            "OkvEncryptionKeyConfiguration.directory_name required"
-        )
+        out["directory_name"] = ""
     if data.get("okvKmsKey") is not None:
         out["okv_kms_key"] = data["okvKmsKey"]
     else:
-        raise DeserializationError("OkvEncryptionKeyConfiguration.okv_kms_key required")
+        out["okv_kms_key"] = ""
     if data.get("okvUri") is not None:
         out["okv_uri"] = data["okvUri"]
     else:
-        raise DeserializationError("OkvEncryptionKeyConfiguration.okv_uri required")
+        out["okv_uri"] = ""
     return out

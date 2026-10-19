@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_auto_scaling_plans.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auto_scaling_plans.types.customized_load_metric_specification
     import capo_auto_scaling_plans.types.disable_dynamic_scaling
@@ -163,11 +161,15 @@ def deserialize_aws_json_1_1(data: dict) -> ScalingInstruction:
             )
         )
     else:
-        raise DeserializationError("ScalingInstruction.service_namespace required")
+        import typing
+
+        out["service_namespace"] = typing.cast(
+            "capo_auto_scaling_plans.types.service_namespace.ServiceNamespace", ""
+        )
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("ScalingInstruction.resource_id required")
+        out["resource_id"] = ""
     if data.get("ScalableDimension") is not None:
         import capo_auto_scaling_plans.types.scalable_dimension
 
@@ -177,15 +179,19 @@ def deserialize_aws_json_1_1(data: dict) -> ScalingInstruction:
             )
         )
     else:
-        raise DeserializationError("ScalingInstruction.scalable_dimension required")
+        import typing
+
+        out["scalable_dimension"] = typing.cast(
+            "capo_auto_scaling_plans.types.scalable_dimension.ScalableDimension", ""
+        )
     if data.get("MinCapacity") is not None:
         out["min_capacity"] = data["MinCapacity"]
     else:
-        raise DeserializationError("ScalingInstruction.min_capacity required")
+        out["min_capacity"] = 0
     if data.get("MaxCapacity") is not None:
         out["max_capacity"] = data["MaxCapacity"]
     else:
-        raise DeserializationError("ScalingInstruction.max_capacity required")
+        out["max_capacity"] = 0
     if data.get("TargetTrackingConfigurations") is not None:
         import capo_auto_scaling_plans.types.target_tracking_configurations
 
@@ -195,9 +201,7 @@ def deserialize_aws_json_1_1(data: dict) -> ScalingInstruction:
             )
         )
     else:
-        raise DeserializationError(
-            "ScalingInstruction.target_tracking_configurations required"
-        )
+        out["target_tracking_configurations"] = []
     if data.get("PredefinedLoadMetricSpecification") is not None:
         import capo_auto_scaling_plans.types.predefined_load_metric_specification
 

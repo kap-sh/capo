@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -102,17 +100,19 @@ def deserialize_json(data: dict) -> SchemaSummary:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("SchemaSummary.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         import capo_cleanrooms.types.schema_type
 
         out["type"] = capo_cleanrooms.types.schema_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("SchemaSummary.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_cleanrooms.types.schema_type.SchemaType", "")
     if data.get("creatorAccountId") is not None:
         out["creator_account_id"] = data["creatorAccountId"]
     else:
-        raise DeserializationError("SchemaSummary.creator_account_id required")
+        out["creator_account_id"] = ""
     if data.get("createTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -120,7 +120,11 @@ def deserialize_json(data: dict) -> SchemaSummary:
             data["createTime"]
         )
     else:
-        raise DeserializationError("SchemaSummary.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -128,15 +132,19 @@ def deserialize_json(data: dict) -> SchemaSummary:
             data["updateTime"]
         )
     else:
-        raise DeserializationError("SchemaSummary.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("collaborationId") is not None:
         out["collaboration_id"] = data["collaborationId"]
     else:
-        raise DeserializationError("SchemaSummary.collaboration_id required")
+        out["collaboration_id"] = ""
     if data.get("collaborationArn") is not None:
         out["collaboration_arn"] = data["collaborationArn"]
     else:
-        raise DeserializationError("SchemaSummary.collaboration_arn required")
+        out["collaboration_arn"] = ""
     if data.get("analysisRuleTypes") is not None:
         import capo_cleanrooms.types.analysis_rule_type_list
 
@@ -146,7 +154,7 @@ def deserialize_json(data: dict) -> SchemaSummary:
             )
         )
     else:
-        raise DeserializationError("SchemaSummary.analysis_rule_types required")
+        out["analysis_rule_types"] = []
     if data.get("analysisMethod") is not None:
         import capo_cleanrooms.types.analysis_method
 

@@ -47,7 +47,7 @@ def deserialize_json(data: dict) -> MeshData:
     if data.get("meshName") is not None:
         out["mesh_name"] = data["meshName"]
     else:
-        raise DeserializationError("MeshData.mesh_name required")
+        out["mesh_name"] = ""
     if data.get("spec") is not None:
         import capo_app_mesh.types.mesh_spec
 

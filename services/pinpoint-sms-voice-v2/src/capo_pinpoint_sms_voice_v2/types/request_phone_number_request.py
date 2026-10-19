@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.client_token
     import capo_pinpoint_sms_voice_v2.types.iso_country_code
@@ -105,13 +103,11 @@ def deserialize_aws_json_1_0(data: dict) -> RequestPhoneNumberRequest:
     if data.get("IsoCountryCode") is not None:
         out["iso_country_code"] = data["IsoCountryCode"]
     else:
-        raise DeserializationError(
-            "RequestPhoneNumberRequest.iso_country_code required"
-        )
+        out["iso_country_code"] = ""
     if data.get("MessageType") is not None:
         out["message_type"] = data["MessageType"]
     else:
-        raise DeserializationError("RequestPhoneNumberRequest.message_type required")
+        out["message_type"] = ""
     if data.get("NumberCapabilities") is not None:
         import capo_pinpoint_sms_voice_v2.types.number_capability_list
 
@@ -121,13 +117,11 @@ def deserialize_aws_json_1_0(data: dict) -> RequestPhoneNumberRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "RequestPhoneNumberRequest.number_capabilities required"
-        )
+        out["number_capabilities"] = []
     if data.get("NumberType") is not None:
         out["number_type"] = data["NumberType"]
     else:
-        raise DeserializationError("RequestPhoneNumberRequest.number_type required")
+        out["number_type"] = ""
     if data.get("OptOutListName") is not None:
         out["opt_out_list_name"] = data["OptOutListName"]
     if data.get("PoolId") is not None:

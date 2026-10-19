@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.document_name
     import capo_resiliencehub.types.entity_id
@@ -88,7 +86,11 @@ def deserialize_json(data: dict) -> SopRecommendation:
             )
         )
     else:
-        raise DeserializationError("SopRecommendation.service_type required")
+        import typing
+
+        out["service_type"] = typing.cast(
+            "capo_resiliencehub.types.sop_service_type.SopServiceType", ""
+        )
     if data.get("appComponentName") is not None:
         out["app_component_name"] = data["appComponentName"]
     if data.get("description") is not None:
@@ -96,7 +98,7 @@ def deserialize_json(data: dict) -> SopRecommendation:
     if data.get("recommendationId") is not None:
         out["recommendation_id"] = data["recommendationId"]
     else:
-        raise DeserializationError("SopRecommendation.recommendation_id required")
+        out["recommendation_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("items") is not None:
@@ -110,7 +112,7 @@ def deserialize_json(data: dict) -> SopRecommendation:
     if data.get("referenceId") is not None:
         out["reference_id"] = data["referenceId"]
     else:
-        raise DeserializationError("SopRecommendation.reference_id required")
+        out["reference_id"] = ""
     if data.get("prerequisite") is not None:
         out["prerequisite"] = data["prerequisite"]
     if data.get("recommendationStatus") is not None:

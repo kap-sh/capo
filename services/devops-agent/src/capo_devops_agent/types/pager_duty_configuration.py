@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.email_address
     import capo_devops_agent.types.pager_duty_services_list
@@ -41,11 +39,11 @@ def deserialize_json(data: dict) -> PagerDutyConfiguration:
             )
         )
     else:
-        raise DeserializationError("PagerDutyConfiguration.services required")
+        out["services"] = []
     if data.get("customerEmail") is not None:
         out["customer_email"] = data["customerEmail"]
     else:
-        raise DeserializationError("PagerDutyConfiguration.customer_email required")
+        out["customer_email"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.non_empty_string
     import capo_codebuild.types.page_size
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetReportGroupTrendInput:
     if data.get("reportGroupArn") is not None:
         out["report_group_arn"] = data["reportGroupArn"]
     else:
-        raise DeserializationError("GetReportGroupTrendInput.report_group_arn required")
+        out["report_group_arn"] = ""
     if data.get("numOfReports") is not None:
         out["num_of_reports"] = data["numOfReports"]
     if data.get("trendField") is not None:
@@ -56,5 +54,10 @@ def deserialize_aws_json_1_1(data: dict) -> GetReportGroupTrendInput:
             )
         )
     else:
-        raise DeserializationError("GetReportGroupTrendInput.trend_field required")
+        import typing
+
+        out["trend_field"] = typing.cast(
+            "capo_codebuild.types.report_group_trend_field_type.ReportGroupTrendFieldType",
+            "",
+        )
     return out

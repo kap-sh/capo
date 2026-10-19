@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.date_time
     import capo_partnercentral_selling.types.prospecting_task_arn
@@ -66,15 +64,15 @@ def deserialize_aws_json_1_0(data: dict) -> ProspectingTaskSummary:
     if data.get("TaskId") is not None:
         out["task_id"] = data["TaskId"]
     else:
-        raise DeserializationError("ProspectingTaskSummary.task_id required")
+        out["task_id"] = ""
     if data.get("TaskArn") is not None:
         out["task_arn"] = data["TaskArn"]
     else:
-        raise DeserializationError("ProspectingTaskSummary.task_arn required")
+        out["task_arn"] = ""
     if data.get("TaskName") is not None:
         out["task_name"] = data["TaskName"]
     else:
-        raise DeserializationError("ProspectingTaskSummary.task_name required")
+        out["task_name"] = ""
     if data.get("StartTime") is not None:
         import capo_partnercentral_selling.types.date_time
 
@@ -84,7 +82,9 @@ def deserialize_aws_json_1_0(data: dict) -> ProspectingTaskSummary:
             )
         )
     else:
-        raise DeserializationError("ProspectingTaskSummary.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_partnercentral_selling.types.date_time
 
@@ -100,13 +100,9 @@ def deserialize_aws_json_1_0(data: dict) -> ProspectingTaskSummary:
     if data.get("CompletedEngagementCount") is not None:
         out["completed_engagement_count"] = data["CompletedEngagementCount"]
     else:
-        raise DeserializationError(
-            "ProspectingTaskSummary.completed_engagement_count required"
-        )
+        out["completed_engagement_count"] = 0
     if data.get("FailedEngagementCount") is not None:
         out["failed_engagement_count"] = data["FailedEngagementCount"]
     else:
-        raise DeserializationError(
-            "ProspectingTaskSummary.failed_engagement_count required"
-        )
+        out["failed_engagement_count"] = 0
     return out

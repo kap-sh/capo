@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.key_prefix
     import capo_cleanrooms.types.result_format
@@ -47,15 +45,15 @@ def deserialize_json(data: dict) -> ProtectedQueryS3OutputConfiguration:
             data["resultFormat"]
         )
     else:
-        raise DeserializationError(
-            "ProtectedQueryS3OutputConfiguration.result_format required"
+        import typing
+
+        out["result_format"] = typing.cast(
+            "capo_cleanrooms.types.result_format.ResultFormat", ""
         )
     if data.get("bucket") is not None:
         out["bucket"] = data["bucket"]
     else:
-        raise DeserializationError(
-            "ProtectedQueryS3OutputConfiguration.bucket required"
-        )
+        out["bucket"] = ""
     if data.get("keyPrefix") is not None:
         out["key_prefix"] = data["keyPrefix"]
     if data.get("singleFileOutput") is not None:

@@ -82,23 +82,17 @@ def deserialize_aws_json_1_1(data: dict) -> GetCommitmentPurchaseAnalysisRespons
     if data.get("EstimatedCompletionTime") is not None:
         out["estimated_completion_time"] = data["EstimatedCompletionTime"]
     else:
-        raise DeserializationError(
-            "GetCommitmentPurchaseAnalysisResponse.estimated_completion_time required"
-        )
+        out["estimated_completion_time"] = ""
     if data.get("AnalysisCompletionTime") is not None:
         out["analysis_completion_time"] = data["AnalysisCompletionTime"]
     if data.get("AnalysisStartedTime") is not None:
         out["analysis_started_time"] = data["AnalysisStartedTime"]
     else:
-        raise DeserializationError(
-            "GetCommitmentPurchaseAnalysisResponse.analysis_started_time required"
-        )
+        out["analysis_started_time"] = ""
     if data.get("AnalysisId") is not None:
         out["analysis_id"] = data["AnalysisId"]
     else:
-        raise DeserializationError(
-            "GetCommitmentPurchaseAnalysisResponse.analysis_id required"
-        )
+        out["analysis_id"] = ""
     if data.get("AnalysisStatus") is not None:
         import capo_cost_explorer.types.analysis_status
 
@@ -108,8 +102,10 @@ def deserialize_aws_json_1_1(data: dict) -> GetCommitmentPurchaseAnalysisRespons
             )
         )
     else:
-        raise DeserializationError(
-            "GetCommitmentPurchaseAnalysisResponse.analysis_status required"
+        import typing
+
+        out["analysis_status"] = typing.cast(
+            "capo_cost_explorer.types.analysis_status.AnalysisStatus", ""
         )
     if data.get("ErrorCode") is not None:
         import capo_cost_explorer.types.error_code

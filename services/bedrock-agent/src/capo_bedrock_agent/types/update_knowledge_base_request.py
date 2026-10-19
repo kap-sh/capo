@@ -62,13 +62,13 @@ def deserialize_json(data: dict) -> UpdateKnowledgeBaseRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateKnowledgeBaseRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("UpdateKnowledgeBaseRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("knowledgeBaseConfiguration") is not None:
         import capo_bedrock_agent.types.knowledge_base_configuration
 

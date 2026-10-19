@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.resource_id
     import capo_service_catalog.types.tag_option_id
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateTagOptionWithResourceInput:
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError(
-            "AssociateTagOptionWithResourceInput.resource_id required"
-        )
+        out["resource_id"] = ""
     if data.get("TagOptionId") is not None:
         out["tag_option_id"] = data["TagOptionId"]
     else:
-        raise DeserializationError(
-            "AssociateTagOptionWithResourceInput.tag_option_id required"
-        )
+        out["tag_option_id"] = ""
     return out

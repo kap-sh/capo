@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_snowball.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_snowball.types.java_boolean
     import capo_snowball.types.job_id
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLongTermPricingRequest:
     if data.get("LongTermPricingId") is not None:
         out["long_term_pricing_id"] = data["LongTermPricingId"]
     else:
-        raise DeserializationError(
-            "UpdateLongTermPricingRequest.long_term_pricing_id required"
-        )
+        out["long_term_pricing_id"] = ""
     if data.get("ReplacementJob") is not None:
         out["replacement_job"] = data["ReplacementJob"]
     if data.get("IsLongTermPricingAutoRenew") is not None:

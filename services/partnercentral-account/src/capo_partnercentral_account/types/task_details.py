@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.headquarters
     import capo_partnercentral_account.types.industry_segment_list
@@ -91,19 +89,19 @@ def deserialize_aws_json_1_0(data: dict) -> TaskDetails:
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     else:
-        raise DeserializationError("TaskDetails.display_name required")
+        out["display_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("TaskDetails.description required")
+        out["description"] = ""
     if data.get("WebsiteUrl") is not None:
         out["website_url"] = data["WebsiteUrl"]
     else:
-        raise DeserializationError("TaskDetails.website_url required")
+        out["website_url"] = ""
     if data.get("LogoUrl") is not None:
         out["logo_url"] = data["LogoUrl"]
     else:
-        raise DeserializationError("TaskDetails.logo_url required")
+        out["logo_url"] = ""
     if data.get("PrimarySolutionType") is not None:
         import capo_partnercentral_account.types.primary_solution_type
 
@@ -113,7 +111,12 @@ def deserialize_aws_json_1_0(data: dict) -> TaskDetails:
             )
         )
     else:
-        raise DeserializationError("TaskDetails.primary_solution_type required")
+        import typing
+
+        out["primary_solution_type"] = typing.cast(
+            "capo_partnercentral_account.types.primary_solution_type.PrimarySolutionType",
+            "",
+        )
     if data.get("IndustrySegments") is not None:
         import capo_partnercentral_account.types.industry_segment_list
 
@@ -123,11 +126,11 @@ def deserialize_aws_json_1_0(data: dict) -> TaskDetails:
             )
         )
     else:
-        raise DeserializationError("TaskDetails.industry_segments required")
+        out["industry_segments"] = []
     if data.get("TranslationSourceLocale") is not None:
         out["translation_source_locale"] = data["TranslationSourceLocale"]
     else:
-        raise DeserializationError("TaskDetails.translation_source_locale required")
+        out["translation_source_locale"] = ""
     if data.get("LocalizedContents") is not None:
         import capo_partnercentral_account.types.localized_content_list
 

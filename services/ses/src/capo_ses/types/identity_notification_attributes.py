@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.enabled
@@ -75,23 +74,17 @@ def deserialize_query(el: Element) -> IdentityNotificationAttributes:
     if child_bounce_topic is not None:
         out["bounce_topic"] = str(child_bounce_topic.text or "")
     else:
-        raise DeserializationError(
-            "IdentityNotificationAttributes.bounce_topic required"
-        )
+        out["bounce_topic"] = ""
     child_complaint_topic = el.find("ComplaintTopic")
     if child_complaint_topic is not None:
         out["complaint_topic"] = str(child_complaint_topic.text or "")
     else:
-        raise DeserializationError(
-            "IdentityNotificationAttributes.complaint_topic required"
-        )
+        out["complaint_topic"] = ""
     child_delivery_topic = el.find("DeliveryTopic")
     if child_delivery_topic is not None:
         out["delivery_topic"] = str(child_delivery_topic.text or "")
     else:
-        raise DeserializationError(
-            "IdentityNotificationAttributes.delivery_topic required"
-        )
+        out["delivery_topic"] = ""
     child_forwarding_enabled = el.find("ForwardingEnabled")
     if child_forwarding_enabled is not None:
         out["forwarding_enabled"] = (

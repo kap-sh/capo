@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.lac
     import capo_iot_wireless.types.mcc
@@ -68,17 +66,17 @@ def deserialize_json(data: dict) -> WcdmaObj:
     if data.get("Mcc") is not None:
         out["mcc"] = data["Mcc"]
     else:
-        raise DeserializationError("WcdmaObj.mcc required")
+        out["mcc"] = 0
     if data.get("Mnc") is not None:
         out["mnc"] = data["Mnc"]
     else:
-        raise DeserializationError("WcdmaObj.mnc required")
+        out["mnc"] = 0
     if data.get("Lac") is not None:
         out["lac"] = data["Lac"]
     if data.get("UtranCid") is not None:
         out["utran_cid"] = data["UtranCid"]
     else:
-        raise DeserializationError("WcdmaObj.utran_cid required")
+        out["utran_cid"] = 0
     if data.get("WcdmaLocalId") is not None:
         import capo_iot_wireless.types.wcdma_local_id
 

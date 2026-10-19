@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.config_rule_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteConfigRuleRequest:
     if data.get("ConfigRuleName") is not None:
         out["config_rule_name"] = data["ConfigRuleName"]
     else:
-        raise DeserializationError("DeleteConfigRuleRequest.config_rule_name required")
+        out["config_rule_name"] = ""
     return out

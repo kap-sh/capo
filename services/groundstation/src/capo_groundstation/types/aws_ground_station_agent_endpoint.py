@@ -65,7 +65,7 @@ def deserialize_json(data: dict) -> AwsGroundStationAgentEndpoint:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AwsGroundStationAgentEndpoint.name required")
+        out["name"] = ""
     if data.get("egressAddress") is not None:
         import capo_groundstation.types.connection_details
 

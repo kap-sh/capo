@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_web.types.auth_type
     import capo_lambda_web.types.domain_name
@@ -92,7 +90,9 @@ def deserialize_json(data: dict) -> RegionalEndpoint:
             data["authType"]
         )
     else:
-        raise DeserializationError("RegionalEndpoint.auth_type required")
+        import typing
+
+        out["auth_type"] = typing.cast("capo_lambda_web.types.auth_type.AuthType", "")
     if data.get("revisionWeights") is not None:
         import capo_lambda_web.types.revision_weight_list
 
@@ -102,7 +102,7 @@ def deserialize_json(data: dict) -> RegionalEndpoint:
             )
         )
     else:
-        raise DeserializationError("RegionalEndpoint.revision_weights required")
+        out["revision_weights"] = []
     if data.get("scalingConfig") is not None:
         import capo_lambda_web.types.scaling_config
 
@@ -122,11 +122,15 @@ def deserialize_json(data: dict) -> RegionalEndpoint:
             data["state"]
         )
     else:
-        raise DeserializationError("RegionalEndpoint.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_lambda_web.types.endpoint_state.EndpointState", ""
+        )
     if data.get("stateReason") is not None:
         out["state_reason"] = data["stateReason"]
     else:
-        raise DeserializationError("RegionalEndpoint.state_reason required")
+        out["state_reason"] = ""
     if data.get("updateStatus") is not None:
         import capo_lambda_web.types.endpoint_update_status
 

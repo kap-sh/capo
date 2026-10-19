@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_apprunner.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_apprunner.types.string_list
     import capo_apprunner.types.tag_list
@@ -52,9 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateVpcConnectorRequest:
     if data.get("VpcConnectorName") is not None:
         out["vpc_connector_name"] = data["VpcConnectorName"]
     else:
-        raise DeserializationError(
-            "CreateVpcConnectorRequest.vpc_connector_name required"
-        )
+        out["vpc_connector_name"] = ""
     if data.get("Subnets") is not None:
         import capo_apprunner.types.string_list
 
@@ -62,7 +58,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateVpcConnectorRequest:
             data["Subnets"]
         )
     else:
-        raise DeserializationError("CreateVpcConnectorRequest.subnets required")
+        out["subnets"] = []
     if data.get("SecurityGroups") is not None:
         import capo_apprunner.types.string_list
 

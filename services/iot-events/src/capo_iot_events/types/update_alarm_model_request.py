@@ -91,7 +91,7 @@ def deserialize_json(data: dict) -> UpdateAlarmModelRequest:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("UpdateAlarmModelRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("severity") is not None:
         out["severity"] = data["severity"]
     if data.get("alarmRule") is not None:

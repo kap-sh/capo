@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -43,14 +42,10 @@ def deserialize_query(el: Element) -> AddClientIDToOpenIDConnectProviderRequest:
             child_open_id_connect_provider_arn.text or ""
         )
     else:
-        raise DeserializationError(
-            "AddClientIDToOpenIDConnectProviderRequest.open_id_connect_provider_arn required"
-        )
+        out["open_id_connect_provider_arn"] = ""
     child_client_id = el.find("ClientID")
     if child_client_id is not None:
         out["client_id"] = str(child_client_id.text or "")
     else:
-        raise DeserializationError(
-            "AddClientIDToOpenIDConnectProviderRequest.client_id required"
-        )
+        out["client_id"] = ""
     return out

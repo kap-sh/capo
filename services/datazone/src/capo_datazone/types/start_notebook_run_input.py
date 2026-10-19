@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.client_token
     import capo_datazone.types.compute_config
@@ -115,13 +113,11 @@ def deserialize_json(data: dict) -> StartNotebookRunInput:
     if data.get("owningProjectIdentifier") is not None:
         out["owning_project_identifier"] = data["owningProjectIdentifier"]
     else:
-        raise DeserializationError(
-            "StartNotebookRunInput.owning_project_identifier required"
-        )
+        out["owning_project_identifier"] = ""
     if data.get("notebookIdentifier") is not None:
         out["notebook_identifier"] = data["notebookIdentifier"]
     else:
-        raise DeserializationError("StartNotebookRunInput.notebook_identifier required")
+        out["notebook_identifier"] = ""
     if data.get("scheduleIdentifier") is not None:
         out["schedule_identifier"] = data["scheduleIdentifier"]
     if data.get("computeConfiguration") is not None:

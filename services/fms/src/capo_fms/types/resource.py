@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fms.types.aws_account_id
     import capo_fms.types.identifier
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> Resource:
     if data.get("URI") is not None:
         out["uri"] = data["URI"]
     else:
-        raise DeserializationError("Resource.uri required")
+        out["uri"] = ""
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     return out

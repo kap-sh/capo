@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.exception_name
     import capo_codecommit.types.message
@@ -35,17 +33,13 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDescribeMergeConflictsError:
     if data.get("filePath") is not None:
         out["file_path"] = data["filePath"]
     else:
-        raise DeserializationError(
-            "BatchDescribeMergeConflictsError.file_path required"
-        )
+        out["file_path"] = ""
     if data.get("exceptionName") is not None:
         out["exception_name"] = data["exceptionName"]
     else:
-        raise DeserializationError(
-            "BatchDescribeMergeConflictsError.exception_name required"
-        )
+        out["exception_name"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("BatchDescribeMergeConflictsError.message required")
+        out["message"] = ""
     return out

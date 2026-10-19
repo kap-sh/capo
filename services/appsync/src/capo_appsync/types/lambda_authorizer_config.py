@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.string
     import capo_appsync.types.ttl
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> LambdaAuthorizerConfig:
     if data.get("authorizerUri") is not None:
         out["authorizer_uri"] = data["authorizerUri"]
     else:
-        raise DeserializationError("LambdaAuthorizerConfig.authorizer_uri required")
+        out["authorizer_uri"] = ""
     if data.get("identityValidationExpression") is not None:
         out["identity_validation_expression"] = data["identityValidationExpression"]
     return out

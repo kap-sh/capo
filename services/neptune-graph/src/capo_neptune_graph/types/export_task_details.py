@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptune_graph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -51,15 +49,17 @@ def deserialize_json(data: dict) -> ExportTaskDetails:
             )
         )
     else:
-        raise DeserializationError("ExportTaskDetails.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("timeElapsedSeconds") is not None:
         out["time_elapsed_seconds"] = data["timeElapsedSeconds"]
     else:
-        raise DeserializationError("ExportTaskDetails.time_elapsed_seconds required")
+        out["time_elapsed_seconds"] = 0
     if data.get("progressPercentage") is not None:
         out["progress_percentage"] = data["progressPercentage"]
     else:
-        raise DeserializationError("ExportTaskDetails.progress_percentage required")
+        out["progress_percentage"] = 0
     if data.get("numVerticesWritten") is not None:
         out["num_vertices_written"] = data["numVerticesWritten"]
     if data.get("numEdgesWritten") is not None:

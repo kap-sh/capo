@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.next_token
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> ProactiveRecommendationDataDetails:
     if data.get("nextMessageToken") is not None:
         out["next_message_token"] = data["nextMessageToken"]
     else:
-        raise DeserializationError(
-            "ProactiveRecommendationDataDetails.next_message_token required"
-        )
+        out["next_message_token"] = ""
     return out

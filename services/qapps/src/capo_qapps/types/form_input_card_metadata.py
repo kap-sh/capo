@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.form_input_card_metadata_schema
 
@@ -29,5 +27,5 @@ def deserialize_json(data: dict) -> FormInputCardMetadata:
     if data.get("schema") is not None:
         out["schema"] = data["schema"]
     else:
-        raise DeserializationError("FormInputCardMetadata.schema required")
+        out["schema"] = None
     return out

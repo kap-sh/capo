@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.tag_key_string
@@ -32,10 +31,10 @@ def deserialize_xml(el: Element) -> StorageLensTag:
     if child_key is not None:
         out["key"] = str(child_key.text or "")
     else:
-        raise DeserializationError("StorageLensTag.key required")
+        out["key"] = ""
     child_value = el.find("Value")
     if child_value is not None:
         out["value"] = str(child_value.text or "")
     else:
-        raise DeserializationError("StorageLensTag.value required")
+        out["value"] = ""
     return out

@@ -97,15 +97,15 @@ def deserialize_json(data: dict) -> ContextSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ContextSummary.id required")
+        out["id"] = ""
     if data.get("profileArn") is not None:
         out["profile_arn"] = data["profileArn"]
     else:
-        raise DeserializationError("ContextSummary.profile_arn required")
+        out["profile_arn"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("ContextSummary.title required")
+        out["title"] = ""
     if data.get("contextType") is not None:
         import capo_wellarchitected.types.context_type
 
@@ -113,7 +113,11 @@ def deserialize_json(data: dict) -> ContextSummary:
             data["contextType"]
         )
     else:
-        raise DeserializationError("ContextSummary.context_type required")
+        import typing
+
+        out["context_type"] = typing.cast(
+            "capo_wellarchitected.types.context_type.ContextType", ""
+        )
     if data.get("content") is not None:
         import capo_wellarchitected.types.context_content
 
@@ -139,7 +143,7 @@ def deserialize_json(data: dict) -> ContextSummary:
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("ContextSummary.created_by required")
+        out["created_by"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -147,7 +151,9 @@ def deserialize_json(data: dict) -> ContextSummary:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("ContextSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastModifiedBy") is not None:
         out["last_modified_by"] = data["lastModifiedBy"]
     if data.get("lastModifiedAt") is not None:

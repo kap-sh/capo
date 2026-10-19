@@ -57,7 +57,7 @@ def deserialize_json(data: dict) -> StartRunBatchRequest:
     if data.get("requestId") is not None:
         out["request_id"] = data["requestId"]
     else:
-        raise DeserializationError("StartRunBatchRequest.request_id required")
+        out["request_id"] = ""
     if data.get("tags") is not None:
         import capo_omics.types.tag_map
 
@@ -81,5 +81,7 @@ def deserialize_json(data: dict) -> StartRunBatchRequest:
             )
         )
     else:
-        raise DeserializationError("StartRunBatchRequest.batch_run_settings required")
+        import capo_omics.types._unknown
+
+        out["batch_run_settings"] = capo_omics.types._unknown.UnknownUnionMember("")
     return out

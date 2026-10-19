@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.memory_json_data_content
 
@@ -29,5 +27,5 @@ def deserialize_json(data: dict) -> MemoryJsonData:
     if data.get("content") is not None:
         out["content"] = data["content"]
     else:
-        raise DeserializationError("MemoryJsonData.content required")
+        out["content"] = None
     return out

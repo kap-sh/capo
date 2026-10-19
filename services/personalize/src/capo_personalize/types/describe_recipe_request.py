@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeRecipeRequest:
     if data.get("recipeArn") is not None:
         out["recipe_arn"] = data["recipeArn"]
     else:
-        raise DeserializationError("DescribeRecipeRequest.recipe_arn required")
+        out["recipe_arn"] = ""
     return out

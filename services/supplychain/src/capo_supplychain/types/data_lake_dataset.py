@@ -82,19 +82,19 @@ def deserialize_json(data: dict) -> DataLakeDataset:
     if data.get("instanceId") is not None:
         out["instance_id"] = data["instanceId"]
     else:
-        raise DeserializationError("DataLakeDataset.instance_id required")
+        out["instance_id"] = ""
     if data.get("namespace") is not None:
         out["namespace"] = data["namespace"]
     else:
-        raise DeserializationError("DataLakeDataset.namespace required")
+        out["namespace"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DataLakeDataset.name required")
+        out["name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("DataLakeDataset.arn required")
+        out["arn"] = ""
     if data.get("schema") is not None:
         import capo_supplychain.types.data_lake_dataset_schema
 
@@ -124,7 +124,11 @@ def deserialize_json(data: dict) -> DataLakeDataset:
             )
         )
     else:
-        raise DeserializationError("DataLakeDataset.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastModifiedTime") is not None:
         import capo_supplychain.types._prelude.timestamp
 
@@ -134,5 +138,9 @@ def deserialize_json(data: dict) -> DataLakeDataset:
             )
         )
     else:
-        raise DeserializationError("DataLakeDataset.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

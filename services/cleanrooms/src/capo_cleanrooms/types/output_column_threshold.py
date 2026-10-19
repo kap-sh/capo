@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.analysis_rule_column_name
 
@@ -32,11 +30,9 @@ def deserialize_json(data: dict) -> OutputColumnThreshold:
     if data.get("outputColumnName") is not None:
         out["output_column_name"] = data["outputColumnName"]
     else:
-        raise DeserializationError("OutputColumnThreshold.output_column_name required")
+        out["output_column_name"] = ""
     if data.get("minimumIdentityCount") is not None:
         out["minimum_identity_count"] = data["minimumIdentityCount"]
     else:
-        raise DeserializationError(
-            "OutputColumnThreshold.minimum_identity_count required"
-        )
+        out["minimum_identity_count"] = 0
     return out

@@ -49,7 +49,5 @@ def deserialize_aws_json_1_0(data: dict) -> RootCertificatePublicKey:
     if data.get("PublicKeyCertificate") is not None:
         out["public_key_certificate"] = data["PublicKeyCertificate"]
     else:
-        raise DeserializationError(
-            "RootCertificatePublicKey.public_key_certificate required"
-        )
+        out["public_key_certificate"] = ""
     return out

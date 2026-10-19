@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.reference_id
     import capo_connect.types.single_select_question_rule_category_automation_condition
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> SingleSelectQuestionRuleCategoryAutomation:
     if data.get("Category") is not None:
         out["category"] = data["Category"]
     else:
-        raise DeserializationError(
-            "SingleSelectQuestionRuleCategoryAutomation.category required"
-        )
+        out["category"] = ""
     if data.get("Condition") is not None:
         import capo_connect.types.single_select_question_rule_category_automation_condition
 
@@ -53,13 +49,14 @@ def deserialize_json(data: dict) -> SingleSelectQuestionRuleCategoryAutomation:
             )
         )
     else:
-        raise DeserializationError(
-            "SingleSelectQuestionRuleCategoryAutomation.condition required"
+        import typing
+
+        out["condition"] = typing.cast(
+            "capo_connect.types.single_select_question_rule_category_automation_condition.SingleSelectQuestionRuleCategoryAutomationCondition",
+            "",
         )
     if data.get("OptionRefId") is not None:
         out["option_ref_id"] = data["OptionRefId"]
     else:
-        raise DeserializationError(
-            "SingleSelectQuestionRuleCategoryAutomation.option_ref_id required"
-        )
+        out["option_ref_id"] = ""
     return out

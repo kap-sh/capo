@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.conversation_logs_input_mode_filter
     import capo_lex_models_v2.types.timestamp
@@ -52,9 +50,9 @@ def deserialize_json(data: dict) -> ConversationLogsDataSourceFilterBy:
             data["startTime"]
         )
     else:
-        raise DeserializationError(
-            "ConversationLogsDataSourceFilterBy.start_time required"
-        )
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_lex_models_v2.types.timestamp
 
@@ -62,9 +60,9 @@ def deserialize_json(data: dict) -> ConversationLogsDataSourceFilterBy:
             data["endTime"]
         )
     else:
-        raise DeserializationError(
-            "ConversationLogsDataSourceFilterBy.end_time required"
-        )
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("inputMode") is not None:
         import capo_lex_models_v2.types.conversation_logs_input_mode_filter
 
@@ -74,7 +72,10 @@ def deserialize_json(data: dict) -> ConversationLogsDataSourceFilterBy:
             )
         )
     else:
-        raise DeserializationError(
-            "ConversationLogsDataSourceFilterBy.input_mode required"
+        import typing
+
+        out["input_mode"] = typing.cast(
+            "capo_lex_models_v2.types.conversation_logs_input_mode_filter.ConversationLogsInputModeFilter",
+            "",
         )
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.certificate_body_type
@@ -66,23 +65,17 @@ def deserialize_query(el: Element) -> UploadServerCertificateRequest:
     if child_server_certificate_name is not None:
         out["server_certificate_name"] = str(child_server_certificate_name.text or "")
     else:
-        raise DeserializationError(
-            "UploadServerCertificateRequest.server_certificate_name required"
-        )
+        out["server_certificate_name"] = ""
     child_certificate_body = el.find("CertificateBody")
     if child_certificate_body is not None:
         out["certificate_body"] = str(child_certificate_body.text or "")
     else:
-        raise DeserializationError(
-            "UploadServerCertificateRequest.certificate_body required"
-        )
+        out["certificate_body"] = ""
     child_private_key = el.find("PrivateKey")
     if child_private_key is not None:
         out["private_key"] = str(child_private_key.text or "")
     else:
-        raise DeserializationError(
-            "UploadServerCertificateRequest.private_key required"
-        )
+        out["private_key"] = ""
     child_certificate_chain = el.find("CertificateChain")
     if child_certificate_chain is not None:
         out["certificate_chain"] = str(child_certificate_chain.text or "")

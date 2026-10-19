@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.remediation_configurations
 
@@ -41,7 +39,5 @@ def deserialize_aws_json_1_1(data: dict) -> PutRemediationConfigurationsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "PutRemediationConfigurationsRequest.remediation_configurations required"
-        )
+        out["remediation_configurations"] = []
     return out

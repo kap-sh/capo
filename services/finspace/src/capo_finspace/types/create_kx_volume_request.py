@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_finspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace.types.availability_zone_ids
     import capo_finspace.types.client_token
@@ -92,11 +90,15 @@ def deserialize_json(data: dict) -> CreateKxVolumeRequest:
             data["volumeType"]
         )
     else:
-        raise DeserializationError("CreateKxVolumeRequest.volume_type required")
+        import typing
+
+        out["volume_type"] = typing.cast(
+            "capo_finspace.types.kx_volume_type.KxVolumeType", ""
+        )
     if data.get("volumeName") is not None:
         out["volume_name"] = data["volumeName"]
     else:
-        raise DeserializationError("CreateKxVolumeRequest.volume_name required")
+        out["volume_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("nas1Configuration") is not None:
@@ -112,7 +114,9 @@ def deserialize_json(data: dict) -> CreateKxVolumeRequest:
 
         out["az_mode"] = capo_finspace.types.kx_az_mode.deserialize_json(data["azMode"])
     else:
-        raise DeserializationError("CreateKxVolumeRequest.az_mode required")
+        import typing
+
+        out["az_mode"] = typing.cast("capo_finspace.types.kx_az_mode.KxAzMode", "")
     if data.get("availabilityZoneIds") is not None:
         import capo_finspace.types.availability_zone_ids
 
@@ -122,9 +126,7 @@ def deserialize_json(data: dict) -> CreateKxVolumeRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateKxVolumeRequest.availability_zone_ids required"
-        )
+        out["availability_zone_ids"] = []
     if data.get("tags") is not None:
         import capo_finspace.types.tag_map
 

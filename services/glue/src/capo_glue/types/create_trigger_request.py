@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.action_list
     import capo_glue.types.boolean_value
@@ -89,7 +87,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTriggerRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateTriggerRequest.name required")
+        out["name"] = ""
     if data.get("WorkflowName") is not None:
         out["workflow_name"] = data["WorkflowName"]
     if data.get("Type") is not None:
@@ -99,7 +97,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTriggerRequest:
             data["Type"]
         )
     else:
-        raise DeserializationError("CreateTriggerRequest.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_glue.types.trigger_type.TriggerType", "")
     if data.get("Schedule") is not None:
         out["schedule"] = data["Schedule"]
     if data.get("Predicate") is not None:
@@ -115,7 +115,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTriggerRequest:
             data["Actions"]
         )
     else:
-        raise DeserializationError("CreateTriggerRequest.actions required")
+        out["actions"] = []
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("StartOnCreation") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.agreement_status_type
     import capo_transfer.types.custom_directories_type
@@ -107,21 +105,21 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAgreementRequest:
     if data.get("ServerId") is not None:
         out["server_id"] = data["ServerId"]
     else:
-        raise DeserializationError("CreateAgreementRequest.server_id required")
+        out["server_id"] = ""
     if data.get("LocalProfileId") is not None:
         out["local_profile_id"] = data["LocalProfileId"]
     else:
-        raise DeserializationError("CreateAgreementRequest.local_profile_id required")
+        out["local_profile_id"] = ""
     if data.get("PartnerProfileId") is not None:
         out["partner_profile_id"] = data["PartnerProfileId"]
     else:
-        raise DeserializationError("CreateAgreementRequest.partner_profile_id required")
+        out["partner_profile_id"] = ""
     if data.get("BaseDirectory") is not None:
         out["base_directory"] = data["BaseDirectory"]
     if data.get("AccessRole") is not None:
         out["access_role"] = data["AccessRole"]
     else:
-        raise DeserializationError("CreateAgreementRequest.access_role required")
+        out["access_role"] = ""
     if data.get("Status") is not None:
         import capo_transfer.types.agreement_status_type
 

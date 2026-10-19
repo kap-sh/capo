@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.model_profile_id
     import capo_quicksight.types.qbs_aws_account_id
@@ -67,15 +65,15 @@ def deserialize_json(data: dict) -> CustomPromptInterface:
     if data.get("ModelProfileId") is not None:
         out["model_profile_id"] = data["ModelProfileId"]
     else:
-        raise DeserializationError("CustomPromptInterface.model_profile_id required")
+        out["model_profile_id"] = ""
     if data.get("SubscriptionId") is not None:
         out["subscription_id"] = data["SubscriptionId"]
     else:
-        raise DeserializationError("CustomPromptInterface.subscription_id required")
+        out["subscription_id"] = ""
     if data.get("QbsAwsAccountId") is not None:
         out["qbs_aws_account_id"] = data["QbsAwsAccountId"]
     else:
-        raise DeserializationError("CustomPromptInterface.qbs_aws_account_id required")
+        out["qbs_aws_account_id"] = ""
     if data.get("ResponseLength") is not None:
         out["response_length"] = data["ResponseLength"]
     if data.get("OutputStyle") is not None:

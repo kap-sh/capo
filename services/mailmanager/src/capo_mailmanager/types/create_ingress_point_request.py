@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.idempotency_token
     import capo_mailmanager.types.ingress_point_configuration
@@ -96,9 +94,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateIngressPointRequest:
     if data.get("IngressPointName") is not None:
         out["ingress_point_name"] = data["IngressPointName"]
     else:
-        raise DeserializationError(
-            "CreateIngressPointRequest.ingress_point_name required"
-        )
+        out["ingress_point_name"] = ""
     if data.get("Type") is not None:
         import capo_mailmanager.types.ingress_point_type
 
@@ -108,17 +104,19 @@ def deserialize_aws_json_1_0(data: dict) -> CreateIngressPointRequest:
             )
         )
     else:
-        raise DeserializationError("CreateIngressPointRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_mailmanager.types.ingress_point_type.IngressPointType", ""
+        )
     if data.get("RuleSetId") is not None:
         out["rule_set_id"] = data["RuleSetId"]
     else:
-        raise DeserializationError("CreateIngressPointRequest.rule_set_id required")
+        out["rule_set_id"] = ""
     if data.get("TrafficPolicyId") is not None:
         out["traffic_policy_id"] = data["TrafficPolicyId"]
     else:
-        raise DeserializationError(
-            "CreateIngressPointRequest.traffic_policy_id required"
-        )
+        out["traffic_policy_id"] = ""
     if data.get("IngressPointConfiguration") is not None:
         import capo_mailmanager.types.ingress_point_configuration
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.guardrail_topics_tier_name
 
@@ -37,7 +35,11 @@ def deserialize_json(data: dict) -> GuardrailTopicsTier:
             )
         )
     else:
-        raise DeserializationError("GuardrailTopicsTier.tier_name required")
+        import typing
+
+        out["tier_name"] = typing.cast(
+            "capo_bedrock.types.guardrail_topics_tier_name.GuardrailTopicsTierName", ""
+        )
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs.types.boolean
     import capo_ivs.types.channel_ad_configuration_arn
@@ -97,7 +95,7 @@ def deserialize_json(data: dict) -> UpdateChannelRequest:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("UpdateChannelRequest.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("latencyMode") is not None:

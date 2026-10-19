@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_docdb_elastic.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_docdb_elastic.types.status
 
@@ -33,13 +31,13 @@ def deserialize_json(data: dict) -> Shard:
     if data.get("shardId") is not None:
         out["shard_id"] = data["shardId"]
     else:
-        raise DeserializationError("Shard.shard_id required")
+        out["shard_id"] = ""
     if data.get("createTime") is not None:
         out["create_time"] = data["createTime"]
     else:
-        raise DeserializationError("Shard.create_time required")
+        out["create_time"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("Shard.status required")
+        out["status"] = ""
     return out

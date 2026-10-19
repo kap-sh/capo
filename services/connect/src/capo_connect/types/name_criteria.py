@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.search_contacts_match_type
     import capo_connect.types.search_text_list
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> NameCriteria:
             data["SearchText"]
         )
     else:
-        raise DeserializationError("NameCriteria.search_text required")
+        out["search_text"] = []
     if data.get("MatchType") is not None:
         import capo_connect.types.search_contacts_match_type
 
@@ -53,7 +51,11 @@ def deserialize_json(data: dict) -> NameCriteria:
             )
         )
     else:
-        raise DeserializationError("NameCriteria.match_type required")
+        import typing
+
+        out["match_type"] = typing.cast(
+            "capo_connect.types.search_contacts_match_type.SearchContactsMatchType", ""
+        )
     return out
 
 

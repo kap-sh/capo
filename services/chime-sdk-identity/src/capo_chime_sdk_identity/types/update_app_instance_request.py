@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_identity.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_identity.types.chime_arn
     import capo_chime_sdk_identity.types.metadata
@@ -34,11 +32,11 @@ def deserialize_json(data: dict) -> UpdateAppInstanceRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateAppInstanceRequest.name required")
+        out["name"] = ""
     if data.get("Metadata") is not None:
         out["metadata"] = data["Metadata"]
     else:
-        raise DeserializationError("UpdateAppInstanceRequest.metadata required")
+        out["metadata"] = ""
     return out
 
 

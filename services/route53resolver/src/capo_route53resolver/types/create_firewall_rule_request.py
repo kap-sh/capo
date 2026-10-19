@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.action
     import capo_route53resolver.types.block_override_dns_type
@@ -150,21 +148,17 @@ def deserialize_aws_json_1_1(data: dict) -> CreateFirewallRuleRequest:
     if data.get("CreatorRequestId") is not None:
         out["creator_request_id"] = data["CreatorRequestId"]
     else:
-        raise DeserializationError(
-            "CreateFirewallRuleRequest.creator_request_id required"
-        )
+        out["creator_request_id"] = ""
     if data.get("FirewallRuleGroupId") is not None:
         out["firewall_rule_group_id"] = data["FirewallRuleGroupId"]
     else:
-        raise DeserializationError(
-            "CreateFirewallRuleRequest.firewall_rule_group_id required"
-        )
+        out["firewall_rule_group_id"] = ""
     if data.get("FirewallDomainListId") is not None:
         out["firewall_domain_list_id"] = data["FirewallDomainListId"]
     if data.get("Priority") is not None:
         out["priority"] = data["Priority"]
     else:
-        raise DeserializationError("CreateFirewallRuleRequest.priority required")
+        out["priority"] = 0
     if data.get("Action") is not None:
         import capo_route53resolver.types.action
 
@@ -172,7 +166,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateFirewallRuleRequest:
             data["Action"]
         )
     else:
-        raise DeserializationError("CreateFirewallRuleRequest.action required")
+        import typing
+
+        out["action"] = typing.cast("capo_route53resolver.types.action.Action", "")
     if data.get("BlockResponse") is not None:
         import capo_route53resolver.types.block_response
 
@@ -196,7 +192,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateFirewallRuleRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateFirewallRuleRequest.name required")
+        out["name"] = ""
     if data.get("FirewallDomainRedirectionAction") is not None:
         import capo_route53resolver.types.firewall_domain_redirection_action
 

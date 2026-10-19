@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_quicksetup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -66,7 +64,11 @@ def deserialize_json(data: dict) -> StatusSummary:
             data["StatusType"]
         )
     else:
-        raise DeserializationError("StatusSummary.status_type required")
+        import typing
+
+        out["status_type"] = typing.cast(
+            "capo_ssm_quicksetup.types.status_type.StatusType", ""
+        )
     if data.get("Status") is not None:
         import capo_ssm_quicksetup.types.status
 
@@ -82,7 +84,11 @@ def deserialize_json(data: dict) -> StatusSummary:
             data["LastUpdatedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("StatusSummary.last_updated_at required")
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("StatusDetails") is not None:
         import capo_ssm_quicksetup.types.status_details
 

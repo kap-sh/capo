@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sns.types.attribute_value
@@ -36,12 +35,10 @@ def deserialize_query(el: Element) -> PutDataProtectionPolicyInput:
     if child_resource_arn is not None:
         out["resource_arn"] = str(child_resource_arn.text or "")
     else:
-        raise DeserializationError("PutDataProtectionPolicyInput.resource_arn required")
+        out["resource_arn"] = ""
     child_data_protection_policy = el.find("DataProtectionPolicy")
     if child_data_protection_policy is not None:
         out["data_protection_policy"] = str(child_data_protection_policy.text or "")
     else:
-        raise DeserializationError(
-            "PutDataProtectionPolicyInput.data_protection_policy required"
-        )
+        out["data_protection_policy"] = ""
     return out

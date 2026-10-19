@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -71,22 +70,22 @@ def deserialize_query(el: Element) -> InstanceProfile:
     if child_path is not None:
         out["path"] = str(child_path.text or "")
     else:
-        raise DeserializationError("InstanceProfile.path required")
+        out["path"] = ""
     child_instance_profile_name = el.find("InstanceProfileName")
     if child_instance_profile_name is not None:
         out["instance_profile_name"] = str(child_instance_profile_name.text or "")
     else:
-        raise DeserializationError("InstanceProfile.instance_profile_name required")
+        out["instance_profile_name"] = ""
     child_instance_profile_id = el.find("InstanceProfileId")
     if child_instance_profile_id is not None:
         out["instance_profile_id"] = str(child_instance_profile_id.text or "")
     else:
-        raise DeserializationError("InstanceProfile.instance_profile_id required")
+        out["instance_profile_id"] = ""
     child_arn = el.find("Arn")
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("InstanceProfile.arn required")
+        out["arn"] = ""
     child_create_date = el.find("CreateDate")
     if child_create_date is not None:
         import capo_iam.types.date_type
@@ -95,14 +94,18 @@ def deserialize_query(el: Element) -> InstanceProfile:
             child_create_date
         )
     else:
-        raise DeserializationError("InstanceProfile.create_date required")
+        import datetime
+
+        out["create_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_roles = el.find("Roles")
     if child_roles is not None:
         import capo_iam.types.role_list_type
 
         out["roles"] = capo_iam.types.role_list_type.deserialize_query(child_roles)
     else:
-        raise DeserializationError("InstanceProfile.roles required")
+        out["roles"] = []
     child_tags = el.find("Tags")
     if child_tags is not None:
         import capo_iam.types.tag_list_type

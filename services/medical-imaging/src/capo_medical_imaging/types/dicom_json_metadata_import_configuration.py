@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_medical_imaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_medical_imaging.types.dicom_metadata_mappings
 
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> DicomJsonMetadataImportConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "DicomJsonMetadataImportConfiguration.dicom_metadata_mappings required"
-        )
+        out["dicom_metadata_mappings"] = []
     return out
 
 

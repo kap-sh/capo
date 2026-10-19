@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.month
     import capo_groundstation.types.year
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> GetMinuteUsageRequest:
     if data.get("month") is not None:
         out["month"] = data["month"]
     else:
-        raise DeserializationError("GetMinuteUsageRequest.month required")
+        out["month"] = 0
     if data.get("year") is not None:
         out["year"] = data["year"]
     else:
-        raise DeserializationError("GetMinuteUsageRequest.year required")
+        out["year"] = 0
     return out

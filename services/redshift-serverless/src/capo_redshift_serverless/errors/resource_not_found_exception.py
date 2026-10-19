@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError, ServiceError
+from capo_redshift_serverless.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.amazon_resource_name
@@ -33,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceNotFoundException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ResourceNotFoundException_.message required")
+        out["message"] = ""
     if data.get("resourceName") is not None:
         out["resource_name"] = data["resourceName"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.harness_hook_name
     import capo_bedrock_agentcore_control.types.harness_hook_target
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> HarnessAfterToolCallHook:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("HarnessAfterToolCallHook.name required")
+        out["name"] = ""
     if data.get("target") is not None:
         import capo_bedrock_agentcore_control.types.harness_hook_target
 
@@ -47,5 +45,9 @@ def deserialize_json(data: dict) -> HarnessAfterToolCallHook:
             )
         )
     else:
-        raise DeserializationError("HarnessAfterToolCallHook.target required")
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["target"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
+        )
     return out

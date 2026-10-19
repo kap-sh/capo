@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__string
     import capo_mediatailor.types.audiences
@@ -75,7 +73,7 @@ def deserialize_json(data: dict) -> UpdateChannelRequest:
             data["Outputs"]
         )
     else:
-        raise DeserializationError("UpdateChannelRequest.outputs required")
+        out["outputs"] = []
     if data.get("TimeShiftConfiguration") is not None:
         import capo_mediatailor.types.time_shift_configuration
 

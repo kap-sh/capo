@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> SearchForPositionResult:
     if data.get("Distance") is not None:
         out["distance"] = float(data["Distance"])
     else:
-        raise DeserializationError("SearchForPositionResult.distance required")
+        out["distance"] = 0.0
     if data.get("PlaceId") is not None:
         out["place_id"] = data["PlaceId"]
     return out

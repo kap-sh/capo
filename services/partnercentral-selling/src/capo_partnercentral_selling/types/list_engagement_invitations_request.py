@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.aws_account_id_or_alias_list
     import capo_partnercentral_selling.types.catalog_identifier
@@ -113,7 +111,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListEngagementInvitationsRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("ListEngagementInvitationsRequest.catalog required")
+        out["catalog"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:
@@ -143,8 +141,10 @@ def deserialize_aws_json_1_0(data: dict) -> ListEngagementInvitationsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ListEngagementInvitationsRequest.participant_type required"
+        import typing
+
+        out["participant_type"] = typing.cast(
+            "capo_partnercentral_selling.types.participant_type.ParticipantType", ""
         )
     if data.get("Status") is not None:
         import capo_partnercentral_selling.types.invitation_status_list

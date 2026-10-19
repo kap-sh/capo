@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.channel_id
     import capo_chime_sdk_media_pipelines.types.fragment_number_string
@@ -38,9 +36,7 @@ def deserialize_json(data: dict) -> KinesisVideoStreamSourceTaskConfiguration:
     if data.get("StreamArn") is not None:
         out["stream_arn"] = data["StreamArn"]
     else:
-        raise DeserializationError(
-            "KinesisVideoStreamSourceTaskConfiguration.stream_arn required"
-        )
+        out["stream_arn"] = ""
     if data.get("ChannelId") is not None:
         out["channel_id"] = data["ChannelId"]
     else:

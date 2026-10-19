@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__map_of__string
     import capo_mediatailor.types.runtime_type
@@ -44,7 +42,11 @@ def deserialize_json(data: dict) -> CustomOutputConfiguration:
             data["Runtime"]
         )
     else:
-        raise DeserializationError("CustomOutputConfiguration.runtime required")
+        import typing
+
+        out["runtime"] = typing.cast(
+            "capo_mediatailor.types.runtime_type.RuntimeType", ""
+        )
     if data.get("Output") is not None:
         import capo_mediatailor.types.__map_of__string
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr.types.region
     import capo_ecr.types.registry_id
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> ReplicationDestination:
     if data.get("region") is not None:
         out["region"] = data["region"]
     else:
-        raise DeserializationError("ReplicationDestination.region required")
+        out["region"] = ""
     if data.get("registryId") is not None:
         out["registry_id"] = data["registryId"]
     else:
-        raise DeserializationError("ReplicationDestination.registry_id required")
+        out["registry_id"] = ""
     return out

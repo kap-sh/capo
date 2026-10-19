@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.metrics_name_list
     import capo_kinesis.types.stream_arn
@@ -56,9 +54,7 @@ def deserialize_aws_json_1_1(data: dict) -> DisableEnhancedMonitoringInput:
             )
         )
     else:
-        raise DeserializationError(
-            "DisableEnhancedMonitoringInput.shard_level_metrics required"
-        )
+        out["shard_level_metrics"] = []
     if data.get("StreamARN") is not None:
         out["stream_arn"] = data["StreamARN"]
     if data.get("StreamId") is not None:

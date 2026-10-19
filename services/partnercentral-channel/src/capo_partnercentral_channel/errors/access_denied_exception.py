@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_channel.errors import DeserializationError, ServiceError
+from capo_partnercentral_channel.errors import ServiceError
 
 
 class AccessDeniedException_(TypedDict, closed=True):
@@ -27,7 +27,7 @@ def deserialize_aws_json_1_0(data: dict) -> AccessDeniedException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("AccessDeniedException_.message required")
+        out["message"] = ""
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
     return out

@@ -59,9 +59,7 @@ def deserialize_json(data: dict) -> SearchPlaceIndexForPositionResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "SearchPlaceIndexForPositionResponse.results required"
-        )
+        out["results"] = []
     return out
 
 

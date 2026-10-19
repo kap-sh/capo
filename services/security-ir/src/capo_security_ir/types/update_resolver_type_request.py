@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_security_ir.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_security_ir.types.case_id
     import capo_security_ir.types.resolver_type
@@ -38,5 +36,9 @@ def deserialize_json(data: dict) -> UpdateResolverTypeRequest:
             data["resolverType"]
         )
     else:
-        raise DeserializationError("UpdateResolverTypeRequest.resolver_type required")
+        import typing
+
+        out["resolver_type"] = typing.cast(
+            "capo_security_ir.types.resolver_type.ResolverType", ""
+        )
     return out

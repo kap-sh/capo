@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workdocs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workdocs.types.id_type
     import capo_workdocs.types.principal_type
@@ -39,17 +37,23 @@ def deserialize_json(data: dict) -> SharePrincipal:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("SharePrincipal.id required")
+        out["id"] = ""
     if data.get("Type") is not None:
         import capo_workdocs.types.principal_type
 
         out["type"] = capo_workdocs.types.principal_type.deserialize_json(data["Type"])
     else:
-        raise DeserializationError("SharePrincipal.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_workdocs.types.principal_type.PrincipalType", ""
+        )
     if data.get("Role") is not None:
         import capo_workdocs.types.role_type
 
         out["role"] = capo_workdocs.types.role_type.deserialize_json(data["Role"])
     else:
-        raise DeserializationError("SharePrincipal.role required")
+        import typing
+
+        out["role"] = typing.cast("capo_workdocs.types.role_type.RoleType", "")
     return out

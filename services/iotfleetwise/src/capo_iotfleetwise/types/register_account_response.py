@@ -78,8 +78,10 @@ def deserialize_aws_json_1_0(data: dict) -> RegisterAccountResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "RegisterAccountResponse.register_account_status required"
+        import typing
+
+        out["register_account_status"] = typing.cast(
+            "capo_iotfleetwise.types.registration_status.RegistrationStatus", ""
         )
     if data.get("timestreamResources") is not None:
         import capo_iotfleetwise.types.timestream_resources
@@ -108,7 +110,11 @@ def deserialize_aws_json_1_0(data: dict) -> RegisterAccountResponse:
             )
         )
     else:
-        raise DeserializationError("RegisterAccountResponse.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastModificationTime") is not None:
         import capo_iotfleetwise.types.timestamp
 
@@ -118,7 +124,9 @@ def deserialize_aws_json_1_0(data: dict) -> RegisterAccountResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "RegisterAccountResponse.last_modification_time required"
+        import datetime
+
+        out["last_modification_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

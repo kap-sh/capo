@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.data_lake_dataset_partition_field_list
 
@@ -39,5 +37,5 @@ def deserialize_json(data: dict) -> DataLakeDatasetPartitionSpec:
             )
         )
     else:
-        raise DeserializationError("DataLakeDatasetPartitionSpec.fields required")
+        out["fields"] = []
     return out

@@ -98,7 +98,7 @@ def deserialize_json(data: dict) -> GrantPermissionsRequest:
             data["Permissions"]
         )
     else:
-        raise DeserializationError("GrantPermissionsRequest.permissions required")
+        out["permissions"] = []
     if data.get("Condition") is not None:
         import capo_lakeformation.types.condition
 

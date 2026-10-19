@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.endpoint_address
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> GetCustomEndpointResponse:
     if data.get("EndpointAddress") is not None:
         out["endpoint_address"] = data["EndpointAddress"]
     else:
-        raise DeserializationError(
-            "GetCustomEndpointResponse.endpoint_address required"
-        )
+        out["endpoint_address"] = ""
     return out

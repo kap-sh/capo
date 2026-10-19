@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.grouping_source_key_string_list
     import capo_application_signals.types.grouping_string
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> GroupingAttributeDefinition:
     if data.get("GroupingName") is not None:
         out["grouping_name"] = data["GroupingName"]
     else:
-        raise DeserializationError("GroupingAttributeDefinition.grouping_name required")
+        out["grouping_name"] = ""
     if data.get("GroupingSourceKeys") is not None:
         import capo_application_signals.types.grouping_source_key_string_list
 

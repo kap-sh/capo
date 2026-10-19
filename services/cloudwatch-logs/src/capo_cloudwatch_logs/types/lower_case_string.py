@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.lower_case_string_with_keys
 
@@ -41,5 +39,5 @@ def deserialize_aws_json_1_1(data: dict) -> LowerCaseString:
             )
         )
     else:
-        raise DeserializationError("LowerCaseString.with_keys required")
+        out["with_keys"] = []
     return out

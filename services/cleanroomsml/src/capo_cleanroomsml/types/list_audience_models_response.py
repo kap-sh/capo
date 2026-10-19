@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.audience_model_list
     import capo_cleanroomsml.types.next_token
@@ -44,7 +42,5 @@ def deserialize_json(data: dict) -> ListAudienceModelsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListAudienceModelsResponse.audience_models required"
-        )
+        out["audience_models"] = []
     return out

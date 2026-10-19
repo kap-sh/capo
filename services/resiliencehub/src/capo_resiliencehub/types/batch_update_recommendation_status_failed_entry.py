@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.error_message
     import capo_resiliencehub.types.string255
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> BatchUpdateRecommendationStatusFailedEntry:
     if data.get("entryId") is not None:
         out["entry_id"] = data["entryId"]
     else:
-        raise DeserializationError(
-            "BatchUpdateRecommendationStatusFailedEntry.entry_id required"
-        )
+        out["entry_id"] = ""
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     else:
-        raise DeserializationError(
-            "BatchUpdateRecommendationStatusFailedEntry.error_message required"
-        )
+        out["error_message"] = ""
     return out

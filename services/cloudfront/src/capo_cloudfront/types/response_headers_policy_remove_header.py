@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.string
@@ -30,5 +29,5 @@ def deserialize_xml(el: Element) -> ResponseHeadersPolicyRemoveHeader:
     if child_header is not None:
         out["header"] = str(child_header.text or "")
     else:
-        raise DeserializationError("ResponseHeadersPolicyRemoveHeader.header required")
+        out["header"] = ""
     return out

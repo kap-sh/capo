@@ -50,9 +50,7 @@ def deserialize_json(data: dict) -> AzureProviderDetailCreate:
     if data.get("awsConfigConnectorArn") is not None:
         out["aws_config_connector_arn"] = data["awsConfigConnectorArn"]
     else:
-        raise DeserializationError(
-            "AzureProviderDetailCreate.aws_config_connector_arn required"
-        )
+        out["aws_config_connector_arn"] = ""
     if data.get("scopeConfiguration") is not None:
         import capo_inspector2.types.azure_scope_configuration_input
 
@@ -72,7 +70,7 @@ def deserialize_json(data: dict) -> AzureProviderDetailCreate:
             data["azureRegions"]
         )
     else:
-        raise DeserializationError("AzureProviderDetailCreate.azure_regions required")
+        out["azure_regions"] = []
     if data.get("autoInstallVMScanner") is not None:
         out["auto_install_vm_scanner"] = data["autoInstallVMScanner"]
     else:

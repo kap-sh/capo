@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.queue_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CreateQueueResponse:
     if data.get("queueId") is not None:
         out["queue_id"] = data["queueId"]
     else:
-        raise DeserializationError("CreateQueueResponse.queue_id required")
+        out["queue_id"] = ""
     return out

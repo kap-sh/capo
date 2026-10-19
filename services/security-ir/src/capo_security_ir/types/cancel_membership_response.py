@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_security_ir.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_security_ir.types.membership_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CancelMembershipResponse:
     if data.get("membershipId") is not None:
         out["membership_id"] = data["membershipId"]
     else:
-        raise DeserializationError("CancelMembershipResponse.membership_id required")
+        out["membership_id"] = ""
     return out

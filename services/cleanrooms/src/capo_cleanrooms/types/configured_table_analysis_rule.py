@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -69,15 +67,11 @@ def deserialize_json(data: dict) -> ConfiguredTableAnalysisRule:
     if data.get("configuredTableId") is not None:
         out["configured_table_id"] = data["configuredTableId"]
     else:
-        raise DeserializationError(
-            "ConfiguredTableAnalysisRule.configured_table_id required"
-        )
+        out["configured_table_id"] = ""
     if data.get("configuredTableArn") is not None:
         out["configured_table_arn"] = data["configuredTableArn"]
     else:
-        raise DeserializationError(
-            "ConfiguredTableAnalysisRule.configured_table_arn required"
-        )
+        out["configured_table_arn"] = ""
     if data.get("policy") is not None:
         import capo_cleanrooms.types.configured_table_analysis_rule_policy
 
@@ -87,7 +81,9 @@ def deserialize_json(data: dict) -> ConfiguredTableAnalysisRule:
             )
         )
     else:
-        raise DeserializationError("ConfiguredTableAnalysisRule.policy required")
+        import capo_cleanrooms.types._unknown
+
+        out["policy"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
     if data.get("type") is not None:
         import capo_cleanrooms.types.configured_table_analysis_rule_type
 
@@ -97,7 +93,12 @@ def deserialize_json(data: dict) -> ConfiguredTableAnalysisRule:
             )
         )
     else:
-        raise DeserializationError("ConfiguredTableAnalysisRule.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cleanrooms.types.configured_table_analysis_rule_type.ConfiguredTableAnalysisRuleType",
+            "",
+        )
     if data.get("createTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -105,7 +106,11 @@ def deserialize_json(data: dict) -> ConfiguredTableAnalysisRule:
             data["createTime"]
         )
     else:
-        raise DeserializationError("ConfiguredTableAnalysisRule.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -113,5 +118,9 @@ def deserialize_json(data: dict) -> ConfiguredTableAnalysisRule:
             data["updateTime"]
         )
     else:
-        raise DeserializationError("ConfiguredTableAnalysisRule.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

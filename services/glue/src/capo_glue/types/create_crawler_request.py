@@ -144,11 +144,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCrawlerRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateCrawlerRequest.name required")
+        out["name"] = ""
     if data.get("Role") is not None:
         out["role"] = data["Role"]
     else:
-        raise DeserializationError("CreateCrawlerRequest.role required")
+        out["role"] = ""
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     if data.get("Description") is not None:

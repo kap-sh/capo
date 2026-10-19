@@ -57,11 +57,11 @@ def deserialize_json(data: dict) -> CreateProposalInput:
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     else:
-        raise DeserializationError("CreateProposalInput.client_request_token required")
+        out["client_request_token"] = ""
     if data.get("MemberId") is not None:
         out["member_id"] = data["MemberId"]
     else:
-        raise DeserializationError("CreateProposalInput.member_id required")
+        out["member_id"] = ""
     if data.get("Actions") is not None:
         import capo_managedblockchain.types.proposal_actions
 

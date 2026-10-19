@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.arn
     import capo_databrew.types.validation_mode
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> ValidationConfiguration:
     if data.get("RulesetArn") is not None:
         out["ruleset_arn"] = data["RulesetArn"]
     else:
-        raise DeserializationError("ValidationConfiguration.ruleset_arn required")
+        out["ruleset_arn"] = ""
     if data.get("ValidationMode") is not None:
         import capo_databrew.types.validation_mode
 

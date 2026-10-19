@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.date_timestamp
     import capo_bedrock_agent_runtime.types.kms_key_arn
@@ -78,11 +76,11 @@ def deserialize_json(data: dict) -> GetSessionResponse:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("GetSessionResponse.session_id required")
+        out["session_id"] = ""
     if data.get("sessionArn") is not None:
         out["session_arn"] = data["sessionArn"]
     else:
-        raise DeserializationError("GetSessionResponse.session_arn required")
+        out["session_arn"] = ""
     if data.get("sessionStatus") is not None:
         import capo_bedrock_agent_runtime.types.session_status
 
@@ -92,7 +90,11 @@ def deserialize_json(data: dict) -> GetSessionResponse:
             )
         )
     else:
-        raise DeserializationError("GetSessionResponse.session_status required")
+        import typing
+
+        out["session_status"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.session_status.SessionStatus", ""
+        )
     if data.get("createdAt") is not None:
         import capo_bedrock_agent_runtime.types.date_timestamp
 
@@ -102,7 +104,9 @@ def deserialize_json(data: dict) -> GetSessionResponse:
             )
         )
     else:
-        raise DeserializationError("GetSessionResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastUpdatedAt") is not None:
         import capo_bedrock_agent_runtime.types.date_timestamp
 
@@ -112,7 +116,11 @@ def deserialize_json(data: dict) -> GetSessionResponse:
             )
         )
     else:
-        raise DeserializationError("GetSessionResponse.last_updated_at required")
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("sessionMetadata") is not None:
         import capo_bedrock_agent_runtime.types.session_metadata_map
 

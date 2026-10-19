@@ -45,13 +45,11 @@ def deserialize_json(data: dict) -> DialogCodeHookInvocationSetting:
     if data.get("enableCodeHookInvocation") is not None:
         out["enable_code_hook_invocation"] = data["enableCodeHookInvocation"]
     else:
-        raise DeserializationError(
-            "DialogCodeHookInvocationSetting.enable_code_hook_invocation required"
-        )
+        out["enable_code_hook_invocation"] = False
     if data.get("active") is not None:
         out["active"] = data["active"]
     else:
-        raise DeserializationError("DialogCodeHookInvocationSetting.active required")
+        out["active"] = False
     if data.get("invocationLabel") is not None:
         out["invocation_label"] = data["invocationLabel"]
     if data.get("postCodeHookSpecification") is not None:

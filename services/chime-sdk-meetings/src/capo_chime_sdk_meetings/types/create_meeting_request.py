@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_meetings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_meetings.types.client_request_token
     import capo_chime_sdk_meetings.types.external_meeting_id
@@ -110,17 +108,17 @@ def deserialize_json(data: dict) -> CreateMeetingRequest:
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     else:
-        raise DeserializationError("CreateMeetingRequest.client_request_token required")
+        out["client_request_token"] = ""
     if data.get("MediaRegion") is not None:
         out["media_region"] = data["MediaRegion"]
     else:
-        raise DeserializationError("CreateMeetingRequest.media_region required")
+        out["media_region"] = ""
     if data.get("MeetingHostId") is not None:
         out["meeting_host_id"] = data["MeetingHostId"]
     if data.get("ExternalMeetingId") is not None:
         out["external_meeting_id"] = data["ExternalMeetingId"]
     else:
-        raise DeserializationError("CreateMeetingRequest.external_meeting_id required")
+        out["external_meeting_id"] = ""
     if data.get("NotificationsConfiguration") is not None:
         import capo_chime_sdk_meetings.types.notifications_configuration
 

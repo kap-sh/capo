@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -73,11 +71,11 @@ def deserialize_json(data: dict) -> SecurityRequirementPackSummary:
     if data.get("packId") is not None:
         out["pack_id"] = data["packId"]
     else:
-        raise DeserializationError("SecurityRequirementPackSummary.pack_id required")
+        out["pack_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("SecurityRequirementPackSummary.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("vendorName") is not None:
@@ -91,8 +89,10 @@ def deserialize_json(data: dict) -> SecurityRequirementPackSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "SecurityRequirementPackSummary.management_type required"
+        import typing
+
+        out["management_type"] = typing.cast(
+            "capo_securityagent.types.management_type.ManagementType", ""
         )
     if data.get("status") is not None:
         import capo_securityagent.types.security_requirement_pack_status
@@ -103,7 +103,12 @@ def deserialize_json(data: dict) -> SecurityRequirementPackSummary:
             )
         )
     else:
-        raise DeserializationError("SecurityRequirementPackSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_securityagent.types.security_requirement_pack_status.SecurityRequirementPackStatus",
+            "",
+        )
     if data.get("createdAt") is not None:
         import datetime
 
@@ -111,7 +116,9 @@ def deserialize_json(data: dict) -> SecurityRequirementPackSummary:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("SecurityRequirementPackSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import datetime
 
@@ -119,5 +126,7 @@ def deserialize_json(data: dict) -> SecurityRequirementPackSummary:
             data["updatedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("SecurityRequirementPackSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

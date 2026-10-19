@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.payer
@@ -34,5 +33,7 @@ def deserialize_xml(el: Element) -> RequestPaymentConfiguration:
 
         out["payer"] = capo_s3.types.payer.deserialize_xml(child_payer)
     else:
-        raise DeserializationError("RequestPaymentConfiguration.payer required")
+        import typing
+
+        out["payer"] = typing.cast("capo_s3.types.payer.Payer", "")
     return out

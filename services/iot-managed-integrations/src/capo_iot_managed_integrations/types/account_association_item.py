@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.account_association_arn
     import capo_iot_managed_integrations.types.account_association_description
@@ -74,9 +72,7 @@ def deserialize_json(data: dict) -> AccountAssociationItem:
     if data.get("AccountAssociationId") is not None:
         out["account_association_id"] = data["AccountAssociationId"]
     else:
-        raise DeserializationError(
-            "AccountAssociationItem.account_association_id required"
-        )
+        out["account_association_id"] = ""
     if data.get("AssociationState") is not None:
         import capo_iot_managed_integrations.types.association_state
 
@@ -86,7 +82,11 @@ def deserialize_json(data: dict) -> AccountAssociationItem:
             )
         )
     else:
-        raise DeserializationError("AccountAssociationItem.association_state required")
+        import typing
+
+        out["association_state"] = typing.cast(
+            "capo_iot_managed_integrations.types.association_state.AssociationState", ""
+        )
     if data.get("ErrorMessage") is not None:
         out["error_message"] = data["ErrorMessage"]
     if data.get("ConnectorDestinationId") is not None:

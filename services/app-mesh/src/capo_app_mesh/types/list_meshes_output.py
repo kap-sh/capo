@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.mesh_list
 
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> ListMeshesOutput:
 
         out["meshes"] = capo_app_mesh.types.mesh_list.deserialize_json(data["meshes"])
     else:
-        raise DeserializationError("ListMeshesOutput.meshes required")
+        out["meshes"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

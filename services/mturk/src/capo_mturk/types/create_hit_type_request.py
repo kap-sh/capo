@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mturk.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mturk.types.currency_amount
     import capo_mturk.types.long
@@ -61,23 +59,21 @@ def deserialize_aws_json_1_1(data: dict) -> CreateHITTypeRequest:
     if data.get("AssignmentDurationInSeconds") is not None:
         out["assignment_duration_in_seconds"] = data["AssignmentDurationInSeconds"]
     else:
-        raise DeserializationError(
-            "CreateHITTypeRequest.assignment_duration_in_seconds required"
-        )
+        out["assignment_duration_in_seconds"] = 0
     if data.get("Reward") is not None:
         out["reward"] = data["Reward"]
     else:
-        raise DeserializationError("CreateHITTypeRequest.reward required")
+        out["reward"] = ""
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     else:
-        raise DeserializationError("CreateHITTypeRequest.title required")
+        out["title"] = ""
     if data.get("Keywords") is not None:
         out["keywords"] = data["Keywords"]
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("CreateHITTypeRequest.description required")
+        out["description"] = ""
     if data.get("QualificationRequirements") is not None:
         import capo_mturk.types.qualification_requirement_list
 

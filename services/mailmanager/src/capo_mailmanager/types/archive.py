@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -57,7 +55,7 @@ def deserialize_aws_json_1_0(data: dict) -> Archive:
     if data.get("ArchiveId") is not None:
         out["archive_id"] = data["ArchiveId"]
     else:
-        raise DeserializationError("Archive.archive_id required")
+        out["archive_id"] = ""
     if data.get("ArchiveName") is not None:
         out["archive_name"] = data["ArchiveName"]
     if data.get("ArchiveState") is not None:

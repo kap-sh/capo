@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_chime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime.types.e164_phone_number
     import capo_chime.types.guid_string
@@ -37,19 +35,15 @@ def deserialize_json(data: dict) -> CreateMeetingDialOutRequest:
     if data.get("FromPhoneNumber") is not None:
         out["from_phone_number"] = data["FromPhoneNumber"]
     else:
-        raise DeserializationError(
-            "CreateMeetingDialOutRequest.from_phone_number required"
-        )
+        out["from_phone_number"] = ""
     if data.get("ToPhoneNumber") is not None:
         out["to_phone_number"] = data["ToPhoneNumber"]
     else:
-        raise DeserializationError(
-            "CreateMeetingDialOutRequest.to_phone_number required"
-        )
+        out["to_phone_number"] = ""
     if data.get("JoinToken") is not None:
         out["join_token"] = data["JoinToken"]
     else:
-        raise DeserializationError("CreateMeetingDialOutRequest.join_token required")
+        out["join_token"] = ""
     return out
 
 

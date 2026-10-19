@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3vectors.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3vectors.types.index_mode
     import capo_s3vectors.types.vector_bucket_arn
@@ -53,7 +51,9 @@ def deserialize_json(data: dict) -> PutVectorBucketDefaultIndexModeInput:
             data["defaultIndexMode"]
         )
     else:
-        raise DeserializationError(
-            "PutVectorBucketDefaultIndexModeInput.default_index_mode required"
+        import typing
+
+        out["default_index_mode"] = typing.cast(
+            "capo_s3vectors.types.index_mode.IndexMode", ""
         )
     return out

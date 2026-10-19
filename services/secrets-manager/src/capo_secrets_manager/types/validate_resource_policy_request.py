@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_secrets_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_secrets_manager.types.non_empty_resource_policy_type
     import capo_secrets_manager.types.secret_id_type
@@ -34,7 +32,5 @@ def deserialize_aws_json_1_1(data: dict) -> ValidateResourcePolicyRequest:
     if data.get("ResourcePolicy") is not None:
         out["resource_policy"] = data["ResourcePolicy"]
     else:
-        raise DeserializationError(
-            "ValidateResourcePolicyRequest.resource_policy required"
-        )
+        out["resource_policy"] = ""
     return out

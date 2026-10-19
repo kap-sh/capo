@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearchserverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearchserverless.types.collection_id
     import capo_opensearchserverless.types.index_name
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteIndexRequest:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("DeleteIndexRequest.id required")
+        out["id"] = ""
     if data.get("indexName") is not None:
         out["index_name"] = data["indexName"]
     else:
-        raise DeserializationError("DeleteIndexRequest.index_name required")
+        out["index_name"] = ""
     return out

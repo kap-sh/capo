@@ -94,8 +94,10 @@ def deserialize_aws_json_1_1(data: dict) -> StartResourceEvaluationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartResourceEvaluationRequest.evaluation_mode required"
+        import typing
+
+        out["evaluation_mode"] = typing.cast(
+            "capo_config_service.types.evaluation_mode.EvaluationMode", ""
         )
     if data.get("EvaluationTimeout") is not None:
         out["evaluation_timeout"] = data["EvaluationTimeout"]

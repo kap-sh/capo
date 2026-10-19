@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.log_level
     import capo_iot.types.role_arn
@@ -33,13 +31,13 @@ def deserialize_json(data: dict) -> EnableIoTLoggingParams:
     if data.get("roleArnForLogging") is not None:
         out["role_arn_for_logging"] = data["roleArnForLogging"]
     else:
-        raise DeserializationError(
-            "EnableIoTLoggingParams.role_arn_for_logging required"
-        )
+        out["role_arn_for_logging"] = ""
     if data.get("logLevel") is not None:
         import capo_iot.types.log_level
 
         out["log_level"] = capo_iot.types.log_level.deserialize_json(data["logLevel"])
     else:
-        raise DeserializationError("EnableIoTLoggingParams.log_level required")
+        import typing
+
+        out["log_level"] = typing.cast("capo_iot.types.log_level.LogLevel", "")
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.client_request_token
     import capo_iot.types.dimension_name
@@ -53,7 +51,9 @@ def deserialize_json(data: dict) -> CreateDimensionRequest:
 
         out["type"] = capo_iot.types.dimension_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("CreateDimensionRequest.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_iot.types.dimension_type.DimensionType", "")
     if data.get("stringValues") is not None:
         import capo_iot.types.dimension_string_values
 
@@ -61,7 +61,7 @@ def deserialize_json(data: dict) -> CreateDimensionRequest:
             data["stringValues"]
         )
     else:
-        raise DeserializationError("CreateDimensionRequest.string_values required")
+        out["string_values"] = []
     if data.get("tags") is not None:
         import capo_iot.types.tag_list
 
@@ -69,7 +69,5 @@ def deserialize_json(data: dict) -> CreateDimensionRequest:
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     else:
-        raise DeserializationError(
-            "CreateDimensionRequest.client_request_token required"
-        )
+        out["client_request_token"] = ""
     return out

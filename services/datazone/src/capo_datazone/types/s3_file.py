@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.s3_object_key
 
@@ -27,7 +25,7 @@ def deserialize_json(data: dict) -> S3File:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("S3File.key required")
+        out["key"] = ""
     return out
 
 

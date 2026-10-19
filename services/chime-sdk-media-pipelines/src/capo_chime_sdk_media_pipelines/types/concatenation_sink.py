@@ -49,7 +49,12 @@ def deserialize_json(data: dict) -> ConcatenationSink:
             )
         )
     else:
-        raise DeserializationError("ConcatenationSink.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.concatenation_sink_type.ConcatenationSinkType",
+            "",
+        )
     if data.get("S3BucketSinkConfiguration") is not None:
         import capo_chime_sdk_media_pipelines.types.s3_bucket_sink_configuration
 

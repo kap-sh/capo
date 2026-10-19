@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> RevisionPublished:
     if data.get("DataSetId") is not None:
         out["data_set_id"] = data["DataSetId"]
     else:
-        raise DeserializationError("RevisionPublished.data_set_id required")
+        out["data_set_id"] = ""
     return out

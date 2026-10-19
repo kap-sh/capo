@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_web.types.environment_variables
     import capo_lambda_web.types.role_arn
@@ -63,7 +61,7 @@ def deserialize_json(data: dict) -> ServiceConfig:
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:
-        raise DeserializationError("ServiceConfig.execution_role_arn required")
+        out["execution_role_arn"] = ""
     if data.get("timeoutSeconds") is not None:
         out["timeout_seconds"] = data["timeoutSeconds"]
     else:

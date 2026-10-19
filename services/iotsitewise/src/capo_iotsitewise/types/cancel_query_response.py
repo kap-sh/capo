@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.query_id
     import capo_iotsitewise.types.query_status
@@ -33,7 +31,7 @@ def deserialize_json(data: dict) -> CancelQueryResponse:
     if data.get("queryId") is not None:
         out["query_id"] = data["queryId"]
     else:
-        raise DeserializationError("CancelQueryResponse.query_id required")
+        out["query_id"] = ""
     if data.get("status") is not None:
         import capo_iotsitewise.types.query_status
 
@@ -41,5 +39,9 @@ def deserialize_json(data: dict) -> CancelQueryResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("CancelQueryResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_iotsitewise.types.query_status.QueryStatus", ""
+        )
     return out

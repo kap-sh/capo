@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.arn_type
     import capo_cognito_identity_provider.types.custom_email_sender_lambda_version_type
@@ -43,13 +41,14 @@ def deserialize_aws_json_1_1(data: dict) -> CustomEmailLambdaVersionConfigType:
             )
         )
     else:
-        raise DeserializationError(
-            "CustomEmailLambdaVersionConfigType.lambda_version required"
+        import typing
+
+        out["lambda_version"] = typing.cast(
+            "capo_cognito_identity_provider.types.custom_email_sender_lambda_version_type.CustomEmailSenderLambdaVersionType",
+            "",
         )
     if data.get("LambdaArn") is not None:
         out["lambda_arn"] = data["LambdaArn"]
     else:
-        raise DeserializationError(
-            "CustomEmailLambdaVersionConfigType.lambda_arn required"
-        )
+        out["lambda_arn"] = ""
     return out

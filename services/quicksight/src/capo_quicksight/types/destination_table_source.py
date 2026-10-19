@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.data_set_entity_resource_id
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> DestinationTableSource:
     if data.get("TransformOperationId") is not None:
         out["transform_operation_id"] = data["TransformOperationId"]
     else:
-        raise DeserializationError(
-            "DestinationTableSource.transform_operation_id required"
-        )
+        out["transform_operation_id"] = ""
     return out

@@ -133,13 +133,11 @@ def deserialize_aws_json_1_1(data: dict) -> RedshiftDestinationDescription:
     if data.get("RoleARN") is not None:
         out["role_arn"] = data["RoleARN"]
     else:
-        raise DeserializationError("RedshiftDestinationDescription.role_arn required")
+        out["role_arn"] = ""
     if data.get("ClusterJDBCURL") is not None:
         out["cluster_jdbcurl"] = data["ClusterJDBCURL"]
     else:
-        raise DeserializationError(
-            "RedshiftDestinationDescription.cluster_jdbcurl required"
-        )
+        out["cluster_jdbcurl"] = ""
     if data.get("CopyCommand") is not None:
         import capo_firehose.types.copy_command
 

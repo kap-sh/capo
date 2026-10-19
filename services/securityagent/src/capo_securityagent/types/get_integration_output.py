@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.integration_id
     import capo_securityagent.types.kms_key_id
@@ -75,11 +73,11 @@ def deserialize_json(data: dict) -> GetIntegrationOutput:
     if data.get("integrationId") is not None:
         out["integration_id"] = data["integrationId"]
     else:
-        raise DeserializationError("GetIntegrationOutput.integration_id required")
+        out["integration_id"] = ""
     if data.get("installationId") is not None:
         out["installation_id"] = data["installationId"]
     else:
-        raise DeserializationError("GetIntegrationOutput.installation_id required")
+        out["installation_id"] = ""
     if data.get("provider") is not None:
         import capo_securityagent.types.provider
 
@@ -87,7 +85,9 @@ def deserialize_json(data: dict) -> GetIntegrationOutput:
             data["provider"]
         )
     else:
-        raise DeserializationError("GetIntegrationOutput.provider required")
+        import typing
+
+        out["provider"] = typing.cast("capo_securityagent.types.provider.Provider", "")
     if data.get("providerType") is not None:
         import capo_securityagent.types.provider_type
 
@@ -95,7 +95,11 @@ def deserialize_json(data: dict) -> GetIntegrationOutput:
             data["providerType"]
         )
     else:
-        raise DeserializationError("GetIntegrationOutput.provider_type required")
+        import typing
+
+        out["provider_type"] = typing.cast(
+            "capo_securityagent.types.provider_type.ProviderType", ""
+        )
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     if data.get("kmsKeyId") is not None:

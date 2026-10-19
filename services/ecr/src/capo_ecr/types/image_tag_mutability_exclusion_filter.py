@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr.types.image_tag_mutability_exclusion_filter_type
     import capo_ecr.types.image_tag_mutability_exclusion_filter_value
@@ -43,11 +41,14 @@ def deserialize_aws_json_1_1(data: dict) -> ImageTagMutabilityExclusionFilter:
             )
         )
     else:
-        raise DeserializationError(
-            "ImageTagMutabilityExclusionFilter.filter_type required"
+        import typing
+
+        out["filter_type"] = typing.cast(
+            "capo_ecr.types.image_tag_mutability_exclusion_filter_type.ImageTagMutabilityExclusionFilterType",
+            "",
         )
     if data.get("filter") is not None:
         out["filter"] = data["filter"]
     else:
-        raise DeserializationError("ImageTagMutabilityExclusionFilter.filter required")
+        out["filter"] = ""
     return out

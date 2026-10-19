@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_support.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support.types.category_code
     import capo_support.types.issue_type
@@ -44,25 +42,19 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeCreateCaseOptionsRequest:
     if data.get("issueType") is not None:
         out["issue_type"] = data["issueType"]
     else:
-        raise DeserializationError(
-            "DescribeCreateCaseOptionsRequest.issue_type required"
-        )
+        out["issue_type"] = ""
     if data.get("serviceCode") is not None:
         out["service_code"] = data["serviceCode"]
     else:
-        raise DeserializationError(
-            "DescribeCreateCaseOptionsRequest.service_code required"
-        )
+        out["service_code"] = ""
     if data.get("language") is not None:
         out["language"] = data["language"]
     else:
-        raise DeserializationError("DescribeCreateCaseOptionsRequest.language required")
+        out["language"] = ""
     if data.get("categoryCode") is not None:
         out["category_code"] = data["categoryCode"]
     else:
-        raise DeserializationError(
-            "DescribeCreateCaseOptionsRequest.category_code required"
-        )
+        out["category_code"] = ""
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
     return out

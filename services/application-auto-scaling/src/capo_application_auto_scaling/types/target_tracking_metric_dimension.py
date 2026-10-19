@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_auto_scaling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_auto_scaling.types.target_tracking_metric_dimension_name
     import capo_application_auto_scaling.types.target_tracking_metric_dimension_value
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> TargetTrackingMetricDimension:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("TargetTrackingMetricDimension.name required")
+        out["name"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("TargetTrackingMetricDimension.value required")
+        out["value"] = ""
     return out

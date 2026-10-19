@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_channel.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_channel.types.note
     import capo_partnercentral_channel.types.program_management_account_identifier
@@ -36,9 +34,7 @@ def deserialize_aws_json_1_0(data: dict) -> RevokeServicePeriodPayload:
             "programManagementAccountIdentifier"
         ]
     else:
-        raise DeserializationError(
-            "RevokeServicePeriodPayload.program_management_account_identifier required"
-        )
+        out["program_management_account_identifier"] = ""
     if data.get("note") is not None:
         out["note"] = data["note"]
     return out

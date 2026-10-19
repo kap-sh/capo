@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.guardrail_content_filter_action
     import capo_bedrock.types.guardrail_content_filter_type
@@ -110,7 +108,12 @@ def deserialize_json(data: dict) -> GuardrailContentFilterConfig:
             data["type"]
         )
     else:
-        raise DeserializationError("GuardrailContentFilterConfig.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock.types.guardrail_content_filter_type.GuardrailContentFilterType",
+            "",
+        )
     if data.get("inputStrength") is not None:
         import capo_bedrock.types.guardrail_filter_strength
 
@@ -120,8 +123,10 @@ def deserialize_json(data: dict) -> GuardrailContentFilterConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "GuardrailContentFilterConfig.input_strength required"
+        import typing
+
+        out["input_strength"] = typing.cast(
+            "capo_bedrock.types.guardrail_filter_strength.GuardrailFilterStrength", ""
         )
     if data.get("outputStrength") is not None:
         import capo_bedrock.types.guardrail_filter_strength
@@ -132,8 +137,10 @@ def deserialize_json(data: dict) -> GuardrailContentFilterConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "GuardrailContentFilterConfig.output_strength required"
+        import typing
+
+        out["output_strength"] = typing.cast(
+            "capo_bedrock.types.guardrail_filter_strength.GuardrailFilterStrength", ""
         )
     if data.get("inputModalities") is not None:
         import capo_bedrock.types.guardrail_modalities

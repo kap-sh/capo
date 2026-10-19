@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr.types.scan_frequency
     import capo_ecr.types.scanning_repository_filter_list
@@ -47,7 +45,11 @@ def deserialize_aws_json_1_1(data: dict) -> RegistryScanningRule:
             data["scanFrequency"]
         )
     else:
-        raise DeserializationError("RegistryScanningRule.scan_frequency required")
+        import typing
+
+        out["scan_frequency"] = typing.cast(
+            "capo_ecr.types.scan_frequency.ScanFrequency", ""
+        )
     if data.get("repositoryFilters") is not None:
         import capo_ecr.types.scanning_repository_filter_list
 
@@ -57,5 +59,5 @@ def deserialize_aws_json_1_1(data: dict) -> RegistryScanningRule:
             )
         )
     else:
-        raise DeserializationError("RegistryScanningRule.repository_filters required")
+        out["repository_filters"] = []
     return out

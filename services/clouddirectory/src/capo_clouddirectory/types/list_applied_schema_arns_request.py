@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_clouddirectory.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_clouddirectory.types.arn
     import capo_clouddirectory.types.next_token
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> ListAppliedSchemaArnsRequest:
     if data.get("DirectoryArn") is not None:
         out["directory_arn"] = data["DirectoryArn"]
     else:
-        raise DeserializationError(
-            "ListAppliedSchemaArnsRequest.directory_arn required"
-        )
+        out["directory_arn"] = ""
     if data.get("SchemaArn") is not None:
         out["schema_arn"] = data["SchemaArn"]
     if data.get("NextToken") is not None:

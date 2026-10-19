@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.environment_id
     import capo_deadline.types.job_entity_error_code
@@ -43,11 +41,11 @@ def deserialize_json(data: dict) -> EnvironmentDetailsError:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("EnvironmentDetailsError.job_id required")
+        out["job_id"] = ""
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError("EnvironmentDetailsError.environment_id required")
+        out["environment_id"] = ""
     if data.get("code") is not None:
         import capo_deadline.types.job_entity_error_code
 
@@ -55,9 +53,13 @@ def deserialize_json(data: dict) -> EnvironmentDetailsError:
             data["code"]
         )
     else:
-        raise DeserializationError("EnvironmentDetailsError.code required")
+        import typing
+
+        out["code"] = typing.cast(
+            "capo_deadline.types.job_entity_error_code.JobEntityErrorCode", ""
+        )
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("EnvironmentDetailsError.message required")
+        out["message"] = ""
     return out

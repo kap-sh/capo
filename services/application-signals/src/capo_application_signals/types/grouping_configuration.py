@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -48,9 +46,7 @@ def deserialize_json(data: dict) -> GroupingConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "GroupingConfiguration.grouping_attribute_definitions required"
-        )
+        out["grouping_attribute_definitions"] = []
     if data.get("UpdatedAt") is not None:
         import capo_application_signals.types._prelude.timestamp
 
@@ -60,5 +56,7 @@ def deserialize_json(data: dict) -> GroupingConfiguration:
             )
         )
     else:
-        raise DeserializationError("GroupingConfiguration.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

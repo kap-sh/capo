@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 
 class Destination(TypedDict, closed=True):
     bucket_name: "str"
@@ -29,11 +27,11 @@ def deserialize_json(data: dict) -> Destination:
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError("Destination.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("keyPrefix") is not None:
         out["key_prefix"] = data["keyPrefix"]
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     else:
-        raise DeserializationError("Destination.kms_key_arn required")
+        out["kms_key_arn"] = ""
     return out

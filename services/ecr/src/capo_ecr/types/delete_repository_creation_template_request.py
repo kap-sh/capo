@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr.types.prefix
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteRepositoryCreationTemplateRequ
     if data.get("prefix") is not None:
         out["prefix"] = data["prefix"]
     else:
-        raise DeserializationError(
-            "DeleteRepositoryCreationTemplateRequest.prefix required"
-        )
+        out["prefix"] = ""
     return out

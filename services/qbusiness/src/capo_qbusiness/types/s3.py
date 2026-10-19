@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.s3_bucket_name
     import capo_qbusiness.types.s3_object_key
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> S3:
     if data.get("bucket") is not None:
         out["bucket"] = data["bucket"]
     else:
-        raise DeserializationError("S3.bucket required")
+        out["bucket"] = ""
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("S3.key required")
+        out["key"] = ""
     return out

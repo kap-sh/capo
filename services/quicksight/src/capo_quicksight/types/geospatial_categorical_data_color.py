@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.hex_color_with_transparency
     import capo_quicksight.types.string
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> GeospatialCategoricalDataColor:
     if data.get("Color") is not None:
         out["color"] = data["Color"]
     else:
-        raise DeserializationError("GeospatialCategoricalDataColor.color required")
+        out["color"] = ""
     if data.get("DataValue") is not None:
         out["data_value"] = data["DataValue"]
     else:
-        raise DeserializationError("GeospatialCategoricalDataColor.data_value required")
+        out["data_value"] = ""
     return out

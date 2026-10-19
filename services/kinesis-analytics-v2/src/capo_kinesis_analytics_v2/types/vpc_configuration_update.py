@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.id
     import capo_kinesis_analytics_v2.types.security_group_ids
@@ -53,9 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> VpcConfigurationUpdate:
     if data.get("VpcConfigurationId") is not None:
         out["vpc_configuration_id"] = data["VpcConfigurationId"]
     else:
-        raise DeserializationError(
-            "VpcConfigurationUpdate.vpc_configuration_id required"
-        )
+        out["vpc_configuration_id"] = ""
     if data.get("SubnetIdUpdates") is not None:
         import capo_kinesis_analytics_v2.types.subnet_ids
 

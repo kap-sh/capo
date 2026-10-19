@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.arn
     import capo_mgn.types.bandwidth_throttling
@@ -111,15 +109,11 @@ def deserialize_json(data: dict) -> CreateReplicationConfigurationTemplateReques
     if data.get("stagingAreaSubnetId") is not None:
         out["staging_area_subnet_id"] = data["stagingAreaSubnetId"]
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigurationTemplateRequest.staging_area_subnet_id required"
-        )
+        out["staging_area_subnet_id"] = ""
     if data.get("associateDefaultSecurityGroup") is not None:
         out["associate_default_security_group"] = data["associateDefaultSecurityGroup"]
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigurationTemplateRequest.associate_default_security_group required"
-        )
+        out["associate_default_security_group"] = False
     if data.get("replicationServersSecurityGroupsIDs") is not None:
         import capo_mgn.types.replication_servers_security_groups_i_ds
 
@@ -129,33 +123,23 @@ def deserialize_json(data: dict) -> CreateReplicationConfigurationTemplateReques
             )
         )
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigurationTemplateRequest.replication_servers_security_groups_i_ds required"
-        )
+        out["replication_servers_security_groups_i_ds"] = []
     if data.get("replicationServerInstanceType") is not None:
         out["replication_server_instance_type"] = data["replicationServerInstanceType"]
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigurationTemplateRequest.replication_server_instance_type required"
-        )
+        out["replication_server_instance_type"] = ""
     if data.get("useDedicatedReplicationServer") is not None:
         out["use_dedicated_replication_server"] = data["useDedicatedReplicationServer"]
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigurationTemplateRequest.use_dedicated_replication_server required"
-        )
+        out["use_dedicated_replication_server"] = False
     if data.get("defaultLargeStagingDiskType") is not None:
         out["default_large_staging_disk_type"] = data["defaultLargeStagingDiskType"]
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigurationTemplateRequest.default_large_staging_disk_type required"
-        )
+        out["default_large_staging_disk_type"] = ""
     if data.get("ebsEncryption") is not None:
         out["ebs_encryption"] = data["ebsEncryption"]
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigurationTemplateRequest.ebs_encryption required"
-        )
+        out["ebs_encryption"] = ""
     if data.get("ebsEncryptionKeyArn") is not None:
         out["ebs_encryption_key_arn"] = data["ebsEncryptionKeyArn"]
     if data.get("bandwidthThrottling") is not None:
@@ -165,15 +149,11 @@ def deserialize_json(data: dict) -> CreateReplicationConfigurationTemplateReques
     if data.get("dataPlaneRouting") is not None:
         out["data_plane_routing"] = data["dataPlaneRouting"]
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigurationTemplateRequest.data_plane_routing required"
-        )
+        out["data_plane_routing"] = ""
     if data.get("createPublicIP") is not None:
         out["create_public_ip"] = data["createPublicIP"]
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigurationTemplateRequest.create_public_ip required"
-        )
+        out["create_public_ip"] = False
     if data.get("stagingAreaTags") is not None:
         import capo_mgn.types.tags_map
 
@@ -181,9 +161,7 @@ def deserialize_json(data: dict) -> CreateReplicationConfigurationTemplateReques
             data["stagingAreaTags"]
         )
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigurationTemplateRequest.staging_area_tags required"
-        )
+        out["staging_area_tags"] = {}
     if data.get("useFipsEndpoint") is not None:
         out["use_fips_endpoint"] = data["useFipsEndpoint"]
     if data.get("tags") is not None:

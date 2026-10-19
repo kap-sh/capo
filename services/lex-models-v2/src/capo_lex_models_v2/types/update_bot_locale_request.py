@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.audio_filler_settings
     import capo_lex_models_v2.types.confidence_threshold
@@ -143,9 +141,7 @@ def deserialize_json(data: dict) -> UpdateBotLocaleRequest:
             data["nluIntentConfidenceThreshold"]
         )
     else:
-        raise DeserializationError(
-            "UpdateBotLocaleRequest.nlu_intent_confidence_threshold required"
-        )
+        out["nlu_intent_confidence_threshold"] = 0.0
     if data.get("voiceSettings") is not None:
         import capo_lex_models_v2.types.voice_settings
 

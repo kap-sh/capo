@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.assigned_variables
     import capo_sfn.types.assigned_variables_details
@@ -71,7 +69,7 @@ def deserialize_aws_json_1_0(data: dict) -> StateExitedEventDetails:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("StateExitedEventDetails.name required")
+        out["name"] = ""
     if data.get("output") is not None:
         out["output"] = data["output"]
     if data.get("outputDetails") is not None:

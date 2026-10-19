@@ -98,7 +98,7 @@ def deserialize_json(data: dict) -> RevokePermissionsRequest:
             data["Permissions"]
         )
     else:
-        raise DeserializationError("RevokePermissionsRequest.permissions required")
+        out["permissions"] = []
     if data.get("Condition") is not None:
         import capo_lakeformation.types.condition
 

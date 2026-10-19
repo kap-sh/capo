@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cost_and_usage_report_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_and_usage_report_service.types.report_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsForResourceRequest:
     if data.get("ReportName") is not None:
         out["report_name"] = data["ReportName"]
     else:
-        raise DeserializationError("ListTagsForResourceRequest.report_name required")
+        out["report_name"] = ""
     return out

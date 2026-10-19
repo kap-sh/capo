@@ -50,9 +50,7 @@ def deserialize_json(data: dict) -> CreateTopicRefreshScheduleRequest:
     if data.get("DatasetArn") is not None:
         out["dataset_arn"] = data["DatasetArn"]
     else:
-        raise DeserializationError(
-            "CreateTopicRefreshScheduleRequest.dataset_arn required"
-        )
+        out["dataset_arn"] = ""
     if data.get("DatasetName") is not None:
         out["dataset_name"] = data["DatasetName"]
     if data.get("RefreshSchedule") is not None:

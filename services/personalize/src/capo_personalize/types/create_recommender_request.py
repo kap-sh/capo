@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.arn
     import capo_personalize.types.name
@@ -54,17 +52,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRecommenderRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateRecommenderRequest.name required")
+        out["name"] = ""
     if data.get("datasetGroupArn") is not None:
         out["dataset_group_arn"] = data["datasetGroupArn"]
     else:
-        raise DeserializationError(
-            "CreateRecommenderRequest.dataset_group_arn required"
-        )
+        out["dataset_group_arn"] = ""
     if data.get("recipeArn") is not None:
         out["recipe_arn"] = data["recipeArn"]
     else:
-        raise DeserializationError("CreateRecommenderRequest.recipe_arn required")
+        out["recipe_arn"] = ""
     if data.get("recommenderConfig") is not None:
         import capo_personalize.types.recommender_config
 

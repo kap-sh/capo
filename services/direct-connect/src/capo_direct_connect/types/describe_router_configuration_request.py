@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.router_type_identifier
     import capo_direct_connect.types.virtual_interface_id
@@ -36,9 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeRouterConfigurationRequest:
     if data.get("virtualInterfaceId") is not None:
         out["virtual_interface_id"] = data["virtualInterfaceId"]
     else:
-        raise DeserializationError(
-            "DescribeRouterConfigurationRequest.virtual_interface_id required"
-        )
+        out["virtual_interface_id"] = ""
     if data.get("routerTypeIdentifier") is not None:
         out["router_type_identifier"] = data["routerTypeIdentifier"]
     return out

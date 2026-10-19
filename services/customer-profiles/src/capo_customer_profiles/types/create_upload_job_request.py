@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.expiration_days_integer
     import capo_customer_profiles.types.field_map
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> CreateUploadJobRequest:
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     else:
-        raise DeserializationError("CreateUploadJobRequest.display_name required")
+        out["display_name"] = ""
     if data.get("Fields") is not None:
         import capo_customer_profiles.types.field_map
 
@@ -57,11 +55,11 @@ def deserialize_json(data: dict) -> CreateUploadJobRequest:
             data["Fields"]
         )
     else:
-        raise DeserializationError("CreateUploadJobRequest.fields required")
+        out["fields"] = {}
     if data.get("UniqueKey") is not None:
         out["unique_key"] = data["UniqueKey"]
     else:
-        raise DeserializationError("CreateUploadJobRequest.unique_key required")
+        out["unique_key"] = ""
     if data.get("DataExpiry") is not None:
         out["data_expiry"] = data["DataExpiry"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.analysis_scope
     import capo_lex_models_v2.types.draft_bot_version
@@ -52,7 +50,11 @@ def deserialize_json(data: dict) -> StartBotAnalyzerRequest:
             )
         )
     else:
-        raise DeserializationError("StartBotAnalyzerRequest.analysis_scope required")
+        import typing
+
+        out["analysis_scope"] = typing.cast(
+            "capo_lex_models_v2.types.analysis_scope.AnalysisScope", ""
+        )
     if data.get("localeId") is not None:
         out["locale_id"] = data["localeId"]
     if data.get("botVersion") is not None:

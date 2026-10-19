@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.resource_name
     import capo_lightsail.types.string
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteKeyPairRequest:
     if data.get("keyPairName") is not None:
         out["key_pair_name"] = data["keyPairName"]
     else:
-        raise DeserializationError("DeleteKeyPairRequest.key_pair_name required")
+        out["key_pair_name"] = ""
     if data.get("expectedFingerprint") is not None:
         out["expected_fingerprint"] = data["expectedFingerprint"]
     return out

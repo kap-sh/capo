@@ -99,7 +99,5 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateTLSInspectionConfigurationRequ
     if data.get("UpdateToken") is not None:
         out["update_token"] = data["UpdateToken"]
     else:
-        raise DeserializationError(
-            "UpdateTLSInspectionConfigurationRequest.update_token required"
-        )
+        out["update_token"] = ""
     return out

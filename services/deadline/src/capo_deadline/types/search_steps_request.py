@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.farm_id
     import capo_deadline.types.integer
@@ -87,7 +85,7 @@ def deserialize_json(data: dict) -> SearchStepsRequest:
     if data.get("itemOffset") is not None:
         out["item_offset"] = data["itemOffset"]
     else:
-        raise DeserializationError("SearchStepsRequest.item_offset required")
+        out["item_offset"] = 0
     if data.get("pageSize") is not None:
         out["page_size"] = data["pageSize"]
     if data.get("queueIds") is not None:
@@ -97,7 +95,7 @@ def deserialize_json(data: dict) -> SearchStepsRequest:
             data["queueIds"]
         )
     else:
-        raise DeserializationError("SearchStepsRequest.queue_ids required")
+        out["queue_ids"] = []
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     return out

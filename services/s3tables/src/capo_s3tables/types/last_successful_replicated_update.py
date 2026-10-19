@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -36,9 +34,7 @@ def deserialize_json(data: dict) -> LastSuccessfulReplicatedUpdate:
     if data.get("metadataLocation") is not None:
         out["metadata_location"] = data["metadataLocation"]
     else:
-        raise DeserializationError(
-            "LastSuccessfulReplicatedUpdate.metadata_location required"
-        )
+        out["metadata_location"] = ""
     if data.get("timestamp") is not None:
         import datetime
 
@@ -46,5 +42,7 @@ def deserialize_json(data: dict) -> LastSuccessfulReplicatedUpdate:
             data["timestamp"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("LastSuccessfulReplicatedUpdate.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

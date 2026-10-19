@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.analyzer_arn
     import capo_accessanalyzer.types.analyzer_configuration
@@ -96,15 +94,15 @@ def deserialize_json(data: dict) -> AnalyzerSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("AnalyzerSummary.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AnalyzerSummary.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("AnalyzerSummary.type required")
+        out["type"] = ""
     if data.get("createdAt") is not None:
         import capo_accessanalyzer.types.timestamp
 
@@ -112,7 +110,9 @@ def deserialize_json(data: dict) -> AnalyzerSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("AnalyzerSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastResourceAnalyzed") is not None:
         out["last_resource_analyzed"] = data["lastResourceAnalyzed"]
     if data.get("lastResourceAnalyzedAt") is not None:
@@ -130,7 +130,7 @@ def deserialize_json(data: dict) -> AnalyzerSummary:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("AnalyzerSummary.status required")
+        out["status"] = ""
     if data.get("statusReason") is not None:
         import capo_accessanalyzer.types.status_reason
 

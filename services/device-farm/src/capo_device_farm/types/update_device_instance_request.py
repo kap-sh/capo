@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_device_farm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_device_farm.types.amazon_resource_name
     import capo_device_farm.types.instance_labels
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDeviceInstanceRequest:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("UpdateDeviceInstanceRequest.arn required")
+        out["arn"] = ""
     if data.get("profileArn") is not None:
         out["profile_arn"] = data["profileArn"]
     if data.get("labels") is not None:

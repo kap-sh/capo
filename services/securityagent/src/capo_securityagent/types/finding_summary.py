@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -111,11 +109,11 @@ def deserialize_json(data: dict) -> FindingSummary:
     if data.get("findingId") is not None:
         out["finding_id"] = data["findingId"]
     else:
-        raise DeserializationError("FindingSummary.finding_id required")
+        out["finding_id"] = ""
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError("FindingSummary.agent_space_id required")
+        out["agent_space_id"] = ""
     if data.get("pentestId") is not None:
         out["pentest_id"] = data["pentestId"]
     if data.get("pentestJobId") is not None:

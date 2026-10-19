@@ -103,11 +103,11 @@ def deserialize_json(data: dict) -> StartWebRTCContactRequest:
     if data.get("ContactFlowId") is not None:
         out["contact_flow_id"] = data["ContactFlowId"]
     else:
-        raise DeserializationError("StartWebRTCContactRequest.contact_flow_id required")
+        out["contact_flow_id"] = ""
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("StartWebRTCContactRequest.instance_id required")
+        out["instance_id"] = ""
     if data.get("AllowedCapabilities") is not None:
         import capo_connect.types.allowed_capabilities
 

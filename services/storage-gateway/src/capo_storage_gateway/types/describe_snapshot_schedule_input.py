@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.volume_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeSnapshotScheduleInput:
     if data.get("VolumeARN") is not None:
         out["volume_arn"] = data["VolumeARN"]
     else:
-        raise DeserializationError("DescribeSnapshotScheduleInput.volume_arn required")
+        out["volume_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_personalize_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize_events.types.date
     import capo_personalize_events.types.float_type
@@ -93,7 +91,7 @@ def deserialize_json(data: dict) -> Event:
     if data.get("eventType") is not None:
         out["event_type"] = data["eventType"]
     else:
-        raise DeserializationError("Event.event_type required")
+        out["event_type"] = ""
     if data.get("eventValue") is not None:
         out["event_value"] = float(data["eventValue"])
     if data.get("itemId") is not None:
@@ -107,7 +105,9 @@ def deserialize_json(data: dict) -> Event:
             data["sentAt"]
         )
     else:
-        raise DeserializationError("Event.sent_at required")
+        import datetime
+
+        out["sent_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("recommendationId") is not None:
         out["recommendation_id"] = data["recommendationId"]
     if data.get("impression") is not None:

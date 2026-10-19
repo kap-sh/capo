@@ -71,21 +71,19 @@ def deserialize_json(data: dict) -> ListSolFunctionInstanceInfo:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ListSolFunctionInstanceInfo.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ListSolFunctionInstanceInfo.arn required")
+        out["arn"] = ""
     if data.get("nsInstanceId") is not None:
         out["ns_instance_id"] = data["nsInstanceId"]
     else:
-        raise DeserializationError(
-            "ListSolFunctionInstanceInfo.ns_instance_id required"
-        )
+        out["ns_instance_id"] = ""
     if data.get("vnfPkgId") is not None:
         out["vnf_pkg_id"] = data["vnfPkgId"]
     else:
-        raise DeserializationError("ListSolFunctionInstanceInfo.vnf_pkg_id required")
+        out["vnf_pkg_id"] = ""
     if data.get("vnfPkgName") is not None:
         out["vnf_pkg_name"] = data["vnfPkgName"]
     if data.get("instantiationState") is not None:
@@ -97,8 +95,10 @@ def deserialize_json(data: dict) -> ListSolFunctionInstanceInfo:
             )
         )
     else:
-        raise DeserializationError(
-            "ListSolFunctionInstanceInfo.instantiation_state required"
+        import typing
+
+        out["instantiation_state"] = typing.cast(
+            "capo_tnb.types.vnf_instantiation_state.VnfInstantiationState", ""
         )
     if data.get("instantiatedVnfInfo") is not None:
         import capo_tnb.types.get_sol_instantiated_vnf_info

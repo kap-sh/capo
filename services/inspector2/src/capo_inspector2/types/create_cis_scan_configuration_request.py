@@ -56,9 +56,7 @@ def deserialize_json(data: dict) -> CreateCisScanConfigurationRequest:
     if data.get("scanName") is not None:
         out["scan_name"] = data["scanName"]
     else:
-        raise DeserializationError(
-            "CreateCisScanConfigurationRequest.scan_name required"
-        )
+        out["scan_name"] = ""
     if data.get("securityLevel") is not None:
         import capo_inspector2.types.cis_security_level
 
@@ -68,8 +66,10 @@ def deserialize_json(data: dict) -> CreateCisScanConfigurationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateCisScanConfigurationRequest.security_level required"
+        import typing
+
+        out["security_level"] = typing.cast(
+            "capo_inspector2.types.cis_security_level.CisSecurityLevel", ""
         )
     if data.get("schedule") is not None:
         import capo_inspector2.types.schedule
@@ -78,9 +78,9 @@ def deserialize_json(data: dict) -> CreateCisScanConfigurationRequest:
             data["schedule"]
         )
     else:
-        raise DeserializationError(
-            "CreateCisScanConfigurationRequest.schedule required"
-        )
+        import capo_inspector2.types._unknown
+
+        out["schedule"] = capo_inspector2.types._unknown.UnknownUnionMember("")
     if data.get("targets") is not None:
         import capo_inspector2.types.create_cis_targets
 

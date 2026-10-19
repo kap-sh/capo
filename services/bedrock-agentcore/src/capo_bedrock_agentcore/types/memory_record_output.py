@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.memory_record_id
     import capo_bedrock_agentcore.types.memory_record_status
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> MemoryRecordOutput:
     if data.get("memoryRecordId") is not None:
         out["memory_record_id"] = data["memoryRecordId"]
     else:
-        raise DeserializationError("MemoryRecordOutput.memory_record_id required")
+        out["memory_record_id"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore.types.memory_record_status
 
@@ -60,7 +58,11 @@ def deserialize_json(data: dict) -> MemoryRecordOutput:
             )
         )
     else:
-        raise DeserializationError("MemoryRecordOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore.types.memory_record_status.MemoryRecordStatus", ""
+        )
     if data.get("requestIdentifier") is not None:
         out["request_identifier"] = data["requestIdentifier"]
     if data.get("errorCode") is not None:

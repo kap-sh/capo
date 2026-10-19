@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.carrier_status_information_list
     import capo_pinpoint_sms_voice_v2.types.country_launch_status
@@ -48,21 +46,17 @@ def deserialize_aws_json_1_0(data: dict) -> CountryLaunchStatusInformation:
     if data.get("IsoCountryCode") is not None:
         out["iso_country_code"] = data["IsoCountryCode"]
     else:
-        raise DeserializationError(
-            "CountryLaunchStatusInformation.iso_country_code required"
-        )
+        out["iso_country_code"] = ""
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("CountryLaunchStatusInformation.status required")
+        out["status"] = ""
     if data.get("RcsPlatformId") is not None:
         out["rcs_platform_id"] = data["RcsPlatformId"]
     if data.get("RegistrationId") is not None:
         out["registration_id"] = data["RegistrationId"]
     else:
-        raise DeserializationError(
-            "CountryLaunchStatusInformation.registration_id required"
-        )
+        out["registration_id"] = ""
     if data.get("CarrierStatus") is not None:
         import capo_pinpoint_sms_voice_v2.types.carrier_status_information_list
 
@@ -72,7 +66,5 @@ def deserialize_aws_json_1_0(data: dict) -> CountryLaunchStatusInformation:
             )
         )
     else:
-        raise DeserializationError(
-            "CountryLaunchStatusInformation.carrier_status required"
-        )
+        out["carrier_status"] = []
     return out

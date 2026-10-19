@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.boolean
     import capo_quicksight.types.database_group_list
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> RedshiftIAMParameters:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("RedshiftIAMParameters.role_arn required")
+        out["role_arn"] = ""
     if data.get("DatabaseUser") is not None:
         out["database_user"] = data["DatabaseUser"]
     if data.get("DatabaseGroups") is not None:

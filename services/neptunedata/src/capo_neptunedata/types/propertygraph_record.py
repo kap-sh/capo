@@ -49,9 +49,7 @@ def deserialize_json(data: dict) -> PropertygraphRecord:
     if data.get("commitTimestamp") is not None:
         out["commit_timestamp_in_millis"] = data["commitTimestamp"]
     else:
-        raise DeserializationError(
-            "PropertygraphRecord.commit_timestamp_in_millis required"
-        )
+        out["commit_timestamp_in_millis"] = 0
     if data.get("eventId") is not None:
         import capo_neptunedata.types.string_valued_map
 
@@ -59,7 +57,7 @@ def deserialize_json(data: dict) -> PropertygraphRecord:
             data["eventId"]
         )
     else:
-        raise DeserializationError("PropertygraphRecord.event_id required")
+        out["event_id"] = {}
     if data.get("data") is not None:
         import capo_neptunedata.types.propertygraph_data
 
@@ -71,7 +69,7 @@ def deserialize_json(data: dict) -> PropertygraphRecord:
     if data.get("op") is not None:
         out["op"] = data["op"]
     else:
-        raise DeserializationError("PropertygraphRecord.op required")
+        out["op"] = ""
     if data.get("isLastOp") is not None:
         out["is_last_op"] = data["isLastOp"]
     return out

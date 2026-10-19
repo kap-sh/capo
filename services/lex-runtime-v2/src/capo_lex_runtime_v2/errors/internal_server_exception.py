@@ -7,7 +7,7 @@ import zapros
 from typing_extensions import TypedDict
 
 from capo_lex_runtime_v2._protocol.eventstream import HeaderValue, Message
-from capo_lex_runtime_v2.errors import DeserializationError, ServiceError
+from capo_lex_runtime_v2.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_lex_runtime_v2.types.string
@@ -29,7 +29,7 @@ def deserialize_json(data: dict) -> InternalServerException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("InternalServerException_.message required")
+        out["message"] = ""
     return out
 
 

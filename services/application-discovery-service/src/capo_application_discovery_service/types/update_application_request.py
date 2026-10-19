@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_discovery_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_discovery_service.types.application_description
     import capo_application_discovery_service.types.application_id
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateApplicationRequest:
     if data.get("configurationId") is not None:
         out["configuration_id"] = data["configurationId"]
     else:
-        raise DeserializationError("UpdateApplicationRequest.configuration_id required")
+        out["configuration_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("description") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.iam_principal_arn
     import capo_connectcases.types.user_union
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> AuditEventPerformedBy:
     if data.get("iamPrincipalArn") is not None:
         out["iam_principal_arn"] = data["iamPrincipalArn"]
     else:
-        raise DeserializationError("AuditEventPerformedBy.iam_principal_arn required")
+        out["iam_principal_arn"] = ""
     return out
 
 

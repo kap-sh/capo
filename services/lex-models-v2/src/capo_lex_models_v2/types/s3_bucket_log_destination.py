@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.kms_key_arn
     import capo_lex_models_v2.types.log_prefix
@@ -38,9 +36,9 @@ def deserialize_json(data: dict) -> S3BucketLogDestination:
     if data.get("s3BucketArn") is not None:
         out["s3_bucket_arn"] = data["s3BucketArn"]
     else:
-        raise DeserializationError("S3BucketLogDestination.s3_bucket_arn required")
+        out["s3_bucket_arn"] = ""
     if data.get("logPrefix") is not None:
         out["log_prefix"] = data["logPrefix"]
     else:
-        raise DeserializationError("S3BucketLogDestination.log_prefix required")
+        out["log_prefix"] = ""
     return out

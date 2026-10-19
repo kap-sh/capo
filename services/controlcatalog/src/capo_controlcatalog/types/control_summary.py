@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_controlcatalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -122,7 +120,7 @@ def deserialize_json(data: dict) -> ControlSummary:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("ControlSummary.arn required")
+        out["arn"] = ""
     if data.get("Aliases") is not None:
         import capo_controlcatalog.types.control_aliases
 
@@ -132,11 +130,11 @@ def deserialize_json(data: dict) -> ControlSummary:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ControlSummary.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("ControlSummary.description required")
+        out["description"] = ""
     if data.get("Behavior") is not None:
         import capo_controlcatalog.types.control_behavior
 

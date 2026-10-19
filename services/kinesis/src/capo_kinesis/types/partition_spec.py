@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.partition_field_list
 
@@ -39,5 +37,5 @@ def deserialize_aws_json_1_1(data: dict) -> PartitionSpec:
             )
         )
     else:
-        raise DeserializationError("PartitionSpec.partition_fields required")
+        out["partition_fields"] = []
     return out

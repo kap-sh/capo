@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.capacity_provider_predefined_metric_type
     import capo_lambda.types.metric_target_value
@@ -51,11 +49,14 @@ def deserialize_json(data: dict) -> TargetTrackingScalingPolicy:
             )
         )
     else:
-        raise DeserializationError(
-            "TargetTrackingScalingPolicy.predefined_metric_type required"
+        import typing
+
+        out["predefined_metric_type"] = typing.cast(
+            "capo_lambda.types.capacity_provider_predefined_metric_type.CapacityProviderPredefinedMetricType",
+            "",
         )
     if data.get("TargetValue") is not None:
         out["target_value"] = float(data["TargetValue"])
     else:
-        raise DeserializationError("TargetTrackingScalingPolicy.target_value required")
+        out["target_value"] = 0.0
     return out

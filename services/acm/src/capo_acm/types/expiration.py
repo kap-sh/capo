@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_acm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm.types.time_type
 
@@ -32,11 +30,13 @@ def deserialize_aws_json_1_1(data: dict) -> Expiration:
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("Expiration.value required")
+        out["value"] = 0
     if data.get("Type") is not None:
         import capo_acm.types.time_type
 
         out["type"] = capo_acm.types.time_type.deserialize_aws_json_1_1(data["Type"])
     else:
-        raise DeserializationError("Expiration.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_acm.types.time_type.TimeType", "")
     return out

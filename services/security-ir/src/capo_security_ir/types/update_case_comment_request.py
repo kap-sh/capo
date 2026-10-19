@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_security_ir.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_security_ir.types.case_id
     import capo_security_ir.types.comment_body
@@ -33,7 +31,7 @@ def deserialize_json(data: dict) -> UpdateCaseCommentRequest:
     if data.get("body") is not None:
         out["body"] = data["body"]
     else:
-        raise DeserializationError("UpdateCaseCommentRequest.body required")
+        out["body"] = ""
     return out
 
 

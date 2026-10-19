@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.data_source_id
     import capo_kendra.types.index_id
@@ -48,17 +46,13 @@ def deserialize_aws_json_1_1(data: dict) -> ListGroupsOlderThanOrderingIdRequest
     if data.get("IndexId") is not None:
         out["index_id"] = data["IndexId"]
     else:
-        raise DeserializationError(
-            "ListGroupsOlderThanOrderingIdRequest.index_id required"
-        )
+        out["index_id"] = ""
     if data.get("DataSourceId") is not None:
         out["data_source_id"] = data["DataSourceId"]
     if data.get("OrderingId") is not None:
         out["ordering_id"] = data["OrderingId"]
     else:
-        raise DeserializationError(
-            "ListGroupsOlderThanOrderingIdRequest.ordering_id required"
-        )
+        out["ordering_id"] = 0
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

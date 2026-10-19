@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.failover_input_source_priority_mode
     import capo_mediaconnect.types.failover_router_input_protocol_configuration_list
@@ -53,9 +51,7 @@ def deserialize_json(data: dict) -> FailoverRouterInputConfiguration:
     if data.get("networkInterfaceArn") is not None:
         out["network_interface_arn"] = data["networkInterfaceArn"]
     else:
-        raise DeserializationError(
-            "FailoverRouterInputConfiguration.network_interface_arn required"
-        )
+        out["network_interface_arn"] = ""
     if data.get("protocolConfigurations") is not None:
         import capo_mediaconnect.types.failover_router_input_protocol_configuration_list
 
@@ -65,9 +61,7 @@ def deserialize_json(data: dict) -> FailoverRouterInputConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "FailoverRouterInputConfiguration.protocol_configurations required"
-        )
+        out["protocol_configurations"] = []
     if data.get("sourcePriorityMode") is not None:
         import capo_mediaconnect.types.failover_input_source_priority_mode
 
@@ -77,8 +71,11 @@ def deserialize_json(data: dict) -> FailoverRouterInputConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "FailoverRouterInputConfiguration.source_priority_mode required"
+        import typing
+
+        out["source_priority_mode"] = typing.cast(
+            "capo_mediaconnect.types.failover_input_source_priority_mode.FailoverInputSourcePriorityMode",
+            "",
         )
     if data.get("primarySourceIndex") is not None:
         out["primary_source_index"] = data["primarySourceIndex"]

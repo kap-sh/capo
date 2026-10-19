@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.connector_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> SendConnectorEventResponse:
     if data.get("ConnectorId") is not None:
         out["connector_id"] = data["ConnectorId"]
     else:
-        raise DeserializationError("SendConnectorEventResponse.connector_id required")
+        out["connector_id"] = ""
     return out

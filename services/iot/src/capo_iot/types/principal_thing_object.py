@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.thing_name
     import capo_iot.types.thing_principal_type
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> PrincipalThingObject:
     if data.get("thingName") is not None:
         out["thing_name"] = data["thingName"]
     else:
-        raise DeserializationError("PrincipalThingObject.thing_name required")
+        out["thing_name"] = ""
     if data.get("thingPrincipalType") is not None:
         import capo_iot.types.thing_principal_type
 

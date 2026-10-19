@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.bounded_string
     import capo_marketplace_discovery.types.currency_code
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> FixedUpfrontPricingTerm:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("FixedUpfrontPricingTerm.id required")
+        out["id"] = ""
     if data.get("type") is not None:
         import capo_marketplace_discovery.types.term_type
 
@@ -65,17 +63,21 @@ def deserialize_json(data: dict) -> FixedUpfrontPricingTerm:
             data["type"]
         )
     else:
-        raise DeserializationError("FixedUpfrontPricingTerm.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_marketplace_discovery.types.term_type.TermType", ""
+        )
     if data.get("currencyCode") is not None:
         out["currency_code"] = data["currencyCode"]
     else:
-        raise DeserializationError("FixedUpfrontPricingTerm.currency_code required")
+        out["currency_code"] = ""
     if data.get("duration") is not None:
         out["duration"] = data["duration"]
     if data.get("price") is not None:
         out["price"] = data["price"]
     else:
-        raise DeserializationError("FixedUpfrontPricingTerm.price required")
+        out["price"] = ""
     if data.get("grants") is not None:
         import capo_marketplace_discovery.types.grant_list
 
@@ -83,5 +85,5 @@ def deserialize_json(data: dict) -> FixedUpfrontPricingTerm:
             data["grants"]
         )
     else:
-        raise DeserializationError("FixedUpfrontPricingTerm.grants required")
+        out["grants"] = []
     return out

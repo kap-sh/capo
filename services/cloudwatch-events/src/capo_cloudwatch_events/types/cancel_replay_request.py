@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_events.types.replay_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> CancelReplayRequest:
     if data.get("ReplayName") is not None:
         out["replay_name"] = data["ReplayName"]
     else:
-        raise DeserializationError("CancelReplayRequest.replay_name required")
+        out["replay_name"] = ""
     return out

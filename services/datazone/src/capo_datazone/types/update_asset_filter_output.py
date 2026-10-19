@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.asset_filter_configuration
     import capo_datazone.types.asset_id
@@ -95,19 +93,19 @@ def deserialize_json(data: dict) -> UpdateAssetFilterOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("UpdateAssetFilterOutput.id required")
+        out["id"] = ""
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("UpdateAssetFilterOutput.domain_id required")
+        out["domain_id"] = ""
     if data.get("assetId") is not None:
         out["asset_id"] = data["assetId"]
     else:
-        raise DeserializationError("UpdateAssetFilterOutput.asset_id required")
+        out["asset_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateAssetFilterOutput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("status") is not None:
@@ -125,7 +123,9 @@ def deserialize_json(data: dict) -> UpdateAssetFilterOutput:
             )
         )
     else:
-        raise DeserializationError("UpdateAssetFilterOutput.configuration required")
+        import capo_datazone.types._unknown
+
+        out["configuration"] = capo_datazone.types._unknown.UnknownUnionMember("")
     if data.get("createdAt") is not None:
         import capo_datazone.types.created_at
 

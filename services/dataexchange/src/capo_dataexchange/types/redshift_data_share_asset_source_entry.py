@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.__string
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> RedshiftDataShareAssetSourceEntry:
     if data.get("DataShareArn") is not None:
         out["data_share_arn"] = data["DataShareArn"]
     else:
-        raise DeserializationError(
-            "RedshiftDataShareAssetSourceEntry.data_share_arn required"
-        )
+        out["data_share_arn"] = ""
     return out

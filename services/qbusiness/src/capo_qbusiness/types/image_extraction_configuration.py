@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.image_extraction_status
 
@@ -41,7 +39,9 @@ def deserialize_json(data: dict) -> ImageExtractionConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ImageExtractionConfiguration.image_extraction_status required"
+        import typing
+
+        out["image_extraction_status"] = typing.cast(
+            "capo_qbusiness.types.image_extraction_status.ImageExtractionStatus", ""
         )
     return out

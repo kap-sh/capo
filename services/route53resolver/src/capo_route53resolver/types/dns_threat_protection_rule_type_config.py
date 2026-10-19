@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.confidence_threshold
     import capo_route53resolver.types.dns_threat_protection_rule_type_value
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> DnsThreatProtectionRuleTypeConfig:
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("DnsThreatProtectionRuleTypeConfig.value required")
+        out["value"] = ""
     if data.get("ConfidenceThreshold") is not None:
         import capo_route53resolver.types.confidence_threshold
 
@@ -49,7 +47,9 @@ def deserialize_aws_json_1_1(data: dict) -> DnsThreatProtectionRuleTypeConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "DnsThreatProtectionRuleTypeConfig.confidence_threshold required"
+        import typing
+
+        out["confidence_threshold"] = typing.cast(
+            "capo_route53resolver.types.confidence_threshold.ConfidenceThreshold", ""
         )
     return out

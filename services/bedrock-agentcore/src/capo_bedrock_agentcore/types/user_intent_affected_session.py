@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.user_intent_list
 
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> UserIntentAffectedSession:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("UserIntentAffectedSession.session_id required")
+        out["session_id"] = ""
     if data.get("userMessages") is not None:
         import capo_bedrock_agentcore.types.user_intent_list
 
@@ -44,5 +42,5 @@ def deserialize_json(data: dict) -> UserIntentAffectedSession:
             )
         )
     else:
-        raise DeserializationError("UserIntentAffectedSession.user_messages required")
+        out["user_messages"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_api_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_api_gateway.types.string
 
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> CreateBasePathMappingRequest:
     if data.get("restApiId") is not None:
         out["rest_api_id"] = data["restApiId"]
     else:
-        raise DeserializationError("CreateBasePathMappingRequest.rest_api_id required")
+        out["rest_api_id"] = ""
     if data.get("stage") is not None:
         out["stage"] = data["stage"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -53,9 +51,7 @@ def deserialize_json(data: dict) -> CertificateAssociationSummary:
     if data.get("acmCertificateArn") is not None:
         out["acm_certificate_arn"] = data["acmCertificateArn"]
     else:
-        raise DeserializationError(
-            "CertificateAssociationSummary.acm_certificate_arn required"
-        )
+        out["acm_certificate_arn"] = ""
     if data.get("status") is not None:
         import capo_rtbfabric.types.certificate_association_status
 
@@ -65,7 +61,12 @@ def deserialize_json(data: dict) -> CertificateAssociationSummary:
             )
         )
     else:
-        raise DeserializationError("CertificateAssociationSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_rtbfabric.types.certificate_association_status.CertificateAssociationStatus",
+            "",
+        )
     if data.get("associatedAt") is not None:
         import capo_rtbfabric.types._prelude.timestamp
 

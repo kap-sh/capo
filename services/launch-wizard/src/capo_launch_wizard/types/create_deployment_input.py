@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_launch_wizard.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_launch_wizard.types.deployment_name
     import capo_launch_wizard.types.deployment_pattern_name
@@ -60,17 +58,15 @@ def deserialize_json(data: dict) -> CreateDeploymentInput:
     if data.get("workloadName") is not None:
         out["workload_name"] = data["workloadName"]
     else:
-        raise DeserializationError("CreateDeploymentInput.workload_name required")
+        out["workload_name"] = ""
     if data.get("deploymentPatternName") is not None:
         out["deployment_pattern_name"] = data["deploymentPatternName"]
     else:
-        raise DeserializationError(
-            "CreateDeploymentInput.deployment_pattern_name required"
-        )
+        out["deployment_pattern_name"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateDeploymentInput.name required")
+        out["name"] = ""
     if data.get("specifications") is not None:
         import capo_launch_wizard.types.deployment_specifications
 
@@ -80,7 +76,7 @@ def deserialize_json(data: dict) -> CreateDeploymentInput:
             )
         )
     else:
-        raise DeserializationError("CreateDeploymentInput.specifications required")
+        out["specifications"] = {}
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
     if data.get("tags") is not None:

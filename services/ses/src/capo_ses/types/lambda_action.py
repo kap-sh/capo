@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.amazon_resource_name
@@ -46,7 +45,7 @@ def deserialize_query(el: Element) -> LambdaAction:
     if child_function_arn is not None:
         out["function_arn"] = str(child_function_arn.text or "")
     else:
-        raise DeserializationError("LambdaAction.function_arn required")
+        out["function_arn"] = ""
     child_invocation_type = el.find("InvocationType")
     if child_invocation_type is not None:
         import capo_ses.types.invocation_type

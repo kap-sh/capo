@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.string
     import capo_cloudtrail.types.tags_list
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> RemoveTagsRequest:
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("RemoveTagsRequest.resource_id required")
+        out["resource_id"] = ""
     if data.get("TagsList") is not None:
         import capo_cloudtrail.types.tags_list
 
@@ -43,5 +41,5 @@ def deserialize_aws_json_1_1(data: dict) -> RemoveTagsRequest:
             data["TagsList"]
         )
     else:
-        raise DeserializationError("RemoveTagsRequest.tags_list required")
+        out["tags_list"] = []
     return out

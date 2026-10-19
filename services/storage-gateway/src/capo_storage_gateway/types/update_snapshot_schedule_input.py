@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.description
     import capo_storage_gateway.types.hour_of_day
@@ -51,17 +49,15 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateSnapshotScheduleInput:
     if data.get("VolumeARN") is not None:
         out["volume_arn"] = data["VolumeARN"]
     else:
-        raise DeserializationError("UpdateSnapshotScheduleInput.volume_arn required")
+        out["volume_arn"] = ""
     if data.get("StartAt") is not None:
         out["start_at"] = data["StartAt"]
     else:
-        raise DeserializationError("UpdateSnapshotScheduleInput.start_at required")
+        out["start_at"] = 0
     if data.get("RecurrenceInHours") is not None:
         out["recurrence_in_hours"] = data["RecurrenceInHours"]
     else:
-        raise DeserializationError(
-            "UpdateSnapshotScheduleInput.recurrence_in_hours required"
-        )
+        out["recurrence_in_hours"] = 0
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Tags") is not None:

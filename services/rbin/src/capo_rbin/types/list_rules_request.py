@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rbin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rbin.types.exclude_resource_tags
     import capo_rbin.types.lock_state
@@ -80,7 +78,11 @@ def deserialize_json(data: dict) -> ListRulesRequest:
             data["ResourceType"]
         )
     else:
-        raise DeserializationError("ListRulesRequest.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_rbin.types.resource_type.ResourceType", ""
+        )
     if data.get("ResourceTags") is not None:
         import capo_rbin.types.resource_tags
 

@@ -50,7 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> DataPartition:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("DataPartition.id required")
+        out["id"] = ""
     if data.get("storageOptions") is not None:
         import capo_iotfleetwise.types.data_partition_storage_options
 

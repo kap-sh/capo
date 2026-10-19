@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_guru.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_guru.types.anomalous_log_groups
     import capo_devops_guru.types.insight_id
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> ListAnomalousLogGroupsResponse:
     if data.get("InsightId") is not None:
         out["insight_id"] = data["InsightId"]
     else:
-        raise DeserializationError("ListAnomalousLogGroupsResponse.insight_id required")
+        out["insight_id"] = ""
     if data.get("AnomalousLogGroups") is not None:
         import capo_devops_guru.types.anomalous_log_groups
 
@@ -54,9 +52,7 @@ def deserialize_json(data: dict) -> ListAnomalousLogGroupsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListAnomalousLogGroupsResponse.anomalous_log_groups required"
-        )
+        out["anomalous_log_groups"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

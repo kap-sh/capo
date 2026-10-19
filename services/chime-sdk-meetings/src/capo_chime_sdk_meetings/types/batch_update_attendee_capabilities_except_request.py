@@ -56,9 +56,7 @@ def deserialize_json(data: dict) -> BatchUpdateAttendeeCapabilitiesExceptRequest
             )
         )
     else:
-        raise DeserializationError(
-            "BatchUpdateAttendeeCapabilitiesExceptRequest.excluded_attendee_ids required"
-        )
+        out["excluded_attendee_ids"] = []
     if data.get("Capabilities") is not None:
         import capo_chime_sdk_meetings.types.attendee_capabilities
 

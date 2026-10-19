@@ -89,15 +89,13 @@ def deserialize_aws_json_1_1(data: dict) -> IssueCertificateRequest:
     if data.get("CertificateAuthorityArn") is not None:
         out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
     else:
-        raise DeserializationError(
-            "IssueCertificateRequest.certificate_authority_arn required"
-        )
+        out["certificate_authority_arn"] = ""
     if data.get("Csr") is not None:
         import capo_acm_pca.types.csr_blob
 
         out["csr"] = capo_acm_pca.types.csr_blob.deserialize_aws_json_1_1(data["Csr"])
     else:
-        raise DeserializationError("IssueCertificateRequest.csr required")
+        out["csr"] = b""
     if data.get("SigningAlgorithm") is not None:
         import capo_acm_pca.types.signing_algorithm
 
@@ -107,7 +105,11 @@ def deserialize_aws_json_1_1(data: dict) -> IssueCertificateRequest:
             )
         )
     else:
-        raise DeserializationError("IssueCertificateRequest.signing_algorithm required")
+        import typing
+
+        out["signing_algorithm"] = typing.cast(
+            "capo_acm_pca.types.signing_algorithm.SigningAlgorithm", ""
+        )
     if data.get("TemplateArn") is not None:
         out["template_arn"] = data["TemplateArn"]
     if data.get("Validity") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_security_ir.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_security_ir.types.case_id
     import capo_security_ir.types.content_length
@@ -38,15 +36,11 @@ def deserialize_json(data: dict) -> GetCaseAttachmentUploadUrlRequest:
     if data.get("fileName") is not None:
         out["file_name"] = data["fileName"]
     else:
-        raise DeserializationError(
-            "GetCaseAttachmentUploadUrlRequest.file_name required"
-        )
+        out["file_name"] = ""
     if data.get("contentLength") is not None:
         out["content_length"] = data["contentLength"]
     else:
-        raise DeserializationError(
-            "GetCaseAttachmentUploadUrlRequest.content_length required"
-        )
+        out["content_length"] = 0
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

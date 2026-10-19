@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dax.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dax.types.string
 
@@ -31,7 +29,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsRequest:
     if data.get("ResourceName") is not None:
         out["resource_name"] = data["ResourceName"]
     else:
-        raise DeserializationError("ListTagsRequest.resource_name required")
+        out["resource_name"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

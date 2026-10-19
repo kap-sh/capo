@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.example_chat_messages
     import capo_qbusiness.types.rules
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> TopicConfiguration:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("TopicConfiguration.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("exampleChatMessages") is not None:
@@ -67,5 +65,5 @@ def deserialize_json(data: dict) -> TopicConfiguration:
 
         out["rules"] = capo_qbusiness.types.rules.deserialize_json(data["rules"])
     else:
-        raise DeserializationError("TopicConfiguration.rules required")
+        out["rules"] = []
     return out

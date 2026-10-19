@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.iam_role_arn
     import capo_arc_region_switch.types.route53_hosted_zone_id
@@ -68,15 +66,11 @@ def deserialize_aws_json_1_0(data: dict) -> Route53HealthCheckConfiguration:
     if data.get("hostedZoneId") is not None:
         out["hosted_zone_id"] = data["hostedZoneId"]
     else:
-        raise DeserializationError(
-            "Route53HealthCheckConfiguration.hosted_zone_id required"
-        )
+        out["hosted_zone_id"] = ""
     if data.get("recordName") is not None:
         out["record_name"] = data["recordName"]
     else:
-        raise DeserializationError(
-            "Route53HealthCheckConfiguration.record_name required"
-        )
+        out["record_name"] = ""
     if data.get("recordSets") is not None:
         import capo_arc_region_switch.types.route53_resource_record_set_list
 

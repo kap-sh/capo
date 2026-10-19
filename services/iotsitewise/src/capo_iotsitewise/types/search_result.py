@@ -72,19 +72,19 @@ def deserialize_json(data: dict) -> SearchResult:
     if data.get("searchId") is not None:
         out["search_id"] = data["searchId"]
     else:
-        raise DeserializationError("SearchResult.search_id required")
+        out["search_id"] = ""
     if data.get("workspaceName") is not None:
         out["workspace_name"] = data["workspaceName"]
     else:
-        raise DeserializationError("SearchResult.workspace_name required")
+        out["workspace_name"] = ""
     if data.get("datasetId") is not None:
         out["dataset_id"] = data["datasetId"]
     else:
-        raise DeserializationError("SearchResult.dataset_id required")
+        out["dataset_id"] = ""
     if data.get("timeSeriesId") is not None:
         out["time_series_id"] = data["timeSeriesId"]
     else:
-        raise DeserializationError("SearchResult.time_series_id required")
+        out["time_series_id"] = ""
     if data.get("startTimestamp") is not None:
         import capo_iotsitewise.types.time_in_nanos
 
@@ -112,5 +112,5 @@ def deserialize_json(data: dict) -> SearchResult:
     if data.get("score") is not None:
         out["score"] = float(data["score"])
     else:
-        raise DeserializationError("SearchResult.score required")
+        out["score"] = 0.0
     return out

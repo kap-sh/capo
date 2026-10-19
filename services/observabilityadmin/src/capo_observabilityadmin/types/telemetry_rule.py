@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_observabilityadmin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_observabilityadmin.types.all_regions
     import capo_observabilityadmin.types.regions
@@ -110,7 +108,11 @@ def deserialize_json(data: dict) -> TelemetryRule:
             )
         )
     else:
-        raise DeserializationError("TelemetryRule.telemetry_type required")
+        import typing
+
+        out["telemetry_type"] = typing.cast(
+            "capo_observabilityadmin.types.telemetry_type.TelemetryType", ""
+        )
     if data.get("TelemetrySourceTypes") is not None:
         import capo_observabilityadmin.types.telemetry_source_types
 

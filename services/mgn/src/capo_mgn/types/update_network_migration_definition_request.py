@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.cidr_mappings_list
     import capo_mgn.types.network_migration_definition_description
@@ -110,9 +108,7 @@ def deserialize_json(data: dict) -> UpdateNetworkMigrationDefinitionRequest:
     if data.get("networkMigrationDefinitionID") is not None:
         out["network_migration_definition_id"] = data["networkMigrationDefinitionID"]
     else:
-        raise DeserializationError(
-            "UpdateNetworkMigrationDefinitionRequest.network_migration_definition_id required"
-        )
+        out["network_migration_definition_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("description") is not None:

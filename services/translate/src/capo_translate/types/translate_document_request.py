@@ -80,15 +80,11 @@ def deserialize_aws_json_1_1(data: dict) -> TranslateDocumentRequest:
     if data.get("SourceLanguageCode") is not None:
         out["source_language_code"] = data["SourceLanguageCode"]
     else:
-        raise DeserializationError(
-            "TranslateDocumentRequest.source_language_code required"
-        )
+        out["source_language_code"] = ""
     if data.get("TargetLanguageCode") is not None:
         out["target_language_code"] = data["TargetLanguageCode"]
     else:
-        raise DeserializationError(
-            "TranslateDocumentRequest.target_language_code required"
-        )
+        out["target_language_code"] = ""
     if data.get("Settings") is not None:
         import capo_translate.types.translation_settings
 

@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ebs.errors import DeserializationError, ServiceError
+from capo_ebs.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_ebs.types.access_denied_exception_reason
@@ -42,7 +42,12 @@ def deserialize_json(data: dict) -> AccessDeniedException_:
             data["Reason"]
         )
     else:
-        raise DeserializationError("AccessDeniedException_.reason required")
+        import typing
+
+        out["reason"] = typing.cast(
+            "capo_ebs.types.access_denied_exception_reason.AccessDeniedExceptionReason",
+            "",
+        )
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.identity_center_instance_arn
     import capo_glue.types.identity_center_scopes_list
@@ -51,9 +49,7 @@ def deserialize_aws_json_1_1(
     if data.get("InstanceArn") is not None:
         out["instance_arn"] = data["InstanceArn"]
     else:
-        raise DeserializationError(
-            "CreateGlueIdentityCenterConfigurationRequest.instance_arn required"
-        )
+        out["instance_arn"] = ""
     if data.get("Scopes") is not None:
         import capo_glue.types.identity_center_scopes_list
 

@@ -41,15 +41,11 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyAtomicStatement:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyAtomicStatement.id required"
-        )
+        out["id"] = ""
     if data.get("text") is not None:
         out["text"] = data["text"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyAtomicStatement.text required"
-        )
+        out["text"] = ""
     if data.get("location") is not None:
         import capo_bedrock.types.automated_reasoning_policy_statement_location
 

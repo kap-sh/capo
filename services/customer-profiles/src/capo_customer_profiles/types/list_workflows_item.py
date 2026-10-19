@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.status
     import capo_customer_profiles.types.string1_to255
@@ -65,11 +63,15 @@ def deserialize_json(data: dict) -> ListWorkflowsItem:
             )
         )
     else:
-        raise DeserializationError("ListWorkflowsItem.workflow_type required")
+        import typing
+
+        out["workflow_type"] = typing.cast(
+            "capo_customer_profiles.types.workflow_type.WorkflowType", ""
+        )
     if data.get("WorkflowId") is not None:
         out["workflow_id"] = data["WorkflowId"]
     else:
-        raise DeserializationError("ListWorkflowsItem.workflow_id required")
+        out["workflow_id"] = ""
     if data.get("Status") is not None:
         import capo_customer_profiles.types.status
 
@@ -77,11 +79,13 @@ def deserialize_json(data: dict) -> ListWorkflowsItem:
             data["Status"]
         )
     else:
-        raise DeserializationError("ListWorkflowsItem.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_customer_profiles.types.status.Status", "")
     if data.get("StatusDescription") is not None:
         out["status_description"] = data["StatusDescription"]
     else:
-        raise DeserializationError("ListWorkflowsItem.status_description required")
+        out["status_description"] = ""
     if data.get("CreatedAt") is not None:
         import capo_customer_profiles.types.timestamp
 
@@ -89,7 +93,9 @@ def deserialize_json(data: dict) -> ListWorkflowsItem:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("ListWorkflowsItem.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("LastUpdatedAt") is not None:
         import capo_customer_profiles.types.timestamp
 
@@ -99,5 +105,9 @@ def deserialize_json(data: dict) -> ListWorkflowsItem:
             )
         )
     else:
-        raise DeserializationError("ListWorkflowsItem.last_updated_at required")
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

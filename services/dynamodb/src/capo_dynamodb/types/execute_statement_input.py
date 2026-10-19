@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.consistent_read
     import capo_dynamodb.types.parti_ql_next_token
@@ -82,7 +80,7 @@ def deserialize_aws_json_1_0(data: dict) -> ExecuteStatementInput:
     if data.get("Statement") is not None:
         out["statement"] = data["Statement"]
     else:
-        raise DeserializationError("ExecuteStatementInput.statement required")
+        out["statement"] = ""
     if data.get("Parameters") is not None:
         import capo_dynamodb.types.prepared_statement_parameters
 

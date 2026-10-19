@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.deletion_task_failure_reason_type
@@ -51,8 +50,10 @@ def deserialize_query(el: Element) -> GetServiceLinkedRoleDeletionStatusResponse
             child_status
         )
     else:
-        raise DeserializationError(
-            "GetServiceLinkedRoleDeletionStatusResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_iam.types.deletion_task_status_type.DeletionTaskStatusType", ""
         )
     child_reason = el.find("Reason")
     if child_reason is not None:

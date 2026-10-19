@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.cloud_connector_configuration
     import capo_ssm.types.cloud_connector_description
@@ -52,9 +50,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateCloudConnectorRequest:
     if data.get("CloudConnectorId") is not None:
         out["cloud_connector_id"] = data["CloudConnectorId"]
     else:
-        raise DeserializationError(
-            "UpdateCloudConnectorRequest.cloud_connector_id required"
-        )
+        out["cloud_connector_id"] = ""
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     if data.get("Configuration") is not None:

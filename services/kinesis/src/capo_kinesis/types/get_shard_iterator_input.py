@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.boolean_object
     import capo_kinesis.types.sequence_number
@@ -75,7 +73,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetShardIteratorInput:
     if data.get("ShardId") is not None:
         out["shard_id"] = data["ShardId"]
     else:
-        raise DeserializationError("GetShardIteratorInput.shard_id required")
+        out["shard_id"] = ""
     if data.get("ShardIteratorType") is not None:
         import capo_kinesis.types.shard_iterator_type
 
@@ -85,7 +83,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetShardIteratorInput:
             )
         )
     else:
-        raise DeserializationError("GetShardIteratorInput.shard_iterator_type required")
+        import typing
+
+        out["shard_iterator_type"] = typing.cast(
+            "capo_kinesis.types.shard_iterator_type.ShardIteratorType", ""
+        )
     if data.get("StartingSequenceNumber") is not None:
         out["starting_sequence_number"] = data["StartingSequenceNumber"]
     if data.get("Timestamp") is not None:

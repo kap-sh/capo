@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.boxed_boolean
     import capo_athena.types.kms_key
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> ManagedLoggingConfiguration:
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
-        raise DeserializationError("ManagedLoggingConfiguration.enabled required")
+        out["enabled"] = False
     if data.get("KmsKey") is not None:
         out["kms_key"] = data["KmsKey"]
     return out

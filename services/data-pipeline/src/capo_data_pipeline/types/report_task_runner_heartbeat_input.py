@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_data_pipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_data_pipeline.types.id
     import capo_data_pipeline.types.string
@@ -36,9 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> ReportTaskRunnerHeartbeatInput:
     if data.get("taskrunnerId") is not None:
         out["taskrunner_id"] = data["taskrunnerId"]
     else:
-        raise DeserializationError(
-            "ReportTaskRunnerHeartbeatInput.taskrunner_id required"
-        )
+        out["taskrunner_id"] = ""
     if data.get("workerGroup") is not None:
         out["worker_group"] = data["workerGroup"]
     if data.get("hostname") is not None:

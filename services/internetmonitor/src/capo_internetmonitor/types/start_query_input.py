@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_internetmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -68,7 +66,9 @@ def deserialize_json(data: dict) -> StartQueryInput:
             data["StartTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("StartQueryInput.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import datetime
 
@@ -76,11 +76,13 @@ def deserialize_json(data: dict) -> StartQueryInput:
             data["EndTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("StartQueryInput.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("QueryType") is not None:
         out["query_type"] = data["QueryType"]
     else:
-        raise DeserializationError("StartQueryInput.query_type required")
+        out["query_type"] = ""
     if data.get("FilterParameters") is not None:
         import capo_internetmonitor.types.filter_parameters
 

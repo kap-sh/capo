@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.kubernetes_namespace
 
@@ -34,11 +32,11 @@ def deserialize_aws_json_1_0(data: dict) -> KubernetesScalingResource:
     if data.get("namespace") is not None:
         out["namespace"] = data["namespace"]
     else:
-        raise DeserializationError("KubernetesScalingResource.namespace required")
+        out["namespace"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("KubernetesScalingResource.name required")
+        out["name"] = ""
     if data.get("hpaName") is not None:
         out["hpa_name"] = data["hpaName"]
     return out

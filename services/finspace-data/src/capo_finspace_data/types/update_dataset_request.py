@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_finspace_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace_data.types.alias_string
     import capo_finspace_data.types.client_token
@@ -64,7 +62,7 @@ def deserialize_json(data: dict) -> UpdateDatasetRequest:
     if data.get("datasetTitle") is not None:
         out["dataset_title"] = data["datasetTitle"]
     else:
-        raise DeserializationError("UpdateDatasetRequest.dataset_title required")
+        out["dataset_title"] = ""
     if data.get("kind") is not None:
         import capo_finspace_data.types.dataset_kind
 
@@ -72,7 +70,11 @@ def deserialize_json(data: dict) -> UpdateDatasetRequest:
             data["kind"]
         )
     else:
-        raise DeserializationError("UpdateDatasetRequest.kind required")
+        import typing
+
+        out["kind"] = typing.cast(
+            "capo_finspace_data.types.dataset_kind.DatasetKind", ""
+        )
     if data.get("datasetDescription") is not None:
         out["dataset_description"] = data["datasetDescription"]
     if data.get("alias") is not None:

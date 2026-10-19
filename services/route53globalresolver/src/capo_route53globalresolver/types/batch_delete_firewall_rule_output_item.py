@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> BatchDeleteFirewallRuleOutputItem:
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("BatchDeleteFirewallRuleOutputItem.code required")
+        out["code"] = 0
     if data.get("message") is not None:
         out["message"] = data["message"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.card_expiry_date_type
     import capo_payment_cryptography_data.types.hex_length_between2_and4
@@ -37,21 +35,15 @@ def deserialize_json(data: dict) -> DiscoverDynamicCardVerificationCode:
     if data.get("CardExpiryDate") is not None:
         out["card_expiry_date"] = data["CardExpiryDate"]
     else:
-        raise DeserializationError(
-            "DiscoverDynamicCardVerificationCode.card_expiry_date required"
-        )
+        out["card_expiry_date"] = ""
     if data.get("UnpredictableNumber") is not None:
         out["unpredictable_number"] = data["UnpredictableNumber"]
     else:
-        raise DeserializationError(
-            "DiscoverDynamicCardVerificationCode.unpredictable_number required"
-        )
+        out["unpredictable_number"] = ""
     if data.get("ApplicationTransactionCounter") is not None:
         out["application_transaction_counter"] = data["ApplicationTransactionCounter"]
     else:
-        raise DeserializationError(
-            "DiscoverDynamicCardVerificationCode.application_transaction_counter required"
-        )
+        out["application_transaction_counter"] = ""
     return out
 
 

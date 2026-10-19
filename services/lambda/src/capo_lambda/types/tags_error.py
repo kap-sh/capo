@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.tags_error_code
     import capo_lambda.types.tags_error_message
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> TagsError:
     if data.get("ErrorCode") is not None:
         out["error_code"] = data["ErrorCode"]
     else:
-        raise DeserializationError("TagsError.error_code required")
+        out["error_code"] = ""
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("TagsError.message required")
+        out["message"] = ""
     return out

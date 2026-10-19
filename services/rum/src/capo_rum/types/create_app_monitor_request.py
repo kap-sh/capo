@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rum.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rum.types.app_monitor_configuration
     import capo_rum.types.app_monitor_domain
@@ -94,7 +92,7 @@ def deserialize_json(data: dict) -> CreateAppMonitorRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateAppMonitorRequest.name required")
+        out["name"] = ""
     if data.get("Domain") is not None:
         out["domain"] = data["Domain"]
     if data.get("DomainList") is not None:

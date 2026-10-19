@@ -62,7 +62,7 @@ def deserialize_json(data: dict) -> PolicyEvent:
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError("PolicyEvent.event_id required")
+        out["event_id"] = ""
     if data.get("timestamp") is not None:
         import capo_resiliencehubv2.types._prelude.timestamp
 
@@ -72,7 +72,9 @@ def deserialize_json(data: dict) -> PolicyEvent:
             )
         )
     else:
-        raise DeserializationError("PolicyEvent.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("eventType") is not None:
         import capo_resiliencehubv2.types.policy_event_type
 
@@ -82,11 +84,15 @@ def deserialize_json(data: dict) -> PolicyEvent:
             )
         )
     else:
-        raise DeserializationError("PolicyEvent.event_type required")
+        import typing
+
+        out["event_type"] = typing.cast(
+            "capo_resiliencehubv2.types.policy_event_type.PolicyEventType", ""
+        )
     if data.get("policyArn") is not None:
         out["policy_arn"] = data["policyArn"]
     else:
-        raise DeserializationError("PolicyEvent.policy_arn required")
+        out["policy_arn"] = ""
     if data.get("actor") is not None:
         import capo_resiliencehubv2.types.event_actor
 

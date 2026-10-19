@@ -194,7 +194,11 @@ def deserialize_json(data: dict) -> TemplateV3:
             )
         )
     else:
-        raise DeserializationError("TemplateV3.hash_algorithm required")
+        import typing
+
+        out["hash_algorithm"] = typing.cast(
+            "capo_pca_connector_ad.types.hash_algorithm.HashAlgorithm", ""
+        )
     if data.get("Extensions") is not None:
         import capo_pca_connector_ad.types.extensions_v3
 

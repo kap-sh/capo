@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.next_token
     import capo_network_security_manager.types.template_summary_list
@@ -48,5 +46,5 @@ def deserialize_json(data: dict) -> ListTemplateSnapshotsOutput:
             )
         )
     else:
-        raise DeserializationError("ListTemplateSnapshotsOutput.snapshots required")
+        out["snapshots"] = []
     return out

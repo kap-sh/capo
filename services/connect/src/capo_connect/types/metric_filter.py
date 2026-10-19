@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.boolean
     import capo_connect.types.metric_filter_boolean_condition
@@ -70,7 +68,7 @@ def deserialize_json(data: dict) -> MetricFilter:
     if data.get("MetricFilterKey") is not None:
         out["metric_filter_key"] = data["MetricFilterKey"]
     else:
-        raise DeserializationError("MetricFilter.metric_filter_key required")
+        out["metric_filter_key"] = ""
     if data.get("Negate") is not None:
         out["negate"] = data["Negate"]
     else:

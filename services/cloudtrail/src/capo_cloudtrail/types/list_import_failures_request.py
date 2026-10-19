@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.list_import_failures_max_results_count
     import capo_cloudtrail.types.pagination_token
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListImportFailuresRequest:
     if data.get("ImportId") is not None:
         out["import_id"] = data["ImportId"]
     else:
-        raise DeserializationError("ListImportFailuresRequest.import_id required")
+        out["import_id"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

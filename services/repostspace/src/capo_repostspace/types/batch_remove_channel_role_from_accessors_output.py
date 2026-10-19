@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_repostspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_repostspace.types.accessor_id_list
     import capo_repostspace.types.batch_error_list
@@ -45,9 +43,7 @@ def deserialize_json(data: dict) -> BatchRemoveChannelRoleFromAccessorsOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchRemoveChannelRoleFromAccessorsOutput.removed_accessor_ids required"
-        )
+        out["removed_accessor_ids"] = []
     if data.get("errors") is not None:
         import capo_repostspace.types.batch_error_list
 
@@ -55,7 +51,5 @@ def deserialize_json(data: dict) -> BatchRemoveChannelRoleFromAccessorsOutput:
             data["errors"]
         )
     else:
-        raise DeserializationError(
-            "BatchRemoveChannelRoleFromAccessorsOutput.errors required"
-        )
+        out["errors"] = []
     return out

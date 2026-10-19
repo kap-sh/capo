@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.case_rule_identifier_list
     import capo_connectcases.types.domain_id
@@ -42,5 +40,5 @@ def deserialize_json(data: dict) -> BatchGetCaseRuleRequest:
             )
         )
     else:
-        raise DeserializationError("BatchGetCaseRuleRequest.case_rules required")
+        out["case_rules"] = []
     return out

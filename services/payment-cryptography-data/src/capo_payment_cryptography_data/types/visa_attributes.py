@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.current_pin_attributes
     import capo_payment_cryptography_data.types.hex_length_equals4
@@ -74,29 +72,30 @@ def deserialize_json(data: dict) -> VisaAttributes:
             )
         )
     else:
-        raise DeserializationError("VisaAttributes.major_key_derivation_mode required")
+        import typing
+
+        out["major_key_derivation_mode"] = typing.cast(
+            "capo_payment_cryptography_data.types.major_key_derivation_mode.MajorKeyDerivationMode",
+            "",
+        )
     if data.get("PrimaryAccountNumber") is not None:
         out["primary_account_number"] = data["PrimaryAccountNumber"]
     else:
-        raise DeserializationError("VisaAttributes.primary_account_number required")
+        out["primary_account_number"] = ""
     if data.get("PanSequenceNumber") is not None:
         out["pan_sequence_number"] = data["PanSequenceNumber"]
     else:
-        raise DeserializationError("VisaAttributes.pan_sequence_number required")
+        out["pan_sequence_number"] = ""
     if data.get("ApplicationTransactionCounter") is not None:
         out["application_transaction_counter"] = data["ApplicationTransactionCounter"]
     else:
-        raise DeserializationError(
-            "VisaAttributes.application_transaction_counter required"
-        )
+        out["application_transaction_counter"] = ""
     if data.get("AuthorizationRequestKeyIdentifier") is not None:
         out["authorization_request_key_identifier"] = data[
             "AuthorizationRequestKeyIdentifier"
         ]
     else:
-        raise DeserializationError(
-            "VisaAttributes.authorization_request_key_identifier required"
-        )
+        out["authorization_request_key_identifier"] = ""
     if data.get("CurrentPinAttributes") is not None:
         import capo_payment_cryptography_data.types.current_pin_attributes
 

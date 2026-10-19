@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediapackagev2.types.dash_ttml_profile
 
@@ -37,5 +35,9 @@ def deserialize_json(data: dict) -> DashTtmlConfiguration:
             )
         )
     else:
-        raise DeserializationError("DashTtmlConfiguration.ttml_profile required")
+        import typing
+
+        out["ttml_profile"] = typing.cast(
+            "capo_mediapackagev2.types.dash_ttml_profile.DashTtmlProfile", ""
+        )
     return out

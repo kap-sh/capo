@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_invoicing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_invoicing.types.month
     import capo_invoicing.types.year
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> BillingPeriod:
     if data.get("Month") is not None:
         out["month"] = data["Month"]
     else:
-        raise DeserializationError("BillingPeriod.month required")
+        out["month"] = 0
     if data.get("Year") is not None:
         out["year"] = data["Year"]
     else:
-        raise DeserializationError("BillingPeriod.year required")
+        out["year"] = 0
     return out

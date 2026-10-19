@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.account_id
     import capo_application_signals.types.metric_expression
@@ -63,7 +61,7 @@ def deserialize_json(data: dict) -> MetricDataQuery:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("MetricDataQuery.id required")
+        out["id"] = ""
     if data.get("MetricStat") is not None:
         import capo_application_signals.types.metric_stat
 

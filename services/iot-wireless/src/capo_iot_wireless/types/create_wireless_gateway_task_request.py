@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.wireless_gateway_id
     import capo_iot_wireless.types.wireless_gateway_task_definition_id
@@ -34,7 +32,5 @@ def deserialize_json(data: dict) -> CreateWirelessGatewayTaskRequest:
             "WirelessGatewayTaskDefinitionId"
         ]
     else:
-        raise DeserializationError(
-            "CreateWirelessGatewayTaskRequest.wireless_gateway_task_definition_id required"
-        )
+        out["wireless_gateway_task_definition_id"] = ""
     return out

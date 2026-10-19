@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_forecast.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_forecast.types.arn
     import capo_forecast.types.name
@@ -51,13 +49,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateWhatIfAnalysisRequest:
     if data.get("WhatIfAnalysisName") is not None:
         out["what_if_analysis_name"] = data["WhatIfAnalysisName"]
     else:
-        raise DeserializationError(
-            "CreateWhatIfAnalysisRequest.what_if_analysis_name required"
-        )
+        out["what_if_analysis_name"] = ""
     if data.get("ForecastArn") is not None:
         out["forecast_arn"] = data["ForecastArn"]
     else:
-        raise DeserializationError("CreateWhatIfAnalysisRequest.forecast_arn required")
+        out["forecast_arn"] = ""
     if data.get("TimeSeriesSelector") is not None:
         import capo_forecast.types.time_series_selector
 

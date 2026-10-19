@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.q_apps_timestamp
 
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> ExportQAppSessionDataOutput:
     if data.get("csvFileLink") is not None:
         out["csv_file_link"] = data["csvFileLink"]
     else:
-        raise DeserializationError("ExportQAppSessionDataOutput.csv_file_link required")
+        out["csv_file_link"] = ""
     if data.get("expiresAt") is not None:
         import capo_qapps.types.q_apps_timestamp
 
@@ -45,9 +43,11 @@ def deserialize_json(data: dict) -> ExportQAppSessionDataOutput:
             data["expiresAt"]
         )
     else:
-        raise DeserializationError("ExportQAppSessionDataOutput.expires_at required")
+        import datetime
+
+        out["expires_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("sessionArn") is not None:
         out["session_arn"] = data["sessionArn"]
     else:
-        raise DeserializationError("ExportQAppSessionDataOutput.session_arn required")
+        out["session_arn"] = ""
     return out

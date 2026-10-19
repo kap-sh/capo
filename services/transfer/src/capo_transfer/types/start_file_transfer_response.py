@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.transfer_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> StartFileTransferResponse:
     if data.get("TransferId") is not None:
         out["transfer_id"] = data["TransferId"]
     else:
-        raise DeserializationError("StartFileTransferResponse.transfer_id required")
+        out["transfer_id"] = ""
     return out

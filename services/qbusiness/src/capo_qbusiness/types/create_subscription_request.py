@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.application_id
     import capo_qbusiness.types.client_token
@@ -49,7 +47,9 @@ def deserialize_json(data: dict) -> CreateSubscriptionRequest:
             data["principal"]
         )
     else:
-        raise DeserializationError("CreateSubscriptionRequest.principal required")
+        import capo_qbusiness.types._unknown
+
+        out["principal"] = capo_qbusiness.types._unknown.UnknownUnionMember("")
     if data.get("type") is not None:
         import capo_qbusiness.types.subscription_type
 
@@ -57,7 +57,11 @@ def deserialize_json(data: dict) -> CreateSubscriptionRequest:
             data["type"]
         )
     else:
-        raise DeserializationError("CreateSubscriptionRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_qbusiness.types.subscription_type.SubscriptionType", ""
+        )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

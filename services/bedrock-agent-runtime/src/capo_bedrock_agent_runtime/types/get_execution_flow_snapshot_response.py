@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.flow_alias_identifier
     import capo_bedrock_agent_runtime.types.flow_execution_role_arn
@@ -53,33 +51,23 @@ def deserialize_json(data: dict) -> GetExecutionFlowSnapshotResponse:
     if data.get("flowIdentifier") is not None:
         out["flow_identifier"] = data["flowIdentifier"]
     else:
-        raise DeserializationError(
-            "GetExecutionFlowSnapshotResponse.flow_identifier required"
-        )
+        out["flow_identifier"] = ""
     if data.get("flowAliasIdentifier") is not None:
         out["flow_alias_identifier"] = data["flowAliasIdentifier"]
     else:
-        raise DeserializationError(
-            "GetExecutionFlowSnapshotResponse.flow_alias_identifier required"
-        )
+        out["flow_alias_identifier"] = ""
     if data.get("flowVersion") is not None:
         out["flow_version"] = data["flowVersion"]
     else:
-        raise DeserializationError(
-            "GetExecutionFlowSnapshotResponse.flow_version required"
-        )
+        out["flow_version"] = ""
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:
-        raise DeserializationError(
-            "GetExecutionFlowSnapshotResponse.execution_role_arn required"
-        )
+        out["execution_role_arn"] = ""
     if data.get("definition") is not None:
         out["definition"] = data["definition"]
     else:
-        raise DeserializationError(
-            "GetExecutionFlowSnapshotResponse.definition required"
-        )
+        out["definition"] = ""
     if data.get("customerEncryptionKeyArn") is not None:
         out["customer_encryption_key_arn"] = data["customerEncryptionKeyArn"]
     return out

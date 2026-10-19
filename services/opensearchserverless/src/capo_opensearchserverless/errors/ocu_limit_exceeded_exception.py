@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_opensearchserverless.errors import DeserializationError, ServiceError
+from capo_opensearchserverless.errors import ServiceError
 
 
 class OcuLimitExceededException_(TypedDict, closed=True):
@@ -23,7 +23,7 @@ def deserialize_aws_json_1_0(data: dict) -> OcuLimitExceededException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("OcuLimitExceededException_.message required")
+        out["message"] = ""
     return out
 
 

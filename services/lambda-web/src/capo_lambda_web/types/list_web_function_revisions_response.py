@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_web.types.function_revision_summary_list
     import capo_lambda_web.types.next_token
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> ListWebFunctionRevisionsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListWebFunctionRevisionsResponse.revisions required"
-        )
+        out["revisions"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

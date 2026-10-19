@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.suppression_list_reasons
     import capo_sesv2.types.suppression_list_scope
@@ -53,9 +51,7 @@ def deserialize_json(data: dict) -> PutTenantSuppressionAttributesRequest:
     if data.get("TenantName") is not None:
         out["tenant_name"] = data["TenantName"]
     else:
-        raise DeserializationError(
-            "PutTenantSuppressionAttributesRequest.tenant_name required"
-        )
+        out["tenant_name"] = ""
     if data.get("SuppressedReasons") is not None:
         import capo_sesv2.types.suppression_list_reasons
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.data_product_item_type
     import capo_datazone.types.entity_identifier
@@ -55,11 +53,15 @@ def deserialize_json(data: dict) -> DataProductItem:
             data["itemType"]
         )
     else:
-        raise DeserializationError("DataProductItem.item_type required")
+        import typing
+
+        out["item_type"] = typing.cast(
+            "capo_datazone.types.data_product_item_type.DataProductItemType", ""
+        )
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("DataProductItem.identifier required")
+        out["identifier"] = ""
     if data.get("revision") is not None:
         out["revision"] = data["revision"]
     if data.get("glossaryTerms") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs_realtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.ingest_configuration_arn
     import capo_ivs_realtime.types.ingest_configuration_name
@@ -65,7 +63,7 @@ def deserialize_json(data: dict) -> IngestConfigurationSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("IngestConfigurationSummary.arn required")
+        out["arn"] = ""
     if data.get("ingestProtocol") is not None:
         import capo_ivs_realtime.types.ingest_protocol
 
@@ -75,21 +73,23 @@ def deserialize_json(data: dict) -> IngestConfigurationSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "IngestConfigurationSummary.ingest_protocol required"
+        import typing
+
+        out["ingest_protocol"] = typing.cast(
+            "capo_ivs_realtime.types.ingest_protocol.IngestProtocol", ""
         )
     if data.get("stageArn") is not None:
         out["stage_arn"] = data["stageArn"]
     else:
-        raise DeserializationError("IngestConfigurationSummary.stage_arn required")
+        out["stage_arn"] = ""
     if data.get("participantId") is not None:
         out["participant_id"] = data["participantId"]
     else:
-        raise DeserializationError("IngestConfigurationSummary.participant_id required")
+        out["participant_id"] = ""
     if data.get("state") is not None:
         out["state"] = data["state"]
     else:
-        raise DeserializationError("IngestConfigurationSummary.state required")
+        out["state"] = ""
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
     if data.get("redundantIngest") is not None:

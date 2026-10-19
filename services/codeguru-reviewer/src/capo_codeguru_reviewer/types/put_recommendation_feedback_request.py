@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codeguru_reviewer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguru_reviewer.types.arn
     import capo_codeguru_reviewer.types.reactions
@@ -39,15 +37,11 @@ def deserialize_json(data: dict) -> PutRecommendationFeedbackRequest:
     if data.get("CodeReviewArn") is not None:
         out["code_review_arn"] = data["CodeReviewArn"]
     else:
-        raise DeserializationError(
-            "PutRecommendationFeedbackRequest.code_review_arn required"
-        )
+        out["code_review_arn"] = ""
     if data.get("RecommendationId") is not None:
         out["recommendation_id"] = data["RecommendationId"]
     else:
-        raise DeserializationError(
-            "PutRecommendationFeedbackRequest.recommendation_id required"
-        )
+        out["recommendation_id"] = ""
     if data.get("Reactions") is not None:
         import capo_codeguru_reviewer.types.reactions
 
@@ -55,7 +49,5 @@ def deserialize_json(data: dict) -> PutRecommendationFeedbackRequest:
             data["Reactions"]
         )
     else:
-        raise DeserializationError(
-            "PutRecommendationFeedbackRequest.reactions required"
-        )
+        out["reactions"] = []
     return out

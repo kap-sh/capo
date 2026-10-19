@@ -50,9 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeTLSInspectionConfigurationRe
     if data.get("UpdateToken") is not None:
         out["update_token"] = data["UpdateToken"]
     else:
-        raise DeserializationError(
-            "DescribeTLSInspectionConfigurationResponse.update_token required"
-        )
+        out["update_token"] = ""
     if data.get("TLSInspectionConfiguration") is not None:
         import capo_network_firewall.types.tls_inspection_configuration
 

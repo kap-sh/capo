@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.secret_arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> HybridAdministratorAccountUpdate:
     if data.get("SecretArn") is not None:
         out["secret_arn"] = data["SecretArn"]
     else:
-        raise DeserializationError(
-            "HybridAdministratorAccountUpdate.secret_arn required"
-        )
+        out["secret_arn"] = ""
     return out

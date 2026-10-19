@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.domain_name
     import capo_swf.types.name
@@ -57,7 +55,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListWorkflowTypesInput:
     if data.get("domain") is not None:
         out["domain"] = data["domain"]
     else:
-        raise DeserializationError("ListWorkflowTypesInput.domain required")
+        out["domain"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("registrationStatus") is not None:
@@ -69,8 +67,10 @@ def deserialize_aws_json_1_0(data: dict) -> ListWorkflowTypesInput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListWorkflowTypesInput.registration_status required"
+        import typing
+
+        out["registration_status"] = typing.cast(
+            "capo_swf.types.registration_status.RegistrationStatus", ""
         )
     if data.get("nextPageToken") is not None:
         out["next_page_token"] = data["nextPageToken"]

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.s3_bucket_name
     import capo_codepipeline.types.s3_object_key
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> S3ArtifactLocation:
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError("S3ArtifactLocation.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("objectKey") is not None:
         out["object_key"] = data["objectKey"]
     else:
-        raise DeserializationError("S3ArtifactLocation.object_key required")
+        out["object_key"] = ""
     return out

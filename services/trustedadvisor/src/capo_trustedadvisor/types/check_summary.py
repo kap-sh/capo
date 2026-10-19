@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_trustedadvisor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_trustedadvisor.types.check_arn
     import capo_trustedadvisor.types.recommendation_aws_service_list
@@ -93,19 +91,19 @@ def deserialize_json(data: dict) -> CheckSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CheckSummary.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CheckSummary.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CheckSummary.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("CheckSummary.description required")
+        out["description"] = ""
     if data.get("pillars") is not None:
         import capo_trustedadvisor.types.recommendation_pillar_list
 
@@ -115,7 +113,7 @@ def deserialize_json(data: dict) -> CheckSummary:
             )
         )
     else:
-        raise DeserializationError("CheckSummary.pillars required")
+        out["pillars"] = []
     if data.get("awsServices") is not None:
         import capo_trustedadvisor.types.recommendation_aws_service_list
 
@@ -125,7 +123,7 @@ def deserialize_json(data: dict) -> CheckSummary:
             )
         )
     else:
-        raise DeserializationError("CheckSummary.aws_services required")
+        out["aws_services"] = []
     if data.get("source") is not None:
         import capo_trustedadvisor.types.recommendation_source
 
@@ -135,7 +133,11 @@ def deserialize_json(data: dict) -> CheckSummary:
             )
         )
     else:
-        raise DeserializationError("CheckSummary.source required")
+        import typing
+
+        out["source"] = typing.cast(
+            "capo_trustedadvisor.types.recommendation_source.RecommendationSource", ""
+        )
     if data.get("metadata") is not None:
         import capo_trustedadvisor.types.string_map
 
@@ -143,7 +145,7 @@ def deserialize_json(data: dict) -> CheckSummary:
             data["metadata"]
         )
     else:
-        raise DeserializationError("CheckSummary.metadata required")
+        out["metadata"] = {}
     if data.get("resourceArnQueryable") is not None:
         out["resource_arn_queryable"] = data["resourceArnQueryable"]
     else:

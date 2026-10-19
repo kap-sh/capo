@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmanager.types.server_side_string
 
@@ -34,11 +32,11 @@ def deserialize_json(data: dict) -> CoreNetworkPolicyError:
     if data.get("ErrorCode") is not None:
         out["error_code"] = data["ErrorCode"]
     else:
-        raise DeserializationError("CoreNetworkPolicyError.error_code required")
+        out["error_code"] = ""
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("CoreNetworkPolicyError.message required")
+        out["message"] = ""
     if data.get("Path") is not None:
         out["path"] = data["Path"]
     return out

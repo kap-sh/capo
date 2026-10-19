@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.condition
     import capo_amplify.types.source
@@ -41,11 +39,11 @@ def deserialize_json(data: dict) -> CustomRule:
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("CustomRule.source required")
+        out["source"] = ""
     if data.get("target") is not None:
         out["target"] = data["target"]
     else:
-        raise DeserializationError("CustomRule.target required")
+        out["target"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     if data.get("condition") is not None:

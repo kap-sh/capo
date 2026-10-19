@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeartifact.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeartifact.types.asset_hashes
     import capo_codeartifact.types.asset_name
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> AssetSummary:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AssetSummary.name required")
+        out["name"] = ""
     if data.get("size") is not None:
         out["size"] = data["size"]
     if data.get("hashes") is not None:

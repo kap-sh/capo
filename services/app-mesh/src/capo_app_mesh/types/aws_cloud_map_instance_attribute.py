@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.aws_cloud_map_instance_attribute_key
     import capo_app_mesh.types.aws_cloud_map_instance_attribute_value
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> AwsCloudMapInstanceAttribute:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("AwsCloudMapInstanceAttribute.key required")
+        out["key"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("AwsCloudMapInstanceAttribute.value required")
+        out["value"] = ""
     return out

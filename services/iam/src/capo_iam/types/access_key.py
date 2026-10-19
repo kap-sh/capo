@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.access_key_id_type
@@ -55,24 +54,26 @@ def deserialize_query(el: Element) -> AccessKey:
     if child_user_name is not None:
         out["user_name"] = str(child_user_name.text or "")
     else:
-        raise DeserializationError("AccessKey.user_name required")
+        out["user_name"] = ""
     child_access_key_id = el.find("AccessKeyId")
     if child_access_key_id is not None:
         out["access_key_id"] = str(child_access_key_id.text or "")
     else:
-        raise DeserializationError("AccessKey.access_key_id required")
+        out["access_key_id"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         import capo_iam.types.status_type
 
         out["status"] = capo_iam.types.status_type.deserialize_query(child_status)
     else:
-        raise DeserializationError("AccessKey.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_iam.types.status_type.statusType", "")
     child_secret_access_key = el.find("SecretAccessKey")
     if child_secret_access_key is not None:
         out["secret_access_key"] = str(child_secret_access_key.text or "")
     else:
-        raise DeserializationError("AccessKey.secret_access_key required")
+        out["secret_access_key"] = ""
     child_create_date = el.find("CreateDate")
     if child_create_date is not None:
         import capo_iam.types.date_type

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.blueprint_name
     import capo_bedrock_data_automation.types.blueprint_schema
@@ -72,7 +70,7 @@ def deserialize_json(data: dict) -> CreateBlueprintRequest:
     if data.get("blueprintName") is not None:
         out["blueprint_name"] = data["blueprintName"]
     else:
-        raise DeserializationError("CreateBlueprintRequest.blueprint_name required")
+        out["blueprint_name"] = ""
     if data.get("type") is not None:
         import capo_bedrock_data_automation.types.type
 
@@ -80,7 +78,9 @@ def deserialize_json(data: dict) -> CreateBlueprintRequest:
             data["type"]
         )
     else:
-        raise DeserializationError("CreateBlueprintRequest.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_bedrock_data_automation.types.type.Type", "")
     if data.get("blueprintStage") is not None:
         import capo_bedrock_data_automation.types.blueprint_stage
 
@@ -92,7 +92,7 @@ def deserialize_json(data: dict) -> CreateBlueprintRequest:
     if data.get("schema") is not None:
         out["schema"] = data["schema"]
     else:
-        raise DeserializationError("CreateBlueprintRequest.schema required")
+        out["schema"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("encryptionConfiguration") is not None:

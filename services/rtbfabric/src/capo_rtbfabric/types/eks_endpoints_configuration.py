@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rtbfabric.types.base64_encoded_certificate_chain
     import capo_rtbfabric.types.kubernetes_cluster_name
@@ -50,37 +48,29 @@ def deserialize_json(data: dict) -> EksEndpointsConfiguration:
     if data.get("endpointsResourceName") is not None:
         out["endpoints_resource_name"] = data["endpointsResourceName"]
     else:
-        raise DeserializationError(
-            "EksEndpointsConfiguration.endpoints_resource_name required"
-        )
+        out["endpoints_resource_name"] = ""
     if data.get("endpointsResourceNamespace") is not None:
         out["endpoints_resource_namespace"] = data["endpointsResourceNamespace"]
     else:
-        raise DeserializationError(
-            "EksEndpointsConfiguration.endpoints_resource_namespace required"
-        )
+        out["endpoints_resource_namespace"] = ""
     if data.get("clusterApiServerEndpointUri") is not None:
         out["cluster_api_server_endpoint_uri"] = data["clusterApiServerEndpointUri"]
     else:
-        raise DeserializationError(
-            "EksEndpointsConfiguration.cluster_api_server_endpoint_uri required"
-        )
+        out["cluster_api_server_endpoint_uri"] = ""
     if data.get("clusterApiServerCaCertificateChain") is not None:
         out["cluster_api_server_ca_certificate_chain"] = data[
             "clusterApiServerCaCertificateChain"
         ]
     else:
-        raise DeserializationError(
-            "EksEndpointsConfiguration.cluster_api_server_ca_certificate_chain required"
-        )
+        out["cluster_api_server_ca_certificate_chain"] = ""
     if data.get("clusterName") is not None:
         out["cluster_name"] = data["clusterName"]
     else:
-        raise DeserializationError("EksEndpointsConfiguration.cluster_name required")
+        out["cluster_name"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("EksEndpointsConfiguration.role_arn required")
+        out["role_arn"] = ""
     return out
 
 

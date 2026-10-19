@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 
 class GetIamPortalLoginUrlOutput(TypedDict, closed=True):
     auth_code_url: NotRequired["str"]
@@ -28,7 +26,5 @@ def deserialize_json(data: dict) -> GetIamPortalLoginUrlOutput:
     if data.get("userProfileId") is not None:
         out["user_profile_id"] = data["userProfileId"]
     else:
-        raise DeserializationError(
-            "GetIamPortalLoginUrlOutput.user_profile_id required"
-        )
+        out["user_profile_id"] = ""
     return out

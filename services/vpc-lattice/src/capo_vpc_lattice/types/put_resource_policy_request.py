@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.policy_string
     import capo_vpc_lattice.types.resource_arn
@@ -30,5 +28,5 @@ def deserialize_json(data: dict) -> PutResourcePolicyRequest:
     if data.get("policy") is not None:
         out["policy"] = data["policy"]
     else:
-        raise DeserializationError("PutResourcePolicyRequest.policy required")
+        out["policy"] = ""
     return out

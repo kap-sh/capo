@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_guru.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_guru.types.num_metrics_analyzed
     import capo_devops_guru.types.num_open_proactive_insights
@@ -55,7 +53,5 @@ def deserialize_json(data: dict) -> DescribeOrganizationHealthResponse:
     if data.get("ResourceHours") is not None:
         out["resource_hours"] = data["ResourceHours"]
     else:
-        raise DeserializationError(
-            "DescribeOrganizationHealthResponse.resource_hours required"
-        )
+        out["resource_hours"] = 0
     return out

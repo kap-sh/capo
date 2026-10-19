@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.answer_machine_detection_config
     import capo_connectcampaignsv2.types.attributes
@@ -57,9 +55,7 @@ def deserialize_json(data: dict) -> TelephonyChannelSubtypeParameters:
     if data.get("destinationPhoneNumber") is not None:
         out["destination_phone_number"] = data["destinationPhoneNumber"]
     else:
-        raise DeserializationError(
-            "TelephonyChannelSubtypeParameters.destination_phone_number required"
-        )
+        out["destination_phone_number"] = ""
     if data.get("attributes") is not None:
         import capo_connectcampaignsv2.types.attributes
 
@@ -67,9 +63,7 @@ def deserialize_json(data: dict) -> TelephonyChannelSubtypeParameters:
             data["attributes"]
         )
     else:
-        raise DeserializationError(
-            "TelephonyChannelSubtypeParameters.attributes required"
-        )
+        out["attributes"] = {}
     if data.get("connectSourcePhoneNumber") is not None:
         out["connect_source_phone_number"] = data["connectSourcePhoneNumber"]
     if data.get("answerMachineDetectionConfig") is not None:

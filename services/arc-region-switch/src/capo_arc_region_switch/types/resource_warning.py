@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -83,7 +81,7 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceWarning:
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("ResourceWarning.version required")
+        out["version"] = ""
     if data.get("stepName") is not None:
         out["step_name"] = data["stepName"]
     if data.get("resourceArn") is not None:
@@ -97,7 +95,12 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceWarning:
             )
         )
     else:
-        raise DeserializationError("ResourceWarning.warning_status required")
+        import typing
+
+        out["warning_status"] = typing.cast(
+            "capo_arc_region_switch.types.resource_warning_status.ResourceWarningStatus",
+            "",
+        )
     if data.get("warningUpdatedTime") is not None:
         import capo_arc_region_switch.types._prelude.timestamp
 
@@ -107,9 +110,13 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceWarning:
             )
         )
     else:
-        raise DeserializationError("ResourceWarning.warning_updated_time required")
+        import datetime
+
+        out["warning_updated_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("warningMessage") is not None:
         out["warning_message"] = data["warningMessage"]
     else:
-        raise DeserializationError("ResourceWarning.warning_message required")
+        out["warning_message"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.conditions
     import capo_wafv2.types.filter_behavior
@@ -51,7 +49,11 @@ def deserialize_aws_json_1_1(data: dict) -> Filter:
             data["Behavior"]
         )
     else:
-        raise DeserializationError("Filter.behavior required")
+        import typing
+
+        out["behavior"] = typing.cast(
+            "capo_wafv2.types.filter_behavior.FilterBehavior", ""
+        )
     if data.get("Requirement") is not None:
         import capo_wafv2.types.filter_requirement
 
@@ -61,7 +63,11 @@ def deserialize_aws_json_1_1(data: dict) -> Filter:
             )
         )
     else:
-        raise DeserializationError("Filter.requirement required")
+        import typing
+
+        out["requirement"] = typing.cast(
+            "capo_wafv2.types.filter_requirement.FilterRequirement", ""
+        )
     if data.get("Conditions") is not None:
         import capo_wafv2.types.conditions
 
@@ -69,5 +75,5 @@ def deserialize_aws_json_1_1(data: dict) -> Filter:
             data["Conditions"]
         )
     else:
-        raise DeserializationError("Filter.conditions required")
+        out["conditions"] = []
     return out

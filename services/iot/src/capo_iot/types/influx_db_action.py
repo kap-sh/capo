@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aws_arn
     import capo_iot.types.influx_db_batch_config
@@ -74,19 +72,19 @@ def deserialize_json(data: dict) -> InfluxDBAction:
     if data.get("destinationArn") is not None:
         out["destination_arn"] = data["destinationArn"]
     else:
-        raise DeserializationError("InfluxDBAction.destination_arn required")
+        out["destination_arn"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("InfluxDBAction.role_arn required")
+        out["role_arn"] = ""
     if data.get("databaseName") is not None:
         out["database_name"] = data["databaseName"]
     else:
-        raise DeserializationError("InfluxDBAction.database_name required")
+        out["database_name"] = ""
     if data.get("tableName") is not None:
         out["table_name"] = data["tableName"]
     else:
-        raise DeserializationError("InfluxDBAction.table_name required")
+        out["table_name"] = ""
     if data.get("organization") is not None:
         out["organization"] = data["organization"]
     if data.get("tags") is not None:

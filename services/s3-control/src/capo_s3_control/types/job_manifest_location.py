@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.non_empty_max_length1024_string
@@ -39,7 +38,7 @@ def deserialize_xml(el: Element) -> JobManifestLocation:
     if child_object_arn is not None:
         out["object_arn"] = str(child_object_arn.text or "")
     else:
-        raise DeserializationError("JobManifestLocation.object_arn required")
+        out["object_arn"] = ""
     child_object_version_id = el.find("ObjectVersionId")
     if child_object_version_id is not None:
         out["object_version_id"] = str(child_object_version_id.text or "")
@@ -47,5 +46,5 @@ def deserialize_xml(el: Element) -> JobManifestLocation:
     if child_e_tag is not None:
         out["e_tag"] = str(child_e_tag.text or "")
     else:
-        raise DeserializationError("JobManifestLocation.e_tag required")
+        out["e_tag"] = ""
     return out

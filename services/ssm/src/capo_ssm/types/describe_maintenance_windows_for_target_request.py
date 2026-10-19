@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.maintenance_window_resource_type
     import capo_ssm.types.maintenance_window_search_max_results
@@ -57,9 +55,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeMaintenanceWindowsForTargetR
             data["Targets"]
         )
     else:
-        raise DeserializationError(
-            "DescribeMaintenanceWindowsForTargetRequest.targets required"
-        )
+        out["targets"] = []
     if data.get("ResourceType") is not None:
         import capo_ssm.types.maintenance_window_resource_type
 
@@ -69,8 +65,11 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeMaintenanceWindowsForTargetR
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeMaintenanceWindowsForTargetRequest.resource_type required"
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_ssm.types.maintenance_window_resource_type.MaintenanceWindowResourceType",
+            "",
         )
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]

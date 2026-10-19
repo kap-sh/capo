@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.id_mapping_workflows_supported
     import capo_cleanrooms.types.id_namespace_type
@@ -47,8 +45,10 @@ def deserialize_json(data: dict) -> IdNamespaceAssociationInputReferenceProperti
             )
         )
     else:
-        raise DeserializationError(
-            "IdNamespaceAssociationInputReferenceProperties.id_namespace_type required"
+        import typing
+
+        out["id_namespace_type"] = typing.cast(
+            "capo_cleanrooms.types.id_namespace_type.IdNamespaceType", ""
         )
     if data.get("idMappingWorkflowsSupported") is not None:
         import capo_cleanrooms.types.id_mapping_workflows_supported
@@ -59,7 +59,5 @@ def deserialize_json(data: dict) -> IdNamespaceAssociationInputReferenceProperti
             )
         )
     else:
-        raise DeserializationError(
-            "IdNamespaceAssociationInputReferenceProperties.id_mapping_workflows_supported required"
-        )
+        out["id_mapping_workflows_supported"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_forecast.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_forecast.types.arn
     import capo_forecast.types.kms_key_arn
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> EncryptionConfig:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("EncryptionConfig.role_arn required")
+        out["role_arn"] = ""
     if data.get("KMSKeyArn") is not None:
         out["kms_key_arn"] = data["KMSKeyArn"]
     else:
-        raise DeserializationError("EncryptionConfig.kms_key_arn required")
+        out["kms_key_arn"] = ""
     return out

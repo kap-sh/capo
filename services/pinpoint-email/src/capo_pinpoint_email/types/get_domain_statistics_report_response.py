@@ -55,7 +55,5 @@ def deserialize_json(data: dict) -> GetDomainStatisticsReportResponse:
             data["DailyVolumes"]
         )
     else:
-        raise DeserializationError(
-            "GetDomainStatisticsReportResponse.daily_volumes required"
-        )
+        out["daily_volumes"] = []
     return out

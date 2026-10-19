@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fis.types.client_token
     import capo_fis.types.experiment_template_id
@@ -51,13 +49,11 @@ def deserialize_json(data: dict) -> StartExperimentRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("StartExperimentRequest.client_token required")
+        out["client_token"] = ""
     if data.get("experimentTemplateId") is not None:
         out["experiment_template_id"] = data["experimentTemplateId"]
     else:
-        raise DeserializationError(
-            "StartExperimentRequest.experiment_template_id required"
-        )
+        out["experiment_template_id"] = ""
     if data.get("experimentOptions") is not None:
         import capo_fis.types.start_experiment_experiment_options_input
 

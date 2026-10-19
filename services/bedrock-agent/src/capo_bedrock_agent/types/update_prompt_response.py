@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.date_timestamp
     import capo_bedrock_agent.types.kms_key_arn
@@ -86,7 +84,7 @@ def deserialize_json(data: dict) -> UpdatePromptResponse:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdatePromptResponse.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("customerEncryptionKeyArn") is not None:
@@ -102,15 +100,15 @@ def deserialize_json(data: dict) -> UpdatePromptResponse:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("UpdatePromptResponse.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("UpdatePromptResponse.arn required")
+        out["arn"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("UpdatePromptResponse.version required")
+        out["version"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -118,7 +116,9 @@ def deserialize_json(data: dict) -> UpdatePromptResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("UpdatePromptResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -126,7 +126,9 @@ def deserialize_json(data: dict) -> UpdatePromptResponse:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("UpdatePromptResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

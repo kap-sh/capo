@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.rcs_location_label
     import capo_pinpoint_sms_voice_v2.types.rcs_postback_data
@@ -60,19 +58,19 @@ def deserialize_aws_json_1_0(data: dict) -> RcsShowLocationAction:
     if data.get("Text") is not None:
         out["text"] = data["Text"]
     else:
-        raise DeserializationError("RcsShowLocationAction.text required")
+        out["text"] = ""
     if data.get("PostbackData") is not None:
         out["postback_data"] = data["PostbackData"]
     else:
-        raise DeserializationError("RcsShowLocationAction.postback_data required")
+        out["postback_data"] = ""
     if data.get("Latitude") is not None:
         out["latitude"] = float(data["Latitude"])
     else:
-        raise DeserializationError("RcsShowLocationAction.latitude required")
+        out["latitude"] = 0.0
     if data.get("Longitude") is not None:
         out["longitude"] = float(data["Longitude"])
     else:
-        raise DeserializationError("RcsShowLocationAction.longitude required")
+        out["longitude"] = 0.0
     if data.get("Label") is not None:
         out["label"] = data["Label"]
     return out

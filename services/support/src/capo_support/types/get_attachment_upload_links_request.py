@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_support.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support.types.file_name
     import capo_support.types.file_size
@@ -51,7 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetAttachmentUploadLinksRequest:
     if data.get("fileName") is not None:
         out["file_name"] = data["fileName"]
     else:
-        raise DeserializationError("GetAttachmentUploadLinksRequest.file_name required")
+        out["file_name"] = ""
     if data.get("fileSizeBytes") is not None:
         out["file_size_bytes"] = data["fileSizeBytes"]
     if data.get("uploadId") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_definition_type_name
     import capo_bedrock.types.automated_reasoning_policy_definition_variable_description
@@ -35,21 +33,15 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyDefinitionVariable:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyDefinitionVariable.name required"
-        )
+        out["name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyDefinitionVariable.type required"
-        )
+        out["type"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyDefinitionVariable.description required"
-        )
+        out["description"] = ""
     return out
 
 

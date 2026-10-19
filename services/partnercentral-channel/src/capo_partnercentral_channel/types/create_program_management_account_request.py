@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_channel.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_channel.types.account_id
     import capo_partnercentral_channel.types.catalog
@@ -59,9 +57,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateProgramManagementAccountReques
     if data.get("catalog") is not None:
         out["catalog"] = data["catalog"]
     else:
-        raise DeserializationError(
-            "CreateProgramManagementAccountRequest.catalog required"
-        )
+        out["catalog"] = ""
     if data.get("program") is not None:
         import capo_partnercentral_channel.types.program
 
@@ -71,21 +67,19 @@ def deserialize_aws_json_1_0(data: dict) -> CreateProgramManagementAccountReques
             )
         )
     else:
-        raise DeserializationError(
-            "CreateProgramManagementAccountRequest.program required"
+        import typing
+
+        out["program"] = typing.cast(
+            "capo_partnercentral_channel.types.program.Program", ""
         )
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError(
-            "CreateProgramManagementAccountRequest.display_name required"
-        )
+        out["display_name"] = ""
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError(
-            "CreateProgramManagementAccountRequest.account_id required"
-        )
+        out["account_id"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

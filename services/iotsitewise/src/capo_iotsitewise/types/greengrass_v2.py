@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.core_device_operating_system
     import capo_iotsitewise.types.core_device_thing_name
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> GreengrassV2:
     if data.get("coreDeviceThingName") is not None:
         out["core_device_thing_name"] = data["coreDeviceThingName"]
     else:
-        raise DeserializationError("GreengrassV2.core_device_thing_name required")
+        out["core_device_thing_name"] = ""
     if data.get("coreDeviceOperatingSystem") is not None:
         import capo_iotsitewise.types.core_device_operating_system
 

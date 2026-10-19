@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.password
     import capo_appflow.types.private_key
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> SnowflakeConnectorProfileCredentials:
     if data.get("username") is not None:
         out["username"] = data["username"]
     else:
-        raise DeserializationError(
-            "SnowflakeConnectorProfileCredentials.username required"
-        )
+        out["username"] = ""
     if data.get("password") is not None:
         out["password"] = data["password"]
     if data.get("privateKey") is not None:

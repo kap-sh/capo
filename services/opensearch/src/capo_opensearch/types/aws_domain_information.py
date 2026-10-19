@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.domain_name
     import capo_opensearch.types.owner_id
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> AWSDomainInformation:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("AWSDomainInformation.domain_name required")
+        out["domain_name"] = ""
     if data.get("Region") is not None:
         out["region"] = data["Region"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_signer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_signer.types.image_format
     import capo_signer.types.image_formats
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> SigningImageFormat:
             data["supportedFormats"]
         )
     else:
-        raise DeserializationError("SigningImageFormat.supported_formats required")
+        out["supported_formats"] = []
     if data.get("defaultFormat") is not None:
         import capo_signer.types.image_format
 
@@ -51,5 +49,9 @@ def deserialize_json(data: dict) -> SigningImageFormat:
             data["defaultFormat"]
         )
     else:
-        raise DeserializationError("SigningImageFormat.default_format required")
+        import typing
+
+        out["default_format"] = typing.cast(
+            "capo_signer.types.image_format.ImageFormat", ""
+        )
     return out

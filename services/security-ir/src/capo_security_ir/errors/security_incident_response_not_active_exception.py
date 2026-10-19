@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_security_ir.errors import DeserializationError, ServiceError
+from capo_security_ir.errors import ServiceError
 
 
 class SecurityIncidentResponseNotActiveException_(TypedDict, closed=True):
@@ -23,9 +23,7 @@ def deserialize_json(data: dict) -> SecurityIncidentResponseNotActiveException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError(
-            "SecurityIncidentResponseNotActiveException_.message required"
-        )
+        out["message"] = ""
     return out
 
 

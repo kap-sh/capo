@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_greengrassv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_greengrassv2.types.io_t_thing_name
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> DisassociateClientDeviceFromCoreDeviceEntry:
     if data.get("thingName") is not None:
         out["thing_name"] = data["thingName"]
     else:
-        raise DeserializationError(
-            "DisassociateClientDeviceFromCoreDeviceEntry.thing_name required"
-        )
+        out["thing_name"] = ""
     return out

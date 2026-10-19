@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.code_star_connection_arn
     import capo_service_catalog.types.repository
@@ -43,17 +41,17 @@ def deserialize_aws_json_1_1(data: dict) -> CodeStarParameters:
     if data.get("ConnectionArn") is not None:
         out["connection_arn"] = data["ConnectionArn"]
     else:
-        raise DeserializationError("CodeStarParameters.connection_arn required")
+        out["connection_arn"] = ""
     if data.get("Repository") is not None:
         out["repository"] = data["Repository"]
     else:
-        raise DeserializationError("CodeStarParameters.repository required")
+        out["repository"] = ""
     if data.get("Branch") is not None:
         out["branch"] = data["Branch"]
     else:
-        raise DeserializationError("CodeStarParameters.branch required")
+        out["branch"] = ""
     if data.get("ArtifactPath") is not None:
         out["artifact_path"] = data["ArtifactPath"]
     else:
-        raise DeserializationError("CodeStarParameters.artifact_path required")
+        out["artifact_path"] = ""
     return out

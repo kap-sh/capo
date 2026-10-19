@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError, ServiceError
+from capo_sagemaker_geospatial.errors import ServiceError
 
 
 class ThrottlingException_(TypedDict, closed=True):
@@ -26,7 +26,7 @@ def deserialize_json(data: dict) -> ThrottlingException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("ThrottlingException_.message required")
+        out["message"] = ""
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     return out

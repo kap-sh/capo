@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -124,7 +122,7 @@ def deserialize_json(data: dict) -> CreateAgentProfileResponse:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateAgentProfileResponse.name required")
+        out["name"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     if data.get("description") is not None:
@@ -138,7 +136,7 @@ def deserialize_json(data: dict) -> CreateAgentProfileResponse:
             data["pillars"]
         )
     else:
-        raise DeserializationError("CreateAgentProfileResponse.pillars required")
+        out["pillars"] = []
     if data.get("deletionProtection") is not None:
         out["deletion_protection"] = data["deletionProtection"]
     else:
@@ -146,9 +144,7 @@ def deserialize_json(data: dict) -> CreateAgentProfileResponse:
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:
-        raise DeserializationError(
-            "CreateAgentProfileResponse.execution_role_arn required"
-        )
+        out["execution_role_arn"] = ""
     if data.get("aggregationConfiguration") is not None:
         import capo_wellarchitected.types.aggregation_configurations
 
@@ -158,13 +154,11 @@ def deserialize_json(data: dict) -> CreateAgentProfileResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAgentProfileResponse.aggregation_configuration required"
-        )
+        out["aggregation_configuration"] = []
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CreateAgentProfileResponse.arn required")
+        out["arn"] = ""
     if data.get("eligibleForScheduledGeneration") is not None:
         out["eligible_for_scheduled_generation"] = data[
             "eligibleForScheduledGeneration"
@@ -186,7 +180,7 @@ def deserialize_json(data: dict) -> CreateAgentProfileResponse:
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("CreateAgentProfileResponse.created_by required")
+        out["created_by"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -194,7 +188,9 @@ def deserialize_json(data: dict) -> CreateAgentProfileResponse:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("CreateAgentProfileResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastModifiedBy") is not None:
         out["last_modified_by"] = data["lastModifiedBy"]
     if data.get("lastModifiedAt") is not None:

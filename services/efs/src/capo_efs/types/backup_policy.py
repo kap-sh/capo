@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_efs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_efs.types.status
 
@@ -31,5 +29,7 @@ def deserialize_json(data: dict) -> BackupPolicy:
 
         out["status"] = capo_efs.types.status.deserialize_json(data["Status"])
     else:
-        raise DeserializationError("BackupPolicy.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_efs.types.status.Status", "")
     return out

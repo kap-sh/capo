@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_networkflowmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkflowmonitor.types.arn
     import capo_networkflowmonitor.types.scope_id
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> ScopeSummary:
     if data.get("scopeId") is not None:
         out["scope_id"] = data["scopeId"]
     else:
-        raise DeserializationError("ScopeSummary.scope_id required")
+        out["scope_id"] = ""
     if data.get("status") is not None:
         import capo_networkflowmonitor.types.scope_status
 
@@ -47,9 +45,13 @@ def deserialize_json(data: dict) -> ScopeSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("ScopeSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_networkflowmonitor.types.scope_status.ScopeStatus", ""
+        )
     if data.get("scopeArn") is not None:
         out["scope_arn"] = data["scopeArn"]
     else:
-        raise DeserializationError("ScopeSummary.scope_arn required")
+        out["scope_arn"] = ""
     return out

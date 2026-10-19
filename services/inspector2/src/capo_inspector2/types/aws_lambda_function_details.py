@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -85,25 +83,23 @@ def deserialize_json(data: dict) -> AwsLambdaFunctionDetails:
     if data.get("functionName") is not None:
         out["function_name"] = data["functionName"]
     else:
-        raise DeserializationError("AwsLambdaFunctionDetails.function_name required")
+        out["function_name"] = ""
     if data.get("runtime") is not None:
         out["runtime"] = data["runtime"]
     else:
-        raise DeserializationError("AwsLambdaFunctionDetails.runtime required")
+        out["runtime"] = ""
     if data.get("codeSha256") is not None:
         out["code_sha256"] = data["codeSha256"]
     else:
-        raise DeserializationError("AwsLambdaFunctionDetails.code_sha256 required")
+        out["code_sha256"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("AwsLambdaFunctionDetails.version required")
+        out["version"] = ""
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:
-        raise DeserializationError(
-            "AwsLambdaFunctionDetails.execution_role_arn required"
-        )
+        out["execution_role_arn"] = ""
     if data.get("layers") is not None:
         import capo_inspector2.types.layer_list
 

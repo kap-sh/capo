@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_device_farm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_device_farm.types.device_filters
     import capo_device_farm.types.integer
@@ -39,9 +37,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeviceSelectionConfiguration:
             data["filters"]
         )
     else:
-        raise DeserializationError("DeviceSelectionConfiguration.filters required")
+        out["filters"] = []
     if data.get("maxDevices") is not None:
         out["max_devices"] = data["maxDevices"]
     else:
-        raise DeserializationError("DeviceSelectionConfiguration.max_devices required")
+        out["max_devices"] = 0
     return out

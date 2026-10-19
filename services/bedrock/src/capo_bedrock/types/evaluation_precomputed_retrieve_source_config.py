@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.evaluation_precomputed_rag_source_identifier
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> EvaluationPrecomputedRetrieveSourceConfig:
     if data.get("ragSourceIdentifier") is not None:
         out["rag_source_identifier"] = data["ragSourceIdentifier"]
     else:
-        raise DeserializationError(
-            "EvaluationPrecomputedRetrieveSourceConfig.rag_source_identifier required"
-        )
+        out["rag_source_identifier"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.amazon_resource_name
     import capo_lex_models_v2.types.policy
@@ -33,5 +31,5 @@ def deserialize_json(data: dict) -> UpdateResourcePolicyRequest:
     if data.get("policy") is not None:
         out["policy"] = data["policy"]
     else:
-        raise DeserializationError("UpdateResourcePolicyRequest.policy required")
+        out["policy"] = ""
     return out

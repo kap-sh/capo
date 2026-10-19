@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.arn
     import capo_iotfleetwise.types.default_for_unmapped_signals_type
@@ -84,15 +82,13 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDecoderManifestRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateDecoderManifestRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("modelManifestArn") is not None:
         out["model_manifest_arn"] = data["modelManifestArn"]
     else:
-        raise DeserializationError(
-            "CreateDecoderManifestRequest.model_manifest_arn required"
-        )
+        out["model_manifest_arn"] = ""
     if data.get("signalDecoders") is not None:
         import capo_iotfleetwise.types.signal_decoders
 

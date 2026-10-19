@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.boolean
     import capo_appflow.types.custom_properties
@@ -103,7 +101,7 @@ def deserialize_json(data: dict) -> ConnectorEntityField:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("ConnectorEntityField.identifier required")
+        out["identifier"] = ""
     if data.get("parentIdentifier") is not None:
         out["parent_identifier"] = data["parentIdentifier"]
     if data.get("label") is not None:

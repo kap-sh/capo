@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_compute_optimizer_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_compute_optimizer_automation.types.event_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> GetAutomationEventRequest:
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError("GetAutomationEventRequest.event_id required")
+        out["event_id"] = ""
     return out

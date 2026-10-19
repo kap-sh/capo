@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.boolean_object
     import capo_dynamodb.types.double_object
@@ -61,7 +59,5 @@ def deserialize_aws_json_1_0(
     if data.get("TargetValue") is not None:
         out["target_value"] = float(data["TargetValue"])
     else:
-        raise DeserializationError(
-            "AutoScalingTargetTrackingScalingPolicyConfigurationDescription.target_value required"
-        )
+        out["target_value"] = 0.0
     return out

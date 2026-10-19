@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.notification_rule_list
     import capo_cloudwatchomni.types.profile_id
@@ -72,15 +70,15 @@ def deserialize_cbor(data: dict) -> CreateAlertInput:
     if data.get("spaceId") is not None:
         out["space_id"] = data["spaceId"]
     else:
-        raise DeserializationError("CreateAlertInput.space_id required")
+        out["space_id"] = ""
     if data.get("profileId") is not None:
         out["profile_id"] = data["profileId"]
     else:
-        raise DeserializationError("CreateAlertInput.profile_id required")
+        out["profile_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateAlertInput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("rule") is not None:
@@ -88,7 +86,9 @@ def deserialize_cbor(data: dict) -> CreateAlertInput:
 
         out["rule"] = capo_cloudwatchomni.types.rule.deserialize_cbor(data["rule"])
     else:
-        raise DeserializationError("CreateAlertInput.rule required")
+        import capo_cloudwatchomni.types._unknown
+
+        out["rule"] = capo_cloudwatchomni.types._unknown.UnknownUnionMember("")
     if data.get("notificationsEnabled") is not None:
         out["notifications_enabled"] = data["notificationsEnabled"]
     if data.get("tags") is not None:

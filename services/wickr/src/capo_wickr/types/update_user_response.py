@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.generic_string
     import capo_wickr.types.network_id
@@ -81,11 +79,11 @@ def deserialize_json(data: dict) -> UpdateUserResponse:
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
     else:
-        raise DeserializationError("UpdateUserResponse.user_id required")
+        out["user_id"] = ""
     if data.get("networkId") is not None:
         out["network_id"] = data["networkId"]
     else:
-        raise DeserializationError("UpdateUserResponse.network_id required")
+        out["network_id"] = ""
     if data.get("securityGroupIds") is not None:
         import capo_wickr.types.security_group_id_list
 
@@ -103,7 +101,7 @@ def deserialize_json(data: dict) -> UpdateUserResponse:
     if data.get("suspended") is not None:
         out["suspended"] = data["suspended"]
     else:
-        raise DeserializationError("UpdateUserResponse.suspended required")
+        out["suspended"] = False
     if data.get("modified") is not None:
         out["modified"] = data["modified"]
     if data.get("status") is not None:

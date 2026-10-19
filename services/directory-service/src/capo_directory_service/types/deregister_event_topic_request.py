@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.directory_id
     import capo_directory_service.types.topic_name
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeregisterEventTopicRequest:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError("DeregisterEventTopicRequest.directory_id required")
+        out["directory_id"] = ""
     if data.get("TopicName") is not None:
         out["topic_name"] = data["TopicName"]
     else:
-        raise DeserializationError("DeregisterEventTopicRequest.topic_name required")
+        out["topic_name"] = ""
     return out

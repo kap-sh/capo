@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_identity.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_identity.types.invoked_by
     import capo_chime_sdk_identity.types.lex_bot_alias_arn
@@ -68,11 +66,11 @@ def deserialize_json(data: dict) -> LexConfiguration:
     if data.get("LexBotAliasArn") is not None:
         out["lex_bot_alias_arn"] = data["LexBotAliasArn"]
     else:
-        raise DeserializationError("LexConfiguration.lex_bot_alias_arn required")
+        out["lex_bot_alias_arn"] = ""
     if data.get("LocaleId") is not None:
         out["locale_id"] = data["LocaleId"]
     else:
-        raise DeserializationError("LexConfiguration.locale_id required")
+        out["locale_id"] = ""
     if data.get("WelcomeIntent") is not None:
         out["welcome_intent"] = data["WelcomeIntent"]
     return out

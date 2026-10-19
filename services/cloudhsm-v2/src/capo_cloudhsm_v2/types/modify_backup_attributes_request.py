@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudhsm_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudhsm_v2.types.backup_id
     import capo_cloudhsm_v2.types.boolean
@@ -31,11 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyBackupAttributesRequest:
     if data.get("BackupId") is not None:
         out["backup_id"] = data["BackupId"]
     else:
-        raise DeserializationError("ModifyBackupAttributesRequest.backup_id required")
+        out["backup_id"] = ""
     if data.get("NeverExpires") is not None:
         out["never_expires"] = data["NeverExpires"]
     else:
-        raise DeserializationError(
-            "ModifyBackupAttributesRequest.never_expires required"
-        )
+        out["never_expires"] = False
     return out

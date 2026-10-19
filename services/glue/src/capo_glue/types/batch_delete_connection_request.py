@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.catalog_id_string
     import capo_glue.types.delete_connection_name_list
@@ -48,7 +46,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDeleteConnectionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDeleteConnectionRequest.connection_name_list required"
-        )
+        out["connection_name_list"] = []
     return out

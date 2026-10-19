@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.database_table_name
     import capo_databrew.types.s3_location
@@ -42,5 +40,5 @@ def deserialize_json(data: dict) -> DatabaseTableOutputOptions:
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("DatabaseTableOutputOptions.table_name required")
+        out["table_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.connection_string
     import capo_workspaces.types.tag_list
@@ -36,9 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateConnectionAliasRequest:
     if data.get("ConnectionString") is not None:
         out["connection_string"] = data["ConnectionString"]
     else:
-        raise DeserializationError(
-            "CreateConnectionAliasRequest.connection_string required"
-        )
+        out["connection_string"] = ""
     if data.get("Tags") is not None:
         import capo_workspaces.types.tag_list
 

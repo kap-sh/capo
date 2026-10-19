@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_account_access.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_account_access.types.application_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CreateApplicationResponse:
     if data.get("applicationArn") is not None:
         out["application_arn"] = data["applicationArn"]
     else:
-        raise DeserializationError("CreateApplicationResponse.application_arn required")
+        out["application_arn"] = ""
     return out

@@ -37,9 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateResolverRuleRequest:
     if data.get("ResolverRuleId") is not None:
         out["resolver_rule_id"] = data["ResolverRuleId"]
     else:
-        raise DeserializationError(
-            "UpdateResolverRuleRequest.resolver_rule_id required"
-        )
+        out["resolver_rule_id"] = ""
     if data.get("Config") is not None:
         import capo_route53resolver.types.resolver_rule_config
 

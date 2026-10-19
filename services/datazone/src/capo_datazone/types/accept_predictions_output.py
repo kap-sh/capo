@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.asset_id
     import capo_datazone.types.domain_id
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> AcceptPredictionsOutput:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("AcceptPredictionsOutput.domain_id required")
+        out["domain_id"] = ""
     if data.get("assetId") is not None:
         out["asset_id"] = data["assetId"]
     else:
-        raise DeserializationError("AcceptPredictionsOutput.asset_id required")
+        out["asset_id"] = ""
     if data.get("revision") is not None:
         out["revision"] = data["revision"]
     else:
-        raise DeserializationError("AcceptPredictionsOutput.revision required")
+        out["revision"] = ""
     return out

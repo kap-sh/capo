@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.custom_policy_details
     import capo_config_service.types.owner
@@ -68,7 +66,9 @@ def deserialize_aws_json_1_1(data: dict) -> Source:
             data["Owner"]
         )
     else:
-        raise DeserializationError("Source.owner required")
+        import typing
+
+        out["owner"] = typing.cast("capo_config_service.types.owner.Owner", "")
     if data.get("SourceIdentifier") is not None:
         out["source_identifier"] = data["SourceIdentifier"]
     if data.get("SourceDetails") is not None:

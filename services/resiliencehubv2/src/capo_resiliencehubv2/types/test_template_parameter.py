@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.parameter_type
 
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> TestTemplateParameter:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("TestTemplateParameter.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("type") is not None:
@@ -59,11 +57,15 @@ def deserialize_json(data: dict) -> TestTemplateParameter:
             data["type"]
         )
     else:
-        raise DeserializationError("TestTemplateParameter.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_resiliencehubv2.types.parameter_type.ParameterType", ""
+        )
     if data.get("required") is not None:
         out["required"] = data["required"]
     else:
-        raise DeserializationError("TestTemplateParameter.required required")
+        out["required"] = False
     if data.get("defaultValue") is not None:
         out["default_value"] = data["defaultValue"]
     if data.get("maxValues") is not None:

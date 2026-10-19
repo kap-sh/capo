@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.security_group_id_list
 
@@ -44,13 +42,9 @@ def deserialize_json(data: dict) -> VpcRouterNetworkInterfaceConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "VpcRouterNetworkInterfaceConfiguration.security_group_ids required"
-        )
+        out["security_group_ids"] = []
     if data.get("subnetId") is not None:
         out["subnet_id"] = data["subnetId"]
     else:
-        raise DeserializationError(
-            "VpcRouterNetworkInterfaceConfiguration.subnet_id required"
-        )
+        out["subnet_id"] = ""
     return out

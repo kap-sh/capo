@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.asset_properties
     import capo_iotsitewise.types.description
@@ -53,13 +51,13 @@ def deserialize_json(data: dict) -> AssetCompositeModel:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AssetCompositeModel.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("AssetCompositeModel.type required")
+        out["type"] = ""
     if data.get("properties") is not None:
         import capo_iotsitewise.types.asset_properties
 
@@ -67,7 +65,7 @@ def deserialize_json(data: dict) -> AssetCompositeModel:
             data["properties"]
         )
     else:
-        raise DeserializationError("AssetCompositeModel.properties required")
+        out["properties"] = []
     if data.get("id") is not None:
         out["id"] = data["id"]
     if data.get("externalId") is not None:

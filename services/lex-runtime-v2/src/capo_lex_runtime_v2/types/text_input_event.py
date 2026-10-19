@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_lex_runtime_v2._protocol.eventstream import HeaderValue, Message
-from capo_lex_runtime_v2.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_lex_runtime_v2.types.epoch_millis
@@ -38,7 +37,7 @@ def deserialize_json(data: dict) -> TextInputEvent:
     if data.get("text") is not None:
         out["text"] = data["text"]
     else:
-        raise DeserializationError("TextInputEvent.text required")
+        out["text"] = ""
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     if data.get("clientTimestampMillis") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.content_quality_analysis_state
     import capo_mediaconnect.types.router_cqa_threshold_seconds
@@ -45,11 +43,14 @@ def deserialize_json(data: dict) -> BlackFramesConfiguration:
             )
         )
     else:
-        raise DeserializationError("BlackFramesConfiguration.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_mediaconnect.types.content_quality_analysis_state.ContentQualityAnalysisState",
+            "",
+        )
     if data.get("thresholdSeconds") is not None:
         out["threshold_seconds"] = data["thresholdSeconds"]
     else:
-        raise DeserializationError(
-            "BlackFramesConfiguration.threshold_seconds required"
-        )
+        out["threshold_seconds"] = 0
     return out

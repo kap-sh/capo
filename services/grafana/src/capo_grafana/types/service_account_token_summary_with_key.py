@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_grafana.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_grafana.types.service_account_token_key
 
@@ -33,15 +31,15 @@ def deserialize_json(data: dict) -> ServiceAccountTokenSummaryWithKey:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ServiceAccountTokenSummaryWithKey.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ServiceAccountTokenSummaryWithKey.name required")
+        out["name"] = ""
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("ServiceAccountTokenSummaryWithKey.key required")
+        out["key"] = ""
     return out
 
 

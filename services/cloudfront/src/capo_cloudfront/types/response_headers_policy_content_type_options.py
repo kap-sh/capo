@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.boolean
@@ -30,7 +29,5 @@ def deserialize_xml(el: Element) -> ResponseHeadersPolicyContentTypeOptions:
     if child_override is not None:
         out["override"] = (child_override.text or "").lower() == "true"
     else:
-        raise DeserializationError(
-            "ResponseHeadersPolicyContentTypeOptions.override required"
-        )
+        out["override"] = False
     return out

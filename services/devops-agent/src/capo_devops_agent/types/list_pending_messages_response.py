@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -46,13 +44,11 @@ def deserialize_json(data: dict) -> ListPendingMessagesResponse:
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError(
-            "ListPendingMessagesResponse.agent_space_id required"
-        )
+        out["agent_space_id"] = ""
     if data.get("executionId") is not None:
         out["execution_id"] = data["executionId"]
     else:
-        raise DeserializationError("ListPendingMessagesResponse.execution_id required")
+        out["execution_id"] = ""
     if data.get("messages") is not None:
         import capo_devops_agent.types.pending_messages
 
@@ -68,5 +64,7 @@ def deserialize_json(data: dict) -> ListPendingMessagesResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("ListPendingMessagesResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

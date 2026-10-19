@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_fms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fms.types.aws_account_id
     import capo_fms.types.policy_id
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetComplianceDetailRequest:
     if data.get("PolicyId") is not None:
         out["policy_id"] = data["PolicyId"]
     else:
-        raise DeserializationError("GetComplianceDetailRequest.policy_id required")
+        out["policy_id"] = ""
     if data.get("MemberAccount") is not None:
         out["member_account"] = data["MemberAccount"]
     else:
-        raise DeserializationError("GetComplianceDetailRequest.member_account required")
+        out["member_account"] = ""
     return out

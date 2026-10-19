@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.action
     import capo_iot.types.action_list
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> TopicRulePayload:
     if data.get("sql") is not None:
         out["sql"] = data["sql"]
     else:
-        raise DeserializationError("TopicRulePayload.sql required")
+        out["sql"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("actions") is not None:
@@ -65,7 +63,7 @@ def deserialize_json(data: dict) -> TopicRulePayload:
 
         out["actions"] = capo_iot.types.action_list.deserialize_json(data["actions"])
     else:
-        raise DeserializationError("TopicRulePayload.actions required")
+        out["actions"] = []
     if data.get("ruleDisabled") is not None:
         out["rule_disabled"] = data["ruleDisabled"]
     if data.get("awsIotSqlVersion") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sso_admin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_admin.types.access_control_attribute_list
 
@@ -41,7 +39,5 @@ def deserialize_aws_json_1_1(data: dict) -> InstanceAccessControlAttributeConfig
             )
         )
     else:
-        raise DeserializationError(
-            "InstanceAccessControlAttributeConfiguration.access_control_attributes required"
-        )
+        out["access_control_attributes"] = []
     return out

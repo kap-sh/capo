@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_internetmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_internetmonitor.types.health_event_status
     import capo_internetmonitor.types.internet_health
@@ -121,15 +119,15 @@ def deserialize_json(data: dict) -> ImpactedLocation:
     if data.get("ASName") is not None:
         out["as_name"] = data["ASName"]
     else:
-        raise DeserializationError("ImpactedLocation.as_name required")
+        out["as_name"] = ""
     if data.get("ASNumber") is not None:
         out["as_number"] = data["ASNumber"]
     else:
-        raise DeserializationError("ImpactedLocation.as_number required")
+        out["as_number"] = 0
     if data.get("Country") is not None:
         out["country"] = data["Country"]
     else:
-        raise DeserializationError("ImpactedLocation.country required")
+        out["country"] = ""
     if data.get("Subdivision") is not None:
         out["subdivision"] = data["Subdivision"]
     if data.get("Metro") is not None:
@@ -149,7 +147,7 @@ def deserialize_json(data: dict) -> ImpactedLocation:
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("ImpactedLocation.status required")
+        out["status"] = ""
     if data.get("CausedBy") is not None:
         import capo_internetmonitor.types.network_impairment
 

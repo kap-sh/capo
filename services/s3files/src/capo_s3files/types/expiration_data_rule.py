@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_s3files.errors import DeserializationError
-
 
 class ExpirationDataRule(TypedDict, closed=True):
     days_after_last_access: "int"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> ExpirationDataRule:
     if data.get("daysAfterLastAccess") is not None:
         out["days_after_last_access"] = data["daysAfterLastAccess"]
     else:
-        raise DeserializationError("ExpirationDataRule.days_after_last_access required")
+        out["days_after_last_access"] = 0
     return out

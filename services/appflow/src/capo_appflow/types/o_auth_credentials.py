@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.access_token
     import capo_appflow.types.client_id
@@ -54,11 +52,11 @@ def deserialize_json(data: dict) -> OAuthCredentials:
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
     else:
-        raise DeserializationError("OAuthCredentials.client_id required")
+        out["client_id"] = ""
     if data.get("clientSecret") is not None:
         out["client_secret"] = data["clientSecret"]
     else:
-        raise DeserializationError("OAuthCredentials.client_secret required")
+        out["client_secret"] = ""
     if data.get("accessToken") is not None:
         out["access_token"] = data["accessToken"]
     if data.get("refreshToken") is not None:

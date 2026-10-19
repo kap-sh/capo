@@ -104,31 +104,31 @@ def deserialize_json(data: dict) -> IdNamespaceAssociation:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("IdNamespaceAssociation.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("IdNamespaceAssociation.arn required")
+        out["arn"] = ""
     if data.get("membershipId") is not None:
         out["membership_id"] = data["membershipId"]
     else:
-        raise DeserializationError("IdNamespaceAssociation.membership_id required")
+        out["membership_id"] = ""
     if data.get("membershipArn") is not None:
         out["membership_arn"] = data["membershipArn"]
     else:
-        raise DeserializationError("IdNamespaceAssociation.membership_arn required")
+        out["membership_arn"] = ""
     if data.get("collaborationId") is not None:
         out["collaboration_id"] = data["collaborationId"]
     else:
-        raise DeserializationError("IdNamespaceAssociation.collaboration_id required")
+        out["collaboration_id"] = ""
     if data.get("collaborationArn") is not None:
         out["collaboration_arn"] = data["collaborationArn"]
     else:
-        raise DeserializationError("IdNamespaceAssociation.collaboration_arn required")
+        out["collaboration_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("IdNamespaceAssociation.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("createTime") is not None:
@@ -138,7 +138,11 @@ def deserialize_json(data: dict) -> IdNamespaceAssociation:
             data["createTime"]
         )
     else:
-        raise DeserializationError("IdNamespaceAssociation.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -146,7 +150,11 @@ def deserialize_json(data: dict) -> IdNamespaceAssociation:
             data["updateTime"]
         )
     else:
-        raise DeserializationError("IdNamespaceAssociation.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("inputReferenceConfig") is not None:
         import capo_cleanrooms.types.id_namespace_association_input_reference_config
 

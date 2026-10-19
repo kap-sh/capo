@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_waf_regional.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf_regional.types.change_token
     import capo_waf_regional.types.ip_set_updates
@@ -39,11 +37,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateIPSetRequest:
     if data.get("IPSetId") is not None:
         out["ip_set_id"] = data["IPSetId"]
     else:
-        raise DeserializationError("UpdateIPSetRequest.ip_set_id required")
+        out["ip_set_id"] = ""
     if data.get("ChangeToken") is not None:
         out["change_token"] = data["ChangeToken"]
     else:
-        raise DeserializationError("UpdateIPSetRequest.change_token required")
+        out["change_token"] = ""
     if data.get("Updates") is not None:
         import capo_waf_regional.types.ip_set_updates
 
@@ -53,5 +51,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateIPSetRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateIPSetRequest.updates required")
+        out["updates"] = []
     return out

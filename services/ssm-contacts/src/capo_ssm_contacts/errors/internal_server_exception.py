@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError, ServiceError
+from capo_ssm_contacts.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.retry_after_seconds
@@ -31,7 +31,7 @@ def deserialize_aws_json_1_1(data: dict) -> InternalServerException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("InternalServerException_.message required")
+        out["message"] = ""
     if data.get("RetryAfterSeconds") is not None:
         out["retry_after_seconds"] = data["RetryAfterSeconds"]
     else:

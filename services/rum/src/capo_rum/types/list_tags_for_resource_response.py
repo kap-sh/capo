@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rum.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rum.types.arn
     import capo_rum.types.tag_map
@@ -33,11 +31,11 @@ def deserialize_json(data: dict) -> ListTagsForResourceResponse:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("ListTagsForResourceResponse.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("Tags") is not None:
         import capo_rum.types.tag_map
 
         out["tags"] = capo_rum.types.tag_map.deserialize_json(data["Tags"])
     else:
-        raise DeserializationError("ListTagsForResourceResponse.tags required")
+        out["tags"] = {}
     return out

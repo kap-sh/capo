@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.chat_response_configuration_arn
     import capo_qbusiness.types.chat_response_configuration_id
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> CreateChatResponseConfigurationResponse:
     if data.get("chatResponseConfigurationId") is not None:
         out["chat_response_configuration_id"] = data["chatResponseConfigurationId"]
     else:
-        raise DeserializationError(
-            "CreateChatResponseConfigurationResponse.chat_response_configuration_id required"
-        )
+        out["chat_response_configuration_id"] = ""
     if data.get("chatResponseConfigurationArn") is not None:
         out["chat_response_configuration_arn"] = data["chatResponseConfigurationArn"]
     else:
-        raise DeserializationError(
-            "CreateChatResponseConfigurationResponse.chat_response_configuration_arn required"
-        )
+        out["chat_response_configuration_arn"] = ""
     return out

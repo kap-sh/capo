@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.content_blocks
     import capo_bedrock_agent_runtime.types.conversation_role
@@ -45,7 +43,11 @@ def deserialize_json(data: dict) -> Message:
             )
         )
     else:
-        raise DeserializationError("Message.role required")
+        import typing
+
+        out["role"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.conversation_role.ConversationRole", ""
+        )
     if data.get("content") is not None:
         import capo_bedrock_agent_runtime.types.content_blocks
 
@@ -55,7 +57,7 @@ def deserialize_json(data: dict) -> Message:
             )
         )
     else:
-        raise DeserializationError("Message.content required")
+        out["content"] = []
     return out
 
 

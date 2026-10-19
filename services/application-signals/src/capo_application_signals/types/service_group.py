@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.group_identifier
     import capo_application_signals.types.group_name
@@ -39,17 +37,17 @@ def deserialize_json(data: dict) -> ServiceGroup:
     if data.get("GroupName") is not None:
         out["group_name"] = data["GroupName"]
     else:
-        raise DeserializationError("ServiceGroup.group_name required")
+        out["group_name"] = ""
     if data.get("GroupValue") is not None:
         out["group_value"] = data["GroupValue"]
     else:
-        raise DeserializationError("ServiceGroup.group_value required")
+        out["group_value"] = ""
     if data.get("GroupSource") is not None:
         out["group_source"] = data["GroupSource"]
     else:
-        raise DeserializationError("ServiceGroup.group_source required")
+        out["group_source"] = ""
     if data.get("GroupIdentifier") is not None:
         out["group_identifier"] = data["GroupIdentifier"]
     else:
-        raise DeserializationError("ServiceGroup.group_identifier required")
+        out["group_identifier"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics.types.application_code
     import capo_kinesis_analytics.types.application_description
@@ -138,13 +136,13 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationDetail:
     if data.get("ApplicationName") is not None:
         out["application_name"] = data["ApplicationName"]
     else:
-        raise DeserializationError("ApplicationDetail.application_name required")
+        out["application_name"] = ""
     if data.get("ApplicationDescription") is not None:
         out["application_description"] = data["ApplicationDescription"]
     if data.get("ApplicationARN") is not None:
         out["application_arn"] = data["ApplicationARN"]
     else:
-        raise DeserializationError("ApplicationDetail.application_arn required")
+        out["application_arn"] = ""
     if data.get("ApplicationStatus") is not None:
         import capo_kinesis_analytics.types.application_status
 
@@ -154,7 +152,11 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationDetail:
             )
         )
     else:
-        raise DeserializationError("ApplicationDetail.application_status required")
+        import typing
+
+        out["application_status"] = typing.cast(
+            "capo_kinesis_analytics.types.application_status.ApplicationStatus", ""
+        )
     if data.get("CreateTimestamp") is not None:
         import capo_kinesis_analytics.types.timestamp
 
@@ -208,5 +210,5 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationDetail:
     if data.get("ApplicationVersionId") is not None:
         out["application_version_id"] = data["ApplicationVersionId"]
     else:
-        raise DeserializationError("ApplicationDetail.application_version_id required")
+        out["application_version_id"] = 0
     return out

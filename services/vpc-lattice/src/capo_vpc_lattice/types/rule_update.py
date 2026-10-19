@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.rule_action
     import capo_vpc_lattice.types.rule_identifier
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> RuleUpdate:
     if data.get("ruleIdentifier") is not None:
         out["rule_identifier"] = data["ruleIdentifier"]
     else:
-        raise DeserializationError("RuleUpdate.rule_identifier required")
+        out["rule_identifier"] = ""
     if data.get("match") is not None:
         import capo_vpc_lattice.types.rule_match
 

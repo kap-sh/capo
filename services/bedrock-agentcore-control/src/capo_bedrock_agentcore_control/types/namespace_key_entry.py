@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.namespace_key_validation
     import capo_bedrock_agentcore_control.types.namespace_variable_key
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> NamespaceKeyEntry:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("NamespaceKeyEntry.key required")
+        out["key"] = ""
     if data.get("validation") is not None:
         import capo_bedrock_agentcore_control.types.namespace_key_validation
 

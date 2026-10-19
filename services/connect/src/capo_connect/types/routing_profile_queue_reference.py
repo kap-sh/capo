@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.channel
     import capo_connect.types.queue_id
@@ -33,11 +31,13 @@ def deserialize_json(data: dict) -> RoutingProfileQueueReference:
     if data.get("QueueId") is not None:
         out["queue_id"] = data["QueueId"]
     else:
-        raise DeserializationError("RoutingProfileQueueReference.queue_id required")
+        out["queue_id"] = ""
     if data.get("Channel") is not None:
         import capo_connect.types.channel
 
         out["channel"] = capo_connect.types.channel.deserialize_json(data["Channel"])
     else:
-        raise DeserializationError("RoutingProfileQueueReference.channel required")
+        import typing
+
+        out["channel"] = typing.cast("capo_connect.types.channel.Channel", "")
     return out

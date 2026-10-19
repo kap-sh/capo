@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.arn
     import capo_iotfleetwise.types.description
@@ -45,13 +43,13 @@ def deserialize_aws_json_1_0(data: dict) -> CreateFleetRequest:
     if data.get("fleetId") is not None:
         out["fleet_id"] = data["fleetId"]
     else:
-        raise DeserializationError("CreateFleetRequest.fleet_id required")
+        out["fleet_id"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("signalCatalogArn") is not None:
         out["signal_catalog_arn"] = data["signalCatalogArn"]
     else:
-        raise DeserializationError("CreateFleetRequest.signal_catalog_arn required")
+        out["signal_catalog_arn"] = ""
     if data.get("tags") is not None:
         import capo_iotfleetwise.types.tag_list
 

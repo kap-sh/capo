@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ivs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs.types.playback_key_pair_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> GetPlaybackKeyPairRequest:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetPlaybackKeyPairRequest.arn required")
+        out["arn"] = ""
     return out

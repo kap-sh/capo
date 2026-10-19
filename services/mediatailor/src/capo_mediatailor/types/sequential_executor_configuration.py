@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__integer
     import capo_mediatailor.types.__list_of_functions_ref
@@ -56,7 +54,11 @@ def deserialize_json(data: dict) -> SequentialExecutorConfiguration:
             data["Runtime"]
         )
     else:
-        raise DeserializationError("SequentialExecutorConfiguration.runtime required")
+        import typing
+
+        out["runtime"] = typing.cast(
+            "capo_mediatailor.types.runtime_type.RuntimeType", ""
+        )
     if data.get("Output") is not None:
         import capo_mediatailor.types.__map_of__string
 
@@ -72,13 +74,9 @@ def deserialize_json(data: dict) -> SequentialExecutorConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "SequentialExecutorConfiguration.function_list required"
-        )
+        out["function_list"] = []
     if data.get("TimeoutMilliseconds") is not None:
         out["timeout_milliseconds"] = data["TimeoutMilliseconds"]
     else:
-        raise DeserializationError(
-            "SequentialExecutorConfiguration.timeout_milliseconds required"
-        )
+        out["timeout_milliseconds"] = 0
     return out

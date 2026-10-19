@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_fms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fms.types.third_party_firewall
 
@@ -39,7 +37,9 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateThirdPartyFirewallRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "AssociateThirdPartyFirewallRequest.third_party_firewall required"
+        import typing
+
+        out["third_party_firewall"] = typing.cast(
+            "capo_fms.types.third_party_firewall.ThirdPartyFirewall", ""
         )
     return out

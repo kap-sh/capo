@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.global_endpoint_token_version
@@ -46,7 +45,10 @@ def deserialize_query(el: Element) -> SetSecurityTokenServicePreferencesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "SetSecurityTokenServicePreferencesRequest.global_endpoint_token_version required"
+        import typing
+
+        out["global_endpoint_token_version"] = typing.cast(
+            "capo_iam.types.global_endpoint_token_version.globalEndpointTokenVersion",
+            "",
         )
     return out

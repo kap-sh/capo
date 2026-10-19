@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.alert_filter_criteria
     import capo_cloudwatchomni.types.alert_sort_field
@@ -67,7 +65,7 @@ def deserialize_cbor(data: dict) -> ListAlertsInput:
     if data.get("spaceId") is not None:
         out["space_id"] = data["spaceId"]
     else:
-        raise DeserializationError("ListAlertsInput.space_id required")
+        out["space_id"] = ""
     if data.get("filterCriteria") is not None:
         import capo_cloudwatchomni.types.alert_filter_criteria
 

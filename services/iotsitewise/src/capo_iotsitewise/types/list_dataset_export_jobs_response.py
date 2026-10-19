@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.export_job_summary_list
     import capo_iotsitewise.types.list_export_jobs_next_token
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> ListDatasetExportJobsResponse:
             data["jobs"]
         )
     else:
-        raise DeserializationError("ListDatasetExportJobsResponse.jobs required")
+        out["jobs"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

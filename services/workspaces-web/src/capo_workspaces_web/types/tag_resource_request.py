@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.arn
     import capo_workspaces_web.types.client_token
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> TagResourceRequest:
 
         out["tags"] = capo_workspaces_web.types.tag_list.deserialize_json(data["tags"])
     else:
-        raise DeserializationError("TagResourceRequest.tags required")
+        out["tags"] = []
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

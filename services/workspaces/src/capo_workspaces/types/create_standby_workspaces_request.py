@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.region
     import capo_workspaces.types.standby_workspaces_list
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateStandbyWorkspacesRequest:
     if data.get("PrimaryRegion") is not None:
         out["primary_region"] = data["PrimaryRegion"]
     else:
-        raise DeserializationError(
-            "CreateStandbyWorkspacesRequest.primary_region required"
-        )
+        out["primary_region"] = ""
     if data.get("StandbyWorkspaces") is not None:
         import capo_workspaces.types.standby_workspaces_list
 
@@ -51,7 +47,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreateStandbyWorkspacesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateStandbyWorkspacesRequest.standby_workspaces required"
-        )
+        out["standby_workspaces"] = []
     return out

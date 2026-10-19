@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sso_admin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_admin.types.application_name_type
     import capo_sso_admin.types.application_provider_arn
@@ -76,17 +74,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateApplicationRequest:
     if data.get("InstanceArn") is not None:
         out["instance_arn"] = data["InstanceArn"]
     else:
-        raise DeserializationError("CreateApplicationRequest.instance_arn required")
+        out["instance_arn"] = ""
     if data.get("ApplicationProviderArn") is not None:
         out["application_provider_arn"] = data["ApplicationProviderArn"]
     else:
-        raise DeserializationError(
-            "CreateApplicationRequest.application_provider_arn required"
-        )
+        out["application_provider_arn"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateApplicationRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("PortalOptions") is not None:

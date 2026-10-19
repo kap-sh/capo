@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.account_id
@@ -60,9 +59,9 @@ def deserialize_xml(el: Element) -> UpdateObjectEncryptionRequest:
             child_object_encryption
         )
     else:
-        raise DeserializationError(
-            "UpdateObjectEncryptionRequest.object_encryption required"
-        )
+        import capo_s3.types._unknown
+
+        out["object_encryption"] = capo_s3.types._unknown.UnknownUnionMember("")
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.api_token
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> DynatraceConnectorProfileCredentials:
     if data.get("apiToken") is not None:
         out["api_token"] = data["apiToken"]
     else:
-        raise DeserializationError(
-            "DynatraceConnectorProfileCredentials.api_token required"
-        )
+        out["api_token"] = ""
     return out

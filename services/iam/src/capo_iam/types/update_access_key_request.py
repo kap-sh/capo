@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.access_key_id_type
@@ -48,12 +47,14 @@ def deserialize_query(el: Element) -> UpdateAccessKeyRequest:
     if child_access_key_id is not None:
         out["access_key_id"] = str(child_access_key_id.text or "")
     else:
-        raise DeserializationError("UpdateAccessKeyRequest.access_key_id required")
+        out["access_key_id"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         import capo_iam.types.status_type
 
         out["status"] = capo_iam.types.status_type.deserialize_query(child_status)
     else:
-        raise DeserializationError("UpdateAccessKeyRequest.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_iam.types.status_type.statusType", "")
     return out

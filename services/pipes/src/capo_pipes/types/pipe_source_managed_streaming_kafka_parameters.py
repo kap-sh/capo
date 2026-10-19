@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pipes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pipes.types.kafka_topic_name
     import capo_pipes.types.limit_max10000
@@ -64,9 +62,7 @@ def deserialize_json(data: dict) -> PipeSourceManagedStreamingKafkaParameters:
     if data.get("TopicName") is not None:
         out["topic_name"] = data["TopicName"]
     else:
-        raise DeserializationError(
-            "PipeSourceManagedStreamingKafkaParameters.topic_name required"
-        )
+        out["topic_name"] = ""
     if data.get("StartingPosition") is not None:
         out["starting_position"] = data["StartingPosition"]
     if data.get("BatchSize") is not None:

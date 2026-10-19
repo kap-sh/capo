@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_keyspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_keyspaces.types.keyspace_name
     import capo_keyspaces.types.max_results
@@ -41,5 +39,5 @@ def deserialize_aws_json_1_0(data: dict) -> ListTypesRequest:
     if data.get("keyspaceName") is not None:
         out["keyspace_name"] = data["keyspaceName"]
     else:
-        raise DeserializationError("ListTypesRequest.keyspace_name required")
+        out["keyspace_name"] = ""
     return out

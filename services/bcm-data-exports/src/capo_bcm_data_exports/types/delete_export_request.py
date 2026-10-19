@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bcm_data_exports.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_data_exports.types.arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteExportRequest:
     if data.get("ExportArn") is not None:
         out["export_arn"] = data["ExportArn"]
     else:
-        raise DeserializationError("DeleteExportRequest.export_arn required")
+        out["export_arn"] = ""
     return out

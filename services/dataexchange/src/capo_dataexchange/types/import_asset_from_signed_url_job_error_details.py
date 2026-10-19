@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.asset_name
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> ImportAssetFromSignedUrlJobErrorDetails:
     if data.get("AssetName") is not None:
         out["asset_name"] = data["AssetName"]
     else:
-        raise DeserializationError(
-            "ImportAssetFromSignedUrlJobErrorDetails.asset_name required"
-        )
+        out["asset_name"] = ""
     return out

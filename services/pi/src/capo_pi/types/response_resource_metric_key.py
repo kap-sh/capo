@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pi.types.dimension_map
     import capo_pi.types.string
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> ResponseResourceMetricKey:
     if data.get("Metric") is not None:
         out["metric"] = data["Metric"]
     else:
-        raise DeserializationError("ResponseResourceMetricKey.metric required")
+        out["metric"] = ""
     if data.get("Dimensions") is not None:
         import capo_pi.types.dimension_map
 

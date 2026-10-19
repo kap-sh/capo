@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.group_name_type
     import capo_cognito_identity_provider.types.user_pool_id_type
@@ -37,19 +35,15 @@ def deserialize_aws_json_1_1(data: dict) -> AdminRemoveUserFromGroupRequest:
     if data.get("UserPoolId") is not None:
         out["user_pool_id"] = data["UserPoolId"]
     else:
-        raise DeserializationError(
-            "AdminRemoveUserFromGroupRequest.user_pool_id required"
-        )
+        out["user_pool_id"] = ""
     if data.get("Username") is not None:
         out["username"] = data["Username"]
     else:
-        raise DeserializationError("AdminRemoveUserFromGroupRequest.username required")
+        out["username"] = ""
     if data.get("GroupName") is not None:
         out["group_name"] = data["GroupName"]
     else:
-        raise DeserializationError(
-            "AdminRemoveUserFromGroupRequest.group_name required"
-        )
+        out["group_name"] = ""
     return out
 
 

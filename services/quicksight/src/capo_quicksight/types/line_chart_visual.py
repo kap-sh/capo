@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.column_hierarchy_list
     import capo_quicksight.types.line_chart_configuration
@@ -97,7 +95,7 @@ def deserialize_json(data: dict) -> LineChartVisual:
     if data.get("VisualId") is not None:
         out["visual_id"] = data["VisualId"]
     else:
-        raise DeserializationError("LineChartVisual.visual_id required")
+        out["visual_id"] = ""
     if data.get("Title") is not None:
         import capo_quicksight.types.visual_title_label_options
 

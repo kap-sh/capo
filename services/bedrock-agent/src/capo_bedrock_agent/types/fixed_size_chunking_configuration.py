@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 
 class FixedSizeChunkingConfiguration(TypedDict, closed=True):
     max_tokens: "int"
@@ -25,11 +23,9 @@ def deserialize_json(data: dict) -> FixedSizeChunkingConfiguration:
     if data.get("maxTokens") is not None:
         out["max_tokens"] = data["maxTokens"]
     else:
-        raise DeserializationError("FixedSizeChunkingConfiguration.max_tokens required")
+        out["max_tokens"] = 0
     if data.get("overlapPercentage") is not None:
         out["overlap_percentage"] = data["overlapPercentage"]
     else:
-        raise DeserializationError(
-            "FixedSizeChunkingConfiguration.overlap_percentage required"
-        )
+        out["overlap_percentage"] = 0
     return out

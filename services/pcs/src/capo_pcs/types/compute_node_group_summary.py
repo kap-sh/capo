@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pcs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -56,19 +54,19 @@ def deserialize_aws_json_1_0(data: dict) -> ComputeNodeGroupSummary:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ComputeNodeGroupSummary.name required")
+        out["name"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ComputeNodeGroupSummary.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ComputeNodeGroupSummary.arn required")
+        out["arn"] = ""
     if data.get("clusterId") is not None:
         out["cluster_id"] = data["clusterId"]
     else:
-        raise DeserializationError("ComputeNodeGroupSummary.cluster_id required")
+        out["cluster_id"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -76,7 +74,9 @@ def deserialize_aws_json_1_0(data: dict) -> ComputeNodeGroupSummary:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("ComputeNodeGroupSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("modifiedAt") is not None:
         import datetime
 
@@ -84,7 +84,11 @@ def deserialize_aws_json_1_0(data: dict) -> ComputeNodeGroupSummary:
             data["modifiedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("ComputeNodeGroupSummary.modified_at required")
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("status") is not None:
         import capo_pcs.types.compute_node_group_status
 
@@ -94,5 +98,9 @@ def deserialize_aws_json_1_0(data: dict) -> ComputeNodeGroupSummary:
             )
         )
     else:
-        raise DeserializationError("ComputeNodeGroupSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_pcs.types.compute_node_group_status.ComputeNodeGroupStatus", ""
+        )
     return out

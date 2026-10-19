@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.logs_config_status_type
     import capo_codebuild.types.string
@@ -46,7 +44,11 @@ def deserialize_aws_json_1_1(data: dict) -> CloudWatchLogsConfig:
             )
         )
     else:
-        raise DeserializationError("CloudWatchLogsConfig.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_codebuild.types.logs_config_status_type.LogsConfigStatusType", ""
+        )
     if data.get("groupName") is not None:
         out["group_name"] = data["groupName"]
     if data.get("streamName") is not None:

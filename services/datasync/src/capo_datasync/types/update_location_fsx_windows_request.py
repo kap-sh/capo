@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.cmk_secret_config
     import capo_datasync.types.custom_secret_config
@@ -75,9 +73,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLocationFsxWindowsRequest:
     if data.get("LocationArn") is not None:
         out["location_arn"] = data["LocationArn"]
     else:
-        raise DeserializationError(
-            "UpdateLocationFsxWindowsRequest.location_arn required"
-        )
+        out["location_arn"] = ""
     if data.get("Subdirectory") is not None:
         out["subdirectory"] = data["Subdirectory"]
     if data.get("Domain") is not None:

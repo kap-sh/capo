@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_security_ir.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -136,7 +134,7 @@ def deserialize_json(data: dict) -> GetMembershipResponse:
     if data.get("membershipId") is not None:
         out["membership_id"] = data["membershipId"]
     else:
-        raise DeserializationError("GetMembershipResponse.membership_id required")
+        out["membership_id"] = ""
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     if data.get("region") is not None:

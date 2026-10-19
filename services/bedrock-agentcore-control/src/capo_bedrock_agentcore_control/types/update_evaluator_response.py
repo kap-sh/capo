@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -52,11 +50,11 @@ def deserialize_json(data: dict) -> UpdateEvaluatorResponse:
     if data.get("evaluatorArn") is not None:
         out["evaluator_arn"] = data["evaluatorArn"]
     else:
-        raise DeserializationError("UpdateEvaluatorResponse.evaluator_arn required")
+        out["evaluator_arn"] = ""
     if data.get("evaluatorId") is not None:
         out["evaluator_id"] = data["evaluatorId"]
     else:
-        raise DeserializationError("UpdateEvaluatorResponse.evaluator_id required")
+        out["evaluator_id"] = ""
     if data.get("updatedAt") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
 
@@ -66,7 +64,9 @@ def deserialize_json(data: dict) -> UpdateEvaluatorResponse:
             )
         )
     else:
-        raise DeserializationError("UpdateEvaluatorResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.evaluator_status
 
@@ -76,5 +76,9 @@ def deserialize_json(data: dict) -> UpdateEvaluatorResponse:
             )
         )
     else:
-        raise DeserializationError("UpdateEvaluatorResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.evaluator_status.EvaluatorStatus", ""
+        )
     return out

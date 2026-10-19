@@ -56,11 +56,11 @@ def deserialize_json(data: dict) -> TrafficSplitEntry:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("TrafficSplitEntry.name required")
+        out["name"] = ""
     if data.get("weight") is not None:
         out["weight"] = data["weight"]
     else:
-        raise DeserializationError("TrafficSplitEntry.weight required")
+        out["weight"] = 0
     if data.get("configurationBundle") is not None:
         import capo_bedrock_agentcore_control.types.configuration_bundle_reference
 

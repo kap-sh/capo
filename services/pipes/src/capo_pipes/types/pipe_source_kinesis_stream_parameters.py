@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pipes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pipes.types.dead_letter_config
     import capo_pipes.types.kinesis_stream_start_position
@@ -111,9 +109,7 @@ def deserialize_json(data: dict) -> PipeSourceKinesisStreamParameters:
     if data.get("StartingPosition") is not None:
         out["starting_position"] = data["StartingPosition"]
     else:
-        raise DeserializationError(
-            "PipeSourceKinesisStreamParameters.starting_position required"
-        )
+        out["starting_position"] = ""
     if data.get("StartingPositionTimestamp") is not None:
         import capo_pipes.types.timestamp
 

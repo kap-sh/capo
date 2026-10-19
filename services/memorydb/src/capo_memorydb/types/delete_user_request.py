@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_memorydb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_memorydb.types.user_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteUserRequest:
     if data.get("UserName") is not None:
         out["user_name"] = data["UserName"]
     else:
-        raise DeserializationError("DeleteUserRequest.user_name required")
+        out["user_name"] = ""
     return out

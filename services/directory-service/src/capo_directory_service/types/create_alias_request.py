@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.alias_name
     import capo_directory_service.types.directory_id
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAliasRequest:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError("CreateAliasRequest.directory_id required")
+        out["directory_id"] = ""
     if data.get("Alias") is not None:
         out["alias"] = data["Alias"]
     else:
-        raise DeserializationError("CreateAliasRequest.alias required")
+        out["alias"] = ""
     return out

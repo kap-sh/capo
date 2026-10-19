@@ -63,21 +63,21 @@ def deserialize_aws_json_1_0(data: dict) -> HistoricalUsageEntity:
     if data.get("serviceCode") is not None:
         out["service_code"] = data["serviceCode"]
     else:
-        raise DeserializationError("HistoricalUsageEntity.service_code required")
+        out["service_code"] = ""
     if data.get("usageType") is not None:
         out["usage_type"] = data["usageType"]
     else:
-        raise DeserializationError("HistoricalUsageEntity.usage_type required")
+        out["usage_type"] = ""
     if data.get("operation") is not None:
         out["operation"] = data["operation"]
     else:
-        raise DeserializationError("HistoricalUsageEntity.operation required")
+        out["operation"] = ""
     if data.get("location") is not None:
         out["location"] = data["location"]
     if data.get("usageAccountId") is not None:
         out["usage_account_id"] = data["usageAccountId"]
     else:
-        raise DeserializationError("HistoricalUsageEntity.usage_account_id required")
+        out["usage_account_id"] = ""
     if data.get("billInterval") is not None:
         import capo_bcm_pricing_calculator.types.bill_interval
 

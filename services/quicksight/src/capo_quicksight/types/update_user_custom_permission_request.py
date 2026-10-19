@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.custom_permissions_name
@@ -38,7 +36,5 @@ def deserialize_json(data: dict) -> UpdateUserCustomPermissionRequest:
     if data.get("CustomPermissionsName") is not None:
         out["custom_permissions_name"] = data["CustomPermissionsName"]
     else:
-        raise DeserializationError(
-            "UpdateUserCustomPermissionRequest.custom_permissions_name required"
-        )
+        out["custom_permissions_name"] = ""
     return out

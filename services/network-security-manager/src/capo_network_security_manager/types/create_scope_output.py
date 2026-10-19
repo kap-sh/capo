@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.date_timestamp
     import capo_network_security_manager.types.description
@@ -101,15 +99,15 @@ def deserialize_json(data: dict) -> CreateScopeOutput:
     if data.get("scopeId") is not None:
         out["scope_id"] = data["scopeId"]
     else:
-        raise DeserializationError("CreateScopeOutput.scope_id required")
+        out["scope_id"] = ""
     if data.get("scopeArn") is not None:
         out["scope_arn"] = data["scopeArn"]
     else:
-        raise DeserializationError("CreateScopeOutput.scope_arn required")
+        out["scope_arn"] = ""
     if data.get("scopeName") is not None:
         out["scope_name"] = data["scopeName"]
     else:
-        raise DeserializationError("CreateScopeOutput.scope_name required")
+        out["scope_name"] = ""
     if data.get("scopeDescription") is not None:
         out["scope_description"] = data["scopeDescription"]
     if data.get("scopeConfiguration") is not None:
@@ -129,11 +127,15 @@ def deserialize_json(data: dict) -> CreateScopeOutput:
             )
         )
     else:
-        raise DeserializationError("CreateScopeOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_network_security_manager.types.entity_status.EntityStatus", ""
+        )
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("CreateScopeOutput.version required")
+        out["version"] = ""
     if data.get("updateToken") is not None:
         out["update_token"] = data["updateToken"]
     if data.get("isSnapshot") is not None:

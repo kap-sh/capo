@@ -39,11 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> OnPremiseConfiguration:
     if data.get("HostUrl") is not None:
         out["host_url"] = data["HostUrl"]
     else:
-        raise DeserializationError("OnPremiseConfiguration.host_url required")
+        out["host_url"] = ""
     if data.get("OrganizationName") is not None:
         out["organization_name"] = data["OrganizationName"]
     else:
-        raise DeserializationError("OnPremiseConfiguration.organization_name required")
+        out["organization_name"] = ""
     if data.get("SslCertificateS3Path") is not None:
         import capo_kendra.types.s3_path
 

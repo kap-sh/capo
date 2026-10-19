@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.setting_name
     import capo_ecs.types.string
@@ -35,9 +33,11 @@ def deserialize_aws_json_1_1(data: dict) -> PutAccountSettingDefaultRequest:
 
         out["name"] = capo_ecs.types.setting_name.deserialize_aws_json_1_1(data["name"])
     else:
-        raise DeserializationError("PutAccountSettingDefaultRequest.name required")
+        import typing
+
+        out["name"] = typing.cast("capo_ecs.types.setting_name.SettingName", "")
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("PutAccountSettingDefaultRequest.value required")
+        out["value"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs_realtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.ingest_configuration_name
     import capo_ivs_realtime.types.ingest_configuration_stage_arn
@@ -104,8 +102,10 @@ def deserialize_json(data: dict) -> CreateIngestConfigurationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateIngestConfigurationRequest.ingest_protocol required"
+        import typing
+
+        out["ingest_protocol"] = typing.cast(
+            "capo_ivs_realtime.types.ingest_protocol.IngestProtocol", ""
         )
     if data.get("insecureIngest") is not None:
         out["insecure_ingest"] = data["insecureIngest"]

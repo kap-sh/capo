@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.mime_type
     import capo_workspaces_web.types.string_type
@@ -47,11 +45,15 @@ def deserialize_json(data: dict) -> ImageMetadata:
             data["mimeType"]
         )
     else:
-        raise DeserializationError("ImageMetadata.mime_type required")
+        import typing
+
+        out["mime_type"] = typing.cast(
+            "capo_workspaces_web.types.mime_type.MimeType", ""
+        )
     if data.get("fileExtension") is not None:
         out["file_extension"] = data["fileExtension"]
     else:
-        raise DeserializationError("ImageMetadata.file_extension required")
+        out["file_extension"] = ""
     if data.get("lastUploadTimestamp") is not None:
         import capo_workspaces_web.types.timestamp
 
@@ -61,5 +63,9 @@ def deserialize_json(data: dict) -> ImageMetadata:
             )
         )
     else:
-        raise DeserializationError("ImageMetadata.last_upload_timestamp required")
+        import datetime
+
+        out["last_upload_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

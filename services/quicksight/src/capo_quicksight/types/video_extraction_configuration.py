@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.video_extraction_status
     import capo_quicksight.types.video_extraction_type
@@ -54,8 +52,10 @@ def deserialize_json(data: dict) -> VideoExtractionConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "VideoExtractionConfiguration.video_extraction_status required"
+        import typing
+
+        out["video_extraction_status"] = typing.cast(
+            "capo_quicksight.types.video_extraction_status.VideoExtractionStatus", ""
         )
     if data.get("videoExtractionType") is not None:
         import capo_quicksight.types.video_extraction_type

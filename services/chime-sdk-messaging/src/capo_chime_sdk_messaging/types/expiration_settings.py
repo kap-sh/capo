@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_messaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_messaging.types.expiration_criterion
     import capo_chime_sdk_messaging.types.expiration_days
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> ExpirationSettings:
     if data.get("ExpirationDays") is not None:
         out["expiration_days"] = data["ExpirationDays"]
     else:
-        raise DeserializationError("ExpirationSettings.expiration_days required")
+        out["expiration_days"] = 0
     if data.get("ExpirationCriterion") is not None:
         import capo_chime_sdk_messaging.types.expiration_criterion
 
@@ -49,5 +47,10 @@ def deserialize_json(data: dict) -> ExpirationSettings:
             )
         )
     else:
-        raise DeserializationError("ExpirationSettings.expiration_criterion required")
+        import typing
+
+        out["expiration_criterion"] = typing.cast(
+            "capo_chime_sdk_messaging.types.expiration_criterion.ExpirationCriterion",
+            "",
+        )
     return out

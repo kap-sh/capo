@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 
 class RelatedItemEventIncludedData(TypedDict, closed=True):
     include_content: "bool"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> RelatedItemEventIncludedData:
     if data.get("includeContent") is not None:
         out["include_content"] = data["includeContent"]
     else:
-        raise DeserializationError(
-            "RelatedItemEventIncludedData.include_content required"
-        )
+        out["include_content"] = False
     return out

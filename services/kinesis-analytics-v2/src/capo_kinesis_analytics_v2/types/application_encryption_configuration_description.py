@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.key_id
     import capo_kinesis_analytics_v2.types.key_type
@@ -48,7 +46,9 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "ApplicationEncryptionConfigurationDescription.key_type required"
+        import typing
+
+        out["key_type"] = typing.cast(
+            "capo_kinesis_analytics_v2.types.key_type.KeyType", ""
         )
     return out

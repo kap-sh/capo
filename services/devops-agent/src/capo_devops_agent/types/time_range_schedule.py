@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.recurrence
     import capo_devops_agent.types.time_of_day
@@ -38,11 +36,11 @@ def deserialize_json(data: dict) -> TimeRangeSchedule:
     if data.get("startAfter") is not None:
         out["start_after"] = data["startAfter"]
     else:
-        raise DeserializationError("TimeRangeSchedule.start_after required")
+        out["start_after"] = ""
     if data.get("startBefore") is not None:
         out["start_before"] = data["startBefore"]
     else:
-        raise DeserializationError("TimeRangeSchedule.start_before required")
+        out["start_before"] = ""
     if data.get("recurrence") is not None:
         import capo_devops_agent.types.recurrence
 
@@ -50,5 +48,7 @@ def deserialize_json(data: dict) -> TimeRangeSchedule:
             data["recurrence"]
         )
     else:
-        raise DeserializationError("TimeRangeSchedule.recurrence required")
+        import capo_devops_agent.types._unknown
+
+        out["recurrence"] = capo_devops_agent.types._unknown.UnknownUnionMember("")
     return out

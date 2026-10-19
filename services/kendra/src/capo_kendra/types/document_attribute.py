@@ -35,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentAttribute:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("DocumentAttribute.key required")
+        out["key"] = ""
     if data.get("Value") is not None:
         import capo_kendra.types.document_attribute_value
 

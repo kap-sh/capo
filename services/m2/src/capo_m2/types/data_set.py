@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> DataSet:
     if data.get("datasetName") is not None:
         out["dataset_name"] = data["datasetName"]
     else:
-        raise DeserializationError("DataSet.dataset_name required")
+        out["dataset_name"] = ""
     if data.get("datasetOrg") is not None:
         import capo_m2.types.dataset_org_attributes
 
@@ -60,7 +60,9 @@ def deserialize_json(data: dict) -> DataSet:
             data["datasetOrg"]
         )
     else:
-        raise DeserializationError("DataSet.dataset_org required")
+        import capo_m2.types._unknown
+
+        out["dataset_org"] = capo_m2.types._unknown.UnknownUnionMember("")
     if data.get("relativePath") is not None:
         out["relative_path"] = data["relativePath"]
     if data.get("recordLength") is not None:

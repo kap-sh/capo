@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_simpledbv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_simpledbv2.types.domain_name
     import capo_simpledbv2.types.export_arn
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> ExportSummary:
     if data.get("exportArn") is not None:
         out["export_arn"] = data["exportArn"]
     else:
-        raise DeserializationError("ExportSummary.export_arn required")
+        out["export_arn"] = ""
     if data.get("exportStatus") is not None:
         import capo_simpledbv2.types.export_status
 
@@ -55,7 +53,11 @@ def deserialize_json(data: dict) -> ExportSummary:
             data["exportStatus"]
         )
     else:
-        raise DeserializationError("ExportSummary.export_status required")
+        import typing
+
+        out["export_status"] = typing.cast(
+            "capo_simpledbv2.types.export_status.ExportStatus", ""
+        )
     if data.get("requestedAt") is not None:
         import capo_simpledbv2.types.requested_at
 
@@ -63,9 +65,13 @@ def deserialize_json(data: dict) -> ExportSummary:
             data["requestedAt"]
         )
     else:
-        raise DeserializationError("ExportSummary.requested_at required")
+        import datetime
+
+        out["requested_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("domainName") is not None:
         out["domain_name"] = data["domainName"]
     else:
-        raise DeserializationError("ExportSummary.domain_name required")
+        out["domain_name"] = ""
     return out

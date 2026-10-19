@@ -80,13 +80,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateExplainabilityRequest:
     if data.get("ExplainabilityName") is not None:
         out["explainability_name"] = data["ExplainabilityName"]
     else:
-        raise DeserializationError(
-            "CreateExplainabilityRequest.explainability_name required"
-        )
+        out["explainability_name"] = ""
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("CreateExplainabilityRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("ExplainabilityConfig") is not None:
         import capo_forecast.types.explainability_config
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -50,15 +48,11 @@ def deserialize_aws_json_1_0(data: dict) -> BusinessSupportSubscriptionContract:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError(
-            "BusinessSupportSubscriptionContract.account_id required"
-        )
+        out["account_id"] = ""
     if data.get("planName") is not None:
         out["plan_name"] = data["planName"]
     else:
-        raise DeserializationError(
-            "BusinessSupportSubscriptionContract.plan_name required"
-        )
+        out["plan_name"] = ""
     if data.get("contractStartDate") is not None:
         import capo_billing.types._prelude.timestamp
 
@@ -68,8 +62,10 @@ def deserialize_aws_json_1_0(data: dict) -> BusinessSupportSubscriptionContract:
             )
         )
     else:
-        raise DeserializationError(
-            "BusinessSupportSubscriptionContract.contract_start_date required"
+        import datetime
+
+        out["contract_start_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("contractEndDate") is not None:
         import capo_billing.types._prelude.timestamp
@@ -80,7 +76,9 @@ def deserialize_aws_json_1_0(data: dict) -> BusinessSupportSubscriptionContract:
             )
         )
     else:
-        raise DeserializationError(
-            "BusinessSupportSubscriptionContract.contract_end_date required"
+        import datetime
+
+        out["contract_end_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

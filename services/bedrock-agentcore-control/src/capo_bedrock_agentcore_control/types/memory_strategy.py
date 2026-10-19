@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -139,11 +137,11 @@ def deserialize_json(data: dict) -> MemoryStrategy:
     if data.get("strategyId") is not None:
         out["strategy_id"] = data["strategyId"]
     else:
-        raise DeserializationError("MemoryStrategy.strategy_id required")
+        out["strategy_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("MemoryStrategy.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("configuration") is not None:
@@ -163,7 +161,12 @@ def deserialize_json(data: dict) -> MemoryStrategy:
             )
         )
     else:
-        raise DeserializationError("MemoryStrategy.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.memory_strategy_type.MemoryStrategyType",
+            "",
+        )
     if data.get("namespaces") is not None:
         import capo_bedrock_agentcore_control.types.namespaces_list
 
@@ -173,7 +176,7 @@ def deserialize_json(data: dict) -> MemoryStrategy:
             )
         )
     else:
-        raise DeserializationError("MemoryStrategy.namespaces required")
+        out["namespaces"] = []
     if data.get("namespaceTemplates") is not None:
         import capo_bedrock_agentcore_control.types.namespaces_list
 
@@ -183,7 +186,7 @@ def deserialize_json(data: dict) -> MemoryStrategy:
             )
         )
     else:
-        raise DeserializationError("MemoryStrategy.namespace_templates required")
+        out["namespace_templates"] = []
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
 

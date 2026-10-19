@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.scope
     import capo_wafv2.types.vendor_name
@@ -33,15 +31,13 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeManagedProductsByVendorReque
     if data.get("VendorName") is not None:
         out["vendor_name"] = data["VendorName"]
     else:
-        raise DeserializationError(
-            "DescribeManagedProductsByVendorRequest.vendor_name required"
-        )
+        out["vendor_name"] = ""
     if data.get("Scope") is not None:
         import capo_wafv2.types.scope
 
         out["scope"] = capo_wafv2.types.scope.deserialize_aws_json_1_1(data["Scope"])
     else:
-        raise DeserializationError(
-            "DescribeManagedProductsByVendorRequest.scope required"
-        )
+        import typing
+
+        out["scope"] = typing.cast("capo_wafv2.types.scope.Scope", "")
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codeguru_reviewer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguru_reviewer.types.connection_arn
     import capo_codeguru_reviewer.types.name
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> ThirdPartySourceRepository:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ThirdPartySourceRepository.name required")
+        out["name"] = ""
     if data.get("ConnectionArn") is not None:
         out["connection_arn"] = data["ConnectionArn"]
     else:
-        raise DeserializationError("ThirdPartySourceRepository.connection_arn required")
+        out["connection_arn"] = ""
     if data.get("Owner") is not None:
         out["owner"] = data["Owner"]
     else:
-        raise DeserializationError("ThirdPartySourceRepository.owner required")
+        out["owner"] = ""
     return out

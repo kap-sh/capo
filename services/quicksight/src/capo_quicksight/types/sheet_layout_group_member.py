@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.sheet_layout_group_member_type
     import capo_quicksight.types.short_restrictive_resource_id
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> SheetLayoutGroupMember:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("SheetLayoutGroupMember.id required")
+        out["id"] = ""
     if data.get("Type") is not None:
         import capo_quicksight.types.sheet_layout_group_member_type
 
@@ -45,5 +43,10 @@ def deserialize_json(data: dict) -> SheetLayoutGroupMember:
             )
         )
     else:
-        raise DeserializationError("SheetLayoutGroupMember.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_quicksight.types.sheet_layout_group_member_type.SheetLayoutGroupMemberType",
+            "",
+        )
     return out

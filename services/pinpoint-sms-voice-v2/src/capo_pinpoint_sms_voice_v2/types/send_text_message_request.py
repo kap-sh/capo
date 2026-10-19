@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.configuration_set_name_or_arn
     import capo_pinpoint_sms_voice_v2.types.context_map
@@ -113,9 +111,7 @@ def deserialize_aws_json_1_0(data: dict) -> SendTextMessageRequest:
     if data.get("DestinationPhoneNumber") is not None:
         out["destination_phone_number"] = data["DestinationPhoneNumber"]
     else:
-        raise DeserializationError(
-            "SendTextMessageRequest.destination_phone_number required"
-        )
+        out["destination_phone_number"] = ""
     if data.get("OriginationIdentity") is not None:
         out["origination_identity"] = data["OriginationIdentity"]
     if data.get("MessageBody") is not None:

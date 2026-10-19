@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemakerjobruntime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemakerjobruntime.types.completion_status
     import capo_sagemakerjobruntime.types.job_arn
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> CompleteRolloutRequest:
     if data.get("TrajectoryId") is not None:
         out["trajectory_id"] = data["TrajectoryId"]
     else:
-        raise DeserializationError("CompleteRolloutRequest.trajectory_id required")
+        out["trajectory_id"] = ""
     if data.get("Status") is not None:
         import capo_sagemakerjobruntime.types.completion_status
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsecuretunneling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsecuretunneling.types.client_mode
     import capo_iotsecuretunneling.types.destination_config
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> RotateTunnelAccessTokenRequest:
     if data.get("tunnelId") is not None:
         out["tunnel_id"] = data["tunnelId"]
     else:
-        raise DeserializationError("RotateTunnelAccessTokenRequest.tunnel_id required")
+        out["tunnel_id"] = ""
     if data.get("clientMode") is not None:
         import capo_iotsecuretunneling.types.client_mode
 
@@ -59,8 +57,10 @@ def deserialize_aws_json_1_1(data: dict) -> RotateTunnelAccessTokenRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "RotateTunnelAccessTokenRequest.client_mode required"
+        import typing
+
+        out["client_mode"] = typing.cast(
+            "capo_iotsecuretunneling.types.client_mode.ClientMode", ""
         )
     if data.get("destinationConfig") is not None:
         import capo_iotsecuretunneling.types.destination_config

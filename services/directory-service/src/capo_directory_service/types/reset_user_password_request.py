@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.customer_user_name
     import capo_directory_service.types.directory_id
@@ -35,15 +33,15 @@ def deserialize_aws_json_1_1(data: dict) -> ResetUserPasswordRequest:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError("ResetUserPasswordRequest.directory_id required")
+        out["directory_id"] = ""
     if data.get("UserName") is not None:
         out["user_name"] = data["UserName"]
     else:
-        raise DeserializationError("ResetUserPasswordRequest.user_name required")
+        out["user_name"] = ""
     if data.get("NewPassword") is not None:
         out["new_password"] = data["NewPassword"]
     else:
-        raise DeserializationError("ResetUserPasswordRequest.new_password required")
+        out["new_password"] = ""
     return out
 
 

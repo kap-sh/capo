@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.non_empty_string
     import capo_marketplace_discovery.types.non_negative_count
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> ReviewSourceSummary:
     if data.get("sourceName") is not None:
         out["source_name"] = data["sourceName"]
     else:
-        raise DeserializationError("ReviewSourceSummary.source_name required")
+        out["source_name"] = ""
     if data.get("sourceId") is not None:
         import capo_marketplace_discovery.types.review_source_id
 
@@ -59,15 +57,19 @@ def deserialize_json(data: dict) -> ReviewSourceSummary:
             )
         )
     else:
-        raise DeserializationError("ReviewSourceSummary.source_id required")
+        import typing
+
+        out["source_id"] = typing.cast(
+            "capo_marketplace_discovery.types.review_source_id.ReviewSourceId", ""
+        )
     if data.get("sourceUrl") is not None:
         out["source_url"] = data["sourceUrl"]
     if data.get("averageRating") is not None:
         out["average_rating"] = data["averageRating"]
     else:
-        raise DeserializationError("ReviewSourceSummary.average_rating required")
+        out["average_rating"] = ""
     if data.get("totalReviews") is not None:
         out["total_reviews"] = data["totalReviews"]
     else:
-        raise DeserializationError("ReviewSourceSummary.total_reviews required")
+        out["total_reviews"] = 0
     return out

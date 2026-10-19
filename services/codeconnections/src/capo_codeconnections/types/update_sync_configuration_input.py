@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeconnections.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeconnections.types.branch_name
     import capo_codeconnections.types.deployment_file_path
@@ -108,9 +106,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateSyncConfigurationInput:
     if data.get("ResourceName") is not None:
         out["resource_name"] = data["ResourceName"]
     else:
-        raise DeserializationError(
-            "UpdateSyncConfigurationInput.resource_name required"
-        )
+        out["resource_name"] = ""
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     if data.get("SyncType") is not None:
@@ -122,7 +118,12 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateSyncConfigurationInput:
             )
         )
     else:
-        raise DeserializationError("UpdateSyncConfigurationInput.sync_type required")
+        import typing
+
+        out["sync_type"] = typing.cast(
+            "capo_codeconnections.types.sync_configuration_type.SyncConfigurationType",
+            "",
+        )
     if data.get("PublishDeploymentStatus") is not None:
         import capo_codeconnections.types.publish_deployment_status
 

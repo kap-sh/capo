@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.language_tag
     import capo_geo_routes.types.sensitive_string
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> LocalizedString:
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("LocalizedString.value required")
+        out["value"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.output_format
 
@@ -35,7 +33,9 @@ def deserialize_json(data: dict) -> AwsJsonSubstitutionCommandPreprocessorConfig
             data["outputFormat"]
         )
     else:
-        raise DeserializationError(
-            "AwsJsonSubstitutionCommandPreprocessorConfig.output_format required"
+        import typing
+
+        out["output_format"] = typing.cast(
+            "capo_iot.types.output_format.OutputFormat", ""
         )
     return out

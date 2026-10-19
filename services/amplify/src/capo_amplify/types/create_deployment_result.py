@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.file_upload_urls
     import capo_amplify.types.job_id
@@ -46,9 +44,9 @@ def deserialize_json(data: dict) -> CreateDeploymentResult:
             data["fileUploadUrls"]
         )
     else:
-        raise DeserializationError("CreateDeploymentResult.file_upload_urls required")
+        out["file_upload_urls"] = {}
     if data.get("zipUploadUrl") is not None:
         out["zip_upload_url"] = data["zipUploadUrl"]
     else:
-        raise DeserializationError("CreateDeploymentResult.zip_upload_url required")
+        out["zip_upload_url"] = ""
     return out

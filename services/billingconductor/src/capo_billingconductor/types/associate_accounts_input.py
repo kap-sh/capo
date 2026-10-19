@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_billingconductor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billingconductor.types.account_id_list
     import capo_billingconductor.types.billing_group_arn
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> AssociateAccountsInput:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("AssociateAccountsInput.arn required")
+        out["arn"] = ""
     if data.get("AccountIds") is not None:
         import capo_billingconductor.types.account_id_list
 
@@ -45,5 +43,5 @@ def deserialize_json(data: dict) -> AssociateAccountsInput:
             )
         )
     else:
-        raise DeserializationError("AssociateAccountsInput.account_ids required")
+        out["account_ids"] = []
     return out

@@ -39,9 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> ModifySelfservicePermissionsRequest:
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError(
-            "ModifySelfservicePermissionsRequest.resource_id required"
-        )
+        out["resource_id"] = ""
     if data.get("SelfservicePermissions") is not None:
         import capo_workspaces.types.selfservice_permissions
 

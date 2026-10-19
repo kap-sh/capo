@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.account_id
     import capo_bedrock.types.custom_model_arn
@@ -87,7 +85,7 @@ def deserialize_json(data: dict) -> GetModelCopyJobResponse:
     if data.get("jobArn") is not None:
         out["job_arn"] = data["jobArn"]
     else:
-        raise DeserializationError("GetModelCopyJobResponse.job_arn required")
+        out["job_arn"] = ""
     if data.get("status") is not None:
         import capo_bedrock.types.model_copy_job_status
 
@@ -95,7 +93,11 @@ def deserialize_json(data: dict) -> GetModelCopyJobResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("GetModelCopyJobResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock.types.model_copy_job_status.ModelCopyJobStatus", ""
+        )
     if data.get("creationTime") is not None:
         import capo_bedrock.types.timestamp
 
@@ -103,21 +105,25 @@ def deserialize_json(data: dict) -> GetModelCopyJobResponse:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("GetModelCopyJobResponse.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("targetModelArn") is not None:
         out["target_model_arn"] = data["targetModelArn"]
     else:
-        raise DeserializationError("GetModelCopyJobResponse.target_model_arn required")
+        out["target_model_arn"] = ""
     if data.get("targetModelName") is not None:
         out["target_model_name"] = data["targetModelName"]
     if data.get("sourceAccountId") is not None:
         out["source_account_id"] = data["sourceAccountId"]
     else:
-        raise DeserializationError("GetModelCopyJobResponse.source_account_id required")
+        out["source_account_id"] = ""
     if data.get("sourceModelArn") is not None:
         out["source_model_arn"] = data["sourceModelArn"]
     else:
-        raise DeserializationError("GetModelCopyJobResponse.source_model_arn required")
+        out["source_model_arn"] = ""
     if data.get("targetModelKmsKeyArn") is not None:
         out["target_model_kms_key_arn"] = data["targetModelKmsKeyArn"]
     if data.get("targetModelTags") is not None:

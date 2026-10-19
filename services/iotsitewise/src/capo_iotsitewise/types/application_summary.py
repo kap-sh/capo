@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -56,15 +54,15 @@ def deserialize_json(data: dict) -> ApplicationSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ApplicationSummary.arn required")
+        out["arn"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ApplicationSummary.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ApplicationSummary.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         import capo_iotsitewise.types.application_status
 
@@ -72,7 +70,11 @@ def deserialize_json(data: dict) -> ApplicationSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("ApplicationSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_iotsitewise.types.application_status.ApplicationStatus", ""
+        )
     if data.get("createdAt") is not None:
         import capo_iotsitewise.types._prelude.timestamp
 
@@ -80,9 +82,11 @@ def deserialize_json(data: dict) -> ApplicationSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("ApplicationSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("workspaceName") is not None:
         out["workspace_name"] = data["workspaceName"]
     else:
-        raise DeserializationError("ApplicationSummary.workspace_name required")
+        out["workspace_name"] = ""
     return out

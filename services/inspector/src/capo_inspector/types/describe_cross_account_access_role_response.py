@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.arn
     import capo_inspector.types.bool
@@ -39,15 +37,11 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeCrossAccountAccessRoleRespon
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError(
-            "DescribeCrossAccountAccessRoleResponse.role_arn required"
-        )
+        out["role_arn"] = ""
     if data.get("valid") is not None:
         out["valid"] = data["valid"]
     else:
-        raise DeserializationError(
-            "DescribeCrossAccountAccessRoleResponse.valid required"
-        )
+        out["valid"] = False
     if data.get("registeredAt") is not None:
         import capo_inspector.types.timestamp
 
@@ -55,7 +49,9 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeCrossAccountAccessRoleRespon
             data["registeredAt"]
         )
     else:
-        raise DeserializationError(
-            "DescribeCrossAccountAccessRoleResponse.registered_at required"
+        import datetime
+
+        out["registered_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

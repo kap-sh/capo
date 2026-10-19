@@ -91,15 +91,15 @@ def deserialize_json(data: dict) -> GetEntityResponse:
     if data.get("entityId") is not None:
         out["entity_id"] = data["entityId"]
     else:
-        raise DeserializationError("GetEntityResponse.entity_id required")
+        out["entity_id"] = ""
     if data.get("entityName") is not None:
         out["entity_name"] = data["entityName"]
     else:
-        raise DeserializationError("GetEntityResponse.entity_name required")
+        out["entity_name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetEntityResponse.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_iottwinmaker.types.status
 
@@ -109,7 +109,7 @@ def deserialize_json(data: dict) -> GetEntityResponse:
     if data.get("workspaceId") is not None:
         out["workspace_id"] = data["workspaceId"]
     else:
-        raise DeserializationError("GetEntityResponse.workspace_id required")
+        out["workspace_id"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("components") is not None:
@@ -121,11 +121,11 @@ def deserialize_json(data: dict) -> GetEntityResponse:
     if data.get("parentEntityId") is not None:
         out["parent_entity_id"] = data["parentEntityId"]
     else:
-        raise DeserializationError("GetEntityResponse.parent_entity_id required")
+        out["parent_entity_id"] = ""
     if data.get("hasChildEntities") is not None:
         out["has_child_entities"] = data["hasChildEntities"]
     else:
-        raise DeserializationError("GetEntityResponse.has_child_entities required")
+        out["has_child_entities"] = False
     if data.get("creationDateTime") is not None:
         import capo_iottwinmaker.types.timestamp
 
@@ -133,7 +133,11 @@ def deserialize_json(data: dict) -> GetEntityResponse:
             data["creationDateTime"]
         )
     else:
-        raise DeserializationError("GetEntityResponse.creation_date_time required")
+        import datetime
+
+        out["creation_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateDateTime") is not None:
         import capo_iottwinmaker.types.timestamp
 
@@ -141,7 +145,11 @@ def deserialize_json(data: dict) -> GetEntityResponse:
             data["updateDateTime"]
         )
     else:
-        raise DeserializationError("GetEntityResponse.update_date_time required")
+        import datetime
+
+        out["update_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("syncSource") is not None:
         out["sync_source"] = data["syncSource"]
     if data.get("areAllComponentsReturned") is not None:

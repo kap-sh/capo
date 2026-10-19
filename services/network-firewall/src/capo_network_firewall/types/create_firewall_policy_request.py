@@ -69,9 +69,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateFirewallPolicyRequest:
     if data.get("FirewallPolicyName") is not None:
         out["firewall_policy_name"] = data["FirewallPolicyName"]
     else:
-        raise DeserializationError(
-            "CreateFirewallPolicyRequest.firewall_policy_name required"
-        )
+        out["firewall_policy_name"] = ""
     if data.get("FirewallPolicy") is not None:
         import capo_network_firewall.types.firewall_policy
 

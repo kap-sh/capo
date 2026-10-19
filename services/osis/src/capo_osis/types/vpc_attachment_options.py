@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_osis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_osis.types.boolean
     import capo_osis.types.cidr_block
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> VpcAttachmentOptions:
     if data.get("AttachToVpc") is not None:
         out["attach_to_vpc"] = data["AttachToVpc"]
     else:
-        raise DeserializationError("VpcAttachmentOptions.attach_to_vpc required")
+        out["attach_to_vpc"] = False
     if data.get("CidrBlock") is not None:
         out["cidr_block"] = data["CidrBlock"]
     return out

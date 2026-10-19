@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivschat.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivschat.types.reason
     import capo_ivschat.types.room_identifier
@@ -36,11 +34,11 @@ def deserialize_json(data: dict) -> DisconnectUserRequest:
     if data.get("roomIdentifier") is not None:
         out["room_identifier"] = data["roomIdentifier"]
     else:
-        raise DeserializationError("DisconnectUserRequest.room_identifier required")
+        out["room_identifier"] = ""
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
     else:
-        raise DeserializationError("DisconnectUserRequest.user_id required")
+        out["user_id"] = ""
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
     return out

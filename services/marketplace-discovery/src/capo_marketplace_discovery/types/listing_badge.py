@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.listing_badge_type
     import capo_marketplace_discovery.types.non_empty_string
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> ListingBadge:
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("ListingBadge.display_name required")
+        out["display_name"] = ""
     if data.get("badgeType") is not None:
         import capo_marketplace_discovery.types.listing_badge_type
 
@@ -47,5 +45,9 @@ def deserialize_json(data: dict) -> ListingBadge:
             )
         )
     else:
-        raise DeserializationError("ListingBadge.badge_type required")
+        import typing
+
+        out["badge_type"] = typing.cast(
+            "capo_marketplace_discovery.types.listing_badge_type.ListingBadgeType", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.catalog_name_string
     import capo_athena.types.name_string
@@ -36,11 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetDatabaseInput:
     if data.get("CatalogName") is not None:
         out["catalog_name"] = data["CatalogName"]
     else:
-        raise DeserializationError("GetDatabaseInput.catalog_name required")
+        out["catalog_name"] = ""
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError("GetDatabaseInput.database_name required")
+        out["database_name"] = ""
     if data.get("WorkGroup") is not None:
         out["work_group"] = data["WorkGroup"]
     return out

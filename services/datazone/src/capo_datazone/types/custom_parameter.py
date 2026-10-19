@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.description
 
@@ -50,13 +48,13 @@ def deserialize_json(data: dict) -> CustomParameter:
     if data.get("keyName") is not None:
         out["key_name"] = data["keyName"]
     else:
-        raise DeserializationError("CustomParameter.key_name required")
+        out["key_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("fieldType") is not None:
         out["field_type"] = data["fieldType"]
     else:
-        raise DeserializationError("CustomParameter.field_type required")
+        out["field_type"] = ""
     if data.get("defaultValue") is not None:
         out["default_value"] = data["defaultValue"]
     if data.get("isEditable") is not None:

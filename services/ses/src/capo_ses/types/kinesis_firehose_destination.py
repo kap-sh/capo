@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.amazon_resource_name
@@ -33,12 +32,10 @@ def deserialize_query(el: Element) -> KinesisFirehoseDestination:
     if child_iam_role_arn is not None:
         out["iam_role_arn"] = str(child_iam_role_arn.text or "")
     else:
-        raise DeserializationError("KinesisFirehoseDestination.iam_role_arn required")
+        out["iam_role_arn"] = ""
     child_delivery_stream_arn = el.find("DeliveryStreamARN")
     if child_delivery_stream_arn is not None:
         out["delivery_stream_arn"] = str(child_delivery_stream_arn.text or "")
     else:
-        raise DeserializationError(
-            "KinesisFirehoseDestination.delivery_stream_arn required"
-        )
+        out["delivery_stream_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.idempotency_token
     import capo_bedrock.types.imported_model_name
@@ -79,17 +77,15 @@ def deserialize_json(data: dict) -> CreateModelImportJobRequest:
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError("CreateModelImportJobRequest.job_name required")
+        out["job_name"] = ""
     if data.get("importedModelName") is not None:
         out["imported_model_name"] = data["importedModelName"]
     else:
-        raise DeserializationError(
-            "CreateModelImportJobRequest.imported_model_name required"
-        )
+        out["imported_model_name"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateModelImportJobRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("modelDataSource") is not None:
         import capo_bedrock.types.model_data_source
 
@@ -99,9 +95,9 @@ def deserialize_json(data: dict) -> CreateModelImportJobRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateModelImportJobRequest.model_data_source required"
-        )
+        import capo_bedrock.types._unknown
+
+        out["model_data_source"] = capo_bedrock.types._unknown.UnknownUnionMember("")
     if data.get("jobTags") is not None:
         import capo_bedrock.types.tag_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.group_filters_list
     import capo_glue.types.node_name
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> Route:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Route.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.one_input
 
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> Route:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("Route.inputs required")
+        out["inputs"] = []
     if data.get("GroupFiltersList") is not None:
         import capo_glue.types.group_filters_list
 
@@ -59,5 +57,5 @@ def deserialize_aws_json_1_1(data: dict) -> Route:
             )
         )
     else:
-        raise DeserializationError("Route.group_filters_list required")
+        out["group_filters_list"] = []
     return out

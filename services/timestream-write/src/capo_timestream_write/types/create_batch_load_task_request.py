@@ -117,15 +117,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateBatchLoadTaskRequest:
     if data.get("TargetDatabaseName") is not None:
         out["target_database_name"] = data["TargetDatabaseName"]
     else:
-        raise DeserializationError(
-            "CreateBatchLoadTaskRequest.target_database_name required"
-        )
+        out["target_database_name"] = ""
     if data.get("TargetTableName") is not None:
         out["target_table_name"] = data["TargetTableName"]
     else:
-        raise DeserializationError(
-            "CreateBatchLoadTaskRequest.target_table_name required"
-        )
+        out["target_table_name"] = ""
     if data.get("RecordVersion") is not None:
         out["record_version"] = data["RecordVersion"]
     return out

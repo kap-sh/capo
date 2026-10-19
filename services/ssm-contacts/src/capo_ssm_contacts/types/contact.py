@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.contact_alias
     import capo_ssm_contacts.types.contact_name
@@ -44,11 +42,11 @@ def deserialize_aws_json_1_1(data: dict) -> Contact:
     if data.get("ContactArn") is not None:
         out["contact_arn"] = data["ContactArn"]
     else:
-        raise DeserializationError("Contact.contact_arn required")
+        out["contact_arn"] = ""
     if data.get("Alias") is not None:
         out["alias"] = data["Alias"]
     else:
-        raise DeserializationError("Contact.alias required")
+        out["alias"] = ""
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     if data.get("Type") is not None:
@@ -58,5 +56,9 @@ def deserialize_aws_json_1_1(data: dict) -> Contact:
             data["Type"]
         )
     else:
-        raise DeserializationError("Contact.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_ssm_contacts.types.contact_type.ContactType", ""
+        )
     return out

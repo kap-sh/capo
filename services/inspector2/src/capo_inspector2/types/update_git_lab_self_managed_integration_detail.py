@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.git_lab_auth_code
 
@@ -27,9 +25,7 @@ def deserialize_json(data: dict) -> UpdateGitLabSelfManagedIntegrationDetail:
     if data.get("authCode") is not None:
         out["auth_code"] = data["authCode"]
     else:
-        raise DeserializationError(
-            "UpdateGitLabSelfManagedIntegrationDetail.auth_code required"
-        )
+        out["auth_code"] = ""
     return out
 
 

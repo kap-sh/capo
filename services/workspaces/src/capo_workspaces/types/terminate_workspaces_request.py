@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.terminate_workspace_requests
 
@@ -41,7 +39,5 @@ def deserialize_aws_json_1_1(data: dict) -> TerminateWorkspacesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "TerminateWorkspacesRequest.terminate_workspace_requests required"
-        )
+        out["terminate_workspace_requests"] = []
     return out

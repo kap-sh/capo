@@ -78,13 +78,11 @@ def deserialize_json(data: dict) -> EnabledBaselineDetails:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("EnabledBaselineDetails.arn required")
+        out["arn"] = ""
     if data.get("baselineIdentifier") is not None:
         out["baseline_identifier"] = data["baselineIdentifier"]
     else:
-        raise DeserializationError(
-            "EnabledBaselineDetails.baseline_identifier required"
-        )
+        out["baseline_identifier"] = ""
     if data.get("baselineVersion") is not None:
         out["baseline_version"] = data["baselineVersion"]
     if data.get("driftStatusSummary") is not None:
@@ -98,7 +96,7 @@ def deserialize_json(data: dict) -> EnabledBaselineDetails:
     if data.get("targetIdentifier") is not None:
         out["target_identifier"] = data["targetIdentifier"]
     else:
-        raise DeserializationError("EnabledBaselineDetails.target_identifier required")
+        out["target_identifier"] = ""
     if data.get("parentIdentifier") is not None:
         out["parent_identifier"] = data["parentIdentifier"]
     if data.get("statusSummary") is not None:

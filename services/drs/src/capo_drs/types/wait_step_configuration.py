@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.wait_duration_minutes
 
@@ -26,7 +24,5 @@ def deserialize_json(data: dict) -> WaitStepConfiguration:
     if data.get("waitDurationMinutes") is not None:
         out["wait_duration_minutes"] = data["waitDurationMinutes"]
     else:
-        raise DeserializationError(
-            "WaitStepConfiguration.wait_duration_minutes required"
-        )
+        out["wait_duration_minutes"] = 0
     return out

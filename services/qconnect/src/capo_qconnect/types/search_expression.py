@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.filter_list
 
@@ -33,5 +31,5 @@ def deserialize_json(data: dict) -> SearchExpression:
             data["filters"]
         )
     else:
-        raise DeserializationError("SearchExpression.filters required")
+        out["filters"] = []
     return out

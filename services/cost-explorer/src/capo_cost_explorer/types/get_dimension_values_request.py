@@ -112,7 +112,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetDimensionValuesRequest:
             data["Dimension"]
         )
     else:
-        raise DeserializationError("GetDimensionValuesRequest.dimension required")
+        import typing
+
+        out["dimension"] = typing.cast(
+            "capo_cost_explorer.types.dimension.Dimension", ""
+        )
     if data.get("DimensionKey") is not None:
         out["dimension_key"] = data["DimensionKey"]
     if data.get("Context") is not None:

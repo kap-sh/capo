@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kms.types.grant_token_list
     import capo_kms.types.key_agreement_algorithm_spec
@@ -70,7 +68,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeriveSharedSecretRequest:
     if data.get("KeyId") is not None:
         out["key_id"] = data["KeyId"]
     else:
-        raise DeserializationError("DeriveSharedSecretRequest.key_id required")
+        out["key_id"] = ""
     if data.get("KeyAgreementAlgorithm") is not None:
         import capo_kms.types.key_agreement_algorithm_spec
 
@@ -80,8 +78,10 @@ def deserialize_aws_json_1_1(data: dict) -> DeriveSharedSecretRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DeriveSharedSecretRequest.key_agreement_algorithm required"
+        import typing
+
+        out["key_agreement_algorithm"] = typing.cast(
+            "capo_kms.types.key_agreement_algorithm_spec.KeyAgreementAlgorithmSpec", ""
         )
     if data.get("PublicKey") is not None:
         import capo_kms.types.public_key_type
@@ -90,7 +90,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeriveSharedSecretRequest:
             data["PublicKey"]
         )
     else:
-        raise DeserializationError("DeriveSharedSecretRequest.public_key required")
+        out["public_key"] = b""
     if data.get("GrantTokens") is not None:
         import capo_kms.types.grant_token_list
 

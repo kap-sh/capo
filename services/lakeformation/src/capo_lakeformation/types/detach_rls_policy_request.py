@@ -62,7 +62,7 @@ def deserialize_json(data: dict) -> DetachRLSPolicyRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DetachRLSPolicyRequest.name required")
+        out["name"] = ""
     if data.get("Resource") is not None:
         import capo_lakeformation.types.resource
 

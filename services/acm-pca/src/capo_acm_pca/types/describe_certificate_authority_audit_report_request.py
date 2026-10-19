@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_acm_pca.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm_pca.types.arn
     import capo_acm_pca.types.audit_report_id
@@ -35,13 +33,9 @@ def deserialize_aws_json_1_1(
     if data.get("CertificateAuthorityArn") is not None:
         out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
     else:
-        raise DeserializationError(
-            "DescribeCertificateAuthorityAuditReportRequest.certificate_authority_arn required"
-        )
+        out["certificate_authority_arn"] = ""
     if data.get("AuditReportId") is not None:
         out["audit_report_id"] = data["AuditReportId"]
     else:
-        raise DeserializationError(
-            "DescribeCertificateAuthorityAuditReportRequest.audit_report_id required"
-        )
+        out["audit_report_id"] = ""
     return out

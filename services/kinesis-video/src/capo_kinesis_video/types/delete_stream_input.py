@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_video.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_video.types.resource_arn
     import capo_kinesis_video.types.version
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> DeleteStreamInput:
     if data.get("StreamARN") is not None:
         out["stream_arn"] = data["StreamARN"]
     else:
-        raise DeserializationError("DeleteStreamInput.stream_arn required")
+        out["stream_arn"] = ""
     if data.get("CurrentVersion") is not None:
         out["current_version"] = data["CurrentVersion"]
     return out

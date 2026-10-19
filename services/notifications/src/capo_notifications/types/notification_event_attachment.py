@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notifications.types.attachment_content_type
     import capo_notifications.types.attachment_display_name
@@ -42,13 +40,13 @@ def deserialize_json(data: dict) -> NotificationEventAttachment:
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("NotificationEventAttachment.display_name required")
+        out["display_name"] = ""
     if data.get("attachmentDownloadUrl") is not None:
         out["attachment_download_url"] = data["attachmentDownloadUrl"]
     if data.get("contentType") is not None:
         out["content_type"] = data["contentType"]
     else:
-        raise DeserializationError("NotificationEventAttachment.content_type required")
+        out["content_type"] = ""
     return out
 
 

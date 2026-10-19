@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_discovery_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_discovery_service.types.client_request_token
     import capo_application_discovery_service.types.import_task_name
@@ -40,9 +38,9 @@ def deserialize_aws_json_1_1(data: dict) -> StartImportTaskRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("StartImportTaskRequest.name required")
+        out["name"] = ""
     if data.get("importUrl") is not None:
         out["import_url"] = data["importUrl"]
     else:
-        raise DeserializationError("StartImportTaskRequest.import_url required")
+        out["import_url"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__string
     import capo_mediatailor.types.dash_playlist_settings
@@ -79,15 +77,15 @@ def deserialize_json(data: dict) -> ResponseOutputItem:
     if data.get("ManifestName") is not None:
         out["manifest_name"] = data["ManifestName"]
     else:
-        raise DeserializationError("ResponseOutputItem.manifest_name required")
+        out["manifest_name"] = ""
     if data.get("PlaybackUrl") is not None:
         out["playback_url"] = data["PlaybackUrl"]
     else:
-        raise DeserializationError("ResponseOutputItem.playback_url required")
+        out["playback_url"] = ""
     if data.get("DualStackPlaybackUrl") is not None:
         out["dual_stack_playback_url"] = data["DualStackPlaybackUrl"]
     if data.get("SourceGroup") is not None:
         out["source_group"] = data["SourceGroup"]
     else:
-        raise DeserializationError("ResponseOutputItem.source_group required")
+        out["source_group"] = ""
     return out

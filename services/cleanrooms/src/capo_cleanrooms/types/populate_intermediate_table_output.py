@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.analysis_identifier
     import capo_cleanrooms.types.populate_intermediate_table_analysis_type
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> PopulateIntermediateTableOutput:
     if data.get("analysisId") is not None:
         out["analysis_id"] = data["analysisId"]
     else:
-        raise DeserializationError(
-            "PopulateIntermediateTableOutput.analysis_id required"
-        )
+        out["analysis_id"] = ""
     if data.get("analysisType") is not None:
         import capo_cleanrooms.types.populate_intermediate_table_analysis_type
 
@@ -53,13 +49,14 @@ def deserialize_json(data: dict) -> PopulateIntermediateTableOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "PopulateIntermediateTableOutput.analysis_type required"
+        import typing
+
+        out["analysis_type"] = typing.cast(
+            "capo_cleanrooms.types.populate_intermediate_table_analysis_type.PopulateIntermediateTableAnalysisType",
+            "",
         )
     if data.get("versionId") is not None:
         out["version_id"] = data["versionId"]
     else:
-        raise DeserializationError(
-            "PopulateIntermediateTableOutput.version_id required"
-        )
+        out["version_id"] = ""
     return out

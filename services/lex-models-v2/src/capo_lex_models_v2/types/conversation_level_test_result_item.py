@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.conversation_level_intent_classification_results
     import capo_lex_models_v2.types.conversation_level_slot_resolution_results
@@ -73,9 +71,7 @@ def deserialize_json(data: dict) -> ConversationLevelTestResultItem:
     if data.get("conversationId") is not None:
         out["conversation_id"] = data["conversationId"]
     else:
-        raise DeserializationError(
-            "ConversationLevelTestResultItem.conversation_id required"
-        )
+        out["conversation_id"] = ""
     if data.get("endToEndResult") is not None:
         import capo_lex_models_v2.types.test_result_match_status
 
@@ -85,8 +81,11 @@ def deserialize_json(data: dict) -> ConversationLevelTestResultItem:
             )
         )
     else:
-        raise DeserializationError(
-            "ConversationLevelTestResultItem.end_to_end_result required"
+        import typing
+
+        out["end_to_end_result"] = typing.cast(
+            "capo_lex_models_v2.types.test_result_match_status.TestResultMatchStatus",
+            "",
         )
     if data.get("speechTranscriptionResult") is not None:
         import capo_lex_models_v2.types.test_result_match_status
@@ -105,9 +104,7 @@ def deserialize_json(data: dict) -> ConversationLevelTestResultItem:
             )
         )
     else:
-        raise DeserializationError(
-            "ConversationLevelTestResultItem.intent_classification_results required"
-        )
+        out["intent_classification_results"] = []
     if data.get("slotResolutionResults") is not None:
         import capo_lex_models_v2.types.conversation_level_slot_resolution_results
 
@@ -117,7 +114,5 @@ def deserialize_json(data: dict) -> ConversationLevelTestResultItem:
             )
         )
     else:
-        raise DeserializationError(
-            "ConversationLevelTestResultItem.slot_resolution_results required"
-        )
+        out["slot_resolution_results"] = []
     return out

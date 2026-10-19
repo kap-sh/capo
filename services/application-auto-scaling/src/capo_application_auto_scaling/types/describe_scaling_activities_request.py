@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_auto_scaling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_auto_scaling.types.include_not_scaled_activities
     import capo_application_auto_scaling.types.max_results
@@ -80,8 +78,10 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeScalingActivitiesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeScalingActivitiesRequest.service_namespace required"
+        import typing
+
+        out["service_namespace"] = typing.cast(
+            "capo_application_auto_scaling.types.service_namespace.ServiceNamespace", ""
         )
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]

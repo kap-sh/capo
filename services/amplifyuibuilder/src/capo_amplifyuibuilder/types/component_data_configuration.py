@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.identifier_list
     import capo_amplifyuibuilder.types.predicate
@@ -55,7 +53,7 @@ def deserialize_json(data: dict) -> ComponentDataConfiguration:
     if data.get("model") is not None:
         out["model"] = data["model"]
     else:
-        raise DeserializationError("ComponentDataConfiguration.model required")
+        out["model"] = ""
     if data.get("sort") is not None:
         import capo_amplifyuibuilder.types.sort_property_list
 

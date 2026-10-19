@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.recovery_instances_for_termination_request
 
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> TerminateRecoveryInstancesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "TerminateRecoveryInstancesRequest.recovery_instance_i_ds required"
-        )
+        out["recovery_instance_i_ds"] = []
     return out

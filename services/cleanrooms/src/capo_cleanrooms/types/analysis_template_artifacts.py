@@ -68,5 +68,5 @@ def deserialize_json(data: dict) -> AnalysisTemplateArtifacts:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("AnalysisTemplateArtifacts.role_arn required")
+        out["role_arn"] = ""
     return out

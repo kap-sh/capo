@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_containers.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_containers.types.cluster_id
     import capo_emr_containers.types.container_info
@@ -50,11 +48,16 @@ def deserialize_json(data: dict) -> ContainerProvider:
             )
         )
     else:
-        raise DeserializationError("ContainerProvider.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_emr_containers.types.container_provider_type.ContainerProviderType",
+            "",
+        )
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ContainerProvider.id required")
+        out["id"] = ""
     if data.get("info") is not None:
         import capo_emr_containers.types.container_info
 

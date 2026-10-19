@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeartifact.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeartifact.types.account_id
     import capo_codeartifact.types.domain_name
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> PutDomainPermissionsPolicyRequest:
     if data.get("domain") is not None:
         out["domain"] = data["domain"]
     else:
-        raise DeserializationError("PutDomainPermissionsPolicyRequest.domain required")
+        out["domain"] = ""
     if data.get("domainOwner") is not None:
         out["domain_owner"] = data["domainOwner"]
     if data.get("policyRevision") is not None:
@@ -51,7 +49,5 @@ def deserialize_json(data: dict) -> PutDomainPermissionsPolicyRequest:
     if data.get("policyDocument") is not None:
         out["policy_document"] = data["policyDocument"]
     else:
-        raise DeserializationError(
-            "PutDomainPermissionsPolicyRequest.policy_document required"
-        )
+        out["policy_document"] = ""
     return out

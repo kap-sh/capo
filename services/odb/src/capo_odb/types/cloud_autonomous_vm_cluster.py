@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -398,9 +396,7 @@ def deserialize_aws_json_1_0(data: dict) -> CloudAutonomousVmCluster:
     if data.get("cloudAutonomousVmClusterId") is not None:
         out["cloud_autonomous_vm_cluster_id"] = data["cloudAutonomousVmClusterId"]
     else:
-        raise DeserializationError(
-            "CloudAutonomousVmCluster.cloud_autonomous_vm_cluster_id required"
-        )
+        out["cloud_autonomous_vm_cluster_id"] = ""
     if data.get("cloudAutonomousVmClusterArn") is not None:
         out["cloud_autonomous_vm_cluster_arn"] = data["cloudAutonomousVmClusterArn"]
     if data.get("odbNetworkId") is not None:

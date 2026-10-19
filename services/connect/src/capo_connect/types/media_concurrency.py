@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.channel
     import capo_connect.types.concurrency
@@ -61,7 +59,9 @@ def deserialize_json(data: dict) -> MediaConcurrency:
 
         out["channel"] = capo_connect.types.channel.deserialize_json(data["Channel"])
     else:
-        raise DeserializationError("MediaConcurrency.channel required")
+        import typing
+
+        out["channel"] = typing.cast("capo_connect.types.channel.Channel", "")
     if data.get("Concurrency") is not None:
         out["concurrency"] = data["Concurrency"]
     else:

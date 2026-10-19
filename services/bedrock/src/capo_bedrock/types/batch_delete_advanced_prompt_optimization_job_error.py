@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.advanced_prompt_optimization_job_identifier
 
@@ -34,15 +32,11 @@ def deserialize_json(data: dict) -> BatchDeleteAdvancedPromptOptimizationJobErro
     if data.get("jobIdentifier") is not None:
         out["job_identifier"] = data["jobIdentifier"]
     else:
-        raise DeserializationError(
-            "BatchDeleteAdvancedPromptOptimizationJobError.job_identifier required"
-        )
+        out["job_identifier"] = ""
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError(
-            "BatchDeleteAdvancedPromptOptimizationJobError.code required"
-        )
+        out["code"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     return out

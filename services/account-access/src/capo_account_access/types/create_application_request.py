@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_account_access.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_account_access.types.identity_source
     import capo_account_access.types.tags_map
@@ -44,7 +42,11 @@ def deserialize_json(data: dict) -> CreateApplicationRequest:
             )
         )
     else:
-        raise DeserializationError("CreateApplicationRequest.identity_source required")
+        import capo_account_access.types._unknown
+
+        out["identity_source"] = capo_account_access.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("tags") is not None:
         import capo_account_access.types.tags_map
 

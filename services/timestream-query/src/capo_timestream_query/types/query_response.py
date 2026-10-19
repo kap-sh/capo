@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_query.types.column_info_list
     import capo_timestream_query.types.pagination_token
@@ -76,7 +74,7 @@ def deserialize_aws_json_1_0(data: dict) -> QueryResponse:
     if data.get("QueryId") is not None:
         out["query_id"] = data["QueryId"]
     else:
-        raise DeserializationError("QueryResponse.query_id required")
+        out["query_id"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("Rows") is not None:
@@ -86,7 +84,7 @@ def deserialize_aws_json_1_0(data: dict) -> QueryResponse:
             data["Rows"]
         )
     else:
-        raise DeserializationError("QueryResponse.rows required")
+        out["rows"] = []
     if data.get("ColumnInfo") is not None:
         import capo_timestream_query.types.column_info_list
 
@@ -96,7 +94,7 @@ def deserialize_aws_json_1_0(data: dict) -> QueryResponse:
             )
         )
     else:
-        raise DeserializationError("QueryResponse.column_info required")
+        out["column_info"] = []
     if data.get("QueryStatus") is not None:
         import capo_timestream_query.types.query_status
 

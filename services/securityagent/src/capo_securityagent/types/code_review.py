@@ -128,15 +128,15 @@ def deserialize_json(data: dict) -> CodeReview:
     if data.get("codeReviewId") is not None:
         out["code_review_id"] = data["codeReviewId"]
     else:
-        raise DeserializationError("CodeReview.code_review_id required")
+        out["code_review_id"] = ""
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError("CodeReview.agent_space_id required")
+        out["agent_space_id"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("CodeReview.title required")
+        out["title"] = ""
     if data.get("assets") is not None:
         import capo_securityagent.types.assets
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.business_name
     import capo_b2bi.types.created_date
@@ -66,15 +64,15 @@ def deserialize_aws_json_1_0(data: dict) -> ProfileSummary:
     if data.get("profileId") is not None:
         out["profile_id"] = data["profileId"]
     else:
-        raise DeserializationError("ProfileSummary.profile_id required")
+        out["profile_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ProfileSummary.name required")
+        out["name"] = ""
     if data.get("businessName") is not None:
         out["business_name"] = data["businessName"]
     else:
-        raise DeserializationError("ProfileSummary.business_name required")
+        out["business_name"] = ""
     if data.get("logging") is not None:
         import capo_b2bi.types.logging
 
@@ -90,7 +88,9 @@ def deserialize_aws_json_1_0(data: dict) -> ProfileSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("ProfileSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("modifiedAt") is not None:
         import capo_b2bi.types.modified_date
 

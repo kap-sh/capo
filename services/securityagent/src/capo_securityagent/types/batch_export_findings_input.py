@@ -50,7 +50,7 @@ def deserialize_json(data: dict) -> BatchExportFindingsInput:
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError("BatchExportFindingsInput.agent_space_id required")
+        out["agent_space_id"] = ""
     if data.get("pentestJobId") is not None:
         out["pentest_job_id"] = data["pentestJobId"]
     if data.get("codeReviewJobId") is not None:
@@ -74,5 +74,5 @@ def deserialize_json(data: dict) -> BatchExportFindingsInput:
             data["findingIds"]
         )
     else:
-        raise DeserializationError("BatchExportFindingsInput.finding_ids required")
+        out["finding_ids"] = []
     return out

@@ -43,7 +43,7 @@ def deserialize_json(data: dict) -> ListEntitlementsRequest:
     if data.get("applicationArn") is not None:
         out["application_arn"] = data["applicationArn"]
     else:
-        raise DeserializationError("ListEntitlementsRequest.application_arn required")
+        out["application_arn"] = ""
     if data.get("filter") is not None:
         import capo_account_access.types.entitlement_filter
 

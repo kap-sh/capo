@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.data_pre_processing_configuration
     import capo_lookoutequipment.types.dataset_identifier
@@ -162,11 +160,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateModelRequest:
     if data.get("ModelName") is not None:
         out["model_name"] = data["ModelName"]
     else:
-        raise DeserializationError("CreateModelRequest.model_name required")
+        out["model_name"] = ""
     if data.get("DatasetName") is not None:
         out["dataset_name"] = data["DatasetName"]
     else:
-        raise DeserializationError("CreateModelRequest.dataset_name required")
+        out["dataset_name"] = ""
     if data.get("DatasetSchema") is not None:
         import capo_lookoutequipment.types.dataset_schema
 
@@ -186,7 +184,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateModelRequest:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("CreateModelRequest.client_token required")
+        out["client_token"] = ""
     if data.get("TrainingDataStartTime") is not None:
         import capo_lookoutequipment.types.timestamp
 

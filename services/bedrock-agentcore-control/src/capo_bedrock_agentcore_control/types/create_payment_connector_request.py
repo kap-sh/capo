@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.client_token
     import capo_bedrock_agentcore_control.types.credentials_provider_configurations
@@ -79,7 +77,7 @@ def deserialize_json(data: dict) -> CreatePaymentConnectorRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreatePaymentConnectorRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("type") is not None:
@@ -91,7 +89,12 @@ def deserialize_json(data: dict) -> CreatePaymentConnectorRequest:
             )
         )
     else:
-        raise DeserializationError("CreatePaymentConnectorRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.payment_connector_type.PaymentConnectorType",
+            "",
+        )
     if data.get("credentialProviderConfigurations") is not None:
         import capo_bedrock_agentcore_control.types.credentials_provider_configurations
 
@@ -101,9 +104,7 @@ def deserialize_json(data: dict) -> CreatePaymentConnectorRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreatePaymentConnectorRequest.credential_provider_configurations required"
-        )
+        out["credential_provider_configurations"] = []
     if data.get("provisionMode") is not None:
         import capo_bedrock_agentcore_control.types.payment_connector_provision_mode
 

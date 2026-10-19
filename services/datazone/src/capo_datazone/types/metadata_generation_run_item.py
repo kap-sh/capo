@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.created_at
     import capo_datazone.types.created_by
@@ -97,11 +95,11 @@ def deserialize_json(data: dict) -> MetadataGenerationRunItem:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("MetadataGenerationRunItem.domain_id required")
+        out["domain_id"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("MetadataGenerationRunItem.id required")
+        out["id"] = ""
     if data.get("target") is not None:
         import capo_datazone.types.metadata_generation_run_target
 
@@ -143,7 +141,5 @@ def deserialize_json(data: dict) -> MetadataGenerationRunItem:
     if data.get("owningProjectId") is not None:
         out["owning_project_id"] = data["owningProjectId"]
     else:
-        raise DeserializationError(
-            "MetadataGenerationRunItem.owning_project_id required"
-        )
+        out["owning_project_id"] = ""
     return out

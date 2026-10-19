@@ -57,7 +57,7 @@ def deserialize_json(data: dict) -> CreateCustomLogSourceRequest:
     if data.get("sourceName") is not None:
         out["source_name"] = data["sourceName"]
     else:
-        raise DeserializationError("CreateCustomLogSourceRequest.source_name required")
+        out["source_name"] = ""
     if data.get("sourceVersion") is not None:
         out["source_version"] = data["sourceVersion"]
     if data.get("eventClasses") is not None:

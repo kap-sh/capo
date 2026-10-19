@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.arn
     import capo_iotfleetwise.types.error_message
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_0(data: dict) -> IamRegistrationResponse:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("IamRegistrationResponse.role_arn required")
+        out["role_arn"] = ""
     if data.get("registrationStatus") is not None:
         import capo_iotfleetwise.types.registration_status
 
@@ -54,8 +52,10 @@ def deserialize_aws_json_1_0(data: dict) -> IamRegistrationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "IamRegistrationResponse.registration_status required"
+        import typing
+
+        out["registration_status"] = typing.cast(
+            "capo_iotfleetwise.types.registration_status.RegistrationStatus", ""
         )
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]

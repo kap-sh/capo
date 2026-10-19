@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.filter_action
     import capo_inspector2.types.filter_arn
@@ -70,7 +68,7 @@ def deserialize_json(data: dict) -> UpdateFilterRequest:
     if data.get("filterArn") is not None:
         out["filter_arn"] = data["filterArn"]
     else:
-        raise DeserializationError("UpdateFilterRequest.filter_arn required")
+        out["filter_arn"] = ""
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
     return out

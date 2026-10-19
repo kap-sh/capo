@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.description
     import capo_lex_models_v2.types.id
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> UpdateTestSetRequest:
     if data.get("testSetName") is not None:
         out["test_set_name"] = data["testSetName"]
     else:
-        raise DeserializationError("UpdateTestSetRequest.test_set_name required")
+        out["test_set_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

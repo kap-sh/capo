@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -102,39 +100,35 @@ def deserialize_json(data: dict) -> ConfiguredTableAssociation:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ConfiguredTableAssociation.arn required")
+        out["arn"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ConfiguredTableAssociation.id required")
+        out["id"] = ""
     if data.get("configuredTableId") is not None:
         out["configured_table_id"] = data["configuredTableId"]
     else:
-        raise DeserializationError(
-            "ConfiguredTableAssociation.configured_table_id required"
-        )
+        out["configured_table_id"] = ""
     if data.get("configuredTableArn") is not None:
         out["configured_table_arn"] = data["configuredTableArn"]
     else:
-        raise DeserializationError(
-            "ConfiguredTableAssociation.configured_table_arn required"
-        )
+        out["configured_table_arn"] = ""
     if data.get("membershipId") is not None:
         out["membership_id"] = data["membershipId"]
     else:
-        raise DeserializationError("ConfiguredTableAssociation.membership_id required")
+        out["membership_id"] = ""
     if data.get("membershipArn") is not None:
         out["membership_arn"] = data["membershipArn"]
     else:
-        raise DeserializationError("ConfiguredTableAssociation.membership_arn required")
+        out["membership_arn"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("ConfiguredTableAssociation.role_arn required")
+        out["role_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ConfiguredTableAssociation.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("analysisRuleTypes") is not None:
@@ -152,7 +146,11 @@ def deserialize_json(data: dict) -> ConfiguredTableAssociation:
             data["createTime"]
         )
     else:
-        raise DeserializationError("ConfiguredTableAssociation.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -160,7 +158,11 @@ def deserialize_json(data: dict) -> ConfiguredTableAssociation:
             data["updateTime"]
         )
     else:
-        raise DeserializationError("ConfiguredTableAssociation.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("childResources") is not None:
         import capo_cleanrooms.types.child_resource_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_global_accelerator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_global_accelerator.types.custom_routing_protocols
     import capo_global_accelerator.types.port_number
@@ -42,15 +40,11 @@ def deserialize_aws_json_1_1(data: dict) -> CustomRoutingDestinationConfiguratio
     if data.get("FromPort") is not None:
         out["from_port"] = data["FromPort"]
     else:
-        raise DeserializationError(
-            "CustomRoutingDestinationConfiguration.from_port required"
-        )
+        out["from_port"] = 0
     if data.get("ToPort") is not None:
         out["to_port"] = data["ToPort"]
     else:
-        raise DeserializationError(
-            "CustomRoutingDestinationConfiguration.to_port required"
-        )
+        out["to_port"] = 0
     if data.get("Protocols") is not None:
         import capo_global_accelerator.types.custom_routing_protocols
 
@@ -60,7 +54,5 @@ def deserialize_aws_json_1_1(data: dict) -> CustomRoutingDestinationConfiguratio
             )
         )
     else:
-        raise DeserializationError(
-            "CustomRoutingDestinationConfiguration.protocols required"
-        )
+        out["protocols"] = []
     return out

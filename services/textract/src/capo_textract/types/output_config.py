@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_textract.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_textract.types.s3_bucket
     import capo_textract.types.s3_object_name
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> OutputConfig:
     if data.get("S3Bucket") is not None:
         out["s3_bucket"] = data["S3Bucket"]
     else:
-        raise DeserializationError("OutputConfig.s3_bucket required")
+        out["s3_bucket"] = ""
     if data.get("S3Prefix") is not None:
         out["s3_prefix"] = data["S3Prefix"]
     return out

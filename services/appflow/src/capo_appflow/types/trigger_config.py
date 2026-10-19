@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.trigger_properties
     import capo_appflow.types.trigger_type
@@ -46,7 +44,11 @@ def deserialize_json(data: dict) -> TriggerConfig:
             data["triggerType"]
         )
     else:
-        raise DeserializationError("TriggerConfig.trigger_type required")
+        import typing
+
+        out["trigger_type"] = typing.cast(
+            "capo_appflow.types.trigger_type.TriggerType", ""
+        )
     if data.get("triggerProperties") is not None:
         import capo_appflow.types.trigger_properties
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.content_level
     import capo_bedrock_agentcore_control.types.content_type
@@ -45,7 +43,11 @@ def deserialize_json(data: dict) -> ContentConfiguration:
             )
         )
     else:
-        raise DeserializationError("ContentConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.content_type.ContentType", ""
+        )
     if data.get("level") is not None:
         import capo_bedrock_agentcore_control.types.content_level
 

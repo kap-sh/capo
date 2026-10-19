@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.arn
 
@@ -27,7 +25,7 @@ def deserialize_json(data: dict) -> S3BucketSinkConfiguration:
     if data.get("Destination") is not None:
         out["destination"] = data["Destination"]
     else:
-        raise DeserializationError("S3BucketSinkConfiguration.destination required")
+        out["destination"] = ""
     return out
 
 

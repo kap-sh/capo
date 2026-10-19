@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backupsearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -70,7 +68,7 @@ def deserialize_json(data: dict) -> ExportJobSummary:
     if data.get("ExportJobIdentifier") is not None:
         out["export_job_identifier"] = data["ExportJobIdentifier"]
     else:
-        raise DeserializationError("ExportJobSummary.export_job_identifier required")
+        out["export_job_identifier"] = ""
     if data.get("ExportJobArn") is not None:
         out["export_job_arn"] = data["ExportJobArn"]
     if data.get("Status") is not None:

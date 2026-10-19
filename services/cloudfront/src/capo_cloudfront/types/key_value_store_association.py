@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.key_value_store_arn
@@ -28,7 +27,5 @@ def deserialize_xml(el: Element) -> KeyValueStoreAssociation:
     if child_key_value_store_arn is not None:
         out["key_value_store_arn"] = str(child_key_value_store_arn.text or "")
     else:
-        raise DeserializationError(
-            "KeyValueStoreAssociation.key_value_store_arn required"
-        )
+        out["key_value_store_arn"] = ""
     return out

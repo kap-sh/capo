@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.custom_model_name
     import capo_bedrock.types.idempotency_token
@@ -52,15 +50,11 @@ def deserialize_json(data: dict) -> CreateModelCopyJobRequest:
     if data.get("sourceModelArn") is not None:
         out["source_model_arn"] = data["sourceModelArn"]
     else:
-        raise DeserializationError(
-            "CreateModelCopyJobRequest.source_model_arn required"
-        )
+        out["source_model_arn"] = ""
     if data.get("targetModelName") is not None:
         out["target_model_name"] = data["targetModelName"]
     else:
-        raise DeserializationError(
-            "CreateModelCopyJobRequest.target_model_name required"
-        )
+        out["target_model_name"] = ""
     if data.get("modelKmsKeyId") is not None:
         out["model_kms_key_id"] = data["modelKmsKeyId"]
     if data.get("targetModelTags") is not None:

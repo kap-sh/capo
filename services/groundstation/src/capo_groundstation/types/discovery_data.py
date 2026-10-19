@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.capability_arn_list
     import capo_groundstation.types.ip_address_list
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> DiscoveryData:
             )
         )
     else:
-        raise DeserializationError("DiscoveryData.public_ip_addresses required")
+        out["public_ip_addresses"] = []
     if data.get("privateIpAddresses") is not None:
         import capo_groundstation.types.ip_address_list
 
@@ -62,7 +60,7 @@ def deserialize_json(data: dict) -> DiscoveryData:
             )
         )
     else:
-        raise DeserializationError("DiscoveryData.private_ip_addresses required")
+        out["private_ip_addresses"] = []
     if data.get("capabilityArns") is not None:
         import capo_groundstation.types.capability_arn_list
 
@@ -72,5 +70,5 @@ def deserialize_json(data: dict) -> DiscoveryData:
             )
         )
     else:
-        raise DeserializationError("DiscoveryData.capability_arns required")
+        out["capability_arns"] = []
     return out

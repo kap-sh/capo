@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_serverless.types.application_id
     import capo_emr_serverless.types.attempt_number
@@ -245,21 +243,21 @@ def deserialize_json(data: dict) -> JobRun:
     if data.get("applicationId") is not None:
         out["application_id"] = data["applicationId"]
     else:
-        raise DeserializationError("JobRun.application_id required")
+        out["application_id"] = ""
     if data.get("jobRunId") is not None:
         out["job_run_id"] = data["jobRunId"]
     else:
-        raise DeserializationError("JobRun.job_run_id required")
+        out["job_run_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("JobRun.arn required")
+        out["arn"] = ""
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("JobRun.created_by required")
+        out["created_by"] = ""
     if data.get("createdAt") is not None:
         import capo_emr_serverless.types.date
 
@@ -267,7 +265,9 @@ def deserialize_json(data: dict) -> JobRun:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("JobRun.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_emr_serverless.types.date
 
@@ -275,11 +275,13 @@ def deserialize_json(data: dict) -> JobRun:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("JobRun.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("executionRole") is not None:
         out["execution_role"] = data["executionRole"]
     else:
-        raise DeserializationError("JobRun.execution_role required")
+        out["execution_role"] = ""
     if data.get("executionIamPolicy") is not None:
         import capo_emr_serverless.types.job_run_execution_iam_policy
 
@@ -291,15 +293,15 @@ def deserialize_json(data: dict) -> JobRun:
     if data.get("state") is not None:
         out["state"] = data["state"]
     else:
-        raise DeserializationError("JobRun.state required")
+        out["state"] = ""
     if data.get("stateDetails") is not None:
         out["state_details"] = data["stateDetails"]
     else:
-        raise DeserializationError("JobRun.state_details required")
+        out["state_details"] = ""
     if data.get("releaseLabel") is not None:
         out["release_label"] = data["releaseLabel"]
     else:
-        raise DeserializationError("JobRun.release_label required")
+        out["release_label"] = ""
     if data.get("configurationOverrides") is not None:
         import capo_emr_serverless.types.configuration_overrides
 
@@ -315,7 +317,9 @@ def deserialize_json(data: dict) -> JobRun:
             data["jobDriver"]
         )
     else:
-        raise DeserializationError("JobRun.job_driver required")
+        import capo_emr_serverless.types._unknown
+
+        out["job_driver"] = capo_emr_serverless.types._unknown.UnknownUnionMember("")
     if data.get("tags") is not None:
         import capo_emr_serverless.types.tag_map
 

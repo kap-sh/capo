@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pipes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pipes.types.dimension_mappings
     import capo_pipes.types.epoch_time_unit
@@ -80,7 +78,7 @@ def deserialize_json(data: dict) -> PipeTargetTimestreamParameters:
     if data.get("TimeValue") is not None:
         out["time_value"] = data["TimeValue"]
     else:
-        raise DeserializationError("PipeTargetTimestreamParameters.time_value required")
+        out["time_value"] = ""
     if data.get("EpochTimeUnit") is not None:
         out["epoch_time_unit"] = data["EpochTimeUnit"]
     if data.get("TimeFieldType") is not None:
@@ -90,9 +88,7 @@ def deserialize_json(data: dict) -> PipeTargetTimestreamParameters:
     if data.get("VersionValue") is not None:
         out["version_value"] = data["VersionValue"]
     else:
-        raise DeserializationError(
-            "PipeTargetTimestreamParameters.version_value required"
-        )
+        out["version_value"] = ""
     if data.get("DimensionMappings") is not None:
         import capo_pipes.types.dimension_mappings
 
@@ -102,9 +98,7 @@ def deserialize_json(data: dict) -> PipeTargetTimestreamParameters:
             )
         )
     else:
-        raise DeserializationError(
-            "PipeTargetTimestreamParameters.dimension_mappings required"
-        )
+        out["dimension_mappings"] = []
     if data.get("SingleMeasureMappings") is not None:
         import capo_pipes.types.single_measure_mappings
 

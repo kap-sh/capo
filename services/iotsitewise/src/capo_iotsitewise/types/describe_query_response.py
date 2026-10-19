@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -66,7 +64,7 @@ def deserialize_json(data: dict) -> DescribeQueryResponse:
     if data.get("queryId") is not None:
         out["query_id"] = data["queryId"]
     else:
-        raise DeserializationError("DescribeQueryResponse.query_id required")
+        out["query_id"] = ""
     if data.get("status") is not None:
         import capo_iotsitewise.types.query_status
 
@@ -74,7 +72,11 @@ def deserialize_json(data: dict) -> DescribeQueryResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("DescribeQueryResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_iotsitewise.types.query_status.QueryStatus", ""
+        )
     if data.get("submittedAt") is not None:
         import capo_iotsitewise.types._prelude.timestamp
 
@@ -84,7 +86,11 @@ def deserialize_json(data: dict) -> DescribeQueryResponse:
             )
         )
     else:
-        raise DeserializationError("DescribeQueryResponse.submitted_at required")
+        import datetime
+
+        out["submitted_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("completedAt") is not None:
         import capo_iotsitewise.types._prelude.timestamp
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -53,9 +51,7 @@ def deserialize_json(data: dict) -> KnowledgeBaseIngestionSummary:
     if data.get("IngestionId") is not None:
         out["ingestion_id"] = data["IngestionId"]
     else:
-        raise DeserializationError(
-            "KnowledgeBaseIngestionSummary.ingestion_id required"
-        )
+        out["ingestion_id"] = ""
     if data.get("IngestionStatus") is not None:
         import capo_quicksight.types.kb_ingestion_status
 
@@ -65,8 +61,10 @@ def deserialize_json(data: dict) -> KnowledgeBaseIngestionSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "KnowledgeBaseIngestionSummary.ingestion_status required"
+        import typing
+
+        out["ingestion_status"] = typing.cast(
+            "capo_quicksight.types.kb_ingestion_status.KbIngestionStatus", ""
         )
     if data.get("StartTime") is not None:
         import capo_quicksight.types._prelude.timestamp

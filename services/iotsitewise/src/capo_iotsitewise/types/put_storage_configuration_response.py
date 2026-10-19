@@ -111,8 +111,10 @@ def deserialize_json(data: dict) -> PutStorageConfigurationResponse:
             data["storageType"]
         )
     else:
-        raise DeserializationError(
-            "PutStorageConfigurationResponse.storage_type required"
+        import typing
+
+        out["storage_type"] = typing.cast(
+            "capo_iotsitewise.types.storage_type.StorageType", ""
         )
     if data.get("multiLayerStorage") is not None:
         import capo_iotsitewise.types.multi_layer_storage

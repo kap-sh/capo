@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_emr_containers.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_containers.types.max_files_to_keep
     import capo_emr_containers.types.rotation_size
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> ContainerLogRotationConfiguration:
     if data.get("rotationSize") is not None:
         out["rotation_size"] = data["rotationSize"]
     else:
-        raise DeserializationError(
-            "ContainerLogRotationConfiguration.rotation_size required"
-        )
+        out["rotation_size"] = ""
     if data.get("maxFilesToKeep") is not None:
         out["max_files_to_keep"] = data["maxFilesToKeep"]
     else:
-        raise DeserializationError(
-            "ContainerLogRotationConfiguration.max_files_to_keep required"
-        )
+        out["max_files_to_keep"] = 0
     return out

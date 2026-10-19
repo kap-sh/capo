@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_agent_registry.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_agent_registry.types.date_timestamp
     import capo_agent_registry.types.description
@@ -101,25 +99,19 @@ def deserialize_json(data: dict) -> DiscoverableRegistryRecordSummary:
     if data.get("registryArn") is not None:
         out["registry_arn"] = data["registryArn"]
     else:
-        raise DeserializationError(
-            "DiscoverableRegistryRecordSummary.registry_arn required"
-        )
+        out["registry_arn"] = ""
     if data.get("recordArn") is not None:
         out["record_arn"] = data["recordArn"]
     else:
-        raise DeserializationError(
-            "DiscoverableRegistryRecordSummary.record_arn required"
-        )
+        out["record_arn"] = ""
     if data.get("recordId") is not None:
         out["record_id"] = data["recordId"]
     else:
-        raise DeserializationError(
-            "DiscoverableRegistryRecordSummary.record_id required"
-        )
+        out["record_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DiscoverableRegistryRecordSummary.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("displayName") is not None:
@@ -131,15 +123,15 @@ def deserialize_json(data: dict) -> DiscoverableRegistryRecordSummary:
             data["recordType"]
         )
     else:
-        raise DeserializationError(
-            "DiscoverableRegistryRecordSummary.record_type required"
+        import typing
+
+        out["record_type"] = typing.cast(
+            "capo_agent_registry.types.record_type.RecordType", ""
         )
     if data.get("recordVersion") is not None:
         out["record_version"] = data["recordVersion"]
     else:
-        raise DeserializationError(
-            "DiscoverableRegistryRecordSummary.record_version required"
-        )
+        out["record_version"] = ""
     if data.get("status") is not None:
         import capo_agent_registry.types.registry_record_status
 
@@ -149,7 +141,11 @@ def deserialize_json(data: dict) -> DiscoverableRegistryRecordSummary:
             )
         )
     else:
-        raise DeserializationError("DiscoverableRegistryRecordSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_agent_registry.types.registry_record_status.RegistryRecordStatus", ""
+        )
     if data.get("createdAt") is not None:
         import capo_agent_registry.types.date_timestamp
 
@@ -157,9 +153,9 @@ def deserialize_json(data: dict) -> DiscoverableRegistryRecordSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError(
-            "DiscoverableRegistryRecordSummary.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_agent_registry.types.date_timestamp
 
@@ -167,9 +163,9 @@ def deserialize_json(data: dict) -> DiscoverableRegistryRecordSummary:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError(
-            "DiscoverableRegistryRecordSummary.updated_at required"
-        )
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("descriptorTypes") is not None:
         import capo_agent_registry.types.descriptor_type_list
 

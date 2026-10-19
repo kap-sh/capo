@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.day_of_week
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> WeeklySchedule:
             data["dayOfWeek"]
         )
     else:
-        raise DeserializationError("WeeklySchedule.day_of_week required")
+        import typing
+
+        out["day_of_week"] = typing.cast(
+            "capo_bedrock_agent.types.day_of_week.DayOfWeek", ""
+        )
     return out

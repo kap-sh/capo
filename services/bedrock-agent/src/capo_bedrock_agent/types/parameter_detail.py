@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.parameter_description
     import capo_bedrock_agent.types.type
@@ -44,7 +42,9 @@ def deserialize_json(data: dict) -> ParameterDetail:
 
         out["type"] = capo_bedrock_agent.types.type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("ParameterDetail.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_bedrock_agent.types.type.Type", "")
     if data.get("required") is not None:
         out["required"] = data["required"]
     return out

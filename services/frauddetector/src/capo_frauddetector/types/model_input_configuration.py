@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.identifier
     import capo_frauddetector.types.model_input_data_format
@@ -70,9 +68,7 @@ def deserialize_aws_json_1_1(data: dict) -> ModelInputConfiguration:
     if data.get("useEventVariables") is not None:
         out["use_event_variables"] = data["useEventVariables"]
     else:
-        raise DeserializationError(
-            "ModelInputConfiguration.use_event_variables required"
-        )
+        out["use_event_variables"] = False
     if data.get("jsonInputTemplate") is not None:
         out["json_input_template"] = data["jsonInputTemplate"]
     if data.get("csvInputTemplate") is not None:

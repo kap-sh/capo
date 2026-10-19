@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.timestamp
     import capo_accessanalyzer.types.unused_action_list
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> UnusedPermissionDetails:
     if data.get("serviceNamespace") is not None:
         out["service_namespace"] = data["serviceNamespace"]
     else:
-        raise DeserializationError("UnusedPermissionDetails.service_namespace required")
+        out["service_namespace"] = ""
     if data.get("lastAccessed") is not None:
         import capo_accessanalyzer.types.timestamp
 

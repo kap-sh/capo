@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.finding_id_list
 
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> BatchDisassociateFindingIssueInput:
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError(
-            "BatchDisassociateFindingIssueInput.agent_space_id required"
-        )
+        out["agent_space_id"] = ""
     if data.get("pentestJobId") is not None:
         out["pentest_job_id"] = data["pentestJobId"]
     if data.get("codeReviewJobId") is not None:
@@ -56,7 +52,5 @@ def deserialize_json(data: dict) -> BatchDisassociateFindingIssueInput:
             data["findingIds"]
         )
     else:
-        raise DeserializationError(
-            "BatchDisassociateFindingIssueInput.finding_ids required"
-        )
+        out["finding_ids"] = []
     return out

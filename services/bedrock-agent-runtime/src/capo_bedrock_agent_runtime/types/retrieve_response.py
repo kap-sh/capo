@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.guadrail_action
     import capo_bedrock_agent_runtime.types.knowledge_base_retrieval_results
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> RetrieveResponse:
             )
         )
     else:
-        raise DeserializationError("RetrieveResponse.retrieval_results required")
+        out["retrieval_results"] = []
     if data.get("guardrailAction") is not None:
         import capo_bedrock_agent_runtime.types.guadrail_action
 

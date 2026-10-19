@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.boolean
     import capo_storage_gateway.types.boolean2
@@ -76,23 +74,23 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTapesInput:
     if data.get("GatewayARN") is not None:
         out["gateway_arn"] = data["GatewayARN"]
     else:
-        raise DeserializationError("CreateTapesInput.gateway_arn required")
+        out["gateway_arn"] = ""
     if data.get("TapeSizeInBytes") is not None:
         out["tape_size_in_bytes"] = data["TapeSizeInBytes"]
     else:
-        raise DeserializationError("CreateTapesInput.tape_size_in_bytes required")
+        out["tape_size_in_bytes"] = 0
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("CreateTapesInput.client_token required")
+        out["client_token"] = ""
     if data.get("NumTapesToCreate") is not None:
         out["num_tapes_to_create"] = data["NumTapesToCreate"]
     else:
-        raise DeserializationError("CreateTapesInput.num_tapes_to_create required")
+        out["num_tapes_to_create"] = 0
     if data.get("TapeBarcodePrefix") is not None:
         out["tape_barcode_prefix"] = data["TapeBarcodePrefix"]
     else:
-        raise DeserializationError("CreateTapesInput.tape_barcode_prefix required")
+        out["tape_barcode_prefix"] = ""
     if data.get("KMSEncrypted") is not None:
         out["kms_encrypted"] = data["KMSEncrypted"]
     if data.get("KMSKey") is not None:

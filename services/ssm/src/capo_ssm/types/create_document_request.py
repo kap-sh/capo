@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.attachments_source_list
     import capo_ssm.types.document_content
@@ -97,7 +95,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDocumentRequest:
     if data.get("Content") is not None:
         out["content"] = data["Content"]
     else:
-        raise DeserializationError("CreateDocumentRequest.content required")
+        out["content"] = ""
     if data.get("Requires") is not None:
         import capo_ssm.types.document_requires_list
 
@@ -117,7 +115,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDocumentRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateDocumentRequest.name required")
+        out["name"] = ""
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     if data.get("VersionName") is not None:

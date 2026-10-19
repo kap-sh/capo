@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.repository_name
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateRepositoryNameInput:
     if data.get("oldName") is not None:
         out["old_name"] = data["oldName"]
     else:
-        raise DeserializationError("UpdateRepositoryNameInput.old_name required")
+        out["old_name"] = ""
     if data.get("newName") is not None:
         out["new_name"] = data["newName"]
     else:
-        raise DeserializationError("UpdateRepositoryNameInput.new_name required")
+        out["new_name"] = ""
     return out

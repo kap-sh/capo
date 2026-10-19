@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.folder_name
     import capo_workmail.types.retention_action
@@ -46,7 +44,9 @@ def deserialize_aws_json_1_1(data: dict) -> FolderConfiguration:
             data["Name"]
         )
     else:
-        raise DeserializationError("FolderConfiguration.name required")
+        import typing
+
+        out["name"] = typing.cast("capo_workmail.types.folder_name.FolderName", "")
     if data.get("Action") is not None:
         import capo_workmail.types.retention_action
 
@@ -54,7 +54,11 @@ def deserialize_aws_json_1_1(data: dict) -> FolderConfiguration:
             data["Action"]
         )
     else:
-        raise DeserializationError("FolderConfiguration.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_workmail.types.retention_action.RetentionAction", ""
+        )
     if data.get("Period") is not None:
         out["period"] = data["Period"]
     return out

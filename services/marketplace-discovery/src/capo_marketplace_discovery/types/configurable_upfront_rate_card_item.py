@@ -73,5 +73,5 @@ def deserialize_json(data: dict) -> ConfigurableUpfrontRateCardItem:
             )
         )
     else:
-        raise DeserializationError("ConfigurableUpfrontRateCardItem.rate_card required")
+        out["rate_card"] = []
     return out

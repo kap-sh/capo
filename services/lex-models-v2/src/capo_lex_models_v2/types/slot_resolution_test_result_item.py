@@ -37,7 +37,7 @@ def deserialize_json(data: dict) -> SlotResolutionTestResultItem:
     if data.get("slotName") is not None:
         out["slot_name"] = data["slotName"]
     else:
-        raise DeserializationError("SlotResolutionTestResultItem.slot_name required")
+        out["slot_name"] = ""
     if data.get("resultCounts") is not None:
         import capo_lex_models_v2.types.slot_resolution_test_result_item_counts
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.custom_data_identifier_list
 
@@ -41,7 +39,5 @@ def deserialize_json(data: dict) -> CustomEntityConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "CustomEntityConfig.custom_data_identifiers required"
-        )
+        out["custom_data_identifiers"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.arn
     import capo_license_manager.types.client_token
@@ -71,7 +69,7 @@ def deserialize_aws_json_1_1(data: dict) -> CheckoutBorrowLicenseRequest:
     if data.get("LicenseArn") is not None:
         out["license_arn"] = data["LicenseArn"]
     else:
-        raise DeserializationError("CheckoutBorrowLicenseRequest.license_arn required")
+        out["license_arn"] = ""
     if data.get("Entitlements") is not None:
         import capo_license_manager.types.entitlement_data_list
 
@@ -81,7 +79,7 @@ def deserialize_aws_json_1_1(data: dict) -> CheckoutBorrowLicenseRequest:
             )
         )
     else:
-        raise DeserializationError("CheckoutBorrowLicenseRequest.entitlements required")
+        out["entitlements"] = []
     if data.get("DigitalSignatureMethod") is not None:
         import capo_license_manager.types.digital_signature_method
 
@@ -91,8 +89,11 @@ def deserialize_aws_json_1_1(data: dict) -> CheckoutBorrowLicenseRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CheckoutBorrowLicenseRequest.digital_signature_method required"
+        import typing
+
+        out["digital_signature_method"] = typing.cast(
+            "capo_license_manager.types.digital_signature_method.DigitalSignatureMethod",
+            "",
         )
     if data.get("NodeId") is not None:
         out["node_id"] = data["NodeId"]
@@ -107,5 +108,5 @@ def deserialize_aws_json_1_1(data: dict) -> CheckoutBorrowLicenseRequest:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("CheckoutBorrowLicenseRequest.client_token required")
+        out["client_token"] = ""
     return out

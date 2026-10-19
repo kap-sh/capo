@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.bounding_box
     import capo_location.types.distance_unit
@@ -65,23 +63,23 @@ def deserialize_json(data: dict) -> CalculateRouteSummary:
             data["RouteBBox"]
         )
     else:
-        raise DeserializationError("CalculateRouteSummary.route_b_box required")
+        out["route_b_box"] = []
     if data.get("DataSource") is not None:
         out["data_source"] = data["DataSource"]
     else:
-        raise DeserializationError("CalculateRouteSummary.data_source required")
+        out["data_source"] = ""
     if data.get("Distance") is not None:
         out["distance"] = float(data["Distance"])
     else:
-        raise DeserializationError("CalculateRouteSummary.distance required")
+        out["distance"] = 0.0
     if data.get("DurationSeconds") is not None:
         out["duration_seconds"] = float(data["DurationSeconds"])
     else:
-        raise DeserializationError("CalculateRouteSummary.duration_seconds required")
+        out["duration_seconds"] = 0.0
     if data.get("DistanceUnit") is not None:
         out["distance_unit"] = data["DistanceUnit"]
     else:
-        raise DeserializationError("CalculateRouteSummary.distance_unit required")
+        out["distance_unit"] = ""
     return out
 
 

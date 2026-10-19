@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.recommendation_detail_id
 
@@ -33,7 +31,5 @@ def deserialize_aws_json_1_1(
     if data.get("RecommendationDetailId") is not None:
         out["recommendation_detail_id"] = data["RecommendationDetailId"]
     else:
-        raise DeserializationError(
-            "GetSavingsPlanPurchaseRecommendationDetailsRequest.recommendation_detail_id required"
-        )
+        out["recommendation_detail_id"] = ""
     return out

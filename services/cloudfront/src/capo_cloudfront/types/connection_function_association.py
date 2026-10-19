@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.resource_id
@@ -30,5 +29,5 @@ def deserialize_xml(el: Element) -> ConnectionFunctionAssociation:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("ConnectionFunctionAssociation.id required")
+        out["id"] = ""
     return out

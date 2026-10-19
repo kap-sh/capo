@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.autonomous_database_version_list
 
@@ -47,7 +45,5 @@ def deserialize_aws_json_1_0(data: dict) -> ListAutonomousDatabaseVersionsOutput
             )
         )
     else:
-        raise DeserializationError(
-            "ListAutonomousDatabaseVersionsOutput.autonomous_database_versions required"
-        )
+        out["autonomous_database_versions"] = []
     return out

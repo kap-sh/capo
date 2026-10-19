@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_freetier.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -85,15 +83,15 @@ def deserialize_aws_json_1_0(data: dict) -> GetAccountActivityResponse:
     if data.get("activityId") is not None:
         out["activity_id"] = data["activityId"]
     else:
-        raise DeserializationError("GetAccountActivityResponse.activity_id required")
+        out["activity_id"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("GetAccountActivityResponse.title required")
+        out["title"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("GetAccountActivityResponse.description required")
+        out["description"] = ""
     if data.get("status") is not None:
         import capo_freetier.types.activity_status
 
@@ -101,13 +99,15 @@ def deserialize_aws_json_1_0(data: dict) -> GetAccountActivityResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("GetAccountActivityResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_freetier.types.activity_status.ActivityStatus", ""
+        )
     if data.get("instructionsUrl") is not None:
         out["instructions_url"] = data["instructionsUrl"]
     else:
-        raise DeserializationError(
-            "GetAccountActivityResponse.instructions_url required"
-        )
+        out["instructions_url"] = ""
     if data.get("reward") is not None:
         import capo_freetier.types.activity_reward
 
@@ -115,7 +115,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetAccountActivityResponse:
             data["reward"]
         )
     else:
-        raise DeserializationError("GetAccountActivityResponse.reward required")
+        import capo_freetier.types._unknown
+
+        out["reward"] = capo_freetier.types._unknown.UnknownUnionMember("")
     if data.get("estimatedTimeToCompleteInMinutes") is not None:
         out["estimated_time_to_complete_in_minutes"] = data[
             "estimatedTimeToCompleteInMinutes"

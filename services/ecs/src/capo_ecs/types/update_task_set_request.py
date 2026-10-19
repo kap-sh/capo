@@ -39,15 +39,15 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateTaskSetRequest:
     if data.get("cluster") is not None:
         out["cluster"] = data["cluster"]
     else:
-        raise DeserializationError("UpdateTaskSetRequest.cluster required")
+        out["cluster"] = ""
     if data.get("service") is not None:
         out["service"] = data["service"]
     else:
-        raise DeserializationError("UpdateTaskSetRequest.service required")
+        out["service"] = ""
     if data.get("taskSet") is not None:
         out["task_set"] = data["taskSet"]
     else:
-        raise DeserializationError("UpdateTaskSetRequest.task_set required")
+        out["task_set"] = ""
     if data.get("scale") is not None:
         import capo_ecs.types.scale
 

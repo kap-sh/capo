@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> Greengrass:
     if data.get("groupArn") is not None:
         out["group_arn"] = data["groupArn"]
     else:
-        raise DeserializationError("Greengrass.group_arn required")
+        out["group_arn"] = ""
     return out

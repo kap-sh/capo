@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_amp.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amp.types.log_group_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CloudWatchLogDestination:
     if data.get("logGroupArn") is not None:
         out["log_group_arn"] = data["logGroupArn"]
     else:
-        raise DeserializationError("CloudWatchLogDestination.log_group_arn required")
+        out["log_group_arn"] = ""
     return out

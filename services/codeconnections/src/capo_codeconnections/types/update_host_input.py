@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeconnections.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeconnections.types.host_arn
     import capo_codeconnections.types.url
@@ -45,7 +43,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateHostInput:
     if data.get("HostArn") is not None:
         out["host_arn"] = data["HostArn"]
     else:
-        raise DeserializationError("UpdateHostInput.host_arn required")
+        out["host_arn"] = ""
     if data.get("ProviderEndpoint") is not None:
         out["provider_endpoint"] = data["ProviderEndpoint"]
     if data.get("VpcConfiguration") is not None:

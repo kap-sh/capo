@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.baseline_id
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterDefaultPatchBaselineRequest:
     if data.get("BaselineId") is not None:
         out["baseline_id"] = data["BaselineId"]
     else:
-        raise DeserializationError(
-            "RegisterDefaultPatchBaselineRequest.baseline_id required"
-        )
+        out["baseline_id"] = ""
     return out

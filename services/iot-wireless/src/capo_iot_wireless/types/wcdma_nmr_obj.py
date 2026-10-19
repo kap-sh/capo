@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.path_loss
     import capo_iot_wireless.types.psc
@@ -45,15 +43,15 @@ def deserialize_json(data: dict) -> WcdmaNmrObj:
     if data.get("Uarfcndl") is not None:
         out["uarfcndl"] = data["Uarfcndl"]
     else:
-        raise DeserializationError("WcdmaNmrObj.uarfcndl required")
+        out["uarfcndl"] = 0
     if data.get("Psc") is not None:
         out["psc"] = data["Psc"]
     else:
-        raise DeserializationError("WcdmaNmrObj.psc required")
+        out["psc"] = 0
     if data.get("UtranCid") is not None:
         out["utran_cid"] = data["UtranCid"]
     else:
-        raise DeserializationError("WcdmaNmrObj.utran_cid required")
+        out["utran_cid"] = 0
     if data.get("Rscp") is not None:
         out["rscp"] = data["Rscp"]
     if data.get("PathLoss") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.contact_arn
     import capo_connectcases.types.domain_id
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> ListCasesForContactRequest:
     if data.get("contactArn") is not None:
         out["contact_arn"] = data["contactArn"]
     else:
-        raise DeserializationError("ListCasesForContactRequest.contact_arn required")
+        out["contact_arn"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

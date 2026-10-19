@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_docdb_elastic.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_docdb_elastic.types.snapshot_type
     import capo_docdb_elastic.types.status
@@ -72,31 +70,31 @@ def deserialize_json(data: dict) -> ClusterSnapshot:
             data["subnetIds"]
         )
     else:
-        raise DeserializationError("ClusterSnapshot.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("snapshotName") is not None:
         out["snapshot_name"] = data["snapshotName"]
     else:
-        raise DeserializationError("ClusterSnapshot.snapshot_name required")
+        out["snapshot_name"] = ""
     if data.get("snapshotArn") is not None:
         out["snapshot_arn"] = data["snapshotArn"]
     else:
-        raise DeserializationError("ClusterSnapshot.snapshot_arn required")
+        out["snapshot_arn"] = ""
     if data.get("snapshotCreationTime") is not None:
         out["snapshot_creation_time"] = data["snapshotCreationTime"]
     else:
-        raise DeserializationError("ClusterSnapshot.snapshot_creation_time required")
+        out["snapshot_creation_time"] = ""
     if data.get("clusterArn") is not None:
         out["cluster_arn"] = data["clusterArn"]
     else:
-        raise DeserializationError("ClusterSnapshot.cluster_arn required")
+        out["cluster_arn"] = ""
     if data.get("clusterCreationTime") is not None:
         out["cluster_creation_time"] = data["clusterCreationTime"]
     else:
-        raise DeserializationError("ClusterSnapshot.cluster_creation_time required")
+        out["cluster_creation_time"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("ClusterSnapshot.status required")
+        out["status"] = ""
     if data.get("vpcSecurityGroupIds") is not None:
         import capo_docdb_elastic.types.string_list
 
@@ -106,15 +104,15 @@ def deserialize_json(data: dict) -> ClusterSnapshot:
             )
         )
     else:
-        raise DeserializationError("ClusterSnapshot.vpc_security_group_ids required")
+        out["vpc_security_group_ids"] = []
     if data.get("adminUserName") is not None:
         out["admin_user_name"] = data["adminUserName"]
     else:
-        raise DeserializationError("ClusterSnapshot.admin_user_name required")
+        out["admin_user_name"] = ""
     if data.get("kmsKeyId") is not None:
         out["kms_key_id"] = data["kmsKeyId"]
     else:
-        raise DeserializationError("ClusterSnapshot.kms_key_id required")
+        out["kms_key_id"] = ""
     if data.get("snapshotType") is not None:
         out["snapshot_type"] = data["snapshotType"]
     return out

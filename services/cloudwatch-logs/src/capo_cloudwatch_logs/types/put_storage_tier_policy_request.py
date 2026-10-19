@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.storage_tier
 
@@ -37,5 +35,9 @@ def deserialize_aws_json_1_1(data: dict) -> PutStorageTierPolicyRequest:
             )
         )
     else:
-        raise DeserializationError("PutStorageTierPolicyRequest.storage_tier required")
+        import typing
+
+        out["storage_tier"] = typing.cast(
+            "capo_cloudwatch_logs.types.storage_tier.StorageTier", ""
+        )
     return out

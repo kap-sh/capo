@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.flow_execution_identifier
     import capo_bedrock_agent_runtime.types.flow_execution_status
@@ -48,5 +46,10 @@ def deserialize_json(data: dict) -> StopFlowExecutionResponse:
             )
         )
     else:
-        raise DeserializationError("StopFlowExecutionResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.flow_execution_status.FlowExecutionStatus",
+            "",
+        )
     return out

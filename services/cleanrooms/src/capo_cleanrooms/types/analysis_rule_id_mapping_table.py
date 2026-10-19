@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.analysis_rule_column_list
     import capo_cleanrooms.types.query_constraint_list
@@ -61,7 +59,7 @@ def deserialize_json(data: dict) -> AnalysisRuleIdMappingTable:
             )
         )
     else:
-        raise DeserializationError("AnalysisRuleIdMappingTable.join_columns required")
+        out["join_columns"] = []
     if data.get("queryConstraints") is not None:
         import capo_cleanrooms.types.query_constraint_list
 
@@ -71,9 +69,7 @@ def deserialize_json(data: dict) -> AnalysisRuleIdMappingTable:
             )
         )
     else:
-        raise DeserializationError(
-            "AnalysisRuleIdMappingTable.query_constraints required"
-        )
+        out["query_constraints"] = []
     if data.get("dimensionColumns") is not None:
         import capo_cleanrooms.types.analysis_rule_column_list
 

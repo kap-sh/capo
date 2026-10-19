@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_query.types.scalar_measure_value_type
     import capo_timestream_query.types.schema_name
@@ -47,9 +45,7 @@ def deserialize_aws_json_1_0(data: dict) -> MultiMeasureAttributeMapping:
     if data.get("SourceColumn") is not None:
         out["source_column"] = data["SourceColumn"]
     else:
-        raise DeserializationError(
-            "MultiMeasureAttributeMapping.source_column required"
-        )
+        out["source_column"] = ""
     if data.get("TargetMultiMeasureAttributeName") is not None:
         out["target_multi_measure_attribute_name"] = data[
             "TargetMultiMeasureAttributeName"
@@ -63,7 +59,10 @@ def deserialize_aws_json_1_0(data: dict) -> MultiMeasureAttributeMapping:
             )
         )
     else:
-        raise DeserializationError(
-            "MultiMeasureAttributeMapping.measure_value_type required"
+        import typing
+
+        out["measure_value_type"] = typing.cast(
+            "capo_timestream_query.types.scalar_measure_value_type.ScalarMeasureValueType",
+            "",
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_jobs_data_plane.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_jobs_data_plane.types.details_map
     import capo_iot_jobs_data_plane.types.execution_number
@@ -89,7 +87,11 @@ def deserialize_json(data: dict) -> UpdateJobExecutionRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateJobExecutionRequest.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_iot_jobs_data_plane.types.job_execution_status.JobExecutionStatus", ""
+        )
     if data.get("statusDetails") is not None:
         import capo_iot_jobs_data_plane.types.details_map
 

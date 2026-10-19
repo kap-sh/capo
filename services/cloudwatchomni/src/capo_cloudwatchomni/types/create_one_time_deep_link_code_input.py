@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.domain_id
 
@@ -35,7 +33,7 @@ def deserialize_cbor(data: dict) -> CreateOneTimeDeepLinkCodeInput:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("CreateOneTimeDeepLinkCodeInput.domain_id required")
+        out["domain_id"] = ""
     if data.get("ttlSeconds") is not None:
         out["ttl_seconds"] = data["ttlSeconds"]
     if data.get("redirectUrl") is not None:

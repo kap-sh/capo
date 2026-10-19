@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.recipe_description
     import capo_databrew.types.recipe_name
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> CreateRecipeRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateRecipeRequest.name required")
+        out["name"] = ""
     if data.get("Steps") is not None:
         import capo_databrew.types.recipe_step_list
 
@@ -55,7 +53,7 @@ def deserialize_json(data: dict) -> CreateRecipeRequest:
             data["Steps"]
         )
     else:
-        raise DeserializationError("CreateRecipeRequest.steps required")
+        out["steps"] = []
     if data.get("Tags") is not None:
         import capo_databrew.types.tag_map
 

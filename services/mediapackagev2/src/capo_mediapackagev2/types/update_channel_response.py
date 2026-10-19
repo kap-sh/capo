@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -169,15 +167,15 @@ def deserialize_json(data: dict) -> UpdateChannelResponse:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("UpdateChannelResponse.arn required")
+        out["arn"] = ""
     if data.get("ChannelName") is not None:
         out["channel_name"] = data["ChannelName"]
     else:
-        raise DeserializationError("UpdateChannelResponse.channel_name required")
+        out["channel_name"] = ""
     if data.get("ChannelGroupName") is not None:
         out["channel_group_name"] = data["ChannelGroupName"]
     else:
-        raise DeserializationError("UpdateChannelResponse.channel_group_name required")
+        out["channel_group_name"] = ""
     if data.get("CreatedAt") is not None:
         import capo_mediapackagev2.types._prelude.timestamp
 
@@ -187,7 +185,9 @@ def deserialize_json(data: dict) -> UpdateChannelResponse:
             )
         )
     else:
-        raise DeserializationError("UpdateChannelResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("ModifiedAt") is not None:
         import capo_mediapackagev2.types._prelude.timestamp
 
@@ -197,7 +197,11 @@ def deserialize_json(data: dict) -> UpdateChannelResponse:
             )
         )
     else:
-        raise DeserializationError("UpdateChannelResponse.modified_at required")
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("IngestEndpoints") is not None:

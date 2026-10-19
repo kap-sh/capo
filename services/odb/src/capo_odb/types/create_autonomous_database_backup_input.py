@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.general_input_string
     import capo_odb.types.request_tag_map
@@ -52,9 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateAutonomousDatabaseBackupInput:
     if data.get("autonomousDatabaseId") is not None:
         out["autonomous_database_id"] = data["autonomousDatabaseId"]
     else:
-        raise DeserializationError(
-            "CreateAutonomousDatabaseBackupInput.autonomous_database_id required"
-        )
+        out["autonomous_database_id"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     if data.get("retentionPeriodInDays") is not None:

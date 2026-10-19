@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.headers
 
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> S3PresignedUrl:
     if data.get("url") is not None:
         out["url"] = data["url"]
     else:
-        raise DeserializationError("S3PresignedUrl.url required")
+        out["url"] = ""
     if data.get("headers") is not None:
         import capo_socialmessaging.types.headers
 
@@ -40,5 +38,5 @@ def deserialize_json(data: dict) -> S3PresignedUrl:
             data["headers"]
         )
     else:
-        raise DeserializationError("S3PresignedUrl.headers required")
+        out["headers"] = {}
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codestar_connections.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codestar_connections.types.blocker_status
     import capo_codestar_connections.types.blocker_type
@@ -87,7 +85,7 @@ def deserialize_aws_json_1_0(data: dict) -> SyncBlocker:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("SyncBlocker.id required")
+        out["id"] = ""
     if data.get("Type") is not None:
         import capo_codestar_connections.types.blocker_type
 
@@ -97,7 +95,11 @@ def deserialize_aws_json_1_0(data: dict) -> SyncBlocker:
             )
         )
     else:
-        raise DeserializationError("SyncBlocker.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codestar_connections.types.blocker_type.BlockerType", ""
+        )
     if data.get("Status") is not None:
         import capo_codestar_connections.types.blocker_status
 
@@ -107,11 +109,15 @@ def deserialize_aws_json_1_0(data: dict) -> SyncBlocker:
             )
         )
     else:
-        raise DeserializationError("SyncBlocker.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_codestar_connections.types.blocker_status.BlockerStatus", ""
+        )
     if data.get("CreatedReason") is not None:
         out["created_reason"] = data["CreatedReason"]
     else:
-        raise DeserializationError("SyncBlocker.created_reason required")
+        out["created_reason"] = ""
     if data.get("CreatedAt") is not None:
         import capo_codestar_connections.types.timestamp
 
@@ -121,7 +127,9 @@ def deserialize_aws_json_1_0(data: dict) -> SyncBlocker:
             )
         )
     else:
-        raise DeserializationError("SyncBlocker.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Contexts") is not None:
         import capo_codestar_connections.types.sync_blocker_context_list
 

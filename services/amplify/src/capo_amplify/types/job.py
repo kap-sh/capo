@@ -45,5 +45,5 @@ def deserialize_json(data: dict) -> Job:
 
         out["steps"] = capo_amplify.types.steps.deserialize_json(data["steps"])
     else:
-        raise DeserializationError("Job.steps required")
+        out["steps"] = []
     return out

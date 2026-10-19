@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.localized_string_list
     import capo_geo_routes.types.route_steering_direction
@@ -82,7 +80,7 @@ def deserialize_json(data: dict) -> RouteExitStepDetails:
             )
         )
     else:
-        raise DeserializationError("RouteExitStepDetails.intersection required")
+        out["intersection"] = []
     if data.get("RelativeExit") is not None:
         out["relative_exit"] = data["RelativeExit"]
     if data.get("SteeringDirection") is not None:

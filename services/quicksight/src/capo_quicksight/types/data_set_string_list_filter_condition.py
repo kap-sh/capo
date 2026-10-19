@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.data_set_string_list_filter_operator
     import capo_quicksight.types.data_set_string_list_filter_value
@@ -52,7 +50,12 @@ def deserialize_json(data: dict) -> DataSetStringListFilterCondition:
             )
         )
     else:
-        raise DeserializationError("DataSetStringListFilterCondition.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_quicksight.types.data_set_string_list_filter_operator.DataSetStringListFilterOperator",
+            "",
+        )
     if data.get("Values") is not None:
         import capo_quicksight.types.data_set_string_list_filter_value
 

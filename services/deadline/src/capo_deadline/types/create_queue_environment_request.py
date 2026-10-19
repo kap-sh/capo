@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.client_token
     import capo_deadline.types.environment_template
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> CreateQueueEnvironmentRequest:
     if data.get("priority") is not None:
         out["priority"] = data["priority"]
     else:
-        raise DeserializationError("CreateQueueEnvironmentRequest.priority required")
+        out["priority"] = 0
     if data.get("templateType") is not None:
         import capo_deadline.types.environment_template_type
 
@@ -60,13 +58,15 @@ def deserialize_json(data: dict) -> CreateQueueEnvironmentRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateQueueEnvironmentRequest.template_type required"
+        import typing
+
+        out["template_type"] = typing.cast(
+            "capo_deadline.types.environment_template_type.EnvironmentTemplateType", ""
         )
     if data.get("template") is not None:
         out["template"] = data["template"]
     else:
-        raise DeserializationError("CreateQueueEnvironmentRequest.template required")
+        out["template"] = ""
     return out
 
 

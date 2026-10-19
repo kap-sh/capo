@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.string
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> UserJobsFirst:
     if data.get("userIdentityId") is not None:
         out["user_identity_id"] = data["userIdentityId"]
     else:
-        raise DeserializationError("UserJobsFirst.user_identity_id required")
+        out["user_identity_id"] = ""
     return out

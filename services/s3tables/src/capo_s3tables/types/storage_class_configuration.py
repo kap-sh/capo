@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3tables.types.storage_class
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> StorageClassConfiguration:
             data["storageClass"]
         )
     else:
-        raise DeserializationError("StorageClassConfiguration.storage_class required")
+        import typing
+
+        out["storage_class"] = typing.cast(
+            "capo_s3tables.types.storage_class.StorageClass", ""
+        )
     return out

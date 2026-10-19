@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.real_time_contact_analysis_transcript_items_with_content
 
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> RealTimeContactAnalysisIssueDetected:
             )
         )
     else:
-        raise DeserializationError(
-            "RealTimeContactAnalysisIssueDetected.transcript_items required"
-        )
+        out["transcript_items"] = []
     return out

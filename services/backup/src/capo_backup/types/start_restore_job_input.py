@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.arn
     import capo_backup.types.boolean2
@@ -57,13 +55,13 @@ def deserialize_json(data: dict) -> StartRestoreJobInput:
     if data.get("RecoveryPointArn") is not None:
         out["recovery_point_arn"] = data["RecoveryPointArn"]
     else:
-        raise DeserializationError("StartRestoreJobInput.recovery_point_arn required")
+        out["recovery_point_arn"] = ""
     if data.get("Metadata") is not None:
         import capo_backup.types.metadata
 
         out["metadata"] = capo_backup.types.metadata.deserialize_json(data["Metadata"])
     else:
-        raise DeserializationError("StartRestoreJobInput.metadata required")
+        out["metadata"] = {}
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     if data.get("IdempotencyToken") is not None:

@@ -66,7 +66,7 @@ def deserialize_json(data: dict) -> Device:
     if data.get("ConnectorDeviceId") is not None:
         out["connector_device_id"] = data["ConnectorDeviceId"]
     else:
-        raise DeserializationError("Device.connector_device_id required")
+        out["connector_device_id"] = ""
     if data.get("ConnectorDeviceName") is not None:
         out["connector_device_name"] = data["ConnectorDeviceName"]
     if data.get("CapabilityReport") is not None:

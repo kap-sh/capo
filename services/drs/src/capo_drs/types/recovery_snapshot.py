@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.ebs_snapshots_list
     import capo_drs.types.iso8601_datetime_string
@@ -50,15 +48,15 @@ def deserialize_json(data: dict) -> RecoverySnapshot:
     if data.get("snapshotID") is not None:
         out["snapshot_id"] = data["snapshotID"]
     else:
-        raise DeserializationError("RecoverySnapshot.snapshot_id required")
+        out["snapshot_id"] = ""
     if data.get("sourceServerID") is not None:
         out["source_server_id"] = data["sourceServerID"]
     else:
-        raise DeserializationError("RecoverySnapshot.source_server_id required")
+        out["source_server_id"] = ""
     if data.get("expectedTimestamp") is not None:
         out["expected_timestamp"] = data["expectedTimestamp"]
     else:
-        raise DeserializationError("RecoverySnapshot.expected_timestamp required")
+        out["expected_timestamp"] = ""
     if data.get("timestamp") is not None:
         out["timestamp"] = data["timestamp"]
     if data.get("ebsSnapshots") is not None:

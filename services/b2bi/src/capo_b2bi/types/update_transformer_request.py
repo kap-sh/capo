@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.edi_type
     import capo_b2bi.types.file_format
@@ -111,7 +109,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateTransformerRequest:
     if data.get("transformerId") is not None:
         out["transformer_id"] = data["transformerId"]
     else:
-        raise DeserializationError("UpdateTransformerRequest.transformer_id required")
+        out["transformer_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("status") is not None:

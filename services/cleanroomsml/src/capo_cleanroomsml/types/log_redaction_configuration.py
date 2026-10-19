@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.custom_entity_config
     import capo_cleanroomsml.types.entity_type_list
@@ -50,9 +48,7 @@ def deserialize_json(data: dict) -> LogRedactionConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "LogRedactionConfiguration.entities_to_redact required"
-        )
+        out["entities_to_redact"] = []
     if data.get("customEntityConfig") is not None:
         import capo_cleanroomsml.types.custom_entity_config
 

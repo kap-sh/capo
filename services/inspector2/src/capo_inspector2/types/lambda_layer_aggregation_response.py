@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.account_id
     import capo_inspector2.types.non_empty_string
@@ -46,23 +44,19 @@ def deserialize_json(data: dict) -> LambdaLayerAggregationResponse:
     if data.get("functionName") is not None:
         out["function_name"] = data["functionName"]
     else:
-        raise DeserializationError(
-            "LambdaLayerAggregationResponse.function_name required"
-        )
+        out["function_name"] = ""
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     else:
-        raise DeserializationError(
-            "LambdaLayerAggregationResponse.resource_id required"
-        )
+        out["resource_id"] = ""
     if data.get("layerArn") is not None:
         out["layer_arn"] = data["layerArn"]
     else:
-        raise DeserializationError("LambdaLayerAggregationResponse.layer_arn required")
+        out["layer_arn"] = ""
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("LambdaLayerAggregationResponse.account_id required")
+        out["account_id"] = ""
     if data.get("severityCounts") is not None:
         import capo_inspector2.types.severity_counts
 

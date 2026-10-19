@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.agent_health
     import capo_inspector.types.agent_health_code
@@ -73,11 +71,11 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentRunAgent:
     if data.get("agentId") is not None:
         out["agent_id"] = data["agentId"]
     else:
-        raise DeserializationError("AssessmentRunAgent.agent_id required")
+        out["agent_id"] = ""
     if data.get("assessmentRunArn") is not None:
         out["assessment_run_arn"] = data["assessmentRunArn"]
     else:
-        raise DeserializationError("AssessmentRunAgent.assessment_run_arn required")
+        out["assessment_run_arn"] = ""
     if data.get("agentHealth") is not None:
         import capo_inspector.types.agent_health
 
@@ -87,7 +85,11 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentRunAgent:
             )
         )
     else:
-        raise DeserializationError("AssessmentRunAgent.agent_health required")
+        import typing
+
+        out["agent_health"] = typing.cast(
+            "capo_inspector.types.agent_health.AgentHealth", ""
+        )
     if data.get("agentHealthCode") is not None:
         import capo_inspector.types.agent_health_code
 
@@ -97,7 +99,11 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentRunAgent:
             )
         )
     else:
-        raise DeserializationError("AssessmentRunAgent.agent_health_code required")
+        import typing
+
+        out["agent_health_code"] = typing.cast(
+            "capo_inspector.types.agent_health_code.AgentHealthCode", ""
+        )
     if data.get("agentHealthDetails") is not None:
         out["agent_health_details"] = data["agentHealthDetails"]
     if data.get("autoScalingGroup") is not None:
@@ -111,5 +117,5 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentRunAgent:
             )
         )
     else:
-        raise DeserializationError("AssessmentRunAgent.telemetry_metadata required")
+        out["telemetry_metadata"] = []
     return out

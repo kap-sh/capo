@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 
 class BilledResourceUtilization(TypedDict, closed=True):
     units: "float"
@@ -30,5 +28,5 @@ def deserialize_json(data: dict) -> BilledResourceUtilization:
     if data.get("units") is not None:
         out["units"] = float(data["units"])
     else:
-        raise DeserializationError("BilledResourceUtilization.units required")
+        out["units"] = 0.0
     return out

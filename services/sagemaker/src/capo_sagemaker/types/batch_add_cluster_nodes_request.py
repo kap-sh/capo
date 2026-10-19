@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker.types.add_cluster_node_specification_list
     import capo_sagemaker.types.cluster_name_or_arn
@@ -45,7 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchAddClusterNodesRequest:
     if data.get("ClusterName") is not None:
         out["cluster_name"] = data["ClusterName"]
     else:
-        raise DeserializationError("BatchAddClusterNodesRequest.cluster_name required")
+        out["cluster_name"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("NodesToAdd") is not None:

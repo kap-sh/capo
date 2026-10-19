@@ -51,9 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeImageScanFindingsRequest:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError(
-            "DescribeImageScanFindingsRequest.repository_name required"
-        )
+        out["repository_name"] = ""
     if data.get("imageId") is not None:
         import capo_ecr.types.image_identifier
 

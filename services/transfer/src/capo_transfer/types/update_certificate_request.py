@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.cert_date
     import capo_transfer.types.certificate_id
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateCertificateRequest:
     if data.get("CertificateId") is not None:
         out["certificate_id"] = data["CertificateId"]
     else:
-        raise DeserializationError("UpdateCertificateRequest.certificate_id required")
+        out["certificate_id"] = ""
     if data.get("ActiveDate") is not None:
         import capo_transfer.types.cert_date
 

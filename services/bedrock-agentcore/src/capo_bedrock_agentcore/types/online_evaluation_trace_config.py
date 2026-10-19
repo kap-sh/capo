@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -43,9 +41,7 @@ def deserialize_json(data: dict) -> OnlineEvaluationTraceConfig:
     if data.get("onlineEvaluationConfigArn") is not None:
         out["online_evaluation_config_arn"] = data["onlineEvaluationConfigArn"]
     else:
-        raise DeserializationError(
-            "OnlineEvaluationTraceConfig.online_evaluation_config_arn required"
-        )
+        out["online_evaluation_config_arn"] = ""
     if data.get("startTime") is not None:
         import datetime
 
@@ -53,7 +49,9 @@ def deserialize_json(data: dict) -> OnlineEvaluationTraceConfig:
             data["startTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("OnlineEvaluationTraceConfig.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import datetime
 
@@ -61,5 +59,7 @@ def deserialize_json(data: dict) -> OnlineEvaluationTraceConfig:
             data["endTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("OnlineEvaluationTraceConfig.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

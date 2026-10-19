@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route_53_domains.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route_53_domains.types.boolean
     import capo_route_53_domains.types.domain_name
@@ -44,9 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDomainContactPrivacyRequest:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError(
-            "UpdateDomainContactPrivacyRequest.domain_name required"
-        )
+        out["domain_name"] = ""
     if data.get("AdminPrivacy") is not None:
         out["admin_privacy"] = data["AdminPrivacy"]
     if data.get("RegistrantPrivacy") is not None:

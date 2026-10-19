@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_channel.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_channel.types.date_time
     import capo_partnercentral_channel.types.minimum_notice_days
@@ -66,9 +64,7 @@ def deserialize_aws_json_1_0(data: dict) -> StartServicePeriodPayload:
             "programManagementAccountIdentifier"
         ]
     else:
-        raise DeserializationError(
-            "StartServicePeriodPayload.program_management_account_identifier required"
-        )
+        out["program_management_account_identifier"] = ""
     if data.get("note") is not None:
         out["note"] = data["note"]
     if data.get("servicePeriodType") is not None:
@@ -80,8 +76,11 @@ def deserialize_aws_json_1_0(data: dict) -> StartServicePeriodPayload:
             )
         )
     else:
-        raise DeserializationError(
-            "StartServicePeriodPayload.service_period_type required"
+        import typing
+
+        out["service_period_type"] = typing.cast(
+            "capo_partnercentral_channel.types.service_period_type.ServicePeriodType",
+            "",
         )
     if data.get("minimumNoticeDays") is not None:
         out["minimum_notice_days"] = data["minimumNoticeDays"]

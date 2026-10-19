@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DeleteResiliencyPolicyResponse:
     if data.get("policyArn") is not None:
         out["policy_arn"] = data["policyArn"]
     else:
-        raise DeserializationError("DeleteResiliencyPolicyResponse.policy_arn required")
+        out["policy_arn"] = ""
     return out

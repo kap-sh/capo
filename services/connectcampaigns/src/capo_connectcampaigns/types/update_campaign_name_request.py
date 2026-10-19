@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcampaigns.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaigns.types.campaign_id
     import capo_connectcampaigns.types.campaign_name
@@ -28,5 +26,5 @@ def deserialize_json(data: dict) -> UpdateCampaignNameRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateCampaignNameRequest.name required")
+        out["name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.number_filter_list
     import capo_pinpoint_sms_voice_v2.types.preference_type_list
@@ -51,7 +49,7 @@ def deserialize_aws_json_1_0(data: dict) -> NumberPreferenceItem:
             )
         )
     else:
-        raise DeserializationError("NumberPreferenceItem.preference_type required")
+        out["preference_type"] = []
     if data.get("Filter") is not None:
         import capo_pinpoint_sms_voice_v2.types.number_filter_list
 
@@ -61,5 +59,5 @@ def deserialize_aws_json_1_0(data: dict) -> NumberPreferenceItem:
             )
         )
     else:
-        raise DeserializationError("NumberPreferenceItem.filter required")
+        out["filter"] = []
     return out

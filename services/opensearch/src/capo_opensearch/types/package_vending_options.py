@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.boolean
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> PackageVendingOptions:
     if data.get("VendingEnabled") is not None:
         out["vending_enabled"] = data["VendingEnabled"]
     else:
-        raise DeserializationError("PackageVendingOptions.vending_enabled required")
+        out["vending_enabled"] = False
     return out

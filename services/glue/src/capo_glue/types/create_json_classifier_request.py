@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.json_path
     import capo_glue.types.name_string
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateJsonClassifierRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateJsonClassifierRequest.name required")
+        out["name"] = ""
     if data.get("JsonPath") is not None:
         out["json_path"] = data["JsonPath"]
     else:
-        raise DeserializationError("CreateJsonClassifierRequest.json_path required")
+        out["json_path"] = ""
     return out

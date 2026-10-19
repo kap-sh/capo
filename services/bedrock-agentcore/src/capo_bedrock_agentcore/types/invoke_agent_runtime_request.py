@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.body
     import capo_bedrock_agentcore.types.mime_type
@@ -70,7 +68,7 @@ def deserialize_json(data: dict) -> InvokeAgentRuntimeRequest:
             data["payload"]
         )
     else:
-        raise DeserializationError("InvokeAgentRuntimeRequest.payload required")
+        out["payload"] = b""
     return out
 
 

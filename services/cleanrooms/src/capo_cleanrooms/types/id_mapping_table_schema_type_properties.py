@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.id_mapping_table_input_source_list
     import capo_cleanrooms.types.uuid
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> IdMappingTableSchemaTypeProperties:
             )
         )
     else:
-        raise DeserializationError(
-            "IdMappingTableSchemaTypeProperties.id_mapping_table_input_source required"
-        )
+        out["id_mapping_table_input_source"] = []
     if data.get("idMappingTableId") is not None:
         out["id_mapping_table_id"] = data["idMappingTableId"]
     return out

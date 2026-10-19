@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.string
     import capo_ecs.types.target_type
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> Attribute:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Attribute.name required")
+        out["name"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     if data.get("targetType") is not None:

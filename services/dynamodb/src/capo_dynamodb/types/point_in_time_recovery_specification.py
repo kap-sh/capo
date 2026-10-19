@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.boolean_object
     import capo_dynamodb.types.recovery_period_in_days
@@ -34,9 +32,7 @@ def deserialize_aws_json_1_0(data: dict) -> PointInTimeRecoverySpecification:
     if data.get("PointInTimeRecoveryEnabled") is not None:
         out["point_in_time_recovery_enabled"] = data["PointInTimeRecoveryEnabled"]
     else:
-        raise DeserializationError(
-            "PointInTimeRecoverySpecification.point_in_time_recovery_enabled required"
-        )
+        out["point_in_time_recovery_enabled"] = False
     if data.get("RecoveryPeriodInDays") is not None:
         out["recovery_period_in_days"] = data["RecoveryPeriodInDays"]
     return out

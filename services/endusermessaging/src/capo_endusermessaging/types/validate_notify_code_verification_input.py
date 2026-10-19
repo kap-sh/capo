@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_endusermessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_endusermessaging.types.destination_identity
     import capo_endusermessaging.types.reference_id
@@ -38,15 +36,13 @@ def deserialize_json(data: dict) -> ValidateNotifyCodeVerificationInput:
     if data.get("destinationIdentity") is not None:
         out["destination_identity"] = data["destinationIdentity"]
     else:
-        raise DeserializationError(
-            "ValidateNotifyCodeVerificationInput.destination_identity required"
-        )
+        out["destination_identity"] = ""
     if data.get("referenceId") is not None:
         out["reference_id"] = data["referenceId"]
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("ValidateNotifyCodeVerificationInput.code required")
+        out["code"] = ""
     return out
 
 

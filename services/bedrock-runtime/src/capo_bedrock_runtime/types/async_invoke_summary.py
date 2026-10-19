@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.async_invoke_arn
     import capo_bedrock_runtime.types.async_invoke_idempotency_token
@@ -90,11 +88,11 @@ def deserialize_json(data: dict) -> AsyncInvokeSummary:
     if data.get("invocationArn") is not None:
         out["invocation_arn"] = data["invocationArn"]
     else:
-        raise DeserializationError("AsyncInvokeSummary.invocation_arn required")
+        out["invocation_arn"] = ""
     if data.get("modelArn") is not None:
         out["model_arn"] = data["modelArn"]
     else:
-        raise DeserializationError("AsyncInvokeSummary.model_arn required")
+        out["model_arn"] = ""
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     if data.get("status") is not None:
@@ -112,7 +110,11 @@ def deserialize_json(data: dict) -> AsyncInvokeSummary:
             data["submitTime"]
         )
     else:
-        raise DeserializationError("AsyncInvokeSummary.submit_time required")
+        import datetime
+
+        out["submit_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastModifiedTime") is not None:
         import capo_bedrock_runtime.types.timestamp
 
@@ -136,7 +138,11 @@ def deserialize_json(data: dict) -> AsyncInvokeSummary:
             )
         )
     else:
-        raise DeserializationError("AsyncInvokeSummary.output_data_config required")
+        import capo_bedrock_runtime.types._unknown
+
+        out["output_data_config"] = (
+            capo_bedrock_runtime.types._unknown.UnknownUnionMember("")
+        )
     return out
 
 

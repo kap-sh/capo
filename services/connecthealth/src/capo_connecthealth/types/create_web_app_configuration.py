@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_connecthealth.errors import DeserializationError
-
 
 class CreateWebAppConfiguration(TypedDict, closed=True):
     ehr_role: "str"
@@ -28,13 +26,13 @@ def deserialize_json(data: dict) -> CreateWebAppConfiguration:
     if data.get("ehrRole") is not None:
         out["ehr_role"] = data["ehrRole"]
     else:
-        raise DeserializationError("CreateWebAppConfiguration.ehr_role required")
+        out["ehr_role"] = ""
     if data.get("idcInstanceId") is not None:
         out["idc_instance_id"] = data["idcInstanceId"]
     else:
-        raise DeserializationError("CreateWebAppConfiguration.idc_instance_id required")
+        out["idc_instance_id"] = ""
     if data.get("idcRegion") is not None:
         out["idc_region"] = data["idcRegion"]
     else:
-        raise DeserializationError("CreateWebAppConfiguration.idc_region required")
+        out["idc_region"] = ""
     return out

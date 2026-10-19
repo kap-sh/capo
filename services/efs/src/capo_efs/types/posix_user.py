@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_efs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_efs.types.gid
     import capo_efs.types.secondary_gids
@@ -40,11 +38,11 @@ def deserialize_json(data: dict) -> PosixUser:
     if data.get("Uid") is not None:
         out["uid"] = data["Uid"]
     else:
-        raise DeserializationError("PosixUser.uid required")
+        out["uid"] = 0
     if data.get("Gid") is not None:
         out["gid"] = data["Gid"]
     else:
-        raise DeserializationError("PosixUser.gid required")
+        out["gid"] = 0
     if data.get("SecondaryGids") is not None:
         import capo_efs.types.secondary_gids
 

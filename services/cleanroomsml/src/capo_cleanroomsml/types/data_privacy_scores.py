@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.membership_inference_attack_score_list
 
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> DataPrivacyScores:
             )
         )
     else:
-        raise DeserializationError(
-            "DataPrivacyScores.membership_inference_attack_scores required"
-        )
+        out["membership_inference_attack_scores"] = []
     return out

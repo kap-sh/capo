@@ -143,29 +143,21 @@ def deserialize_json(data: dict) -> CreateModelCustomizationJobRequest:
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError(
-            "CreateModelCustomizationJobRequest.job_name required"
-        )
+        out["job_name"] = ""
     if data.get("customModelName") is not None:
         out["custom_model_name"] = data["customModelName"]
     else:
-        raise DeserializationError(
-            "CreateModelCustomizationJobRequest.custom_model_name required"
-        )
+        out["custom_model_name"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError(
-            "CreateModelCustomizationJobRequest.role_arn required"
-        )
+        out["role_arn"] = ""
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     if data.get("baseModelIdentifier") is not None:
         out["base_model_identifier"] = data["baseModelIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateModelCustomizationJobRequest.base_model_identifier required"
-        )
+        out["base_model_identifier"] = ""
     if data.get("customizationType") is not None:
         import capo_bedrock.types.customization_type
 

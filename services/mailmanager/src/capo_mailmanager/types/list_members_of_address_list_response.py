@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.pagination_token
     import capo_mailmanager.types.saved_addresses
@@ -42,9 +40,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListMembersOfAddressListResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListMembersOfAddressListResponse.addresses required"
-        )
+        out["addresses"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

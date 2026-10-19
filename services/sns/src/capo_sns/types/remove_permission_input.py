@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sns.types.label
@@ -34,10 +33,10 @@ def deserialize_query(el: Element) -> RemovePermissionInput:
     if child_topic_arn is not None:
         out["topic_arn"] = str(child_topic_arn.text or "")
     else:
-        raise DeserializationError("RemovePermissionInput.topic_arn required")
+        out["topic_arn"] = ""
     child_label = el.find("Label")
     if child_label is not None:
         out["label"] = str(child_label.text or "")
     else:
-        raise DeserializationError("RemovePermissionInput.label required")
+        out["label"] = ""
     return out

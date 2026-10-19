@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.arn
     import capo_resiliencehub.types.assessment_invoker
@@ -137,7 +135,11 @@ def deserialize_json(data: dict) -> AppAssessmentSummary:
             )
         )
     else:
-        raise DeserializationError("AppAssessmentSummary.assessment_status required")
+        import typing
+
+        out["assessment_status"] = typing.cast(
+            "capo_resiliencehub.types.assessment_status.AssessmentStatus", ""
+        )
     if data.get("invoker") is not None:
         import capo_resiliencehub.types.assessment_invoker
 
@@ -163,7 +165,7 @@ def deserialize_json(data: dict) -> AppAssessmentSummary:
     if data.get("assessmentArn") is not None:
         out["assessment_arn"] = data["assessmentArn"]
     else:
-        raise DeserializationError("AppAssessmentSummary.assessment_arn required")
+        out["assessment_arn"] = ""
     if data.get("complianceStatus") is not None:
         import capo_resiliencehub.types.compliance_status
 

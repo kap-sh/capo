@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -147,11 +145,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetPlanExecutionResponse:
     if data.get("planArn") is not None:
         out["plan_arn"] = data["planArn"]
     else:
-        raise DeserializationError("GetPlanExecutionResponse.plan_arn required")
+        out["plan_arn"] = ""
     if data.get("executionId") is not None:
         out["execution_id"] = data["executionId"]
     else:
-        raise DeserializationError("GetPlanExecutionResponse.execution_id required")
+        out["execution_id"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     if data.get("updatedAt") is not None:
@@ -173,7 +171,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetPlanExecutionResponse:
             )
         )
     else:
-        raise DeserializationError("GetPlanExecutionResponse.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_arc_region_switch.types._prelude.timestamp
 
@@ -191,7 +191,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetPlanExecutionResponse:
             )
         )
     else:
-        raise DeserializationError("GetPlanExecutionResponse.mode required")
+        import typing
+
+        out["mode"] = typing.cast(
+            "capo_arc_region_switch.types.execution_mode.ExecutionMode", ""
+        )
     if data.get("executionState") is not None:
         import capo_arc_region_switch.types.execution_state
 
@@ -201,7 +205,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetPlanExecutionResponse:
             )
         )
     else:
-        raise DeserializationError("GetPlanExecutionResponse.execution_state required")
+        import typing
+
+        out["execution_state"] = typing.cast(
+            "capo_arc_region_switch.types.execution_state.ExecutionState", ""
+        )
     if data.get("executionAction") is not None:
         import capo_arc_region_switch.types.execution_action
 
@@ -211,11 +219,15 @@ def deserialize_aws_json_1_0(data: dict) -> GetPlanExecutionResponse:
             )
         )
     else:
-        raise DeserializationError("GetPlanExecutionResponse.execution_action required")
+        import typing
+
+        out["execution_action"] = typing.cast(
+            "capo_arc_region_switch.types.execution_action.ExecutionAction", ""
+        )
     if data.get("executionRegion") is not None:
         out["execution_region"] = data["executionRegion"]
     else:
-        raise DeserializationError("GetPlanExecutionResponse.execution_region required")
+        out["execution_region"] = ""
     if data.get("recoveryExecutionId") is not None:
         out["recovery_execution_id"] = data["recoveryExecutionId"]
     if data.get("stepStates") is not None:

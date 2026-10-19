@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.update_firewall_rule_entries
 
@@ -39,7 +37,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchUpdateFirewallRuleRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchUpdateFirewallRuleRequest.update_firewall_rule_entries required"
-        )
+        out["update_firewall_rule_entries"] = []
     return out

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 
 class HarnessStreamMetrics(TypedDict, closed=True):
     latency_ms: "int"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> HarnessStreamMetrics:
     if data.get("latencyMs") is not None:
         out["latency_ms"] = data["latencyMs"]
     else:
-        raise DeserializationError("HarnessStreamMetrics.latency_ms required")
+        out["latency_ms"] = 0
     return out

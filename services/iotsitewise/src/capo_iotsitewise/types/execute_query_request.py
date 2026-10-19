@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.client_token
     import capo_iotsitewise.types.execute_query_max_results
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> ExecuteQueryRequest:
     if data.get("queryStatement") is not None:
         out["query_statement"] = data["queryStatement"]
     else:
-        raise DeserializationError("ExecuteQueryRequest.query_statement required")
+        out["query_statement"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

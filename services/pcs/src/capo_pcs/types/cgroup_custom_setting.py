@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_pcs.errors import DeserializationError
-
 
 class CgroupCustomSetting(TypedDict, closed=True):
     parameter_name: "str"
@@ -25,9 +23,9 @@ def deserialize_aws_json_1_0(data: dict) -> CgroupCustomSetting:
     if data.get("parameterName") is not None:
         out["parameter_name"] = data["parameterName"]
     else:
-        raise DeserializationError("CgroupCustomSetting.parameter_name required")
+        out["parameter_name"] = ""
     if data.get("parameterValue") is not None:
         out["parameter_value"] = data["parameterValue"]
     else:
-        raise DeserializationError("CgroupCustomSetting.parameter_value required")
+        out["parameter_value"] = ""
     return out

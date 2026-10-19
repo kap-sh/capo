@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.arn
     import capo_cloudwatch_logs.types.import_filter
@@ -42,11 +40,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateImportTaskRequest:
     if data.get("importSourceArn") is not None:
         out["import_source_arn"] = data["importSourceArn"]
     else:
-        raise DeserializationError("CreateImportTaskRequest.import_source_arn required")
+        out["import_source_arn"] = ""
     if data.get("importRoleArn") is not None:
         out["import_role_arn"] = data["importRoleArn"]
     else:
-        raise DeserializationError("CreateImportTaskRequest.import_role_arn required")
+        out["import_role_arn"] = ""
     if data.get("importFilter") is not None:
         import capo_cloudwatch_logs.types.import_filter
 

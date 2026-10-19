@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ivs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs.types.stream_key_arn_list
 
@@ -31,5 +29,5 @@ def deserialize_json(data: dict) -> BatchGetStreamKeyRequest:
 
         out["arns"] = capo_ivs.types.stream_key_arn_list.deserialize_json(data["arns"])
     else:
-        raise DeserializationError("BatchGetStreamKeyRequest.arns required")
+        out["arns"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.encryption_type
     import capo_sfn.types.kms_data_key_reuse_period_seconds
@@ -49,5 +47,7 @@ def deserialize_aws_json_1_0(data: dict) -> EncryptionConfiguration:
             data["type"]
         )
     else:
-        raise DeserializationError("EncryptionConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_sfn.types.encryption_type.EncryptionType", "")
     return out

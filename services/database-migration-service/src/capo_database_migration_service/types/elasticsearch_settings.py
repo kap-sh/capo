@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.boolean_optional
     import capo_database_migration_service.types.integer_optional
@@ -50,13 +48,11 @@ def deserialize_aws_json_1_1(data: dict) -> ElasticsearchSettings:
     if data.get("ServiceAccessRoleArn") is not None:
         out["service_access_role_arn"] = data["ServiceAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "ElasticsearchSettings.service_access_role_arn required"
-        )
+        out["service_access_role_arn"] = ""
     if data.get("EndpointUri") is not None:
         out["endpoint_uri"] = data["EndpointUri"]
     else:
-        raise DeserializationError("ElasticsearchSettings.endpoint_uri required")
+        out["endpoint_uri"] = ""
     if data.get("FullLoadErrorPercentage") is not None:
         out["full_load_error_percentage"] = data["FullLoadErrorPercentage"]
     if data.get("ErrorRetryDuration") is not None:

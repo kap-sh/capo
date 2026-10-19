@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.code_security_integration_arn
     import capo_inspector2.types.tag_map
@@ -36,9 +34,7 @@ def deserialize_json(data: dict) -> GetCodeSecurityIntegrationRequest:
     if data.get("integrationArn") is not None:
         out["integration_arn"] = data["integrationArn"]
     else:
-        raise DeserializationError(
-            "GetCodeSecurityIntegrationRequest.integration_arn required"
-        )
+        out["integration_arn"] = ""
     if data.get("tags") is not None:
         import capo_inspector2.types.tag_map
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.grantee_principal
     import capo_accessanalyzer.types.issuing_account
@@ -69,11 +67,11 @@ def deserialize_json(data: dict) -> KmsGrantConfiguration:
             )
         )
     else:
-        raise DeserializationError("KmsGrantConfiguration.operations required")
+        out["operations"] = []
     if data.get("granteePrincipal") is not None:
         out["grantee_principal"] = data["granteePrincipal"]
     else:
-        raise DeserializationError("KmsGrantConfiguration.grantee_principal required")
+        out["grantee_principal"] = ""
     if data.get("retiringPrincipal") is not None:
         out["retiring_principal"] = data["retiringPrincipal"]
     if data.get("constraints") is not None:
@@ -87,5 +85,5 @@ def deserialize_json(data: dict) -> KmsGrantConfiguration:
     if data.get("issuingAccount") is not None:
         out["issuing_account"] = data["issuingAccount"]
     else:
-        raise DeserializationError("KmsGrantConfiguration.issuing_account required")
+        out["issuing_account"] = ""
     return out

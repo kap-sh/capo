@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.boolean
     import capo_iottwinmaker.types.data_value
@@ -62,7 +60,7 @@ def deserialize_json(data: dict) -> PropertySummary:
     if data.get("propertyName") is not None:
         out["property_name"] = data["propertyName"]
     else:
-        raise DeserializationError("PropertySummary.property_name required")
+        out["property_name"] = ""
     if data.get("value") is not None:
         import capo_iottwinmaker.types.data_value
 

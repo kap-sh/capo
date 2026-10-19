@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.license_asset_group_status
 
@@ -41,5 +39,10 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteLicenseAssetGroupResponse:
             )
         )
     else:
-        raise DeserializationError("DeleteLicenseAssetGroupResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_license_manager.types.license_asset_group_status.LicenseAssetGroupStatus",
+            "",
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.gsr_schema_arn
     import capo_kinesis.types.record_format_type
@@ -44,7 +42,11 @@ def deserialize_aws_json_1_1(data: dict) -> RecordConfiguration:
             )
         )
     else:
-        raise DeserializationError("RecordConfiguration.record_format_type required")
+        import typing
+
+        out["record_format_type"] = typing.cast(
+            "capo_kinesis.types.record_format_type.RecordFormatType", ""
+        )
     if data.get("GSRSchemaARN") is not None:
         out["gsr_schema_arn"] = data["GSRSchemaARN"]
     return out

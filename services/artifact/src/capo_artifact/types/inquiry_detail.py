@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_artifact.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_artifact.types.input_source
     import capo_artifact.types.inquiry_id
@@ -84,15 +82,15 @@ def deserialize_json(data: dict) -> InquiryDetail:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("InquiryDetail.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("InquiryDetail.name required")
+        out["name"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("InquiryDetail.id required")
+        out["id"] = ""
     if data.get("status") is not None:
         import capo_artifact.types.inquiry_status
 
@@ -100,7 +98,11 @@ def deserialize_json(data: dict) -> InquiryDetail:
             data["status"]
         )
     else:
-        raise DeserializationError("InquiryDetail.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_artifact.types.inquiry_status.InquiryStatus", ""
+        )
     if data.get("statusMessage") is not None:
         import capo_artifact.types.inquiry_status_message
 
@@ -110,7 +112,11 @@ def deserialize_json(data: dict) -> InquiryDetail:
             )
         )
     else:
-        raise DeserializationError("InquiryDetail.status_message required")
+        import typing
+
+        out["status_message"] = typing.cast(
+            "capo_artifact.types.inquiry_status_message.InquiryStatusMessage", ""
+        )
     if data.get("inputSource") is not None:
         import capo_artifact.types.input_source
 
@@ -118,7 +124,11 @@ def deserialize_json(data: dict) -> InquiryDetail:
             data["inputSource"]
         )
     else:
-        raise DeserializationError("InquiryDetail.input_source required")
+        import typing
+
+        out["input_source"] = typing.cast(
+            "capo_artifact.types.input_source.InputSource", ""
+        )
     if data.get("createdAt") is not None:
         import capo_artifact.types.timestamp_attribute
 
@@ -126,7 +136,9 @@ def deserialize_json(data: dict) -> InquiryDetail:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("InquiryDetail.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_artifact.types.timestamp_attribute
 

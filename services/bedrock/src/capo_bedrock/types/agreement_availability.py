@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.agreement_status
 
@@ -37,7 +35,11 @@ def deserialize_json(data: dict) -> AgreementAvailability:
             data["status"]
         )
     else:
-        raise DeserializationError("AgreementAvailability.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock.types.agreement_status.AgreementStatus", ""
+        )
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.account_id
     import capo_quicksight.types.create_flow_request_client_token_string
@@ -57,13 +55,13 @@ def deserialize_json(data: dict) -> CreateFlowRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateFlowRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("FlowDefinition") is not None:
         out["flow_definition"] = data["FlowDefinition"]
     else:
-        raise DeserializationError("CreateFlowRequest.flow_definition required")
+        out["flow_definition"] = None
     if data.get("Permissions") is not None:
         import capo_quicksight.types.permissions_list
 

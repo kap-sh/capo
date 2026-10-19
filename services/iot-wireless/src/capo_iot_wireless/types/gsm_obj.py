@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.geran_cid
     import capo_iot_wireless.types.gsm_local_id
@@ -69,19 +67,19 @@ def deserialize_json(data: dict) -> GsmObj:
     if data.get("Mcc") is not None:
         out["mcc"] = data["Mcc"]
     else:
-        raise DeserializationError("GsmObj.mcc required")
+        out["mcc"] = 0
     if data.get("Mnc") is not None:
         out["mnc"] = data["Mnc"]
     else:
-        raise DeserializationError("GsmObj.mnc required")
+        out["mnc"] = 0
     if data.get("Lac") is not None:
         out["lac"] = data["Lac"]
     else:
-        raise DeserializationError("GsmObj.lac required")
+        out["lac"] = 0
     if data.get("GeranCid") is not None:
         out["geran_cid"] = data["GeranCid"]
     else:
-        raise DeserializationError("GsmObj.geran_cid required")
+        out["geran_cid"] = 0
     if data.get("GsmLocalId") is not None:
         import capo_iot_wireless.types.gsm_local_id
 

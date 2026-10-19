@@ -35,7 +35,7 @@ def deserialize_json(data: dict) -> UpdatePipelineResponse:
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("UpdatePipelineResponse.version required")
+        out["version"] = ""
     if data.get("status") is not None:
         import capo_iotsitewise.types.resource_status
 

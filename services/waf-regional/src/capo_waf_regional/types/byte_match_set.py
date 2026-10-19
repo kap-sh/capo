@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_waf_regional.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf_regional.types.byte_match_tuples
     import capo_waf_regional.types.resource_id
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> ByteMatchSet:
     if data.get("ByteMatchSetId") is not None:
         out["byte_match_set_id"] = data["ByteMatchSetId"]
     else:
-        raise DeserializationError("ByteMatchSet.byte_match_set_id required")
+        out["byte_match_set_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("ByteMatchTuples") is not None:
@@ -54,5 +52,5 @@ def deserialize_aws_json_1_1(data: dict) -> ByteMatchSet:
             )
         )
     else:
-        raise DeserializationError("ByteMatchSet.byte_match_tuples required")
+        out["byte_match_tuples"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.catalog_identifier
     import capo_partnercentral_selling.types.engagement_identifier
@@ -64,13 +62,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetResourceSnapshotRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("GetResourceSnapshotRequest.catalog required")
+        out["catalog"] = ""
     if data.get("EngagementIdentifier") is not None:
         out["engagement_identifier"] = data["EngagementIdentifier"]
     else:
-        raise DeserializationError(
-            "GetResourceSnapshotRequest.engagement_identifier required"
-        )
+        out["engagement_identifier"] = ""
     if data.get("ResourceType") is not None:
         import capo_partnercentral_selling.types.resource_type
 
@@ -80,21 +76,21 @@ def deserialize_aws_json_1_0(data: dict) -> GetResourceSnapshotRequest:
             )
         )
     else:
-        raise DeserializationError("GetResourceSnapshotRequest.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_partnercentral_selling.types.resource_type.ResourceType", ""
+        )
     if data.get("ResourceIdentifier") is not None:
         out["resource_identifier"] = data["ResourceIdentifier"]
     else:
-        raise DeserializationError(
-            "GetResourceSnapshotRequest.resource_identifier required"
-        )
+        out["resource_identifier"] = ""
     if data.get("ResourceSnapshotTemplateIdentifier") is not None:
         out["resource_snapshot_template_identifier"] = data[
             "ResourceSnapshotTemplateIdentifier"
         ]
     else:
-        raise DeserializationError(
-            "GetResourceSnapshotRequest.resource_snapshot_template_identifier required"
-        )
+        out["resource_snapshot_template_identifier"] = ""
     if data.get("Revision") is not None:
         out["revision"] = data["Revision"]
     return out

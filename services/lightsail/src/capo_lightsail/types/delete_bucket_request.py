@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.boolean
     import capo_lightsail.types.bucket_name
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteBucketRequest:
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError("DeleteBucketRequest.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("forceDelete") is not None:
         out["force_delete"] = data["forceDelete"]
     return out

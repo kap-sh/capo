@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -93,11 +91,11 @@ def deserialize_aws_json_1_1(data: dict) -> SessionData:
     if data.get("SessionId") is not None:
         out["session_id"] = data["SessionId"]
     else:
-        raise DeserializationError("SessionData.session_id required")
+        out["session_id"] = ""
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("SessionData.status required")
+        out["status"] = ""
     if data.get("CreatedAt") is not None:
         import capo_redshift_data.types._prelude.timestamp
 
@@ -107,7 +105,9 @@ def deserialize_aws_json_1_1(data: dict) -> SessionData:
             )
         )
     else:
-        raise DeserializationError("SessionData.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("UpdatedAt") is not None:
         import capo_redshift_data.types._prelude.timestamp
 

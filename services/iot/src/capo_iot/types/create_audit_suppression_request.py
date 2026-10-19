@@ -58,7 +58,7 @@ def deserialize_json(data: dict) -> CreateAuditSuppressionRequest:
     if data.get("checkName") is not None:
         out["check_name"] = data["checkName"]
     else:
-        raise DeserializationError("CreateAuditSuppressionRequest.check_name required")
+        out["check_name"] = ""
     if data.get("resourceIdentifier") is not None:
         import capo_iot.types.resource_identifier
 
@@ -84,7 +84,5 @@ def deserialize_json(data: dict) -> CreateAuditSuppressionRequest:
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     else:
-        raise DeserializationError(
-            "CreateAuditSuppressionRequest.client_request_token required"
-        )
+        out["client_request_token"] = ""
     return out

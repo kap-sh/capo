@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.boolean_optional
     import capo_database_migration_service.types.integer_optional
@@ -99,9 +97,7 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyDataMigrationMessage:
     if data.get("DataMigrationIdentifier") is not None:
         out["data_migration_identifier"] = data["DataMigrationIdentifier"]
     else:
-        raise DeserializationError(
-            "ModifyDataMigrationMessage.data_migration_identifier required"
-        )
+        out["data_migration_identifier"] = ""
     if data.get("DataMigrationName") is not None:
         out["data_migration_name"] = data["DataMigrationName"]
     if data.get("EnableCloudwatchLogs") is not None:

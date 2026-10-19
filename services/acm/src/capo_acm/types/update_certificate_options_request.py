@@ -35,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateCertificateOptionsRequest:
     if data.get("CertificateArn") is not None:
         out["certificate_arn"] = data["CertificateArn"]
     else:
-        raise DeserializationError(
-            "UpdateCertificateOptionsRequest.certificate_arn required"
-        )
+        out["certificate_arn"] = ""
     if data.get("Options") is not None:
         import capo_acm.types.certificate_options
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.bar_chart_series_settings
     import capo_quicksight.types.field_id
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> DataFieldBarSeriesItem:
     if data.get("FieldId") is not None:
         out["field_id"] = data["FieldId"]
     else:
-        raise DeserializationError("DataFieldBarSeriesItem.field_id required")
+        out["field_id"] = ""
     if data.get("FieldValue") is not None:
         out["field_value"] = data["FieldValue"]
     if data.get("Settings") is not None:

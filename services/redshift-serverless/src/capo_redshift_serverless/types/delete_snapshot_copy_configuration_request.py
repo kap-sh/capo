@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 
 class DeleteSnapshotCopyConfigurationRequest(TypedDict, closed=True):
     snapshot_copy_configuration_id: "str"
@@ -22,7 +20,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteSnapshotCopyConfigurationReque
     if data.get("snapshotCopyConfigurationId") is not None:
         out["snapshot_copy_configuration_id"] = data["snapshotCopyConfigurationId"]
     else:
-        raise DeserializationError(
-            "DeleteSnapshotCopyConfigurationRequest.snapshot_copy_configuration_id required"
-        )
+        out["snapshot_copy_configuration_id"] = ""
     return out

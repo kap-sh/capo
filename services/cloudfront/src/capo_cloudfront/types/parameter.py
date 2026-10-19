@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.parameter_name
@@ -32,10 +31,10 @@ def deserialize_xml(el: Element) -> Parameter:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("Parameter.name required")
+        out["name"] = ""
     child_value = el.find("Value")
     if child_value is not None:
         out["value"] = str(child_value.text or "")
     else:
-        raise DeserializationError("Parameter.value required")
+        out["value"] = ""
     return out

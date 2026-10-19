@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.client_token
     import capo_deadline.types.description
@@ -80,19 +78,19 @@ def deserialize_json(data: dict) -> CreateFleetRequest:
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("CreateFleetRequest.display_name required")
+        out["display_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateFleetRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("minWorkerCount") is not None:
         out["min_worker_count"] = data["minWorkerCount"]
     if data.get("maxWorkerCount") is not None:
         out["max_worker_count"] = data["maxWorkerCount"]
     else:
-        raise DeserializationError("CreateFleetRequest.max_worker_count required")
+        out["max_worker_count"] = 0
     if data.get("configuration") is not None:
         import capo_deadline.types.fleet_configuration
 
@@ -100,7 +98,9 @@ def deserialize_json(data: dict) -> CreateFleetRequest:
             data["configuration"]
         )
     else:
-        raise DeserializationError("CreateFleetRequest.configuration required")
+        import capo_deadline.types._unknown
+
+        out["configuration"] = capo_deadline.types._unknown.UnknownUnionMember("")
     if data.get("tags") is not None:
         import capo_deadline.types.tags
 

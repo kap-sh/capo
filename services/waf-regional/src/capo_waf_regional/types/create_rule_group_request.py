@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_waf_regional.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf_regional.types.change_token
     import capo_waf_regional.types.metric_name
@@ -44,15 +42,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRuleGroupRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateRuleGroupRequest.name required")
+        out["name"] = ""
     if data.get("MetricName") is not None:
         out["metric_name"] = data["MetricName"]
     else:
-        raise DeserializationError("CreateRuleGroupRequest.metric_name required")
+        out["metric_name"] = ""
     if data.get("ChangeToken") is not None:
         out["change_token"] = data["ChangeToken"]
     else:
-        raise DeserializationError("CreateRuleGroupRequest.change_token required")
+        out["change_token"] = ""
     if data.get("Tags") is not None:
         import capo_waf_regional.types.tag_list
 

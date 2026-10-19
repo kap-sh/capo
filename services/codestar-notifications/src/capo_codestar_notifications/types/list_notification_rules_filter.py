@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codestar_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codestar_notifications.types.list_notification_rules_filter_name
     import capo_codestar_notifications.types.list_notification_rules_filter_value
@@ -43,9 +41,14 @@ def deserialize_json(data: dict) -> ListNotificationRulesFilter:
             )
         )
     else:
-        raise DeserializationError("ListNotificationRulesFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_codestar_notifications.types.list_notification_rules_filter_name.ListNotificationRulesFilterName",
+            "",
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("ListNotificationRulesFilter.value required")
+        out["value"] = ""
     return out

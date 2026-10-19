@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime.types.boolean
 
@@ -33,13 +31,13 @@ def deserialize_json(data: dict) -> TelephonySettings:
     if data.get("InboundCalling") is not None:
         out["inbound_calling"] = data["InboundCalling"]
     else:
-        raise DeserializationError("TelephonySettings.inbound_calling required")
+        out["inbound_calling"] = False
     if data.get("OutboundCalling") is not None:
         out["outbound_calling"] = data["OutboundCalling"]
     else:
-        raise DeserializationError("TelephonySettings.outbound_calling required")
+        out["outbound_calling"] = False
     if data.get("SMS") is not None:
         out["sms"] = data["SMS"]
     else:
-        raise DeserializationError("TelephonySettings.sms required")
+        out["sms"] = False
     return out

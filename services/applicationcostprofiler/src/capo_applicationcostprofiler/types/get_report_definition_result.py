@@ -78,13 +78,11 @@ def deserialize_json(data: dict) -> GetReportDefinitionResult:
     if data.get("reportId") is not None:
         out["report_id"] = data["reportId"]
     else:
-        raise DeserializationError("GetReportDefinitionResult.report_id required")
+        out["report_id"] = ""
     if data.get("reportDescription") is not None:
         out["report_description"] = data["reportDescription"]
     else:
-        raise DeserializationError(
-            "GetReportDefinitionResult.report_description required"
-        )
+        out["report_description"] = ""
     if data.get("reportFrequency") is not None:
         import capo_applicationcostprofiler.types.report_frequency
 
@@ -94,8 +92,10 @@ def deserialize_json(data: dict) -> GetReportDefinitionResult:
             )
         )
     else:
-        raise DeserializationError(
-            "GetReportDefinitionResult.report_frequency required"
+        import typing
+
+        out["report_frequency"] = typing.cast(
+            "capo_applicationcostprofiler.types.report_frequency.ReportFrequency", ""
         )
     if data.get("format") is not None:
         import capo_applicationcostprofiler.types.format
@@ -104,7 +104,11 @@ def deserialize_json(data: dict) -> GetReportDefinitionResult:
             data["format"]
         )
     else:
-        raise DeserializationError("GetReportDefinitionResult.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_applicationcostprofiler.types.format.Format", ""
+        )
     if data.get("destinationS3Location") is not None:
         import capo_applicationcostprofiler.types.s3_location
 
@@ -126,7 +130,9 @@ def deserialize_json(data: dict) -> GetReportDefinitionResult:
             )
         )
     else:
-        raise DeserializationError("GetReportDefinitionResult.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastUpdated") is not None:
         import capo_applicationcostprofiler.types.timestamp
 
@@ -136,5 +142,9 @@ def deserialize_json(data: dict) -> GetReportDefinitionResult:
             )
         )
     else:
-        raise DeserializationError("GetReportDefinitionResult.last_updated required")
+        import datetime
+
+        out["last_updated"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

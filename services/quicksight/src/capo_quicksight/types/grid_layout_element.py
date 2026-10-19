@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.border_radius
     import capo_quicksight.types.grid_layout_element_background_style
@@ -121,7 +119,7 @@ def deserialize_json(data: dict) -> GridLayoutElement:
     if data.get("ElementId") is not None:
         out["element_id"] = data["ElementId"]
     else:
-        raise DeserializationError("GridLayoutElement.element_id required")
+        out["element_id"] = ""
     if data.get("ElementType") is not None:
         import capo_quicksight.types.layout_element_type
 
@@ -131,19 +129,23 @@ def deserialize_json(data: dict) -> GridLayoutElement:
             )
         )
     else:
-        raise DeserializationError("GridLayoutElement.element_type required")
+        import typing
+
+        out["element_type"] = typing.cast(
+            "capo_quicksight.types.layout_element_type.LayoutElementType", ""
+        )
     if data.get("ColumnIndex") is not None:
         out["column_index"] = data["ColumnIndex"]
     if data.get("ColumnSpan") is not None:
         out["column_span"] = data["ColumnSpan"]
     else:
-        raise DeserializationError("GridLayoutElement.column_span required")
+        out["column_span"] = 0
     if data.get("RowIndex") is not None:
         out["row_index"] = data["RowIndex"]
     if data.get("RowSpan") is not None:
         out["row_span"] = data["RowSpan"]
     else:
-        raise DeserializationError("GridLayoutElement.row_span required")
+        out["row_span"] = 0
     if data.get("BorderStyle") is not None:
         import capo_quicksight.types.grid_layout_element_border_style
 

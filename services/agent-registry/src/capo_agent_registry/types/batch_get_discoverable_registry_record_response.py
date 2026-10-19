@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_agent_registry.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_agent_registry.types.batch_get_discoverable_registry_record_error_list
     import capo_agent_registry.types.registry_record_summary_list
@@ -49,9 +47,7 @@ def deserialize_json(data: dict) -> BatchGetDiscoverableRegistryRecordResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetDiscoverableRegistryRecordResponse.registry_records required"
-        )
+        out["registry_records"] = []
     if data.get("errors") is not None:
         import capo_agent_registry.types.batch_get_discoverable_registry_record_error_list
 
@@ -61,9 +57,7 @@ def deserialize_json(data: dict) -> BatchGetDiscoverableRegistryRecordResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetDiscoverableRegistryRecordResponse.errors required"
-        )
+        out["errors"] = []
     return out
 
 

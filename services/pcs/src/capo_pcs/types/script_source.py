@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pcs.errors import DeserializationError
-
 
 class ScriptSource(TypedDict, closed=True):
     script_location: "str"
@@ -30,7 +28,7 @@ def deserialize_aws_json_1_0(data: dict) -> ScriptSource:
     if data.get("scriptLocation") is not None:
         out["script_location"] = data["scriptLocation"]
     else:
-        raise DeserializationError("ScriptSource.script_location required")
+        out["script_location"] = ""
     if data.get("s3VersionId") is not None:
         out["s3_version_id"] = data["s3VersionId"]
     if data.get("checksum") is not None:

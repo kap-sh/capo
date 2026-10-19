@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.worker_amount_capability_list
     import capo_deadline.types.worker_attribute_capability_list
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> WorkerCapabilities:
             )
         )
     else:
-        raise DeserializationError("WorkerCapabilities.amounts required")
+        out["amounts"] = []
     if data.get("attributes") is not None:
         import capo_deadline.types.worker_attribute_capability_list
 
@@ -59,5 +57,5 @@ def deserialize_json(data: dict) -> WorkerCapabilities:
             )
         )
     else:
-        raise DeserializationError("WorkerCapabilities.attributes required")
+        out["attributes"] = []
     return out

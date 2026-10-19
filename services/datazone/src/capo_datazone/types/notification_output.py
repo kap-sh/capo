@@ -87,11 +87,11 @@ def deserialize_json(data: dict) -> NotificationOutput:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("NotificationOutput.identifier required")
+        out["identifier"] = ""
     if data.get("domainIdentifier") is not None:
         out["domain_identifier"] = data["domainIdentifier"]
     else:
-        raise DeserializationError("NotificationOutput.domain_identifier required")
+        out["domain_identifier"] = ""
     if data.get("type") is not None:
         import capo_datazone.types.notification_type
 
@@ -99,7 +99,11 @@ def deserialize_json(data: dict) -> NotificationOutput:
             data["type"]
         )
     else:
-        raise DeserializationError("NotificationOutput.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_datazone.types.notification_type.NotificationType", ""
+        )
     if data.get("topic") is not None:
         import capo_datazone.types.topic
 
@@ -109,11 +113,11 @@ def deserialize_json(data: dict) -> NotificationOutput:
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("NotificationOutput.title required")
+        out["title"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("NotificationOutput.message required")
+        out["message"] = ""
     if data.get("status") is not None:
         import capo_datazone.types.task_status
 
@@ -121,7 +125,7 @@ def deserialize_json(data: dict) -> NotificationOutput:
     if data.get("actionLink") is not None:
         out["action_link"] = data["actionLink"]
     else:
-        raise DeserializationError("NotificationOutput.action_link required")
+        out["action_link"] = ""
     if data.get("creationTimestamp") is not None:
         import capo_datazone.types._prelude.timestamp
 
@@ -131,7 +135,11 @@ def deserialize_json(data: dict) -> NotificationOutput:
             )
         )
     else:
-        raise DeserializationError("NotificationOutput.creation_timestamp required")
+        import datetime
+
+        out["creation_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastUpdatedTimestamp") is not None:
         import capo_datazone.types._prelude.timestamp
 
@@ -141,7 +149,11 @@ def deserialize_json(data: dict) -> NotificationOutput:
             )
         )
     else:
-        raise DeserializationError("NotificationOutput.last_updated_timestamp required")
+        import datetime
+
+        out["last_updated_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("metadata") is not None:
         import capo_datazone.types.metadata_map
 

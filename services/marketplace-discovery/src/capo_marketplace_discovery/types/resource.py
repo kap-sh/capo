@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.non_empty_string
     import capo_marketplace_discovery.types.nullable_string
@@ -60,7 +58,11 @@ def deserialize_json(data: dict) -> Resource:
             )
         )
     else:
-        raise DeserializationError("Resource.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_marketplace_discovery.types.resource_type.ResourceType", ""
+        )
     if data.get("contentType") is not None:
         import capo_marketplace_discovery.types.resource_content_type
 
@@ -70,11 +72,16 @@ def deserialize_json(data: dict) -> Resource:
             )
         )
     else:
-        raise DeserializationError("Resource.content_type required")
+        import typing
+
+        out["content_type"] = typing.cast(
+            "capo_marketplace_discovery.types.resource_content_type.ResourceContentType",
+            "",
+        )
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("Resource.value required")
+        out["value"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     return out

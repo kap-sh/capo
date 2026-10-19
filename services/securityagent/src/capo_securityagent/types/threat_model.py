@@ -96,15 +96,15 @@ def deserialize_json(data: dict) -> ThreatModel:
     if data.get("threatModelId") is not None:
         out["threat_model_id"] = data["threatModelId"]
     else:
-        raise DeserializationError("ThreatModel.threat_model_id required")
+        out["threat_model_id"] = ""
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError("ThreatModel.agent_space_id required")
+        out["agent_space_id"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("ThreatModel.title required")
+        out["title"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("assets") is not None:

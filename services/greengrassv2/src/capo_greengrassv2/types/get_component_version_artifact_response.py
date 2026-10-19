@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_greengrassv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_greengrassv2.types.non_empty_string
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> GetComponentVersionArtifactResponse:
     if data.get("preSignedUrl") is not None:
         out["pre_signed_url"] = data["preSignedUrl"]
     else:
-        raise DeserializationError(
-            "GetComponentVersionArtifactResponse.pre_signed_url required"
-        )
+        out["pre_signed_url"] = ""
     return out

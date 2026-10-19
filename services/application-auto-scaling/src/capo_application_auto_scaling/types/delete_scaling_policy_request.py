@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_auto_scaling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_auto_scaling.types.resource_id_max_len1600
     import capo_application_auto_scaling.types.scalable_dimension
@@ -54,7 +52,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteScalingPolicyRequest:
     if data.get("PolicyName") is not None:
         out["policy_name"] = data["PolicyName"]
     else:
-        raise DeserializationError("DeleteScalingPolicyRequest.policy_name required")
+        out["policy_name"] = ""
     if data.get("ServiceNamespace") is not None:
         import capo_application_auto_scaling.types.service_namespace
 
@@ -64,13 +62,15 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteScalingPolicyRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DeleteScalingPolicyRequest.service_namespace required"
+        import typing
+
+        out["service_namespace"] = typing.cast(
+            "capo_application_auto_scaling.types.service_namespace.ServiceNamespace", ""
         )
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("DeleteScalingPolicyRequest.resource_id required")
+        out["resource_id"] = ""
     if data.get("ScalableDimension") is not None:
         import capo_application_auto_scaling.types.scalable_dimension
 
@@ -80,7 +80,10 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteScalingPolicyRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DeleteScalingPolicyRequest.scalable_dimension required"
+        import typing
+
+        out["scalable_dimension"] = typing.cast(
+            "capo_application_auto_scaling.types.scalable_dimension.ScalableDimension",
+            "",
         )
     return out

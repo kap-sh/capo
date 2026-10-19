@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.field_value_list
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> CustomContent:
             data["fields"]
         )
     else:
-        raise DeserializationError("CustomContent.fields required")
+        out["fields"] = []
     return out

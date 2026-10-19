@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sns.types.publish_batch_request_entry_list
@@ -42,7 +41,7 @@ def deserialize_query(el: Element) -> PublishBatchInput:
     if child_topic_arn is not None:
         out["topic_arn"] = str(child_topic_arn.text or "")
     else:
-        raise DeserializationError("PublishBatchInput.topic_arn required")
+        out["topic_arn"] = ""
     child_publish_batch_request_entries = el.find("PublishBatchRequestEntries")
     if child_publish_batch_request_entries is not None:
         import capo_sns.types.publish_batch_request_entry_list
@@ -53,7 +52,5 @@ def deserialize_query(el: Element) -> PublishBatchInput:
             )
         )
     else:
-        raise DeserializationError(
-            "PublishBatchInput.publish_batch_request_entries required"
-        )
+        out["publish_batch_request_entries"] = []
     return out

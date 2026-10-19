@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.item_source_list
     import capo_sagemaker_geospatial.types.next_token
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> SearchRasterDataCollectionOutput:
     if data.get("ApproximateResultCount") is not None:
         out["approximate_result_count"] = data["ApproximateResultCount"]
     else:
-        raise DeserializationError(
-            "SearchRasterDataCollectionOutput.approximate_result_count required"
-        )
+        out["approximate_result_count"] = 0
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("Items") is not None:

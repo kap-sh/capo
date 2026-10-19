@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glacier.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glacier.types.string
     import capo_glacier.types.type
@@ -48,7 +46,9 @@ def deserialize_json(data: dict) -> Grantee:
 
         out["type"] = capo_glacier.types.type.deserialize_json(data["Type"])
     else:
-        raise DeserializationError("Grantee.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_glacier.types.type.Type", "")
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     if data.get("URI") is not None:

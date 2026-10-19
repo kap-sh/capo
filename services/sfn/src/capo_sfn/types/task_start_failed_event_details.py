@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.name
     import capo_sfn.types.sensitive_cause
@@ -40,11 +38,11 @@ def deserialize_aws_json_1_0(data: dict) -> TaskStartFailedEventDetails:
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError("TaskStartFailedEventDetails.resource_type required")
+        out["resource_type"] = ""
     if data.get("resource") is not None:
         out["resource"] = data["resource"]
     else:
-        raise DeserializationError("TaskStartFailedEventDetails.resource required")
+        out["resource"] = ""
     if data.get("error") is not None:
         out["error"] = data["error"]
     if data.get("cause") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptune_graph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_neptune_graph.types.format
     import capo_neptune_graph.types.graph_id
@@ -65,11 +63,11 @@ def deserialize_json(data: dict) -> CancelImportTaskOutput:
     if data.get("taskId") is not None:
         out["task_id"] = data["taskId"]
     else:
-        raise DeserializationError("CancelImportTaskOutput.task_id required")
+        out["task_id"] = ""
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("CancelImportTaskOutput.source required")
+        out["source"] = ""
     if data.get("format") is not None:
         import capo_neptune_graph.types.format
 
@@ -83,7 +81,7 @@ def deserialize_json(data: dict) -> CancelImportTaskOutput:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CancelImportTaskOutput.role_arn required")
+        out["role_arn"] = ""
     if data.get("status") is not None:
         import capo_neptune_graph.types.import_task_status
 
@@ -91,5 +89,9 @@ def deserialize_json(data: dict) -> CancelImportTaskOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("CancelImportTaskOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_neptune_graph.types.import_task_status.ImportTaskStatus", ""
+        )
     return out

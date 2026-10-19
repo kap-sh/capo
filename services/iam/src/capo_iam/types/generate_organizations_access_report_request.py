@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.organizations_entity_path_type
@@ -46,9 +45,7 @@ def deserialize_query(el: Element) -> GenerateOrganizationsAccessReportRequest:
     if child_entity_path is not None:
         out["entity_path"] = str(child_entity_path.text or "")
     else:
-        raise DeserializationError(
-            "GenerateOrganizationsAccessReportRequest.entity_path required"
-        )
+        out["entity_path"] = ""
     child_organizations_policy_id = el.find("OrganizationsPolicyId")
     if child_organizations_policy_id is not None:
         out["organizations_policy_id"] = str(child_organizations_policy_id.text or "")

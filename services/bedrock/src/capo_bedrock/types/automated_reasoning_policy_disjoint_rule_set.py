@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_definition_variable_name_list
     import capo_bedrock.types.automated_reasoning_policy_disjointed_rule_id_list
@@ -49,9 +47,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyDisjointRuleSet:
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyDisjointRuleSet.variables required"
-        )
+        out["variables"] = []
     if data.get("rules") is not None:
         import capo_bedrock.types.automated_reasoning_policy_disjointed_rule_id_list
 
@@ -61,9 +57,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyDisjointRuleSet:
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyDisjointRuleSet.rules required"
-        )
+        out["rules"] = []
     return out
 
 

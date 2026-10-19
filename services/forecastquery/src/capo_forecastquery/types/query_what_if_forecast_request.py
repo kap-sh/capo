@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_forecastquery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_forecastquery.types.date_time
     import capo_forecastquery.types.filters
@@ -49,9 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> QueryWhatIfForecastRequest:
     if data.get("WhatIfForecastArn") is not None:
         out["what_if_forecast_arn"] = data["WhatIfForecastArn"]
     else:
-        raise DeserializationError(
-            "QueryWhatIfForecastRequest.what_if_forecast_arn required"
-        )
+        out["what_if_forecast_arn"] = ""
     if data.get("StartDate") is not None:
         out["start_date"] = data["StartDate"]
     if data.get("EndDate") is not None:
@@ -63,7 +59,7 @@ def deserialize_aws_json_1_1(data: dict) -> QueryWhatIfForecastRequest:
             data["Filters"]
         )
     else:
-        raise DeserializationError("QueryWhatIfForecastRequest.filters required")
+        out["filters"] = {}
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

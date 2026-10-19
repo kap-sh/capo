@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.desired_user_sessions
 
@@ -29,5 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> Capacity:
     if data.get("DesiredUserSessions") is not None:
         out["desired_user_sessions"] = data["DesiredUserSessions"]
     else:
-        raise DeserializationError("Capacity.desired_user_sessions required")
+        out["desired_user_sessions"] = 0
     return out

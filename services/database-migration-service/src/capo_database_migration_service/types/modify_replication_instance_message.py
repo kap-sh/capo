@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.boolean
     import capo_database_migration_service.types.boolean_optional
@@ -113,9 +111,7 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyReplicationInstanceMessage:
     if data.get("ReplicationInstanceArn") is not None:
         out["replication_instance_arn"] = data["ReplicationInstanceArn"]
     else:
-        raise DeserializationError(
-            "ModifyReplicationInstanceMessage.replication_instance_arn required"
-        )
+        out["replication_instance_arn"] = ""
     if data.get("AllocatedStorage") is not None:
         out["allocated_storage"] = data["AllocatedStorage"]
     if data.get("ApplyImmediately") is not None:

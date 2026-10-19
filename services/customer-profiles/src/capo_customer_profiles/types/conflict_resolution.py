@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.conflict_resolving_model
     import capo_customer_profiles.types.string1_to255
@@ -46,8 +44,11 @@ def deserialize_json(data: dict) -> ConflictResolution:
             )
         )
     else:
-        raise DeserializationError(
-            "ConflictResolution.conflict_resolving_model required"
+        import typing
+
+        out["conflict_resolving_model"] = typing.cast(
+            "capo_customer_profiles.types.conflict_resolving_model.ConflictResolvingModel",
+            "",
         )
     if data.get("SourceName") is not None:
         out["source_name"] = data["SourceName"]

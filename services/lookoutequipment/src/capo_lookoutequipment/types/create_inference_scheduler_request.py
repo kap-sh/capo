@@ -96,15 +96,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateInferenceSchedulerRequest:
     if data.get("ModelName") is not None:
         out["model_name"] = data["ModelName"]
     else:
-        raise DeserializationError(
-            "CreateInferenceSchedulerRequest.model_name required"
-        )
+        out["model_name"] = ""
     if data.get("InferenceSchedulerName") is not None:
         out["inference_scheduler_name"] = data["InferenceSchedulerName"]
     else:
-        raise DeserializationError(
-            "CreateInferenceSchedulerRequest.inference_scheduler_name required"
-        )
+        out["inference_scheduler_name"] = ""
     if data.get("DataDelayOffsetInMinutes") is not None:
         out["data_delay_offset_in_minutes"] = data["DataDelayOffsetInMinutes"]
     if data.get("DataUploadFrequency") is not None:
@@ -116,8 +112,10 @@ def deserialize_aws_json_1_0(data: dict) -> CreateInferenceSchedulerRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateInferenceSchedulerRequest.data_upload_frequency required"
+        import typing
+
+        out["data_upload_frequency"] = typing.cast(
+            "capo_lookoutequipment.types.data_upload_frequency.DataUploadFrequency", ""
         )
     if data.get("DataInputConfiguration") is not None:
         import capo_lookoutequipment.types.inference_input_configuration
@@ -146,15 +144,13 @@ def deserialize_aws_json_1_0(data: dict) -> CreateInferenceSchedulerRequest:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("CreateInferenceSchedulerRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("ServerSideKmsKeyId") is not None:
         out["server_side_kms_key_id"] = data["ServerSideKmsKeyId"]
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError(
-            "CreateInferenceSchedulerRequest.client_token required"
-        )
+        out["client_token"] = ""
     if data.get("Tags") is not None:
         import capo_lookoutequipment.types.tag_list
 

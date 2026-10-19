@@ -129,7 +129,12 @@ def deserialize_aws_json_1_1(data: dict) -> StartPiiEntitiesDetectionJobRequest:
             )
         )
     else:
-        raise DeserializationError("StartPiiEntitiesDetectionJobRequest.mode required")
+        import typing
+
+        out["mode"] = typing.cast(
+            "capo_comprehend.types.pii_entities_detection_mode.PiiEntitiesDetectionMode",
+            "",
+        )
     if data.get("RedactionConfig") is not None:
         import capo_comprehend.types.redaction_config
 
@@ -141,9 +146,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartPiiEntitiesDetectionJobRequest:
     if data.get("DataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["DataAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "StartPiiEntitiesDetectionJobRequest.data_access_role_arn required"
-        )
+        out["data_access_role_arn"] = ""
     if data.get("JobName") is not None:
         out["job_name"] = data["JobName"]
     if data.get("LanguageCode") is not None:
@@ -155,8 +158,10 @@ def deserialize_aws_json_1_1(data: dict) -> StartPiiEntitiesDetectionJobRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartPiiEntitiesDetectionJobRequest.language_code required"
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_comprehend.types.language_code.LanguageCode", ""
         )
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]

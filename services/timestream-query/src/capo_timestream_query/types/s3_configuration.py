@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_query.types.s3_bucket_name
     import capo_timestream_query.types.s3_encryption_option
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_0(data: dict) -> S3Configuration:
     if data.get("BucketName") is not None:
         out["bucket_name"] = data["BucketName"]
     else:
-        raise DeserializationError("S3Configuration.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("ObjectKeyPrefix") is not None:
         out["object_key_prefix"] = data["ObjectKeyPrefix"]
     if data.get("EncryptionOption") is not None:

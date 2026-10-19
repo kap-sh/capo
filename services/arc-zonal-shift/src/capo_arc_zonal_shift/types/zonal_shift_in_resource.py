@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_zonal_shift.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_zonal_shift.types.applied_status
     import capo_arc_zonal_shift.types.availability_zone
@@ -93,19 +91,23 @@ def deserialize_json(data: dict) -> ZonalShiftInResource:
             )
         )
     else:
-        raise DeserializationError("ZonalShiftInResource.applied_status required")
+        import typing
+
+        out["applied_status"] = typing.cast(
+            "capo_arc_zonal_shift.types.applied_status.AppliedStatus", ""
+        )
     if data.get("zonalShiftId") is not None:
         out["zonal_shift_id"] = data["zonalShiftId"]
     else:
-        raise DeserializationError("ZonalShiftInResource.zonal_shift_id required")
+        out["zonal_shift_id"] = ""
     if data.get("resourceIdentifier") is not None:
         out["resource_identifier"] = data["resourceIdentifier"]
     else:
-        raise DeserializationError("ZonalShiftInResource.resource_identifier required")
+        out["resource_identifier"] = ""
     if data.get("awayFrom") is not None:
         out["away_from"] = data["awayFrom"]
     else:
-        raise DeserializationError("ZonalShiftInResource.away_from required")
+        out["away_from"] = ""
     if data.get("expiryTime") is not None:
         import capo_arc_zonal_shift.types.expiry_time
 
@@ -113,7 +115,11 @@ def deserialize_json(data: dict) -> ZonalShiftInResource:
             data["expiryTime"]
         )
     else:
-        raise DeserializationError("ZonalShiftInResource.expiry_time required")
+        import datetime
+
+        out["expiry_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("startTime") is not None:
         import capo_arc_zonal_shift.types.start_time
 
@@ -121,11 +127,13 @@ def deserialize_json(data: dict) -> ZonalShiftInResource:
             data["startTime"]
         )
     else:
-        raise DeserializationError("ZonalShiftInResource.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("comment") is not None:
         out["comment"] = data["comment"]
     else:
-        raise DeserializationError("ZonalShiftInResource.comment required")
+        out["comment"] = ""
     if data.get("shiftType") is not None:
         import capo_arc_zonal_shift.types.shift_type
 

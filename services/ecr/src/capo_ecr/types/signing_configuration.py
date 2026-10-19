@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr.types.signing_rule_list
 
@@ -35,5 +33,5 @@ def deserialize_aws_json_1_1(data: dict) -> SigningConfiguration:
             data["rules"]
         )
     else:
-        raise DeserializationError("SigningConfiguration.rules required")
+        out["rules"] = []
     return out

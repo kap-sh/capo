@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_amp.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amp.types.open_search_domain_arn
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> OpenSearchExporterConfiguration:
     if data.get("domainArn") is not None:
         out["domain_arn"] = data["domainArn"]
     else:
-        raise DeserializationError(
-            "OpenSearchExporterConfiguration.domain_arn required"
-        )
+        out["domain_arn"] = ""
     return out

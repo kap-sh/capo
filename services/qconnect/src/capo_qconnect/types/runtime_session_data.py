@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.non_empty_sensitive_string
     import capo_qconnect.types.runtime_session_data_value
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> RuntimeSessionData:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("RuntimeSessionData.key required")
+        out["key"] = ""
     if data.get("value") is not None:
         import capo_qconnect.types.runtime_session_data_value
 
@@ -43,7 +41,9 @@ def deserialize_json(data: dict) -> RuntimeSessionData:
             data["value"]
         )
     else:
-        raise DeserializationError("RuntimeSessionData.value required")
+        import capo_qconnect.types._unknown
+
+        out["value"] = capo_qconnect.types._unknown.UnknownUnionMember("")
     return out
 
 

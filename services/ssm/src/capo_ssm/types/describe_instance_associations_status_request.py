@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.instance_id
     import capo_ssm.types.max_results
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeInstanceAssociationsStatusRe
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError(
-            "DescribeInstanceAssociationsStatusRequest.instance_id required"
-        )
+        out["instance_id"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

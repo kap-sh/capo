@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.storage_connector_status_enum
     import capo_workspaces.types.storage_connector_type_enum
@@ -53,7 +51,12 @@ def deserialize_aws_json_1_1(data: dict) -> StorageConnector:
             )
         )
     else:
-        raise DeserializationError("StorageConnector.connector_type required")
+        import typing
+
+        out["connector_type"] = typing.cast(
+            "capo_workspaces.types.storage_connector_type_enum.StorageConnectorTypeEnum",
+            "",
+        )
     if data.get("Status") is not None:
         import capo_workspaces.types.storage_connector_status_enum
 
@@ -63,5 +66,10 @@ def deserialize_aws_json_1_1(data: dict) -> StorageConnector:
             )
         )
     else:
-        raise DeserializationError("StorageConnector.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_workspaces.types.storage_connector_status_enum.StorageConnectorStatusEnum",
+            "",
+        )
     return out

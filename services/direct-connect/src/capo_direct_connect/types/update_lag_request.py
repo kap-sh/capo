@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.count
     import capo_direct_connect.types.encryption_mode
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLagRequest:
     if data.get("lagId") is not None:
         out["lag_id"] = data["lagId"]
     else:
-        raise DeserializationError("UpdateLagRequest.lag_id required")
+        out["lag_id"] = ""
     if data.get("lagName") is not None:
         out["lag_name"] = data["lagName"]
     if data.get("minimumLinks") is not None:

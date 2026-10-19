@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.document_read_action
     import capo_comprehend.types.document_read_mode
@@ -67,7 +65,11 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentReaderConfig:
             )
         )
     else:
-        raise DeserializationError("DocumentReaderConfig.document_read_action required")
+        import typing
+
+        out["document_read_action"] = typing.cast(
+            "capo_comprehend.types.document_read_action.DocumentReadAction", ""
+        )
     if data.get("DocumentReadMode") is not None:
         import capo_comprehend.types.document_read_mode
 

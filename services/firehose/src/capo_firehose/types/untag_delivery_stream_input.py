@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.delivery_stream_name
     import capo_firehose.types.tag_key_list
@@ -35,9 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> UntagDeliveryStreamInput:
     if data.get("DeliveryStreamName") is not None:
         out["delivery_stream_name"] = data["DeliveryStreamName"]
     else:
-        raise DeserializationError(
-            "UntagDeliveryStreamInput.delivery_stream_name required"
-        )
+        out["delivery_stream_name"] = ""
     if data.get("TagKeys") is not None:
         import capo_firehose.types.tag_key_list
 
@@ -45,5 +41,5 @@ def deserialize_aws_json_1_1(data: dict) -> UntagDeliveryStreamInput:
             data["TagKeys"]
         )
     else:
-        raise DeserializationError("UntagDeliveryStreamInput.tag_keys required")
+        out["tag_keys"] = []
     return out

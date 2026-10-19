@@ -88,9 +88,7 @@ def deserialize_json(data: dict) -> GetCurrentMetricDataRequest:
             data["CurrentMetrics"]
         )
     else:
-        raise DeserializationError(
-            "GetCurrentMetricDataRequest.current_metrics required"
-        )
+        out["current_metrics"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

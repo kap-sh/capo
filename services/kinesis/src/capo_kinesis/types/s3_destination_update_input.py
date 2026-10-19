@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.data_freshness_in_seconds
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> S3DestinationUpdateInput:
     if data.get("DataFreshnessInSeconds") is not None:
         out["data_freshness_in_seconds"] = data["DataFreshnessInSeconds"]
     else:
-        raise DeserializationError(
-            "S3DestinationUpdateInput.data_freshness_in_seconds required"
-        )
+        out["data_freshness_in_seconds"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager_user_subscriptions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager_user_subscriptions.types.identity_provider_summary_list
 
@@ -43,9 +41,7 @@ def deserialize_json(data: dict) -> ListIdentityProvidersResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListIdentityProvidersResponse.identity_provider_summaries required"
-        )
+        out["identity_provider_summaries"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

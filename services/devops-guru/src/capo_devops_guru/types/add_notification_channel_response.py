@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_guru.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_guru.types.notification_channel_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> AddNotificationChannelResponse:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("AddNotificationChannelResponse.id required")
+        out["id"] = ""
     return out

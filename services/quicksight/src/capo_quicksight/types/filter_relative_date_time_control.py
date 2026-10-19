@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.commit_mode
     import capo_quicksight.types.control_title_format_text
@@ -73,9 +71,7 @@ def deserialize_json(data: dict) -> FilterRelativeDateTimeControl:
     if data.get("FilterControlId") is not None:
         out["filter_control_id"] = data["FilterControlId"]
     else:
-        raise DeserializationError(
-            "FilterRelativeDateTimeControl.filter_control_id required"
-        )
+        out["filter_control_id"] = ""
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     else:
@@ -83,9 +79,7 @@ def deserialize_json(data: dict) -> FilterRelativeDateTimeControl:
     if data.get("SourceFilterId") is not None:
         out["source_filter_id"] = data["SourceFilterId"]
     else:
-        raise DeserializationError(
-            "FilterRelativeDateTimeControl.source_filter_id required"
-        )
+        out["source_filter_id"] = ""
     if data.get("DisplayOptions") is not None:
         import capo_quicksight.types.relative_date_time_control_display_options
 

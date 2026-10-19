@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.dimensions
 
@@ -37,5 +35,5 @@ def deserialize_aws_json_1_0(data: dict) -> PublishMetricAction:
             )
         )
     else:
-        raise DeserializationError("PublishMetricAction.dimensions required")
+        out["dimensions"] = []
     return out

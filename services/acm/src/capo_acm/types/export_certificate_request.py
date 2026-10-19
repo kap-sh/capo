@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_acm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm.types.arn
     import capo_acm.types.passphrase_blob
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> ExportCertificateRequest:
     if data.get("CertificateArn") is not None:
         out["certificate_arn"] = data["CertificateArn"]
     else:
-        raise DeserializationError("ExportCertificateRequest.certificate_arn required")
+        out["certificate_arn"] = ""
     if data.get("Passphrase") is not None:
         import capo_acm.types.passphrase_blob
 
@@ -43,7 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> ExportCertificateRequest:
             data["Passphrase"]
         )
     else:
-        raise DeserializationError("ExportCertificateRequest.passphrase required")
+        out["passphrase"] = b""
     return out
 
 

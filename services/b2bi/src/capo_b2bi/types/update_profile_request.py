@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.business_name
     import capo_b2bi.types.email
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateProfileRequest:
     if data.get("profileId") is not None:
         out["profile_id"] = data["profileId"]
     else:
-        raise DeserializationError("UpdateProfileRequest.profile_id required")
+        out["profile_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("email") is not None:

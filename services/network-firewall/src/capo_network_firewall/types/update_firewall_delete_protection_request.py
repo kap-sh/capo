@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.boolean
     import capo_network_firewall.types.resource_arn
@@ -48,7 +46,5 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateFirewallDeleteProtectionReques
     if data.get("DeleteProtection") is not None:
         out["delete_protection"] = data["DeleteProtection"]
     else:
-        raise DeserializationError(
-            "UpdateFirewallDeleteProtectionRequest.delete_protection required"
-        )
+        out["delete_protection"] = False
     return out

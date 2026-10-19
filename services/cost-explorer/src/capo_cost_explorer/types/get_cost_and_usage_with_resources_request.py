@@ -99,8 +99,10 @@ def deserialize_aws_json_1_1(data: dict) -> GetCostAndUsageWithResourcesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GetCostAndUsageWithResourcesRequest.granularity required"
+        import typing
+
+        out["granularity"] = typing.cast(
+            "capo_cost_explorer.types.granularity.Granularity", ""
         )
     if data.get("Filter") is not None:
         import capo_cost_explorer.types.expression

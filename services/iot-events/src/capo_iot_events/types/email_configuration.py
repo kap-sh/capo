@@ -45,7 +45,7 @@ def deserialize_json(data: dict) -> EmailConfiguration:
     if data.get("from") is not None:
         out["from"] = data["from"]
     else:
-        raise DeserializationError("EmailConfiguration.from required")
+        out["from"] = ""
     if data.get("content") is not None:
         import capo_iot_events.types.email_content
 

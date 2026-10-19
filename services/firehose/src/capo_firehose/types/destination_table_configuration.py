@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.error_output_prefix
     import capo_firehose.types.list_of_non_empty_strings_without_whitespace
@@ -61,15 +59,11 @@ def deserialize_aws_json_1_1(data: dict) -> DestinationTableConfiguration:
     if data.get("DestinationTableName") is not None:
         out["destination_table_name"] = data["DestinationTableName"]
     else:
-        raise DeserializationError(
-            "DestinationTableConfiguration.destination_table_name required"
-        )
+        out["destination_table_name"] = ""
     if data.get("DestinationDatabaseName") is not None:
         out["destination_database_name"] = data["DestinationDatabaseName"]
     else:
-        raise DeserializationError(
-            "DestinationTableConfiguration.destination_database_name required"
-        )
+        out["destination_database_name"] = ""
     if data.get("UniqueKeys") is not None:
         import capo_firehose.types.list_of_non_empty_strings_without_whitespace
 

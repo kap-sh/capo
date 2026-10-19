@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_finspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace.types.availability_zone_id
     import capo_finspace.types.boolean_value
@@ -89,13 +87,15 @@ def deserialize_json(data: dict) -> CreateKxDataviewRequest:
     if data.get("dataviewName") is not None:
         out["dataview_name"] = data["dataviewName"]
     else:
-        raise DeserializationError("CreateKxDataviewRequest.dataview_name required")
+        out["dataview_name"] = ""
     if data.get("azMode") is not None:
         import capo_finspace.types.kx_az_mode
 
         out["az_mode"] = capo_finspace.types.kx_az_mode.deserialize_json(data["azMode"])
     else:
-        raise DeserializationError("CreateKxDataviewRequest.az_mode required")
+        import typing
+
+        out["az_mode"] = typing.cast("capo_finspace.types.kx_az_mode.KxAzMode", "")
     if data.get("availabilityZoneId") is not None:
         out["availability_zone_id"] = data["availabilityZoneId"]
     if data.get("changesetId") is not None:
@@ -121,5 +121,5 @@ def deserialize_json(data: dict) -> CreateKxDataviewRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CreateKxDataviewRequest.client_token required")
+        out["client_token"] = ""
     return out

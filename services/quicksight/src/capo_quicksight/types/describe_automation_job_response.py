@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -78,7 +76,7 @@ def deserialize_json(data: dict) -> DescribeAutomationJobResponse:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("DescribeAutomationJobResponse.arn required")
+        out["arn"] = ""
     if data.get("CreatedAt") is not None:
         import capo_quicksight.types._prelude.timestamp
 
@@ -106,7 +104,11 @@ def deserialize_json(data: dict) -> DescribeAutomationJobResponse:
             )
         )
     else:
-        raise DeserializationError("DescribeAutomationJobResponse.job_status required")
+        import typing
+
+        out["job_status"] = typing.cast(
+            "capo_quicksight.types.automation_job_status.AutomationJobStatus", ""
+        )
     if data.get("InputPayload") is not None:
         out["input_payload"] = data["InputPayload"]
     if data.get("OutputPayload") is not None:

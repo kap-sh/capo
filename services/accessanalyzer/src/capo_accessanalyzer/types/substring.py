@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 
 class Substring(TypedDict, closed=True):
     start: "int"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> Substring:
     if data.get("start") is not None:
         out["start"] = data["start"]
     else:
-        raise DeserializationError("Substring.start required")
+        out["start"] = 0
     if data.get("length") is not None:
         out["length"] = data["length"]
     else:
-        raise DeserializationError("Substring.length required")
+        out["length"] = 0
     return out

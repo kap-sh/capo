@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.accept_language
     import capo_service_catalog.types.id
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeServiceActionInput:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("DescribeServiceActionInput.id required")
+        out["id"] = ""
     if data.get("AcceptLanguage") is not None:
         out["accept_language"] = data["AcceptLanguage"]
     return out

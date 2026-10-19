@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -43,11 +41,11 @@ def deserialize_json(data: dict) -> DatasetVersionSummary:
     if data.get("datasetVersion") is not None:
         out["dataset_version"] = data["datasetVersion"]
     else:
-        raise DeserializationError("DatasetVersionSummary.dataset_version required")
+        out["dataset_version"] = ""
     if data.get("exampleCount") is not None:
         out["example_count"] = data["exampleCount"]
     else:
-        raise DeserializationError("DatasetVersionSummary.example_count required")
+        out["example_count"] = 0
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
 
@@ -57,5 +55,7 @@ def deserialize_json(data: dict) -> DatasetVersionSummary:
             )
         )
     else:
-        raise DeserializationError("DatasetVersionSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

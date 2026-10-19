@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.api_cache_type
     import capo_appsync.types.api_caching_behavior
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> UpdateApiCacheRequest:
     if data.get("ttl") is not None:
         out["ttl"] = data["ttl"]
     else:
-        raise DeserializationError("UpdateApiCacheRequest.ttl required")
+        out["ttl"] = 0
     if data.get("apiCachingBehavior") is not None:
         import capo_appsync.types.api_caching_behavior
 
@@ -67,15 +65,19 @@ def deserialize_json(data: dict) -> UpdateApiCacheRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateApiCacheRequest.api_caching_behavior required"
+        import typing
+
+        out["api_caching_behavior"] = typing.cast(
+            "capo_appsync.types.api_caching_behavior.ApiCachingBehavior", ""
         )
     if data.get("type") is not None:
         import capo_appsync.types.api_cache_type
 
         out["type"] = capo_appsync.types.api_cache_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("UpdateApiCacheRequest.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_appsync.types.api_cache_type.ApiCacheType", "")
     if data.get("healthMetricsConfig") is not None:
         import capo_appsync.types.cache_health_metrics_config
 

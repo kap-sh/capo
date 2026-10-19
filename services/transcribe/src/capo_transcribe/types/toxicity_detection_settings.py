@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transcribe.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe.types.toxicity_categories
 
@@ -39,7 +37,5 @@ def deserialize_aws_json_1_1(data: dict) -> ToxicityDetectionSettings:
             )
         )
     else:
-        raise DeserializationError(
-            "ToxicityDetectionSettings.toxicity_categories required"
-        )
+        out["toxicity_categories"] = []
     return out

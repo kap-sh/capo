@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.parent_child_field_option_value
     import capo_connectcases.types.parent_child_field_option_value_list
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> ParentChildFieldOptionsMapping:
     if data.get("parentFieldOptionValue") is not None:
         out["parent_field_option_value"] = data["parentFieldOptionValue"]
     else:
-        raise DeserializationError(
-            "ParentChildFieldOptionsMapping.parent_field_option_value required"
-        )
+        out["parent_field_option_value"] = ""
     if data.get("childFieldOptionValues") is not None:
         import capo_connectcases.types.parent_child_field_option_value_list
 
@@ -49,7 +45,5 @@ def deserialize_json(data: dict) -> ParentChildFieldOptionsMapping:
             )
         )
     else:
-        raise DeserializationError(
-            "ParentChildFieldOptionsMapping.child_field_option_values required"
-        )
+        out["child_field_option_values"] = []
     return out

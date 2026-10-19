@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 
 class ControlStats(TypedDict, closed=True):
     variant_name: "str"
@@ -36,13 +34,13 @@ def deserialize_json(data: dict) -> ControlStats:
     if data.get("variantName") is not None:
         out["variant_name"] = data["variantName"]
     else:
-        raise DeserializationError("ControlStats.variant_name required")
+        out["variant_name"] = ""
     if data.get("sampleSize") is not None:
         out["sample_size"] = data["sampleSize"]
     else:
-        raise DeserializationError("ControlStats.sample_size required")
+        out["sample_size"] = 0
     if data.get("mean") is not None:
         out["mean"] = float(data["mean"])
     else:
-        raise DeserializationError("ControlStats.mean required")
+        out["mean"] = 0.0
     return out

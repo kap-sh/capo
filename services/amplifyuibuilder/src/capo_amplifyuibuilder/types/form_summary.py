@@ -53,7 +53,7 @@ def deserialize_json(data: dict) -> FormSummary:
     if data.get("appId") is not None:
         out["app_id"] = data["appId"]
     else:
-        raise DeserializationError("FormSummary.app_id required")
+        out["app_id"] = ""
     if data.get("dataType") is not None:
         import capo_amplifyuibuilder.types.form_data_type_config
 
@@ -67,7 +67,7 @@ def deserialize_json(data: dict) -> FormSummary:
     if data.get("environmentName") is not None:
         out["environment_name"] = data["environmentName"]
     else:
-        raise DeserializationError("FormSummary.environment_name required")
+        out["environment_name"] = ""
     if data.get("formActionType") is not None:
         import capo_amplifyuibuilder.types.form_action_type
 
@@ -77,13 +77,17 @@ def deserialize_json(data: dict) -> FormSummary:
             )
         )
     else:
-        raise DeserializationError("FormSummary.form_action_type required")
+        import typing
+
+        out["form_action_type"] = typing.cast(
+            "capo_amplifyuibuilder.types.form_action_type.FormActionType", ""
+        )
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("FormSummary.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("FormSummary.name required")
+        out["name"] = ""
     return out

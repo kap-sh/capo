@@ -57,7 +57,7 @@ def deserialize_json(data: dict) -> CreateTrustAnchorRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateTrustAnchorRequest.name required")
+        out["name"] = ""
     if data.get("source") is not None:
         import capo_rolesanywhere.types.source
 

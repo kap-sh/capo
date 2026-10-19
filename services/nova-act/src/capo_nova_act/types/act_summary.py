@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_nova_act.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_nova_act.types.act_status
     import capo_nova_act.types.date_timestamp
@@ -64,21 +62,23 @@ def deserialize_json(data: dict) -> ActSummary:
     if data.get("workflowRunId") is not None:
         out["workflow_run_id"] = data["workflowRunId"]
     else:
-        raise DeserializationError("ActSummary.workflow_run_id required")
+        out["workflow_run_id"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("ActSummary.session_id required")
+        out["session_id"] = ""
     if data.get("actId") is not None:
         out["act_id"] = data["actId"]
     else:
-        raise DeserializationError("ActSummary.act_id required")
+        out["act_id"] = ""
     if data.get("status") is not None:
         import capo_nova_act.types.act_status
 
         out["status"] = capo_nova_act.types.act_status.deserialize_json(data["status"])
     else:
-        raise DeserializationError("ActSummary.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_nova_act.types.act_status.ActStatus", "")
     if data.get("startedAt") is not None:
         import capo_nova_act.types.date_timestamp
 
@@ -86,7 +86,9 @@ def deserialize_json(data: dict) -> ActSummary:
             data["startedAt"]
         )
     else:
-        raise DeserializationError("ActSummary.started_at required")
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endedAt") is not None:
         import capo_nova_act.types.date_timestamp
 

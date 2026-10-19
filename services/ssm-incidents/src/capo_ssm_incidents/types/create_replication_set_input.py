@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.client_token
     import capo_ssm_incidents.types.region_map_input
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> CreateReplicationSetInput:
             data["regions"]
         )
     else:
-        raise DeserializationError("CreateReplicationSetInput.regions required")
+        out["regions"] = {}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

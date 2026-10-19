@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.execution_block_configuration
     import capo_arc_region_switch.types.execution_block_type
@@ -53,7 +51,7 @@ def deserialize_aws_json_1_0(data: dict) -> Step:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Step.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("executionBlockConfiguration") is not None:
@@ -65,7 +63,11 @@ def deserialize_aws_json_1_0(data: dict) -> Step:
             )
         )
     else:
-        raise DeserializationError("Step.execution_block_configuration required")
+        import capo_arc_region_switch.types._unknown
+
+        out["execution_block_configuration"] = (
+            capo_arc_region_switch.types._unknown.UnknownUnionMember("")
+        )
     if data.get("executionBlockType") is not None:
         import capo_arc_region_switch.types.execution_block_type
 
@@ -75,7 +77,11 @@ def deserialize_aws_json_1_0(data: dict) -> Step:
             )
         )
     else:
-        raise DeserializationError("Step.execution_block_type required")
+        import typing
+
+        out["execution_block_type"] = typing.cast(
+            "capo_arc_region_switch.types.execution_block_type.ExecutionBlockType", ""
+        )
     return out
 
 

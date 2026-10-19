@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.boolean
     import capo_chime_sdk_media_pipelines.types.keyword_match_word_list
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> KeywordMatchConfiguration:
     if data.get("RuleName") is not None:
         out["rule_name"] = data["RuleName"]
     else:
-        raise DeserializationError("KeywordMatchConfiguration.rule_name required")
+        out["rule_name"] = ""
     if data.get("Keywords") is not None:
         import capo_chime_sdk_media_pipelines.types.keyword_match_word_list
 
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> KeywordMatchConfiguration:
             )
         )
     else:
-        raise DeserializationError("KeywordMatchConfiguration.keywords required")
+        out["keywords"] = []
     if data.get("Negate") is not None:
         out["negate"] = data["Negate"]
     else:

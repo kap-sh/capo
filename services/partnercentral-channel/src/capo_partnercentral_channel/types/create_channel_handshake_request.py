@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_channel.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_channel.types.associated_resource_identifier
     import capo_partnercentral_channel.types.catalog
@@ -76,19 +74,19 @@ def deserialize_aws_json_1_0(data: dict) -> CreateChannelHandshakeRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateChannelHandshakeRequest.handshake_type required"
+        import typing
+
+        out["handshake_type"] = typing.cast(
+            "capo_partnercentral_channel.types.handshake_type.HandshakeType", ""
         )
     if data.get("catalog") is not None:
         out["catalog"] = data["catalog"]
     else:
-        raise DeserializationError("CreateChannelHandshakeRequest.catalog required")
+        out["catalog"] = ""
     if data.get("associatedResourceIdentifier") is not None:
         out["associated_resource_identifier"] = data["associatedResourceIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateChannelHandshakeRequest.associated_resource_identifier required"
-        )
+        out["associated_resource_identifier"] = ""
     if data.get("payload") is not None:
         import capo_partnercentral_channel.types.channel_handshake_payload
 

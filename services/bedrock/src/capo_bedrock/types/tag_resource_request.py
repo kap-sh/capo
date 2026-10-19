@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.tag_list
     import capo_bedrock.types.taggable_resources_arn
@@ -33,11 +31,11 @@ def deserialize_json(data: dict) -> TagResourceRequest:
     if data.get("resourceARN") is not None:
         out["resource_arn"] = data["resourceARN"]
     else:
-        raise DeserializationError("TagResourceRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("tags") is not None:
         import capo_bedrock.types.tag_list
 
         out["tags"] = capo_bedrock.types.tag_list.deserialize_json(data["tags"])
     else:
-        raise DeserializationError("TagResourceRequest.tags required")
+        out["tags"] = []
     return out

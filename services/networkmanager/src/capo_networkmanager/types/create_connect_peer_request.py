@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmanager.types.attachment_id
     import capo_networkmanager.types.bgp_options
@@ -74,15 +72,13 @@ def deserialize_json(data: dict) -> CreateConnectPeerRequest:
     if data.get("ConnectAttachmentId") is not None:
         out["connect_attachment_id"] = data["ConnectAttachmentId"]
     else:
-        raise DeserializationError(
-            "CreateConnectPeerRequest.connect_attachment_id required"
-        )
+        out["connect_attachment_id"] = ""
     if data.get("CoreNetworkAddress") is not None:
         out["core_network_address"] = data["CoreNetworkAddress"]
     if data.get("PeerAddress") is not None:
         out["peer_address"] = data["PeerAddress"]
     else:
-        raise DeserializationError("CreateConnectPeerRequest.peer_address required")
+        out["peer_address"] = ""
     if data.get("BgpOptions") is not None:
         import capo_networkmanager.types.bgp_options
 

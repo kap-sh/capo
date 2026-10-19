@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_taxsettings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_taxsettings.types.additional_info_request
     import capo_taxsettings.types.address
@@ -93,7 +91,7 @@ def deserialize_json(data: dict) -> TaxRegistrationEntry:
     if data.get("registrationId") is not None:
         out["registration_id"] = data["registrationId"]
     else:
-        raise DeserializationError("TaxRegistrationEntry.registration_id required")
+        out["registration_id"] = ""
     if data.get("registrationType") is not None:
         import capo_taxsettings.types.tax_registration_type
 
@@ -103,7 +101,11 @@ def deserialize_json(data: dict) -> TaxRegistrationEntry:
             )
         )
     else:
-        raise DeserializationError("TaxRegistrationEntry.registration_type required")
+        import typing
+
+        out["registration_type"] = typing.cast(
+            "capo_taxsettings.types.tax_registration_type.TaxRegistrationType", ""
+        )
     if data.get("legalName") is not None:
         out["legal_name"] = data["legalName"]
     if data.get("legalAddress") is not None:

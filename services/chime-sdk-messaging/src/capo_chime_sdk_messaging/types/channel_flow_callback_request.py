@@ -49,7 +49,7 @@ def deserialize_json(data: dict) -> ChannelFlowCallbackRequest:
     if data.get("CallbackId") is not None:
         out["callback_id"] = data["CallbackId"]
     else:
-        raise DeserializationError("ChannelFlowCallbackRequest.callback_id required")
+        out["callback_id"] = ""
     if data.get("DeleteResource") is not None:
         out["delete_resource"] = data["DeleteResource"]
     if data.get("ChannelMessage") is not None:

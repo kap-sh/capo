@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mwaa.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -70,7 +68,7 @@ def deserialize_json(data: dict) -> MetricDatum:
     if data.get("MetricName") is not None:
         out["metric_name"] = data["MetricName"]
     else:
-        raise DeserializationError("MetricDatum.metric_name required")
+        out["metric_name"] = ""
     if data.get("Timestamp") is not None:
         import capo_mwaa.types._prelude.timestamp
 
@@ -78,7 +76,9 @@ def deserialize_json(data: dict) -> MetricDatum:
             data["Timestamp"]
         )
     else:
-        raise DeserializationError("MetricDatum.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Dimensions") is not None:
         import capo_mwaa.types.dimensions
 

@@ -142,41 +142,31 @@ def deserialize_json(data: dict) -> QuickResponseSearchResultData:
     if data.get("quickResponseArn") is not None:
         out["quick_response_arn"] = data["quickResponseArn"]
     else:
-        raise DeserializationError(
-            "QuickResponseSearchResultData.quick_response_arn required"
-        )
+        out["quick_response_arn"] = ""
     if data.get("quickResponseId") is not None:
         out["quick_response_id"] = data["quickResponseId"]
     else:
-        raise DeserializationError(
-            "QuickResponseSearchResultData.quick_response_id required"
-        )
+        out["quick_response_id"] = ""
     if data.get("knowledgeBaseArn") is not None:
         out["knowledge_base_arn"] = data["knowledgeBaseArn"]
     else:
-        raise DeserializationError(
-            "QuickResponseSearchResultData.knowledge_base_arn required"
-        )
+        out["knowledge_base_arn"] = ""
     if data.get("knowledgeBaseId") is not None:
         out["knowledge_base_id"] = data["knowledgeBaseId"]
     else:
-        raise DeserializationError(
-            "QuickResponseSearchResultData.knowledge_base_id required"
-        )
+        out["knowledge_base_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("QuickResponseSearchResultData.name required")
+        out["name"] = ""
     if data.get("contentType") is not None:
         out["content_type"] = data["contentType"]
     else:
-        raise DeserializationError(
-            "QuickResponseSearchResultData.content_type required"
-        )
+        out["content_type"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("QuickResponseSearchResultData.status required")
+        out["status"] = ""
     if data.get("contents") is not None:
         import capo_wisdom.types.quick_response_contents
 
@@ -192,8 +182,10 @@ def deserialize_json(data: dict) -> QuickResponseSearchResultData:
             float(data["createdTime"]), tz=datetime.timezone.utc
         )
     else:
-        raise DeserializationError(
-            "QuickResponseSearchResultData.created_time required"
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("lastModifiedTime") is not None:
         import datetime
@@ -202,13 +194,15 @@ def deserialize_json(data: dict) -> QuickResponseSearchResultData:
             float(data["lastModifiedTime"]), tz=datetime.timezone.utc
         )
     else:
-        raise DeserializationError(
-            "QuickResponseSearchResultData.last_modified_time required"
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("isActive") is not None:
         out["is_active"] = data["isActive"]
     else:
-        raise DeserializationError("QuickResponseSearchResultData.is_active required")
+        out["is_active"] = False
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("groupingConfiguration") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.create_endpoint_details_list
     import capo_groundstation.types.dataflow_endpoint_group_duration_in_seconds
@@ -63,9 +61,7 @@ def deserialize_json(data: dict) -> CreateDataflowEndpointGroupV2Request:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDataflowEndpointGroupV2Request.endpoints required"
-        )
+        out["endpoints"] = []
     if data.get("contactPrePassDurationSeconds") is not None:
         out["contact_pre_pass_duration_seconds"] = data["contactPrePassDurationSeconds"]
     if data.get("contactPostPassDurationSeconds") is not None:

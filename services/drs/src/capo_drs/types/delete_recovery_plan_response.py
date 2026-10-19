@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.strict_drsarn
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> DeleteRecoveryPlanResponse:
     if data.get("recoveryPlanArn") is not None:
         out["recovery_plan_arn"] = data["recoveryPlanArn"]
     else:
-        raise DeserializationError(
-            "DeleteRecoveryPlanResponse.recovery_plan_arn required"
-        )
+        out["recovery_plan_arn"] = ""
     return out

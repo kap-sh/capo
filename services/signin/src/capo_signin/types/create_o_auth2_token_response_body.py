@@ -58,17 +58,15 @@ def deserialize_json(data: dict) -> CreateOAuth2TokenResponseBody:
     if data.get("tokenType") is not None:
         out["token_type"] = data["tokenType"]
     else:
-        raise DeserializationError("CreateOAuth2TokenResponseBody.token_type required")
+        out["token_type"] = ""
     if data.get("expiresIn") is not None:
         out["expires_in"] = data["expiresIn"]
     else:
-        raise DeserializationError("CreateOAuth2TokenResponseBody.expires_in required")
+        out["expires_in"] = 0
     if data.get("refreshToken") is not None:
         out["refresh_token"] = data["refreshToken"]
     else:
-        raise DeserializationError(
-            "CreateOAuth2TokenResponseBody.refresh_token required"
-        )
+        out["refresh_token"] = ""
     if data.get("idToken") is not None:
         out["id_token"] = data["idToken"]
     return out

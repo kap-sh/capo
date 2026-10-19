@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.arn
     import capo_sfn.types.encryption_configuration
@@ -52,11 +50,11 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeActivityOutput:
     if data.get("activityArn") is not None:
         out["activity_arn"] = data["activityArn"]
     else:
-        raise DeserializationError("DescribeActivityOutput.activity_arn required")
+        out["activity_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DescribeActivityOutput.name required")
+        out["name"] = ""
     if data.get("creationDate") is not None:
         import capo_sfn.types.timestamp
 
@@ -64,7 +62,11 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeActivityOutput:
             data["creationDate"]
         )
     else:
-        raise DeserializationError("DescribeActivityOutput.creation_date required")
+        import datetime
+
+        out["creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("encryptionConfiguration") is not None:
         import capo_sfn.types.encryption_configuration
 

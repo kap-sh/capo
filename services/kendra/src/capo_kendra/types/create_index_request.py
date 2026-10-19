@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.client_token_name
     import capo_kendra.types.description
@@ -109,7 +107,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateIndexRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateIndexRequest.name required")
+        out["name"] = ""
     if data.get("Edition") is not None:
         import capo_kendra.types.index_edition
 
@@ -119,7 +117,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateIndexRequest:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("CreateIndexRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("ServerSideEncryptionConfiguration") is not None:
         import capo_kendra.types.server_side_encryption_configuration
 

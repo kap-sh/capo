@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.anomaly_subscription_frequency
     import capo_cost_explorer.types.expression
@@ -101,7 +99,7 @@ def deserialize_aws_json_1_1(data: dict) -> AnomalySubscription:
             )
         )
     else:
-        raise DeserializationError("AnomalySubscription.monitor_arn_list required")
+        out["monitor_arn_list"] = []
     if data.get("Subscribers") is not None:
         import capo_cost_explorer.types.subscribers
 
@@ -111,7 +109,7 @@ def deserialize_aws_json_1_1(data: dict) -> AnomalySubscription:
             )
         )
     else:
-        raise DeserializationError("AnomalySubscription.subscribers required")
+        out["subscribers"] = []
     if data.get("Threshold") is not None:
         out["threshold"] = float(data["Threshold"])
     if data.get("Frequency") is not None:
@@ -123,11 +121,16 @@ def deserialize_aws_json_1_1(data: dict) -> AnomalySubscription:
             )
         )
     else:
-        raise DeserializationError("AnomalySubscription.frequency required")
+        import typing
+
+        out["frequency"] = typing.cast(
+            "capo_cost_explorer.types.anomaly_subscription_frequency.AnomalySubscriptionFrequency",
+            "",
+        )
     if data.get("SubscriptionName") is not None:
         out["subscription_name"] = data["SubscriptionName"]
     else:
-        raise DeserializationError("AnomalySubscription.subscription_name required")
+        out["subscription_name"] = ""
     if data.get("ThresholdExpression") is not None:
         import capo_cost_explorer.types.expression
 

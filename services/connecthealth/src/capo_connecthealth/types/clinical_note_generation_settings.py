@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_connecthealth.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connecthealth.types.note_template_settings
 
@@ -41,8 +39,10 @@ def deserialize_json(data: dict) -> ClinicalNoteGenerationSettings:
             )
         )
     else:
-        raise DeserializationError(
-            "ClinicalNoteGenerationSettings.note_template_settings required"
+        import capo_connecthealth.types._unknown
+
+        out["note_template_settings"] = (
+            capo_connecthealth.types._unknown.UnknownUnionMember("")
         )
     return out
 

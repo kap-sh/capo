@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_neptunedata.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_neptunedata.types.string_valued_map
 
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> StartLoaderJobOutput:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("StartLoaderJobOutput.status required")
+        out["status"] = ""
     if data.get("payload") is not None:
         import capo_neptunedata.types.string_valued_map
 
@@ -42,5 +40,5 @@ def deserialize_json(data: dict) -> StartLoaderJobOutput:
             data["payload"]
         )
     else:
-        raise DeserializationError("StartLoaderJobOutput.payload required")
+        out["payload"] = {}
     return out

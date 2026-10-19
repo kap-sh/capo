@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.booking_options
     import capo_workmail.types.boolean_object
@@ -70,11 +68,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateResourceRequest:
     if data.get("OrganizationId") is not None:
         out["organization_id"] = data["OrganizationId"]
     else:
-        raise DeserializationError("UpdateResourceRequest.organization_id required")
+        out["organization_id"] = ""
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("UpdateResourceRequest.resource_id required")
+        out["resource_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("BookingOptions") is not None:

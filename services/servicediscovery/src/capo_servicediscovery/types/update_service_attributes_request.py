@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_servicediscovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_servicediscovery.types.arn
     import capo_servicediscovery.types.service_attributes_map
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateServiceAttributesRequest:
     if data.get("ServiceId") is not None:
         out["service_id"] = data["ServiceId"]
     else:
-        raise DeserializationError("UpdateServiceAttributesRequest.service_id required")
+        out["service_id"] = ""
     if data.get("Attributes") is not None:
         import capo_servicediscovery.types.service_attributes_map
 
@@ -49,5 +47,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateServiceAttributesRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateServiceAttributesRequest.attributes required")
+        out["attributes"] = {}
     return out

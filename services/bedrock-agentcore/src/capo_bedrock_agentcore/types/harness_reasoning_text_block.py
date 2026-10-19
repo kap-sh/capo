@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 
 class HarnessReasoningTextBlock(TypedDict, closed=True):
     text: "str"
@@ -26,7 +24,7 @@ def deserialize_json(data: dict) -> HarnessReasoningTextBlock:
     if data.get("text") is not None:
         out["text"] = data["text"]
     else:
-        raise DeserializationError("HarnessReasoningTextBlock.text required")
+        out["text"] = ""
     if data.get("signature") is not None:
         out["signature"] = data["signature"]
     return out

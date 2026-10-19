@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.custom_id
     import capo_iotsitewise.types.external_id
@@ -45,11 +43,9 @@ def deserialize_json(data: dict) -> AssetModelHierarchyDefinition:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AssetModelHierarchyDefinition.name required")
+        out["name"] = ""
     if data.get("childAssetModelId") is not None:
         out["child_asset_model_id"] = data["childAssetModelId"]
     else:
-        raise DeserializationError(
-            "AssetModelHierarchyDefinition.child_asset_model_id required"
-        )
+        out["child_asset_model_id"] = ""
     return out

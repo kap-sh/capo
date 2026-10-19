@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_outposts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_outposts.types.instance_type_count
     import capo_outposts.types.instance_type_name
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> AssetInstanceTypeCapacity:
     if data.get("InstanceType") is not None:
         out["instance_type"] = data["InstanceType"]
     else:
-        raise DeserializationError("AssetInstanceTypeCapacity.instance_type required")
+        out["instance_type"] = ""
     if data.get("Count") is not None:
         out["count"] = data["Count"]
     else:

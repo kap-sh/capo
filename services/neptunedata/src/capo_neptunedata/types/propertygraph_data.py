@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptunedata.errors import DeserializationError
-
 PropertygraphData = TypedDict(
     "PropertygraphData",
     {
@@ -37,19 +35,19 @@ def deserialize_json(data: dict) -> PropertygraphData:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("PropertygraphData.id required")
+        out["id"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("PropertygraphData.type required")
+        out["type"] = ""
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("PropertygraphData.key required")
+        out["key"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("PropertygraphData.value required")
+        out["value"] = None
     if data.get("from") is not None:
         out["from"] = data["from"]
     if data.get("to") is not None:

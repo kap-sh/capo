@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudhsm_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudhsm_v2.types.backup_arn
     import capo_cloudhsm_v2.types.backup_retention_policy
@@ -88,7 +86,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateClusterRequest:
     if data.get("HsmType") is not None:
         out["hsm_type"] = data["HsmType"]
     else:
-        raise DeserializationError("CreateClusterRequest.hsm_type required")
+        out["hsm_type"] = ""
     if data.get("SourceBackupId") is not None:
         out["source_backup_id"] = data["SourceBackupId"]
     if data.get("SubnetIds") is not None:
@@ -98,7 +96,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateClusterRequest:
             data["SubnetIds"]
         )
     else:
-        raise DeserializationError("CreateClusterRequest.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("NetworkType") is not None:
         import capo_cloudhsm_v2.types.network_type
 

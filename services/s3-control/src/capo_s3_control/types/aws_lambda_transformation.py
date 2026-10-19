@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.aws_lambda_transformation_payload
@@ -35,7 +34,7 @@ def deserialize_xml(el: Element) -> AwsLambdaTransformation:
     if child_function_arn is not None:
         out["function_arn"] = str(child_function_arn.text or "")
     else:
-        raise DeserializationError("AwsLambdaTransformation.function_arn required")
+        out["function_arn"] = ""
     child_function_payload = el.find("FunctionPayload")
     if child_function_payload is not None:
         out["function_payload"] = str(child_function_payload.text or "")

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.number_capability
     import capo_pinpoint_sms_voice_v2.types.protect_configuration_id_or_arn
@@ -35,13 +33,9 @@ def deserialize_aws_json_1_0(
     if data.get("ProtectConfigurationId") is not None:
         out["protect_configuration_id"] = data["ProtectConfigurationId"]
     else:
-        raise DeserializationError(
-            "GetProtectConfigurationCountryRuleSetRequest.protect_configuration_id required"
-        )
+        out["protect_configuration_id"] = ""
     if data.get("NumberCapability") is not None:
         out["number_capability"] = data["NumberCapability"]
     else:
-        raise DeserializationError(
-            "GetProtectConfigurationCountryRuleSetRequest.number_capability required"
-        )
+        out["number_capability"] = ""
     return out

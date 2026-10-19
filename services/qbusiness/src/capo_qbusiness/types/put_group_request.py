@@ -56,7 +56,7 @@ def deserialize_json(data: dict) -> PutGroupRequest:
     if data.get("groupName") is not None:
         out["group_name"] = data["groupName"]
     else:
-        raise DeserializationError("PutGroupRequest.group_name required")
+        out["group_name"] = ""
     if data.get("dataSourceId") is not None:
         out["data_source_id"] = data["dataSourceId"]
     if data.get("type") is not None:
@@ -66,7 +66,11 @@ def deserialize_json(data: dict) -> PutGroupRequest:
             data["type"]
         )
     else:
-        raise DeserializationError("PutGroupRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_qbusiness.types.membership_type.MembershipType", ""
+        )
     if data.get("groupMembers") is not None:
         import capo_qbusiness.types.group_members
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.gateway_arn
     import capo_bedrock_agentcore_control.types.status_reasons
@@ -52,11 +50,11 @@ def deserialize_json(data: dict) -> DeleteGatewayTargetResponse:
     if data.get("gatewayArn") is not None:
         out["gateway_arn"] = data["gatewayArn"]
     else:
-        raise DeserializationError("DeleteGatewayTargetResponse.gateway_arn required")
+        out["gateway_arn"] = ""
     if data.get("targetId") is not None:
         out["target_id"] = data["targetId"]
     else:
-        raise DeserializationError("DeleteGatewayTargetResponse.target_id required")
+        out["target_id"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.target_status
 
@@ -66,7 +64,11 @@ def deserialize_json(data: dict) -> DeleteGatewayTargetResponse:
             )
         )
     else:
-        raise DeserializationError("DeleteGatewayTargetResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.target_status.TargetStatus", ""
+        )
     if data.get("statusReasons") is not None:
         import capo_bedrock_agentcore_control.types.status_reasons
 

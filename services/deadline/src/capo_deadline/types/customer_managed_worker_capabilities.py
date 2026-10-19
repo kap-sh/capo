@@ -174,8 +174,11 @@ def deserialize_json(data: dict) -> CustomerManagedWorkerCapabilities:
             )
         )
     else:
-        raise DeserializationError(
-            "CustomerManagedWorkerCapabilities.os_family required"
+        import typing
+
+        out["os_family"] = typing.cast(
+            "capo_deadline.types.customer_managed_fleet_operating_system_family.CustomerManagedFleetOperatingSystemFamily",
+            "",
         )
     if data.get("cpuArchitectureType") is not None:
         import capo_deadline.types.cpu_architecture_type
@@ -186,8 +189,10 @@ def deserialize_json(data: dict) -> CustomerManagedWorkerCapabilities:
             )
         )
     else:
-        raise DeserializationError(
-            "CustomerManagedWorkerCapabilities.cpu_architecture_type required"
+        import typing
+
+        out["cpu_architecture_type"] = typing.cast(
+            "capo_deadline.types.cpu_architecture_type.CpuArchitectureType", ""
         )
     if data.get("customAmounts") is not None:
         import capo_deadline.types.custom_fleet_amount_capabilities

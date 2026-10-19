@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -49,13 +47,11 @@ def deserialize_json(data: dict) -> IdcAuthConfiguration:
     if data.get("operatorAppRoleArn") is not None:
         out["operator_app_role_arn"] = data["operatorAppRoleArn"]
     else:
-        raise DeserializationError(
-            "IdcAuthConfiguration.operator_app_role_arn required"
-        )
+        out["operator_app_role_arn"] = ""
     if data.get("idcInstanceArn") is not None:
         out["idc_instance_arn"] = data["idcInstanceArn"]
     else:
-        raise DeserializationError("IdcAuthConfiguration.idc_instance_arn required")
+        out["idc_instance_arn"] = ""
     if data.get("idcApplicationArn") is not None:
         out["idc_application_arn"] = data["idcApplicationArn"]
     if data.get("createdAt") is not None:
@@ -65,7 +61,9 @@ def deserialize_json(data: dict) -> IdcAuthConfiguration:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("IdcAuthConfiguration.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import datetime
 

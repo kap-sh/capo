@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_elementalinference.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elementalinference.types.feed_summary_list
 
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> ListFeedsResponse:
             data["feeds"]
         )
     else:
-        raise DeserializationError("ListFeedsResponse.feeds required")
+        out["feeds"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

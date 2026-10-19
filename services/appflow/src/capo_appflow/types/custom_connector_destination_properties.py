@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.custom_properties
     import capo_appflow.types.entity_name
@@ -73,9 +71,7 @@ def deserialize_json(data: dict) -> CustomConnectorDestinationProperties:
     if data.get("entityName") is not None:
         out["entity_name"] = data["entityName"]
     else:
-        raise DeserializationError(
-            "CustomConnectorDestinationProperties.entity_name required"
-        )
+        out["entity_name"] = ""
     if data.get("errorHandlingConfig") is not None:
         import capo_appflow.types.error_handling_config
 

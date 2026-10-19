@@ -45,7 +45,11 @@ def deserialize_json(data: dict) -> TableFieldLinkConfiguration:
             data["Target"]
         )
     else:
-        raise DeserializationError("TableFieldLinkConfiguration.target required")
+        import typing
+
+        out["target"] = typing.cast(
+            "capo_quicksight.types.url_target_configuration.URLTargetConfiguration", ""
+        )
     if data.get("Content") is not None:
         import capo_quicksight.types.table_field_link_content_configuration
 

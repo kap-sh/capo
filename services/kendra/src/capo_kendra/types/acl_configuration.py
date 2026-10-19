@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.column_name
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> AclConfiguration:
     if data.get("AllowedGroupsColumnName") is not None:
         out["allowed_groups_column_name"] = data["AllowedGroupsColumnName"]
     else:
-        raise DeserializationError(
-            "AclConfiguration.allowed_groups_column_name required"
-        )
+        out["allowed_groups_column_name"] = ""
     return out

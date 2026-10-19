@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.s3_bucket
     import capo_dynamodb.types.s3_bucket_owner
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_0(data: dict) -> S3BucketSource:
     if data.get("S3Bucket") is not None:
         out["s3_bucket"] = data["S3Bucket"]
     else:
-        raise DeserializationError("S3BucketSource.s3_bucket required")
+        out["s3_bucket"] = ""
     if data.get("S3KeyPrefix") is not None:
         out["s3_key_prefix"] = data["S3KeyPrefix"]
     return out

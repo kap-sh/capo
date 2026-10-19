@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_neptunedata.errors import DeserializationError, ServiceError
+from capo_neptunedata.errors import ServiceError
 
 
 class TimeLimitExceededException_(TypedDict, closed=True):
@@ -29,17 +29,15 @@ def deserialize_json(data: dict) -> TimeLimitExceededException_:
     if data.get("detailedMessage") is not None:
         out["detailed_message"] = data["detailedMessage"]
     else:
-        raise DeserializationError(
-            "TimeLimitExceededException_.detailed_message required"
-        )
+        out["detailed_message"] = ""
     if data.get("requestId") is not None:
         out["request_id"] = data["requestId"]
     else:
-        raise DeserializationError("TimeLimitExceededException_.request_id required")
+        out["request_id"] = ""
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("TimeLimitExceededException_.code required")
+        out["code"] = ""
     return out
 
 

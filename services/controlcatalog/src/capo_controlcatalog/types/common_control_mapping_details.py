@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_controlcatalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_controlcatalog.types.common_control_arn
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> CommonControlMappingDetails:
     if data.get("CommonControlArn") is not None:
         out["common_control_arn"] = data["CommonControlArn"]
     else:
-        raise DeserializationError(
-            "CommonControlMappingDetails.common_control_arn required"
-        )
+        out["common_control_arn"] = ""
     return out

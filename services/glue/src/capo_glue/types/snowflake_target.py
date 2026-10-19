@@ -44,7 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> SnowflakeTarget:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("SnowflakeTarget.name required")
+        out["name"] = ""
     if data.get("Data") is not None:
         import capo_glue.types.snowflake_node_data
 

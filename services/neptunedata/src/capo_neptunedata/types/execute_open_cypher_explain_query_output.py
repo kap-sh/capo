@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_neptunedata.errors import DeserializationError
-
 
 class ExecuteOpenCypherExplainQueryOutput(TypedDict, closed=True):
     results: "bytes"
@@ -30,7 +28,5 @@ def deserialize_json(data: dict) -> ExecuteOpenCypherExplainQueryOutput:
             data["results"]
         )
     else:
-        raise DeserializationError(
-            "ExecuteOpenCypherExplainQueryOutput.results required"
-        )
+        out["results"] = b""
     return out

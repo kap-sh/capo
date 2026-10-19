@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.db_password
     import capo_redshift_serverless.types.db_user
@@ -124,7 +122,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateNamespaceRequest:
     if data.get("namespaceName") is not None:
         out["namespace_name"] = data["namespaceName"]
     else:
-        raise DeserializationError("UpdateNamespaceRequest.namespace_name required")
+        out["namespace_name"] = ""
     if data.get("adminUserPassword") is not None:
         out["admin_user_password"] = data["adminUserPassword"]
     if data.get("adminUsername") is not None:

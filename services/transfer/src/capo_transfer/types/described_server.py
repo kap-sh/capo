@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.arn
     import capo_transfer.types.certificate
@@ -231,7 +229,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribedServer:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("DescribedServer.arn required")
+        out["arn"] = ""
     if data.get("Certificate") is not None:
         out["certificate"] = data["Certificate"]
     if data.get("ProtocolDetails") is not None:

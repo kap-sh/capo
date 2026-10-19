@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.artifact_store
     import capo_codepipeline.types.artifact_store_map
@@ -118,11 +116,11 @@ def deserialize_aws_json_1_1(data: dict) -> PipelineDeclaration:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("PipelineDeclaration.name required")
+        out["name"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("PipelineDeclaration.role_arn required")
+        out["role_arn"] = ""
     if data.get("artifactStore") is not None:
         import capo_codepipeline.types.artifact_store
 
@@ -148,7 +146,7 @@ def deserialize_aws_json_1_1(data: dict) -> PipelineDeclaration:
             )
         )
     else:
-        raise DeserializationError("PipelineDeclaration.stages required")
+        out["stages"] = []
     if data.get("version") is not None:
         out["version"] = data["version"]
     if data.get("executionMode") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -142,25 +140,25 @@ def deserialize_json(data: dict) -> Component:
     if data.get("appId") is not None:
         out["app_id"] = data["appId"]
     else:
-        raise DeserializationError("Component.app_id required")
+        out["app_id"] = ""
     if data.get("environmentName") is not None:
         out["environment_name"] = data["environmentName"]
     else:
-        raise DeserializationError("Component.environment_name required")
+        out["environment_name"] = ""
     if data.get("sourceId") is not None:
         out["source_id"] = data["sourceId"]
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("Component.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Component.name required")
+        out["name"] = ""
     if data.get("componentType") is not None:
         out["component_type"] = data["componentType"]
     else:
-        raise DeserializationError("Component.component_type required")
+        out["component_type"] = ""
     if data.get("properties") is not None:
         import capo_amplifyuibuilder.types.component_properties
 
@@ -170,7 +168,7 @@ def deserialize_json(data: dict) -> Component:
             )
         )
     else:
-        raise DeserializationError("Component.properties required")
+        out["properties"] = {}
     if data.get("children") is not None:
         import capo_amplifyuibuilder.types.component_child_list
 
@@ -188,7 +186,7 @@ def deserialize_json(data: dict) -> Component:
             )
         )
     else:
-        raise DeserializationError("Component.variants required")
+        out["variants"] = []
     if data.get("overrides") is not None:
         import capo_amplifyuibuilder.types.component_overrides
 
@@ -198,7 +196,7 @@ def deserialize_json(data: dict) -> Component:
             )
         )
     else:
-        raise DeserializationError("Component.overrides required")
+        out["overrides"] = {}
     if data.get("bindingProperties") is not None:
         import capo_amplifyuibuilder.types.component_binding_properties
 
@@ -208,7 +206,7 @@ def deserialize_json(data: dict) -> Component:
             )
         )
     else:
-        raise DeserializationError("Component.binding_properties required")
+        out["binding_properties"] = {}
     if data.get("collectionProperties") is not None:
         import capo_amplifyuibuilder.types.component_collection_properties
 
@@ -224,7 +222,9 @@ def deserialize_json(data: dict) -> Component:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("Component.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("modifiedAt") is not None:
         import datetime
 

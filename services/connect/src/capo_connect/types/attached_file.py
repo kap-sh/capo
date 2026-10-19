@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.created_by_info
@@ -82,23 +80,23 @@ def deserialize_json(data: dict) -> AttachedFile:
     if data.get("CreationTime") is not None:
         out["creation_time"] = data["CreationTime"]
     else:
-        raise DeserializationError("AttachedFile.creation_time required")
+        out["creation_time"] = ""
     if data.get("FileArn") is not None:
         out["file_arn"] = data["FileArn"]
     else:
-        raise DeserializationError("AttachedFile.file_arn required")
+        out["file_arn"] = ""
     if data.get("FileId") is not None:
         out["file_id"] = data["FileId"]
     else:
-        raise DeserializationError("AttachedFile.file_id required")
+        out["file_id"] = ""
     if data.get("FileName") is not None:
         out["file_name"] = data["FileName"]
     else:
-        raise DeserializationError("AttachedFile.file_name required")
+        out["file_name"] = ""
     if data.get("FileSizeInBytes") is not None:
         out["file_size_in_bytes"] = data["FileSizeInBytes"]
     else:
-        raise DeserializationError("AttachedFile.file_size_in_bytes required")
+        out["file_size_in_bytes"] = 0
     if data.get("FileStatus") is not None:
         import capo_connect.types.file_status_type
 
@@ -106,7 +104,11 @@ def deserialize_json(data: dict) -> AttachedFile:
             data["FileStatus"]
         )
     else:
-        raise DeserializationError("AttachedFile.file_status required")
+        import typing
+
+        out["file_status"] = typing.cast(
+            "capo_connect.types.file_status_type.FileStatusType", ""
+        )
     if data.get("CreatedBy") is not None:
         import capo_connect.types.created_by_info
 

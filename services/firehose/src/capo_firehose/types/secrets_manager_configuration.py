@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.boolean_object
     import capo_firehose.types.role_arn
@@ -41,5 +39,5 @@ def deserialize_aws_json_1_1(data: dict) -> SecretsManagerConfiguration:
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
-        raise DeserializationError("SecretsManagerConfiguration.enabled required")
+        out["enabled"] = False
     return out

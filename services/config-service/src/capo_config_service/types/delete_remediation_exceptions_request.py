@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.config_rule_name
     import capo_config_service.types.remediation_exception_resource_keys
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteRemediationExceptionsRequest:
     if data.get("ConfigRuleName") is not None:
         out["config_rule_name"] = data["ConfigRuleName"]
     else:
-        raise DeserializationError(
-            "DeleteRemediationExceptionsRequest.config_rule_name required"
-        )
+        out["config_rule_name"] = ""
     if data.get("ResourceKeys") is not None:
         import capo_config_service.types.remediation_exception_resource_keys
 
@@ -49,7 +45,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteRemediationExceptionsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DeleteRemediationExceptionsRequest.resource_keys required"
-        )
+        out["resource_keys"] = []
     return out

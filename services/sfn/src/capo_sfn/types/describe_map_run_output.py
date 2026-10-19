@@ -111,11 +111,11 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeMapRunOutput:
     if data.get("mapRunArn") is not None:
         out["map_run_arn"] = data["mapRunArn"]
     else:
-        raise DeserializationError("DescribeMapRunOutput.map_run_arn required")
+        out["map_run_arn"] = ""
     if data.get("executionArn") is not None:
         out["execution_arn"] = data["executionArn"]
     else:
-        raise DeserializationError("DescribeMapRunOutput.execution_arn required")
+        out["execution_arn"] = ""
     if data.get("status") is not None:
         import capo_sfn.types.map_run_status
 
@@ -123,7 +123,9 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeMapRunOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("DescribeMapRunOutput.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_sfn.types.map_run_status.MapRunStatus", "")
     if data.get("startDate") is not None:
         import capo_sfn.types.timestamp
 
@@ -131,7 +133,9 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeMapRunOutput:
             data["startDate"]
         )
     else:
-        raise DeserializationError("DescribeMapRunOutput.start_date required")
+        import datetime
+
+        out["start_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("stopDate") is not None:
         import capo_sfn.types.timestamp
 

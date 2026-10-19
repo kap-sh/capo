@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.boolean
     import capo_quicksight.types.column_name
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> DataPrepListAggregationFunction:
     if data.get("Separator") is not None:
         out["separator"] = data["Separator"]
     else:
-        raise DeserializationError("DataPrepListAggregationFunction.separator required")
+        out["separator"] = ""
     if data.get("Distinct") is not None:
         out["distinct"] = data["Distinct"]
     else:

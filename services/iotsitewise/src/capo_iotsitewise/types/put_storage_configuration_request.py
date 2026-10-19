@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.disallow_ingest_null_na_n
     import capo_iotsitewise.types.disassociated_data_storage_state
@@ -100,8 +98,10 @@ def deserialize_json(data: dict) -> PutStorageConfigurationRequest:
             data["storageType"]
         )
     else:
-        raise DeserializationError(
-            "PutStorageConfigurationRequest.storage_type required"
+        import typing
+
+        out["storage_type"] = typing.cast(
+            "capo_iotsitewise.types.storage_type.StorageType", ""
         )
     if data.get("multiLayerStorage") is not None:
         import capo_iotsitewise.types.multi_layer_storage

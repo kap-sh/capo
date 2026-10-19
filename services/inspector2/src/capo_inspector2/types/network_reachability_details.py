@@ -53,7 +53,7 @@ def deserialize_json(data: dict) -> NetworkReachabilityDetails:
     if data.get("protocol") is not None:
         out["protocol"] = data["protocol"]
     else:
-        raise DeserializationError("NetworkReachabilityDetails.protocol required")
+        out["protocol"] = ""
     if data.get("networkPath") is not None:
         import capo_inspector2.types.network_path
 

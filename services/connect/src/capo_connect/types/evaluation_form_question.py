@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.boolean
     import capo_connect.types.evaluation_form_item_enablement_configuration
@@ -120,13 +118,13 @@ def deserialize_json(data: dict) -> EvaluationFormQuestion:
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     else:
-        raise DeserializationError("EvaluationFormQuestion.title required")
+        out["title"] = ""
     if data.get("Instructions") is not None:
         out["instructions"] = data["Instructions"]
     if data.get("RefId") is not None:
         out["ref_id"] = data["RefId"]
     else:
-        raise DeserializationError("EvaluationFormQuestion.ref_id required")
+        out["ref_id"] = ""
     if data.get("NotApplicableEnabled") is not None:
         out["not_applicable_enabled"] = data["NotApplicableEnabled"]
     else:
@@ -140,7 +138,12 @@ def deserialize_json(data: dict) -> EvaluationFormQuestion:
             )
         )
     else:
-        raise DeserializationError("EvaluationFormQuestion.question_type required")
+        import typing
+
+        out["question_type"] = typing.cast(
+            "capo_connect.types.evaluation_form_question_type.EvaluationFormQuestionType",
+            "",
+        )
     if data.get("QuestionTypeProperties") is not None:
         import capo_connect.types.evaluation_form_question_type_properties
 

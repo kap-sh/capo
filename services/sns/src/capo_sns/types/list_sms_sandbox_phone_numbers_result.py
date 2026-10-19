@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sns.types.sms_sandbox_phone_number_list
@@ -47,9 +46,7 @@ def deserialize_query(el: Element) -> ListSMSSandboxPhoneNumbersResult:
             )
         )
     else:
-        raise DeserializationError(
-            "ListSMSSandboxPhoneNumbersResult.phone_numbers required"
-        )
+        out["phone_numbers"] = []
     child_next_token = el.find("NextToken")
     if child_next_token is not None:
         out["next_token"] = str(child_next_token.text or "")

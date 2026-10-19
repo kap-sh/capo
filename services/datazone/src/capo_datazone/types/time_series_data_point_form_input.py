@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -49,13 +47,11 @@ def deserialize_json(data: dict) -> TimeSeriesDataPointFormInput:
     if data.get("formName") is not None:
         out["form_name"] = data["formName"]
     else:
-        raise DeserializationError("TimeSeriesDataPointFormInput.form_name required")
+        out["form_name"] = ""
     if data.get("typeIdentifier") is not None:
         out["type_identifier"] = data["typeIdentifier"]
     else:
-        raise DeserializationError(
-            "TimeSeriesDataPointFormInput.type_identifier required"
-        )
+        out["type_identifier"] = ""
     if data.get("typeRevision") is not None:
         out["type_revision"] = data["typeRevision"]
     if data.get("timestamp") is not None:
@@ -65,7 +61,9 @@ def deserialize_json(data: dict) -> TimeSeriesDataPointFormInput:
             data["timestamp"]
         )
     else:
-        raise DeserializationError("TimeSeriesDataPointFormInput.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("content") is not None:
         out["content"] = data["content"]
     return out

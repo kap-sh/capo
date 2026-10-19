@@ -77,9 +77,7 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterConnectionTypeRequest:
     if data.get("ConnectionType") is not None:
         out["connection_type"] = data["ConnectionType"]
     else:
-        raise DeserializationError(
-            "RegisterConnectionTypeRequest.connection_type required"
-        )
+        out["connection_type"] = ""
     if data.get("IntegrationType") is not None:
         import capo_glue.types.integration_type
 
@@ -89,8 +87,10 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterConnectionTypeRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "RegisterConnectionTypeRequest.integration_type required"
+        import typing
+
+        out["integration_type"] = typing.cast(
+            "capo_glue.types.integration_type.IntegrationType", ""
         )
     if data.get("Description") is not None:
         out["description"] = data["Description"]

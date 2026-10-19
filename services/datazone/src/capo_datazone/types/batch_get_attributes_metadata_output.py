@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.attributes_errors
     import capo_datazone.types.batch_get_attribute_items
@@ -56,7 +54,7 @@ def deserialize_json(data: dict) -> BatchGetAttributesMetadataOutput:
             data["errors"]
         )
     else:
-        raise DeserializationError("BatchGetAttributesMetadataOutput.errors required")
+        out["errors"] = []
     return out
 
 

@@ -52,15 +52,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePredictorBacktestExportJobRequ
             "PredictorBacktestExportJobName"
         ]
     else:
-        raise DeserializationError(
-            "CreatePredictorBacktestExportJobRequest.predictor_backtest_export_job_name required"
-        )
+        out["predictor_backtest_export_job_name"] = ""
     if data.get("PredictorArn") is not None:
         out["predictor_arn"] = data["PredictorArn"]
     else:
-        raise DeserializationError(
-            "CreatePredictorBacktestExportJobRequest.predictor_arn required"
-        )
+        out["predictor_arn"] = ""
     if data.get("Destination") is not None:
         import capo_forecast.types.data_destination
 

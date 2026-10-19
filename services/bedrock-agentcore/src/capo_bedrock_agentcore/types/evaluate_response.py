@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.evaluation_results
 
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> EvaluateResponse:
             )
         )
     else:
-        raise DeserializationError("EvaluateResponse.evaluation_results required")
+        out["evaluation_results"] = []
     return out
 
 

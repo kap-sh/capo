@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda_microvms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_microvms.types.microvm_image_identifier
     import capo_lambda_microvms.types.microvm_image_state
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> DeleteMicrovmImageOutput:
     if data.get("imageIdentifier") is not None:
         out["image_identifier"] = data["imageIdentifier"]
     else:
-        raise DeserializationError("DeleteMicrovmImageOutput.image_identifier required")
+        out["image_identifier"] = ""
     if data.get("state") is not None:
         import capo_lambda_microvms.types.microvm_image_state
 
@@ -45,5 +43,9 @@ def deserialize_json(data: dict) -> DeleteMicrovmImageOutput:
             data["state"]
         )
     else:
-        raise DeserializationError("DeleteMicrovmImageOutput.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_lambda_microvms.types.microvm_image_state.MicrovmImageState", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.coinbase_cdp_payment_jwt_token_type
 
@@ -33,9 +31,7 @@ def deserialize_json(data: dict) -> CoinbaseCdpTokenResponseOutput:
     if data.get("bearerToken") is not None:
         out["bearer_token"] = data["bearerToken"]
     else:
-        raise DeserializationError(
-            "CoinbaseCdpTokenResponseOutput.bearer_token required"
-        )
+        out["bearer_token"] = ""
     if data.get("walletAuthToken") is not None:
         out["wallet_auth_token"] = data["walletAuthToken"]
     return out

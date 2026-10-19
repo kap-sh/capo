@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_repostspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_repostspace.types.channel_description
     import capo_repostspace.types.channel_name
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> CreateChannelInput:
     if data.get("channelName") is not None:
         out["channel_name"] = data["channelName"]
     else:
-        raise DeserializationError("CreateChannelInput.channel_name required")
+        out["channel_name"] = ""
     if data.get("channelDescription") is not None:
         out["channel_description"] = data["channelDescription"]
     return out

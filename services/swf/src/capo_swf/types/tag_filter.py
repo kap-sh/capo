@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.tag
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> TagFilter:
     if data.get("tag") is not None:
         out["tag"] = data["tag"]
     else:
-        raise DeserializationError("TagFilter.tag required")
+        out["tag"] = ""
     return out

@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError, ServiceError
+from capo_verifiedpermissions.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.resource_type
@@ -48,7 +48,7 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceQuotaExceededException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ServiceQuotaExceededException_.message required")
+        out["message"] = ""
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     if data.get("resourceType") is not None:
@@ -60,8 +60,10 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceQuotaExceededException_:
             )
         )
     else:
-        raise DeserializationError(
-            "ServiceQuotaExceededException_.resource_type required"
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_verifiedpermissions.types.resource_type.ResourceType", ""
         )
     if data.get("serviceCode") is not None:
         out["service_code"] = data["serviceCode"]

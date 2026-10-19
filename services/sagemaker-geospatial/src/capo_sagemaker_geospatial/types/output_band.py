@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.output_type
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> OutputBand:
     if data.get("BandName") is not None:
         out["band_name"] = data["BandName"]
     else:
-        raise DeserializationError("OutputBand.band_name required")
+        out["band_name"] = ""
     if data.get("OutputDataType") is not None:
         out["output_data_type"] = data["OutputDataType"]
     else:
-        raise DeserializationError("OutputBand.output_data_type required")
+        out["output_data_type"] = ""
     return out

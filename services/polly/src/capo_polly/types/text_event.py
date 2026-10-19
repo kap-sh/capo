@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_polly._protocol.eventstream import HeaderValue, Message
-from capo_polly.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_polly.types.flush_stream_configuration
@@ -49,7 +48,7 @@ def deserialize_json(data: dict) -> TextEvent:
     if data.get("Text") is not None:
         out["text"] = data["Text"]
     else:
-        raise DeserializationError("TextEvent.text required")
+        out["text"] = ""
     if data.get("TextType") is not None:
         import capo_polly.types.text_type
 

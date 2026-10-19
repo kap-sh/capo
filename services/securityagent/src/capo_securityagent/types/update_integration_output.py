@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.integration_id
     import capo_securityagent.types.webhook_secret
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> UpdateIntegrationOutput:
     if data.get("integrationId") is not None:
         out["integration_id"] = data["integrationId"]
     else:
-        raise DeserializationError("UpdateIntegrationOutput.integration_id required")
+        out["integration_id"] = ""
     if data.get("webhookUrl") is not None:
         out["webhook_url"] = data["webhookUrl"]
     if data.get("secret") is not None:

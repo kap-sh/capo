@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_keyspacesstreams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_keyspacesstreams.types.date
     import capo_keyspacesstreams.types.keyspace_name
@@ -86,11 +84,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetStreamOutput:
     if data.get("streamArn") is not None:
         out["stream_arn"] = data["streamArn"]
     else:
-        raise DeserializationError("GetStreamOutput.stream_arn required")
+        out["stream_arn"] = ""
     if data.get("streamLabel") is not None:
         out["stream_label"] = data["streamLabel"]
     else:
-        raise DeserializationError("GetStreamOutput.stream_label required")
+        out["stream_label"] = ""
     if data.get("streamStatus") is not None:
         import capo_keyspacesstreams.types.stream_status
 
@@ -100,7 +98,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetStreamOutput:
             )
         )
     else:
-        raise DeserializationError("GetStreamOutput.stream_status required")
+        import typing
+
+        out["stream_status"] = typing.cast(
+            "capo_keyspacesstreams.types.stream_status.StreamStatus", ""
+        )
     if data.get("streamViewType") is not None:
         import capo_keyspacesstreams.types.stream_view_type
 
@@ -110,7 +112,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetStreamOutput:
             )
         )
     else:
-        raise DeserializationError("GetStreamOutput.stream_view_type required")
+        import typing
+
+        out["stream_view_type"] = typing.cast(
+            "capo_keyspacesstreams.types.stream_view_type.StreamViewType", ""
+        )
     if data.get("creationRequestDateTime") is not None:
         import capo_keyspacesstreams.types.date
 
@@ -120,17 +126,19 @@ def deserialize_aws_json_1_0(data: dict) -> GetStreamOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetStreamOutput.creation_request_date_time required"
+        import datetime
+
+        out["creation_request_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("keyspaceName") is not None:
         out["keyspace_name"] = data["keyspaceName"]
     else:
-        raise DeserializationError("GetStreamOutput.keyspace_name required")
+        out["keyspace_name"] = ""
     if data.get("tableName") is not None:
         out["table_name"] = data["tableName"]
     else:
-        raise DeserializationError("GetStreamOutput.table_name required")
+        out["table_name"] = ""
     if data.get("shards") is not None:
         import capo_keyspacesstreams.types.shard_description_list
 

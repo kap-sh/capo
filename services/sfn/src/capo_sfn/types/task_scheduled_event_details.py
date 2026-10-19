@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.connector_parameters
     import capo_sfn.types.name
@@ -59,19 +57,19 @@ def deserialize_aws_json_1_0(data: dict) -> TaskScheduledEventDetails:
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError("TaskScheduledEventDetails.resource_type required")
+        out["resource_type"] = ""
     if data.get("resource") is not None:
         out["resource"] = data["resource"]
     else:
-        raise DeserializationError("TaskScheduledEventDetails.resource required")
+        out["resource"] = ""
     if data.get("region") is not None:
         out["region"] = data["region"]
     else:
-        raise DeserializationError("TaskScheduledEventDetails.region required")
+        out["region"] = ""
     if data.get("parameters") is not None:
         out["parameters"] = data["parameters"]
     else:
-        raise DeserializationError("TaskScheduledEventDetails.parameters required")
+        out["parameters"] = ""
     if data.get("timeoutInSeconds") is not None:
         out["timeout_in_seconds"] = data["timeoutInSeconds"]
     if data.get("heartbeatInSeconds") is not None:

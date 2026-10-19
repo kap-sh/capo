@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.integer
 
@@ -36,17 +34,17 @@ def deserialize_json(data: dict) -> DependencyCounts:
     if data.get("dependenciesResolved") is not None:
         out["dependencies_resolved"] = data["dependenciesResolved"]
     else:
-        raise DeserializationError("DependencyCounts.dependencies_resolved required")
+        out["dependencies_resolved"] = 0
     if data.get("dependenciesUnresolved") is not None:
         out["dependencies_unresolved"] = data["dependenciesUnresolved"]
     else:
-        raise DeserializationError("DependencyCounts.dependencies_unresolved required")
+        out["dependencies_unresolved"] = 0
     if data.get("consumersResolved") is not None:
         out["consumers_resolved"] = data["consumersResolved"]
     else:
-        raise DeserializationError("DependencyCounts.consumers_resolved required")
+        out["consumers_resolved"] = 0
     if data.get("consumersUnresolved") is not None:
         out["consumers_unresolved"] = data["consumersUnresolved"]
     else:
-        raise DeserializationError("DependencyCounts.consumers_unresolved required")
+        out["consumers_unresolved"] = 0
     return out

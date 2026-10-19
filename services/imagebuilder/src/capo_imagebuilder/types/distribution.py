@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.ami_distribution_configuration
     import capo_imagebuilder.types.container_distribution_configuration
@@ -118,7 +116,7 @@ def deserialize_json(data: dict) -> Distribution:
     if data.get("region") is not None:
         out["region"] = data["region"]
     else:
-        raise DeserializationError("Distribution.region required")
+        out["region"] = ""
     if data.get("amiDistributionConfiguration") is not None:
         import capo_imagebuilder.types.ami_distribution_configuration
 

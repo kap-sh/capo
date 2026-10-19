@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.document_attribute_value_type
     import capo_kendra.types.document_metadata_configuration_name
@@ -53,7 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentMetadataConfiguration:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DocumentMetadataConfiguration.name required")
+        out["name"] = ""
     if data.get("Type") is not None:
         import capo_kendra.types.document_attribute_value_type
 
@@ -63,7 +61,12 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentMetadataConfiguration:
             )
         )
     else:
-        raise DeserializationError("DocumentMetadataConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_kendra.types.document_attribute_value_type.DocumentAttributeValueType",
+            "",
+        )
     if data.get("Relevance") is not None:
         import capo_kendra.types.relevance
 

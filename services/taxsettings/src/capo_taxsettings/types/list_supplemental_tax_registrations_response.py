@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_taxsettings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_taxsettings.types.pagination_token_string
     import capo_taxsettings.types.supplemental_tax_registration_list
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> ListSupplementalTaxRegistrationsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListSupplementalTaxRegistrationsResponse.tax_registrations required"
-        )
+        out["tax_registrations"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

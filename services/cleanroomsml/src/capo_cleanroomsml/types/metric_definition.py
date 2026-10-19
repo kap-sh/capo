@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.metric_name
     import capo_cleanroomsml.types.metric_regex
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> MetricDefinition:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("MetricDefinition.name required")
+        out["name"] = ""
     if data.get("regex") is not None:
         out["regex"] = data["regex"]
     else:
-        raise DeserializationError("MetricDefinition.regex required")
+        out["regex"] = ""
     return out

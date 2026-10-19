@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.mapping_template
     import capo_b2bi.types.mapping_template_language
@@ -46,7 +44,11 @@ def deserialize_aws_json_1_0(data: dict) -> Mapping:
             )
         )
     else:
-        raise DeserializationError("Mapping.template_language required")
+        import typing
+
+        out["template_language"] = typing.cast(
+            "capo_b2bi.types.mapping_template_language.MappingTemplateLanguage", ""
+        )
     if data.get("template") is not None:
         out["template"] = data["template"]
     return out

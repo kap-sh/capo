@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.amazon_transcribe_call_analytics_processor_configuration
     import capo_chime_sdk_media_pipelines.types.amazon_transcribe_processor_configuration
@@ -156,8 +154,11 @@ def deserialize_json(data: dict) -> MediaInsightsPipelineConfigurationElement:
             )
         )
     else:
-        raise DeserializationError(
-            "MediaInsightsPipelineConfigurationElement.type required"
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.media_insights_pipeline_configuration_element_type.MediaInsightsPipelineConfigurationElementType",
+            "",
         )
     if data.get("AmazonTranscribeCallAnalyticsProcessorConfiguration") is not None:
         import capo_chime_sdk_media_pipelines.types.amazon_transcribe_call_analytics_processor_configuration

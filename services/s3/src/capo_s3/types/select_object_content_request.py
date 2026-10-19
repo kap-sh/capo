@@ -90,7 +90,7 @@ def deserialize_xml(el: Element) -> SelectObjectContentRequest:
     if child_expression is not None:
         out["expression"] = str(child_expression.text or "")
     else:
-        raise DeserializationError("SelectObjectContentRequest.expression required")
+        out["expression"] = ""
     child_expression_type = el.find("ExpressionType")
     if child_expression_type is not None:
         import capo_s3.types.expression_type
@@ -99,8 +99,10 @@ def deserialize_xml(el: Element) -> SelectObjectContentRequest:
             child_expression_type
         )
     else:
-        raise DeserializationError(
-            "SelectObjectContentRequest.expression_type required"
+        import typing
+
+        out["expression_type"] = typing.cast(
+            "capo_s3.types.expression_type.ExpressionType", ""
         )
     child_request_progress = el.find("RequestProgress")
     if child_request_progress is not None:

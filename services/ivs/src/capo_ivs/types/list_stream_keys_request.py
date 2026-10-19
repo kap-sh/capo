@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs.types.channel_arn
     import capo_ivs.types.max_stream_key_results
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> ListStreamKeysRequest:
     if data.get("channelArn") is not None:
         out["channel_arn"] = data["channelArn"]
     else:
-        raise DeserializationError("ListStreamKeysRequest.channel_arn required")
+        out["channel_arn"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -74,11 +72,11 @@ def deserialize_json(data: dict) -> GetSchemaMappingOutput:
     if data.get("schemaName") is not None:
         out["schema_name"] = data["schemaName"]
     else:
-        raise DeserializationError("GetSchemaMappingOutput.schema_name required")
+        out["schema_name"] = ""
     if data.get("schemaArn") is not None:
         out["schema_arn"] = data["schemaArn"]
     else:
-        raise DeserializationError("GetSchemaMappingOutput.schema_arn required")
+        out["schema_arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("mappedInputFields") is not None:
@@ -90,9 +88,7 @@ def deserialize_json(data: dict) -> GetSchemaMappingOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetSchemaMappingOutput.mapped_input_fields required"
-        )
+        out["mapped_input_fields"] = []
     if data.get("createdAt") is not None:
         import capo_entityresolution.types._prelude.timestamp
 
@@ -102,7 +98,9 @@ def deserialize_json(data: dict) -> GetSchemaMappingOutput:
             )
         )
     else:
-        raise DeserializationError("GetSchemaMappingOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_entityresolution.types._prelude.timestamp
 
@@ -112,7 +110,9 @@ def deserialize_json(data: dict) -> GetSchemaMappingOutput:
             )
         )
     else:
-        raise DeserializationError("GetSchemaMappingOutput.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("tags") is not None:
         import capo_entityresolution.types.tag_map
 
@@ -120,5 +120,5 @@ def deserialize_json(data: dict) -> GetSchemaMappingOutput:
     if data.get("hasWorkflows") is not None:
         out["has_workflows"] = data["hasWorkflows"]
     else:
-        raise DeserializationError("GetSchemaMappingOutput.has_workflows required")
+        out["has_workflows"] = False
     return out

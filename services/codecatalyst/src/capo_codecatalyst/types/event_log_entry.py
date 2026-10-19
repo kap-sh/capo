@@ -104,23 +104,23 @@ def deserialize_json(data: dict) -> EventLogEntry:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("EventLogEntry.id required")
+        out["id"] = ""
     if data.get("eventName") is not None:
         out["event_name"] = data["eventName"]
     else:
-        raise DeserializationError("EventLogEntry.event_name required")
+        out["event_name"] = ""
     if data.get("eventType") is not None:
         out["event_type"] = data["eventType"]
     else:
-        raise DeserializationError("EventLogEntry.event_type required")
+        out["event_type"] = ""
     if data.get("eventCategory") is not None:
         out["event_category"] = data["eventCategory"]
     else:
-        raise DeserializationError("EventLogEntry.event_category required")
+        out["event_category"] = ""
     if data.get("eventSource") is not None:
         out["event_source"] = data["eventSource"]
     else:
-        raise DeserializationError("EventLogEntry.event_source required")
+        out["event_source"] = ""
     if data.get("eventTime") is not None:
         import datetime
 
@@ -128,11 +128,13 @@ def deserialize_json(data: dict) -> EventLogEntry:
             data["eventTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("EventLogEntry.event_time required")
+        import datetime
+
+        out["event_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("operationType") is not None:
         out["operation_type"] = data["operationType"]
     else:
-        raise DeserializationError("EventLogEntry.operation_type required")
+        out["operation_type"] = ""
     if data.get("userIdentity") is not None:
         import capo_codecatalyst.types.user_identity
 

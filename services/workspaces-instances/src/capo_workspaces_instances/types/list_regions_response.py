@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_instances.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_instances.types.next_token
     import capo_workspaces_instances.types.region_list
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListRegionsResponse:
             )
         )
     else:
-        raise DeserializationError("ListRegionsResponse.regions required")
+        out["regions"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

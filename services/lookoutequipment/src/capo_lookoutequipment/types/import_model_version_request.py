@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.dataset_identifier
     import capo_lookoutequipment.types.iam_role_arn
@@ -88,15 +86,13 @@ def deserialize_aws_json_1_0(data: dict) -> ImportModelVersionRequest:
     if data.get("SourceModelVersionArn") is not None:
         out["source_model_version_arn"] = data["SourceModelVersionArn"]
     else:
-        raise DeserializationError(
-            "ImportModelVersionRequest.source_model_version_arn required"
-        )
+        out["source_model_version_arn"] = ""
     if data.get("ModelName") is not None:
         out["model_name"] = data["ModelName"]
     if data.get("DatasetName") is not None:
         out["dataset_name"] = data["DatasetName"]
     else:
-        raise DeserializationError("ImportModelVersionRequest.dataset_name required")
+        out["dataset_name"] = ""
     if data.get("LabelsInputConfiguration") is not None:
         import capo_lookoutequipment.types.labels_input_configuration
 
@@ -108,7 +104,7 @@ def deserialize_aws_json_1_0(data: dict) -> ImportModelVersionRequest:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("ImportModelVersionRequest.client_token required")
+        out["client_token"] = ""
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     if data.get("ServerSideKmsKeyId") is not None:

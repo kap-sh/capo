@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.custom_domain_certificate_arn_string
     import capo_redshift_serverless.types.custom_domain_name
@@ -37,19 +35,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCustomDomainAssociationRequest
     if data.get("workgroupName") is not None:
         out["workgroup_name"] = data["workgroupName"]
     else:
-        raise DeserializationError(
-            "CreateCustomDomainAssociationRequest.workgroup_name required"
-        )
+        out["workgroup_name"] = ""
     if data.get("customDomainName") is not None:
         out["custom_domain_name"] = data["customDomainName"]
     else:
-        raise DeserializationError(
-            "CreateCustomDomainAssociationRequest.custom_domain_name required"
-        )
+        out["custom_domain_name"] = ""
     if data.get("customDomainCertificateArn") is not None:
         out["custom_domain_certificate_arn"] = data["customDomainCertificateArn"]
     else:
-        raise DeserializationError(
-            "CreateCustomDomainAssociationRequest.custom_domain_certificate_arn required"
-        )
+        out["custom_domain_certificate_arn"] = ""
     return out

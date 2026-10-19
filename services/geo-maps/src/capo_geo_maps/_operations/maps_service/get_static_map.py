@@ -69,7 +69,10 @@ def handle_response(
         out["cache_control"] = response.headers["Cache-Control"]
     if "ETag" in response.headers:
         out["e_tag"] = response.headers["ETag"]
-    out["pricing_bucket"] = response.headers["x-amz-geo-pricing-bucket"]
+    if "x-amz-geo-pricing-bucket" in response.headers:
+        out["pricing_bucket"] = response.headers["x-amz-geo-pricing-bucket"]
+    else:
+        out["pricing_bucket"] = ""
     return out
 
 
@@ -85,7 +88,10 @@ async def async_handle_response(
         out["cache_control"] = response.headers["Cache-Control"]
     if "ETag" in response.headers:
         out["e_tag"] = response.headers["ETag"]
-    out["pricing_bucket"] = response.headers["x-amz-geo-pricing-bucket"]
+    if "x-amz-geo-pricing-bucket" in response.headers:
+        out["pricing_bucket"] = response.headers["x-amz-geo-pricing-bucket"]
+    else:
+        out["pricing_bucket"] = ""
     return out
 
 

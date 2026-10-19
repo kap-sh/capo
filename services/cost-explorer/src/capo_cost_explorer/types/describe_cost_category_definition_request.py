@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.arn
     import capo_cost_explorer.types.zoned_date_time
@@ -32,9 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeCostCategoryDefinitionReques
     if data.get("CostCategoryArn") is not None:
         out["cost_category_arn"] = data["CostCategoryArn"]
     else:
-        raise DeserializationError(
-            "DescribeCostCategoryDefinitionRequest.cost_category_arn required"
-        )
+        out["cost_category_arn"] = ""
     if data.get("EffectiveOn") is not None:
         out["effective_on"] = data["EffectiveOn"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.exascale_db_storage_vault_list
 
@@ -47,7 +45,5 @@ def deserialize_aws_json_1_0(data: dict) -> ListExascaleDbStorageVaultsOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListExascaleDbStorageVaultsOutput.exascale_db_storage_vaults required"
-        )
+        out["exascale_db_storage_vaults"] = []
     return out

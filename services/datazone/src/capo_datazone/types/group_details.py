@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 
 class GroupDetails(TypedDict, closed=True):
     group_id: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> GroupDetails:
     if data.get("groupId") is not None:
         out["group_id"] = data["groupId"]
     else:
-        raise DeserializationError("GroupDetails.group_id required")
+        out["group_id"] = ""
     return out

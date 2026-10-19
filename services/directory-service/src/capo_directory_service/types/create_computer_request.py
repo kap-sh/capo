@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.attributes
     import capo_directory_service.types.computer_name
@@ -57,15 +55,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateComputerRequest:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError("CreateComputerRequest.directory_id required")
+        out["directory_id"] = ""
     if data.get("ComputerName") is not None:
         out["computer_name"] = data["ComputerName"]
     else:
-        raise DeserializationError("CreateComputerRequest.computer_name required")
+        out["computer_name"] = ""
     if data.get("Password") is not None:
         out["password"] = data["Password"]
     else:
-        raise DeserializationError("CreateComputerRequest.password required")
+        out["password"] = ""
     if data.get("OrganizationalUnitDistinguishedName") is not None:
         out["organizational_unit_distinguished_name"] = data[
             "OrganizationalUnitDistinguishedName"

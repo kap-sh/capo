@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.resource_arn
     import capo_wafv2.types.resource_type
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListResourcesForWebACLRequest:
     if data.get("WebACLArn") is not None:
         out["web_acl_arn"] = data["WebACLArn"]
     else:
-        raise DeserializationError("ListResourcesForWebACLRequest.web_acl_arn required")
+        out["web_acl_arn"] = ""
     if data.get("ResourceType") is not None:
         import capo_wafv2.types.resource_type
 

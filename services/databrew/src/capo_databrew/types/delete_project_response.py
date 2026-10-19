@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.project_name
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DeleteProjectResponse:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DeleteProjectResponse.name required")
+        out["name"] = ""
     return out

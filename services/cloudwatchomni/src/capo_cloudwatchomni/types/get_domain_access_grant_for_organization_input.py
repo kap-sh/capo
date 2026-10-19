@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.grant_id
 
@@ -27,7 +25,5 @@ def deserialize_cbor(data: dict) -> GetDomainAccessGrantForOrganizationInput:
     if data.get("grantId") is not None:
         out["grant_id"] = data["grantId"]
     else:
-        raise DeserializationError(
-            "GetDomainAccessGrantForOrganizationInput.grant_id required"
-        )
+        out["grant_id"] = ""
     return out

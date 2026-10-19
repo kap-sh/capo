@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.expiration_state
@@ -39,7 +38,11 @@ def deserialize_xml(el: Element) -> RecordExpiration:
             child_expiration
         )
     else:
-        raise DeserializationError("RecordExpiration.expiration required")
+        import typing
+
+        out["expiration"] = typing.cast(
+            "capo_s3.types.expiration_state.ExpirationState", ""
+        )
     child_days = el.find("Days")
     if child_days is not None:
         out["days"] = int(child_days.text or "")

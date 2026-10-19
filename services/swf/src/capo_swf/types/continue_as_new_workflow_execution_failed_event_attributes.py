@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.continue_as_new_workflow_execution_failed_cause
     import capo_swf.types.event_id
@@ -49,8 +47,11 @@ def deserialize_aws_json_1_0(
             )
         )
     else:
-        raise DeserializationError(
-            "ContinueAsNewWorkflowExecutionFailedEventAttributes.cause required"
+        import typing
+
+        out["cause"] = typing.cast(
+            "capo_swf.types.continue_as_new_workflow_execution_failed_cause.ContinueAsNewWorkflowExecutionFailedCause",
+            "",
         )
     if data.get("decisionTaskCompletedEventId") is not None:
         out["decision_task_completed_event_id"] = data["decisionTaskCompletedEventId"]

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.boolean_object
     import capo_kinesis_analytics_v2.types.configuration_type
@@ -60,8 +58,10 @@ def deserialize_aws_json_1_1(data: dict) -> ParallelismConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ParallelismConfiguration.configuration_type required"
+        import typing
+
+        out["configuration_type"] = typing.cast(
+            "capo_kinesis_analytics_v2.types.configuration_type.ConfigurationType", ""
         )
     if data.get("Parallelism") is not None:
         out["parallelism"] = data["Parallelism"]

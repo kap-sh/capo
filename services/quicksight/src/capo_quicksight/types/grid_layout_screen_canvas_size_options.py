@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.pixel_length
     import capo_quicksight.types.resize_option
@@ -42,8 +40,10 @@ def deserialize_json(data: dict) -> GridLayoutScreenCanvasSizeOptions:
             data["ResizeOption"]
         )
     else:
-        raise DeserializationError(
-            "GridLayoutScreenCanvasSizeOptions.resize_option required"
+        import typing
+
+        out["resize_option"] = typing.cast(
+            "capo_quicksight.types.resize_option.ResizeOption", ""
         )
     if data.get("OptimizedViewPortWidth") is not None:
         out["optimized_view_port_width"] = data["OptimizedViewPortWidth"]

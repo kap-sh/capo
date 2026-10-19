@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.capacity_provider_security_group_ids
     import capo_lambda.types.capacity_provider_subnet_ids
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> CapacityProviderVpcConfig:
             )
         )
     else:
-        raise DeserializationError("CapacityProviderVpcConfig.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("SecurityGroupIds") is not None:
         import capo_lambda.types.capacity_provider_security_group_ids
 
@@ -59,7 +57,5 @@ def deserialize_json(data: dict) -> CapacityProviderVpcConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "CapacityProviderVpcConfig.security_group_ids required"
-        )
+        out["security_group_ids"] = []
     return out

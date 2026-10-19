@@ -109,15 +109,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLicenseVersionRequest:
     if data.get("LicenseArn") is not None:
         out["license_arn"] = data["LicenseArn"]
     else:
-        raise DeserializationError("CreateLicenseVersionRequest.license_arn required")
+        out["license_arn"] = ""
     if data.get("LicenseName") is not None:
         out["license_name"] = data["LicenseName"]
     else:
-        raise DeserializationError("CreateLicenseVersionRequest.license_name required")
+        out["license_name"] = ""
     if data.get("ProductName") is not None:
         out["product_name"] = data["ProductName"]
     else:
-        raise DeserializationError("CreateLicenseVersionRequest.product_name required")
+        out["product_name"] = ""
     if data.get("Issuer") is not None:
         import capo_license_manager.types.issuer
 
@@ -129,7 +129,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLicenseVersionRequest:
     if data.get("HomeRegion") is not None:
         out["home_region"] = data["HomeRegion"]
     else:
-        raise DeserializationError("CreateLicenseVersionRequest.home_region required")
+        out["home_region"] = ""
     if data.get("Validity") is not None:
         import capo_license_manager.types.datetime_range
 
@@ -157,7 +157,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLicenseVersionRequest:
             )
         )
     else:
-        raise DeserializationError("CreateLicenseVersionRequest.entitlements required")
+        out["entitlements"] = []
     if data.get("ConsumptionConfiguration") is not None:
         import capo_license_manager.types.consumption_configuration
 
@@ -179,11 +179,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLicenseVersionRequest:
             )
         )
     else:
-        raise DeserializationError("CreateLicenseVersionRequest.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_license_manager.types.license_status.LicenseStatus", ""
+        )
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("CreateLicenseVersionRequest.client_token required")
+        out["client_token"] = ""
     if data.get("SourceVersion") is not None:
         out["source_version"] = data["SourceVersion"]
     if data.get("ResetUsage") is not None:

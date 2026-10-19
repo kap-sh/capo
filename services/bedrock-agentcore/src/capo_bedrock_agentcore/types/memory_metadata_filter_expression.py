@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.memory_record_left_expression
     import capo_bedrock_agentcore.types.memory_record_operator_type
@@ -62,7 +60,9 @@ def deserialize_json(data: dict) -> MemoryMetadataFilterExpression:
             )
         )
     else:
-        raise DeserializationError("MemoryMetadataFilterExpression.left required")
+        import capo_bedrock_agentcore.types._unknown
+
+        out["left"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
     if data.get("operator") is not None:
         import capo_bedrock_agentcore.types.memory_record_operator_type
 
@@ -72,7 +72,12 @@ def deserialize_json(data: dict) -> MemoryMetadataFilterExpression:
             )
         )
     else:
-        raise DeserializationError("MemoryMetadataFilterExpression.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_bedrock_agentcore.types.memory_record_operator_type.MemoryRecordOperatorType",
+            "",
+        )
     if data.get("right") is not None:
         import capo_bedrock_agentcore.types.memory_record_right_expression
 

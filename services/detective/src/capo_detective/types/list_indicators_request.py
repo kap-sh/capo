@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_detective.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_detective.types.ai_pagination_token
     import capo_detective.types.graph_arn
@@ -52,11 +50,11 @@ def deserialize_json(data: dict) -> ListIndicatorsRequest:
     if data.get("GraphArn") is not None:
         out["graph_arn"] = data["GraphArn"]
     else:
-        raise DeserializationError("ListIndicatorsRequest.graph_arn required")
+        out["graph_arn"] = ""
     if data.get("InvestigationId") is not None:
         out["investigation_id"] = data["InvestigationId"]
     else:
-        raise DeserializationError("ListIndicatorsRequest.investigation_id required")
+        out["investigation_id"] = ""
     if data.get("IndicatorType") is not None:
         import capo_detective.types.indicator_type
 

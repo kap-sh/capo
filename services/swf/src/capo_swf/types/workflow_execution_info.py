@@ -113,7 +113,11 @@ def deserialize_aws_json_1_0(data: dict) -> WorkflowExecutionInfo:
             data["startTimestamp"]
         )
     else:
-        raise DeserializationError("WorkflowExecutionInfo.start_timestamp required")
+        import datetime
+
+        out["start_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("closeTimestamp") is not None:
         import capo_swf.types.timestamp
 
@@ -129,7 +133,11 @@ def deserialize_aws_json_1_0(data: dict) -> WorkflowExecutionInfo:
             )
         )
     else:
-        raise DeserializationError("WorkflowExecutionInfo.execution_status required")
+        import typing
+
+        out["execution_status"] = typing.cast(
+            "capo_swf.types.execution_status.ExecutionStatus", ""
+        )
     if data.get("closeStatus") is not None:
         import capo_swf.types.close_status
 

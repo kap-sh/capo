@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_connecthealth._protocol.eventstream import HeaderValue, Message
-from capo_connecthealth.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_connecthealth.types.audio_chunk
@@ -37,7 +36,7 @@ def deserialize_json(data: dict) -> MedicalScribeAudioEvent:
             data["audioChunk"]
         )
     else:
-        raise DeserializationError("MedicalScribeAudioEvent.audio_chunk required")
+        out["audio_chunk"] = b""
     return out
 
 

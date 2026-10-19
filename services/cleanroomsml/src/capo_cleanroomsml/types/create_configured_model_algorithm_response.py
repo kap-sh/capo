@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.configured_model_algorithm_arn
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> CreateConfiguredModelAlgorithmResponse:
     if data.get("configuredModelAlgorithmArn") is not None:
         out["configured_model_algorithm_arn"] = data["configuredModelAlgorithmArn"]
     else:
-        raise DeserializationError(
-            "CreateConfiguredModelAlgorithmResponse.configured_model_algorithm_arn required"
-        )
+        out["configured_model_algorithm_arn"] = ""
     return out

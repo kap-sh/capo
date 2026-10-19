@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_taxsettings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_taxsettings.types.s3_bucket_name
     import capo_taxsettings.types.s3_prefix
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> DestinationS3Location:
     if data.get("bucket") is not None:
         out["bucket"] = data["bucket"]
     else:
-        raise DeserializationError("DestinationS3Location.bucket required")
+        out["bucket"] = ""
     if data.get("prefix") is not None:
         out["prefix"] = data["prefix"]
     return out

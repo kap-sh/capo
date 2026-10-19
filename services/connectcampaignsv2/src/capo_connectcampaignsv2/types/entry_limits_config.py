@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.iso8601_duration
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> EntryLimitsConfig:
     if data.get("maxEntryCount") is not None:
         out["max_entry_count"] = data["maxEntryCount"]
     else:
-        raise DeserializationError("EntryLimitsConfig.max_entry_count required")
+        out["max_entry_count"] = 0
     if data.get("minEntryInterval") is not None:
         out["min_entry_interval"] = data["minEntryInterval"]
     else:
-        raise DeserializationError("EntryLimitsConfig.min_entry_interval required")
+        out["min_entry_interval"] = ""
     return out

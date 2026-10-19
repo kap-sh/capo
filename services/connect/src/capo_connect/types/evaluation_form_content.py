@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.evaluation_form_ai_version
@@ -130,15 +128,15 @@ def deserialize_json(data: dict) -> EvaluationFormContent:
     if data.get("EvaluationFormId") is not None:
         out["evaluation_form_id"] = data["EvaluationFormId"]
     else:
-        raise DeserializationError("EvaluationFormContent.evaluation_form_id required")
+        out["evaluation_form_id"] = ""
     if data.get("EvaluationFormArn") is not None:
         out["evaluation_form_arn"] = data["EvaluationFormArn"]
     else:
-        raise DeserializationError("EvaluationFormContent.evaluation_form_arn required")
+        out["evaluation_form_arn"] = ""
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     else:
-        raise DeserializationError("EvaluationFormContent.title required")
+        out["title"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Items") is not None:
@@ -148,7 +146,7 @@ def deserialize_json(data: dict) -> EvaluationFormContent:
             data["Items"]
         )
     else:
-        raise DeserializationError("EvaluationFormContent.items required")
+        out["items"] = []
     if data.get("ScoringStrategy") is not None:
         import capo_connect.types.evaluation_form_scoring_strategy
 

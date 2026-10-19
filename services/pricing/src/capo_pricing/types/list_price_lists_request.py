@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pricing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pricing.types.currency_code
     import capo_pricing.types.effective_date
@@ -54,7 +52,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListPriceListsRequest:
     if data.get("ServiceCode") is not None:
         out["service_code"] = data["ServiceCode"]
     else:
-        raise DeserializationError("ListPriceListsRequest.service_code required")
+        out["service_code"] = ""
     if data.get("EffectiveDate") is not None:
         import capo_pricing.types.effective_date
 
@@ -64,13 +62,17 @@ def deserialize_aws_json_1_1(data: dict) -> ListPriceListsRequest:
             )
         )
     else:
-        raise DeserializationError("ListPriceListsRequest.effective_date required")
+        import datetime
+
+        out["effective_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("RegionCode") is not None:
         out["region_code"] = data["RegionCode"]
     if data.get("CurrencyCode") is not None:
         out["currency_code"] = data["CurrencyCode"]
     else:
-        raise DeserializationError("ListPriceListsRequest.currency_code required")
+        out["currency_code"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

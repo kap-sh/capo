@@ -70,15 +70,11 @@ def deserialize_json(data: dict) -> DescribeAccessPolicyResponse:
     if data.get("accessPolicyId") is not None:
         out["access_policy_id"] = data["accessPolicyId"]
     else:
-        raise DeserializationError(
-            "DescribeAccessPolicyResponse.access_policy_id required"
-        )
+        out["access_policy_id"] = ""
     if data.get("accessPolicyArn") is not None:
         out["access_policy_arn"] = data["accessPolicyArn"]
     else:
-        raise DeserializationError(
-            "DescribeAccessPolicyResponse.access_policy_arn required"
-        )
+        out["access_policy_arn"] = ""
     if data.get("accessPolicyIdentity") is not None:
         import capo_iotsitewise.types.identity
 
@@ -112,8 +108,10 @@ def deserialize_json(data: dict) -> DescribeAccessPolicyResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeAccessPolicyResponse.access_policy_permission required"
+        import typing
+
+        out["access_policy_permission"] = typing.cast(
+            "capo_iotsitewise.types.permission.Permission", ""
         )
     if data.get("accessPolicyCreationDate") is not None:
         import capo_iotsitewise.types.timestamp
@@ -124,8 +122,10 @@ def deserialize_json(data: dict) -> DescribeAccessPolicyResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeAccessPolicyResponse.access_policy_creation_date required"
+        import datetime
+
+        out["access_policy_creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("accessPolicyLastUpdateDate") is not None:
         import capo_iotsitewise.types.timestamp
@@ -136,7 +136,9 @@ def deserialize_json(data: dict) -> DescribeAccessPolicyResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeAccessPolicyResponse.access_policy_last_update_date required"
+        import datetime
+
+        out["access_policy_last_update_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

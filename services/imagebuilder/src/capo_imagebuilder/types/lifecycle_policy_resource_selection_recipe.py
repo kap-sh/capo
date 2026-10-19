@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.resource_name
     import capo_imagebuilder.types.wildcard_version_number
@@ -33,13 +31,9 @@ def deserialize_json(data: dict) -> LifecyclePolicyResourceSelectionRecipe:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "LifecyclePolicyResourceSelectionRecipe.name required"
-        )
+        out["name"] = ""
     if data.get("semanticVersion") is not None:
         out["semantic_version"] = data["semanticVersion"]
     else:
-        raise DeserializationError(
-            "LifecyclePolicyResourceSelectionRecipe.semantic_version required"
-        )
+        out["semantic_version"] = ""
     return out

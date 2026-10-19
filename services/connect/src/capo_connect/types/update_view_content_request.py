@@ -45,7 +45,9 @@ def deserialize_json(data: dict) -> UpdateViewContentRequest:
 
         out["status"] = capo_connect.types.view_status.deserialize_json(data["Status"])
     else:
-        raise DeserializationError("UpdateViewContentRequest.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_connect.types.view_status.ViewStatus", "")
     if data.get("Content") is not None:
         import capo_connect.types.view_input_content
 

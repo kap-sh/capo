@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.aws_account_id
@@ -30,5 +28,5 @@ def deserialize_json(data: dict) -> UpdateBrandAssignmentRequest:
     if data.get("BrandArn") is not None:
         out["brand_arn"] = data["BrandArn"]
     else:
-        raise DeserializationError("UpdateBrandAssignmentRequest.brand_arn required")
+        out["brand_arn"] = ""
     return out

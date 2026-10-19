@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr.types.image_tag_mutability
     import capo_ecr.types.image_tag_mutability_exclusion_filters
@@ -57,9 +55,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutImageTagMutabilityRequest:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError(
-            "PutImageTagMutabilityRequest.repository_name required"
-        )
+        out["repository_name"] = ""
     if data.get("imageTagMutability") is not None:
         import capo_ecr.types.image_tag_mutability
 
@@ -69,8 +65,10 @@ def deserialize_aws_json_1_1(data: dict) -> PutImageTagMutabilityRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "PutImageTagMutabilityRequest.image_tag_mutability required"
+        import typing
+
+        out["image_tag_mutability"] = typing.cast(
+            "capo_ecr.types.image_tag_mutability.ImageTagMutability", ""
         )
     if data.get("imageTagMutabilityExclusionFilters") is not None:
         import capo_ecr.types.image_tag_mutability_exclusion_filters

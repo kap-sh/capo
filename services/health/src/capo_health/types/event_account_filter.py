@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_health.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_health.types.account_id
     import capo_health.types.event_arn
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> EventAccountFilter:
     if data.get("eventArn") is not None:
         out["event_arn"] = data["eventArn"]
     else:
-        raise DeserializationError("EventAccountFilter.event_arn required")
+        out["event_arn"] = ""
     if data.get("awsAccountId") is not None:
         out["aws_account_id"] = data["awsAccountId"]
     return out

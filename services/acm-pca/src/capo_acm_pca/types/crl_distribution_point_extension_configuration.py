@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_acm_pca.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm_pca.types.boolean
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> CrlDistributionPointExtensionConfigu
     if data.get("OmitExtension") is not None:
         out["omit_extension"] = data["OmitExtension"]
     else:
-        raise DeserializationError(
-            "CrlDistributionPointExtensionConfiguration.omit_extension required"
-        )
+        out["omit_extension"] = False
     return out

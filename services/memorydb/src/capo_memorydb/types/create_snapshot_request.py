@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_memorydb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_memorydb.types.string
     import capo_memorydb.types.tag_list
@@ -41,11 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSnapshotRequest:
     if data.get("ClusterName") is not None:
         out["cluster_name"] = data["ClusterName"]
     else:
-        raise DeserializationError("CreateSnapshotRequest.cluster_name required")
+        out["cluster_name"] = ""
     if data.get("SnapshotName") is not None:
         out["snapshot_name"] = data["SnapshotName"]
     else:
-        raise DeserializationError("CreateSnapshotRequest.snapshot_name required")
+        out["snapshot_name"] = ""
     if data.get("KmsKeyId") is not None:
         out["kms_key_id"] = data["KmsKeyId"]
     if data.get("Tags") is not None:

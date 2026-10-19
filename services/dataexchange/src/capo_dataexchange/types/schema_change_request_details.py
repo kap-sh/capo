@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.list_of_schema_change_details
     import capo_dataexchange.types.timestamp
@@ -56,7 +54,9 @@ def deserialize_json(data: dict) -> SchemaChangeRequestDetails:
             data["SchemaChangeAt"]
         )
     else:
-        raise DeserializationError(
-            "SchemaChangeRequestDetails.schema_change_at required"
+        import datetime
+
+        out["schema_change_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

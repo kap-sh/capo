@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.event_type
     import capo_personalize.types.metric_expression
@@ -35,13 +33,13 @@ def deserialize_aws_json_1_1(data: dict) -> MetricAttribute:
     if data.get("eventType") is not None:
         out["event_type"] = data["eventType"]
     else:
-        raise DeserializationError("MetricAttribute.event_type required")
+        out["event_type"] = ""
     if data.get("metricName") is not None:
         out["metric_name"] = data["metricName"]
     else:
-        raise DeserializationError("MetricAttribute.metric_name required")
+        out["metric_name"] = ""
     if data.get("expression") is not None:
         out["expression"] = data["expression"]
     else:
-        raise DeserializationError("MetricAttribute.expression required")
+        out["expression"] = ""
     return out

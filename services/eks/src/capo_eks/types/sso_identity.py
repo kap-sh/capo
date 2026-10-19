@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_eks.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eks.types.sso_identity_type
     import capo_eks.types.string
@@ -33,11 +31,15 @@ def deserialize_json(data: dict) -> SsoIdentity:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("SsoIdentity.id required")
+        out["id"] = ""
     if data.get("type") is not None:
         import capo_eks.types.sso_identity_type
 
         out["type"] = capo_eks.types.sso_identity_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("SsoIdentity.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_eks.types.sso_identity_type.SsoIdentityType", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.non_empty_string
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetOperationRequest:
     if data.get("operationId") is not None:
         out["operation_id"] = data["operationId"]
     else:
-        raise DeserializationError("GetOperationRequest.operation_id required")
+        out["operation_id"] = ""
     return out

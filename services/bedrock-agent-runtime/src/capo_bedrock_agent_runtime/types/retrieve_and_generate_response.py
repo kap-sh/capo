@@ -59,7 +59,7 @@ def deserialize_json(data: dict) -> RetrieveAndGenerateResponse:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("RetrieveAndGenerateResponse.session_id required")
+        out["session_id"] = ""
     if data.get("output") is not None:
         import capo_bedrock_agent_runtime.types.retrieve_and_generate_output
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.resource_arn
     import capo_accessanalyzer.types.resource_type
@@ -34,15 +32,13 @@ def deserialize_json(data: dict) -> AnalyzedResourceSummary:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("AnalyzedResourceSummary.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("resourceOwnerAccount") is not None:
         out["resource_owner_account"] = data["resourceOwnerAccount"]
     else:
-        raise DeserializationError(
-            "AnalyzedResourceSummary.resource_owner_account required"
-        )
+        out["resource_owner_account"] = ""
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError("AnalyzedResourceSummary.resource_type required")
+        out["resource_type"] = ""
     return out

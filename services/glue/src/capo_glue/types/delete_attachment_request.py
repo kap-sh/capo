@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.asset_id
     import capo_glue.types.attachment_name
@@ -43,7 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteAttachmentRequest:
     if data.get("AssetIdentifier") is not None:
         out["asset_identifier"] = data["AssetIdentifier"]
     else:
-        raise DeserializationError("DeleteAttachmentRequest.asset_identifier required")
+        out["asset_identifier"] = ""
     if data.get("IterableFormName") is not None:
         out["iterable_form_name"] = data["IterableFormName"]
     if data.get("ItemIdentifier") is not None:
@@ -51,5 +49,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteAttachmentRequest:
     if data.get("AttachmentName") is not None:
         out["attachment_name"] = data["AttachmentName"]
     else:
-        raise DeserializationError("DeleteAttachmentRequest.attachment_name required")
+        out["attachment_name"] = ""
     return out

@@ -63,7 +63,11 @@ def deserialize_json(data: dict) -> ColumnSort:
             data["Direction"]
         )
     else:
-        raise DeserializationError("ColumnSort.direction required")
+        import typing
+
+        out["direction"] = typing.cast(
+            "capo_quicksight.types.sort_direction.SortDirection", ""
+        )
     if data.get("AggregationFunction") is not None:
         import capo_quicksight.types.aggregation_function
 

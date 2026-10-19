@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.access_type
     import capo_securityagent.types.git_hub_owner
@@ -46,17 +44,15 @@ def deserialize_json(data: dict) -> GitHubRepositoryMetadata:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GitHubRepositoryMetadata.name required")
+        out["name"] = ""
     if data.get("providerResourceId") is not None:
         out["provider_resource_id"] = data["providerResourceId"]
     else:
-        raise DeserializationError(
-            "GitHubRepositoryMetadata.provider_resource_id required"
-        )
+        out["provider_resource_id"] = ""
     if data.get("owner") is not None:
         out["owner"] = data["owner"]
     else:
-        raise DeserializationError("GitHubRepositoryMetadata.owner required")
+        out["owner"] = ""
     if data.get("accessType") is not None:
         import capo_securityagent.types.access_type
 

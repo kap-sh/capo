@@ -39,9 +39,7 @@ def deserialize_json(data: dict) -> UpdateCodeSecurityScanConfigurationRequest:
     if data.get("scanConfigurationArn") is not None:
         out["scan_configuration_arn"] = data["scanConfigurationArn"]
     else:
-        raise DeserializationError(
-            "UpdateCodeSecurityScanConfigurationRequest.scan_configuration_arn required"
-        )
+        out["scan_configuration_arn"] = ""
     if data.get("configuration") is not None:
         import capo_inspector2.types.code_security_scan_configuration
 

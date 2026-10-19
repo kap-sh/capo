@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3tables.types.iceberg_null_order
     import capo_s3tables.types.iceberg_sort_direction
@@ -45,11 +43,11 @@ def deserialize_json(data: dict) -> IcebergSortField:
     if data.get("source-id") is not None:
         out["source_id"] = data["source-id"]
     else:
-        raise DeserializationError("IcebergSortField.source_id required")
+        out["source_id"] = 0
     if data.get("transform") is not None:
         out["transform"] = data["transform"]
     else:
-        raise DeserializationError("IcebergSortField.transform required")
+        out["transform"] = ""
     if data.get("direction") is not None:
         import capo_s3tables.types.iceberg_sort_direction
 
@@ -57,7 +55,11 @@ def deserialize_json(data: dict) -> IcebergSortField:
             data["direction"]
         )
     else:
-        raise DeserializationError("IcebergSortField.direction required")
+        import typing
+
+        out["direction"] = typing.cast(
+            "capo_s3tables.types.iceberg_sort_direction.IcebergSortDirection", ""
+        )
     if data.get("null-order") is not None:
         import capo_s3tables.types.iceberg_null_order
 
@@ -65,5 +67,9 @@ def deserialize_json(data: dict) -> IcebergSortField:
             data["null-order"]
         )
     else:
-        raise DeserializationError("IcebergSortField.null_order required")
+        import typing
+
+        out["null_order"] = typing.cast(
+            "capo_s3tables.types.iceberg_null_order.IcebergNullOrder", ""
+        )
     return out

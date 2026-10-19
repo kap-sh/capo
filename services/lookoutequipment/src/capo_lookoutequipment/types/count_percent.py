@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.float
     import capo_lookoutequipment.types.integer
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_0(data: dict) -> CountPercent:
     if data.get("Count") is not None:
         out["count"] = data["Count"]
     else:
-        raise DeserializationError("CountPercent.count required")
+        out["count"] = 0
     if data.get("Percentage") is not None:
         out["percentage"] = float(data["Percentage"])
     else:

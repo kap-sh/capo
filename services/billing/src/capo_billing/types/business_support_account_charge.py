@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billing.types.account_id
     import capo_billing.types.business_support_discount
@@ -75,23 +73,19 @@ def deserialize_aws_json_1_0(data: dict) -> BusinessSupportAccountCharge:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("BusinessSupportAccountCharge.account_id required")
+        out["account_id"] = ""
     if data.get("supportPlanName") is not None:
         out["support_plan_name"] = data["supportPlanName"]
     else:
-        raise DeserializationError(
-            "BusinessSupportAccountCharge.support_plan_name required"
-        )
+        out["support_plan_name"] = ""
     if data.get("totalCharge") is not None:
         out["total_charge"] = data["totalCharge"]
     else:
-        raise DeserializationError("BusinessSupportAccountCharge.total_charge required")
+        out["total_charge"] = ""
     if data.get("totalUsageBasis") is not None:
         out["total_usage_basis"] = data["totalUsageBasis"]
     else:
-        raise DeserializationError(
-            "BusinessSupportAccountCharge.total_usage_basis required"
-        )
+        out["total_usage_basis"] = ""
     if data.get("tierCharges") is not None:
         import capo_billing.types.business_support_tier_charge_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.arn
     import capo_iotsitewise.types.description
@@ -58,19 +56,19 @@ def deserialize_json(data: dict) -> DescribeProjectResponse:
     if data.get("projectId") is not None:
         out["project_id"] = data["projectId"]
     else:
-        raise DeserializationError("DescribeProjectResponse.project_id required")
+        out["project_id"] = ""
     if data.get("projectArn") is not None:
         out["project_arn"] = data["projectArn"]
     else:
-        raise DeserializationError("DescribeProjectResponse.project_arn required")
+        out["project_arn"] = ""
     if data.get("projectName") is not None:
         out["project_name"] = data["projectName"]
     else:
-        raise DeserializationError("DescribeProjectResponse.project_name required")
+        out["project_name"] = ""
     if data.get("portalId") is not None:
         out["portal_id"] = data["portalId"]
     else:
-        raise DeserializationError("DescribeProjectResponse.portal_id required")
+        out["portal_id"] = ""
     if data.get("projectDescription") is not None:
         out["project_description"] = data["projectDescription"]
     if data.get("projectCreationDate") is not None:
@@ -82,8 +80,10 @@ def deserialize_json(data: dict) -> DescribeProjectResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeProjectResponse.project_creation_date required"
+        import datetime
+
+        out["project_creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("projectLastUpdateDate") is not None:
         import capo_iotsitewise.types.timestamp
@@ -94,7 +94,9 @@ def deserialize_json(data: dict) -> DescribeProjectResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeProjectResponse.project_last_update_date required"
+        import datetime
+
+        out["project_last_update_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.confluence_attachment_configuration
     import capo_kendra.types.confluence_authentication_type
@@ -155,11 +153,11 @@ def deserialize_aws_json_1_1(data: dict) -> ConfluenceConfiguration:
     if data.get("ServerUrl") is not None:
         out["server_url"] = data["ServerUrl"]
     else:
-        raise DeserializationError("ConfluenceConfiguration.server_url required")
+        out["server_url"] = ""
     if data.get("SecretArn") is not None:
         out["secret_arn"] = data["SecretArn"]
     else:
-        raise DeserializationError("ConfluenceConfiguration.secret_arn required")
+        out["secret_arn"] = ""
     if data.get("Version") is not None:
         import capo_kendra.types.confluence_version
 
@@ -167,7 +165,11 @@ def deserialize_aws_json_1_1(data: dict) -> ConfluenceConfiguration:
             data["Version"]
         )
     else:
-        raise DeserializationError("ConfluenceConfiguration.version required")
+        import typing
+
+        out["version"] = typing.cast(
+            "capo_kendra.types.confluence_version.ConfluenceVersion", ""
+        )
     if data.get("SpaceConfiguration") is not None:
         import capo_kendra.types.confluence_space_configuration
 

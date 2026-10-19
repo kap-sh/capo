@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 
 class S3Location(TypedDict, closed=True):
     bucket: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> S3Location:
     if data.get("bucket") is not None:
         out["bucket"] = data["bucket"]
     else:
-        raise DeserializationError("S3Location.bucket required")
+        out["bucket"] = ""
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("S3Location.key required")
+        out["key"] = ""
     return out

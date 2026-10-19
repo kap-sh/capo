@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeconnections.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeconnections.types.connection_arn
     import capo_codeconnections.types.tag_list
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateConnectionOutput:
     if data.get("ConnectionArn") is not None:
         out["connection_arn"] = data["ConnectionArn"]
     else:
-        raise DeserializationError("CreateConnectionOutput.connection_arn required")
+        out["connection_arn"] = ""
     if data.get("Tags") is not None:
         import capo_codeconnections.types.tag_list
 

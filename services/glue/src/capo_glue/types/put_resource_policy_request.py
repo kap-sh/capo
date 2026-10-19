@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.enable_hybrid_values
     import capo_glue.types.exist_condition
@@ -63,7 +61,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutResourcePolicyRequest:
     if data.get("PolicyInJson") is not None:
         out["policy_in_json"] = data["PolicyInJson"]
     else:
-        raise DeserializationError("PutResourcePolicyRequest.policy_in_json required")
+        out["policy_in_json"] = ""
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     if data.get("PolicyHashCondition") is not None:

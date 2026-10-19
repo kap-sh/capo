@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.application_name
     import capo_kinesis_analytics_v2.types.session_expiration_duration_in_seconds
@@ -44,9 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateApplicationPresignedUrlRequest
     if data.get("ApplicationName") is not None:
         out["application_name"] = data["ApplicationName"]
     else:
-        raise DeserializationError(
-            "CreateApplicationPresignedUrlRequest.application_name required"
-        )
+        out["application_name"] = ""
     if data.get("UrlType") is not None:
         import capo_kinesis_analytics_v2.types.url_type
 
@@ -56,8 +52,10 @@ def deserialize_aws_json_1_1(data: dict) -> CreateApplicationPresignedUrlRequest
             )
         )
     else:
-        raise DeserializationError(
-            "CreateApplicationPresignedUrlRequest.url_type required"
+        import typing
+
+        out["url_type"] = typing.cast(
+            "capo_kinesis_analytics_v2.types.url_type.UrlType", ""
         )
     if data.get("SessionExpirationDurationInSeconds") is not None:
         out["session_expiration_duration_in_seconds"] = data[

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudhsm_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudhsm_v2.types.resource_id
     import capo_cloudhsm_v2.types.tag_key_list
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> UntagResourceRequest:
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("UntagResourceRequest.resource_id required")
+        out["resource_id"] = ""
     if data.get("TagKeyList") is not None:
         import capo_cloudhsm_v2.types.tag_key_list
 
@@ -45,5 +43,5 @@ def deserialize_aws_json_1_1(data: dict) -> UntagResourceRequest:
             )
         )
     else:
-        raise DeserializationError("UntagResourceRequest.tag_key_list required")
+        out["tag_key_list"] = []
     return out

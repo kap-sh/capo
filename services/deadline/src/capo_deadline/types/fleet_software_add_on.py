@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.fleet_software_add_on_name
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> FleetSoftwareAddOn:
             data["name"]
         )
     else:
-        raise DeserializationError("FleetSoftwareAddOn.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_deadline.types.fleet_software_add_on_name.FleetSoftwareAddOnName", ""
+        )
     return out

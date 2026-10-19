@@ -97,7 +97,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetCostAndUsageRequest:
             )
         )
     else:
-        raise DeserializationError("GetCostAndUsageRequest.granularity required")
+        import typing
+
+        out["granularity"] = typing.cast(
+            "capo_cost_explorer.types.granularity.Granularity", ""
+        )
     if data.get("Filter") is not None:
         import capo_cost_explorer.types.expression
 
@@ -111,7 +115,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetCostAndUsageRequest:
             data["Metrics"]
         )
     else:
-        raise DeserializationError("GetCostAndUsageRequest.metrics required")
+        out["metrics"] = []
     if data.get("GroupBy") is not None:
         import capo_cost_explorer.types.group_definitions
 

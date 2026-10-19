@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.string
 
@@ -33,13 +31,13 @@ def deserialize_json(data: dict) -> StaticFileS3SourceOptions:
     if data.get("BucketName") is not None:
         out["bucket_name"] = data["BucketName"]
     else:
-        raise DeserializationError("StaticFileS3SourceOptions.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("ObjectKey") is not None:
         out["object_key"] = data["ObjectKey"]
     else:
-        raise DeserializationError("StaticFileS3SourceOptions.object_key required")
+        out["object_key"] = ""
     if data.get("Region") is not None:
         out["region"] = data["Region"]
     else:
-        raise DeserializationError("StaticFileS3SourceOptions.region required")
+        out["region"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.budget_actions_to_add
     import capo_deadline.types.budget_schedule
@@ -87,7 +85,7 @@ def deserialize_json(data: dict) -> CreateBudgetRequest:
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("CreateBudgetRequest.display_name required")
+        out["display_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("usageTrackingResource") is not None:
@@ -99,15 +97,15 @@ def deserialize_json(data: dict) -> CreateBudgetRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateBudgetRequest.usage_tracking_resource required"
+        import capo_deadline.types._unknown
+
+        out["usage_tracking_resource"] = (
+            capo_deadline.types._unknown.UnknownUnionMember("")
         )
     if data.get("approximateDollarLimit") is not None:
         out["approximate_dollar_limit"] = float(data["approximateDollarLimit"])
     else:
-        raise DeserializationError(
-            "CreateBudgetRequest.approximate_dollar_limit required"
-        )
+        out["approximate_dollar_limit"] = 0.0
     if data.get("actions") is not None:
         import capo_deadline.types.budget_actions_to_add
 
@@ -115,7 +113,7 @@ def deserialize_json(data: dict) -> CreateBudgetRequest:
             data["actions"]
         )
     else:
-        raise DeserializationError("CreateBudgetRequest.actions required")
+        out["actions"] = []
     if data.get("schedule") is not None:
         import capo_deadline.types.budget_schedule
 
@@ -123,7 +121,9 @@ def deserialize_json(data: dict) -> CreateBudgetRequest:
             data["schedule"]
         )
     else:
-        raise DeserializationError("CreateBudgetRequest.schedule required")
+        import capo_deadline.types._unknown
+
+        out["schedule"] = capo_deadline.types._unknown.UnknownUnionMember("")
     if data.get("tags") is not None:
         import capo_deadline.types.tags
 

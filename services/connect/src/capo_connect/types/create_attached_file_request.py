@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.client_token
@@ -61,13 +59,15 @@ def deserialize_json(data: dict) -> CreateAttachedFileRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAttachedFileRequest.file_use_case_type required"
+        import typing
+
+        out["file_use_case_type"] = typing.cast(
+            "capo_connect.types.file_use_case_type.FileUseCaseType", ""
         )
     if data.get("FileSourceUri") is not None:
         out["file_source_uri"] = data["FileSourceUri"]
     else:
-        raise DeserializationError("CreateAttachedFileRequest.file_source_uri required")
+        out["file_source_uri"] = ""
     if data.get("Tags") is not None:
         import capo_connect.types.tag_map
 

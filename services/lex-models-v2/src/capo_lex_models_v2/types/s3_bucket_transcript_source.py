@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.kms_key_arn
     import capo_lex_models_v2.types.path_format
@@ -62,7 +60,7 @@ def deserialize_json(data: dict) -> S3BucketTranscriptSource:
     if data.get("s3BucketName") is not None:
         out["s3_bucket_name"] = data["s3BucketName"]
     else:
-        raise DeserializationError("S3BucketTranscriptSource.s3_bucket_name required")
+        out["s3_bucket_name"] = ""
     if data.get("pathFormat") is not None:
         import capo_lex_models_v2.types.path_format
 
@@ -78,8 +76,10 @@ def deserialize_json(data: dict) -> S3BucketTranscriptSource:
             )
         )
     else:
-        raise DeserializationError(
-            "S3BucketTranscriptSource.transcript_format required"
+        import typing
+
+        out["transcript_format"] = typing.cast(
+            "capo_lex_models_v2.types.transcript_format.TranscriptFormat", ""
         )
     if data.get("transcriptFilter") is not None:
         import capo_lex_models_v2.types.transcript_filter

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.next_token
     import capo_qconnect.types.span_list
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> ListSpansResponse:
 
         out["spans"] = capo_qconnect.types.span_list.deserialize_json(data["spans"])
     else:
-        raise DeserializationError("ListSpansResponse.spans required")
+        out["spans"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

@@ -59,7 +59,7 @@ def deserialize_xml(el: Element) -> OriginRequestPolicyConfig:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("OriginRequestPolicyConfig.name required")
+        out["name"] = ""
     child_headers_config = el.find("HeadersConfig")
     if child_headers_config is not None:
         import capo_cloudfront.types.origin_request_policy_headers_config

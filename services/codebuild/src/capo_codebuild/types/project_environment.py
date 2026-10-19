@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.compute_configuration
     import capo_codebuild.types.compute_type
@@ -136,11 +134,15 @@ def deserialize_aws_json_1_1(data: dict) -> ProjectEnvironment:
             data["type"]
         )
     else:
-        raise DeserializationError("ProjectEnvironment.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codebuild.types.environment_type.EnvironmentType", ""
+        )
     if data.get("image") is not None:
         out["image"] = data["image"]
     else:
-        raise DeserializationError("ProjectEnvironment.image required")
+        out["image"] = ""
     if data.get("computeType") is not None:
         import capo_codebuild.types.compute_type
 
@@ -150,7 +152,11 @@ def deserialize_aws_json_1_1(data: dict) -> ProjectEnvironment:
             )
         )
     else:
-        raise DeserializationError("ProjectEnvironment.compute_type required")
+        import typing
+
+        out["compute_type"] = typing.cast(
+            "capo_codebuild.types.compute_type.ComputeType", ""
+        )
     if data.get("computeConfiguration") is not None:
         import capo_codebuild.types.compute_configuration
 

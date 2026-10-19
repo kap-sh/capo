@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_appconfig.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appconfig.types.string_with_length_between0_and32768
     import capo_appconfig.types.validator_type
@@ -35,11 +33,15 @@ def deserialize_json(data: dict) -> Validator:
 
         out["type"] = capo_appconfig.types.validator_type.deserialize_json(data["Type"])
     else:
-        raise DeserializationError("Validator.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_appconfig.types.validator_type.ValidatorType", ""
+        )
     if data.get("Content") is not None:
         out["content"] = data["Content"]
     else:
-        raise DeserializationError("Validator.content required")
+        out["content"] = ""
     return out
 
 

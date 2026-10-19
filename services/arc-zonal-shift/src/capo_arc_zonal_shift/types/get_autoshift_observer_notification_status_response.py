@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_arc_zonal_shift.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_zonal_shift.types.autoshift_observer_notification_status
 
@@ -39,7 +37,10 @@ def deserialize_json(data: dict) -> GetAutoshiftObserverNotificationStatusRespon
             )
         )
     else:
-        raise DeserializationError(
-            "GetAutoshiftObserverNotificationStatusResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_arc_zonal_shift.types.autoshift_observer_notification_status.AutoshiftObserverNotificationStatus",
+            "",
         )
     return out

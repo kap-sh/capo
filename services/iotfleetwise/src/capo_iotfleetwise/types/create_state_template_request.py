@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.arn
     import capo_iotfleetwise.types.description
@@ -83,15 +81,13 @@ def deserialize_aws_json_1_0(data: dict) -> CreateStateTemplateRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateStateTemplateRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("signalCatalogArn") is not None:
         out["signal_catalog_arn"] = data["signalCatalogArn"]
     else:
-        raise DeserializationError(
-            "CreateStateTemplateRequest.signal_catalog_arn required"
-        )
+        out["signal_catalog_arn"] = ""
     if data.get("stateTemplateProperties") is not None:
         import capo_iotfleetwise.types.state_template_properties
 
@@ -101,9 +97,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateStateTemplateRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateStateTemplateRequest.state_template_properties required"
-        )
+        out["state_template_properties"] = []
     if data.get("dataExtraDimensions") is not None:
         import capo_iotfleetwise.types.state_template_data_extra_dimension_node_path_list
 

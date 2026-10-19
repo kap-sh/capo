@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billing.types.account_id
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_0(data: dict) -> ChargeAccount:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("ChargeAccount.account_id required")
+        out["account_id"] = ""
     if data.get("chargePercentage") is not None:
         out["charge_percentage"] = data["chargePercentage"]
     else:
-        raise DeserializationError("ChargeAccount.charge_percentage required")
+        out["charge_percentage"] = ""
     return out

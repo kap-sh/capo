@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.iceberg_null_order
     import capo_glue.types.iceberg_sort_direction
@@ -51,7 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> IcebergSortField:
     if data.get("Transform") is not None:
         out["transform"] = data["Transform"]
     else:
-        raise DeserializationError("IcebergSortField.transform required")
+        out["transform"] = ""
     if data.get("Direction") is not None:
         import capo_glue.types.iceberg_sort_direction
 
@@ -61,7 +59,11 @@ def deserialize_aws_json_1_1(data: dict) -> IcebergSortField:
             )
         )
     else:
-        raise DeserializationError("IcebergSortField.direction required")
+        import typing
+
+        out["direction"] = typing.cast(
+            "capo_glue.types.iceberg_sort_direction.IcebergSortDirection", ""
+        )
     if data.get("NullOrder") is not None:
         import capo_glue.types.iceberg_null_order
 
@@ -69,5 +71,9 @@ def deserialize_aws_json_1_1(data: dict) -> IcebergSortField:
             data["NullOrder"]
         )
     else:
-        raise DeserializationError("IcebergSortField.null_order required")
+        import typing
+
+        out["null_order"] = typing.cast(
+            "capo_glue.types.iceberg_null_order.IcebergNullOrder", ""
+        )
     return out

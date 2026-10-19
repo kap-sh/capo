@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_braket.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_braket.types.program_validation_failures_list
 
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> ProgramSetValidationFailure:
     if data.get("programIndex") is not None:
         out["program_index"] = data["programIndex"]
     else:
-        raise DeserializationError("ProgramSetValidationFailure.program_index required")
+        out["program_index"] = 0
     if data.get("inputsIndex") is not None:
         out["inputs_index"] = data["inputsIndex"]
     if data.get("errors") is not None:

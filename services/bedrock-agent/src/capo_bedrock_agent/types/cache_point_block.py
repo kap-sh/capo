@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.cache_point_type
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> CachePointBlock:
             data["type"]
         )
     else:
-        raise DeserializationError("CachePointBlock.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent.types.cache_point_type.CachePointType", ""
+        )
     return out

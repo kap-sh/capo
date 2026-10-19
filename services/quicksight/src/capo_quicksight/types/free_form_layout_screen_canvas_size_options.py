@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.pixel_length
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> FreeFormLayoutScreenCanvasSizeOptions:
     if data.get("OptimizedViewPortWidth") is not None:
         out["optimized_view_port_width"] = data["OptimizedViewPortWidth"]
     else:
-        raise DeserializationError(
-            "FreeFormLayoutScreenCanvasSizeOptions.optimized_view_port_width required"
-        )
+        out["optimized_view_port_width"] = ""
     return out

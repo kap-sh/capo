@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_elementalinference.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elementalinference.types.associated_resource_name
     import capo_elementalinference.types.create_output_list
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> AssociateFeedRequest:
     if data.get("associatedResourceName") is not None:
         out["associated_resource_name"] = data["associatedResourceName"]
     else:
-        raise DeserializationError(
-            "AssociateFeedRequest.associated_resource_name required"
-        )
+        out["associated_resource_name"] = ""
     if data.get("outputs") is not None:
         import capo_elementalinference.types.create_output_list
 
@@ -56,7 +52,7 @@ def deserialize_json(data: dict) -> AssociateFeedRequest:
             )
         )
     else:
-        raise DeserializationError("AssociateFeedRequest.outputs required")
+        out["outputs"] = []
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
     return out

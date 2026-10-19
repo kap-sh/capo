@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.s3_aws_region
@@ -38,17 +37,15 @@ def deserialize_xml(el: Element) -> ListStorageLensGroupEntry:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("ListStorageLensGroupEntry.name required")
+        out["name"] = ""
     child_storage_lens_group_arn = el.find("StorageLensGroupArn")
     if child_storage_lens_group_arn is not None:
         out["storage_lens_group_arn"] = str(child_storage_lens_group_arn.text or "")
     else:
-        raise DeserializationError(
-            "ListStorageLensGroupEntry.storage_lens_group_arn required"
-        )
+        out["storage_lens_group_arn"] = ""
     child_home_region = el.find("HomeRegion")
     if child_home_region is not None:
         out["home_region"] = str(child_home_region.text or "")
     else:
-        raise DeserializationError("ListStorageLensGroupEntry.home_region required")
+        out["home_region"] = ""
     return out

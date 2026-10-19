@@ -52,7 +52,7 @@ def deserialize_cbor(data: dict) -> PutRawEventsRequestEntry:
 
         out["data"] = capo_eventbridgev2.types.event_data.deserialize_cbor(data["Data"])
     else:
-        raise DeserializationError("PutRawEventsRequestEntry.data required")
+        out["data"] = b""
     if data.get("Metadata") is not None:
         import capo_eventbridgev2.types.event_metadata_map
 

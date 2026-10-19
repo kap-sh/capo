@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.next_page_token
     import capo_cost_explorer.types.reservation_aggregates
@@ -61,9 +59,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetReservationUtilizationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetReservationUtilizationResponse.utilizations_by_time required"
-        )
+        out["utilizations_by_time"] = []
     if data.get("Total") is not None:
         import capo_cost_explorer.types.reservation_aggregates
 

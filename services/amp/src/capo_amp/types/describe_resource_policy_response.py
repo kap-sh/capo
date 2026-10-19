@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_amp.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amp.types.workspace_policy_status_code
 
@@ -35,19 +33,13 @@ def deserialize_json(data: dict) -> DescribeResourcePolicyResponse:
     if data.get("policyDocument") is not None:
         out["policy_document"] = data["policyDocument"]
     else:
-        raise DeserializationError(
-            "DescribeResourcePolicyResponse.policy_document required"
-        )
+        out["policy_document"] = ""
     if data.get("policyStatus") is not None:
         out["policy_status"] = data["policyStatus"]
     else:
-        raise DeserializationError(
-            "DescribeResourcePolicyResponse.policy_status required"
-        )
+        out["policy_status"] = ""
     if data.get("revisionId") is not None:
         out["revision_id"] = data["revisionId"]
     else:
-        raise DeserializationError(
-            "DescribeResourcePolicyResponse.revision_id required"
-        )
+        out["revision_id"] = ""
     return out

@@ -7,7 +7,7 @@ import zapros
 from typing_extensions import TypedDict
 
 from capo_iotsitewise._protocol.eventstream import HeaderValue, Message
-from capo_iotsitewise.errors import DeserializationError, ServiceError
+from capo_iotsitewise.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_iotsitewise.types.error_message
@@ -37,19 +37,15 @@ def deserialize_json(data: dict) -> ConflictingOperationException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ConflictingOperationException_.message required")
+        out["message"] = ""
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     else:
-        raise DeserializationError(
-            "ConflictingOperationException_.resource_id required"
-        )
+        out["resource_id"] = ""
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError(
-            "ConflictingOperationException_.resource_arn required"
-        )
+        out["resource_arn"] = ""
     return out
 
 

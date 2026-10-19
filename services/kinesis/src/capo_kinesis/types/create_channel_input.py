@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.channel_encryption_configuration
     import capo_kinesis.types.channel_logging_configuration
@@ -100,13 +98,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateChannelInput:
     if data.get("ChannelName") is not None:
         out["channel_name"] = data["ChannelName"]
     else:
-        raise DeserializationError("CreateChannelInput.channel_name required")
+        out["channel_name"] = ""
     if data.get("ServiceExecutionRoleARN") is not None:
         out["service_execution_role_arn"] = data["ServiceExecutionRoleARN"]
     else:
-        raise DeserializationError(
-            "CreateChannelInput.service_execution_role_arn required"
-        )
+        out["service_execution_role_arn"] = ""
     if data.get("StreamConfigurationList") is not None:
         import capo_kinesis.types.channel_stream_configuration_list
 
@@ -116,9 +112,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateChannelInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateChannelInput.stream_configuration_list required"
-        )
+        out["stream_configuration_list"] = []
     if data.get("S3DestinationConfiguration") is not None:
         import capo_kinesis.types.s3_destination_configuration
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_serverless.types.image_digest
     import capo_emr_serverless.types.image_uri
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ImageConfiguration:
     if data.get("imageUri") is not None:
         out["image_uri"] = data["imageUri"]
     else:
-        raise DeserializationError("ImageConfiguration.image_uri required")
+        out["image_uri"] = ""
     if data.get("resolvedImageDigest") is not None:
         out["resolved_image_digest"] = data["resolvedImageDigest"]
     if data.get("applicationLevelDigestResolution") is not None:

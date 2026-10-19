@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.bandwidth_allocation
 
@@ -36,5 +34,5 @@ def deserialize_json(data: dict) -> ProgressiveConfig:
     if data.get("bandwidthAllocation") is not None:
         out["bandwidth_allocation"] = float(data["bandwidthAllocation"])
     else:
-        raise DeserializationError("ProgressiveConfig.bandwidth_allocation required")
+        out["bandwidth_allocation"] = 0.0
     return out

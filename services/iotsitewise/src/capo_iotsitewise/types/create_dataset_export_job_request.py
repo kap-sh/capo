@@ -57,9 +57,7 @@ def deserialize_json(data: dict) -> CreateDatasetExportJobRequest:
     if data.get("destinationS3Uri") is not None:
         out["destination_s3_uri"] = data["destinationS3Uri"]
     else:
-        raise DeserializationError(
-            "CreateDatasetExportJobRequest.destination_s3_uri required"
-        )
+        out["destination_s3_uri"] = ""
     if data.get("input") is not None:
         import capo_iotsitewise.types.processing_input
 
@@ -67,7 +65,9 @@ def deserialize_json(data: dict) -> CreateDatasetExportJobRequest:
             data["input"]
         )
     else:
-        raise DeserializationError("CreateDatasetExportJobRequest.input required")
+        import capo_iotsitewise.types._unknown
+
+        out["input"] = capo_iotsitewise.types._unknown.UnknownUnionMember("")
     if data.get("errorReportLocation") is not None:
         import capo_iotsitewise.types.export_error_report_location
 

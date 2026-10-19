@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.schedule_expression_cron
     import capo_datasync.types.schedule_status
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_1(data: dict) -> TaskSchedule:
     if data.get("ScheduleExpression") is not None:
         out["schedule_expression"] = data["ScheduleExpression"]
     else:
-        raise DeserializationError("TaskSchedule.schedule_expression required")
+        out["schedule_expression"] = ""
     if data.get("Status") is not None:
         import capo_datasync.types.schedule_status
 

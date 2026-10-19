@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_acm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm.types.expiry_events_configuration
     import capo_acm.types.idempotency_token
@@ -48,7 +46,5 @@ def deserialize_aws_json_1_1(data: dict) -> PutAccountConfigurationRequest:
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     else:
-        raise DeserializationError(
-            "PutAccountConfigurationRequest.idempotency_token required"
-        )
+        out["idempotency_token"] = ""
     return out

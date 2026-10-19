@@ -117,7 +117,7 @@ def deserialize_aws_json_1_1(data: dict) -> IcebergTableUpdate:
     if data.get("Location") is not None:
         out["location"] = data["Location"]
     else:
-        raise DeserializationError("IcebergTableUpdate.location required")
+        out["location"] = ""
     if data.get("Properties") is not None:
         import capo_glue.types.string_to_string_map
 

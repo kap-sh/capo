@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateBillingViewResponse:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("UpdateBillingViewResponse.arn required")
+        out["arn"] = ""
     if data.get("updatedAt") is not None:
         import capo_billing.types._prelude.timestamp
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wisdom.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wisdom.types.max_results
     import capo_wisdom.types.next_token
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> QueryAssistantRequest:
     if data.get("queryText") is not None:
         out["query_text"] = data["queryText"]
     else:
-        raise DeserializationError("QueryAssistantRequest.query_text required")
+        out["query_text"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

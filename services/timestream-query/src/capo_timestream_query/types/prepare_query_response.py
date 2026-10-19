@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_timestream_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_query.types.parameter_mapping_list
     import capo_timestream_query.types.query_string
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_0(data: dict) -> PrepareQueryResponse:
     if data.get("QueryString") is not None:
         out["query_string"] = data["QueryString"]
     else:
-        raise DeserializationError("PrepareQueryResponse.query_string required")
+        out["query_string"] = ""
     if data.get("Columns") is not None:
         import capo_timestream_query.types.select_column_list
 
@@ -59,7 +57,7 @@ def deserialize_aws_json_1_0(data: dict) -> PrepareQueryResponse:
             )
         )
     else:
-        raise DeserializationError("PrepareQueryResponse.columns required")
+        out["columns"] = []
     if data.get("Parameters") is not None:
         import capo_timestream_query.types.parameter_mapping_list
 
@@ -69,7 +67,7 @@ def deserialize_aws_json_1_0(data: dict) -> PrepareQueryResponse:
             )
         )
     else:
-        raise DeserializationError("PrepareQueryResponse.parameters required")
+        out["parameters"] = []
     return out
 
 

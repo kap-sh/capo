@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.access_log_destination_arn
     import capo_vpc_lattice.types.client_token
@@ -54,15 +52,11 @@ def deserialize_json(data: dict) -> CreateAccessLogSubscriptionRequest:
     if data.get("resourceIdentifier") is not None:
         out["resource_identifier"] = data["resourceIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateAccessLogSubscriptionRequest.resource_identifier required"
-        )
+        out["resource_identifier"] = ""
     if data.get("destinationArn") is not None:
         out["destination_arn"] = data["destinationArn"]
     else:
-        raise DeserializationError(
-            "CreateAccessLogSubscriptionRequest.destination_arn required"
-        )
+        out["destination_arn"] = ""
     if data.get("serviceNetworkLogType") is not None:
         out["service_network_log_type"] = data["serviceNetworkLogType"]
     if data.get("tags") is not None:

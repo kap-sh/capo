@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kafkaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kafkaconnect.types.__long_min1
     import capo_kafkaconnect.types.__string
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> CustomPlugin:
     if data.get("customPluginArn") is not None:
         out["custom_plugin_arn"] = data["customPluginArn"]
     else:
-        raise DeserializationError("CustomPlugin.custom_plugin_arn required")
+        out["custom_plugin_arn"] = ""
     if data.get("revision") is not None:
         out["revision"] = data["revision"]
     else:

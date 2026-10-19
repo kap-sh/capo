@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -95,15 +93,15 @@ def deserialize_json(data: dict) -> RouterNetworkInterface:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RouterNetworkInterface.name required")
+        out["name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("RouterNetworkInterface.arn required")
+        out["arn"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("RouterNetworkInterface.id required")
+        out["id"] = ""
     if data.get("state") is not None:
         import capo_mediaconnect.types.router_network_interface_state
 
@@ -113,7 +111,12 @@ def deserialize_json(data: dict) -> RouterNetworkInterface:
             )
         )
     else:
-        raise DeserializationError("RouterNetworkInterface.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_mediaconnect.types.router_network_interface_state.RouterNetworkInterfaceState",
+            "",
+        )
     if data.get("networkInterfaceType") is not None:
         import capo_mediaconnect.types.router_network_interface_type
 
@@ -123,8 +126,11 @@ def deserialize_json(data: dict) -> RouterNetworkInterface:
             )
         )
     else:
-        raise DeserializationError(
-            "RouterNetworkInterface.network_interface_type required"
+        import typing
+
+        out["network_interface_type"] = typing.cast(
+            "capo_mediaconnect.types.router_network_interface_type.RouterNetworkInterfaceType",
+            "",
         )
     if data.get("configuration") is not None:
         import capo_mediaconnect.types.router_network_interface_configuration
@@ -135,23 +141,21 @@ def deserialize_json(data: dict) -> RouterNetworkInterface:
             )
         )
     else:
-        raise DeserializationError("RouterNetworkInterface.configuration required")
+        import capo_mediaconnect.types._unknown
+
+        out["configuration"] = capo_mediaconnect.types._unknown.UnknownUnionMember("")
     if data.get("associatedOutputCount") is not None:
         out["associated_output_count"] = data["associatedOutputCount"]
     else:
-        raise DeserializationError(
-            "RouterNetworkInterface.associated_output_count required"
-        )
+        out["associated_output_count"] = 0
     if data.get("associatedInputCount") is not None:
         out["associated_input_count"] = data["associatedInputCount"]
     else:
-        raise DeserializationError(
-            "RouterNetworkInterface.associated_input_count required"
-        )
+        out["associated_input_count"] = 0
     if data.get("regionName") is not None:
         out["region_name"] = data["regionName"]
     else:
-        raise DeserializationError("RouterNetworkInterface.region_name required")
+        out["region_name"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -159,7 +163,9 @@ def deserialize_json(data: dict) -> RouterNetworkInterface:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("RouterNetworkInterface.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import datetime
 
@@ -167,7 +173,9 @@ def deserialize_json(data: dict) -> RouterNetworkInterface:
             data["updatedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("RouterNetworkInterface.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("tags") is not None:
         import capo_mediaconnect.types.__map_of_string
 
@@ -175,5 +183,5 @@ def deserialize_json(data: dict) -> RouterNetworkInterface:
             data["tags"]
         )
     else:
-        raise DeserializationError("RouterNetworkInterface.tags required")
+        out["tags"] = {}
     return out

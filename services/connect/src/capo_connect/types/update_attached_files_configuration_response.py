@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.attachment_scope
     import capo_connect.types.extension_configuration
@@ -64,9 +62,7 @@ def deserialize_json(data: dict) -> UpdateAttachedFilesConfigurationResponse:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError(
-            "UpdateAttachedFilesConfigurationResponse.instance_id required"
-        )
+        out["instance_id"] = ""
     if data.get("AttachmentScope") is not None:
         import capo_connect.types.attachment_scope
 
@@ -74,8 +70,10 @@ def deserialize_json(data: dict) -> UpdateAttachedFilesConfigurationResponse:
             data["AttachmentScope"]
         )
     else:
-        raise DeserializationError(
-            "UpdateAttachedFilesConfigurationResponse.attachment_scope required"
+        import typing
+
+        out["attachment_scope"] = typing.cast(
+            "capo_connect.types.attachment_scope.AttachmentScope", ""
         )
     if data.get("MaximumSizeLimitInBytes") is not None:
         out["maximum_size_limit_in_bytes"] = data["MaximumSizeLimitInBytes"]

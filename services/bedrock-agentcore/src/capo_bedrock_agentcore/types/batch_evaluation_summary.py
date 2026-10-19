@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -122,21 +120,15 @@ def deserialize_json(data: dict) -> BatchEvaluationSummary:
     if data.get("batchEvaluationId") is not None:
         out["batch_evaluation_id"] = data["batchEvaluationId"]
     else:
-        raise DeserializationError(
-            "BatchEvaluationSummary.batch_evaluation_id required"
-        )
+        out["batch_evaluation_id"] = ""
     if data.get("batchEvaluationArn") is not None:
         out["batch_evaluation_arn"] = data["batchEvaluationArn"]
     else:
-        raise DeserializationError(
-            "BatchEvaluationSummary.batch_evaluation_arn required"
-        )
+        out["batch_evaluation_arn"] = ""
     if data.get("batchEvaluationName") is not None:
         out["batch_evaluation_name"] = data["batchEvaluationName"]
     else:
-        raise DeserializationError(
-            "BatchEvaluationSummary.batch_evaluation_name required"
-        )
+        out["batch_evaluation_name"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore.types.batch_evaluation_status
 
@@ -146,7 +138,12 @@ def deserialize_json(data: dict) -> BatchEvaluationSummary:
             )
         )
     else:
-        raise DeserializationError("BatchEvaluationSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore.types.batch_evaluation_status.BatchEvaluationStatus",
+            "",
+        )
     if data.get("createdAt") is not None:
         import datetime
 
@@ -154,7 +151,9 @@ def deserialize_json(data: dict) -> BatchEvaluationSummary:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("BatchEvaluationSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("evaluators") is not None:

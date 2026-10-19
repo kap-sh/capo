@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.hosted_zone_associations
 
@@ -45,7 +43,5 @@ def deserialize_json(data: dict) -> ListHostedZoneAssociationsOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListHostedZoneAssociationsOutput.hosted_zone_associations required"
-        )
+        out["hosted_zone_associations"] = []
     return out

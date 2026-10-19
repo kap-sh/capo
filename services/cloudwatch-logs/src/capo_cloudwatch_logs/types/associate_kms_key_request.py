@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.kms_key_id
     import capo_cloudwatch_logs.types.log_group_name
@@ -43,7 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateKmsKeyRequest:
     if data.get("kmsKeyId") is not None:
         out["kms_key_id"] = data["kmsKeyId"]
     else:
-        raise DeserializationError("AssociateKmsKeyRequest.kms_key_id required")
+        out["kms_key_id"] = ""
     if data.get("resourceIdentifier") is not None:
         out["resource_identifier"] = data["resourceIdentifier"]
     return out

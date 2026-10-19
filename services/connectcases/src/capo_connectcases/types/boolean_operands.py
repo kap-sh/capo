@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.operand_one
     import capo_connectcases.types.operand_two
@@ -46,7 +44,9 @@ def deserialize_json(data: dict) -> BooleanOperands:
             data["operandOne"]
         )
     else:
-        raise DeserializationError("BooleanOperands.operand_one required")
+        import capo_connectcases.types._unknown
+
+        out["operand_one"] = capo_connectcases.types._unknown.UnknownUnionMember("")
     if data.get("operandTwo") is not None:
         import capo_connectcases.types.operand_two
 
@@ -54,9 +54,11 @@ def deserialize_json(data: dict) -> BooleanOperands:
             data["operandTwo"]
         )
     else:
-        raise DeserializationError("BooleanOperands.operand_two required")
+        import capo_connectcases.types._unknown
+
+        out["operand_two"] = capo_connectcases.types._unknown.UnknownUnionMember("")
     if data.get("result") is not None:
         out["result"] = data["result"]
     else:
-        raise DeserializationError("BooleanOperands.result required")
+        out["result"] = False
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.data_integration_flow_field_priority_dedupe_field_name
     import capo_supplychain.types.data_integration_flow_field_priority_dedupe_sort_order
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> DataIntegrationFlowFieldPriorityDedupeField:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "DataIntegrationFlowFieldPriorityDedupeField.name required"
-        )
+        out["name"] = ""
     if data.get("sortOrder") is not None:
         import capo_supplychain.types.data_integration_flow_field_priority_dedupe_sort_order
 
@@ -49,7 +45,10 @@ def deserialize_json(data: dict) -> DataIntegrationFlowFieldPriorityDedupeField:
             )
         )
     else:
-        raise DeserializationError(
-            "DataIntegrationFlowFieldPriorityDedupeField.sort_order required"
+        import typing
+
+        out["sort_order"] = typing.cast(
+            "capo_supplychain.types.data_integration_flow_field_priority_dedupe_sort_order.DataIntegrationFlowFieldPriorityDedupeSortOrder",
+            "",
         )
     return out

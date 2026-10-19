@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.string
     import capo_codebuild.types.webhook_scope_type
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> ScopeConfiguration:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ScopeConfiguration.name required")
+        out["name"] = ""
     if data.get("domain") is not None:
         out["domain"] = data["domain"]
     if data.get("scope") is not None:
@@ -49,5 +47,9 @@ def deserialize_aws_json_1_1(data: dict) -> ScopeConfiguration:
             data["scope"]
         )
     else:
-        raise DeserializationError("ScopeConfiguration.scope required")
+        import typing
+
+        out["scope"] = typing.cast(
+            "capo_codebuild.types.webhook_scope_type.WebhookScopeType", ""
+        )
     return out

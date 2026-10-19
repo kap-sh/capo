@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 
 class DashBaseUrl(TypedDict, closed=True):
     url: "str"
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> DashBaseUrl:
     if data.get("Url") is not None:
         out["url"] = data["Url"]
     else:
-        raise DeserializationError("DashBaseUrl.url required")
+        out["url"] = ""
     if data.get("ServiceLocation") is not None:
         out["service_location"] = data["ServiceLocation"]
     if data.get("DvbPriority") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_discovery_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_discovery_service.types.configuration_id_list
     import capo_application_discovery_service.types.tag_set
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteTagsRequest:
             )
         )
     else:
-        raise DeserializationError("DeleteTagsRequest.configuration_ids required")
+        out["configuration_ids"] = []
     if data.get("tags") is not None:
         import capo_application_discovery_service.types.tag_set
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sso_admin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_admin.types.claim_attribute_path
     import capo_sso_admin.types.jmes_path
@@ -47,17 +45,15 @@ def deserialize_aws_json_1_1(data: dict) -> OidcJwtConfiguration:
     if data.get("IssuerUrl") is not None:
         out["issuer_url"] = data["IssuerUrl"]
     else:
-        raise DeserializationError("OidcJwtConfiguration.issuer_url required")
+        out["issuer_url"] = ""
     if data.get("ClaimAttributePath") is not None:
         out["claim_attribute_path"] = data["ClaimAttributePath"]
     else:
-        raise DeserializationError("OidcJwtConfiguration.claim_attribute_path required")
+        out["claim_attribute_path"] = ""
     if data.get("IdentityStoreAttributePath") is not None:
         out["identity_store_attribute_path"] = data["IdentityStoreAttributePath"]
     else:
-        raise DeserializationError(
-            "OidcJwtConfiguration.identity_store_attribute_path required"
-        )
+        out["identity_store_attribute_path"] = ""
     if data.get("JwksRetrievalOption") is not None:
         import capo_sso_admin.types.jwks_retrieval_option
 
@@ -67,7 +63,9 @@ def deserialize_aws_json_1_1(data: dict) -> OidcJwtConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "OidcJwtConfiguration.jwks_retrieval_option required"
+        import typing
+
+        out["jwks_retrieval_option"] = typing.cast(
+            "capo_sso_admin.types.jwks_retrieval_option.JwksRetrievalOption", ""
         )
     return out

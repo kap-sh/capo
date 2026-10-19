@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.audio_channels_option
     import capo_chime_sdk_media_pipelines.types.audio_sample_rate_option
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> LiveConnectorRTMPConfiguration:
     if data.get("Url") is not None:
         out["url"] = data["Url"]
     else:
-        raise DeserializationError("LiveConnectorRTMPConfiguration.url required")
+        out["url"] = ""
     if data.get("AudioChannels") is not None:
         import capo_chime_sdk_media_pipelines.types.audio_channels_option
 

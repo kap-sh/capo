@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.ecs_volume_name
     import capo_ecs.types.task_managed_ebs_volume_configuration
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> TaskVolumeConfiguration:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("TaskVolumeConfiguration.name required")
+        out["name"] = ""
     if data.get("managedEBSVolume") is not None:
         import capo_ecs.types.task_managed_ebs_volume_configuration
 

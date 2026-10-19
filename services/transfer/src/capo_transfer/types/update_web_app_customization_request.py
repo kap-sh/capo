@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.web_app_favicon_file
     import capo_transfer.types.web_app_id
@@ -54,9 +52,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateWebAppCustomizationRequest:
     if data.get("WebAppId") is not None:
         out["web_app_id"] = data["WebAppId"]
     else:
-        raise DeserializationError(
-            "UpdateWebAppCustomizationRequest.web_app_id required"
-        )
+        out["web_app_id"] = ""
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     if data.get("LogoFile") is not None:

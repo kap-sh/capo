@@ -84,9 +84,12 @@ def handle_response(
     out: capo_iotsitewise.types.invoke_assistant_response.InvokeAssistantResponse = {
         "body": cast(Any, raw_stream_to_events(_iter, _message_decoder, _union_deser))
     }  # type: ignore[reportAssignmentType]
-    out["conversation_id"] = response.headers[
-        "x-amz-iotsitewise-assistant-conversation-id"
-    ]
+    if "x-amz-iotsitewise-assistant-conversation-id" in response.headers:
+        out["conversation_id"] = response.headers[
+            "x-amz-iotsitewise-assistant-conversation-id"
+        ]
+    else:
+        out["conversation_id"] = ""
     return out
 
 
@@ -103,9 +106,12 @@ async def async_handle_response(
             Any, async_raw_stream_to_events(_iter, _message_decoder, _union_deser)
         )
     }  # type: ignore[reportAssignmentType]
-    out["conversation_id"] = response.headers[
-        "x-amz-iotsitewise-assistant-conversation-id"
-    ]
+    if "x-amz-iotsitewise-assistant-conversation-id" in response.headers:
+        out["conversation_id"] = response.headers[
+            "x-amz-iotsitewise-assistant-conversation-id"
+        ]
+    else:
+        out["conversation_id"] = ""
     return out
 
 

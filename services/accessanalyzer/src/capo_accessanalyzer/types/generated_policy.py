@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 
 class GeneratedPolicy(TypedDict, closed=True):
     policy: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> GeneratedPolicy:
     if data.get("policy") is not None:
         out["policy"] = data["policy"]
     else:
-        raise DeserializationError("GeneratedPolicy.policy required")
+        out["policy"] = ""
     return out

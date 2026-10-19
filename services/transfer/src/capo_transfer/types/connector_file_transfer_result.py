@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.failure_code
     import capo_transfer.types.file_path
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectorFileTransferResult:
     if data.get("FilePath") is not None:
         out["file_path"] = data["FilePath"]
     else:
-        raise DeserializationError("ConnectorFileTransferResult.file_path required")
+        out["file_path"] = ""
     if data.get("StatusCode") is not None:
         import capo_transfer.types.transfer_table_status
 
@@ -57,7 +55,11 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectorFileTransferResult:
             )
         )
     else:
-        raise DeserializationError("ConnectorFileTransferResult.status_code required")
+        import typing
+
+        out["status_code"] = typing.cast(
+            "capo_transfer.types.transfer_table_status.TransferTableStatus", ""
+        )
     if data.get("FailureCode") is not None:
         out["failure_code"] = data["FailureCode"]
     if data.get("FailureMessage") is not None:

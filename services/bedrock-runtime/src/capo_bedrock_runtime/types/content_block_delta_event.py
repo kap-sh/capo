@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import TypedDict
 
 from capo_bedrock_runtime._protocol.eventstream import HeaderValue, Message
-from capo_bedrock_runtime.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.content_block_delta
@@ -43,13 +42,13 @@ def deserialize_json(data: dict) -> ContentBlockDeltaEvent:
             data["delta"]
         )
     else:
-        raise DeserializationError("ContentBlockDeltaEvent.delta required")
+        import capo_bedrock_runtime.types._unknown
+
+        out["delta"] = capo_bedrock_runtime.types._unknown.UnknownUnionMember("")
     if data.get("contentBlockIndex") is not None:
         out["content_block_index"] = data["contentBlockIndex"]
     else:
-        raise DeserializationError(
-            "ContentBlockDeltaEvent.content_block_index required"
-        )
+        out["content_block_index"] = 0
     return out
 
 

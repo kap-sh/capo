@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.arn
     import capo_resiliencehub.types.data_location_constraint
@@ -72,7 +70,7 @@ def deserialize_json(data: dict) -> UpdateResiliencyPolicyRequest:
     if data.get("policyArn") is not None:
         out["policy_arn"] = data["policyArn"]
     else:
-        raise DeserializationError("UpdateResiliencyPolicyRequest.policy_arn required")
+        out["policy_arn"] = ""
     if data.get("policyName") is not None:
         out["policy_name"] = data["policyName"]
     if data.get("policyDescription") is not None:

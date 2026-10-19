@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.client_token
@@ -75,13 +73,11 @@ def deserialize_json(data: dict) -> StartAttachedFileUploadRequest:
     if data.get("FileName") is not None:
         out["file_name"] = data["FileName"]
     else:
-        raise DeserializationError("StartAttachedFileUploadRequest.file_name required")
+        out["file_name"] = ""
     if data.get("FileSizeInBytes") is not None:
         out["file_size_in_bytes"] = data["FileSizeInBytes"]
     else:
-        raise DeserializationError(
-            "StartAttachedFileUploadRequest.file_size_in_bytes required"
-        )
+        out["file_size_in_bytes"] = 0
     if data.get("UrlExpiryInSeconds") is not None:
         out["url_expiry_in_seconds"] = data["UrlExpiryInSeconds"]
     if data.get("FileUseCaseType") is not None:
@@ -93,8 +89,10 @@ def deserialize_json(data: dict) -> StartAttachedFileUploadRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartAttachedFileUploadRequest.file_use_case_type required"
+        import typing
+
+        out["file_use_case_type"] = typing.cast(
+            "capo_connect.types.file_use_case_type.FileUseCaseType", ""
         )
     if data.get("CreatedBy") is not None:
         import capo_connect.types.created_by_info

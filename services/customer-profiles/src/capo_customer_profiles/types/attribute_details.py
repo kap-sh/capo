@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.attribute_list
     import capo_customer_profiles.types.string1_to255
@@ -41,9 +39,9 @@ def deserialize_json(data: dict) -> AttributeDetails:
             )
         )
     else:
-        raise DeserializationError("AttributeDetails.attributes required")
+        out["attributes"] = []
     if data.get("Expression") is not None:
         out["expression"] = data["Expression"]
     else:
-        raise DeserializationError("AttributeDetails.expression required")
+        out["expression"] = ""
     return out

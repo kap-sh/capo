@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.export_task_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> CancelExportTaskRequest:
     if data.get("taskId") is not None:
         out["task_id"] = data["taskId"]
     else:
-        raise DeserializationError("CancelExportTaskRequest.task_id required")
+        out["task_id"] = ""
     return out

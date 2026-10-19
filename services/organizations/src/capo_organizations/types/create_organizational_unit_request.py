@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_organizations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_organizations.types.organizational_unit_name
     import capo_organizations.types.parent_id
@@ -40,11 +38,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateOrganizationalUnitRequest:
     if data.get("ParentId") is not None:
         out["parent_id"] = data["ParentId"]
     else:
-        raise DeserializationError("CreateOrganizationalUnitRequest.parent_id required")
+        out["parent_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateOrganizationalUnitRequest.name required")
+        out["name"] = ""
     if data.get("Tags") is not None:
         import capo_organizations.types.tags
 

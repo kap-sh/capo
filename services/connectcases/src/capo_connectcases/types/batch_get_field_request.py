@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.batch_get_field_identifier_list
     import capo_connectcases.types.domain_id
@@ -42,5 +40,5 @@ def deserialize_json(data: dict) -> BatchGetFieldRequest:
             )
         )
     else:
-        raise DeserializationError("BatchGetFieldRequest.fields required")
+        out["fields"] = []
     return out

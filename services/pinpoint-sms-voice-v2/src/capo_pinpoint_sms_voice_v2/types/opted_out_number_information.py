@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -41,9 +39,7 @@ def deserialize_aws_json_1_0(data: dict) -> OptedOutNumberInformation:
     if data.get("OptedOutNumber") is not None:
         out["opted_out_number"] = data["OptedOutNumber"]
     else:
-        raise DeserializationError(
-            "OptedOutNumberInformation.opted_out_number required"
-        )
+        out["opted_out_number"] = ""
     if data.get("OptedOutTimestamp") is not None:
         import capo_pinpoint_sms_voice_v2.types._prelude.timestamp
 
@@ -53,8 +49,10 @@ def deserialize_aws_json_1_0(data: dict) -> OptedOutNumberInformation:
             )
         )
     else:
-        raise DeserializationError(
-            "OptedOutNumberInformation.opted_out_timestamp required"
+        import datetime
+
+        out["opted_out_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("EndUserOptedOut") is not None:
         out["end_user_opted_out"] = data["EndUserOptedOut"]

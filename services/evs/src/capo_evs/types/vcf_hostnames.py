@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_evs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_evs.types.host_name
 
@@ -51,37 +49,37 @@ def deserialize_aws_json_1_0(data: dict) -> VcfHostnames:
     if data.get("vCenter") is not None:
         out["v_center"] = data["vCenter"]
     else:
-        raise DeserializationError("VcfHostnames.v_center required")
+        out["v_center"] = ""
     if data.get("nsx") is not None:
         out["nsx"] = data["nsx"]
     else:
-        raise DeserializationError("VcfHostnames.nsx required")
+        out["nsx"] = ""
     if data.get("nsxManager1") is not None:
         out["nsx_manager1"] = data["nsxManager1"]
     else:
-        raise DeserializationError("VcfHostnames.nsx_manager1 required")
+        out["nsx_manager1"] = ""
     if data.get("nsxManager2") is not None:
         out["nsx_manager2"] = data["nsxManager2"]
     else:
-        raise DeserializationError("VcfHostnames.nsx_manager2 required")
+        out["nsx_manager2"] = ""
     if data.get("nsxManager3") is not None:
         out["nsx_manager3"] = data["nsxManager3"]
     else:
-        raise DeserializationError("VcfHostnames.nsx_manager3 required")
+        out["nsx_manager3"] = ""
     if data.get("nsxEdge1") is not None:
         out["nsx_edge1"] = data["nsxEdge1"]
     else:
-        raise DeserializationError("VcfHostnames.nsx_edge1 required")
+        out["nsx_edge1"] = ""
     if data.get("nsxEdge2") is not None:
         out["nsx_edge2"] = data["nsxEdge2"]
     else:
-        raise DeserializationError("VcfHostnames.nsx_edge2 required")
+        out["nsx_edge2"] = ""
     if data.get("sddcManager") is not None:
         out["sddc_manager"] = data["sddcManager"]
     else:
-        raise DeserializationError("VcfHostnames.sddc_manager required")
+        out["sddc_manager"] = ""
     if data.get("cloudBuilder") is not None:
         out["cloud_builder"] = data["cloudBuilder"]
     else:
-        raise DeserializationError("VcfHostnames.cloud_builder required")
+        out["cloud_builder"] = ""
     return out

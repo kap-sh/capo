@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appfabric.types.identifier
     import capo_appfabric.types.task_id_list
@@ -35,9 +33,7 @@ def deserialize_json(data: dict) -> BatchGetUserAccessTasksRequest:
     if data.get("appBundleIdentifier") is not None:
         out["app_bundle_identifier"] = data["appBundleIdentifier"]
     else:
-        raise DeserializationError(
-            "BatchGetUserAccessTasksRequest.app_bundle_identifier required"
-        )
+        out["app_bundle_identifier"] = ""
     if data.get("taskIdList") is not None:
         import capo_appfabric.types.task_id_list
 
@@ -45,7 +41,5 @@ def deserialize_json(data: dict) -> BatchGetUserAccessTasksRequest:
             data["taskIdList"]
         )
     else:
-        raise DeserializationError(
-            "BatchGetUserAccessTasksRequest.task_id_list required"
-        )
+        out["task_id_list"] = []
     return out

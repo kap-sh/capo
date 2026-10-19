@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.decimal_places
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DecimalPlacesConfiguration:
     if data.get("DecimalPlaces") is not None:
         out["decimal_places"] = data["DecimalPlaces"]
     else:
-        raise DeserializationError("DecimalPlacesConfiguration.decimal_places required")
+        out["decimal_places"] = 0
     return out

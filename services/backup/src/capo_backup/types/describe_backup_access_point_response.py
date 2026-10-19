@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -85,9 +83,7 @@ def deserialize_json(data: dict) -> DescribeBackupAccessPointResponse:
     if data.get("AccessPointArn") is not None:
         out["access_point_arn"] = data["AccessPointArn"]
     else:
-        raise DeserializationError(
-            "DescribeBackupAccessPointResponse.access_point_arn required"
-        )
+        out["access_point_arn"] = ""
     if data.get("AccessPointMetadata") is not None:
         import capo_backup.types.access_point_metadata_map
 
@@ -101,9 +97,7 @@ def deserialize_json(data: dict) -> DescribeBackupAccessPointResponse:
     if data.get("BackupVaultName") is not None:
         out["backup_vault_name"] = data["BackupVaultName"]
     else:
-        raise DeserializationError(
-            "DescribeBackupAccessPointResponse.backup_vault_name required"
-        )
+        out["backup_vault_name"] = ""
     if data.get("CreationTime") is not None:
         import capo_backup.types._prelude.timestamp
 
@@ -111,31 +105,27 @@ def deserialize_json(data: dict) -> DescribeBackupAccessPointResponse:
             data["CreationTime"]
         )
     else:
-        raise DeserializationError(
-            "DescribeBackupAccessPointResponse.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DescribeBackupAccessPointResponse.name required")
+        out["name"] = ""
     if data.get("RecoveryPointArn") is not None:
         out["recovery_point_arn"] = data["RecoveryPointArn"]
     else:
-        raise DeserializationError(
-            "DescribeBackupAccessPointResponse.recovery_point_arn required"
-        )
+        out["recovery_point_arn"] = ""
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError(
-            "DescribeBackupAccessPointResponse.resource_arn required"
-        )
+        out["resource_arn"] = ""
     if data.get("ResourceType") is not None:
         out["resource_type"] = data["ResourceType"]
     else:
-        raise DeserializationError(
-            "DescribeBackupAccessPointResponse.resource_type required"
-        )
+        out["resource_type"] = ""
     if data.get("Status") is not None:
         import capo_backup.types.access_point_status
 
@@ -143,7 +133,11 @@ def deserialize_json(data: dict) -> DescribeBackupAccessPointResponse:
             data["Status"]
         )
     else:
-        raise DeserializationError("DescribeBackupAccessPointResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_backup.types.access_point_status.AccessPointStatus", ""
+        )
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
     return out

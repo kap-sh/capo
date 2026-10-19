@@ -39,7 +39,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateTimeToLiveInput:
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("UpdateTimeToLiveInput.table_name required")
+        out["table_name"] = ""
     if data.get("TimeToLiveSpecification") is not None:
         import capo_dynamodb.types.time_to_live_specification
 

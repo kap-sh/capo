@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_license_manager_linux_subscriptions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager_linux_subscriptions.types.organization_integration
     import capo_license_manager_linux_subscriptions.types.string_list
@@ -45,13 +43,9 @@ def deserialize_json(data: dict) -> LinuxSubscriptionsDiscoverySettings:
             )
         )
     else:
-        raise DeserializationError(
-            "LinuxSubscriptionsDiscoverySettings.source_regions required"
-        )
+        out["source_regions"] = []
     if data.get("OrganizationIntegration") is not None:
         out["organization_integration"] = data["OrganizationIntegration"]
     else:
-        raise DeserializationError(
-            "LinuxSubscriptionsDiscoverySettings.organization_integration required"
-        )
+        out["organization_integration"] = ""
     return out

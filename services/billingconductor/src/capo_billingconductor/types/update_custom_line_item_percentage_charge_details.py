@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_billingconductor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billingconductor.types.custom_line_item_percentage_charge_value
 
@@ -35,7 +33,5 @@ def deserialize_json(data: dict) -> UpdateCustomLineItemPercentageChargeDetails:
     if data.get("PercentageValue") is not None:
         out["percentage_value"] = float(data["PercentageValue"])
     else:
-        raise DeserializationError(
-            "UpdateCustomLineItemPercentageChargeDetails.percentage_value required"
-        )
+        out["percentage_value"] = 0.0
     return out

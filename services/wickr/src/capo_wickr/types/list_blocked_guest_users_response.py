@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.blocked_guest_user_list
     import capo_wickr.types.generic_string
@@ -42,5 +40,5 @@ def deserialize_json(data: dict) -> ListBlockedGuestUsersResponse:
             data["blocklist"]
         )
     else:
-        raise DeserializationError("ListBlockedGuestUsersResponse.blocklist required")
+        out["blocklist"] = []
     return out

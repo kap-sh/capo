@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_xray.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_xray.types.retrieval_token
     import capo_xray.types.string
@@ -32,9 +30,7 @@ def deserialize_json(data: dict) -> GetRetrievedTracesGraphRequest:
     if data.get("RetrievalToken") is not None:
         out["retrieval_token"] = data["RetrievalToken"]
     else:
-        raise DeserializationError(
-            "GetRetrievedTracesGraphRequest.retrieval_token required"
-        )
+        out["retrieval_token"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

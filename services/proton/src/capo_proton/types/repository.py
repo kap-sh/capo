@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.arn
     import capo_proton.types.repository_arn
@@ -43,19 +41,19 @@ def deserialize_aws_json_1_0(data: dict) -> Repository:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("Repository.arn required")
+        out["arn"] = ""
     if data.get("provider") is not None:
         out["provider"] = data["provider"]
     else:
-        raise DeserializationError("Repository.provider required")
+        out["provider"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Repository.name required")
+        out["name"] = ""
     if data.get("connectionArn") is not None:
         out["connection_arn"] = data["connectionArn"]
     else:
-        raise DeserializationError("Repository.connection_arn required")
+        out["connection_arn"] = ""
     if data.get("encryptionKey") is not None:
         out["encryption_key"] = data["encryptionKey"]
     return out

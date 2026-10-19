@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.field_to_protect_keys
     import capo_wafv2.types.field_to_protect_type
@@ -48,7 +46,11 @@ def deserialize_aws_json_1_1(data: dict) -> FieldToProtect:
             )
         )
     else:
-        raise DeserializationError("FieldToProtect.field_type required")
+        import typing
+
+        out["field_type"] = typing.cast(
+            "capo_wafv2.types.field_to_protect_type.FieldToProtectType", ""
+        )
     if data.get("FieldKeys") is not None:
         import capo_wafv2.types.field_to_protect_keys
 

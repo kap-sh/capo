@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.managed_resource_status
     import capo_ecs.types.string
@@ -54,7 +52,11 @@ def deserialize_aws_json_1_1(data: dict) -> ManagedMetricAlarm:
             data["status"]
         )
     else:
-        raise DeserializationError("ManagedMetricAlarm.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_ecs.types.managed_resource_status.ManagedResourceStatus", ""
+        )
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
     if data.get("updatedAt") is not None:
@@ -64,5 +66,7 @@ def deserialize_aws_json_1_1(data: dict) -> ManagedMetricAlarm:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("ManagedMetricAlarm.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

@@ -59,27 +59,23 @@ def deserialize_json(data: dict) -> PutSolNetworkPackageContentOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("PutSolNetworkPackageContentOutput.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("PutSolNetworkPackageContentOutput.arn required")
+        out["arn"] = ""
     if data.get("nsdId") is not None:
         out["nsd_id"] = data["nsdId"]
     else:
-        raise DeserializationError("PutSolNetworkPackageContentOutput.nsd_id required")
+        out["nsd_id"] = ""
     if data.get("nsdName") is not None:
         out["nsd_name"] = data["nsdName"]
     else:
-        raise DeserializationError(
-            "PutSolNetworkPackageContentOutput.nsd_name required"
-        )
+        out["nsd_name"] = ""
     if data.get("nsdVersion") is not None:
         out["nsd_version"] = data["nsdVersion"]
     else:
-        raise DeserializationError(
-            "PutSolNetworkPackageContentOutput.nsd_version required"
-        )
+        out["nsd_version"] = ""
     if data.get("vnfPkgIds") is not None:
         import capo_tnb.types.vnf_pkg_id_list
 
@@ -87,9 +83,7 @@ def deserialize_json(data: dict) -> PutSolNetworkPackageContentOutput:
             data["vnfPkgIds"]
         )
     else:
-        raise DeserializationError(
-            "PutSolNetworkPackageContentOutput.vnf_pkg_ids required"
-        )
+        out["vnf_pkg_ids"] = []
     if data.get("metadata") is not None:
         import capo_tnb.types.put_sol_network_package_content_metadata
 

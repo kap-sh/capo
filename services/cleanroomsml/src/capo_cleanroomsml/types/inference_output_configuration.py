@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.inference_receiver_members
 
@@ -46,5 +44,5 @@ def deserialize_json(data: dict) -> InferenceOutputConfiguration:
             )
         )
     else:
-        raise DeserializationError("InferenceOutputConfiguration.members required")
+        out["members"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.string
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> ConflictExceptionErrorArgument:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ConflictExceptionErrorArgument.name required")
+        out["name"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("ConflictExceptionErrorArgument.value required")
+        out["value"] = ""
     return out

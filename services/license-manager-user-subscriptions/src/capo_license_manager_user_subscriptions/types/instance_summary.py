@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager_user_subscriptions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager_user_subscriptions.types.identity_provider
     import capo_license_manager_user_subscriptions.types.string_list
@@ -64,11 +62,11 @@ def deserialize_json(data: dict) -> InstanceSummary:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("InstanceSummary.instance_id required")
+        out["instance_id"] = ""
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("InstanceSummary.status required")
+        out["status"] = ""
     if data.get("Products") is not None:
         import capo_license_manager_user_subscriptions.types.string_list
 
@@ -78,7 +76,7 @@ def deserialize_json(data: dict) -> InstanceSummary:
             )
         )
     else:
-        raise DeserializationError("InstanceSummary.products required")
+        out["products"] = []
     if data.get("LastStatusCheckDate") is not None:
         out["last_status_check_date"] = data["LastStatusCheckDate"]
     if data.get("StatusMessage") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_auto_scaling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_auto_scaling.types.resource_id_max_len1600
     import capo_application_auto_scaling.types.scalable_dimension
@@ -113,8 +111,10 @@ def deserialize_aws_json_1_1(data: dict) -> PutScheduledActionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "PutScheduledActionRequest.service_namespace required"
+        import typing
+
+        out["service_namespace"] = typing.cast(
+            "capo_application_auto_scaling.types.service_namespace.ServiceNamespace", ""
         )
     if data.get("Schedule") is not None:
         out["schedule"] = data["Schedule"]
@@ -123,13 +123,11 @@ def deserialize_aws_json_1_1(data: dict) -> PutScheduledActionRequest:
     if data.get("ScheduledActionName") is not None:
         out["scheduled_action_name"] = data["ScheduledActionName"]
     else:
-        raise DeserializationError(
-            "PutScheduledActionRequest.scheduled_action_name required"
-        )
+        out["scheduled_action_name"] = ""
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("PutScheduledActionRequest.resource_id required")
+        out["resource_id"] = ""
     if data.get("ScalableDimension") is not None:
         import capo_application_auto_scaling.types.scalable_dimension
 
@@ -139,8 +137,11 @@ def deserialize_aws_json_1_1(data: dict) -> PutScheduledActionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "PutScheduledActionRequest.scalable_dimension required"
+        import typing
+
+        out["scalable_dimension"] = typing.cast(
+            "capo_application_auto_scaling.types.scalable_dimension.ScalableDimension",
+            "",
         )
     if data.get("StartTime") is not None:
         import capo_application_auto_scaling.types.timestamp_type

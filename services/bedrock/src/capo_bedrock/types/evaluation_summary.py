@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.application_type
     import capo_bedrock.types.evaluation_bedrock_knowledge_base_identifiers
@@ -137,11 +135,11 @@ def deserialize_json(data: dict) -> EvaluationSummary:
     if data.get("jobArn") is not None:
         out["job_arn"] = data["jobArn"]
     else:
-        raise DeserializationError("EvaluationSummary.job_arn required")
+        out["job_arn"] = ""
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError("EvaluationSummary.job_name required")
+        out["job_name"] = ""
     if data.get("status") is not None:
         import capo_bedrock.types.evaluation_job_status
 
@@ -149,7 +147,11 @@ def deserialize_json(data: dict) -> EvaluationSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("EvaluationSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock.types.evaluation_job_status.EvaluationJobStatus", ""
+        )
     if data.get("creationTime") is not None:
         import capo_bedrock.types.timestamp
 
@@ -157,7 +159,11 @@ def deserialize_json(data: dict) -> EvaluationSummary:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("EvaluationSummary.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("jobType") is not None:
         import capo_bedrock.types.evaluation_job_type
 
@@ -165,7 +171,11 @@ def deserialize_json(data: dict) -> EvaluationSummary:
             data["jobType"]
         )
     else:
-        raise DeserializationError("EvaluationSummary.job_type required")
+        import typing
+
+        out["job_type"] = typing.cast(
+            "capo_bedrock.types.evaluation_job_type.EvaluationJobType", ""
+        )
     if data.get("evaluationTaskTypes") is not None:
         import capo_bedrock.types.evaluation_task_types
 
@@ -175,7 +185,7 @@ def deserialize_json(data: dict) -> EvaluationSummary:
             )
         )
     else:
-        raise DeserializationError("EvaluationSummary.evaluation_task_types required")
+        out["evaluation_task_types"] = []
     if data.get("modelIdentifiers") is not None:
         import capo_bedrock.types.evaluation_bedrock_model_identifiers
 

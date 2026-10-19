@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.route_matrix_error_code
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> RouteMatrixEntryError:
     if data.get("Code") is not None:
         out["code"] = data["Code"]
     else:
-        raise DeserializationError("RouteMatrixEntryError.code required")
+        out["code"] = ""
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     return out

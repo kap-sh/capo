@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 
 class ProjectSummary(TypedDict, closed=True):
     name: "str"
@@ -30,7 +28,7 @@ def deserialize_json(data: dict) -> ProjectSummary:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ProjectSummary.name required")
+        out["name"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     if data.get("description") is not None:

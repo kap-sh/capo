@@ -109,15 +109,15 @@ def deserialize_json(data: dict) -> HarvestJob:
     if data.get("ChannelGroupName") is not None:
         out["channel_group_name"] = data["ChannelGroupName"]
     else:
-        raise DeserializationError("HarvestJob.channel_group_name required")
+        out["channel_group_name"] = ""
     if data.get("ChannelName") is not None:
         out["channel_name"] = data["ChannelName"]
     else:
-        raise DeserializationError("HarvestJob.channel_name required")
+        out["channel_name"] = ""
     if data.get("OriginEndpointName") is not None:
         out["origin_endpoint_name"] = data["OriginEndpointName"]
     else:
-        raise DeserializationError("HarvestJob.origin_endpoint_name required")
+        out["origin_endpoint_name"] = ""
     if data.get("Destination") is not None:
         import capo_mediapackagev2.types.destination
 
@@ -129,7 +129,7 @@ def deserialize_json(data: dict) -> HarvestJob:
     if data.get("HarvestJobName") is not None:
         out["harvest_job_name"] = data["HarvestJobName"]
     else:
-        raise DeserializationError("HarvestJob.harvest_job_name required")
+        out["harvest_job_name"] = ""
     if data.get("HarvestedManifests") is not None:
         import capo_mediapackagev2.types.harvested_manifests
 
@@ -155,7 +155,7 @@ def deserialize_json(data: dict) -> HarvestJob:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("HarvestJob.arn required")
+        out["arn"] = ""
     if data.get("CreatedAt") is not None:
         import capo_mediapackagev2.types._prelude.timestamp
 
@@ -165,7 +165,9 @@ def deserialize_json(data: dict) -> HarvestJob:
             )
         )
     else:
-        raise DeserializationError("HarvestJob.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("ModifiedAt") is not None:
         import capo_mediapackagev2.types._prelude.timestamp
 
@@ -175,7 +177,11 @@ def deserialize_json(data: dict) -> HarvestJob:
             )
         )
     else:
-        raise DeserializationError("HarvestJob.modified_at required")
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("Status") is not None:
         import capo_mediapackagev2.types.harvest_job_status
 
@@ -183,7 +189,11 @@ def deserialize_json(data: dict) -> HarvestJob:
             data["Status"]
         )
     else:
-        raise DeserializationError("HarvestJob.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_mediapackagev2.types.harvest_job_status.HarvestJobStatus", ""
+        )
     if data.get("ErrorMessage") is not None:
         out["error_message"] = data["ErrorMessage"]
     if data.get("ETag") is not None:

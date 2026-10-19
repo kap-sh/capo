@@ -57,7 +57,9 @@ def deserialize_json(data: dict) -> GetObjectTypeAttributeStatisticsResponse:
             data["CalculatedAt"]
         )
     else:
-        raise DeserializationError(
-            "GetObjectTypeAttributeStatisticsResponse.calculated_at required"
+        import datetime
+
+        out["calculated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

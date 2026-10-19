@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.layout_arn
     import capo_connectcases.types.layout_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> CreateLayoutResponse:
     if data.get("layoutId") is not None:
         out["layout_id"] = data["layoutId"]
     else:
-        raise DeserializationError("CreateLayoutResponse.layout_id required")
+        out["layout_id"] = ""
     if data.get("layoutArn") is not None:
         out["layout_arn"] = data["layoutArn"]
     else:
-        raise DeserializationError("CreateLayoutResponse.layout_arn required")
+        out["layout_arn"] = ""
     return out

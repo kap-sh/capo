@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.kms_key
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> CustomerContentEncryptionConfigurati
     if data.get("KmsKey") is not None:
         out["kms_key"] = data["KmsKey"]
     else:
-        raise DeserializationError(
-            "CustomerContentEncryptionConfiguration.kms_key required"
-        )
+        out["kms_key"] = ""
     return out

@@ -160,35 +160,29 @@ def deserialize_json(data: dict) -> CollaborationAnalysisTemplate:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CollaborationAnalysisTemplate.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CollaborationAnalysisTemplate.arn required")
+        out["arn"] = ""
     if data.get("collaborationId") is not None:
         out["collaboration_id"] = data["collaborationId"]
     else:
-        raise DeserializationError(
-            "CollaborationAnalysisTemplate.collaboration_id required"
-        )
+        out["collaboration_id"] = ""
     if data.get("collaborationArn") is not None:
         out["collaboration_arn"] = data["collaborationArn"]
     else:
-        raise DeserializationError(
-            "CollaborationAnalysisTemplate.collaboration_arn required"
-        )
+        out["collaboration_arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("creatorAccountId") is not None:
         out["creator_account_id"] = data["creatorAccountId"]
     else:
-        raise DeserializationError(
-            "CollaborationAnalysisTemplate.creator_account_id required"
-        )
+        out["creator_account_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CollaborationAnalysisTemplate.name required")
+        out["name"] = ""
     if data.get("createTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -196,7 +190,11 @@ def deserialize_json(data: dict) -> CollaborationAnalysisTemplate:
             data["createTime"]
         )
     else:
-        raise DeserializationError("CollaborationAnalysisTemplate.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -204,7 +202,11 @@ def deserialize_json(data: dict) -> CollaborationAnalysisTemplate:
             data["updateTime"]
         )
     else:
-        raise DeserializationError("CollaborationAnalysisTemplate.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("schema") is not None:
         import capo_cleanrooms.types.analysis_schema
 
@@ -220,7 +222,11 @@ def deserialize_json(data: dict) -> CollaborationAnalysisTemplate:
             data["format"]
         )
     else:
-        raise DeserializationError("CollaborationAnalysisTemplate.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_cleanrooms.types.analysis_format.AnalysisFormat", ""
+        )
     if data.get("source") is not None:
         import capo_cleanrooms.types.analysis_source
 

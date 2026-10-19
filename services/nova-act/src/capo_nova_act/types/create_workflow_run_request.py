@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> CreateWorkflowRunRequest:
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:
-        raise DeserializationError("CreateWorkflowRunRequest.model_id required")
+        out["model_id"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("logGroupName") is not None:

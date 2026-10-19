@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.actor_token_content_type
     import capo_bedrock_agentcore_control.types.scopes_list_type
@@ -52,8 +50,11 @@ def deserialize_json(data: dict) -> TokenExchangeGrantTypeConfigType:
             )
         )
     else:
-        raise DeserializationError(
-            "TokenExchangeGrantTypeConfigType.actor_token_content required"
+        import typing
+
+        out["actor_token_content"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.actor_token_content_type.ActorTokenContentType",
+            "",
         )
     if data.get("actorTokenScopes") is not None:
         import capo_bedrock_agentcore_control.types.scopes_list_type

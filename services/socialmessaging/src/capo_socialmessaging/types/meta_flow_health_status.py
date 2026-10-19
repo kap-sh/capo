@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.meta_flow_health_entity_list
     import capo_socialmessaging.types.meta_flow_health_status_availability
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> MetaFlowHealthStatus:
     if data.get("canSendMessage") is not None:
         out["can_send_message"] = data["canSendMessage"]
     else:
-        raise DeserializationError("MetaFlowHealthStatus.can_send_message required")
+        out["can_send_message"] = ""
     if data.get("entities") is not None:
         import capo_socialmessaging.types.meta_flow_health_entity_list
 

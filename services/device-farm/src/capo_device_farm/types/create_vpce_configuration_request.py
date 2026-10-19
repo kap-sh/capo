@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_device_farm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_device_farm.types.service_dns_name
     import capo_device_farm.types.vpce_configuration_description
@@ -44,21 +42,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateVPCEConfigurationRequest:
     if data.get("vpceConfigurationName") is not None:
         out["vpce_configuration_name"] = data["vpceConfigurationName"]
     else:
-        raise DeserializationError(
-            "CreateVPCEConfigurationRequest.vpce_configuration_name required"
-        )
+        out["vpce_configuration_name"] = ""
     if data.get("vpceServiceName") is not None:
         out["vpce_service_name"] = data["vpceServiceName"]
     else:
-        raise DeserializationError(
-            "CreateVPCEConfigurationRequest.vpce_service_name required"
-        )
+        out["vpce_service_name"] = ""
     if data.get("serviceDnsName") is not None:
         out["service_dns_name"] = data["serviceDnsName"]
     else:
-        raise DeserializationError(
-            "CreateVPCEConfigurationRequest.service_dns_name required"
-        )
+        out["service_dns_name"] = ""
     if data.get("vpceConfigurationDescription") is not None:
         out["vpce_configuration_description"] = data["vpceConfigurationDescription"]
     return out

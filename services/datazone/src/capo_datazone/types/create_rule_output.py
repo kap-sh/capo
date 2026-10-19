@@ -87,11 +87,11 @@ def deserialize_json(data: dict) -> CreateRuleOutput:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("CreateRuleOutput.identifier required")
+        out["identifier"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateRuleOutput.name required")
+        out["name"] = ""
     if data.get("ruleType") is not None:
         import capo_datazone.types.rule_type
 
@@ -99,19 +99,25 @@ def deserialize_json(data: dict) -> CreateRuleOutput:
             data["ruleType"]
         )
     else:
-        raise DeserializationError("CreateRuleOutput.rule_type required")
+        import typing
+
+        out["rule_type"] = typing.cast("capo_datazone.types.rule_type.RuleType", "")
     if data.get("target") is not None:
         import capo_datazone.types.rule_target
 
         out["target"] = capo_datazone.types.rule_target.deserialize_json(data["target"])
     else:
-        raise DeserializationError("CreateRuleOutput.target required")
+        import capo_datazone.types._unknown
+
+        out["target"] = capo_datazone.types._unknown.UnknownUnionMember("")
     if data.get("action") is not None:
         import capo_datazone.types.rule_action
 
         out["action"] = capo_datazone.types.rule_action.deserialize_json(data["action"])
     else:
-        raise DeserializationError("CreateRuleOutput.action required")
+        import typing
+
+        out["action"] = typing.cast("capo_datazone.types.rule_action.RuleAction", "")
     if data.get("scope") is not None:
         import capo_datazone.types.rule_scope
 
@@ -123,7 +129,9 @@ def deserialize_json(data: dict) -> CreateRuleOutput:
 
         out["detail"] = capo_datazone.types.rule_detail.deserialize_json(data["detail"])
     else:
-        raise DeserializationError("CreateRuleOutput.detail required")
+        import capo_datazone.types._unknown
+
+        out["detail"] = capo_datazone.types._unknown.UnknownUnionMember("")
     if data.get("targetType") is not None:
         import capo_datazone.types.rule_target_type
 
@@ -139,11 +147,13 @@ def deserialize_json(data: dict) -> CreateRuleOutput:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("CreateRuleOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("CreateRuleOutput.created_by required")
+        out["created_by"] = ""
     return out
 
 

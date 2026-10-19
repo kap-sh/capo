@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudsearch._protocol.xml import Element
-from capo_cloudsearch.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudsearch.types.date_array_options
@@ -137,7 +136,7 @@ def deserialize_query(el: Element) -> IndexField:
     if child_index_field_name is not None:
         out["index_field_name"] = str(child_index_field_name.text or "")
     else:
-        raise DeserializationError("IndexField.index_field_name required")
+        out["index_field_name"] = ""
     child_index_field_type = el.find("IndexFieldType")
     if child_index_field_type is not None:
         import capo_cloudsearch.types.index_field_type
@@ -148,7 +147,11 @@ def deserialize_query(el: Element) -> IndexField:
             )
         )
     else:
-        raise DeserializationError("IndexField.index_field_type required")
+        import typing
+
+        out["index_field_type"] = typing.cast(
+            "capo_cloudsearch.types.index_field_type.IndexFieldType", ""
+        )
     child_int_options = el.find("IntOptions")
     if child_int_options is not None:
         import capo_cloudsearch.types.int_options

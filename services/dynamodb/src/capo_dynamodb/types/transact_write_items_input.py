@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.client_request_token
     import capo_dynamodb.types.return_consumed_capacity
@@ -71,7 +69,7 @@ def deserialize_aws_json_1_0(data: dict) -> TransactWriteItemsInput:
             )
         )
     else:
-        raise DeserializationError("TransactWriteItemsInput.transact_items required")
+        out["transact_items"] = []
     if data.get("ReturnConsumedCapacity") is not None:
         import capo_dynamodb.types.return_consumed_capacity
 

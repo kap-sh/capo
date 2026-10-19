@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.share_details_list
 
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> ListSharesResponse:
             data["shares"]
         )
     else:
-        raise DeserializationError("ListSharesResponse.shares required")
+        out["shares"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

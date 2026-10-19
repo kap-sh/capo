@@ -53,7 +53,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreditAllocationHistoryEntry:
     if data.get("creditId") is not None:
         out["credit_id"] = data["creditId"]
     else:
-        raise DeserializationError("CreditAllocationHistoryEntry.credit_id required")
+        out["credit_id"] = ""
     if data.get("creditAmount") is not None:
         import capo_billing.types.amount
 
@@ -69,23 +69,17 @@ def deserialize_aws_json_1_0(data: dict) -> CreditAllocationHistoryEntry:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("CreditAllocationHistoryEntry.account_id required")
+        out["account_id"] = ""
     if data.get("appliedServiceName") is not None:
         out["applied_service_name"] = data["appliedServiceName"]
     else:
-        raise DeserializationError(
-            "CreditAllocationHistoryEntry.applied_service_name required"
-        )
+        out["applied_service_name"] = ""
     if data.get("billingMonth") is not None:
         out["billing_month"] = data["billingMonth"]
     else:
-        raise DeserializationError(
-            "CreditAllocationHistoryEntry.billing_month required"
-        )
+        out["billing_month"] = ""
     if data.get("isEstimatedBill") is not None:
         out["is_estimated_bill"] = data["isEstimatedBill"]
     else:
-        raise DeserializationError(
-            "CreditAllocationHistoryEntry.is_estimated_bill required"
-        )
+        out["is_estimated_bill"] = False
     return out

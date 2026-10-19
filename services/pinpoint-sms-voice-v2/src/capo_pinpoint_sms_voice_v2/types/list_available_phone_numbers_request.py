@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.iso_country_code
     import capo_pinpoint_sms_voice_v2.types.list_available_phone_numbers_max_results
@@ -77,9 +75,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListAvailablePhoneNumbersRequest:
     if data.get("IsoCountryCode") is not None:
         out["iso_country_code"] = data["IsoCountryCode"]
     else:
-        raise DeserializationError(
-            "ListAvailablePhoneNumbersRequest.iso_country_code required"
-        )
+        out["iso_country_code"] = ""
     if data.get("NumberCapabilities") is not None:
         import capo_pinpoint_sms_voice_v2.types.number_capability_list
 
@@ -89,15 +85,11 @@ def deserialize_aws_json_1_0(data: dict) -> ListAvailablePhoneNumbersRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ListAvailablePhoneNumbersRequest.number_capabilities required"
-        )
+        out["number_capabilities"] = []
     if data.get("NumberType") is not None:
         out["number_type"] = data["NumberType"]
     else:
-        raise DeserializationError(
-            "ListAvailablePhoneNumbersRequest.number_type required"
-        )
+        out["number_type"] = ""
     if data.get("RegistrationId") is not None:
         out["registration_id"] = data["RegistrationId"]
     if data.get("NumberPreference") is not None:

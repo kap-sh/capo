@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.insight_field_type
     import capo_opensearch.types.string
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> InsightField:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("InsightField.name required")
+        out["name"] = ""
     if data.get("Type") is not None:
         import capo_opensearch.types.insight_field_type
 
@@ -44,9 +42,13 @@ def deserialize_json(data: dict) -> InsightField:
             data["Type"]
         )
     else:
-        raise DeserializationError("InsightField.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_opensearch.types.insight_field_type.InsightFieldType", ""
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("InsightField.value required")
+        out["value"] = ""
     return out

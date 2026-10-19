@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.assessment_instance_ids
     import capo_directory_service.types.customer_dns_ips
@@ -51,9 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> HybridCustomerInstancesSettings:
             )
         )
     else:
-        raise DeserializationError(
-            "HybridCustomerInstancesSettings.customer_dns_ips required"
-        )
+        out["customer_dns_ips"] = []
     if data.get("InstanceIds") is not None:
         import capo_directory_service.types.assessment_instance_ids
 
@@ -63,7 +59,5 @@ def deserialize_aws_json_1_1(data: dict) -> HybridCustomerInstancesSettings:
             )
         )
     else:
-        raise DeserializationError(
-            "HybridCustomerInstancesSettings.instance_ids required"
-        )
+        out["instance_ids"] = []
     return out

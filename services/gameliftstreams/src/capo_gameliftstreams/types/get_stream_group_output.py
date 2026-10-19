@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_gameliftstreams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -135,7 +133,7 @@ def deserialize_json(data: dict) -> GetStreamGroupOutput:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("GetStreamGroupOutput.arn required")
+        out["arn"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("DefaultApplication") is not None:

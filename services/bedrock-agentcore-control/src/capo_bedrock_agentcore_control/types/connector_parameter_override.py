@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 
 class ConnectorParameterOverride(TypedDict, closed=True):
     path: "str"
@@ -30,7 +28,7 @@ def deserialize_json(data: dict) -> ConnectorParameterOverride:
     if data.get("path") is not None:
         out["path"] = data["path"]
     else:
-        raise DeserializationError("ConnectorParameterOverride.path required")
+        out["path"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("visible") is not None:

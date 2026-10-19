@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.action_name
     import capo_codepipeline.types.revision
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> SourceRevision:
     if data.get("actionName") is not None:
         out["action_name"] = data["actionName"]
     else:
-        raise DeserializationError("SourceRevision.action_name required")
+        out["action_name"] = ""
     if data.get("revisionId") is not None:
         out["revision_id"] = data["revisionId"]
     if data.get("revisionSummary") is not None:

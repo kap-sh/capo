@@ -77,15 +77,15 @@ def deserialize_json(data: dict) -> ComputationModelSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ComputationModelSummary.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ComputationModelSummary.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ComputationModelSummary.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("type") is not None:
@@ -95,7 +95,11 @@ def deserialize_json(data: dict) -> ComputationModelSummary:
             data["type"]
         )
     else:
-        raise DeserializationError("ComputationModelSummary.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_iotsitewise.types.computation_model_type.ComputationModelType", ""
+        )
     if data.get("creationDate") is not None:
         import capo_iotsitewise.types.timestamp
 
@@ -103,7 +107,11 @@ def deserialize_json(data: dict) -> ComputationModelSummary:
             data["creationDate"]
         )
     else:
-        raise DeserializationError("ComputationModelSummary.creation_date required")
+        import datetime
+
+        out["creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastUpdateDate") is not None:
         import capo_iotsitewise.types.timestamp
 
@@ -111,7 +119,11 @@ def deserialize_json(data: dict) -> ComputationModelSummary:
             data["lastUpdateDate"]
         )
     else:
-        raise DeserializationError("ComputationModelSummary.last_update_date required")
+        import datetime
+
+        out["last_update_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("status") is not None:
         import capo_iotsitewise.types.computation_model_status
 
@@ -125,5 +137,5 @@ def deserialize_json(data: dict) -> ComputationModelSummary:
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("ComputationModelSummary.version required")
+        out["version"] = ""
     return out

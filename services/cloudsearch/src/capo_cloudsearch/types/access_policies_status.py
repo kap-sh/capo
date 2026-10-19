@@ -36,7 +36,7 @@ def deserialize_query(el: Element) -> AccessPoliciesStatus:
     if child_options is not None:
         out["options"] = str(child_options.text or "")
     else:
-        raise DeserializationError("AccessPoliciesStatus.options required")
+        out["options"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         import capo_cloudsearch.types.option_status

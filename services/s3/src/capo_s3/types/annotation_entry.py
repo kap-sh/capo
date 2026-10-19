@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.annotation_name
@@ -67,7 +66,7 @@ def deserialize_xml(el: Element) -> AnnotationEntry:
     if child_annotation_name is not None:
         out["annotation_name"] = str(child_annotation_name.text or "")
     else:
-        raise DeserializationError("AnnotationEntry.annotation_name required")
+        out["annotation_name"] = ""
     child_last_modified = el.find("LastModified")
     if child_last_modified is not None:
         import capo_s3.types.last_modified
@@ -76,7 +75,11 @@ def deserialize_xml(el: Element) -> AnnotationEntry:
             child_last_modified
         )
     else:
-        raise DeserializationError("AnnotationEntry.last_modified required")
+        import datetime
+
+        out["last_modified"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_e_tag = el.find("ETag")
     if child_e_tag is not None:
         out["e_tag"] = str(child_e_tag.text or "")
@@ -92,7 +95,7 @@ def deserialize_xml(el: Element) -> AnnotationEntry:
     if child_size is not None:
         out["size"] = int(child_size.text or "")
     else:
-        raise DeserializationError("AnnotationEntry.size required")
+        out["size"] = 0
     child_replication_status = el.find("ReplicationStatus")
     if child_replication_status is not None:
         import capo_s3.types.replication_status

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_budgets.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_budgets.types.actions
     import capo_budgets.types.generic_string
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeBudgetActionsForBudgetRespon
             data["Actions"]
         )
     else:
-        raise DeserializationError(
-            "DescribeBudgetActionsForBudgetResponse.actions required"
-        )
+        out["actions"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

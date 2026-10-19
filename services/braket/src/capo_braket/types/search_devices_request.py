@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_braket.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_braket.types.search_devices_filter_list
 
@@ -47,5 +45,5 @@ def deserialize_json(data: dict) -> SearchDevicesRequest:
             data["filters"]
         )
     else:
-        raise DeserializationError("SearchDevicesRequest.filters required")
+        out["filters"] = []
     return out

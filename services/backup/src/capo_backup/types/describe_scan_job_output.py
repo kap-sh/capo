@@ -143,15 +143,15 @@ def deserialize_json(data: dict) -> DescribeScanJobOutput:
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     else:
-        raise DeserializationError("DescribeScanJobOutput.account_id required")
+        out["account_id"] = ""
     if data.get("BackupVaultArn") is not None:
         out["backup_vault_arn"] = data["BackupVaultArn"]
     else:
-        raise DeserializationError("DescribeScanJobOutput.backup_vault_arn required")
+        out["backup_vault_arn"] = ""
     if data.get("BackupVaultName") is not None:
         out["backup_vault_name"] = data["BackupVaultName"]
     else:
-        raise DeserializationError("DescribeScanJobOutput.backup_vault_name required")
+        out["backup_vault_name"] = ""
     if data.get("CompletionDate") is not None:
         import capo_backup.types._prelude.timestamp
 
@@ -189,11 +189,15 @@ def deserialize_json(data: dict) -> DescribeScanJobOutput:
             data["CreationDate"]
         )
     else:
-        raise DeserializationError("DescribeScanJobOutput.creation_date required")
+        import datetime
+
+        out["creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     else:
-        raise DeserializationError("DescribeScanJobOutput.iam_role_arn required")
+        out["iam_role_arn"] = ""
     if data.get("MalwareScanner") is not None:
         import capo_backup.types.malware_scanner
 
@@ -201,19 +205,23 @@ def deserialize_json(data: dict) -> DescribeScanJobOutput:
             data["MalwareScanner"]
         )
     else:
-        raise DeserializationError("DescribeScanJobOutput.malware_scanner required")
+        import typing
+
+        out["malware_scanner"] = typing.cast(
+            "capo_backup.types.malware_scanner.MalwareScanner", ""
+        )
     if data.get("RecoveryPointArn") is not None:
         out["recovery_point_arn"] = data["RecoveryPointArn"]
     else:
-        raise DeserializationError("DescribeScanJobOutput.recovery_point_arn required")
+        out["recovery_point_arn"] = ""
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("DescribeScanJobOutput.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("ResourceName") is not None:
         out["resource_name"] = data["ResourceName"]
     else:
-        raise DeserializationError("DescribeScanJobOutput.resource_name required")
+        out["resource_name"] = ""
     if data.get("ResourceType") is not None:
         import capo_backup.types.scan_resource_type
 
@@ -221,7 +229,11 @@ def deserialize_json(data: dict) -> DescribeScanJobOutput:
             data["ResourceType"]
         )
     else:
-        raise DeserializationError("DescribeScanJobOutput.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_backup.types.scan_resource_type.ScanResourceType", ""
+        )
     if data.get("ScanBaseRecoveryPointArn") is not None:
         out["scan_base_recovery_point_arn"] = data["ScanBaseRecoveryPointArn"]
     if data.get("ScanId") is not None:
@@ -229,7 +241,7 @@ def deserialize_json(data: dict) -> DescribeScanJobOutput:
     if data.get("ScanJobId") is not None:
         out["scan_job_id"] = data["ScanJobId"]
     else:
-        raise DeserializationError("DescribeScanJobOutput.scan_job_id required")
+        out["scan_job_id"] = ""
     if data.get("ScanMode") is not None:
         import capo_backup.types.scan_mode
 
@@ -237,7 +249,9 @@ def deserialize_json(data: dict) -> DescribeScanJobOutput:
             data["ScanMode"]
         )
     else:
-        raise DeserializationError("DescribeScanJobOutput.scan_mode required")
+        import typing
+
+        out["scan_mode"] = typing.cast("capo_backup.types.scan_mode.ScanMode", "")
     if data.get("ScanResult") is not None:
         import capo_backup.types.scan_result_info
 
@@ -247,13 +261,15 @@ def deserialize_json(data: dict) -> DescribeScanJobOutput:
     if data.get("ScannerRoleArn") is not None:
         out["scanner_role_arn"] = data["ScannerRoleArn"]
     else:
-        raise DeserializationError("DescribeScanJobOutput.scanner_role_arn required")
+        out["scanner_role_arn"] = ""
     if data.get("State") is not None:
         import capo_backup.types.scan_state
 
         out["state"] = capo_backup.types.scan_state.deserialize_json(data["State"])
     else:
-        raise DeserializationError("DescribeScanJobOutput.state required")
+        import typing
+
+        out["state"] = typing.cast("capo_backup.types.scan_state.ScanState", "")
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
     return out

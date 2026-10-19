@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.iso_country_code
     import capo_socialmessaging.types.tag_list
@@ -45,13 +43,11 @@ def deserialize_json(data: dict) -> WabaPhoneNumberSetupFinalization:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("WabaPhoneNumberSetupFinalization.id required")
+        out["id"] = ""
     if data.get("twoFactorPin") is not None:
         out["two_factor_pin"] = data["twoFactorPin"]
     else:
-        raise DeserializationError(
-            "WabaPhoneNumberSetupFinalization.two_factor_pin required"
-        )
+        out["two_factor_pin"] = ""
     if data.get("dataLocalizationRegion") is not None:
         out["data_localization_region"] = data["dataLocalizationRegion"]
     if data.get("tags") is not None:

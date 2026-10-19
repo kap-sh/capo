@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53profiles.types.arn
     import capo_route53profiles.types.name
@@ -42,19 +40,15 @@ def deserialize_json(data: dict) -> AssociateResourceToProfileRequest:
     if data.get("ProfileId") is not None:
         out["profile_id"] = data["ProfileId"]
     else:
-        raise DeserializationError(
-            "AssociateResourceToProfileRequest.profile_id required"
-        )
+        out["profile_id"] = ""
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError(
-            "AssociateResourceToProfileRequest.resource_arn required"
-        )
+        out["resource_arn"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("AssociateResourceToProfileRequest.name required")
+        out["name"] = ""
     if data.get("ResourceProperties") is not None:
         out["resource_properties"] = data["ResourceProperties"]
     return out

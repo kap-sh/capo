@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra_ranking.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra_ranking.types.capacity_units_configuration
     import capo_kendra_ranking.types.description
@@ -52,7 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateRescoreExecutionPlanRequest:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("UpdateRescoreExecutionPlanRequest.id required")
+        out["id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("Description") is not None:

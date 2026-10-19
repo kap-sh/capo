@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.attribute_type
 
@@ -35,15 +33,17 @@ def deserialize_json(data: dict) -> MetadataAttributeSchema:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("MetadataAttributeSchema.key required")
+        out["key"] = ""
     if data.get("type") is not None:
         import capo_bedrock.types.attribute_type
 
         out["type"] = capo_bedrock.types.attribute_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("MetadataAttributeSchema.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_bedrock.types.attribute_type.AttributeType", "")
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("MetadataAttributeSchema.description required")
+        out["description"] = ""
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.instance_profile_name_type
@@ -48,9 +47,7 @@ def deserialize_query(el: Element) -> CreateInstanceProfileRequest:
     if child_instance_profile_name is not None:
         out["instance_profile_name"] = str(child_instance_profile_name.text or "")
     else:
-        raise DeserializationError(
-            "CreateInstanceProfileRequest.instance_profile_name required"
-        )
+        out["instance_profile_name"] = ""
     child_path = el.find("Path")
     if child_path is not None:
         out["path"] = str(child_path.text or "")

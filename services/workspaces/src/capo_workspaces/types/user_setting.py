@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.maximum_length
     import capo_workspaces.types.user_setting_action_enum
@@ -56,7 +54,11 @@ def deserialize_aws_json_1_1(data: dict) -> UserSetting:
             )
         )
     else:
-        raise DeserializationError("UserSetting.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_workspaces.types.user_setting_action_enum.UserSettingActionEnum", ""
+        )
     if data.get("Permission") is not None:
         import capo_workspaces.types.user_setting_permission_enum
 
@@ -66,7 +68,12 @@ def deserialize_aws_json_1_1(data: dict) -> UserSetting:
             )
         )
     else:
-        raise DeserializationError("UserSetting.permission required")
+        import typing
+
+        out["permission"] = typing.cast(
+            "capo_workspaces.types.user_setting_permission_enum.UserSettingPermissionEnum",
+            "",
+        )
     if data.get("MaximumLength") is not None:
         out["maximum_length"] = data["MaximumLength"]
     return out

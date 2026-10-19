@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.enclosed_in_string_property
     import capo_glue.types.node_name
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> MicrosoftSQLServerCatalogTarget:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("MicrosoftSQLServerCatalogTarget.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.one_input
 
@@ -48,13 +46,13 @@ def deserialize_aws_json_1_1(data: dict) -> MicrosoftSQLServerCatalogTarget:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("MicrosoftSQLServerCatalogTarget.inputs required")
+        out["inputs"] = []
     if data.get("Database") is not None:
         out["database"] = data["Database"]
     else:
-        raise DeserializationError("MicrosoftSQLServerCatalogTarget.database required")
+        out["database"] = ""
     if data.get("Table") is not None:
         out["table"] = data["Table"]
     else:
-        raise DeserializationError("MicrosoftSQLServerCatalogTarget.table required")
+        out["table"] = ""
     return out

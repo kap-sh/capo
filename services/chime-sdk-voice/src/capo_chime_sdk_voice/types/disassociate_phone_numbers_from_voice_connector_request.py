@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.e164_phone_number_list
     import capo_chime_sdk_voice.types.voice_connector_id
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> DisassociatePhoneNumbersFromVoiceConnectorRe
             )
         )
     else:
-        raise DeserializationError(
-            "DisassociatePhoneNumbersFromVoiceConnectorRequest.e164_phone_numbers required"
-        )
+        out["e164_phone_numbers"] = []
     return out
 
 

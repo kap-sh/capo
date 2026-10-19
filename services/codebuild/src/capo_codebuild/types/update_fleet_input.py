@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.compute_configuration
     import capo_codebuild.types.compute_type
@@ -133,7 +131,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateFleetInput:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("UpdateFleetInput.arn required")
+        out["arn"] = ""
     if data.get("baseCapacity") is not None:
         out["base_capacity"] = data["baseCapacity"]
     if data.get("environmentType") is not None:

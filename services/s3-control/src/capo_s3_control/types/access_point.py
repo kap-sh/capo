@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.access_point_bucket_name
@@ -80,7 +79,7 @@ def deserialize_xml(el: Element) -> AccessPoint:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("AccessPoint.name required")
+        out["name"] = ""
     child_network_origin = el.find("NetworkOrigin")
     if child_network_origin is not None:
         import capo_s3_control.types.network_origin
@@ -89,7 +88,11 @@ def deserialize_xml(el: Element) -> AccessPoint:
             child_network_origin
         )
     else:
-        raise DeserializationError("AccessPoint.network_origin required")
+        import typing
+
+        out["network_origin"] = typing.cast(
+            "capo_s3_control.types.network_origin.NetworkOrigin", ""
+        )
     child_vpc_configuration = el.find("VpcConfiguration")
     if child_vpc_configuration is not None:
         import capo_s3_control.types.vpc_configuration
@@ -103,7 +106,7 @@ def deserialize_xml(el: Element) -> AccessPoint:
     if child_bucket is not None:
         out["bucket"] = str(child_bucket.text or "")
     else:
-        raise DeserializationError("AccessPoint.bucket required")
+        out["bucket"] = ""
     child_access_point_arn = el.find("AccessPointArn")
     if child_access_point_arn is not None:
         out["access_point_arn"] = str(child_access_point_arn.text or "")

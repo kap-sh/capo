@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.s3_source_location
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> S3SourceConfiguration:
     if data.get("location") is not None:
         out["location"] = data["location"]
     else:
-        raise DeserializationError("S3SourceConfiguration.location required")
+        out["location"] = ""
     return out

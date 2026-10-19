@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.auth_modes
     import capo_appsync.types.code
@@ -67,7 +65,7 @@ def deserialize_json(data: dict) -> CreateChannelNamespaceRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateChannelNamespaceRequest.name required")
+        out["name"] = ""
     if data.get("subscribeAuthModes") is not None:
         import capo_appsync.types.auth_modes
 

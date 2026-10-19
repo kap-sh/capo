@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.bounding_box
     import capo_location.types.country_code_list
@@ -81,9 +79,7 @@ def deserialize_json(data: dict) -> SearchPlaceIndexForSuggestionsSummary:
     if data.get("Text") is not None:
         out["text"] = data["Text"]
     else:
-        raise DeserializationError(
-            "SearchPlaceIndexForSuggestionsSummary.text required"
-        )
+        out["text"] = ""
     if data.get("BiasPosition") is not None:
         import capo_location.types.position
 
@@ -109,9 +105,7 @@ def deserialize_json(data: dict) -> SearchPlaceIndexForSuggestionsSummary:
     if data.get("DataSource") is not None:
         out["data_source"] = data["DataSource"]
     else:
-        raise DeserializationError(
-            "SearchPlaceIndexForSuggestionsSummary.data_source required"
-        )
+        out["data_source"] = ""
     if data.get("Language") is not None:
         out["language"] = data["Language"]
     if data.get("FilterCategories") is not None:

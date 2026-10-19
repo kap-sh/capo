@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.byte_content_doc
     import capo_bedrock_agent.types.inline_content_type
@@ -57,7 +55,11 @@ def deserialize_json(data: dict) -> InlineContent:
             data["type"]
         )
     else:
-        raise DeserializationError("InlineContent.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent.types.inline_content_type.InlineContentType", ""
+        )
     if data.get("byteContent") is not None:
         import capo_bedrock_agent.types.byte_content_doc
 

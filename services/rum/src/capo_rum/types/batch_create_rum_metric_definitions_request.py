@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rum.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rum.types.app_monitor_name
     import capo_rum.types.destination_arn
@@ -45,9 +43,7 @@ def deserialize_json(data: dict) -> BatchCreateRumMetricDefinitionsRequest:
     if data.get("Destination") is not None:
         out["destination"] = data["Destination"]
     else:
-        raise DeserializationError(
-            "BatchCreateRumMetricDefinitionsRequest.destination required"
-        )
+        out["destination"] = ""
     if data.get("DestinationArn") is not None:
         out["destination_arn"] = data["DestinationArn"]
     if data.get("MetricDefinitions") is not None:
@@ -59,7 +55,5 @@ def deserialize_json(data: dict) -> BatchCreateRumMetricDefinitionsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchCreateRumMetricDefinitionsRequest.metric_definitions required"
-        )
+        out["metric_definitions"] = []
     return out

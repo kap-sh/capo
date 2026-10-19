@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 
 class MatchRange(TypedDict, closed=True):
     start: "int"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> MatchRange:
     if data.get("start") is not None:
         out["start"] = data["start"]
     else:
-        raise DeserializationError("MatchRange.start required")
+        out["start"] = 0
     if data.get("end") is not None:
         out["end"] = data["end"]
     else:
-        raise DeserializationError("MatchRange.end required")
+        out["end"] = 0
     return out

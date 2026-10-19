@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.channel_name
     import capo_cloudtrail.types.destinations
@@ -47,11 +45,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateChannelRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateChannelRequest.name required")
+        out["name"] = ""
     if data.get("Source") is not None:
         out["source"] = data["Source"]
     else:
-        raise DeserializationError("CreateChannelRequest.source required")
+        out["source"] = ""
     if data.get("Destinations") is not None:
         import capo_cloudtrail.types.destinations
 
@@ -61,7 +59,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateChannelRequest:
             )
         )
     else:
-        raise DeserializationError("CreateChannelRequest.destinations required")
+        out["destinations"] = []
     if data.get("Tags") is not None:
         import capo_cloudtrail.types.tags_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_forecast.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_forecast.types.name
     import capo_forecast.types.transformations
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> AttributeConfig:
     if data.get("AttributeName") is not None:
         out["attribute_name"] = data["AttributeName"]
     else:
-        raise DeserializationError("AttributeConfig.attribute_name required")
+        out["attribute_name"] = ""
     if data.get("Transformations") is not None:
         import capo_forecast.types.transformations
 
@@ -45,5 +43,5 @@ def deserialize_aws_json_1_1(data: dict) -> AttributeConfig:
             )
         )
     else:
-        raise DeserializationError("AttributeConfig.transformations required")
+        out["transformations"] = {}
     return out

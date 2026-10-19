@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.endpoints
 
@@ -35,5 +33,5 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeEndpointsResponse:
             data["Endpoints"]
         )
     else:
-        raise DeserializationError("DescribeEndpointsResponse.endpoints required")
+        out["endpoints"] = []
     return out

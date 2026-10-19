@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_sts._protocol.xml import Element
-from capo_sts.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sts.types.arn_type
@@ -34,10 +33,10 @@ def deserialize_query(el: Element) -> AssumedRoleUser:
     if child_assumed_role_id is not None:
         out["assumed_role_id"] = str(child_assumed_role_id.text or "")
     else:
-        raise DeserializationError("AssumedRoleUser.assumed_role_id required")
+        out["assumed_role_id"] = ""
     child_arn = el.find("Arn")
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("AssumedRoleUser.arn required")
+        out["arn"] = ""
     return out

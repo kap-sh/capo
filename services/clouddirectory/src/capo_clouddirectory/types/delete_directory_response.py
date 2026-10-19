@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_clouddirectory.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_clouddirectory.types.arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DeleteDirectoryResponse:
     if data.get("DirectoryArn") is not None:
         out["directory_arn"] = data["DirectoryArn"]
     else:
-        raise DeserializationError("DeleteDirectoryResponse.directory_arn required")
+        out["directory_arn"] = ""
     return out

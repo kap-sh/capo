@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.credentials_provider_configurations
     import capo_bedrock_agentcore_control.types.date_timestamp
@@ -86,19 +84,15 @@ def deserialize_json(data: dict) -> UpdatePaymentConnectorResponse:
     if data.get("paymentConnectorId") is not None:
         out["payment_connector_id"] = data["paymentConnectorId"]
     else:
-        raise DeserializationError(
-            "UpdatePaymentConnectorResponse.payment_connector_id required"
-        )
+        out["payment_connector_id"] = ""
     if data.get("paymentManagerId") is not None:
         out["payment_manager_id"] = data["paymentManagerId"]
     else:
-        raise DeserializationError(
-            "UpdatePaymentConnectorResponse.payment_manager_id required"
-        )
+        out["payment_manager_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdatePaymentConnectorResponse.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         import capo_bedrock_agentcore_control.types.payment_connector_type
 
@@ -108,7 +102,12 @@ def deserialize_json(data: dict) -> UpdatePaymentConnectorResponse:
             )
         )
     else:
-        raise DeserializationError("UpdatePaymentConnectorResponse.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.payment_connector_type.PaymentConnectorType",
+            "",
+        )
     if data.get("credentialProviderConfigurations") is not None:
         import capo_bedrock_agentcore_control.types.credentials_provider_configurations
 
@@ -118,9 +117,7 @@ def deserialize_json(data: dict) -> UpdatePaymentConnectorResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdatePaymentConnectorResponse.credential_provider_configurations required"
-        )
+        out["credential_provider_configurations"] = []
     if data.get("lastUpdatedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -130,8 +127,10 @@ def deserialize_json(data: dict) -> UpdatePaymentConnectorResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdatePaymentConnectorResponse.last_updated_at required"
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.payment_connector_status
@@ -142,7 +141,12 @@ def deserialize_json(data: dict) -> UpdatePaymentConnectorResponse:
             )
         )
     else:
-        raise DeserializationError("UpdatePaymentConnectorResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.payment_connector_status.PaymentConnectorStatus",
+            "",
+        )
     if data.get("authorizationUrl") is not None:
         out["authorization_url"] = data["authorizationUrl"]
     return out

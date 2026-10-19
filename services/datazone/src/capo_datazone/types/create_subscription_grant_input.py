@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.asset_target_names
     import capo_datazone.types.domain_id
@@ -60,9 +58,7 @@ def deserialize_json(data: dict) -> CreateSubscriptionGrantInput:
     if data.get("environmentIdentifier") is not None:
         out["environment_identifier"] = data["environmentIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateSubscriptionGrantInput.environment_identifier required"
-        )
+        out["environment_identifier"] = ""
     if data.get("subscriptionTargetIdentifier") is not None:
         out["subscription_target_identifier"] = data["subscriptionTargetIdentifier"]
     if data.get("grantedEntity") is not None:
@@ -74,9 +70,9 @@ def deserialize_json(data: dict) -> CreateSubscriptionGrantInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateSubscriptionGrantInput.granted_entity required"
-        )
+        import capo_datazone.types._unknown
+
+        out["granted_entity"] = capo_datazone.types._unknown.UnknownUnionMember("")
     if data.get("assetTargetNames") is not None:
         import capo_datazone.types.asset_target_names
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_interconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_interconnect.types.connection_bandwidth
     import capo_interconnect.types.environment_id
@@ -43,15 +41,11 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeConnectionProposalResponse:
     if data.get("bandwidth") is not None:
         out["bandwidth"] = data["bandwidth"]
     else:
-        raise DeserializationError(
-            "DescribeConnectionProposalResponse.bandwidth required"
-        )
+        out["bandwidth"] = ""
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError(
-            "DescribeConnectionProposalResponse.environment_id required"
-        )
+        out["environment_id"] = ""
     if data.get("provider") is not None:
         import capo_interconnect.types.provider
 
@@ -59,13 +53,11 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeConnectionProposalResponse:
             data["provider"]
         )
     else:
-        raise DeserializationError(
-            "DescribeConnectionProposalResponse.provider required"
-        )
+        import capo_interconnect.types._unknown
+
+        out["provider"] = capo_interconnect.types._unknown.UnknownUnionMember("")
     if data.get("location") is not None:
         out["location"] = data["location"]
     else:
-        raise DeserializationError(
-            "DescribeConnectionProposalResponse.location required"
-        )
+        out["location"] = ""
     return out

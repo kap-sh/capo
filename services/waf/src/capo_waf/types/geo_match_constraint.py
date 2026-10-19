@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_waf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf.types.geo_match_constraint_type
     import capo_waf.types.geo_match_constraint_value
@@ -43,7 +41,11 @@ def deserialize_aws_json_1_1(data: dict) -> GeoMatchConstraint:
             data["Type"]
         )
     else:
-        raise DeserializationError("GeoMatchConstraint.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_waf.types.geo_match_constraint_type.GeoMatchConstraintType", ""
+        )
     if data.get("Value") is not None:
         import capo_waf.types.geo_match_constraint_value
 
@@ -53,5 +55,9 @@ def deserialize_aws_json_1_1(data: dict) -> GeoMatchConstraint:
             )
         )
     else:
-        raise DeserializationError("GeoMatchConstraint.value required")
+        import typing
+
+        out["value"] = typing.cast(
+            "capo_waf.types.geo_match_constraint_value.GeoMatchConstraintValue", ""
+        )
     return out

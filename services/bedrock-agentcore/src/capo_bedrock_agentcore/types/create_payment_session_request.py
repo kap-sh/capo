@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.client_token
     import capo_bedrock_agentcore.types.payment_agent_name
@@ -54,9 +52,7 @@ def deserialize_json(data: dict) -> CreatePaymentSessionRequest:
     if data.get("paymentManagerArn") is not None:
         out["payment_manager_arn"] = data["paymentManagerArn"]
     else:
-        raise DeserializationError(
-            "CreatePaymentSessionRequest.payment_manager_arn required"
-        )
+        out["payment_manager_arn"] = ""
     if data.get("limits") is not None:
         import capo_bedrock_agentcore.types.session_limits
 
@@ -66,9 +62,7 @@ def deserialize_json(data: dict) -> CreatePaymentSessionRequest:
     if data.get("expiryTimeInMinutes") is not None:
         out["expiry_time_in_minutes"] = data["expiryTimeInMinutes"]
     else:
-        raise DeserializationError(
-            "CreatePaymentSessionRequest.expiry_time_in_minutes required"
-        )
+        out["expiry_time_in_minutes"] = 0
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

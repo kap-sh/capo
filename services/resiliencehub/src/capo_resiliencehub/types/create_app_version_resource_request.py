@@ -92,7 +92,7 @@ def deserialize_json(data: dict) -> CreateAppVersionResourceRequest:
     if data.get("appArn") is not None:
         out["app_arn"] = data["appArn"]
     else:
-        raise DeserializationError("CreateAppVersionResourceRequest.app_arn required")
+        out["app_arn"] = ""
     if data.get("resourceName") is not None:
         out["resource_name"] = data["resourceName"]
     if data.get("logicalResourceId") is not None:
@@ -110,9 +110,7 @@ def deserialize_json(data: dict) -> CreateAppVersionResourceRequest:
     if data.get("physicalResourceId") is not None:
         out["physical_resource_id"] = data["physicalResourceId"]
     else:
-        raise DeserializationError(
-            "CreateAppVersionResourceRequest.physical_resource_id required"
-        )
+        out["physical_resource_id"] = ""
     if data.get("awsRegion") is not None:
         out["aws_region"] = data["awsRegion"]
     if data.get("awsAccountId") is not None:
@@ -120,9 +118,7 @@ def deserialize_json(data: dict) -> CreateAppVersionResourceRequest:
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError(
-            "CreateAppVersionResourceRequest.resource_type required"
-        )
+        out["resource_type"] = ""
     if data.get("appComponents") is not None:
         import capo_resiliencehub.types.app_component_name_list
 
@@ -132,9 +128,7 @@ def deserialize_json(data: dict) -> CreateAppVersionResourceRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAppVersionResourceRequest.app_components required"
-        )
+        out["app_components"] = []
     if data.get("additionalInfo") is not None:
         import capo_resiliencehub.types.additional_info_map
 

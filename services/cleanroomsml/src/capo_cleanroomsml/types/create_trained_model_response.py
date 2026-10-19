@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.trained_model_arn
     import capo_cleanroomsml.types.uuid
@@ -32,9 +30,7 @@ def deserialize_json(data: dict) -> CreateTrainedModelResponse:
     if data.get("trainedModelArn") is not None:
         out["trained_model_arn"] = data["trainedModelArn"]
     else:
-        raise DeserializationError(
-            "CreateTrainedModelResponse.trained_model_arn required"
-        )
+        out["trained_model_arn"] = ""
     if data.get("versionIdentifier") is not None:
         out["version_identifier"] = data["versionIdentifier"]
     return out

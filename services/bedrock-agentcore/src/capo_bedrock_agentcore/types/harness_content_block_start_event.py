@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore._protocol.eventstream import HeaderValue, Message
-from capo_bedrock_agentcore.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.harness_content_block_start
@@ -38,9 +37,7 @@ def deserialize_json(data: dict) -> HarnessContentBlockStartEvent:
     if data.get("contentBlockIndex") is not None:
         out["content_block_index"] = data["contentBlockIndex"]
     else:
-        raise DeserializationError(
-            "HarnessContentBlockStartEvent.content_block_index required"
-        )
+        out["content_block_index"] = 0
     if data.get("start") is not None:
         import capo_bedrock_agentcore.types.harness_content_block_start
 
@@ -50,7 +47,9 @@ def deserialize_json(data: dict) -> HarnessContentBlockStartEvent:
             )
         )
     else:
-        raise DeserializationError("HarnessContentBlockStartEvent.start required")
+        import capo_bedrock_agentcore.types._unknown
+
+        out["start"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
     return out
 
 

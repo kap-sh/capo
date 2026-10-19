@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.__string
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> AutoExportRevisionDestinationEntry:
     if data.get("Bucket") is not None:
         out["bucket"] = data["Bucket"]
     else:
-        raise DeserializationError("AutoExportRevisionDestinationEntry.bucket required")
+        out["bucket"] = ""
     if data.get("KeyPattern") is not None:
         out["key_pattern"] = data["KeyPattern"]
     return out

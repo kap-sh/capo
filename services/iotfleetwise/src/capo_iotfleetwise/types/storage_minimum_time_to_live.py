@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.storage_minimum_time_to_live_unit
     import capo_iotfleetwise.types.storage_minimum_time_to_live_value
@@ -43,9 +41,14 @@ def deserialize_aws_json_1_0(data: dict) -> StorageMinimumTimeToLive:
             )
         )
     else:
-        raise DeserializationError("StorageMinimumTimeToLive.unit required")
+        import typing
+
+        out["unit"] = typing.cast(
+            "capo_iotfleetwise.types.storage_minimum_time_to_live_unit.StorageMinimumTimeToLiveUnit",
+            "",
+        )
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("StorageMinimumTimeToLive.value required")
+        out["value"] = 0
     return out

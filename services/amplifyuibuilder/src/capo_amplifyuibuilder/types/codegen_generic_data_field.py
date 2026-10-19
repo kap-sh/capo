@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.codegen_generic_data_field_data_type
     import capo_amplifyuibuilder.types.codegen_generic_data_relationship_type
@@ -64,23 +62,28 @@ def deserialize_json(data: dict) -> CodegenGenericDataField:
             )
         )
     else:
-        raise DeserializationError("CodegenGenericDataField.data_type required")
+        import typing
+
+        out["data_type"] = typing.cast(
+            "capo_amplifyuibuilder.types.codegen_generic_data_field_data_type.CodegenGenericDataFieldDataType",
+            "",
+        )
     if data.get("dataTypeValue") is not None:
         out["data_type_value"] = data["dataTypeValue"]
     else:
-        raise DeserializationError("CodegenGenericDataField.data_type_value required")
+        out["data_type_value"] = ""
     if data.get("required") is not None:
         out["required"] = data["required"]
     else:
-        raise DeserializationError("CodegenGenericDataField.required required")
+        out["required"] = False
     if data.get("readOnly") is not None:
         out["read_only"] = data["readOnly"]
     else:
-        raise DeserializationError("CodegenGenericDataField.read_only required")
+        out["read_only"] = False
     if data.get("isArray") is not None:
         out["is_array"] = data["isArray"]
     else:
-        raise DeserializationError("CodegenGenericDataField.is_array required")
+        out["is_array"] = False
     if data.get("relationship") is not None:
         import capo_amplifyuibuilder.types.codegen_generic_data_relationship_type
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.name
     import capo_customer_profiles.types.request_value_list
@@ -41,11 +39,11 @@ def deserialize_json(data: dict) -> DeleteProfileKeyRequest:
     if data.get("ProfileId") is not None:
         out["profile_id"] = data["ProfileId"]
     else:
-        raise DeserializationError("DeleteProfileKeyRequest.profile_id required")
+        out["profile_id"] = ""
     if data.get("KeyName") is not None:
         out["key_name"] = data["KeyName"]
     else:
-        raise DeserializationError("DeleteProfileKeyRequest.key_name required")
+        out["key_name"] = ""
     if data.get("Values") is not None:
         import capo_customer_profiles.types.request_value_list
 
@@ -55,5 +53,5 @@ def deserialize_json(data: dict) -> DeleteProfileKeyRequest:
             )
         )
     else:
-        raise DeserializationError("DeleteProfileKeyRequest.values required")
+        out["values"] = []
     return out

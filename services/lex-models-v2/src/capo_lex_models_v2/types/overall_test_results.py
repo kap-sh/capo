@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.overall_test_result_item_list
 
@@ -39,5 +37,5 @@ def deserialize_json(data: dict) -> OverallTestResults:
             )
         )
     else:
-        raise DeserializationError("OverallTestResults.items required")
+        out["items"] = []
     return out

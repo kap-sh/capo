@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.blob
     import capo_appsync.types.string
@@ -34,5 +32,5 @@ def deserialize_json(data: dict) -> StartSchemaCreationRequest:
 
         out["definition"] = capo_appsync.types.blob.deserialize_json(data["definition"])
     else:
-        raise DeserializationError("StartSchemaCreationRequest.definition required")
+        out["definition"] = b""
     return out

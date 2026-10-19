@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.collaboration_identifier
     import capo_cleanrooms.types.membership_job_log_status
@@ -104,9 +102,7 @@ def deserialize_json(data: dict) -> CreateMembershipInput:
     if data.get("collaborationIdentifier") is not None:
         out["collaboration_identifier"] = data["collaborationIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateMembershipInput.collaboration_identifier required"
-        )
+        out["collaboration_identifier"] = ""
     if data.get("queryLogStatus") is not None:
         import capo_cleanrooms.types.membership_query_log_status
 
@@ -116,7 +112,12 @@ def deserialize_json(data: dict) -> CreateMembershipInput:
             )
         )
     else:
-        raise DeserializationError("CreateMembershipInput.query_log_status required")
+        import typing
+
+        out["query_log_status"] = typing.cast(
+            "capo_cleanrooms.types.membership_query_log_status.MembershipQueryLogStatus",
+            "",
+        )
     if data.get("jobLogStatus") is not None:
         import capo_cleanrooms.types.membership_job_log_status
 

@@ -36,7 +36,7 @@ def deserialize_xml(el: Element) -> CreateHealthCheckRequest:
     if child_caller_reference is not None:
         out["caller_reference"] = str(child_caller_reference.text or "")
     else:
-        raise DeserializationError("CreateHealthCheckRequest.caller_reference required")
+        out["caller_reference"] = ""
     child_health_check_config = el.find("HealthCheckConfig")
     if child_health_check_config is not None:
         import capo_route_53.types.health_check_config

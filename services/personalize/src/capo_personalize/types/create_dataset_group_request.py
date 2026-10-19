@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.domain
     import capo_personalize.types.kms_key_arn
@@ -53,7 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDatasetGroupRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateDatasetGroupRequest.name required")
+        out["name"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     if data.get("kmsKeyArn") is not None:

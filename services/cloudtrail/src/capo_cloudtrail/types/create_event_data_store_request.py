@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.advanced_event_selectors
     import capo_cloudtrail.types.billing_mode
@@ -91,7 +89,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEventDataStoreRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateEventDataStoreRequest.name required")
+        out["name"] = ""
     if data.get("AdvancedEventSelectors") is not None:
         import capo_cloudtrail.types.advanced_event_selectors
 

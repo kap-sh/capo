@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.ingress_point_configuration
     import capo_mailmanager.types.ingress_point_id
@@ -81,9 +79,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateIngressPointRequest:
     if data.get("IngressPointId") is not None:
         out["ingress_point_id"] = data["IngressPointId"]
     else:
-        raise DeserializationError(
-            "UpdateIngressPointRequest.ingress_point_id required"
-        )
+        out["ingress_point_id"] = ""
     if data.get("IngressPointName") is not None:
         out["ingress_point_name"] = data["IngressPointName"]
     if data.get("StatusToUpdate") is not None:

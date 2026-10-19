@@ -49,7 +49,7 @@ def deserialize_json(data: dict) -> TestSetTurnRecord:
     if data.get("recordNumber") is not None:
         out["record_number"] = data["recordNumber"]
     else:
-        raise DeserializationError("TestSetTurnRecord.record_number required")
+        out["record_number"] = 0
     if data.get("conversationId") is not None:
         out["conversation_id"] = data["conversationId"]
     if data.get("turnNumber") is not None:

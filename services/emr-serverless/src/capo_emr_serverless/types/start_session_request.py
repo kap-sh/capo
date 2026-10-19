@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_serverless.types.application_id
     import capo_emr_serverless.types.client_token
@@ -64,11 +62,11 @@ def deserialize_json(data: dict) -> StartSessionRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("StartSessionRequest.client_token required")
+        out["client_token"] = ""
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:
-        raise DeserializationError("StartSessionRequest.execution_role_arn required")
+        out["execution_role_arn"] = ""
     if data.get("configurationOverrides") is not None:
         import capo_emr_serverless.types.session_configuration_overrides
 

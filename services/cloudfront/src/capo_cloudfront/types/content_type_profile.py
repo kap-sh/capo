@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.format
@@ -40,7 +39,9 @@ def deserialize_xml(el: Element) -> ContentTypeProfile:
 
         out["format"] = capo_cloudfront.types.format.deserialize_xml(child_format)
     else:
-        raise DeserializationError("ContentTypeProfile.format required")
+        import typing
+
+        out["format"] = typing.cast("capo_cloudfront.types.format.Format", "")
     child_profile_id = el.find("ProfileId")
     if child_profile_id is not None:
         out["profile_id"] = str(child_profile_id.text or "")
@@ -48,5 +49,5 @@ def deserialize_xml(el: Element) -> ContentTypeProfile:
     if child_content_type is not None:
         out["content_type"] = str(child_content_type.text or "")
     else:
-        raise DeserializationError("ContentTypeProfile.content_type required")
+        out["content_type"] = ""
     return out

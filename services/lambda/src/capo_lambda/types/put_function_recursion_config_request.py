@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.recursive_loop
     import capo_lambda.types.unqualified_function_name
@@ -38,7 +36,9 @@ def deserialize_json(data: dict) -> PutFunctionRecursionConfigRequest:
             data["RecursiveLoop"]
         )
     else:
-        raise DeserializationError(
-            "PutFunctionRecursionConfigRequest.recursive_loop required"
+        import typing
+
+        out["recursive_loop"] = typing.cast(
+            "capo_lambda.types.recursive_loop.RecursiveLoop", ""
         )
     return out

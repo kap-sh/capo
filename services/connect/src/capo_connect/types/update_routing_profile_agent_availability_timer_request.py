@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.agent_availability_timer
     import capo_connect.types.instance_id
@@ -47,7 +45,9 @@ def deserialize_json(data: dict) -> UpdateRoutingProfileAgentAvailabilityTimerRe
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateRoutingProfileAgentAvailabilityTimerRequest.agent_availability_timer required"
+        import typing
+
+        out["agent_availability_timer"] = typing.cast(
+            "capo_connect.types.agent_availability_timer.AgentAvailabilityTimer", ""
         )
     return out

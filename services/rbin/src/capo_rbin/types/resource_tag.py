@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rbin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rbin.types.resource_tag_key
     import capo_rbin.types.resource_tag_value
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> ResourceTag:
     if data.get("ResourceTagKey") is not None:
         out["resource_tag_key"] = data["ResourceTagKey"]
     else:
-        raise DeserializationError("ResourceTag.resource_tag_key required")
+        out["resource_tag_key"] = ""
     if data.get("ResourceTagValue") is not None:
         out["resource_tag_value"] = data["ResourceTagValue"]
     return out

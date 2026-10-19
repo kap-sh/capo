@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.amazon_resource_name
     import capo_config_service.types.recorder_name
@@ -35,13 +33,9 @@ def deserialize_aws_json_1_1(
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError(
-            "DeleteServiceLinkedConfigurationRecorderResponse.arn required"
-        )
+        out["arn"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError(
-            "DeleteServiceLinkedConfigurationRecorderResponse.name required"
-        )
+        out["name"] = ""
     return out

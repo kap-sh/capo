@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.github_repo_owner_type
 
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> RegisteredGithubServiceDetails:
     if data.get("owner") is not None:
         out["owner"] = data["owner"]
     else:
-        raise DeserializationError("RegisteredGithubServiceDetails.owner required")
+        out["owner"] = ""
     if data.get("ownerType") is not None:
         import capo_devops_agent.types.github_repo_owner_type
 
@@ -48,7 +46,11 @@ def deserialize_json(data: dict) -> RegisteredGithubServiceDetails:
             )
         )
     else:
-        raise DeserializationError("RegisteredGithubServiceDetails.owner_type required")
+        import typing
+
+        out["owner_type"] = typing.cast(
+            "capo_devops_agent.types.github_repo_owner_type.GithubRepoOwnerType", ""
+        )
     if data.get("targetUrl") is not None:
         out["target_url"] = data["targetUrl"]
     return out

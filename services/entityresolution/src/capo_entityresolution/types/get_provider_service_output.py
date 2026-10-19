@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.entity_name
     import capo_entityresolution.types.provider_component_schema
@@ -115,19 +113,15 @@ def deserialize_json(data: dict) -> GetProviderServiceOutput:
     if data.get("providerName") is not None:
         out["provider_name"] = data["providerName"]
     else:
-        raise DeserializationError("GetProviderServiceOutput.provider_name required")
+        out["provider_name"] = ""
     if data.get("providerServiceName") is not None:
         out["provider_service_name"] = data["providerServiceName"]
     else:
-        raise DeserializationError(
-            "GetProviderServiceOutput.provider_service_name required"
-        )
+        out["provider_service_name"] = ""
     if data.get("providerServiceDisplayName") is not None:
         out["provider_service_display_name"] = data["providerServiceDisplayName"]
     else:
-        raise DeserializationError(
-            "GetProviderServiceOutput.provider_service_display_name required"
-        )
+        out["provider_service_display_name"] = ""
     if data.get("providerServiceType") is not None:
         import capo_entityresolution.types.service_type
 
@@ -137,15 +131,15 @@ def deserialize_json(data: dict) -> GetProviderServiceOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetProviderServiceOutput.provider_service_type required"
+        import typing
+
+        out["provider_service_type"] = typing.cast(
+            "capo_entityresolution.types.service_type.ServiceType", ""
         )
     if data.get("providerServiceArn") is not None:
         out["provider_service_arn"] = data["providerServiceArn"]
     else:
-        raise DeserializationError(
-            "GetProviderServiceOutput.provider_service_arn required"
-        )
+        out["provider_service_arn"] = ""
     if data.get("providerConfigurationDefinition") is not None:
         out["provider_configuration_definition"] = data[
             "providerConfigurationDefinition"
@@ -169,23 +163,21 @@ def deserialize_json(data: dict) -> GetProviderServiceOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetProviderServiceOutput.provider_endpoint_configuration required"
+        import capo_entityresolution.types._unknown
+
+        out["provider_endpoint_configuration"] = (
+            capo_entityresolution.types._unknown.UnknownUnionMember("")
         )
     if data.get("anonymizedOutput") is not None:
         out["anonymized_output"] = data["anonymizedOutput"]
     else:
-        raise DeserializationError(
-            "GetProviderServiceOutput.anonymized_output required"
-        )
+        out["anonymized_output"] = False
     if data.get("providerEntityOutputDefinition") is not None:
         out["provider_entity_output_definition"] = data[
             "providerEntityOutputDefinition"
         ]
     else:
-        raise DeserializationError(
-            "GetProviderServiceOutput.provider_entity_output_definition required"
-        )
+        out["provider_entity_output_definition"] = None
     if data.get("providerIntermediateDataAccessConfiguration") is not None:
         import capo_entityresolution.types.provider_intermediate_data_access_configuration
 

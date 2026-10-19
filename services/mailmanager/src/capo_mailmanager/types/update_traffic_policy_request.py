@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.accept_action
     import capo_mailmanager.types.max_message_size_bytes
@@ -65,9 +63,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateTrafficPolicyRequest:
     if data.get("TrafficPolicyId") is not None:
         out["traffic_policy_id"] = data["TrafficPolicyId"]
     else:
-        raise DeserializationError(
-            "UpdateTrafficPolicyRequest.traffic_policy_id required"
-        )
+        out["traffic_policy_id"] = ""
     if data.get("TrafficPolicyName") is not None:
         out["traffic_policy_name"] = data["TrafficPolicyName"]
     if data.get("PolicyStatements") is not None:

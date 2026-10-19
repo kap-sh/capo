@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.next_token
     import capo_deadline.types.storage_profile_summaries
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> ListStorageProfilesForQueueResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListStorageProfilesForQueueResponse.storage_profiles required"
-        )
+        out["storage_profiles"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.boolean
     import capo_imagebuilder.types.client_token
@@ -56,9 +54,7 @@ def deserialize_json(data: dict) -> CreateDistributionConfigurationRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "CreateDistributionConfigurationRequest.name required"
-        )
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("distributions") is not None:
@@ -70,9 +66,7 @@ def deserialize_json(data: dict) -> CreateDistributionConfigurationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDistributionConfigurationRequest.distributions required"
-        )
+        out["distributions"] = []
     if data.get("tags") is not None:
         import capo_imagebuilder.types.tag_map
 
@@ -80,9 +74,7 @@ def deserialize_json(data: dict) -> CreateDistributionConfigurationRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError(
-            "CreateDistributionConfigurationRequest.client_token required"
-        )
+        out["client_token"] = ""
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
     return out

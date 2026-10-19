@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.id_namespace_type
 
@@ -41,7 +39,9 @@ def deserialize_json(
             )
         )
     else:
-        raise DeserializationError(
-            "IdNamespaceAssociationInputReferencePropertiesSummary.id_namespace_type required"
+        import typing
+
+        out["id_namespace_type"] = typing.cast(
+            "capo_cleanrooms.types.id_namespace_type.IdNamespaceType", ""
         )
     return out

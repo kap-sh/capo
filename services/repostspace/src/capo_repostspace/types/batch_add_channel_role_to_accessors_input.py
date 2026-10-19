@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_repostspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_repostspace.types.accessor_id_list
     import capo_repostspace.types.channel_id
@@ -49,9 +47,7 @@ def deserialize_json(data: dict) -> BatchAddChannelRoleToAccessorsInput:
             data["accessorIds"]
         )
     else:
-        raise DeserializationError(
-            "BatchAddChannelRoleToAccessorsInput.accessor_ids required"
-        )
+        out["accessor_ids"] = []
     if data.get("channelRole") is not None:
         import capo_repostspace.types.channel_role
 
@@ -59,7 +55,9 @@ def deserialize_json(data: dict) -> BatchAddChannelRoleToAccessorsInput:
             data["channelRole"]
         )
     else:
-        raise DeserializationError(
-            "BatchAddChannelRoleToAccessorsInput.channel_role required"
+        import typing
+
+        out["channel_role"] = typing.cast(
+            "capo_repostspace.types.channel_role.ChannelRole", ""
         )
     return out

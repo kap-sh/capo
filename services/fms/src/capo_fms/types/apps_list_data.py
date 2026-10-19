@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fms.types.apps_list
     import capo_fms.types.list_id
@@ -77,7 +75,7 @@ def deserialize_aws_json_1_1(data: dict) -> AppsListData:
     if data.get("ListName") is not None:
         out["list_name"] = data["ListName"]
     else:
-        raise DeserializationError("AppsListData.list_name required")
+        out["list_name"] = ""
     if data.get("ListUpdateToken") is not None:
         out["list_update_token"] = data["ListUpdateToken"]
     if data.get("CreateTime") is not None:
@@ -99,7 +97,7 @@ def deserialize_aws_json_1_1(data: dict) -> AppsListData:
             data["AppsList"]
         )
     else:
-        raise DeserializationError("AppsListData.apps_list required")
+        out["apps_list"] = []
     if data.get("PreviousAppsList") is not None:
         import capo_fms.types.previous_apps_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.encryption_type
     import capo_network_firewall.types.key_id
@@ -44,5 +42,9 @@ def deserialize_aws_json_1_0(data: dict) -> EncryptionConfiguration:
             )
         )
     else:
-        raise DeserializationError("EncryptionConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_network_firewall.types.encryption_type.EncryptionType", ""
+        )
     return out

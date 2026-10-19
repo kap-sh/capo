@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.database
     import capo_quicksight.types.host
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> AuroraPostgreSqlParameters:
     if data.get("Host") is not None:
         out["host"] = data["Host"]
     else:
-        raise DeserializationError("AuroraPostgreSqlParameters.host required")
+        out["host"] = ""
     if data.get("Port") is not None:
         out["port"] = data["Port"]
     else:
-        raise DeserializationError("AuroraPostgreSqlParameters.port required")
+        out["port"] = 0
     if data.get("Database") is not None:
         out["database"] = data["Database"]
     else:
-        raise DeserializationError("AuroraPostgreSqlParameters.database required")
+        out["database"] = ""
     return out

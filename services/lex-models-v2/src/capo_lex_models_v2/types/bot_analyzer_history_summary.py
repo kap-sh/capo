@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.bot_analyzer_status
     import capo_lex_models_v2.types.timestamp
@@ -54,8 +52,10 @@ def deserialize_json(data: dict) -> BotAnalyzerHistorySummary:
             )
         )
     else:
-        raise DeserializationError(
-            "BotAnalyzerHistorySummary.bot_analyzer_status required"
+        import typing
+
+        out["bot_analyzer_status"] = typing.cast(
+            "capo_lex_models_v2.types.bot_analyzer_status.BotAnalyzerStatus", ""
         )
     if data.get("creationDateTime") is not None:
         import capo_lex_models_v2.types.timestamp
@@ -66,7 +66,5 @@ def deserialize_json(data: dict) -> BotAnalyzerHistorySummary:
     if data.get("botAnalyzerRequestId") is not None:
         out["bot_analyzer_request_id"] = data["botAnalyzerRequestId"]
     else:
-        raise DeserializationError(
-            "BotAnalyzerHistorySummary.bot_analyzer_request_id required"
-        )
+        out["bot_analyzer_request_id"] = ""
     return out

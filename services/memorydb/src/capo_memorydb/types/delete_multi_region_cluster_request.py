@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_memorydb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_memorydb.types.string
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteMultiRegionClusterRequest:
     if data.get("MultiRegionClusterName") is not None:
         out["multi_region_cluster_name"] = data["MultiRegionClusterName"]
     else:
-        raise DeserializationError(
-            "DeleteMultiRegionClusterRequest.multi_region_cluster_name required"
-        )
+        out["multi_region_cluster_name"] = ""
     return out

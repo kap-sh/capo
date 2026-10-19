@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notifications.types.notification_hub_status
     import capo_notifications.types.notification_hub_status_reason
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> NotificationHubStatusSummary:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("NotificationHubStatusSummary.status required")
+        out["status"] = ""
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
     else:
-        raise DeserializationError("NotificationHubStatusSummary.reason required")
+        out["reason"] = ""
     return out

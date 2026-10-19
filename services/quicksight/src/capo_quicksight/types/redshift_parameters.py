@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.cluster_id
     import capo_quicksight.types.database
@@ -73,7 +71,7 @@ def deserialize_json(data: dict) -> RedshiftParameters:
     if data.get("Database") is not None:
         out["database"] = data["Database"]
     else:
-        raise DeserializationError("RedshiftParameters.database required")
+        out["database"] = ""
     if data.get("ClusterId") is not None:
         out["cluster_id"] = data["ClusterId"]
     if data.get("IAMParameters") is not None:

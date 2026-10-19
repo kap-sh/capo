@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.device_key_type
     import capo_cognito_identity_provider.types.user_pool_id_type
@@ -37,15 +35,15 @@ def deserialize_aws_json_1_1(data: dict) -> AdminGetDeviceRequest:
     if data.get("DeviceKey") is not None:
         out["device_key"] = data["DeviceKey"]
     else:
-        raise DeserializationError("AdminGetDeviceRequest.device_key required")
+        out["device_key"] = ""
     if data.get("UserPoolId") is not None:
         out["user_pool_id"] = data["UserPoolId"]
     else:
-        raise DeserializationError("AdminGetDeviceRequest.user_pool_id required")
+        out["user_pool_id"] = ""
     if data.get("Username") is not None:
         out["username"] = data["Username"]
     else:
-        raise DeserializationError("AdminGetDeviceRequest.username required")
+        out["username"] = ""
     return out
 
 

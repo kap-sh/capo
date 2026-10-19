@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.owner_account
     import capo_redshift_serverless.types.subnet_id_list
@@ -59,7 +57,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEndpointAccessRequest:
     if data.get("endpointName") is not None:
         out["endpoint_name"] = data["endpointName"]
     else:
-        raise DeserializationError("CreateEndpointAccessRequest.endpoint_name required")
+        out["endpoint_name"] = ""
     if data.get("subnetIds") is not None:
         import capo_redshift_serverless.types.subnet_id_list
 
@@ -69,13 +67,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEndpointAccessRequest:
             )
         )
     else:
-        raise DeserializationError("CreateEndpointAccessRequest.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("workgroupName") is not None:
         out["workgroup_name"] = data["workgroupName"]
     else:
-        raise DeserializationError(
-            "CreateEndpointAccessRequest.workgroup_name required"
-        )
+        out["workgroup_name"] = ""
     if data.get("vpcSecurityGroupIds") is not None:
         import capo_redshift_serverless.types.vpc_security_group_id_list
 

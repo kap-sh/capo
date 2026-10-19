@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3outposts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3outposts.types.customer_owned_ipv4_pool
     import capo_s3outposts.types.endpoint_access_type
@@ -53,15 +51,15 @@ def deserialize_json(data: dict) -> CreateEndpointRequest:
     if data.get("OutpostId") is not None:
         out["outpost_id"] = data["OutpostId"]
     else:
-        raise DeserializationError("CreateEndpointRequest.outpost_id required")
+        out["outpost_id"] = ""
     if data.get("SubnetId") is not None:
         out["subnet_id"] = data["SubnetId"]
     else:
-        raise DeserializationError("CreateEndpointRequest.subnet_id required")
+        out["subnet_id"] = ""
     if data.get("SecurityGroupId") is not None:
         out["security_group_id"] = data["SecurityGroupId"]
     else:
-        raise DeserializationError("CreateEndpointRequest.security_group_id required")
+        out["security_group_id"] = ""
     if data.get("AccessType") is not None:
         import capo_s3outposts.types.endpoint_access_type
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> MigrationSource:
     if data.get("datasourceArn") is not None:
         out["datasource_arn"] = data["datasourceArn"]
     else:
-        raise DeserializationError("MigrationSource.datasource_arn required")
+        out["datasource_arn"] = ""
     return out

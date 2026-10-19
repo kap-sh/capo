@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.address
@@ -78,7 +77,9 @@ def deserialize_query(el: Element) -> RecipientDsnFields:
 
         out["action"] = capo_ses.types.dsn_action.deserialize_query(child_action)
     else:
-        raise DeserializationError("RecipientDsnFields.action required")
+        import typing
+
+        out["action"] = typing.cast("capo_ses.types.dsn_action.DsnAction", "")
     child_remote_mta = el.find("RemoteMta")
     if child_remote_mta is not None:
         out["remote_mta"] = str(child_remote_mta.text or "")
@@ -86,7 +87,7 @@ def deserialize_query(el: Element) -> RecipientDsnFields:
     if child_status is not None:
         out["status"] = str(child_status.text or "")
     else:
-        raise DeserializationError("RecipientDsnFields.status required")
+        out["status"] = ""
     child_diagnostic_code = el.find("DiagnosticCode")
     if child_diagnostic_code is not None:
         out["diagnostic_code"] = str(child_diagnostic_code.text or "")

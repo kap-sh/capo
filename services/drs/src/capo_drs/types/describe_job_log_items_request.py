@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.job_id
     import capo_drs.types.pagination_token
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> DescribeJobLogItemsRequest:
     if data.get("jobID") is not None:
         out["job_id"] = data["jobID"]
     else:
-        raise DeserializationError("DescribeJobLogItemsRequest.job_id required")
+        out["job_id"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

@@ -37,7 +37,7 @@ def deserialize_json(data: dict) -> SheetElementRenderingRule:
     if data.get("Expression") is not None:
         out["expression"] = data["Expression"]
     else:
-        raise DeserializationError("SheetElementRenderingRule.expression required")
+        out["expression"] = ""
     if data.get("ConfigurationOverrides") is not None:
         import capo_quicksight.types.sheet_element_configuration_overrides
 

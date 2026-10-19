@@ -86,13 +86,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDatasetImportJobRequest:
     if data.get("DatasetImportJobName") is not None:
         out["dataset_import_job_name"] = data["DatasetImportJobName"]
     else:
-        raise DeserializationError(
-            "CreateDatasetImportJobRequest.dataset_import_job_name required"
-        )
+        out["dataset_import_job_name"] = ""
     if data.get("DatasetArn") is not None:
         out["dataset_arn"] = data["DatasetArn"]
     else:
-        raise DeserializationError("CreateDatasetImportJobRequest.dataset_arn required")
+        out["dataset_arn"] = ""
     if data.get("DataSource") is not None:
         import capo_forecast.types.data_source
 

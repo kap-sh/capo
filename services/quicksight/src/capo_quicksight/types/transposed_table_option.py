@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.pixel_length
     import capo_quicksight.types.transposed_column_index
@@ -53,5 +51,9 @@ def deserialize_json(data: dict) -> TransposedTableOption:
             )
         )
     else:
-        raise DeserializationError("TransposedTableOption.column_type required")
+        import typing
+
+        out["column_type"] = typing.cast(
+            "capo_quicksight.types.transposed_column_type.TransposedColumnType", ""
+        )
     return out

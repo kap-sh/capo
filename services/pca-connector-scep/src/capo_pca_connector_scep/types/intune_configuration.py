@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pca_connector_scep.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pca_connector_scep.types.azure_application_id
     import capo_pca_connector_scep.types.azure_domain
@@ -33,9 +31,9 @@ def deserialize_json(data: dict) -> IntuneConfiguration:
     if data.get("AzureApplicationId") is not None:
         out["azure_application_id"] = data["AzureApplicationId"]
     else:
-        raise DeserializationError("IntuneConfiguration.azure_application_id required")
+        out["azure_application_id"] = ""
     if data.get("Domain") is not None:
         out["domain"] = data["Domain"]
     else:
-        raise DeserializationError("IntuneConfiguration.domain required")
+        out["domain"] = ""
     return out

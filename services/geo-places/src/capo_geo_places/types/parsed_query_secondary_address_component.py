@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_geo_places.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_places.types.sensitive_string
 
@@ -39,33 +37,23 @@ def deserialize_json(data: dict) -> ParsedQuerySecondaryAddressComponent:
     if data.get("StartIndex") is not None:
         out["start_index"] = data["StartIndex"]
     else:
-        raise DeserializationError(
-            "ParsedQuerySecondaryAddressComponent.start_index required"
-        )
+        out["start_index"] = 0
     if data.get("EndIndex") is not None:
         out["end_index"] = data["EndIndex"]
     else:
-        raise DeserializationError(
-            "ParsedQuerySecondaryAddressComponent.end_index required"
-        )
+        out["end_index"] = 0
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError(
-            "ParsedQuerySecondaryAddressComponent.value required"
-        )
+        out["value"] = ""
     if data.get("Number") is not None:
         out["number"] = data["Number"]
     else:
-        raise DeserializationError(
-            "ParsedQuerySecondaryAddressComponent.number required"
-        )
+        out["number"] = ""
     if data.get("Designator") is not None:
         out["designator"] = data["Designator"]
     else:
-        raise DeserializationError(
-            "ParsedQuerySecondaryAddressComponent.designator required"
-        )
+        out["designator"] = ""
     return out
 
 

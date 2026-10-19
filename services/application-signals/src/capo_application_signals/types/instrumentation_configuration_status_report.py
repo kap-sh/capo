@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -86,8 +84,11 @@ def deserialize_json(data: dict) -> InstrumentationConfigurationStatusReport:
             )
         )
     else:
-        raise DeserializationError(
-            "InstrumentationConfigurationStatusReport.instrumentation_type required"
+        import typing
+
+        out["instrumentation_type"] = typing.cast(
+            "capo_application_signals.types.instrumentation_type.InstrumentationType",
+            "",
         )
     if data.get("SignalType") is not None:
         import capo_application_signals.types.dynamic_instrumentation_signal_type
@@ -98,15 +99,16 @@ def deserialize_json(data: dict) -> InstrumentationConfigurationStatusReport:
             )
         )
     else:
-        raise DeserializationError(
-            "InstrumentationConfigurationStatusReport.signal_type required"
+        import typing
+
+        out["signal_type"] = typing.cast(
+            "capo_application_signals.types.dynamic_instrumentation_signal_type.DynamicInstrumentationSignalType",
+            "",
         )
     if data.get("LocationHash") is not None:
         out["location_hash"] = data["LocationHash"]
     else:
-        raise DeserializationError(
-            "InstrumentationConfigurationStatusReport.location_hash required"
-        )
+        out["location_hash"] = ""
     if data.get("Status") is not None:
         import capo_application_signals.types.instrumentation_configuration_status
 
@@ -116,8 +118,11 @@ def deserialize_json(data: dict) -> InstrumentationConfigurationStatusReport:
             )
         )
     else:
-        raise DeserializationError(
-            "InstrumentationConfigurationStatusReport.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_application_signals.types.instrumentation_configuration_status.InstrumentationConfigurationStatus",
+            "",
         )
     if data.get("Time") is not None:
         import capo_application_signals.types._prelude.timestamp
@@ -128,9 +133,9 @@ def deserialize_json(data: dict) -> InstrumentationConfigurationStatusReport:
             )
         )
     else:
-        raise DeserializationError(
-            "InstrumentationConfigurationStatusReport.time required"
-        )
+        import datetime
+
+        out["time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("ErrorCause") is not None:
         import capo_application_signals.types.instrumentation_error_cause
 

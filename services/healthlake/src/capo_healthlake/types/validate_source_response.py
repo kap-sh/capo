@@ -54,7 +54,7 @@ def deserialize_aws_json_1_0(data: dict) -> ValidateSourceResponse:
     if data.get("Valid") is not None:
         out["valid"] = data["Valid"]
     else:
-        raise DeserializationError("ValidateSourceResponse.valid required")
+        out["valid"] = False
     if data.get("SourceFormat") is not None:
         import capo_healthlake.types.source_format
 
@@ -64,7 +64,11 @@ def deserialize_aws_json_1_0(data: dict) -> ValidateSourceResponse:
             )
         )
     else:
-        raise DeserializationError("ValidateSourceResponse.source_format required")
+        import typing
+
+        out["source_format"] = typing.cast(
+            "capo_healthlake.types.source_format.SourceFormat", ""
+        )
     if data.get("Issues") is not None:
         import capo_healthlake.types.source_validation_issue_list
 
@@ -74,7 +78,7 @@ def deserialize_aws_json_1_0(data: dict) -> ValidateSourceResponse:
             )
         )
     else:
-        raise DeserializationError("ValidateSourceResponse.issues required")
+        out["issues"] = []
     if data.get("Summary") is not None:
         import capo_healthlake.types.validation_summary
 

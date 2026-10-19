@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.protect_status
 
@@ -31,7 +29,5 @@ def deserialize_aws_json_1_0(
     if data.get("ProtectStatus") is not None:
         out["protect_status"] = data["ProtectStatus"]
     else:
-        raise DeserializationError(
-            "ProtectConfigurationCountryRuleSetInformation.protect_status required"
-        )
+        out["protect_status"] = ""
     return out

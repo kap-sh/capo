@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.year_month_day
 
@@ -31,7 +29,7 @@ def deserialize_aws_json_1_1(data: dict) -> AnomalyDateInterval:
     if data.get("StartDate") is not None:
         out["start_date"] = data["StartDate"]
     else:
-        raise DeserializationError("AnomalyDateInterval.start_date required")
+        out["start_date"] = ""
     if data.get("EndDate") is not None:
         out["end_date"] = data["EndDate"]
     return out

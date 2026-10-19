@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.object_lambda_access_point_alias
@@ -48,7 +47,7 @@ def deserialize_xml(el: Element) -> ObjectLambdaAccessPoint:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("ObjectLambdaAccessPoint.name required")
+        out["name"] = ""
     child_object_lambda_access_point_arn = el.find("ObjectLambdaAccessPointArn")
     if child_object_lambda_access_point_arn is not None:
         out["object_lambda_access_point_arn"] = str(

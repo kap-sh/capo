@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.boolean
     import capo_iottwinmaker.types.component_type_id
@@ -146,15 +144,13 @@ def deserialize_json(data: dict) -> GetComponentTypeResponse:
     if data.get("workspaceId") is not None:
         out["workspace_id"] = data["workspaceId"]
     else:
-        raise DeserializationError("GetComponentTypeResponse.workspace_id required")
+        out["workspace_id"] = ""
     if data.get("isSingleton") is not None:
         out["is_singleton"] = data["isSingleton"]
     if data.get("componentTypeId") is not None:
         out["component_type_id"] = data["componentTypeId"]
     else:
-        raise DeserializationError(
-            "GetComponentTypeResponse.component_type_id required"
-        )
+        out["component_type_id"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("propertyDefinitions") is not None:
@@ -184,8 +180,10 @@ def deserialize_json(data: dict) -> GetComponentTypeResponse:
             data["creationDateTime"]
         )
     else:
-        raise DeserializationError(
-            "GetComponentTypeResponse.creation_date_time required"
+        import datetime
+
+        out["creation_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("updateDateTime") is not None:
         import capo_iottwinmaker.types.timestamp
@@ -194,11 +192,15 @@ def deserialize_json(data: dict) -> GetComponentTypeResponse:
             data["updateDateTime"]
         )
     else:
-        raise DeserializationError("GetComponentTypeResponse.update_date_time required")
+        import datetime
+
+        out["update_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetComponentTypeResponse.arn required")
+        out["arn"] = ""
     if data.get("isAbstract") is not None:
         out["is_abstract"] = data["isAbstract"]
     if data.get("isSchemaInitialized") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.rule_name
     import capo_chime_sdk_media_pipelines.types.sentiment_time_period_in_seconds
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> SentimentConfiguration:
     if data.get("RuleName") is not None:
         out["rule_name"] = data["RuleName"]
     else:
-        raise DeserializationError("SentimentConfiguration.rule_name required")
+        out["rule_name"] = ""
     if data.get("SentimentType") is not None:
         import capo_chime_sdk_media_pipelines.types.sentiment_type
 
@@ -51,9 +49,13 @@ def deserialize_json(data: dict) -> SentimentConfiguration:
             )
         )
     else:
-        raise DeserializationError("SentimentConfiguration.sentiment_type required")
+        import typing
+
+        out["sentiment_type"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.sentiment_type.SentimentType", ""
+        )
     if data.get("TimePeriod") is not None:
         out["time_period"] = data["TimePeriod"]
     else:
-        raise DeserializationError("SentimentConfiguration.time_period required")
+        out["time_period"] = 0
     return out

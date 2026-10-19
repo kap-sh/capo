@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_elastic_beanstalk._protocol.xml import Element
-from capo_elastic_beanstalk.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_elastic_beanstalk.types.boxed_boolean
@@ -46,7 +45,7 @@ def deserialize_query(el: Element) -> MaxAgeRule:
     if child_enabled is not None:
         out["enabled"] = (child_enabled.text or "").lower() == "true"
     else:
-        raise DeserializationError("MaxAgeRule.enabled required")
+        out["enabled"] = False
     child_max_age_in_days = el.find("MaxAgeInDays")
     if child_max_age_in_days is not None:
         out["max_age_in_days"] = int(child_max_age_in_days.text or "")

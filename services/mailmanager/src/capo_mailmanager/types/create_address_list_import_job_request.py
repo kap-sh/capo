@@ -50,13 +50,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateAddressListImportJobRequest:
     if data.get("AddressListId") is not None:
         out["address_list_id"] = data["AddressListId"]
     else:
-        raise DeserializationError(
-            "CreateAddressListImportJobRequest.address_list_id required"
-        )
+        out["address_list_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateAddressListImportJobRequest.name required")
+        out["name"] = ""
     if data.get("ImportDataFormat") is not None:
         import capo_mailmanager.types.import_data_format
 

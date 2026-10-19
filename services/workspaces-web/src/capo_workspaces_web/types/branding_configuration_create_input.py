@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.color_theme
     import capo_workspaces_web.types.icon_image_input
@@ -78,7 +76,9 @@ def deserialize_json(data: dict) -> BrandingConfigurationCreateInput:
             data["logo"]
         )
     else:
-        raise DeserializationError("BrandingConfigurationCreateInput.logo required")
+        import capo_workspaces_web.types._unknown
+
+        out["logo"] = capo_workspaces_web.types._unknown.UnknownUnionMember("")
     if data.get("wallpaper") is not None:
         import capo_workspaces_web.types.wallpaper_image_input
 
@@ -94,7 +94,9 @@ def deserialize_json(data: dict) -> BrandingConfigurationCreateInput:
             data["favicon"]
         )
     else:
-        raise DeserializationError("BrandingConfigurationCreateInput.favicon required")
+        import capo_workspaces_web.types._unknown
+
+        out["favicon"] = capo_workspaces_web.types._unknown.UnknownUnionMember("")
     if data.get("localizedStrings") is not None:
         import capo_workspaces_web.types.localized_branding_string_map
 
@@ -104,9 +106,7 @@ def deserialize_json(data: dict) -> BrandingConfigurationCreateInput:
             )
         )
     else:
-        raise DeserializationError(
-            "BrandingConfigurationCreateInput.localized_strings required"
-        )
+        out["localized_strings"] = {}
     if data.get("colorTheme") is not None:
         import capo_workspaces_web.types.color_theme
 
@@ -114,8 +114,10 @@ def deserialize_json(data: dict) -> BrandingConfigurationCreateInput:
             data["colorTheme"]
         )
     else:
-        raise DeserializationError(
-            "BrandingConfigurationCreateInput.color_theme required"
+        import typing
+
+        out["color_theme"] = typing.cast(
+            "capo_workspaces_web.types.color_theme.ColorTheme", ""
         )
     if data.get("termsOfService") is not None:
         out["terms_of_service"] = data["termsOfService"]

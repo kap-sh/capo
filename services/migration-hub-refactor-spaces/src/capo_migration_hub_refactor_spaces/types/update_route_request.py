@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_migration_hub_refactor_spaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migration_hub_refactor_spaces.types.application_id
     import capo_migration_hub_refactor_spaces.types.environment_id
@@ -40,5 +38,5 @@ def deserialize_json(data: dict) -> UpdateRouteRequest:
     if data.get("ActivationState") is not None:
         out["activation_state"] = data["ActivationState"]
     else:
-        raise DeserializationError("UpdateRouteRequest.activation_state required")
+        out["activation_state"] = ""
     return out

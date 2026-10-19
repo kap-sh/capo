@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.host
     import capo_quicksight.types.optional_port
@@ -72,8 +70,10 @@ def deserialize_json(data: dict) -> WebCrawlerParameters:
             )
         )
     else:
-        raise DeserializationError(
-            "WebCrawlerParameters.web_crawler_auth_type required"
+        import typing
+
+        out["web_crawler_auth_type"] = typing.cast(
+            "capo_quicksight.types.web_crawler_auth_type.WebCrawlerAuthType", ""
         )
     if data.get("UsernameFieldXpath") is not None:
         out["username_field_xpath"] = data["UsernameFieldXpath"]

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pca_connector_ad.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pca_connector_ad.types.client_token
     import capo_pca_connector_ad.types.directory_id
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> CreateDirectoryRegistrationRequest:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError(
-            "CreateDirectoryRegistrationRequest.directory_id required"
-        )
+        out["directory_id"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("Tags") is not None:

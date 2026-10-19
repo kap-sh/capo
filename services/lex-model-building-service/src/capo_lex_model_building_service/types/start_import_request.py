@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_model_building_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_model_building_service.types.blob
     import capo_lex_model_building_service.types.merge_strategy
@@ -64,7 +62,7 @@ def deserialize_json(data: dict) -> StartImportRequest:
             data["payload"]
         )
     else:
-        raise DeserializationError("StartImportRequest.payload required")
+        out["payload"] = b""
     if data.get("resourceType") is not None:
         import capo_lex_model_building_service.types.resource_type
 
@@ -74,7 +72,11 @@ def deserialize_json(data: dict) -> StartImportRequest:
             )
         )
     else:
-        raise DeserializationError("StartImportRequest.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_lex_model_building_service.types.resource_type.ResourceType", ""
+        )
     if data.get("mergeStrategy") is not None:
         import capo_lex_model_building_service.types.merge_strategy
 
@@ -84,7 +86,11 @@ def deserialize_json(data: dict) -> StartImportRequest:
             )
         )
     else:
-        raise DeserializationError("StartImportRequest.merge_strategy required")
+        import typing
+
+        out["merge_strategy"] = typing.cast(
+            "capo_lex_model_building_service.types.merge_strategy.MergeStrategy", ""
+        )
     if data.get("tags") is not None:
         import capo_lex_model_building_service.types.tag_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotthingsgraph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotthingsgraph.types.arn
     import capo_iotthingsgraph.types.namespace_name
@@ -73,7 +71,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetUploadStatusResponse:
     if data.get("uploadId") is not None:
         out["upload_id"] = data["uploadId"]
     else:
-        raise DeserializationError("GetUploadStatusResponse.upload_id required")
+        out["upload_id"] = ""
     if data.get("uploadStatus") is not None:
         import capo_iotthingsgraph.types.upload_status
 
@@ -83,7 +81,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetUploadStatusResponse:
             )
         )
     else:
-        raise DeserializationError("GetUploadStatusResponse.upload_status required")
+        import typing
+
+        out["upload_status"] = typing.cast(
+            "capo_iotthingsgraph.types.upload_status.UploadStatus", ""
+        )
     if data.get("namespaceArn") is not None:
         out["namespace_arn"] = data["namespaceArn"]
     if data.get("namespaceName") is not None:
@@ -107,5 +109,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetUploadStatusResponse:
             )
         )
     else:
-        raise DeserializationError("GetUploadStatusResponse.created_date required")
+        import datetime
+
+        out["created_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

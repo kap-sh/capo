@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.uuid_with_qualifier
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> AIAgentConfigurationData:
     if data.get("aiAgentId") is not None:
         out["ai_agent_id"] = data["aiAgentId"]
     else:
-        raise DeserializationError("AIAgentConfigurationData.ai_agent_id required")
+        out["ai_agent_id"] = ""
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     return out

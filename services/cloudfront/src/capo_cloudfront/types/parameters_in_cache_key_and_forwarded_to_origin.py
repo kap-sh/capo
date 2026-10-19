@@ -68,9 +68,7 @@ def deserialize_xml(el: Element) -> ParametersInCacheKeyAndForwardedToOrigin:
             child_enable_accept_encoding_gzip.text or ""
         ).lower() == "true"
     else:
-        raise DeserializationError(
-            "ParametersInCacheKeyAndForwardedToOrigin.enable_accept_encoding_gzip required"
-        )
+        out["enable_accept_encoding_gzip"] = False
     child_enable_accept_encoding_brotli = el.find("EnableAcceptEncodingBrotli")
     if child_enable_accept_encoding_brotli is not None:
         out["enable_accept_encoding_brotli"] = (

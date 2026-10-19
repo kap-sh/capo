@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.assigned_sessions
     import capo_deadline.types.cancel_session_actions
@@ -66,9 +64,7 @@ def deserialize_json(data: dict) -> UpdateWorkerScheduleResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateWorkerScheduleResponse.assigned_sessions required"
-        )
+        out["assigned_sessions"] = {}
     if data.get("cancelSessionActions") is not None:
         import capo_deadline.types.cancel_session_actions
 
@@ -78,9 +74,7 @@ def deserialize_json(data: dict) -> UpdateWorkerScheduleResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateWorkerScheduleResponse.cancel_session_actions required"
-        )
+        out["cancel_session_actions"] = {}
     if data.get("desiredWorkerStatus") is not None:
         import capo_deadline.types.desired_worker_status
 
@@ -92,9 +86,7 @@ def deserialize_json(data: dict) -> UpdateWorkerScheduleResponse:
     if data.get("updateIntervalSeconds") is not None:
         out["update_interval_seconds"] = data["updateIntervalSeconds"]
     else:
-        raise DeserializationError(
-            "UpdateWorkerScheduleResponse.update_interval_seconds required"
-        )
+        out["update_interval_seconds"] = 0
     return out
 
 

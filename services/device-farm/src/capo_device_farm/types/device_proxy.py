@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_device_farm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_device_farm.types.device_proxy_host
     import capo_device_farm.types.device_proxy_port
@@ -31,7 +29,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeviceProxy:
     if data.get("host") is not None:
         out["host"] = data["host"]
     else:
-        raise DeserializationError("DeviceProxy.host required")
+        out["host"] = ""
     if data.get("port") is not None:
         out["port"] = data["port"]
     else:

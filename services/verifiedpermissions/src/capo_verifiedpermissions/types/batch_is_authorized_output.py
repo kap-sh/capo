@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.batch_is_authorized_output_list
 
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_0(data: dict) -> BatchIsAuthorizedOutput:
             )
         )
     else:
-        raise DeserializationError("BatchIsAuthorizedOutput.results required")
+        out["results"] = []
     return out
 
 

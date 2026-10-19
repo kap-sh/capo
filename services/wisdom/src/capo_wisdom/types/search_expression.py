@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wisdom.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wisdom.types.filter_list
 
@@ -31,5 +29,5 @@ def deserialize_json(data: dict) -> SearchExpression:
 
         out["filters"] = capo_wisdom.types.filter_list.deserialize_json(data["filters"])
     else:
-        raise DeserializationError("SearchExpression.filters required")
+        out["filters"] = []
     return out

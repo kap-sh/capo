@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_web.types.date_time
     import capo_lambda_web.types.function_arn
@@ -55,11 +53,11 @@ def deserialize_json(data: dict) -> GetWebFunctionResponse:
     if data.get("functionName") is not None:
         out["function_name"] = data["functionName"]
     else:
-        raise DeserializationError("GetWebFunctionResponse.function_name required")
+        out["function_name"] = ""
     if data.get("functionArn") is not None:
         out["function_arn"] = data["functionArn"]
     else:
-        raise DeserializationError("GetWebFunctionResponse.function_arn required")
+        out["function_arn"] = ""
     if data.get("state") is not None:
         import capo_lambda_web.types.function_state
 
@@ -67,11 +65,15 @@ def deserialize_json(data: dict) -> GetWebFunctionResponse:
             data["state"]
         )
     else:
-        raise DeserializationError("GetWebFunctionResponse.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_lambda_web.types.function_state.FunctionState", ""
+        )
     if data.get("stateReason") is not None:
         out["state_reason"] = data["stateReason"]
     else:
-        raise DeserializationError("GetWebFunctionResponse.state_reason required")
+        out["state_reason"] = ""
     if data.get("createdAt") is not None:
         import capo_lambda_web.types.date_time
 
@@ -79,7 +81,9 @@ def deserialize_json(data: dict) -> GetWebFunctionResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("GetWebFunctionResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_lambda_web.types.date_time
 
@@ -87,5 +91,7 @@ def deserialize_json(data: dict) -> GetWebFunctionResponse:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("GetWebFunctionResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

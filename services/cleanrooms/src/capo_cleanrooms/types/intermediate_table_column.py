@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.column_name
     import capo_cleanrooms.types.intermediate_table_column_type_string
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> IntermediateTableColumn:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("IntermediateTableColumn.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("IntermediateTableColumn.type required")
+        out["type"] = ""
     return out

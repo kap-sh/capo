@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migration_hub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migration_hub.types.dry_run
     import capo_migration_hub.types.progress_update_stream
@@ -34,9 +32,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProgressUpdateStreamRequest:
     if data.get("ProgressUpdateStreamName") is not None:
         out["progress_update_stream_name"] = data["ProgressUpdateStreamName"]
     else:
-        raise DeserializationError(
-            "CreateProgressUpdateStreamRequest.progress_update_stream_name required"
-        )
+        out["progress_update_stream_name"] = ""
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.branch_name
 
@@ -30,7 +28,7 @@ def deserialize_json(data: dict) -> BranchFilter:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("BranchFilter.name required")
+        out["name"] = ""
     if data.get("includeParentBranches") is not None:
         out["include_parent_branches"] = data["includeParentBranches"]
     else:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_medical_imaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_medical_imaging.types.operator
     import capo_medical_imaging.types.search_by_attribute_values
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> SearchFilter:
             )
         )
     else:
-        raise DeserializationError("SearchFilter.values required")
+        out["values"] = []
     if data.get("operator") is not None:
         import capo_medical_imaging.types.operator
 
@@ -57,7 +55,11 @@ def deserialize_json(data: dict) -> SearchFilter:
             data["operator"]
         )
     else:
-        raise DeserializationError("SearchFilter.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_medical_imaging.types.operator.Operator", ""
+        )
     return out
 
 

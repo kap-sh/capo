@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.document_acl_membership_type
 
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> DocumentAclGroup:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("DocumentAclGroup.id required")
+        out["id"] = ""
     if data.get("type") is not None:
         import capo_bedrock_agent_runtime.types.document_acl_membership_type
 
@@ -46,5 +44,10 @@ def deserialize_json(data: dict) -> DocumentAclGroup:
             )
         )
     else:
-        raise DeserializationError("DocumentAclGroup.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.document_acl_membership_type.DocumentAclMembershipType",
+            "",
+        )
     return out

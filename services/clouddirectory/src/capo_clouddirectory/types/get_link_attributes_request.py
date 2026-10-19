@@ -79,7 +79,7 @@ def deserialize_json(data: dict) -> GetLinkAttributesRequest:
             )
         )
     else:
-        raise DeserializationError("GetLinkAttributesRequest.attribute_names required")
+        out["attribute_names"] = []
     if data.get("ConsistencyLevel") is not None:
         import capo_clouddirectory.types.consistency_level
 

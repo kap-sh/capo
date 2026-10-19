@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.boxed_boolean
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> ErrorLogSettings:
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     else:
-        raise DeserializationError("ErrorLogSettings.enabled required")
+        out["enabled"] = False
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -67,17 +65,15 @@ def deserialize_json(data: dict) -> CreateChannelGroupResponse:
     if data.get("ChannelGroupName") is not None:
         out["channel_group_name"] = data["ChannelGroupName"]
     else:
-        raise DeserializationError(
-            "CreateChannelGroupResponse.channel_group_name required"
-        )
+        out["channel_group_name"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("CreateChannelGroupResponse.arn required")
+        out["arn"] = ""
     if data.get("EgressDomain") is not None:
         out["egress_domain"] = data["EgressDomain"]
     else:
-        raise DeserializationError("CreateChannelGroupResponse.egress_domain required")
+        out["egress_domain"] = ""
     if data.get("CreatedAt") is not None:
         import capo_mediapackagev2.types._prelude.timestamp
 
@@ -87,7 +83,9 @@ def deserialize_json(data: dict) -> CreateChannelGroupResponse:
             )
         )
     else:
-        raise DeserializationError("CreateChannelGroupResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("ModifiedAt") is not None:
         import capo_mediapackagev2.types._prelude.timestamp
 
@@ -97,7 +95,11 @@ def deserialize_json(data: dict) -> CreateChannelGroupResponse:
             )
         )
     else:
-        raise DeserializationError("CreateChannelGroupResponse.modified_at required")
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("ETag") is not None:
         out["e_tag"] = data["ETag"]
     if data.get("Description") is not None:

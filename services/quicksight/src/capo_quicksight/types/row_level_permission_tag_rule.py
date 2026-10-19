@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.row_level_permission_tag_delimiter
     import capo_quicksight.types.session_tag_key
@@ -45,11 +43,11 @@ def deserialize_json(data: dict) -> RowLevelPermissionTagRule:
     if data.get("TagKey") is not None:
         out["tag_key"] = data["TagKey"]
     else:
-        raise DeserializationError("RowLevelPermissionTagRule.tag_key required")
+        out["tag_key"] = ""
     if data.get("ColumnName") is not None:
         out["column_name"] = data["ColumnName"]
     else:
-        raise DeserializationError("RowLevelPermissionTagRule.column_name required")
+        out["column_name"] = ""
     if data.get("TagMultiValueDelimiter") is not None:
         out["tag_multi_value_delimiter"] = data["TagMultiValueDelimiter"]
     if data.get("MatchAllValue") is not None:

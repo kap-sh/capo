@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.event_list
@@ -51,13 +50,13 @@ def deserialize_xml(el: Element) -> QueueConfiguration:
     if child_queue_arn is not None:
         out["queue_arn"] = str(child_queue_arn.text or "")
     else:
-        raise DeserializationError("QueueConfiguration.queue_arn required")
+        out["queue_arn"] = ""
     if el.find("Event") is not None:
         import capo_s3.types.event_list
 
         out["events"] = capo_s3.types.event_list.deserialize_xml_flat(el, "Event")
     else:
-        raise DeserializationError("QueueConfiguration.events required")
+        out["events"] = []
     child_filter = el.find("Filter")
     if child_filter is not None:
         import capo_s3.types.notification_configuration_filter

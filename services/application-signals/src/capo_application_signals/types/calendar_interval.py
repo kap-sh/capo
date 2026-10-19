@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -50,7 +48,9 @@ def deserialize_json(data: dict) -> CalendarInterval:
             )
         )
     else:
-        raise DeserializationError("CalendarInterval.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("DurationUnit") is not None:
         import capo_application_signals.types.duration_unit
 
@@ -60,9 +60,13 @@ def deserialize_json(data: dict) -> CalendarInterval:
             )
         )
     else:
-        raise DeserializationError("CalendarInterval.duration_unit required")
+        import typing
+
+        out["duration_unit"] = typing.cast(
+            "capo_application_signals.types.duration_unit.DurationUnit", ""
+        )
     if data.get("Duration") is not None:
         out["duration"] = data["Duration"]
     else:
-        raise DeserializationError("CalendarInterval.duration required")
+        out["duration"] = 0
     return out

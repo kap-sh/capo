@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.group_list
     import capo_customer_profiles.types.include
@@ -43,7 +41,9 @@ def deserialize_json(data: dict) -> Filter:
             data["Include"]
         )
     else:
-        raise DeserializationError("Filter.include required")
+        import typing
+
+        out["include"] = typing.cast("capo_customer_profiles.types.include.Include", "")
     if data.get("Groups") is not None:
         import capo_customer_profiles.types.group_list
 
@@ -51,5 +51,5 @@ def deserialize_json(data: dict) -> Filter:
             data["Groups"]
         )
     else:
-        raise DeserializationError("Filter.groups required")
+        out["groups"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.assignment_status
@@ -57,9 +55,7 @@ def deserialize_json(data: dict) -> CreateIAMPolicyAssignmentRequest:
     if data.get("AssignmentName") is not None:
         out["assignment_name"] = data["AssignmentName"]
     else:
-        raise DeserializationError(
-            "CreateIAMPolicyAssignmentRequest.assignment_name required"
-        )
+        out["assignment_name"] = ""
     if data.get("AssignmentStatus") is not None:
         import capo_quicksight.types.assignment_status
 
@@ -69,8 +65,10 @@ def deserialize_json(data: dict) -> CreateIAMPolicyAssignmentRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateIAMPolicyAssignmentRequest.assignment_status required"
+        import typing
+
+        out["assignment_status"] = typing.cast(
+            "capo_quicksight.types.assignment_status.AssignmentStatus", ""
         )
     if data.get("PolicyArn") is not None:
         out["policy_arn"] = data["PolicyArn"]

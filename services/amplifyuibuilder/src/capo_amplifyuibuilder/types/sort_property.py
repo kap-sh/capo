@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.sort_direction
 
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> SortProperty:
     if data.get("field") is not None:
         out["field"] = data["field"]
     else:
-        raise DeserializationError("SortProperty.field required")
+        out["field"] = ""
     if data.get("direction") is not None:
         import capo_amplifyuibuilder.types.sort_direction
 
@@ -42,5 +40,9 @@ def deserialize_json(data: dict) -> SortProperty:
             data["direction"]
         )
     else:
-        raise DeserializationError("SortProperty.direction required")
+        import typing
+
+        out["direction"] = typing.cast(
+            "capo_amplifyuibuilder.types.sort_direction.SortDirection", ""
+        )
     return out

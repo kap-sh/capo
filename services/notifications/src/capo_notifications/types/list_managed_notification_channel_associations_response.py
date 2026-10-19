@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notifications.types.managed_notification_channel_associations
     import capo_notifications.types.next_token
@@ -46,7 +44,5 @@ def deserialize_json(data: dict) -> ListManagedNotificationChannelAssociationsRe
             )
         )
     else:
-        raise DeserializationError(
-            "ListManagedNotificationChannelAssociationsResponse.channel_associations required"
-        )
+        out["channel_associations"] = []
     return out

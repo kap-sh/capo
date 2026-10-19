@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_docdb_elastic.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_docdb_elastic.types.auth
     import capo_docdb_elastic.types.password
@@ -95,27 +93,27 @@ def deserialize_json(data: dict) -> CreateClusterInput:
     if data.get("clusterName") is not None:
         out["cluster_name"] = data["clusterName"]
     else:
-        raise DeserializationError("CreateClusterInput.cluster_name required")
+        out["cluster_name"] = ""
     if data.get("authType") is not None:
         out["auth_type"] = data["authType"]
     else:
-        raise DeserializationError("CreateClusterInput.auth_type required")
+        out["auth_type"] = ""
     if data.get("adminUserName") is not None:
         out["admin_user_name"] = data["adminUserName"]
     else:
-        raise DeserializationError("CreateClusterInput.admin_user_name required")
+        out["admin_user_name"] = ""
     if data.get("adminUserPassword") is not None:
         out["admin_user_password"] = data["adminUserPassword"]
     else:
-        raise DeserializationError("CreateClusterInput.admin_user_password required")
+        out["admin_user_password"] = ""
     if data.get("shardCapacity") is not None:
         out["shard_capacity"] = data["shardCapacity"]
     else:
-        raise DeserializationError("CreateClusterInput.shard_capacity required")
+        out["shard_capacity"] = 0
     if data.get("shardCount") is not None:
         out["shard_count"] = data["shardCount"]
     else:
-        raise DeserializationError("CreateClusterInput.shard_count required")
+        out["shard_count"] = 0
     if data.get("vpcSecurityGroupIds") is not None:
         import capo_docdb_elastic.types.string_list
 

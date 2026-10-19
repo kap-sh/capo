@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.account_id
     import capo_mgn.types.application_id
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> DisassociateSourceServersRequest:
     if data.get("applicationID") is not None:
         out["application_id"] = data["applicationID"]
     else:
-        raise DeserializationError(
-            "DisassociateSourceServersRequest.application_id required"
-        )
+        out["application_id"] = ""
     if data.get("sourceServerIDs") is not None:
         import capo_mgn.types.disassociate_source_servers_request_source_server_i_ds
 
@@ -54,9 +50,7 @@ def deserialize_json(data: dict) -> DisassociateSourceServersRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DisassociateSourceServersRequest.source_server_i_ds required"
-        )
+        out["source_server_i_ds"] = []
     if data.get("accountID") is not None:
         out["account_id"] = data["accountID"]
     return out

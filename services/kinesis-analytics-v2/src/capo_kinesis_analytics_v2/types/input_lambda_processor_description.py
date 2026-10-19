@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.resource_arn
     import capo_kinesis_analytics_v2.types.role_arn
@@ -32,9 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> InputLambdaProcessorDescription:
     if data.get("ResourceARN") is not None:
         out["resource_arn"] = data["ResourceARN"]
     else:
-        raise DeserializationError(
-            "InputLambdaProcessorDescription.resource_arn required"
-        )
+        out["resource_arn"] = ""
     if data.get("RoleARN") is not None:
         out["role_arn"] = data["RoleARN"]
     return out

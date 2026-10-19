@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -74,9 +72,7 @@ def deserialize_aws_json_1_0(data: dict) -> CloneToRefreshableConfiguration:
     if data.get("sourceAutonomousDatabaseId") is not None:
         out["source_autonomous_database_id"] = data["sourceAutonomousDatabaseId"]
     else:
-        raise DeserializationError(
-            "CloneToRefreshableConfiguration.source_autonomous_database_id required"
-        )
+        out["source_autonomous_database_id"] = ""
     if data.get("refreshableMode") is not None:
         import capo_odb.types.refreshable_mode
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_global_accelerator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_global_accelerator.types.client_affinity
     import capo_global_accelerator.types.generic_string
@@ -64,7 +62,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateListenerRequest:
     if data.get("AcceleratorArn") is not None:
         out["accelerator_arn"] = data["AcceleratorArn"]
     else:
-        raise DeserializationError("CreateListenerRequest.accelerator_arn required")
+        out["accelerator_arn"] = ""
     if data.get("PortRanges") is not None:
         import capo_global_accelerator.types.port_ranges
 
@@ -74,7 +72,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateListenerRequest:
             )
         )
     else:
-        raise DeserializationError("CreateListenerRequest.port_ranges required")
+        out["port_ranges"] = []
     if data.get("Protocol") is not None:
         import capo_global_accelerator.types.protocol
 
@@ -84,7 +82,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateListenerRequest:
             )
         )
     else:
-        raise DeserializationError("CreateListenerRequest.protocol required")
+        import typing
+
+        out["protocol"] = typing.cast(
+            "capo_global_accelerator.types.protocol.Protocol", ""
+        )
     if data.get("ClientAffinity") is not None:
         import capo_global_accelerator.types.client_affinity
 
@@ -96,5 +98,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreateListenerRequest:
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     else:
-        raise DeserializationError("CreateListenerRequest.idempotency_token required")
+        out["idempotency_token"] = ""
     return out

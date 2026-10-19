@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bcm_recommended_actions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_recommended_actions.types.filter_name
     import capo_bcm_recommended_actions.types.filter_values
@@ -57,7 +55,11 @@ def deserialize_aws_json_1_0(data: dict) -> ActionFilter:
             )
         )
     else:
-        raise DeserializationError("ActionFilter.key required")
+        import typing
+
+        out["key"] = typing.cast(
+            "capo_bcm_recommended_actions.types.filter_name.FilterName", ""
+        )
     if data.get("matchOption") is not None:
         import capo_bcm_recommended_actions.types.match_option
 
@@ -67,7 +69,11 @@ def deserialize_aws_json_1_0(data: dict) -> ActionFilter:
             )
         )
     else:
-        raise DeserializationError("ActionFilter.match_option required")
+        import typing
+
+        out["match_option"] = typing.cast(
+            "capo_bcm_recommended_actions.types.match_option.MatchOption", ""
+        )
     if data.get("values") is not None:
         import capo_bcm_recommended_actions.types.filter_values
 
@@ -77,5 +83,5 @@ def deserialize_aws_json_1_0(data: dict) -> ActionFilter:
             )
         )
     else:
-        raise DeserializationError("ActionFilter.values required")
+        out["values"] = []
     return out

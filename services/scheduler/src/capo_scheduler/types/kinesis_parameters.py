@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_scheduler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_scheduler.types.target_partition_key
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> KinesisParameters:
     if data.get("PartitionKey") is not None:
         out["partition_key"] = data["PartitionKey"]
     else:
-        raise DeserializationError("KinesisParameters.partition_key required")
+        out["partition_key"] = ""
     return out

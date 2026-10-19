@@ -35,7 +35,7 @@ def deserialize_json(data: dict) -> MetadataAttribute:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("MetadataAttribute.key required")
+        out["key"] = ""
     if data.get("value") is not None:
         import capo_bedrock_agent.types.metadata_attribute_value
 

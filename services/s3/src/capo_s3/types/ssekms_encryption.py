@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.bucket_key_enabled
@@ -35,7 +34,7 @@ def deserialize_xml(el: Element) -> SSEKMSEncryption:
     if child_kms_key_arn is not None:
         out["kms_key_arn"] = str(child_kms_key_arn.text or "")
     else:
-        raise DeserializationError("SSEKMSEncryption.kms_key_arn required")
+        out["kms_key_arn"] = ""
     child_bucket_key_enabled = el.find("BucketKeyEnabled")
     if child_bucket_key_enabled is not None:
         out["bucket_key_enabled"] = (

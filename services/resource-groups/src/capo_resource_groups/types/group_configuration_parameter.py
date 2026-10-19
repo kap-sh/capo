@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resource_groups.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resource_groups.types.group_configuration_parameter_name
     import capo_resource_groups.types.group_configuration_parameter_value_list
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> GroupConfigurationParameter:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("GroupConfigurationParameter.name required")
+        out["name"] = ""
     if data.get("Values") is not None:
         import capo_resource_groups.types.group_configuration_parameter_value_list
 

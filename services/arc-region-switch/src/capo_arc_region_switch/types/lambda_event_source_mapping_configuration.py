@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.event_source_mapping_action
     import capo_arc_region_switch.types.lambda_event_source_mapping_ungraceful
@@ -69,8 +67,11 @@ def deserialize_aws_json_1_0(data: dict) -> LambdaEventSourceMappingConfiguratio
             )
         )
     else:
-        raise DeserializationError(
-            "LambdaEventSourceMappingConfiguration.action required"
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_arc_region_switch.types.event_source_mapping_action.EventSourceMappingAction",
+            "",
         )
     if data.get("regionEventSourceMappings") is not None:
         import capo_arc_region_switch.types.region_event_source_mapping_map
@@ -81,9 +82,7 @@ def deserialize_aws_json_1_0(data: dict) -> LambdaEventSourceMappingConfiguratio
             )
         )
     else:
-        raise DeserializationError(
-            "LambdaEventSourceMappingConfiguration.region_event_source_mappings required"
-        )
+        out["region_event_source_mappings"] = {}
     if data.get("ungraceful") is not None:
         import capo_arc_region_switch.types.lambda_event_source_mapping_ungraceful
 

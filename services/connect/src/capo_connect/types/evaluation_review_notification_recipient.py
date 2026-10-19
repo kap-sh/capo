@@ -49,8 +49,11 @@ def deserialize_json(data: dict) -> EvaluationReviewNotificationRecipient:
             )
         )
     else:
-        raise DeserializationError(
-            "EvaluationReviewNotificationRecipient.type required"
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_connect.types.evaluation_review_notification_recipient_type.EvaluationReviewNotificationRecipientType",
+            "",
         )
     if data.get("Value") is not None:
         import capo_connect.types.evaluation_review_notification_recipient_value

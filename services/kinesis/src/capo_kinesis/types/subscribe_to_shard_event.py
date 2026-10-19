@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_kinesis._protocol.eventstream import HeaderValue, Message
-from capo_kinesis.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_kinesis.types.child_shard_list
@@ -54,19 +53,15 @@ def deserialize_aws_json_1_1(data: dict) -> SubscribeToShardEvent:
             data["Records"]
         )
     else:
-        raise DeserializationError("SubscribeToShardEvent.records required")
+        out["records"] = []
     if data.get("ContinuationSequenceNumber") is not None:
         out["continuation_sequence_number"] = data["ContinuationSequenceNumber"]
     else:
-        raise DeserializationError(
-            "SubscribeToShardEvent.continuation_sequence_number required"
-        )
+        out["continuation_sequence_number"] = ""
     if data.get("MillisBehindLatest") is not None:
         out["millis_behind_latest"] = data["MillisBehindLatest"]
     else:
-        raise DeserializationError(
-            "SubscribeToShardEvent.millis_behind_latest required"
-        )
+        out["millis_behind_latest"] = 0
     if data.get("ChildShards") is not None:
         import capo_kinesis.types.child_shard_list
 

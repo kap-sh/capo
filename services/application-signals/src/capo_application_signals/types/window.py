@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.duration_unit
     import capo_application_signals.types.exclusion_duration
@@ -41,9 +39,13 @@ def deserialize_json(data: dict) -> Window:
             )
         )
     else:
-        raise DeserializationError("Window.duration_unit required")
+        import typing
+
+        out["duration_unit"] = typing.cast(
+            "capo_application_signals.types.duration_unit.DurationUnit", ""
+        )
     if data.get("Duration") is not None:
         out["duration"] = data["Duration"]
     else:
-        raise DeserializationError("Window.duration required")
+        out["duration"] = 0
     return out

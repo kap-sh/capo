@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.property_notification_state
     import capo_iotsitewise.types.property_notification_topic
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> PropertyNotification:
     if data.get("topic") is not None:
         out["topic"] = data["topic"]
     else:
-        raise DeserializationError("PropertyNotification.topic required")
+        out["topic"] = ""
     if data.get("state") is not None:
         import capo_iotsitewise.types.property_notification_state
 
@@ -49,5 +47,10 @@ def deserialize_json(data: dict) -> PropertyNotification:
             )
         )
     else:
-        raise DeserializationError("PropertyNotification.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_iotsitewise.types.property_notification_state.PropertyNotificationState",
+            "",
+        )
     return out

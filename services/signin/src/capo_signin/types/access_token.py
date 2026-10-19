@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_signin.errors import DeserializationError
-
 
 class AccessToken(TypedDict, closed=True):
     access_key_id: "str"
@@ -28,13 +26,13 @@ def deserialize_json(data: dict) -> AccessToken:
     if data.get("accessKeyId") is not None:
         out["access_key_id"] = data["accessKeyId"]
     else:
-        raise DeserializationError("AccessToken.access_key_id required")
+        out["access_key_id"] = ""
     if data.get("secretAccessKey") is not None:
         out["secret_access_key"] = data["secretAccessKey"]
     else:
-        raise DeserializationError("AccessToken.secret_access_key required")
+        out["secret_access_key"] = ""
     if data.get("sessionToken") is not None:
         out["session_token"] = data["sessionToken"]
     else:
-        raise DeserializationError("AccessToken.session_token required")
+        out["session_token"] = ""
     return out

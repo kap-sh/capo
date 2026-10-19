@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 
 class SourceEventMetadataSummary(TypedDict, closed=True):
     event_origin_region: NotRequired["str"]
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> SourceEventMetadataSummary:
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("SourceEventMetadataSummary.source required")
+        out["source"] = ""
     if data.get("eventType") is not None:
         out["event_type"] = data["eventType"]
     else:
-        raise DeserializationError("SourceEventMetadataSummary.event_type required")
+        out["event_type"] = ""
     return out

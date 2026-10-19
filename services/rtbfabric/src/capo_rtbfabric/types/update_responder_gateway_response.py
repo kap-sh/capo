@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rtbfabric.types.client_routing_policy
     import capo_rtbfabric.types.gateway_id
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> UpdateResponderGatewayResponse:
     if data.get("gatewayId") is not None:
         out["gateway_id"] = data["gatewayId"]
     else:
-        raise DeserializationError("UpdateResponderGatewayResponse.gateway_id required")
+        out["gateway_id"] = ""
     if data.get("status") is not None:
         import capo_rtbfabric.types.responder_gateway_status
 
@@ -56,7 +54,11 @@ def deserialize_json(data: dict) -> UpdateResponderGatewayResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("UpdateResponderGatewayResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_rtbfabric.types.responder_gateway_status.ResponderGatewayStatus", ""
+        )
     if data.get("clientRoutingPolicy") is not None:
         import capo_rtbfabric.types.client_routing_policy
 

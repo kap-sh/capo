@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.agent_space_id
     import capo_securityagent.types.application_id
@@ -44,15 +42,15 @@ def deserialize_json(data: dict) -> DeleteMembershipRequest:
     if data.get("applicationId") is not None:
         out["application_id"] = data["applicationId"]
     else:
-        raise DeserializationError("DeleteMembershipRequest.application_id required")
+        out["application_id"] = ""
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError("DeleteMembershipRequest.agent_space_id required")
+        out["agent_space_id"] = ""
     if data.get("membershipId") is not None:
         out["membership_id"] = data["membershipId"]
     else:
-        raise DeserializationError("DeleteMembershipRequest.membership_id required")
+        out["membership_id"] = ""
     if data.get("memberType") is not None:
         import capo_securityagent.types.membership_type
 

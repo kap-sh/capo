@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearchserverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearchserverless.types.iam_identity_center_group_attribute
     import capo_opensearchserverless.types.iam_identity_center_instance_arn
@@ -41,9 +39,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateIamIdentityCenterConfigOptions
     if data.get("instanceArn") is not None:
         out["instance_arn"] = data["instanceArn"]
     else:
-        raise DeserializationError(
-            "CreateIamIdentityCenterConfigOptions.instance_arn required"
-        )
+        out["instance_arn"] = ""
     if data.get("userAttribute") is not None:
         out["user_attribute"] = data["userAttribute"]
     if data.get("groupAttribute") is not None:

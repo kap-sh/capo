@@ -78,7 +78,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRotationRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateRotationRequest.name required")
+        out["name"] = ""
     if data.get("ContactIds") is not None:
         import capo_ssm_contacts.types.rotation_contacts_arn_list
 
@@ -88,7 +88,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRotationRequest:
             )
         )
     else:
-        raise DeserializationError("CreateRotationRequest.contact_ids required")
+        out["contact_ids"] = []
     if data.get("StartTime") is not None:
         import capo_ssm_contacts.types.date_time
 
@@ -98,7 +98,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRotationRequest:
     if data.get("TimeZoneId") is not None:
         out["time_zone_id"] = data["TimeZoneId"]
     else:
-        raise DeserializationError("CreateRotationRequest.time_zone_id required")
+        out["time_zone_id"] = ""
     if data.get("Recurrence") is not None:
         import capo_ssm_contacts.types.recurrence_settings
 

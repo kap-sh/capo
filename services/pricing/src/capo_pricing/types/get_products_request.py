@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pricing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pricing.types.filters
     import capo_pricing.types.format_version
@@ -52,7 +50,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetProductsRequest:
     if data.get("ServiceCode") is not None:
         out["service_code"] = data["ServiceCode"]
     else:
-        raise DeserializationError("GetProductsRequest.service_code required")
+        out["service_code"] = ""
     if data.get("Filters") is not None:
         import capo_pricing.types.filters
 

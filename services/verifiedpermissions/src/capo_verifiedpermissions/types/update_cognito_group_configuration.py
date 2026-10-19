@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.group_entity_type
 
@@ -29,9 +27,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateCognitoGroupConfiguration:
     if data.get("groupEntityType") is not None:
         out["group_entity_type"] = data["groupEntityType"]
     else:
-        raise DeserializationError(
-            "UpdateCognitoGroupConfiguration.group_entity_type required"
-        )
+        out["group_entity_type"] = ""
     return out
 
 

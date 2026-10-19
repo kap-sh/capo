@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.amount_capability_name
 
@@ -50,11 +48,11 @@ def deserialize_json(data: dict) -> FleetAmountCapability:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("FleetAmountCapability.name required")
+        out["name"] = ""
     if data.get("min") is not None:
         out["min"] = float(data["min"])
     else:
-        raise DeserializationError("FleetAmountCapability.min required")
+        out["min"] = 0.0
     if data.get("max") is not None:
         out["max"] = float(data["max"])
     return out

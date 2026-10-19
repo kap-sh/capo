@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_grafana.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_grafana.types.authentication_providers
     import capo_grafana.types.saml_configuration
@@ -55,9 +53,7 @@ def deserialize_json(data: dict) -> UpdateWorkspaceAuthenticationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateWorkspaceAuthenticationRequest.authentication_providers required"
-        )
+        out["authentication_providers"] = []
     if data.get("samlConfiguration") is not None:
         import capo_grafana.types.saml_configuration
 

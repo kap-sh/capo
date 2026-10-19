@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_transcribe_streaming._protocol.eventstream import HeaderValue, Message
-from capo_transcribe_streaming.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_transcribe_streaming.types.medical_scribe_session_control_event_type
@@ -41,7 +40,12 @@ def deserialize_json(data: dict) -> MedicalScribeSessionControlEvent:
             )
         )
     else:
-        raise DeserializationError("MedicalScribeSessionControlEvent.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_transcribe_streaming.types.medical_scribe_session_control_event_type.MedicalScribeSessionControlEventType",
+            "",
+        )
     return out
 
 

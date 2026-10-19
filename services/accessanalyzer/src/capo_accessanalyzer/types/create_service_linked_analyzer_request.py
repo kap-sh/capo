@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.analyzer_configuration
     import capo_accessanalyzer.types.inline_archive_rules_list
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> CreateServiceLinkedAnalyzerRequest:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("CreateServiceLinkedAnalyzerRequest.type required")
+        out["type"] = ""
     if data.get("archiveRules") is not None:
         import capo_accessanalyzer.types.inline_archive_rules_list
 

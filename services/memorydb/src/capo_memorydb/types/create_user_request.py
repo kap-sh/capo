@@ -48,7 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateUserRequest:
     if data.get("UserName") is not None:
         out["user_name"] = data["UserName"]
     else:
-        raise DeserializationError("CreateUserRequest.user_name required")
+        out["user_name"] = ""
     if data.get("AuthenticationMode") is not None:
         import capo_memorydb.types.authentication_mode
 
@@ -62,7 +62,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateUserRequest:
     if data.get("AccessString") is not None:
         out["access_string"] = data["AccessString"]
     else:
-        raise DeserializationError("CreateUserRequest.access_string required")
+        out["access_string"] = ""
     if data.get("Tags") is not None:
         import capo_memorydb.types.tag_list
 

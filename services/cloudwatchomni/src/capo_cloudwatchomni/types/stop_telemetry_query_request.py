@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 
 class StopTelemetryQueryRequest(TypedDict, closed=True):
     query_id: "str"
@@ -22,5 +20,5 @@ def deserialize_cbor(data: dict) -> StopTelemetryQueryRequest:
     if data.get("queryId") is not None:
         out["query_id"] = data["queryId"]
     else:
-        raise DeserializationError("StopTelemetryQueryRequest.query_id required")
+        out["query_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.date_time
     import capo_healthlake.types.profile_id_string
@@ -42,9 +40,7 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteDataTransformationProfileRespo
     if data.get("ProfileId") is not None:
         out["profile_id"] = data["ProfileId"]
     else:
-        raise DeserializationError(
-            "DeleteDataTransformationProfileResponse.profile_id required"
-        )
+        out["profile_id"] = ""
     if data.get("ProfileName") is not None:
         out["profile_name"] = data["ProfileName"]
     if data.get("DeletionTime") is not None:
@@ -54,7 +50,9 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteDataTransformationProfileRespo
             data["DeletionTime"]
         )
     else:
-        raise DeserializationError(
-            "DeleteDataTransformationProfileResponse.deletion_time required"
+        import datetime
+
+        out["deletion_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

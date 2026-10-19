@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.migration_project_identifier
     import capo_database_migration_service.types.string
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> CancelMetadataModelCreationMessage:
     if data.get("MigrationProjectIdentifier") is not None:
         out["migration_project_identifier"] = data["MigrationProjectIdentifier"]
     else:
-        raise DeserializationError(
-            "CancelMetadataModelCreationMessage.migration_project_identifier required"
-        )
+        out["migration_project_identifier"] = ""
     if data.get("RequestIdentifier") is not None:
         out["request_identifier"] = data["RequestIdentifier"]
     else:
-        raise DeserializationError(
-            "CancelMetadataModelCreationMessage.request_identifier required"
-        )
+        out["request_identifier"] = ""
     return out

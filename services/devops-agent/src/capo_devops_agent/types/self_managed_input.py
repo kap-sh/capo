@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.certificate_string
     import capo_devops_agent.types.resource_configuration_arn
@@ -36,9 +34,7 @@ def deserialize_json(data: dict) -> SelfManagedInput:
     if data.get("resourceConfigurationId") is not None:
         out["resource_configuration_id"] = data["resourceConfigurationId"]
     else:
-        raise DeserializationError(
-            "SelfManagedInput.resource_configuration_id required"
-        )
+        out["resource_configuration_id"] = ""
     if data.get("certificate") is not None:
         out["certificate"] = data["certificate"]
     return out

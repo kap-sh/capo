@@ -69,8 +69,10 @@ def deserialize_json(data: dict) -> TelephonyChannelSubtypeConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "TelephonyChannelSubtypeConfig.outbound_mode required"
+        import capo_connectcampaignsv2.types._unknown
+
+        out["outbound_mode"] = (
+            capo_connectcampaignsv2.types._unknown.UnknownUnionMember("")
         )
     if data.get("defaultOutboundConfig") is not None:
         import capo_connectcampaignsv2.types.telephony_outbound_config

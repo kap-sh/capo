@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.accept_language
     import capo_service_catalog.types.id
@@ -136,9 +134,7 @@ def deserialize_aws_json_1_1(data: dict) -> ProvisionProductInput:
     if data.get("ProvisionedProductName") is not None:
         out["provisioned_product_name"] = data["ProvisionedProductName"]
     else:
-        raise DeserializationError(
-            "ProvisionProductInput.provisioned_product_name required"
-        )
+        out["provisioned_product_name"] = ""
     if data.get("ProvisioningParameters") is not None:
         import capo_service_catalog.types.provisioning_parameters
 
@@ -172,5 +168,5 @@ def deserialize_aws_json_1_1(data: dict) -> ProvisionProductInput:
     if data.get("ProvisionToken") is not None:
         out["provision_token"] = data["ProvisionToken"]
     else:
-        raise DeserializationError("ProvisionProductInput.provision_token required")
+        out["provision_token"] = ""
     return out

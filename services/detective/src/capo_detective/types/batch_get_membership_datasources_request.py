@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_detective.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_detective.types.graph_arn_list
 
@@ -35,7 +33,5 @@ def deserialize_json(data: dict) -> BatchGetMembershipDatasourcesRequest:
             data["GraphArns"]
         )
     else:
-        raise DeserializationError(
-            "BatchGetMembershipDatasourcesRequest.graph_arns required"
-        )
+        out["graph_arns"] = []
     return out

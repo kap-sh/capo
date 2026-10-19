@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.response_headers_policy_cors_config
@@ -92,7 +91,7 @@ def deserialize_xml(el: Element) -> ResponseHeadersPolicyConfig:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("ResponseHeadersPolicyConfig.name required")
+        out["name"] = ""
     child_cors_config = el.find("CorsConfig")
     if child_cors_config is not None:
         import capo_cloudfront.types.response_headers_policy_cors_config

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codeguru_security.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguru_security.types.finding_identifiers
 
@@ -41,7 +39,5 @@ def deserialize_json(data: dict) -> BatchGetFindingsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetFindingsRequest.finding_identifiers required"
-        )
+        out["finding_identifiers"] = []
     return out

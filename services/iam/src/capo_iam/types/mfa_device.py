@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.date_type
@@ -42,12 +41,12 @@ def deserialize_query(el: Element) -> MFADevice:
     if child_user_name is not None:
         out["user_name"] = str(child_user_name.text or "")
     else:
-        raise DeserializationError("MFADevice.user_name required")
+        out["user_name"] = ""
     child_serial_number = el.find("SerialNumber")
     if child_serial_number is not None:
         out["serial_number"] = str(child_serial_number.text or "")
     else:
-        raise DeserializationError("MFADevice.serial_number required")
+        out["serial_number"] = ""
     child_enable_date = el.find("EnableDate")
     if child_enable_date is not None:
         import capo_iam.types.date_type
@@ -56,5 +55,9 @@ def deserialize_query(el: Element) -> MFADevice:
             child_enable_date
         )
     else:
-        raise DeserializationError("MFADevice.enable_date required")
+        import datetime
+
+        out["enable_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

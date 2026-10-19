@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_voice_id.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_voice_id.types.domain_id
     import capo_voice_id.types.job_id
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeSpeakerEnrollmentJobRequest:
     if data.get("DomainId") is not None:
         out["domain_id"] = data["DomainId"]
     else:
-        raise DeserializationError(
-            "DescribeSpeakerEnrollmentJobRequest.domain_id required"
-        )
+        out["domain_id"] = ""
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError(
-            "DescribeSpeakerEnrollmentJobRequest.job_id required"
-        )
+        out["job_id"] = ""
     return out

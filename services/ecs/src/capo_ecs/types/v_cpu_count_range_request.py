@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.boxed_integer
 
@@ -31,7 +29,7 @@ def deserialize_aws_json_1_1(data: dict) -> VCpuCountRangeRequest:
     if data.get("min") is not None:
         out["min"] = data["min"]
     else:
-        raise DeserializationError("VCpuCountRangeRequest.min required")
+        out["min"] = 0
     if data.get("max") is not None:
         out["max"] = data["max"]
     return out

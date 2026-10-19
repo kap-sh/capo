@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.api_key_value
 
@@ -33,15 +31,15 @@ def deserialize_json(data: dict) -> MCPServerAPIKeyConfig:
     if data.get("apiKeyName") is not None:
         out["api_key_name"] = data["apiKeyName"]
     else:
-        raise DeserializationError("MCPServerAPIKeyConfig.api_key_name required")
+        out["api_key_name"] = ""
     if data.get("apiKeyValue") is not None:
         out["api_key_value"] = data["apiKeyValue"]
     else:
-        raise DeserializationError("MCPServerAPIKeyConfig.api_key_value required")
+        out["api_key_value"] = ""
     if data.get("apiKeyHeader") is not None:
         out["api_key_header"] = data["apiKeyHeader"]
     else:
-        raise DeserializationError("MCPServerAPIKeyConfig.api_key_header required")
+        out["api_key_header"] = ""
     return out
 
 

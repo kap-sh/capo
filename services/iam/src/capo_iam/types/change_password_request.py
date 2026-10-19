@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.password_type
@@ -33,12 +32,12 @@ def deserialize_query(el: Element) -> ChangePasswordRequest:
     if child_old_password is not None:
         out["old_password"] = str(child_old_password.text or "")
     else:
-        raise DeserializationError("ChangePasswordRequest.old_password required")
+        out["old_password"] = ""
     child_new_password = el.find("NewPassword")
     if child_new_password is not None:
         out["new_password"] = str(child_new_password.text or "")
     else:
-        raise DeserializationError("ChangePasswordRequest.new_password required")
+        out["new_password"] = ""
     return out
 
 

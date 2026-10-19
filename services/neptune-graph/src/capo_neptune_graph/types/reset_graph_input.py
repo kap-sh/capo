@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_neptune_graph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_neptune_graph.types.graph_identifier
 
@@ -29,5 +27,5 @@ def deserialize_json(data: dict) -> ResetGraphInput:
     if data.get("skipSnapshot") is not None:
         out["skip_snapshot"] = data["skipSnapshot"]
     else:
-        raise DeserializationError("ResetGraphInput.skip_snapshot required")
+        out["skip_snapshot"] = False
     return out

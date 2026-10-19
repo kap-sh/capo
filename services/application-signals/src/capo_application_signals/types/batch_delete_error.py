@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.batch_delete_error_code
 
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> BatchDeleteError:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("BatchDeleteError.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("Code") is not None:
         import capo_application_signals.types.batch_delete_error_code
 
@@ -47,9 +45,14 @@ def deserialize_json(data: dict) -> BatchDeleteError:
             )
         )
     else:
-        raise DeserializationError("BatchDeleteError.code required")
+        import typing
+
+        out["code"] = typing.cast(
+            "capo_application_signals.types.batch_delete_error_code.BatchDeleteErrorCode",
+            "",
+        )
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("BatchDeleteError.message required")
+        out["message"] = ""
     return out

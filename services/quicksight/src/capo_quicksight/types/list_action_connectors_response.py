@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.action_connector_summary_list
     import capo_quicksight.types.status_code
@@ -52,9 +50,7 @@ def deserialize_json(data: dict) -> ListActionConnectorsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListActionConnectorsResponse.action_connector_summaries required"
-        )
+        out["action_connector_summaries"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("RequestId") is not None:

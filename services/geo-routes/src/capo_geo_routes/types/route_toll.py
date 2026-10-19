@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.country_code3
     import capo_geo_routes.types.index_list
@@ -62,7 +60,7 @@ def deserialize_json(data: dict) -> RouteToll:
             )
         )
     else:
-        raise DeserializationError("RouteToll.payment_sites required")
+        out["payment_sites"] = []
     if data.get("Rates") is not None:
         import capo_geo_routes.types.route_toll_rate_list
 
@@ -70,7 +68,7 @@ def deserialize_json(data: dict) -> RouteToll:
             data["Rates"]
         )
     else:
-        raise DeserializationError("RouteToll.rates required")
+        out["rates"] = []
     if data.get("Systems") is not None:
         import capo_geo_routes.types.index_list
 
@@ -78,7 +76,7 @@ def deserialize_json(data: dict) -> RouteToll:
             data["Systems"]
         )
     else:
-        raise DeserializationError("RouteToll.systems required")
+        out["systems"] = []
     return out
 
 

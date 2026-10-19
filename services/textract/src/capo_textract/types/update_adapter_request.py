@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_textract.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_textract.types.adapter_description
     import capo_textract.types.adapter_id
@@ -48,7 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateAdapterRequest:
     if data.get("AdapterId") is not None:
         out["adapter_id"] = data["AdapterId"]
     else:
-        raise DeserializationError("UpdateAdapterRequest.adapter_id required")
+        out["adapter_id"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("AdapterName") is not None:

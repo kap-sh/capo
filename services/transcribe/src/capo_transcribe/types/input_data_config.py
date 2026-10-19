@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transcribe.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe.types.data_access_role_arn
     import capo_transcribe.types.uri
@@ -35,11 +33,11 @@ def deserialize_aws_json_1_1(data: dict) -> InputDataConfig:
     if data.get("S3Uri") is not None:
         out["s3_uri"] = data["S3Uri"]
     else:
-        raise DeserializationError("InputDataConfig.s3_uri required")
+        out["s3_uri"] = ""
     if data.get("TuningDataS3Uri") is not None:
         out["tuning_data_s3_uri"] = data["TuningDataS3Uri"]
     if data.get("DataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["DataAccessRoleArn"]
     else:
-        raise DeserializationError("InputDataConfig.data_access_role_arn required")
+        out["data_access_role_arn"] = ""
     return out

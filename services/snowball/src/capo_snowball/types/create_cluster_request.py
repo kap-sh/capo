@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_snowball.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_snowball.types.address_id
     import capo_snowball.types.boolean
@@ -165,7 +163,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateClusterRequest:
             data["JobType"]
         )
     else:
-        raise DeserializationError("CreateClusterRequest.job_type required")
+        import typing
+
+        out["job_type"] = typing.cast("capo_snowball.types.job_type.JobType", "")
     if data.get("Resources") is not None:
         import capo_snowball.types.job_resource
 
@@ -185,7 +185,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateClusterRequest:
     if data.get("AddressId") is not None:
         out["address_id"] = data["AddressId"]
     else:
-        raise DeserializationError("CreateClusterRequest.address_id required")
+        out["address_id"] = ""
     if data.get("KmsKeyARN") is not None:
         out["kms_key_arn"] = data["KmsKeyARN"]
     if data.get("RoleARN") is not None:
@@ -199,7 +199,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateClusterRequest:
             )
         )
     else:
-        raise DeserializationError("CreateClusterRequest.snowball_type required")
+        import typing
+
+        out["snowball_type"] = typing.cast(
+            "capo_snowball.types.snowball_type.SnowballType", ""
+        )
     if data.get("ShippingOption") is not None:
         import capo_snowball.types.shipping_option
 
@@ -209,7 +213,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateClusterRequest:
             )
         )
     else:
-        raise DeserializationError("CreateClusterRequest.shipping_option required")
+        import typing
+
+        out["shipping_option"] = typing.cast(
+            "capo_snowball.types.shipping_option.ShippingOption", ""
+        )
     if data.get("Notification") is not None:
         import capo_snowball.types.notification
 

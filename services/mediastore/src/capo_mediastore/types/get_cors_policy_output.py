@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediastore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediastore.types.cors_policy
 
@@ -35,5 +33,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetCorsPolicyOutput:
             data["CorsPolicy"]
         )
     else:
-        raise DeserializationError("GetCorsPolicyOutput.cors_policy required")
+        out["cors_policy"] = []
     return out

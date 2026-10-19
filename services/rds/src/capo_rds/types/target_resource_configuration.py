@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_rds._protocol.xml import Element
-from capo_rds.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_rds.types.db_and_cluster_arn
@@ -35,7 +34,7 @@ def deserialize_query(el: Element) -> TargetResourceConfiguration:
     if child_source_arn is not None:
         out["source_arn"] = str(child_source_arn.text or "")
     else:
-        raise DeserializationError("TargetResourceConfiguration.source_arn required")
+        out["source_arn"] = ""
     child_target_kms_key_id = el.find("TargetKmsKeyId")
     if child_target_kms_key_id is not None:
         out["target_kms_key_id"] = str(child_target_kms_key_id.text or "")

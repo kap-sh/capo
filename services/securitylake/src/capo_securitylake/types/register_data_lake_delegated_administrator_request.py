@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securitylake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securitylake.types.safe_string
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> RegisterDataLakeDelegatedAdministratorReques
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError(
-            "RegisterDataLakeDelegatedAdministratorRequest.account_id required"
-        )
+        out["account_id"] = ""
     return out

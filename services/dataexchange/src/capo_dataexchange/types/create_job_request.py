@@ -64,5 +64,5 @@ def deserialize_json(data: dict) -> CreateJobRequest:
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     else:
-        raise DeserializationError("CreateJobRequest.type required")
+        out["type"] = ""
     return out

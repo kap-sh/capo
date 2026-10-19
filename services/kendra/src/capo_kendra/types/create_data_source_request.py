@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.client_token_name
     import capo_kendra.types.custom_document_enrichment_configuration
@@ -110,11 +108,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDataSourceRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateDataSourceRequest.name required")
+        out["name"] = ""
     if data.get("IndexId") is not None:
         out["index_id"] = data["IndexId"]
     else:
-        raise DeserializationError("CreateDataSourceRequest.index_id required")
+        out["index_id"] = ""
     if data.get("Type") is not None:
         import capo_kendra.types.data_source_type
 
@@ -122,7 +120,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDataSourceRequest:
             data["Type"]
         )
     else:
-        raise DeserializationError("CreateDataSourceRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_kendra.types.data_source_type.DataSourceType", ""
+        )
     if data.get("Configuration") is not None:
         import capo_kendra.types.data_source_configuration
 

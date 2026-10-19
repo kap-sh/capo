@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.component
     import capo_inspector2.types.component_arn
@@ -36,11 +34,11 @@ def deserialize_json(data: dict) -> Step:
     if data.get("componentId") is not None:
         out["component_id"] = data["componentId"]
     else:
-        raise DeserializationError("Step.component_id required")
+        out["component_id"] = ""
     if data.get("componentType") is not None:
         out["component_type"] = data["componentType"]
     else:
-        raise DeserializationError("Step.component_type required")
+        out["component_type"] = ""
     if data.get("componentArn") is not None:
         out["component_arn"] = data["componentArn"]
     return out

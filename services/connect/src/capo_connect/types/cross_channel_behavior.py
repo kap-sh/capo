@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.behavior_type
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> CrossChannelBehavior:
             data["BehaviorType"]
         )
     else:
-        raise DeserializationError("CrossChannelBehavior.behavior_type required")
+        import typing
+
+        out["behavior_type"] = typing.cast(
+            "capo_connect.types.behavior_type.BehaviorType", ""
+        )
     return out

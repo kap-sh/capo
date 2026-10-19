@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.evaluation_form_title
@@ -76,15 +74,15 @@ def deserialize_json(data: dict) -> EvaluationFormSummary:
     if data.get("EvaluationFormId") is not None:
         out["evaluation_form_id"] = data["EvaluationFormId"]
     else:
-        raise DeserializationError("EvaluationFormSummary.evaluation_form_id required")
+        out["evaluation_form_id"] = ""
     if data.get("EvaluationFormArn") is not None:
         out["evaluation_form_arn"] = data["EvaluationFormArn"]
     else:
-        raise DeserializationError("EvaluationFormSummary.evaluation_form_arn required")
+        out["evaluation_form_arn"] = ""
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     else:
-        raise DeserializationError("EvaluationFormSummary.title required")
+        out["title"] = ""
     if data.get("CreatedTime") is not None:
         import capo_connect.types.timestamp
 
@@ -92,11 +90,15 @@ def deserialize_json(data: dict) -> EvaluationFormSummary:
             data["CreatedTime"]
         )
     else:
-        raise DeserializationError("EvaluationFormSummary.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("CreatedBy") is not None:
         out["created_by"] = data["CreatedBy"]
     else:
-        raise DeserializationError("EvaluationFormSummary.created_by required")
+        out["created_by"] = ""
     if data.get("LastModifiedTime") is not None:
         import capo_connect.types.timestamp
 
@@ -104,11 +106,15 @@ def deserialize_json(data: dict) -> EvaluationFormSummary:
             data["LastModifiedTime"]
         )
     else:
-        raise DeserializationError("EvaluationFormSummary.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("LastModifiedBy") is not None:
         out["last_modified_by"] = data["LastModifiedBy"]
     else:
-        raise DeserializationError("EvaluationFormSummary.last_modified_by required")
+        out["last_modified_by"] = ""
     if data.get("LastActivatedTime") is not None:
         import capo_connect.types.timestamp
 

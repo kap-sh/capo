@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.action_type
     import capo_connect.types.assign_contact_category_action_definition
@@ -176,7 +174,11 @@ def deserialize_json(data: dict) -> RuleAction:
             data["ActionType"]
         )
     else:
-        raise DeserializationError("RuleAction.action_type required")
+        import typing
+
+        out["action_type"] = typing.cast(
+            "capo_connect.types.action_type.ActionType", ""
+        )
     if data.get("TaskAction") is not None:
         import capo_connect.types.task_action_definition
 

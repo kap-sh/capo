@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.guardrail_arn
     import capo_bedrock.types.guardrail_cross_region_details
@@ -76,11 +74,11 @@ def deserialize_json(data: dict) -> GuardrailSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GuardrailSummary.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GuardrailSummary.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_bedrock.types.guardrail_status
 
@@ -88,17 +86,21 @@ def deserialize_json(data: dict) -> GuardrailSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("GuardrailSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock.types.guardrail_status.GuardrailStatus", ""
+        )
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GuardrailSummary.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("GuardrailSummary.version required")
+        out["version"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock.types.timestamp
 
@@ -106,7 +108,9 @@ def deserialize_json(data: dict) -> GuardrailSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("GuardrailSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock.types.timestamp
 
@@ -114,7 +118,9 @@ def deserialize_json(data: dict) -> GuardrailSummary:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("GuardrailSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("crossRegionDetails") is not None:
         import capo_bedrock.types.guardrail_cross_region_details
 

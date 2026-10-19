@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_osis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_osis.types.pipeline_arn
     import capo_osis.types.pipeline_endpoint_ids_list
@@ -35,9 +33,7 @@ def deserialize_json(data: dict) -> RevokePipelineEndpointConnectionsRequest:
     if data.get("PipelineArn") is not None:
         out["pipeline_arn"] = data["PipelineArn"]
     else:
-        raise DeserializationError(
-            "RevokePipelineEndpointConnectionsRequest.pipeline_arn required"
-        )
+        out["pipeline_arn"] = ""
     if data.get("EndpointIds") is not None:
         import capo_osis.types.pipeline_endpoint_ids_list
 
@@ -47,7 +43,5 @@ def deserialize_json(data: dict) -> RevokePipelineEndpointConnectionsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "RevokePipelineEndpointConnectionsRequest.endpoint_ids required"
-        )
+        out["endpoint_ids"] = []
     return out

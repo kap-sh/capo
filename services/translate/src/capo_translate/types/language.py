@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_translate.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_translate.types.language_code_string
     import capo_translate.types.localized_name_string
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> Language:
     if data.get("LanguageName") is not None:
         out["language_name"] = data["LanguageName"]
     else:
-        raise DeserializationError("Language.language_name required")
+        out["language_name"] = ""
     if data.get("LanguageCode") is not None:
         out["language_code"] = data["LanguageCode"]
     else:
-        raise DeserializationError("Language.language_code required")
+        out["language_code"] = ""
     return out

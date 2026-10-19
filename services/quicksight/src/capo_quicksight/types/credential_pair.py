@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.data_source_parameters_list
     import capo_quicksight.types.db_username
@@ -44,11 +42,11 @@ def deserialize_json(data: dict) -> CredentialPair:
     if data.get("Username") is not None:
         out["username"] = data["Username"]
     else:
-        raise DeserializationError("CredentialPair.username required")
+        out["username"] = ""
     if data.get("Password") is not None:
         out["password"] = data["Password"]
     else:
-        raise DeserializationError("CredentialPair.password required")
+        out["password"] = ""
     if data.get("AlternateDataSourceParameters") is not None:
         import capo_quicksight.types.data_source_parameters_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.monitor_id
     import capo_deadline.types.settings_map
@@ -36,5 +34,5 @@ def deserialize_json(data: dict) -> UpdateMonitorSettingsRequest:
             data["settings"]
         )
     else:
-        raise DeserializationError("UpdateMonitorSettingsRequest.settings required")
+        out["settings"] = {}
     return out

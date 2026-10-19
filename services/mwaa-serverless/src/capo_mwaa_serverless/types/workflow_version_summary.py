@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mwaa_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mwaa_serverless.types.definition_s3_location
     import capo_mwaa_serverless.types.generic_string
@@ -92,11 +90,11 @@ def deserialize_aws_json_1_0(data: dict) -> WorkflowVersionSummary:
     if data.get("WorkflowVersion") is not None:
         out["workflow_version"] = data["WorkflowVersion"]
     else:
-        raise DeserializationError("WorkflowVersionSummary.workflow_version required")
+        out["workflow_version"] = ""
     if data.get("WorkflowArn") is not None:
         out["workflow_arn"] = data["WorkflowArn"]
     else:
-        raise DeserializationError("WorkflowVersionSummary.workflow_arn required")
+        out["workflow_arn"] = ""
     if data.get("IsLatestVersion") is not None:
         out["is_latest_version"] = data["IsLatestVersion"]
     if data.get("CreatedAt") is not None:

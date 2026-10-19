@@ -75,21 +75,21 @@ def deserialize_json(data: dict) -> DescribeTaskResponse:
     if data.get("workspaceName") is not None:
         out["workspace_name"] = data["workspaceName"]
     else:
-        raise DeserializationError("DescribeTaskResponse.workspace_name required")
+        out["workspace_name"] = ""
     if data.get("taskName") is not None:
         out["task_name"] = data["taskName"]
     else:
-        raise DeserializationError("DescribeTaskResponse.task_name required")
+        out["task_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("taskArn") is not None:
         out["task_arn"] = data["taskArn"]
     else:
-        raise DeserializationError("DescribeTaskResponse.task_arn required")
+        out["task_arn"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("DescribeTaskResponse.version required")
+        out["version"] = ""
     if data.get("taskConfiguration") is not None:
         import capo_iotsitewise.types.task_configuration
 
@@ -99,7 +99,11 @@ def deserialize_json(data: dict) -> DescribeTaskResponse:
             )
         )
     else:
-        raise DeserializationError("DescribeTaskResponse.task_configuration required")
+        import capo_iotsitewise.types._unknown
+
+        out["task_configuration"] = capo_iotsitewise.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("status") is not None:
         import capo_iotsitewise.types.resource_status
 
@@ -115,7 +119,9 @@ def deserialize_json(data: dict) -> DescribeTaskResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("DescribeTaskResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_iotsitewise.types.timestamp
 
@@ -123,7 +129,9 @@ def deserialize_json(data: dict) -> DescribeTaskResponse:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("DescribeTaskResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

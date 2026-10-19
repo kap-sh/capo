@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr.types.scanning_configuration_repository_name_list
 
@@ -43,7 +41,5 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetRepositoryScanningConfigurationRequest.repository_names required"
-        )
+        out["repository_names"] = []
     return out

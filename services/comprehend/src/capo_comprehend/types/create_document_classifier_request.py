@@ -121,17 +121,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDocumentClassifierRequest:
     if data.get("DocumentClassifierName") is not None:
         out["document_classifier_name"] = data["DocumentClassifierName"]
     else:
-        raise DeserializationError(
-            "CreateDocumentClassifierRequest.document_classifier_name required"
-        )
+        out["document_classifier_name"] = ""
     if data.get("VersionName") is not None:
         out["version_name"] = data["VersionName"]
     if data.get("DataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["DataAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "CreateDocumentClassifierRequest.data_access_role_arn required"
-        )
+        out["data_access_role_arn"] = ""
     if data.get("Tags") is not None:
         import capo_comprehend.types.tag_list
 
@@ -169,8 +165,10 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDocumentClassifierRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDocumentClassifierRequest.language_code required"
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_comprehend.types.language_code.LanguageCode", ""
         )
     if data.get("VolumeKmsKeyId") is not None:
         out["volume_kms_key_id"] = data["VolumeKmsKeyId"]

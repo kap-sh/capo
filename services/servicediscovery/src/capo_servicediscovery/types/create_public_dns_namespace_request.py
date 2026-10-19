@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_servicediscovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_servicediscovery.types.namespace_name_public
     import capo_servicediscovery.types.public_dns_namespace_properties
@@ -63,7 +61,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePublicDnsNamespaceRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreatePublicDnsNamespaceRequest.name required")
+        out["name"] = ""
     if data.get("CreatorRequestId") is not None:
         out["creator_request_id"] = data["CreatorRequestId"]
     if data.get("Description") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.jwt_key_id
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> LinkedAccountDeveloperJwt:
     if data.get("kid") is not None:
         out["kid"] = data["kid"]
     else:
-        raise DeserializationError("LinkedAccountDeveloperJwt.kid required")
+        out["kid"] = ""
     if data.get("sub") is not None:
         out["sub"] = data["sub"]
     else:
-        raise DeserializationError("LinkedAccountDeveloperJwt.sub required")
+        out["sub"] = ""
     return out

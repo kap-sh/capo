@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -64,11 +62,13 @@ def deserialize_json(data: dict) -> TestRunSourceEvent:
             )
         )
     else:
-        raise DeserializationError("TestRunSourceEvent.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("sourceArn") is not None:
         out["source_arn"] = data["sourceArn"]
     else:
-        raise DeserializationError("TestRunSourceEvent.source_arn required")
+        out["source_arn"] = ""
     if data.get("eventType") is not None:
         import capo_resiliencehubv2.types.test_run_source_event_type
 
@@ -78,7 +78,12 @@ def deserialize_json(data: dict) -> TestRunSourceEvent:
             )
         )
     else:
-        raise DeserializationError("TestRunSourceEvent.event_type required")
+        import typing
+
+        out["event_type"] = typing.cast(
+            "capo_resiliencehubv2.types.test_run_source_event_type.TestRunSourceEventType",
+            "",
+        )
     if data.get("detail") is not None:
         import capo_resiliencehubv2.types.test_run_source_event_detail
 
@@ -88,5 +93,7 @@ def deserialize_json(data: dict) -> TestRunSourceEvent:
             )
         )
     else:
-        raise DeserializationError("TestRunSourceEvent.detail required")
+        import capo_resiliencehubv2.types._unknown
+
+        out["detail"] = capo_resiliencehubv2.types._unknown.UnknownUnionMember("")
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.aggregation_display_value
     import capo_datazone.types.attribute
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> AggregationListItem:
     if data.get("attribute") is not None:
         out["attribute"] = data["attribute"]
     else:
-        raise DeserializationError("AggregationListItem.attribute required")
+        out["attribute"] = ""
     if data.get("displayValue") is not None:
         out["display_value"] = data["displayValue"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kms.types.grant_constraints
     import capo_kms.types.grant_name_type
@@ -85,7 +83,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateGrantRequest:
     if data.get("KeyId") is not None:
         out["key_id"] = data["KeyId"]
     else:
-        raise DeserializationError("CreateGrantRequest.key_id required")
+        out["key_id"] = ""
     if data.get("GranteePrincipal") is not None:
         out["grantee_principal"] = data["GranteePrincipal"]
     if data.get("RetiringPrincipal") is not None:
@@ -99,7 +97,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateGrantRequest:
             )
         )
     else:
-        raise DeserializationError("CreateGrantRequest.operations required")
+        out["operations"] = []
     if data.get("Constraints") is not None:
         import capo_kms.types.grant_constraints
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.input_properties
     import capo_iotsitewise.types.result_property
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> ComputationModelAnomalyDetectionConfiguratio
     if data.get("inputProperties") is not None:
         out["input_properties"] = data["inputProperties"]
     else:
-        raise DeserializationError(
-            "ComputationModelAnomalyDetectionConfiguration.input_properties required"
-        )
+        out["input_properties"] = ""
     if data.get("resultProperty") is not None:
         out["result_property"] = data["resultProperty"]
     else:
-        raise DeserializationError(
-            "ComputationModelAnomalyDetectionConfiguration.result_property required"
-        )
+        out["result_property"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3tables.types.resource_policy
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> GetTableBucketPolicyResponse:
     if data.get("resourcePolicy") is not None:
         out["resource_policy"] = data["resourcePolicy"]
     else:
-        raise DeserializationError(
-            "GetTableBucketPolicyResponse.resource_policy required"
-        )
+        out["resource_policy"] = ""
     return out

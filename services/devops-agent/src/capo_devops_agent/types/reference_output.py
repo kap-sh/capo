@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 
 class ReferenceOutput(TypedDict, closed=True):
     system: "str"
@@ -35,19 +33,19 @@ def deserialize_json(data: dict) -> ReferenceOutput:
     if data.get("system") is not None:
         out["system"] = data["system"]
     else:
-        raise DeserializationError("ReferenceOutput.system required")
+        out["system"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     if data.get("referenceId") is not None:
         out["reference_id"] = data["referenceId"]
     else:
-        raise DeserializationError("ReferenceOutput.reference_id required")
+        out["reference_id"] = ""
     if data.get("referenceUrl") is not None:
         out["reference_url"] = data["referenceUrl"]
     else:
-        raise DeserializationError("ReferenceOutput.reference_url required")
+        out["reference_url"] = ""
     if data.get("associationId") is not None:
         out["association_id"] = data["associationId"]
     else:
-        raise DeserializationError("ReferenceOutput.association_id required")
+        out["association_id"] = ""
     return out

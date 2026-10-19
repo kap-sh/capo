@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.component_binding_properties
     import capo_amplifyuibuilder.types.component_child_list
@@ -115,13 +113,13 @@ def deserialize_json(data: dict) -> CreateComponentData:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateComponentData.name required")
+        out["name"] = ""
     if data.get("sourceId") is not None:
         out["source_id"] = data["sourceId"]
     if data.get("componentType") is not None:
         out["component_type"] = data["componentType"]
     else:
-        raise DeserializationError("CreateComponentData.component_type required")
+        out["component_type"] = ""
     if data.get("properties") is not None:
         import capo_amplifyuibuilder.types.component_properties
 
@@ -131,7 +129,7 @@ def deserialize_json(data: dict) -> CreateComponentData:
             )
         )
     else:
-        raise DeserializationError("CreateComponentData.properties required")
+        out["properties"] = {}
     if data.get("children") is not None:
         import capo_amplifyuibuilder.types.component_child_list
 
@@ -149,7 +147,7 @@ def deserialize_json(data: dict) -> CreateComponentData:
             )
         )
     else:
-        raise DeserializationError("CreateComponentData.variants required")
+        out["variants"] = []
     if data.get("overrides") is not None:
         import capo_amplifyuibuilder.types.component_overrides
 
@@ -159,7 +157,7 @@ def deserialize_json(data: dict) -> CreateComponentData:
             )
         )
     else:
-        raise DeserializationError("CreateComponentData.overrides required")
+        out["overrides"] = {}
     if data.get("bindingProperties") is not None:
         import capo_amplifyuibuilder.types.component_binding_properties
 
@@ -169,7 +167,7 @@ def deserialize_json(data: dict) -> CreateComponentData:
             )
         )
     else:
-        raise DeserializationError("CreateComponentData.binding_properties required")
+        out["binding_properties"] = {}
     if data.get("collectionProperties") is not None:
         import capo_amplifyuibuilder.types.component_collection_properties
 

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -76,22 +75,22 @@ def deserialize_query(el: Element) -> User:
     if child_path is not None:
         out["path"] = str(child_path.text or "")
     else:
-        raise DeserializationError("User.path required")
+        out["path"] = ""
     child_user_name = el.find("UserName")
     if child_user_name is not None:
         out["user_name"] = str(child_user_name.text or "")
     else:
-        raise DeserializationError("User.user_name required")
+        out["user_name"] = ""
     child_user_id = el.find("UserId")
     if child_user_id is not None:
         out["user_id"] = str(child_user_id.text or "")
     else:
-        raise DeserializationError("User.user_id required")
+        out["user_id"] = ""
     child_arn = el.find("Arn")
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("User.arn required")
+        out["arn"] = ""
     child_create_date = el.find("CreateDate")
     if child_create_date is not None:
         import capo_iam.types.date_type
@@ -100,7 +99,11 @@ def deserialize_query(el: Element) -> User:
             child_create_date
         )
     else:
-        raise DeserializationError("User.create_date required")
+        import datetime
+
+        out["create_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_password_last_used = el.find("PasswordLastUsed")
     if child_password_last_used is not None:
         import capo_iam.types.date_type

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.meta_flow_category_list
     import capo_socialmessaging.types.meta_flow_id
@@ -59,15 +57,15 @@ def deserialize_json(data: dict) -> MetaFlowSummary:
     if data.get("flowId") is not None:
         out["flow_id"] = data["flowId"]
     else:
-        raise DeserializationError("MetaFlowSummary.flow_id required")
+        out["flow_id"] = ""
     if data.get("flowName") is not None:
         out["flow_name"] = data["flowName"]
     else:
-        raise DeserializationError("MetaFlowSummary.flow_name required")
+        out["flow_name"] = ""
     if data.get("flowStatus") is not None:
         out["flow_status"] = data["flowStatus"]
     else:
-        raise DeserializationError("MetaFlowSummary.flow_status required")
+        out["flow_status"] = ""
     if data.get("flowCategories") is not None:
         import capo_socialmessaging.types.meta_flow_category_list
 
@@ -77,7 +75,7 @@ def deserialize_json(data: dict) -> MetaFlowSummary:
             )
         )
     else:
-        raise DeserializationError("MetaFlowSummary.flow_categories required")
+        out["flow_categories"] = []
     if data.get("validationErrors") is not None:
         import capo_socialmessaging.types.validation_error_list
 
@@ -87,5 +85,5 @@ def deserialize_json(data: dict) -> MetaFlowSummary:
             )
         )
     else:
-        raise DeserializationError("MetaFlowSummary.validation_errors required")
+        out["validation_errors"] = []
     return out

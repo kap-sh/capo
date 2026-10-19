@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.security_group_ids
     import capo_bedrock.types.subnet_ids
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> VpcConfig:
             data["subnetIds"]
         )
     else:
-        raise DeserializationError("VpcConfig.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("securityGroupIds") is not None:
         import capo_bedrock.types.security_group_ids
 
@@ -51,5 +49,5 @@ def deserialize_json(data: dict) -> VpcConfig:
             )
         )
     else:
-        raise DeserializationError("VpcConfig.security_group_ids required")
+        out["security_group_ids"] = []
     return out

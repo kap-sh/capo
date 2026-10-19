@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billing.errors import DeserializationError
-
 
 class BusinessSupportServiceSpend(TypedDict, closed=True):
     contributing_service: "str"
@@ -35,21 +33,19 @@ def deserialize_aws_json_1_0(data: dict) -> BusinessSupportServiceSpend:
     if data.get("contributingService") is not None:
         out["contributing_service"] = data["contributingService"]
     else:
-        raise DeserializationError(
-            "BusinessSupportServiceSpend.contributing_service required"
-        )
+        out["contributing_service"] = ""
     if data.get("itemType") is not None:
         out["item_type"] = data["itemType"]
     else:
-        raise DeserializationError("BusinessSupportServiceSpend.item_type required")
+        out["item_type"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("chargeAmount") is not None:
         out["charge_amount"] = data["chargeAmount"]
     else:
-        raise DeserializationError("BusinessSupportServiceSpend.charge_amount required")
+        out["charge_amount"] = ""
     if data.get("currency") is not None:
         out["currency"] = data["currency"]
     else:
-        raise DeserializationError("BusinessSupportServiceSpend.currency required")
+        out["currency"] = ""
     return out

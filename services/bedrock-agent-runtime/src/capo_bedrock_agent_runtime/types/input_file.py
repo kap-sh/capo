@@ -42,7 +42,7 @@ def deserialize_json(data: dict) -> InputFile:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("InputFile.name required")
+        out["name"] = ""
     if data.get("source") is not None:
         import capo_bedrock_agent_runtime.types.file_source
 
@@ -60,7 +60,11 @@ def deserialize_json(data: dict) -> InputFile:
             )
         )
     else:
-        raise DeserializationError("InputFile.use_case required")
+        import typing
+
+        out["use_case"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.file_use_case.FileUseCase", ""
+        )
     return out
 
 

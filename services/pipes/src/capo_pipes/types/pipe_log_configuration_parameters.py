@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pipes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pipes.types.cloudwatch_logs_log_destination_parameters
     import capo_pipes.types.firehose_log_destination_parameters
@@ -103,7 +101,7 @@ def deserialize_json(data: dict) -> PipeLogConfigurationParameters:
     if data.get("Level") is not None:
         out["level"] = data["Level"]
     else:
-        raise DeserializationError("PipeLogConfigurationParameters.level required")
+        out["level"] = ""
     if data.get("IncludeExecutionData") is not None:
         import capo_pipes.types.include_execution_data
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.instance_id
     import capo_connect.types.integration_association_id
@@ -50,7 +48,11 @@ def deserialize_json(data: dict) -> CreateUseCaseRequest:
             data["UseCaseType"]
         )
     else:
-        raise DeserializationError("CreateUseCaseRequest.use_case_type required")
+        import typing
+
+        out["use_case_type"] = typing.cast(
+            "capo_connect.types.use_case_type.UseCaseType", ""
+        )
     if data.get("Tags") is not None:
         import capo_connect.types.tag_map
 

@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Any
 import zapros
 from typing_extensions import TypedDict
 
-from capo_taxsettings.errors import DeserializationError, ServiceError
+from capo_taxsettings.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_taxsettings.types.error_message
@@ -27,9 +27,7 @@ def deserialize_json(data: dict) -> CaseCreationLimitExceededException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError(
-            "CaseCreationLimitExceededException_.message required"
-        )
+        out["message"] = ""
     return out
 
 

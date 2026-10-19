@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.job_attachments_file_system
     import capo_deadline.types.manifest_properties_list
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> Attachments:
             )
         )
     else:
-        raise DeserializationError("Attachments.manifests required")
+        out["manifests"] = []
     if data.get("fileSystem") is not None:
         import capo_deadline.types.job_attachments_file_system
 

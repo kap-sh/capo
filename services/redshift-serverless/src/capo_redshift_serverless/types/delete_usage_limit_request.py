@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 
 class DeleteUsageLimitRequest(TypedDict, closed=True):
     usage_limit_id: "str"
@@ -22,5 +20,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteUsageLimitRequest:
     if data.get("usageLimitId") is not None:
         out["usage_limit_id"] = data["usageLimitId"]
     else:
-        raise DeserializationError("DeleteUsageLimitRequest.usage_limit_id required")
+        out["usage_limit_id"] = ""
     return out

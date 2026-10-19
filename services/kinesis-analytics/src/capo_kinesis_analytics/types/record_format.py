@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics.types.mapping_parameters
     import capo_kinesis_analytics.types.record_format_type
@@ -54,7 +52,11 @@ def deserialize_aws_json_1_1(data: dict) -> RecordFormat:
             )
         )
     else:
-        raise DeserializationError("RecordFormat.record_format_type required")
+        import typing
+
+        out["record_format_type"] = typing.cast(
+            "capo_kinesis_analytics.types.record_format_type.RecordFormatType", ""
+        )
     if data.get("MappingParameters") is not None:
         import capo_kinesis_analytics.types.mapping_parameters
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_medical_imaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_medical_imaging.types.dicom_series_instance_uid
     import capo_medical_imaging.types.dicom_study_instance_uid
@@ -40,13 +38,13 @@ def deserialize_json(data: dict) -> DicomMetadataMapping:
     if data.get("studyInstanceUID") is not None:
         out["study_instance_uid"] = data["studyInstanceUID"]
     else:
-        raise DeserializationError("DicomMetadataMapping.study_instance_uid required")
+        out["study_instance_uid"] = ""
     if data.get("seriesInstanceUID") is not None:
         out["series_instance_uid"] = data["seriesInstanceUID"]
     if data.get("metadataFilePath") is not None:
         out["metadata_file_path"] = data["metadataFilePath"]
     else:
-        raise DeserializationError("DicomMetadataMapping.metadata_file_path required")
+        out["metadata_file_path"] = ""
     return out
 
 

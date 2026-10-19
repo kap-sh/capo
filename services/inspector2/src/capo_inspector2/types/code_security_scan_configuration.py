@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.continuous_integration_scan_configuration
     import capo_inspector2.types.periodic_scan_configuration
@@ -79,7 +77,5 @@ def deserialize_json(data: dict) -> CodeSecurityScanConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "CodeSecurityScanConfiguration.rule_set_categories required"
-        )
+        out["rule_set_categories"] = []
     return out

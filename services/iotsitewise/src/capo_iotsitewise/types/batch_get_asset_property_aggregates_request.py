@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.batch_get_asset_property_aggregates_entries
     import capo_iotsitewise.types.batch_get_asset_property_aggregates_max_results
@@ -51,9 +49,7 @@ def deserialize_json(data: dict) -> BatchGetAssetPropertyAggregatesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetAssetPropertyAggregatesRequest.entries required"
-        )
+        out["entries"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

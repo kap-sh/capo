@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_acm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm.types.acme_authorization_behavior
     import capo_acm.types.acme_contact
@@ -62,9 +60,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateAcmeEndpointRequest:
     if data.get("AcmeEndpointArn") is not None:
         out["acme_endpoint_arn"] = data["AcmeEndpointArn"]
     else:
-        raise DeserializationError(
-            "UpdateAcmeEndpointRequest.acme_endpoint_arn required"
-        )
+        out["acme_endpoint_arn"] = ""
     if data.get("AuthorizationBehavior") is not None:
         import capo_acm.types.acme_authorization_behavior
 

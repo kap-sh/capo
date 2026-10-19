@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.input_processing_configuration
     import capo_kinesis_analytics_v2.types.input_starting_position_configuration
@@ -75,9 +73,7 @@ def deserialize_aws_json_1_1(data: dict) -> DiscoverInputSchemaRequest:
     if data.get("ServiceExecutionRole") is not None:
         out["service_execution_role"] = data["ServiceExecutionRole"]
     else:
-        raise DeserializationError(
-            "DiscoverInputSchemaRequest.service_execution_role required"
-        )
+        out["service_execution_role"] = ""
     if data.get("InputStartingPositionConfiguration") is not None:
         import capo_kinesis_analytics_v2.types.input_starting_position_configuration
 

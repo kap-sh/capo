@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.name
     import capo_customer_profiles.types.objects
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> DetectProfileObjectTypeRequest:
             data["Objects"]
         )
     else:
-        raise DeserializationError("DetectProfileObjectTypeRequest.objects required")
+        out["objects"] = []
     return out
 
 

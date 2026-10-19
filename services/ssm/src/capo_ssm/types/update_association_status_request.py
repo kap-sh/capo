@@ -39,13 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateAssociationStatusRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateAssociationStatusRequest.name required")
+        out["name"] = ""
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError(
-            "UpdateAssociationStatusRequest.instance_id required"
-        )
+        out["instance_id"] = ""
     if data.get("AssociationStatus") is not None:
         import capo_ssm.types.association_status
 

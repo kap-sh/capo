@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.compute_node_mounts_map
 
@@ -37,5 +35,5 @@ def deserialize_json(data: dict) -> MountOverrides:
             )
         )
     else:
-        raise DeserializationError("MountOverrides.compute_nodes required")
+        out["compute_nodes"] = {}
     return out

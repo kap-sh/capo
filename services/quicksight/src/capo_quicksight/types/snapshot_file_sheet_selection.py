@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.short_restrictive_resource_id
     import capo_quicksight.types.snapshot_file_sheet_selection_scope
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> SnapshotFileSheetSelection:
     if data.get("SheetId") is not None:
         out["sheet_id"] = data["SheetId"]
     else:
-        raise DeserializationError("SnapshotFileSheetSelection.sheet_id required")
+        out["sheet_id"] = ""
     if data.get("SelectionScope") is not None:
         import capo_quicksight.types.snapshot_file_sheet_selection_scope
 
@@ -62,8 +60,11 @@ def deserialize_json(data: dict) -> SnapshotFileSheetSelection:
             )
         )
     else:
-        raise DeserializationError(
-            "SnapshotFileSheetSelection.selection_scope required"
+        import typing
+
+        out["selection_scope"] = typing.cast(
+            "capo_quicksight.types.snapshot_file_sheet_selection_scope.SnapshotFileSheetSelectionScope",
+            "",
         )
     if data.get("VisualIds") is not None:
         import capo_quicksight.types.snapshot_file_sheet_selection_visual_id_list

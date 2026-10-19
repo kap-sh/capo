@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 
 class HyperPodPropertiesInput(TypedDict, closed=True):
     cluster_name: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> HyperPodPropertiesInput:
     if data.get("clusterName") is not None:
         out["cluster_name"] = data["clusterName"]
     else:
-        raise DeserializationError("HyperPodPropertiesInput.cluster_name required")
+        out["cluster_name"] = ""
     return out

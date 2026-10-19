@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.tag_key
     import capo_datazone.types.tag_value
@@ -34,13 +32,13 @@ def deserialize_json(data: dict) -> ResourceTagParameter:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("ResourceTagParameter.key required")
+        out["key"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("ResourceTagParameter.value required")
+        out["value"] = ""
     if data.get("isValueEditable") is not None:
         out["is_value_editable"] = data["isValueEditable"]
     else:
-        raise DeserializationError("ResourceTagParameter.is_value_editable required")
+        out["is_value_editable"] = False
     return out

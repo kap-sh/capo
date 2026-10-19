@@ -116,7 +116,7 @@ def deserialize_json(data: dict) -> CreateServiceRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateServiceRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("associatedSystems") is not None:
@@ -136,7 +136,7 @@ def deserialize_json(data: dict) -> CreateServiceRequest:
             data["regions"]
         )
     else:
-        raise DeserializationError("CreateServiceRequest.regions required")
+        out["regions"] = []
     if data.get("permissionModel") is not None:
         import capo_resiliencehubv2.types.permission_model
 

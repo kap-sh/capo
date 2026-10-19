@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.sort_definition_key
     import capo_cost_explorer.types.sort_order
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> SortDefinition:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("SortDefinition.key required")
+        out["key"] = ""
     if data.get("SortOrder") is not None:
         import capo_cost_explorer.types.sort_order
 

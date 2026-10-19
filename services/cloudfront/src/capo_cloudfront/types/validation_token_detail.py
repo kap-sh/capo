@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.string
@@ -36,7 +35,7 @@ def deserialize_xml(el: Element) -> ValidationTokenDetail:
     if child_domain is not None:
         out["domain"] = str(child_domain.text or "")
     else:
-        raise DeserializationError("ValidationTokenDetail.domain required")
+        out["domain"] = ""
     child_redirect_to = el.find("RedirectTo")
     if child_redirect_to is not None:
         out["redirect_to"] = str(child_redirect_to.text or "")

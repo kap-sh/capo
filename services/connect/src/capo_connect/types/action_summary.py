@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.action_type
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> ActionSummary:
             data["ActionType"]
         )
     else:
-        raise DeserializationError("ActionSummary.action_type required")
+        import typing
+
+        out["action_type"] = typing.cast(
+            "capo_connect.types.action_type.ActionType", ""
+        )
     return out

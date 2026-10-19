@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.amazon_resource_name
@@ -50,7 +49,7 @@ def deserialize_query(el: Element) -> S3Action:
     if child_bucket_name is not None:
         out["bucket_name"] = str(child_bucket_name.text or "")
     else:
-        raise DeserializationError("S3Action.bucket_name required")
+        out["bucket_name"] = ""
     child_object_key_prefix = el.find("ObjectKeyPrefix")
     if child_object_key_prefix is not None:
         out["object_key_prefix"] = str(child_object_key_prefix.text or "")

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.image_format
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> ImageBlockStart:
             data["format"]
         )
     else:
-        raise DeserializationError("ImageBlockStart.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_bedrock_runtime.types.image_format.ImageFormat", ""
+        )
     return out

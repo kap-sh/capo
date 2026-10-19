@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.access_control_configuration_name
     import capo_kendra.types.client_token_name
@@ -65,15 +63,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAccessControlConfigurationRequ
     if data.get("IndexId") is not None:
         out["index_id"] = data["IndexId"]
     else:
-        raise DeserializationError(
-            "CreateAccessControlConfigurationRequest.index_id required"
-        )
+        out["index_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError(
-            "CreateAccessControlConfigurationRequest.name required"
-        )
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("AccessControlList") is not None:

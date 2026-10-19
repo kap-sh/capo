@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.date_timestamp
     import capo_bedrock_agentcore_control.types.description
@@ -94,11 +92,11 @@ def deserialize_json(data: dict) -> GetPolicyEngineResponse:
     if data.get("policyEngineId") is not None:
         out["policy_engine_id"] = data["policyEngineId"]
     else:
-        raise DeserializationError("GetPolicyEngineResponse.policy_engine_id required")
+        out["policy_engine_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetPolicyEngineResponse.name required")
+        out["name"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -108,7 +106,9 @@ def deserialize_json(data: dict) -> GetPolicyEngineResponse:
             )
         )
     else:
-        raise DeserializationError("GetPolicyEngineResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -118,11 +118,13 @@ def deserialize_json(data: dict) -> GetPolicyEngineResponse:
             )
         )
     else:
-        raise DeserializationError("GetPolicyEngineResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("policyEngineArn") is not None:
         out["policy_engine_arn"] = data["policyEngineArn"]
     else:
-        raise DeserializationError("GetPolicyEngineResponse.policy_engine_arn required")
+        out["policy_engine_arn"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.policy_engine_status
 
@@ -132,7 +134,12 @@ def deserialize_json(data: dict) -> GetPolicyEngineResponse:
             )
         )
     else:
-        raise DeserializationError("GetPolicyEngineResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.policy_engine_status.PolicyEngineStatus",
+            "",
+        )
     if data.get("encryptionKeyArn") is not None:
         out["encryption_key_arn"] = data["encryptionKeyArn"]
     if data.get("description") is not None:
@@ -146,7 +153,7 @@ def deserialize_json(data: dict) -> GetPolicyEngineResponse:
             )
         )
     else:
-        raise DeserializationError("GetPolicyEngineResponse.status_reasons required")
+        out["status_reasons"] = []
     return out
 
 

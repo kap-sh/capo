@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_acm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm.types.acme_domain_validation_arn
     import capo_acm.types.prevalidation_options
@@ -42,9 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateAcmeDomainValidationRequest:
     if data.get("AcmeDomainValidationArn") is not None:
         out["acme_domain_validation_arn"] = data["AcmeDomainValidationArn"]
     else:
-        raise DeserializationError(
-            "UpdateAcmeDomainValidationRequest.acme_domain_validation_arn required"
-        )
+        out["acme_domain_validation_arn"] = ""
     if data.get("PrevalidationOptions") is not None:
         import capo_acm.types.prevalidation_options
 

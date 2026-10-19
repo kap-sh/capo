@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity.types.identity_pool_id
     import capo_cognito_identity.types.identity_provider_name
@@ -51,15 +49,11 @@ def deserialize_aws_json_1_1(data: dict) -> SetPrincipalTagAttributeMapInput:
     if data.get("IdentityPoolId") is not None:
         out["identity_pool_id"] = data["IdentityPoolId"]
     else:
-        raise DeserializationError(
-            "SetPrincipalTagAttributeMapInput.identity_pool_id required"
-        )
+        out["identity_pool_id"] = ""
     if data.get("IdentityProviderName") is not None:
         out["identity_provider_name"] = data["IdentityProviderName"]
     else:
-        raise DeserializationError(
-            "SetPrincipalTagAttributeMapInput.identity_provider_name required"
-        )
+        out["identity_provider_name"] = ""
     if data.get("UseDefaults") is not None:
         out["use_defaults"] = data["UseDefaults"]
     if data.get("PrincipalTags") is not None:

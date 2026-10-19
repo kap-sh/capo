@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.instance_id
     import capo_connect.types.media_source
@@ -43,9 +41,11 @@ def deserialize_json(data: dict) -> ImportWorkspaceMediaRequest:
             data["MediaType"]
         )
     else:
-        raise DeserializationError("ImportWorkspaceMediaRequest.media_type required")
+        import typing
+
+        out["media_type"] = typing.cast("capo_connect.types.media_type.MediaType", "")
     if data.get("MediaSource") is not None:
         out["media_source"] = data["MediaSource"]
     else:
-        raise DeserializationError("ImportWorkspaceMediaRequest.media_source required")
+        out["media_source"] = ""
     return out

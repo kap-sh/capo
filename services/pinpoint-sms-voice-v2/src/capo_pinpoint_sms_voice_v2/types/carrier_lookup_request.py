@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.carrier_lookup_input_phone_number_type
 
@@ -31,7 +29,7 @@ def deserialize_aws_json_1_0(data: dict) -> CarrierLookupRequest:
     if data.get("PhoneNumber") is not None:
         out["phone_number"] = data["PhoneNumber"]
     else:
-        raise DeserializationError("CarrierLookupRequest.phone_number required")
+        out["phone_number"] = ""
     if data.get("EnableCleansing") is not None:
         out["enable_cleansing"] = data["EnableCleansing"]
     return out

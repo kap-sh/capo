@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.boolean_object
     import capo_firehose.types.put_response_record_id
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutRecordOutput:
     if data.get("RecordId") is not None:
         out["record_id"] = data["RecordId"]
     else:
-        raise DeserializationError("PutRecordOutput.record_id required")
+        out["record_id"] = ""
     if data.get("Encrypted") is not None:
         out["encrypted"] = data["Encrypted"]
     return out

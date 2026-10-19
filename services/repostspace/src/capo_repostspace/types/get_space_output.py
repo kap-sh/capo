@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_repostspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -176,19 +174,19 @@ def deserialize_json(data: dict) -> GetSpaceOutput:
     if data.get("spaceId") is not None:
         out["space_id"] = data["spaceId"]
     else:
-        raise DeserializationError("GetSpaceOutput.space_id required")
+        out["space_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetSpaceOutput.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetSpaceOutput.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("GetSpaceOutput.status required")
+        out["status"] = ""
     if data.get("configurationStatus") is not None:
         import capo_repostspace.types.configuration_status
 
@@ -198,11 +196,15 @@ def deserialize_json(data: dict) -> GetSpaceOutput:
             )
         )
     else:
-        raise DeserializationError("GetSpaceOutput.configuration_status required")
+        import typing
+
+        out["configuration_status"] = typing.cast(
+            "capo_repostspace.types.configuration_status.ConfigurationStatus", ""
+        )
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
     else:
-        raise DeserializationError("GetSpaceOutput.client_id required")
+        out["client_id"] = ""
     if data.get("identityStoreId") is not None:
         out["identity_store_id"] = data["identityStoreId"]
     if data.get("applicationArn") is not None:
@@ -218,15 +220,19 @@ def deserialize_json(data: dict) -> GetSpaceOutput:
             )
         )
     else:
-        raise DeserializationError("GetSpaceOutput.vanity_domain_status required")
+        import typing
+
+        out["vanity_domain_status"] = typing.cast(
+            "capo_repostspace.types.vanity_domain_status.VanityDomainStatus", ""
+        )
     if data.get("vanityDomain") is not None:
         out["vanity_domain"] = data["vanityDomain"]
     else:
-        raise DeserializationError("GetSpaceOutput.vanity_domain required")
+        out["vanity_domain"] = ""
     if data.get("randomDomain") is not None:
         out["random_domain"] = data["randomDomain"]
     else:
-        raise DeserializationError("GetSpaceOutput.random_domain required")
+        out["random_domain"] = ""
     if data.get("customerRoleArn") is not None:
         out["customer_role_arn"] = data["customerRoleArn"]
     if data.get("createDateTime") is not None:
@@ -236,7 +242,11 @@ def deserialize_json(data: dict) -> GetSpaceOutput:
             data["createDateTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetSpaceOutput.create_date_time required")
+        import datetime
+
+        out["create_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("deleteDateTime") is not None:
         import datetime
 
@@ -248,11 +258,13 @@ def deserialize_json(data: dict) -> GetSpaceOutput:
 
         out["tier"] = capo_repostspace.types.tier_level.deserialize_json(data["tier"])
     else:
-        raise DeserializationError("GetSpaceOutput.tier required")
+        import typing
+
+        out["tier"] = typing.cast("capo_repostspace.types.tier_level.TierLevel", "")
     if data.get("storageLimit") is not None:
         out["storage_limit"] = data["storageLimit"]
     else:
-        raise DeserializationError("GetSpaceOutput.storage_limit required")
+        out["storage_limit"] = 0
     if data.get("userAdmins") is not None:
         import capo_repostspace.types.user_admins
 

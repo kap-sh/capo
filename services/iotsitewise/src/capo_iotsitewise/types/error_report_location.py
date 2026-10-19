@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.bucket
     import capo_iotsitewise.types.string
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> ErrorReportLocation:
     if data.get("bucket") is not None:
         out["bucket"] = data["bucket"]
     else:
-        raise DeserializationError("ErrorReportLocation.bucket required")
+        out["bucket"] = ""
     if data.get("prefix") is not None:
         out["prefix"] = data["prefix"]
     else:
-        raise DeserializationError("ErrorReportLocation.prefix required")
+        out["prefix"] = ""
     return out

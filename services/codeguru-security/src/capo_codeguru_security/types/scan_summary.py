@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeguru_security.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -67,7 +65,11 @@ def deserialize_json(data: dict) -> ScanSummary:
             data["scanState"]
         )
     else:
-        raise DeserializationError("ScanSummary.scan_state required")
+        import typing
+
+        out["scan_state"] = typing.cast(
+            "capo_codeguru_security.types.scan_state.ScanState", ""
+        )
     if data.get("createdAt") is not None:
         import capo_codeguru_security.types._prelude.timestamp
 
@@ -77,7 +79,9 @@ def deserialize_json(data: dict) -> ScanSummary:
             )
         )
     else:
-        raise DeserializationError("ScanSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_codeguru_security.types._prelude.timestamp
 
@@ -89,11 +93,11 @@ def deserialize_json(data: dict) -> ScanSummary:
     if data.get("scanName") is not None:
         out["scan_name"] = data["scanName"]
     else:
-        raise DeserializationError("ScanSummary.scan_name required")
+        out["scan_name"] = ""
     if data.get("runId") is not None:
         out["run_id"] = data["runId"]
     else:
-        raise DeserializationError("ScanSummary.run_id required")
+        out["run_id"] = ""
     if data.get("scanNameArn") is not None:
         out["scan_name_arn"] = data["scanNameArn"]
     return out

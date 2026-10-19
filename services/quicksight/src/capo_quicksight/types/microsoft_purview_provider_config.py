@@ -71,9 +71,7 @@ def deserialize_json(data: dict) -> MicrosoftPurviewProviderConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "MicrosoftPurviewProviderConfig.label_action_mappings required"
-        )
+        out["label_action_mappings"] = []
     if data.get("UnmappedAction") is not None:
         import capo_quicksight.types.dlp_action
 
@@ -81,7 +79,9 @@ def deserialize_json(data: dict) -> MicrosoftPurviewProviderConfig:
             data["UnmappedAction"]
         )
     else:
-        raise DeserializationError(
-            "MicrosoftPurviewProviderConfig.unmapped_action required"
+        import typing
+
+        out["unmapped_action"] = typing.cast(
+            "capo_quicksight.types.dlp_action.DlpAction", ""
         )
     return out

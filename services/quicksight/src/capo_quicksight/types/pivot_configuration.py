@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.column_name
     import capo_quicksight.types.pivoted_label_list
@@ -44,5 +42,5 @@ def deserialize_json(data: dict) -> PivotConfiguration:
             )
         )
     else:
-        raise DeserializationError("PivotConfiguration.pivoted_labels required")
+        out["pivoted_labels"] = []
     return out

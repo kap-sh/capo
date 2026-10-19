@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.utterance
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> SampleUtterance:
     if data.get("utterance") is not None:
         out["utterance"] = data["utterance"]
     else:
-        raise DeserializationError("SampleUtterance.utterance required")
+        out["utterance"] = ""
     return out

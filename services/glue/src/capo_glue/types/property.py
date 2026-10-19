@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.allowed_values
     import capo_glue.types.bool
@@ -82,15 +80,15 @@ def deserialize_aws_json_1_1(data: dict) -> Property:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Property.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("Property.description required")
+        out["description"] = ""
     if data.get("Required") is not None:
         out["required"] = data["Required"]
     else:
-        raise DeserializationError("Property.required required")
+        out["required"] = False
     if data.get("DefaultValue") is not None:
         out["default_value"] = data["DefaultValue"]
     if data.get("PropertyTypes") is not None:

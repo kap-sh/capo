@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.resource_name
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> CancelEnvironmentDeploymentInput:
     if data.get("environmentName") is not None:
         out["environment_name"] = data["environmentName"]
     else:
-        raise DeserializationError(
-            "CancelEnvironmentDeploymentInput.environment_name required"
-        )
+        out["environment_name"] = ""
     return out

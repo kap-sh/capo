@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> CreatePackageRequest:
     if data.get("PackageName") is not None:
         out["package_name"] = data["PackageName"]
     else:
-        raise DeserializationError("CreatePackageRequest.package_name required")
+        out["package_name"] = ""
     if data.get("PackageType") is not None:
         import capo_elasticsearch_service.types.package_type
 
@@ -62,7 +62,11 @@ def deserialize_json(data: dict) -> CreatePackageRequest:
             )
         )
     else:
-        raise DeserializationError("CreatePackageRequest.package_type required")
+        import typing
+
+        out["package_type"] = typing.cast(
+            "capo_elasticsearch_service.types.package_type.PackageType", ""
+        )
     if data.get("PackageDescription") is not None:
         out["package_description"] = data["PackageDescription"]
     if data.get("PackageSource") is not None:

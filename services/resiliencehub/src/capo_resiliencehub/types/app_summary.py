@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.app_assessment_schedule_type
     import capo_resiliencehub.types.app_compliance_status_type
@@ -135,11 +133,11 @@ def deserialize_json(data: dict) -> AppSummary:
     if data.get("appArn") is not None:
         out["app_arn"] = data["appArn"]
     else:
-        raise DeserializationError("AppSummary.app_arn required")
+        out["app_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AppSummary.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("creationTime") is not None:
@@ -149,7 +147,11 @@ def deserialize_json(data: dict) -> AppSummary:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("AppSummary.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("complianceStatus") is not None:
         import capo_resiliencehub.types.app_compliance_status_type
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -52,15 +50,15 @@ def deserialize_json(data: dict) -> ActivateReadSetJobItem:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ActivateReadSetJobItem.id required")
+        out["id"] = ""
     if data.get("sequenceStoreId") is not None:
         out["sequence_store_id"] = data["sequenceStoreId"]
     else:
-        raise DeserializationError("ActivateReadSetJobItem.sequence_store_id required")
+        out["sequence_store_id"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("ActivateReadSetJobItem.status required")
+        out["status"] = ""
     if data.get("creationTime") is not None:
         import datetime
 
@@ -68,7 +66,11 @@ def deserialize_json(data: dict) -> ActivateReadSetJobItem:
             data["creationTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("ActivateReadSetJobItem.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("completionTime") is not None:
         import datetime
 

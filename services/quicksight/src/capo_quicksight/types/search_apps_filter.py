@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.filter_operator
     import capo_quicksight.types.search_apps_filter_name
@@ -46,7 +44,11 @@ def deserialize_json(data: dict) -> SearchAppsFilter:
             data["Name"]
         )
     else:
-        raise DeserializationError("SearchAppsFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_quicksight.types.search_apps_filter_name.SearchAppsFilterName", ""
+        )
     if data.get("Operator") is not None:
         import capo_quicksight.types.filter_operator
 
@@ -54,9 +56,13 @@ def deserialize_json(data: dict) -> SearchAppsFilter:
             data["Operator"]
         )
     else:
-        raise DeserializationError("SearchAppsFilter.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_quicksight.types.filter_operator.FilterOperator", ""
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("SearchAppsFilter.value required")
+        out["value"] = ""
     return out

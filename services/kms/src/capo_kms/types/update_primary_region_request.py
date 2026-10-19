@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kms.types.key_id_type
     import capo_kms.types.region_type
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdatePrimaryRegionRequest:
     if data.get("KeyId") is not None:
         out["key_id"] = data["KeyId"]
     else:
-        raise DeserializationError("UpdatePrimaryRegionRequest.key_id required")
+        out["key_id"] = ""
     if data.get("PrimaryRegion") is not None:
         out["primary_region"] = data["PrimaryRegion"]
     else:
-        raise DeserializationError("UpdatePrimaryRegionRequest.primary_region required")
+        out["primary_region"] = ""
     return out

@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 
 class IdentityMapping(TypedDict, closed=True):
     username_attribute: "str"
@@ -26,7 +24,7 @@ def deserialize_json(data: dict) -> IdentityMapping:
     if data.get("usernameAttribute") is not None:
         out["username_attribute"] = data["usernameAttribute"]
     else:
-        raise DeserializationError("IdentityMapping.username_attribute required")
+        out["username_attribute"] = ""
     if data.get("prefix") is not None:
         out["prefix"] = data["prefix"]
     return out

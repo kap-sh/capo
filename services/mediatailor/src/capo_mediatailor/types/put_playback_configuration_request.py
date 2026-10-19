@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__integer_min1
     import capo_mediatailor.types.__map_of__string
@@ -305,7 +303,7 @@ def deserialize_json(data: dict) -> PutPlaybackConfigurationRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("PutPlaybackConfigurationRequest.name required")
+        out["name"] = ""
     if data.get("PersonalizationThresholdSeconds") is not None:
         out["personalization_threshold_seconds"] = data[
             "PersonalizationThresholdSeconds"

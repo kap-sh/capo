@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 
 class TimeAzEl(TypedDict, closed=True):
     dt: "float"
@@ -52,13 +50,13 @@ def deserialize_json(data: dict) -> TimeAzEl:
     if data.get("dt") is not None:
         out["dt"] = float(data["dt"])
     else:
-        raise DeserializationError("TimeAzEl.dt required")
+        out["dt"] = 0.0
     if data.get("az") is not None:
         out["az"] = float(data["az"])
     else:
-        raise DeserializationError("TimeAzEl.az required")
+        out["az"] = 0.0
     if data.get("el") is not None:
         out["el"] = float(data["el"])
     else:
-        raise DeserializationError("TimeAzEl.el required")
+        out["el"] = 0.0
     return out

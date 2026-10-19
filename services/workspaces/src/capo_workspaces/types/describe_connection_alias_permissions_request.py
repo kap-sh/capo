@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.connection_alias_id
     import capo_workspaces.types.limit
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeConnectionAliasPermissionsRe
     if data.get("AliasId") is not None:
         out["alias_id"] = data["AliasId"]
     else:
-        raise DeserializationError(
-            "DescribeConnectionAliasPermissionsRequest.alias_id required"
-        )
+        out["alias_id"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

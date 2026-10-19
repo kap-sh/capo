@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_memorydb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_memorydb.types.access_string
     import capo_memorydb.types.authentication_mode
@@ -45,7 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateUserRequest:
     if data.get("UserName") is not None:
         out["user_name"] = data["UserName"]
     else:
-        raise DeserializationError("UpdateUserRequest.user_name required")
+        out["user_name"] = ""
     if data.get("AuthenticationMode") is not None:
         import capo_memorydb.types.authentication_mode
 

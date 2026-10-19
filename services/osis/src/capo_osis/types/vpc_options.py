@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_osis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_osis.types.security_group_ids
     import capo_osis.types.subnet_ids
@@ -70,7 +68,7 @@ def deserialize_json(data: dict) -> VpcOptions:
             data["SubnetIds"]
         )
     else:
-        raise DeserializationError("VpcOptions.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("SecurityGroupIds") is not None:
         import capo_osis.types.security_group_ids
 

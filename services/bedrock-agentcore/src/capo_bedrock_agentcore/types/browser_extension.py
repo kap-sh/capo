@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.resource_location
 
@@ -37,5 +35,7 @@ def deserialize_json(data: dict) -> BrowserExtension:
             )
         )
     else:
-        raise DeserializationError("BrowserExtension.location required")
+        import capo_bedrock_agentcore.types._unknown
+
+        out["location"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
     return out

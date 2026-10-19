@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.export_destination_bucket
     import capo_cloudwatch_logs.types.export_destination_prefix
@@ -58,21 +56,21 @@ def deserialize_aws_json_1_1(data: dict) -> CreateExportTaskRequest:
     if data.get("logGroupName") is not None:
         out["log_group_name"] = data["logGroupName"]
     else:
-        raise DeserializationError("CreateExportTaskRequest.log_group_name required")
+        out["log_group_name"] = ""
     if data.get("logStreamNamePrefix") is not None:
         out["log_stream_name_prefix"] = data["logStreamNamePrefix"]
     if data.get("from") is not None:
         out["from"] = data["from"]
     else:
-        raise DeserializationError("CreateExportTaskRequest.from required")
+        out["from"] = 0
     if data.get("to") is not None:
         out["to"] = data["to"]
     else:
-        raise DeserializationError("CreateExportTaskRequest.to required")
+        out["to"] = 0
     if data.get("destination") is not None:
         out["destination"] = data["destination"]
     else:
-        raise DeserializationError("CreateExportTaskRequest.destination required")
+        out["destination"] = ""
     if data.get("destinationPrefix") is not None:
         out["destination_prefix"] = data["destinationPrefix"]
     return out

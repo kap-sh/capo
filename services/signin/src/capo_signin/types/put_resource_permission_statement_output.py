@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_signin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_signin.types.statement_id
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> PutResourcePermissionStatementOutput:
     if data.get("statementId") is not None:
         out["statement_id"] = data["statementId"]
     else:
-        raise DeserializationError(
-            "PutResourcePermissionStatementOutput.statement_id required"
-        )
+        out["statement_id"] = ""
     return out

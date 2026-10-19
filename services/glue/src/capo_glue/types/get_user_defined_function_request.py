@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.catalog_id_string
     import capo_glue.types.name_string
@@ -37,13 +35,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetUserDefinedFunctionRequest:
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError(
-            "GetUserDefinedFunctionRequest.database_name required"
-        )
+        out["database_name"] = ""
     if data.get("FunctionName") is not None:
         out["function_name"] = data["FunctionName"]
     else:
-        raise DeserializationError(
-            "GetUserDefinedFunctionRequest.function_name required"
-        )
+        out["function_name"] = ""
     return out

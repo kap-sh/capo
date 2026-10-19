@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.data_collections_list
     import capo_sagemaker_geospatial.types.next_token
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> ListRasterDataCollectionsOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListRasterDataCollectionsOutput.raster_data_collection_summaries required"
-        )
+        out["raster_data_collection_summaries"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

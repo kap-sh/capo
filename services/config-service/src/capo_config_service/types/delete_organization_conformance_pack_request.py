@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.organization_conformance_pack_name
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteOrganizationConformancePackReq
             "OrganizationConformancePackName"
         ]
     else:
-        raise DeserializationError(
-            "DeleteOrganizationConformancePackRequest.organization_conformance_pack_name required"
-        )
+        out["organization_conformance_pack_name"] = ""
     return out

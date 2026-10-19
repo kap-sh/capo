@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_influxdb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_influxdb.types.allocated_storage
     import capo_timestream_influxdb.types.bucket
@@ -192,13 +190,13 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDbInstanceInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateDbInstanceInput.name required")
+        out["name"] = ""
     if data.get("username") is not None:
         out["username"] = data["username"]
     if data.get("password") is not None:
         out["password"] = data["password"]
     else:
-        raise DeserializationError("CreateDbInstanceInput.password required")
+        out["password"] = ""
     if data.get("organization") is not None:
         out["organization"] = data["organization"]
     if data.get("bucket") is not None:
@@ -212,7 +210,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDbInstanceInput:
             )
         )
     else:
-        raise DeserializationError("CreateDbInstanceInput.db_instance_type required")
+        import typing
+
+        out["db_instance_type"] = typing.cast(
+            "capo_timestream_influxdb.types.db_instance_type.DbInstanceType", ""
+        )
     if data.get("vpcSubnetIds") is not None:
         import capo_timestream_influxdb.types.vpc_subnet_id_list
 
@@ -222,7 +224,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDbInstanceInput:
             )
         )
     else:
-        raise DeserializationError("CreateDbInstanceInput.vpc_subnet_ids required")
+        out["vpc_subnet_ids"] = []
     if data.get("vpcSecurityGroupIds") is not None:
         import capo_timestream_influxdb.types.vpc_security_group_id_list
 
@@ -232,9 +234,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDbInstanceInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDbInstanceInput.vpc_security_group_ids required"
-        )
+        out["vpc_security_group_ids"] = []
     if data.get("publiclyAccessible") is not None:
         out["publicly_accessible"] = data["publiclyAccessible"]
     if data.get("dbStorageType") is not None:
@@ -248,7 +248,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDbInstanceInput:
     if data.get("allocatedStorage") is not None:
         out["allocated_storage"] = data["allocatedStorage"]
     else:
-        raise DeserializationError("CreateDbInstanceInput.allocated_storage required")
+        out["allocated_storage"] = 0
     if data.get("dbParameterGroupIdentifier") is not None:
         out["db_parameter_group_identifier"] = data["dbParameterGroupIdentifier"]
     if data.get("deploymentType") is not None:

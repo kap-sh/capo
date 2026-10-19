@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.column_id
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> DataSetColumnIdMapping:
     if data.get("SourceColumnId") is not None:
         out["source_column_id"] = data["SourceColumnId"]
     else:
-        raise DeserializationError("DataSetColumnIdMapping.source_column_id required")
+        out["source_column_id"] = ""
     if data.get("TargetColumnId") is not None:
         out["target_column_id"] = data["TargetColumnId"]
     else:
-        raise DeserializationError("DataSetColumnIdMapping.target_column_id required")
+        out["target_column_id"] = ""
     return out

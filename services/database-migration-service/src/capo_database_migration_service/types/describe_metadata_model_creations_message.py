@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.filter_list
     import capo_database_migration_service.types.integer_optional
@@ -62,7 +60,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeMetadataModelCreationsMessag
     if data.get("MigrationProjectIdentifier") is not None:
         out["migration_project_identifier"] = data["MigrationProjectIdentifier"]
     else:
-        raise DeserializationError(
-            "DescribeMetadataModelCreationsMessage.migration_project_identifier required"
-        )
+        out["migration_project_identifier"] = ""
     return out

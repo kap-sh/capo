@@ -49,5 +49,5 @@ def deserialize_json(data: dict) -> TargetResource:
     if data.get("region") is not None:
         out["region"] = data["region"]
     else:
-        raise DeserializationError("TargetResource.region required")
+        out["region"] = ""
     return out

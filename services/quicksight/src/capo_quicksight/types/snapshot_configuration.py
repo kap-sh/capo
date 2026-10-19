@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.parameters
     import capo_quicksight.types.snapshot_destination_configuration
@@ -58,7 +56,7 @@ def deserialize_json(data: dict) -> SnapshotConfiguration:
             )
         )
     else:
-        raise DeserializationError("SnapshotConfiguration.file_groups required")
+        out["file_groups"] = []
     if data.get("DestinationConfiguration") is not None:
         import capo_quicksight.types.snapshot_destination_configuration
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkflowmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -75,9 +73,9 @@ def deserialize_json(data: dict) -> StartQueryWorkloadInsightsTopContributorsInp
             data["startTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "StartQueryWorkloadInsightsTopContributorsInput.start_time required"
-        )
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import datetime
 
@@ -85,9 +83,9 @@ def deserialize_json(data: dict) -> StartQueryWorkloadInsightsTopContributorsInp
             data["endTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "StartQueryWorkloadInsightsTopContributorsInput.end_time required"
-        )
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("metricName") is not None:
         import capo_networkflowmonitor.types.workload_insights_metric
 
@@ -97,8 +95,11 @@ def deserialize_json(data: dict) -> StartQueryWorkloadInsightsTopContributorsInp
             )
         )
     else:
-        raise DeserializationError(
-            "StartQueryWorkloadInsightsTopContributorsInput.metric_name required"
+        import typing
+
+        out["metric_name"] = typing.cast(
+            "capo_networkflowmonitor.types.workload_insights_metric.WorkloadInsightsMetric",
+            "",
         )
     if data.get("destinationCategory") is not None:
         import capo_networkflowmonitor.types.destination_category
@@ -109,8 +110,10 @@ def deserialize_json(data: dict) -> StartQueryWorkloadInsightsTopContributorsInp
             )
         )
     else:
-        raise DeserializationError(
-            "StartQueryWorkloadInsightsTopContributorsInput.destination_category required"
+        import typing
+
+        out["destination_category"] = typing.cast(
+            "capo_networkflowmonitor.types.destination_category.DestinationCategory", ""
         )
     if data.get("limit") is not None:
         out["limit"] = data["limit"]

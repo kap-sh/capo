@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.data_protections
 
@@ -37,5 +35,5 @@ def deserialize_aws_json_1_1(data: dict) -> DataProtectionConfig:
             )
         )
     else:
-        raise DeserializationError("DataProtectionConfig.data_protections required")
+        out["data_protections"] = []
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.client_id_list_type
@@ -59,7 +58,7 @@ def deserialize_query(el: Element) -> CreateOpenIDConnectProviderRequest:
     if child_url is not None:
         out["url"] = str(child_url.text or "")
     else:
-        raise DeserializationError("CreateOpenIDConnectProviderRequest.url required")
+        out["url"] = ""
     child_client_id_list = el.find("ClientIDList")
     if child_client_id_list is not None:
         import capo_iam.types.client_id_list_type

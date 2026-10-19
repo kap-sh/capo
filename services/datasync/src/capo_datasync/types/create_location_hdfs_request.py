@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.agent_arn_list
     import capo_datasync.types.cmk_secret_config
@@ -169,7 +167,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationHdfsRequest:
             )
         )
     else:
-        raise DeserializationError("CreateLocationHdfsRequest.name_nodes required")
+        out["name_nodes"] = []
     if data.get("BlockSize") is not None:
         out["block_size"] = data["BlockSize"]
     if data.get("ReplicationFactor") is not None:
@@ -193,8 +191,10 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationHdfsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateLocationHdfsRequest.authentication_type required"
+        import typing
+
+        out["authentication_type"] = typing.cast(
+            "capo_datasync.types.hdfs_authentication_type.HdfsAuthenticationType", ""
         )
     if data.get("SimpleUser") is not None:
         out["simple_user"] = data["SimpleUser"]
@@ -223,7 +223,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationHdfsRequest:
             data["AgentArns"]
         )
     else:
-        raise DeserializationError("CreateLocationHdfsRequest.agent_arns required")
+        out["agent_arns"] = []
     if data.get("Tags") is not None:
         import capo_datasync.types.input_tag_list
 

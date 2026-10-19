@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.attachments
     import capo_deadline.types.created_at
@@ -184,11 +182,11 @@ def deserialize_json(data: dict) -> GetJobResponse:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("GetJobResponse.job_id required")
+        out["job_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetJobResponse.name required")
+        out["name"] = ""
     if data.get("lifecycleStatus") is not None:
         import capo_deadline.types.job_lifecycle_status
 
@@ -198,15 +196,19 @@ def deserialize_json(data: dict) -> GetJobResponse:
             )
         )
     else:
-        raise DeserializationError("GetJobResponse.lifecycle_status required")
+        import typing
+
+        out["lifecycle_status"] = typing.cast(
+            "capo_deadline.types.job_lifecycle_status.JobLifecycleStatus", ""
+        )
     if data.get("lifecycleStatusMessage") is not None:
         out["lifecycle_status_message"] = data["lifecycleStatusMessage"]
     else:
-        raise DeserializationError("GetJobResponse.lifecycle_status_message required")
+        out["lifecycle_status_message"] = ""
     if data.get("priority") is not None:
         out["priority"] = data["priority"]
     else:
-        raise DeserializationError("GetJobResponse.priority required")
+        out["priority"] = 0
     if data.get("createdAt") is not None:
         import capo_deadline.types.created_at
 
@@ -214,11 +216,13 @@ def deserialize_json(data: dict) -> GetJobResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("GetJobResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("GetJobResponse.created_by required")
+        out["created_by"] = ""
     if data.get("updatedAt") is not None:
         import capo_deadline.types.updated_at
 

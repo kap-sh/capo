@@ -163,7 +163,7 @@ def deserialize_aws_json_1_0(data: dict) -> Key:
     if data.get("KeyArn") is not None:
         out["key_arn"] = data["KeyArn"]
     else:
-        raise DeserializationError("Key.key_arn required")
+        out["key_arn"] = ""
     if data.get("KeyAttributes") is not None:
         import capo_payment_cryptography.types.key_attributes
 
@@ -177,27 +177,27 @@ def deserialize_aws_json_1_0(data: dict) -> Key:
     if data.get("KeyCheckValue") is not None:
         out["key_check_value"] = data["KeyCheckValue"]
     else:
-        raise DeserializationError("Key.key_check_value required")
+        out["key_check_value"] = ""
     if data.get("KeyCheckValueAlgorithm") is not None:
         out["key_check_value_algorithm"] = data["KeyCheckValueAlgorithm"]
     else:
-        raise DeserializationError("Key.key_check_value_algorithm required")
+        out["key_check_value_algorithm"] = ""
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
-        raise DeserializationError("Key.enabled required")
+        out["enabled"] = False
     if data.get("Exportable") is not None:
         out["exportable"] = data["Exportable"]
     else:
-        raise DeserializationError("Key.exportable required")
+        out["exportable"] = False
     if data.get("KeyState") is not None:
         out["key_state"] = data["KeyState"]
     else:
-        raise DeserializationError("Key.key_state required")
+        out["key_state"] = ""
     if data.get("KeyOrigin") is not None:
         out["key_origin"] = data["KeyOrigin"]
     else:
-        raise DeserializationError("Key.key_origin required")
+        out["key_origin"] = ""
     if data.get("CreateTimestamp") is not None:
         import capo_payment_cryptography.types.timestamp
 
@@ -207,7 +207,11 @@ def deserialize_aws_json_1_0(data: dict) -> Key:
             )
         )
     else:
-        raise DeserializationError("Key.create_timestamp required")
+        import datetime
+
+        out["create_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("UsageStartTimestamp") is not None:
         import capo_payment_cryptography.types.timestamp
 

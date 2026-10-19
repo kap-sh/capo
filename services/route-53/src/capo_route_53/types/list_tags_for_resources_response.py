@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.resource_tag_set_list
@@ -40,7 +39,5 @@ def deserialize_xml(el: Element) -> ListTagsForResourcesResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListTagsForResourcesResponse.resource_tag_sets required"
-        )
+        out["resource_tag_sets"] = []
     return out

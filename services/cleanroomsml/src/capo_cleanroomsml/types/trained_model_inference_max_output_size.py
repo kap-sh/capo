@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.trained_model_inference_max_output_size_unit_type
     import capo_cleanroomsml.types.trained_model_inference_max_output_size_value
@@ -51,9 +49,14 @@ def deserialize_json(data: dict) -> TrainedModelInferenceMaxOutputSize:
             )
         )
     else:
-        raise DeserializationError("TrainedModelInferenceMaxOutputSize.unit required")
+        import typing
+
+        out["unit"] = typing.cast(
+            "capo_cleanroomsml.types.trained_model_inference_max_output_size_unit_type.TrainedModelInferenceMaxOutputSizeUnitType",
+            "",
+        )
     if data.get("value") is not None:
         out["value"] = float(data["value"])
     else:
-        raise DeserializationError("TrainedModelInferenceMaxOutputSize.value required")
+        out["value"] = 0.0
     return out

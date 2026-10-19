@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_places.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_places.types.sensitive_string
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> SecondaryAddressComponent:
     if data.get("Number") is not None:
         out["number"] = data["Number"]
     else:
-        raise DeserializationError("SecondaryAddressComponent.number required")
+        out["number"] = ""
     if data.get("Designator") is not None:
         out["designator"] = data["Designator"]
     return out

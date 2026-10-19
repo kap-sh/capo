@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.short_restrictive_resource_id
@@ -36,7 +34,5 @@ def deserialize_json(data: dict) -> UpdateBrandPublishedVersionRequest:
     if data.get("VersionId") is not None:
         out["version_id"] = data["VersionId"]
     else:
-        raise DeserializationError(
-            "UpdateBrandPublishedVersionRequest.version_id required"
-        )
+        out["version_id"] = ""
     return out

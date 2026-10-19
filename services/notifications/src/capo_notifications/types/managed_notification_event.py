@@ -125,11 +125,11 @@ def deserialize_json(data: dict) -> ManagedNotificationEvent:
     if data.get("schemaVersion") is not None:
         out["schema_version"] = data["schemaVersion"]
     else:
-        raise DeserializationError("ManagedNotificationEvent.schema_version required")
+        out["schema_version"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ManagedNotificationEvent.id required")
+        out["id"] = ""
     if data.get("messageComponents") is not None:
         import capo_notifications.types.message_components
 
@@ -151,9 +151,7 @@ def deserialize_json(data: dict) -> ManagedNotificationEvent:
     if data.get("notificationType") is not None:
         out["notification_type"] = data["notificationType"]
     else:
-        raise DeserializationError(
-            "ManagedNotificationEvent.notification_type required"
-        )
+        out["notification_type"] = ""
     if data.get("eventStatus") is not None:
         out["event_status"] = data["eventStatus"]
     if data.get("aggregationEventType") is not None:
@@ -185,7 +183,7 @@ def deserialize_json(data: dict) -> ManagedNotificationEvent:
             data["textParts"]
         )
     else:
-        raise DeserializationError("ManagedNotificationEvent.text_parts required")
+        out["text_parts"] = {}
     if data.get("organizationalUnitId") is not None:
         out["organizational_unit_id"] = data["organizationalUnitId"]
     if data.get("attachments") is not None:

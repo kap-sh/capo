@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.test_run_id
     import capo_resiliencehubv2.types.test_run_status
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> StopTestRunResponse:
     if data.get("testRunId") is not None:
         out["test_run_id"] = data["testRunId"]
     else:
-        raise DeserializationError("StopTestRunResponse.test_run_id required")
+        out["test_run_id"] = ""
     if data.get("status") is not None:
         import capo_resiliencehubv2.types.test_run_status
 
@@ -43,5 +41,9 @@ def deserialize_json(data: dict) -> StopTestRunResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("StopTestRunResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_resiliencehubv2.types.test_run_status.TestRunStatus", ""
+        )
     return out

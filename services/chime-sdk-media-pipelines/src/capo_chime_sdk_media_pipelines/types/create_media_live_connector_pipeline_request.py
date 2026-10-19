@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.client_request_token
     import capo_chime_sdk_media_pipelines.types.live_connector_sink_list
@@ -65,9 +63,7 @@ def deserialize_json(data: dict) -> CreateMediaLiveConnectorPipelineRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateMediaLiveConnectorPipelineRequest.sources required"
-        )
+        out["sources"] = []
     if data.get("Sinks") is not None:
         import capo_chime_sdk_media_pipelines.types.live_connector_sink_list
 
@@ -77,9 +73,7 @@ def deserialize_json(data: dict) -> CreateMediaLiveConnectorPipelineRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateMediaLiveConnectorPipelineRequest.sinks required"
-        )
+        out["sinks"] = []
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     if data.get("Tags") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_discovery_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_discovery_service.types.agent_id
     import capo_application_discovery_service.types.delete_agent_error_code
@@ -41,11 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDeleteAgentError:
     if data.get("agentId") is not None:
         out["agent_id"] = data["agentId"]
     else:
-        raise DeserializationError("BatchDeleteAgentError.agent_id required")
+        out["agent_id"] = ""
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     else:
-        raise DeserializationError("BatchDeleteAgentError.error_message required")
+        out["error_message"] = ""
     if data.get("errorCode") is not None:
         import capo_application_discovery_service.types.delete_agent_error_code
 
@@ -55,5 +53,10 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDeleteAgentError:
             )
         )
     else:
-        raise DeserializationError("BatchDeleteAgentError.error_code required")
+        import typing
+
+        out["error_code"] = typing.cast(
+            "capo_application_discovery_service.types.delete_agent_error_code.DeleteAgentErrorCode",
+            "",
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.suppression_confidence_verdict_threshold
 
@@ -39,7 +37,10 @@ def deserialize_json(data: dict) -> SuppressionConfidenceThreshold:
             )
         )
     else:
-        raise DeserializationError(
-            "SuppressionConfidenceThreshold.confidence_verdict_threshold required"
+        import typing
+
+        out["confidence_verdict_threshold"] = typing.cast(
+            "capo_sesv2.types.suppression_confidence_verdict_threshold.SuppressionConfidenceVerdictThreshold",
+            "",
         )
     return out

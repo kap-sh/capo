@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmanager.types.constrained_string
     import capo_networkmanager.types.device_id
@@ -56,13 +54,11 @@ def deserialize_json(data: dict) -> CreateConnectionRequest:
     if data.get("DeviceId") is not None:
         out["device_id"] = data["DeviceId"]
     else:
-        raise DeserializationError("CreateConnectionRequest.device_id required")
+        out["device_id"] = ""
     if data.get("ConnectedDeviceId") is not None:
         out["connected_device_id"] = data["ConnectedDeviceId"]
     else:
-        raise DeserializationError(
-            "CreateConnectionRequest.connected_device_id required"
-        )
+        out["connected_device_id"] = ""
     if data.get("LinkId") is not None:
         out["link_id"] = data["LinkId"]
     if data.get("ConnectedLinkId") is not None:

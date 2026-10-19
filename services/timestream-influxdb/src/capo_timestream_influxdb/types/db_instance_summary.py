@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_influxdb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_influxdb.types.allocated_storage
     import capo_timestream_influxdb.types.arn
@@ -110,15 +108,15 @@ def deserialize_aws_json_1_0(data: dict) -> DbInstanceSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("DbInstanceSummary.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DbInstanceSummary.name required")
+        out["name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("DbInstanceSummary.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_timestream_influxdb.types.status
 

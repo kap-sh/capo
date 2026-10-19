@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -45,15 +43,15 @@ def deserialize_json(data: dict) -> WhatsAppCallPermissionLimit:
     if data.get("timePeriod") is not None:
         out["time_period"] = data["timePeriod"]
     else:
-        raise DeserializationError("WhatsAppCallPermissionLimit.time_period required")
+        out["time_period"] = ""
     if data.get("maxAllowed") is not None:
         out["max_allowed"] = data["maxAllowed"]
     else:
-        raise DeserializationError("WhatsAppCallPermissionLimit.max_allowed required")
+        out["max_allowed"] = 0
     if data.get("currentUsage") is not None:
         out["current_usage"] = data["currentUsage"]
     else:
-        raise DeserializationError("WhatsAppCallPermissionLimit.current_usage required")
+        out["current_usage"] = 0
     if data.get("limitExpirationTime") is not None:
         import capo_socialmessaging.types._prelude.timestamp
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.arn
     import capo_workspaces_web.types.certificate_summary_list
@@ -55,9 +53,7 @@ def deserialize_json(data: dict) -> ListTrustStoreCertificatesResponse:
     if data.get("trustStoreArn") is not None:
         out["trust_store_arn"] = data["trustStoreArn"]
     else:
-        raise DeserializationError(
-            "ListTrustStoreCertificatesResponse.trust_store_arn required"
-        )
+        out["trust_store_arn"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

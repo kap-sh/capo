@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearchserverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearchserverless.types.client_token
     import capo_opensearchserverless.types.config_description
@@ -84,13 +82,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateSecurityConfigRequest:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("UpdateSecurityConfigRequest.id required")
+        out["id"] = ""
     if data.get("configVersion") is not None:
         out["config_version"] = data["configVersion"]
     else:
-        raise DeserializationError(
-            "UpdateSecurityConfigRequest.config_version required"
-        )
+        out["config_version"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("samlOptions") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.certificate_chain
     import capo_securityagent.types.host_address
@@ -101,11 +99,11 @@ def deserialize_json(data: dict) -> ServiceManagedInput:
     if data.get("hostAddress") is not None:
         out["host_address"] = data["hostAddress"]
     else:
-        raise DeserializationError("ServiceManagedInput.host_address required")
+        out["host_address"] = ""
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
     else:
-        raise DeserializationError("ServiceManagedInput.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("subnetIds") is not None:
         import capo_securityagent.types.private_connection_subnet_ids
 
@@ -115,7 +113,7 @@ def deserialize_json(data: dict) -> ServiceManagedInput:
             )
         )
     else:
-        raise DeserializationError("ServiceManagedInput.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("securityGroupIds") is not None:
         import capo_securityagent.types.private_connection_security_group_ids
 

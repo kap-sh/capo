@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.blueprint_arn
     import capo_bedrock_data_automation.types.blueprint_name
@@ -70,7 +68,7 @@ def deserialize_json(data: dict) -> BlueprintSummary:
     if data.get("blueprintArn") is not None:
         out["blueprint_arn"] = data["blueprintArn"]
     else:
-        raise DeserializationError("BlueprintSummary.blueprint_arn required")
+        out["blueprint_arn"] = ""
     if data.get("blueprintVersion") is not None:
         out["blueprint_version"] = data["blueprintVersion"]
     if data.get("blueprintStage") is not None:
@@ -92,7 +90,11 @@ def deserialize_json(data: dict) -> BlueprintSummary:
             )
         )
     else:
-        raise DeserializationError("BlueprintSummary.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastModifiedTime") is not None:
         import capo_bedrock_data_automation.types.date_timestamp
 

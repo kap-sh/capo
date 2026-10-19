@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 
 class CanaryEntity(TypedDict, closed=True):
     canary_name: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> CanaryEntity:
     if data.get("CanaryName") is not None:
         out["canary_name"] = data["CanaryName"]
     else:
-        raise DeserializationError("CanaryEntity.canary_name required")
+        out["canary_name"] = ""
     return out

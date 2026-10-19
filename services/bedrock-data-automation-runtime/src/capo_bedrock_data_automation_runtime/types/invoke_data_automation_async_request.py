@@ -175,9 +175,7 @@ def deserialize_aws_json_1_1(data: dict) -> InvokeDataAutomationAsyncRequest:
     if data.get("dataAutomationProfileArn") is not None:
         out["data_automation_profile_arn"] = data["dataAutomationProfileArn"]
     else:
-        raise DeserializationError(
-            "InvokeDataAutomationAsyncRequest.data_automation_profile_arn required"
-        )
+        out["data_automation_profile_arn"] = ""
     if data.get("tags") is not None:
         import capo_bedrock_data_automation_runtime.types.tag_list
 

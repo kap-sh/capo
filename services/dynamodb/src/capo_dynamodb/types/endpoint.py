@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.long
     import capo_dynamodb.types.string
@@ -31,7 +29,7 @@ def deserialize_aws_json_1_0(data: dict) -> Endpoint:
     if data.get("Address") is not None:
         out["address"] = data["Address"]
     else:
-        raise DeserializationError("Endpoint.address required")
+        out["address"] = ""
     if data.get("CachePeriodInMinutes") is not None:
         out["cache_period_in_minutes"] = data["CachePeriodInMinutes"]
     else:

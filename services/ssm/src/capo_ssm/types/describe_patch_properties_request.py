@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.max_results
     import capo_ssm.types.next_token
@@ -64,8 +62,10 @@ def deserialize_aws_json_1_1(data: dict) -> DescribePatchPropertiesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribePatchPropertiesRequest.operating_system required"
+        import typing
+
+        out["operating_system"] = typing.cast(
+            "capo_ssm.types.operating_system.OperatingSystem", ""
         )
     if data.get("Property") is not None:
         import capo_ssm.types.patch_property
@@ -74,7 +74,9 @@ def deserialize_aws_json_1_1(data: dict) -> DescribePatchPropertiesRequest:
             data["Property"]
         )
     else:
-        raise DeserializationError("DescribePatchPropertiesRequest.property required")
+        import typing
+
+        out["property"] = typing.cast("capo_ssm.types.patch_property.PatchProperty", "")
     if data.get("PatchSet") is not None:
         import capo_ssm.types.patch_set
 

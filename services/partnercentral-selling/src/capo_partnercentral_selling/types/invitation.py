@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.invitation_message
     import capo_partnercentral_selling.types.payload
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_0(data: dict) -> Invitation:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("Invitation.message required")
+        out["message"] = ""
     if data.get("Receiver") is not None:
         import capo_partnercentral_selling.types.receiver
 
@@ -51,7 +49,11 @@ def deserialize_aws_json_1_0(data: dict) -> Invitation:
             )
         )
     else:
-        raise DeserializationError("Invitation.receiver required")
+        import capo_partnercentral_selling.types._unknown
+
+        out["receiver"] = capo_partnercentral_selling.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("Payload") is not None:
         import capo_partnercentral_selling.types.payload
 
@@ -61,7 +63,11 @@ def deserialize_aws_json_1_0(data: dict) -> Invitation:
             )
         )
     else:
-        raise DeserializationError("Invitation.payload required")
+        import capo_partnercentral_selling.types._unknown
+
+        out["payload"] = capo_partnercentral_selling.types._unknown.UnknownUnionMember(
+            ""
+        )
     return out
 
 

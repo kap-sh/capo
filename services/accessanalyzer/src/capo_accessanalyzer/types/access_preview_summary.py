@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.access_preview_id
     import capo_accessanalyzer.types.access_preview_status
@@ -55,11 +53,11 @@ def deserialize_json(data: dict) -> AccessPreviewSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("AccessPreviewSummary.id required")
+        out["id"] = ""
     if data.get("analyzerArn") is not None:
         out["analyzer_arn"] = data["analyzerArn"]
     else:
-        raise DeserializationError("AccessPreviewSummary.analyzer_arn required")
+        out["analyzer_arn"] = ""
     if data.get("createdAt") is not None:
         import capo_accessanalyzer.types.timestamp
 
@@ -67,11 +65,13 @@ def deserialize_json(data: dict) -> AccessPreviewSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("AccessPreviewSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("AccessPreviewSummary.status required")
+        out["status"] = ""
     if data.get("statusReason") is not None:
         import capo_accessanalyzer.types.access_preview_status_reason
 

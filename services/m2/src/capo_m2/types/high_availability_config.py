@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.capacity_value
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> HighAvailabilityConfig:
     if data.get("desiredCapacity") is not None:
         out["desired_capacity"] = data["desiredCapacity"]
     else:
-        raise DeserializationError("HighAvailabilityConfig.desired_capacity required")
+        out["desired_capacity"] = 0
     return out

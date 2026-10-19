@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.encryption_status
     import capo_iotfleetwise.types.encryption_type
@@ -55,8 +53,10 @@ def deserialize_aws_json_1_0(data: dict) -> PutEncryptionConfigurationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "PutEncryptionConfigurationResponse.encryption_status required"
+        import typing
+
+        out["encryption_status"] = typing.cast(
+            "capo_iotfleetwise.types.encryption_status.EncryptionStatus", ""
         )
     if data.get("encryptionType") is not None:
         import capo_iotfleetwise.types.encryption_type
@@ -67,7 +67,9 @@ def deserialize_aws_json_1_0(data: dict) -> PutEncryptionConfigurationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "PutEncryptionConfigurationResponse.encryption_type required"
+        import typing
+
+        out["encryption_type"] = typing.cast(
+            "capo_iotfleetwise.types.encryption_type.EncryptionType", ""
         )
     return out

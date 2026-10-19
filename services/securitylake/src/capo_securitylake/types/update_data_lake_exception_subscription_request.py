@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securitylake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securitylake.types.safe_string
     import capo_securitylake.types.subscription_protocol
@@ -37,15 +35,11 @@ def deserialize_json(data: dict) -> UpdateDataLakeExceptionSubscriptionRequest:
     if data.get("subscriptionProtocol") is not None:
         out["subscription_protocol"] = data["subscriptionProtocol"]
     else:
-        raise DeserializationError(
-            "UpdateDataLakeExceptionSubscriptionRequest.subscription_protocol required"
-        )
+        out["subscription_protocol"] = ""
     if data.get("notificationEndpoint") is not None:
         out["notification_endpoint"] = data["notificationEndpoint"]
     else:
-        raise DeserializationError(
-            "UpdateDataLakeExceptionSubscriptionRequest.notification_endpoint required"
-        )
+        out["notification_endpoint"] = ""
     if data.get("exceptionTimeToLive") is not None:
         out["exception_time_to_live"] = data["exceptionTimeToLive"]
     return out

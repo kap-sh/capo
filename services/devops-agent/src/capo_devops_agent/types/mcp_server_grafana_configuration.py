@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.mcp_tool_details_list
     import capo_devops_agent.types.mcp_tools_list
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> MCPServerGrafanaConfiguration:
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError("MCPServerGrafanaConfiguration.endpoint required")
+        out["endpoint"] = ""
     if data.get("organizationId") is not None:
         out["organization_id"] = data["organizationId"]
     if data.get("tools") is not None:

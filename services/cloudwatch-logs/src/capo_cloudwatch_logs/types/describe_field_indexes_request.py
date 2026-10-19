@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.describe_field_indexes_log_group_identifiers
     import capo_cloudwatch_logs.types.index_categories
@@ -56,9 +54,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeFieldIndexesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeFieldIndexesRequest.log_group_identifiers required"
-        )
+        out["log_group_identifiers"] = []
     if data.get("indexCategories") is not None:
         import capo_cloudwatch_logs.types.index_categories
 

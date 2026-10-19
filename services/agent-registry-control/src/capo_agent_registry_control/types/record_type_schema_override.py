@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_agent_registry_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_agent_registry_control.types.custom_metadata_schema_definition
     import capo_agent_registry_control.types.record_type
@@ -41,11 +39,15 @@ def deserialize_json(data: dict) -> RecordTypeSchemaOverride:
             )
         )
     else:
-        raise DeserializationError("RecordTypeSchemaOverride.record_type required")
+        import typing
+
+        out["record_type"] = typing.cast(
+            "capo_agent_registry_control.types.record_type.RecordType", ""
+        )
     if data.get("schema") is not None:
         out["schema"] = data["schema"]
     else:
-        raise DeserializationError("RecordTypeSchemaOverride.schema required")
+        out["schema"] = ""
     return out
 
 

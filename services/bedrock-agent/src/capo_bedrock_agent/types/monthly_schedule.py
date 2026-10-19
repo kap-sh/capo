@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.day_of_month
 
@@ -35,5 +33,7 @@ def deserialize_json(data: dict) -> MonthlySchedule:
             data["dayOfMonth"]
         )
     else:
-        raise DeserializationError("MonthlySchedule.day_of_month required")
+        import capo_bedrock_agent.types._unknown
+
+        out["day_of_month"] = capo_bedrock_agent.types._unknown.UnknownUnionMember("")
     return out

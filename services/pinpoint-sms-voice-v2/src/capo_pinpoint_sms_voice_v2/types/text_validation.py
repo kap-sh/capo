@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 
 class TextValidation(TypedDict, closed=True):
     min_length: "int"
@@ -28,13 +26,13 @@ def deserialize_aws_json_1_0(data: dict) -> TextValidation:
     if data.get("MinLength") is not None:
         out["min_length"] = data["MinLength"]
     else:
-        raise DeserializationError("TextValidation.min_length required")
+        out["min_length"] = 0
     if data.get("MaxLength") is not None:
         out["max_length"] = data["MaxLength"]
     else:
-        raise DeserializationError("TextValidation.max_length required")
+        out["max_length"] = 0
     if data.get("Pattern") is not None:
         out["pattern"] = data["Pattern"]
     else:
-        raise DeserializationError("TextValidation.pattern required")
+        out["pattern"] = ""
     return out

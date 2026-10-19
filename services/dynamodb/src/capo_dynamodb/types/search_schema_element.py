@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.attribute_name
     import capo_dynamodb.types.search_schema_element_type
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_0(data: dict) -> SearchSchemaElement:
     if data.get("AttributeName") is not None:
         out["attribute_name"] = data["AttributeName"]
     else:
-        raise DeserializationError("SearchSchemaElement.attribute_name required")
+        out["attribute_name"] = ""
     if data.get("SearchSchemaElementType") is not None:
         import capo_dynamodb.types.search_schema_element_type
 
@@ -49,7 +47,9 @@ def deserialize_aws_json_1_0(data: dict) -> SearchSchemaElement:
             )
         )
     else:
-        raise DeserializationError(
-            "SearchSchemaElement.search_schema_element_type required"
+        import typing
+
+        out["search_schema_element_type"] = typing.cast(
+            "capo_dynamodb.types.search_schema_element_type.SearchSchemaElementType", ""
         )
     return out

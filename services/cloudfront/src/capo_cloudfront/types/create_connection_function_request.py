@@ -51,7 +51,7 @@ def deserialize_xml(el: Element) -> CreateConnectionFunctionRequest:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("CreateConnectionFunctionRequest.name required")
+        out["name"] = ""
     child_connection_function_config = el.find("ConnectionFunctionConfig")
     if child_connection_function_config is not None:
         import capo_cloudfront.types.function_config
@@ -75,9 +75,7 @@ def deserialize_xml(el: Element) -> CreateConnectionFunctionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateConnectionFunctionRequest.connection_function_code required"
-        )
+        out["connection_function_code"] = b""
     child_tags = el.find("Tags")
     if child_tags is not None:
         import capo_cloudfront.types.tags

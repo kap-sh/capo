@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.instance_id
     import capo_connect.types.list_flow_association_resource_type
@@ -57,9 +55,7 @@ def deserialize_json(data: dict) -> BatchGetFlowAssociationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetFlowAssociationRequest.resource_ids required"
-        )
+        out["resource_ids"] = []
     if data.get("ResourceType") is not None:
         import capo_connect.types.list_flow_association_resource_type
 

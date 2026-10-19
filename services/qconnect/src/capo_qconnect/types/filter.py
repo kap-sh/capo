@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.filter_field
     import capo_qconnect.types.filter_operator
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> Filter:
     if data.get("field") is not None:
         out["field"] = data["field"]
     else:
-        raise DeserializationError("Filter.field required")
+        out["field"] = ""
     if data.get("operator") is not None:
         out["operator"] = data["operator"]
     else:
-        raise DeserializationError("Filter.operator required")
+        out["operator"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("Filter.value required")
+        out["value"] = ""
     return out

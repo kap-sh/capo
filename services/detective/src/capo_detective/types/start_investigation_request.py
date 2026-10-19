@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_detective.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_detective.types.entity_arn
     import capo_detective.types.graph_arn
@@ -46,11 +44,11 @@ def deserialize_json(data: dict) -> StartInvestigationRequest:
     if data.get("GraphArn") is not None:
         out["graph_arn"] = data["GraphArn"]
     else:
-        raise DeserializationError("StartInvestigationRequest.graph_arn required")
+        out["graph_arn"] = ""
     if data.get("EntityArn") is not None:
         out["entity_arn"] = data["EntityArn"]
     else:
-        raise DeserializationError("StartInvestigationRequest.entity_arn required")
+        out["entity_arn"] = ""
     if data.get("ScopeStartTime") is not None:
         import capo_detective.types.timestamp
 
@@ -58,8 +56,10 @@ def deserialize_json(data: dict) -> StartInvestigationRequest:
             data["ScopeStartTime"]
         )
     else:
-        raise DeserializationError(
-            "StartInvestigationRequest.scope_start_time required"
+        import datetime
+
+        out["scope_start_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("ScopeEndTime") is not None:
         import capo_detective.types.timestamp
@@ -68,5 +68,9 @@ def deserialize_json(data: dict) -> StartInvestigationRequest:
             data["ScopeEndTime"]
         )
     else:
-        raise DeserializationError("StartInvestigationRequest.scope_end_time required")
+        import datetime
+
+        out["scope_end_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

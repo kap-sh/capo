@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.audit_context
     import capo_glue.types.catalog_id_string
@@ -83,21 +81,15 @@ def deserialize_aws_json_1_1(data: dict) -> GetUnfilteredPartitionMetadataReques
     if data.get("CatalogId") is not None:
         out["catalog_id"] = data["CatalogId"]
     else:
-        raise DeserializationError(
-            "GetUnfilteredPartitionMetadataRequest.catalog_id required"
-        )
+        out["catalog_id"] = ""
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError(
-            "GetUnfilteredPartitionMetadataRequest.database_name required"
-        )
+        out["database_name"] = ""
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError(
-            "GetUnfilteredPartitionMetadataRequest.table_name required"
-        )
+        out["table_name"] = ""
     if data.get("PartitionValues") is not None:
         import capo_glue.types.value_string_list
 
@@ -107,9 +99,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetUnfilteredPartitionMetadataReques
             )
         )
     else:
-        raise DeserializationError(
-            "GetUnfilteredPartitionMetadataRequest.partition_values required"
-        )
+        out["partition_values"] = []
     if data.get("AuditContext") is not None:
         import capo_glue.types.audit_context
 
@@ -125,9 +115,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetUnfilteredPartitionMetadataReques
             )
         )
     else:
-        raise DeserializationError(
-            "GetUnfilteredPartitionMetadataRequest.supported_permission_types required"
-        )
+        out["supported_permission_types"] = []
     if data.get("QuerySessionContext") is not None:
         import capo_glue.types.query_session_context
 

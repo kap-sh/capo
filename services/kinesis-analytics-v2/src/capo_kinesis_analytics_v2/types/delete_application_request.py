@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.application_name
     import capo_kinesis_analytics_v2.types.timestamp
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteApplicationRequest:
     if data.get("ApplicationName") is not None:
         out["application_name"] = data["ApplicationName"]
     else:
-        raise DeserializationError("DeleteApplicationRequest.application_name required")
+        out["application_name"] = ""
     if data.get("CreateTimestamp") is not None:
         import capo_kinesis_analytics_v2.types.timestamp
 
@@ -47,5 +45,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteApplicationRequest:
             )
         )
     else:
-        raise DeserializationError("DeleteApplicationRequest.create_timestamp required")
+        import datetime
+
+        out["create_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

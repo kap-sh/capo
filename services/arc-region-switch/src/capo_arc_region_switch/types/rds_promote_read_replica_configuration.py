@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.iam_role_arn
     import capo_arc_region_switch.types.rds_db_instance_arn_map
@@ -63,7 +61,5 @@ def deserialize_aws_json_1_0(data: dict) -> RdsPromoteReadReplicaConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "RdsPromoteReadReplicaConfiguration.db_instance_arn_map required"
-        )
+        out["db_instance_arn_map"] = {}
     return out

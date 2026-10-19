@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.desired_state
     import capo_panorama.types.device_reported_status
@@ -45,19 +43,15 @@ def deserialize_json(data: dict) -> ReportedRuntimeContextState:
     if data.get("DesiredState") is not None:
         out["desired_state"] = data["DesiredState"]
     else:
-        raise DeserializationError("ReportedRuntimeContextState.desired_state required")
+        out["desired_state"] = ""
     if data.get("RuntimeContextName") is not None:
         out["runtime_context_name"] = data["RuntimeContextName"]
     else:
-        raise DeserializationError(
-            "ReportedRuntimeContextState.runtime_context_name required"
-        )
+        out["runtime_context_name"] = ""
     if data.get("DeviceReportedStatus") is not None:
         out["device_reported_status"] = data["DeviceReportedStatus"]
     else:
-        raise DeserializationError(
-            "ReportedRuntimeContextState.device_reported_status required"
-        )
+        out["device_reported_status"] = ""
     if data.get("DeviceReportedTime") is not None:
         import capo_panorama.types.time_stamp
 
@@ -65,7 +59,9 @@ def deserialize_json(data: dict) -> ReportedRuntimeContextState:
             data["DeviceReportedTime"]
         )
     else:
-        raise DeserializationError(
-            "ReportedRuntimeContextState.device_reported_time required"
+        import datetime
+
+        out["device_reported_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

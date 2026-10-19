@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migration_hub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migration_hub.types.dry_run
     import capo_migration_hub.types.migration_task_name
@@ -46,21 +44,15 @@ def deserialize_aws_json_1_1(data: dict) -> DisassociateSourceResourceRequest:
     if data.get("ProgressUpdateStream") is not None:
         out["progress_update_stream"] = data["ProgressUpdateStream"]
     else:
-        raise DeserializationError(
-            "DisassociateSourceResourceRequest.progress_update_stream required"
-        )
+        out["progress_update_stream"] = ""
     if data.get("MigrationTaskName") is not None:
         out["migration_task_name"] = data["MigrationTaskName"]
     else:
-        raise DeserializationError(
-            "DisassociateSourceResourceRequest.migration_task_name required"
-        )
+        out["migration_task_name"] = ""
     if data.get("SourceResourceName") is not None:
         out["source_resource_name"] = data["SourceResourceName"]
     else:
-        raise DeserializationError(
-            "DisassociateSourceResourceRequest.source_resource_name required"
-        )
+        out["source_resource_name"] = ""
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
     return out

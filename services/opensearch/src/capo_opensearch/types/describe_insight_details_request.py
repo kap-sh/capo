@@ -46,7 +46,7 @@ def deserialize_json(data: dict) -> DescribeInsightDetailsRequest:
     if data.get("InsightId") is not None:
         out["insight_id"] = data["InsightId"]
     else:
-        raise DeserializationError("DescribeInsightDetailsRequest.insight_id required")
+        out["insight_id"] = ""
     if data.get("ShowHtmlContent") is not None:
         out["show_html_content"] = data["ShowHtmlContent"]
     return out

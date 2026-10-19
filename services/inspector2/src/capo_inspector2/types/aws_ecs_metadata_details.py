@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 
 class AwsEcsMetadataDetails(TypedDict, closed=True):
     details_group: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> AwsEcsMetadataDetails:
     if data.get("detailsGroup") is not None:
         out["details_group"] = data["detailsGroup"]
     else:
-        raise DeserializationError("AwsEcsMetadataDetails.details_group required")
+        out["details_group"] = ""
     if data.get("taskDefinitionArn") is not None:
         out["task_definition_arn"] = data["taskDefinitionArn"]
     else:
-        raise DeserializationError("AwsEcsMetadataDetails.task_definition_arn required")
+        out["task_definition_arn"] = ""
     return out

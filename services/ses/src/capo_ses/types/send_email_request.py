@@ -88,7 +88,7 @@ def deserialize_query(el: Element) -> SendEmailRequest:
     if child_source is not None:
         out["source"] = str(child_source.text or "")
     else:
-        raise DeserializationError("SendEmailRequest.source required")
+        out["source"] = ""
     child_destination = el.find("Destination")
     if child_destination is not None:
         import capo_ses.types.destination

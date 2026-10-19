@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_elementalinference.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elementalinference.types.output_config
     import capo_elementalinference.types.output_status
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> CreateOutput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateOutput.name required")
+        out["name"] = ""
     if data.get("outputConfig") is not None:
         import capo_elementalinference.types.output_config
 
@@ -60,7 +58,11 @@ def deserialize_json(data: dict) -> CreateOutput:
             )
         )
     else:
-        raise DeserializationError("CreateOutput.output_config required")
+        import capo_elementalinference.types._unknown
+
+        out["output_config"] = (
+            capo_elementalinference.types._unknown.UnknownUnionMember("")
+        )
     if data.get("status") is not None:
         import capo_elementalinference.types.output_status
 
@@ -68,7 +70,11 @@ def deserialize_json(data: dict) -> CreateOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("CreateOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_elementalinference.types.output_status.OutputStatus", ""
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

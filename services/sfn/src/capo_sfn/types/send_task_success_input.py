@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.sensitive_data
     import capo_sfn.types.task_token
@@ -31,11 +29,11 @@ def deserialize_aws_json_1_0(data: dict) -> SendTaskSuccessInput:
     if data.get("taskToken") is not None:
         out["task_token"] = data["taskToken"]
     else:
-        raise DeserializationError("SendTaskSuccessInput.task_token required")
+        out["task_token"] = ""
     if data.get("output") is not None:
         out["output"] = data["output"]
     else:
-        raise DeserializationError("SendTaskSuccessInput.output required")
+        out["output"] = ""
     return out
 
 

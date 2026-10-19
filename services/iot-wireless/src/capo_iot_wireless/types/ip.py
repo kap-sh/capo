@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.ip_address
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> Ip:
     if data.get("IpAddress") is not None:
         out["ip_address"] = data["IpAddress"]
     else:
-        raise DeserializationError("Ip.ip_address required")
+        out["ip_address"] = ""
     return out

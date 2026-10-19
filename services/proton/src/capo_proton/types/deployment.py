@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -132,15 +130,15 @@ def deserialize_aws_json_1_0(data: dict) -> Deployment:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("Deployment.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("Deployment.arn required")
+        out["arn"] = ""
     if data.get("targetArn") is not None:
         out["target_arn"] = data["targetArn"]
     else:
-        raise DeserializationError("Deployment.target_arn required")
+        out["target_arn"] = ""
     if data.get("targetResourceCreatedAt") is not None:
         import capo_proton.types._prelude.timestamp
 
@@ -150,15 +148,19 @@ def deserialize_aws_json_1_0(data: dict) -> Deployment:
             )
         )
     else:
-        raise DeserializationError("Deployment.target_resource_created_at required")
+        import datetime
+
+        out["target_resource_created_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("targetResourceType") is not None:
         out["target_resource_type"] = data["targetResourceType"]
     else:
-        raise DeserializationError("Deployment.target_resource_type required")
+        out["target_resource_type"] = ""
     if data.get("environmentName") is not None:
         out["environment_name"] = data["environmentName"]
     else:
-        raise DeserializationError("Deployment.environment_name required")
+        out["environment_name"] = ""
     if data.get("serviceName") is not None:
         out["service_name"] = data["serviceName"]
     if data.get("serviceInstanceName") is not None:
@@ -168,7 +170,7 @@ def deserialize_aws_json_1_0(data: dict) -> Deployment:
     if data.get("deploymentStatus") is not None:
         out["deployment_status"] = data["deploymentStatus"]
     else:
-        raise DeserializationError("Deployment.deployment_status required")
+        out["deployment_status"] = ""
     if data.get("deploymentStatusMessage") is not None:
         out["deployment_status_message"] = data["deploymentStatusMessage"]
     if data.get("createdAt") is not None:
@@ -180,7 +182,9 @@ def deserialize_aws_json_1_0(data: dict) -> Deployment:
             )
         )
     else:
-        raise DeserializationError("Deployment.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastModifiedAt") is not None:
         import capo_proton.types._prelude.timestamp
 
@@ -190,7 +194,11 @@ def deserialize_aws_json_1_0(data: dict) -> Deployment:
             )
         )
     else:
-        raise DeserializationError("Deployment.last_modified_at required")
+        import datetime
+
+        out["last_modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("completedAt") is not None:
         import capo_proton.types._prelude.timestamp
 

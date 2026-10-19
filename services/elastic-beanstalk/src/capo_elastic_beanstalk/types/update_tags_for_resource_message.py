@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_elastic_beanstalk._protocol.xml import Element
-from capo_elastic_beanstalk.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_elastic_beanstalk.types.resource_arn
@@ -48,7 +47,7 @@ def deserialize_query(el: Element) -> UpdateTagsForResourceMessage:
     if child_resource_arn is not None:
         out["resource_arn"] = str(child_resource_arn.text or "")
     else:
-        raise DeserializationError("UpdateTagsForResourceMessage.resource_arn required")
+        out["resource_arn"] = ""
     child_tags_to_add = el.find("TagsToAdd")
     if child_tags_to_add is not None:
         import capo_elastic_beanstalk.types.tag_list

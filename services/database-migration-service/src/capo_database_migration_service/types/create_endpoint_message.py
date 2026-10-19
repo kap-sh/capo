@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.dms_ssl_mode_value
     import capo_database_migration_service.types.dms_transfer_settings
@@ -367,7 +365,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEndpointMessage:
     if data.get("EndpointIdentifier") is not None:
         out["endpoint_identifier"] = data["EndpointIdentifier"]
     else:
-        raise DeserializationError("CreateEndpointMessage.endpoint_identifier required")
+        out["endpoint_identifier"] = ""
     if data.get("EndpointType") is not None:
         import capo_database_migration_service.types.replication_endpoint_type_value
 
@@ -377,11 +375,16 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEndpointMessage:
             )
         )
     else:
-        raise DeserializationError("CreateEndpointMessage.endpoint_type required")
+        import typing
+
+        out["endpoint_type"] = typing.cast(
+            "capo_database_migration_service.types.replication_endpoint_type_value.ReplicationEndpointTypeValue",
+            "",
+        )
     if data.get("EngineName") is not None:
         out["engine_name"] = data["EngineName"]
     else:
-        raise DeserializationError("CreateEndpointMessage.engine_name required")
+        out["engine_name"] = ""
     if data.get("Username") is not None:
         out["username"] = data["Username"]
     if data.get("Password") is not None:

@@ -37,7 +37,7 @@ def deserialize_json(data: dict) -> NeptuneAnalyticsConfiguration:
     if data.get("graphArn") is not None:
         out["graph_arn"] = data["graphArn"]
     else:
-        raise DeserializationError("NeptuneAnalyticsConfiguration.graph_arn required")
+        out["graph_arn"] = ""
     if data.get("fieldMapping") is not None:
         import capo_bedrock_agent.types.neptune_analytics_field_mapping
 

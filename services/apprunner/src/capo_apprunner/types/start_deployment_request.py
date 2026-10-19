@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_apprunner.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_apprunner.types.app_runner_resource_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> StartDeploymentRequest:
     if data.get("ServiceArn") is not None:
         out["service_arn"] = data["ServiceArn"]
     else:
-        raise DeserializationError("StartDeploymentRequest.service_arn required")
+        out["service_arn"] = ""
     return out

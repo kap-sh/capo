@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.aws_opportunity_customer
     import capo_partnercentral_selling.types.aws_opportunity_insights
@@ -271,7 +269,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetAwsOpportunitySummaryResponse:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("GetAwsOpportunitySummaryResponse.catalog required")
+        out["catalog"] = ""
     return out
 
 

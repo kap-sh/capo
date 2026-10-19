@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.start_replication_migration_type_value
     import capo_database_migration_service.types.string
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartDataMigrationMessage:
     if data.get("DataMigrationIdentifier") is not None:
         out["data_migration_identifier"] = data["DataMigrationIdentifier"]
     else:
-        raise DeserializationError(
-            "StartDataMigrationMessage.data_migration_identifier required"
-        )
+        out["data_migration_identifier"] = ""
     if data.get("StartType") is not None:
         import capo_database_migration_service.types.start_replication_migration_type_value
 
@@ -49,5 +45,10 @@ def deserialize_aws_json_1_1(data: dict) -> StartDataMigrationMessage:
             )
         )
     else:
-        raise DeserializationError("StartDataMigrationMessage.start_type required")
+        import typing
+
+        out["start_type"] = typing.cast(
+            "capo_database_migration_service.types.start_replication_migration_type_value.StartReplicationMigrationTypeValue",
+            "",
+        )
     return out

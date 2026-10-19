@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_auditmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auditmanager.types.control_set_status
     import capo_auditmanager.types.delegation_comment
@@ -45,15 +43,15 @@ def deserialize_json(data: dict) -> UpdateAssessmentControlSetStatusRequest:
             data["status"]
         )
     else:
-        raise DeserializationError(
-            "UpdateAssessmentControlSetStatusRequest.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_auditmanager.types.control_set_status.ControlSetStatus", ""
         )
     if data.get("comment") is not None:
         out["comment"] = data["comment"]
     else:
-        raise DeserializationError(
-            "UpdateAssessmentControlSetStatusRequest.comment required"
-        )
+        out["comment"] = ""
     return out
 
 

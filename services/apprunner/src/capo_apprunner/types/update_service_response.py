@@ -43,7 +43,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateServiceResponse:
     if data.get("OperationId") is not None:
         out["operation_id"] = data["OperationId"]
     else:
-        raise DeserializationError("UpdateServiceResponse.operation_id required")
+        out["operation_id"] = ""
     return out
 
 

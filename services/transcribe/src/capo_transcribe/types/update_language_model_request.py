@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transcribe.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe.types.data_access_role_arn
     import capo_transcribe.types.encryption_configuration
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLanguageModelRequest:
     if data.get("ModelName") is not None:
         out["model_name"] = data["ModelName"]
     else:
-        raise DeserializationError("UpdateLanguageModelRequest.model_name required")
+        out["model_name"] = ""
     if data.get("DataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["DataAccessRoleArn"]
     if data.get("EncryptionConfiguration") is not None:

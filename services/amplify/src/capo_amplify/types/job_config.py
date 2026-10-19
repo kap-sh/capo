@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.build_compute_type
 
@@ -37,5 +35,9 @@ def deserialize_json(data: dict) -> JobConfig:
             )
         )
     else:
-        raise DeserializationError("JobConfig.build_compute_type required")
+        import typing
+
+        out["build_compute_type"] = typing.cast(
+            "capo_amplify.types.build_compute_type.BuildComputeType", ""
+        )
     return out

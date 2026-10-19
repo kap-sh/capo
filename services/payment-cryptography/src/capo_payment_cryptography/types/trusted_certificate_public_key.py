@@ -59,15 +59,11 @@ def deserialize_aws_json_1_0(data: dict) -> TrustedCertificatePublicKey:
     if data.get("PublicKeyCertificate") is not None:
         out["public_key_certificate"] = data["PublicKeyCertificate"]
     else:
-        raise DeserializationError(
-            "TrustedCertificatePublicKey.public_key_certificate required"
-        )
+        out["public_key_certificate"] = ""
     if data.get("CertificateAuthorityPublicKeyIdentifier") is not None:
         out["certificate_authority_public_key_identifier"] = data[
             "CertificateAuthorityPublicKeyIdentifier"
         ]
     else:
-        raise DeserializationError(
-            "TrustedCertificatePublicKey.certificate_authority_public_key_identifier required"
-        )
+        out["certificate_authority_public_key_identifier"] = ""
     return out

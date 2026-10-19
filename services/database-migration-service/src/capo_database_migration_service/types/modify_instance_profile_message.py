@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.boolean_optional
     import capo_database_migration_service.types.string
@@ -77,9 +75,7 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyInstanceProfileMessage:
     if data.get("InstanceProfileIdentifier") is not None:
         out["instance_profile_identifier"] = data["InstanceProfileIdentifier"]
     else:
-        raise DeserializationError(
-            "ModifyInstanceProfileMessage.instance_profile_identifier required"
-        )
+        out["instance_profile_identifier"] = ""
     if data.get("AvailabilityZone") is not None:
         out["availability_zone"] = data["AvailabilityZone"]
     if data.get("KmsKeyArn") is not None:

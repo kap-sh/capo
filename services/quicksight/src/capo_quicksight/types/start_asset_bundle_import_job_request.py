@@ -109,9 +109,7 @@ def deserialize_json(data: dict) -> StartAssetBundleImportJobRequest:
     if data.get("AssetBundleImportJobId") is not None:
         out["asset_bundle_import_job_id"] = data["AssetBundleImportJobId"]
     else:
-        raise DeserializationError(
-            "StartAssetBundleImportJobRequest.asset_bundle_import_job_id required"
-        )
+        out["asset_bundle_import_job_id"] = ""
     if data.get("AssetBundleImportSource") is not None:
         import capo_quicksight.types.asset_bundle_import_source
 

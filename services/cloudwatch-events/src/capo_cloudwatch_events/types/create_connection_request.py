@@ -54,7 +54,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateConnectionRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateConnectionRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("AuthorizationType") is not None:
@@ -66,8 +66,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateConnectionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateConnectionRequest.authorization_type required"
+        import typing
+
+        out["authorization_type"] = typing.cast(
+            "capo_cloudwatch_events.types.connection_authorization_type.ConnectionAuthorizationType",
+            "",
         )
     if data.get("AuthParameters") is not None:
         import capo_cloudwatch_events.types.create_connection_auth_request_parameters

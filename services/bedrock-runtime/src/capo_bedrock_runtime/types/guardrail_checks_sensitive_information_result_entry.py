@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.guardrail_checks_sensitive_information_entity_type
 
@@ -62,37 +60,30 @@ def deserialize_json(data: dict) -> GuardrailChecksSensitiveInformationResultEnt
             )
         )
     else:
-        raise DeserializationError(
-            "GuardrailChecksSensitiveInformationResultEntry.type required"
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_runtime.types.guardrail_checks_sensitive_information_entity_type.GuardrailChecksSensitiveInformationEntityType",
+            "",
         )
     if data.get("confidenceScore") is not None:
         out["confidence_score"] = float(data["confidenceScore"])
     else:
-        raise DeserializationError(
-            "GuardrailChecksSensitiveInformationResultEntry.confidence_score required"
-        )
+        out["confidence_score"] = 0.0
     if data.get("beginOffset") is not None:
         out["begin_offset"] = data["beginOffset"]
     else:
-        raise DeserializationError(
-            "GuardrailChecksSensitiveInformationResultEntry.begin_offset required"
-        )
+        out["begin_offset"] = 0
     if data.get("endOffset") is not None:
         out["end_offset"] = data["endOffset"]
     else:
-        raise DeserializationError(
-            "GuardrailChecksSensitiveInformationResultEntry.end_offset required"
-        )
+        out["end_offset"] = 0
     if data.get("messageIndex") is not None:
         out["message_index"] = data["messageIndex"]
     else:
-        raise DeserializationError(
-            "GuardrailChecksSensitiveInformationResultEntry.message_index required"
-        )
+        out["message_index"] = 0
     if data.get("contentIndex") is not None:
         out["content_index"] = data["contentIndex"]
     else:
-        raise DeserializationError(
-            "GuardrailChecksSensitiveInformationResultEntry.content_index required"
-        )
+        out["content_index"] = 0
     return out

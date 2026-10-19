@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsecuretunneling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsecuretunneling.types.tunnel_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeTunnelRequest:
     if data.get("tunnelId") is not None:
         out["tunnel_id"] = data["tunnelId"]
     else:
-        raise DeserializationError("DescribeTunnelRequest.tunnel_id required")
+        out["tunnel_id"] = ""
     return out

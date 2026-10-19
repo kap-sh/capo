@@ -105,7 +105,7 @@ def deserialize_json(data: dict) -> CreateRegistryRecordRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateRegistryRecordRequest.name required")
+        out["name"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     if data.get("description") is not None:
@@ -119,7 +119,11 @@ def deserialize_json(data: dict) -> CreateRegistryRecordRequest:
             )
         )
     else:
-        raise DeserializationError("CreateRegistryRecordRequest.record_type required")
+        import typing
+
+        out["record_type"] = typing.cast(
+            "capo_agent_registry_control.types.record_type.RecordType", ""
+        )
     if data.get("descriptors") is not None:
         import capo_agent_registry_control.types.descriptors
 

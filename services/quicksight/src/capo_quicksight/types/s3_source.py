@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.input_column_list
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> S3Source:
     if data.get("DataSourceArn") is not None:
         out["data_source_arn"] = data["DataSourceArn"]
     else:
-        raise DeserializationError("S3Source.data_source_arn required")
+        out["data_source_arn"] = ""
     if data.get("UploadSettings") is not None:
         import capo_quicksight.types.upload_settings
 
@@ -58,5 +56,5 @@ def deserialize_json(data: dict) -> S3Source:
             data["InputColumns"]
         )
     else:
-        raise DeserializationError("S3Source.input_columns required")
+        out["input_columns"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sso_admin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_admin.types.managed_policy_name
     import capo_sso_admin.types.managed_policy_path
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> CustomerManagedPolicyReference:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CustomerManagedPolicyReference.name required")
+        out["name"] = ""
     if data.get("Path") is not None:
         out["path"] = data["Path"]
     return out

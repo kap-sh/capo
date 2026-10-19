@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chatbot.types.custom_action_arn
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> CreateCustomActionResult:
     if data.get("CustomActionArn") is not None:
         out["custom_action_arn"] = data["CustomActionArn"]
     else:
-        raise DeserializationError(
-            "CreateCustomActionResult.custom_action_arn required"
-        )
+        out["custom_action_arn"] = ""
     return out

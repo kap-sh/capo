@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 
 class AgenticRetrieveSourceRetriever(TypedDict, closed=True):
     identifier: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> AgenticRetrieveSourceRetriever:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("AgenticRetrieveSourceRetriever.identifier required")
+        out["identifier"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.phone_number
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> PhoneNumberQuickConnectConfig:
     if data.get("PhoneNumber") is not None:
         out["phone_number"] = data["PhoneNumber"]
     else:
-        raise DeserializationError(
-            "PhoneNumberQuickConnectConfig.phone_number required"
-        )
+        out["phone_number"] = ""
     return out

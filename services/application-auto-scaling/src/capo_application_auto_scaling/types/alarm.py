@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_auto_scaling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_auto_scaling.types.resource_id
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> Alarm:
     if data.get("AlarmName") is not None:
         out["alarm_name"] = data["AlarmName"]
     else:
-        raise DeserializationError("Alarm.alarm_name required")
+        out["alarm_name"] = ""
     if data.get("AlarmARN") is not None:
         out["alarm_arn"] = data["AlarmARN"]
     else:
-        raise DeserializationError("Alarm.alarm_arn required")
+        out["alarm_arn"] = ""
     return out

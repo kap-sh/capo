@@ -33,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutRecordInput:
     if data.get("DeliveryStreamName") is not None:
         out["delivery_stream_name"] = data["DeliveryStreamName"]
     else:
-        raise DeserializationError("PutRecordInput.delivery_stream_name required")
+        out["delivery_stream_name"] = ""
     if data.get("Record") is not None:
         import capo_firehose.types.record
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_finspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace.types.client_token_string
     import capo_finspace.types.database_name
@@ -40,5 +38,5 @@ def deserialize_json(data: dict) -> UpdateKxDatabaseRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("UpdateKxDatabaseRequest.client_token required")
+        out["client_token"] = ""
     return out

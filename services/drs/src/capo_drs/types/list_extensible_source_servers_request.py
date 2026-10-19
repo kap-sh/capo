@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.account_id
     import capo_drs.types.max_results_replicating_source_servers
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> ListExtensibleSourceServersRequest:
     if data.get("stagingAccountID") is not None:
         out["staging_account_id"] = data["stagingAccountID"]
     else:
-        raise DeserializationError(
-            "ListExtensibleSourceServersRequest.staging_account_id required"
-        )
+        out["staging_account_id"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

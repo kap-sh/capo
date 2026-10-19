@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.catalog
     import capo_partnercentral_account.types.next_token
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListPartnersRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("ListPartnersRequest.catalog required")
+        out["catalog"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

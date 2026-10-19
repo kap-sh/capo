@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.listener_properties
 
@@ -41,5 +39,5 @@ def deserialize_aws_json_1_0(data: dict) -> ProxySettings:
             )
         )
     else:
-        raise DeserializationError("ProxySettings.listener_properties required")
+        out["listener_properties"] = []
     return out

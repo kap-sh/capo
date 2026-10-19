@@ -74,21 +74,19 @@ def deserialize_aws_json_1_0(data: dict) -> ScheduledReportSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ScheduledReportSummary.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ScheduledReportSummary.name required")
+        out["name"] = ""
     if data.get("dashboardArn") is not None:
         out["dashboard_arn"] = data["dashboardArn"]
     else:
-        raise DeserializationError("ScheduledReportSummary.dashboard_arn required")
+        out["dashboard_arn"] = ""
     if data.get("scheduleExpression") is not None:
         out["schedule_expression"] = data["scheduleExpression"]
     else:
-        raise DeserializationError(
-            "ScheduledReportSummary.schedule_expression required"
-        )
+        out["schedule_expression"] = ""
     if data.get("state") is not None:
         import capo_bcm_dashboards.types.schedule_state
 
@@ -98,7 +96,11 @@ def deserialize_aws_json_1_0(data: dict) -> ScheduledReportSummary:
             )
         )
     else:
-        raise DeserializationError("ScheduledReportSummary.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_bcm_dashboards.types.schedule_state.ScheduleState", ""
+        )
     if data.get("healthStatus") is not None:
         import capo_bcm_dashboards.types.health_status
 

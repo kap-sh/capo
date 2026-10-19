@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_organizations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_organizations.types.handshake_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> AcceptHandshakeRequest:
     if data.get("HandshakeId") is not None:
         out["handshake_id"] = data["HandshakeId"]
     else:
-        raise DeserializationError("AcceptHandshakeRequest.handshake_id required")
+        out["handshake_id"] = ""
     return out

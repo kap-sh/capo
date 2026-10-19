@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptunedata.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_neptunedata.types.format
     import capo_neptunedata.types.mode
@@ -103,13 +101,15 @@ def deserialize_json(data: dict) -> StartLoaderJobInput:
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("StartLoaderJobInput.source required")
+        out["source"] = ""
     if data.get("format") is not None:
         import capo_neptunedata.types.format
 
         out["format"] = capo_neptunedata.types.format.deserialize_json(data["format"])
     else:
-        raise DeserializationError("StartLoaderJobInput.format required")
+        import typing
+
+        out["format"] = typing.cast("capo_neptunedata.types.format.Format", "")
     if data.get("region") is not None:
         import capo_neptunedata.types.s3_bucket_region
 
@@ -117,11 +117,15 @@ def deserialize_json(data: dict) -> StartLoaderJobInput:
             capo_neptunedata.types.s3_bucket_region.deserialize_json(data["region"])
         )
     else:
-        raise DeserializationError("StartLoaderJobInput.s3_bucket_region required")
+        import typing
+
+        out["s3_bucket_region"] = typing.cast(
+            "capo_neptunedata.types.s3_bucket_region.S3BucketRegion", ""
+        )
     if data.get("iamRoleArn") is not None:
         out["iam_role_arn"] = data["iamRoleArn"]
     else:
-        raise DeserializationError("StartLoaderJobInput.iam_role_arn required")
+        out["iam_role_arn"] = ""
     if data.get("mode") is not None:
         import capo_neptunedata.types.mode
 

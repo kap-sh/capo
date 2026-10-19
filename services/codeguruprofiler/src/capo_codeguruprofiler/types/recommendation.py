@@ -68,11 +68,11 @@ def deserialize_json(data: dict) -> Recommendation:
     if data.get("allMatchesCount") is not None:
         out["all_matches_count"] = data["allMatchesCount"]
     else:
-        raise DeserializationError("Recommendation.all_matches_count required")
+        out["all_matches_count"] = 0
     if data.get("allMatchesSum") is not None:
         out["all_matches_sum"] = float(data["allMatchesSum"])
     else:
-        raise DeserializationError("Recommendation.all_matches_sum required")
+        out["all_matches_sum"] = 0.0
     if data.get("pattern") is not None:
         import capo_codeguruprofiler.types.pattern
 
@@ -88,7 +88,7 @@ def deserialize_json(data: dict) -> Recommendation:
             data["topMatches"]
         )
     else:
-        raise DeserializationError("Recommendation.top_matches required")
+        out["top_matches"] = []
     if data.get("startTime") is not None:
         import capo_codeguruprofiler.types.timestamp
 
@@ -96,7 +96,9 @@ def deserialize_json(data: dict) -> Recommendation:
             data["startTime"]
         )
     else:
-        raise DeserializationError("Recommendation.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_codeguruprofiler.types.timestamp
 
@@ -104,5 +106,7 @@ def deserialize_json(data: dict) -> Recommendation:
             data["endTime"]
         )
     else:
-        raise DeserializationError("Recommendation.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

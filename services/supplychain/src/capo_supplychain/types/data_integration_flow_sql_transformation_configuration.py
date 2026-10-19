@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.data_integration_flow_sql_query
 
@@ -27,9 +25,7 @@ def deserialize_json(data: dict) -> DataIntegrationFlowSQLTransformationConfigur
     if data.get("query") is not None:
         out["query"] = data["query"]
     else:
-        raise DeserializationError(
-            "DataIntegrationFlowSQLTransformationConfiguration.query required"
-        )
+        out["query"] = ""
     return out
 
 

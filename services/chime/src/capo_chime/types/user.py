@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime.types.alexa_for_business_metadata
     import capo_chime.types.email_address
@@ -119,7 +117,7 @@ def deserialize_json(data: dict) -> User:
     if data.get("UserId") is not None:
         out["user_id"] = data["UserId"]
     else:
-        raise DeserializationError("User.user_id required")
+        out["user_id"] = ""
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     if data.get("PrimaryEmail") is not None:

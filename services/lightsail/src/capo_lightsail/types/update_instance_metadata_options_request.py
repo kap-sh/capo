@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.http_endpoint
     import capo_lightsail.types.http_protocol_ipv6
@@ -63,9 +61,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateInstanceMetadataOptionsRequest
     if data.get("instanceName") is not None:
         out["instance_name"] = data["instanceName"]
     else:
-        raise DeserializationError(
-            "UpdateInstanceMetadataOptionsRequest.instance_name required"
-        )
+        out["instance_name"] = ""
     if data.get("httpTokens") is not None:
         import capo_lightsail.types.http_tokens
 

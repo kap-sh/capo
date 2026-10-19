@@ -132,7 +132,7 @@ def deserialize_json(data: dict) -> CreateJobRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CreateJobRequest.client_token required")
+        out["client_token"] = ""
     if data.get("algorithmSpecification") is not None:
         import capo_braket.types.algorithm_specification
 
@@ -170,11 +170,11 @@ def deserialize_json(data: dict) -> CreateJobRequest:
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError("CreateJobRequest.job_name required")
+        out["job_name"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateJobRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("stoppingCondition") is not None:
         import capo_braket.types.job_stopping_condition
 

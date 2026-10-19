@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.confidence_interval
 
@@ -92,15 +90,15 @@ def deserialize_json(data: dict) -> VariantResult:
     if data.get("variantName") is not None:
         out["variant_name"] = data["variantName"]
     else:
-        raise DeserializationError("VariantResult.variant_name required")
+        out["variant_name"] = ""
     if data.get("sampleSize") is not None:
         out["sample_size"] = data["sampleSize"]
     else:
-        raise DeserializationError("VariantResult.sample_size required")
+        out["sample_size"] = 0
     if data.get("mean") is not None:
         out["mean"] = float(data["mean"])
     else:
-        raise DeserializationError("VariantResult.mean required")
+        out["mean"] = 0.0
     if data.get("absoluteChange") is not None:
         out["absolute_change"] = float(data["absoluteChange"])
     if data.get("percentChange") is not None:
@@ -118,5 +116,5 @@ def deserialize_json(data: dict) -> VariantResult:
     if data.get("isSignificant") is not None:
         out["is_significant"] = data["isSignificant"]
     else:
-        raise DeserializationError("VariantResult.is_significant required")
+        out["is_significant"] = False
     return out

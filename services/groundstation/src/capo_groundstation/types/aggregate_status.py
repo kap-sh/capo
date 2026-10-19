@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.agent_status
     import capo_groundstation.types.signature_map
@@ -44,7 +42,11 @@ def deserialize_json(data: dict) -> AggregateStatus:
             data["status"]
         )
     else:
-        raise DeserializationError("AggregateStatus.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_groundstation.types.agent_status.AgentStatus", ""
+        )
     if data.get("signatureMap") is not None:
         import capo_groundstation.types.signature_map
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.firewall_advanced_threat_category_value
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> FirewallAdvancedThreatCategoryConfig
     if data.get("Category") is not None:
         out["category"] = data["Category"]
     else:
-        raise DeserializationError(
-            "FirewallAdvancedThreatCategoryConfig.category required"
-        )
+        out["category"] = ""
     return out

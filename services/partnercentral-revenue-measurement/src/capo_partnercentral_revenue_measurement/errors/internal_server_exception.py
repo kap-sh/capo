@@ -3,10 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_partnercentral_revenue_measurement.errors import (
-    DeserializationError,
-    ServiceError,
-)
+from capo_partnercentral_revenue_measurement.errors import ServiceError
 
 
 class InternalServerException_(TypedDict, closed=True):
@@ -25,7 +22,7 @@ def deserialize_cbor(data: dict) -> InternalServerException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("InternalServerException_.message required")
+        out["message"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chatbot.types.arn
     import capo_chatbot.types.chat_configuration_arn
@@ -62,9 +60,7 @@ def deserialize_json(data: dict) -> UpdateChimeWebhookConfigurationRequest:
     if data.get("ChatConfigurationArn") is not None:
         out["chat_configuration_arn"] = data["ChatConfigurationArn"]
     else:
-        raise DeserializationError(
-            "UpdateChimeWebhookConfigurationRequest.chat_configuration_arn required"
-        )
+        out["chat_configuration_arn"] = ""
     if data.get("WebhookDescription") is not None:
         out["webhook_description"] = data["WebhookDescription"]
     if data.get("WebhookUrl") is not None:

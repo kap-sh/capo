@@ -101,7 +101,7 @@ def deserialize_json(data: dict) -> UpdateSlotRequest:
     if data.get("slotName") is not None:
         out["slot_name"] = data["slotName"]
     else:
-        raise DeserializationError("UpdateSlotRequest.slot_name required")
+        out["slot_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("slotTypeId") is not None:

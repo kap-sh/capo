@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_synthetics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_synthetics.types.max_one_year_in_seconds
     import capo_synthetics.types.retry_config_input
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> CanaryScheduleInput:
     if data.get("Expression") is not None:
         out["expression"] = data["Expression"]
     else:
-        raise DeserializationError("CanaryScheduleInput.expression required")
+        out["expression"] = ""
     if data.get("DurationInSeconds") is not None:
         out["duration_in_seconds"] = data["DurationInSeconds"]
     if data.get("RetryConfig") is not None:

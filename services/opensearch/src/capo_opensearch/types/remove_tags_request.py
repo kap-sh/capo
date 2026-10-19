@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.arn
     import capo_opensearch.types.string_list
@@ -33,7 +31,7 @@ def deserialize_json(data: dict) -> RemoveTagsRequest:
     if data.get("ARN") is not None:
         out["arn"] = data["ARN"]
     else:
-        raise DeserializationError("RemoveTagsRequest.arn required")
+        out["arn"] = ""
     if data.get("TagKeys") is not None:
         import capo_opensearch.types.string_list
 
@@ -41,5 +39,5 @@ def deserialize_json(data: dict) -> RemoveTagsRequest:
             data["TagKeys"]
         )
     else:
-        raise DeserializationError("RemoveTagsRequest.tag_keys required")
+        out["tag_keys"] = []
     return out

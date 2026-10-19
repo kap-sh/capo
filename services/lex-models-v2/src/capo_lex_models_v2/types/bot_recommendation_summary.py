@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.bot_recommendation_status
     import capo_lex_models_v2.types.id
@@ -62,15 +60,16 @@ def deserialize_json(data: dict) -> BotRecommendationSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "BotRecommendationSummary.bot_recommendation_status required"
+        import typing
+
+        out["bot_recommendation_status"] = typing.cast(
+            "capo_lex_models_v2.types.bot_recommendation_status.BotRecommendationStatus",
+            "",
         )
     if data.get("botRecommendationId") is not None:
         out["bot_recommendation_id"] = data["botRecommendationId"]
     else:
-        raise DeserializationError(
-            "BotRecommendationSummary.bot_recommendation_id required"
-        )
+        out["bot_recommendation_id"] = ""
     if data.get("creationDateTime") is not None:
         import capo_lex_models_v2.types.timestamp
 

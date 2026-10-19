@@ -69,7 +69,7 @@ def deserialize_json(data: dict) -> HttpRetryPolicy:
     if data.get("maxRetries") is not None:
         out["max_retries"] = data["maxRetries"]
     else:
-        raise DeserializationError("HttpRetryPolicy.max_retries required")
+        out["max_retries"] = 0
     if data.get("httpRetryEvents") is not None:
         import capo_app_mesh.types.http_retry_policy_events
 

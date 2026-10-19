@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.app_version
     import capo_qapps.types.card_status_map
@@ -61,11 +59,11 @@ def deserialize_json(data: dict) -> GetQAppSessionOutput:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("GetQAppSessionOutput.session_id required")
+        out["session_id"] = ""
     if data.get("sessionArn") is not None:
         out["session_arn"] = data["sessionArn"]
     else:
-        raise DeserializationError("GetQAppSessionOutput.session_arn required")
+        out["session_arn"] = ""
     if data.get("sessionName") is not None:
         out["session_name"] = data["sessionName"]
     if data.get("appVersion") is not None:
@@ -79,7 +77,11 @@ def deserialize_json(data: dict) -> GetQAppSessionOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("GetQAppSessionOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_qapps.types.execution_status.ExecutionStatus", ""
+        )
     if data.get("cardStatus") is not None:
         import capo_qapps.types.card_status_map
 
@@ -87,7 +89,7 @@ def deserialize_json(data: dict) -> GetQAppSessionOutput:
             data["cardStatus"]
         )
     else:
-        raise DeserializationError("GetQAppSessionOutput.card_status required")
+        out["card_status"] = {}
     if data.get("userIsHost") is not None:
         out["user_is_host"] = data["userIsHost"]
     return out

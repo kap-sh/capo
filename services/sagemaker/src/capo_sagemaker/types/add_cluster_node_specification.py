@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker.types.batch_add_increment_count
     import capo_sagemaker.types.cluster_availability_zones
@@ -61,15 +59,11 @@ def deserialize_aws_json_1_1(data: dict) -> AddClusterNodeSpecification:
     if data.get("InstanceGroupName") is not None:
         out["instance_group_name"] = data["InstanceGroupName"]
     else:
-        raise DeserializationError(
-            "AddClusterNodeSpecification.instance_group_name required"
-        )
+        out["instance_group_name"] = ""
     if data.get("IncrementTargetCountBy") is not None:
         out["increment_target_count_by"] = data["IncrementTargetCountBy"]
     else:
-        raise DeserializationError(
-            "AddClusterNodeSpecification.increment_target_count_by required"
-        )
+        out["increment_target_count_by"] = 0
     if data.get("AvailabilityZones") is not None:
         import capo_sagemaker.types.cluster_availability_zones
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.bounded_string
     import capo_marketplace_discovery.types.term_id
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> SupportTerm:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("SupportTerm.id required")
+        out["id"] = ""
     if data.get("type") is not None:
         import capo_marketplace_discovery.types.term_type
 
@@ -47,9 +45,13 @@ def deserialize_json(data: dict) -> SupportTerm:
             data["type"]
         )
     else:
-        raise DeserializationError("SupportTerm.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_marketplace_discovery.types.term_type.TermType", ""
+        )
     if data.get("refundPolicy") is not None:
         out["refund_policy"] = data["refundPolicy"]
     else:
-        raise DeserializationError("SupportTerm.refund_policy required")
+        out["refund_policy"] = ""
     return out

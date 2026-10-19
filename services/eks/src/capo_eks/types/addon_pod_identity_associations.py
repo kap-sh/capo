@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_eks.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eks.types.string
 
@@ -30,11 +28,9 @@ def deserialize_json(data: dict) -> AddonPodIdentityAssociations:
     if data.get("serviceAccount") is not None:
         out["service_account"] = data["serviceAccount"]
     else:
-        raise DeserializationError(
-            "AddonPodIdentityAssociations.service_account required"
-        )
+        out["service_account"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("AddonPodIdentityAssociations.role_arn required")
+        out["role_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.avro_schema
     import capo_personalize.types.domain
@@ -40,11 +38,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSchemaRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateSchemaRequest.name required")
+        out["name"] = ""
     if data.get("schema") is not None:
         out["schema"] = data["schema"]
     else:
-        raise DeserializationError("CreateSchemaRequest.schema required")
+        out["schema"] = ""
     if data.get("domain") is not None:
         import capo_personalize.types.domain
 

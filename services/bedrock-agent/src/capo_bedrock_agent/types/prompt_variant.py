@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.prompt_gen_ai_resource
     import capo_bedrock_agent.types.prompt_inference_configuration
@@ -93,7 +91,7 @@ def deserialize_json(data: dict) -> PromptVariant:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("PromptVariant.name required")
+        out["name"] = ""
     if data.get("templateType") is not None:
         import capo_bedrock_agent.types.prompt_template_type
 
@@ -103,7 +101,11 @@ def deserialize_json(data: dict) -> PromptVariant:
             )
         )
     else:
-        raise DeserializationError("PromptVariant.template_type required")
+        import typing
+
+        out["template_type"] = typing.cast(
+            "capo_bedrock_agent.types.prompt_template_type.PromptTemplateType", ""
+        )
     if data.get("templateConfiguration") is not None:
         import capo_bedrock_agent.types.prompt_template_configuration
 
@@ -113,7 +115,11 @@ def deserialize_json(data: dict) -> PromptVariant:
             )
         )
     else:
-        raise DeserializationError("PromptVariant.template_configuration required")
+        import capo_bedrock_agent.types._unknown
+
+        out["template_configuration"] = (
+            capo_bedrock_agent.types._unknown.UnknownUnionMember("")
+        )
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     if data.get("inferenceConfiguration") is not None:

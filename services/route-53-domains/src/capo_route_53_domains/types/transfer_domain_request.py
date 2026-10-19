@@ -139,7 +139,7 @@ def deserialize_aws_json_1_1(data: dict) -> TransferDomainRequest:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("TransferDomainRequest.domain_name required")
+        out["domain_name"] = ""
     if data.get("IdnLangCode") is not None:
         out["idn_lang_code"] = data["IdnLangCode"]
     if data.get("DurationInYears") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -93,7 +91,7 @@ def deserialize_json(data: dict) -> MemoryRecordSummary:
     if data.get("memoryRecordId") is not None:
         out["memory_record_id"] = data["memoryRecordId"]
     else:
-        raise DeserializationError("MemoryRecordSummary.memory_record_id required")
+        out["memory_record_id"] = ""
     if data.get("content") is not None:
         import capo_bedrock_agentcore.types.memory_content
 
@@ -101,11 +99,13 @@ def deserialize_json(data: dict) -> MemoryRecordSummary:
             data["content"]
         )
     else:
-        raise DeserializationError("MemoryRecordSummary.content required")
+        import capo_bedrock_agentcore.types._unknown
+
+        out["content"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
     if data.get("memoryStrategyId") is not None:
         out["memory_strategy_id"] = data["memoryStrategyId"]
     else:
-        raise DeserializationError("MemoryRecordSummary.memory_strategy_id required")
+        out["memory_strategy_id"] = ""
     if data.get("namespaces") is not None:
         import capo_bedrock_agentcore.types.namespaces_list
 
@@ -115,7 +115,7 @@ def deserialize_json(data: dict) -> MemoryRecordSummary:
             )
         )
     else:
-        raise DeserializationError("MemoryRecordSummary.namespaces required")
+        out["namespaces"] = []
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore.types._prelude.timestamp
 
@@ -125,7 +125,9 @@ def deserialize_json(data: dict) -> MemoryRecordSummary:
             )
         )
     else:
-        raise DeserializationError("MemoryRecordSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("score") is not None:
         out["score"] = float(data["score"])
     if data.get("timestamp") is not None:

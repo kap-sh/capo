@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.string200
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> EfsStorageConfiguration:
     if data.get("file-system-id") is not None:
         out["file_system_id"] = data["file-system-id"]
     else:
-        raise DeserializationError("EfsStorageConfiguration.file_system_id required")
+        out["file_system_id"] = ""
     if data.get("mount-point") is not None:
         out["mount_point"] = data["mount-point"]
     else:
-        raise DeserializationError("EfsStorageConfiguration.mount_point required")
+        out["mount_point"] = ""
     return out

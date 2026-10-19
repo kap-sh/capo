@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_scheduler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_scheduler.types.dead_letter_config
     import capo_scheduler.types.ecs_parameters
@@ -115,11 +113,11 @@ def deserialize_json(data: dict) -> Target:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("Target.arn required")
+        out["arn"] = ""
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("Target.role_arn required")
+        out["role_arn"] = ""
     if data.get("DeadLetterConfig") is not None:
         import capo_scheduler.types.dead_letter_config
 

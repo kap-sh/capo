@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediapackagev2.types.cdn_auth_configuration
     import capo_mediapackagev2.types.policy_text
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> PutOriginEndpointPolicyRequest:
     if data.get("Policy") is not None:
         out["policy"] = data["Policy"]
     else:
-        raise DeserializationError("PutOriginEndpointPolicyRequest.policy required")
+        out["policy"] = ""
     if data.get("CdnAuthConfiguration") is not None:
         import capo_mediapackagev2.types.cdn_auth_configuration
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.advanced_recognition_setting
     import capo_lex_models_v2.types.slot_value_regex_filter
@@ -65,8 +63,11 @@ def deserialize_json(data: dict) -> SlotValueSelectionSetting:
             )
         )
     else:
-        raise DeserializationError(
-            "SlotValueSelectionSetting.resolution_strategy required"
+        import typing
+
+        out["resolution_strategy"] = typing.cast(
+            "capo_lex_models_v2.types.slot_value_resolution_strategy.SlotValueResolutionStrategy",
+            "",
         )
     if data.get("regexFilter") is not None:
         import capo_lex_models_v2.types.slot_value_regex_filter

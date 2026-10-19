@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_waf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf.types.waf_override_action_type
 
@@ -35,5 +33,9 @@ def deserialize_aws_json_1_1(data: dict) -> WafOverrideAction:
             data["Type"]
         )
     else:
-        raise DeserializationError("WafOverrideAction.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_waf.types.waf_override_action_type.WafOverrideActionType", ""
+        )
     return out

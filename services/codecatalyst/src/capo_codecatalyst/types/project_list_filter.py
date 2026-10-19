@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecatalyst.types.comparison_operator
     import capo_codecatalyst.types.filter_key
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ProjectListFilter:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("ProjectListFilter.key required")
+        out["key"] = ""
     if data.get("values") is not None:
         import capo_codecatalyst.types.string_list
 
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> ProjectListFilter:
             data["values"]
         )
     else:
-        raise DeserializationError("ProjectListFilter.values required")
+        out["values"] = []
     if data.get("comparisonOperator") is not None:
         out["comparison_operator"] = data["comparisonOperator"]
     return out

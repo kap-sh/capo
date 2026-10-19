@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.url
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> AuthChallengeRequest:
     if data.get("authorizationUrl") is not None:
         out["authorization_url"] = data["authorizationUrl"]
     else:
-        raise DeserializationError("AuthChallengeRequest.authorization_url required")
+        out["authorization_url"] = ""
     return out

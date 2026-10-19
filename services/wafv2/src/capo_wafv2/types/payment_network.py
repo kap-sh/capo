@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.blockchain_chain
     import capo_wafv2.types.prices
@@ -45,15 +43,19 @@ def deserialize_aws_json_1_1(data: dict) -> PaymentNetwork:
             data["Chain"]
         )
     else:
-        raise DeserializationError("PaymentNetwork.chain required")
+        import typing
+
+        out["chain"] = typing.cast(
+            "capo_wafv2.types.blockchain_chain.BlockchainChain", ""
+        )
     if data.get("WalletAddress") is not None:
         out["wallet_address"] = data["WalletAddress"]
     else:
-        raise DeserializationError("PaymentNetwork.wallet_address required")
+        out["wallet_address"] = ""
     if data.get("Prices") is not None:
         import capo_wafv2.types.prices
 
         out["prices"] = capo_wafv2.types.prices.deserialize_aws_json_1_1(data["Prices"])
     else:
-        raise DeserializationError("PaymentNetwork.prices required")
+        out["prices"] = []
     return out

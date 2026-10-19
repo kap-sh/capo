@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.safe_name
     import capo_groundstation.types.uplink_dataflow_details
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> UplinkAwsGroundStationAgentEndpoint:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UplinkAwsGroundStationAgentEndpoint.name required")
+        out["name"] = ""
     if data.get("dataflowDetails") is not None:
         import capo_groundstation.types.uplink_dataflow_details
 
@@ -49,7 +47,9 @@ def deserialize_json(data: dict) -> UplinkAwsGroundStationAgentEndpoint:
             )
         )
     else:
-        raise DeserializationError(
-            "UplinkAwsGroundStationAgentEndpoint.dataflow_details required"
+        import capo_groundstation.types._unknown
+
+        out["dataflow_details"] = capo_groundstation.types._unknown.UnknownUnionMember(
+            ""
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.ai_prompt_api_format
     import capo_qconnect.types.ai_prompt_inference_configuration
@@ -92,11 +90,11 @@ def deserialize_json(data: dict) -> CreateAIPromptRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateAIPromptRequest.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("CreateAIPromptRequest.type required")
+        out["type"] = ""
     if data.get("templateConfiguration") is not None:
         import capo_qconnect.types.ai_prompt_template_configuration
 
@@ -106,25 +104,27 @@ def deserialize_json(data: dict) -> CreateAIPromptRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAIPromptRequest.template_configuration required"
+        import capo_qconnect.types._unknown
+
+        out["template_configuration"] = capo_qconnect.types._unknown.UnknownUnionMember(
+            ""
         )
     if data.get("visibilityStatus") is not None:
         out["visibility_status"] = data["visibilityStatus"]
     else:
-        raise DeserializationError("CreateAIPromptRequest.visibility_status required")
+        out["visibility_status"] = ""
     if data.get("templateType") is not None:
         out["template_type"] = data["templateType"]
     else:
-        raise DeserializationError("CreateAIPromptRequest.template_type required")
+        out["template_type"] = ""
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:
-        raise DeserializationError("CreateAIPromptRequest.model_id required")
+        out["model_id"] = ""
     if data.get("apiFormat") is not None:
         out["api_format"] = data["apiFormat"]
     else:
-        raise DeserializationError("CreateAIPromptRequest.api_format required")
+        out["api_format"] = ""
     if data.get("tags") is not None:
         import capo_qconnect.types.tags
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.android_package_name
     import capo_location.types.sha1_certificate_fingerprint
@@ -33,9 +31,9 @@ def deserialize_json(data: dict) -> AndroidApp:
     if data.get("Package") is not None:
         out["package"] = data["Package"]
     else:
-        raise DeserializationError("AndroidApp.package required")
+        out["package"] = ""
     if data.get("CertificateFingerprint") is not None:
         out["certificate_fingerprint"] = data["CertificateFingerprint"]
     else:
-        raise DeserializationError("AndroidApp.certificate_fingerprint required")
+        out["certificate_fingerprint"] = ""
     return out

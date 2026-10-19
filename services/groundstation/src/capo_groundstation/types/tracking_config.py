@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.criticality
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> TrackingConfig:
             data["autotrack"]
         )
     else:
-        raise DeserializationError("TrackingConfig.autotrack required")
+        import typing
+
+        out["autotrack"] = typing.cast(
+            "capo_groundstation.types.criticality.Criticality", ""
+        )
     return out

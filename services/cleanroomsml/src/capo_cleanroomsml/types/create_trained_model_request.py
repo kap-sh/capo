@@ -145,15 +145,13 @@ def deserialize_json(data: dict) -> CreateTrainedModelRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateTrainedModelRequest.name required")
+        out["name"] = ""
     if data.get("configuredModelAlgorithmAssociationArn") is not None:
         out["configured_model_algorithm_association_arn"] = data[
             "configuredModelAlgorithmAssociationArn"
         ]
     else:
-        raise DeserializationError(
-            "CreateTrainedModelRequest.configured_model_algorithm_association_arn required"
-        )
+        out["configured_model_algorithm_association_arn"] = ""
     if data.get("hyperparameters") is not None:
         import capo_cleanroomsml.types.hyper_parameters
 
@@ -203,7 +201,7 @@ def deserialize_json(data: dict) -> CreateTrainedModelRequest:
             )
         )
     else:
-        raise DeserializationError("CreateTrainedModelRequest.data_channels required")
+        out["data_channels"] = []
     if data.get("trainingInputMode") is not None:
         import capo_cleanroomsml.types.training_input_mode
 

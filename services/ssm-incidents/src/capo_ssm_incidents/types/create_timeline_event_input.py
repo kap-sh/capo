@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -64,9 +62,7 @@ def deserialize_json(data: dict) -> CreateTimelineEventInput:
     if data.get("incidentRecordArn") is not None:
         out["incident_record_arn"] = data["incidentRecordArn"]
     else:
-        raise DeserializationError(
-            "CreateTimelineEventInput.incident_record_arn required"
-        )
+        out["incident_record_arn"] = ""
     if data.get("eventTime") is not None:
         import capo_ssm_incidents.types._prelude.timestamp
 
@@ -76,15 +72,17 @@ def deserialize_json(data: dict) -> CreateTimelineEventInput:
             )
         )
     else:
-        raise DeserializationError("CreateTimelineEventInput.event_time required")
+        import datetime
+
+        out["event_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("eventType") is not None:
         out["event_type"] = data["eventType"]
     else:
-        raise DeserializationError("CreateTimelineEventInput.event_type required")
+        out["event_type"] = ""
     if data.get("eventData") is not None:
         out["event_data"] = data["eventData"]
     else:
-        raise DeserializationError("CreateTimelineEventInput.event_data required")
+        out["event_data"] = ""
     if data.get("eventReferences") is not None:
         import capo_ssm_incidents.types.event_reference_list
 

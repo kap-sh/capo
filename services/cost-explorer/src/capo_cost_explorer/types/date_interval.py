@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.year_month_day
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> DateInterval:
     if data.get("Start") is not None:
         out["start"] = data["Start"]
     else:
-        raise DeserializationError("DateInterval.start required")
+        out["start"] = ""
     if data.get("End") is not None:
         out["end"] = data["End"]
     else:
-        raise DeserializationError("DateInterval.end required")
+        out["end"] = ""
     return out

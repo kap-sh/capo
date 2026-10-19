@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 
 class AudioSegmentationConfiguration(TypedDict, closed=True):
     fixed_length_duration: "int"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> AudioSegmentationConfiguration:
     if data.get("fixedLengthDuration") is not None:
         out["fixed_length_duration"] = data["fixedLengthDuration"]
     else:
-        raise DeserializationError(
-            "AudioSegmentationConfiguration.fixed_length_duration required"
-        )
+        out["fixed_length_duration"] = 0
     return out

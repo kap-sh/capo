@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.access_role_arn
     import capo_qconnect.types.bedrock_knowledge_base_arn
@@ -33,13 +31,9 @@ def deserialize_json(data: dict) -> ExternalBedrockKnowledgeBaseConfig:
     if data.get("bedrockKnowledgeBaseArn") is not None:
         out["bedrock_knowledge_base_arn"] = data["bedrockKnowledgeBaseArn"]
     else:
-        raise DeserializationError(
-            "ExternalBedrockKnowledgeBaseConfig.bedrock_knowledge_base_arn required"
-        )
+        out["bedrock_knowledge_base_arn"] = ""
     if data.get("accessRoleArn") is not None:
         out["access_role_arn"] = data["accessRoleArn"]
     else:
-        raise DeserializationError(
-            "ExternalBedrockKnowledgeBaseConfig.access_role_arn required"
-        )
+        out["access_role_arn"] = ""
     return out

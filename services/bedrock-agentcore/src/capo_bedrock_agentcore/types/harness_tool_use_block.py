@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.harness_tool_name
     import capo_bedrock_agentcore.types.harness_tool_use_id
@@ -50,15 +48,15 @@ def deserialize_json(data: dict) -> HarnessToolUseBlock:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("HarnessToolUseBlock.name required")
+        out["name"] = ""
     if data.get("toolUseId") is not None:
         out["tool_use_id"] = data["toolUseId"]
     else:
-        raise DeserializationError("HarnessToolUseBlock.tool_use_id required")
+        out["tool_use_id"] = ""
     if data.get("input") is not None:
         out["input"] = data["input"]
     else:
-        raise DeserializationError("HarnessToolUseBlock.input required")
+        out["input"] = None
     if data.get("type") is not None:
         import capo_bedrock_agentcore.types.harness_tool_use_type
 

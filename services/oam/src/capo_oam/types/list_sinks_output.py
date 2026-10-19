@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_oam.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_oam.types.list_sinks_items
 
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> ListSinksOutput:
 
         out["items"] = capo_oam.types.list_sinks_items.deserialize_json(data["Items"])
     else:
-        raise DeserializationError("ListSinksOutput.items required")
+        out["items"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

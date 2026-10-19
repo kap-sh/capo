@@ -85,7 +85,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateKeyInput:
     if data.get("Exportable") is not None:
         out["exportable"] = data["Exportable"]
     else:
-        raise DeserializationError("CreateKeyInput.exportable required")
+        out["exportable"] = False
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     if data.get("Tags") is not None:

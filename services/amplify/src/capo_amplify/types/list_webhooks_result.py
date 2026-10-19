@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.next_token
     import capo_amplify.types.webhooks
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> ListWebhooksResult:
 
         out["webhooks"] = capo_amplify.types.webhooks.deserialize_json(data["webhooks"])
     else:
-        raise DeserializationError("ListWebhooksResult.webhooks required")
+        out["webhooks"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.date_timestamp
     import capo_bedrock_agent.types.description
@@ -65,19 +63,19 @@ def deserialize_json(data: dict) -> AgentKnowledgeBase:
     if data.get("agentId") is not None:
         out["agent_id"] = data["agentId"]
     else:
-        raise DeserializationError("AgentKnowledgeBase.agent_id required")
+        out["agent_id"] = ""
     if data.get("agentVersion") is not None:
         out["agent_version"] = data["agentVersion"]
     else:
-        raise DeserializationError("AgentKnowledgeBase.agent_version required")
+        out["agent_version"] = ""
     if data.get("knowledgeBaseId") is not None:
         out["knowledge_base_id"] = data["knowledgeBaseId"]
     else:
-        raise DeserializationError("AgentKnowledgeBase.knowledge_base_id required")
+        out["knowledge_base_id"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("AgentKnowledgeBase.description required")
+        out["description"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -85,7 +83,9 @@ def deserialize_json(data: dict) -> AgentKnowledgeBase:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("AgentKnowledgeBase.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -93,7 +93,9 @@ def deserialize_json(data: dict) -> AgentKnowledgeBase:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("AgentKnowledgeBase.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("knowledgeBaseState") is not None:
         import capo_bedrock_agent.types.knowledge_base_state
 
@@ -103,5 +105,9 @@ def deserialize_json(data: dict) -> AgentKnowledgeBase:
             )
         )
     else:
-        raise DeserializationError("AgentKnowledgeBase.knowledge_base_state required")
+        import typing
+
+        out["knowledge_base_state"] = typing.cast(
+            "capo_bedrock_agent.types.knowledge_base_state.KnowledgeBaseState", ""
+        )
     return out

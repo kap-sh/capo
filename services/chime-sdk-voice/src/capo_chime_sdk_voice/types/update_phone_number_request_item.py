@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.calling_name
     import capo_chime_sdk_voice.types.phone_number_name
@@ -52,9 +50,7 @@ def deserialize_json(data: dict) -> UpdatePhoneNumberRequestItem:
     if data.get("PhoneNumberId") is not None:
         out["phone_number_id"] = data["PhoneNumberId"]
     else:
-        raise DeserializationError(
-            "UpdatePhoneNumberRequestItem.phone_number_id required"
-        )
+        out["phone_number_id"] = ""
     if data.get("ProductType") is not None:
         import capo_chime_sdk_voice.types.phone_number_product_type
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.recovery_instance_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> StopFailbackRequest:
     if data.get("recoveryInstanceID") is not None:
         out["recovery_instance_id"] = data["recoveryInstanceID"]
     else:
-        raise DeserializationError("StopFailbackRequest.recovery_instance_id required")
+        out["recovery_instance_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.gateway_rule_id
     import capo_bedrock_agentcore_control.types.gateway_rule_status
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> DeleteGatewayRuleResponse:
     if data.get("ruleId") is not None:
         out["rule_id"] = data["ruleId"]
     else:
-        raise DeserializationError("DeleteGatewayRuleResponse.rule_id required")
+        out["rule_id"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.gateway_rule_status
 
@@ -47,5 +45,10 @@ def deserialize_json(data: dict) -> DeleteGatewayRuleResponse:
             )
         )
     else:
-        raise DeserializationError("DeleteGatewayRuleResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.gateway_rule_status.GatewayRuleStatus",
+            "",
+        )
     return out

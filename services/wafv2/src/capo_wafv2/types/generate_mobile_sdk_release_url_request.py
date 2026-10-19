@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.platform
     import capo_wafv2.types.version_key_string
@@ -39,13 +37,11 @@ def deserialize_aws_json_1_1(data: dict) -> GenerateMobileSdkReleaseUrlRequest:
             data["Platform"]
         )
     else:
-        raise DeserializationError(
-            "GenerateMobileSdkReleaseUrlRequest.platform required"
-        )
+        import typing
+
+        out["platform"] = typing.cast("capo_wafv2.types.platform.Platform", "")
     if data.get("ReleaseVersion") is not None:
         out["release_version"] = data["ReleaseVersion"]
     else:
-        raise DeserializationError(
-            "GenerateMobileSdkReleaseUrlRequest.release_version required"
-        )
+        out["release_version"] = ""
     return out

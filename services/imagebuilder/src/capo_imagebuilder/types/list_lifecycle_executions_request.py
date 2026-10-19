@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.image_builder_arn
     import capo_imagebuilder.types.pagination_token
@@ -43,7 +41,5 @@ def deserialize_json(data: dict) -> ListLifecycleExecutionsRequest:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError(
-            "ListLifecycleExecutionsRequest.resource_arn required"
-        )
+        out["resource_arn"] = ""
     return out

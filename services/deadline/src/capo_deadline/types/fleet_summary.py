@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.auto_scaling_status
     import capo_deadline.types.created_at
@@ -108,15 +106,15 @@ def deserialize_json(data: dict) -> FleetSummary:
     if data.get("fleetId") is not None:
         out["fleet_id"] = data["fleetId"]
     else:
-        raise DeserializationError("FleetSummary.fleet_id required")
+        out["fleet_id"] = ""
     if data.get("farmId") is not None:
         out["farm_id"] = data["farmId"]
     else:
-        raise DeserializationError("FleetSummary.farm_id required")
+        out["farm_id"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("FleetSummary.display_name required")
+        out["display_name"] = ""
     if data.get("status") is not None:
         import capo_deadline.types.fleet_status
 
@@ -124,7 +122,9 @@ def deserialize_json(data: dict) -> FleetSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("FleetSummary.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_deadline.types.fleet_status.FleetStatus", "")
     if data.get("statusMessage") is not None:
         out["status_message"] = data["statusMessage"]
     if data.get("autoScalingStatus") is not None:
@@ -140,15 +140,15 @@ def deserialize_json(data: dict) -> FleetSummary:
     if data.get("workerCount") is not None:
         out["worker_count"] = data["workerCount"]
     else:
-        raise DeserializationError("FleetSummary.worker_count required")
+        out["worker_count"] = 0
     if data.get("minWorkerCount") is not None:
         out["min_worker_count"] = data["minWorkerCount"]
     else:
-        raise DeserializationError("FleetSummary.min_worker_count required")
+        out["min_worker_count"] = 0
     if data.get("maxWorkerCount") is not None:
         out["max_worker_count"] = data["maxWorkerCount"]
     else:
-        raise DeserializationError("FleetSummary.max_worker_count required")
+        out["max_worker_count"] = 0
     if data.get("configuration") is not None:
         import capo_deadline.types.fleet_configuration
 
@@ -156,7 +156,9 @@ def deserialize_json(data: dict) -> FleetSummary:
             data["configuration"]
         )
     else:
-        raise DeserializationError("FleetSummary.configuration required")
+        import capo_deadline.types._unknown
+
+        out["configuration"] = capo_deadline.types._unknown.UnknownUnionMember("")
     if data.get("createdAt") is not None:
         import capo_deadline.types.created_at
 
@@ -164,11 +166,13 @@ def deserialize_json(data: dict) -> FleetSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("FleetSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("FleetSummary.created_by required")
+        out["created_by"] = ""
     if data.get("updatedAt") is not None:
         import capo_deadline.types.updated_at
 

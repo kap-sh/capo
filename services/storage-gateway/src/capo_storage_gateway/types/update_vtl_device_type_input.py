@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.device_type
     import capo_storage_gateway.types.vtl_device_arn
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateVTLDeviceTypeInput:
     if data.get("VTLDeviceARN") is not None:
         out["vtl_device_arn"] = data["VTLDeviceARN"]
     else:
-        raise DeserializationError("UpdateVTLDeviceTypeInput.vtl_device_arn required")
+        out["vtl_device_arn"] = ""
     if data.get("DeviceType") is not None:
         out["device_type"] = data["DeviceType"]
     else:
-        raise DeserializationError("UpdateVTLDeviceTypeInput.device_type required")
+        out["device_type"] = ""
     return out

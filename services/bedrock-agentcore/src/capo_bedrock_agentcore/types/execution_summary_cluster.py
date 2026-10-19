@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.execution_summary_affected_session_list
 
@@ -45,21 +43,19 @@ def deserialize_json(data: dict) -> ExecutionSummaryCluster:
     if data.get("clusterId") is not None:
         out["cluster_id"] = data["clusterId"]
     else:
-        raise DeserializationError("ExecutionSummaryCluster.cluster_id required")
+        out["cluster_id"] = 0
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ExecutionSummaryCluster.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("ExecutionSummaryCluster.description required")
+        out["description"] = ""
     if data.get("affectedSessionCount") is not None:
         out["affected_session_count"] = data["affectedSessionCount"]
     else:
-        raise DeserializationError(
-            "ExecutionSummaryCluster.affected_session_count required"
-        )
+        out["affected_session_count"] = 0
     if data.get("affectedSessions") is not None:
         import capo_bedrock_agentcore.types.execution_summary_affected_session_list
 
@@ -69,5 +65,5 @@ def deserialize_json(data: dict) -> ExecutionSummaryCluster:
             )
         )
     else:
-        raise DeserializationError("ExecutionSummaryCluster.affected_sessions required")
+        out["affected_sessions"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.diff_context
     import capo_codecommit.types.ignore_white_spaces
@@ -57,11 +55,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetBlobDifferencesInput:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError("GetBlobDifferencesInput.repository_name required")
+        out["repository_name"] = ""
     if data.get("afterBlobId") is not None:
         out["after_blob_id"] = data["afterBlobId"]
     else:
-        raise DeserializationError("GetBlobDifferencesInput.after_blob_id required")
+        out["after_blob_id"] = ""
     if data.get("beforeBlobId") is not None:
         out["before_blob_id"] = data["beforeBlobId"]
     if data.get("contextLines") is not None:

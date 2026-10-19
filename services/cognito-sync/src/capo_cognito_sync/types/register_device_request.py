@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cognito_sync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_sync.types.identity_id
     import capo_cognito_sync.types.identity_pool_id
@@ -43,9 +41,11 @@ def deserialize_json(data: dict) -> RegisterDeviceRequest:
             data["Platform"]
         )
     else:
-        raise DeserializationError("RegisterDeviceRequest.platform required")
+        import typing
+
+        out["platform"] = typing.cast("capo_cognito_sync.types.platform.Platform", "")
     if data.get("Token") is not None:
         out["token"] = data["Token"]
     else:
-        raise DeserializationError("RegisterDeviceRequest.token required")
+        out["token"] = ""
     return out

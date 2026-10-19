@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_apprunner.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_apprunner.types.as_config_max_concurrency
     import capo_apprunner.types.as_config_max_size
@@ -53,9 +51,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateAutoScalingConfigurationReques
     if data.get("AutoScalingConfigurationName") is not None:
         out["auto_scaling_configuration_name"] = data["AutoScalingConfigurationName"]
     else:
-        raise DeserializationError(
-            "CreateAutoScalingConfigurationRequest.auto_scaling_configuration_name required"
-        )
+        out["auto_scaling_configuration_name"] = ""
     if data.get("MaxConcurrency") is not None:
         out["max_concurrency"] = data["MaxConcurrency"]
     if data.get("MinSize") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.attachment_title
     import capo_lex_models_v2.types.attachment_url
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> ImageResponseCard:
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("ImageResponseCard.title required")
+        out["title"] = ""
     if data.get("subtitle") is not None:
         out["subtitle"] = data["subtitle"]
     if data.get("imageUrl") is not None:

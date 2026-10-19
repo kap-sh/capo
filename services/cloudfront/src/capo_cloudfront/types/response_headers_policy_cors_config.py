@@ -120,9 +120,7 @@ def deserialize_xml(el: Element) -> ResponseHeadersPolicyCorsConfig:
             child_access_control_allow_credentials.text or ""
         ).lower() == "true"
     else:
-        raise DeserializationError(
-            "ResponseHeadersPolicyCorsConfig.access_control_allow_credentials required"
-        )
+        out["access_control_allow_credentials"] = False
     child_access_control_expose_headers = el.find("AccessControlExposeHeaders")
     if child_access_control_expose_headers is not None:
         import capo_cloudfront.types.response_headers_policy_access_control_expose_headers
@@ -141,7 +139,5 @@ def deserialize_xml(el: Element) -> ResponseHeadersPolicyCorsConfig:
     if child_origin_override is not None:
         out["origin_override"] = (child_origin_override.text or "").lower() == "true"
     else:
-        raise DeserializationError(
-            "ResponseHeadersPolicyCorsConfig.origin_override required"
-        )
+        out["origin_override"] = False
     return out

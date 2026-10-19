@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_compute_optimizer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_compute_optimizer.types.metric_statistic
     import capo_compute_optimizer.types.period
@@ -58,9 +56,7 @@ def deserialize_aws_json_1_0(
     if data.get("serviceArn") is not None:
         out["service_arn"] = data["serviceArn"]
     else:
-        raise DeserializationError(
-            "GetECSServiceRecommendationProjectedMetricsRequest.service_arn required"
-        )
+        out["service_arn"] = ""
     if data.get("stat") is not None:
         import capo_compute_optimizer.types.metric_statistic
 
@@ -70,15 +66,15 @@ def deserialize_aws_json_1_0(
             )
         )
     else:
-        raise DeserializationError(
-            "GetECSServiceRecommendationProjectedMetricsRequest.stat required"
+        import typing
+
+        out["stat"] = typing.cast(
+            "capo_compute_optimizer.types.metric_statistic.MetricStatistic", ""
         )
     if data.get("period") is not None:
         out["period"] = data["period"]
     else:
-        raise DeserializationError(
-            "GetECSServiceRecommendationProjectedMetricsRequest.period required"
-        )
+        out["period"] = 0
     if data.get("startTime") is not None:
         import capo_compute_optimizer.types.timestamp
 
@@ -88,9 +84,9 @@ def deserialize_aws_json_1_0(
             )
         )
     else:
-        raise DeserializationError(
-            "GetECSServiceRecommendationProjectedMetricsRequest.start_time required"
-        )
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_compute_optimizer.types.timestamp
 
@@ -100,7 +96,7 @@ def deserialize_aws_json_1_0(
             )
         )
     else:
-        raise DeserializationError(
-            "GetECSServiceRecommendationProjectedMetricsRequest.end_time required"
-        )
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

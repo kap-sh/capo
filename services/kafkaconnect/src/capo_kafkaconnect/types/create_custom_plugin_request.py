@@ -53,7 +53,7 @@ def deserialize_json(data: dict) -> CreateCustomPluginRequest:
     if data.get("contentType") is not None:
         out["content_type"] = data["contentType"]
     else:
-        raise DeserializationError("CreateCustomPluginRequest.content_type required")
+        out["content_type"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("location") is not None:
@@ -69,7 +69,7 @@ def deserialize_json(data: dict) -> CreateCustomPluginRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateCustomPluginRequest.name required")
+        out["name"] = ""
     if data.get("tags") is not None:
         import capo_kafkaconnect.types.tags
 

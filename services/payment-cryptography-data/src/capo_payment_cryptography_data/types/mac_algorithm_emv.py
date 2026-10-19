@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.major_key_derivation_mode
     import capo_payment_cryptography_data.types.number_length_equals2
@@ -69,15 +67,20 @@ def deserialize_json(data: dict) -> MacAlgorithmEmv:
             )
         )
     else:
-        raise DeserializationError("MacAlgorithmEmv.major_key_derivation_mode required")
+        import typing
+
+        out["major_key_derivation_mode"] = typing.cast(
+            "capo_payment_cryptography_data.types.major_key_derivation_mode.MajorKeyDerivationMode",
+            "",
+        )
     if data.get("PrimaryAccountNumber") is not None:
         out["primary_account_number"] = data["PrimaryAccountNumber"]
     else:
-        raise DeserializationError("MacAlgorithmEmv.primary_account_number required")
+        out["primary_account_number"] = ""
     if data.get("PanSequenceNumber") is not None:
         out["pan_sequence_number"] = data["PanSequenceNumber"]
     else:
-        raise DeserializationError("MacAlgorithmEmv.pan_sequence_number required")
+        out["pan_sequence_number"] = ""
     if data.get("SessionKeyDerivationMode") is not None:
         import capo_payment_cryptography_data.types.session_key_derivation_mode
 
@@ -87,8 +90,11 @@ def deserialize_json(data: dict) -> MacAlgorithmEmv:
             )
         )
     else:
-        raise DeserializationError(
-            "MacAlgorithmEmv.session_key_derivation_mode required"
+        import typing
+
+        out["session_key_derivation_mode"] = typing.cast(
+            "capo_payment_cryptography_data.types.session_key_derivation_mode.SessionKeyDerivationMode",
+            "",
         )
     if data.get("SessionKeyDerivationValue") is not None:
         import capo_payment_cryptography_data.types.session_key_derivation_value
@@ -99,8 +105,10 @@ def deserialize_json(data: dict) -> MacAlgorithmEmv:
             )
         )
     else:
-        raise DeserializationError(
-            "MacAlgorithmEmv.session_key_derivation_value required"
+        import capo_payment_cryptography_data.types._unknown
+
+        out["session_key_derivation_value"] = (
+            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
         )
     return out
 

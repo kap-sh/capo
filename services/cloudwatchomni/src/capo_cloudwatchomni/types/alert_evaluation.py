@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 
 class AlertEvaluation(TypedDict, closed=True):
     interval_seconds: "int"
@@ -30,7 +28,7 @@ def deserialize_cbor(data: dict) -> AlertEvaluation:
     if data.get("intervalSeconds") is not None:
         out["interval_seconds"] = data["intervalSeconds"]
     else:
-        raise DeserializationError("AlertEvaluation.interval_seconds required")
+        out["interval_seconds"] = 0
     if data.get("pendingDurationSeconds") is not None:
         out["pending_duration_seconds"] = data["pendingDurationSeconds"]
     if data.get("recoveryDurationSeconds") is not None:

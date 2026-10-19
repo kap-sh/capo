@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resource_explorer_2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resource_explorer_2.types.streaming_access_details_list
 
@@ -43,9 +41,7 @@ def deserialize_json(data: dict) -> ListStreamingAccessForServicesOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListStreamingAccessForServicesOutput.streaming_access_for_services required"
-        )
+        out["streaming_access_for_services"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

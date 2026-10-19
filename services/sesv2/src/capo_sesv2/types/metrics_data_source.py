@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.export_dimensions
     import capo_sesv2.types.export_metrics
@@ -60,7 +58,7 @@ def deserialize_json(data: dict) -> MetricsDataSource:
             data["Dimensions"]
         )
     else:
-        raise DeserializationError("MetricsDataSource.dimensions required")
+        out["dimensions"] = {}
     if data.get("Namespace") is not None:
         import capo_sesv2.types.metric_namespace
 
@@ -68,7 +66,11 @@ def deserialize_json(data: dict) -> MetricsDataSource:
             data["Namespace"]
         )
     else:
-        raise DeserializationError("MetricsDataSource.namespace required")
+        import typing
+
+        out["namespace"] = typing.cast(
+            "capo_sesv2.types.metric_namespace.MetricNamespace", ""
+        )
     if data.get("Metrics") is not None:
         import capo_sesv2.types.export_metrics
 
@@ -76,7 +78,7 @@ def deserialize_json(data: dict) -> MetricsDataSource:
             data["Metrics"]
         )
     else:
-        raise DeserializationError("MetricsDataSource.metrics required")
+        out["metrics"] = []
     if data.get("StartDate") is not None:
         import capo_sesv2.types.timestamp
 
@@ -84,11 +86,15 @@ def deserialize_json(data: dict) -> MetricsDataSource:
             data["StartDate"]
         )
     else:
-        raise DeserializationError("MetricsDataSource.start_date required")
+        import datetime
+
+        out["start_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndDate") is not None:
         import capo_sesv2.types.timestamp
 
         out["end_date"] = capo_sesv2.types.timestamp.deserialize_json(data["EndDate"])
     else:
-        raise DeserializationError("MetricsDataSource.end_date required")
+        import datetime
+
+        out["end_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

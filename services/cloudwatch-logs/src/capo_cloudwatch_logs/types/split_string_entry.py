@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.source
     import capo_cloudwatch_logs.types.split_string_delimiter
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> SplitStringEntry:
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("SplitStringEntry.source required")
+        out["source"] = ""
     if data.get("delimiter") is not None:
         out["delimiter"] = data["delimiter"]
     else:
-        raise DeserializationError("SplitStringEntry.delimiter required")
+        out["delimiter"] = ""
     return out

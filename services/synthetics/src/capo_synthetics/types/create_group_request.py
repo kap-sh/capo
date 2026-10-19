@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_synthetics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_synthetics.types.group_name
     import capo_synthetics.types.tag_map
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> CreateGroupRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateGroupRequest.name required")
+        out["name"] = ""
     if data.get("Tags") is not None:
         import capo_synthetics.types.tag_map
 

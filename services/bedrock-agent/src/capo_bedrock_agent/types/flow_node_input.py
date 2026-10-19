@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.flow_node_input_category
     import capo_bedrock_agent.types.flow_node_input_expression
@@ -54,7 +52,7 @@ def deserialize_json(data: dict) -> FlowNodeInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("FlowNodeInput.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         import capo_bedrock_agent.types.flow_node_io_data_type
 
@@ -62,11 +60,15 @@ def deserialize_json(data: dict) -> FlowNodeInput:
             data["type"]
         )
     else:
-        raise DeserializationError("FlowNodeInput.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent.types.flow_node_io_data_type.FlowNodeIODataType", ""
+        )
     if data.get("expression") is not None:
         out["expression"] = data["expression"]
     else:
-        raise DeserializationError("FlowNodeInput.expression required")
+        out["expression"] = ""
     if data.get("category") is not None:
         import capo_bedrock_agent.types.flow_node_input_category
 

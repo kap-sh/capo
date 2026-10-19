@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.subscription_status
     import capo_sesv2.types.topic_name
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> TopicPreference:
     if data.get("TopicName") is not None:
         out["topic_name"] = data["TopicName"]
     else:
-        raise DeserializationError("TopicPreference.topic_name required")
+        out["topic_name"] = ""
     if data.get("SubscriptionStatus") is not None:
         import capo_sesv2.types.subscription_status
 
@@ -45,5 +43,9 @@ def deserialize_json(data: dict) -> TopicPreference:
             )
         )
     else:
-        raise DeserializationError("TopicPreference.subscription_status required")
+        import typing
+
+        out["subscription_status"] = typing.cast(
+            "capo_sesv2.types.subscription_status.SubscriptionStatus", ""
+        )
     return out

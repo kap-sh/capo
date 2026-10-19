@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.application_theme
     import capo_quicksight.types.description
@@ -58,7 +56,7 @@ def deserialize_json(data: dict) -> BrandDefinition:
     if data.get("BrandName") is not None:
         out["brand_name"] = data["BrandName"]
     else:
-        raise DeserializationError("BrandDefinition.brand_name required")
+        out["brand_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("ApplicationTheme") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_invoicing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_invoicing.types.basic_string_without_space
     import capo_invoicing.types.country_code
@@ -52,9 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> ProcurementPortalSupplier:
     if data.get("SupplierIdentifier") is not None:
         out["supplier_identifier"] = data["SupplierIdentifier"]
     else:
-        raise DeserializationError(
-            "ProcurementPortalSupplier.supplier_identifier required"
-        )
+        out["supplier_identifier"] = ""
     if data.get("SellerOfRecord") is not None:
         out["seller_of_record"] = data["SellerOfRecord"]
     if data.get("CountryCode") is not None:

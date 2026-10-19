@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.source_server_arn
     import capo_drs.types.tags_map
@@ -34,9 +32,7 @@ def deserialize_json(data: dict) -> CreateExtendedSourceServerRequest:
     if data.get("sourceServerArn") is not None:
         out["source_server_arn"] = data["sourceServerArn"]
     else:
-        raise DeserializationError(
-            "CreateExtendedSourceServerRequest.source_server_arn required"
-        )
+        out["source_server_arn"] = ""
     if data.get("tags") is not None:
         import capo_drs.types.tags_map
 

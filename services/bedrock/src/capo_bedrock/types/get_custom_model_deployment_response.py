@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.custom_model_arn
     import capo_bedrock.types.custom_model_deployment_arn
@@ -88,21 +86,15 @@ def deserialize_json(data: dict) -> GetCustomModelDeploymentResponse:
     if data.get("customModelDeploymentArn") is not None:
         out["custom_model_deployment_arn"] = data["customModelDeploymentArn"]
     else:
-        raise DeserializationError(
-            "GetCustomModelDeploymentResponse.custom_model_deployment_arn required"
-        )
+        out["custom_model_deployment_arn"] = ""
     if data.get("modelDeploymentName") is not None:
         out["model_deployment_name"] = data["modelDeploymentName"]
     else:
-        raise DeserializationError(
-            "GetCustomModelDeploymentResponse.model_deployment_name required"
-        )
+        out["model_deployment_name"] = ""
     if data.get("modelArn") is not None:
         out["model_arn"] = data["modelArn"]
     else:
-        raise DeserializationError(
-            "GetCustomModelDeploymentResponse.model_arn required"
-        )
+        out["model_arn"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock.types.timestamp
 
@@ -110,9 +102,9 @@ def deserialize_json(data: dict) -> GetCustomModelDeploymentResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError(
-            "GetCustomModelDeploymentResponse.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         import capo_bedrock.types.custom_model_deployment_status
 
@@ -122,7 +114,12 @@ def deserialize_json(data: dict) -> GetCustomModelDeploymentResponse:
             )
         )
     else:
-        raise DeserializationError("GetCustomModelDeploymentResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock.types.custom_model_deployment_status.CustomModelDeploymentStatus",
+            "",
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("updateDetails") is not None:

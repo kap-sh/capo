@@ -114,15 +114,15 @@ def deserialize_json(data: dict) -> RuleSearchSummary:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("RuleSearchSummary.name required")
+        out["name"] = ""
     if data.get("RuleId") is not None:
         out["rule_id"] = data["RuleId"]
     else:
-        raise DeserializationError("RuleSearchSummary.rule_id required")
+        out["rule_id"] = ""
     if data.get("RuleArn") is not None:
         out["rule_arn"] = data["RuleArn"]
     else:
-        raise DeserializationError("RuleSearchSummary.rule_arn required")
+        out["rule_arn"] = ""
     if data.get("TriggerEventSource") is not None:
         import capo_connect.types.rule_trigger_event_source
 
@@ -140,7 +140,7 @@ def deserialize_json(data: dict) -> RuleSearchSummary:
             data["ActionSummaries"]
         )
     else:
-        raise DeserializationError("RuleSearchSummary.action_summaries required")
+        out["action_summaries"] = []
     if data.get("RuleCapabilityTiers") is not None:
         import capo_connect.types.rule_capability_tiers
 
@@ -156,7 +156,11 @@ def deserialize_json(data: dict) -> RuleSearchSummary:
             data["PublishStatus"]
         )
     else:
-        raise DeserializationError("RuleSearchSummary.publish_status required")
+        import typing
+
+        out["publish_status"] = typing.cast(
+            "capo_connect.types.rule_publish_status.RulePublishStatus", ""
+        )
     if data.get("PreEvaluationFilters") is not None:
         import capo_connect.types.pre_evaluation_filters
 
@@ -172,7 +176,11 @@ def deserialize_json(data: dict) -> RuleSearchSummary:
             data["CreatedTime"]
         )
     else:
-        raise DeserializationError("RuleSearchSummary.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("LastUpdatedTime") is not None:
         import capo_connect.types.timestamp
 
@@ -180,11 +188,15 @@ def deserialize_json(data: dict) -> RuleSearchSummary:
             data["LastUpdatedTime"]
         )
     else:
-        raise DeserializationError("RuleSearchSummary.last_updated_time required")
+        import datetime
+
+        out["last_updated_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("LastUpdatedBy") is not None:
         out["last_updated_by"] = data["LastUpdatedBy"]
     else:
-        raise DeserializationError("RuleSearchSummary.last_updated_by required")
+        out["last_updated_by"] = ""
     if data.get("Tags") is not None:
         import capo_connect.types.tag_map
 

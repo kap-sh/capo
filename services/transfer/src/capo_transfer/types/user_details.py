@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.server_id
     import capo_transfer.types.session_id
@@ -36,11 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> UserDetails:
     if data.get("UserName") is not None:
         out["user_name"] = data["UserName"]
     else:
-        raise DeserializationError("UserDetails.user_name required")
+        out["user_name"] = ""
     if data.get("ServerId") is not None:
         out["server_id"] = data["ServerId"]
     else:
-        raise DeserializationError("UserDetails.server_id required")
+        out["server_id"] = ""
     if data.get("SessionId") is not None:
         out["session_id"] = data["SessionId"]
     return out

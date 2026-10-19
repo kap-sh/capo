@@ -66,11 +66,11 @@ def deserialize_json(data: dict) -> FlowDefinition:
     if data.get("FlowName") is not None:
         out["flow_name"] = data["FlowName"]
     else:
-        raise DeserializationError("FlowDefinition.flow_name required")
+        out["flow_name"] = ""
     if data.get("KmsArn") is not None:
         out["kms_arn"] = data["KmsArn"]
     else:
-        raise DeserializationError("FlowDefinition.kms_arn required")
+        out["kms_arn"] = ""
     if data.get("SourceFlowConfig") is not None:
         import capo_customer_profiles.types.source_flow_config
 
@@ -88,7 +88,7 @@ def deserialize_json(data: dict) -> FlowDefinition:
             data["Tasks"]
         )
     else:
-        raise DeserializationError("FlowDefinition.tasks required")
+        out["tasks"] = []
     if data.get("TriggerConfig") is not None:
         import capo_customer_profiles.types.trigger_config
 

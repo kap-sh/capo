@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.blueprint_category
     import capo_datazone.types.custom_parameter_list
@@ -73,7 +71,7 @@ def deserialize_json(data: dict) -> CreateEnvironmentBlueprintInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateEnvironmentBlueprintInput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("provisioningProperties") is not None:
@@ -85,8 +83,10 @@ def deserialize_json(data: dict) -> CreateEnvironmentBlueprintInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateEnvironmentBlueprintInput.provisioning_properties required"
+        import capo_datazone.types._unknown
+
+        out["provisioning_properties"] = (
+            capo_datazone.types._unknown.UnknownUnionMember("")
         )
     if data.get("userParameters") is not None:
         import capo_datazone.types.custom_parameter_list

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_organizations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_organizations.types.policy_content
     import capo_organizations.types.policy_description
@@ -52,15 +50,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePolicyRequest:
     if data.get("Content") is not None:
         out["content"] = data["Content"]
     else:
-        raise DeserializationError("CreatePolicyRequest.content required")
+        out["content"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("CreatePolicyRequest.description required")
+        out["description"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreatePolicyRequest.name required")
+        out["name"] = ""
     if data.get("Type") is not None:
         import capo_organizations.types.policy_type
 
@@ -68,7 +66,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePolicyRequest:
             data["Type"]
         )
     else:
-        raise DeserializationError("CreatePolicyRequest.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_organizations.types.policy_type.PolicyType", "")
     if data.get("Tags") is not None:
         import capo_organizations.types.tags
 

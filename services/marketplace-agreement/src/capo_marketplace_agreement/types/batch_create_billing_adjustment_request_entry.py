@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_agreement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.agreement_id
     import capo_marketplace_agreement.types.billing_adjustment_description
@@ -60,27 +58,19 @@ def deserialize_aws_json_1_0(data: dict) -> BatchCreateBillingAdjustmentRequestE
     if data.get("agreementId") is not None:
         out["agreement_id"] = data["agreementId"]
     else:
-        raise DeserializationError(
-            "BatchCreateBillingAdjustmentRequestEntry.agreement_id required"
-        )
+        out["agreement_id"] = ""
     if data.get("originalInvoiceId") is not None:
         out["original_invoice_id"] = data["originalInvoiceId"]
     else:
-        raise DeserializationError(
-            "BatchCreateBillingAdjustmentRequestEntry.original_invoice_id required"
-        )
+        out["original_invoice_id"] = ""
     if data.get("adjustmentAmount") is not None:
         out["adjustment_amount"] = data["adjustmentAmount"]
     else:
-        raise DeserializationError(
-            "BatchCreateBillingAdjustmentRequestEntry.adjustment_amount required"
-        )
+        out["adjustment_amount"] = ""
     if data.get("currencyCode") is not None:
         out["currency_code"] = data["currencyCode"]
     else:
-        raise DeserializationError(
-            "BatchCreateBillingAdjustmentRequestEntry.currency_code required"
-        )
+        out["currency_code"] = ""
     if data.get("adjustmentReasonCode") is not None:
         import capo_marketplace_agreement.types.billing_adjustment_reason_code
 
@@ -90,17 +80,18 @@ def deserialize_aws_json_1_0(data: dict) -> BatchCreateBillingAdjustmentRequestE
             )
         )
     else:
-        raise DeserializationError(
-            "BatchCreateBillingAdjustmentRequestEntry.adjustment_reason_code required"
+        import typing
+
+        out["adjustment_reason_code"] = typing.cast(
+            "capo_marketplace_agreement.types.billing_adjustment_reason_code.BillingAdjustmentReasonCode",
+            "",
         )
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError(
-            "BatchCreateBillingAdjustmentRequestEntry.client_token required"
-        )
+        out["client_token"] = ""
     return out
 
 

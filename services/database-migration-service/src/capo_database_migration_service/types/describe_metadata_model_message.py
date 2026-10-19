@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.migration_project_identifier
     import capo_database_migration_service.types.origin_type_value
@@ -41,15 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeMetadataModelMessage:
     if data.get("SelectionRules") is not None:
         out["selection_rules"] = data["SelectionRules"]
     else:
-        raise DeserializationError(
-            "DescribeMetadataModelMessage.selection_rules required"
-        )
+        out["selection_rules"] = ""
     if data.get("MigrationProjectIdentifier") is not None:
         out["migration_project_identifier"] = data["MigrationProjectIdentifier"]
     else:
-        raise DeserializationError(
-            "DescribeMetadataModelMessage.migration_project_identifier required"
-        )
+        out["migration_project_identifier"] = ""
     if data.get("Origin") is not None:
         import capo_database_migration_service.types.origin_type_value
 
@@ -59,5 +53,10 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeMetadataModelMessage:
             )
         )
     else:
-        raise DeserializationError("DescribeMetadataModelMessage.origin required")
+        import typing
+
+        out["origin"] = typing.cast(
+            "capo_database_migration_service.types.origin_type_value.OriginTypeValue",
+            "",
+        )
     return out

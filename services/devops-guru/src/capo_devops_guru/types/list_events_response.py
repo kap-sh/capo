@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_guru.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_guru.types.events
     import capo_devops_guru.types.uuid_next_token
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> ListEventsResponse:
 
         out["events"] = capo_devops_guru.types.events.deserialize_json(data["Events"])
     else:
-        raise DeserializationError("ListEventsResponse.events required")
+        out["events"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

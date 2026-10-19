@@ -64,13 +64,11 @@ def deserialize_json(data: dict) -> StartSigningJobRequest:
     if data.get("profileName") is not None:
         out["profile_name"] = data["profileName"]
     else:
-        raise DeserializationError("StartSigningJobRequest.profile_name required")
+        out["profile_name"] = ""
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     else:
-        raise DeserializationError(
-            "StartSigningJobRequest.client_request_token required"
-        )
+        out["client_request_token"] = ""
     if data.get("profileOwner") is not None:
         out["profile_owner"] = data["profileOwner"]
     return out

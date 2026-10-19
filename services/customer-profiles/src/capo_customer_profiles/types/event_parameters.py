@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.double
     import capo_customer_profiles.types.event_parameters_event_type_string
@@ -55,7 +53,7 @@ def deserialize_json(data: dict) -> EventParameters:
     if data.get("EventType") is not None:
         out["event_type"] = data["EventType"]
     else:
-        raise DeserializationError("EventParameters.event_type required")
+        out["event_type"] = ""
     if data.get("EventValueThreshold") is not None:
         out["event_value_threshold"] = float(data["EventValueThreshold"])
     if data.get("EventWeight") is not None:

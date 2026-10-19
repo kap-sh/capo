@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.role_arn
     import capo_iot.types.stream_description
@@ -52,11 +50,11 @@ def deserialize_json(data: dict) -> CreateStreamRequest:
 
         out["files"] = capo_iot.types.stream_files.deserialize_json(data["files"])
     else:
-        raise DeserializationError("CreateStreamRequest.files required")
+        out["files"] = []
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateStreamRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("tags") is not None:
         import capo_iot.types.tag_list
 

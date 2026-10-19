@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.content
     import capo_ssm_contacts.types.idempotency_token
@@ -61,19 +59,19 @@ def deserialize_aws_json_1_1(data: dict) -> StartEngagementRequest:
     if data.get("ContactId") is not None:
         out["contact_id"] = data["ContactId"]
     else:
-        raise DeserializationError("StartEngagementRequest.contact_id required")
+        out["contact_id"] = ""
     if data.get("Sender") is not None:
         out["sender"] = data["Sender"]
     else:
-        raise DeserializationError("StartEngagementRequest.sender required")
+        out["sender"] = ""
     if data.get("Subject") is not None:
         out["subject"] = data["Subject"]
     else:
-        raise DeserializationError("StartEngagementRequest.subject required")
+        out["subject"] = ""
     if data.get("Content") is not None:
         out["content"] = data["Content"]
     else:
-        raise DeserializationError("StartEngagementRequest.content required")
+        out["content"] = ""
     if data.get("PublicSubject") is not None:
         out["public_subject"] = data["PublicSubject"]
     if data.get("PublicContent") is not None:

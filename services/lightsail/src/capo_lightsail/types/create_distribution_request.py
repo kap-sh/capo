@@ -134,9 +134,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDistributionRequest:
     if data.get("distributionName") is not None:
         out["distribution_name"] = data["distributionName"]
     else:
-        raise DeserializationError(
-            "CreateDistributionRequest.distribution_name required"
-        )
+        out["distribution_name"] = ""
     if data.get("origin") is not None:
         import capo_lightsail.types.input_origin
 
@@ -176,7 +174,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDistributionRequest:
     if data.get("bundleId") is not None:
         out["bundle_id"] = data["bundleId"]
     else:
-        raise DeserializationError("CreateDistributionRequest.bundle_id required")
+        out["bundle_id"] = ""
     if data.get("ipAddressType") is not None:
         import capo_lightsail.types.ip_address_type
 

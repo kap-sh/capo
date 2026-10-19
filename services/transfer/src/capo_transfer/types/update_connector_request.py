@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.as2_connector_config
     import capo_transfer.types.connector_id
@@ -100,7 +98,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateConnectorRequest:
     if data.get("ConnectorId") is not None:
         out["connector_id"] = data["ConnectorId"]
     else:
-        raise DeserializationError("UpdateConnectorRequest.connector_id required")
+        out["connector_id"] = ""
     if data.get("Url") is not None:
         out["url"] = data["Url"]
     if data.get("As2Config") is not None:

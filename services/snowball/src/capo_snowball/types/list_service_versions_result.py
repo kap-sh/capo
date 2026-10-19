@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_snowball.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_snowball.types.dependent_service_list
     import capo_snowball.types.service_name
@@ -65,9 +63,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListServiceVersionsResult:
             )
         )
     else:
-        raise DeserializationError(
-            "ListServiceVersionsResult.service_versions required"
-        )
+        out["service_versions"] = []
     if data.get("ServiceName") is not None:
         import capo_snowball.types.service_name
 
@@ -75,7 +71,11 @@ def deserialize_aws_json_1_1(data: dict) -> ListServiceVersionsResult:
             data["ServiceName"]
         )
     else:
-        raise DeserializationError("ListServiceVersionsResult.service_name required")
+        import typing
+
+        out["service_name"] = typing.cast(
+            "capo_snowball.types.service_name.ServiceName", ""
+        )
     if data.get("DependentServices") is not None:
         import capo_snowball.types.dependent_service_list
 

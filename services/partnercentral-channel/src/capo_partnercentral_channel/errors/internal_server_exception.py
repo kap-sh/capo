@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_partnercentral_channel.errors import DeserializationError, ServiceError
+from capo_partnercentral_channel.errors import ServiceError
 
 
 class InternalServerException_(TypedDict, closed=True):
@@ -23,7 +23,7 @@ def deserialize_aws_json_1_0(data: dict) -> InternalServerException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("InternalServerException_.message required")
+        out["message"] = ""
     return out
 
 

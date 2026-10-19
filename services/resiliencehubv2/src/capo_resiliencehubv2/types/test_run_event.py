@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -54,15 +52,15 @@ def deserialize_json(data: dict) -> TestRunEvent:
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError("TestRunEvent.event_id required")
+        out["event_id"] = ""
     if data.get("eventType") is not None:
         out["event_type"] = data["eventType"]
     else:
-        raise DeserializationError("TestRunEvent.event_type required")
+        out["event_type"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("TestRunEvent.message required")
+        out["message"] = ""
     if data.get("timestamp") is not None:
         import capo_resiliencehubv2.types._prelude.timestamp
 
@@ -72,7 +70,9 @@ def deserialize_json(data: dict) -> TestRunEvent:
             )
         )
     else:
-        raise DeserializationError("TestRunEvent.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("attributes") is not None:
         import capo_resiliencehubv2.types.test_run_event_attributes
 

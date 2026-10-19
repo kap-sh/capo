@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.limit_class
     import capo_cognito_identity_provider.types.string_to_string_map_type
@@ -49,7 +47,11 @@ def deserialize_aws_json_1_1(data: dict) -> LimitDefinitionType:
             )
         )
     else:
-        raise DeserializationError("LimitDefinitionType.limit_class required")
+        import typing
+
+        out["limit_class"] = typing.cast(
+            "capo_cognito_identity_provider.types.limit_class.LimitClass", ""
+        )
     if data.get("Attributes") is not None:
         import capo_cognito_identity_provider.types.string_to_string_map_type
 
@@ -59,5 +61,5 @@ def deserialize_aws_json_1_1(data: dict) -> LimitDefinitionType:
             )
         )
     else:
-        raise DeserializationError("LimitDefinitionType.attributes required")
+        out["attributes"] = {}
     return out

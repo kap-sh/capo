@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.node_package_name
     import capo_panorama.types.tag_map
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> CreatePackageRequest:
     if data.get("PackageName") is not None:
         out["package_name"] = data["PackageName"]
     else:
-        raise DeserializationError("CreatePackageRequest.package_name required")
+        out["package_name"] = ""
     if data.get("Tags") is not None:
         import capo_panorama.types.tag_map
 

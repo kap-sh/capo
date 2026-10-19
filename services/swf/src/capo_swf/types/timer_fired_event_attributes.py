@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.event_id
     import capo_swf.types.timer_id
@@ -31,7 +29,7 @@ def deserialize_aws_json_1_0(data: dict) -> TimerFiredEventAttributes:
     if data.get("timerId") is not None:
         out["timer_id"] = data["timerId"]
     else:
-        raise DeserializationError("TimerFiredEventAttributes.timer_id required")
+        out["timer_id"] = ""
     if data.get("startedEventId") is not None:
         out["started_event_id"] = data["startedEventId"]
     else:

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.receipt_rule_names_list
@@ -38,9 +37,7 @@ def deserialize_query(el: Element) -> ReorderReceiptRuleSetRequest:
     if child_rule_set_name is not None:
         out["rule_set_name"] = str(child_rule_set_name.text or "")
     else:
-        raise DeserializationError(
-            "ReorderReceiptRuleSetRequest.rule_set_name required"
-        )
+        out["rule_set_name"] = ""
     child_rule_names = el.find("RuleNames")
     if child_rule_names is not None:
         import capo_ses.types.receipt_rule_names_list
@@ -49,5 +46,5 @@ def deserialize_query(el: Element) -> ReorderReceiptRuleSetRequest:
             child_rule_names
         )
     else:
-        raise DeserializationError("ReorderReceiptRuleSetRequest.rule_names required")
+        out["rule_names"] = []
     return out

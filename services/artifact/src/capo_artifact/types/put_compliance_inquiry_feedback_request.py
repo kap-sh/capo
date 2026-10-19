@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_artifact.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_artifact.types.feedback_comment_attribute
     import capo_artifact.types.feedback_rating
@@ -68,9 +66,7 @@ def deserialize_json(data: dict) -> PutComplianceInquiryFeedbackRequest:
     if data.get("complianceInquiryId") is not None:
         out["compliance_inquiry_id"] = data["complianceInquiryId"]
     else:
-        raise DeserializationError(
-            "PutComplianceInquiryFeedbackRequest.compliance_inquiry_id required"
-        )
+        out["compliance_inquiry_id"] = ""
     if data.get("queryIdentifier") is not None:
         out["query_identifier"] = data["queryIdentifier"]
     if data.get("rating") is not None:
@@ -80,8 +76,10 @@ def deserialize_json(data: dict) -> PutComplianceInquiryFeedbackRequest:
             data["rating"]
         )
     else:
-        raise DeserializationError(
-            "PutComplianceInquiryFeedbackRequest.rating required"
+        import typing
+
+        out["rating"] = typing.cast(
+            "capo_artifact.types.feedback_rating.FeedbackRating", ""
         )
     if data.get("responseRevisionId") is not None:
         out["response_revision_id"] = data["responseRevisionId"]

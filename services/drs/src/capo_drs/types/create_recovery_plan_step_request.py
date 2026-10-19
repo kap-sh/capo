@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.client_idempotency_token
     import capo_drs.types.recovery_plan_step_configuration
@@ -54,13 +52,11 @@ def deserialize_json(data: dict) -> CreateRecoveryPlanStepRequest:
     if data.get("recoveryPlanArn") is not None:
         out["recovery_plan_arn"] = data["recoveryPlanArn"]
     else:
-        raise DeserializationError(
-            "CreateRecoveryPlanStepRequest.recovery_plan_arn required"
-        )
+        out["recovery_plan_arn"] = ""
     if data.get("stepName") is not None:
         out["step_name"] = data["stepName"]
     else:
-        raise DeserializationError("CreateRecoveryPlanStepRequest.step_name required")
+        out["step_name"] = ""
     if data.get("stepOrder") is not None:
         out["step_order"] = data["stepOrder"]
     if data.get("configuration") is not None:
@@ -72,9 +68,9 @@ def deserialize_json(data: dict) -> CreateRecoveryPlanStepRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateRecoveryPlanStepRequest.configuration required"
-        )
+        import capo_drs.types._unknown
+
+        out["configuration"] = capo_drs.types._unknown.UnknownUnionMember("")
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

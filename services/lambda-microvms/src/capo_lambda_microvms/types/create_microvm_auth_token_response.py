@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_lambda_microvms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_microvms.types.token_parts
 
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> CreateMicrovmAuthTokenResponse:
             data["authToken"]
         )
     else:
-        raise DeserializationError("CreateMicrovmAuthTokenResponse.auth_token required")
+        out["auth_token"] = {}
     return out
 
 

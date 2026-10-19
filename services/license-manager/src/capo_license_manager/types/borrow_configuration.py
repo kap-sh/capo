@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.box_boolean
     import capo_license_manager.types.box_integer
@@ -31,11 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> BorrowConfiguration:
     if data.get("AllowEarlyCheckIn") is not None:
         out["allow_early_check_in"] = data["AllowEarlyCheckIn"]
     else:
-        raise DeserializationError("BorrowConfiguration.allow_early_check_in required")
+        out["allow_early_check_in"] = False
     if data.get("MaxTimeToLiveInMinutes") is not None:
         out["max_time_to_live_in_minutes"] = data["MaxTimeToLiveInMinutes"]
     else:
-        raise DeserializationError(
-            "BorrowConfiguration.max_time_to_live_in_minutes required"
-        )
+        out["max_time_to_live_in_minutes"] = 0
     return out

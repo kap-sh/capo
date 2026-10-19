@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.key
     import capo_cloudwatch_logs.types.type
@@ -33,7 +31,7 @@ def deserialize_aws_json_1_1(data: dict) -> TypeConverterEntry:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("TypeConverterEntry.key required")
+        out["key"] = ""
     if data.get("type") is not None:
         import capo_cloudwatch_logs.types.type
 
@@ -41,5 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> TypeConverterEntry:
             data["type"]
         )
     else:
-        raise DeserializationError("TypeConverterEntry.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_cloudwatch_logs.types.type.Type", "")
     return out

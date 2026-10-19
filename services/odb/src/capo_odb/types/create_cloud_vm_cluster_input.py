@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.cluster_name
     import capo_odb.types.data_collection_options
@@ -141,25 +139,23 @@ def deserialize_aws_json_1_0(data: dict) -> CreateCloudVmClusterInput:
     if data.get("cloudExadataInfrastructureId") is not None:
         out["cloud_exadata_infrastructure_id"] = data["cloudExadataInfrastructureId"]
     else:
-        raise DeserializationError(
-            "CreateCloudVmClusterInput.cloud_exadata_infrastructure_id required"
-        )
+        out["cloud_exadata_infrastructure_id"] = ""
     if data.get("cpuCoreCount") is not None:
         out["cpu_core_count"] = data["cpuCoreCount"]
     else:
-        raise DeserializationError("CreateCloudVmClusterInput.cpu_core_count required")
+        out["cpu_core_count"] = 0
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("CreateCloudVmClusterInput.display_name required")
+        out["display_name"] = ""
     if data.get("giVersion") is not None:
         out["gi_version"] = data["giVersion"]
     else:
-        raise DeserializationError("CreateCloudVmClusterInput.gi_version required")
+        out["gi_version"] = ""
     if data.get("hostname") is not None:
         out["hostname"] = data["hostname"]
     else:
-        raise DeserializationError("CreateCloudVmClusterInput.hostname required")
+        out["hostname"] = ""
     if data.get("sshPublicKeys") is not None:
         import capo_odb.types.string_list
 
@@ -167,11 +163,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateCloudVmClusterInput:
             data["sshPublicKeys"]
         )
     else:
-        raise DeserializationError("CreateCloudVmClusterInput.ssh_public_keys required")
+        out["ssh_public_keys"] = []
     if data.get("odbNetworkId") is not None:
         out["odb_network_id"] = data["odbNetworkId"]
     else:
-        raise DeserializationError("CreateCloudVmClusterInput.odb_network_id required")
+        out["odb_network_id"] = ""
     if data.get("clusterName") is not None:
         out["cluster_name"] = data["clusterName"]
     if data.get("dataCollectionOptions") is not None:

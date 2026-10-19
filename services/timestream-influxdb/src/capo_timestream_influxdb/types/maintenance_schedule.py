@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_timestream_influxdb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_influxdb.types.iana_timezone
     import capo_timestream_influxdb.types.maintenance_window
@@ -33,11 +31,9 @@ def deserialize_aws_json_1_0(data: dict) -> MaintenanceSchedule:
     if data.get("timezone") is not None:
         out["timezone"] = data["timezone"]
     else:
-        raise DeserializationError("MaintenanceSchedule.timezone required")
+        out["timezone"] = ""
     if data.get("preferredMaintenanceWindow") is not None:
         out["preferred_maintenance_window"] = data["preferredMaintenanceWindow"]
     else:
-        raise DeserializationError(
-            "MaintenanceSchedule.preferred_maintenance_window required"
-        )
+        out["preferred_maintenance_window"] = ""
     return out

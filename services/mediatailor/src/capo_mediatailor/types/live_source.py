@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__map_of__string
     import capo_mediatailor.types.__string
@@ -77,7 +75,7 @@ def deserialize_json(data: dict) -> LiveSource:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("LiveSource.arn required")
+        out["arn"] = ""
     if data.get("CreationTime") is not None:
         import capo_mediatailor.types.__timestamp_unix
 
@@ -93,7 +91,7 @@ def deserialize_json(data: dict) -> LiveSource:
             )
         )
     else:
-        raise DeserializationError("LiveSource.http_package_configurations required")
+        out["http_package_configurations"] = []
     if data.get("LastModifiedTime") is not None:
         import capo_mediatailor.types.__timestamp_unix
 
@@ -105,11 +103,11 @@ def deserialize_json(data: dict) -> LiveSource:
     if data.get("LiveSourceName") is not None:
         out["live_source_name"] = data["LiveSourceName"]
     else:
-        raise DeserializationError("LiveSource.live_source_name required")
+        out["live_source_name"] = ""
     if data.get("SourceLocationName") is not None:
         out["source_location_name"] = data["SourceLocationName"]
     else:
-        raise DeserializationError("LiveSource.source_location_name required")
+        out["source_location_name"] = ""
     if data.get("tags") is not None:
         import capo_mediatailor.types.__map_of__string
 

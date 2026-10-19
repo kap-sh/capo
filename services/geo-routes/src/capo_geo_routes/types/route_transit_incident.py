@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.route_transit_incident_effect
     import capo_geo_routes.types.route_transit_incident_type
@@ -71,7 +69,12 @@ def deserialize_json(data: dict) -> RouteTransitIncident:
             )
         )
     else:
-        raise DeserializationError("RouteTransitIncident.effect required")
+        import typing
+
+        out["effect"] = typing.cast(
+            "capo_geo_routes.types.route_transit_incident_effect.RouteTransitIncidentEffect",
+            "",
+        )
     if data.get("EndTime") is not None:
         out["end_time"] = data["EndTime"]
     if data.get("StartTime") is not None:
@@ -85,7 +88,12 @@ def deserialize_json(data: dict) -> RouteTransitIncident:
             )
         )
     else:
-        raise DeserializationError("RouteTransitIncident.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_geo_routes.types.route_transit_incident_type.RouteTransitIncidentType",
+            "",
+        )
     if data.get("Url") is not None:
         out["url"] = data["Url"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dax.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dax.types.security_group_identifier_list
     import capo_dax.types.string
@@ -60,7 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateClusterRequest:
     if data.get("ClusterName") is not None:
         out["cluster_name"] = data["ClusterName"]
     else:
-        raise DeserializationError("UpdateClusterRequest.cluster_name required")
+        out["cluster_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("PreferredMaintenanceWindow") is not None:

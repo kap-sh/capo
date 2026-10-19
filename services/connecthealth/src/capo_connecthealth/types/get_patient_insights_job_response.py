@@ -129,11 +129,11 @@ def deserialize_json(data: dict) -> GetPatientInsightsJobResponse:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("GetPatientInsightsJobResponse.job_id required")
+        out["job_id"] = ""
     if data.get("jobArn") is not None:
         out["job_arn"] = data["jobArn"]
     else:
-        raise DeserializationError("GetPatientInsightsJobResponse.job_arn required")
+        out["job_arn"] = ""
     if data.get("jobStatus") is not None:
         import capo_connecthealth.types.job_status
 
@@ -141,7 +141,11 @@ def deserialize_json(data: dict) -> GetPatientInsightsJobResponse:
             data["jobStatus"]
         )
     else:
-        raise DeserializationError("GetPatientInsightsJobResponse.job_status required")
+        import typing
+
+        out["job_status"] = typing.cast(
+            "capo_connecthealth.types.job_status.JobStatus", ""
+        )
     if data.get("creationTime") is not None:
         import datetime
 

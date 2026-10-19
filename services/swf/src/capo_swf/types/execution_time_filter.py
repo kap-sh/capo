@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.timestamp
 
@@ -43,7 +41,11 @@ def deserialize_aws_json_1_0(data: dict) -> ExecutionTimeFilter:
             data["oldestDate"]
         )
     else:
-        raise DeserializationError("ExecutionTimeFilter.oldest_date required")
+        import datetime
+
+        out["oldest_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("latestDate") is not None:
         import capo_swf.types.timestamp
 

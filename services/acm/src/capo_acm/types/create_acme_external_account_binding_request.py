@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_acm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm.types.acme_endpoint_arn
     import capo_acm.types.expiration
@@ -53,15 +51,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAcmeExternalAccountBindingRequ
     if data.get("AcmeEndpointArn") is not None:
         out["acme_endpoint_arn"] = data["AcmeEndpointArn"]
     else:
-        raise DeserializationError(
-            "CreateAcmeExternalAccountBindingRequest.acme_endpoint_arn required"
-        )
+        out["acme_endpoint_arn"] = ""
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError(
-            "CreateAcmeExternalAccountBindingRequest.role_arn required"
-        )
+        out["role_arn"] = ""
     if data.get("Expiration") is not None:
         import capo_acm.types.expiration
 

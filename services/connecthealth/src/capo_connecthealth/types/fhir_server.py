@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connecthealth.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connecthealth.types.non_empty_string
     import capo_connecthealth.types.sensitive_non_empty_string
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> FHIRServer:
     if data.get("fhirEndpoint") is not None:
         out["fhir_endpoint"] = data["fhirEndpoint"]
     else:
-        raise DeserializationError("FHIRServer.fhir_endpoint required")
+        out["fhir_endpoint"] = ""
     if data.get("oauthToken") is not None:
         out["oauth_token"] = data["oauthToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_messaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_messaging.types.channel_message_persistence_type
     import capo_chime_sdk_messaging.types.channel_message_type
@@ -108,7 +106,7 @@ def deserialize_json(data: dict) -> SendChannelMessageRequest:
     if data.get("Content") is not None:
         out["content"] = data["Content"]
     else:
-        raise DeserializationError("SendChannelMessageRequest.content required")
+        out["content"] = ""
     if data.get("Type") is not None:
         import capo_chime_sdk_messaging.types.channel_message_type
 
@@ -118,7 +116,11 @@ def deserialize_json(data: dict) -> SendChannelMessageRequest:
             )
         )
     else:
-        raise DeserializationError("SendChannelMessageRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_chime_sdk_messaging.types.channel_message_type.ChannelMessageType", ""
+        )
     if data.get("Persistence") is not None:
         import capo_chime_sdk_messaging.types.channel_message_persistence_type
 
@@ -128,15 +130,18 @@ def deserialize_json(data: dict) -> SendChannelMessageRequest:
             )
         )
     else:
-        raise DeserializationError("SendChannelMessageRequest.persistence required")
+        import typing
+
+        out["persistence"] = typing.cast(
+            "capo_chime_sdk_messaging.types.channel_message_persistence_type.ChannelMessagePersistenceType",
+            "",
+        )
     if data.get("Metadata") is not None:
         out["metadata"] = data["Metadata"]
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     else:
-        raise DeserializationError(
-            "SendChannelMessageRequest.client_request_token required"
-        )
+        out["client_request_token"] = ""
     if data.get("PushNotification") is not None:
         import capo_chime_sdk_messaging.types.push_notification_configuration
 

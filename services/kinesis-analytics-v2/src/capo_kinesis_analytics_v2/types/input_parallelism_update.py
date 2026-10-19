@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.input_parallelism_count
 
@@ -29,5 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> InputParallelismUpdate:
     if data.get("CountUpdate") is not None:
         out["count_update"] = data["CountUpdate"]
     else:
-        raise DeserializationError("InputParallelismUpdate.count_update required")
+        out["count_update"] = 0
     return out

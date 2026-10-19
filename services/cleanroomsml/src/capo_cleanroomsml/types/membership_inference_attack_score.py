@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.membership_inference_attack_version
 
@@ -50,11 +48,14 @@ def deserialize_json(data: dict) -> MembershipInferenceAttackScore:
             )
         )
     else:
-        raise DeserializationError(
-            "MembershipInferenceAttackScore.attack_version required"
+        import typing
+
+        out["attack_version"] = typing.cast(
+            "capo_cleanroomsml.types.membership_inference_attack_version.MembershipInferenceAttackVersion",
+            "",
         )
     if data.get("score") is not None:
         out["score"] = float(data["score"])
     else:
-        raise DeserializationError("MembershipInferenceAttackScore.score required")
+        out["score"] = 0.0
     return out

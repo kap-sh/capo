@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.application_id
     import capo_qbusiness.types.subscription_id
@@ -39,5 +37,9 @@ def deserialize_json(data: dict) -> UpdateSubscriptionRequest:
             data["type"]
         )
     else:
-        raise DeserializationError("UpdateSubscriptionRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_qbusiness.types.subscription_type.SubscriptionType", ""
+        )
     return out

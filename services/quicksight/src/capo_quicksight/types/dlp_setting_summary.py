@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.dlp_provider_type
@@ -66,15 +64,15 @@ def deserialize_json(data: dict) -> DlpSettingSummary:
     if data.get("DlpSettingId") is not None:
         out["dlp_setting_id"] = data["DlpSettingId"]
     else:
-        raise DeserializationError("DlpSettingSummary.dlp_setting_id required")
+        out["dlp_setting_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DlpSettingSummary.name required")
+        out["name"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("DlpSettingSummary.arn required")
+        out["arn"] = ""
     if data.get("Status") is not None:
         import capo_quicksight.types.dlp_setting_status
 
@@ -82,7 +80,11 @@ def deserialize_json(data: dict) -> DlpSettingSummary:
             data["Status"]
         )
     else:
-        raise DeserializationError("DlpSettingSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_quicksight.types.dlp_setting_status.DlpSettingStatus", ""
+        )
     if data.get("ProviderType") is not None:
         import capo_quicksight.types.dlp_provider_type
 
@@ -90,7 +92,11 @@ def deserialize_json(data: dict) -> DlpSettingSummary:
             data["ProviderType"]
         )
     else:
-        raise DeserializationError("DlpSettingSummary.provider_type required")
+        import typing
+
+        out["provider_type"] = typing.cast(
+            "capo_quicksight.types.dlp_provider_type.DlpProviderType", ""
+        )
     if data.get("CreatedAt") is not None:
         import capo_quicksight.types.timestamp
 
@@ -98,7 +104,9 @@ def deserialize_json(data: dict) -> DlpSettingSummary:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("DlpSettingSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("UpdatedAt") is not None:
         import capo_quicksight.types.timestamp
 
@@ -106,5 +114,7 @@ def deserialize_json(data: dict) -> DlpSettingSummary:
             data["UpdatedAt"]
         )
     else:
-        raise DeserializationError("DlpSettingSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -156,29 +154,29 @@ def deserialize_json(data: dict) -> MessageTemplateData:
     if data.get("messageTemplateArn") is not None:
         out["message_template_arn"] = data["messageTemplateArn"]
     else:
-        raise DeserializationError("MessageTemplateData.message_template_arn required")
+        out["message_template_arn"] = ""
     if data.get("messageTemplateId") is not None:
         out["message_template_id"] = data["messageTemplateId"]
     else:
-        raise DeserializationError("MessageTemplateData.message_template_id required")
+        out["message_template_id"] = ""
     if data.get("knowledgeBaseArn") is not None:
         out["knowledge_base_arn"] = data["knowledgeBaseArn"]
     else:
-        raise DeserializationError("MessageTemplateData.knowledge_base_arn required")
+        out["knowledge_base_arn"] = ""
     if data.get("knowledgeBaseId") is not None:
         out["knowledge_base_id"] = data["knowledgeBaseId"]
     else:
-        raise DeserializationError("MessageTemplateData.knowledge_base_id required")
+        out["knowledge_base_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("MessageTemplateData.name required")
+        out["name"] = ""
     if data.get("channel") is not None:
         out["channel"] = data["channel"]
     if data.get("channelSubtype") is not None:
         out["channel_subtype"] = data["channelSubtype"]
     else:
-        raise DeserializationError("MessageTemplateData.channel_subtype required")
+        out["channel_subtype"] = ""
     if data.get("createdTime") is not None:
         import datetime
 
@@ -186,7 +184,11 @@ def deserialize_json(data: dict) -> MessageTemplateData:
             data["createdTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("MessageTemplateData.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastModifiedTime") is not None:
         import datetime
 
@@ -194,11 +196,15 @@ def deserialize_json(data: dict) -> MessageTemplateData:
             data["lastModifiedTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("MessageTemplateData.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastModifiedBy") is not None:
         out["last_modified_by"] = data["lastModifiedBy"]
     else:
-        raise DeserializationError("MessageTemplateData.last_modified_by required")
+        out["last_modified_by"] = ""
     if data.get("content") is not None:
         import capo_qconnect.types.message_template_content_provider
 
@@ -246,9 +252,7 @@ def deserialize_json(data: dict) -> MessageTemplateData:
     if data.get("messageTemplateContentSha256") is not None:
         out["message_template_content_sha256"] = data["messageTemplateContentSha256"]
     else:
-        raise DeserializationError(
-            "MessageTemplateData.message_template_content_sha256 required"
-        )
+        out["message_template_content_sha256"] = ""
     if data.get("tags") is not None:
         import capo_qconnect.types.tags
 

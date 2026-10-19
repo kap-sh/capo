@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.meta_flow_asset_download_url
     import capo_socialmessaging.types.meta_flow_asset_name
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> MetaFlowAsset:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("MetaFlowAsset.name required")
+        out["name"] = ""
     if data.get("assetType") is not None:
         out["asset_type"] = data["assetType"]
     else:
-        raise DeserializationError("MetaFlowAsset.asset_type required")
+        out["asset_type"] = ""
     if data.get("downloadUrl") is not None:
         out["download_url"] = data["downloadUrl"]
     else:
-        raise DeserializationError("MetaFlowAsset.download_url required")
+        out["download_url"] = ""
     return out

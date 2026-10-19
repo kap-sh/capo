@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_instances.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_instances.types.instance_types
     import capo_workspaces_instances.types.next_token
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListInstanceTypesResponse:
             )
         )
     else:
-        raise DeserializationError("ListInstanceTypesResponse.instance_types required")
+        out["instance_types"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

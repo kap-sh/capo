@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_pipes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pipes.types.kinesis_partition_key
 
@@ -27,9 +25,7 @@ def deserialize_json(data: dict) -> PipeTargetKinesisStreamParameters:
     if data.get("PartitionKey") is not None:
         out["partition_key"] = data["PartitionKey"]
     else:
-        raise DeserializationError(
-            "PipeTargetKinesisStreamParameters.partition_key required"
-        )
+        out["partition_key"] = ""
     return out
 
 

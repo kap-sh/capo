@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.dataset_identifier
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeDatasetRequest:
     if data.get("DatasetName") is not None:
         out["dataset_name"] = data["DatasetName"]
     else:
-        raise DeserializationError("DescribeDatasetRequest.dataset_name required")
+        out["dataset_name"] = ""
     return out

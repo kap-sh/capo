@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.comprehend_model_arn
     import capo_comprehend.types.policy_revision_id
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteResourcePolicyRequest:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("DeleteResourcePolicyRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("PolicyRevisionId") is not None:
         out["policy_revision_id"] = data["PolicyRevisionId"]
     return out

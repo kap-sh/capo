@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mwaa.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mwaa.types.logging_enabled
     import capo_mwaa.types.logging_level
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> ModuleLoggingConfigurationInput:
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
-        raise DeserializationError("ModuleLoggingConfigurationInput.enabled required")
+        out["enabled"] = False
     if data.get("LogLevel") is not None:
         out["log_level"] = data["LogLevel"]
     else:
-        raise DeserializationError("ModuleLoggingConfigurationInput.log_level required")
+        out["log_level"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.client_token
     import capo_wickr.types.generic_string
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> UpdateNetworkRequest:
     if data.get("networkName") is not None:
         out["network_name"] = data["networkName"]
     else:
-        raise DeserializationError("UpdateNetworkRequest.network_name required")
+        out["network_name"] = ""
     if data.get("encryptionKeyArn") is not None:
         out["encryption_key_arn"] = data["encryptionKeyArn"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.hash_string
     import capo_glue.types.uri_string
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> StartExportLabelsTaskRunRequest:
     if data.get("TransformId") is not None:
         out["transform_id"] = data["TransformId"]
     else:
-        raise DeserializationError(
-            "StartExportLabelsTaskRunRequest.transform_id required"
-        )
+        out["transform_id"] = ""
     if data.get("OutputS3Path") is not None:
         out["output_s3_path"] = data["OutputS3Path"]
     else:
-        raise DeserializationError(
-            "StartExportLabelsTaskRunRequest.output_s3_path required"
-        )
+        out["output_s3_path"] = ""
     return out

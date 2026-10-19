@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.arn
     import capo_iotfleetwise.types.error_message
@@ -61,15 +59,11 @@ def deserialize_aws_json_1_0(data: dict) -> TimestreamRegistrationResponse:
     if data.get("timestreamDatabaseName") is not None:
         out["timestream_database_name"] = data["timestreamDatabaseName"]
     else:
-        raise DeserializationError(
-            "TimestreamRegistrationResponse.timestream_database_name required"
-        )
+        out["timestream_database_name"] = ""
     if data.get("timestreamTableName") is not None:
         out["timestream_table_name"] = data["timestreamTableName"]
     else:
-        raise DeserializationError(
-            "TimestreamRegistrationResponse.timestream_table_name required"
-        )
+        out["timestream_table_name"] = ""
     if data.get("timestreamDatabaseArn") is not None:
         out["timestream_database_arn"] = data["timestreamDatabaseArn"]
     if data.get("timestreamTableArn") is not None:
@@ -83,8 +77,10 @@ def deserialize_aws_json_1_0(data: dict) -> TimestreamRegistrationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "TimestreamRegistrationResponse.registration_status required"
+        import typing
+
+        out["registration_status"] = typing.cast(
+            "capo_iotfleetwise.types.registration_status.RegistrationStatus", ""
         )
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]

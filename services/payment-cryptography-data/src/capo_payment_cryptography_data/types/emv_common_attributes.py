@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.application_cryptogram_type
     import capo_payment_cryptography_data.types.emv_encryption_mode
@@ -83,25 +81,24 @@ def deserialize_json(data: dict) -> EmvCommonAttributes:
             )
         )
     else:
-        raise DeserializationError(
-            "EmvCommonAttributes.major_key_derivation_mode required"
+        import typing
+
+        out["major_key_derivation_mode"] = typing.cast(
+            "capo_payment_cryptography_data.types.major_key_derivation_mode.MajorKeyDerivationMode",
+            "",
         )
     if data.get("PrimaryAccountNumber") is not None:
         out["primary_account_number"] = data["PrimaryAccountNumber"]
     else:
-        raise DeserializationError(
-            "EmvCommonAttributes.primary_account_number required"
-        )
+        out["primary_account_number"] = ""
     if data.get("PanSequenceNumber") is not None:
         out["pan_sequence_number"] = data["PanSequenceNumber"]
     else:
-        raise DeserializationError("EmvCommonAttributes.pan_sequence_number required")
+        out["pan_sequence_number"] = ""
     if data.get("ApplicationCryptogram") is not None:
         out["application_cryptogram"] = data["ApplicationCryptogram"]
     else:
-        raise DeserializationError(
-            "EmvCommonAttributes.application_cryptogram required"
-        )
+        out["application_cryptogram"] = ""
     if data.get("Mode") is not None:
         import capo_payment_cryptography_data.types.emv_encryption_mode
 
@@ -111,7 +108,12 @@ def deserialize_json(data: dict) -> EmvCommonAttributes:
             )
         )
     else:
-        raise DeserializationError("EmvCommonAttributes.mode required")
+        import typing
+
+        out["mode"] = typing.cast(
+            "capo_payment_cryptography_data.types.emv_encryption_mode.EmvEncryptionMode",
+            "",
+        )
     if data.get("PinBlockPaddingType") is not None:
         import capo_payment_cryptography_data.types.pin_block_padding_type
 
@@ -121,8 +123,11 @@ def deserialize_json(data: dict) -> EmvCommonAttributes:
             )
         )
     else:
-        raise DeserializationError(
-            "EmvCommonAttributes.pin_block_padding_type required"
+        import typing
+
+        out["pin_block_padding_type"] = typing.cast(
+            "capo_payment_cryptography_data.types.pin_block_padding_type.PinBlockPaddingType",
+            "",
         )
     if data.get("PinBlockLengthPosition") is not None:
         import capo_payment_cryptography_data.types.pin_block_length_position
@@ -133,8 +138,11 @@ def deserialize_json(data: dict) -> EmvCommonAttributes:
             )
         )
     else:
-        raise DeserializationError(
-            "EmvCommonAttributes.pin_block_length_position required"
+        import typing
+
+        out["pin_block_length_position"] = typing.cast(
+            "capo_payment_cryptography_data.types.pin_block_length_position.PinBlockLengthPosition",
+            "",
         )
     return out
 

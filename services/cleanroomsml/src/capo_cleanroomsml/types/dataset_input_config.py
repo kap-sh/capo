@@ -43,7 +43,7 @@ def deserialize_json(data: dict) -> DatasetInputConfig:
             data["schema"]
         )
     else:
-        raise DeserializationError("DatasetInputConfig.schema required")
+        out["schema"] = []
     if data.get("dataSource") is not None:
         import capo_cleanroomsml.types.data_source
 

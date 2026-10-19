@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_taxsettings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_taxsettings.types.business_number
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> MonacoAdditionalInfo:
     if data.get("businessNumber") is not None:
         out["business_number"] = data["businessNumber"]
     else:
-        raise DeserializationError("MonacoAdditionalInfo.business_number required")
+        out["business_number"] = ""
     return out

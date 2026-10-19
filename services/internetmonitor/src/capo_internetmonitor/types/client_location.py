@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_internetmonitor.errors import DeserializationError
-
 
 class ClientLocation(TypedDict, closed=True):
     as_name: "str"
@@ -61,15 +59,15 @@ def deserialize_json(data: dict) -> ClientLocation:
     if data.get("ASName") is not None:
         out["as_name"] = data["ASName"]
     else:
-        raise DeserializationError("ClientLocation.as_name required")
+        out["as_name"] = ""
     if data.get("ASNumber") is not None:
         out["as_number"] = data["ASNumber"]
     else:
-        raise DeserializationError("ClientLocation.as_number required")
+        out["as_number"] = 0
     if data.get("Country") is not None:
         out["country"] = data["Country"]
     else:
-        raise DeserializationError("ClientLocation.country required")
+        out["country"] = ""
     if data.get("Subdivision") is not None:
         out["subdivision"] = data["Subdivision"]
     if data.get("Metro") is not None:
@@ -77,13 +75,13 @@ def deserialize_json(data: dict) -> ClientLocation:
     if data.get("City") is not None:
         out["city"] = data["City"]
     else:
-        raise DeserializationError("ClientLocation.city required")
+        out["city"] = ""
     if data.get("Latitude") is not None:
         out["latitude"] = float(data["Latitude"])
     else:
-        raise DeserializationError("ClientLocation.latitude required")
+        out["latitude"] = 0.0
     if data.get("Longitude") is not None:
         out["longitude"] = float(data["Longitude"])
     else:
-        raise DeserializationError("ClientLocation.longitude required")
+        out["longitude"] = 0.0
     return out

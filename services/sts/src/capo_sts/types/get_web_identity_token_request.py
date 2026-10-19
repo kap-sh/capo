@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sts._protocol.xml import Element
-from capo_sts.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sts.types.jwt_algorithm_type
@@ -60,7 +59,7 @@ def deserialize_query(el: Element) -> GetWebIdentityTokenRequest:
             )
         )
     else:
-        raise DeserializationError("GetWebIdentityTokenRequest.audience required")
+        out["audience"] = []
     child_duration_seconds = el.find("DurationSeconds")
     if child_duration_seconds is not None:
         out["duration_seconds"] = int(child_duration_seconds.text or "")
@@ -68,9 +67,7 @@ def deserialize_query(el: Element) -> GetWebIdentityTokenRequest:
     if child_signing_algorithm is not None:
         out["signing_algorithm"] = str(child_signing_algorithm.text or "")
     else:
-        raise DeserializationError(
-            "GetWebIdentityTokenRequest.signing_algorithm required"
-        )
+        out["signing_algorithm"] = ""
     child_tags = el.find("Tags")
     if child_tags is not None:
         import capo_sts.types.tag_list_type

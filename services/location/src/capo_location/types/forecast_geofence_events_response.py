@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.distance_unit
     import capo_location.types.forecasted_events_list
@@ -50,21 +48,17 @@ def deserialize_json(data: dict) -> ForecastGeofenceEventsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ForecastGeofenceEventsResponse.forecasted_events required"
-        )
+        out["forecasted_events"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("DistanceUnit") is not None:
         out["distance_unit"] = data["DistanceUnit"]
     else:
-        raise DeserializationError(
-            "ForecastGeofenceEventsResponse.distance_unit required"
-        )
+        out["distance_unit"] = ""
     if data.get("SpeedUnit") is not None:
         out["speed_unit"] = data["SpeedUnit"]
     else:
-        raise DeserializationError("ForecastGeofenceEventsResponse.speed_unit required")
+        out["speed_unit"] = ""
     return out
 
 

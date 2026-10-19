@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.peered_cidr_list
     import capo_odb.types.resource_display_name
@@ -59,9 +57,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateOdbPeeringConnectionInput:
     if data.get("odbPeeringConnectionId") is not None:
         out["odb_peering_connection_id"] = data["odbPeeringConnectionId"]
     else:
-        raise DeserializationError(
-            "UpdateOdbPeeringConnectionInput.odb_peering_connection_id required"
-        )
+        out["odb_peering_connection_id"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     if data.get("peerNetworkCidrsToBeAdded") is not None:

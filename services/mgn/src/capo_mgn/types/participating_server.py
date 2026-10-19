@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.ec2_instance_id
     import capo_mgn.types.launch_status
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> ParticipatingServer:
     if data.get("sourceServerID") is not None:
         out["source_server_id"] = data["sourceServerID"]
     else:
-        raise DeserializationError("ParticipatingServer.source_server_id required")
+        out["source_server_id"] = ""
     if data.get("launchStatus") is not None:
         out["launch_status"] = data["launchStatus"]
     if data.get("launchedEc2InstanceID") is not None:

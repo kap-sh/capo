@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.row_filter
 
@@ -38,7 +36,9 @@ def deserialize_json(data: dict) -> RowFilterConfiguration:
             data["rowFilter"]
         )
     else:
-        raise DeserializationError("RowFilterConfiguration.row_filter required")
+        import capo_datazone.types._unknown
+
+        out["row_filter"] = capo_datazone.types._unknown.UnknownUnionMember("")
     if data.get("sensitive") is not None:
         out["sensitive"] = data["sensitive"]
     else:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.commit_name
     import capo_codecommit.types.conflict_detail_level_type_enum
@@ -84,21 +82,15 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeMergeConflictsInput:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError(
-            "DescribeMergeConflictsInput.repository_name required"
-        )
+        out["repository_name"] = ""
     if data.get("destinationCommitSpecifier") is not None:
         out["destination_commit_specifier"] = data["destinationCommitSpecifier"]
     else:
-        raise DeserializationError(
-            "DescribeMergeConflictsInput.destination_commit_specifier required"
-        )
+        out["destination_commit_specifier"] = ""
     if data.get("sourceCommitSpecifier") is not None:
         out["source_commit_specifier"] = data["sourceCommitSpecifier"]
     else:
-        raise DeserializationError(
-            "DescribeMergeConflictsInput.source_commit_specifier required"
-        )
+        out["source_commit_specifier"] = ""
     if data.get("mergeOption") is not None:
         import capo_codecommit.types.merge_option_type_enum
 
@@ -108,13 +100,17 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeMergeConflictsInput:
             )
         )
     else:
-        raise DeserializationError("DescribeMergeConflictsInput.merge_option required")
+        import typing
+
+        out["merge_option"] = typing.cast(
+            "capo_codecommit.types.merge_option_type_enum.MergeOptionTypeEnum", ""
+        )
     if data.get("maxMergeHunks") is not None:
         out["max_merge_hunks"] = data["maxMergeHunks"]
     if data.get("filePath") is not None:
         out["file_path"] = data["filePath"]
     else:
-        raise DeserializationError("DescribeMergeConflictsInput.file_path required")
+        out["file_path"] = ""
     if data.get("conflictDetailLevel") is not None:
         import capo_codecommit.types.conflict_detail_level_type_enum
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs.types.playback_restriction_policy_allowed_country_list
     import capo_ivs.types.playback_restriction_policy_allowed_origin_list
@@ -67,9 +65,7 @@ def deserialize_json(data: dict) -> UpdatePlaybackRestrictionPolicyRequest:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError(
-            "UpdatePlaybackRestrictionPolicyRequest.arn required"
-        )
+        out["arn"] = ""
     if data.get("allowedCountries") is not None:
         import capo_ivs.types.playback_restriction_policy_allowed_country_list
 

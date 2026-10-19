@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.error_message_string
     import capo_lakeformation.types.query_state_string
@@ -44,5 +42,9 @@ def deserialize_json(data: dict) -> GetQueryStateResponse:
             data["State"]
         )
     else:
-        raise DeserializationError("GetQueryStateResponse.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_lakeformation.types.query_state_string.QueryStateString", ""
+        )
     return out

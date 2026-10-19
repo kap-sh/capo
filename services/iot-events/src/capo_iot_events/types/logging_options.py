@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.amazon_resource_name
     import capo_iot_events.types.detector_debug_options
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> LoggingOptions:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("LoggingOptions.role_arn required")
+        out["role_arn"] = ""
     if data.get("level") is not None:
         import capo_iot_events.types.logging_level
 
@@ -58,7 +56,11 @@ def deserialize_json(data: dict) -> LoggingOptions:
             data["level"]
         )
     else:
-        raise DeserializationError("LoggingOptions.level required")
+        import typing
+
+        out["level"] = typing.cast(
+            "capo_iot_events.types.logging_level.LoggingLevel", ""
+        )
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     else:

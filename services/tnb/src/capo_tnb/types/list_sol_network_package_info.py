@@ -94,11 +94,11 @@ def deserialize_json(data: dict) -> ListSolNetworkPackageInfo:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ListSolNetworkPackageInfo.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ListSolNetworkPackageInfo.arn required")
+        out["arn"] = ""
     if data.get("nsdOnboardingState") is not None:
         import capo_tnb.types.nsd_onboarding_state
 
@@ -108,8 +108,10 @@ def deserialize_json(data: dict) -> ListSolNetworkPackageInfo:
             )
         )
     else:
-        raise DeserializationError(
-            "ListSolNetworkPackageInfo.nsd_onboarding_state required"
+        import typing
+
+        out["nsd_onboarding_state"] = typing.cast(
+            "capo_tnb.types.nsd_onboarding_state.NsdOnboardingState", ""
         )
     if data.get("nsdOperationalState") is not None:
         import capo_tnb.types.nsd_operational_state
@@ -120,8 +122,10 @@ def deserialize_json(data: dict) -> ListSolNetworkPackageInfo:
             )
         )
     else:
-        raise DeserializationError(
-            "ListSolNetworkPackageInfo.nsd_operational_state required"
+        import typing
+
+        out["nsd_operational_state"] = typing.cast(
+            "capo_tnb.types.nsd_operational_state.NsdOperationalState", ""
         )
     if data.get("nsdUsageState") is not None:
         import capo_tnb.types.nsd_usage_state
@@ -130,7 +134,11 @@ def deserialize_json(data: dict) -> ListSolNetworkPackageInfo:
             data["nsdUsageState"]
         )
     else:
-        raise DeserializationError("ListSolNetworkPackageInfo.nsd_usage_state required")
+        import typing
+
+        out["nsd_usage_state"] = typing.cast(
+            "capo_tnb.types.nsd_usage_state.NsdUsageState", ""
+        )
     if data.get("nsdId") is not None:
         out["nsd_id"] = data["nsdId"]
     if data.get("nsdName") is not None:

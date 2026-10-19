@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_braket.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_braket.types.search_quantum_tasks_filter_list
 
@@ -49,5 +47,5 @@ def deserialize_json(data: dict) -> SearchQuantumTasksRequest:
             )
         )
     else:
-        raise DeserializationError("SearchQuantumTasksRequest.filters required")
+        out["filters"] = []
     return out

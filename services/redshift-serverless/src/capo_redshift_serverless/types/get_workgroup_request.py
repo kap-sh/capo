@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.workgroup_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetWorkgroupRequest:
     if data.get("workgroupName") is not None:
         out["workgroup_name"] = data["workgroupName"]
     else:
-        raise DeserializationError("GetWorkgroupRequest.workgroup_name required")
+        out["workgroup_name"] = ""
     return out

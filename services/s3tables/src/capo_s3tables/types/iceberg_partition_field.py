@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 
 class IcebergPartitionField(TypedDict, closed=True):
     source_id: "int"
@@ -32,15 +30,15 @@ def deserialize_json(data: dict) -> IcebergPartitionField:
     if data.get("source-id") is not None:
         out["source_id"] = data["source-id"]
     else:
-        raise DeserializationError("IcebergPartitionField.source_id required")
+        out["source_id"] = 0
     if data.get("transform") is not None:
         out["transform"] = data["transform"]
     else:
-        raise DeserializationError("IcebergPartitionField.transform required")
+        out["transform"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("IcebergPartitionField.name required")
+        out["name"] = ""
     if data.get("field-id") is not None:
         out["field_id"] = data["field-id"]
     return out

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_networkflowmonitor.errors import DeserializationError
-
 
 class StartQueryMonitorTopContributorsOutput(TypedDict, closed=True):
     query_id: "str"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> StartQueryMonitorTopContributorsOutput:
     if data.get("queryId") is not None:
         out["query_id"] = data["queryId"]
     else:
-        raise DeserializationError(
-            "StartQueryMonitorTopContributorsOutput.query_id required"
-        )
+        out["query_id"] = ""
     return out

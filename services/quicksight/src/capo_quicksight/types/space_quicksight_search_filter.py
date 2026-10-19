@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.space_quick_sight_search_filter_name
     import capo_quicksight.types.space_search_operator
@@ -50,7 +48,12 @@ def deserialize_json(data: dict) -> SpaceQuicksightSearchFilter:
             )
         )
     else:
-        raise DeserializationError("SpaceQuicksightSearchFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_quicksight.types.space_quick_sight_search_filter_name.SpaceQuickSightSearchFilterName",
+            "",
+        )
     if data.get("operator") is not None:
         import capo_quicksight.types.space_search_operator
 
@@ -58,9 +61,13 @@ def deserialize_json(data: dict) -> SpaceQuicksightSearchFilter:
             data["operator"]
         )
     else:
-        raise DeserializationError("SpaceQuicksightSearchFilter.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_quicksight.types.space_search_operator.SpaceSearchOperator", ""
+        )
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("SpaceQuicksightSearchFilter.value required")
+        out["value"] = ""
     return out

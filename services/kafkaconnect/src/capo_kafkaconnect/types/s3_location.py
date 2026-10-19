@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kafkaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kafkaconnect.types.__string
 
@@ -34,11 +32,11 @@ def deserialize_json(data: dict) -> S3Location:
     if data.get("bucketArn") is not None:
         out["bucket_arn"] = data["bucketArn"]
     else:
-        raise DeserializationError("S3Location.bucket_arn required")
+        out["bucket_arn"] = ""
     if data.get("fileKey") is not None:
         out["file_key"] = data["fileKey"]
     else:
-        raise DeserializationError("S3Location.file_key required")
+        out["file_key"] = ""
     if data.get("objectVersion") is not None:
         out["object_version"] = data["objectVersion"]
     return out

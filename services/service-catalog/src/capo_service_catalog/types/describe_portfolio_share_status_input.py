@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.id
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribePortfolioShareStatusInput:
     if data.get("PortfolioShareToken") is not None:
         out["portfolio_share_token"] = data["PortfolioShareToken"]
     else:
-        raise DeserializationError(
-            "DescribePortfolioShareStatusInput.portfolio_share_token required"
-        )
+        out["portfolio_share_token"] = ""
     return out

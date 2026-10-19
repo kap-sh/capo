@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_auditmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auditmanager.types.iam_arn
     import capo_auditmanager.types.role_type
@@ -39,9 +37,11 @@ def deserialize_json(data: dict) -> Role:
             data["roleType"]
         )
     else:
-        raise DeserializationError("Role.role_type required")
+        import typing
+
+        out["role_type"] = typing.cast("capo_auditmanager.types.role_type.RoleType", "")
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("Role.role_arn required")
+        out["role_arn"] = ""
     return out

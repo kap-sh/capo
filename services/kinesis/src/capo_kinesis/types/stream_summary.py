@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.stream_arn
     import capo_kinesis.types.stream_mode_details
@@ -62,11 +60,11 @@ def deserialize_aws_json_1_1(data: dict) -> StreamSummary:
     if data.get("StreamName") is not None:
         out["stream_name"] = data["StreamName"]
     else:
-        raise DeserializationError("StreamSummary.stream_name required")
+        out["stream_name"] = ""
     if data.get("StreamARN") is not None:
         out["stream_arn"] = data["StreamARN"]
     else:
-        raise DeserializationError("StreamSummary.stream_arn required")
+        out["stream_arn"] = ""
     if data.get("StreamStatus") is not None:
         import capo_kinesis.types.stream_status
 
@@ -76,7 +74,11 @@ def deserialize_aws_json_1_1(data: dict) -> StreamSummary:
             )
         )
     else:
-        raise DeserializationError("StreamSummary.stream_status required")
+        import typing
+
+        out["stream_status"] = typing.cast(
+            "capo_kinesis.types.stream_status.StreamStatus", ""
+        )
     if data.get("StreamModeDetails") is not None:
         import capo_kinesis.types.stream_mode_details
 

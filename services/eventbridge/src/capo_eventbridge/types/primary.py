@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_eventbridge.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridge.types.health_check
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> Primary:
     if data.get("HealthCheck") is not None:
         out["health_check"] = data["HealthCheck"]
     else:
-        raise DeserializationError("Primary.health_check required")
+        out["health_check"] = ""
     return out

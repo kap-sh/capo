@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation_runtime.types.data_automation_arn
     import capo_bedrock_data_automation_runtime.types.data_automation_stage
@@ -40,9 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> DataAutomationConfiguration:
     if data.get("dataAutomationProjectArn") is not None:
         out["data_automation_project_arn"] = data["dataAutomationProjectArn"]
     else:
-        raise DeserializationError(
-            "DataAutomationConfiguration.data_automation_project_arn required"
-        )
+        out["data_automation_project_arn"] = ""
     if data.get("stage") is not None:
         import capo_bedrock_data_automation_runtime.types.data_automation_stage
 

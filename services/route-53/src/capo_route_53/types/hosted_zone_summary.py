@@ -38,12 +38,12 @@ def deserialize_xml(el: Element) -> HostedZoneSummary:
     if child_hosted_zone_id is not None:
         out["hosted_zone_id"] = str(child_hosted_zone_id.text or "")
     else:
-        raise DeserializationError("HostedZoneSummary.hosted_zone_id required")
+        out["hosted_zone_id"] = ""
     child_name = el.find("Name")
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("HostedZoneSummary.name required")
+        out["name"] = ""
     child_owner = el.find("Owner")
     if child_owner is not None:
         import capo_route_53.types.hosted_zone_owner

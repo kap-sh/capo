@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_elementalinference.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elementalinference.types.feed_arn
     import capo_elementalinference.types.feed_association
@@ -56,15 +54,15 @@ def deserialize_json(data: dict) -> FeedSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("FeedSummary.arn required")
+        out["arn"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("FeedSummary.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("FeedSummary.name required")
+        out["name"] = ""
     if data.get("association") is not None:
         import capo_elementalinference.types.feed_association
 
@@ -80,5 +78,9 @@ def deserialize_json(data: dict) -> FeedSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("FeedSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_elementalinference.types.feed_status.FeedStatus", ""
+        )
     return out

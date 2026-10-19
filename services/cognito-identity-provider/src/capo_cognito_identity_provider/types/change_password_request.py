@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.password_type
     import capo_cognito_identity_provider.types.token_model_type
@@ -39,11 +37,11 @@ def deserialize_aws_json_1_1(data: dict) -> ChangePasswordRequest:
     if data.get("ProposedPassword") is not None:
         out["proposed_password"] = data["ProposedPassword"]
     else:
-        raise DeserializationError("ChangePasswordRequest.proposed_password required")
+        out["proposed_password"] = ""
     if data.get("AccessToken") is not None:
         out["access_token"] = data["AccessToken"]
     else:
-        raise DeserializationError("ChangePasswordRequest.access_token required")
+        out["access_token"] = ""
     return out
 
 

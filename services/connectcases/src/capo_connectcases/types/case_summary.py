@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.case_id
     import capo_connectcases.types.template_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> CaseSummary:
     if data.get("caseId") is not None:
         out["case_id"] = data["caseId"]
     else:
-        raise DeserializationError("CaseSummary.case_id required")
+        out["case_id"] = ""
     if data.get("templateId") is not None:
         out["template_id"] = data["templateId"]
     else:
-        raise DeserializationError("CaseSummary.template_id required")
+        out["template_id"] = ""
     return out

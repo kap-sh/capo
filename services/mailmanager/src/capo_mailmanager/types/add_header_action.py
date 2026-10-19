@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.header_name
     import capo_mailmanager.types.header_value
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> AddHeaderAction:
     if data.get("HeaderName") is not None:
         out["header_name"] = data["HeaderName"]
     else:
-        raise DeserializationError("AddHeaderAction.header_name required")
+        out["header_name"] = ""
     if data.get("HeaderValue") is not None:
         out["header_value"] = data["HeaderValue"]
     else:
-        raise DeserializationError("AddHeaderAction.header_value required")
+        out["header_value"] = ""
     return out

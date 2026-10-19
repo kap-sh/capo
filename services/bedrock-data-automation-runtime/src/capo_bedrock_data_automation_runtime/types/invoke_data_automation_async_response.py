@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_data_automation_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation_runtime.types.invocation_arn
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> InvokeDataAutomationAsyncResponse:
     if data.get("invocationArn") is not None:
         out["invocation_arn"] = data["invocationArn"]
     else:
-        raise DeserializationError(
-            "InvokeDataAutomationAsyncResponse.invocation_arn required"
-        )
+        out["invocation_arn"] = ""
     return out

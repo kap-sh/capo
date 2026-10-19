@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError, ServiceError
+from capo_accessanalyzer.errors import ServiceError
 
 
 class InvalidParameterException_(TypedDict, closed=True):
@@ -22,7 +22,7 @@ def deserialize_json(data: dict) -> InvalidParameterException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("InvalidParameterException_.message required")
+        out["message"] = ""
     return out
 
 

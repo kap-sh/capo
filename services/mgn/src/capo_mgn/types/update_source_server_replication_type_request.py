@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.account_id
     import capo_mgn.types.replication_type
@@ -36,15 +34,11 @@ def deserialize_json(data: dict) -> UpdateSourceServerReplicationTypeRequest:
     if data.get("sourceServerID") is not None:
         out["source_server_id"] = data["sourceServerID"]
     else:
-        raise DeserializationError(
-            "UpdateSourceServerReplicationTypeRequest.source_server_id required"
-        )
+        out["source_server_id"] = ""
     if data.get("replicationType") is not None:
         out["replication_type"] = data["replicationType"]
     else:
-        raise DeserializationError(
-            "UpdateSourceServerReplicationTypeRequest.replication_type required"
-        )
+        out["replication_type"] = ""
     if data.get("accountID") is not None:
         out["account_id"] = data["accountID"]
     return out

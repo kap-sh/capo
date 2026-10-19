@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eks.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eks.types.fargate_profile_selectors
     import capo_eks.types.string
@@ -61,15 +59,11 @@ def deserialize_json(data: dict) -> CreateFargateProfileRequest:
     if data.get("fargateProfileName") is not None:
         out["fargate_profile_name"] = data["fargateProfileName"]
     else:
-        raise DeserializationError(
-            "CreateFargateProfileRequest.fargate_profile_name required"
-        )
+        out["fargate_profile_name"] = ""
     if data.get("podExecutionRoleArn") is not None:
         out["pod_execution_role_arn"] = data["podExecutionRoleArn"]
     else:
-        raise DeserializationError(
-            "CreateFargateProfileRequest.pod_execution_role_arn required"
-        )
+        out["pod_execution_role_arn"] = ""
     if data.get("subnets") is not None:
         import capo_eks.types.string_list
 

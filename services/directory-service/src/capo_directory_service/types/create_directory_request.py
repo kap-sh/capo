@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.description
     import capo_directory_service.types.directory_name
@@ -84,13 +82,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDirectoryRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateDirectoryRequest.name required")
+        out["name"] = ""
     if data.get("ShortName") is not None:
         out["short_name"] = data["ShortName"]
     if data.get("Password") is not None:
         out["password"] = data["Password"]
     else:
-        raise DeserializationError("CreateDirectoryRequest.password required")
+        out["password"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Size") is not None:
@@ -102,7 +100,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDirectoryRequest:
             )
         )
     else:
-        raise DeserializationError("CreateDirectoryRequest.size required")
+        import typing
+
+        out["size"] = typing.cast(
+            "capo_directory_service.types.directory_size.DirectorySize", ""
+        )
     if data.get("VpcSettings") is not None:
         import capo_directory_service.types.directory_vpc_settings
 

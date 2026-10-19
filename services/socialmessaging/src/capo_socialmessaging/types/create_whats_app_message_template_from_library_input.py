@@ -51,7 +51,5 @@ def deserialize_json(data: dict) -> CreateWhatsAppMessageTemplateFromLibraryInpu
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError(
-            "CreateWhatsAppMessageTemplateFromLibraryInput.id required"
-        )
+        out["id"] = ""
     return out

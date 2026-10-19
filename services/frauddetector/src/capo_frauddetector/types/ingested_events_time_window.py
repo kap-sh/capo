@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.time
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> IngestedEventsTimeWindow:
     if data.get("startTime") is not None:
         out["start_time"] = data["startTime"]
     else:
-        raise DeserializationError("IngestedEventsTimeWindow.start_time required")
+        out["start_time"] = ""
     if data.get("endTime") is not None:
         out["end_time"] = data["endTime"]
     else:
-        raise DeserializationError("IngestedEventsTimeWindow.end_time required")
+        out["end_time"] = ""
     return out

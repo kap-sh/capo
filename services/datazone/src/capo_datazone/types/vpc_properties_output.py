@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.connection_status
     import capo_datazone.types.glue_connection_names
@@ -65,7 +63,7 @@ def deserialize_json(data: dict) -> VpcPropertiesOutput:
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
     else:
-        raise DeserializationError("VpcPropertiesOutput.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("subnetIds") is not None:
         import capo_datazone.types.vpc_connection_subnet_id_list
 
@@ -75,7 +73,7 @@ def deserialize_json(data: dict) -> VpcPropertiesOutput:
             )
         )
     else:
-        raise DeserializationError("VpcPropertiesOutput.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("status") is not None:
         import capo_datazone.types.connection_status
 
@@ -83,7 +81,11 @@ def deserialize_json(data: dict) -> VpcPropertiesOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("VpcPropertiesOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_datazone.types.connection_status.ConnectionStatus", ""
+        )
     if data.get("securityGroupId") is not None:
         out["security_group_id"] = data["securityGroupId"]
     if data.get("glueConnectionNames") is not None:

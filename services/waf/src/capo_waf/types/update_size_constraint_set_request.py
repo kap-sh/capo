@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_waf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf.types.change_token
     import capo_waf.types.resource_id
@@ -39,15 +37,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateSizeConstraintSetRequest:
     if data.get("SizeConstraintSetId") is not None:
         out["size_constraint_set_id"] = data["SizeConstraintSetId"]
     else:
-        raise DeserializationError(
-            "UpdateSizeConstraintSetRequest.size_constraint_set_id required"
-        )
+        out["size_constraint_set_id"] = ""
     if data.get("ChangeToken") is not None:
         out["change_token"] = data["ChangeToken"]
     else:
-        raise DeserializationError(
-            "UpdateSizeConstraintSetRequest.change_token required"
-        )
+        out["change_token"] = ""
     if data.get("Updates") is not None:
         import capo_waf.types.size_constraint_set_updates
 
@@ -57,5 +51,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateSizeConstraintSetRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateSizeConstraintSetRequest.updates required")
+        out["updates"] = []
     return out

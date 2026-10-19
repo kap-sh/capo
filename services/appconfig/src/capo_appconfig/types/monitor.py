@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appconfig.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appconfig.types.role_arn
     import capo_appconfig.types.string_with_length_between1_and2048
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> Monitor:
     if data.get("AlarmArn") is not None:
         out["alarm_arn"] = data["AlarmArn"]
     else:
-        raise DeserializationError("Monitor.alarm_arn required")
+        out["alarm_arn"] = ""
     if data.get("AlarmRoleArn") is not None:
         out["alarm_role_arn"] = data["AlarmRoleArn"]
     return out

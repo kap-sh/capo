@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.file_share_arn_list
 
@@ -41,7 +39,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeNFSFileSharesInput:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeNFSFileSharesInput.file_share_arn_list required"
-        )
+        out["file_share_arn_list"] = []
     return out

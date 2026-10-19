@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.arn
     import capo_sfn.types.long_arn
@@ -50,15 +48,15 @@ def deserialize_aws_json_1_0(data: dict) -> MapRunListItem:
     if data.get("executionArn") is not None:
         out["execution_arn"] = data["executionArn"]
     else:
-        raise DeserializationError("MapRunListItem.execution_arn required")
+        out["execution_arn"] = ""
     if data.get("mapRunArn") is not None:
         out["map_run_arn"] = data["mapRunArn"]
     else:
-        raise DeserializationError("MapRunListItem.map_run_arn required")
+        out["map_run_arn"] = ""
     if data.get("stateMachineArn") is not None:
         out["state_machine_arn"] = data["stateMachineArn"]
     else:
-        raise DeserializationError("MapRunListItem.state_machine_arn required")
+        out["state_machine_arn"] = ""
     if data.get("startDate") is not None:
         import capo_sfn.types.timestamp
 
@@ -66,7 +64,9 @@ def deserialize_aws_json_1_0(data: dict) -> MapRunListItem:
             data["startDate"]
         )
     else:
-        raise DeserializationError("MapRunListItem.start_date required")
+        import datetime
+
+        out["start_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("stopDate") is not None:
         import capo_sfn.types.timestamp
 

@@ -92,17 +92,17 @@ def deserialize_xml(el: Element) -> Distribution:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("Distribution.id required")
+        out["id"] = ""
     child_arn = el.find("ARN")
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("Distribution.arn required")
+        out["arn"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         out["status"] = str(child_status.text or "")
     else:
-        raise DeserializationError("Distribution.status required")
+        out["status"] = ""
     child_last_modified_time = el.find("LastModifiedTime")
     if child_last_modified_time is not None:
         import capo_cloudfront.types.timestamp
@@ -111,21 +111,23 @@ def deserialize_xml(el: Element) -> Distribution:
             child_last_modified_time
         )
     else:
-        raise DeserializationError("Distribution.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_in_progress_invalidation_batches = el.find("InProgressInvalidationBatches")
     if child_in_progress_invalidation_batches is not None:
         out["in_progress_invalidation_batches"] = int(
             child_in_progress_invalidation_batches.text or ""
         )
     else:
-        raise DeserializationError(
-            "Distribution.in_progress_invalidation_batches required"
-        )
+        out["in_progress_invalidation_batches"] = 0
     child_domain_name = el.find("DomainName")
     if child_domain_name is not None:
         out["domain_name"] = str(child_domain_name.text or "")
     else:
-        raise DeserializationError("Distribution.domain_name required")
+        out["domain_name"] = ""
     child_active_trusted_signers = el.find("ActiveTrustedSigners")
     if child_active_trusted_signers is not None:
         import capo_cloudfront.types.active_trusted_signers

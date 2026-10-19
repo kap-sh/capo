@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.created_at
     import capo_datazone.types.created_by
@@ -69,21 +67,19 @@ def deserialize_json(data: dict) -> StartNotebookExportOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("StartNotebookExportOutput.id required")
+        out["id"] = ""
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("StartNotebookExportOutput.domain_id required")
+        out["domain_id"] = ""
     if data.get("owningProjectId") is not None:
         out["owning_project_id"] = data["owningProjectId"]
     else:
-        raise DeserializationError(
-            "StartNotebookExportOutput.owning_project_id required"
-        )
+        out["owning_project_id"] = ""
     if data.get("notebookId") is not None:
         out["notebook_id"] = data["notebookId"]
     else:
-        raise DeserializationError("StartNotebookExportOutput.notebook_id required")
+        out["notebook_id"] = ""
     if data.get("fileFormat") is not None:
         import capo_datazone.types.file_format
 
@@ -91,7 +87,11 @@ def deserialize_json(data: dict) -> StartNotebookExportOutput:
             data["fileFormat"]
         )
     else:
-        raise DeserializationError("StartNotebookExportOutput.file_format required")
+        import typing
+
+        out["file_format"] = typing.cast(
+            "capo_datazone.types.file_format.FileFormat", ""
+        )
     if data.get("status") is not None:
         import capo_datazone.types.notebook_export_status
 
@@ -99,7 +99,11 @@ def deserialize_json(data: dict) -> StartNotebookExportOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("StartNotebookExportOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_datazone.types.notebook_export_status.NotebookExportStatus", ""
+        )
     if data.get("createdAt") is not None:
         import capo_datazone.types.created_at
 

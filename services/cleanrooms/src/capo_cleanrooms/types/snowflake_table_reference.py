@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.secrets_manager_arn
     import capo_cleanrooms.types.snowflake_account_identifier
@@ -53,25 +51,23 @@ def deserialize_json(data: dict) -> SnowflakeTableReference:
     if data.get("secretArn") is not None:
         out["secret_arn"] = data["secretArn"]
     else:
-        raise DeserializationError("SnowflakeTableReference.secret_arn required")
+        out["secret_arn"] = ""
     if data.get("accountIdentifier") is not None:
         out["account_identifier"] = data["accountIdentifier"]
     else:
-        raise DeserializationError(
-            "SnowflakeTableReference.account_identifier required"
-        )
+        out["account_identifier"] = ""
     if data.get("databaseName") is not None:
         out["database_name"] = data["databaseName"]
     else:
-        raise DeserializationError("SnowflakeTableReference.database_name required")
+        out["database_name"] = ""
     if data.get("tableName") is not None:
         out["table_name"] = data["tableName"]
     else:
-        raise DeserializationError("SnowflakeTableReference.table_name required")
+        out["table_name"] = ""
     if data.get("schemaName") is not None:
         out["schema_name"] = data["schemaName"]
     else:
-        raise DeserializationError("SnowflakeTableReference.schema_name required")
+        out["schema_name"] = ""
     if data.get("tableSchema") is not None:
         import capo_cleanrooms.types.snowflake_table_schema
 
@@ -81,5 +77,7 @@ def deserialize_json(data: dict) -> SnowflakeTableReference:
             )
         )
     else:
-        raise DeserializationError("SnowflakeTableReference.table_schema required")
+        import capo_cleanrooms.types._unknown
+
+        out["table_schema"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
     return out

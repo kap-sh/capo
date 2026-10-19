@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backupsearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backupsearch.types.backup_creation_time_filter
     import capo_backupsearch.types.recovery_point_arn_list
@@ -87,7 +85,7 @@ def deserialize_json(data: dict) -> SearchScope:
             )
         )
     else:
-        raise DeserializationError("SearchScope.backup_resource_types required")
+        out["backup_resource_types"] = []
     if data.get("BackupResourceCreationTime") is not None:
         import capo_backupsearch.types.backup_creation_time_filter
 

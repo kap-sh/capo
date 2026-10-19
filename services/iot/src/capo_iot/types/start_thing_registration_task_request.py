@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.registry_s3_bucket_name
     import capo_iot.types.registry_s3_key_name
@@ -39,25 +37,17 @@ def deserialize_json(data: dict) -> StartThingRegistrationTaskRequest:
     if data.get("templateBody") is not None:
         out["template_body"] = data["templateBody"]
     else:
-        raise DeserializationError(
-            "StartThingRegistrationTaskRequest.template_body required"
-        )
+        out["template_body"] = ""
     if data.get("inputFileBucket") is not None:
         out["input_file_bucket"] = data["inputFileBucket"]
     else:
-        raise DeserializationError(
-            "StartThingRegistrationTaskRequest.input_file_bucket required"
-        )
+        out["input_file_bucket"] = ""
     if data.get("inputFileKey") is not None:
         out["input_file_key"] = data["inputFileKey"]
     else:
-        raise DeserializationError(
-            "StartThingRegistrationTaskRequest.input_file_key required"
-        )
+        out["input_file_key"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError(
-            "StartThingRegistrationTaskRequest.role_arn required"
-        )
+        out["role_arn"] = ""
     return out

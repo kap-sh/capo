@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.auto_evaluation_details
@@ -103,11 +101,11 @@ def deserialize_json(data: dict) -> EvaluationMetadata:
     if data.get("ContactId") is not None:
         out["contact_id"] = data["ContactId"]
     else:
-        raise DeserializationError("EvaluationMetadata.contact_id required")
+        out["contact_id"] = ""
     if data.get("EvaluatorArn") is not None:
         out["evaluator_arn"] = data["EvaluatorArn"]
     else:
-        raise DeserializationError("EvaluationMetadata.evaluator_arn required")
+        out["evaluator_arn"] = ""
     if data.get("ContactAgentId") is not None:
         out["contact_agent_id"] = data["ContactAgentId"]
     if data.get("CalibrationSessionId") is not None:

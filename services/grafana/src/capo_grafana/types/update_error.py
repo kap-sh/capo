@@ -37,11 +37,11 @@ def deserialize_json(data: dict) -> UpdateError:
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("UpdateError.code required")
+        out["code"] = 0
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("UpdateError.message required")
+        out["message"] = ""
     if data.get("causedBy") is not None:
         import capo_grafana.types.update_instruction
 

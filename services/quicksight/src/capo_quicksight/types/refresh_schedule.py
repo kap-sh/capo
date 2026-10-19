@@ -57,7 +57,7 @@ def deserialize_json(data: dict) -> RefreshSchedule:
     if data.get("ScheduleId") is not None:
         out["schedule_id"] = data["ScheduleId"]
     else:
-        raise DeserializationError("RefreshSchedule.schedule_id required")
+        out["schedule_id"] = ""
     if data.get("ScheduleFrequency") is not None:
         import capo_quicksight.types.refresh_frequency
 
@@ -81,7 +81,11 @@ def deserialize_json(data: dict) -> RefreshSchedule:
             data["RefreshType"]
         )
     else:
-        raise DeserializationError("RefreshSchedule.refresh_type required")
+        import typing
+
+        out["refresh_type"] = typing.cast(
+            "capo_quicksight.types.ingestion_type.IngestionType", ""
+        )
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     return out

@@ -70,11 +70,11 @@ def deserialize_json(data: dict) -> RuleGroupsNamespaceDescription:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("RuleGroupsNamespaceDescription.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RuleGroupsNamespaceDescription.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         import capo_amp.types.rule_groups_namespace_status
 
@@ -90,7 +90,7 @@ def deserialize_json(data: dict) -> RuleGroupsNamespaceDescription:
             data["data"]
         )
     else:
-        raise DeserializationError("RuleGroupsNamespaceDescription.data required")
+        out["data"] = b""
     if data.get("createdAt") is not None:
         import capo_amp.types._prelude.timestamp
 
@@ -98,7 +98,9 @@ def deserialize_json(data: dict) -> RuleGroupsNamespaceDescription:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("RuleGroupsNamespaceDescription.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("modifiedAt") is not None:
         import capo_amp.types._prelude.timestamp
 
@@ -106,8 +108,10 @@ def deserialize_json(data: dict) -> RuleGroupsNamespaceDescription:
             data["modifiedAt"]
         )
     else:
-        raise DeserializationError(
-            "RuleGroupsNamespaceDescription.modified_at required"
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("tags") is not None:
         import capo_amp.types.tag_map

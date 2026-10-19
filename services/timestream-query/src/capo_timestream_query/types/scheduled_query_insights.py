@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_timestream_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_query.types.scheduled_query_insights_mode
 
@@ -39,5 +37,10 @@ def deserialize_aws_json_1_0(data: dict) -> ScheduledQueryInsights:
             )
         )
     else:
-        raise DeserializationError("ScheduledQueryInsights.mode required")
+        import typing
+
+        out["mode"] = typing.cast(
+            "capo_timestream_query.types.scheduled_query_insights_mode.ScheduledQueryInsightsMode",
+            "",
+        )
     return out

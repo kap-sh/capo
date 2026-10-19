@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.user_import_job_id_type
     import capo_cognito_identity_provider.types.user_pool_id_type
@@ -33,9 +31,9 @@ def deserialize_aws_json_1_1(data: dict) -> StartUserImportJobRequest:
     if data.get("UserPoolId") is not None:
         out["user_pool_id"] = data["UserPoolId"]
     else:
-        raise DeserializationError("StartUserImportJobRequest.user_pool_id required")
+        out["user_pool_id"] = ""
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError("StartUserImportJobRequest.job_id required")
+        out["job_id"] = ""
     return out

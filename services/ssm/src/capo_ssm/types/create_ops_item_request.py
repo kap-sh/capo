@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.date_time
     import capo_ssm.types.ops_item_account_id
@@ -137,7 +135,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateOpsItemRequest:
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("CreateOpsItemRequest.description required")
+        out["description"] = ""
     if data.get("OpsItemType") is not None:
         out["ops_item_type"] = data["OpsItemType"]
     if data.get("OperationalData") is not None:
@@ -169,11 +167,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateOpsItemRequest:
     if data.get("Source") is not None:
         out["source"] = data["Source"]
     else:
-        raise DeserializationError("CreateOpsItemRequest.source required")
+        out["source"] = ""
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     else:
-        raise DeserializationError("CreateOpsItemRequest.title required")
+        out["title"] = ""
     if data.get("Tags") is not None:
         import capo_ssm.types.tag_list
 

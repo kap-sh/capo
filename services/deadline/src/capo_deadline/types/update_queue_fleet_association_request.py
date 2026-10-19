@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.farm_id
     import capo_deadline.types.fleet_id
@@ -48,5 +46,10 @@ def deserialize_json(data: dict) -> UpdateQueueFleetAssociationRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateQueueFleetAssociationRequest.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_deadline.types.update_queue_fleet_association_status.UpdateQueueFleetAssociationStatus",
+            "",
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_revenue_measurement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_revenue_measurement.types.resource_arn
     import capo_partnercentral_revenue_measurement.types.tag_list
@@ -37,7 +35,7 @@ def deserialize_cbor(data: dict) -> TagResourceInput:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("TagResourceInput.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("tags") is not None:
         import capo_partnercentral_revenue_measurement.types.tag_list
 
@@ -47,5 +45,5 @@ def deserialize_cbor(data: dict) -> TagResourceInput:
             )
         )
     else:
-        raise DeserializationError("TagResourceInput.tags required")
+        out["tags"] = []
     return out

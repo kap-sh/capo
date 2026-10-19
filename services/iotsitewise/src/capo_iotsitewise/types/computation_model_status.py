@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.computation_model_state
     import capo_iotsitewise.types.error_details
@@ -43,7 +41,11 @@ def deserialize_json(data: dict) -> ComputationModelStatus:
             data["state"]
         )
     else:
-        raise DeserializationError("ComputationModelStatus.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_iotsitewise.types.computation_model_state.ComputationModelState", ""
+        )
     if data.get("error") is not None:
         import capo_iotsitewise.types.error_details
 

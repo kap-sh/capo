@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.action_id
     import capo_verifiedpermissions.types.action_type
@@ -31,11 +29,11 @@ def deserialize_aws_json_1_0(data: dict) -> ActionIdentifier:
     if data.get("actionType") is not None:
         out["action_type"] = data["actionType"]
     else:
-        raise DeserializationError("ActionIdentifier.action_type required")
+        out["action_type"] = ""
     if data.get("actionId") is not None:
         out["action_id"] = data["actionId"]
     else:
-        raise DeserializationError("ActionIdentifier.action_id required")
+        out["action_id"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecatalyst.types.name_string
     import capo_codecatalyst.types.project_description
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> CreateProjectRequest:
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("CreateProjectRequest.display_name required")
+        out["display_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

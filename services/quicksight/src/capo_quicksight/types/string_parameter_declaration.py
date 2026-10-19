@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.mapped_data_set_parameters
     import capo_quicksight.types.parameter_name
@@ -83,13 +81,15 @@ def deserialize_json(data: dict) -> StringParameterDeclaration:
             )
         )
     else:
-        raise DeserializationError(
-            "StringParameterDeclaration.parameter_value_type required"
+        import typing
+
+        out["parameter_value_type"] = typing.cast(
+            "capo_quicksight.types.parameter_value_type.ParameterValueType", ""
         )
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("StringParameterDeclaration.name required")
+        out["name"] = ""
     if data.get("DefaultValues") is not None:
         import capo_quicksight.types.string_default_values
 

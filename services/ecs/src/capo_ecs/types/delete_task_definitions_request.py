@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.string_list
 
@@ -35,7 +33,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteTaskDefinitionsRequest:
             data["taskDefinitions"]
         )
     else:
-        raise DeserializationError(
-            "DeleteTaskDefinitionsRequest.task_definitions required"
-        )
+        out["task_definitions"] = []
     return out

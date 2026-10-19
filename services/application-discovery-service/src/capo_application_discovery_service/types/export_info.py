@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_discovery_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_discovery_service.types.boolean
     import capo_application_discovery_service.types.configurations_download_url
@@ -89,7 +87,7 @@ def deserialize_aws_json_1_1(data: dict) -> ExportInfo:
     if data.get("exportId") is not None:
         out["export_id"] = data["exportId"]
     else:
-        raise DeserializationError("ExportInfo.export_id required")
+        out["export_id"] = ""
     if data.get("exportStatus") is not None:
         import capo_application_discovery_service.types.export_status
 
@@ -99,11 +97,15 @@ def deserialize_aws_json_1_1(data: dict) -> ExportInfo:
             )
         )
     else:
-        raise DeserializationError("ExportInfo.export_status required")
+        import typing
+
+        out["export_status"] = typing.cast(
+            "capo_application_discovery_service.types.export_status.ExportStatus", ""
+        )
     if data.get("statusMessage") is not None:
         out["status_message"] = data["statusMessage"]
     else:
-        raise DeserializationError("ExportInfo.status_message required")
+        out["status_message"] = ""
     if data.get("configurationsDownloadUrl") is not None:
         out["configurations_download_url"] = data["configurationsDownloadUrl"]
     if data.get("exportRequestTime") is not None:
@@ -115,7 +117,11 @@ def deserialize_aws_json_1_1(data: dict) -> ExportInfo:
             )
         )
     else:
-        raise DeserializationError("ExportInfo.export_request_time required")
+        import datetime
+
+        out["export_request_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("isTruncated") is not None:
         out["is_truncated"] = data["isTruncated"]
     else:

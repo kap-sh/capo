@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 
 class AwsSupportedService(TypedDict, closed=True):
     supported_service_type: "str"
@@ -28,15 +26,13 @@ def deserialize_json(data: dict) -> AwsSupportedService:
     if data.get("supportedServiceType") is not None:
         out["supported_service_type"] = data["supportedServiceType"]
     else:
-        raise DeserializationError(
-            "AwsSupportedService.supported_service_type required"
-        )
+        out["supported_service_type"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("AwsSupportedService.display_name required")
+        out["display_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("AwsSupportedService.description required")
+        out["description"] = ""
     return out

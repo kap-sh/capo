@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.connector_summaries
     import capo_config_service.types.string
@@ -46,9 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListConnectorsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListConnectorsResponse.connector_summaries required"
-        )
+        out["connector_summaries"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

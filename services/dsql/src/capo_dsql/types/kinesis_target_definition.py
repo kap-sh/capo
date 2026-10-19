@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dsql.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dsql.types.kinesis_stream_arn
     import capo_dsql.types.role_arn
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> KinesisTargetDefinition:
     if data.get("streamArn") is not None:
         out["stream_arn"] = data["streamArn"]
     else:
-        raise DeserializationError("KinesisTargetDefinition.stream_arn required")
+        out["stream_arn"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("KinesisTargetDefinition.role_arn required")
+        out["role_arn"] = ""
     return out

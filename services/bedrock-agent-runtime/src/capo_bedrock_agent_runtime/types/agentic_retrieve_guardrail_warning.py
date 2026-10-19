@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.guardrail_action
 
@@ -41,11 +39,11 @@ def deserialize_json(data: dict) -> AgenticRetrieveGuardrailWarning:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("AgenticRetrieveGuardrailWarning.id required")
+        out["id"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("AgenticRetrieveGuardrailWarning.version required")
+        out["version"] = ""
     if data.get("action") is not None:
         import capo_bedrock_agent_runtime.types.guardrail_action
 
@@ -55,7 +53,11 @@ def deserialize_json(data: dict) -> AgenticRetrieveGuardrailWarning:
             )
         )
     else:
-        raise DeserializationError("AgenticRetrieveGuardrailWarning.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.guardrail_action.GuardrailAction", ""
+        )
     if data.get("message") is not None:
         out["message"] = data["message"]
     return out

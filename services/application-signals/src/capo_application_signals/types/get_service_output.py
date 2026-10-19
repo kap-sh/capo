@@ -74,7 +74,9 @@ def deserialize_json(data: dict) -> GetServiceOutput:
             )
         )
     else:
-        raise DeserializationError("GetServiceOutput.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_application_signals.types._prelude.timestamp
 
@@ -84,7 +86,9 @@ def deserialize_json(data: dict) -> GetServiceOutput:
             )
         )
     else:
-        raise DeserializationError("GetServiceOutput.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("LogGroupReferences") is not None:
         import capo_application_signals.types.log_group_references
 

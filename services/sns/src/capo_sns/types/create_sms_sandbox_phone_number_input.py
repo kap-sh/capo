@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sns.types.language_code_string
@@ -39,9 +38,7 @@ def deserialize_query(el: Element) -> CreateSMSSandboxPhoneNumberInput:
     if child_phone_number is not None:
         out["phone_number"] = str(child_phone_number.text or "")
     else:
-        raise DeserializationError(
-            "CreateSMSSandboxPhoneNumberInput.phone_number required"
-        )
+        out["phone_number"] = ""
     child_language_code = el.find("LanguageCode")
     if child_language_code is not None:
         import capo_sns.types.language_code_string

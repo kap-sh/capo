@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.maximum_execution_frequency
     import capo_config_service.types.organization_config_rule_trigger_types
@@ -101,9 +99,7 @@ def deserialize_aws_json_1_1(data: dict) -> OrganizationCustomRuleMetadata:
     if data.get("LambdaFunctionArn") is not None:
         out["lambda_function_arn"] = data["LambdaFunctionArn"]
     else:
-        raise DeserializationError(
-            "OrganizationCustomRuleMetadata.lambda_function_arn required"
-        )
+        out["lambda_function_arn"] = ""
     if data.get("OrganizationConfigRuleTriggerTypes") is not None:
         import capo_config_service.types.organization_config_rule_trigger_types
 
@@ -113,9 +109,7 @@ def deserialize_aws_json_1_1(data: dict) -> OrganizationCustomRuleMetadata:
             )
         )
     else:
-        raise DeserializationError(
-            "OrganizationCustomRuleMetadata.organization_config_rule_trigger_types required"
-        )
+        out["organization_config_rule_trigger_types"] = []
     if data.get("InputParameters") is not None:
         out["input_parameters"] = data["InputParameters"]
     if data.get("MaximumExecutionFrequency") is not None:

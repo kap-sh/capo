@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.max_sessions_count
     import capo_athena.types.notebook_id
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListNotebookSessionsRequest:
     if data.get("NotebookId") is not None:
         out["notebook_id"] = data["NotebookId"]
     else:
-        raise DeserializationError("ListNotebookSessionsRequest.notebook_id required")
+        out["notebook_id"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

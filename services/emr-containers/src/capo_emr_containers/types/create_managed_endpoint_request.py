@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_containers.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_containers.types.acm_cert_arn
     import capo_emr_containers.types.client_token
@@ -78,23 +76,19 @@ def deserialize_json(data: dict) -> CreateManagedEndpointRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateManagedEndpointRequest.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("CreateManagedEndpointRequest.type required")
+        out["type"] = ""
     if data.get("releaseLabel") is not None:
         out["release_label"] = data["releaseLabel"]
     else:
-        raise DeserializationError(
-            "CreateManagedEndpointRequest.release_label required"
-        )
+        out["release_label"] = ""
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:
-        raise DeserializationError(
-            "CreateManagedEndpointRequest.execution_role_arn required"
-        )
+        out["execution_role_arn"] = ""
     if data.get("certificateArn") is not None:
         out["certificate_arn"] = data["certificateArn"]
     if data.get("configurationOverrides") is not None:
@@ -108,7 +102,7 @@ def deserialize_json(data: dict) -> CreateManagedEndpointRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CreateManagedEndpointRequest.client_token required")
+        out["client_token"] = ""
     if data.get("tags") is not None:
         import capo_emr_containers.types.tag_map
 

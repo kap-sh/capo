@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_m2.errors import DeserializationError
-
 
 class GetSignedBluinsightsUrlResponse(TypedDict, closed=True):
     signed_bi_url: "str"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> GetSignedBluinsightsUrlResponse:
     if data.get("signedBiUrl") is not None:
         out["signed_bi_url"] = data["signedBiUrl"]
     else:
-        raise DeserializationError(
-            "GetSignedBluinsightsUrlResponse.signed_bi_url required"
-        )
+        out["signed_bi_url"] = ""
     return out

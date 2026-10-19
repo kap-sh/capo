@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wisdom.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wisdom.types.arn
     import capo_wisdom.types.assistant_association_output_data
@@ -58,29 +56,23 @@ def deserialize_json(data: dict) -> AssistantAssociationSummary:
     if data.get("assistantAssociationId") is not None:
         out["assistant_association_id"] = data["assistantAssociationId"]
     else:
-        raise DeserializationError(
-            "AssistantAssociationSummary.assistant_association_id required"
-        )
+        out["assistant_association_id"] = ""
     if data.get("assistantAssociationArn") is not None:
         out["assistant_association_arn"] = data["assistantAssociationArn"]
     else:
-        raise DeserializationError(
-            "AssistantAssociationSummary.assistant_association_arn required"
-        )
+        out["assistant_association_arn"] = ""
     if data.get("assistantId") is not None:
         out["assistant_id"] = data["assistantId"]
     else:
-        raise DeserializationError("AssistantAssociationSummary.assistant_id required")
+        out["assistant_id"] = ""
     if data.get("assistantArn") is not None:
         out["assistant_arn"] = data["assistantArn"]
     else:
-        raise DeserializationError("AssistantAssociationSummary.assistant_arn required")
+        out["assistant_arn"] = ""
     if data.get("associationType") is not None:
         out["association_type"] = data["associationType"]
     else:
-        raise DeserializationError(
-            "AssistantAssociationSummary.association_type required"
-        )
+        out["association_type"] = ""
     if data.get("associationData") is not None:
         import capo_wisdom.types.assistant_association_output_data
 
@@ -90,9 +82,9 @@ def deserialize_json(data: dict) -> AssistantAssociationSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "AssistantAssociationSummary.association_data required"
-        )
+        import capo_wisdom.types._unknown
+
+        out["association_data"] = capo_wisdom.types._unknown.UnknownUnionMember("")
     if data.get("tags") is not None:
         import capo_wisdom.types.tags
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_insights.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_insights.types.account_id
     import capo_application_insights.types.log_pattern_name
@@ -44,19 +42,15 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLogPatternRequest:
     if data.get("ResourceGroupName") is not None:
         out["resource_group_name"] = data["ResourceGroupName"]
     else:
-        raise DeserializationError(
-            "DescribeLogPatternRequest.resource_group_name required"
-        )
+        out["resource_group_name"] = ""
     if data.get("PatternSetName") is not None:
         out["pattern_set_name"] = data["PatternSetName"]
     else:
-        raise DeserializationError(
-            "DescribeLogPatternRequest.pattern_set_name required"
-        )
+        out["pattern_set_name"] = ""
     if data.get("PatternName") is not None:
         out["pattern_name"] = data["PatternName"]
     else:
-        raise DeserializationError("DescribeLogPatternRequest.pattern_name required")
+        out["pattern_name"] = ""
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     return out

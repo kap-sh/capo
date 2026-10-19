@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.calculation_component_list
     import capo_connect.types.calculation_expression
@@ -45,9 +43,9 @@ def deserialize_json(data: dict) -> MetricCalculation:
             )
         )
     else:
-        raise DeserializationError("MetricCalculation.calculation_components required")
+        out["calculation_components"] = []
     if data.get("Calculation") is not None:
         out["calculation"] = data["Calculation"]
     else:
-        raise DeserializationError("MetricCalculation.calculation required")
+        out["calculation"] = ""
     return out

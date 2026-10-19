@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.attribute_json_path
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> Attribute:
     if data.get("jsonPath") is not None:
         out["json_path"] = data["jsonPath"]
     else:
-        raise DeserializationError("Attribute.json_path required")
+        out["json_path"] = ""
     return out

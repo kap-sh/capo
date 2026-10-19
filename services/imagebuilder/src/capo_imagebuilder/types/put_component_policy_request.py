@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.component_build_version_arn
     import capo_imagebuilder.types.resource_policy_document
@@ -33,9 +31,9 @@ def deserialize_json(data: dict) -> PutComponentPolicyRequest:
     if data.get("componentArn") is not None:
         out["component_arn"] = data["componentArn"]
     else:
-        raise DeserializationError("PutComponentPolicyRequest.component_arn required")
+        out["component_arn"] = ""
     if data.get("policy") is not None:
         out["policy"] = data["policy"]
     else:
-        raise DeserializationError("PutComponentPolicyRequest.policy required")
+        out["policy"] = ""
     return out

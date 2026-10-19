@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_tnb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_tnb.types.nsd_info_id
     import capo_tnb.types.nsd_operational_state
@@ -40,7 +38,9 @@ def deserialize_json(data: dict) -> UpdateSolNetworkPackageInput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateSolNetworkPackageInput.nsd_operational_state required"
+        import typing
+
+        out["nsd_operational_state"] = typing.cast(
+            "capo_tnb.types.nsd_operational_state.NsdOperationalState", ""
         )
     return out

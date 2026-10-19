@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.evaluation_form_item_enablement_source_type
     import capo_connect.types.reference_id
@@ -44,7 +42,12 @@ def deserialize_json(data: dict) -> EvaluationFormItemEnablementSource:
             )
         )
     else:
-        raise DeserializationError("EvaluationFormItemEnablementSource.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_connect.types.evaluation_form_item_enablement_source_type.EvaluationFormItemEnablementSourceType",
+            "",
+        )
     if data.get("RefId") is not None:
         out["ref_id"] = data["RefId"]
     return out

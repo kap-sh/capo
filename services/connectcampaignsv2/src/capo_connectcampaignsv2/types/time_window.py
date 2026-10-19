@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.open_hours
     import capo_connectcampaignsv2.types.restricted_periods
@@ -46,7 +44,11 @@ def deserialize_json(data: dict) -> TimeWindow:
             data["openHours"]
         )
     else:
-        raise DeserializationError("TimeWindow.open_hours required")
+        import capo_connectcampaignsv2.types._unknown
+
+        out["open_hours"] = capo_connectcampaignsv2.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("restrictedPeriods") is not None:
         import capo_connectcampaignsv2.types.restricted_periods
 

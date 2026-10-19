@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs_realtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.channel_arn
     import capo_ivs_realtime.types.encoder_configuration_arn
@@ -34,9 +32,7 @@ def deserialize_json(data: dict) -> ChannelDestinationConfiguration:
     if data.get("channelArn") is not None:
         out["channel_arn"] = data["channelArn"]
     else:
-        raise DeserializationError(
-            "ChannelDestinationConfiguration.channel_arn required"
-        )
+        out["channel_arn"] = ""
     if data.get("encoderConfigurationArn") is not None:
         out["encoder_configuration_arn"] = data["encoderConfigurationArn"]
     return out

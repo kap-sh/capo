@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.next_token_string
     import capo_dynamodb.types.resource_arn_string
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListTagsOfResourceInput:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("ListTagsOfResourceInput.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

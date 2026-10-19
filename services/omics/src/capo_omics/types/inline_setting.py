@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.aws_account_id
     import capo_omics.types.engine_settings
@@ -63,7 +61,7 @@ def deserialize_json(data: dict) -> InlineSetting:
     if data.get("runSettingId") is not None:
         out["run_setting_id"] = data["runSettingId"]
     else:
-        raise DeserializationError("InlineSetting.run_setting_id required")
+        out["run_setting_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("outputUri") is not None:

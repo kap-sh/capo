@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.vcenter_client_id
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> DeleteVcenterClientRequest:
     if data.get("vcenterClientID") is not None:
         out["vcenter_client_id"] = data["vcenterClientID"]
     else:
-        raise DeserializationError(
-            "DeleteVcenterClientRequest.vcenter_client_id required"
-        )
+        out["vcenter_client_id"] = ""
     return out

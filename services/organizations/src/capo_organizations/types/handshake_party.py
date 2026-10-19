@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_organizations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_organizations.types.handshake_party_id
     import capo_organizations.types.handshake_party_type
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> HandshakeParty:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("HandshakeParty.id required")
+        out["id"] = ""
     if data.get("Type") is not None:
         import capo_organizations.types.handshake_party_type
 
@@ -45,7 +43,11 @@ def deserialize_aws_json_1_1(data: dict) -> HandshakeParty:
             )
         )
     else:
-        raise DeserializationError("HandshakeParty.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_organizations.types.handshake_party_type.HandshakePartyType", ""
+        )
     return out
 
 

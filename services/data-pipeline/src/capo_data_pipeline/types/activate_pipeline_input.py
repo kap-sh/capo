@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_data_pipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_data_pipeline.types.id
     import capo_data_pipeline.types.parameter_value_list
@@ -51,7 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> ActivatePipelineInput:
     if data.get("pipelineId") is not None:
         out["pipeline_id"] = data["pipelineId"]
     else:
-        raise DeserializationError("ActivatePipelineInput.pipeline_id required")
+        out["pipeline_id"] = ""
     if data.get("parameterValues") is not None:
         import capo_data_pipeline.types.parameter_value_list
 

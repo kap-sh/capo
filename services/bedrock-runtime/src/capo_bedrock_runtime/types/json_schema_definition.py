@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 
 class JsonSchemaDefinition(TypedDict, closed=True):
     schema: "str"
@@ -30,7 +28,7 @@ def deserialize_json(data: dict) -> JsonSchemaDefinition:
     if data.get("schema") is not None:
         out["schema"] = data["schema"]
     else:
-        raise DeserializationError("JsonSchemaDefinition.schema required")
+        out["schema"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("description") is not None:

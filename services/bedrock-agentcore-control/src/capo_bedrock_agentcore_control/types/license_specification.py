@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.license_configuration_arn
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> LicenseSpecification:
     if data.get("licenseConfigurationArn") is not None:
         out["license_configuration_arn"] = data["licenseConfigurationArn"]
     else:
-        raise DeserializationError(
-            "LicenseSpecification.license_configuration_arn required"
-        )
+        out["license_configuration_arn"] = ""
     return out

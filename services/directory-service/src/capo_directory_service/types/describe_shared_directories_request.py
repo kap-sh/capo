@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.directory_id
     import capo_directory_service.types.directory_ids
@@ -50,9 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeSharedDirectoriesRequest:
     if data.get("OwnerDirectoryId") is not None:
         out["owner_directory_id"] = data["OwnerDirectoryId"]
     else:
-        raise DeserializationError(
-            "DescribeSharedDirectoriesRequest.owner_directory_id required"
-        )
+        out["owner_directory_id"] = ""
     if data.get("SharedDirectoryIds") is not None:
         import capo_directory_service.types.directory_ids
 

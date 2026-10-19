@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.routes_details
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> Details:
             data["RoutesDetails"]
         )
     else:
-        raise DeserializationError("Details.routes_details required")
+        out["routes_details"] = []
     return out

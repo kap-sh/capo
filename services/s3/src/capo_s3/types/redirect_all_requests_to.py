@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.host_name
@@ -35,7 +34,7 @@ def deserialize_xml(el: Element) -> RedirectAllRequestsTo:
     if child_host_name is not None:
         out["host_name"] = str(child_host_name.text or "")
     else:
-        raise DeserializationError("RedirectAllRequestsTo.host_name required")
+        out["host_name"] = ""
     child_protocol = el.find("Protocol")
     if child_protocol is not None:
         import capo_s3.types.protocol

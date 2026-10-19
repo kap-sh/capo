@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.dns_name
     import capo_network_firewall.types.nat_gateway_attachment_status
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_0(data: dict) -> NatGatewayAttachment:
     if data.get("NatGatewayId") is not None:
         out["nat_gateway_id"] = data["NatGatewayId"]
     else:
-        raise DeserializationError("NatGatewayAttachment.nat_gateway_id required")
+        out["nat_gateway_id"] = ""
     if data.get("Status") is not None:
         import capo_network_firewall.types.nat_gateway_attachment_status
 
@@ -59,7 +57,12 @@ def deserialize_aws_json_1_0(data: dict) -> NatGatewayAttachment:
             )
         )
     else:
-        raise DeserializationError("NatGatewayAttachment.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_network_firewall.types.nat_gateway_attachment_status.NatGatewayAttachmentStatus",
+            "",
+        )
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
     if data.get("DnsName") is not None:

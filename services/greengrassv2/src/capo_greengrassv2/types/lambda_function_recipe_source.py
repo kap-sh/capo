@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_greengrassv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_greengrassv2.types.component_dependency_map
     import capo_greengrassv2.types.component_name_string
@@ -80,7 +78,7 @@ def deserialize_json(data: dict) -> LambdaFunctionRecipeSource:
     if data.get("lambdaArn") is not None:
         out["lambda_arn"] = data["lambdaArn"]
     else:
-        raise DeserializationError("LambdaFunctionRecipeSource.lambda_arn required")
+        out["lambda_arn"] = ""
     if data.get("componentName") is not None:
         out["component_name"] = data["componentName"]
     if data.get("componentVersion") is not None:

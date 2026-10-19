@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.pagination_token
@@ -47,9 +46,7 @@ def deserialize_xml(el: Element) -> ListQueryLoggingConfigsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListQueryLoggingConfigsResponse.query_logging_configs required"
-        )
+        out["query_logging_configs"] = []
     child_next_token = el.find("NextToken")
     if child_next_token is not None:
         out["next_token"] = str(child_next_token.text or "")

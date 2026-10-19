@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.assist_position
     import capo_iot_wireless.types.capture_time_accuracy
@@ -78,7 +76,7 @@ def deserialize_json(data: dict) -> GnssMultiFrame:
             data["Captures"]
         )
     else:
-        raise DeserializationError("GnssMultiFrame.captures required")
+        out["captures"] = []
     if data.get("CaptureTimeAccuracy") is not None:
         out["capture_time_accuracy"] = float(data["CaptureTimeAccuracy"])
     if data.get("AssistPosition") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.scheduled_action_name
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetScheduledActionRequest:
     if data.get("scheduledActionName") is not None:
         out["scheduled_action_name"] = data["scheduledActionName"]
     else:
-        raise DeserializationError(
-            "GetScheduledActionRequest.scheduled_action_name required"
-        )
+        out["scheduled_action_name"] = ""
     return out

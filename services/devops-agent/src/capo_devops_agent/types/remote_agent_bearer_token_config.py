@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.token_value
 
@@ -33,11 +31,11 @@ def deserialize_json(data: dict) -> RemoteAgentBearerTokenConfig:
     if data.get("tokenName") is not None:
         out["token_name"] = data["tokenName"]
     else:
-        raise DeserializationError("RemoteAgentBearerTokenConfig.token_name required")
+        out["token_name"] = ""
     if data.get("tokenValue") is not None:
         out["token_value"] = data["tokenValue"]
     else:
-        raise DeserializationError("RemoteAgentBearerTokenConfig.token_value required")
+        out["token_value"] = ""
     if data.get("authorizationHeader") is not None:
         out["authorization_header"] = data["authorizationHeader"]
     else:

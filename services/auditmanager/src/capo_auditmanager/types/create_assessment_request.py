@@ -66,7 +66,7 @@ def deserialize_json(data: dict) -> CreateAssessmentRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateAssessmentRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("assessmentReportsDestination") is not None:
@@ -92,11 +92,11 @@ def deserialize_json(data: dict) -> CreateAssessmentRequest:
 
         out["roles"] = capo_auditmanager.types.roles.deserialize_json(data["roles"])
     else:
-        raise DeserializationError("CreateAssessmentRequest.roles required")
+        out["roles"] = []
     if data.get("frameworkId") is not None:
         out["framework_id"] = data["frameworkId"]
     else:
-        raise DeserializationError("CreateAssessmentRequest.framework_id required")
+        out["framework_id"] = ""
     if data.get("tags") is not None:
         import capo_auditmanager.types.tag_map
 

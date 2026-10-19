@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.batch_get_incident_findings_error_list
     import capo_ssm_incidents.types.finding_list
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> BatchGetIncidentFindingsOutput:
             data["findings"]
         )
     else:
-        raise DeserializationError("BatchGetIncidentFindingsOutput.findings required")
+        out["findings"] = []
     if data.get("errors") is not None:
         import capo_ssm_incidents.types.batch_get_incident_findings_error_list
 
@@ -55,5 +53,5 @@ def deserialize_json(data: dict) -> BatchGetIncidentFindingsOutput:
             )
         )
     else:
-        raise DeserializationError("BatchGetIncidentFindingsOutput.errors required")
+        out["errors"] = []
     return out

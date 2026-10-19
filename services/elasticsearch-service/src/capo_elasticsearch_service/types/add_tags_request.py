@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_elasticsearch_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elasticsearch_service.types.arn
     import capo_elasticsearch_service.types.tag_list
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> AddTagsRequest:
     if data.get("ARN") is not None:
         out["arn"] = data["ARN"]
     else:
-        raise DeserializationError("AddTagsRequest.arn required")
+        out["arn"] = ""
     if data.get("TagList") is not None:
         import capo_elasticsearch_service.types.tag_list
 
@@ -43,5 +41,5 @@ def deserialize_json(data: dict) -> AddTagsRequest:
             data["TagList"]
         )
     else:
-        raise DeserializationError("AddTagsRequest.tag_list required")
+        out["tag_list"] = []
     return out

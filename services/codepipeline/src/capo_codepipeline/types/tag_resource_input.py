@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.resource_arn
     import capo_codepipeline.types.tag_list
@@ -33,7 +31,7 @@ def deserialize_aws_json_1_1(data: dict) -> TagResourceInput:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("TagResourceInput.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("tags") is not None:
         import capo_codepipeline.types.tag_list
 
@@ -41,5 +39,5 @@ def deserialize_aws_json_1_1(data: dict) -> TagResourceInput:
             data["tags"]
         )
     else:
-        raise DeserializationError("TagResourceInput.tags required")
+        out["tags"] = []
     return out

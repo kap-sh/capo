@@ -66,21 +66,15 @@ def deserialize_json(data: dict) -> CreateConnectAttachmentRequest:
     if data.get("CoreNetworkId") is not None:
         out["core_network_id"] = data["CoreNetworkId"]
     else:
-        raise DeserializationError(
-            "CreateConnectAttachmentRequest.core_network_id required"
-        )
+        out["core_network_id"] = ""
     if data.get("EdgeLocation") is not None:
         out["edge_location"] = data["EdgeLocation"]
     else:
-        raise DeserializationError(
-            "CreateConnectAttachmentRequest.edge_location required"
-        )
+        out["edge_location"] = ""
     if data.get("TransportAttachmentId") is not None:
         out["transport_attachment_id"] = data["TransportAttachmentId"]
     else:
-        raise DeserializationError(
-            "CreateConnectAttachmentRequest.transport_attachment_id required"
-        )
+        out["transport_attachment_id"] = ""
     if data.get("RoutingPolicyLabel") is not None:
         out["routing_policy_label"] = data["RoutingPolicyLabel"]
     if data.get("Options") is not None:

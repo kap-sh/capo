@@ -78,7 +78,7 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceSyncAttempt:
     if data.get("target") is not None:
         out["target"] = data["target"]
     else:
-        raise DeserializationError("ResourceSyncAttempt.target required")
+        out["target"] = ""
     if data.get("startedAt") is not None:
         import capo_proton.types._prelude.timestamp
 
@@ -88,11 +88,13 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceSyncAttempt:
             )
         )
     else:
-        raise DeserializationError("ResourceSyncAttempt.started_at required")
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("ResourceSyncAttempt.status required")
+        out["status"] = ""
     if data.get("events") is not None:
         import capo_proton.types.resource_sync_events
 
@@ -100,5 +102,5 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceSyncAttempt:
             data["events"]
         )
     else:
-        raise DeserializationError("ResourceSyncAttempt.events required")
+        out["events"] = []
     return out

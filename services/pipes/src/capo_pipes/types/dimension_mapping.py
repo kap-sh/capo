@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pipes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pipes.types.dimension_name
     import capo_pipes.types.dimension_value
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> DimensionMapping:
     if data.get("DimensionValue") is not None:
         out["dimension_value"] = data["DimensionValue"]
     else:
-        raise DeserializationError("DimensionMapping.dimension_value required")
+        out["dimension_value"] = ""
     if data.get("DimensionValueType") is not None:
         out["dimension_value_type"] = data["DimensionValueType"]
     else:
-        raise DeserializationError("DimensionMapping.dimension_value_type required")
+        out["dimension_value_type"] = ""
     if data.get("DimensionName") is not None:
         out["dimension_name"] = data["DimensionName"]
     else:
-        raise DeserializationError("DimensionMapping.dimension_name required")
+        out["dimension_name"] = ""
     return out

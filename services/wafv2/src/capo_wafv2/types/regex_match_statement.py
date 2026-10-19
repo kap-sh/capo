@@ -58,7 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> RegexMatchStatement:
     if data.get("RegexString") is not None:
         out["regex_string"] = data["RegexString"]
     else:
-        raise DeserializationError("RegexMatchStatement.regex_string required")
+        out["regex_string"] = ""
     if data.get("FieldToMatch") is not None:
         import capo_wafv2.types.field_to_match
 
@@ -78,7 +78,7 @@ def deserialize_aws_json_1_1(data: dict) -> RegexMatchStatement:
             )
         )
     else:
-        raise DeserializationError("RegexMatchStatement.text_transformations required")
+        out["text_transformations"] = []
     if data.get("PreParseTextTransformations") is not None:
         import capo_wafv2.types.pre_parse_text_transformations
 

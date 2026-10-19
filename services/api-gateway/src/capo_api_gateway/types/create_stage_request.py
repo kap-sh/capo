@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_api_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_api_gateway.types.boolean
     import capo_api_gateway.types.cache_cluster_size
@@ -96,11 +94,11 @@ def deserialize_json(data: dict) -> CreateStageRequest:
     if data.get("stageName") is not None:
         out["stage_name"] = data["stageName"]
     else:
-        raise DeserializationError("CreateStageRequest.stage_name required")
+        out["stage_name"] = ""
     if data.get("deploymentId") is not None:
         out["deployment_id"] = data["deploymentId"]
     else:
-        raise DeserializationError("CreateStageRequest.deployment_id required")
+        out["deployment_id"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("cacheClusterEnabled") is not None:

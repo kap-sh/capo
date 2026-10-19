@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.max_results
     import capo_route53resolver.types.next_token
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListResolverEndpointIpAddressesReque
     if data.get("ResolverEndpointId") is not None:
         out["resolver_endpoint_id"] = data["ResolverEndpointId"]
     else:
-        raise DeserializationError(
-            "ListResolverEndpointIpAddressesRequest.resolver_endpoint_id required"
-        )
+        out["resolver_endpoint_id"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

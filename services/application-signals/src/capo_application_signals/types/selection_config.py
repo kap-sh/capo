@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.selection_pattern
     import capo_application_signals.types.selection_type
@@ -41,7 +39,11 @@ def deserialize_json(data: dict) -> SelectionConfig:
             data["Type"]
         )
     else:
-        raise DeserializationError("SelectionConfig.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_application_signals.types.selection_type.SelectionType", ""
+        )
     if data.get("Pattern") is not None:
         out["pattern"] = data["Pattern"]
     return out

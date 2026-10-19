@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.account_name
     import capo_appflow.types.bucket_name
@@ -57,19 +55,15 @@ def deserialize_json(data: dict) -> SnowflakeConnectorProfileProperties:
     if data.get("warehouse") is not None:
         out["warehouse"] = data["warehouse"]
     else:
-        raise DeserializationError(
-            "SnowflakeConnectorProfileProperties.warehouse required"
-        )
+        out["warehouse"] = ""
     if data.get("stage") is not None:
         out["stage"] = data["stage"]
     else:
-        raise DeserializationError("SnowflakeConnectorProfileProperties.stage required")
+        out["stage"] = ""
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError(
-            "SnowflakeConnectorProfileProperties.bucket_name required"
-        )
+        out["bucket_name"] = ""
     if data.get("bucketPrefix") is not None:
         out["bucket_prefix"] = data["bucketPrefix"]
     if data.get("privateLinkServiceName") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_networkflowmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkflowmonitor.types.monitor_remote_resource_type
 
@@ -42,9 +40,14 @@ def deserialize_json(data: dict) -> MonitorRemoteResource:
             )
         )
     else:
-        raise DeserializationError("MonitorRemoteResource.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_networkflowmonitor.types.monitor_remote_resource_type.MonitorRemoteResourceType",
+            "",
+        )
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("MonitorRemoteResource.identifier required")
+        out["identifier"] = ""
     return out

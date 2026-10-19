@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_controltower.errors import DeserializationError
-
 
 class GetLandingZoneInput(TypedDict, closed=True):
     landing_zone_identifier: "str"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> GetLandingZoneInput:
     if data.get("landingZoneIdentifier") is not None:
         out["landing_zone_identifier"] = data["landingZoneIdentifier"]
     else:
-        raise DeserializationError(
-            "GetLandingZoneInput.landing_zone_identifier required"
-        )
+        out["landing_zone_identifier"] = ""
     return out

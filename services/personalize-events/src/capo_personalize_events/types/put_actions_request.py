@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_personalize_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize_events.types.action_list
     import capo_personalize_events.types.arn
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> PutActionsRequest:
     if data.get("datasetArn") is not None:
         out["dataset_arn"] = data["datasetArn"]
     else:
-        raise DeserializationError("PutActionsRequest.dataset_arn required")
+        out["dataset_arn"] = ""
     if data.get("actions") is not None:
         import capo_personalize_events.types.action_list
 
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> PutActionsRequest:
             data["actions"]
         )
     else:
-        raise DeserializationError("PutActionsRequest.actions required")
+        out["actions"] = []
     return out
 
 

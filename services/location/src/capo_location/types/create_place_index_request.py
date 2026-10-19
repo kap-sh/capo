@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.data_source_configuration
     import capo_location.types.pricing_plan
@@ -62,11 +60,11 @@ def deserialize_json(data: dict) -> CreatePlaceIndexRequest:
     if data.get("IndexName") is not None:
         out["index_name"] = data["IndexName"]
     else:
-        raise DeserializationError("CreatePlaceIndexRequest.index_name required")
+        out["index_name"] = ""
     if data.get("DataSource") is not None:
         out["data_source"] = data["DataSource"]
     else:
-        raise DeserializationError("CreatePlaceIndexRequest.data_source required")
+        out["data_source"] = ""
     if data.get("PricingPlan") is not None:
         out["pricing_plan"] = data["PricingPlan"]
     if data.get("Description") is not None:

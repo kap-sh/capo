@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptunedata.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_neptunedata.types.custom_model_training_parameters
     import capo_neptunedata.types.string_list
@@ -117,15 +115,11 @@ def deserialize_json(data: dict) -> StartMLModelTrainingJobInput:
     if data.get("dataProcessingJobId") is not None:
         out["data_processing_job_id"] = data["dataProcessingJobId"]
     else:
-        raise DeserializationError(
-            "StartMLModelTrainingJobInput.data_processing_job_id required"
-        )
+        out["data_processing_job_id"] = ""
     if data.get("trainModelS3Location") is not None:
         out["train_model_s3_location"] = data["trainModelS3Location"]
     else:
-        raise DeserializationError(
-            "StartMLModelTrainingJobInput.train_model_s3_location required"
-        )
+        out["train_model_s3_location"] = ""
     if data.get("sagemakerIamRoleArn") is not None:
         out["sagemaker_iam_role_arn"] = data["sagemakerIamRoleArn"]
     if data.get("neptuneIamRoleArn") is not None:

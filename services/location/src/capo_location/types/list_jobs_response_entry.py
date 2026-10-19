@@ -99,7 +99,7 @@ def deserialize_json(data: dict) -> ListJobsResponseEntry:
     if data.get("Action") is not None:
         out["action"] = data["Action"]
     else:
-        raise DeserializationError("ListJobsResponseEntry.action required")
+        out["action"] = ""
     if data.get("ActionOptions") is not None:
         import capo_location.types.job_action_options
 
@@ -113,11 +113,13 @@ def deserialize_json(data: dict) -> ListJobsResponseEntry:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("ListJobsResponseEntry.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("ExecutionRoleArn") is not None:
         out["execution_role_arn"] = data["ExecutionRoleArn"]
     else:
-        raise DeserializationError("ListJobsResponseEntry.execution_role_arn required")
+        out["execution_role_arn"] = ""
     if data.get("EndedAt") is not None:
         import capo_location.types.timestamp
 
@@ -139,11 +141,11 @@ def deserialize_json(data: dict) -> ListJobsResponseEntry:
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError("ListJobsResponseEntry.job_id required")
+        out["job_id"] = ""
     if data.get("JobArn") is not None:
         out["job_arn"] = data["JobArn"]
     else:
-        raise DeserializationError("ListJobsResponseEntry.job_arn required")
+        out["job_arn"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("OutputOptions") is not None:
@@ -157,7 +159,7 @@ def deserialize_json(data: dict) -> ListJobsResponseEntry:
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("ListJobsResponseEntry.status required")
+        out["status"] = ""
     if data.get("UpdatedAt") is not None:
         import capo_location.types.timestamp
 
@@ -165,7 +167,9 @@ def deserialize_json(data: dict) -> ListJobsResponseEntry:
             data["UpdatedAt"]
         )
     else:
-        raise DeserializationError("ListJobsResponseEntry.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

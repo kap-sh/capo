@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.limit_id
     import capo_deadline.types.min_one_max_integer
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> AcquiredLimit:
     if data.get("limitId") is not None:
         out["limit_id"] = data["limitId"]
     else:
-        raise DeserializationError("AcquiredLimit.limit_id required")
+        out["limit_id"] = ""
     if data.get("count") is not None:
         out["count"] = data["count"]
     else:
-        raise DeserializationError("AcquiredLimit.count required")
+        out["count"] = 0
     return out

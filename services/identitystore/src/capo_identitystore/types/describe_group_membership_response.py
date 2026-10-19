@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_identitystore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_identitystore.types.date_type
     import capo_identitystore.types.identity_store_id
@@ -71,25 +69,19 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeGroupMembershipResponse:
     if data.get("IdentityStoreId") is not None:
         out["identity_store_id"] = data["IdentityStoreId"]
     else:
-        raise DeserializationError(
-            "DescribeGroupMembershipResponse.identity_store_id required"
-        )
+        out["identity_store_id"] = ""
     if data.get("MembershipId") is not None:
         out["membership_id"] = data["MembershipId"]
     else:
-        raise DeserializationError(
-            "DescribeGroupMembershipResponse.membership_id required"
-        )
+        out["membership_id"] = ""
     if data.get("MembershipArn") is not None:
         out["membership_arn"] = data["MembershipArn"]
     else:
-        raise DeserializationError(
-            "DescribeGroupMembershipResponse.membership_arn required"
-        )
+        out["membership_arn"] = ""
     if data.get("GroupId") is not None:
         out["group_id"] = data["GroupId"]
     else:
-        raise DeserializationError("DescribeGroupMembershipResponse.group_id required")
+        out["group_id"] = ""
     if data.get("MemberId") is not None:
         import capo_identitystore.types.member_id
 
@@ -97,7 +89,9 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeGroupMembershipResponse:
             data["MemberId"]
         )
     else:
-        raise DeserializationError("DescribeGroupMembershipResponse.member_id required")
+        import capo_identitystore.types._unknown
+
+        out["member_id"] = capo_identitystore.types._unknown.UnknownUnionMember("")
     if data.get("CreatedAt") is not None:
         import capo_identitystore.types.date_type
 

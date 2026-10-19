@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_security_ir.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_security_ir.types.case_id
     import capo_security_ir.types.feedback_comment
@@ -46,7 +44,11 @@ def deserialize_json(data: dict) -> SendFeedbackRequest:
             data["usefulness"]
         )
     else:
-        raise DeserializationError("SendFeedbackRequest.usefulness required")
+        import typing
+
+        out["usefulness"] = typing.cast(
+            "capo_security_ir.types.usefulness_rating.UsefulnessRating", ""
+        )
     if data.get("comment") is not None:
         out["comment"] = data["comment"]
     return out

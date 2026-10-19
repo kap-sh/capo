@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.certificate_type
     import capo_payment_cryptography.types.even_hex_length_between16_and32
@@ -81,15 +79,11 @@ def deserialize_aws_json_1_0(data: dict) -> ExportTr34KeyBlock:
             "CertificateAuthorityPublicKeyIdentifier"
         ]
     else:
-        raise DeserializationError(
-            "ExportTr34KeyBlock.certificate_authority_public_key_identifier required"
-        )
+        out["certificate_authority_public_key_identifier"] = ""
     if data.get("WrappingKeyCertificate") is not None:
         out["wrapping_key_certificate"] = data["WrappingKeyCertificate"]
     else:
-        raise DeserializationError(
-            "ExportTr34KeyBlock.wrapping_key_certificate required"
-        )
+        out["wrapping_key_certificate"] = ""
     if data.get("ExportToken") is not None:
         out["export_token"] = data["ExportToken"]
     else:
@@ -101,7 +95,7 @@ def deserialize_aws_json_1_0(data: dict) -> ExportTr34KeyBlock:
     if data.get("KeyBlockFormat") is not None:
         out["key_block_format"] = data["KeyBlockFormat"]
     else:
-        raise DeserializationError("ExportTr34KeyBlock.key_block_format required")
+        out["key_block_format"] = ""
     if data.get("RandomNonce") is not None:
         out["random_nonce"] = data["RandomNonce"]
     if data.get("KeyBlockHeaders") is not None:

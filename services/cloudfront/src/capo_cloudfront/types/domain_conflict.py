@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.distribution_resource_type
@@ -44,7 +43,7 @@ def deserialize_xml(el: Element) -> DomainConflict:
     if child_domain is not None:
         out["domain"] = str(child_domain.text or "")
     else:
-        raise DeserializationError("DomainConflict.domain required")
+        out["domain"] = ""
     child_resource_type = el.find("ResourceType")
     if child_resource_type is not None:
         import capo_cloudfront.types.distribution_resource_type
@@ -55,15 +54,20 @@ def deserialize_xml(el: Element) -> DomainConflict:
             )
         )
     else:
-        raise DeserializationError("DomainConflict.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_cloudfront.types.distribution_resource_type.DistributionResourceType",
+            "",
+        )
     child_resource_id = el.find("ResourceId")
     if child_resource_id is not None:
         out["resource_id"] = str(child_resource_id.text or "")
     else:
-        raise DeserializationError("DomainConflict.resource_id required")
+        out["resource_id"] = ""
     child_account_id = el.find("AccountId")
     if child_account_id is not None:
         out["account_id"] = str(child_account_id.text or "")
     else:
-        raise DeserializationError("DomainConflict.account_id required")
+        out["account_id"] = ""
     return out

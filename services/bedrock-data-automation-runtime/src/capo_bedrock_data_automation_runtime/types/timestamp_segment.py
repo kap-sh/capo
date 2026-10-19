@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_data_automation_runtime.errors import DeserializationError
-
 
 class TimestampSegment(TypedDict, closed=True):
     start_time_millis: "int"
@@ -25,9 +23,9 @@ def deserialize_aws_json_1_1(data: dict) -> TimestampSegment:
     if data.get("startTimeMillis") is not None:
         out["start_time_millis"] = data["startTimeMillis"]
     else:
-        raise DeserializationError("TimestampSegment.start_time_millis required")
+        out["start_time_millis"] = 0
     if data.get("endTimeMillis") is not None:
         out["end_time_millis"] = data["endTimeMillis"]
     else:
-        raise DeserializationError("TimestampSegment.end_time_millis required")
+        out["end_time_millis"] = 0
     return out

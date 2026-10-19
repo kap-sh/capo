@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.boolean
@@ -43,9 +42,7 @@ def deserialize_xml(el: Element) -> ResponseHeadersPolicyServerTimingHeadersConf
     if child_enabled is not None:
         out["enabled"] = (child_enabled.text or "").lower() == "true"
     else:
-        raise DeserializationError(
-            "ResponseHeadersPolicyServerTimingHeadersConfig.enabled required"
-        )
+        out["enabled"] = False
     child_sampling_rate = el.find("SamplingRate")
     if child_sampling_rate is not None:
         out["sampling_rate"] = float(child_sampling_rate.text or "")

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.identifier
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CreateDataSetImportTaskResponse:
     if data.get("taskId") is not None:
         out["task_id"] = data["taskId"]
     else:
-        raise DeserializationError("CreateDataSetImportTaskResponse.task_id required")
+        out["task_id"] = ""
     return out

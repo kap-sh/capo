@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.column_group_list
@@ -222,11 +220,11 @@ def deserialize_json(data: dict) -> CreateDataSetRequest:
     if data.get("DataSetId") is not None:
         out["data_set_id"] = data["DataSetId"]
     else:
-        raise DeserializationError("CreateDataSetRequest.data_set_id required")
+        out["data_set_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateDataSetRequest.name required")
+        out["name"] = ""
     if data.get("PhysicalTableMap") is not None:
         import capo_quicksight.types.physical_table_map
 
@@ -236,7 +234,7 @@ def deserialize_json(data: dict) -> CreateDataSetRequest:
             )
         )
     else:
-        raise DeserializationError("CreateDataSetRequest.physical_table_map required")
+        out["physical_table_map"] = {}
     if data.get("LogicalTableMap") is not None:
         import capo_quicksight.types.logical_table_map
 
@@ -254,7 +252,11 @@ def deserialize_json(data: dict) -> CreateDataSetRequest:
             )
         )
     else:
-        raise DeserializationError("CreateDataSetRequest.import_mode required")
+        import typing
+
+        out["import_mode"] = typing.cast(
+            "capo_quicksight.types.data_set_import_mode.DataSetImportMode", ""
+        )
     if data.get("ColumnGroups") is not None:
         import capo_quicksight.types.column_group_list
 

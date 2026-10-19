@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.deployment_controller_type
 
@@ -37,5 +35,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeploymentController:
             )
         )
     else:
-        raise DeserializationError("DeploymentController.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_ecs.types.deployment_controller_type.DeploymentControllerType", ""
+        )
     return out

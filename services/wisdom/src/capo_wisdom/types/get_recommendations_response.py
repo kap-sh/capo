@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wisdom.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wisdom.types.recommendation_list
     import capo_wisdom.types.recommendation_trigger_list
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> GetRecommendationsResponse:
             data["recommendations"]
         )
     else:
-        raise DeserializationError(
-            "GetRecommendationsResponse.recommendations required"
-        )
+        out["recommendations"] = []
     if data.get("triggers") is not None:
         import capo_wisdom.types.recommendation_trigger_list
 

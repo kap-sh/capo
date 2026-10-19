@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_cost_optimization_hub.errors import DeserializationError
-
 
 class GetRecommendationRequest(TypedDict, closed=True):
     recommendation_id: "str"
@@ -22,7 +20,5 @@ def deserialize_aws_json_1_0(data: dict) -> GetRecommendationRequest:
     if data.get("recommendationId") is not None:
         out["recommendation_id"] = data["recommendationId"]
     else:
-        raise DeserializationError(
-            "GetRecommendationRequest.recommendation_id required"
-        )
+        out["recommendation_id"] = ""
     return out

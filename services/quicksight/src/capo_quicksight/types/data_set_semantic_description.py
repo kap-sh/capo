@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.data_set_descriptive_text
 
@@ -27,7 +25,7 @@ def deserialize_json(data: dict) -> DataSetSemanticDescription:
     if data.get("Text") is not None:
         out["text"] = data["Text"]
     else:
-        raise DeserializationError("DataSetSemanticDescription.text required")
+        out["text"] = ""
     return out
 
 

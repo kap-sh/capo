@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.context
     import capo_bedrock_agentcore.types.evaluation_error_code
@@ -102,15 +100,15 @@ def deserialize_json(data: dict) -> EvaluationResultContent:
     if data.get("evaluatorArn") is not None:
         out["evaluator_arn"] = data["evaluatorArn"]
     else:
-        raise DeserializationError("EvaluationResultContent.evaluator_arn required")
+        out["evaluator_arn"] = ""
     if data.get("evaluatorId") is not None:
         out["evaluator_id"] = data["evaluatorId"]
     else:
-        raise DeserializationError("EvaluationResultContent.evaluator_id required")
+        out["evaluator_id"] = ""
     if data.get("evaluatorName") is not None:
         out["evaluator_name"] = data["evaluatorName"]
     else:
-        raise DeserializationError("EvaluationResultContent.evaluator_name required")
+        out["evaluator_name"] = ""
     if data.get("explanation") is not None:
         out["explanation"] = data["explanation"]
     if data.get("context") is not None:
@@ -120,7 +118,9 @@ def deserialize_json(data: dict) -> EvaluationResultContent:
             data["context"]
         )
     else:
-        raise DeserializationError("EvaluationResultContent.context required")
+        import capo_bedrock_agentcore.types._unknown
+
+        out["context"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
     if data.get("value") is not None:
         out["value"] = float(data["value"])
     if data.get("label") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.log_scope
     import capo_wafv2.types.log_type
@@ -45,9 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetLoggingConfigurationRequest:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError(
-            "GetLoggingConfigurationRequest.resource_arn required"
-        )
+        out["resource_arn"] = ""
     if data.get("LogType") is not None:
         import capo_wafv2.types.log_type
 

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.boolean_type
@@ -86,8 +85,10 @@ def deserialize_query(el: Element) -> GetServiceLastAccessedDetailsWithEntitiesR
             child_job_status
         )
     else:
-        raise DeserializationError(
-            "GetServiceLastAccessedDetailsWithEntitiesResponse.job_status required"
+        import typing
+
+        out["job_status"] = typing.cast(
+            "capo_iam.types.job_status_type.jobStatusType", ""
         )
     child_job_creation_date = el.find("JobCreationDate")
     if child_job_creation_date is not None:
@@ -97,8 +98,10 @@ def deserialize_query(el: Element) -> GetServiceLastAccessedDetailsWithEntitiesR
             child_job_creation_date
         )
     else:
-        raise DeserializationError(
-            "GetServiceLastAccessedDetailsWithEntitiesResponse.job_creation_date required"
+        import datetime
+
+        out["job_creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     child_job_completion_date = el.find("JobCompletionDate")
     if child_job_completion_date is not None:
@@ -108,8 +111,10 @@ def deserialize_query(el: Element) -> GetServiceLastAccessedDetailsWithEntitiesR
             child_job_completion_date
         )
     else:
-        raise DeserializationError(
-            "GetServiceLastAccessedDetailsWithEntitiesResponse.job_completion_date required"
+        import datetime
+
+        out["job_completion_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     child_entity_details_list = el.find("EntityDetailsList")
     if child_entity_details_list is not None:
@@ -121,9 +126,7 @@ def deserialize_query(el: Element) -> GetServiceLastAccessedDetailsWithEntitiesR
             )
         )
     else:
-        raise DeserializationError(
-            "GetServiceLastAccessedDetailsWithEntitiesResponse.entity_details_list required"
-        )
+        out["entity_details_list"] = []
     child_is_truncated = el.find("IsTruncated")
     if child_is_truncated is not None:
         out["is_truncated"] = (child_is_truncated.text or "").lower() == "true"

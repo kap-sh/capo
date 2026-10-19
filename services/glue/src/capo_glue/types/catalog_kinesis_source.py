@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.boxed_boolean
     import capo_glue.types.boxed_positive_int
@@ -70,7 +68,7 @@ def deserialize_aws_json_1_1(data: dict) -> CatalogKinesisSource:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CatalogKinesisSource.name required")
+        out["name"] = ""
     if data.get("WindowSize") is not None:
         out["window_size"] = data["WindowSize"]
     if data.get("DetectSchema") is not None:
@@ -78,11 +76,11 @@ def deserialize_aws_json_1_1(data: dict) -> CatalogKinesisSource:
     if data.get("Table") is not None:
         out["table"] = data["Table"]
     else:
-        raise DeserializationError("CatalogKinesisSource.table required")
+        out["table"] = ""
     if data.get("Database") is not None:
         out["database"] = data["Database"]
     else:
-        raise DeserializationError("CatalogKinesisSource.database required")
+        out["database"] = ""
     if data.get("StreamingOptions") is not None:
         import capo_glue.types.kinesis_streaming_source_options
 

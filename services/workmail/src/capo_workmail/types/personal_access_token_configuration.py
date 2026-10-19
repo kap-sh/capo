@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.personal_access_token_configuration_status
     import capo_workmail.types.personal_access_token_lifetime_in_days
@@ -46,7 +44,12 @@ def deserialize_aws_json_1_1(data: dict) -> PersonalAccessTokenConfiguration:
             )
         )
     else:
-        raise DeserializationError("PersonalAccessTokenConfiguration.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_workmail.types.personal_access_token_configuration_status.PersonalAccessTokenConfigurationStatus",
+            "",
+        )
     if data.get("LifetimeInDays") is not None:
         out["lifetime_in_days"] = data["LifetimeInDays"]
     return out

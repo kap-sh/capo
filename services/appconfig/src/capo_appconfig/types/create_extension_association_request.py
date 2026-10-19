@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appconfig.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appconfig.types.identifier
     import capo_appconfig.types.integer
@@ -53,17 +51,13 @@ def deserialize_json(data: dict) -> CreateExtensionAssociationRequest:
     if data.get("ExtensionIdentifier") is not None:
         out["extension_identifier"] = data["ExtensionIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateExtensionAssociationRequest.extension_identifier required"
-        )
+        out["extension_identifier"] = ""
     if data.get("ExtensionVersionNumber") is not None:
         out["extension_version_number"] = data["ExtensionVersionNumber"]
     if data.get("ResourceIdentifier") is not None:
         out["resource_identifier"] = data["ResourceIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateExtensionAssociationRequest.resource_identifier required"
-        )
+        out["resource_identifier"] = ""
     if data.get("Parameters") is not None:
         import capo_appconfig.types.parameter_value_map
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_auditmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auditmanager.types.evidence_ids
     import capo_auditmanager.types.uuid
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> BatchAssociateAssessmentReportEvidenceReques
     if data.get("evidenceFolderId") is not None:
         out["evidence_folder_id"] = data["evidenceFolderId"]
     else:
-        raise DeserializationError(
-            "BatchAssociateAssessmentReportEvidenceRequest.evidence_folder_id required"
-        )
+        out["evidence_folder_id"] = ""
     if data.get("evidenceIds") is not None:
         import capo_auditmanager.types.evidence_ids
 
@@ -47,7 +43,5 @@ def deserialize_json(data: dict) -> BatchAssociateAssessmentReportEvidenceReques
             data["evidenceIds"]
         )
     else:
-        raise DeserializationError(
-            "BatchAssociateAssessmentReportEvidenceRequest.evidence_ids required"
-        )
+        out["evidence_ids"] = []
     return out

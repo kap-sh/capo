@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecatalyst.types.list_source_repository_branches_items
 
@@ -45,7 +43,5 @@ def deserialize_json(data: dict) -> ListSourceRepositoryBranchesResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListSourceRepositoryBranchesResponse.items required"
-        )
+        out["items"] = []
     return out

@@ -72,7 +72,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDatasetRequest:
     if data.get("DatasetName") is not None:
         out["dataset_name"] = data["DatasetName"]
     else:
-        raise DeserializationError("CreateDatasetRequest.dataset_name required")
+        out["dataset_name"] = ""
     if data.get("Domain") is not None:
         import capo_forecast.types.domain
 
@@ -80,7 +80,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDatasetRequest:
             data["Domain"]
         )
     else:
-        raise DeserializationError("CreateDatasetRequest.domain required")
+        import typing
+
+        out["domain"] = typing.cast("capo_forecast.types.domain.Domain", "")
     if data.get("DatasetType") is not None:
         import capo_forecast.types.dataset_type
 
@@ -88,7 +90,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDatasetRequest:
             data["DatasetType"]
         )
     else:
-        raise DeserializationError("CreateDatasetRequest.dataset_type required")
+        import typing
+
+        out["dataset_type"] = typing.cast(
+            "capo_forecast.types.dataset_type.DatasetType", ""
+        )
     if data.get("DataFrequency") is not None:
         out["data_frequency"] = data["DataFrequency"]
     if data.get("Schema") is not None:

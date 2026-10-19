@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.reranking_metadata_selection_mode
     import capo_bedrock_agent_runtime.types.reranking_metadata_selective_mode_configuration
@@ -52,8 +50,11 @@ def deserialize_json(data: dict) -> MetadataConfigurationForReranking:
             )
         )
     else:
-        raise DeserializationError(
-            "MetadataConfigurationForReranking.selection_mode required"
+        import typing
+
+        out["selection_mode"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.reranking_metadata_selection_mode.RerankingMetadataSelectionMode",
+            "",
         )
     if data.get("selectiveModeConfiguration") is not None:
         import capo_bedrock_agent_runtime.types.reranking_metadata_selective_mode_configuration

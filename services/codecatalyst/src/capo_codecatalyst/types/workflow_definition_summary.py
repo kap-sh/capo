@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 
 class WorkflowDefinitionSummary(TypedDict, closed=True):
     path: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> WorkflowDefinitionSummary:
     if data.get("path") is not None:
         out["path"] = data["path"]
     else:
-        raise DeserializationError("WorkflowDefinitionSummary.path required")
+        out["path"] = ""
     return out

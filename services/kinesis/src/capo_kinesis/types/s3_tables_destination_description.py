@@ -51,9 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3TablesDestinationDescription:
     if data.get("DataFreshnessInSeconds") is not None:
         out["data_freshness_in_seconds"] = data["DataFreshnessInSeconds"]
     else:
-        raise DeserializationError(
-            "S3TablesDestinationDescription.data_freshness_in_seconds required"
-        )
+        out["data_freshness_in_seconds"] = 0
     if data.get("DeadLetterQueueS3Configuration") is not None:
         import capo_kinesis.types.dead_letter_queue_s3_configuration
 
@@ -75,7 +73,5 @@ def deserialize_aws_json_1_1(data: dict) -> S3TablesDestinationDescription:
             )
         )
     else:
-        raise DeserializationError(
-            "S3TablesDestinationDescription.s3_tables_configuration_list required"
-        )
+        out["s3_tables_configuration_list"] = []
     return out

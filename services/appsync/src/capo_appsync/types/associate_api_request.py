@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.domain_name
     import capo_appsync.types.string
@@ -30,5 +28,5 @@ def deserialize_json(data: dict) -> AssociateApiRequest:
     if data.get("apiId") is not None:
         out["api_id"] = data["apiId"]
     else:
-        raise DeserializationError("AssociateApiRequest.api_id required")
+        out["api_id"] = ""
     return out

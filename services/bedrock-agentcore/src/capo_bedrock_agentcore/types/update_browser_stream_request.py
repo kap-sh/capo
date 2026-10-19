@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.browser_session_id
     import capo_bedrock_agentcore.types.client_token
@@ -47,7 +45,11 @@ def deserialize_json(data: dict) -> UpdateBrowserStreamRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateBrowserStreamRequest.stream_update required")
+        import capo_bedrock_agentcore.types._unknown
+
+        out["stream_update"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

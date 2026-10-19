@@ -59,9 +59,13 @@ def deserialize_aws_json_1_1(data: dict) -> RegexMatchTuple:
             )
         )
     else:
-        raise DeserializationError("RegexMatchTuple.text_transformation required")
+        import typing
+
+        out["text_transformation"] = typing.cast(
+            "capo_waf.types.text_transformation.TextTransformation", ""
+        )
     if data.get("RegexPatternSetId") is not None:
         out["regex_pattern_set_id"] = data["RegexPatternSetId"]
     else:
-        raise DeserializationError("RegexMatchTuple.regex_pattern_set_id required")
+        out["regex_pattern_set_id"] = ""
     return out

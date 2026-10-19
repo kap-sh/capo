@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.content_data_source_type
     import capo_bedrock_agent.types.custom_document_identifier
@@ -61,7 +59,12 @@ def deserialize_json(data: dict) -> DocumentIdentifier:
             )
         )
     else:
-        raise DeserializationError("DocumentIdentifier.data_source_type required")
+        import typing
+
+        out["data_source_type"] = typing.cast(
+            "capo_bedrock_agent.types.content_data_source_type.ContentDataSourceType",
+            "",
+        )
     if data.get("s3") is not None:
         import capo_bedrock_agent.types.s3_location
 

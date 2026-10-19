@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_launch_wizard.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_launch_wizard.types.service_principal_type
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> DelegatedAdminConstraint:
     if data.get("servicePrincipal") is not None:
         out["service_principal"] = data["servicePrincipal"]
     else:
-        raise DeserializationError(
-            "DelegatedAdminConstraint.service_principal required"
-        )
+        out["service_principal"] = ""
     return out

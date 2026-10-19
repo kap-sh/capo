@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.fallback_behavior
 
@@ -37,5 +35,9 @@ def deserialize_aws_json_1_1(data: dict) -> JA4Fingerprint:
             )
         )
     else:
-        raise DeserializationError("JA4Fingerprint.fallback_behavior required")
+        import typing
+
+        out["fallback_behavior"] = typing.cast(
+            "capo_wafv2.types.fallback_behavior.FallbackBehavior", ""
+        )
     return out

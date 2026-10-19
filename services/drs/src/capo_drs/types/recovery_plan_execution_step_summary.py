@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.error_detail
     import capo_drs.types.recovery_plan_execution_step_configuration
@@ -55,25 +53,19 @@ def deserialize_json(data: dict) -> RecoveryPlanExecutionStepSummary:
     if data.get("recoveryPlanExecutionStepArn") is not None:
         out["recovery_plan_execution_step_arn"] = data["recoveryPlanExecutionStepArn"]
     else:
-        raise DeserializationError(
-            "RecoveryPlanExecutionStepSummary.recovery_plan_execution_step_arn required"
-        )
+        out["recovery_plan_execution_step_arn"] = ""
     if data.get("stepName") is not None:
         out["step_name"] = data["stepName"]
     else:
-        raise DeserializationError(
-            "RecoveryPlanExecutionStepSummary.step_name required"
-        )
+        out["step_name"] = ""
     if data.get("stepIndex") is not None:
         out["step_index"] = data["stepIndex"]
     else:
-        raise DeserializationError(
-            "RecoveryPlanExecutionStepSummary.step_index required"
-        )
+        out["step_index"] = 0
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("RecoveryPlanExecutionStepSummary.status required")
+        out["status"] = ""
     if data.get("configuration") is not None:
         import capo_drs.types.recovery_plan_execution_step_configuration
 
@@ -83,9 +75,9 @@ def deserialize_json(data: dict) -> RecoveryPlanExecutionStepSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "RecoveryPlanExecutionStepSummary.configuration required"
-        )
+        import capo_drs.types._unknown
+
+        out["configuration"] = capo_drs.types._unknown.UnknownUnionMember("")
     if data.get("errorDetail") is not None:
         import capo_drs.types.error_detail
 

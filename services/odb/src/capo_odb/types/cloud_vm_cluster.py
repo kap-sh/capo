@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -286,7 +284,7 @@ def deserialize_aws_json_1_0(data: dict) -> CloudVmCluster:
     if data.get("cloudVmClusterId") is not None:
         out["cloud_vm_cluster_id"] = data["cloudVmClusterId"]
     else:
-        raise DeserializationError("CloudVmCluster.cloud_vm_cluster_id required")
+        out["cloud_vm_cluster_id"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     if data.get("status") is not None:

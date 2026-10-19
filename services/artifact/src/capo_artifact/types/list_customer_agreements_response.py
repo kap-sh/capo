@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_artifact.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_artifact.types.customer_agreement_list
     import capo_artifact.types.next_token_attribute
@@ -48,9 +46,7 @@ def deserialize_json(data: dict) -> ListCustomerAgreementsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListCustomerAgreementsResponse.customer_agreements required"
-        )
+        out["customer_agreements"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

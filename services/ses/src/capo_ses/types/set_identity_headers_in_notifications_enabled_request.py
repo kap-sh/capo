@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.enabled
@@ -44,9 +43,7 @@ def deserialize_query(el: Element) -> SetIdentityHeadersInNotificationsEnabledRe
     if child_identity is not None:
         out["identity"] = str(child_identity.text or "")
     else:
-        raise DeserializationError(
-            "SetIdentityHeadersInNotificationsEnabledRequest.identity required"
-        )
+        out["identity"] = ""
     child_notification_type = el.find("NotificationType")
     if child_notification_type is not None:
         import capo_ses.types.notification_type
@@ -55,14 +52,14 @@ def deserialize_query(el: Element) -> SetIdentityHeadersInNotificationsEnabledRe
             child_notification_type
         )
     else:
-        raise DeserializationError(
-            "SetIdentityHeadersInNotificationsEnabledRequest.notification_type required"
+        import typing
+
+        out["notification_type"] = typing.cast(
+            "capo_ses.types.notification_type.NotificationType", ""
         )
     child_enabled = el.find("Enabled")
     if child_enabled is not None:
         out["enabled"] = (child_enabled.text or "").lower() == "true"
     else:
-        raise DeserializationError(
-            "SetIdentityHeadersInNotificationsEnabledRequest.enabled required"
-        )
+        out["enabled"] = False
     return out

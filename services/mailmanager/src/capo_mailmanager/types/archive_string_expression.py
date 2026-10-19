@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.archive_string_operator
     import capo_mailmanager.types.archive_string_to_evaluate
@@ -59,7 +57,9 @@ def deserialize_aws_json_1_0(data: dict) -> ArchiveStringExpression:
             )
         )
     else:
-        raise DeserializationError("ArchiveStringExpression.evaluate required")
+        import capo_mailmanager.types._unknown
+
+        out["evaluate"] = capo_mailmanager.types._unknown.UnknownUnionMember("")
     if data.get("Operator") is not None:
         import capo_mailmanager.types.archive_string_operator
 
@@ -69,7 +69,11 @@ def deserialize_aws_json_1_0(data: dict) -> ArchiveStringExpression:
             )
         )
     else:
-        raise DeserializationError("ArchiveStringExpression.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_mailmanager.types.archive_string_operator.ArchiveStringOperator", ""
+        )
     if data.get("Values") is not None:
         import capo_mailmanager.types.string_value_list
 
@@ -79,5 +83,5 @@ def deserialize_aws_json_1_0(data: dict) -> ArchiveStringExpression:
             )
         )
     else:
-        raise DeserializationError("ArchiveStringExpression.values required")
+        out["values"] = []
     return out

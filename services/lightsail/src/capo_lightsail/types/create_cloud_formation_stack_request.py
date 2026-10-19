@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.instance_entry_list
 
@@ -37,7 +35,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCloudFormationStackRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateCloudFormationStackRequest.instances required"
-        )
+        out["instances"] = []
     return out

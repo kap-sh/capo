@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.protected_job_output
 
@@ -35,5 +33,7 @@ def deserialize_json(data: dict) -> ProtectedJobResult:
             data["output"]
         )
     else:
-        raise DeserializationError("ProtectedJobResult.output required")
+        import capo_cleanrooms.types._unknown
+
+        out["output"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
     return out

@@ -62,15 +62,11 @@ def deserialize_aws_json_1_1(data: dict) -> NotifyMigrationTaskStateRequest:
     if data.get("ProgressUpdateStream") is not None:
         out["progress_update_stream"] = data["ProgressUpdateStream"]
     else:
-        raise DeserializationError(
-            "NotifyMigrationTaskStateRequest.progress_update_stream required"
-        )
+        out["progress_update_stream"] = ""
     if data.get("MigrationTaskName") is not None:
         out["migration_task_name"] = data["MigrationTaskName"]
     else:
-        raise DeserializationError(
-            "NotifyMigrationTaskStateRequest.migration_task_name required"
-        )
+        out["migration_task_name"] = ""
     if data.get("Task") is not None:
         import capo_migration_hub.types.task
 
@@ -88,15 +84,15 @@ def deserialize_aws_json_1_1(data: dict) -> NotifyMigrationTaskStateRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "NotifyMigrationTaskStateRequest.update_date_time required"
+        import datetime
+
+        out["update_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("NextUpdateSeconds") is not None:
         out["next_update_seconds"] = data["NextUpdateSeconds"]
     else:
-        raise DeserializationError(
-            "NotifyMigrationTaskStateRequest.next_update_seconds required"
-        )
+        out["next_update_seconds"] = 0
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
     return out

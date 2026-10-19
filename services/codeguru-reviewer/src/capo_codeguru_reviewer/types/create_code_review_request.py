@@ -48,13 +48,11 @@ def deserialize_json(data: dict) -> CreateCodeReviewRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateCodeReviewRequest.name required")
+        out["name"] = ""
     if data.get("RepositoryAssociationArn") is not None:
         out["repository_association_arn"] = data["RepositoryAssociationArn"]
     else:
-        raise DeserializationError(
-            "CreateCodeReviewRequest.repository_association_arn required"
-        )
+        out["repository_association_arn"] = ""
     if data.get("Type") is not None:
         import capo_codeguru_reviewer.types.code_review_type
 

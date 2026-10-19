@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.online_evaluation_config_arn
     import capo_bedrock_agentcore_control.types.online_evaluation_config_id
@@ -41,15 +39,11 @@ def deserialize_json(data: dict) -> DeleteOnlineEvaluationConfigResponse:
     if data.get("onlineEvaluationConfigArn") is not None:
         out["online_evaluation_config_arn"] = data["onlineEvaluationConfigArn"]
     else:
-        raise DeserializationError(
-            "DeleteOnlineEvaluationConfigResponse.online_evaluation_config_arn required"
-        )
+        out["online_evaluation_config_arn"] = ""
     if data.get("onlineEvaluationConfigId") is not None:
         out["online_evaluation_config_id"] = data["onlineEvaluationConfigId"]
     else:
-        raise DeserializationError(
-            "DeleteOnlineEvaluationConfigResponse.online_evaluation_config_id required"
-        )
+        out["online_evaluation_config_id"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.online_evaluation_config_status
 
@@ -59,7 +53,10 @@ def deserialize_json(data: dict) -> DeleteOnlineEvaluationConfigResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DeleteOnlineEvaluationConfigResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.online_evaluation_config_status.OnlineEvaluationConfigStatus",
+            "",
         )
     return out

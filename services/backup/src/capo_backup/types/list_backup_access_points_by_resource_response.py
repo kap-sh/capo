@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.backup_access_points
 
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> ListBackupAccessPointsByResourceResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListBackupAccessPointsByResourceResponse.backup_access_points required"
-        )
+        out["backup_access_points"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

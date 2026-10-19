@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.conditional_formatting_icon_set_type
     import capo_quicksight.types.expression
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ConditionalFormattingIconSet:
     if data.get("Expression") is not None:
         out["expression"] = data["Expression"]
     else:
-        raise DeserializationError("ConditionalFormattingIconSet.expression required")
+        out["expression"] = ""
     if data.get("IconSetType") is not None:
         import capo_quicksight.types.conditional_formatting_icon_set_type
 

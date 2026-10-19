@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_medical_imaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_medical_imaging.types.image_sets_metadata_summaries
     import capo_medical_imaging.types.next_token
@@ -51,9 +49,7 @@ def deserialize_json(data: dict) -> SearchImageSetsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "SearchImageSetsResponse.image_sets_metadata_summaries required"
-        )
+        out["image_sets_metadata_summaries"] = []
     if data.get("sort") is not None:
         import capo_medical_imaging.types.sort
 

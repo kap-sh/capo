@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.configured_user_auth_factors_list_type
     import capo_cognito_identity_provider.types.string_type
@@ -60,7 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> AdminGetUserAuthFactorsResponse:
     if data.get("Username") is not None:
         out["username"] = data["Username"]
     else:
-        raise DeserializationError("AdminGetUserAuthFactorsResponse.username required")
+        out["username"] = ""
     if data.get("PreferredMfaSetting") is not None:
         out["preferred_mfa_setting"] = data["PreferredMfaSetting"]
     if data.get("UserMFASettingList") is not None:

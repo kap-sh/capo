@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.integer_range_between0_and6
     import capo_payment_cryptography_data.types.verification_value_type
@@ -31,13 +29,11 @@ def deserialize_json(data: dict) -> VisaPinVerification:
     if data.get("PinVerificationKeyIndex") is not None:
         out["pin_verification_key_index"] = data["PinVerificationKeyIndex"]
     else:
-        raise DeserializationError(
-            "VisaPinVerification.pin_verification_key_index required"
-        )
+        out["pin_verification_key_index"] = 0
     if data.get("VerificationValue") is not None:
         out["verification_value"] = data["VerificationValue"]
     else:
-        raise DeserializationError("VisaPinVerification.verification_value required")
+        out["verification_value"] = ""
     return out
 
 

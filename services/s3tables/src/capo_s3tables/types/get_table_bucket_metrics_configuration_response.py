@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3tables.types.table_bucket_arn
 
@@ -31,9 +29,7 @@ def deserialize_json(data: dict) -> GetTableBucketMetricsConfigurationResponse:
     if data.get("tableBucketARN") is not None:
         out["table_bucket_arn"] = data["tableBucketARN"]
     else:
-        raise DeserializationError(
-            "GetTableBucketMetricsConfigurationResponse.table_bucket_arn required"
-        )
+        out["table_bucket_arn"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.custom_redirect_domain
     import capo_sesv2.types.https_policy
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> TrackingOptions:
     if data.get("CustomRedirectDomain") is not None:
         out["custom_redirect_domain"] = data["CustomRedirectDomain"]
     else:
-        raise DeserializationError("TrackingOptions.custom_redirect_domain required")
+        out["custom_redirect_domain"] = ""
     if data.get("HttpsPolicy") is not None:
         import capo_sesv2.types.https_policy
 

@@ -72,19 +72,19 @@ def deserialize_aws_json_1_0(data: dict) -> GetPartnerResponse:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("GetPartnerResponse.catalog required")
+        out["catalog"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("GetPartnerResponse.arn required")
+        out["arn"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("GetPartnerResponse.id required")
+        out["id"] = ""
     if data.get("LegalName") is not None:
         out["legal_name"] = data["LegalName"]
     else:
-        raise DeserializationError("GetPartnerResponse.legal_name required")
+        out["legal_name"] = ""
     if data.get("CreatedAt") is not None:
         import capo_partnercentral_account.types.date_time
 
@@ -94,7 +94,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetPartnerResponse:
             )
         )
     else:
-        raise DeserializationError("GetPartnerResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Profile") is not None:
         import capo_partnercentral_account.types.partner_profile
 

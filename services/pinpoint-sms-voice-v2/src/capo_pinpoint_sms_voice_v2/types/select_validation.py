@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.string_list
 
@@ -39,11 +37,11 @@ def deserialize_aws_json_1_0(data: dict) -> SelectValidation:
     if data.get("MinChoices") is not None:
         out["min_choices"] = data["MinChoices"]
     else:
-        raise DeserializationError("SelectValidation.min_choices required")
+        out["min_choices"] = 0
     if data.get("MaxChoices") is not None:
         out["max_choices"] = data["MaxChoices"]
     else:
-        raise DeserializationError("SelectValidation.max_choices required")
+        out["max_choices"] = 0
     if data.get("Options") is not None:
         import capo_pinpoint_sms_voice_v2.types.string_list
 
@@ -53,5 +51,5 @@ def deserialize_aws_json_1_0(data: dict) -> SelectValidation:
             )
         )
     else:
-        raise DeserializationError("SelectValidation.options required")
+        out["options"] = []
     return out

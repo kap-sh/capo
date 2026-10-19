@@ -61,19 +61,15 @@ def deserialize_json(data: dict) -> StartDevEnvironmentSessionResponse:
     if data.get("spaceName") is not None:
         out["space_name"] = data["spaceName"]
     else:
-        raise DeserializationError(
-            "StartDevEnvironmentSessionResponse.space_name required"
-        )
+        out["space_name"] = ""
     if data.get("projectName") is not None:
         out["project_name"] = data["projectName"]
     else:
-        raise DeserializationError(
-            "StartDevEnvironmentSessionResponse.project_name required"
-        )
+        out["project_name"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("StartDevEnvironmentSessionResponse.id required")
+        out["id"] = ""
     return out
 
 

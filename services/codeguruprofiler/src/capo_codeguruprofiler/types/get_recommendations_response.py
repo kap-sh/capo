@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codeguruprofiler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguruprofiler.types.anomalies
     import capo_codeguruprofiler.types.profiling_group_name
@@ -60,9 +58,7 @@ def deserialize_json(data: dict) -> GetRecommendationsResponse:
     if data.get("profilingGroupName") is not None:
         out["profiling_group_name"] = data["profilingGroupName"]
     else:
-        raise DeserializationError(
-            "GetRecommendationsResponse.profiling_group_name required"
-        )
+        out["profiling_group_name"] = ""
     if data.get("profileStartTime") is not None:
         import capo_codeguruprofiler.types.timestamp
 
@@ -72,8 +68,10 @@ def deserialize_json(data: dict) -> GetRecommendationsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetRecommendationsResponse.profile_start_time required"
+        import datetime
+
+        out["profile_start_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("profileEndTime") is not None:
         import capo_codeguruprofiler.types.timestamp
@@ -84,8 +82,10 @@ def deserialize_json(data: dict) -> GetRecommendationsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetRecommendationsResponse.profile_end_time required"
+        import datetime
+
+        out["profile_end_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("recommendations") is not None:
         import capo_codeguruprofiler.types.recommendations
@@ -96,9 +96,7 @@ def deserialize_json(data: dict) -> GetRecommendationsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetRecommendationsResponse.recommendations required"
-        )
+        out["recommendations"] = []
     if data.get("anomalies") is not None:
         import capo_codeguruprofiler.types.anomalies
 
@@ -106,5 +104,5 @@ def deserialize_json(data: dict) -> GetRecommendationsResponse:
             data["anomalies"]
         )
     else:
-        raise DeserializationError("GetRecommendationsResponse.anomalies required")
+        out["anomalies"] = []
     return out

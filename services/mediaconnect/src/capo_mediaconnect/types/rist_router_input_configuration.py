@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 
 class RistRouterInputConfiguration(TypedDict, closed=True):
     port: "int"
@@ -25,11 +23,9 @@ def deserialize_json(data: dict) -> RistRouterInputConfiguration:
     if data.get("port") is not None:
         out["port"] = data["port"]
     else:
-        raise DeserializationError("RistRouterInputConfiguration.port required")
+        out["port"] = 0
     if data.get("recoveryLatencyMilliseconds") is not None:
         out["recovery_latency_milliseconds"] = data["recoveryLatencyMilliseconds"]
     else:
-        raise DeserializationError(
-            "RistRouterInputConfiguration.recovery_latency_milliseconds required"
-        )
+        out["recovery_latency_milliseconds"] = 0
     return out

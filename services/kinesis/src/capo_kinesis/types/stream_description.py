@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.boolean_object
     import capo_kinesis.types.encryption_type
@@ -108,11 +106,11 @@ def deserialize_aws_json_1_1(data: dict) -> StreamDescription:
     if data.get("StreamName") is not None:
         out["stream_name"] = data["StreamName"]
     else:
-        raise DeserializationError("StreamDescription.stream_name required")
+        out["stream_name"] = ""
     if data.get("StreamARN") is not None:
         out["stream_arn"] = data["StreamARN"]
     else:
-        raise DeserializationError("StreamDescription.stream_arn required")
+        out["stream_arn"] = ""
     if data.get("StreamStatus") is not None:
         import capo_kinesis.types.stream_status
 
@@ -122,7 +120,11 @@ def deserialize_aws_json_1_1(data: dict) -> StreamDescription:
             )
         )
     else:
-        raise DeserializationError("StreamDescription.stream_status required")
+        import typing
+
+        out["stream_status"] = typing.cast(
+            "capo_kinesis.types.stream_status.StreamStatus", ""
+        )
     if data.get("StreamModeDetails") is not None:
         import capo_kinesis.types.stream_mode_details
 
@@ -138,15 +140,15 @@ def deserialize_aws_json_1_1(data: dict) -> StreamDescription:
             data["Shards"]
         )
     else:
-        raise DeserializationError("StreamDescription.shards required")
+        out["shards"] = []
     if data.get("HasMoreShards") is not None:
         out["has_more_shards"] = data["HasMoreShards"]
     else:
-        raise DeserializationError("StreamDescription.has_more_shards required")
+        out["has_more_shards"] = False
     if data.get("RetentionPeriodHours") is not None:
         out["retention_period_hours"] = data["RetentionPeriodHours"]
     else:
-        raise DeserializationError("StreamDescription.retention_period_hours required")
+        out["retention_period_hours"] = 0
     if data.get("StreamCreationTimestamp") is not None:
         import capo_kinesis.types.timestamp
 
@@ -156,8 +158,10 @@ def deserialize_aws_json_1_1(data: dict) -> StreamDescription:
             )
         )
     else:
-        raise DeserializationError(
-            "StreamDescription.stream_creation_timestamp required"
+        import datetime
+
+        out["stream_creation_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("EnhancedMonitoring") is not None:
         import capo_kinesis.types.enhanced_monitoring_list
@@ -168,7 +172,7 @@ def deserialize_aws_json_1_1(data: dict) -> StreamDescription:
             )
         )
     else:
-        raise DeserializationError("StreamDescription.enhanced_monitoring required")
+        out["enhanced_monitoring"] = []
     if data.get("EncryptionType") is not None:
         import capo_kinesis.types.encryption_type
 

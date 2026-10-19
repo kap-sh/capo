@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workdocs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workdocs.types.id_type
     import capo_workdocs.types.search_principal_role_list
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> SearchPrincipalType:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("SearchPrincipalType.id required")
+        out["id"] = ""
     if data.get("Roles") is not None:
         import capo_workdocs.types.search_principal_role_list
 

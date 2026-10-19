@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.instance_id
     import capo_connect.types.queue_id
@@ -43,7 +41,5 @@ def deserialize_json(data: dict) -> DisassociateQueueQuickConnectsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DisassociateQueueQuickConnectsRequest.quick_connect_ids required"
-        )
+        out["quick_connect_ids"] = []
     return out

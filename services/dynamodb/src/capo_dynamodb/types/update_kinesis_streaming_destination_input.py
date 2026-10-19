@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.stream_arn
     import capo_dynamodb.types.table_arn
@@ -44,15 +42,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateKinesisStreamingDestinationInp
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError(
-            "UpdateKinesisStreamingDestinationInput.table_name required"
-        )
+        out["table_name"] = ""
     if data.get("StreamArn") is not None:
         out["stream_arn"] = data["StreamArn"]
     else:
-        raise DeserializationError(
-            "UpdateKinesisStreamingDestinationInput.stream_arn required"
-        )
+        out["stream_arn"] = ""
     if data.get("UpdateKinesisStreamingConfiguration") is not None:
         import capo_dynamodb.types.update_kinesis_streaming_configuration
 

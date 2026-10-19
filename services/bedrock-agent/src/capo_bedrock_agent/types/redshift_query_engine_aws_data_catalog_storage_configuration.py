@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.aws_data_catalog_table_names
 
@@ -45,7 +43,5 @@ def deserialize_json(
             )
         )
     else:
-        raise DeserializationError(
-            "RedshiftQueryEngineAwsDataCatalogStorageConfiguration.table_names required"
-        )
+        out["table_names"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.domain_id
     import capo_connectcases.types.field_attributes
@@ -50,11 +48,11 @@ def deserialize_json(data: dict) -> CreateFieldRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateFieldRequest.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("CreateFieldRequest.type required")
+        out["type"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("attributes") is not None:

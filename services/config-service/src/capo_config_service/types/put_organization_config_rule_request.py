@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.excluded_accounts
     import capo_config_service.types.organization_config_rule_name
@@ -88,9 +86,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutOrganizationConfigRuleRequest:
     if data.get("OrganizationConfigRuleName") is not None:
         out["organization_config_rule_name"] = data["OrganizationConfigRuleName"]
     else:
-        raise DeserializationError(
-            "PutOrganizationConfigRuleRequest.organization_config_rule_name required"
-        )
+        out["organization_config_rule_name"] = ""
     if data.get("OrganizationManagedRuleMetadata") is not None:
         import capo_config_service.types.organization_managed_rule_metadata
 

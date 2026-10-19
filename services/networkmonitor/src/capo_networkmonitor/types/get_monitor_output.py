@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmonitor.types.aggregation_period
     import capo_networkmonitor.types.iso8601_timestamp
@@ -74,11 +72,11 @@ def deserialize_json(data: dict) -> GetMonitorOutput:
     if data.get("monitorArn") is not None:
         out["monitor_arn"] = data["monitorArn"]
     else:
-        raise DeserializationError("GetMonitorOutput.monitor_arn required")
+        out["monitor_arn"] = ""
     if data.get("monitorName") is not None:
         out["monitor_name"] = data["monitorName"]
     else:
-        raise DeserializationError("GetMonitorOutput.monitor_name required")
+        out["monitor_name"] = ""
     if data.get("state") is not None:
         import capo_networkmonitor.types.monitor_state
 
@@ -86,11 +84,15 @@ def deserialize_json(data: dict) -> GetMonitorOutput:
             data["state"]
         )
     else:
-        raise DeserializationError("GetMonitorOutput.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_networkmonitor.types.monitor_state.MonitorState", ""
+        )
     if data.get("aggregationPeriod") is not None:
         out["aggregation_period"] = data["aggregationPeriod"]
     else:
-        raise DeserializationError("GetMonitorOutput.aggregation_period required")
+        out["aggregation_period"] = 0
     if data.get("tags") is not None:
         import capo_networkmonitor.types.tag_map
 
@@ -110,7 +112,9 @@ def deserialize_json(data: dict) -> GetMonitorOutput:
             )
         )
     else:
-        raise DeserializationError("GetMonitorOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("modifiedAt") is not None:
         import capo_networkmonitor.types.iso8601_timestamp
 
@@ -120,5 +124,9 @@ def deserialize_json(data: dict) -> GetMonitorOutput:
             )
         )
     else:
-        raise DeserializationError("GetMonitorOutput.modified_at required")
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

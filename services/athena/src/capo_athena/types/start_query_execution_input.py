@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.engine_configuration
     import capo_athena.types.execution_parameters
@@ -104,7 +102,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartQueryExecutionInput:
     if data.get("QueryString") is not None:
         out["query_string"] = data["QueryString"]
     else:
-        raise DeserializationError("StartQueryExecutionInput.query_string required")
+        out["query_string"] = ""
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     if data.get("QueryExecutionContext") is not None:

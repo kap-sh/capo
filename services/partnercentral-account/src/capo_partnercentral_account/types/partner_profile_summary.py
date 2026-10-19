@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.partner_profile_id
     import capo_partnercentral_account.types.unicode_string
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> PartnerProfileSummary:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("PartnerProfileSummary.id required")
+        out["id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("PartnerProfileSummary.name required")
+        out["name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.group_name
     import capo_qbusiness.types.membership_type
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> MemberGroup:
     if data.get("groupName") is not None:
         out["group_name"] = data["groupName"]
     else:
-        raise DeserializationError("MemberGroup.group_name required")
+        out["group_name"] = ""
     if data.get("type") is not None:
         import capo_qbusiness.types.membership_type
 

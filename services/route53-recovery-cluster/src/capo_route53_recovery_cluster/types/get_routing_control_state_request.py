@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53_recovery_cluster.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53_recovery_cluster.types.arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> GetRoutingControlStateRequest:
     if data.get("RoutingControlArn") is not None:
         out["routing_control_arn"] = data["RoutingControlArn"]
     else:
-        raise DeserializationError(
-            "GetRoutingControlStateRequest.routing_control_arn required"
-        )
+        out["routing_control_arn"] = ""
     return out

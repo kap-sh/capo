@@ -37,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyReportDefinitionRequest:
     if data.get("ReportName") is not None:
         out["report_name"] = data["ReportName"]
     else:
-        raise DeserializationError("ModifyReportDefinitionRequest.report_name required")
+        out["report_name"] = ""
     if data.get("ReportDefinition") is not None:
         import capo_cost_and_usage_report_service.types.report_definition
 

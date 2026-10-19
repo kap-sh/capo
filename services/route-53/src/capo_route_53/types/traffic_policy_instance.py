@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.dns_name
@@ -68,44 +67,42 @@ def deserialize_xml(el: Element) -> TrafficPolicyInstance:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("TrafficPolicyInstance.id required")
+        out["id"] = ""
     child_hosted_zone_id = el.find("HostedZoneId")
     if child_hosted_zone_id is not None:
         out["hosted_zone_id"] = str(child_hosted_zone_id.text or "")
     else:
-        raise DeserializationError("TrafficPolicyInstance.hosted_zone_id required")
+        out["hosted_zone_id"] = ""
     child_name = el.find("Name")
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("TrafficPolicyInstance.name required")
+        out["name"] = ""
     child_ttl = el.find("TTL")
     if child_ttl is not None:
         out["ttl"] = int(child_ttl.text or "")
     else:
-        raise DeserializationError("TrafficPolicyInstance.ttl required")
+        out["ttl"] = 0
     child_state = el.find("State")
     if child_state is not None:
         out["state"] = str(child_state.text or "")
     else:
-        raise DeserializationError("TrafficPolicyInstance.state required")
+        out["state"] = ""
     child_message = el.find("Message")
     if child_message is not None:
         out["message"] = str(child_message.text or "")
     else:
-        raise DeserializationError("TrafficPolicyInstance.message required")
+        out["message"] = ""
     child_traffic_policy_id = el.find("TrafficPolicyId")
     if child_traffic_policy_id is not None:
         out["traffic_policy_id"] = str(child_traffic_policy_id.text or "")
     else:
-        raise DeserializationError("TrafficPolicyInstance.traffic_policy_id required")
+        out["traffic_policy_id"] = ""
     child_traffic_policy_version = el.find("TrafficPolicyVersion")
     if child_traffic_policy_version is not None:
         out["traffic_policy_version"] = int(child_traffic_policy_version.text or "")
     else:
-        raise DeserializationError(
-            "TrafficPolicyInstance.traffic_policy_version required"
-        )
+        out["traffic_policy_version"] = 0
     child_traffic_policy_type = el.find("TrafficPolicyType")
     if child_traffic_policy_type is not None:
         import capo_route_53.types.rr_type
@@ -114,5 +111,9 @@ def deserialize_xml(el: Element) -> TrafficPolicyInstance:
             child_traffic_policy_type
         )
     else:
-        raise DeserializationError("TrafficPolicyInstance.traffic_policy_type required")
+        import typing
+
+        out["traffic_policy_type"] = typing.cast(
+            "capo_route_53.types.rr_type.RRType", ""
+        )
     return out

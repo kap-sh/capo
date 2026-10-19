@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_evs.errors import DeserializationError
-
 
 class ErrorDetail(TypedDict, closed=True):
     error_code: "str"
@@ -25,9 +23,9 @@ def deserialize_aws_json_1_0(data: dict) -> ErrorDetail:
     if data.get("errorCode") is not None:
         out["error_code"] = data["errorCode"]
     else:
-        raise DeserializationError("ErrorDetail.error_code required")
+        out["error_code"] = ""
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     else:
-        raise DeserializationError("ErrorDetail.error_message required")
+        out["error_message"] = ""
     return out

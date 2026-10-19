@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.creator_request_id
     import capo_route53resolver.types.name
@@ -40,13 +38,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateFirewallRuleGroupRequest:
     if data.get("CreatorRequestId") is not None:
         out["creator_request_id"] = data["CreatorRequestId"]
     else:
-        raise DeserializationError(
-            "CreateFirewallRuleGroupRequest.creator_request_id required"
-        )
+        out["creator_request_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateFirewallRuleGroupRequest.name required")
+        out["name"] = ""
     if data.get("Tags") is not None:
         import capo_route53resolver.types.tag_list
 

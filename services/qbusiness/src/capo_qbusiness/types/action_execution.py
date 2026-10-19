@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.action_execution_payload
     import capo_qbusiness.types.action_payload_field_name_separator
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> ActionExecution:
     if data.get("pluginId") is not None:
         out["plugin_id"] = data["pluginId"]
     else:
-        raise DeserializationError("ActionExecution.plugin_id required")
+        out["plugin_id"] = ""
     if data.get("payload") is not None:
         import capo_qbusiness.types.action_execution_payload
 
@@ -47,11 +45,9 @@ def deserialize_json(data: dict) -> ActionExecution:
             data["payload"]
         )
     else:
-        raise DeserializationError("ActionExecution.payload required")
+        out["payload"] = {}
     if data.get("payloadFieldNameSeparator") is not None:
         out["payload_field_name_separator"] = data["payloadFieldNameSeparator"]
     else:
-        raise DeserializationError(
-            "ActionExecution.payload_field_name_separator required"
-        )
+        out["payload_field_name_separator"] = ""
     return out

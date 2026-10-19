@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.amp_workspace_arn
     import capo_opensearch.types.direct_query_data_source_role_arn
@@ -31,11 +29,9 @@ def deserialize_json(data: dict) -> PrometheusDirectQueryDataSource:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("PrometheusDirectQueryDataSource.role_arn required")
+        out["role_arn"] = ""
     if data.get("WorkspaceArn") is not None:
         out["workspace_arn"] = data["WorkspaceArn"]
     else:
-        raise DeserializationError(
-            "PrometheusDirectQueryDataSource.workspace_arn required"
-        )
+        out["workspace_arn"] = ""
     return out

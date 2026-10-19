@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_support.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support.types.upload_status
 
@@ -37,7 +35,9 @@ def deserialize_aws_json_1_1(data: dict) -> CompleteAttachmentUploadResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "CompleteAttachmentUploadResponse.upload_status required"
+        import typing
+
+        out["upload_status"] = typing.cast(
+            "capo_support.types.upload_status.UploadStatus", ""
         )
     return out

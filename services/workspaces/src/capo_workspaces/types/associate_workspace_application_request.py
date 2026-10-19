@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.work_space_application_id
     import capo_workspaces.types.workspace_id
@@ -33,13 +31,9 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateWorkspaceApplicationRequest
     if data.get("WorkspaceId") is not None:
         out["workspace_id"] = data["WorkspaceId"]
     else:
-        raise DeserializationError(
-            "AssociateWorkspaceApplicationRequest.workspace_id required"
-        )
+        out["workspace_id"] = ""
     if data.get("ApplicationId") is not None:
         out["application_id"] = data["ApplicationId"]
     else:
-        raise DeserializationError(
-            "AssociateWorkspaceApplicationRequest.application_id required"
-        )
+        out["application_id"] = ""
     return out

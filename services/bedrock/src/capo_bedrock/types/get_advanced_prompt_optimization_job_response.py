@@ -102,15 +102,11 @@ def deserialize_json(data: dict) -> GetAdvancedPromptOptimizationJobResponse:
     if data.get("jobArn") is not None:
         out["job_arn"] = data["jobArn"]
     else:
-        raise DeserializationError(
-            "GetAdvancedPromptOptimizationJobResponse.job_arn required"
-        )
+        out["job_arn"] = ""
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError(
-            "GetAdvancedPromptOptimizationJobResponse.job_name required"
-        )
+        out["job_name"] = ""
     if data.get("jobDescription") is not None:
         out["job_description"] = data["jobDescription"]
     if data.get("jobStatus") is not None:
@@ -122,8 +118,11 @@ def deserialize_json(data: dict) -> GetAdvancedPromptOptimizationJobResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetAdvancedPromptOptimizationJobResponse.job_status required"
+        import typing
+
+        out["job_status"] = typing.cast(
+            "capo_bedrock.types.advanced_prompt_optimization_job_status.AdvancedPromptOptimizationJobStatus",
+            "",
         )
     if data.get("inputConfig") is not None:
         import capo_bedrock.types.advanced_prompt_optimization_input_config
@@ -158,8 +157,10 @@ def deserialize_json(data: dict) -> GetAdvancedPromptOptimizationJobResponse:
             data["creationTime"]
         )
     else:
-        raise DeserializationError(
-            "GetAdvancedPromptOptimizationJobResponse.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("lastModifiedTime") is not None:
         import capo_bedrock.types.timestamp
@@ -178,7 +179,5 @@ def deserialize_json(data: dict) -> GetAdvancedPromptOptimizationJobResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetAdvancedPromptOptimizationJobResponse.model_configurations required"
-        )
+        out["model_configurations"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.data
     import capo_swf.types.duration_in_seconds
@@ -36,13 +34,11 @@ def deserialize_aws_json_1_0(data: dict) -> StartTimerDecisionAttributes:
     if data.get("timerId") is not None:
         out["timer_id"] = data["timerId"]
     else:
-        raise DeserializationError("StartTimerDecisionAttributes.timer_id required")
+        out["timer_id"] = ""
     if data.get("control") is not None:
         out["control"] = data["control"]
     if data.get("startToFireTimeout") is not None:
         out["start_to_fire_timeout"] = data["startToFireTimeout"]
     else:
-        raise DeserializationError(
-            "StartTimerDecisionAttributes.start_to_fire_timeout required"
-        )
+        out["start_to_fire_timeout"] = ""
     return out

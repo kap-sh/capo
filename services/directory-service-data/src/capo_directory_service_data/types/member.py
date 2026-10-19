@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_directory_service_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service_data.types.member_name
     import capo_directory_service_data.types.member_type
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> Member:
     if data.get("SID") is not None:
         out["sid"] = data["SID"]
     else:
-        raise DeserializationError("Member.sid required")
+        out["sid"] = ""
     if data.get("SAMAccountName") is not None:
         out["sam_account_name"] = data["SAMAccountName"]
     else:
-        raise DeserializationError("Member.sam_account_name required")
+        out["sam_account_name"] = ""
     if data.get("MemberType") is not None:
         import capo_directory_service_data.types.member_type
 
@@ -53,5 +51,9 @@ def deserialize_json(data: dict) -> Member:
             )
         )
     else:
-        raise DeserializationError("Member.member_type required")
+        import typing
+
+        out["member_type"] = typing.cast(
+            "capo_directory_service_data.types.member_type.MemberType", ""
+        )
     return out

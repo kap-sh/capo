@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -83,23 +81,23 @@ def deserialize_json(data: dict) -> CollaborationSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CollaborationSummary.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CollaborationSummary.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CollaborationSummary.name required")
+        out["name"] = ""
     if data.get("creatorAccountId") is not None:
         out["creator_account_id"] = data["creatorAccountId"]
     else:
-        raise DeserializationError("CollaborationSummary.creator_account_id required")
+        out["creator_account_id"] = ""
     if data.get("creatorDisplayName") is not None:
         out["creator_display_name"] = data["creatorDisplayName"]
     else:
-        raise DeserializationError("CollaborationSummary.creator_display_name required")
+        out["creator_display_name"] = ""
     if data.get("createTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -107,7 +105,11 @@ def deserialize_json(data: dict) -> CollaborationSummary:
             data["createTime"]
         )
     else:
-        raise DeserializationError("CollaborationSummary.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -115,11 +117,15 @@ def deserialize_json(data: dict) -> CollaborationSummary:
             data["updateTime"]
         )
     else:
-        raise DeserializationError("CollaborationSummary.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("memberStatus") is not None:
         out["member_status"] = data["memberStatus"]
     else:
-        raise DeserializationError("CollaborationSummary.member_status required")
+        out["member_status"] = ""
     if data.get("membershipId") is not None:
         out["membership_id"] = data["membershipId"]
     if data.get("membershipArn") is not None:

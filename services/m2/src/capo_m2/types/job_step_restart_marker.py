@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.boolean
     import capo_m2.types.integer
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> JobStepRestartMarker:
     if data.get("fromStep") is not None:
         out["from_step"] = data["fromStep"]
     else:
-        raise DeserializationError("JobStepRestartMarker.from_step required")
+        out["from_step"] = ""
     if data.get("fromProcStep") is not None:
         out["from_proc_step"] = data["fromProcStep"]
     if data.get("toStep") is not None:

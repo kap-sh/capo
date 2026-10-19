@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.attribute_filters
     import capo_application_signals.types.attributes
@@ -68,7 +66,7 @@ def deserialize_json(data: dict) -> ServiceState:
             data["Service"]
         )
     else:
-        raise DeserializationError("ServiceState.service required")
+        out["service"] = {}
     if data.get("LatestChangeEvents") is not None:
         import capo_application_signals.types.latest_change_events
 
@@ -78,5 +76,5 @@ def deserialize_json(data: dict) -> ServiceState:
             )
         )
     else:
-        raise DeserializationError("ServiceState.latest_change_events required")
+        out["latest_change_events"] = []
     return out

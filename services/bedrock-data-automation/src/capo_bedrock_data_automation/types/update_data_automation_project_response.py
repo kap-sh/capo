@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.data_automation_project_arn
     import capo_bedrock_data_automation.types.data_automation_project_stage
@@ -50,9 +48,7 @@ def deserialize_json(data: dict) -> UpdateDataAutomationProjectResponse:
     if data.get("projectArn") is not None:
         out["project_arn"] = data["projectArn"]
     else:
-        raise DeserializationError(
-            "UpdateDataAutomationProjectResponse.project_arn required"
-        )
+        out["project_arn"] = ""
     if data.get("projectStage") is not None:
         import capo_bedrock_data_automation.types.data_automation_project_stage
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.session_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> IngestDataOutput:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("IngestDataOutput.session_id required")
+        out["session_id"] = ""
     return out

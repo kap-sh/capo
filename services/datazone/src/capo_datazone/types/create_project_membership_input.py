@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.domain_id
     import capo_datazone.types.member
@@ -45,7 +43,9 @@ def deserialize_json(data: dict) -> CreateProjectMembershipInput:
 
         out["member"] = capo_datazone.types.member.deserialize_json(data["member"])
     else:
-        raise DeserializationError("CreateProjectMembershipInput.member required")
+        import capo_datazone.types._unknown
+
+        out["member"] = capo_datazone.types._unknown.UnknownUnionMember("")
     if data.get("designation") is not None:
         import capo_datazone.types.user_designation
 
@@ -53,5 +53,9 @@ def deserialize_json(data: dict) -> CreateProjectMembershipInput:
             data["designation"]
         )
     else:
-        raise DeserializationError("CreateProjectMembershipInput.designation required")
+        import typing
+
+        out["designation"] = typing.cast(
+            "capo_datazone.types.user_designation.UserDesignation", ""
+        )
     return out

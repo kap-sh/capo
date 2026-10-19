@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_account.types.account_id
     import capo_account.types.aws_account_state
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> GetGovCloudAccountInformationResponse:
     if data.get("GovCloudAccountId") is not None:
         out["gov_cloud_account_id"] = data["GovCloudAccountId"]
     else:
-        raise DeserializationError(
-            "GetGovCloudAccountInformationResponse.gov_cloud_account_id required"
-        )
+        out["gov_cloud_account_id"] = ""
     if data.get("AccountState") is not None:
         out["account_state"] = data["AccountState"]
     else:
-        raise DeserializationError(
-            "GetGovCloudAccountInformationResponse.account_state required"
-        )
+        out["account_state"] = ""
     return out

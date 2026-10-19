@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.address_family
     import capo_direct_connect.types.amazon_address
@@ -101,9 +99,7 @@ def deserialize_aws_json_1_1(data: dict) -> NewPublicVirtualInterface:
     if data.get("virtualInterfaceName") is not None:
         out["virtual_interface_name"] = data["virtualInterfaceName"]
     else:
-        raise DeserializationError(
-            "NewPublicVirtualInterface.virtual_interface_name required"
-        )
+        out["virtual_interface_name"] = ""
     if data.get("vlan") is not None:
         out["vlan"] = data["vlan"]
     else:

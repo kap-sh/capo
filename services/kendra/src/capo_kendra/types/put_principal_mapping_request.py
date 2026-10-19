@@ -56,13 +56,13 @@ def deserialize_aws_json_1_1(data: dict) -> PutPrincipalMappingRequest:
     if data.get("IndexId") is not None:
         out["index_id"] = data["IndexId"]
     else:
-        raise DeserializationError("PutPrincipalMappingRequest.index_id required")
+        out["index_id"] = ""
     if data.get("DataSourceId") is not None:
         out["data_source_id"] = data["DataSourceId"]
     if data.get("GroupId") is not None:
         out["group_id"] = data["GroupId"]
     else:
-        raise DeserializationError("PutPrincipalMappingRequest.group_id required")
+        out["group_id"] = ""
     if data.get("GroupMembers") is not None:
         import capo_kendra.types.group_members
 

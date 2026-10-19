@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.cert_date
     import capo_transfer.types.certificate_body_type
@@ -82,11 +80,15 @@ def deserialize_aws_json_1_1(data: dict) -> ImportCertificateRequest:
             )
         )
     else:
-        raise DeserializationError("ImportCertificateRequest.usage required")
+        import typing
+
+        out["usage"] = typing.cast(
+            "capo_transfer.types.certificate_usage_type.CertificateUsageType", ""
+        )
     if data.get("Certificate") is not None:
         out["certificate"] = data["Certificate"]
     else:
-        raise DeserializationError("ImportCertificateRequest.certificate required")
+        out["certificate"] = ""
     if data.get("CertificateChain") is not None:
         out["certificate_chain"] = data["CertificateChain"]
     if data.get("PrivateKey") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.aps_publisher_id
     import capo_mediatailor.types.aps_region
@@ -43,15 +41,11 @@ def deserialize_json(data: dict) -> YieldOptimizationConfiguration:
     if data.get("MinimumUnfilledDuration") is not None:
         out["minimum_unfilled_duration"] = data["MinimumUnfilledDuration"]
     else:
-        raise DeserializationError(
-            "YieldOptimizationConfiguration.minimum_unfilled_duration required"
-        )
+        out["minimum_unfilled_duration"] = 0
     if data.get("PublisherId") is not None:
         out["publisher_id"] = data["PublisherId"]
     else:
-        raise DeserializationError(
-            "YieldOptimizationConfiguration.publisher_id required"
-        )
+        out["publisher_id"] = ""
     if data.get("Region") is not None:
         import capo_mediatailor.types.aps_region
 
@@ -59,11 +53,11 @@ def deserialize_json(data: dict) -> YieldOptimizationConfiguration:
             data["Region"]
         )
     else:
-        raise DeserializationError("YieldOptimizationConfiguration.region required")
+        import typing
+
+        out["region"] = typing.cast("capo_mediatailor.types.aps_region.ApsRegion", "")
     if data.get("OpenRtbTemplate") is not None:
         out["open_rtb_template"] = data["OpenRtbTemplate"]
     else:
-        raise DeserializationError(
-            "YieldOptimizationConfiguration.open_rtb_template required"
-        )
+        out["open_rtb_template"] = ""
     return out

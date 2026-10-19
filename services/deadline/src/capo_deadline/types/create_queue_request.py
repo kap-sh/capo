@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.allowed_storage_profile_ids
     import capo_deadline.types.client_token
@@ -124,7 +122,7 @@ def deserialize_json(data: dict) -> CreateQueueRequest:
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("CreateQueueRequest.display_name required")
+        out["display_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("defaultBudgetAction") is not None:

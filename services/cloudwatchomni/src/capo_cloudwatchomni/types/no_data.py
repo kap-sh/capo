@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.alert_state
 
@@ -35,5 +33,9 @@ def deserialize_cbor(data: dict) -> NoData:
             data["treatAs"]
         )
     else:
-        raise DeserializationError("NoData.treat_as required")
+        import typing
+
+        out["treat_as"] = typing.cast(
+            "capo_cloudwatchomni.types.alert_state.AlertState", ""
+        )
     return out

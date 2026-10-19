@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.audit_frequency
     import capo_iot.types.day_of_month
@@ -65,7 +63,11 @@ def deserialize_json(data: dict) -> CreateScheduledAuditRequest:
             data["frequency"]
         )
     else:
-        raise DeserializationError("CreateScheduledAuditRequest.frequency required")
+        import typing
+
+        out["frequency"] = typing.cast(
+            "capo_iot.types.audit_frequency.AuditFrequency", ""
+        )
     if data.get("dayOfMonth") is not None:
         out["day_of_month"] = data["dayOfMonth"]
     if data.get("dayOfWeek") is not None:
@@ -83,9 +85,7 @@ def deserialize_json(data: dict) -> CreateScheduledAuditRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateScheduledAuditRequest.target_check_names required"
-        )
+        out["target_check_names"] = []
     if data.get("tags") is not None:
         import capo_iot.types.tag_list
 

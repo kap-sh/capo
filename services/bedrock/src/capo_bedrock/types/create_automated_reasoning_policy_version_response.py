@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_arn
     import capo_bedrock.types.automated_reasoning_policy_description
@@ -54,29 +52,21 @@ def deserialize_json(data: dict) -> CreateAutomatedReasoningPolicyVersionRespons
     if data.get("policyArn") is not None:
         out["policy_arn"] = data["policyArn"]
     else:
-        raise DeserializationError(
-            "CreateAutomatedReasoningPolicyVersionResponse.policy_arn required"
-        )
+        out["policy_arn"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError(
-            "CreateAutomatedReasoningPolicyVersionResponse.version required"
-        )
+        out["version"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "CreateAutomatedReasoningPolicyVersionResponse.name required"
-        )
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("definitionHash") is not None:
         out["definition_hash"] = data["definitionHash"]
     else:
-        raise DeserializationError(
-            "CreateAutomatedReasoningPolicyVersionResponse.definition_hash required"
-        )
+        out["definition_hash"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock.types.timestamp
 
@@ -84,9 +74,9 @@ def deserialize_json(data: dict) -> CreateAutomatedReasoningPolicyVersionRespons
             data["createdAt"]
         )
     else:
-        raise DeserializationError(
-            "CreateAutomatedReasoningPolicyVersionResponse.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

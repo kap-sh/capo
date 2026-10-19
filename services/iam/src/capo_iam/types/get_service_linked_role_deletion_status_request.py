@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.deletion_task_id_type
@@ -32,7 +31,5 @@ def deserialize_query(el: Element) -> GetServiceLinkedRoleDeletionStatusRequest:
     if child_deletion_task_id is not None:
         out["deletion_task_id"] = str(child_deletion_task_id.text or "")
     else:
-        raise DeserializationError(
-            "GetServiceLinkedRoleDeletionStatusRequest.deletion_task_id required"
-        )
+        out["deletion_task_id"] = ""
     return out

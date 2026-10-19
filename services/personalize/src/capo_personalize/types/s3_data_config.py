@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.kms_key_arn
     import capo_personalize.types.s3_location
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3DataConfig:
     if data.get("path") is not None:
         out["path"] = data["path"]
     else:
-        raise DeserializationError("S3DataConfig.path required")
+        out["path"] = ""
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     return out

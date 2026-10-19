@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.identifier
     import capo_frauddetector.types.utc_timestamp_iso8601
@@ -39,17 +37,17 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateEventLabelRequest:
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError("UpdateEventLabelRequest.event_id required")
+        out["event_id"] = ""
     if data.get("eventTypeName") is not None:
         out["event_type_name"] = data["eventTypeName"]
     else:
-        raise DeserializationError("UpdateEventLabelRequest.event_type_name required")
+        out["event_type_name"] = ""
     if data.get("assignedLabel") is not None:
         out["assigned_label"] = data["assignedLabel"]
     else:
-        raise DeserializationError("UpdateEventLabelRequest.assigned_label required")
+        out["assigned_label"] = ""
     if data.get("labelTimestamp") is not None:
         out["label_timestamp"] = data["labelTimestamp"]
     else:
-        raise DeserializationError("UpdateEventLabelRequest.label_timestamp required")
+        out["label_timestamp"] = ""
     return out

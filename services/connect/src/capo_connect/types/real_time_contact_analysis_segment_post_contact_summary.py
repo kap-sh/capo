@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.real_time_contact_analysis_post_contact_summary_content
     import capo_connect.types.real_time_contact_analysis_post_contact_summary_failure_code
@@ -61,8 +59,11 @@ def deserialize_json(data: dict) -> RealTimeContactAnalysisSegmentPostContactSum
             )
         )
     else:
-        raise DeserializationError(
-            "RealTimeContactAnalysisSegmentPostContactSummary.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_connect.types.real_time_contact_analysis_post_contact_summary_status.RealTimeContactAnalysisPostContactSummaryStatus",
+            "",
         )
     if data.get("FailureCode") is not None:
         import capo_connect.types.real_time_contact_analysis_post_contact_summary_failure_code

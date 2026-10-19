@@ -96,13 +96,13 @@ def deserialize_json(data: dict) -> CreateBotRequest:
     if data.get("botName") is not None:
         out["bot_name"] = data["botName"]
     else:
-        raise DeserializationError("CreateBotRequest.bot_name required")
+        out["bot_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateBotRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("dataPrivacy") is not None:
         import capo_lex_models_v2.types.data_privacy
 
@@ -114,9 +114,7 @@ def deserialize_json(data: dict) -> CreateBotRequest:
     if data.get("idleSessionTTLInSeconds") is not None:
         out["idle_session_ttl_in_seconds"] = data["idleSessionTTLInSeconds"]
     else:
-        raise DeserializationError(
-            "CreateBotRequest.idle_session_ttl_in_seconds required"
-        )
+        out["idle_session_ttl_in_seconds"] = 0
     if data.get("botTags") is not None:
         import capo_lex_models_v2.types.tag_map
 

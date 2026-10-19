@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.client_token
     import capo_imagebuilder.types.container_recipe_arn
@@ -131,9 +129,7 @@ def deserialize_json(data: dict) -> CreateImageRequest:
     if data.get("infrastructureConfigurationArn") is not None:
         out["infrastructure_configuration_arn"] = data["infrastructureConfigurationArn"]
     else:
-        raise DeserializationError(
-            "CreateImageRequest.infrastructure_configuration_arn required"
-        )
+        out["infrastructure_configuration_arn"] = ""
     if data.get("imageTestsConfiguration") is not None:
         import capo_imagebuilder.types.image_tests_configuration
 
@@ -151,7 +147,7 @@ def deserialize_json(data: dict) -> CreateImageRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CreateImageRequest.client_token required")
+        out["client_token"] = ""
     if data.get("imageScanningConfiguration") is not None:
         import capo_imagebuilder.types.image_scanning_configuration
 

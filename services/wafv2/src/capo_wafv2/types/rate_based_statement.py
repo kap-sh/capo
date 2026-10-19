@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.evaluation_window_sec
     import capo_wafv2.types.forwarded_ip_config
@@ -76,7 +74,7 @@ def deserialize_aws_json_1_1(data: dict) -> RateBasedStatement:
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
     else:
-        raise DeserializationError("RateBasedStatement.limit required")
+        out["limit"] = 0
     if data.get("EvaluationWindowSec") is not None:
         out["evaluation_window_sec"] = data["EvaluationWindowSec"]
     else:
@@ -90,7 +88,12 @@ def deserialize_aws_json_1_1(data: dict) -> RateBasedStatement:
             )
         )
     else:
-        raise DeserializationError("RateBasedStatement.aggregate_key_type required")
+        import typing
+
+        out["aggregate_key_type"] = typing.cast(
+            "capo_wafv2.types.rate_based_statement_aggregate_key_type.RateBasedStatementAggregateKeyType",
+            "",
+        )
     if data.get("ScopeDownStatement") is not None:
         import capo_wafv2.types.statement
 

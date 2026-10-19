@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_polly.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_polly.types.engine
     import capo_polly.types.language_code
@@ -109,7 +107,11 @@ def deserialize_json(data: dict) -> SynthesizeSpeechInput:
             data["OutputFormat"]
         )
     else:
-        raise DeserializationError("SynthesizeSpeechInput.output_format required")
+        import typing
+
+        out["output_format"] = typing.cast(
+            "capo_polly.types.output_format.OutputFormat", ""
+        )
     if data.get("SampleRate") is not None:
         out["sample_rate"] = data["SampleRate"]
     if data.get("SpeechMarkTypes") is not None:
@@ -123,7 +125,7 @@ def deserialize_json(data: dict) -> SynthesizeSpeechInput:
     if data.get("Text") is not None:
         out["text"] = data["Text"]
     else:
-        raise DeserializationError("SynthesizeSpeechInput.text required")
+        out["text"] = ""
     if data.get("TextType") is not None:
         import capo_polly.types.text_type
 
@@ -133,5 +135,7 @@ def deserialize_json(data: dict) -> SynthesizeSpeechInput:
 
         out["voice_id"] = capo_polly.types.voice_id.deserialize_json(data["VoiceId"])
     else:
-        raise DeserializationError("SynthesizeSpeechInput.voice_id required")
+        import typing
+
+        out["voice_id"] = typing.cast("capo_polly.types.voice_id.VoiceId", "")
     return out

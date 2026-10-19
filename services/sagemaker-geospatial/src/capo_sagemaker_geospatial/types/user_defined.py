@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.unit
 
@@ -38,9 +36,9 @@ def deserialize_json(data: dict) -> UserDefined:
     if data.get("Value") is not None:
         out["value"] = float(data["Value"])
     else:
-        raise DeserializationError("UserDefined.value required")
+        out["value"] = 0.0
     if data.get("Unit") is not None:
         out["unit"] = data["Unit"]
     else:
-        raise DeserializationError("UserDefined.unit required")
+        out["unit"] = ""
     return out

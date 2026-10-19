@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.hash_string
     import capo_glue.types.inclusion_annotation_value
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutDataQualityProfileAnnotationReque
     if data.get("ProfileId") is not None:
         out["profile_id"] = data["ProfileId"]
     else:
-        raise DeserializationError(
-            "PutDataQualityProfileAnnotationRequest.profile_id required"
-        )
+        out["profile_id"] = ""
     if data.get("InclusionAnnotation") is not None:
         import capo_glue.types.inclusion_annotation_value
 
@@ -51,7 +47,9 @@ def deserialize_aws_json_1_1(data: dict) -> PutDataQualityProfileAnnotationReque
             )
         )
     else:
-        raise DeserializationError(
-            "PutDataQualityProfileAnnotationRequest.inclusion_annotation required"
+        import typing
+
+        out["inclusion_annotation"] = typing.cast(
+            "capo_glue.types.inclusion_annotation_value.InclusionAnnotationValue", ""
         )
     return out

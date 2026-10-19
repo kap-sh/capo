@@ -78,9 +78,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationEfsRequest:
     if data.get("EfsFilesystemArn") is not None:
         out["efs_filesystem_arn"] = data["EfsFilesystemArn"]
     else:
-        raise DeserializationError(
-            "CreateLocationEfsRequest.efs_filesystem_arn required"
-        )
+        out["efs_filesystem_arn"] = ""
     if data.get("Ec2Config") is not None:
         import capo_datasync.types.ec2_config
 

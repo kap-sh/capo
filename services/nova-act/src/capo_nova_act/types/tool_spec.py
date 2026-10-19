@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_nova_act.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_nova_act.types.tool_description
     import capo_nova_act.types.tool_input_schema
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> ToolSpec:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ToolSpec.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("ToolSpec.description required")
+        out["description"] = ""
     if data.get("inputSchema") is not None:
         import capo_nova_act.types.tool_input_schema
 
@@ -51,7 +49,9 @@ def deserialize_json(data: dict) -> ToolSpec:
             data["inputSchema"]
         )
     else:
-        raise DeserializationError("ToolSpec.input_schema required")
+        import capo_nova_act.types._unknown
+
+        out["input_schema"] = capo_nova_act.types._unknown.UnknownUnionMember("")
     return out
 
 

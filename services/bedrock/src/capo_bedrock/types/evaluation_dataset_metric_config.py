@@ -51,7 +51,11 @@ def deserialize_json(data: dict) -> EvaluationDatasetMetricConfig:
             data["taskType"]
         )
     else:
-        raise DeserializationError("EvaluationDatasetMetricConfig.task_type required")
+        import typing
+
+        out["task_type"] = typing.cast(
+            "capo_bedrock.types.evaluation_task_type.EvaluationTaskType", ""
+        )
     if data.get("dataset") is not None:
         import capo_bedrock.types.evaluation_dataset
 
@@ -69,9 +73,7 @@ def deserialize_json(data: dict) -> EvaluationDatasetMetricConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "EvaluationDatasetMetricConfig.metric_names required"
-        )
+        out["metric_names"] = []
     return out
 
 

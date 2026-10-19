@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.cloud_exadata_infrastructure_list
 
@@ -45,9 +43,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListCloudExadataInfrastructuresOutpu
             )
         )
     else:
-        raise DeserializationError(
-            "ListCloudExadataInfrastructuresOutput.cloud_exadata_infrastructures required"
-        )
+        out["cloud_exadata_infrastructures"] = []
     return out
 
 

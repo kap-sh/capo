@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.confluence_auth_type
     import capo_bedrock_agent.types.confluence_host_type
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> ConfluenceSourceConfiguration:
     if data.get("hostUrl") is not None:
         out["host_url"] = data["hostUrl"]
     else:
-        raise DeserializationError("ConfluenceSourceConfiguration.host_url required")
+        out["host_url"] = ""
     if data.get("hostType") is not None:
         import capo_bedrock_agent.types.confluence_host_type
 
@@ -57,7 +55,11 @@ def deserialize_json(data: dict) -> ConfluenceSourceConfiguration:
             )
         )
     else:
-        raise DeserializationError("ConfluenceSourceConfiguration.host_type required")
+        import typing
+
+        out["host_type"] = typing.cast(
+            "capo_bedrock_agent.types.confluence_host_type.ConfluenceHostType", ""
+        )
     if data.get("authType") is not None:
         import capo_bedrock_agent.types.confluence_auth_type
 
@@ -67,11 +69,13 @@ def deserialize_json(data: dict) -> ConfluenceSourceConfiguration:
             )
         )
     else:
-        raise DeserializationError("ConfluenceSourceConfiguration.auth_type required")
+        import typing
+
+        out["auth_type"] = typing.cast(
+            "capo_bedrock_agent.types.confluence_auth_type.ConfluenceAuthType", ""
+        )
     if data.get("credentialsSecretArn") is not None:
         out["credentials_secret_arn"] = data["credentialsSecretArn"]
     else:
-        raise DeserializationError(
-            "ConfluenceSourceConfiguration.credentials_secret_arn required"
-        )
+        out["credentials_secret_arn"] = ""
     return out

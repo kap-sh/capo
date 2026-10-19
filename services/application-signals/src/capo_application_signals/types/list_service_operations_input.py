@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -51,5 +49,5 @@ def deserialize_json(data: dict) -> ListServiceOperationsInput:
             )
         )
     else:
-        raise DeserializationError("ListServiceOperationsInput.key_attributes required")
+        out["key_attributes"] = {}
     return out

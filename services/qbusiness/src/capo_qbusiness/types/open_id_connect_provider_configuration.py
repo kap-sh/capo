@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.role_arn
     import capo_qbusiness.types.secret_arn
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> OpenIDConnectProviderConfiguration:
     if data.get("secretsArn") is not None:
         out["secrets_arn"] = data["secretsArn"]
     else:
-        raise DeserializationError(
-            "OpenIDConnectProviderConfiguration.secrets_arn required"
-        )
+        out["secrets_arn"] = ""
     if data.get("secretsRole") is not None:
         out["secrets_role"] = data["secretsRole"]
     else:
-        raise DeserializationError(
-            "OpenIDConnectProviderConfiguration.secrets_role required"
-        )
+        out["secrets_role"] = ""
     return out

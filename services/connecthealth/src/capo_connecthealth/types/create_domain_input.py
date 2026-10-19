@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connecthealth.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connecthealth.types.create_web_app_configuration
     import capo_connecthealth.types.domain_name
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> CreateDomainInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateDomainInput.name required")
+        out["name"] = ""
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     if data.get("webAppSetupConfiguration") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_account_access.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_account_access.types.account
     import capo_account_access.types.principal
@@ -47,15 +45,17 @@ def deserialize_json(data: dict) -> PrincipalRoleEntitlementSummary:
             data["principal"]
         )
     else:
-        raise DeserializationError("PrincipalRoleEntitlementSummary.principal required")
+        import capo_account_access.types._unknown
+
+        out["principal"] = capo_account_access.types._unknown.UnknownUnionMember("")
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("PrincipalRoleEntitlementSummary.role_arn required")
+        out["role_arn"] = ""
     if data.get("account") is not None:
         out["account"] = data["account"]
     else:
-        raise DeserializationError("PrincipalRoleEntitlementSummary.account required")
+        out["account"] = ""
     if data.get("accountName") is not None:
         out["account_name"] = data["accountName"]
     return out

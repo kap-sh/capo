@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.farm_id
     import capo_deadline.types.fleet_id
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> BatchGetWorkerIdentifier:
     if data.get("farmId") is not None:
         out["farm_id"] = data["farmId"]
     else:
-        raise DeserializationError("BatchGetWorkerIdentifier.farm_id required")
+        out["farm_id"] = ""
     if data.get("fleetId") is not None:
         out["fleet_id"] = data["fleetId"]
     else:
-        raise DeserializationError("BatchGetWorkerIdentifier.fleet_id required")
+        out["fleet_id"] = ""
     if data.get("workerId") is not None:
         out["worker_id"] = data["workerId"]
     else:
-        raise DeserializationError("BatchGetWorkerIdentifier.worker_id required")
+        out["worker_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amp.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amp.types.pagination_token
     import capo_amp.types.scraper_summary_list
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ListScrapersResponse:
             data["scrapers"]
         )
     else:
-        raise DeserializationError("ListScrapersResponse.scrapers required")
+        out["scrapers"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

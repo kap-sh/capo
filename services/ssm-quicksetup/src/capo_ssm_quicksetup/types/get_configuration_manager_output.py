@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_quicksetup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -85,7 +83,7 @@ def deserialize_json(data: dict) -> GetConfigurationManagerOutput:
     if data.get("ManagerArn") is not None:
         out["manager_arn"] = data["ManagerArn"]
     else:
-        raise DeserializationError("GetConfigurationManagerOutput.manager_arn required")
+        out["manager_arn"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Name") is not None:

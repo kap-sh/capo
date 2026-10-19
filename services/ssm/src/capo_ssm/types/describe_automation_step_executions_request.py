@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.automation_execution_id
     import capo_ssm.types.boolean
@@ -57,9 +55,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAutomationStepExecutionsRequ
     if data.get("AutomationExecutionId") is not None:
         out["automation_execution_id"] = data["AutomationExecutionId"]
     else:
-        raise DeserializationError(
-            "DescribeAutomationStepExecutionsRequest.automation_execution_id required"
-        )
+        out["automation_execution_id"] = ""
     if data.get("Filters") is not None:
         import capo_ssm.types.step_execution_filter_list
 

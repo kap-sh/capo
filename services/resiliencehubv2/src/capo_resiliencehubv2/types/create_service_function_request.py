@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.arn
     import capo_resiliencehubv2.types.client_token
@@ -49,11 +47,11 @@ def deserialize_json(data: dict) -> CreateServiceFunctionRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateServiceFunctionRequest.name required")
+        out["name"] = ""
     if data.get("serviceArn") is not None:
         out["service_arn"] = data["serviceArn"]
     else:
-        raise DeserializationError("CreateServiceFunctionRequest.service_arn required")
+        out["service_arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("criticality") is not None:
@@ -65,7 +63,12 @@ def deserialize_json(data: dict) -> CreateServiceFunctionRequest:
             )
         )
     else:
-        raise DeserializationError("CreateServiceFunctionRequest.criticality required")
+        import typing
+
+        out["criticality"] = typing.cast(
+            "capo_resiliencehubv2.types.service_function_criticality.ServiceFunctionCriticality",
+            "",
+        )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

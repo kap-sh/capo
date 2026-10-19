@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 
 class CustomActionDefinition(TypedDict, closed=True):
     command_text: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> CustomActionDefinition:
     if data.get("CommandText") is not None:
         out["command_text"] = data["CommandText"]
     else:
-        raise DeserializationError("CustomActionDefinition.command_text required")
+        out["command_text"] = ""
     return out

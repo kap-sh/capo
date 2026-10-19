@@ -156,15 +156,15 @@ def deserialize_aws_json_1_0(data: dict) -> Service:
     if data.get("ServiceName") is not None:
         out["service_name"] = data["ServiceName"]
     else:
-        raise DeserializationError("Service.service_name required")
+        out["service_name"] = ""
     if data.get("ServiceId") is not None:
         out["service_id"] = data["ServiceId"]
     else:
-        raise DeserializationError("Service.service_id required")
+        out["service_id"] = ""
     if data.get("ServiceArn") is not None:
         out["service_arn"] = data["ServiceArn"]
     else:
-        raise DeserializationError("Service.service_arn required")
+        out["service_arn"] = ""
     if data.get("ServiceUrl") is not None:
         out["service_url"] = data["ServiceUrl"]
     if data.get("CreatedAt") is not None:
@@ -174,7 +174,9 @@ def deserialize_aws_json_1_0(data: dict) -> Service:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("Service.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("UpdatedAt") is not None:
         import capo_apprunner.types.timestamp
 
@@ -182,7 +184,9 @@ def deserialize_aws_json_1_0(data: dict) -> Service:
             data["UpdatedAt"]
         )
     else:
-        raise DeserializationError("Service.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("DeletedAt") is not None:
         import capo_apprunner.types.timestamp
 
@@ -196,7 +200,11 @@ def deserialize_aws_json_1_0(data: dict) -> Service:
             data["Status"]
         )
     else:
-        raise DeserializationError("Service.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_apprunner.types.service_status.ServiceStatus", ""
+        )
     if data.get("SourceConfiguration") is not None:
         import capo_apprunner.types.source_configuration
 

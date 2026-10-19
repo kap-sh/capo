@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.guardrail_topics_config
 
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> AIGuardrailTopicPolicyConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "AIGuardrailTopicPolicyConfig.topics_config required"
-        )
+        out["topics_config"] = []
     return out
 
 

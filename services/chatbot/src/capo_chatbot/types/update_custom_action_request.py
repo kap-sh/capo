@@ -55,9 +55,7 @@ def deserialize_json(data: dict) -> UpdateCustomActionRequest:
     if data.get("CustomActionArn") is not None:
         out["custom_action_arn"] = data["CustomActionArn"]
     else:
-        raise DeserializationError(
-            "UpdateCustomActionRequest.custom_action_arn required"
-        )
+        out["custom_action_arn"] = ""
     if data.get("Definition") is not None:
         import capo_chatbot.types.custom_action_definition
 

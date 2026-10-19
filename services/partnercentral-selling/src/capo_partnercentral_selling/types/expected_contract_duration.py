@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.expected_contract_duration_term
 
@@ -42,9 +40,14 @@ def deserialize_aws_json_1_0(data: dict) -> ExpectedContractDuration:
             )
         )
     else:
-        raise DeserializationError("ExpectedContractDuration.term required")
+        import typing
+
+        out["term"] = typing.cast(
+            "capo_partnercentral_selling.types.expected_contract_duration_term.ExpectedContractDurationTerm",
+            "",
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("ExpectedContractDuration.value required")
+        out["value"] = ""
     return out

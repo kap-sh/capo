@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.glue_studio_path_list
     import capo_glue.types.node_name
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> SplitFields:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("SplitFields.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.one_input
 
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> SplitFields:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("SplitFields.inputs required")
+        out["inputs"] = []
     if data.get("Paths") is not None:
         import capo_glue.types.glue_studio_path_list
 
@@ -57,5 +55,5 @@ def deserialize_aws_json_1_1(data: dict) -> SplitFields:
             data["Paths"]
         )
     else:
-        raise DeserializationError("SplitFields.paths required")
+        out["paths"] = []
     return out

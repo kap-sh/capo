@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.acknowledgement_form_data_body
 
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> GetUseCaseForModelAccessResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetUseCaseForModelAccessResponse.form_data required"
-        )
+        out["form_data"] = b""
     return out

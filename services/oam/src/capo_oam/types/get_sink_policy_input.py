@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_oam.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_oam.types.resource_identifier
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> GetSinkPolicyInput:
     if data.get("SinkIdentifier") is not None:
         out["sink_identifier"] = data["SinkIdentifier"]
     else:
-        raise DeserializationError("GetSinkPolicyInput.sink_identifier required")
+        out["sink_identifier"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.agent_space_identifier
     import capo_devops_agent.types.asset_content
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> CreateAssetRequest:
     if data.get("assetType") is not None:
         out["asset_type"] = data["assetType"]
     else:
-        raise DeserializationError("CreateAssetRequest.asset_type required")
+        out["asset_type"] = ""
     if data.get("metadata") is not None:
         out["metadata"] = data["metadata"]
     if data.get("content") is not None:
@@ -58,7 +56,9 @@ def deserialize_json(data: dict) -> CreateAssetRequest:
             data["content"]
         )
     else:
-        raise DeserializationError("CreateAssetRequest.content required")
+        import capo_devops_agent.types._unknown
+
+        out["content"] = capo_devops_agent.types._unknown.UnknownUnionMember("")
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.certificate_transparency_logging_preference
@@ -58,8 +57,10 @@ def deserialize_xml(el: Element) -> ManagedCertificateRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ManagedCertificateRequest.validation_token_host required"
+        import typing
+
+        out["validation_token_host"] = typing.cast(
+            "capo_cloudfront.types.validation_token_host.ValidationTokenHost", ""
         )
     child_primary_domain_name = el.find("PrimaryDomainName")
     if child_primary_domain_name is not None:

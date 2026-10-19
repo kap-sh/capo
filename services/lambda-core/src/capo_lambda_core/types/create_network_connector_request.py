@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda_core.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_core.types.client_token_string
     import capo_lambda_core.types.network_connector_configuration
@@ -62,7 +60,7 @@ def deserialize_json(data: dict) -> CreateNetworkConnectorRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateNetworkConnectorRequest.name required")
+        out["name"] = ""
     if data.get("Configuration") is not None:
         import capo_lambda_core.types.network_connector_configuration
 
@@ -72,9 +70,9 @@ def deserialize_json(data: dict) -> CreateNetworkConnectorRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateNetworkConnectorRequest.configuration required"
-        )
+        import capo_lambda_core.types._unknown
+
+        out["configuration"] = capo_lambda_core.types._unknown.UnknownUnionMember("")
     if data.get("OperatorRole") is not None:
         out["operator_role"] = data["OperatorRole"]
     if data.get("ClientToken") is not None:

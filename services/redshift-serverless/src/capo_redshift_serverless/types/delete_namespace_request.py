@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.namespace_name
 
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteNamespaceRequest:
     if data.get("namespaceName") is not None:
         out["namespace_name"] = data["namespaceName"]
     else:
-        raise DeserializationError("DeleteNamespaceRequest.namespace_name required")
+        out["namespace_name"] = ""
     if data.get("finalSnapshotName") is not None:
         out["final_snapshot_name"] = data["finalSnapshotName"]
     if data.get("finalSnapshotRetentionPeriod") is not None:

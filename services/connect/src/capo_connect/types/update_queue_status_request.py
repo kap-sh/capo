@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.instance_id
     import capo_connect.types.queue_id
@@ -37,5 +35,7 @@ def deserialize_json(data: dict) -> UpdateQueueStatusRequest:
 
         out["status"] = capo_connect.types.queue_status.deserialize_json(data["Status"])
     else:
-        raise DeserializationError("UpdateQueueStatusRequest.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_connect.types.queue_status.QueueStatus", "")
     return out

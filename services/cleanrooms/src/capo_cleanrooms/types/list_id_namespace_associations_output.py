@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.id_namespace_association_summary_list
     import capo_cleanrooms.types.pagination_token
@@ -46,7 +44,5 @@ def deserialize_json(data: dict) -> ListIdNamespaceAssociationsOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListIdNamespaceAssociationsOutput.id_namespace_association_summaries required"
-        )
+        out["id_namespace_association_summaries"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.amazon_resource_name
     import capo_config_service.types.provider
@@ -57,11 +55,11 @@ def deserialize_aws_json_1_1(data: dict) -> ConfigurationRecorderSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ConfigurationRecorderSummary.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ConfigurationRecorderSummary.name required")
+        out["name"] = ""
     if data.get("servicePrincipal") is not None:
         out["service_principal"] = data["servicePrincipal"]
     if data.get("recordingScope") is not None:
@@ -73,8 +71,10 @@ def deserialize_aws_json_1_1(data: dict) -> ConfigurationRecorderSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "ConfigurationRecorderSummary.recording_scope required"
+        import typing
+
+        out["recording_scope"] = typing.cast(
+            "capo_config_service.types.recording_scope.RecordingScope", ""
         )
     if data.get("provider") is not None:
         import capo_config_service.types.provider

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.api_key
     import capo_location.types.bounding_box
@@ -87,7 +85,7 @@ def deserialize_json(data: dict) -> SearchPlaceIndexForTextRequest:
     if data.get("Text") is not None:
         out["text"] = data["Text"]
     else:
-        raise DeserializationError("SearchPlaceIndexForTextRequest.text required")
+        out["text"] = ""
     if data.get("BiasPosition") is not None:
         import capo_location.types.position
 

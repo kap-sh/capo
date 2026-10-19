@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.namespace_list
 
@@ -45,7 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListNamespacesResponse:
             )
         )
     else:
-        raise DeserializationError("ListNamespacesResponse.namespaces required")
+        out["namespaces"] = []
     return out
 
 

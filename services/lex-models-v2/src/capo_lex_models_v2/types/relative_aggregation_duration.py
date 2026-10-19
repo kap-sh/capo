@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.time_dimension
     import capo_lex_models_v2.types.time_value
@@ -41,11 +39,13 @@ def deserialize_json(data: dict) -> RelativeAggregationDuration:
             )
         )
     else:
-        raise DeserializationError(
-            "RelativeAggregationDuration.time_dimension required"
+        import typing
+
+        out["time_dimension"] = typing.cast(
+            "capo_lex_models_v2.types.time_dimension.TimeDimension", ""
         )
     if data.get("timeValue") is not None:
         out["time_value"] = data["timeValue"]
     else:
-        raise DeserializationError("RelativeAggregationDuration.time_value required")
+        out["time_value"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.asset_id
     import capo_datazone.types.domain_id
@@ -57,7 +55,11 @@ def deserialize_json(data: dict) -> UpdateSubscriptionGrantStatusInput:
             data["status"]
         )
     else:
-        raise DeserializationError("UpdateSubscriptionGrantStatusInput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_datazone.types.subscription_grant_status.SubscriptionGrantStatus", ""
+        )
     if data.get("failureCause") is not None:
         import capo_datazone.types.failure_cause
 

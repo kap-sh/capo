@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.bedrock_data_automation_configuration
     import capo_bedrock_agent.types.bedrock_foundation_model_configuration
@@ -63,7 +61,11 @@ def deserialize_json(data: dict) -> ParsingConfiguration:
             )
         )
     else:
-        raise DeserializationError("ParsingConfiguration.parsing_strategy required")
+        import typing
+
+        out["parsing_strategy"] = typing.cast(
+            "capo_bedrock_agent.types.parsing_strategy.ParsingStrategy", ""
+        )
     if data.get("bedrockFoundationModelConfiguration") is not None:
         import capo_bedrock_agent.types.bedrock_foundation_model_configuration
 

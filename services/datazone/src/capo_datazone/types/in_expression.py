@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.string_list
 
@@ -32,11 +30,11 @@ def deserialize_json(data: dict) -> InExpression:
     if data.get("columnName") is not None:
         out["column_name"] = data["columnName"]
     else:
-        raise DeserializationError("InExpression.column_name required")
+        out["column_name"] = ""
     if data.get("values") is not None:
         import capo_datazone.types.string_list
 
         out["values"] = capo_datazone.types.string_list.deserialize_json(data["values"])
     else:
-        raise DeserializationError("InExpression.values required")
+        out["values"] = []
     return out

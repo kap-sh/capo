@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.email_mfa_settings_type
     import capo_cognito_identity_provider.types.sms_mfa_settings_type
@@ -117,13 +115,11 @@ def deserialize_aws_json_1_1(data: dict) -> AdminSetUserMFAPreferenceRequest:
     if data.get("Username") is not None:
         out["username"] = data["Username"]
     else:
-        raise DeserializationError("AdminSetUserMFAPreferenceRequest.username required")
+        out["username"] = ""
     if data.get("UserPoolId") is not None:
         out["user_pool_id"] = data["UserPoolId"]
     else:
-        raise DeserializationError(
-            "AdminSetUserMFAPreferenceRequest.user_pool_id required"
-        )
+        out["user_pool_id"] = ""
     return out
 
 

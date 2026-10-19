@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.dataset_arn
     import capo_bedrock_agentcore_control.types.dataset_example_list
@@ -53,17 +51,15 @@ def deserialize_json(data: dict) -> ListDatasetExamplesResponse:
     if data.get("datasetArn") is not None:
         out["dataset_arn"] = data["datasetArn"]
     else:
-        raise DeserializationError("ListDatasetExamplesResponse.dataset_arn required")
+        out["dataset_arn"] = ""
     if data.get("datasetId") is not None:
         out["dataset_id"] = data["datasetId"]
     else:
-        raise DeserializationError("ListDatasetExamplesResponse.dataset_id required")
+        out["dataset_id"] = ""
     if data.get("datasetVersion") is not None:
         out["dataset_version"] = data["datasetVersion"]
     else:
-        raise DeserializationError(
-            "ListDatasetExamplesResponse.dataset_version required"
-        )
+        out["dataset_version"] = ""
     if data.get("examples") is not None:
         import capo_bedrock_agentcore_control.types.dataset_example_list
 
@@ -73,7 +69,7 @@ def deserialize_json(data: dict) -> ListDatasetExamplesResponse:
             )
         )
     else:
-        raise DeserializationError("ListDatasetExamplesResponse.examples required")
+        out["examples"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

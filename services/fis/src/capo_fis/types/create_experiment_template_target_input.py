@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fis.types.experiment_template_target_filter_input_list
     import capo_fis.types.experiment_template_target_parameter_map
@@ -75,9 +73,7 @@ def deserialize_json(data: dict) -> CreateExperimentTemplateTargetInput:
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError(
-            "CreateExperimentTemplateTargetInput.resource_type required"
-        )
+        out["resource_type"] = ""
     if data.get("resourceArns") is not None:
         import capo_fis.types.resource_arn_list
 
@@ -101,9 +97,7 @@ def deserialize_json(data: dict) -> CreateExperimentTemplateTargetInput:
     if data.get("selectionMode") is not None:
         out["selection_mode"] = data["selectionMode"]
     else:
-        raise DeserializationError(
-            "CreateExperimentTemplateTargetInput.selection_mode required"
-        )
+        out["selection_mode"] = ""
     if data.get("parameters") is not None:
         import capo_fis.types.experiment_template_target_parameter_map
 

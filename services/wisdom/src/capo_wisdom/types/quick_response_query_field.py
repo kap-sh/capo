@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wisdom.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wisdom.types.non_empty_string
     import capo_wisdom.types.priority
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> QuickResponseQueryField:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("QuickResponseQueryField.name required")
+        out["name"] = ""
     if data.get("values") is not None:
         import capo_wisdom.types.quick_response_query_value_list
 
@@ -62,11 +60,11 @@ def deserialize_json(data: dict) -> QuickResponseQueryField:
             )
         )
     else:
-        raise DeserializationError("QuickResponseQueryField.values required")
+        out["values"] = []
     if data.get("operator") is not None:
         out["operator"] = data["operator"]
     else:
-        raise DeserializationError("QuickResponseQueryField.operator required")
+        out["operator"] = ""
     if data.get("allowFuzziness") is not None:
         out["allow_fuzziness"] = data["allowFuzziness"]
     if data.get("priority") is not None:

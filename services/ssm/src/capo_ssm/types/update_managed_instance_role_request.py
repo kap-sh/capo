@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.iam_role
     import capo_ssm.types.managed_instance_id
@@ -31,11 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateManagedInstanceRoleRequest:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError(
-            "UpdateManagedInstanceRoleRequest.instance_id required"
-        )
+        out["instance_id"] = ""
     if data.get("IamRole") is not None:
         out["iam_role"] = data["IamRole"]
     else:
-        raise DeserializationError("UpdateManagedInstanceRoleRequest.iam_role required")
+        out["iam_role"] = ""
     return out

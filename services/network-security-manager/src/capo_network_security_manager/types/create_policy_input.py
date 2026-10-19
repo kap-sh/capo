@@ -100,13 +100,13 @@ def deserialize_json(data: dict) -> CreatePolicyInput:
     if data.get("policyName") is not None:
         out["policy_name"] = data["policyName"]
     else:
-        raise DeserializationError("CreatePolicyInput.policy_name required")
+        out["policy_name"] = ""
     if data.get("policyDescription") is not None:
         out["policy_description"] = data["policyDescription"]
     if data.get("priority") is not None:
         out["priority"] = data["priority"]
     else:
-        raise DeserializationError("CreatePolicyInput.priority required")
+        out["priority"] = 0
     if data.get("associatedTemplateAndRuleList") is not None:
         import capo_network_security_manager.types.template_and_rule_reference_list
 
@@ -124,7 +124,12 @@ def deserialize_json(data: dict) -> CreatePolicyInput:
             )
         )
     else:
-        raise DeserializationError("CreatePolicyInput.firewall_type required")
+        import typing
+
+        out["firewall_type"] = typing.cast(
+            "capo_network_security_manager.types.policy_firewall_type.PolicyFirewallType",
+            "",
+        )
     if data.get("policyConfiguration") is not None:
         import capo_network_security_manager.types.policy_configuration
 

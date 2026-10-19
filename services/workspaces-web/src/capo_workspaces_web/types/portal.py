@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.arn
     import capo_workspaces_web.types.authentication_type
@@ -144,7 +142,7 @@ def deserialize_json(data: dict) -> Portal:
     if data.get("portalArn") is not None:
         out["portal_arn"] = data["portalArn"]
     else:
-        raise DeserializationError("Portal.portal_arn required")
+        out["portal_arn"] = ""
     if data.get("rendererType") is not None:
         out["renderer_type"] = data["rendererType"]
     if data.get("browserType") is not None:

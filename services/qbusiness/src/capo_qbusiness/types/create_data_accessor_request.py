@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.action_configuration_list
     import capo_qbusiness.types.application_id
@@ -71,7 +69,7 @@ def deserialize_json(data: dict) -> CreateDataAccessorRequest:
     if data.get("principal") is not None:
         out["principal"] = data["principal"]
     else:
-        raise DeserializationError("CreateDataAccessorRequest.principal required")
+        out["principal"] = ""
     if data.get("actionConfigurations") is not None:
         import capo_qbusiness.types.action_configuration_list
 
@@ -81,15 +79,13 @@ def deserialize_json(data: dict) -> CreateDataAccessorRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDataAccessorRequest.action_configurations required"
-        )
+        out["action_configurations"] = []
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("CreateDataAccessorRequest.display_name required")
+        out["display_name"] = ""
     if data.get("authenticationDetail") is not None:
         import capo_qbusiness.types.data_accessor_authentication_detail
 

@@ -45,15 +45,11 @@ def deserialize_aws_json_1_1(
     if data.get("InstanceArn") is not None:
         out["instance_arn"] = data["InstanceArn"]
     else:
-        raise DeserializationError(
-            "PutPermissionsBoundaryToPermissionSetRequest.instance_arn required"
-        )
+        out["instance_arn"] = ""
     if data.get("PermissionSetArn") is not None:
         out["permission_set_arn"] = data["PermissionSetArn"]
     else:
-        raise DeserializationError(
-            "PutPermissionsBoundaryToPermissionSetRequest.permission_set_arn required"
-        )
+        out["permission_set_arn"] = ""
     if data.get("PermissionsBoundary") is not None:
         import capo_sso_admin.types.permissions_boundary
 

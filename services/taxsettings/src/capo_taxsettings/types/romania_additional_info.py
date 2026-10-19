@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_taxsettings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_taxsettings.types.tax_registration_number_type
 
@@ -41,7 +39,10 @@ def deserialize_json(data: dict) -> RomaniaAdditionalInfo:
             )
         )
     else:
-        raise DeserializationError(
-            "RomaniaAdditionalInfo.tax_registration_number_type required"
+        import typing
+
+        out["tax_registration_number_type"] = typing.cast(
+            "capo_taxsettings.types.tax_registration_number_type.TaxRegistrationNumberType",
+            "",
         )
     return out

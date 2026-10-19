@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.retrieve_error_code
     import capo_qconnect.types.uuid
@@ -34,13 +32,13 @@ def deserialize_json(data: dict) -> RetrieveError:
     if data.get("associationId") is not None:
         out["association_id"] = data["associationId"]
     else:
-        raise DeserializationError("RetrieveError.association_id required")
+        out["association_id"] = ""
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("RetrieveError.code required")
+        out["code"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("RetrieveError.message required")
+        out["message"] = ""
     return out

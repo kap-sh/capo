@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.app_configs
     import capo_opensearch.types.application_name
@@ -78,7 +76,7 @@ def deserialize_json(data: dict) -> CreateApplicationRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateApplicationRequest.name required")
+        out["name"] = ""
     if data.get("dataSources") is not None:
         import capo_opensearch.types.data_sources
 

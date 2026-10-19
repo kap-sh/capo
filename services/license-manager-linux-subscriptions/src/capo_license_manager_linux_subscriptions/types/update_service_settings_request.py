@@ -41,9 +41,7 @@ def deserialize_json(data: dict) -> UpdateServiceSettingsRequest:
     if data.get("LinuxSubscriptionsDiscovery") is not None:
         out["linux_subscriptions_discovery"] = data["LinuxSubscriptionsDiscovery"]
     else:
-        raise DeserializationError(
-            "UpdateServiceSettingsRequest.linux_subscriptions_discovery required"
-        )
+        out["linux_subscriptions_discovery"] = ""
     if data.get("LinuxSubscriptionsDiscoverySettings") is not None:
         import capo_license_manager_linux_subscriptions.types.linux_subscriptions_discovery_settings
 

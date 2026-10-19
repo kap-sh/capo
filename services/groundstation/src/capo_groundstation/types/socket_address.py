@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 
 class SocketAddress(TypedDict, closed=True):
     name: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> SocketAddress:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("SocketAddress.name required")
+        out["name"] = ""
     if data.get("port") is not None:
         out["port"] = data["port"]
     else:
-        raise DeserializationError("SocketAddress.port required")
+        out["port"] = 0
     return out

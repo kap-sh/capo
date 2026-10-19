@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.config_type_data
     import capo_groundstation.types.safe_name
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> CreateConfigRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateConfigRequest.name required")
+        out["name"] = ""
     if data.get("configData") is not None:
         import capo_groundstation.types.config_type_data
 
@@ -50,7 +48,9 @@ def deserialize_json(data: dict) -> CreateConfigRequest:
             data["configData"]
         )
     else:
-        raise DeserializationError("CreateConfigRequest.config_data required")
+        import capo_groundstation.types._unknown
+
+        out["config_data"] = capo_groundstation.types._unknown.UnknownUnionMember("")
     if data.get("tags") is not None:
         import capo_groundstation.types.tags_map
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.pager_duty_authorization_config
     import capo_devops_agent.types.pager_duty_scopes
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> PagerDutyDetails:
             data["scopes"]
         )
     else:
-        raise DeserializationError("PagerDutyDetails.scopes required")
+        out["scopes"] = []
     if data.get("authorizationConfig") is not None:
         import capo_devops_agent.types.pager_duty_authorization_config
 
@@ -55,7 +53,11 @@ def deserialize_json(data: dict) -> PagerDutyDetails:
             )
         )
     else:
-        raise DeserializationError("PagerDutyDetails.authorization_config required")
+        import capo_devops_agent.types._unknown
+
+        out["authorization_config"] = (
+            capo_devops_agent.types._unknown.UnknownUnionMember("")
+        )
     return out
 
 

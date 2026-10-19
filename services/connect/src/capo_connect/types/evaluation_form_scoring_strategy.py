@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.evaluation_form_score_threshold_list
     import capo_connect.types.evaluation_form_scoring_mode
@@ -58,7 +56,12 @@ def deserialize_json(data: dict) -> EvaluationFormScoringStrategy:
             data["Mode"]
         )
     else:
-        raise DeserializationError("EvaluationFormScoringStrategy.mode required")
+        import typing
+
+        out["mode"] = typing.cast(
+            "capo_connect.types.evaluation_form_scoring_mode.EvaluationFormScoringMode",
+            "",
+        )
     if data.get("Status") is not None:
         import capo_connect.types.evaluation_form_scoring_status
 
@@ -68,7 +71,12 @@ def deserialize_json(data: dict) -> EvaluationFormScoringStrategy:
             )
         )
     else:
-        raise DeserializationError("EvaluationFormScoringStrategy.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_connect.types.evaluation_form_scoring_status.EvaluationFormScoringStatus",
+            "",
+        )
     if data.get("ScoreThresholds") is not None:
         import capo_connect.types.evaluation_form_score_threshold_list
 

@@ -55,9 +55,9 @@ def deserialize_json(data: dict) -> AssetContract:
     if data.get("tokenStandard") is not None:
         out["token_standard"] = data["tokenStandard"]
     else:
-        raise DeserializationError("AssetContract.token_standard required")
+        out["token_standard"] = ""
     if data.get("deployerAddress") is not None:
         out["deployer_address"] = data["deployerAddress"]
     else:
-        raise DeserializationError("AssetContract.deployer_address required")
+        out["deployer_address"] = ""
     return out

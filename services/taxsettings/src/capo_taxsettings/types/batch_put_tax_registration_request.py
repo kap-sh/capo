@@ -47,9 +47,7 @@ def deserialize_json(data: dict) -> BatchPutTaxRegistrationRequest:
             data["accountIds"]
         )
     else:
-        raise DeserializationError(
-            "BatchPutTaxRegistrationRequest.account_ids required"
-        )
+        out["account_ids"] = []
     if data.get("taxRegistrationEntry") is not None:
         import capo_taxsettings.types.tax_registration_entry
 

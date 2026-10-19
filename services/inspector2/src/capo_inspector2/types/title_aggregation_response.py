@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.account_id
     import capo_inspector2.types.non_empty_string
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> TitleAggregationResponse:
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("TitleAggregationResponse.title required")
+        out["title"] = ""
     if data.get("vulnerabilityId") is not None:
         out["vulnerability_id"] = data["vulnerabilityId"]
     if data.get("accountId") is not None:

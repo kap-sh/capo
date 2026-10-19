@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.batch_describe_user_limits_error_list
     import capo_quicksight.types.user_limits_list
@@ -45,9 +43,7 @@ def deserialize_json(data: dict) -> BatchDescribeUserLimitsResponse:
             data["userLimits"]
         )
     else:
-        raise DeserializationError(
-            "BatchDescribeUserLimitsResponse.user_limits required"
-        )
+        out["user_limits"] = []
     if data.get("errors") is not None:
         import capo_quicksight.types.batch_describe_user_limits_error_list
 
@@ -57,5 +53,5 @@ def deserialize_json(data: dict) -> BatchDescribeUserLimitsResponse:
             )
         )
     else:
-        raise DeserializationError("BatchDescribeUserLimitsResponse.errors required")
+        out["errors"] = []
     return out

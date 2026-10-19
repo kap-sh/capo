@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chatbot.types.arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> AssociationListing:
     if data.get("Resource") is not None:
         out["resource"] = data["Resource"]
     else:
-        raise DeserializationError("AssociationListing.resource required")
+        out["resource"] = ""
     return out

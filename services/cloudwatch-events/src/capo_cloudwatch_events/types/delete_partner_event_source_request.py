@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_events.types.account_id
     import capo_cloudwatch_events.types.event_source_name
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeletePartnerEventSourceRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DeletePartnerEventSourceRequest.name required")
+        out["name"] = ""
     if data.get("Account") is not None:
         out["account"] = data["Account"]
     else:
-        raise DeserializationError("DeletePartnerEventSourceRequest.account required")
+        out["account"] = ""
     return out

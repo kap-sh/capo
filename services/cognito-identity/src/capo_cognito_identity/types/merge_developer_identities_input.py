@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity.types.developer_provider_name
     import capo_cognito_identity.types.developer_user_identifier
@@ -44,25 +42,17 @@ def deserialize_aws_json_1_1(data: dict) -> MergeDeveloperIdentitiesInput:
     if data.get("SourceUserIdentifier") is not None:
         out["source_user_identifier"] = data["SourceUserIdentifier"]
     else:
-        raise DeserializationError(
-            "MergeDeveloperIdentitiesInput.source_user_identifier required"
-        )
+        out["source_user_identifier"] = ""
     if data.get("DestinationUserIdentifier") is not None:
         out["destination_user_identifier"] = data["DestinationUserIdentifier"]
     else:
-        raise DeserializationError(
-            "MergeDeveloperIdentitiesInput.destination_user_identifier required"
-        )
+        out["destination_user_identifier"] = ""
     if data.get("DeveloperProviderName") is not None:
         out["developer_provider_name"] = data["DeveloperProviderName"]
     else:
-        raise DeserializationError(
-            "MergeDeveloperIdentitiesInput.developer_provider_name required"
-        )
+        out["developer_provider_name"] = ""
     if data.get("IdentityPoolId") is not None:
         out["identity_pool_id"] = data["IdentityPoolId"]
     else:
-        raise DeserializationError(
-            "MergeDeveloperIdentitiesInput.identity_pool_id required"
-        )
+        out["identity_pool_id"] = ""
     return out

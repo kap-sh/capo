@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.filter_clause
     import capo_datazone.types.graph_entity_type
@@ -46,11 +44,15 @@ def deserialize_json(data: dict) -> EntityPattern:
             data["entityType"]
         )
     else:
-        raise DeserializationError("EntityPattern.entity_type required")
+        import typing
+
+        out["entity_type"] = typing.cast(
+            "capo_datazone.types.graph_entity_type.GraphEntityType", ""
+        )
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("EntityPattern.identifier required")
+        out["identifier"] = ""
     if data.get("filters") is not None:
         import capo_datazone.types.filter_clause
 

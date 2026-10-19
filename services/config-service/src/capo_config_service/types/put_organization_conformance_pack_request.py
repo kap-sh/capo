@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.conformance_pack_input_parameters
     import capo_config_service.types.delivery_s3_bucket
@@ -90,9 +88,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutOrganizationConformancePackReques
             "OrganizationConformancePackName"
         ]
     else:
-        raise DeserializationError(
-            "PutOrganizationConformancePackRequest.organization_conformance_pack_name required"
-        )
+        out["organization_conformance_pack_name"] = ""
     if data.get("TemplateS3Uri") is not None:
         out["template_s3_uri"] = data["TemplateS3Uri"]
     if data.get("TemplateBody") is not None:

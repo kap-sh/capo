@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.aws_account_id
     import capo_proton.types.client_token
@@ -58,17 +56,13 @@ def deserialize_aws_json_1_0(data: dict) -> CreateEnvironmentAccountConnectionIn
     if data.get("managementAccountId") is not None:
         out["management_account_id"] = data["managementAccountId"]
     else:
-        raise DeserializationError(
-            "CreateEnvironmentAccountConnectionInput.management_account_id required"
-        )
+        out["management_account_id"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     if data.get("environmentName") is not None:
         out["environment_name"] = data["environmentName"]
     else:
-        raise DeserializationError(
-            "CreateEnvironmentAccountConnectionInput.environment_name required"
-        )
+        out["environment_name"] = ""
     if data.get("tags") is not None:
         import capo_proton.types.tag_list
 

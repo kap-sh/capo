@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.report_group_arns
 
@@ -39,7 +37,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetReportGroupsInput:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetReportGroupsInput.report_group_arns required"
-        )
+        out["report_group_arns"] = []
     return out

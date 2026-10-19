@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.actions
     import capo_bedrock_agentcore_control.types.client_token
@@ -71,7 +69,7 @@ def deserialize_json(data: dict) -> CreateGatewayRuleRequest:
     if data.get("priority") is not None:
         out["priority"] = data["priority"]
     else:
-        raise DeserializationError("CreateGatewayRuleRequest.priority required")
+        out["priority"] = 0
     if data.get("conditions") is not None:
         import capo_bedrock_agentcore_control.types.conditions
 
@@ -87,7 +85,7 @@ def deserialize_json(data: dict) -> CreateGatewayRuleRequest:
             data["actions"]
         )
     else:
-        raise DeserializationError("CreateGatewayRuleRequest.actions required")
+        out["actions"] = []
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

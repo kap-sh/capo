@@ -97,13 +97,13 @@ def deserialize_json(data: dict) -> DescribePackageImportJobResponse:
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError("DescribePackageImportJobResponse.job_id required")
+        out["job_id"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("JobType") is not None:
         out["job_type"] = data["JobType"]
     else:
-        raise DeserializationError("DescribePackageImportJobResponse.job_type required")
+        out["job_type"] = ""
     if data.get("InputConfig") is not None:
         import capo_panorama.types.package_import_job_input_config
 
@@ -143,8 +143,10 @@ def deserialize_json(data: dict) -> DescribePackageImportJobResponse:
             data["CreatedTime"]
         )
     else:
-        raise DeserializationError(
-            "DescribePackageImportJobResponse.created_time required"
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("LastUpdatedTime") is not None:
         import capo_panorama.types.last_updated_time
@@ -155,19 +157,19 @@ def deserialize_json(data: dict) -> DescribePackageImportJobResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribePackageImportJobResponse.last_updated_time required"
+        import datetime
+
+        out["last_updated_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("DescribePackageImportJobResponse.status required")
+        out["status"] = ""
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
     else:
-        raise DeserializationError(
-            "DescribePackageImportJobResponse.status_message required"
-        )
+        out["status_message"] = ""
     if data.get("JobTags") is not None:
         import capo_panorama.types.job_tags_list
 

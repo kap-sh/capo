@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloud9.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloud9.types.environment_id
     import capo_cloud9.types.user_arn
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteEnvironmentMembershipRequest:
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError(
-            "DeleteEnvironmentMembershipRequest.environment_id required"
-        )
+        out["environment_id"] = ""
     if data.get("userArn") is not None:
         out["user_arn"] = data["userArn"]
     else:
-        raise DeserializationError(
-            "DeleteEnvironmentMembershipRequest.user_arn required"
-        )
+        out["user_arn"] = ""
     return out

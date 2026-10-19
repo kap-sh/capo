@@ -42,7 +42,7 @@ def deserialize_json(data: dict) -> UpdateApiRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateApiRequest.name required")
+        out["name"] = ""
     if data.get("ownerContact") is not None:
         out["owner_contact"] = data["ownerContact"]
     if data.get("eventConfig") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.agent_search_filter_list
     import capo_quicksight.types.agents_max_results
@@ -47,5 +45,5 @@ def deserialize_json(data: dict) -> SearchAgentsRequest:
             )
         )
     else:
-        raise DeserializationError("SearchAgentsRequest.filters required")
+        out["filters"] = []
     return out

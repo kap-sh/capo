@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_device_farm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_device_farm.types.integer
     import capo_device_farm.types.offering_identifier
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> RenewOfferingRequest:
     if data.get("offeringId") is not None:
         out["offering_id"] = data["offeringId"]
     else:
-        raise DeserializationError("RenewOfferingRequest.offering_id required")
+        out["offering_id"] = ""
     if data.get("quantity") is not None:
         out["quantity"] = data["quantity"]
     else:
-        raise DeserializationError("RenewOfferingRequest.quantity required")
+        out["quantity"] = 0
     return out

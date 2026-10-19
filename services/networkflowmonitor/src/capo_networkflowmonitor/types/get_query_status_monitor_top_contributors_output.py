@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_networkflowmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkflowmonitor.types.query_status
 
@@ -35,7 +33,9 @@ def deserialize_json(data: dict) -> GetQueryStatusMonitorTopContributorsOutput:
             data["status"]
         )
     else:
-        raise DeserializationError(
-            "GetQueryStatusMonitorTopContributorsOutput.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_networkflowmonitor.types.query_status.QueryStatus", ""
         )
     return out

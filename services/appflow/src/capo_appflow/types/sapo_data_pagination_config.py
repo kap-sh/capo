@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.sapo_data_max_page_size
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> SAPODataPaginationConfig:
     if data.get("maxPageSize") is not None:
         out["max_page_size"] = data["maxPageSize"]
     else:
-        raise DeserializationError("SAPODataPaginationConfig.max_page_size required")
+        out["max_page_size"] = 0
     return out

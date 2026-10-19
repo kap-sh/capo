@@ -35,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> PreviewResultSummary:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("PreviewResultSummary.key required")
+        out["key"] = ""
     if data.get("total") is not None:
         import capo_compute_optimizer_automation.types.rule_preview_total
 

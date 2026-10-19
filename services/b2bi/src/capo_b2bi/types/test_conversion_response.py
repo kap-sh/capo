@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.validation_messages
 
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_0(data: dict) -> TestConversionResponse:
     if data.get("convertedFileContent") is not None:
         out["converted_file_content"] = data["convertedFileContent"]
     else:
-        raise DeserializationError(
-            "TestConversionResponse.converted_file_content required"
-        )
+        out["converted_file_content"] = ""
     if data.get("validationMessages") is not None:
         import capo_b2bi.types.validation_messages
 

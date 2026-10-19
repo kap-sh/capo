@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connecthealth.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -95,15 +93,15 @@ def deserialize_json(data: dict) -> GetDomainOutput:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("GetDomainOutput.domain_id required")
+        out["domain_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetDomainOutput.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetDomainOutput.name required")
+        out["name"] = ""
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     if data.get("encryptionContext") is not None:
@@ -121,7 +119,11 @@ def deserialize_json(data: dict) -> GetDomainOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("GetDomainOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_connecthealth.types.domain_status.DomainStatus", ""
+        )
     if data.get("webAppUrl") is not None:
         out["web_app_url"] = data["webAppUrl"]
     if data.get("webAppConfiguration") is not None:
@@ -141,7 +143,9 @@ def deserialize_json(data: dict) -> GetDomainOutput:
             )
         )
     else:
-        raise DeserializationError("GetDomainOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("tags") is not None:
         import capo_connecthealth.types.tag_map
 

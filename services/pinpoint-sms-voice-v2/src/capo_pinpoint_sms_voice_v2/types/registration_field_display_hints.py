@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.select_option_descriptions_list
 
@@ -62,13 +60,11 @@ def deserialize_aws_json_1_0(data: dict) -> RegistrationFieldDisplayHints:
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     else:
-        raise DeserializationError("RegistrationFieldDisplayHints.title required")
+        out["title"] = ""
     if data.get("ShortDescription") is not None:
         out["short_description"] = data["ShortDescription"]
     else:
-        raise DeserializationError(
-            "RegistrationFieldDisplayHints.short_description required"
-        )
+        out["short_description"] = ""
     if data.get("LongDescription") is not None:
         out["long_description"] = data["LongDescription"]
     if data.get("DocumentationTitle") is not None:

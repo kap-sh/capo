@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.cmk_type
     import capo_healthlake.types.encryption_key_id
@@ -40,7 +38,9 @@ def deserialize_aws_json_1_0(data: dict) -> KmsEncryptionConfig:
             data["CmkType"]
         )
     else:
-        raise DeserializationError("KmsEncryptionConfig.cmk_type required")
+        import typing
+
+        out["cmk_type"] = typing.cast("capo_healthlake.types.cmk_type.CmkType", "")
     if data.get("KmsKeyId") is not None:
         out["kms_key_id"] = data["KmsKeyId"]
     return out

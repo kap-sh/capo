@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.disassociate_configuration_request_list
 
@@ -43,7 +41,5 @@ def deserialize_json(
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDisassociateCodeSecurityScanConfigurationRequest.disassociate_configuration_requests required"
-        )
+        out["disassociate_configuration_requests"] = []
     return out

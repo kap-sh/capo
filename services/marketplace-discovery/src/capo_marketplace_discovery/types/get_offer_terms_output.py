@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.locale
     import capo_marketplace_discovery.types.next_token
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> GetOfferTermsOutput:
             )
         )
     else:
-        raise DeserializationError("GetOfferTermsOutput.offer_terms required")
+        out["offer_terms"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

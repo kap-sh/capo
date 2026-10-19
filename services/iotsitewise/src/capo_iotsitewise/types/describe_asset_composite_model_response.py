@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.action_definitions
     import capo_iotsitewise.types.asset_composite_model_path
@@ -97,15 +95,11 @@ def deserialize_json(data: dict) -> DescribeAssetCompositeModelResponse:
     if data.get("assetId") is not None:
         out["asset_id"] = data["assetId"]
     else:
-        raise DeserializationError(
-            "DescribeAssetCompositeModelResponse.asset_id required"
-        )
+        out["asset_id"] = ""
     if data.get("assetCompositeModelId") is not None:
         out["asset_composite_model_id"] = data["assetCompositeModelId"]
     else:
-        raise DeserializationError(
-            "DescribeAssetCompositeModelResponse.asset_composite_model_id required"
-        )
+        out["asset_composite_model_id"] = ""
     if data.get("assetCompositeModelExternalId") is not None:
         out["asset_composite_model_external_id"] = data["assetCompositeModelExternalId"]
     if data.get("assetCompositeModelPath") is not None:
@@ -117,29 +111,21 @@ def deserialize_json(data: dict) -> DescribeAssetCompositeModelResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeAssetCompositeModelResponse.asset_composite_model_path required"
-        )
+        out["asset_composite_model_path"] = []
     if data.get("assetCompositeModelName") is not None:
         out["asset_composite_model_name"] = data["assetCompositeModelName"]
     else:
-        raise DeserializationError(
-            "DescribeAssetCompositeModelResponse.asset_composite_model_name required"
-        )
+        out["asset_composite_model_name"] = ""
     if data.get("assetCompositeModelDescription") is not None:
         out["asset_composite_model_description"] = data[
             "assetCompositeModelDescription"
         ]
     else:
-        raise DeserializationError(
-            "DescribeAssetCompositeModelResponse.asset_composite_model_description required"
-        )
+        out["asset_composite_model_description"] = ""
     if data.get("assetCompositeModelType") is not None:
         out["asset_composite_model_type"] = data["assetCompositeModelType"]
     else:
-        raise DeserializationError(
-            "DescribeAssetCompositeModelResponse.asset_composite_model_type required"
-        )
+        out["asset_composite_model_type"] = ""
     if data.get("assetCompositeModelProperties") is not None:
         import capo_iotsitewise.types.asset_properties
 
@@ -149,9 +135,7 @@ def deserialize_json(data: dict) -> DescribeAssetCompositeModelResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeAssetCompositeModelResponse.asset_composite_model_properties required"
-        )
+        out["asset_composite_model_properties"] = []
     if data.get("assetCompositeModelSummaries") is not None:
         import capo_iotsitewise.types.asset_composite_model_summaries
 
@@ -161,9 +145,7 @@ def deserialize_json(data: dict) -> DescribeAssetCompositeModelResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeAssetCompositeModelResponse.asset_composite_model_summaries required"
-        )
+        out["asset_composite_model_summaries"] = []
     if data.get("actionDefinitions") is not None:
         import capo_iotsitewise.types.action_definitions
 

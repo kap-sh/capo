@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.float
@@ -48,9 +47,7 @@ def deserialize_xml(el: Element) -> ContinuousDeploymentSingleWeightConfig:
     if child_weight is not None:
         out["weight"] = float(child_weight.text or "")
     else:
-        raise DeserializationError(
-            "ContinuousDeploymentSingleWeightConfig.weight required"
-        )
+        out["weight"] = 0.0
     child_session_stickiness_config = el.find("SessionStickinessConfig")
     if child_session_stickiness_config is not None:
         import capo_cloudfront.types.session_stickiness_config

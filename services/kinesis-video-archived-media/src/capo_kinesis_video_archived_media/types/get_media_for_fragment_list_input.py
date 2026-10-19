@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_video_archived_media.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_video_archived_media.types.fragment_number_list
     import capo_kinesis_video_archived_media.types.resource_arn
@@ -57,5 +55,5 @@ def deserialize_json(data: dict) -> GetMediaForFragmentListInput:
             )
         )
     else:
-        raise DeserializationError("GetMediaForFragmentListInput.fragments required")
+        out["fragments"] = []
     return out

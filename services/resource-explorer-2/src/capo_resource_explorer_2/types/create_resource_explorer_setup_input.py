@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resource_explorer_2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resource_explorer_2.types.region_list
 
@@ -52,9 +50,7 @@ def deserialize_json(data: dict) -> CreateResourceExplorerSetupInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateResourceExplorerSetupInput.region_list required"
-        )
+        out["region_list"] = []
     if data.get("AggregatorRegions") is not None:
         import capo_resource_explorer_2.types.region_list
 
@@ -66,7 +62,5 @@ def deserialize_json(data: dict) -> CreateResourceExplorerSetupInput:
     if data.get("ViewName") is not None:
         out["view_name"] = data["ViewName"]
     else:
-        raise DeserializationError(
-            "CreateResourceExplorerSetupInput.view_name required"
-        )
+        out["view_name"] = ""
     return out

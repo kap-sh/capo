@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.interconnect_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteInterconnectRequest:
     if data.get("interconnectId") is not None:
         out["interconnect_id"] = data["interconnectId"]
     else:
-        raise DeserializationError("DeleteInterconnectRequest.interconnect_id required")
+        out["interconnect_id"] = ""
     return out

@@ -51,9 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDataSourceFromRDSInput:
     if data.get("DataSourceId") is not None:
         out["data_source_id"] = data["DataSourceId"]
     else:
-        raise DeserializationError(
-            "CreateDataSourceFromRDSInput.data_source_id required"
-        )
+        out["data_source_id"] = ""
     if data.get("DataSourceName") is not None:
         out["data_source_name"] = data["DataSourceName"]
     if data.get("RDSData") is not None:
@@ -69,7 +67,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDataSourceFromRDSInput:
     if data.get("RoleARN") is not None:
         out["role_arn"] = data["RoleARN"]
     else:
-        raise DeserializationError("CreateDataSourceFromRDSInput.role_arn required")
+        out["role_arn"] = ""
     if data.get("ComputeStatistics") is not None:
         out["compute_statistics"] = data["ComputeStatistics"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.role_arn
     import capo_rekognition.types.sns_topic_arn
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> NotificationChannel:
     if data.get("SNSTopicArn") is not None:
         out["sns_topic_arn"] = data["SNSTopicArn"]
     else:
-        raise DeserializationError("NotificationChannel.sns_topic_arn required")
+        out["sns_topic_arn"] = ""
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("NotificationChannel.role_arn required")
+        out["role_arn"] = ""
     return out

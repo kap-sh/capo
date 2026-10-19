@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.id
     import capo_kinesis_analytics_v2.types.security_group_ids
@@ -53,13 +51,11 @@ def deserialize_aws_json_1_1(data: dict) -> VpcConfigurationDescription:
     if data.get("VpcConfigurationId") is not None:
         out["vpc_configuration_id"] = data["VpcConfigurationId"]
     else:
-        raise DeserializationError(
-            "VpcConfigurationDescription.vpc_configuration_id required"
-        )
+        out["vpc_configuration_id"] = ""
     if data.get("VpcId") is not None:
         out["vpc_id"] = data["VpcId"]
     else:
-        raise DeserializationError("VpcConfigurationDescription.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("SubnetIds") is not None:
         import capo_kinesis_analytics_v2.types.subnet_ids
 
@@ -69,7 +65,7 @@ def deserialize_aws_json_1_1(data: dict) -> VpcConfigurationDescription:
             )
         )
     else:
-        raise DeserializationError("VpcConfigurationDescription.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("SecurityGroupIds") is not None:
         import capo_kinesis_analytics_v2.types.security_group_ids
 
@@ -79,7 +75,5 @@ def deserialize_aws_json_1_1(data: dict) -> VpcConfigurationDescription:
             )
         )
     else:
-        raise DeserializationError(
-            "VpcConfigurationDescription.security_group_ids required"
-        )
+        out["security_group_ids"] = []
     return out

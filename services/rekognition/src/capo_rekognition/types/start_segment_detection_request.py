@@ -108,7 +108,5 @@ def deserialize_aws_json_1_1(data: dict) -> StartSegmentDetectionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartSegmentDetectionRequest.segment_types required"
-        )
+        out["segment_types"] = []
     return out

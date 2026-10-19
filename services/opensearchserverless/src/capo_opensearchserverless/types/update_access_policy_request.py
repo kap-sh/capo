@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearchserverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearchserverless.types.access_policy_type
     import capo_opensearchserverless.types.client_token
@@ -56,15 +54,15 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateAccessPolicyRequest:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("UpdateAccessPolicyRequest.type required")
+        out["type"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateAccessPolicyRequest.name required")
+        out["name"] = ""
     if data.get("policyVersion") is not None:
         out["policy_version"] = data["policyVersion"]
     else:
-        raise DeserializationError("UpdateAccessPolicyRequest.policy_version required")
+        out["policy_version"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("policy") is not None:

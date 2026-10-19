@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_simpledbv2.errors import DeserializationError, ServiceError
+from capo_simpledbv2.errors import ServiceError
 
 
 class NumberExportsLimitExceeded_(TypedDict, closed=True):
@@ -22,7 +22,7 @@ def deserialize_json(data: dict) -> NumberExportsLimitExceeded_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("NumberExportsLimitExceeded_.message required")
+        out["message"] = ""
     return out
 
 

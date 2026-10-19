@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_messaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_messaging.types.maximum_sub_channels
     import capo_chime_sdk_messaging.types.minimum_membership_percentage
@@ -37,21 +35,15 @@ def deserialize_json(data: dict) -> ElasticChannelConfiguration:
     if data.get("MaximumSubChannels") is not None:
         out["maximum_sub_channels"] = data["MaximumSubChannels"]
     else:
-        raise DeserializationError(
-            "ElasticChannelConfiguration.maximum_sub_channels required"
-        )
+        out["maximum_sub_channels"] = 0
     if data.get("TargetMembershipsPerSubChannel") is not None:
         out["target_memberships_per_sub_channel"] = data[
             "TargetMembershipsPerSubChannel"
         ]
     else:
-        raise DeserializationError(
-            "ElasticChannelConfiguration.target_memberships_per_sub_channel required"
-        )
+        out["target_memberships_per_sub_channel"] = 0
     if data.get("MinimumMembershipPercentage") is not None:
         out["minimum_membership_percentage"] = data["MinimumMembershipPercentage"]
     else:
-        raise DeserializationError(
-            "ElasticChannelConfiguration.minimum_membership_percentage required"
-        )
+        out["minimum_membership_percentage"] = 0
     return out

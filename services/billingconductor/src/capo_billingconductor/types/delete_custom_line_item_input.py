@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billingconductor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billingconductor.types.custom_line_item_arn
     import capo_billingconductor.types.custom_line_item_billing_period_range
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> DeleteCustomLineItemInput:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("DeleteCustomLineItemInput.arn required")
+        out["arn"] = ""
     if data.get("BillingPeriodRange") is not None:
         import capo_billingconductor.types.custom_line_item_billing_period_range
 

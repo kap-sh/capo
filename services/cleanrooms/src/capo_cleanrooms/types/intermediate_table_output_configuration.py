@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.display_name
     import capo_cleanrooms.types.intermediate_table_arn
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> IntermediateTableOutputConfiguration:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("IntermediateTableOutputConfiguration.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("IntermediateTableOutputConfiguration.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("IntermediateTableOutputConfiguration.name required")
+        out["name"] = ""
     return out

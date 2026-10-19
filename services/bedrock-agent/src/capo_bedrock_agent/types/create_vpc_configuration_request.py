@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.client_token
     import capo_bedrock_agent.types.host_header
@@ -95,7 +93,7 @@ def deserialize_json(data: dict) -> CreateVpcConfigurationRequest:
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
     else:
-        raise DeserializationError("CreateVpcConfigurationRequest.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("subnetIds") is not None:
         import capo_bedrock_agent.types.subnet_id_list
 
@@ -103,17 +101,15 @@ def deserialize_json(data: dict) -> CreateVpcConfigurationRequest:
             data["subnetIds"]
         )
     else:
-        raise DeserializationError("CreateVpcConfigurationRequest.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("resourceTarget") is not None:
         out["resource_target"] = data["resourceTarget"]
     else:
-        raise DeserializationError(
-            "CreateVpcConfigurationRequest.resource_target required"
-        )
+        out["resource_target"] = ""
     if data.get("port") is not None:
         out["port"] = data["port"]
     else:
-        raise DeserializationError("CreateVpcConfigurationRequest.port required")
+        out["port"] = 0
     if data.get("protocol") is not None:
         import capo_bedrock_agent.types.vpc_protocol
 
@@ -121,7 +117,11 @@ def deserialize_json(data: dict) -> CreateVpcConfigurationRequest:
             data["protocol"]
         )
     else:
-        raise DeserializationError("CreateVpcConfigurationRequest.protocol required")
+        import typing
+
+        out["protocol"] = typing.cast(
+            "capo_bedrock_agent.types.vpc_protocol.VpcProtocol", ""
+        )
     if data.get("resolutionMode") is not None:
         import capo_bedrock_agent.types.vpc_resolution_mode
 
@@ -131,8 +131,10 @@ def deserialize_json(data: dict) -> CreateVpcConfigurationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateVpcConfigurationRequest.resolution_mode required"
+        import typing
+
+        out["resolution_mode"] = typing.cast(
+            "capo_bedrock_agent.types.vpc_resolution_mode.VpcResolutionMode", ""
         )
     if data.get("hostHeader") is not None:
         out["host_header"] = data["hostHeader"]

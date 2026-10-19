@@ -45,7 +45,11 @@ def deserialize_aws_json_1_1(data: dict) -> ByteMatchSetUpdate:
             data["Action"]
         )
     else:
-        raise DeserializationError("ByteMatchSetUpdate.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_waf_regional.types.change_action.ChangeAction", ""
+        )
     if data.get("ByteMatchTuple") is not None:
         import capo_waf_regional.types.byte_match_tuple
 

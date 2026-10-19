@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.boolean
     import capo_kendra.types.data_source_field_name
@@ -154,8 +152,10 @@ def deserialize_aws_json_1_1(data: dict) -> SharePointConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "SharePointConfiguration.share_point_version required"
+        import typing
+
+        out["share_point_version"] = typing.cast(
+            "capo_kendra.types.share_point_version.SharePointVersion", ""
         )
     if data.get("Urls") is not None:
         import capo_kendra.types.share_point_url_list
@@ -164,11 +164,11 @@ def deserialize_aws_json_1_1(data: dict) -> SharePointConfiguration:
             data["Urls"]
         )
     else:
-        raise DeserializationError("SharePointConfiguration.urls required")
+        out["urls"] = []
     if data.get("SecretArn") is not None:
         out["secret_arn"] = data["SecretArn"]
     else:
-        raise DeserializationError("SharePointConfiguration.secret_arn required")
+        out["secret_arn"] = ""
     if data.get("CrawlAttachments") is not None:
         out["crawl_attachments"] = data["CrawlAttachments"]
     else:

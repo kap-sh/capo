@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.kms_key_id
     import capo_location.types.position_filtering
@@ -72,7 +70,7 @@ def deserialize_json(data: dict) -> CreateTrackerRequest:
     if data.get("TrackerName") is not None:
         out["tracker_name"] = data["TrackerName"]
     else:
-        raise DeserializationError("CreateTrackerRequest.tracker_name required")
+        out["tracker_name"] = ""
     if data.get("PricingPlan") is not None:
         out["pricing_plan"] = data["PricingPlan"]
     if data.get("KmsKeyId") is not None:

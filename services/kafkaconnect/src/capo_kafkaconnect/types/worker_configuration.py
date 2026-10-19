@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kafkaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kafkaconnect.types.__long_min1
     import capo_kafkaconnect.types.__string
@@ -35,7 +33,5 @@ def deserialize_json(data: dict) -> WorkerConfiguration:
     if data.get("workerConfigurationArn") is not None:
         out["worker_configuration_arn"] = data["workerConfigurationArn"]
     else:
-        raise DeserializationError(
-            "WorkerConfiguration.worker_configuration_arn required"
-        )
+        out["worker_configuration_arn"] = ""
     return out

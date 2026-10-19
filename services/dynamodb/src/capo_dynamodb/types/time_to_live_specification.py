@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.time_to_live_attribute_name
     import capo_dynamodb.types.time_to_live_enabled
@@ -33,9 +31,9 @@ def deserialize_aws_json_1_0(data: dict) -> TimeToLiveSpecification:
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
-        raise DeserializationError("TimeToLiveSpecification.enabled required")
+        out["enabled"] = False
     if data.get("AttributeName") is not None:
         out["attribute_name"] = data["AttributeName"]
     else:
-        raise DeserializationError("TimeToLiveSpecification.attribute_name required")
+        out["attribute_name"] = ""
     return out

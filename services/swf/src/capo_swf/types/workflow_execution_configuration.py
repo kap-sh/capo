@@ -58,15 +58,11 @@ def deserialize_aws_json_1_0(data: dict) -> WorkflowExecutionConfiguration:
     if data.get("taskStartToCloseTimeout") is not None:
         out["task_start_to_close_timeout"] = data["taskStartToCloseTimeout"]
     else:
-        raise DeserializationError(
-            "WorkflowExecutionConfiguration.task_start_to_close_timeout required"
-        )
+        out["task_start_to_close_timeout"] = ""
     if data.get("executionStartToCloseTimeout") is not None:
         out["execution_start_to_close_timeout"] = data["executionStartToCloseTimeout"]
     else:
-        raise DeserializationError(
-            "WorkflowExecutionConfiguration.execution_start_to_close_timeout required"
-        )
+        out["execution_start_to_close_timeout"] = ""
     if data.get("taskList") is not None:
         import capo_swf.types.task_list
 
@@ -84,9 +80,9 @@ def deserialize_aws_json_1_0(data: dict) -> WorkflowExecutionConfiguration:
             data["childPolicy"]
         )
     else:
-        raise DeserializationError(
-            "WorkflowExecutionConfiguration.child_policy required"
-        )
+        import typing
+
+        out["child_policy"] = typing.cast("capo_swf.types.child_policy.ChildPolicy", "")
     if data.get("lambdaRole") is not None:
         out["lambda_role"] = data["lambdaRole"]
     return out

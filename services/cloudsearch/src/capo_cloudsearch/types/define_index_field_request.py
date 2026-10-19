@@ -37,7 +37,7 @@ def deserialize_query(el: Element) -> DefineIndexFieldRequest:
     if child_domain_name is not None:
         out["domain_name"] = str(child_domain_name.text or "")
     else:
-        raise DeserializationError("DefineIndexFieldRequest.domain_name required")
+        out["domain_name"] = ""
     child_index_field = el.find("IndexField")
     if child_index_field is not None:
         import capo_cloudsearch.types.index_field

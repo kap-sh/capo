@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.principal_id
     import capo_cloudwatchomni.types.principal_type
@@ -46,7 +44,7 @@ def deserialize_cbor(data: dict) -> PrincipalSearchResult:
     if data.get("principalId") is not None:
         out["principal_id"] = data["principalId"]
     else:
-        raise DeserializationError("PrincipalSearchResult.principal_id required")
+        out["principal_id"] = ""
     if data.get("principalType") is not None:
         import capo_cloudwatchomni.types.principal_type
 
@@ -56,11 +54,15 @@ def deserialize_cbor(data: dict) -> PrincipalSearchResult:
             )
         )
     else:
-        raise DeserializationError("PrincipalSearchResult.principal_type required")
+        import typing
+
+        out["principal_type"] = typing.cast(
+            "capo_cloudwatchomni.types.principal_type.PrincipalType", ""
+        )
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("PrincipalSearchResult.display_name required")
+        out["display_name"] = ""
     if data.get("userName") is not None:
         out["user_name"] = data["userName"]
     if data.get("description") is not None:

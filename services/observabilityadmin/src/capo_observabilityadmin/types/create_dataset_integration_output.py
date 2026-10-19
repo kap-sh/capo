@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_observabilityadmin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -46,11 +44,11 @@ def deserialize_json(data: dict) -> CreateDatasetIntegrationOutput:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("CreateDatasetIntegrationOutput.arn required")
+        out["arn"] = ""
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("CreateDatasetIntegrationOutput.role_arn required")
+        out["role_arn"] = ""
     if data.get("CreatedAt") is not None:
         import capo_observabilityadmin.types._prelude.timestamp
 
@@ -60,7 +58,9 @@ def deserialize_json(data: dict) -> CreateDatasetIntegrationOutput:
             )
         )
     else:
-        raise DeserializationError("CreateDatasetIntegrationOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("UpdatedAt") is not None:
         import capo_observabilityadmin.types._prelude.timestamp
 
@@ -70,5 +70,7 @@ def deserialize_json(data: dict) -> CreateDatasetIntegrationOutput:
             )
         )
     else:
-        raise DeserializationError("CreateDatasetIntegrationOutput.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

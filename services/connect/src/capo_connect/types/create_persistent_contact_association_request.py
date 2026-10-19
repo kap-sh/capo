@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.client_token
     import capo_connect.types.contact_id
@@ -49,15 +47,15 @@ def deserialize_json(data: dict) -> CreatePersistentContactAssociationRequest:
             data["RehydrationType"]
         )
     else:
-        raise DeserializationError(
-            "CreatePersistentContactAssociationRequest.rehydration_type required"
+        import typing
+
+        out["rehydration_type"] = typing.cast(
+            "capo_connect.types.rehydration_type.RehydrationType", ""
         )
     if data.get("SourceContactId") is not None:
         out["source_contact_id"] = data["SourceContactId"]
     else:
-        raise DeserializationError(
-            "CreatePersistentContactAssociationRequest.source_contact_id required"
-        )
+        out["source_contact_id"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     return out

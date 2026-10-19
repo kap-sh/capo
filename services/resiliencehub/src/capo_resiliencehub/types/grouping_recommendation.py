@@ -110,9 +110,7 @@ def deserialize_json(data: dict) -> GroupingRecommendation:
     if data.get("groupingRecommendationId") is not None:
         out["grouping_recommendation_id"] = data["groupingRecommendationId"]
     else:
-        raise DeserializationError(
-            "GroupingRecommendation.grouping_recommendation_id required"
-        )
+        out["grouping_recommendation_id"] = ""
     if data.get("groupingAppComponent") is not None:
         import capo_resiliencehub.types.grouping_app_component
 
@@ -134,7 +132,7 @@ def deserialize_json(data: dict) -> GroupingRecommendation:
             )
         )
     else:
-        raise DeserializationError("GroupingRecommendation.resources required")
+        out["resources"] = []
     if data.get("score") is not None:
         out["score"] = float(data["score"])
     else:
@@ -148,9 +146,7 @@ def deserialize_json(data: dict) -> GroupingRecommendation:
             )
         )
     else:
-        raise DeserializationError(
-            "GroupingRecommendation.recommendation_reasons required"
-        )
+        out["recommendation_reasons"] = []
     if data.get("status") is not None:
         import capo_resiliencehub.types.grouping_recommendation_status_type
 
@@ -160,7 +156,12 @@ def deserialize_json(data: dict) -> GroupingRecommendation:
             )
         )
     else:
-        raise DeserializationError("GroupingRecommendation.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_resiliencehub.types.grouping_recommendation_status_type.GroupingRecommendationStatusType",
+            "",
+        )
     if data.get("confidenceLevel") is not None:
         import capo_resiliencehub.types.grouping_recommendation_confidence_level
 
@@ -170,7 +171,12 @@ def deserialize_json(data: dict) -> GroupingRecommendation:
             )
         )
     else:
-        raise DeserializationError("GroupingRecommendation.confidence_level required")
+        import typing
+
+        out["confidence_level"] = typing.cast(
+            "capo_resiliencehub.types.grouping_recommendation_confidence_level.GroupingRecommendationConfidenceLevel",
+            "",
+        )
     if data.get("creationTime") is not None:
         import capo_resiliencehub.types.time_stamp
 
@@ -178,7 +184,11 @@ def deserialize_json(data: dict) -> GroupingRecommendation:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("GroupingRecommendation.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("rejectionReason") is not None:
         import capo_resiliencehub.types.grouping_recommendation_rejection_reason
 

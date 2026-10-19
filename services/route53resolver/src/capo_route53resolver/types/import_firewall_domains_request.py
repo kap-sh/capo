@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.domain_list_file_url
     import capo_route53resolver.types.firewall_domain_import_operation
@@ -41,9 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> ImportFirewallDomainsRequest:
     if data.get("FirewallDomainListId") is not None:
         out["firewall_domain_list_id"] = data["FirewallDomainListId"]
     else:
-        raise DeserializationError(
-            "ImportFirewallDomainsRequest.firewall_domain_list_id required"
-        )
+        out["firewall_domain_list_id"] = ""
     if data.get("Operation") is not None:
         import capo_route53resolver.types.firewall_domain_import_operation
 
@@ -53,11 +49,14 @@ def deserialize_aws_json_1_1(data: dict) -> ImportFirewallDomainsRequest:
             )
         )
     else:
-        raise DeserializationError("ImportFirewallDomainsRequest.operation required")
+        import typing
+
+        out["operation"] = typing.cast(
+            "capo_route53resolver.types.firewall_domain_import_operation.FirewallDomainImportOperation",
+            "",
+        )
     if data.get("DomainFileUrl") is not None:
         out["domain_file_url"] = data["DomainFileUrl"]
     else:
-        raise DeserializationError(
-            "ImportFirewallDomainsRequest.domain_file_url required"
-        )
+        out["domain_file_url"] = ""
     return out

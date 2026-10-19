@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sqs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sqs.types.binary
     import capo_sqs.types.binary_list
@@ -78,5 +76,5 @@ def deserialize_aws_json_1_0(data: dict) -> MessageSystemAttributeValue:
     if data.get("DataType") is not None:
         out["data_type"] = data["DataType"]
     else:
-        raise DeserializationError("MessageSystemAttributeValue.data_type required")
+        out["data_type"] = ""
     return out

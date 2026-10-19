@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.config_id
@@ -44,21 +43,17 @@ def deserialize_xml(el: Element) -> ListStorageLensConfigurationEntry:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("ListStorageLensConfigurationEntry.id required")
+        out["id"] = ""
     child_storage_lens_arn = el.find("StorageLensArn")
     if child_storage_lens_arn is not None:
         out["storage_lens_arn"] = str(child_storage_lens_arn.text or "")
     else:
-        raise DeserializationError(
-            "ListStorageLensConfigurationEntry.storage_lens_arn required"
-        )
+        out["storage_lens_arn"] = ""
     child_home_region = el.find("HomeRegion")
     if child_home_region is not None:
         out["home_region"] = str(child_home_region.text or "")
     else:
-        raise DeserializationError(
-            "ListStorageLensConfigurationEntry.home_region required"
-        )
+        out["home_region"] = ""
     child_is_enabled = el.find("IsEnabled")
     if child_is_enabled is not None:
         out["is_enabled"] = (child_is_enabled.text or "").lower() == "true"

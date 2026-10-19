@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.field_value
     import capo_quicksight.types.hex_color
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> CustomColor:
     if data.get("Color") is not None:
         out["color"] = data["Color"]
     else:
-        raise DeserializationError("CustomColor.color required")
+        out["color"] = ""
     if data.get("SpecialValue") is not None:
         import capo_quicksight.types.special_value
 

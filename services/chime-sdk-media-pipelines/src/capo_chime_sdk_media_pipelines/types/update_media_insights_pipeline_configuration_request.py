@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.arn
     import capo_chime_sdk_media_pipelines.types.media_insights_pipeline_configuration_elements
@@ -53,9 +51,7 @@ def deserialize_json(data: dict) -> UpdateMediaInsightsPipelineConfigurationRequ
     if data.get("ResourceAccessRoleArn") is not None:
         out["resource_access_role_arn"] = data["ResourceAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "UpdateMediaInsightsPipelineConfigurationRequest.resource_access_role_arn required"
-        )
+        out["resource_access_role_arn"] = ""
     if data.get("RealTimeAlertConfiguration") is not None:
         import capo_chime_sdk_media_pipelines.types.real_time_alert_configuration
 
@@ -73,9 +69,7 @@ def deserialize_json(data: dict) -> UpdateMediaInsightsPipelineConfigurationRequ
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateMediaInsightsPipelineConfigurationRequest.elements required"
-        )
+        out["elements"] = []
     return out
 
 

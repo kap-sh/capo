@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -47,9 +46,7 @@ def deserialize_query(el: Element) -> UpdateOpenIDConnectProviderThumbprintReque
             child_open_id_connect_provider_arn.text or ""
         )
     else:
-        raise DeserializationError(
-            "UpdateOpenIDConnectProviderThumbprintRequest.open_id_connect_provider_arn required"
-        )
+        out["open_id_connect_provider_arn"] = ""
     child_thumbprint_list = el.find("ThumbprintList")
     if child_thumbprint_list is not None:
         import capo_iam.types.thumbprint_list_type
@@ -58,7 +55,5 @@ def deserialize_query(el: Element) -> UpdateOpenIDConnectProviderThumbprintReque
             child_thumbprint_list
         )
     else:
-        raise DeserializationError(
-            "UpdateOpenIDConnectProviderThumbprintRequest.thumbprint_list required"
-        )
+        out["thumbprint_list"] = []
     return out

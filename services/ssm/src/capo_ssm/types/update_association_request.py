@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.alarm_configuration
     import capo_ssm.types.apply_only_at_cron_interval
@@ -195,7 +193,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateAssociationRequest:
     if data.get("AssociationId") is not None:
         out["association_id"] = data["AssociationId"]
     else:
-        raise DeserializationError("UpdateAssociationRequest.association_id required")
+        out["association_id"] = ""
     if data.get("Parameters") is not None:
         import capo_ssm.types.parameters
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_evs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_evs.types.client_token
     import capo_evs.types.connector_id
@@ -52,11 +50,11 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteEntitlementRequest:
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError("DeleteEntitlementRequest.environment_id required")
+        out["environment_id"] = ""
     if data.get("connectorId") is not None:
         out["connector_id"] = data["connectorId"]
     else:
-        raise DeserializationError("DeleteEntitlementRequest.connector_id required")
+        out["connector_id"] = ""
     if data.get("entitlementType") is not None:
         import capo_evs.types.entitlement_type
 
@@ -66,7 +64,11 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteEntitlementRequest:
             )
         )
     else:
-        raise DeserializationError("DeleteEntitlementRequest.entitlement_type required")
+        import typing
+
+        out["entitlement_type"] = typing.cast(
+            "capo_evs.types.entitlement_type.EntitlementType", ""
+        )
     if data.get("vmIds") is not None:
         import capo_evs.types.vm_id_list
 
@@ -74,5 +76,5 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteEntitlementRequest:
             data["vmIds"]
         )
     else:
-        raise DeserializationError("DeleteEntitlementRequest.vm_ids required")
+        out["vm_ids"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.registered_user_dashboard_feature_configurations
     import capo_quicksight.types.short_restrictive_resource_id
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> RegisteredUserDashboardEmbeddingConfiguratio
     if data.get("InitialDashboardId") is not None:
         out["initial_dashboard_id"] = data["InitialDashboardId"]
     else:
-        raise DeserializationError(
-            "RegisteredUserDashboardEmbeddingConfiguration.initial_dashboard_id required"
-        )
+        out["initial_dashboard_id"] = ""
     if data.get("FeatureConfigurations") is not None:
         import capo_quicksight.types.registered_user_dashboard_feature_configurations
 

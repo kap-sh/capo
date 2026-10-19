@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.gateway_arn
     import capo_storage_gateway.types.smb_guest_password
@@ -31,11 +29,11 @@ def deserialize_aws_json_1_1(data: dict) -> SetSMBGuestPasswordInput:
     if data.get("GatewayARN") is not None:
         out["gateway_arn"] = data["GatewayARN"]
     else:
-        raise DeserializationError("SetSMBGuestPasswordInput.gateway_arn required")
+        out["gateway_arn"] = ""
     if data.get("Password") is not None:
         out["password"] = data["Password"]
     else:
-        raise DeserializationError("SetSMBGuestPasswordInput.password required")
+        out["password"] = ""
     return out
 
 

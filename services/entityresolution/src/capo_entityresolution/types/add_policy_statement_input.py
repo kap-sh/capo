@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.statement_action_list
     import capo_entityresolution.types.statement_condition
@@ -68,7 +66,11 @@ def deserialize_json(data: dict) -> AddPolicyStatementInput:
             data["effect"]
         )
     else:
-        raise DeserializationError("AddPolicyStatementInput.effect required")
+        import typing
+
+        out["effect"] = typing.cast(
+            "capo_entityresolution.types.statement_effect.StatementEffect", ""
+        )
     if data.get("action") is not None:
         import capo_entityresolution.types.statement_action_list
 
@@ -78,7 +80,7 @@ def deserialize_json(data: dict) -> AddPolicyStatementInput:
             )
         )
     else:
-        raise DeserializationError("AddPolicyStatementInput.action required")
+        out["action"] = []
     if data.get("principal") is not None:
         import capo_entityresolution.types.statement_principal_list
 
@@ -88,7 +90,7 @@ def deserialize_json(data: dict) -> AddPolicyStatementInput:
             )
         )
     else:
-        raise DeserializationError("AddPolicyStatementInput.principal required")
+        out["principal"] = []
     if data.get("condition") is not None:
         out["condition"] = data["condition"]
     return out

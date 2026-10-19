@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.resource_name
     import capo_deadline.types.storage_profile_id
@@ -41,11 +39,11 @@ def deserialize_json(data: dict) -> StorageProfileSummary:
     if data.get("storageProfileId") is not None:
         out["storage_profile_id"] = data["storageProfileId"]
     else:
-        raise DeserializationError("StorageProfileSummary.storage_profile_id required")
+        out["storage_profile_id"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("StorageProfileSummary.display_name required")
+        out["display_name"] = ""
     if data.get("osFamily") is not None:
         import capo_deadline.types.storage_profile_operating_system_family
 
@@ -55,5 +53,10 @@ def deserialize_json(data: dict) -> StorageProfileSummary:
             )
         )
     else:
-        raise DeserializationError("StorageProfileSummary.os_family required")
+        import typing
+
+        out["os_family"] = typing.cast(
+            "capo_deadline.types.storage_profile_operating_system_family.StorageProfileOperatingSystemFamily",
+            "",
+        )
     return out

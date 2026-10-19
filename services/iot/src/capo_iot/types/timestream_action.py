@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aws_arn
     import capo_iot.types.timestream_database_name
@@ -52,15 +50,15 @@ def deserialize_json(data: dict) -> TimestreamAction:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("TimestreamAction.role_arn required")
+        out["role_arn"] = ""
     if data.get("databaseName") is not None:
         out["database_name"] = data["databaseName"]
     else:
-        raise DeserializationError("TimestreamAction.database_name required")
+        out["database_name"] = ""
     if data.get("tableName") is not None:
         out["table_name"] = data["tableName"]
     else:
-        raise DeserializationError("TimestreamAction.table_name required")
+        out["table_name"] = ""
     if data.get("dimensions") is not None:
         import capo_iot.types.timestream_dimension_list
 
@@ -68,7 +66,7 @@ def deserialize_json(data: dict) -> TimestreamAction:
             data["dimensions"]
         )
     else:
-        raise DeserializationError("TimestreamAction.dimensions required")
+        out["dimensions"] = []
     if data.get("timestamp") is not None:
         import capo_iot.types.timestream_timestamp
 

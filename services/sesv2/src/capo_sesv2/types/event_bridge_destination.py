@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.amazon_resource_name
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> EventBridgeDestination:
     if data.get("EventBusArn") is not None:
         out["event_bus_arn"] = data["EventBusArn"]
     else:
-        raise DeserializationError("EventBridgeDestination.event_bus_arn required")
+        out["event_bus_arn"] = ""
     return out

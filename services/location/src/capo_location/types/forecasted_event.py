@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.forecasted_geofence_event_type
     import capo_location.types.id
@@ -70,15 +68,15 @@ def deserialize_json(data: dict) -> ForecastedEvent:
     if data.get("EventId") is not None:
         out["event_id"] = data["EventId"]
     else:
-        raise DeserializationError("ForecastedEvent.event_id required")
+        out["event_id"] = ""
     if data.get("GeofenceId") is not None:
         out["geofence_id"] = data["GeofenceId"]
     else:
-        raise DeserializationError("ForecastedEvent.geofence_id required")
+        out["geofence_id"] = ""
     if data.get("IsDeviceInGeofence") is not None:
         out["is_device_in_geofence"] = data["IsDeviceInGeofence"]
     else:
-        raise DeserializationError("ForecastedEvent.is_device_in_geofence required")
+        out["is_device_in_geofence"] = False
     if data.get("NearestDistance") is not None:
         out["nearest_distance"] = float(data["NearestDistance"])
     else:
@@ -86,7 +84,7 @@ def deserialize_json(data: dict) -> ForecastedEvent:
     if data.get("EventType") is not None:
         out["event_type"] = data["EventType"]
     else:
-        raise DeserializationError("ForecastedEvent.event_type required")
+        out["event_type"] = ""
     if data.get("ForecastedBreachTime") is not None:
         import capo_location.types.timestamp
 

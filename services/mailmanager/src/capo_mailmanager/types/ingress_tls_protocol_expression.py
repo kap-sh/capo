@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.ingress_tls_protocol_attribute
     import capo_mailmanager.types.ingress_tls_protocol_operator
@@ -59,7 +57,9 @@ def deserialize_aws_json_1_0(data: dict) -> IngressTlsProtocolExpression:
             )
         )
     else:
-        raise DeserializationError("IngressTlsProtocolExpression.evaluate required")
+        import capo_mailmanager.types._unknown
+
+        out["evaluate"] = capo_mailmanager.types._unknown.UnknownUnionMember("")
     if data.get("Operator") is not None:
         import capo_mailmanager.types.ingress_tls_protocol_operator
 
@@ -69,7 +69,12 @@ def deserialize_aws_json_1_0(data: dict) -> IngressTlsProtocolExpression:
             )
         )
     else:
-        raise DeserializationError("IngressTlsProtocolExpression.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_mailmanager.types.ingress_tls_protocol_operator.IngressTlsProtocolOperator",
+            "",
+        )
     if data.get("Value") is not None:
         import capo_mailmanager.types.ingress_tls_protocol_attribute
 
@@ -79,5 +84,10 @@ def deserialize_aws_json_1_0(data: dict) -> IngressTlsProtocolExpression:
             )
         )
     else:
-        raise DeserializationError("IngressTlsProtocolExpression.value required")
+        import typing
+
+        out["value"] = typing.cast(
+            "capo_mailmanager.types.ingress_tls_protocol_attribute.IngressTlsProtocolAttribute",
+            "",
+        )
     return out

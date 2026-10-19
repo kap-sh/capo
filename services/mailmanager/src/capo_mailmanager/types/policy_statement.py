@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.accept_action
     import capo_mailmanager.types.policy_conditions
@@ -45,7 +43,7 @@ def deserialize_aws_json_1_0(data: dict) -> PolicyStatement:
             )
         )
     else:
-        raise DeserializationError("PolicyStatement.conditions required")
+        out["conditions"] = []
     if data.get("Action") is not None:
         import capo_mailmanager.types.accept_action
 
@@ -53,5 +51,9 @@ def deserialize_aws_json_1_0(data: dict) -> PolicyStatement:
             data["Action"]
         )
     else:
-        raise DeserializationError("PolicyStatement.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_mailmanager.types.accept_action.AcceptAction", ""
+        )
     return out

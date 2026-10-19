@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.commercial_region
     import capo_cleanrooms.types.glue_database_name
@@ -46,9 +44,9 @@ def deserialize_json(data: dict) -> GlueTableReference:
     if data.get("tableName") is not None:
         out["table_name"] = data["tableName"]
     else:
-        raise DeserializationError("GlueTableReference.table_name required")
+        out["table_name"] = ""
     if data.get("databaseName") is not None:
         out["database_name"] = data["databaseName"]
     else:
-        raise DeserializationError("GlueTableReference.database_name required")
+        out["database_name"] = ""
     return out

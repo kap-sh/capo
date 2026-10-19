@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.rate_card
 
@@ -33,5 +31,5 @@ def deserialize_json(data: dict) -> PricingTerm:
             data["rateCard"]
         )
     else:
-        raise DeserializationError("PricingTerm.rate_card required")
+        out["rate_card"] = []
     return out

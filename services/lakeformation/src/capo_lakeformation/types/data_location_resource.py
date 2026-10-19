@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.catalog_id_string
     import capo_lakeformation.types.resource_arn_string
@@ -36,5 +34,5 @@ def deserialize_json(data: dict) -> DataLocationResource:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("DataLocationResource.resource_arn required")
+        out["resource_arn"] = ""
     return out

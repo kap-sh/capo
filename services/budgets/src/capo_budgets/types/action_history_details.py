@@ -32,7 +32,7 @@ def deserialize_aws_json_1_1(data: dict) -> ActionHistoryDetails:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("ActionHistoryDetails.message required")
+        out["message"] = ""
     if data.get("Action") is not None:
         import capo_budgets.types.action
 

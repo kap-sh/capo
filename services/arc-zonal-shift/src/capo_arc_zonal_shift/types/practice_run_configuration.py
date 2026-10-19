@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_zonal_shift.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_zonal_shift.types.allowed_windows
     import capo_arc_zonal_shift.types.blocked_dates
@@ -92,7 +90,7 @@ def deserialize_json(data: dict) -> PracticeRunConfiguration:
             )
         )
     else:
-        raise DeserializationError("PracticeRunConfiguration.outcome_alarms required")
+        out["outcome_alarms"] = []
     if data.get("blockedWindows") is not None:
         import capo_arc_zonal_shift.types.blocked_windows
 

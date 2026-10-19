@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_identitystore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_identitystore.types.attribute_path
     import capo_identitystore.types.attribute_value
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> UniqueAttribute:
     if data.get("AttributePath") is not None:
         out["attribute_path"] = data["AttributePath"]
     else:
-        raise DeserializationError("UniqueAttribute.attribute_path required")
+        out["attribute_path"] = ""
     if data.get("AttributeValue") is not None:
         out["attribute_value"] = data["AttributeValue"]
     else:
-        raise DeserializationError("UniqueAttribute.attribute_value required")
+        out["attribute_value"] = None
     return out

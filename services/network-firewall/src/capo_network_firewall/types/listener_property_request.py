@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.listener_property_type
     import capo_network_firewall.types.nat_gateway_port
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListenerPropertyRequest:
     if data.get("Port") is not None:
         out["port"] = data["Port"]
     else:
-        raise DeserializationError("ListenerPropertyRequest.port required")
+        out["port"] = 0
     if data.get("Type") is not None:
         import capo_network_firewall.types.listener_property_type
 
@@ -47,5 +45,10 @@ def deserialize_aws_json_1_0(data: dict) -> ListenerPropertyRequest:
             )
         )
     else:
-        raise DeserializationError("ListenerPropertyRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_network_firewall.types.listener_property_type.ListenerPropertyType",
+            "",
+        )
     return out

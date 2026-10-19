@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.arn
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> CreateIpAccessSettingsResponse:
     if data.get("ipAccessSettingsArn") is not None:
         out["ip_access_settings_arn"] = data["ipAccessSettingsArn"]
     else:
-        raise DeserializationError(
-            "CreateIpAccessSettingsResponse.ip_access_settings_arn required"
-        )
+        out["ip_access_settings_arn"] = ""
     return out

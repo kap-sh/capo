@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rtbfabric.types.gateway_id
     import capo_rtbfabric.types.link_id
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> UpdateLinkModuleFlowRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("UpdateLinkModuleFlowRequest.client_token required")
+        out["client_token"] = ""
     if data.get("modules") is not None:
         import capo_rtbfabric.types.module_configuration_list
 
@@ -50,5 +48,5 @@ def deserialize_json(data: dict) -> UpdateLinkModuleFlowRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateLinkModuleFlowRequest.modules required")
+        out["modules"] = []
     return out

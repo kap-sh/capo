@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.client_token
     import capo_route53globalresolver.types.global_resolver_ip_address_type
@@ -88,7 +86,7 @@ def deserialize_json(data: dict) -> CreateGlobalResolverInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateGlobalResolverInput.name required")
+        out["name"] = ""
     if data.get("observabilityRegion") is not None:
         out["observability_region"] = data["observabilityRegion"]
     if data.get("regions") is not None:
@@ -98,7 +96,7 @@ def deserialize_json(data: dict) -> CreateGlobalResolverInput:
             data["regions"]
         )
     else:
-        raise DeserializationError("CreateGlobalResolverInput.regions required")
+        out["regions"] = []
     if data.get("tags") is not None:
         import capo_route53globalresolver.types.tags
 

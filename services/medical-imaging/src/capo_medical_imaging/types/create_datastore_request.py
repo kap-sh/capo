@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_medical_imaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_medical_imaging.types.client_token
     import capo_medical_imaging.types.datastore_name
@@ -68,7 +66,7 @@ def deserialize_json(data: dict) -> CreateDatastoreRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CreateDatastoreRequest.client_token required")
+        out["client_token"] = ""
     if data.get("tags") is not None:
         import capo_medical_imaging.types.tag_map
 

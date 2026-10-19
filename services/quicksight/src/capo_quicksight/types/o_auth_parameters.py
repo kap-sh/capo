@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.ca_certificates_bundle_s3_uri
     import capo_quicksight.types.identity_provider_resource_uri
@@ -60,7 +58,7 @@ def deserialize_json(data: dict) -> OAuthParameters:
     if data.get("TokenProviderUrl") is not None:
         out["token_provider_url"] = data["TokenProviderUrl"]
     else:
-        raise DeserializationError("OAuthParameters.token_provider_url required")
+        out["token_provider_url"] = ""
     if data.get("OAuthScope") is not None:
         out["o_auth_scope"] = data["OAuthScope"]
     if data.get("IdentityProviderVpcConnectionProperties") is not None:

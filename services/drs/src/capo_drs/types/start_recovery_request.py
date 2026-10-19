@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.start_recovery_request_source_servers
     import capo_drs.types.tags_map
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> StartRecoveryRequest:
             )
         )
     else:
-        raise DeserializationError("StartRecoveryRequest.source_servers required")
+        out["source_servers"] = []
     if data.get("isDrill") is not None:
         out["is_drill"] = data["isDrill"]
     if data.get("tags") is not None:

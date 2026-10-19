@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -122,11 +120,11 @@ def deserialize_json(data: dict) -> CreateLinkResponse:
     if data.get("gatewayId") is not None:
         out["gateway_id"] = data["gatewayId"]
     else:
-        raise DeserializationError("CreateLinkResponse.gateway_id required")
+        out["gateway_id"] = ""
     if data.get("peerGatewayId") is not None:
         out["peer_gateway_id"] = data["peerGatewayId"]
     else:
-        raise DeserializationError("CreateLinkResponse.peer_gateway_id required")
+        out["peer_gateway_id"] = ""
     if data.get("status") is not None:
         import capo_rtbfabric.types.link_status
 
@@ -134,7 +132,9 @@ def deserialize_json(data: dict) -> CreateLinkResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("CreateLinkResponse.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_rtbfabric.types.link_status.LinkStatus", "")
     if data.get("createdAt") is not None:
         import capo_rtbfabric.types._prelude.timestamp
 
@@ -142,7 +142,9 @@ def deserialize_json(data: dict) -> CreateLinkResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("CreateLinkResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_rtbfabric.types._prelude.timestamp
 
@@ -150,7 +152,9 @@ def deserialize_json(data: dict) -> CreateLinkResponse:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("CreateLinkResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("direction") is not None:
         import capo_rtbfabric.types.link_direction
 
@@ -196,7 +200,7 @@ def deserialize_json(data: dict) -> CreateLinkResponse:
     if data.get("linkId") is not None:
         out["link_id"] = data["linkId"]
     else:
-        raise DeserializationError("CreateLinkResponse.link_id required")
+        out["link_id"] = ""
     if data.get("customerProvidedId") is not None:
         out["customer_provided_id"] = data["customerProvidedId"]
     return out

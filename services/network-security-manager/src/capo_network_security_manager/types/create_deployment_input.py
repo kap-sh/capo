@@ -95,7 +95,7 @@ def deserialize_json(data: dict) -> CreateDeploymentInput:
     if data.get("deploymentName") is not None:
         out["deployment_name"] = data["deploymentName"]
     else:
-        raise DeserializationError("CreateDeploymentInput.deployment_name required")
+        out["deployment_name"] = ""
     if data.get("deploymentDescription") is not None:
         out["deployment_description"] = data["deploymentDescription"]
     if data.get("deploymentConfiguration") is not None:
@@ -119,9 +119,7 @@ def deserialize_json(data: dict) -> CreateDeploymentInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDeploymentInput.associated_policy_list required"
-        )
+        out["associated_policy_list"] = []
     if data.get("associatedScopeList") is not None:
         import capo_network_security_manager.types.scope_reference_list
 
@@ -131,9 +129,7 @@ def deserialize_json(data: dict) -> CreateDeploymentInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDeploymentInput.associated_scope_list required"
-        )
+        out["associated_scope_list"] = []
     if data.get("isPublished") is not None:
         out["is_published"] = data["isPublished"]
     if data.get("tags") is not None:

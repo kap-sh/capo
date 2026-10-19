@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_waf_regional.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf_regional.types.next_marker
     import capo_waf_regional.types.resource_id
@@ -32,9 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetRateBasedRuleManagedKeysRequest:
     if data.get("RuleId") is not None:
         out["rule_id"] = data["RuleId"]
     else:
-        raise DeserializationError(
-            "GetRateBasedRuleManagedKeysRequest.rule_id required"
-        )
+        out["rule_id"] = ""
     if data.get("NextMarker") is not None:
         out["next_marker"] = data["NextMarker"]
     return out

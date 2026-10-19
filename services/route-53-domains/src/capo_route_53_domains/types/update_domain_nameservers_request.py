@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route_53_domains.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route_53_domains.types.domain_name
     import capo_route_53_domains.types.fi_auth_key
@@ -42,9 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDomainNameserversRequest:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError(
-            "UpdateDomainNameserversRequest.domain_name required"
-        )
+        out["domain_name"] = ""
     if data.get("FIAuthKey") is not None:
         out["fi_auth_key"] = data["FIAuthKey"]
     if data.get("Nameservers") is not None:
@@ -56,9 +52,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDomainNameserversRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateDomainNameserversRequest.nameservers required"
-        )
+        out["nameservers"] = []
     return out
 
 

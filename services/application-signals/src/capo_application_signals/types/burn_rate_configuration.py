@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.burn_rate_look_back_window_minutes
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> BurnRateConfiguration:
     if data.get("LookBackWindowMinutes") is not None:
         out["look_back_window_minutes"] = data["LookBackWindowMinutes"]
     else:
-        raise DeserializationError(
-            "BurnRateConfiguration.look_back_window_minutes required"
-        )
+        out["look_back_window_minutes"] = 0
     return out

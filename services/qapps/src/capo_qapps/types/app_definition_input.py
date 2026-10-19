@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.card_list
     import capo_qapps.types.initial_prompt
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> AppDefinitionInput:
 
         out["cards"] = capo_qapps.types.card_list.deserialize_json(data["cards"])
     else:
-        raise DeserializationError("AppDefinitionInput.cards required")
+        out["cards"] = []
     if data.get("initialPrompt") is not None:
         out["initial_prompt"] = data["initialPrompt"]
     return out

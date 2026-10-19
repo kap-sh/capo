@@ -78,7 +78,7 @@ def deserialize_aws_json_1_1(data: dict) -> Output:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Output.name required")
+        out["name"] = ""
     if data.get("KinesisStreamsOutput") is not None:
         import capo_kinesis_analytics.types.kinesis_streams_output
 

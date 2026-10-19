@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.arn
     import capo_connectcampaignsv2.types.campaign_name
@@ -111,11 +109,11 @@ def deserialize_json(data: dict) -> CreateCampaignRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateCampaignRequest.name required")
+        out["name"] = ""
     if data.get("connectInstanceId") is not None:
         out["connect_instance_id"] = data["connectInstanceId"]
     else:
-        raise DeserializationError("CreateCampaignRequest.connect_instance_id required")
+        out["connect_instance_id"] = ""
     if data.get("channelSubtypeConfig") is not None:
         import capo_connectcampaignsv2.types.channel_subtype_config
 

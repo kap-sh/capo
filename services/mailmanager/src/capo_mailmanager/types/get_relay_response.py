@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -82,7 +80,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetRelayResponse:
     if data.get("RelayId") is not None:
         out["relay_id"] = data["RelayId"]
     else:
-        raise DeserializationError("GetRelayResponse.relay_id required")
+        out["relay_id"] = ""
     if data.get("RelayArn") is not None:
         out["relay_arn"] = data["RelayArn"]
     if data.get("RelayName") is not None:

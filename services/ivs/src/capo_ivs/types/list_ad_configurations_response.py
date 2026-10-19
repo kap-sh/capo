@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs.types.ad_configuration_list
     import capo_ivs.types.pagination_token
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> ListAdConfigurationsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListAdConfigurationsResponse.ad_configurations required"
-        )
+        out["ad_configurations"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

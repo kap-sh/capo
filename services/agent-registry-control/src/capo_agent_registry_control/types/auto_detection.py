@@ -65,7 +65,12 @@ def deserialize_json(data: dict) -> AutoDetection:
             )
         )
     else:
-        raise DeserializationError("AutoDetection.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_agent_registry_control.types.auto_detection_status.AutoDetectionStatus",
+            "",
+        )
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
     return out

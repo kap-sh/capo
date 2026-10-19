@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.idempotency_token
     import capo_mailmanager.types.rule_set_name
@@ -51,7 +49,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRuleSetRequest:
     if data.get("RuleSetName") is not None:
         out["rule_set_name"] = data["RuleSetName"]
     else:
-        raise DeserializationError("CreateRuleSetRequest.rule_set_name required")
+        out["rule_set_name"] = ""
     if data.get("Rules") is not None:
         import capo_mailmanager.types.rules
 
@@ -59,7 +57,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRuleSetRequest:
             data["Rules"]
         )
     else:
-        raise DeserializationError("CreateRuleSetRequest.rules required")
+        out["rules"] = []
     if data.get("Tags") is not None:
         import capo_mailmanager.types.tag_list
 

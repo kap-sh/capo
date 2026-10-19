@@ -116,7 +116,7 @@ def deserialize_json(data: dict) -> TimeRangeFilter:
     if data.get("FilterId") is not None:
         out["filter_id"] = data["FilterId"]
     else:
-        raise DeserializationError("TimeRangeFilter.filter_id required")
+        out["filter_id"] = ""
     if data.get("Column") is not None:
         import capo_quicksight.types.column_identifier
 
@@ -152,7 +152,11 @@ def deserialize_json(data: dict) -> TimeRangeFilter:
             data["NullOption"]
         )
     else:
-        raise DeserializationError("TimeRangeFilter.null_option required")
+        import typing
+
+        out["null_option"] = typing.cast(
+            "capo_quicksight.types.filter_null_option.FilterNullOption", ""
+        )
     if data.get("ExcludePeriodConfiguration") is not None:
         import capo_quicksight.types.exclude_period_configuration
 

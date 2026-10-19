@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.verification_type
 
@@ -41,5 +39,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetVerificationRequest:
             )
         )
     else:
-        raise DeserializationError("GetVerificationRequest.verification_type required")
+        import typing
+
+        out["verification_type"] = typing.cast(
+            "capo_partnercentral_account.types.verification_type.VerificationType", ""
+        )
     return out

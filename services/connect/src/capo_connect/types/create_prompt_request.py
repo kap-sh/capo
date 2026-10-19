@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.common_name_length127
     import capo_connect.types.instance_id
@@ -46,13 +44,13 @@ def deserialize_json(data: dict) -> CreatePromptRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreatePromptRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("S3Uri") is not None:
         out["s3_uri"] = data["S3Uri"]
     else:
-        raise DeserializationError("CreatePromptRequest.s3_uri required")
+        out["s3_uri"] = ""
     if data.get("Tags") is not None:
         import capo_connect.types.tag_map
 

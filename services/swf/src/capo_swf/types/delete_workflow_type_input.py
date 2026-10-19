@@ -35,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteWorkflowTypeInput:
     if data.get("domain") is not None:
         out["domain"] = data["domain"]
     else:
-        raise DeserializationError("DeleteWorkflowTypeInput.domain required")
+        out["domain"] = ""
     if data.get("workflowType") is not None:
         import capo_swf.types.workflow_type
 

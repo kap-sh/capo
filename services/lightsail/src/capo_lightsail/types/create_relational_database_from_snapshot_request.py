@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.boolean
     import capo_lightsail.types.iso_date
@@ -77,9 +75,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRelationalDatabaseFromSnapshot
     if data.get("relationalDatabaseName") is not None:
         out["relational_database_name"] = data["relationalDatabaseName"]
     else:
-        raise DeserializationError(
-            "CreateRelationalDatabaseFromSnapshotRequest.relational_database_name required"
-        )
+        out["relational_database_name"] = ""
     if data.get("availabilityZone") is not None:
         out["availability_zone"] = data["availabilityZone"]
     if data.get("publiclyAccessible") is not None:

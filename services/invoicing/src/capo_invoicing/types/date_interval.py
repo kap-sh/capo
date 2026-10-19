@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_invoicing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -44,7 +42,9 @@ def deserialize_aws_json_1_0(data: dict) -> DateInterval:
             )
         )
     else:
-        raise DeserializationError("DateInterval.start_date required")
+        import datetime
+
+        out["start_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndDate") is not None:
         import capo_invoicing.types._prelude.timestamp
 
@@ -54,5 +54,7 @@ def deserialize_aws_json_1_0(data: dict) -> DateInterval:
             )
         )
     else:
-        raise DeserializationError("DateInterval.end_date required")
+        import datetime
+
+        out["end_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

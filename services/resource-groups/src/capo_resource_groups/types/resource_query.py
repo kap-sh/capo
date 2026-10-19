@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resource_groups.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resource_groups.types.query
     import capo_resource_groups.types.query_type
@@ -37,9 +35,11 @@ def deserialize_json(data: dict) -> ResourceQuery:
             data["Type"]
         )
     else:
-        raise DeserializationError("ResourceQuery.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_resource_groups.types.query_type.QueryType", "")
     if data.get("Query") is not None:
         out["query"] = data["Query"]
     else:
-        raise DeserializationError("ResourceQuery.query required")
+        out["query"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.context_conditions_map
     import capo_cloudwatchomni.types.resource_scope_list
@@ -61,7 +59,7 @@ def deserialize_cbor(data: dict) -> ScopedActions:
             )
         )
     else:
-        raise DeserializationError("ScopedActions.actions required")
+        out["actions"] = []
     if data.get("resources") is not None:
         import capo_cloudwatchomni.types.resource_scope_list
 

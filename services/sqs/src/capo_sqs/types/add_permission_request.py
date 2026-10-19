@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sqs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sqs.types.action_name_list
     import capo_sqs.types.aws_account_id_list
@@ -46,11 +44,11 @@ def deserialize_aws_json_1_0(data: dict) -> AddPermissionRequest:
     if data.get("QueueUrl") is not None:
         out["queue_url"] = data["QueueUrl"]
     else:
-        raise DeserializationError("AddPermissionRequest.queue_url required")
+        out["queue_url"] = ""
     if data.get("Label") is not None:
         out["label"] = data["Label"]
     else:
-        raise DeserializationError("AddPermissionRequest.label required")
+        out["label"] = ""
     if data.get("AWSAccountIds") is not None:
         import capo_sqs.types.aws_account_id_list
 
@@ -60,7 +58,7 @@ def deserialize_aws_json_1_0(data: dict) -> AddPermissionRequest:
             )
         )
     else:
-        raise DeserializationError("AddPermissionRequest.aws_account_ids required")
+        out["aws_account_ids"] = []
     if data.get("Actions") is not None:
         import capo_sqs.types.action_name_list
 
@@ -68,5 +66,5 @@ def deserialize_aws_json_1_0(data: dict) -> AddPermissionRequest:
             data["Actions"]
         )
     else:
-        raise DeserializationError("AddPermissionRequest.actions required")
+        out["actions"] = []
     return out

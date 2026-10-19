@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_eks.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eks.types.argo_cd_role
     import capo_eks.types.sso_identity_list
@@ -39,7 +37,9 @@ def deserialize_json(data: dict) -> ArgoCdRoleMapping:
 
         out["role"] = capo_eks.types.argo_cd_role.deserialize_json(data["role"])
     else:
-        raise DeserializationError("ArgoCdRoleMapping.role required")
+        import typing
+
+        out["role"] = typing.cast("capo_eks.types.argo_cd_role.ArgoCdRole", "")
     if data.get("identities") is not None:
         import capo_eks.types.sso_identity_list
 
@@ -47,5 +47,5 @@ def deserialize_json(data: dict) -> ArgoCdRoleMapping:
             data["identities"]
         )
     else:
-        raise DeserializationError("ArgoCdRoleMapping.identities required")
+        out["identities"] = []
     return out

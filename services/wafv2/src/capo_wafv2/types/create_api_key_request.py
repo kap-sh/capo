@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.api_key_token_domains
     import capo_wafv2.types.scope
@@ -39,7 +37,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAPIKeyRequest:
 
         out["scope"] = capo_wafv2.types.scope.deserialize_aws_json_1_1(data["Scope"])
     else:
-        raise DeserializationError("CreateAPIKeyRequest.scope required")
+        import typing
+
+        out["scope"] = typing.cast("capo_wafv2.types.scope.Scope", "")
     if data.get("TokenDomains") is not None:
         import capo_wafv2.types.api_key_token_domains
 
@@ -49,5 +49,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAPIKeyRequest:
             )
         )
     else:
-        raise DeserializationError("CreateAPIKeyRequest.token_domains required")
+        out["token_domains"] = []
     return out

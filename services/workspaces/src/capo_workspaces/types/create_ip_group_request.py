@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.ip_group_desc
     import capo_workspaces.types.ip_group_name
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateIpGroupRequest:
     if data.get("GroupName") is not None:
         out["group_name"] = data["GroupName"]
     else:
-        raise DeserializationError("CreateIpGroupRequest.group_name required")
+        out["group_name"] = ""
     if data.get("GroupDesc") is not None:
         out["group_desc"] = data["GroupDesc"]
     if data.get("UserRules") is not None:

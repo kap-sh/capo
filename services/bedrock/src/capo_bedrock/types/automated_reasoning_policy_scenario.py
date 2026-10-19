@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_check_result
     import capo_bedrock.types.automated_reasoning_policy_definition_rule_id_list
@@ -51,15 +49,11 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyScenario:
     if data.get("expression") is not None:
         out["expression"] = data["expression"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyScenario.expression required"
-        )
+        out["expression"] = ""
     if data.get("alternateExpression") is not None:
         out["alternate_expression"] = data["alternateExpression"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyScenario.alternate_expression required"
-        )
+        out["alternate_expression"] = ""
     if data.get("expectedResult") is not None:
         import capo_bedrock.types.automated_reasoning_check_result
 
@@ -69,8 +63,11 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyScenario:
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyScenario.expected_result required"
+        import typing
+
+        out["expected_result"] = typing.cast(
+            "capo_bedrock.types.automated_reasoning_check_result.AutomatedReasoningCheckResult",
+            "",
         )
     if data.get("ruleIds") is not None:
         import capo_bedrock.types.automated_reasoning_policy_definition_rule_id_list
@@ -81,7 +78,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyScenario:
             )
         )
     else:
-        raise DeserializationError("AutomatedReasoningPolicyScenario.rule_ids required")
+        out["rule_ids"] = []
     return out
 
 

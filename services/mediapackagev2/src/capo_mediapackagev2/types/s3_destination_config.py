@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediapackagev2.types.s3_bucket_name
     import capo_mediapackagev2.types.s3_destination_path
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> S3DestinationConfig:
     if data.get("BucketName") is not None:
         out["bucket_name"] = data["BucketName"]
     else:
-        raise DeserializationError("S3DestinationConfig.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("DestinationPath") is not None:
         out["destination_path"] = data["DestinationPath"]
     else:
-        raise DeserializationError("S3DestinationConfig.destination_path required")
+        out["destination_path"] = ""
     return out

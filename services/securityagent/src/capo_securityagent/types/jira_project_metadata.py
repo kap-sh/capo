@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.provider_resource_id
     import capo_securityagent.types.provider_resource_name
@@ -41,19 +39,19 @@ def deserialize_json(data: dict) -> JiraProjectMetadata:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("JiraProjectMetadata.name required")
+        out["name"] = ""
     if data.get("providerResourceId") is not None:
         out["provider_resource_id"] = data["providerResourceId"]
     else:
-        raise DeserializationError("JiraProjectMetadata.provider_resource_id required")
+        out["provider_resource_id"] = ""
     if data.get("projectKey") is not None:
         out["project_key"] = data["projectKey"]
     else:
-        raise DeserializationError("JiraProjectMetadata.project_key required")
+        out["project_key"] = ""
     if data.get("projectId") is not None:
         out["project_id"] = data["projectId"]
     else:
-        raise DeserializationError("JiraProjectMetadata.project_id required")
+        out["project_id"] = ""
     if data.get("projectName") is not None:
         out["project_name"] = data["projectName"]
     return out

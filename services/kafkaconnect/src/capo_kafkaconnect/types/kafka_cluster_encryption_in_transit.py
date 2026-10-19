@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kafkaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kafkaconnect.types.kafka_cluster_encryption_in_transit_type
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> KafkaClusterEncryptionInTransit:
     if data.get("encryptionType") is not None:
         out["encryption_type"] = data["encryptionType"]
     else:
-        raise DeserializationError(
-            "KafkaClusterEncryptionInTransit.encryption_type required"
-        )
+        out["encryption_type"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.boxed_boolean
     import capo_ecs.types.boxed_integer
@@ -243,7 +241,7 @@ def deserialize_aws_json_1_1(data: dict) -> DaemonContainerDefinition:
     if data.get("image") is not None:
         out["image"] = data["image"]
     else:
-        raise DeserializationError("DaemonContainerDefinition.image required")
+        out["image"] = ""
     if data.get("memory") is not None:
         out["memory"] = data["memory"]
     if data.get("memoryReservation") is not None:

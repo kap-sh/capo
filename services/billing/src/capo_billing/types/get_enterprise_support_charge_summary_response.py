@@ -99,15 +99,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetEnterpriseSupportChargeSummaryRes
     if data.get("payerAccountId") is not None:
         out["payer_account_id"] = data["payerAccountId"]
     else:
-        raise DeserializationError(
-            "GetEnterpriseSupportChargeSummaryResponse.payer_account_id required"
-        )
+        out["payer_account_id"] = ""
     if data.get("billingMonth") is not None:
         out["billing_month"] = data["billingMonth"]
     else:
-        raise DeserializationError(
-            "GetEnterpriseSupportChargeSummaryResponse.billing_month required"
-        )
+        out["billing_month"] = ""
     if data.get("billingPeriodStartDate") is not None:
         import capo_billing.types._prelude.timestamp
 
@@ -117,8 +113,10 @@ def deserialize_aws_json_1_0(data: dict) -> GetEnterpriseSupportChargeSummaryRes
             )
         )
     else:
-        raise DeserializationError(
-            "GetEnterpriseSupportChargeSummaryResponse.billing_period_start_date required"
+        import datetime
+
+        out["billing_period_start_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("billingPeriodEndDate") is not None:
         import capo_billing.types._prelude.timestamp
@@ -129,15 +127,15 @@ def deserialize_aws_json_1_0(data: dict) -> GetEnterpriseSupportChargeSummaryRes
             )
         )
     else:
-        raise DeserializationError(
-            "GetEnterpriseSupportChargeSummaryResponse.billing_period_end_date required"
+        import datetime
+
+        out["billing_period_end_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("isEstimated") is not None:
         out["is_estimated"] = data["isEstimated"]
     else:
-        raise DeserializationError(
-            "GetEnterpriseSupportChargeSummaryResponse.is_estimated required"
-        )
+        out["is_estimated"] = False
     if data.get("billDate") is not None:
         import capo_billing.types._prelude.timestamp
 
@@ -147,63 +145,47 @@ def deserialize_aws_json_1_0(data: dict) -> GetEnterpriseSupportChargeSummaryRes
             )
         )
     else:
-        raise DeserializationError(
-            "GetEnterpriseSupportChargeSummaryResponse.bill_date required"
-        )
+        import datetime
+
+        out["bill_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("supportCharge") is not None:
         out["support_charge"] = data["supportCharge"]
     else:
-        raise DeserializationError(
-            "GetEnterpriseSupportChargeSummaryResponse.support_charge required"
-        )
+        out["support_charge"] = ""
     if data.get("totalSupportCharge") is not None:
         out["total_support_charge"] = data["totalSupportCharge"]
     else:
-        raise DeserializationError(
-            "GetEnterpriseSupportChargeSummaryResponse.total_support_charge required"
-        )
+        out["total_support_charge"] = ""
     if data.get("supportDiscount") is not None:
         out["support_discount"] = data["supportDiscount"]
     else:
-        raise DeserializationError(
-            "GetEnterpriseSupportChargeSummaryResponse.support_discount required"
-        )
+        out["support_discount"] = ""
     if data.get("totalSupportEligibleSpend") is not None:
         out["total_support_eligible_spend"] = data["totalSupportEligibleSpend"]
     else:
-        raise DeserializationError(
-            "GetEnterpriseSupportChargeSummaryResponse.total_support_eligible_spend required"
-        )
+        out["total_support_eligible_spend"] = ""
     if data.get("totalSupportEligibleUsageSpend") is not None:
         out["total_support_eligible_usage_spend"] = data[
             "totalSupportEligibleUsageSpend"
         ]
     else:
-        raise DeserializationError(
-            "GetEnterpriseSupportChargeSummaryResponse.total_support_eligible_usage_spend required"
-        )
+        out["total_support_eligible_usage_spend"] = ""
     if data.get("totalSupportEligibleReservedInstanceSpend") is not None:
         out["total_support_eligible_reserved_instance_spend"] = data[
             "totalSupportEligibleReservedInstanceSpend"
         ]
     else:
-        raise DeserializationError(
-            "GetEnterpriseSupportChargeSummaryResponse.total_support_eligible_reserved_instance_spend required"
-        )
+        out["total_support_eligible_reserved_instance_spend"] = ""
     if data.get("totalSupportEligibleSavingsPlanSpend") is not None:
         out["total_support_eligible_savings_plan_spend"] = data[
             "totalSupportEligibleSavingsPlanSpend"
         ]
     else:
-        raise DeserializationError(
-            "GetEnterpriseSupportChargeSummaryResponse.total_support_eligible_savings_plan_spend required"
-        )
+        out["total_support_eligible_savings_plan_spend"] = ""
     if data.get("supportChargePercentage") is not None:
         out["support_charge_percentage"] = data["supportChargePercentage"]
     else:
-        raise DeserializationError(
-            "GetEnterpriseSupportChargeSummaryResponse.support_charge_percentage required"
-        )
+        out["support_charge_percentage"] = ""
     if data.get("supportEffectivePricingPlan") is not None:
         import capo_billing.types.pricing_plan
 

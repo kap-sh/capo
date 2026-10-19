@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.boolean_optional
     import capo_database_migration_service.types.integer_optional
@@ -51,15 +49,15 @@ def deserialize_aws_json_1_1(data: dict) -> TimestreamSettings:
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError("TimestreamSettings.database_name required")
+        out["database_name"] = ""
     if data.get("MemoryDuration") is not None:
         out["memory_duration"] = data["MemoryDuration"]
     else:
-        raise DeserializationError("TimestreamSettings.memory_duration required")
+        out["memory_duration"] = 0
     if data.get("MagneticDuration") is not None:
         out["magnetic_duration"] = data["MagneticDuration"]
     else:
-        raise DeserializationError("TimestreamSettings.magnetic_duration required")
+        out["magnetic_duration"] = 0
     if data.get("CdcInsertsAndUpdates") is not None:
         out["cdc_inserts_and_updates"] = data["CdcInsertsAndUpdates"]
     if data.get("EnableMagneticStoreWrites") is not None:

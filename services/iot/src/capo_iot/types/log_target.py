@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.log_target_name
     import capo_iot.types.log_target_type
@@ -40,7 +38,11 @@ def deserialize_json(data: dict) -> LogTarget:
             data["targetType"]
         )
     else:
-        raise DeserializationError("LogTarget.target_type required")
+        import typing
+
+        out["target_type"] = typing.cast(
+            "capo_iot.types.log_target_type.LogTargetType", ""
+        )
     if data.get("targetName") is not None:
         out["target_name"] = data["targetName"]
     return out

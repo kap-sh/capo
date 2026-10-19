@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.ssm_target_key
     import capo_arc_region_switch.types.ssm_target_value_list
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> SsmTarget:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("SsmTarget.key required")
+        out["key"] = ""
     if data.get("values") is not None:
         import capo_arc_region_switch.types.ssm_target_value_list
 
@@ -47,5 +45,5 @@ def deserialize_aws_json_1_0(data: dict) -> SsmTarget:
             )
         )
     else:
-        raise DeserializationError("SsmTarget.values required")
+        out["values"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.amount_requirement_name
     import capo_deadline.types.created_at
@@ -75,15 +73,15 @@ def deserialize_json(data: dict) -> LimitSummary:
     if data.get("farmId") is not None:
         out["farm_id"] = data["farmId"]
     else:
-        raise DeserializationError("LimitSummary.farm_id required")
+        out["farm_id"] = ""
     if data.get("limitId") is not None:
         out["limit_id"] = data["limitId"]
     else:
-        raise DeserializationError("LimitSummary.limit_id required")
+        out["limit_id"] = ""
     if data.get("currentCount") is not None:
         out["current_count"] = data["currentCount"]
     else:
-        raise DeserializationError("LimitSummary.current_count required")
+        out["current_count"] = 0
     if data.get("createdAt") is not None:
         import capo_deadline.types.created_at
 
@@ -91,11 +89,13 @@ def deserialize_json(data: dict) -> LimitSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("LimitSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("LimitSummary.created_by required")
+        out["created_by"] = ""
     if data.get("updatedAt") is not None:
         import capo_deadline.types.updated_at
 
@@ -107,13 +107,13 @@ def deserialize_json(data: dict) -> LimitSummary:
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("LimitSummary.display_name required")
+        out["display_name"] = ""
     if data.get("amountRequirementName") is not None:
         out["amount_requirement_name"] = data["amountRequirementName"]
     else:
-        raise DeserializationError("LimitSummary.amount_requirement_name required")
+        out["amount_requirement_name"] = ""
     if data.get("maxCount") is not None:
         out["max_count"] = data["maxCount"]
     else:
-        raise DeserializationError("LimitSummary.max_count required")
+        out["max_count"] = 0
     return out

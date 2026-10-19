@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.app_id
     import capo_amplify.types.auto_sub_domain_creation_patterns
@@ -78,9 +76,7 @@ def deserialize_json(data: dict) -> CreateDomainAssociationRequest:
     if data.get("domainName") is not None:
         out["domain_name"] = data["domainName"]
     else:
-        raise DeserializationError(
-            "CreateDomainAssociationRequest.domain_name required"
-        )
+        out["domain_name"] = ""
     if data.get("enableAutoSubDomain") is not None:
         out["enable_auto_sub_domain"] = data["enableAutoSubDomain"]
     if data.get("subDomainSettings") is not None:
@@ -92,9 +88,7 @@ def deserialize_json(data: dict) -> CreateDomainAssociationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDomainAssociationRequest.sub_domain_settings required"
-        )
+        out["sub_domain_settings"] = []
     if data.get("autoSubDomainCreationPatterns") is not None:
         import capo_amplify.types.auto_sub_domain_creation_patterns
 

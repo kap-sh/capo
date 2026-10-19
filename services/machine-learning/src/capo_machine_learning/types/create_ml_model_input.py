@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_machine_learning.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_machine_learning.types.entity_id
     import capo_machine_learning.types.entity_name
@@ -68,7 +66,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMLModelInput:
     if data.get("MLModelId") is not None:
         out["ml_model_id"] = data["MLModelId"]
     else:
-        raise DeserializationError("CreateMLModelInput.ml_model_id required")
+        out["ml_model_id"] = ""
     if data.get("MLModelName") is not None:
         out["ml_model_name"] = data["MLModelName"]
     if data.get("MLModelType") is not None:
@@ -80,7 +78,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMLModelInput:
             )
         )
     else:
-        raise DeserializationError("CreateMLModelInput.ml_model_type required")
+        import typing
+
+        out["ml_model_type"] = typing.cast(
+            "capo_machine_learning.types.ml_model_type.MLModelType", ""
+        )
     if data.get("Parameters") is not None:
         import capo_machine_learning.types.training_parameters
 
@@ -92,9 +94,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMLModelInput:
     if data.get("TrainingDataSourceId") is not None:
         out["training_data_source_id"] = data["TrainingDataSourceId"]
     else:
-        raise DeserializationError(
-            "CreateMLModelInput.training_data_source_id required"
-        )
+        out["training_data_source_id"] = ""
     if data.get("Recipe") is not None:
         out["recipe"] = data["Recipe"]
     if data.get("RecipeUri") is not None:

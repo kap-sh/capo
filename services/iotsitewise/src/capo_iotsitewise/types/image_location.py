@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.id
     import capo_iotsitewise.types.url
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> ImageLocation:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ImageLocation.id required")
+        out["id"] = ""
     if data.get("url") is not None:
         out["url"] = data["url"]
     else:
-        raise DeserializationError("ImageLocation.url required")
+        out["url"] = ""
     return out

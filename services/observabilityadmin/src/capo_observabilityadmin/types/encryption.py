@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_observabilityadmin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_observabilityadmin.types.resource_arn
     import capo_observabilityadmin.types.sse_algorithm
@@ -42,7 +40,11 @@ def deserialize_json(data: dict) -> Encryption:
             )
         )
     else:
-        raise DeserializationError("Encryption.sse_algorithm required")
+        import typing
+
+        out["sse_algorithm"] = typing.cast(
+            "capo_observabilityadmin.types.sse_algorithm.SSEAlgorithm", ""
+        )
     if data.get("KmsKeyArn") is not None:
         out["kms_key_arn"] = data["KmsKeyArn"]
     return out

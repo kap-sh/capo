@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediapackagev2.types.resource_name
 
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> ListLowLatencyHlsManifestConfiguration:
     if data.get("ManifestName") is not None:
         out["manifest_name"] = data["ManifestName"]
     else:
-        raise DeserializationError(
-            "ListLowLatencyHlsManifestConfiguration.manifest_name required"
-        )
+        out["manifest_name"] = ""
     if data.get("ChildManifestName") is not None:
         out["child_manifest_name"] = data["ChildManifestName"]
     if data.get("Url") is not None:

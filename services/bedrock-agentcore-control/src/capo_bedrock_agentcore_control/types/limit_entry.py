@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.dimensions
     import capo_bedrock_agentcore_control.types.rate_configs
@@ -72,7 +70,7 @@ def deserialize_json(data: dict) -> LimitEntry:
             )
         )
     else:
-        raise DeserializationError("LimitEntry.dimensions required")
+        out["dimensions"] = {}
     if data.get("requests") is not None:
         import capo_bedrock_agentcore_control.types.rate_configs
 

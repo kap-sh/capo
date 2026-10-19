@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.accept_language
     import capo_service_catalog.types.execution_parameter_map
@@ -54,21 +52,15 @@ def deserialize_aws_json_1_1(data: dict) -> ExecuteProvisionedProductServiceActi
     if data.get("ProvisionedProductId") is not None:
         out["provisioned_product_id"] = data["ProvisionedProductId"]
     else:
-        raise DeserializationError(
-            "ExecuteProvisionedProductServiceActionInput.provisioned_product_id required"
-        )
+        out["provisioned_product_id"] = ""
     if data.get("ServiceActionId") is not None:
         out["service_action_id"] = data["ServiceActionId"]
     else:
-        raise DeserializationError(
-            "ExecuteProvisionedProductServiceActionInput.service_action_id required"
-        )
+        out["service_action_id"] = ""
     if data.get("ExecuteToken") is not None:
         out["execute_token"] = data["ExecuteToken"]
     else:
-        raise DeserializationError(
-            "ExecuteProvisionedProductServiceActionInput.execute_token required"
-        )
+        out["execute_token"] = ""
     if data.get("AcceptLanguage") is not None:
         out["accept_language"] = data["AcceptLanguage"]
     if data.get("Parameters") is not None:

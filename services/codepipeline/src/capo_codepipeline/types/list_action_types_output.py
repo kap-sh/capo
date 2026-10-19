@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.action_type_list
     import capo_codepipeline.types.next_token
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListActionTypesOutput:
             )
         )
     else:
-        raise DeserializationError("ListActionTypesOutput.action_types required")
+        out["action_types"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

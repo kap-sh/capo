@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.contact_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> Contact:
     if data.get("contactArn") is not None:
         out["contact_arn"] = data["contactArn"]
     else:
-        raise DeserializationError("Contact.contact_arn required")
+        out["contact_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.route_weight_constraint_type
     import capo_geo_routes.types.weight_kilograms
@@ -41,7 +39,12 @@ def deserialize_json(data: dict) -> RouteWeightConstraint:
             )
         )
     else:
-        raise DeserializationError("RouteWeightConstraint.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_geo_routes.types.route_weight_constraint_type.RouteWeightConstraintType",
+            "",
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:

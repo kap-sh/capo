@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.gateway_name
     import capo_iotsitewise.types.id
@@ -30,5 +28,5 @@ def deserialize_json(data: dict) -> UpdateGatewayRequest:
     if data.get("gatewayName") is not None:
         out["gateway_name"] = data["gatewayName"]
     else:
-        raise DeserializationError("UpdateGatewayRequest.gateway_name required")
+        out["gateway_name"] = ""
     return out

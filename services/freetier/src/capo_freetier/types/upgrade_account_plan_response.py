@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_freetier.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_freetier.types.account_id
     import capo_freetier.types.account_plan_status
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpgradeAccountPlanResponse:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("UpgradeAccountPlanResponse.account_id required")
+        out["account_id"] = ""
     if data.get("accountPlanType") is not None:
         import capo_freetier.types.account_plan_type
 
@@ -57,8 +55,10 @@ def deserialize_aws_json_1_0(data: dict) -> UpgradeAccountPlanResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "UpgradeAccountPlanResponse.account_plan_type required"
+        import typing
+
+        out["account_plan_type"] = typing.cast(
+            "capo_freetier.types.account_plan_type.AccountPlanType", ""
         )
     if data.get("accountPlanStatus") is not None:
         import capo_freetier.types.account_plan_status
@@ -69,7 +69,9 @@ def deserialize_aws_json_1_0(data: dict) -> UpgradeAccountPlanResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "UpgradeAccountPlanResponse.account_plan_status required"
+        import typing
+
+        out["account_plan_status"] = typing.cast(
+            "capo_freetier.types.account_plan_status.AccountPlanStatus", ""
         )
     return out

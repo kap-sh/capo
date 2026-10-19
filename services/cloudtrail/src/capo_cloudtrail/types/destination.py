@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.destination_type
     import capo_cloudtrail.types.location
@@ -39,9 +37,13 @@ def deserialize_aws_json_1_1(data: dict) -> Destination:
             data["Type"]
         )
     else:
-        raise DeserializationError("Destination.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cloudtrail.types.destination_type.DestinationType", ""
+        )
     if data.get("Location") is not None:
         out["location"] = data["Location"]
     else:
-        raise DeserializationError("Destination.location required")
+        out["location"] = ""
     return out

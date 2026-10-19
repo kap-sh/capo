@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.rule_boolean_operator
     import capo_mailmanager.types.rule_boolean_to_evaluate
@@ -49,7 +47,9 @@ def deserialize_aws_json_1_0(data: dict) -> RuleBooleanExpression:
             )
         )
     else:
-        raise DeserializationError("RuleBooleanExpression.evaluate required")
+        import capo_mailmanager.types._unknown
+
+        out["evaluate"] = capo_mailmanager.types._unknown.UnknownUnionMember("")
     if data.get("Operator") is not None:
         import capo_mailmanager.types.rule_boolean_operator
 
@@ -59,5 +59,9 @@ def deserialize_aws_json_1_0(data: dict) -> RuleBooleanExpression:
             )
         )
     else:
-        raise DeserializationError("RuleBooleanExpression.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_mailmanager.types.rule_boolean_operator.RuleBooleanOperator", ""
+        )
     return out

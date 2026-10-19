@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs_realtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.s3_storage_configuration
     import capo_ivs_realtime.types.storage_configuration_arn
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> StorageConfigurationSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("StorageConfigurationSummary.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("s3") is not None:

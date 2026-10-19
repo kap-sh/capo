@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.instance_id
     import capo_connect.types.pre_evaluation_filters
@@ -64,11 +62,11 @@ def deserialize_json(data: dict) -> UpdateRuleRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateRuleRequest.name required")
+        out["name"] = ""
     if data.get("Function") is not None:
         out["function"] = data["Function"]
     else:
-        raise DeserializationError("UpdateRuleRequest.function required")
+        out["function"] = ""
     if data.get("Actions") is not None:
         import capo_connect.types.rule_actions
 
@@ -76,7 +74,7 @@ def deserialize_json(data: dict) -> UpdateRuleRequest:
             data["Actions"]
         )
     else:
-        raise DeserializationError("UpdateRuleRequest.actions required")
+        out["actions"] = []
     if data.get("PublishStatus") is not None:
         import capo_connect.types.rule_publish_status
 
@@ -84,7 +82,11 @@ def deserialize_json(data: dict) -> UpdateRuleRequest:
             data["PublishStatus"]
         )
     else:
-        raise DeserializationError("UpdateRuleRequest.publish_status required")
+        import typing
+
+        out["publish_status"] = typing.cast(
+            "capo_connect.types.rule_publish_status.RulePublishStatus", ""
+        )
     if data.get("PreEvaluationFilters") is not None:
         import capo_connect.types.pre_evaluation_filters
 

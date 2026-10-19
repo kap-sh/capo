@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.generated_rules_type
     import capo_network_firewall.types.rule_targets
@@ -59,7 +57,7 @@ def deserialize_aws_json_1_0(data: dict) -> RulesSourceList:
             )
         )
     else:
-        raise DeserializationError("RulesSourceList.targets required")
+        out["targets"] = []
     if data.get("TargetTypes") is not None:
         import capo_network_firewall.types.target_types
 
@@ -69,7 +67,7 @@ def deserialize_aws_json_1_0(data: dict) -> RulesSourceList:
             )
         )
     else:
-        raise DeserializationError("RulesSourceList.target_types required")
+        out["target_types"] = []
     if data.get("GeneratedRulesType") is not None:
         import capo_network_firewall.types.generated_rules_type
 
@@ -79,5 +77,9 @@ def deserialize_aws_json_1_0(data: dict) -> RulesSourceList:
             )
         )
     else:
-        raise DeserializationError("RulesSourceList.generated_rules_type required")
+        import typing
+
+        out["generated_rules_type"] = typing.cast(
+            "capo_network_firewall.types.generated_rules_type.GeneratedRulesType", ""
+        )
     return out

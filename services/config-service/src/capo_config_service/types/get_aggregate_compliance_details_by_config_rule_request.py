@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.account_id
     import capo_config_service.types.aws_region
@@ -66,27 +64,19 @@ def deserialize_aws_json_1_1(
     if data.get("ConfigurationAggregatorName") is not None:
         out["configuration_aggregator_name"] = data["ConfigurationAggregatorName"]
     else:
-        raise DeserializationError(
-            "GetAggregateComplianceDetailsByConfigRuleRequest.configuration_aggregator_name required"
-        )
+        out["configuration_aggregator_name"] = ""
     if data.get("ConfigRuleName") is not None:
         out["config_rule_name"] = data["ConfigRuleName"]
     else:
-        raise DeserializationError(
-            "GetAggregateComplianceDetailsByConfigRuleRequest.config_rule_name required"
-        )
+        out["config_rule_name"] = ""
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     else:
-        raise DeserializationError(
-            "GetAggregateComplianceDetailsByConfigRuleRequest.account_id required"
-        )
+        out["account_id"] = ""
     if data.get("AwsRegion") is not None:
         out["aws_region"] = data["AwsRegion"]
     else:
-        raise DeserializationError(
-            "GetAggregateComplianceDetailsByConfigRuleRequest.aws_region required"
-        )
+        out["aws_region"] = ""
     if data.get("ComplianceType") is not None:
         import capo_config_service.types.compliance_type
 

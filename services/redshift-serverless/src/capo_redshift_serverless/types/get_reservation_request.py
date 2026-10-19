@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.reservation_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetReservationRequest:
     if data.get("reservationId") is not None:
         out["reservation_id"] = data["reservationId"]
     else:
-        raise DeserializationError("GetReservationRequest.reservation_id required")
+        out["reservation_id"] = ""
     return out

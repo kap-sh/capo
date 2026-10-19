@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_directory_service_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service_data.types.given_name
     import capo_directory_service_data.types.sid
@@ -44,11 +42,11 @@ def deserialize_json(data: dict) -> UserSummary:
     if data.get("SID") is not None:
         out["sid"] = data["SID"]
     else:
-        raise DeserializationError("UserSummary.sid required")
+        out["sid"] = ""
     if data.get("SAMAccountName") is not None:
         out["sam_account_name"] = data["SAMAccountName"]
     else:
-        raise DeserializationError("UserSummary.sam_account_name required")
+        out["sam_account_name"] = ""
     if data.get("GivenName") is not None:
         out["given_name"] = data["GivenName"]
     if data.get("Surname") is not None:
@@ -56,7 +54,7 @@ def deserialize_json(data: dict) -> UserSummary:
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
-        raise DeserializationError("UserSummary.enabled required")
+        out["enabled"] = False
     return out
 
 

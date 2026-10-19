@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.boolean
     import capo_lightsail.types.resource_name
@@ -73,35 +71,25 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRelationalDatabaseRequest:
     if data.get("relationalDatabaseName") is not None:
         out["relational_database_name"] = data["relationalDatabaseName"]
     else:
-        raise DeserializationError(
-            "CreateRelationalDatabaseRequest.relational_database_name required"
-        )
+        out["relational_database_name"] = ""
     if data.get("availabilityZone") is not None:
         out["availability_zone"] = data["availabilityZone"]
     if data.get("relationalDatabaseBlueprintId") is not None:
         out["relational_database_blueprint_id"] = data["relationalDatabaseBlueprintId"]
     else:
-        raise DeserializationError(
-            "CreateRelationalDatabaseRequest.relational_database_blueprint_id required"
-        )
+        out["relational_database_blueprint_id"] = ""
     if data.get("relationalDatabaseBundleId") is not None:
         out["relational_database_bundle_id"] = data["relationalDatabaseBundleId"]
     else:
-        raise DeserializationError(
-            "CreateRelationalDatabaseRequest.relational_database_bundle_id required"
-        )
+        out["relational_database_bundle_id"] = ""
     if data.get("masterDatabaseName") is not None:
         out["master_database_name"] = data["masterDatabaseName"]
     else:
-        raise DeserializationError(
-            "CreateRelationalDatabaseRequest.master_database_name required"
-        )
+        out["master_database_name"] = ""
     if data.get("masterUsername") is not None:
         out["master_username"] = data["masterUsername"]
     else:
-        raise DeserializationError(
-            "CreateRelationalDatabaseRequest.master_username required"
-        )
+        out["master_username"] = ""
     if data.get("masterUserPassword") is not None:
         out["master_user_password"] = data["masterUserPassword"]
     if data.get("preferredBackupWindow") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -91,15 +89,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetTrafficPolicyResponse:
     if data.get("TrafficPolicyName") is not None:
         out["traffic_policy_name"] = data["TrafficPolicyName"]
     else:
-        raise DeserializationError(
-            "GetTrafficPolicyResponse.traffic_policy_name required"
-        )
+        out["traffic_policy_name"] = ""
     if data.get("TrafficPolicyId") is not None:
         out["traffic_policy_id"] = data["TrafficPolicyId"]
     else:
-        raise DeserializationError(
-            "GetTrafficPolicyResponse.traffic_policy_id required"
-        )
+        out["traffic_policy_id"] = ""
     if data.get("TrafficPolicyArn") is not None:
         out["traffic_policy_arn"] = data["TrafficPolicyArn"]
     if data.get("PolicyStatements") is not None:

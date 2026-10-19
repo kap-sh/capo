@@ -49,5 +49,5 @@ def deserialize_xml(el: Element) -> GetDNSSECResponse:
             child_key_signing_keys
         )
     else:
-        raise DeserializationError("GetDNSSECResponse.key_signing_keys required")
+        out["key_signing_keys"] = []
     return out

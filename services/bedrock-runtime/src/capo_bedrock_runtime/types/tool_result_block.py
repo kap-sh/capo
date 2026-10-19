@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.tool_result_content_blocks
     import capo_bedrock_runtime.types.tool_result_status
@@ -54,7 +52,7 @@ def deserialize_json(data: dict) -> ToolResultBlock:
     if data.get("toolUseId") is not None:
         out["tool_use_id"] = data["toolUseId"]
     else:
-        raise DeserializationError("ToolResultBlock.tool_use_id required")
+        out["tool_use_id"] = ""
     if data.get("content") is not None:
         import capo_bedrock_runtime.types.tool_result_content_blocks
 
@@ -64,7 +62,7 @@ def deserialize_json(data: dict) -> ToolResultBlock:
             )
         )
     else:
-        raise DeserializationError("ToolResultBlock.content required")
+        out["content"] = []
     if data.get("status") is not None:
         import capo_bedrock_runtime.types.tool_result_status
 

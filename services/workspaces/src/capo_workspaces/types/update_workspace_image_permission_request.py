@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.aws_account
     import capo_workspaces.types.boolean_object
@@ -35,19 +33,13 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateWorkspaceImagePermissionReques
     if data.get("ImageId") is not None:
         out["image_id"] = data["ImageId"]
     else:
-        raise DeserializationError(
-            "UpdateWorkspaceImagePermissionRequest.image_id required"
-        )
+        out["image_id"] = ""
     if data.get("AllowCopyImage") is not None:
         out["allow_copy_image"] = data["AllowCopyImage"]
     else:
-        raise DeserializationError(
-            "UpdateWorkspaceImagePermissionRequest.allow_copy_image required"
-        )
+        out["allow_copy_image"] = False
     if data.get("SharedAccountId") is not None:
         out["shared_account_id"] = data["SharedAccountId"]
     else:
-        raise DeserializationError(
-            "UpdateWorkspaceImagePermissionRequest.shared_account_id required"
-        )
+        out["shared_account_id"] = ""
     return out

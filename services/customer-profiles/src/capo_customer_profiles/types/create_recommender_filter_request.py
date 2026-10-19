@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.name
     import capo_customer_profiles.types.recommender_filter_expression
@@ -53,9 +51,7 @@ def deserialize_json(data: dict) -> CreateRecommenderFilterRequest:
     if data.get("RecommenderFilterExpression") is not None:
         out["recommender_filter_expression"] = data["RecommenderFilterExpression"]
     else:
-        raise DeserializationError(
-            "CreateRecommenderFilterRequest.recommender_filter_expression required"
-        )
+        out["recommender_filter_expression"] = ""
     if data.get("RecommenderSchemaName") is not None:
         out["recommender_schema_name"] = data["RecommenderSchemaName"]
     if data.get("Description") is not None:

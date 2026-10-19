@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.certificate_configuration_list
     import capo_bedrock_agentcore_control.types.client_token
@@ -123,8 +121,10 @@ def deserialize_json(data: dict) -> CreateGatewayTargetRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateGatewayTargetRequest.target_configuration required"
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["target_configuration"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
         )
     if data.get("credentialProviderConfigurations") is not None:
         import capo_bedrock_agentcore_control.types.credential_provider_configurations

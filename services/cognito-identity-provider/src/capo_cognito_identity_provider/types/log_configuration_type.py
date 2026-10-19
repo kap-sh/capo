@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.cloud_watch_logs_configuration_type
     import capo_cognito_identity_provider.types.event_source_name
@@ -90,7 +88,11 @@ def deserialize_aws_json_1_1(data: dict) -> LogConfigurationType:
             )
         )
     else:
-        raise DeserializationError("LogConfigurationType.log_level required")
+        import typing
+
+        out["log_level"] = typing.cast(
+            "capo_cognito_identity_provider.types.log_level.LogLevel", ""
+        )
     if data.get("EventSource") is not None:
         import capo_cognito_identity_provider.types.event_source_name
 
@@ -100,7 +102,11 @@ def deserialize_aws_json_1_1(data: dict) -> LogConfigurationType:
             )
         )
     else:
-        raise DeserializationError("LogConfigurationType.event_source required")
+        import typing
+
+        out["event_source"] = typing.cast(
+            "capo_cognito_identity_provider.types.event_source_name.EventSourceName", ""
+        )
     if data.get("CloudWatchLogsConfiguration") is not None:
         import capo_cognito_identity_provider.types.cloud_watch_logs_configuration_type
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr.types.annotations
     import capo_ecr.types.artifact_status
@@ -58,17 +56,17 @@ def deserialize_aws_json_1_1(data: dict) -> ImageReferrer:
     if data.get("digest") is not None:
         out["digest"] = data["digest"]
     else:
-        raise DeserializationError("ImageReferrer.digest required")
+        out["digest"] = ""
     if data.get("mediaType") is not None:
         out["media_type"] = data["mediaType"]
     else:
-        raise DeserializationError("ImageReferrer.media_type required")
+        out["media_type"] = ""
     if data.get("artifactType") is not None:
         out["artifact_type"] = data["artifactType"]
     if data.get("size") is not None:
         out["size"] = data["size"]
     else:
-        raise DeserializationError("ImageReferrer.size required")
+        out["size"] = 0
     if data.get("annotations") is not None:
         import capo_ecr.types.annotations
 

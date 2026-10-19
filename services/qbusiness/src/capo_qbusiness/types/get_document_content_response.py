@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.string
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> GetDocumentContentResponse:
     if data.get("presignedUrl") is not None:
         out["presigned_url"] = data["presignedUrl"]
     else:
-        raise DeserializationError("GetDocumentContentResponse.presigned_url required")
+        out["presigned_url"] = ""
     if data.get("mimeType") is not None:
         out["mime_type"] = data["mimeType"]
     else:
-        raise DeserializationError("GetDocumentContentResponse.mime_type required")
+        out["mime_type"] = ""
     return out

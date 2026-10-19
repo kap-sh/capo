@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.node_name
     import capo_glue.types.non_negative_int
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> SelectFromCollection:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("SelectFromCollection.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.one_input
 
@@ -45,7 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> SelectFromCollection:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("SelectFromCollection.inputs required")
+        out["inputs"] = []
     if data.get("Index") is not None:
         out["index"] = data["Index"]
     else:

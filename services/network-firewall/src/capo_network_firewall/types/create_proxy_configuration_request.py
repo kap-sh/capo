@@ -77,9 +77,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateProxyConfigurationRequest:
     if data.get("ProxyConfigurationName") is not None:
         out["proxy_configuration_name"] = data["ProxyConfigurationName"]
     else:
-        raise DeserializationError(
-            "CreateProxyConfigurationRequest.proxy_configuration_name required"
-        )
+        out["proxy_configuration_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("RuleGroupNames") is not None:

@@ -48,7 +48,7 @@ def deserialize_json(data: dict) -> LogicalTable:
     if data.get("Alias") is not None:
         out["alias"] = data["Alias"]
     else:
-        raise DeserializationError("LogicalTable.alias required")
+        out["alias"] = ""
     if data.get("DataTransforms") is not None:
         import capo_quicksight.types.transform_operation_list
 

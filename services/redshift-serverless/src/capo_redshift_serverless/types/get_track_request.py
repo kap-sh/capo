@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.track_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetTrackRequest:
     if data.get("trackName") is not None:
         out["track_name"] = data["trackName"]
     else:
-        raise DeserializationError("GetTrackRequest.track_name required")
+        out["track_name"] = ""
     return out

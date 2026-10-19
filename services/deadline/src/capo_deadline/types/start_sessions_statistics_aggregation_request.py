@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.farm_id
     import capo_deadline.types.period
@@ -85,9 +83,9 @@ def deserialize_json(data: dict) -> StartSessionsStatisticsAggregationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartSessionsStatisticsAggregationRequest.resource_ids required"
-        )
+        import capo_deadline.types._unknown
+
+        out["resource_ids"] = capo_deadline.types._unknown.UnknownUnionMember("")
     if data.get("startTime") is not None:
         import datetime
 
@@ -95,9 +93,9 @@ def deserialize_json(data: dict) -> StartSessionsStatisticsAggregationRequest:
             data["startTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "StartSessionsStatisticsAggregationRequest.start_time required"
-        )
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import datetime
 
@@ -105,9 +103,9 @@ def deserialize_json(data: dict) -> StartSessionsStatisticsAggregationRequest:
             data["endTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "StartSessionsStatisticsAggregationRequest.end_time required"
-        )
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("timezone") is not None:
         out["timezone"] = data["timezone"]
     if data.get("period") is not None:
@@ -121,9 +119,7 @@ def deserialize_json(data: dict) -> StartSessionsStatisticsAggregationRequest:
             data["groupBy"]
         )
     else:
-        raise DeserializationError(
-            "StartSessionsStatisticsAggregationRequest.group_by required"
-        )
+        out["group_by"] = []
     if data.get("statistics") is not None:
         import capo_deadline.types.usage_statistics
 
@@ -131,7 +127,5 @@ def deserialize_json(data: dict) -> StartSessionsStatisticsAggregationRequest:
             data["statistics"]
         )
     else:
-        raise DeserializationError(
-            "StartSessionsStatisticsAggregationRequest.statistics required"
-        )
+        out["statistics"] = []
     return out

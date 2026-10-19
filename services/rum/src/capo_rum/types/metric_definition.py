@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rum.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rum.types.dimension_keys_map
     import capo_rum.types.event_pattern
@@ -60,11 +58,11 @@ def deserialize_json(data: dict) -> MetricDefinition:
     if data.get("MetricDefinitionId") is not None:
         out["metric_definition_id"] = data["MetricDefinitionId"]
     else:
-        raise DeserializationError("MetricDefinition.metric_definition_id required")
+        out["metric_definition_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("MetricDefinition.name required")
+        out["name"] = ""
     if data.get("ValueKey") is not None:
         out["value_key"] = data["ValueKey"]
     if data.get("UnitLabel") is not None:

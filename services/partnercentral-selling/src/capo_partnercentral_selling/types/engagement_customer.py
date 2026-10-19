@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.company_name
     import capo_partnercentral_selling.types.company_website_url
@@ -57,15 +55,19 @@ def deserialize_aws_json_1_0(data: dict) -> EngagementCustomer:
             )
         )
     else:
-        raise DeserializationError("EngagementCustomer.industry required")
+        import typing
+
+        out["industry"] = typing.cast(
+            "capo_partnercentral_selling.types.industry.Industry", ""
+        )
     if data.get("CompanyName") is not None:
         out["company_name"] = data["CompanyName"]
     else:
-        raise DeserializationError("EngagementCustomer.company_name required")
+        out["company_name"] = ""
     if data.get("WebsiteUrl") is not None:
         out["website_url"] = data["WebsiteUrl"]
     else:
-        raise DeserializationError("EngagementCustomer.website_url required")
+        out["website_url"] = ""
     if data.get("CountryCode") is not None:
         import capo_partnercentral_selling.types.country_code
 
@@ -75,7 +77,11 @@ def deserialize_aws_json_1_0(data: dict) -> EngagementCustomer:
             )
         )
     else:
-        raise DeserializationError("EngagementCustomer.country_code required")
+        import typing
+
+        out["country_code"] = typing.cast(
+            "capo_partnercentral_selling.types.country_code.CountryCode", ""
+        )
     return out
 
 

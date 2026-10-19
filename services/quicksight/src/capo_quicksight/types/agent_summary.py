@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -61,15 +59,15 @@ def deserialize_json(data: dict) -> AgentSummary:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("AgentSummary.arn required")
+        out["arn"] = ""
     if data.get("AgentId") is not None:
         out["agent_id"] = data["AgentId"]
     else:
-        raise DeserializationError("AgentSummary.agent_id required")
+        out["agent_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("AgentSummary.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("CreatedAt") is not None:
@@ -79,7 +77,9 @@ def deserialize_json(data: dict) -> AgentSummary:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("AgentSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("UpdatedAt") is not None:
         import capo_quicksight.types._prelude.timestamp
 
@@ -87,7 +87,9 @@ def deserialize_json(data: dict) -> AgentSummary:
             data["UpdatedAt"]
         )
     else:
-        raise DeserializationError("AgentSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("IconId") is not None:
         out["icon_id"] = data["IconId"]
     return out

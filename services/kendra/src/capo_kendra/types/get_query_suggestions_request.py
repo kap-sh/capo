@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.attribute_suggestions_get_config
     import capo_kendra.types.index_id
@@ -60,11 +58,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetQuerySuggestionsRequest:
     if data.get("IndexId") is not None:
         out["index_id"] = data["IndexId"]
     else:
-        raise DeserializationError("GetQuerySuggestionsRequest.index_id required")
+        out["index_id"] = ""
     if data.get("QueryText") is not None:
         out["query_text"] = data["QueryText"]
     else:
-        raise DeserializationError("GetQuerySuggestionsRequest.query_text required")
+        out["query_text"] = ""
     if data.get("MaxSuggestionsCount") is not None:
         out["max_suggestions_count"] = data["MaxSuggestionsCount"]
     if data.get("SuggestionTypes") is not None:

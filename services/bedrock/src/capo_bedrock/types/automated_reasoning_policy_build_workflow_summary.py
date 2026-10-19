@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_arn
     import capo_bedrock.types.automated_reasoning_policy_build_workflow_id
@@ -64,15 +62,11 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildWorkflowSummary
     if data.get("policyArn") is not None:
         out["policy_arn"] = data["policyArn"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyBuildWorkflowSummary.policy_arn required"
-        )
+        out["policy_arn"] = ""
     if data.get("buildWorkflowId") is not None:
         out["build_workflow_id"] = data["buildWorkflowId"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyBuildWorkflowSummary.build_workflow_id required"
-        )
+        out["build_workflow_id"] = ""
     if data.get("status") is not None:
         import capo_bedrock.types.automated_reasoning_policy_build_workflow_status
 
@@ -82,8 +76,11 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildWorkflowSummary
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyBuildWorkflowSummary.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock.types.automated_reasoning_policy_build_workflow_status.AutomatedReasoningPolicyBuildWorkflowStatus",
+            "",
         )
     if data.get("buildWorkflowType") is not None:
         import capo_bedrock.types.automated_reasoning_policy_build_workflow_type
@@ -94,8 +91,11 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildWorkflowSummary
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyBuildWorkflowSummary.build_workflow_type required"
+        import typing
+
+        out["build_workflow_type"] = typing.cast(
+            "capo_bedrock.types.automated_reasoning_policy_build_workflow_type.AutomatedReasoningPolicyBuildWorkflowType",
+            "",
         )
     if data.get("createdAt") is not None:
         import capo_bedrock.types.timestamp
@@ -104,9 +104,9 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildWorkflowSummary
             data["createdAt"]
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyBuildWorkflowSummary.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock.types.timestamp
 
@@ -114,7 +114,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildWorkflowSummary
             data["updatedAt"]
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyBuildWorkflowSummary.updated_at required"
-        )
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.tag_list
     import capo_workspaces.types.workspace_image_description
@@ -46,19 +44,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateUpdatedWorkspaceImageRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateUpdatedWorkspaceImageRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError(
-            "CreateUpdatedWorkspaceImageRequest.description required"
-        )
+        out["description"] = ""
     if data.get("SourceImageId") is not None:
         out["source_image_id"] = data["SourceImageId"]
     else:
-        raise DeserializationError(
-            "CreateUpdatedWorkspaceImageRequest.source_image_id required"
-        )
+        out["source_image_id"] = ""
     if data.get("Tags") is not None:
         import capo_workspaces.types.tag_list
 

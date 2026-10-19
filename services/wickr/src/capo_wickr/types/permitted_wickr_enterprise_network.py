@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.generic_string
     import capo_wickr.types.network_id
@@ -31,11 +29,9 @@ def deserialize_json(data: dict) -> PermittedWickrEnterpriseNetwork:
     if data.get("domain") is not None:
         out["domain"] = data["domain"]
     else:
-        raise DeserializationError("PermittedWickrEnterpriseNetwork.domain required")
+        out["domain"] = ""
     if data.get("networkId") is not None:
         out["network_id"] = data["networkId"]
     else:
-        raise DeserializationError(
-            "PermittedWickrEnterpriseNetwork.network_id required"
-        )
+        out["network_id"] = ""
     return out

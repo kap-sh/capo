@@ -70,8 +70,11 @@ def deserialize_aws_json_1_1(data: dict) -> ConformancePackEvaluationResult:
             )
         )
     else:
-        raise DeserializationError(
-            "ConformancePackEvaluationResult.compliance_type required"
+        import typing
+
+        out["compliance_type"] = typing.cast(
+            "capo_config_service.types.conformance_pack_compliance_type.ConformancePackComplianceType",
+            "",
         )
     if data.get("EvaluationResultIdentifier") is not None:
         import capo_config_service.types.evaluation_result_identifier
@@ -94,8 +97,10 @@ def deserialize_aws_json_1_1(data: dict) -> ConformancePackEvaluationResult:
             )
         )
     else:
-        raise DeserializationError(
-            "ConformancePackEvaluationResult.config_rule_invoked_time required"
+        import datetime
+
+        out["config_rule_invoked_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("ResultRecordedTime") is not None:
         import capo_config_service.types.date
@@ -106,8 +111,10 @@ def deserialize_aws_json_1_1(data: dict) -> ConformancePackEvaluationResult:
             )
         )
     else:
-        raise DeserializationError(
-            "ConformancePackEvaluationResult.result_recorded_time required"
+        import datetime
+
+        out["result_recorded_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("Annotation") is not None:
         out["annotation"] = data["Annotation"]

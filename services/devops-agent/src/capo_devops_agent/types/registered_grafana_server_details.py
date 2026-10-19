@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.mcp_server_authorization_method
     import capo_devops_agent.types.mcp_server_endpoint
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> RegisteredGrafanaServerDetails:
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError("RegisteredGrafanaServerDetails.endpoint required")
+        out["endpoint"] = ""
     if data.get("authorizationMethod") is not None:
         import capo_devops_agent.types.mcp_server_authorization_method
 
@@ -47,7 +45,10 @@ def deserialize_json(data: dict) -> RegisteredGrafanaServerDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "RegisteredGrafanaServerDetails.authorization_method required"
+        import typing
+
+        out["authorization_method"] = typing.cast(
+            "capo_devops_agent.types.mcp_server_authorization_method.MCPServerAuthorizationMethod",
+            "",
         )
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.account_id
@@ -33,7 +32,7 @@ def deserialize_xml(el: Element) -> Region:
     if child_bucket is not None:
         out["bucket"] = str(child_bucket.text or "")
     else:
-        raise DeserializationError("Region.bucket required")
+        out["bucket"] = ""
     child_bucket_account_id = el.find("BucketAccountId")
     if child_bucket_account_id is not None:
         out["bucket_account_id"] = str(child_bucket_account_id.text or "")

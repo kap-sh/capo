@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.context
     import capo_bedrock_agentcore.types.evaluation_content
@@ -74,7 +72,9 @@ def deserialize_json(data: dict) -> EvaluationReferenceInput:
             data["context"]
         )
     else:
-        raise DeserializationError("EvaluationReferenceInput.context required")
+        import capo_bedrock_agentcore.types._unknown
+
+        out["context"] = capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
     if data.get("expectedResponse") is not None:
         import capo_bedrock_agentcore.types.evaluation_content
 

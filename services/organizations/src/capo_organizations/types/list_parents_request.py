@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_organizations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_organizations.types.child_id
     import capo_organizations.types.max_results
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListParentsRequest:
     if data.get("ChildId") is not None:
         out["child_id"] = data["ChildId"]
     else:
-        raise DeserializationError("ListParentsRequest.child_id required")
+        out["child_id"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

@@ -42,7 +42,7 @@ def deserialize_json(data: dict) -> SearchRasterDataCollectionInput:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("SearchRasterDataCollectionInput.arn required")
+        out["arn"] = ""
     if data.get("RasterDataCollectionQuery") is not None:
         import capo_sagemaker_geospatial.types.raster_data_collection_query_with_band_filter_input
 

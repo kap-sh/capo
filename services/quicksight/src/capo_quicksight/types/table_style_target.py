@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.styled_cell_type
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> TableStyleTarget:
             data["CellType"]
         )
     else:
-        raise DeserializationError("TableStyleTarget.cell_type required")
+        import typing
+
+        out["cell_type"] = typing.cast(
+            "capo_quicksight.types.styled_cell_type.StyledCellType", ""
+        )
     return out

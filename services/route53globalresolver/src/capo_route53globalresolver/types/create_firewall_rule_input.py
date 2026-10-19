@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.block_override_dns_query_type
     import capo_route53globalresolver.types.block_override_ttl
@@ -143,7 +141,12 @@ def deserialize_json(data: dict) -> CreateFirewallRuleInput:
             )
         )
     else:
-        raise DeserializationError("CreateFirewallRuleInput.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_route53globalresolver.types.firewall_rule_action.FirewallRuleAction",
+            "",
+        )
     if data.get("blockOverrideDnsType") is not None:
         import capo_route53globalresolver.types.block_override_dns_query_type
 
@@ -189,13 +192,13 @@ def deserialize_json(data: dict) -> CreateFirewallRuleInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateFirewallRuleInput.name required")
+        out["name"] = ""
     if data.get("priority") is not None:
         out["priority"] = data["priority"]
     if data.get("dnsViewId") is not None:
         out["dns_view_id"] = data["dnsViewId"]
     else:
-        raise DeserializationError("CreateFirewallRuleInput.dns_view_id required")
+        out["dns_view_id"] = ""
     if data.get("qType") is not None:
         out["q_type"] = data["qType"]
     return out

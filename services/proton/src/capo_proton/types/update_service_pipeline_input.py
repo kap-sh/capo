@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.deployment_update_type
     import capo_proton.types.resource_name
@@ -48,17 +46,15 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateServicePipelineInput:
     if data.get("serviceName") is not None:
         out["service_name"] = data["serviceName"]
     else:
-        raise DeserializationError("UpdateServicePipelineInput.service_name required")
+        out["service_name"] = ""
     if data.get("spec") is not None:
         out["spec"] = data["spec"]
     else:
-        raise DeserializationError("UpdateServicePipelineInput.spec required")
+        out["spec"] = ""
     if data.get("deploymentType") is not None:
         out["deployment_type"] = data["deploymentType"]
     else:
-        raise DeserializationError(
-            "UpdateServicePipelineInput.deployment_type required"
-        )
+        out["deployment_type"] = ""
     if data.get("templateMajorVersion") is not None:
         out["template_major_version"] = data["templateMajorVersion"]
     if data.get("templateMinorVersion") is not None:

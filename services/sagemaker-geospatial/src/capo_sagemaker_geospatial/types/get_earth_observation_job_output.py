@@ -130,11 +130,11 @@ def deserialize_json(data: dict) -> GetEarthObservationJobOutput:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("GetEarthObservationJobOutput.arn required")
+        out["arn"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("GetEarthObservationJobOutput.name required")
+        out["name"] = ""
     if data.get("CreationTime") is not None:
         import datetime
 
@@ -142,19 +142,19 @@ def deserialize_json(data: dict) -> GetEarthObservationJobOutput:
             data["CreationTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "GetEarthObservationJobOutput.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("DurationInSeconds") is not None:
         out["duration_in_seconds"] = data["DurationInSeconds"]
     else:
-        raise DeserializationError(
-            "GetEarthObservationJobOutput.duration_in_seconds required"
-        )
+        out["duration_in_seconds"] = 0
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("GetEarthObservationJobOutput.status required")
+        out["status"] = ""
     if data.get("KmsKeyId") is not None:
         out["kms_key_id"] = data["KmsKeyId"]
     if data.get("InputConfig") is not None:
@@ -176,7 +176,11 @@ def deserialize_json(data: dict) -> GetEarthObservationJobOutput:
             )
         )
     else:
-        raise DeserializationError("GetEarthObservationJobOutput.job_config required")
+        import capo_sagemaker_geospatial.types._unknown
+
+        out["job_config"] = capo_sagemaker_geospatial.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("OutputBands") is not None:
         import capo_sagemaker_geospatial.types.earth_observation_job_output_bands
 

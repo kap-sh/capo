@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.regular_expression_list
     import capo_wafv2.types.sensitivity_to_act
@@ -59,7 +57,11 @@ def deserialize_aws_json_1_1(data: dict) -> ClientSideAction:
             )
         )
     else:
-        raise DeserializationError("ClientSideAction.usage_of_action required")
+        import typing
+
+        out["usage_of_action"] = typing.cast(
+            "capo_wafv2.types.usage_of_action.UsageOfAction", ""
+        )
     if data.get("Sensitivity") is not None:
         import capo_wafv2.types.sensitivity_to_act
 

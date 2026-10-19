@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_synthetics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_synthetics.types.base_screenshot_ignore_coordinates
     import capo_synthetics.types.string
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> BaseScreenshot:
     if data.get("ScreenshotName") is not None:
         out["screenshot_name"] = data["ScreenshotName"]
     else:
-        raise DeserializationError("BaseScreenshot.screenshot_name required")
+        out["screenshot_name"] = ""
     if data.get("IgnoreCoordinates") is not None:
         import capo_synthetics.types.base_screenshot_ignore_coordinates
 

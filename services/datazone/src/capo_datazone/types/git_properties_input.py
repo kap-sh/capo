@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 
 class GitPropertiesInput(TypedDict, closed=True):
     code_connection_arn: "str"
@@ -28,13 +26,13 @@ def deserialize_json(data: dict) -> GitPropertiesInput:
     if data.get("codeConnectionArn") is not None:
         out["code_connection_arn"] = data["codeConnectionArn"]
     else:
-        raise DeserializationError("GitPropertiesInput.code_connection_arn required")
+        out["code_connection_arn"] = ""
     if data.get("repositoryId") is not None:
         out["repository_id"] = data["repositoryId"]
     else:
-        raise DeserializationError("GitPropertiesInput.repository_id required")
+        out["repository_id"] = ""
     if data.get("defaultBranch") is not None:
         out["default_branch"] = data["defaultBranch"]
     else:
-        raise DeserializationError("GitPropertiesInput.default_branch required")
+        out["default_branch"] = ""
     return out

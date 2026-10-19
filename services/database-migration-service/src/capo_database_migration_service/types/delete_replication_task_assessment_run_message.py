@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.string
 
@@ -33,7 +31,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteReplicationTaskAssessmentRunMe
             "ReplicationTaskAssessmentRunArn"
         ]
     else:
-        raise DeserializationError(
-            "DeleteReplicationTaskAssessmentRunMessage.replication_task_assessment_run_arn required"
-        )
+        out["replication_task_assessment_run_arn"] = ""
     return out

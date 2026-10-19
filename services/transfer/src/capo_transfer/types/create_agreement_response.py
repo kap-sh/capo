@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.agreement_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAgreementResponse:
     if data.get("AgreementId") is not None:
         out["agreement_id"] = data["AgreementId"]
     else:
-        raise DeserializationError("CreateAgreementResponse.agreement_id required")
+        out["agreement_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.limit50
     import capo_workspaces.types.pagination_token
@@ -44,9 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeWorkspacesPoolSessionsReques
     if data.get("PoolId") is not None:
         out["pool_id"] = data["PoolId"]
     else:
-        raise DeserializationError(
-            "DescribeWorkspacesPoolSessionsRequest.pool_id required"
-        )
+        out["pool_id"] = ""
     if data.get("UserId") is not None:
         out["user_id"] = data["UserId"]
     if data.get("Limit") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_grafana.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_grafana.types.account_access_type
     import capo_grafana.types.authentication_providers
@@ -167,9 +165,7 @@ def deserialize_json(data: dict) -> CreateWorkspaceRequest:
     if data.get("accountAccessType") is not None:
         out["account_access_type"] = data["accountAccessType"]
     else:
-        raise DeserializationError(
-            "CreateWorkspaceRequest.account_access_type required"
-        )
+        out["account_access_type"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("organizationRoleName") is not None:
@@ -177,7 +173,7 @@ def deserialize_json(data: dict) -> CreateWorkspaceRequest:
     if data.get("permissionType") is not None:
         out["permission_type"] = data["permissionType"]
     else:
-        raise DeserializationError("CreateWorkspaceRequest.permission_type required")
+        out["permission_type"] = ""
     if data.get("stackSetName") is not None:
         out["stack_set_name"] = data["stackSetName"]
     if data.get("workspaceDataSources") is not None:
@@ -219,9 +215,7 @@ def deserialize_json(data: dict) -> CreateWorkspaceRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateWorkspaceRequest.authentication_providers required"
-        )
+        out["authentication_providers"] = []
     if data.get("tags") is not None:
         import capo_grafana.types.tag_map
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.access_rules
     import capo_lightsail.types.bucket_access_log_config
@@ -76,7 +74,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateBucketRequest:
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError("UpdateBucketRequest.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("accessRules") is not None:
         import capo_lightsail.types.access_rules
 

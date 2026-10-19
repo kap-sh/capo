@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.batch_delete_firewall_rule_input_items
 
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> BatchDeleteFirewallRuleInput:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDeleteFirewallRuleInput.firewall_rules required"
-        )
+        out["firewall_rules"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -97,15 +95,15 @@ def deserialize_json(data: dict) -> DataIntegrationFlowExecution:
     if data.get("instanceId") is not None:
         out["instance_id"] = data["instanceId"]
     else:
-        raise DeserializationError("DataIntegrationFlowExecution.instance_id required")
+        out["instance_id"] = ""
     if data.get("flowName") is not None:
         out["flow_name"] = data["flowName"]
     else:
-        raise DeserializationError("DataIntegrationFlowExecution.flow_name required")
+        out["flow_name"] = ""
     if data.get("executionId") is not None:
         out["execution_id"] = data["executionId"]
     else:
-        raise DeserializationError("DataIntegrationFlowExecution.execution_id required")
+        out["execution_id"] = ""
     if data.get("status") is not None:
         import capo_supplychain.types.data_integration_flow_execution_status
 

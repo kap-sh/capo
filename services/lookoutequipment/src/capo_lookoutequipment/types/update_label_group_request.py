@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.fault_codes
     import capo_lookoutequipment.types.label_group_name
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateLabelGroupRequest:
     if data.get("LabelGroupName") is not None:
         out["label_group_name"] = data["LabelGroupName"]
     else:
-        raise DeserializationError("UpdateLabelGroupRequest.label_group_name required")
+        out["label_group_name"] = ""
     if data.get("FaultCodes") is not None:
         import capo_lookoutequipment.types.fault_codes
 

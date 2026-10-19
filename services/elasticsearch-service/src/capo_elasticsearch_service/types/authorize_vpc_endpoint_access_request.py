@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_elasticsearch_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elasticsearch_service.types.aws_account
     import capo_elasticsearch_service.types.domain_name
@@ -30,5 +28,5 @@ def deserialize_json(data: dict) -> AuthorizeVpcEndpointAccessRequest:
     if data.get("Account") is not None:
         out["account"] = data["Account"]
     else:
-        raise DeserializationError("AuthorizeVpcEndpointAccessRequest.account required")
+        out["account"] = ""
     return out

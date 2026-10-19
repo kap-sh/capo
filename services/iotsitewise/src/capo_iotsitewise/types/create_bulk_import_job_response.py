@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.bulk_import_job_name
     import capo_iotsitewise.types.id
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> CreateBulkImportJobResponse:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("CreateBulkImportJobResponse.job_id required")
+        out["job_id"] = ""
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError("CreateBulkImportJobResponse.job_name required")
+        out["job_name"] = ""
     if data.get("jobStatus") is not None:
         import capo_iotsitewise.types.job_status
 
@@ -51,5 +49,9 @@ def deserialize_json(data: dict) -> CreateBulkImportJobResponse:
             data["jobStatus"]
         )
     else:
-        raise DeserializationError("CreateBulkImportJobResponse.job_status required")
+        import typing
+
+        out["job_status"] = typing.cast(
+            "capo_iotsitewise.types.job_status.JobStatus", ""
+        )
     return out

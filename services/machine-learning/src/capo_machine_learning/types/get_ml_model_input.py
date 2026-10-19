@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_machine_learning.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_machine_learning.types.entity_id
     import capo_machine_learning.types.verbose
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetMLModelInput:
     if data.get("MLModelId") is not None:
         out["ml_model_id"] = data["MLModelId"]
     else:
-        raise DeserializationError("GetMLModelInput.ml_model_id required")
+        out["ml_model_id"] = ""
     if data.get("Verbose") is not None:
         out["verbose"] = data["Verbose"]
     return out

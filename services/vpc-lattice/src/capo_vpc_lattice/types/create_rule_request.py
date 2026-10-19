@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.client_token
     import capo_vpc_lattice.types.listener_identifier
@@ -61,17 +59,19 @@ def deserialize_json(data: dict) -> CreateRuleRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateRuleRequest.name required")
+        out["name"] = ""
     if data.get("match") is not None:
         import capo_vpc_lattice.types.rule_match
 
         out["match"] = capo_vpc_lattice.types.rule_match.deserialize_json(data["match"])
     else:
-        raise DeserializationError("CreateRuleRequest.match required")
+        import capo_vpc_lattice.types._unknown
+
+        out["match"] = capo_vpc_lattice.types._unknown.UnknownUnionMember("")
     if data.get("priority") is not None:
         out["priority"] = data["priority"]
     else:
-        raise DeserializationError("CreateRuleRequest.priority required")
+        out["priority"] = 0
     if data.get("action") is not None:
         import capo_vpc_lattice.types.rule_action
 
@@ -79,7 +79,9 @@ def deserialize_json(data: dict) -> CreateRuleRequest:
             data["action"]
         )
     else:
-        raise DeserializationError("CreateRuleRequest.action required")
+        import capo_vpc_lattice.types._unknown
+
+        out["action"] = capo_vpc_lattice.types._unknown.UnknownUnionMember("")
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

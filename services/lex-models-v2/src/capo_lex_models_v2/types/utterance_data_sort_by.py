@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.analytics_sort_order
     import capo_lex_models_v2.types.analytics_utterance_sort_by_name
@@ -47,7 +45,12 @@ def deserialize_json(data: dict) -> UtteranceDataSortBy:
             )
         )
     else:
-        raise DeserializationError("UtteranceDataSortBy.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_lex_models_v2.types.analytics_utterance_sort_by_name.AnalyticsUtteranceSortByName",
+            "",
+        )
     if data.get("order") is not None:
         import capo_lex_models_v2.types.analytics_sort_order
 
@@ -55,5 +58,9 @@ def deserialize_json(data: dict) -> UtteranceDataSortBy:
             data["order"]
         )
     else:
-        raise DeserializationError("UtteranceDataSortBy.order required")
+        import typing
+
+        out["order"] = typing.cast(
+            "capo_lex_models_v2.types.analytics_sort_order.AnalyticsSortOrder", ""
+        )
     return out

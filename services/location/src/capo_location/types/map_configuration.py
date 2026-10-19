@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.country_code3
     import capo_location.types.custom_layer_list
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> MapConfiguration:
     if data.get("Style") is not None:
         out["style"] = data["Style"]
     else:
-        raise DeserializationError("MapConfiguration.style required")
+        out["style"] = ""
     if data.get("PoliticalView") is not None:
         out["political_view"] = data["PoliticalView"]
     if data.get("CustomLayers") is not None:

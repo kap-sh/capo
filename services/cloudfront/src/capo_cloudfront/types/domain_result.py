@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.domain_status
@@ -35,7 +34,7 @@ def deserialize_xml(el: Element) -> DomainResult:
     if child_domain is not None:
         out["domain"] = str(child_domain.text or "")
     else:
-        raise DeserializationError("DomainResult.domain required")
+        out["domain"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         import capo_cloudfront.types.domain_status

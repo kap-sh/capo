@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -129,8 +127,10 @@ def deserialize_aws_json_1_0(data: dict) -> RegistrationVersionStatusHistory:
             )
         )
     else:
-        raise DeserializationError(
-            "RegistrationVersionStatusHistory.draft_timestamp required"
+        import datetime
+
+        out["draft_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("SubmittedTimestamp") is not None:
         import capo_pinpoint_sms_voice_v2.types._prelude.timestamp

@@ -58,15 +58,11 @@ def deserialize_json(data: dict) -> CreateComponentVersionResponse:
     if data.get("componentName") is not None:
         out["component_name"] = data["componentName"]
     else:
-        raise DeserializationError(
-            "CreateComponentVersionResponse.component_name required"
-        )
+        out["component_name"] = ""
     if data.get("componentVersion") is not None:
         out["component_version"] = data["componentVersion"]
     else:
-        raise DeserializationError(
-            "CreateComponentVersionResponse.component_version required"
-        )
+        out["component_version"] = ""
     if data.get("creationTimestamp") is not None:
         import capo_greengrassv2.types.timestamp
 
@@ -74,8 +70,10 @@ def deserialize_json(data: dict) -> CreateComponentVersionResponse:
             data["creationTimestamp"]
         )
     else:
-        raise DeserializationError(
-            "CreateComponentVersionResponse.creation_timestamp required"
+        import datetime
+
+        out["creation_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("status") is not None:
         import capo_greengrassv2.types.cloud_component_status

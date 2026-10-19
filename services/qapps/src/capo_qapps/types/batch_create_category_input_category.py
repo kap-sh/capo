@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.uuid
 
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> BatchCreateCategoryInputCategory:
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("BatchCreateCategoryInputCategory.title required")
+        out["title"] = ""
     if data.get("color") is not None:
         out["color"] = data["color"]
     return out

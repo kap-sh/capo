@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 
 class CodeLocation(TypedDict, closed=True):
     file_path: "str"
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> CodeLocation:
     if data.get("filePath") is not None:
         out["file_path"] = data["filePath"]
     else:
-        raise DeserializationError("CodeLocation.file_path required")
+        out["file_path"] = ""
     if data.get("lineStart") is not None:
         out["line_start"] = data["lineStart"]
     if data.get("lineEnd") is not None:

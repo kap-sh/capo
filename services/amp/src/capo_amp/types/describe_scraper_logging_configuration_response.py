@@ -76,9 +76,7 @@ def deserialize_json(data: dict) -> DescribeScraperLoggingConfigurationResponse:
     if data.get("scraperId") is not None:
         out["scraper_id"] = data["scraperId"]
     else:
-        raise DeserializationError(
-            "DescribeScraperLoggingConfigurationResponse.scraper_id required"
-        )
+        out["scraper_id"] = ""
     if data.get("loggingDestination") is not None:
         import capo_amp.types.scraper_logging_destination
 
@@ -88,9 +86,9 @@ def deserialize_json(data: dict) -> DescribeScraperLoggingConfigurationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeScraperLoggingConfigurationResponse.logging_destination required"
-        )
+        import capo_amp.types._unknown
+
+        out["logging_destination"] = capo_amp.types._unknown.UnknownUnionMember("")
     if data.get("scraperComponents") is not None:
         import capo_amp.types.scraper_components
 
@@ -98,9 +96,7 @@ def deserialize_json(data: dict) -> DescribeScraperLoggingConfigurationResponse:
             data["scraperComponents"]
         )
     else:
-        raise DeserializationError(
-            "DescribeScraperLoggingConfigurationResponse.scraper_components required"
-        )
+        out["scraper_components"] = []
     if data.get("modifiedAt") is not None:
         import capo_amp.types._prelude.timestamp
 
@@ -108,7 +104,9 @@ def deserialize_json(data: dict) -> DescribeScraperLoggingConfigurationResponse:
             data["modifiedAt"]
         )
     else:
-        raise DeserializationError(
-            "DescribeScraperLoggingConfigurationResponse.modified_at required"
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.delivery_stream_encryption_configuration_input
     import capo_firehose.types.delivery_stream_name
@@ -40,9 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartDeliveryStreamEncryptionInput:
     if data.get("DeliveryStreamName") is not None:
         out["delivery_stream_name"] = data["DeliveryStreamName"]
     else:
-        raise DeserializationError(
-            "StartDeliveryStreamEncryptionInput.delivery_stream_name required"
-        )
+        out["delivery_stream_name"] = ""
     if data.get("DeliveryStreamEncryptionConfigurationInput") is not None:
         import capo_firehose.types.delivery_stream_encryption_configuration_input
 

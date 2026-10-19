@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.connection_id
     import capo_direct_connect.types.lag_id
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DisassociateConnectionFromLagRequest
     if data.get("connectionId") is not None:
         out["connection_id"] = data["connectionId"]
     else:
-        raise DeserializationError(
-            "DisassociateConnectionFromLagRequest.connection_id required"
-        )
+        out["connection_id"] = ""
     if data.get("lagId") is not None:
         out["lag_id"] = data["lagId"]
     else:
-        raise DeserializationError(
-            "DisassociateConnectionFromLagRequest.lag_id required"
-        )
+        out["lag_id"] = ""
     return out

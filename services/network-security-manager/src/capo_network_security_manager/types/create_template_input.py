@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.description
     import capo_network_security_manager.types.idempotency_token
@@ -81,7 +79,7 @@ def deserialize_json(data: dict) -> CreateTemplateInput:
     if data.get("templateName") is not None:
         out["template_name"] = data["templateName"]
     else:
-        raise DeserializationError("CreateTemplateInput.template_name required")
+        out["template_name"] = ""
     if data.get("templateDescription") is not None:
         out["template_description"] = data["templateDescription"]
     if data.get("associatedRuleList") is not None:
@@ -93,7 +91,7 @@ def deserialize_json(data: dict) -> CreateTemplateInput:
             )
         )
     else:
-        raise DeserializationError("CreateTemplateInput.associated_rule_list required")
+        out["associated_rule_list"] = []
     if data.get("firewallType") is not None:
         import capo_network_security_manager.types.template_firewall_type
 
@@ -103,7 +101,12 @@ def deserialize_json(data: dict) -> CreateTemplateInput:
             )
         )
     else:
-        raise DeserializationError("CreateTemplateInput.firewall_type required")
+        import typing
+
+        out["firewall_type"] = typing.cast(
+            "capo_network_security_manager.types.template_firewall_type.TemplateFirewallType",
+            "",
+        )
     if data.get("isPublished") is not None:
         out["is_published"] = data["isPublished"]
     if data.get("tags") is not None:

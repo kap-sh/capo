@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_signin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_signin.types.condition_block
     import capo_signin.types.statement_id
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> PermissionStatementSummary:
     if data.get("sid") is not None:
         out["sid"] = data["sid"]
     else:
-        raise DeserializationError("PermissionStatementSummary.sid required")
+        out["sid"] = ""
     if data.get("condition") is not None:
         import capo_signin.types.condition_block
 

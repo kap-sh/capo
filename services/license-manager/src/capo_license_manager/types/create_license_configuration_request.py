@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.box_boolean
     import capo_license_manager.types.box_long
@@ -98,7 +96,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLicenseConfigurationRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateLicenseConfigurationRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("LicenseCountingType") is not None:
@@ -110,8 +108,10 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLicenseConfigurationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateLicenseConfigurationRequest.license_counting_type required"
+        import typing
+
+        out["license_counting_type"] = typing.cast(
+            "capo_license_manager.types.license_counting_type.LicenseCountingType", ""
         )
     if data.get("LicenseCount") is not None:
         out["license_count"] = data["LicenseCount"]

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.date_imported
     import capo_transfer.types.ssh_public_key_body
@@ -45,13 +43,17 @@ def deserialize_aws_json_1_1(data: dict) -> SshPublicKey:
             )
         )
     else:
-        raise DeserializationError("SshPublicKey.date_imported required")
+        import datetime
+
+        out["date_imported"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("SshPublicKeyBody") is not None:
         out["ssh_public_key_body"] = data["SshPublicKeyBody"]
     else:
-        raise DeserializationError("SshPublicKey.ssh_public_key_body required")
+        out["ssh_public_key_body"] = ""
     if data.get("SshPublicKeyId") is not None:
         out["ssh_public_key_id"] = data["SshPublicKeyId"]
     else:
-        raise DeserializationError("SshPublicKey.ssh_public_key_id required")
+        out["ssh_public_key_id"] = ""
     return out

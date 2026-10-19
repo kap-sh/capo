@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.case_id
     import capo_connectcases.types.domain_id
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> GetCaseRequest:
             data["fields"]
         )
     else:
-        raise DeserializationError("GetCaseRequest.fields required")
+        out["fields"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

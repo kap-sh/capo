@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.response_content
     import capo_wafv2.types.response_content_type
@@ -41,9 +39,13 @@ def deserialize_aws_json_1_1(data: dict) -> CustomResponseBody:
             )
         )
     else:
-        raise DeserializationError("CustomResponseBody.content_type required")
+        import typing
+
+        out["content_type"] = typing.cast(
+            "capo_wafv2.types.response_content_type.ResponseContentType", ""
+        )
     if data.get("Content") is not None:
         out["content"] = data["Content"]
     else:
-        raise DeserializationError("CustomResponseBody.content required")
+        out["content"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.page_size
     import capo_service_catalog.types.page_token
@@ -42,9 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListResourcesForTagOptionInput:
     if data.get("TagOptionId") is not None:
         out["tag_option_id"] = data["TagOptionId"]
     else:
-        raise DeserializationError(
-            "ListResourcesForTagOptionInput.tag_option_id required"
-        )
+        out["tag_option_id"] = ""
     if data.get("ResourceType") is not None:
         out["resource_type"] = data["ResourceType"]
     if data.get("PageSize") is not None:

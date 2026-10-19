@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.creation_time
     import capo_omics.types.resource_id
@@ -59,19 +57,15 @@ def deserialize_json(data: dict) -> CreateAnnotationStoreVersionResponse:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CreateAnnotationStoreVersionResponse.id required")
+        out["id"] = ""
     if data.get("versionName") is not None:
         out["version_name"] = data["versionName"]
     else:
-        raise DeserializationError(
-            "CreateAnnotationStoreVersionResponse.version_name required"
-        )
+        out["version_name"] = ""
     if data.get("storeId") is not None:
         out["store_id"] = data["storeId"]
     else:
-        raise DeserializationError(
-            "CreateAnnotationStoreVersionResponse.store_id required"
-        )
+        out["store_id"] = ""
     if data.get("versionOptions") is not None:
         import capo_omics.types.version_options
 
@@ -81,13 +75,11 @@ def deserialize_json(data: dict) -> CreateAnnotationStoreVersionResponse:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateAnnotationStoreVersionResponse.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError(
-            "CreateAnnotationStoreVersionResponse.status required"
-        )
+        out["status"] = ""
     if data.get("creationTime") is not None:
         import capo_omics.types.creation_time
 
@@ -95,7 +87,9 @@ def deserialize_json(data: dict) -> CreateAnnotationStoreVersionResponse:
             data["creationTime"]
         )
     else:
-        raise DeserializationError(
-            "CreateAnnotationStoreVersionResponse.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

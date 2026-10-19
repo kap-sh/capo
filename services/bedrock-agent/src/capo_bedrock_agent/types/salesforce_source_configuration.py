@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.https_url
     import capo_bedrock_agent.types.salesforce_auth_type
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> SalesforceSourceConfiguration:
     if data.get("hostUrl") is not None:
         out["host_url"] = data["hostUrl"]
     else:
-        raise DeserializationError("SalesforceSourceConfiguration.host_url required")
+        out["host_url"] = ""
     if data.get("authType") is not None:
         import capo_bedrock_agent.types.salesforce_auth_type
 
@@ -49,11 +47,13 @@ def deserialize_json(data: dict) -> SalesforceSourceConfiguration:
             )
         )
     else:
-        raise DeserializationError("SalesforceSourceConfiguration.auth_type required")
+        import typing
+
+        out["auth_type"] = typing.cast(
+            "capo_bedrock_agent.types.salesforce_auth_type.SalesforceAuthType", ""
+        )
     if data.get("credentialsSecretArn") is not None:
         out["credentials_secret_arn"] = data["credentialsSecretArn"]
     else:
-        raise DeserializationError(
-            "SalesforceSourceConfiguration.credentials_secret_arn required"
-        )
+        out["credentials_secret_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.channel_definitions
     import capo_chime_sdk_media_pipelines.types.number_of_channels
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> StreamChannelDefinition:
     if data.get("NumberOfChannels") is not None:
         out["number_of_channels"] = data["NumberOfChannels"]
     else:
-        raise DeserializationError(
-            "StreamChannelDefinition.number_of_channels required"
-        )
+        out["number_of_channels"] = 0
     if data.get("ChannelDefinitions") is not None:
         import capo_chime_sdk_media_pipelines.types.channel_definitions
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_aiops.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_aiops.types.investigation_group_identifier
     import capo_aiops.types.investigation_group_policy_document
@@ -32,5 +30,5 @@ def deserialize_json(data: dict) -> PutInvestigationGroupPolicyRequest:
     if data.get("policy") is not None:
         out["policy"] = data["policy"]
     else:
-        raise DeserializationError("PutInvestigationGroupPolicyRequest.policy required")
+        out["policy"] = ""
     return out

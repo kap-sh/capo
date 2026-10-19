@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_amp.errors import DeserializationError
-
 
 class LoggingFilter(TypedDict, closed=True):
     qsp_threshold: "int"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> LoggingFilter:
     if data.get("qspThreshold") is not None:
         out["qsp_threshold"] = data["qspThreshold"]
     else:
-        raise DeserializationError("LoggingFilter.qsp_threshold required")
+        out["qsp_threshold"] = 0
     return out

@@ -44,7 +44,7 @@ def deserialize_json(data: dict) -> StreamConfiguration:
     if data.get("StreamArn") is not None:
         out["stream_arn"] = data["StreamArn"]
     else:
-        raise DeserializationError("StreamConfiguration.stream_arn required")
+        out["stream_arn"] = ""
     if data.get("FragmentNumber") is not None:
         out["fragment_number"] = data["FragmentNumber"]
     if data.get("StreamChannelDefinition") is not None:

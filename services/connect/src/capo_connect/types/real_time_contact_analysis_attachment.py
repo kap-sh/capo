@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.artifact_id
     import capo_connect.types.artifact_status
@@ -45,17 +43,13 @@ def deserialize_json(data: dict) -> RealTimeContactAnalysisAttachment:
     if data.get("AttachmentName") is not None:
         out["attachment_name"] = data["AttachmentName"]
     else:
-        raise DeserializationError(
-            "RealTimeContactAnalysisAttachment.attachment_name required"
-        )
+        out["attachment_name"] = ""
     if data.get("ContentType") is not None:
         out["content_type"] = data["ContentType"]
     if data.get("AttachmentId") is not None:
         out["attachment_id"] = data["AttachmentId"]
     else:
-        raise DeserializationError(
-            "RealTimeContactAnalysisAttachment.attachment_id required"
-        )
+        out["attachment_id"] = ""
     if data.get("Status") is not None:
         import capo_connect.types.artifact_status
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.date_timestamp
     import capo_bedrock_agent_runtime.types.flow_error_code
@@ -48,7 +46,9 @@ def deserialize_json(data: dict) -> FlowFailureEvent:
             )
         )
     else:
-        raise DeserializationError("FlowFailureEvent.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("errorCode") is not None:
         import capo_bedrock_agent_runtime.types.flow_error_code
 
@@ -58,9 +58,13 @@ def deserialize_json(data: dict) -> FlowFailureEvent:
             )
         )
     else:
-        raise DeserializationError("FlowFailureEvent.error_code required")
+        import typing
+
+        out["error_code"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.flow_error_code.FlowErrorCode", ""
+        )
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     else:
-        raise DeserializationError("FlowFailureEvent.error_message required")
+        out["error_message"] = ""
     return out

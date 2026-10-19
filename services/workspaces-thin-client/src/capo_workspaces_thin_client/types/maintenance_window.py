@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_thin_client.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_thin_client.types.apply_time_of
     import capo_workspaces_thin_client.types.day_of_week_list
@@ -83,7 +81,12 @@ def deserialize_json(data: dict) -> MaintenanceWindow:
             )
         )
     else:
-        raise DeserializationError("MaintenanceWindow.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_workspaces_thin_client.types.maintenance_window_type.MaintenanceWindowType",
+            "",
+        )
     if data.get("startTimeHour") is not None:
         out["start_time_hour"] = data["startTimeHour"]
     if data.get("startTimeMinute") is not None:

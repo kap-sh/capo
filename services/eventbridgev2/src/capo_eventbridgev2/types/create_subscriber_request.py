@@ -159,11 +159,11 @@ def deserialize_cbor(data: dict) -> CreateSubscriberRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateSubscriberRequest.name required")
+        out["name"] = ""
     if data.get("EventBusArn") is not None:
         out["event_bus_arn"] = data["EventBusArn"]
     else:
-        raise DeserializationError("CreateSubscriberRequest.event_bus_arn required")
+        out["event_bus_arn"] = ""
     if data.get("InvokeConfiguration") is not None:
         import capo_eventbridgev2.types.invoke_configuration
 

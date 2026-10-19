@@ -57,7 +57,7 @@ def deserialize_json(data: dict) -> CreateNodeInput:
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     else:
-        raise DeserializationError("CreateNodeInput.client_request_token required")
+        out["client_request_token"] = ""
     if data.get("MemberId") is not None:
         out["member_id"] = data["MemberId"]
     if data.get("NodeConfiguration") is not None:

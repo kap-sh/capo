@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_voice_id.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_voice_id.types.generated_fraudster_id
     import capo_voice_id.types.score
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_0(data: dict) -> KnownFraudsterRisk:
     if data.get("RiskScore") is not None:
         out["risk_score"] = data["RiskScore"]
     else:
-        raise DeserializationError("KnownFraudsterRisk.risk_score required")
+        out["risk_score"] = 0
     if data.get("GeneratedFraudsterId") is not None:
         out["generated_fraudster_id"] = data["GeneratedFraudsterId"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.identity_store
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> CreateNamespaceRequest:
     if data.get("Namespace") is not None:
         out["namespace"] = data["Namespace"]
     else:
-        raise DeserializationError("CreateNamespaceRequest.namespace required")
+        out["namespace"] = ""
     if data.get("IdentityStore") is not None:
         import capo_quicksight.types.identity_store
 
@@ -53,7 +51,11 @@ def deserialize_json(data: dict) -> CreateNamespaceRequest:
             data["IdentityStore"]
         )
     else:
-        raise DeserializationError("CreateNamespaceRequest.identity_store required")
+        import typing
+
+        out["identity_store"] = typing.cast(
+            "capo_quicksight.types.identity_store.IdentityStore", ""
+        )
     if data.get("Tags") is not None:
         import capo_quicksight.types.tag_list
 

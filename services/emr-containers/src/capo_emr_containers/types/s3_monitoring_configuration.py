@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_containers.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_containers.types.kms_key_arn
     import capo_emr_containers.types.uri_string
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> S3MonitoringConfiguration:
     if data.get("logUri") is not None:
         out["log_uri"] = data["logUri"]
     else:
-        raise DeserializationError("S3MonitoringConfiguration.log_uri required")
+        out["log_uri"] = ""
     if data.get("encryptionKeyArn") is not None:
         out["encryption_key_arn"] = data["encryptionKeyArn"]
     return out

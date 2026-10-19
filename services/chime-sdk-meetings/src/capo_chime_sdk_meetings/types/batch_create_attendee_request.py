@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_meetings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_meetings.types.create_attendee_request_item_list
     import capo_chime_sdk_meetings.types.guid_string
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> BatchCreateAttendeeRequest:
             )
         )
     else:
-        raise DeserializationError("BatchCreateAttendeeRequest.attendees required")
+        out["attendees"] = []
     return out
 
 

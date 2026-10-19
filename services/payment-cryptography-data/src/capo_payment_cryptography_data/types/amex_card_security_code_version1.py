@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.card_expiry_date_type
 
@@ -29,9 +27,7 @@ def deserialize_json(data: dict) -> AmexCardSecurityCodeVersion1:
     if data.get("CardExpiryDate") is not None:
         out["card_expiry_date"] = data["CardExpiryDate"]
     else:
-        raise DeserializationError(
-            "AmexCardSecurityCodeVersion1.card_expiry_date required"
-        )
+        out["card_expiry_date"] = ""
     return out
 
 

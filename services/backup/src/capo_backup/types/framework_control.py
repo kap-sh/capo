@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.control_input_parameters
     import capo_backup.types.control_name
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> FrameworkControl:
     if data.get("ControlName") is not None:
         out["control_name"] = data["ControlName"]
     else:
-        raise DeserializationError("FrameworkControl.control_name required")
+        out["control_name"] = ""
     if data.get("ControlInputParameters") is not None:
         import capo_backup.types.control_input_parameters
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.association_id
     import capo_connect.types.kinesis_firehose_config
@@ -90,7 +88,11 @@ def deserialize_json(data: dict) -> InstanceStorageConfig:
             data["StorageType"]
         )
     else:
-        raise DeserializationError("InstanceStorageConfig.storage_type required")
+        import typing
+
+        out["storage_type"] = typing.cast(
+            "capo_connect.types.storage_type.StorageType", ""
+        )
     if data.get("S3Config") is not None:
         import capo_connect.types.s3_config
 

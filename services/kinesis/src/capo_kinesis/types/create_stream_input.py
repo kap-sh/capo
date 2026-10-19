@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.max_record_size_in_ki_b
     import capo_kinesis.types.natural_integer_object
@@ -81,7 +79,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateStreamInput:
     if data.get("StreamName") is not None:
         out["stream_name"] = data["StreamName"]
     else:
-        raise DeserializationError("CreateStreamInput.stream_name required")
+        out["stream_name"] = ""
     if data.get("ShardCount") is not None:
         out["shard_count"] = data["ShardCount"]
     if data.get("StreamModeDetails") is not None:

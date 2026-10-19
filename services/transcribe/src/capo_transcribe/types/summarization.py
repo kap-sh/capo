@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transcribe.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe.types.boolean
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> Summarization:
     if data.get("GenerateAbstractiveSummary") is not None:
         out["generate_abstractive_summary"] = data["GenerateAbstractiveSummary"]
     else:
-        raise DeserializationError(
-            "Summarization.generate_abstractive_summary required"
-        )
+        out["generate_abstractive_summary"] = False
     return out

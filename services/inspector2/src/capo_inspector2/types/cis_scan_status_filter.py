@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.cis_scan_status
     import capo_inspector2.types.cis_scan_status_comparison
@@ -45,7 +43,12 @@ def deserialize_json(data: dict) -> CisScanStatusFilter:
             )
         )
     else:
-        raise DeserializationError("CisScanStatusFilter.comparison required")
+        import typing
+
+        out["comparison"] = typing.cast(
+            "capo_inspector2.types.cis_scan_status_comparison.CisScanStatusComparison",
+            "",
+        )
     if data.get("value") is not None:
         import capo_inspector2.types.cis_scan_status
 
@@ -53,5 +56,9 @@ def deserialize_json(data: dict) -> CisScanStatusFilter:
             data["value"]
         )
     else:
-        raise DeserializationError("CisScanStatusFilter.value required")
+        import typing
+
+        out["value"] = typing.cast(
+            "capo_inspector2.types.cis_scan_status.CisScanStatus", ""
+        )
     return out

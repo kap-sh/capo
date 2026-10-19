@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.date_type
     import capo_cognito_identity_provider.types.terms_enforcement_type
@@ -60,11 +58,11 @@ def deserialize_aws_json_1_1(data: dict) -> TermsDescriptionType:
     if data.get("TermsId") is not None:
         out["terms_id"] = data["TermsId"]
     else:
-        raise DeserializationError("TermsDescriptionType.terms_id required")
+        out["terms_id"] = ""
     if data.get("TermsName") is not None:
         out["terms_name"] = data["TermsName"]
     else:
-        raise DeserializationError("TermsDescriptionType.terms_name required")
+        out["terms_name"] = ""
     if data.get("Enforcement") is not None:
         import capo_cognito_identity_provider.types.terms_enforcement_type
 
@@ -74,7 +72,12 @@ def deserialize_aws_json_1_1(data: dict) -> TermsDescriptionType:
             )
         )
     else:
-        raise DeserializationError("TermsDescriptionType.enforcement required")
+        import typing
+
+        out["enforcement"] = typing.cast(
+            "capo_cognito_identity_provider.types.terms_enforcement_type.TermsEnforcementType",
+            "",
+        )
     if data.get("CreationDate") is not None:
         import capo_cognito_identity_provider.types.date_type
 
@@ -84,7 +87,11 @@ def deserialize_aws_json_1_1(data: dict) -> TermsDescriptionType:
             )
         )
     else:
-        raise DeserializationError("TermsDescriptionType.creation_date required")
+        import datetime
+
+        out["creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("LastModifiedDate") is not None:
         import capo_cognito_identity_provider.types.date_type
 
@@ -94,5 +101,9 @@ def deserialize_aws_json_1_1(data: dict) -> TermsDescriptionType:
             )
         )
     else:
-        raise DeserializationError("TermsDescriptionType.last_modified_date required")
+        import datetime
+
+        out["last_modified_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

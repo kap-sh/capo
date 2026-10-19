@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_supportauthz.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supportauthz.types.action_set
     import capo_supportauthz.types.conditions
@@ -50,7 +48,9 @@ def deserialize_json(data: dict) -> Permit:
             data["actions"]
         )
     else:
-        raise DeserializationError("Permit.actions required")
+        import capo_supportauthz.types._unknown
+
+        out["actions"] = capo_supportauthz.types._unknown.UnknownUnionMember("")
     if data.get("resources") is not None:
         import capo_supportauthz.types.resource_set
 
@@ -58,7 +58,9 @@ def deserialize_json(data: dict) -> Permit:
             data["resources"]
         )
     else:
-        raise DeserializationError("Permit.resources required")
+        import capo_supportauthz.types._unknown
+
+        out["resources"] = capo_supportauthz.types._unknown.UnknownUnionMember("")
     if data.get("conditions") is not None:
         import capo_supportauthz.types.conditions
 

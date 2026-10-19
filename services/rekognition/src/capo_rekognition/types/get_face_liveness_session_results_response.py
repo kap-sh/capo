@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.audit_image
     import capo_rekognition.types.audit_images
@@ -99,9 +97,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetFaceLivenessSessionResultsRespons
     if data.get("SessionId") is not None:
         out["session_id"] = data["SessionId"]
     else:
-        raise DeserializationError(
-            "GetFaceLivenessSessionResultsResponse.session_id required"
-        )
+        out["session_id"] = ""
     if data.get("Status") is not None:
         import capo_rekognition.types.liveness_session_status
 
@@ -111,8 +107,10 @@ def deserialize_aws_json_1_1(data: dict) -> GetFaceLivenessSessionResultsRespons
             )
         )
     else:
-        raise DeserializationError(
-            "GetFaceLivenessSessionResultsResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_rekognition.types.liveness_session_status.LivenessSessionStatus", ""
         )
     if data.get("Confidence") is not None:
         out["confidence"] = float(data["Confidence"])

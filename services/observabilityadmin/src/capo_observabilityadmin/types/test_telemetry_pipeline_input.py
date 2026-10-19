@@ -54,7 +54,7 @@ def deserialize_json(data: dict) -> TestTelemetryPipelineInput:
             data["Records"]
         )
     else:
-        raise DeserializationError("TestTelemetryPipelineInput.records required")
+        out["records"] = []
     if data.get("Configuration") is not None:
         import capo_observabilityadmin.types.telemetry_pipeline_configuration
 

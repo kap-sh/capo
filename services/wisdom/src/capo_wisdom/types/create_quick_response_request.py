@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wisdom.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wisdom.types.channels
     import capo_wisdom.types.grouping_configuration
@@ -96,7 +94,7 @@ def deserialize_json(data: dict) -> CreateQuickResponseRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateQuickResponseRequest.name required")
+        out["name"] = ""
     if data.get("content") is not None:
         import capo_wisdom.types.quick_response_data_provider
 
@@ -106,7 +104,9 @@ def deserialize_json(data: dict) -> CreateQuickResponseRequest:
             )
         )
     else:
-        raise DeserializationError("CreateQuickResponseRequest.content required")
+        import capo_wisdom.types._unknown
+
+        out["content"] = capo_wisdom.types._unknown.UnknownUnionMember("")
     if data.get("contentType") is not None:
         out["content_type"] = data["contentType"]
     if data.get("groupingConfiguration") is not None:

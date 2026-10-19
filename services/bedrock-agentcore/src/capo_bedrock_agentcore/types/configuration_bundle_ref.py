@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.configuration_bundle_arn
     import capo_bedrock_agentcore.types.configuration_bundle_version
@@ -33,9 +31,9 @@ def deserialize_json(data: dict) -> ConfigurationBundleRef:
     if data.get("bundleArn") is not None:
         out["bundle_arn"] = data["bundleArn"]
     else:
-        raise DeserializationError("ConfigurationBundleRef.bundle_arn required")
+        out["bundle_arn"] = ""
     if data.get("bundleVersion") is not None:
         out["bundle_version"] = data["bundleVersion"]
     else:
-        raise DeserializationError("ConfigurationBundleRef.bundle_version required")
+        out["bundle_version"] = ""
     return out

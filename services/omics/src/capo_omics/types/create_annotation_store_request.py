@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.description
     import capo_omics.types.reference_item
@@ -98,7 +96,7 @@ def deserialize_json(data: dict) -> CreateAnnotationStoreRequest:
     if data.get("storeFormat") is not None:
         out["store_format"] = data["storeFormat"]
     else:
-        raise DeserializationError("CreateAnnotationStoreRequest.store_format required")
+        out["store_format"] = ""
     if data.get("storeOptions") is not None:
         import capo_omics.types.store_options
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.dlp_setting_summary_list
     import capo_quicksight.types.pagination_token
@@ -50,9 +48,7 @@ def deserialize_json(data: dict) -> ListDlpSettingsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListDlpSettingsResponse.dlp_setting_summaries required"
-        )
+        out["dlp_setting_summaries"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("RequestId") is not None:

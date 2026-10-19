@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.shard_id
     import capo_kinesis.types.stream_arn
@@ -47,11 +45,11 @@ def deserialize_aws_json_1_1(data: dict) -> MergeShardsInput:
     if data.get("ShardToMerge") is not None:
         out["shard_to_merge"] = data["ShardToMerge"]
     else:
-        raise DeserializationError("MergeShardsInput.shard_to_merge required")
+        out["shard_to_merge"] = ""
     if data.get("AdjacentShardToMerge") is not None:
         out["adjacent_shard_to_merge"] = data["AdjacentShardToMerge"]
     else:
-        raise DeserializationError("MergeShardsInput.adjacent_shard_to_merge required")
+        out["adjacent_shard_to_merge"] = ""
     if data.get("StreamARN") is not None:
         out["stream_arn"] = data["StreamARN"]
     if data.get("StreamId") is not None:

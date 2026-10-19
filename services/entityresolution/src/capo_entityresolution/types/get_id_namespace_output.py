@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -98,11 +96,11 @@ def deserialize_json(data: dict) -> GetIdNamespaceOutput:
     if data.get("idNamespaceName") is not None:
         out["id_namespace_name"] = data["idNamespaceName"]
     else:
-        raise DeserializationError("GetIdNamespaceOutput.id_namespace_name required")
+        out["id_namespace_name"] = ""
     if data.get("idNamespaceArn") is not None:
         out["id_namespace_arn"] = data["idNamespaceArn"]
     else:
-        raise DeserializationError("GetIdNamespaceOutput.id_namespace_arn required")
+        out["id_namespace_arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("inputSourceConfig") is not None:
@@ -128,7 +126,11 @@ def deserialize_json(data: dict) -> GetIdNamespaceOutput:
             data["type"]
         )
     else:
-        raise DeserializationError("GetIdNamespaceOutput.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_entityresolution.types.id_namespace_type.IdNamespaceType", ""
+        )
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     if data.get("createdAt") is not None:
@@ -140,7 +142,9 @@ def deserialize_json(data: dict) -> GetIdNamespaceOutput:
             )
         )
     else:
-        raise DeserializationError("GetIdNamespaceOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_entityresolution.types._prelude.timestamp
 
@@ -150,7 +154,9 @@ def deserialize_json(data: dict) -> GetIdNamespaceOutput:
             )
         )
     else:
-        raise DeserializationError("GetIdNamespaceOutput.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("tags") is not None:
         import capo_entityresolution.types.tag_map
 

@@ -89,9 +89,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartCallAnalyticsJobRequest:
     if data.get("CallAnalyticsJobName") is not None:
         out["call_analytics_job_name"] = data["CallAnalyticsJobName"]
     else:
-        raise DeserializationError(
-            "StartCallAnalyticsJobRequest.call_analytics_job_name required"
-        )
+        out["call_analytics_job_name"] = ""
     if data.get("Media") is not None:
         import capo_transcribe.types.media
 

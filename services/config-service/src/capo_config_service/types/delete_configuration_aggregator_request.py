@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.configuration_aggregator_name
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteConfigurationAggregatorRequest
     if data.get("ConfigurationAggregatorName") is not None:
         out["configuration_aggregator_name"] = data["ConfigurationAggregatorName"]
     else:
-        raise DeserializationError(
-            "DeleteConfigurationAggregatorRequest.configuration_aggregator_name required"
-        )
+        out["configuration_aggregator_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.account_association_id
     import capo_iot_managed_integrations.types.managed_thing_id
@@ -33,13 +31,9 @@ def deserialize_json(data: dict) -> DeregisterAccountAssociationRequest:
     if data.get("ManagedThingId") is not None:
         out["managed_thing_id"] = data["ManagedThingId"]
     else:
-        raise DeserializationError(
-            "DeregisterAccountAssociationRequest.managed_thing_id required"
-        )
+        out["managed_thing_id"] = ""
     if data.get("AccountAssociationId") is not None:
         out["account_association_id"] = data["AccountAssociationId"]
     else:
-        raise DeserializationError(
-            "DeregisterAccountAssociationRequest.account_association_id required"
-        )
+        out["account_association_id"] = ""
     return out

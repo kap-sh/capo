@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.form_type_id
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> AssetTypeFormReference:
     if data.get("FormTypeIdentifier") is not None:
         out["form_type_identifier"] = data["FormTypeIdentifier"]
     else:
-        raise DeserializationError(
-            "AssetTypeFormReference.form_type_identifier required"
-        )
+        out["form_type_identifier"] = ""
     return out

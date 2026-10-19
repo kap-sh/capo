@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.iam_role_arn
     import capo_arc_region_switch.types.plan_arn
@@ -42,5 +40,5 @@ def deserialize_aws_json_1_0(data: dict) -> RegionSwitchPlanConfiguration:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("RegionSwitchPlanConfiguration.arn required")
+        out["arn"] = ""
     return out

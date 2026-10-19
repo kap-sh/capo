@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.bedrock_model_id
     import capo_bedrock.types.branded_name
@@ -104,11 +102,11 @@ def deserialize_json(data: dict) -> FoundationModelSummary:
     if data.get("modelArn") is not None:
         out["model_arn"] = data["modelArn"]
     else:
-        raise DeserializationError("FoundationModelSummary.model_arn required")
+        out["model_arn"] = ""
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:
-        raise DeserializationError("FoundationModelSummary.model_id required")
+        out["model_id"] = ""
     if data.get("modelName") is not None:
         out["model_name"] = data["modelName"]
     if data.get("providerName") is not None:

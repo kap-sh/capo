@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fis.types.stop_condition_source
     import capo_fis.types.stop_condition_value
@@ -32,9 +30,7 @@ def deserialize_json(data: dict) -> CreateExperimentTemplateStopConditionInput:
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError(
-            "CreateExperimentTemplateStopConditionInput.source required"
-        )
+        out["source"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     return out

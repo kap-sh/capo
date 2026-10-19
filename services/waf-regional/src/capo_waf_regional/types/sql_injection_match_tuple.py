@@ -59,7 +59,9 @@ def deserialize_aws_json_1_1(data: dict) -> SqlInjectionMatchTuple:
             )
         )
     else:
-        raise DeserializationError(
-            "SqlInjectionMatchTuple.text_transformation required"
+        import typing
+
+        out["text_transformation"] = typing.cast(
+            "capo_waf_regional.types.text_transformation.TextTransformation", ""
         )
     return out

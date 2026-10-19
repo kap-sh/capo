@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.image_associated_resource_type_list
     import capo_workspaces.types.workspace_image_id
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeImageAssociationsRequest:
     if data.get("ImageId") is not None:
         out["image_id"] = data["ImageId"]
     else:
-        raise DeserializationError("DescribeImageAssociationsRequest.image_id required")
+        out["image_id"] = ""
     if data.get("AssociatedResourceTypes") is not None:
         import capo_workspaces.types.image_associated_resource_type_list
 
@@ -47,7 +45,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeImageAssociationsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeImageAssociationsRequest.associated_resource_types required"
-        )
+        out["associated_resource_types"] = []
     return out

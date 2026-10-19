@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.attributes
     import capo_connect.types.channel
@@ -123,7 +121,7 @@ def deserialize_json(data: dict) -> CreateContactRequest:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("CreateContactRequest.instance_id required")
+        out["instance_id"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("RelatedContactId") is not None:
@@ -145,7 +143,9 @@ def deserialize_json(data: dict) -> CreateContactRequest:
 
         out["channel"] = capo_connect.types.channel.deserialize_json(data["Channel"])
     else:
-        raise DeserializationError("CreateContactRequest.channel required")
+        import typing
+
+        out["channel"] = typing.cast("capo_connect.types.channel.Channel", "")
     if data.get("InitiationMethod") is not None:
         import capo_connect.types.contact_initiation_method
 
@@ -155,7 +155,11 @@ def deserialize_json(data: dict) -> CreateContactRequest:
             )
         )
     else:
-        raise DeserializationError("CreateContactRequest.initiation_method required")
+        import typing
+
+        out["initiation_method"] = typing.cast(
+            "capo_connect.types.contact_initiation_method.ContactInitiationMethod", ""
+        )
     if data.get("ExpiryDurationInMinutes") is not None:
         out["expiry_duration_in_minutes"] = data["ExpiryDurationInMinutes"]
     if data.get("UserInfo") is not None:

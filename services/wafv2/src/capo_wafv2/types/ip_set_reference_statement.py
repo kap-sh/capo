@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.ip_set_forwarded_ip_config
     import capo_wafv2.types.resource_arn
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> IPSetReferenceStatement:
     if data.get("ARN") is not None:
         out["arn"] = data["ARN"]
     else:
-        raise DeserializationError("IPSetReferenceStatement.arn required")
+        out["arn"] = ""
     if data.get("IPSetForwardedIPConfig") is not None:
         import capo_wafv2.types.ip_set_forwarded_ip_config
 

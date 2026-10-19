@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.aws_account
     import capo_partnercentral_selling.types.catalog_identifier
@@ -76,7 +74,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListResourceSnapshotsRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("ListResourceSnapshotsRequest.catalog required")
+        out["catalog"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:
@@ -84,9 +82,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListResourceSnapshotsRequest:
     if data.get("EngagementIdentifier") is not None:
         out["engagement_identifier"] = data["EngagementIdentifier"]
     else:
-        raise DeserializationError(
-            "ListResourceSnapshotsRequest.engagement_identifier required"
-        )
+        out["engagement_identifier"] = ""
     if data.get("ResourceType") is not None:
         import capo_partnercentral_selling.types.resource_type
 

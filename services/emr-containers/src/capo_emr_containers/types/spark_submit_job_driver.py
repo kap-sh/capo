@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_containers.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_containers.types.entry_point_arguments
     import capo_emr_containers.types.entry_point_path
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> SparkSubmitJobDriver:
     if data.get("entryPoint") is not None:
         out["entry_point"] = data["entryPoint"]
     else:
-        raise DeserializationError("SparkSubmitJobDriver.entry_point required")
+        out["entry_point"] = ""
     if data.get("entryPointArguments") is not None:
         import capo_emr_containers.types.entry_point_arguments
 

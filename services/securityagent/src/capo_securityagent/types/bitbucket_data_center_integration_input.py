@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.auth_code
     import capo_securityagent.types.csrf_state
@@ -35,15 +33,13 @@ def deserialize_json(data: dict) -> BitbucketDataCenterIntegrationInput:
     if data.get("targetUrl") is not None:
         out["target_url"] = data["targetUrl"]
     else:
-        raise DeserializationError(
-            "BitbucketDataCenterIntegrationInput.target_url required"
-        )
+        out["target_url"] = ""
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("BitbucketDataCenterIntegrationInput.code required")
+        out["code"] = ""
     if data.get("state") is not None:
         out["state"] = data["state"]
     else:
-        raise DeserializationError("BitbucketDataCenterIntegrationInput.state required")
+        out["state"] = ""
     return out

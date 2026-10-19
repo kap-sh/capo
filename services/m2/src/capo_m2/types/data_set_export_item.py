@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.external_location
     import capo_m2.types.string200
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> DataSetExportItem:
     if data.get("datasetName") is not None:
         out["dataset_name"] = data["datasetName"]
     else:
-        raise DeserializationError("DataSetExportItem.dataset_name required")
+        out["dataset_name"] = ""
     if data.get("externalLocation") is not None:
         import capo_m2.types.external_location
 
@@ -43,5 +41,7 @@ def deserialize_json(data: dict) -> DataSetExportItem:
             data["externalLocation"]
         )
     else:
-        raise DeserializationError("DataSetExportItem.external_location required")
+        import capo_m2.types._unknown
+
+        out["external_location"] = capo_m2.types._unknown.UnknownUnionMember("")
     return out

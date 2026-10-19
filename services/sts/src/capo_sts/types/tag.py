@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_sts._protocol.xml import Element
-from capo_sts.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sts.types.tag_key_type
@@ -32,10 +31,10 @@ def deserialize_query(el: Element) -> Tag:
     if child_key is not None:
         out["key"] = str(child_key.text or "")
     else:
-        raise DeserializationError("Tag.key required")
+        out["key"] = ""
     child_value = el.find("Value")
     if child_value is not None:
         out["value"] = str(child_value.text or "")
     else:
-        raise DeserializationError("Tag.value required")
+        out["value"] = ""
     return out

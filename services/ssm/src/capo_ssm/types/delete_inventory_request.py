@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.dry_run
     import capo_ssm.types.inventory_item_type_name
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteInventoryRequest:
     if data.get("TypeName") is not None:
         out["type_name"] = data["TypeName"]
     else:
-        raise DeserializationError("DeleteInventoryRequest.type_name required")
+        out["type_name"] = ""
     if data.get("SchemaDeleteOption") is not None:
         import capo_ssm.types.inventory_schema_delete_option
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.boolean
     import capo_chime_sdk_voice.types.voice_connector_id
@@ -34,11 +32,9 @@ def deserialize_json(data: dict) -> UpdateVoiceConnectorRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateVoiceConnectorRequest.name required")
+        out["name"] = ""
     if data.get("RequireEncryption") is not None:
         out["require_encryption"] = data["RequireEncryption"]
     else:
-        raise DeserializationError(
-            "UpdateVoiceConnectorRequest.require_encryption required"
-        )
+        out["require_encryption"] = False
     return out

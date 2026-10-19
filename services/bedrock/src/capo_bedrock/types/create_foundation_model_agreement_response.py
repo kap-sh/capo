@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.bedrock_model_id
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> CreateFoundationModelAgreementResponse:
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:
-        raise DeserializationError(
-            "CreateFoundationModelAgreementResponse.model_id required"
-        )
+        out["model_id"] = ""
     return out

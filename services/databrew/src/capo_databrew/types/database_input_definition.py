@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.database_table_name
     import capo_databrew.types.glue_connection_name
@@ -47,9 +45,7 @@ def deserialize_json(data: dict) -> DatabaseInputDefinition:
     if data.get("GlueConnectionName") is not None:
         out["glue_connection_name"] = data["GlueConnectionName"]
     else:
-        raise DeserializationError(
-            "DatabaseInputDefinition.glue_connection_name required"
-        )
+        out["glue_connection_name"] = ""
     if data.get("DatabaseTableName") is not None:
         out["database_table_name"] = data["DatabaseTableName"]
     if data.get("TempDirectory") is not None:

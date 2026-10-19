@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.date
     import capo_cloudtrail.types.error_code
@@ -102,13 +100,11 @@ def deserialize_aws_json_1_1(data: dict) -> ListInsightsMetricDataRequest:
     if data.get("EventSource") is not None:
         out["event_source"] = data["EventSource"]
     else:
-        raise DeserializationError(
-            "ListInsightsMetricDataRequest.event_source required"
-        )
+        out["event_source"] = ""
     if data.get("EventName") is not None:
         out["event_name"] = data["EventName"]
     else:
-        raise DeserializationError("ListInsightsMetricDataRequest.event_name required")
+        out["event_name"] = ""
     if data.get("InsightType") is not None:
         import capo_cloudtrail.types.insight_type
 
@@ -118,8 +114,10 @@ def deserialize_aws_json_1_1(data: dict) -> ListInsightsMetricDataRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ListInsightsMetricDataRequest.insight_type required"
+        import typing
+
+        out["insight_type"] = typing.cast(
+            "capo_cloudtrail.types.insight_type.InsightType", ""
         )
     if data.get("ErrorCode") is not None:
         out["error_code"] = data["ErrorCode"]

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.boolean
     import capo_panorama.types.image_version
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> OTAJobConfig:
     if data.get("ImageVersion") is not None:
         out["image_version"] = data["ImageVersion"]
     else:
-        raise DeserializationError("OTAJobConfig.image_version required")
+        out["image_version"] = ""
     if data.get("AllowMajorVersionUpdate") is not None:
         out["allow_major_version_update"] = data["AllowMajorVersionUpdate"]
     else:

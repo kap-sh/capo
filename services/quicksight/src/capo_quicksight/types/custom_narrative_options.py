@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.narrative_string
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CustomNarrativeOptions:
     if data.get("Narrative") is not None:
         out["narrative"] = data["Narrative"]
     else:
-        raise DeserializationError("CustomNarrativeOptions.narrative required")
+        out["narrative"] = ""
     return out

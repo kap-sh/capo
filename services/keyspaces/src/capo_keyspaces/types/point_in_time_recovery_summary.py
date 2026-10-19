@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_keyspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_keyspaces.types.point_in_time_recovery_status
     import capo_keyspaces.types.timestamp
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_0(data: dict) -> PointInTimeRecoverySummary:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("PointInTimeRecoverySummary.status required")
+        out["status"] = ""
     if data.get("earliestRestorableTimestamp") is not None:
         import capo_keyspaces.types.timestamp
 

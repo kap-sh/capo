@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.data_source_error_message
     import capo_datazone.types.data_source_id
@@ -125,19 +123,19 @@ def deserialize_json(data: dict) -> GetDataSourceRunOutput:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("GetDataSourceRunOutput.domain_id required")
+        out["domain_id"] = ""
     if data.get("dataSourceId") is not None:
         out["data_source_id"] = data["dataSourceId"]
     else:
-        raise DeserializationError("GetDataSourceRunOutput.data_source_id required")
+        out["data_source_id"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetDataSourceRunOutput.id required")
+        out["id"] = ""
     if data.get("projectId") is not None:
         out["project_id"] = data["projectId"]
     else:
-        raise DeserializationError("GetDataSourceRunOutput.project_id required")
+        out["project_id"] = ""
     if data.get("status") is not None:
         import capo_datazone.types.data_source_run_status
 
@@ -145,7 +143,11 @@ def deserialize_json(data: dict) -> GetDataSourceRunOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("GetDataSourceRunOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_datazone.types.data_source_run_status.DataSourceRunStatus", ""
+        )
     if data.get("type") is not None:
         import capo_datazone.types.data_source_run_type
 
@@ -153,7 +155,11 @@ def deserialize_json(data: dict) -> GetDataSourceRunOutput:
             data["type"]
         )
     else:
-        raise DeserializationError("GetDataSourceRunOutput.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_datazone.types.data_source_run_type.DataSourceRunType", ""
+        )
     if data.get("dataSourceConfigurationSnapshot") is not None:
         out["data_source_configuration_snapshot"] = data[
             "dataSourceConfigurationSnapshot"
@@ -189,7 +195,9 @@ def deserialize_json(data: dict) -> GetDataSourceRunOutput:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("GetDataSourceRunOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_datazone.types.date_time
 
@@ -197,7 +205,9 @@ def deserialize_json(data: dict) -> GetDataSourceRunOutput:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("GetDataSourceRunOutput.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("startedAt") is not None:
         import capo_datazone.types.date_time
 

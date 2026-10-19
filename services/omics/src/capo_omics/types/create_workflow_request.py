@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.accelerators
     import capo_omics.types.container_registry_map
@@ -188,7 +186,7 @@ def deserialize_json(data: dict) -> CreateWorkflowRequest:
     if data.get("requestId") is not None:
         out["request_id"] = data["requestId"]
     else:
-        raise DeserializationError("CreateWorkflowRequest.request_id required")
+        out["request_id"] = ""
     if data.get("accelerators") is not None:
         out["accelerators"] = data["accelerators"]
     if data.get("storageType") is not None:

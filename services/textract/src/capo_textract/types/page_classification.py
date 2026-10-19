@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_textract.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_textract.types.prediction_list
 
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> PageClassification:
             data["PageType"]
         )
     else:
-        raise DeserializationError("PageClassification.page_type required")
+        out["page_type"] = []
     if data.get("PageNumber") is not None:
         import capo_textract.types.prediction_list
 
@@ -52,5 +50,5 @@ def deserialize_aws_json_1_1(data: dict) -> PageClassification:
             )
         )
     else:
-        raise DeserializationError("PageClassification.page_number required")
+        out["page_number"] = []
     return out

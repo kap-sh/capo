@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_detective.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_detective.types.graph_arn
     import capo_detective.types.investigation_id
@@ -37,17 +35,17 @@ def deserialize_json(data: dict) -> UpdateInvestigationStateRequest:
     if data.get("GraphArn") is not None:
         out["graph_arn"] = data["GraphArn"]
     else:
-        raise DeserializationError("UpdateInvestigationStateRequest.graph_arn required")
+        out["graph_arn"] = ""
     if data.get("InvestigationId") is not None:
         out["investigation_id"] = data["InvestigationId"]
     else:
-        raise DeserializationError(
-            "UpdateInvestigationStateRequest.investigation_id required"
-        )
+        out["investigation_id"] = ""
     if data.get("State") is not None:
         import capo_detective.types.state
 
         out["state"] = capo_detective.types.state.deserialize_json(data["State"])
     else:
-        raise DeserializationError("UpdateInvestigationStateRequest.state required")
+        import typing
+
+        out["state"] = typing.cast("capo_detective.types.state.State", "")
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.date_type
@@ -87,16 +86,16 @@ def deserialize_query(el: Element) -> ServiceSpecificCredentialMetadata:
     if child_user_name is not None:
         out["user_name"] = str(child_user_name.text or "")
     else:
-        raise DeserializationError(
-            "ServiceSpecificCredentialMetadata.user_name required"
-        )
+        out["user_name"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         import capo_iam.types.status_type
 
         out["status"] = capo_iam.types.status_type.deserialize_query(child_status)
     else:
-        raise DeserializationError("ServiceSpecificCredentialMetadata.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_iam.types.status_type.statusType", "")
     child_service_user_name = el.find("ServiceUserName")
     if child_service_user_name is not None:
         out["service_user_name"] = str(child_service_user_name.text or "")
@@ -113,8 +112,10 @@ def deserialize_query(el: Element) -> ServiceSpecificCredentialMetadata:
             child_create_date
         )
     else:
-        raise DeserializationError(
-            "ServiceSpecificCredentialMetadata.create_date required"
+        import datetime
+
+        out["create_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     child_expiration_date = el.find("ExpirationDate")
     if child_expiration_date is not None:
@@ -129,14 +130,10 @@ def deserialize_query(el: Element) -> ServiceSpecificCredentialMetadata:
             child_service_specific_credential_id.text or ""
         )
     else:
-        raise DeserializationError(
-            "ServiceSpecificCredentialMetadata.service_specific_credential_id required"
-        )
+        out["service_specific_credential_id"] = ""
     child_service_name = el.find("ServiceName")
     if child_service_name is not None:
         out["service_name"] = str(child_service_name.text or "")
     else:
-        raise DeserializationError(
-            "ServiceSpecificCredentialMetadata.service_name required"
-        )
+        out["service_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_evs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_evs.types.appliance_fqdn
     import capo_evs.types.client_token
@@ -48,9 +46,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateEnvironmentConnectorRequest:
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError(
-            "CreateEnvironmentConnectorRequest.environment_id required"
-        )
+        out["environment_id"] = ""
     if data.get("type") is not None:
         import capo_evs.types.connector_type
 
@@ -58,17 +54,15 @@ def deserialize_aws_json_1_0(data: dict) -> CreateEnvironmentConnectorRequest:
             data["type"]
         )
     else:
-        raise DeserializationError("CreateEnvironmentConnectorRequest.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_evs.types.connector_type.ConnectorType", "")
     if data.get("applianceFqdn") is not None:
         out["appliance_fqdn"] = data["applianceFqdn"]
     else:
-        raise DeserializationError(
-            "CreateEnvironmentConnectorRequest.appliance_fqdn required"
-        )
+        out["appliance_fqdn"] = ""
     if data.get("secretIdentifier") is not None:
         out["secret_identifier"] = data["secretIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateEnvironmentConnectorRequest.secret_identifier required"
-        )
+        out["secret_identifier"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.auth_modes
     import capo_appsync.types.auth_providers
@@ -66,7 +64,7 @@ def deserialize_json(data: dict) -> EventConfig:
             data["authProviders"]
         )
     else:
-        raise DeserializationError("EventConfig.auth_providers required")
+        out["auth_providers"] = []
     if data.get("connectionAuthModes") is not None:
         import capo_appsync.types.auth_modes
 
@@ -74,7 +72,7 @@ def deserialize_json(data: dict) -> EventConfig:
             data["connectionAuthModes"]
         )
     else:
-        raise DeserializationError("EventConfig.connection_auth_modes required")
+        out["connection_auth_modes"] = []
     if data.get("defaultPublishAuthModes") is not None:
         import capo_appsync.types.auth_modes
 
@@ -84,7 +82,7 @@ def deserialize_json(data: dict) -> EventConfig:
             )
         )
     else:
-        raise DeserializationError("EventConfig.default_publish_auth_modes required")
+        out["default_publish_auth_modes"] = []
     if data.get("defaultSubscribeAuthModes") is not None:
         import capo_appsync.types.auth_modes
 
@@ -94,7 +92,7 @@ def deserialize_json(data: dict) -> EventConfig:
             )
         )
     else:
-        raise DeserializationError("EventConfig.default_subscribe_auth_modes required")
+        out["default_subscribe_auth_modes"] = []
     if data.get("logConfig") is not None:
         import capo_appsync.types.event_log_config
 

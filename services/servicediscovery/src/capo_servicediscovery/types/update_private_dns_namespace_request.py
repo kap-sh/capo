@@ -44,7 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdatePrivateDnsNamespaceRequest:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("UpdatePrivateDnsNamespaceRequest.id required")
+        out["id"] = ""
     if data.get("UpdaterRequestId") is not None:
         out["updater_request_id"] = data["UpdaterRequestId"]
     if data.get("Namespace") is not None:

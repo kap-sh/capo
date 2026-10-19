@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.mount_path
     import capo_deadline.types.persistent_volume_iops
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> PersistentVolumeConfiguration:
     if data.get("mountPath") is not None:
         out["mount_path"] = data["mountPath"]
     else:
-        raise DeserializationError("PersistentVolumeConfiguration.mount_path required")
+        out["mount_path"] = ""
     if data.get("lastUsedTtlHours") is not None:
         out["last_used_ttl_hours"] = data["lastUsedTtlHours"]
     else:

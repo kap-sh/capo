@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notifications.types.aggregation_duration
     import capo_notifications.types.creation_time
@@ -61,23 +59,19 @@ def deserialize_json(data: dict) -> GetNotificationConfigurationResponse:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetNotificationConfigurationResponse.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetNotificationConfigurationResponse.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError(
-            "GetNotificationConfigurationResponse.description required"
-        )
+        out["description"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError(
-            "GetNotificationConfigurationResponse.status required"
-        )
+        out["status"] = ""
     if data.get("creationTime") is not None:
         import capo_notifications.types.creation_time
 
@@ -85,8 +79,10 @@ def deserialize_json(data: dict) -> GetNotificationConfigurationResponse:
             data["creationTime"]
         )
     else:
-        raise DeserializationError(
-            "GetNotificationConfigurationResponse.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("aggregationDuration") is not None:
         out["aggregation_duration"] = data["aggregationDuration"]

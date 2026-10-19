@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_taxsettings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_taxsettings.types.account_id
     import capo_taxsettings.types.error_code
@@ -36,11 +34,11 @@ def deserialize_json(data: dict) -> BatchPutTaxRegistrationError:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("BatchPutTaxRegistrationError.account_id required")
+        out["account_id"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("BatchPutTaxRegistrationError.message required")
+        out["message"] = ""
     if data.get("code") is not None:
         out["code"] = data["code"]
     return out

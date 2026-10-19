@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.app_sync_runtime
     import capo_appsync.types.caching_config
@@ -114,7 +112,7 @@ def deserialize_json(data: dict) -> CreateResolverRequest:
     if data.get("fieldName") is not None:
         out["field_name"] = data["fieldName"]
     else:
-        raise DeserializationError("CreateResolverRequest.field_name required")
+        out["field_name"] = ""
     if data.get("dataSourceName") is not None:
         out["data_source_name"] = data["dataSourceName"]
     if data.get("requestMappingTemplate") is not None:

@@ -164,11 +164,11 @@ def deserialize_json(data: dict) -> StartChatContactRequest:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("StartChatContactRequest.instance_id required")
+        out["instance_id"] = ""
     if data.get("ContactFlowId") is not None:
         out["contact_flow_id"] = data["ContactFlowId"]
     else:
-        raise DeserializationError("StartChatContactRequest.contact_flow_id required")
+        out["contact_flow_id"] = ""
     if data.get("Attributes") is not None:
         import capo_connect.types.attributes
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.commit_name
     import capo_codecommit.types.limit
@@ -54,15 +52,13 @@ def deserialize_aws_json_1_1(data: dict) -> GetDifferencesInput:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError("GetDifferencesInput.repository_name required")
+        out["repository_name"] = ""
     if data.get("beforeCommitSpecifier") is not None:
         out["before_commit_specifier"] = data["beforeCommitSpecifier"]
     if data.get("afterCommitSpecifier") is not None:
         out["after_commit_specifier"] = data["afterCommitSpecifier"]
     else:
-        raise DeserializationError(
-            "GetDifferencesInput.after_commit_specifier required"
-        )
+        out["after_commit_specifier"] = ""
     if data.get("beforePath") is not None:
         out["before_path"] = data["beforePath"]
     if data.get("afterPath") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.api_key_arn
     import capo_bedrock_agentcore.types.max_tokens
@@ -71,11 +69,11 @@ def deserialize_json(data: dict) -> HarnessGeminiModelConfig:
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:
-        raise DeserializationError("HarnessGeminiModelConfig.model_id required")
+        out["model_id"] = ""
     if data.get("apiKeyArn") is not None:
         out["api_key_arn"] = data["apiKeyArn"]
     else:
-        raise DeserializationError("HarnessGeminiModelConfig.api_key_arn required")
+        out["api_key_arn"] = ""
     if data.get("maxTokens") is not None:
         out["max_tokens"] = data["maxTokens"]
     if data.get("temperature") is not None:

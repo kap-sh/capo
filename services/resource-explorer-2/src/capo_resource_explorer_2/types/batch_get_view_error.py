@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_resource_explorer_2.errors import DeserializationError
-
 
 class BatchGetViewError(TypedDict, closed=True):
     view_arn: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> BatchGetViewError:
     if data.get("ViewArn") is not None:
         out["view_arn"] = data["ViewArn"]
     else:
-        raise DeserializationError("BatchGetViewError.view_arn required")
+        out["view_arn"] = ""
     if data.get("ErrorMessage") is not None:
         out["error_message"] = data["ErrorMessage"]
     else:
-        raise DeserializationError("BatchGetViewError.error_message required")
+        out["error_message"] = ""
     return out

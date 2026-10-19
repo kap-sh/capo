@@ -96,7 +96,7 @@ def deserialize_json(data: dict) -> SendMessageRequest:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("SendMessageRequest.type required")
+        out["type"] = ""
     if data.get("message") is not None:
         import capo_qconnect.types.message_input
 

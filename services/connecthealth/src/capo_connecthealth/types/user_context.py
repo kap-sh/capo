@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connecthealth.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connecthealth.types.provider_role
     import capo_connecthealth.types.sensitive_non_empty_string
@@ -48,11 +46,15 @@ def deserialize_json(data: dict) -> UserContext:
             data["role"]
         )
     else:
-        raise DeserializationError("UserContext.role required")
+        import typing
+
+        out["role"] = typing.cast(
+            "capo_connecthealth.types.provider_role.ProviderRole", ""
+        )
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
     else:
-        raise DeserializationError("UserContext.user_id required")
+        out["user_id"] = ""
     if data.get("specialty") is not None:
         import capo_connecthealth.types.specialty
 

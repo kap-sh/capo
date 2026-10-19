@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.domain_object_type_fields
     import capo_customer_profiles.types.encryption_key
@@ -78,9 +76,7 @@ def deserialize_json(data: dict) -> GetDomainObjectTypeResponse:
     if data.get("ObjectTypeName") is not None:
         out["object_type_name"] = data["ObjectTypeName"]
     else:
-        raise DeserializationError(
-            "GetDomainObjectTypeResponse.object_type_name required"
-        )
+        out["object_type_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("EncryptionKey") is not None:

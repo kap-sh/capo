@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_apprunner.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_apprunner.types.code_configuration_values
     import capo_apprunner.types.configuration_source
@@ -54,7 +52,11 @@ def deserialize_aws_json_1_0(data: dict) -> CodeConfiguration:
             )
         )
     else:
-        raise DeserializationError("CodeConfiguration.configuration_source required")
+        import typing
+
+        out["configuration_source"] = typing.cast(
+            "capo_apprunner.types.configuration_source.ConfigurationSource", ""
+        )
     if data.get("CodeConfigurationValues") is not None:
         import capo_apprunner.types.code_configuration_values
 

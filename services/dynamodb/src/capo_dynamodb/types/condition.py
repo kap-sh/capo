@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.attribute_value_list
     import capo_dynamodb.types.comparison_operator
@@ -60,5 +58,9 @@ def deserialize_aws_json_1_0(data: dict) -> Condition:
             )
         )
     else:
-        raise DeserializationError("Condition.comparison_operator required")
+        import typing
+
+        out["comparison_operator"] = typing.cast(
+            "capo_dynamodb.types.comparison_operator.ComparisonOperator", ""
+        )
     return out

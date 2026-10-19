@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.eks_label_key
     import capo_resiliencehubv2.types.eks_label_selector_operator
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> EksLabelSelectorRequirement:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("EksLabelSelectorRequirement.key required")
+        out["key"] = ""
     if data.get("operator") is not None:
         import capo_resiliencehubv2.types.eks_label_selector_operator
 
@@ -58,7 +56,12 @@ def deserialize_json(data: dict) -> EksLabelSelectorRequirement:
             )
         )
     else:
-        raise DeserializationError("EksLabelSelectorRequirement.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_resiliencehubv2.types.eks_label_selector_operator.EksLabelSelectorOperator",
+            "",
+        )
     if data.get("values") is not None:
         import capo_resiliencehubv2.types.eks_label_value_list
 

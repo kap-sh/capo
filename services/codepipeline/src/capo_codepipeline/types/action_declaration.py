@@ -136,7 +136,7 @@ def deserialize_aws_json_1_1(data: dict) -> ActionDeclaration:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ActionDeclaration.name required")
+        out["name"] = ""
     if data.get("actionTypeId") is not None:
         import capo_codepipeline.types.action_type_id
 

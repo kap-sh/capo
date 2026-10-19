@@ -70,7 +70,7 @@ def deserialize_aws_json_1_1(data: dict) -> ImportTerminologyRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ImportTerminologyRequest.name required")
+        out["name"] = ""
     if data.get("MergeStrategy") is not None:
         import capo_translate.types.merge_strategy
 
@@ -80,7 +80,11 @@ def deserialize_aws_json_1_1(data: dict) -> ImportTerminologyRequest:
             )
         )
     else:
-        raise DeserializationError("ImportTerminologyRequest.merge_strategy required")
+        import typing
+
+        out["merge_strategy"] = typing.cast(
+            "capo_translate.types.merge_strategy.MergeStrategy", ""
+        )
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("TerminologyData") is not None:

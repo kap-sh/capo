@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_amp.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amp.types.workspace_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> AmpConfiguration:
     if data.get("workspaceArn") is not None:
         out["workspace_arn"] = data["workspaceArn"]
     else:
-        raise DeserializationError("AmpConfiguration.workspace_arn required")
+        out["workspace_arn"] = ""
     return out

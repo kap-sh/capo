@@ -63,9 +63,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationFsxOpenZfsRequest:
     if data.get("FsxFilesystemArn") is not None:
         out["fsx_filesystem_arn"] = data["FsxFilesystemArn"]
     else:
-        raise DeserializationError(
-            "CreateLocationFsxOpenZfsRequest.fsx_filesystem_arn required"
-        )
+        out["fsx_filesystem_arn"] = ""
     if data.get("Protocol") is not None:
         import capo_datasync.types.fsx_protocol
 
@@ -83,9 +81,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationFsxOpenZfsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateLocationFsxOpenZfsRequest.security_group_arns required"
-        )
+        out["security_group_arns"] = []
     if data.get("Subdirectory") is not None:
         out["subdirectory"] = data["Subdirectory"]
     if data.get("Tags") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rbin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rbin.types.retention_period_unit
     import capo_rbin.types.retention_period_value
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> RetentionPeriod:
     if data.get("RetentionPeriodValue") is not None:
         out["retention_period_value"] = data["RetentionPeriodValue"]
     else:
-        raise DeserializationError("RetentionPeriod.retention_period_value required")
+        out["retention_period_value"] = 0
     if data.get("RetentionPeriodUnit") is not None:
         import capo_rbin.types.retention_period_unit
 
@@ -47,5 +45,9 @@ def deserialize_json(data: dict) -> RetentionPeriod:
             )
         )
     else:
-        raise DeserializationError("RetentionPeriod.retention_period_unit required")
+        import typing
+
+        out["retention_period_unit"] = typing.cast(
+            "capo_rbin.types.retention_period_unit.RetentionPeriodUnit", ""
+        )
     return out

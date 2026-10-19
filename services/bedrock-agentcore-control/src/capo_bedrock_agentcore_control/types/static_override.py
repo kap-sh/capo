@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.gateway_configuration_bundle_arn
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> StaticOverride:
     if data.get("bundleArn") is not None:
         out["bundle_arn"] = data["bundleArn"]
     else:
-        raise DeserializationError("StaticOverride.bundle_arn required")
+        out["bundle_arn"] = ""
     if data.get("bundleVersion") is not None:
         out["bundle_version"] = data["bundleVersion"]
     else:
-        raise DeserializationError("StaticOverride.bundle_version required")
+        out["bundle_version"] = ""
     return out

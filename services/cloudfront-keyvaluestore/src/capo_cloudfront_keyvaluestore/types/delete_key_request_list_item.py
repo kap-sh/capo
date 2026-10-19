@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudfront_keyvaluestore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudfront_keyvaluestore.types.key
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DeleteKeyRequestListItem:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("DeleteKeyRequestListItem.key required")
+        out["key"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wellarchitected.types.agent_recommendation_item_summaries
     import capo_wellarchitected.types.next_token
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> ListAgentRecommendationItemsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListAgentRecommendationItemsResponse.items required"
-        )
+        out["items"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

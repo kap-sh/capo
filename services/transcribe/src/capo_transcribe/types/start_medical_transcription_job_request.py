@@ -136,9 +136,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartMedicalTranscriptionJobRequest:
     if data.get("MedicalTranscriptionJobName") is not None:
         out["medical_transcription_job_name"] = data["MedicalTranscriptionJobName"]
     else:
-        raise DeserializationError(
-            "StartMedicalTranscriptionJobRequest.medical_transcription_job_name required"
-        )
+        out["medical_transcription_job_name"] = ""
     if data.get("LanguageCode") is not None:
         import capo_transcribe.types.language_code
 
@@ -148,8 +146,10 @@ def deserialize_aws_json_1_1(data: dict) -> StartMedicalTranscriptionJobRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartMedicalTranscriptionJobRequest.language_code required"
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_transcribe.types.language_code.LanguageCode", ""
         )
     if data.get("MediaSampleRateHertz") is not None:
         out["media_sample_rate_hertz"] = data["MediaSampleRateHertz"]
@@ -172,9 +172,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartMedicalTranscriptionJobRequest:
     if data.get("OutputBucketName") is not None:
         out["output_bucket_name"] = data["OutputBucketName"]
     else:
-        raise DeserializationError(
-            "StartMedicalTranscriptionJobRequest.output_bucket_name required"
-        )
+        out["output_bucket_name"] = ""
     if data.get("OutputKey") is not None:
         out["output_key"] = data["OutputKey"]
     if data.get("OutputEncryptionKMSKeyId") is not None:
@@ -210,15 +208,17 @@ def deserialize_aws_json_1_1(data: dict) -> StartMedicalTranscriptionJobRequest:
             data["Specialty"]
         )
     else:
-        raise DeserializationError(
-            "StartMedicalTranscriptionJobRequest.specialty required"
-        )
+        import typing
+
+        out["specialty"] = typing.cast("capo_transcribe.types.specialty.Specialty", "")
     if data.get("Type") is not None:
         import capo_transcribe.types.type
 
         out["type"] = capo_transcribe.types.type.deserialize_aws_json_1_1(data["Type"])
     else:
-        raise DeserializationError("StartMedicalTranscriptionJobRequest.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_transcribe.types.type.Type", "")
     if data.get("Tags") is not None:
         import capo_transcribe.types.tag_list
 

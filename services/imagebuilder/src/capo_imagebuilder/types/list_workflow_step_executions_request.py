@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.pagination_token
     import capo_imagebuilder.types.restricted_integer
@@ -45,7 +43,5 @@ def deserialize_json(data: dict) -> ListWorkflowStepExecutionsRequest:
     if data.get("workflowExecutionId") is not None:
         out["workflow_execution_id"] = data["workflowExecutionId"]
     else:
-        raise DeserializationError(
-            "ListWorkflowStepExecutionsRequest.workflow_execution_id required"
-        )
+        out["workflow_execution_id"] = ""
     return out

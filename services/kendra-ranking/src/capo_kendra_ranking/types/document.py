@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra_ranking.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra_ranking.types.body_tokens_list
     import capo_kendra_ranking.types.document_body
@@ -80,7 +78,7 @@ def deserialize_aws_json_1_0(data: dict) -> Document:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("Document.id required")
+        out["id"] = ""
     if data.get("GroupId") is not None:
         out["group_id"] = data["GroupId"]
     if data.get("Title") is not None:
@@ -106,5 +104,5 @@ def deserialize_aws_json_1_0(data: dict) -> Document:
     if data.get("OriginalScore") is not None:
         out["original_score"] = float(data["OriginalScore"])
     else:
-        raise DeserializationError("Document.original_score required")
+        out["original_score"] = 0.0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.membership_identifier
     import capo_cleanrooms.types.privacy_budget_template_auto_refresh
@@ -80,8 +78,10 @@ def deserialize_json(data: dict) -> CreatePrivacyBudgetTemplateInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreatePrivacyBudgetTemplateInput.privacy_budget_type required"
+        import typing
+
+        out["privacy_budget_type"] = typing.cast(
+            "capo_cleanrooms.types.privacy_budget_type.PrivacyBudgetType", ""
         )
     if data.get("parameters") is not None:
         import capo_cleanrooms.types.privacy_budget_template_parameters_input
@@ -92,9 +92,9 @@ def deserialize_json(data: dict) -> CreatePrivacyBudgetTemplateInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreatePrivacyBudgetTemplateInput.parameters required"
-        )
+        import capo_cleanrooms.types._unknown
+
+        out["parameters"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
     if data.get("tags") is not None:
         import capo_cleanrooms.types.tag_map
 

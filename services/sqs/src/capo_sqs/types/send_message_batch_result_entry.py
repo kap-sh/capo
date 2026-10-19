@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sqs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sqs.types.string
 
@@ -45,17 +43,15 @@ def deserialize_aws_json_1_0(data: dict) -> SendMessageBatchResultEntry:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("SendMessageBatchResultEntry.id required")
+        out["id"] = ""
     if data.get("MessageId") is not None:
         out["message_id"] = data["MessageId"]
     else:
-        raise DeserializationError("SendMessageBatchResultEntry.message_id required")
+        out["message_id"] = ""
     if data.get("MD5OfMessageBody") is not None:
         out["md5_of_message_body"] = data["MD5OfMessageBody"]
     else:
-        raise DeserializationError(
-            "SendMessageBatchResultEntry.md5_of_message_body required"
-        )
+        out["md5_of_message_body"] = ""
     if data.get("MD5OfMessageAttributes") is not None:
         out["md5_of_message_attributes"] = data["MD5OfMessageAttributes"]
     if data.get("MD5OfMessageSystemAttributes") is not None:

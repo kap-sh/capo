@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.boxed_boolean
     import capo_ecs.types.boxed_integer
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> ContainerRestartPolicy:
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     else:
-        raise DeserializationError("ContainerRestartPolicy.enabled required")
+        out["enabled"] = False
     if data.get("ignoredExitCodes") is not None:
         import capo_ecs.types.integer_list
 

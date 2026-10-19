@@ -84,7 +84,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetUsageForecastRequest:
             data["Metric"]
         )
     else:
-        raise DeserializationError("GetUsageForecastRequest.metric required")
+        import typing
+
+        out["metric"] = typing.cast("capo_cost_explorer.types.metric.Metric", "")
     if data.get("Granularity") is not None:
         import capo_cost_explorer.types.granularity
 
@@ -94,7 +96,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetUsageForecastRequest:
             )
         )
     else:
-        raise DeserializationError("GetUsageForecastRequest.granularity required")
+        import typing
+
+        out["granularity"] = typing.cast(
+            "capo_cost_explorer.types.granularity.Granularity", ""
+        )
     if data.get("Filter") is not None:
         import capo_cost_explorer.types.expression
 

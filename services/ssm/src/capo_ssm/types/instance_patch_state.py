@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.baseline_id
     import capo_ssm.types.date_time
@@ -169,15 +167,15 @@ def deserialize_aws_json_1_1(data: dict) -> InstancePatchState:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("InstancePatchState.instance_id required")
+        out["instance_id"] = ""
     if data.get("PatchGroup") is not None:
         out["patch_group"] = data["PatchGroup"]
     else:
-        raise DeserializationError("InstancePatchState.patch_group required")
+        out["patch_group"] = ""
     if data.get("BaselineId") is not None:
         out["baseline_id"] = data["BaselineId"]
     else:
-        raise DeserializationError("InstancePatchState.baseline_id required")
+        out["baseline_id"] = ""
     if data.get("SnapshotId") is not None:
         out["snapshot_id"] = data["SnapshotId"]
     if data.get("InstallOverrideList") is not None:
@@ -219,7 +217,11 @@ def deserialize_aws_json_1_1(data: dict) -> InstancePatchState:
             data["OperationStartTime"]
         )
     else:
-        raise DeserializationError("InstancePatchState.operation_start_time required")
+        import datetime
+
+        out["operation_start_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("OperationEndTime") is not None:
         import capo_ssm.types.date_time
 
@@ -227,7 +229,11 @@ def deserialize_aws_json_1_1(data: dict) -> InstancePatchState:
             data["OperationEndTime"]
         )
     else:
-        raise DeserializationError("InstancePatchState.operation_end_time required")
+        import datetime
+
+        out["operation_end_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("Operation") is not None:
         import capo_ssm.types.patch_operation_type
 
@@ -235,7 +241,11 @@ def deserialize_aws_json_1_1(data: dict) -> InstancePatchState:
             data["Operation"]
         )
     else:
-        raise DeserializationError("InstancePatchState.operation required")
+        import typing
+
+        out["operation"] = typing.cast(
+            "capo_ssm.types.patch_operation_type.PatchOperationType", ""
+        )
     if data.get("LastNoRebootInstallOperationTime") is not None:
         import capo_ssm.types.date_time
 

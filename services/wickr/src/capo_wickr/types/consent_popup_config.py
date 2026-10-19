@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.generic_string
 
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> ConsentPopupConfig:
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     else:
-        raise DeserializationError("ConsentPopupConfig.enabled required")
+        out["enabled"] = False
     if data.get("header") is not None:
         out["header"] = data["header"]
     if data.get("content") is not None:

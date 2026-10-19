@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_memorydb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_memorydb.types.kms_key_id
     import capo_memorydb.types.string
@@ -47,11 +45,11 @@ def deserialize_aws_json_1_1(data: dict) -> CopySnapshotRequest:
     if data.get("SourceSnapshotName") is not None:
         out["source_snapshot_name"] = data["SourceSnapshotName"]
     else:
-        raise DeserializationError("CopySnapshotRequest.source_snapshot_name required")
+        out["source_snapshot_name"] = ""
     if data.get("TargetSnapshotName") is not None:
         out["target_snapshot_name"] = data["TargetSnapshotName"]
     else:
-        raise DeserializationError("CopySnapshotRequest.target_snapshot_name required")
+        out["target_snapshot_name"] = ""
     if data.get("TargetBucket") is not None:
         out["target_bucket"] = data["TargetBucket"]
     if data.get("KmsKeyId") is not None:

@@ -54,9 +54,7 @@ def deserialize_json(data: dict) -> UpdateConnectorProfileRequest:
     if data.get("connectorProfileName") is not None:
         out["connector_profile_name"] = data["connectorProfileName"]
     else:
-        raise DeserializationError(
-            "UpdateConnectorProfileRequest.connector_profile_name required"
-        )
+        out["connector_profile_name"] = ""
     if data.get("connectionMode") is not None:
         import capo_appflow.types.connection_mode
 
@@ -64,8 +62,10 @@ def deserialize_json(data: dict) -> UpdateConnectorProfileRequest:
             data["connectionMode"]
         )
     else:
-        raise DeserializationError(
-            "UpdateConnectorProfileRequest.connection_mode required"
+        import typing
+
+        out["connection_mode"] = typing.cast(
+            "capo_appflow.types.connection_mode.ConnectionMode", ""
         )
     if data.get("connectorProfileConfig") is not None:
         import capo_appflow.types.connector_profile_config

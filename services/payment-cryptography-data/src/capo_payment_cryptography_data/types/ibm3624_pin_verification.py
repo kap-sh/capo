@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.decimalization_table_type
     import capo_payment_cryptography_data.types.hex_length_equals1
@@ -41,25 +39,19 @@ def deserialize_json(data: dict) -> Ibm3624PinVerification:
     if data.get("DecimalizationTable") is not None:
         out["decimalization_table"] = data["DecimalizationTable"]
     else:
-        raise DeserializationError(
-            "Ibm3624PinVerification.decimalization_table required"
-        )
+        out["decimalization_table"] = ""
     if data.get("PinValidationDataPadCharacter") is not None:
         out["pin_validation_data_pad_character"] = data["PinValidationDataPadCharacter"]
     else:
-        raise DeserializationError(
-            "Ibm3624PinVerification.pin_validation_data_pad_character required"
-        )
+        out["pin_validation_data_pad_character"] = ""
     if data.get("PinValidationData") is not None:
         out["pin_validation_data"] = data["PinValidationData"]
     else:
-        raise DeserializationError(
-            "Ibm3624PinVerification.pin_validation_data required"
-        )
+        out["pin_validation_data"] = ""
     if data.get("PinOffset") is not None:
         out["pin_offset"] = data["PinOffset"]
     else:
-        raise DeserializationError("Ibm3624PinVerification.pin_offset required")
+        out["pin_offset"] = ""
     return out
 
 

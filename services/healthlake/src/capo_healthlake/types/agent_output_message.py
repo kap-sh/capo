@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.agent_message_string
     import capo_healthlake.types.agent_output_message_type
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_0(data: dict) -> AgentOutputMessage:
     if data.get("Body") is not None:
         out["body"] = data["Body"]
     else:
-        raise DeserializationError("AgentOutputMessage.body required")
+        out["body"] = ""
     if data.get("Type") is not None:
         import capo_healthlake.types.agent_output_message_type
 
@@ -60,7 +58,11 @@ def deserialize_aws_json_1_0(data: dict) -> AgentOutputMessage:
             )
         )
     else:
-        raise DeserializationError("AgentOutputMessage.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_healthlake.types.agent_output_message_type.AgentOutputMessageType", ""
+        )
     if data.get("OptionsList") is not None:
         import capo_healthlake.types.data_transformation_chat_options_list
 

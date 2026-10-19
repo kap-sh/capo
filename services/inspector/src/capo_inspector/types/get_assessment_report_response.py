@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.report_status
     import capo_inspector.types.url
@@ -40,7 +38,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetAssessmentReportResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("GetAssessmentReportResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_inspector.types.report_status.ReportStatus", ""
+        )
     if data.get("url") is not None:
         out["url"] = data["url"]
     return out

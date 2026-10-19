@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_m2.errors import DeserializationError
-
 
 class ScriptBatchJobIdentifier(TypedDict, closed=True):
     script_name: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> ScriptBatchJobIdentifier:
     if data.get("scriptName") is not None:
         out["script_name"] = data["scriptName"]
     else:
-        raise DeserializationError("ScriptBatchJobIdentifier.script_name required")
+        out["script_name"] = ""
     return out

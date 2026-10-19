@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.bedrock_model_arn
     import capo_bedrock_agent_runtime.types.metadata_attribute_schema_list
@@ -43,13 +41,11 @@ def deserialize_json(data: dict) -> ImplicitFilterConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ImplicitFilterConfiguration.metadata_attributes required"
-        )
+        out["metadata_attributes"] = []
     if data.get("modelArn") is not None:
         out["model_arn"] = data["modelArn"]
     else:
-        raise DeserializationError("ImplicitFilterConfiguration.model_arn required")
+        out["model_arn"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wisdom.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wisdom.types.non_empty_string
     import capo_wisdom.types.quick_response_filter_operator
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> QuickResponseFilterField:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("QuickResponseFilterField.name required")
+        out["name"] = ""
     if data.get("values") is not None:
         import capo_wisdom.types.quick_response_filter_value_list
 
@@ -62,7 +60,7 @@ def deserialize_json(data: dict) -> QuickResponseFilterField:
     if data.get("operator") is not None:
         out["operator"] = data["operator"]
     else:
-        raise DeserializationError("QuickResponseFilterField.operator required")
+        out["operator"] = ""
     if data.get("includeNoExistence") is not None:
         out["include_no_existence"] = data["includeNoExistence"]
     return out

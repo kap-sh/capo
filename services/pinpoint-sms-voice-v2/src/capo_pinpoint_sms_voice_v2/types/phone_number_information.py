@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -135,25 +133,25 @@ def deserialize_aws_json_1_0(data: dict) -> PhoneNumberInformation:
     if data.get("PhoneNumberArn") is not None:
         out["phone_number_arn"] = data["PhoneNumberArn"]
     else:
-        raise DeserializationError("PhoneNumberInformation.phone_number_arn required")
+        out["phone_number_arn"] = ""
     if data.get("PhoneNumberId") is not None:
         out["phone_number_id"] = data["PhoneNumberId"]
     if data.get("PhoneNumber") is not None:
         out["phone_number"] = data["PhoneNumber"]
     else:
-        raise DeserializationError("PhoneNumberInformation.phone_number required")
+        out["phone_number"] = ""
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("PhoneNumberInformation.status required")
+        out["status"] = ""
     if data.get("IsoCountryCode") is not None:
         out["iso_country_code"] = data["IsoCountryCode"]
     else:
-        raise DeserializationError("PhoneNumberInformation.iso_country_code required")
+        out["iso_country_code"] = ""
     if data.get("MessageType") is not None:
         out["message_type"] = data["MessageType"]
     else:
-        raise DeserializationError("PhoneNumberInformation.message_type required")
+        out["message_type"] = ""
     if data.get("NumberCapabilities") is not None:
         import capo_pinpoint_sms_voice_v2.types.number_capability_list
 
@@ -163,19 +161,15 @@ def deserialize_aws_json_1_0(data: dict) -> PhoneNumberInformation:
             )
         )
     else:
-        raise DeserializationError(
-            "PhoneNumberInformation.number_capabilities required"
-        )
+        out["number_capabilities"] = []
     if data.get("NumberType") is not None:
         out["number_type"] = data["NumberType"]
     else:
-        raise DeserializationError("PhoneNumberInformation.number_type required")
+        out["number_type"] = ""
     if data.get("MonthlyLeasingPrice") is not None:
         out["monthly_leasing_price"] = data["MonthlyLeasingPrice"]
     else:
-        raise DeserializationError(
-            "PhoneNumberInformation.monthly_leasing_price required"
-        )
+        out["monthly_leasing_price"] = ""
     if data.get("TwoWayEnabled") is not None:
         out["two_way_enabled"] = data["TwoWayEnabled"]
     else:
@@ -191,7 +185,7 @@ def deserialize_aws_json_1_0(data: dict) -> PhoneNumberInformation:
     if data.get("OptOutListName") is not None:
         out["opt_out_list_name"] = data["OptOutListName"]
     else:
-        raise DeserializationError("PhoneNumberInformation.opt_out_list_name required")
+        out["opt_out_list_name"] = ""
     if data.get("InternationalSendingEnabled") is not None:
         out["international_sending_enabled"] = data["InternationalSendingEnabled"]
     else:
@@ -223,5 +217,9 @@ def deserialize_aws_json_1_0(data: dict) -> PhoneNumberInformation:
             )
         )
     else:
-        raise DeserializationError("PhoneNumberInformation.created_timestamp required")
+        import datetime
+
+        out["created_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

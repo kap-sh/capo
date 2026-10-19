@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appconfigdata.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appconfigdata.types.identifier
     import capo_appconfigdata.types.optional_poll_seconds
@@ -42,21 +40,15 @@ def deserialize_json(data: dict) -> StartConfigurationSessionRequest:
     if data.get("ApplicationIdentifier") is not None:
         out["application_identifier"] = data["ApplicationIdentifier"]
     else:
-        raise DeserializationError(
-            "StartConfigurationSessionRequest.application_identifier required"
-        )
+        out["application_identifier"] = ""
     if data.get("EnvironmentIdentifier") is not None:
         out["environment_identifier"] = data["EnvironmentIdentifier"]
     else:
-        raise DeserializationError(
-            "StartConfigurationSessionRequest.environment_identifier required"
-        )
+        out["environment_identifier"] = ""
     if data.get("ConfigurationProfileIdentifier") is not None:
         out["configuration_profile_identifier"] = data["ConfigurationProfileIdentifier"]
     else:
-        raise DeserializationError(
-            "StartConfigurationSessionRequest.configuration_profile_identifier required"
-        )
+        out["configuration_profile_identifier"] = ""
     if data.get("RequiredMinimumPollIntervalInSeconds") is not None:
         out["required_minimum_poll_interval_in_seconds"] = data[
             "RequiredMinimumPollIntervalInSeconds"

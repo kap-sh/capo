@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_web.types.policy_revision_id
     import capo_lambda_web.types.resource_policy
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> GetResourcePolicyResponse:
     if data.get("Policy") is not None:
         out["policy"] = data["Policy"]
     else:
-        raise DeserializationError("GetResourcePolicyResponse.policy required")
+        out["policy"] = ""
     if data.get("RevisionId") is not None:
         out["revision_id"] = data["RevisionId"]
     else:
-        raise DeserializationError("GetResourcePolicyResponse.revision_id required")
+        out["revision_id"] = ""
     return out

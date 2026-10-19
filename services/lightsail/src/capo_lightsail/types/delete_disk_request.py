@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.boolean
     import capo_lightsail.types.resource_name
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteDiskRequest:
     if data.get("diskName") is not None:
         out["disk_name"] = data["diskName"]
     else:
-        raise DeserializationError("DeleteDiskRequest.disk_name required")
+        out["disk_name"] = ""
     if data.get("forceDeleteAddOns") is not None:
         out["force_delete_add_ons"] = data["forceDeleteAddOns"]
     return out

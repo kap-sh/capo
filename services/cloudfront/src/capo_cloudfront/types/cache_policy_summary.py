@@ -42,7 +42,11 @@ def deserialize_xml(el: Element) -> CachePolicySummary:
             child_type
         )
     else:
-        raise DeserializationError("CachePolicySummary.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cloudfront.types.cache_policy_type.CachePolicyType", ""
+        )
     child_cache_policy = el.find("CachePolicy")
     if child_cache_policy is not None:
         import capo_cloudfront.types.cache_policy

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_guru.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_guru.types.resource_permission
     import capo_devops_guru.types.resource_type_filters
@@ -51,8 +49,10 @@ def deserialize_json(data: dict) -> ListMonitoredResourcesFilters:
             )
         )
     else:
-        raise DeserializationError(
-            "ListMonitoredResourcesFilters.resource_permission required"
+        import typing
+
+        out["resource_permission"] = typing.cast(
+            "capo_devops_guru.types.resource_permission.ResourcePermission", ""
         )
     if data.get("ResourceTypeFilters") is not None:
         import capo_devops_guru.types.resource_type_filters
@@ -63,7 +63,5 @@ def deserialize_json(data: dict) -> ListMonitoredResourcesFilters:
             )
         )
     else:
-        raise DeserializationError(
-            "ListMonitoredResourcesFilters.resource_type_filters required"
-        )
+        out["resource_type_filters"] = []
     return out

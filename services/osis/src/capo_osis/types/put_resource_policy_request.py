@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_osis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_osis.types.pipeline_arn
     import capo_osis.types.resource_policy
@@ -30,5 +28,5 @@ def deserialize_json(data: dict) -> PutResourcePolicyRequest:
     if data.get("Policy") is not None:
         out["policy"] = data["Policy"]
     else:
-        raise DeserializationError("PutResourcePolicyRequest.policy required")
+        out["policy"] = ""
     return out

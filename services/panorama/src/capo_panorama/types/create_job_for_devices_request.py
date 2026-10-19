@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.device_id_list
     import capo_panorama.types.device_job_config
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> CreateJobForDevicesRequest:
             data["DeviceIds"]
         )
     else:
-        raise DeserializationError("CreateJobForDevicesRequest.device_ids required")
+        out["device_ids"] = []
     if data.get("DeviceJobConfig") is not None:
         import capo_panorama.types.device_job_config
 
@@ -62,5 +60,5 @@ def deserialize_json(data: dict) -> CreateJobForDevicesRequest:
     if data.get("JobType") is not None:
         out["job_type"] = data["JobType"]
     else:
-        raise DeserializationError("CreateJobForDevicesRequest.job_type required")
+        out["job_type"] = ""
     return out

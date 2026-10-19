@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.created_at
     import capo_datazone.types.domain_description
@@ -78,21 +76,21 @@ def deserialize_json(data: dict) -> DomainSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("DomainSummary.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DomainSummary.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("DomainSummary.arn required")
+        out["arn"] = ""
     if data.get("managedAccountId") is not None:
         out["managed_account_id"] = data["managedAccountId"]
     else:
-        raise DeserializationError("DomainSummary.managed_account_id required")
+        out["managed_account_id"] = ""
     if data.get("status") is not None:
         import capo_datazone.types.domain_status
 
@@ -100,7 +98,11 @@ def deserialize_json(data: dict) -> DomainSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("DomainSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_datazone.types.domain_status.DomainStatus", ""
+        )
     if data.get("portalUrl") is not None:
         out["portal_url"] = data["portalUrl"]
     if data.get("createdAt") is not None:
@@ -110,7 +112,9 @@ def deserialize_json(data: dict) -> DomainSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("DomainSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastUpdatedAt") is not None:
         import capo_datazone.types.updated_at
 

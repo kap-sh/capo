@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_model_building_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_model_building_service.types.custom_or_builtin_slot_type_name
     import capo_lex_model_building_service.types.description
@@ -124,7 +122,7 @@ def deserialize_json(data: dict) -> Slot:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Slot.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("slotConstraint") is not None:
@@ -136,7 +134,11 @@ def deserialize_json(data: dict) -> Slot:
             )
         )
     else:
-        raise DeserializationError("Slot.slot_constraint required")
+        import typing
+
+        out["slot_constraint"] = typing.cast(
+            "capo_lex_model_building_service.types.slot_constraint.SlotConstraint", ""
+        )
     if data.get("slotType") is not None:
         out["slot_type"] = data["slotType"]
     if data.get("slotTypeVersion") is not None:

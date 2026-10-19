@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_keyspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_keyspaces.types.auto_scaling_specification
     import capo_keyspaces.types.capacity_specification
@@ -120,19 +118,19 @@ def deserialize_aws_json_1_0(data: dict) -> RestoreTableRequest:
     if data.get("sourceKeyspaceName") is not None:
         out["source_keyspace_name"] = data["sourceKeyspaceName"]
     else:
-        raise DeserializationError("RestoreTableRequest.source_keyspace_name required")
+        out["source_keyspace_name"] = ""
     if data.get("sourceTableName") is not None:
         out["source_table_name"] = data["sourceTableName"]
     else:
-        raise DeserializationError("RestoreTableRequest.source_table_name required")
+        out["source_table_name"] = ""
     if data.get("targetKeyspaceName") is not None:
         out["target_keyspace_name"] = data["targetKeyspaceName"]
     else:
-        raise DeserializationError("RestoreTableRequest.target_keyspace_name required")
+        out["target_keyspace_name"] = ""
     if data.get("targetTableName") is not None:
         out["target_table_name"] = data["targetTableName"]
     else:
-        raise DeserializationError("RestoreTableRequest.target_table_name required")
+        out["target_table_name"] = ""
     if data.get("restoreTimestamp") is not None:
         import capo_keyspaces.types.timestamp
 

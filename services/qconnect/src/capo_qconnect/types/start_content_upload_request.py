@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.content_type
     import capo_qconnect.types.time_to_live
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> StartContentUploadRequest:
     if data.get("contentType") is not None:
         out["content_type"] = data["contentType"]
     else:
-        raise DeserializationError("StartContentUploadRequest.content_type required")
+        out["content_type"] = ""
     if data.get("presignedUrlTimeToLive") is not None:
         out["presigned_url_time_to_live"] = data["presignedUrlTimeToLive"]
     return out

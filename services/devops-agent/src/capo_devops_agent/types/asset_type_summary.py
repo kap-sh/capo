@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.asset_type
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> AssetTypeSummary:
     if data.get("assetType") is not None:
         out["asset_type"] = data["assetType"]
     else:
-        raise DeserializationError("AssetTypeSummary.asset_type required")
+        out["asset_type"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("AssetTypeSummary.description required")
+        out["description"] = ""
     return out

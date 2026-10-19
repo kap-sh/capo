@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.client_credentials_properties
     import capo_glue.types.connector_authorization_code_properties
@@ -80,8 +78,10 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectorOAuth2Properties:
             )
         )
     else:
-        raise DeserializationError(
-            "ConnectorOAuth2Properties.o_auth2_grant_type required"
+        import typing
+
+        out["o_auth2_grant_type"] = typing.cast(
+            "capo_glue.types.connector_o_auth2_grant_type.ConnectorOAuth2GrantType", ""
         )
     if data.get("ClientCredentialsProperties") is not None:
         import capo_glue.types.client_credentials_properties

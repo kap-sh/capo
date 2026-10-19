@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.function_url_config_list
     import capo_lambda.types.string
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> ListFunctionUrlConfigsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListFunctionUrlConfigsResponse.function_url_configs required"
-        )
+        out["function_url_configs"] = []
     if data.get("NextMarker") is not None:
         out["next_marker"] = data["NextMarker"]
     return out

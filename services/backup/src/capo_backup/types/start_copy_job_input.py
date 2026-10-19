@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.arn
     import capo_backup.types.backup_vault_name
@@ -51,23 +49,19 @@ def deserialize_json(data: dict) -> StartCopyJobInput:
     if data.get("RecoveryPointArn") is not None:
         out["recovery_point_arn"] = data["RecoveryPointArn"]
     else:
-        raise DeserializationError("StartCopyJobInput.recovery_point_arn required")
+        out["recovery_point_arn"] = ""
     if data.get("SourceBackupVaultName") is not None:
         out["source_backup_vault_name"] = data["SourceBackupVaultName"]
     else:
-        raise DeserializationError(
-            "StartCopyJobInput.source_backup_vault_name required"
-        )
+        out["source_backup_vault_name"] = ""
     if data.get("DestinationBackupVaultArn") is not None:
         out["destination_backup_vault_arn"] = data["DestinationBackupVaultArn"]
     else:
-        raise DeserializationError(
-            "StartCopyJobInput.destination_backup_vault_arn required"
-        )
+        out["destination_backup_vault_arn"] = ""
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     else:
-        raise DeserializationError("StartCopyJobInput.iam_role_arn required")
+        out["iam_role_arn"] = ""
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     if data.get("Lifecycle") is not None:

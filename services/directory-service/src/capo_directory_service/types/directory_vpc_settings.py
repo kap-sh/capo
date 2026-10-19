@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.subnet_ids
     import capo_directory_service.types.vpc_id
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> DirectoryVpcSettings:
     if data.get("VpcId") is not None:
         out["vpc_id"] = data["VpcId"]
     else:
-        raise DeserializationError("DirectoryVpcSettings.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("SubnetIds") is not None:
         import capo_directory_service.types.subnet_ids
 
@@ -45,5 +43,5 @@ def deserialize_aws_json_1_1(data: dict) -> DirectoryVpcSettings:
             )
         )
     else:
-        raise DeserializationError("DirectoryVpcSettings.subnet_ids required")
+        out["subnet_ids"] = []
     return out

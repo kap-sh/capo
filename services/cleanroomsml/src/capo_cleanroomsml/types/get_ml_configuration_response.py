@@ -55,9 +55,7 @@ def deserialize_json(data: dict) -> GetMLConfigurationResponse:
     if data.get("membershipIdentifier") is not None:
         out["membership_identifier"] = data["membershipIdentifier"]
     else:
-        raise DeserializationError(
-            "GetMLConfigurationResponse.membership_identifier required"
-        )
+        out["membership_identifier"] = ""
     if data.get("defaultOutputLocation") is not None:
         import capo_cleanroomsml.types.ml_output_configuration
 
@@ -77,7 +75,11 @@ def deserialize_json(data: dict) -> GetMLConfigurationResponse:
             data["createTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetMLConfigurationResponse.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import datetime
 
@@ -85,5 +87,9 @@ def deserialize_json(data: dict) -> GetMLConfigurationResponse:
             data["updateTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetMLConfigurationResponse.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

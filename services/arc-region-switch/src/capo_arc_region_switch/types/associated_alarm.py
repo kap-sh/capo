@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.alarm_type
     import capo_arc_region_switch.types.iam_role_arn
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_0(data: dict) -> AssociatedAlarm:
     if data.get("resourceIdentifier") is not None:
         out["resource_identifier"] = data["resourceIdentifier"]
     else:
-        raise DeserializationError("AssociatedAlarm.resource_identifier required")
+        out["resource_identifier"] = ""
     if data.get("alarmType") is not None:
         import capo_arc_region_switch.types.alarm_type
 
@@ -59,5 +57,9 @@ def deserialize_aws_json_1_0(data: dict) -> AssociatedAlarm:
             )
         )
     else:
-        raise DeserializationError("AssociatedAlarm.alarm_type required")
+        import typing
+
+        out["alarm_type"] = typing.cast(
+            "capo_arc_region_switch.types.alarm_type.AlarmType", ""
+        )
     return out

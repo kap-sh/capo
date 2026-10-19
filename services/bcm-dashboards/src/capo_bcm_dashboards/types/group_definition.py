@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bcm_dashboards.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_dashboards.types.group_definition_type
 
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_0(data: dict) -> GroupDefinition:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("GroupDefinition.key required")
+        out["key"] = ""
     if data.get("type") is not None:
         import capo_bcm_dashboards.types.group_definition_type
 

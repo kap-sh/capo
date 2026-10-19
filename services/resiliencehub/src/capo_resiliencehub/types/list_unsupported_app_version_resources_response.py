@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.next_token
     import capo_resiliencehub.types.string255
@@ -50,15 +48,11 @@ def deserialize_json(data: dict) -> ListUnsupportedAppVersionResourcesResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListUnsupportedAppVersionResourcesResponse.unsupported_resources required"
-        )
+        out["unsupported_resources"] = []
     if data.get("resolutionId") is not None:
         out["resolution_id"] = data["resolutionId"]
     else:
-        raise DeserializationError(
-            "ListUnsupportedAppVersionResourcesResponse.resolution_id required"
-        )
+        out["resolution_id"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

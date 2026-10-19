@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediastore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediastore.types.container_level_metrics
     import capo_mediastore.types.metric_policy_rules
@@ -54,7 +52,11 @@ def deserialize_aws_json_1_1(data: dict) -> MetricPolicy:
             )
         )
     else:
-        raise DeserializationError("MetricPolicy.container_level_metrics required")
+        import typing
+
+        out["container_level_metrics"] = typing.cast(
+            "capo_mediastore.types.container_level_metrics.ContainerLevelMetrics", ""
+        )
     if data.get("MetricPolicyRules") is not None:
         import capo_mediastore.types.metric_policy_rules
 

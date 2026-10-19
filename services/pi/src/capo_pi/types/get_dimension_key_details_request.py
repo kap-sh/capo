@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pi.types.identifier_string
     import capo_pi.types.request_string
@@ -59,23 +57,21 @@ def deserialize_aws_json_1_1(data: dict) -> GetDimensionKeyDetailsRequest:
             data["ServiceType"]
         )
     else:
-        raise DeserializationError(
-            "GetDimensionKeyDetailsRequest.service_type required"
-        )
+        import typing
+
+        out["service_type"] = typing.cast("capo_pi.types.service_type.ServiceType", "")
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("GetDimensionKeyDetailsRequest.identifier required")
+        out["identifier"] = ""
     if data.get("Group") is not None:
         out["group"] = data["Group"]
     else:
-        raise DeserializationError("GetDimensionKeyDetailsRequest.group required")
+        out["group"] = ""
     if data.get("GroupIdentifier") is not None:
         out["group_identifier"] = data["GroupIdentifier"]
     else:
-        raise DeserializationError(
-            "GetDimensionKeyDetailsRequest.group_identifier required"
-        )
+        out["group_identifier"] = ""
     if data.get("RequestedDimensions") is not None:
         import capo_pi.types.requested_dimension_list
 

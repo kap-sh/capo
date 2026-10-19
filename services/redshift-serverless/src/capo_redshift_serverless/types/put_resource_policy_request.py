@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 
 class PutResourcePolicyRequest(TypedDict, closed=True):
     resource_arn: "str"
@@ -25,9 +23,9 @@ def deserialize_aws_json_1_1(data: dict) -> PutResourcePolicyRequest:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("PutResourcePolicyRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("policy") is not None:
         out["policy"] = data["policy"]
     else:
-        raise DeserializationError("PutResourcePolicyRequest.policy required")
+        out["policy"] = ""
     return out

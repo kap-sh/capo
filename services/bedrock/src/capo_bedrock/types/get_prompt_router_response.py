@@ -95,9 +95,7 @@ def deserialize_json(data: dict) -> GetPromptRouterResponse:
     if data.get("promptRouterName") is not None:
         out["prompt_router_name"] = data["promptRouterName"]
     else:
-        raise DeserializationError(
-            "GetPromptRouterResponse.prompt_router_name required"
-        )
+        out["prompt_router_name"] = ""
     if data.get("routingCriteria") is not None:
         import capo_bedrock.types.routing_criteria
 
@@ -123,7 +121,7 @@ def deserialize_json(data: dict) -> GetPromptRouterResponse:
     if data.get("promptRouterArn") is not None:
         out["prompt_router_arn"] = data["promptRouterArn"]
     else:
-        raise DeserializationError("GetPromptRouterResponse.prompt_router_arn required")
+        out["prompt_router_arn"] = ""
     if data.get("models") is not None:
         import capo_bedrock.types.prompt_router_target_models
 
@@ -131,7 +129,7 @@ def deserialize_json(data: dict) -> GetPromptRouterResponse:
             data["models"]
         )
     else:
-        raise DeserializationError("GetPromptRouterResponse.models required")
+        out["models"] = []
     if data.get("fallbackModel") is not None:
         import capo_bedrock.types.prompt_router_target_model
 
@@ -149,7 +147,11 @@ def deserialize_json(data: dict) -> GetPromptRouterResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("GetPromptRouterResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock.types.prompt_router_status.PromptRouterStatus", ""
+        )
     if data.get("type") is not None:
         import capo_bedrock.types.prompt_router_type
 
@@ -157,7 +159,11 @@ def deserialize_json(data: dict) -> GetPromptRouterResponse:
             data["type"]
         )
     else:
-        raise DeserializationError("GetPromptRouterResponse.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock.types.prompt_router_type.PromptRouterType", ""
+        )
     return out
 
 

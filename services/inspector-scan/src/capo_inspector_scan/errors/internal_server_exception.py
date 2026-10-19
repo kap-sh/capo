@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector_scan.errors import DeserializationError, ServiceError
+from capo_inspector_scan.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_inspector_scan.types.internal_server_exception_reason
@@ -38,7 +38,7 @@ def deserialize_json(data: dict) -> InternalServerException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("InternalServerException_.message required")
+        out["message"] = ""
     if data.get("reason") is not None:
         import capo_inspector_scan.types.internal_server_exception_reason
 
@@ -48,7 +48,12 @@ def deserialize_json(data: dict) -> InternalServerException_:
             )
         )
     else:
-        raise DeserializationError("InternalServerException_.reason required")
+        import typing
+
+        out["reason"] = typing.cast(
+            "capo_inspector_scan.types.internal_server_exception_reason.InternalServerExceptionReason",
+            "",
+        )
     return out
 
 

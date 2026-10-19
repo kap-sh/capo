@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_sts._protocol.xml import Element
-from capo_sts.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sts.types.arn_type
@@ -34,10 +33,10 @@ def deserialize_query(el: Element) -> FederatedUser:
     if child_federated_user_id is not None:
         out["federated_user_id"] = str(child_federated_user_id.text or "")
     else:
-        raise DeserializationError("FederatedUser.federated_user_id required")
+        out["federated_user_id"] = ""
     child_arn = el.find("Arn")
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("FederatedUser.arn required")
+        out["arn"] = ""
     return out

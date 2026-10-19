@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -60,9 +58,7 @@ def deserialize_aws_json_1_0(data: dict) -> PointInTimeRestoreConfiguration:
     if data.get("sourceAutonomousDatabaseId") is not None:
         out["source_autonomous_database_id"] = data["sourceAutonomousDatabaseId"]
     else:
-        raise DeserializationError(
-            "PointInTimeRestoreConfiguration.source_autonomous_database_id required"
-        )
+        out["source_autonomous_database_id"] = ""
     if data.get("cloneType") is not None:
         import capo_odb.types.clone_type
 
@@ -70,9 +66,9 @@ def deserialize_aws_json_1_0(data: dict) -> PointInTimeRestoreConfiguration:
             data["cloneType"]
         )
     else:
-        raise DeserializationError(
-            "PointInTimeRestoreConfiguration.clone_type required"
-        )
+        import typing
+
+        out["clone_type"] = typing.cast("capo_odb.types.clone_type.CloneType", "")
     if data.get("timestamp") is not None:
         import datetime
 

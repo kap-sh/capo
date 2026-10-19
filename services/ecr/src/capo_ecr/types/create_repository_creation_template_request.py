@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr.types.custom_role_arn
     import capo_ecr.types.encryption_configuration_for_repository_creation_template
@@ -109,9 +107,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRepositoryCreationTemplateRequ
     if data.get("prefix") is not None:
         out["prefix"] = data["prefix"]
     else:
-        raise DeserializationError(
-            "CreateRepositoryCreationTemplateRequest.prefix required"
-        )
+        out["prefix"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("encryptionConfiguration") is not None:
@@ -157,9 +153,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRepositoryCreationTemplateRequ
             )
         )
     else:
-        raise DeserializationError(
-            "CreateRepositoryCreationTemplateRequest.applied_for required"
-        )
+        out["applied_for"] = []
     if data.get("customRoleArn") is not None:
         out["custom_role_arn"] = data["customRoleArn"]
     return out

@@ -77,11 +77,11 @@ def deserialize_json(data: dict) -> JobTemplateData:
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:
-        raise DeserializationError("JobTemplateData.execution_role_arn required")
+        out["execution_role_arn"] = ""
     if data.get("releaseLabel") is not None:
         out["release_label"] = data["releaseLabel"]
     else:
-        raise DeserializationError("JobTemplateData.release_label required")
+        out["release_label"] = ""
     if data.get("configurationOverrides") is not None:
         import capo_emr_containers.types.parametric_configuration_overrides
 

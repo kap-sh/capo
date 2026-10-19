@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.format_list
     import capo_backup.types.string
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> ReportDeliveryChannel:
     if data.get("S3BucketName") is not None:
         out["s3_bucket_name"] = data["S3BucketName"]
     else:
-        raise DeserializationError("ReportDeliveryChannel.s3_bucket_name required")
+        out["s3_bucket_name"] = ""
     if data.get("S3KeyPrefix") is not None:
         out["s3_key_prefix"] = data["S3KeyPrefix"]
     if data.get("Formats") is not None:

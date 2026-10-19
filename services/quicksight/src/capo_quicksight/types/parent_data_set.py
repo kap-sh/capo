@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.input_column_list
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> ParentDataSet:
     if data.get("DataSetArn") is not None:
         out["data_set_arn"] = data["DataSetArn"]
     else:
-        raise DeserializationError("ParentDataSet.data_set_arn required")
+        out["data_set_arn"] = ""
     if data.get("InputColumns") is not None:
         import capo_quicksight.types.input_column_list
 
@@ -43,5 +41,5 @@ def deserialize_json(data: dict) -> ParentDataSet:
             data["InputColumns"]
         )
     else:
-        raise DeserializationError("ParentDataSet.input_columns required")
+        out["input_columns"] = []
     return out

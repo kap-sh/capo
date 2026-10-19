@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fis.types.client_token
     import capo_fis.types.create_experiment_template_action_input_map
@@ -116,15 +114,11 @@ def deserialize_json(data: dict) -> CreateExperimentTemplateRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError(
-            "CreateExperimentTemplateRequest.client_token required"
-        )
+        out["client_token"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError(
-            "CreateExperimentTemplateRequest.description required"
-        )
+        out["description"] = ""
     if data.get("stopConditions") is not None:
         import capo_fis.types.create_experiment_template_stop_condition_input_list
 
@@ -134,9 +128,7 @@ def deserialize_json(data: dict) -> CreateExperimentTemplateRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateExperimentTemplateRequest.stop_conditions required"
-        )
+        out["stop_conditions"] = []
     if data.get("targets") is not None:
         import capo_fis.types.create_experiment_template_target_input_map
 
@@ -154,11 +146,11 @@ def deserialize_json(data: dict) -> CreateExperimentTemplateRequest:
             )
         )
     else:
-        raise DeserializationError("CreateExperimentTemplateRequest.actions required")
+        out["actions"] = {}
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateExperimentTemplateRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("tags") is not None:
         import capo_fis.types.tag_map
 

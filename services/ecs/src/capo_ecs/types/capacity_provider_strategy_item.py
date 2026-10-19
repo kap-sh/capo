@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.capacity_provider_strategy_item_base
     import capo_ecs.types.capacity_provider_strategy_item_weight
@@ -35,9 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> CapacityProviderStrategyItem:
     if data.get("capacityProvider") is not None:
         out["capacity_provider"] = data["capacityProvider"]
     else:
-        raise DeserializationError(
-            "CapacityProviderStrategyItem.capacity_provider required"
-        )
+        out["capacity_provider"] = ""
     if data.get("weight") is not None:
         out["weight"] = data["weight"]
     else:

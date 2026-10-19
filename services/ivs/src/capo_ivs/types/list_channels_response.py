@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs.types.channel_list
     import capo_ivs.types.pagination_token
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> ListChannelsResponse:
 
         out["channels"] = capo_ivs.types.channel_list.deserialize_json(data["channels"])
     else:
-        raise DeserializationError("ListChannelsResponse.channels required")
+        out["channels"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_notificationscontacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notificationscontacts.types.email_contacts
 
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> ListEmailContactsResponse:
             )
         )
     else:
-        raise DeserializationError("ListEmailContactsResponse.email_contacts required")
+        out["email_contacts"] = []
     return out
 
 

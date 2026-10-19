@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.batch_delete_knowledge_base_failure_list
     import capo_quicksight.types.batch_delete_knowledge_base_success_list
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> BatchDeleteKnowledgeBaseResponse:
             )
         )
     else:
-        raise DeserializationError("BatchDeleteKnowledgeBaseResponse.deleted required")
+        out["deleted"] = []
     if data.get("Errors") is not None:
         import capo_quicksight.types.batch_delete_knowledge_base_failure_list
 
@@ -67,7 +65,7 @@ def deserialize_json(data: dict) -> BatchDeleteKnowledgeBaseResponse:
             )
         )
     else:
-        raise DeserializationError("BatchDeleteKnowledgeBaseResponse.errors required")
+        out["errors"] = []
     if data.get("RequestId") is not None:
         out["request_id"] = data["RequestId"]
     return out

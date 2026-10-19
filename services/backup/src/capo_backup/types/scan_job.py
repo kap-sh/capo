@@ -145,15 +145,15 @@ def deserialize_json(data: dict) -> ScanJob:
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     else:
-        raise DeserializationError("ScanJob.account_id required")
+        out["account_id"] = ""
     if data.get("BackupVaultArn") is not None:
         out["backup_vault_arn"] = data["BackupVaultArn"]
     else:
-        raise DeserializationError("ScanJob.backup_vault_arn required")
+        out["backup_vault_arn"] = ""
     if data.get("BackupVaultName") is not None:
         out["backup_vault_name"] = data["BackupVaultName"]
     else:
-        raise DeserializationError("ScanJob.backup_vault_name required")
+        out["backup_vault_name"] = ""
     if data.get("CompletionDate") is not None:
         import capo_backup.types._prelude.timestamp
 
@@ -191,11 +191,15 @@ def deserialize_json(data: dict) -> ScanJob:
             data["CreationDate"]
         )
     else:
-        raise DeserializationError("ScanJob.creation_date required")
+        import datetime
+
+        out["creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     else:
-        raise DeserializationError("ScanJob.iam_role_arn required")
+        out["iam_role_arn"] = ""
     if data.get("MalwareScanner") is not None:
         import capo_backup.types.malware_scanner
 
@@ -203,19 +207,23 @@ def deserialize_json(data: dict) -> ScanJob:
             data["MalwareScanner"]
         )
     else:
-        raise DeserializationError("ScanJob.malware_scanner required")
+        import typing
+
+        out["malware_scanner"] = typing.cast(
+            "capo_backup.types.malware_scanner.MalwareScanner", ""
+        )
     if data.get("RecoveryPointArn") is not None:
         out["recovery_point_arn"] = data["RecoveryPointArn"]
     else:
-        raise DeserializationError("ScanJob.recovery_point_arn required")
+        out["recovery_point_arn"] = ""
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("ScanJob.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("ResourceName") is not None:
         out["resource_name"] = data["ResourceName"]
     else:
-        raise DeserializationError("ScanJob.resource_name required")
+        out["resource_name"] = ""
     if data.get("ResourceType") is not None:
         import capo_backup.types.scan_resource_type
 
@@ -223,7 +231,11 @@ def deserialize_json(data: dict) -> ScanJob:
             data["ResourceType"]
         )
     else:
-        raise DeserializationError("ScanJob.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_backup.types.scan_resource_type.ScanResourceType", ""
+        )
     if data.get("ScanBaseRecoveryPointArn") is not None:
         out["scan_base_recovery_point_arn"] = data["ScanBaseRecoveryPointArn"]
     if data.get("ScanId") is not None:
@@ -231,7 +243,7 @@ def deserialize_json(data: dict) -> ScanJob:
     if data.get("ScanJobId") is not None:
         out["scan_job_id"] = data["ScanJobId"]
     else:
-        raise DeserializationError("ScanJob.scan_job_id required")
+        out["scan_job_id"] = ""
     if data.get("ScanMode") is not None:
         import capo_backup.types.scan_mode
 
@@ -239,7 +251,9 @@ def deserialize_json(data: dict) -> ScanJob:
             data["ScanMode"]
         )
     else:
-        raise DeserializationError("ScanJob.scan_mode required")
+        import typing
+
+        out["scan_mode"] = typing.cast("capo_backup.types.scan_mode.ScanMode", "")
     if data.get("ScanResult") is not None:
         import capo_backup.types.scan_result_info
 
@@ -249,7 +263,7 @@ def deserialize_json(data: dict) -> ScanJob:
     if data.get("ScannerRoleArn") is not None:
         out["scanner_role_arn"] = data["ScannerRoleArn"]
     else:
-        raise DeserializationError("ScanJob.scanner_role_arn required")
+        out["scanner_role_arn"] = ""
     if data.get("State") is not None:
         import capo_backup.types.scan_state
 

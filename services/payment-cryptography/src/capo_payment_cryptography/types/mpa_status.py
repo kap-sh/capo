@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.mpa_session_arn
     import capo_payment_cryptography.types.mpa_status_message
@@ -48,11 +46,11 @@ def deserialize_aws_json_1_0(data: dict) -> MpaStatus:
     if data.get("MpaSessionArn") is not None:
         out["mpa_session_arn"] = data["MpaSessionArn"]
     else:
-        raise DeserializationError("MpaStatus.mpa_session_arn required")
+        out["mpa_session_arn"] = ""
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("MpaStatus.status required")
+        out["status"] = ""
     if data.get("InitiationDate") is not None:
         import capo_payment_cryptography.types.timestamp
 
@@ -62,7 +60,11 @@ def deserialize_aws_json_1_0(data: dict) -> MpaStatus:
             )
         )
     else:
-        raise DeserializationError("MpaStatus.initiation_date required")
+        import datetime
+
+        out["initiation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
     return out

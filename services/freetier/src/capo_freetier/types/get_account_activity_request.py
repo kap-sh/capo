@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_freetier.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_freetier.types.activity_id
     import capo_freetier.types.language_code
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetAccountActivityRequest:
     if data.get("activityId") is not None:
         out["activity_id"] = data["activityId"]
     else:
-        raise DeserializationError("GetAccountActivityRequest.activity_id required")
+        out["activity_id"] = ""
     if data.get("languageCode") is not None:
         import capo_freetier.types.language_code
 

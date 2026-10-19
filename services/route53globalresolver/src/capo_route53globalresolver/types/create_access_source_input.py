@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.cidr
     import capo_route53globalresolver.types.client_token
@@ -75,7 +73,7 @@ def deserialize_json(data: dict) -> CreateAccessSourceInput:
     if data.get("cidr") is not None:
         out["cidr"] = data["cidr"]
     else:
-        raise DeserializationError("CreateAccessSourceInput.cidr required")
+        out["cidr"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("ipAddressType") is not None:
@@ -91,7 +89,7 @@ def deserialize_json(data: dict) -> CreateAccessSourceInput:
     if data.get("dnsViewId") is not None:
         out["dns_view_id"] = data["dnsViewId"]
     else:
-        raise DeserializationError("CreateAccessSourceInput.dns_view_id required")
+        out["dns_view_id"] = ""
     if data.get("protocol") is not None:
         import capo_route53globalresolver.types.dns_protocol
 
@@ -101,7 +99,11 @@ def deserialize_json(data: dict) -> CreateAccessSourceInput:
             )
         )
     else:
-        raise DeserializationError("CreateAccessSourceInput.protocol required")
+        import typing
+
+        out["protocol"] = typing.cast(
+            "capo_route53globalresolver.types.dns_protocol.DnsProtocol", ""
+        )
     if data.get("tags") is not None:
         import capo_route53globalresolver.types.tags
 

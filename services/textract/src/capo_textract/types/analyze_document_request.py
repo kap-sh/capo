@@ -88,7 +88,7 @@ def deserialize_aws_json_1_1(data: dict) -> AnalyzeDocumentRequest:
             )
         )
     else:
-        raise DeserializationError("AnalyzeDocumentRequest.feature_types required")
+        out["feature_types"] = []
     if data.get("HumanLoopConfig") is not None:
         import capo_textract.types.human_loop_config
 

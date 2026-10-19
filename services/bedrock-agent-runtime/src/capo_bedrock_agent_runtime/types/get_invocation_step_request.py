@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.invocation_identifier
     import capo_bedrock_agent_runtime.types.session_identifier
@@ -37,7 +35,5 @@ def deserialize_json(data: dict) -> GetInvocationStepRequest:
     if data.get("invocationIdentifier") is not None:
         out["invocation_identifier"] = data["invocationIdentifier"]
     else:
-        raise DeserializationError(
-            "GetInvocationStepRequest.invocation_identifier required"
-        )
+        out["invocation_identifier"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.account_scope
     import capo_cost_explorer.types.expression
@@ -114,9 +112,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetReservationPurchaseRecommendation
     if data.get("Service") is not None:
         out["service"] = data["Service"]
     else:
-        raise DeserializationError(
-            "GetReservationPurchaseRecommendationRequest.service required"
-        )
+        out["service"] = ""
     if data.get("Filter") is not None:
         import capo_cost_explorer.types.expression
 

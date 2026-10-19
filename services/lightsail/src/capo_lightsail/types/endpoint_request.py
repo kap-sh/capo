@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.container_service_health_check_config
     import capo_lightsail.types.integer
@@ -44,11 +42,11 @@ def deserialize_aws_json_1_1(data: dict) -> EndpointRequest:
     if data.get("containerName") is not None:
         out["container_name"] = data["containerName"]
     else:
-        raise DeserializationError("EndpointRequest.container_name required")
+        out["container_name"] = ""
     if data.get("containerPort") is not None:
         out["container_port"] = data["containerPort"]
     else:
-        raise DeserializationError("EndpointRequest.container_port required")
+        out["container_port"] = 0
     if data.get("healthCheck") is not None:
         import capo_lightsail.types.container_service_health_check_config
 

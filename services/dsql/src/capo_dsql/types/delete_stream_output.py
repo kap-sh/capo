@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dsql.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dsql.types.cluster_id
     import capo_dsql.types.stream_arn
@@ -49,21 +47,23 @@ def deserialize_json(data: dict) -> DeleteStreamOutput:
     if data.get("clusterIdentifier") is not None:
         out["cluster_identifier"] = data["clusterIdentifier"]
     else:
-        raise DeserializationError("DeleteStreamOutput.cluster_identifier required")
+        out["cluster_identifier"] = ""
     if data.get("streamIdentifier") is not None:
         out["stream_identifier"] = data["streamIdentifier"]
     else:
-        raise DeserializationError("DeleteStreamOutput.stream_identifier required")
+        out["stream_identifier"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("DeleteStreamOutput.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_dsql.types.stream_status
 
         out["status"] = capo_dsql.types.stream_status.deserialize_json(data["status"])
     else:
-        raise DeserializationError("DeleteStreamOutput.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_dsql.types.stream_status.StreamStatus", "")
     if data.get("creationTime") is not None:
         import capo_dsql.types.stream_creation_time
 
@@ -71,5 +71,9 @@ def deserialize_json(data: dict) -> DeleteStreamOutput:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("DeleteStreamOutput.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

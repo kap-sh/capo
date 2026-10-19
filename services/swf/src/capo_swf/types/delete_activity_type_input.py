@@ -35,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteActivityTypeInput:
     if data.get("domain") is not None:
         out["domain"] = data["domain"]
     else:
-        raise DeserializationError("DeleteActivityTypeInput.domain required")
+        out["domain"] = ""
     if data.get("activityType") is not None:
         import capo_swf.types.activity_type
 

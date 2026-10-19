@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.target_group_identifier
     import capo_vpc_lattice.types.target_group_weight
@@ -34,9 +32,7 @@ def deserialize_json(data: dict) -> WeightedTargetGroup:
     if data.get("targetGroupIdentifier") is not None:
         out["target_group_identifier"] = data["targetGroupIdentifier"]
     else:
-        raise DeserializationError(
-            "WeightedTargetGroup.target_group_identifier required"
-        )
+        out["target_group_identifier"] = ""
     if data.get("weight") is not None:
         out["weight"] = data["weight"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.query_transformation_mode
     import capo_bedrock_agent_runtime.types.text_to_sql_configuration
@@ -52,7 +50,12 @@ def deserialize_json(data: dict) -> TransformationConfiguration:
             )
         )
     else:
-        raise DeserializationError("TransformationConfiguration.mode required")
+        import typing
+
+        out["mode"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.query_transformation_mode.QueryTransformationMode",
+            "",
+        )
     if data.get("textToSqlConfiguration") is not None:
         import capo_bedrock_agent_runtime.types.text_to_sql_configuration
 

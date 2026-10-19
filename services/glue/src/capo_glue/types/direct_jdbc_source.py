@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.enclosed_in_string_property
     import capo_glue.types.glue_schemas
@@ -62,19 +60,19 @@ def deserialize_aws_json_1_1(data: dict) -> DirectJDBCSource:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DirectJDBCSource.name required")
+        out["name"] = ""
     if data.get("Database") is not None:
         out["database"] = data["Database"]
     else:
-        raise DeserializationError("DirectJDBCSource.database required")
+        out["database"] = ""
     if data.get("Table") is not None:
         out["table"] = data["Table"]
     else:
-        raise DeserializationError("DirectJDBCSource.table required")
+        out["table"] = ""
     if data.get("ConnectionName") is not None:
         out["connection_name"] = data["ConnectionName"]
     else:
-        raise DeserializationError("DirectJDBCSource.connection_name required")
+        out["connection_name"] = ""
     if data.get("ConnectionType") is not None:
         import capo_glue.types.jdbc_connection_type
 
@@ -84,7 +82,11 @@ def deserialize_aws_json_1_1(data: dict) -> DirectJDBCSource:
             )
         )
     else:
-        raise DeserializationError("DirectJDBCSource.connection_type required")
+        import typing
+
+        out["connection_type"] = typing.cast(
+            "capo_glue.types.jdbc_connection_type.JDBCConnectionType", ""
+        )
     if data.get("RedshiftTmpDir") is not None:
         out["redshift_tmp_dir"] = data["RedshiftTmpDir"]
     if data.get("OutputSchemas") is not None:

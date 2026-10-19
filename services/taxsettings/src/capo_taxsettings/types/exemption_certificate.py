@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_taxsettings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_taxsettings.types.exemption_document_name
     import capo_taxsettings.types.exemption_file_blob
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> ExemptionCertificate:
     if data.get("documentName") is not None:
         out["document_name"] = data["documentName"]
     else:
-        raise DeserializationError("ExemptionCertificate.document_name required")
+        out["document_name"] = ""
     if data.get("documentFile") is not None:
         import capo_taxsettings.types.exemption_file_blob
 
@@ -47,5 +45,5 @@ def deserialize_json(data: dict) -> ExemptionCertificate:
             )
         )
     else:
-        raise DeserializationError("ExemptionCertificate.document_file required")
+        out["document_file"] = b""
     return out

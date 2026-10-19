@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.column_name
     import capo_cleanrooms.types.column_type_string
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> SnowflakeTableSchemaV1:
     if data.get("columnName") is not None:
         out["column_name"] = data["columnName"]
     else:
-        raise DeserializationError("SnowflakeTableSchemaV1.column_name required")
+        out["column_name"] = ""
     if data.get("columnType") is not None:
         out["column_type"] = data["columnType"]
     else:
-        raise DeserializationError("SnowflakeTableSchemaV1.column_type required")
+        out["column_type"] = ""
     return out

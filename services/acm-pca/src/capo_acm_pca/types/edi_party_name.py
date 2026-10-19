@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_acm_pca.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm_pca.types.string256
 
@@ -31,7 +29,7 @@ def deserialize_aws_json_1_1(data: dict) -> EdiPartyName:
     if data.get("PartyName") is not None:
         out["party_name"] = data["PartyName"]
     else:
-        raise DeserializationError("EdiPartyName.party_name required")
+        out["party_name"] = ""
     if data.get("NameAssigner") is not None:
         out["name_assigner"] = data["NameAssigner"]
     return out

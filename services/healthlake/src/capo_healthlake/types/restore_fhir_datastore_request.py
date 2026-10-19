@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.analytics_configuration
     import capo_healthlake.types.client_token_string
@@ -125,9 +123,7 @@ def deserialize_aws_json_1_0(data: dict) -> RestoreFHIRDatastoreRequest:
     if data.get("SourceDatastoreId") is not None:
         out["source_datastore_id"] = data["SourceDatastoreId"]
     else:
-        raise DeserializationError(
-            "RestoreFHIRDatastoreRequest.source_datastore_id required"
-        )
+        out["source_datastore_id"] = ""
     if data.get("RestoreConfiguration") is not None:
         import capo_healthlake.types.restore_configuration
 
@@ -137,8 +133,10 @@ def deserialize_aws_json_1_0(data: dict) -> RestoreFHIRDatastoreRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "RestoreFHIRDatastoreRequest.restore_configuration required"
+        import capo_healthlake.types._unknown
+
+        out["restore_configuration"] = (
+            capo_healthlake.types._unknown.UnknownUnionMember("")
         )
     if data.get("DatastoreName") is not None:
         out["datastore_name"] = data["DatastoreName"]

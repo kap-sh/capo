@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.resource_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetStaticIpRequest:
     if data.get("staticIpName") is not None:
         out["static_ip_name"] = data["staticIpName"]
     else:
-        raise DeserializationError("GetStaticIpRequest.static_ip_name required")
+        out["static_ip_name"] = ""
     return out

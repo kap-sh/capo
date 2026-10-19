@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.boolean_object
     import capo_firehose.types.delivery_stream_name_list
@@ -45,13 +43,9 @@ def deserialize_aws_json_1_1(data: dict) -> ListDeliveryStreamsOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListDeliveryStreamsOutput.delivery_stream_names required"
-        )
+        out["delivery_stream_names"] = []
     if data.get("HasMoreDeliveryStreams") is not None:
         out["has_more_delivery_streams"] = data["HasMoreDeliveryStreams"]
     else:
-        raise DeserializationError(
-            "ListDeliveryStreamsOutput.has_more_delivery_streams required"
-        )
+        out["has_more_delivery_streams"] = False
     return out

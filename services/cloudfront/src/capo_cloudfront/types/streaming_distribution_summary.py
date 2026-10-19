@@ -82,17 +82,17 @@ def deserialize_xml(el: Element) -> StreamingDistributionSummary:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("StreamingDistributionSummary.id required")
+        out["id"] = ""
     child_arn = el.find("ARN")
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("StreamingDistributionSummary.arn required")
+        out["arn"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         out["status"] = str(child_status.text or "")
     else:
-        raise DeserializationError("StreamingDistributionSummary.status required")
+        out["status"] = ""
     child_last_modified_time = el.find("LastModifiedTime")
     if child_last_modified_time is not None:
         import capo_cloudfront.types.timestamp
@@ -101,14 +101,16 @@ def deserialize_xml(el: Element) -> StreamingDistributionSummary:
             child_last_modified_time
         )
     else:
-        raise DeserializationError(
-            "StreamingDistributionSummary.last_modified_time required"
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     child_domain_name = el.find("DomainName")
     if child_domain_name is not None:
         out["domain_name"] = str(child_domain_name.text or "")
     else:
-        raise DeserializationError("StreamingDistributionSummary.domain_name required")
+        out["domain_name"] = ""
     child_s3_origin = el.find("S3Origin")
     if child_s3_origin is not None:
         import capo_cloudfront.types.s3_origin
@@ -140,7 +142,7 @@ def deserialize_xml(el: Element) -> StreamingDistributionSummary:
     if child_comment is not None:
         out["comment"] = str(child_comment.text or "")
     else:
-        raise DeserializationError("StreamingDistributionSummary.comment required")
+        out["comment"] = ""
     child_price_class = el.find("PriceClass")
     if child_price_class is not None:
         import capo_cloudfront.types.price_class
@@ -149,10 +151,14 @@ def deserialize_xml(el: Element) -> StreamingDistributionSummary:
             child_price_class
         )
     else:
-        raise DeserializationError("StreamingDistributionSummary.price_class required")
+        import typing
+
+        out["price_class"] = typing.cast(
+            "capo_cloudfront.types.price_class.PriceClass", ""
+        )
     child_enabled = el.find("Enabled")
     if child_enabled is not None:
         out["enabled"] = (child_enabled.text or "").lower() == "true"
     else:
-        raise DeserializationError("StreamingDistributionSummary.enabled required")
+        out["enabled"] = False
     return out

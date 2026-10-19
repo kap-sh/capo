@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_elementalinference.errors import DeserializationError
-
 
 class AspectRatio(TypedDict, closed=True):
     width: "int"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> AspectRatio:
     if data.get("width") is not None:
         out["width"] = data["width"]
     else:
-        raise DeserializationError("AspectRatio.width required")
+        out["width"] = 0
     if data.get("height") is not None:
         out["height"] = data["height"]
     else:
-        raise DeserializationError("AspectRatio.height required")
+        out["height"] = 0
     return out

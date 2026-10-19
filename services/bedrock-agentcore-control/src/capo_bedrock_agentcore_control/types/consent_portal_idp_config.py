@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.allowed_audience_type
     import capo_bedrock_agentcore_control.types.allowed_scopes_type
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> ConsentPortalIdpConfig:
     if data.get("credentialProviderArn") is not None:
         out["credential_provider_arn"] = data["credentialProviderArn"]
     else:
-        raise DeserializationError(
-            "ConsentPortalIdpConfig.credential_provider_arn required"
-        )
+        out["credential_provider_arn"] = ""
     if data.get("scopes") is not None:
         import capo_bedrock_agentcore_control.types.allowed_scopes_type
 
@@ -56,7 +52,7 @@ def deserialize_json(data: dict) -> ConsentPortalIdpConfig:
             )
         )
     else:
-        raise DeserializationError("ConsentPortalIdpConfig.scopes required")
+        out["scopes"] = []
     if data.get("audience") is not None:
         out["audience"] = data["audience"]
     return out

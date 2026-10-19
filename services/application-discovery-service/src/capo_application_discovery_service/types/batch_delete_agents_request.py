@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_discovery_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_discovery_service.types.delete_agents
 
@@ -39,5 +37,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDeleteAgentsRequest:
             )
         )
     else:
-        raise DeserializationError("BatchDeleteAgentsRequest.delete_agents required")
+        out["delete_agents"] = []
     return out

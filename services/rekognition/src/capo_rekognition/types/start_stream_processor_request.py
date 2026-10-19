@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.stream_processing_start_selector
     import capo_rekognition.types.stream_processing_stop_selector
@@ -53,7 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartStreamProcessorRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("StartStreamProcessorRequest.name required")
+        out["name"] = ""
     if data.get("StartSelector") is not None:
         import capo_rekognition.types.stream_processing_start_selector
 

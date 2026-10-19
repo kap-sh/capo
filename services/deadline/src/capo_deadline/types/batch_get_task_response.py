@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.batch_get_task_errors
     import capo_deadline.types.batch_get_task_items
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> BatchGetTaskResponse:
             data["tasks"]
         )
     else:
-        raise DeserializationError("BatchGetTaskResponse.tasks required")
+        out["tasks"] = []
     if data.get("errors") is not None:
         import capo_deadline.types.batch_get_task_errors
 
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> BatchGetTaskResponse:
             data["errors"]
         )
     else:
-        raise DeserializationError("BatchGetTaskResponse.errors required")
+        out["errors"] = []
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.ops_data_type_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> OpsResultAttribute:
     if data.get("TypeName") is not None:
         out["type_name"] = data["TypeName"]
     else:
-        raise DeserializationError("OpsResultAttribute.type_name required")
+        out["type_name"] = ""
     return out

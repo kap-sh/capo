@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -58,7 +56,9 @@ def deserialize_json(data: dict) -> ListServiceStatesOutput:
             )
         )
     else:
-        raise DeserializationError("ListServiceStatesOutput.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_application_signals.types._prelude.timestamp
 
@@ -68,7 +68,9 @@ def deserialize_json(data: dict) -> ListServiceStatesOutput:
             )
         )
     else:
-        raise DeserializationError("ListServiceStatesOutput.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("ServiceStates") is not None:
         import capo_application_signals.types.service_states
 
@@ -78,7 +80,7 @@ def deserialize_json(data: dict) -> ListServiceStatesOutput:
             )
         )
     else:
-        raise DeserializationError("ListServiceStatesOutput.service_states required")
+        out["service_states"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

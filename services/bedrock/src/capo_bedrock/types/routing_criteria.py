@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 
 class RoutingCriteria(TypedDict, closed=True):
     response_quality_difference: "float"
@@ -30,7 +28,5 @@ def deserialize_json(data: dict) -> RoutingCriteria:
     if data.get("responseQualityDifference") is not None:
         out["response_quality_difference"] = float(data["responseQualityDifference"])
     else:
-        raise DeserializationError(
-            "RoutingCriteria.response_quality_difference required"
-        )
+        out["response_quality_difference"] = 0.0
     return out

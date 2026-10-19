@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.azure_dev_ops_organization
     import capo_securityagent.types.provider_resource_name
@@ -36,13 +34,11 @@ def deserialize_json(data: dict) -> AzureDevOpsRepositoryResource:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AzureDevOpsRepositoryResource.name required")
+        out["name"] = ""
     if data.get("organization") is not None:
         out["organization"] = data["organization"]
     else:
-        raise DeserializationError(
-            "AzureDevOpsRepositoryResource.organization required"
-        )
+        out["organization"] = ""
     if data.get("project") is not None:
         out["project"] = data["project"]
     return out

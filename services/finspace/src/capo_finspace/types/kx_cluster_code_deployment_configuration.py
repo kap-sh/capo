@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_finspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace.types.kx_cluster_code_deployment_strategy
 
@@ -39,7 +37,10 @@ def deserialize_json(data: dict) -> KxClusterCodeDeploymentConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "KxClusterCodeDeploymentConfiguration.deployment_strategy required"
+        import typing
+
+        out["deployment_strategy"] = typing.cast(
+            "capo_finspace.types.kx_cluster_code_deployment_strategy.KxClusterCodeDeploymentStrategy",
+            "",
         )
     return out

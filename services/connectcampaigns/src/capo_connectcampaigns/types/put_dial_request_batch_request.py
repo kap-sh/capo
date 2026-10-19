@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_connectcampaigns.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaigns.types.campaign_id
     import capo_connectcampaigns.types.dial_request_list
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> PutDialRequestBatchRequest:
             )
         )
     else:
-        raise DeserializationError("PutDialRequestBatchRequest.dial_requests required")
+        out["dial_requests"] = []
     return out
 
 

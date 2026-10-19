@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.batch_describe_arn_list
     import capo_inspector.types.locale
@@ -50,9 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeRulesPackagesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeRulesPackagesRequest.rules_package_arns required"
-        )
+        out["rules_package_arns"] = []
     if data.get("locale") is not None:
         import capo_inspector.types.locale
 

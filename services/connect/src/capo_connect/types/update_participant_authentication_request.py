@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.authentication_error
     import capo_connect.types.authentication_error_description
@@ -48,15 +46,11 @@ def deserialize_json(data: dict) -> UpdateParticipantAuthenticationRequest:
     if data.get("State") is not None:
         out["state"] = data["State"]
     else:
-        raise DeserializationError(
-            "UpdateParticipantAuthenticationRequest.state required"
-        )
+        out["state"] = ""
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError(
-            "UpdateParticipantAuthenticationRequest.instance_id required"
-        )
+        out["instance_id"] = ""
     if data.get("Code") is not None:
         out["code"] = data["Code"]
     if data.get("Error") is not None:

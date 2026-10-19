@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_repostspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_repostspace.types.spaces_list
 
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> ListSpacesOutput:
             data["spaces"]
         )
     else:
-        raise DeserializationError("ListSpacesOutput.spaces required")
+        out["spaces"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

@@ -103,15 +103,15 @@ def deserialize_aws_json_1_0(data: dict) -> Cluster:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Cluster.name required")
+        out["name"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("Cluster.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("Cluster.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_pcs.types.cluster_status
 
@@ -119,7 +119,9 @@ def deserialize_aws_json_1_0(data: dict) -> Cluster:
             data["status"]
         )
     else:
-        raise DeserializationError("Cluster.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_pcs.types.cluster_status.ClusterStatus", "")
     if data.get("createdAt") is not None:
         import datetime
 
@@ -127,7 +129,9 @@ def deserialize_aws_json_1_0(data: dict) -> Cluster:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("Cluster.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("modifiedAt") is not None:
         import datetime
 
@@ -135,7 +139,11 @@ def deserialize_aws_json_1_0(data: dict) -> Cluster:
             data["modifiedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("Cluster.modified_at required")
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("scheduler") is not None:
         import capo_pcs.types.scheduler
 
@@ -149,7 +157,9 @@ def deserialize_aws_json_1_0(data: dict) -> Cluster:
 
         out["size"] = capo_pcs.types.size.deserialize_aws_json_1_0(data["size"])
     else:
-        raise DeserializationError("Cluster.size required")
+        import typing
+
+        out["size"] = typing.cast("capo_pcs.types.size.Size", "")
     if data.get("slurmConfiguration") is not None:
         import capo_pcs.types.cluster_slurm_configuration
 

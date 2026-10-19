@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.resource_id
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteCloudAutonomousVmClusterInput:
     if data.get("cloudAutonomousVmClusterId") is not None:
         out["cloud_autonomous_vm_cluster_id"] = data["cloudAutonomousVmClusterId"]
     else:
-        raise DeserializationError(
-            "DeleteCloudAutonomousVmClusterInput.cloud_autonomous_vm_cluster_id required"
-        )
+        out["cloud_autonomous_vm_cluster_id"] = ""
     return out

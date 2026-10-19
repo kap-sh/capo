@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.contact_interaction_type
 
@@ -41,7 +39,9 @@ def deserialize_json(data: dict) -> EvaluationFormTargetConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "EvaluationFormTargetConfiguration.contact_interaction_type required"
+        import typing
+
+        out["contact_interaction_type"] = typing.cast(
+            "capo_connect.types.contact_interaction_type.ContactInteractionType", ""
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_query.types.amazon_resource_name
     import capo_timestream_query.types.error_report_configuration
@@ -109,11 +107,11 @@ def deserialize_aws_json_1_0(data: dict) -> ScheduledQuery:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("ScheduledQuery.arn required")
+        out["arn"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ScheduledQuery.name required")
+        out["name"] = ""
     if data.get("CreationTime") is not None:
         import capo_timestream_query.types.time
 
@@ -131,7 +129,11 @@ def deserialize_aws_json_1_0(data: dict) -> ScheduledQuery:
             )
         )
     else:
-        raise DeserializationError("ScheduledQuery.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_timestream_query.types.scheduled_query_state.ScheduledQueryState", ""
+        )
     if data.get("PreviousInvocationTime") is not None:
         import capo_timestream_query.types.time
 

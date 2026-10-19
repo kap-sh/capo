@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.bounded_string
     import capo_marketplace_discovery.types.dimension_label_list
@@ -55,11 +53,11 @@ def deserialize_json(data: dict) -> RateCardItem:
     if data.get("dimensionKey") is not None:
         out["dimension_key"] = data["dimensionKey"]
     else:
-        raise DeserializationError("RateCardItem.dimension_key required")
+        out["dimension_key"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("RateCardItem.display_name required")
+        out["display_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("dimensionLabels") is not None:
@@ -73,9 +71,9 @@ def deserialize_json(data: dict) -> RateCardItem:
     if data.get("unit") is not None:
         out["unit"] = data["unit"]
     else:
-        raise DeserializationError("RateCardItem.unit required")
+        out["unit"] = ""
     if data.get("price") is not None:
         out["price"] = data["price"]
     else:
-        raise DeserializationError("RateCardItem.price required")
+        out["price"] = ""
     return out

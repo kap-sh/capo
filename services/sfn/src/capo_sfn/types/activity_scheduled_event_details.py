@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.arn
     import capo_sfn.types.history_event_execution_data_details
@@ -58,7 +56,7 @@ def deserialize_aws_json_1_0(data: dict) -> ActivityScheduledEventDetails:
     if data.get("resource") is not None:
         out["resource"] = data["resource"]
     else:
-        raise DeserializationError("ActivityScheduledEventDetails.resource required")
+        out["resource"] = ""
     if data.get("input") is not None:
         out["input"] = data["input"]
     if data.get("inputDetails") is not None:

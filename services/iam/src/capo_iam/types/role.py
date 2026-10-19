@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -114,22 +113,22 @@ def deserialize_query(el: Element) -> Role:
     if child_path is not None:
         out["path"] = str(child_path.text or "")
     else:
-        raise DeserializationError("Role.path required")
+        out["path"] = ""
     child_role_name = el.find("RoleName")
     if child_role_name is not None:
         out["role_name"] = str(child_role_name.text or "")
     else:
-        raise DeserializationError("Role.role_name required")
+        out["role_name"] = ""
     child_role_id = el.find("RoleId")
     if child_role_id is not None:
         out["role_id"] = str(child_role_id.text or "")
     else:
-        raise DeserializationError("Role.role_id required")
+        out["role_id"] = ""
     child_arn = el.find("Arn")
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("Role.arn required")
+        out["arn"] = ""
     child_create_date = el.find("CreateDate")
     if child_create_date is not None:
         import capo_iam.types.date_type
@@ -138,7 +137,11 @@ def deserialize_query(el: Element) -> Role:
             child_create_date
         )
     else:
-        raise DeserializationError("Role.create_date required")
+        import datetime
+
+        out["create_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_assume_role_policy_document = el.find("AssumeRolePolicyDocument")
     if child_assume_role_policy_document is not None:
         out["assume_role_policy_document"] = str(

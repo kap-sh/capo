@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.large_token
     import capo_location.types.list_geofence_response_entry_list
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> ListGeofencesResponse:
             )
         )
     else:
-        raise DeserializationError("ListGeofencesResponse.entries required")
+        out["entries"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

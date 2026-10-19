@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_finspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace.types.cluster_node_count
     import capo_finspace.types.cpu_count
@@ -52,21 +50,17 @@ def deserialize_json(data: dict) -> KxScalingGroupConfiguration:
     if data.get("scalingGroupName") is not None:
         out["scaling_group_name"] = data["scalingGroupName"]
     else:
-        raise DeserializationError(
-            "KxScalingGroupConfiguration.scaling_group_name required"
-        )
+        out["scaling_group_name"] = ""
     if data.get("memoryLimit") is not None:
         out["memory_limit"] = data["memoryLimit"]
     if data.get("memoryReservation") is not None:
         out["memory_reservation"] = data["memoryReservation"]
     else:
-        raise DeserializationError(
-            "KxScalingGroupConfiguration.memory_reservation required"
-        )
+        out["memory_reservation"] = 0
     if data.get("nodeCount") is not None:
         out["node_count"] = data["nodeCount"]
     else:
-        raise DeserializationError("KxScalingGroupConfiguration.node_count required")
+        out["node_count"] = 0
     if data.get("cpu") is not None:
         out["cpu"] = float(data["cpu"])
     return out

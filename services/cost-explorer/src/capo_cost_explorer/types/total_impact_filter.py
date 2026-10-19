@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cost_explorer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cost_explorer.types.generic_double
     import capo_cost_explorer.types.numeric_operator
@@ -62,7 +60,11 @@ def deserialize_aws_json_1_1(data: dict) -> TotalImpactFilter:
             )
         )
     else:
-        raise DeserializationError("TotalImpactFilter.numeric_operator required")
+        import typing
+
+        out["numeric_operator"] = typing.cast(
+            "capo_cost_explorer.types.numeric_operator.NumericOperator", ""
+        )
     if data.get("StartValue") is not None:
         out["start_value"] = float(data["StartValue"])
     else:

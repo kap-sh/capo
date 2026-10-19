@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.application_version_change_details
     import capo_kinesis_analytics_v2.types.operation
@@ -74,7 +72,7 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationOperationInfoDetails:
     if data.get("Operation") is not None:
         out["operation"] = data["Operation"]
     else:
-        raise DeserializationError("ApplicationOperationInfoDetails.operation required")
+        out["operation"] = ""
     if data.get("StartTime") is not None:
         import capo_kinesis_analytics_v2.types.timestamp
 
@@ -84,9 +82,9 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationOperationInfoDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "ApplicationOperationInfoDetails.start_time required"
-        )
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_kinesis_analytics_v2.types.timestamp
 
@@ -96,7 +94,9 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationOperationInfoDetails:
             )
         )
     else:
-        raise DeserializationError("ApplicationOperationInfoDetails.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("OperationStatus") is not None:
         import capo_kinesis_analytics_v2.types.operation_status
 
@@ -106,8 +106,10 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationOperationInfoDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "ApplicationOperationInfoDetails.operation_status required"
+        import typing
+
+        out["operation_status"] = typing.cast(
+            "capo_kinesis_analytics_v2.types.operation_status.OperationStatus", ""
         )
     if data.get("ApplicationVersionChangeDetails") is not None:
         import capo_kinesis_analytics_v2.types.application_version_change_details

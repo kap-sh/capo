@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codestar_connections.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codestar_connections.types.branch_name
     import capo_codestar_connections.types.directory
@@ -53,19 +51,19 @@ def deserialize_aws_json_1_0(data: dict) -> Revision:
     if data.get("Branch") is not None:
         out["branch"] = data["Branch"]
     else:
-        raise DeserializationError("Revision.branch required")
+        out["branch"] = ""
     if data.get("Directory") is not None:
         out["directory"] = data["Directory"]
     else:
-        raise DeserializationError("Revision.directory required")
+        out["directory"] = ""
     if data.get("OwnerId") is not None:
         out["owner_id"] = data["OwnerId"]
     else:
-        raise DeserializationError("Revision.owner_id required")
+        out["owner_id"] = ""
     if data.get("RepositoryName") is not None:
         out["repository_name"] = data["RepositoryName"]
     else:
-        raise DeserializationError("Revision.repository_name required")
+        out["repository_name"] = ""
     if data.get("ProviderType") is not None:
         import capo_codestar_connections.types.provider_type
 
@@ -75,9 +73,13 @@ def deserialize_aws_json_1_0(data: dict) -> Revision:
             )
         )
     else:
-        raise DeserializationError("Revision.provider_type required")
+        import typing
+
+        out["provider_type"] = typing.cast(
+            "capo_codestar_connections.types.provider_type.ProviderType", ""
+        )
     if data.get("Sha") is not None:
         out["sha"] = data["Sha"]
     else:
-        raise DeserializationError("Revision.sha required")
+        out["sha"] = ""
     return out

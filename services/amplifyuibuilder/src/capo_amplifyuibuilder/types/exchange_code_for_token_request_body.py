@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.sensitive_string
 
@@ -36,13 +34,11 @@ def deserialize_json(data: dict) -> ExchangeCodeForTokenRequestBody:
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("ExchangeCodeForTokenRequestBody.code required")
+        out["code"] = ""
     if data.get("redirectUri") is not None:
         out["redirect_uri"] = data["redirectUri"]
     else:
-        raise DeserializationError(
-            "ExchangeCodeForTokenRequestBody.redirect_uri required"
-        )
+        out["redirect_uri"] = ""
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
     return out

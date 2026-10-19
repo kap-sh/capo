@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 
 class StarterProfileSource(TypedDict, closed=True):
     starter_profile_name: "str"
@@ -22,5 +20,5 @@ def deserialize_aws_json_1_0(data: dict) -> StarterProfileSource:
     if data.get("StarterProfileName") is not None:
         out["starter_profile_name"] = data["StarterProfileName"]
     else:
-        raise DeserializationError("StarterProfileSource.starter_profile_name required")
+        out["starter_profile_name"] = ""
     return out

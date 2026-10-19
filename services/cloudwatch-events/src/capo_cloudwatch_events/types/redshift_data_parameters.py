@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_events.types.boolean
     import capo_cloudwatch_events.types.database
@@ -56,13 +54,13 @@ def deserialize_aws_json_1_1(data: dict) -> RedshiftDataParameters:
     if data.get("Database") is not None:
         out["database"] = data["Database"]
     else:
-        raise DeserializationError("RedshiftDataParameters.database required")
+        out["database"] = ""
     if data.get("DbUser") is not None:
         out["db_user"] = data["DbUser"]
     if data.get("Sql") is not None:
         out["sql"] = data["Sql"]
     else:
-        raise DeserializationError("RedshiftDataParameters.sql required")
+        out["sql"] = ""
     if data.get("StatementName") is not None:
         out["statement_name"] = data["StatementName"]
     if data.get("WithEvent") is not None:

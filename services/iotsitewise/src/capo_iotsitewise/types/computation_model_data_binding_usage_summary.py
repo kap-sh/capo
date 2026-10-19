@@ -53,9 +53,7 @@ def deserialize_json(data: dict) -> ComputationModelDataBindingUsageSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "ComputationModelDataBindingUsageSummary.computation_model_ids required"
-        )
+        out["computation_model_ids"] = []
     if data.get("matchedDataBinding") is not None:
         import capo_iotsitewise.types.matched_data_binding
 

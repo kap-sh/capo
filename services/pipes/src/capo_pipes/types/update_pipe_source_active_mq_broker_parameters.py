@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pipes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pipes.types.limit_max10000
     import capo_pipes.types.maximum_batching_window_in_seconds
@@ -53,9 +51,9 @@ def deserialize_json(data: dict) -> UpdatePipeSourceActiveMQBrokerParameters:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdatePipeSourceActiveMQBrokerParameters.credentials required"
-        )
+        import capo_pipes.types._unknown
+
+        out["credentials"] = capo_pipes.types._unknown.UnknownUnionMember("")
     if data.get("BatchSize") is not None:
         out["batch_size"] = data["BatchSize"]
     if data.get("MaximumBatchingWindowInSeconds") is not None:

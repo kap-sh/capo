@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudhsm_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudhsm_v2.types.cluster_id
     import capo_cloudhsm_v2.types.external_az
@@ -36,11 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateHsmRequest:
     if data.get("ClusterId") is not None:
         out["cluster_id"] = data["ClusterId"]
     else:
-        raise DeserializationError("CreateHsmRequest.cluster_id required")
+        out["cluster_id"] = ""
     if data.get("AvailabilityZone") is not None:
         out["availability_zone"] = data["AvailabilityZone"]
     else:
-        raise DeserializationError("CreateHsmRequest.availability_zone required")
+        out["availability_zone"] = ""
     if data.get("IpAddress") is not None:
         out["ip_address"] = data["IpAddress"]
     return out

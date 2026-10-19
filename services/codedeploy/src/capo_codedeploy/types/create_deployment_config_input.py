@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codedeploy.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codedeploy.types.compute_platform
     import capo_codedeploy.types.deployment_config_name
@@ -77,9 +75,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDeploymentConfigInput:
     if data.get("deploymentConfigName") is not None:
         out["deployment_config_name"] = data["deploymentConfigName"]
     else:
-        raise DeserializationError(
-            "CreateDeploymentConfigInput.deployment_config_name required"
-        )
+        out["deployment_config_name"] = ""
     if data.get("minimumHealthyHosts") is not None:
         import capo_codedeploy.types.minimum_healthy_hosts
 

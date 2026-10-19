@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.instance_url
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> ZendeskConnectorProfileProperties:
     if data.get("instanceUrl") is not None:
         out["instance_url"] = data["instanceUrl"]
     else:
-        raise DeserializationError(
-            "ZendeskConnectorProfileProperties.instance_url required"
-        )
+        out["instance_url"] = ""
     return out

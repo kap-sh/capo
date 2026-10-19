@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.new_relic_alert_policy_ids
     import capo_devops_agent.types.new_relic_api_key
@@ -77,11 +75,11 @@ def deserialize_json(data: dict) -> NewRelicApiKeyConfig:
     if data.get("apiKey") is not None:
         out["api_key"] = data["apiKey"]
     else:
-        raise DeserializationError("NewRelicApiKeyConfig.api_key required")
+        out["api_key"] = ""
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("NewRelicApiKeyConfig.account_id required")
+        out["account_id"] = ""
     if data.get("region") is not None:
         import capo_devops_agent.types.new_relic_region
 
@@ -89,7 +87,11 @@ def deserialize_json(data: dict) -> NewRelicApiKeyConfig:
             data["region"]
         )
     else:
-        raise DeserializationError("NewRelicApiKeyConfig.region required")
+        import typing
+
+        out["region"] = typing.cast(
+            "capo_devops_agent.types.new_relic_region.NewRelicRegion", ""
+        )
     if data.get("applicationIds") is not None:
         import capo_devops_agent.types.new_relic_application_ids
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.commitment_duration
     import capo_bedrock.types.idempotency_token
@@ -66,21 +64,15 @@ def deserialize_json(data: dict) -> CreateProvisionedModelThroughputRequest:
     if data.get("modelUnits") is not None:
         out["model_units"] = data["modelUnits"]
     else:
-        raise DeserializationError(
-            "CreateProvisionedModelThroughputRequest.model_units required"
-        )
+        out["model_units"] = 0
     if data.get("provisionedModelName") is not None:
         out["provisioned_model_name"] = data["provisionedModelName"]
     else:
-        raise DeserializationError(
-            "CreateProvisionedModelThroughputRequest.provisioned_model_name required"
-        )
+        out["provisioned_model_name"] = ""
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:
-        raise DeserializationError(
-            "CreateProvisionedModelThroughputRequest.model_id required"
-        )
+        out["model_id"] = ""
     if data.get("commitmentDuration") is not None:
         import capo_bedrock.types.commitment_duration
 

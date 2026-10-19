@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.entity_recognizer_annotations
     import capo_comprehend.types.entity_recognizer_augmented_manifests_list
@@ -110,9 +108,7 @@ def deserialize_aws_json_1_1(data: dict) -> EntityRecognizerInputDataConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "EntityRecognizerInputDataConfig.entity_types required"
-        )
+        out["entity_types"] = []
     if data.get("Documents") is not None:
         import capo_comprehend.types.entity_recognizer_documents
 

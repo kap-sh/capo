@@ -108,9 +108,7 @@ def deserialize_aws_json_1_0(
     if data.get("workflowId") is not None:
         out["workflow_id"] = data["workflowId"]
     else:
-        raise DeserializationError(
-            "StartChildWorkflowExecutionDecisionAttributes.workflow_id required"
-        )
+        out["workflow_id"] = ""
     if data.get("control") is not None:
         out["control"] = data["control"]
     if data.get("input") is not None:

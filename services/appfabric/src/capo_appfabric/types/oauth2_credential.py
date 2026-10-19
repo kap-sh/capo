@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_appfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appfabric.types.sensitive_string2048
     import capo_appfabric.types.string2048
@@ -31,11 +29,11 @@ def deserialize_json(data: dict) -> Oauth2Credential:
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
     else:
-        raise DeserializationError("Oauth2Credential.client_id required")
+        out["client_id"] = ""
     if data.get("clientSecret") is not None:
         out["client_secret"] = data["clientSecret"]
     else:
-        raise DeserializationError("Oauth2Credential.client_secret required")
+        out["client_secret"] = ""
     return out
 
 

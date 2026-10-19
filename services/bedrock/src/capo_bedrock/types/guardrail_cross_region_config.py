@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.guardrail_cross_region_guardrail_profile_identifier
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> GuardrailCrossRegionConfig:
     if data.get("guardrailProfileIdentifier") is not None:
         out["guardrail_profile_identifier"] = data["guardrailProfileIdentifier"]
     else:
-        raise DeserializationError(
-            "GuardrailCrossRegionConfig.guardrail_profile_identifier required"
-        )
+        out["guardrail_profile_identifier"] = ""
     return out

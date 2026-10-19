@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.auto_scaling_settings_update
     import capo_dynamodb.types.region_name
@@ -52,7 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> ReplicaAutoScalingUpdate:
     if data.get("RegionName") is not None:
         out["region_name"] = data["RegionName"]
     else:
-        raise DeserializationError("ReplicaAutoScalingUpdate.region_name required")
+        out["region_name"] = ""
     if data.get("ReplicaGlobalSecondaryIndexUpdates") is not None:
         import capo_dynamodb.types.replica_global_secondary_index_auto_scaling_update_list
 

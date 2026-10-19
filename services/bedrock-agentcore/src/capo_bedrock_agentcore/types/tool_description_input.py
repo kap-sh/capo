@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.recommendation_tool_name
     import capo_bedrock_agentcore.types.tool_description_config
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> ToolDescriptionInput:
     if data.get("toolName") is not None:
         out["tool_name"] = data["toolName"]
     else:
-        raise DeserializationError("ToolDescriptionInput.tool_name required")
+        out["tool_name"] = ""
     if data.get("toolDescription") is not None:
         import capo_bedrock_agentcore.types.tool_description_config
 
@@ -51,7 +49,11 @@ def deserialize_json(data: dict) -> ToolDescriptionInput:
             )
         )
     else:
-        raise DeserializationError("ToolDescriptionInput.tool_description required")
+        import capo_bedrock_agentcore.types._unknown
+
+        out["tool_description"] = (
+            capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
+        )
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.diversity_cap_type
     import capo_customer_profiles.types.diversity_target_expression
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> DiversityColumn:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DiversityColumn.name required")
+        out["name"] = ""
     if data.get("CapType") is not None:
         import capo_customer_profiles.types.diversity_cap_type
 
@@ -49,9 +47,13 @@ def deserialize_json(data: dict) -> DiversityColumn:
             )
         )
     else:
-        raise DeserializationError("DiversityColumn.cap_type required")
+        import typing
+
+        out["cap_type"] = typing.cast(
+            "capo_customer_profiles.types.diversity_cap_type.DiversityCapType", ""
+        )
     if data.get("Target") is not None:
         out["target"] = data["Target"]
     else:
-        raise DeserializationError("DiversityColumn.target required")
+        out["target"] = ""
     return out

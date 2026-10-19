@@ -39,7 +39,9 @@ def deserialize_json(data: dict) -> ListInsightsAnyStatusFilter:
 
         out["type"] = capo_devops_guru.types.insight_type.deserialize_json(data["Type"])
     else:
-        raise DeserializationError("ListInsightsAnyStatusFilter.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_devops_guru.types.insight_type.InsightType", "")
     if data.get("StartTimeRange") is not None:
         import capo_devops_guru.types.start_time_range
 

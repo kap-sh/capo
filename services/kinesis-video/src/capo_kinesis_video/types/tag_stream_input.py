@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_video.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_video.types.resource_arn
     import capo_kinesis_video.types.resource_tags
@@ -47,5 +45,5 @@ def deserialize_json(data: dict) -> TagStreamInput:
             data["Tags"]
         )
     else:
-        raise DeserializationError("TagStreamInput.tags required")
+        out["tags"] = {}
     return out

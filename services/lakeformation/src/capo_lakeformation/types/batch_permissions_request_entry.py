@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.condition
     import capo_lakeformation.types.data_lake_principal
@@ -76,7 +74,7 @@ def deserialize_json(data: dict) -> BatchPermissionsRequestEntry:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("BatchPermissionsRequestEntry.id required")
+        out["id"] = ""
     if data.get("Principal") is not None:
         import capo_lakeformation.types.data_lake_principal
 

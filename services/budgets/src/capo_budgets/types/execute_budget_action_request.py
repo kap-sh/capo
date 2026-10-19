@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_budgets.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_budgets.types.account_id
     import capo_budgets.types.action_id
@@ -41,15 +39,15 @@ def deserialize_aws_json_1_1(data: dict) -> ExecuteBudgetActionRequest:
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     else:
-        raise DeserializationError("ExecuteBudgetActionRequest.account_id required")
+        out["account_id"] = ""
     if data.get("BudgetName") is not None:
         out["budget_name"] = data["BudgetName"]
     else:
-        raise DeserializationError("ExecuteBudgetActionRequest.budget_name required")
+        out["budget_name"] = ""
     if data.get("ActionId") is not None:
         out["action_id"] = data["ActionId"]
     else:
-        raise DeserializationError("ExecuteBudgetActionRequest.action_id required")
+        out["action_id"] = ""
     if data.get("ExecutionType") is not None:
         import capo_budgets.types.execution_type
 
@@ -59,5 +57,9 @@ def deserialize_aws_json_1_1(data: dict) -> ExecuteBudgetActionRequest:
             )
         )
     else:
-        raise DeserializationError("ExecuteBudgetActionRequest.execution_type required")
+        import typing
+
+        out["execution_type"] = typing.cast(
+            "capo_budgets.types.execution_type.ExecutionType", ""
+        )
     return out

@@ -39,11 +39,11 @@ def deserialize_json(data: dict) -> CreateDataTableResponse:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("CreateDataTableResponse.id required")
+        out["id"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("CreateDataTableResponse.arn required")
+        out["arn"] = ""
     if data.get("LockVersion") is not None:
         import capo_connect.types.data_table_lock_version
 

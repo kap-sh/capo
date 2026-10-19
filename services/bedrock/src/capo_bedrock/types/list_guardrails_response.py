@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.guardrail_summaries
     import capo_bedrock.types.pagination_token
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> ListGuardrailsResponse:
             data["guardrails"]
         )
     else:
-        raise DeserializationError("ListGuardrailsResponse.guardrails required")
+        out["guardrails"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amp.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amp.types.scraper_components
     import capo_amp.types.scraper_id
@@ -55,9 +53,9 @@ def deserialize_json(data: dict) -> UpdateScraperLoggingConfigurationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateScraperLoggingConfigurationRequest.logging_destination required"
-        )
+        import capo_amp.types._unknown
+
+        out["logging_destination"] = capo_amp.types._unknown.UnknownUnionMember("")
     if data.get("scraperComponents") is not None:
         import capo_amp.types.scraper_components
 

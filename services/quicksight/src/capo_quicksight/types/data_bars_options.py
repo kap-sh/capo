@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.field_id
     import capo_quicksight.types.hex_color
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> DataBarsOptions:
     if data.get("FieldId") is not None:
         out["field_id"] = data["FieldId"]
     else:
-        raise DeserializationError("DataBarsOptions.field_id required")
+        out["field_id"] = ""
     if data.get("PositiveColor") is not None:
         out["positive_color"] = data["PositiveColor"]
     if data.get("NegativeColor") is not None:

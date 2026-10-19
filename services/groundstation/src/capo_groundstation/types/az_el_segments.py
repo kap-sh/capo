@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.angle_units
     import capo_groundstation.types.az_el_segment_list
@@ -43,7 +41,11 @@ def deserialize_json(data: dict) -> AzElSegments:
             data["angleUnit"]
         )
     else:
-        raise DeserializationError("AzElSegments.angle_unit required")
+        import typing
+
+        out["angle_unit"] = typing.cast(
+            "capo_groundstation.types.angle_units.AngleUnits", ""
+        )
     if data.get("azElSegmentList") is not None:
         import capo_groundstation.types.az_el_segment_list
 
@@ -53,5 +55,5 @@ def deserialize_json(data: dict) -> AzElSegments:
             )
         )
     else:
-        raise DeserializationError("AzElSegments.az_el_segment_list required")
+        out["az_el_segment_list"] = []
     return out

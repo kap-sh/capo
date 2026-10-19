@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_redshift_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_data.types.uuid
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> CancelStatementRequest:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("CancelStatementRequest.id required")
+        out["id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediapackagev2.types.container_type
     import capo_mediapackagev2.types.create_dash_manifests
@@ -158,9 +156,7 @@ def deserialize_json(data: dict) -> CreateOriginEndpointRequest:
     if data.get("OriginEndpointName") is not None:
         out["origin_endpoint_name"] = data["OriginEndpointName"]
     else:
-        raise DeserializationError(
-            "CreateOriginEndpointRequest.origin_endpoint_name required"
-        )
+        out["origin_endpoint_name"] = ""
     if data.get("ContainerType") is not None:
         import capo_mediapackagev2.types.container_type
 
@@ -170,8 +166,10 @@ def deserialize_json(data: dict) -> CreateOriginEndpointRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateOriginEndpointRequest.container_type required"
+        import typing
+
+        out["container_type"] = typing.cast(
+            "capo_mediapackagev2.types.container_type.ContainerType", ""
         )
     if data.get("Segment") is not None:
         import capo_mediapackagev2.types.segment

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.commit_id
     import capo_amplify.types.commit_message
@@ -86,19 +84,19 @@ def deserialize_json(data: dict) -> JobSummary:
     if data.get("jobArn") is not None:
         out["job_arn"] = data["jobArn"]
     else:
-        raise DeserializationError("JobSummary.job_arn required")
+        out["job_arn"] = ""
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("JobSummary.job_id required")
+        out["job_id"] = ""
     if data.get("commitId") is not None:
         out["commit_id"] = data["commitId"]
     else:
-        raise DeserializationError("JobSummary.commit_id required")
+        out["commit_id"] = ""
     if data.get("commitMessage") is not None:
         out["commit_message"] = data["commitMessage"]
     else:
-        raise DeserializationError("JobSummary.commit_message required")
+        out["commit_message"] = ""
     if data.get("commitTime") is not None:
         import capo_amplify.types.commit_time
 
@@ -106,7 +104,11 @@ def deserialize_json(data: dict) -> JobSummary:
             data["commitTime"]
         )
     else:
-        raise DeserializationError("JobSummary.commit_time required")
+        import datetime
+
+        out["commit_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("startTime") is not None:
         import capo_amplify.types.start_time
 
@@ -114,13 +116,17 @@ def deserialize_json(data: dict) -> JobSummary:
             data["startTime"]
         )
     else:
-        raise DeserializationError("JobSummary.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         import capo_amplify.types.job_status
 
         out["status"] = capo_amplify.types.job_status.deserialize_json(data["status"])
     else:
-        raise DeserializationError("JobSummary.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_amplify.types.job_status.JobStatus", "")
     if data.get("endTime") is not None:
         import capo_amplify.types.end_time
 
@@ -130,7 +136,9 @@ def deserialize_json(data: dict) -> JobSummary:
 
         out["job_type"] = capo_amplify.types.job_type.deserialize_json(data["jobType"])
     else:
-        raise DeserializationError("JobSummary.job_type required")
+        import typing
+
+        out["job_type"] = typing.cast("capo_amplify.types.job_type.JobType", "")
     if data.get("sourceUrl") is not None:
         out["source_url"] = data["sourceUrl"]
     if data.get("sourceUrlType") is not None:

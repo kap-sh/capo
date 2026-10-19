@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.object_id
 
@@ -33,13 +31,13 @@ def deserialize_aws_json_1_1(data: dict) -> PutFileOutput:
     if data.get("commitId") is not None:
         out["commit_id"] = data["commitId"]
     else:
-        raise DeserializationError("PutFileOutput.commit_id required")
+        out["commit_id"] = ""
     if data.get("blobId") is not None:
         out["blob_id"] = data["blobId"]
     else:
-        raise DeserializationError("PutFileOutput.blob_id required")
+        out["blob_id"] = ""
     if data.get("treeId") is not None:
         out["tree_id"] = data["treeId"]
     else:
-        raise DeserializationError("PutFileOutput.tree_id required")
+        out["tree_id"] = ""
     return out

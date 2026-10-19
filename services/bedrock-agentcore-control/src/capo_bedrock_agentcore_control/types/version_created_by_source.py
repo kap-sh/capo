@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 
 class VersionCreatedBySource(TypedDict, closed=True):
     name: "str"
@@ -26,7 +24,7 @@ def deserialize_json(data: dict) -> VersionCreatedBySource:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("VersionCreatedBySource.name required")
+        out["name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     return out

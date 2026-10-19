@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.encryption_decryption_attributes
     import capo_payment_cryptography_data.types.key_arn_or_key_alias_type
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> EncryptDataInput:
     if data.get("PlainText") is not None:
         out["plain_text"] = data["PlainText"]
     else:
-        raise DeserializationError("EncryptDataInput.plain_text required")
+        out["plain_text"] = ""
     if data.get("EncryptionAttributes") is not None:
         import capo_payment_cryptography_data.types.encryption_decryption_attributes
 
@@ -63,7 +61,11 @@ def deserialize_json(data: dict) -> EncryptDataInput:
             )
         )
     else:
-        raise DeserializationError("EncryptDataInput.encryption_attributes required")
+        import capo_payment_cryptography_data.types._unknown
+
+        out["encryption_attributes"] = (
+            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
+        )
     if data.get("WrappedKey") is not None:
         import capo_payment_cryptography_data.types.wrapped_key
 

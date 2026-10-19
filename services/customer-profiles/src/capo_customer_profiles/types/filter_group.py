@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.filter_dimension_list
     import capo_customer_profiles.types.type
@@ -41,7 +39,9 @@ def deserialize_json(data: dict) -> FilterGroup:
 
         out["type"] = capo_customer_profiles.types.type.deserialize_json(data["Type"])
     else:
-        raise DeserializationError("FilterGroup.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_customer_profiles.types.type.Type", "")
     if data.get("Dimensions") is not None:
         import capo_customer_profiles.types.filter_dimension_list
 
@@ -51,5 +51,5 @@ def deserialize_json(data: dict) -> FilterGroup:
             )
         )
     else:
-        raise DeserializationError("FilterGroup.dimensions required")
+        out["dimensions"] = []
     return out

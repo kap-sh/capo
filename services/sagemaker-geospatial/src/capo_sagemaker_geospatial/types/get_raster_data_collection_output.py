@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.data_collection_arn
     import capo_sagemaker_geospatial.types.data_collection_type
@@ -69,25 +67,23 @@ def deserialize_json(data: dict) -> GetRasterDataCollectionOutput:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("GetRasterDataCollectionOutput.name required")
+        out["name"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("GetRasterDataCollectionOutput.arn required")
+        out["arn"] = ""
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     else:
-        raise DeserializationError("GetRasterDataCollectionOutput.type required")
+        out["type"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("GetRasterDataCollectionOutput.description required")
+        out["description"] = ""
     if data.get("DescriptionPageUrl") is not None:
         out["description_page_url"] = data["DescriptionPageUrl"]
     else:
-        raise DeserializationError(
-            "GetRasterDataCollectionOutput.description_page_url required"
-        )
+        out["description_page_url"] = ""
     if data.get("SupportedFilters") is not None:
         import capo_sagemaker_geospatial.types.filter_list
 
@@ -97,9 +93,7 @@ def deserialize_json(data: dict) -> GetRasterDataCollectionOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetRasterDataCollectionOutput.supported_filters required"
-        )
+        out["supported_filters"] = []
     if data.get("ImageSourceBands") is not None:
         import capo_sagemaker_geospatial.types.image_source_band_list
 
@@ -109,9 +103,7 @@ def deserialize_json(data: dict) -> GetRasterDataCollectionOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetRasterDataCollectionOutput.image_source_bands required"
-        )
+        out["image_source_bands"] = []
     if data.get("Tags") is not None:
         import capo_sagemaker_geospatial.types.tags
 

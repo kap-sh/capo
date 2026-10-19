@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_sap.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_sap.types.backint_mode
 
@@ -38,9 +36,13 @@ def deserialize_json(data: dict) -> BackintConfig:
             data["BackintMode"]
         )
     else:
-        raise DeserializationError("BackintConfig.backint_mode required")
+        import typing
+
+        out["backint_mode"] = typing.cast(
+            "capo_ssm_sap.types.backint_mode.BackintMode", ""
+        )
     if data.get("EnsureNoBackupInProcess") is not None:
         out["ensure_no_backup_in_process"] = data["EnsureNoBackupInProcess"]
     else:
-        raise DeserializationError("BackintConfig.ensure_no_backup_in_process required")
+        out["ensure_no_backup_in_process"] = False
     return out

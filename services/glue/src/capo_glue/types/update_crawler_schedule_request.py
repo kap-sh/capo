@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.cron_expression
     import capo_glue.types.name_string
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateCrawlerScheduleRequest:
     if data.get("CrawlerName") is not None:
         out["crawler_name"] = data["CrawlerName"]
     else:
-        raise DeserializationError("UpdateCrawlerScheduleRequest.crawler_name required")
+        out["crawler_name"] = ""
     if data.get("Schedule") is not None:
         out["schedule"] = data["Schedule"]
     return out

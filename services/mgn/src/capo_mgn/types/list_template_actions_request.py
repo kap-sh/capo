@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.launch_configuration_template_id
     import capo_mgn.types.max_results_type
@@ -50,9 +48,7 @@ def deserialize_json(data: dict) -> ListTemplateActionsRequest:
     if data.get("launchConfigurationTemplateID") is not None:
         out["launch_configuration_template_id"] = data["launchConfigurationTemplateID"]
     else:
-        raise DeserializationError(
-            "ListTemplateActionsRequest.launch_configuration_template_id required"
-        )
+        out["launch_configuration_template_id"] = ""
     if data.get("filters") is not None:
         import capo_mgn.types.template_actions_request_filters
 

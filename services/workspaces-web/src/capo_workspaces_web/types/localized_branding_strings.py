@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.branding_safe_string_type
     import capo_workspaces_web.types.contact_link_url
@@ -71,13 +69,11 @@ def deserialize_json(data: dict) -> LocalizedBrandingStrings:
     if data.get("browserTabTitle") is not None:
         out["browser_tab_title"] = data["browserTabTitle"]
     else:
-        raise DeserializationError(
-            "LocalizedBrandingStrings.browser_tab_title required"
-        )
+        out["browser_tab_title"] = ""
     if data.get("welcomeText") is not None:
         out["welcome_text"] = data["welcomeText"]
     else:
-        raise DeserializationError("LocalizedBrandingStrings.welcome_text required")
+        out["welcome_text"] = ""
     if data.get("loginTitle") is not None:
         out["login_title"] = data["loginTitle"]
     if data.get("loginDescription") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.finding_arns
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> BatchGetCodeSnippetRequest:
             data["findingArns"]
         )
     else:
-        raise DeserializationError("BatchGetCodeSnippetRequest.finding_arns required")
+        out["finding_arns"] = []
     return out

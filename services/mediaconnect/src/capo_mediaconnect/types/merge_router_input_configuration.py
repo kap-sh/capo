@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.merge_router_input_protocol_configuration_list
     import capo_mediaconnect.types.router_network_interface_arn
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> MergeRouterInputConfiguration:
     if data.get("networkInterfaceArn") is not None:
         out["network_interface_arn"] = data["networkInterfaceArn"]
     else:
-        raise DeserializationError(
-            "MergeRouterInputConfiguration.network_interface_arn required"
-        )
+        out["network_interface_arn"] = ""
     if data.get("protocolConfigurations") is not None:
         import capo_mediaconnect.types.merge_router_input_protocol_configuration_list
 
@@ -54,15 +50,11 @@ def deserialize_json(data: dict) -> MergeRouterInputConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "MergeRouterInputConfiguration.protocol_configurations required"
-        )
+        out["protocol_configurations"] = []
     if data.get("mergeRecoveryWindowMilliseconds") is not None:
         out["merge_recovery_window_milliseconds"] = data[
             "mergeRecoveryWindowMilliseconds"
         ]
     else:
-        raise DeserializationError(
-            "MergeRouterInputConfiguration.merge_recovery_window_milliseconds required"
-        )
+        out["merge_recovery_window_milliseconds"] = 0
     return out

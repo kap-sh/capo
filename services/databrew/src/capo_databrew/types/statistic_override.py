@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.parameter_map
     import capo_databrew.types.statistic
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> StatisticOverride:
     if data.get("Statistic") is not None:
         out["statistic"] = data["Statistic"]
     else:
-        raise DeserializationError("StatisticOverride.statistic required")
+        out["statistic"] = ""
     if data.get("Parameters") is not None:
         import capo_databrew.types.parameter_map
 
@@ -43,5 +41,5 @@ def deserialize_json(data: dict) -> StatisticOverride:
             data["Parameters"]
         )
     else:
-        raise DeserializationError("StatisticOverride.parameters required")
+        out["parameters"] = {}
     return out

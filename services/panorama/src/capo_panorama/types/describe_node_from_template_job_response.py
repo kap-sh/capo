@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.created_time
     import capo_panorama.types.description
@@ -97,21 +95,15 @@ def deserialize_json(data: dict) -> DescribeNodeFromTemplateJobResponse:
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError(
-            "DescribeNodeFromTemplateJobResponse.job_id required"
-        )
+        out["job_id"] = ""
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError(
-            "DescribeNodeFromTemplateJobResponse.status required"
-        )
+        out["status"] = ""
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
     else:
-        raise DeserializationError(
-            "DescribeNodeFromTemplateJobResponse.status_message required"
-        )
+        out["status_message"] = ""
     if data.get("CreatedTime") is not None:
         import capo_panorama.types.created_time
 
@@ -119,8 +111,10 @@ def deserialize_json(data: dict) -> DescribeNodeFromTemplateJobResponse:
             data["CreatedTime"]
         )
     else:
-        raise DeserializationError(
-            "DescribeNodeFromTemplateJobResponse.created_time required"
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("LastUpdatedTime") is not None:
         import capo_panorama.types.last_updated_time
@@ -131,35 +125,29 @@ def deserialize_json(data: dict) -> DescribeNodeFromTemplateJobResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeNodeFromTemplateJobResponse.last_updated_time required"
+        import datetime
+
+        out["last_updated_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("OutputPackageName") is not None:
         out["output_package_name"] = data["OutputPackageName"]
     else:
-        raise DeserializationError(
-            "DescribeNodeFromTemplateJobResponse.output_package_name required"
-        )
+        out["output_package_name"] = ""
     if data.get("OutputPackageVersion") is not None:
         out["output_package_version"] = data["OutputPackageVersion"]
     else:
-        raise DeserializationError(
-            "DescribeNodeFromTemplateJobResponse.output_package_version required"
-        )
+        out["output_package_version"] = ""
     if data.get("NodeName") is not None:
         out["node_name"] = data["NodeName"]
     else:
-        raise DeserializationError(
-            "DescribeNodeFromTemplateJobResponse.node_name required"
-        )
+        out["node_name"] = ""
     if data.get("NodeDescription") is not None:
         out["node_description"] = data["NodeDescription"]
     if data.get("TemplateType") is not None:
         out["template_type"] = data["TemplateType"]
     else:
-        raise DeserializationError(
-            "DescribeNodeFromTemplateJobResponse.template_type required"
-        )
+        out["template_type"] = ""
     if data.get("TemplateParameters") is not None:
         import capo_panorama.types.template_parameters_map
 
@@ -169,9 +157,7 @@ def deserialize_json(data: dict) -> DescribeNodeFromTemplateJobResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeNodeFromTemplateJobResponse.template_parameters required"
-        )
+        out["template_parameters"] = {}
     if data.get("JobTags") is not None:
         import capo_panorama.types.job_tags_list
 

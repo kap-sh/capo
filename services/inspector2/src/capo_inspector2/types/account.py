@@ -39,11 +39,11 @@ def deserialize_json(data: dict) -> Account:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("Account.account_id required")
+        out["account_id"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("Account.status required")
+        out["status"] = ""
     if data.get("resourceStatus") is not None:
         import capo_inspector2.types.resource_status
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_signin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_signin.types.account_id
     import capo_signin.types.introspected_token_type
@@ -82,9 +80,7 @@ def deserialize_json(data: dict) -> IntrospectOAuth2TokenWithIAMResponse:
     if data.get("active") is not None:
         out["active"] = data["active"]
     else:
-        raise DeserializationError(
-            "IntrospectOAuth2TokenWithIAMResponse.active required"
-        )
+        out["active"] = False
     if data.get("client_id") is not None:
         out["client_id"] = data["client_id"]
     if data.get("user_id") is not None:

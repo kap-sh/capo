@@ -78,5 +78,5 @@ def deserialize_aws_json_1_0(data: dict) -> CreditDetails:
             )
         )
     else:
-        raise DeserializationError("CreditDetails.codes required")
+        out["codes"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.add_key_entries
 
@@ -37,5 +35,5 @@ def deserialize_aws_json_1_1(data: dict) -> AddKeys:
             )
         )
     else:
-        raise DeserializationError("AddKeys.entries required")
+        out["entries"] = []
     return out

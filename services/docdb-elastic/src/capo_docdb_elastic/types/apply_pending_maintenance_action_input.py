@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_docdb_elastic.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_docdb_elastic.types.input_string
     import capo_docdb_elastic.types.opt_in_type
@@ -38,21 +36,15 @@ def deserialize_json(data: dict) -> ApplyPendingMaintenanceActionInput:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError(
-            "ApplyPendingMaintenanceActionInput.resource_arn required"
-        )
+        out["resource_arn"] = ""
     if data.get("applyAction") is not None:
         out["apply_action"] = data["applyAction"]
     else:
-        raise DeserializationError(
-            "ApplyPendingMaintenanceActionInput.apply_action required"
-        )
+        out["apply_action"] = ""
     if data.get("optInType") is not None:
         out["opt_in_type"] = data["optInType"]
     else:
-        raise DeserializationError(
-            "ApplyPendingMaintenanceActionInput.opt_in_type required"
-        )
+        out["opt_in_type"] = ""
     if data.get("applyOn") is not None:
         out["apply_on"] = data["applyOn"]
     return out

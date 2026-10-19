@@ -118,19 +118,15 @@ def deserialize_json(data: dict) -> GetConsentPortalResponse:
             )
         )
     else:
-        raise DeserializationError("GetConsentPortalResponse.sources required")
+        out["sources"] = []
     if data.get("consentPortalArn") is not None:
         out["consent_portal_arn"] = data["consentPortalArn"]
     else:
-        raise DeserializationError(
-            "GetConsentPortalResponse.consent_portal_arn required"
-        )
+        out["consent_portal_arn"] = ""
     if data.get("consentPortalId") is not None:
         out["consent_portal_id"] = data["consentPortalId"]
     else:
-        raise DeserializationError(
-            "GetConsentPortalResponse.consent_portal_id required"
-        )
+        out["consent_portal_id"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
 
@@ -140,15 +136,15 @@ def deserialize_json(data: dict) -> GetConsentPortalResponse:
             )
         )
     else:
-        raise DeserializationError("GetConsentPortalResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:
-        raise DeserializationError(
-            "GetConsentPortalResponse.execution_role_arn required"
-        )
+        out["execution_role_arn"] = ""
     if data.get("idpConfig") is not None:
         import capo_bedrock_agentcore_control.types.consent_portal_idp_config
 
@@ -162,7 +158,7 @@ def deserialize_json(data: dict) -> GetConsentPortalResponse:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetConsentPortalResponse.name required")
+        out["name"] = ""
     if data.get("portalUrl") is not None:
         out["portal_url"] = data["portalUrl"]
     if data.get("status") is not None:
@@ -174,7 +170,12 @@ def deserialize_json(data: dict) -> GetConsentPortalResponse:
             )
         )
     else:
-        raise DeserializationError("GetConsentPortalResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.consent_portal_status.ConsentPortalStatus",
+            "",
+        )
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
     if data.get("updatedAt") is not None:
@@ -186,5 +187,7 @@ def deserialize_json(data: dict) -> GetConsentPortalResponse:
             )
         )
     else:
-        raise DeserializationError("GetConsentPortalResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

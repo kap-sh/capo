@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.server_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateServerResponse:
     if data.get("ServerId") is not None:
         out["server_id"] = data["ServerId"]
     else:
-        raise DeserializationError("UpdateServerResponse.server_id required")
+        out["server_id"] = ""
     return out

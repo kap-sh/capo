@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_analytics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics.types.id
     import capo_kinesis_analytics.types.in_app_table_name
@@ -60,7 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> ReferenceDataSourceUpdate:
     if data.get("ReferenceId") is not None:
         out["reference_id"] = data["ReferenceId"]
     else:
-        raise DeserializationError("ReferenceDataSourceUpdate.reference_id required")
+        out["reference_id"] = ""
     if data.get("TableNameUpdate") is not None:
         out["table_name_update"] = data["TableNameUpdate"]
     if data.get("S3ReferenceDataSourceUpdate") is not None:

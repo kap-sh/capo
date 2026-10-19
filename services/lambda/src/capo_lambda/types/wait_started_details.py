@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.duration_seconds
     import capo_lambda.types.execution_timestamp
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> WaitStartedDetails:
     if data.get("Duration") is not None:
         out["duration"] = data["Duration"]
     else:
-        raise DeserializationError("WaitStartedDetails.duration required")
+        out["duration"] = 0
     if data.get("ScheduledEndTimestamp") is not None:
         import capo_lambda.types.execution_timestamp
 
@@ -45,7 +43,9 @@ def deserialize_json(data: dict) -> WaitStartedDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "WaitStartedDetails.scheduled_end_timestamp required"
+        import datetime
+
+        out["scheduled_end_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

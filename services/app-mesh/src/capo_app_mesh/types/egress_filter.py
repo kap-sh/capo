@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.egress_filter_type
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> EgressFilter:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("EgressFilter.type required")
+        out["type"] = ""
     return out

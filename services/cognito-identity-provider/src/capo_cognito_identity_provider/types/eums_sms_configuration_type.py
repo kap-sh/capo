@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.arn_type
     import capo_cognito_identity_provider.types.region_code_type
@@ -65,7 +63,7 @@ def deserialize_aws_json_1_1(data: dict) -> EumsSmsConfigurationType:
     if data.get("CallerArn") is not None:
         out["caller_arn"] = data["CallerArn"]
     else:
-        raise DeserializationError("EumsSmsConfigurationType.caller_arn required")
+        out["caller_arn"] = ""
     if data.get("ExternalId") is not None:
         out["external_id"] = data["ExternalId"]
     if data.get("OriginationIdentity") is not None:

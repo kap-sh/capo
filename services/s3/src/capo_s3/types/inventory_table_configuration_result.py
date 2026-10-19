@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.error_details
@@ -63,8 +62,11 @@ def deserialize_xml(el: Element) -> InventoryTableConfigurationResult:
             )
         )
     else:
-        raise DeserializationError(
-            "InventoryTableConfigurationResult.configuration_state required"
+        import typing
+
+        out["configuration_state"] = typing.cast(
+            "capo_s3.types.inventory_configuration_state.InventoryConfigurationState",
+            "",
         )
     child_table_status = el.find("TableStatus")
     if child_table_status is not None:

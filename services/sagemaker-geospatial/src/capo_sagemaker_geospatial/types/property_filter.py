@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.property
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> PropertyFilter:
             data["Property"]
         )
     else:
-        raise DeserializationError("PropertyFilter.property required")
+        import capo_sagemaker_geospatial.types._unknown
+
+        out["property"] = capo_sagemaker_geospatial.types._unknown.UnknownUnionMember(
+            ""
+        )
     return out

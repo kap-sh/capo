@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediapackagev2.types.idempotency_token
     import capo_mediapackagev2.types.resource_description
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> CreateChannelGroupRequest:
     if data.get("ChannelGroupName") is not None:
         out["channel_group_name"] = data["ChannelGroupName"]
     else:
-        raise DeserializationError(
-            "CreateChannelGroupRequest.channel_group_name required"
-        )
+        out["channel_group_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("tags") is not None:

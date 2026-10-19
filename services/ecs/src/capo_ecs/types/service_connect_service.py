@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.port_number
     import capo_ecs.types.service_connect_client_alias_list
@@ -71,7 +69,7 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceConnectService:
     if data.get("portName") is not None:
         out["port_name"] = data["portName"]
     else:
-        raise DeserializationError("ServiceConnectService.port_name required")
+        out["port_name"] = ""
     if data.get("discoveryName") is not None:
         out["discovery_name"] = data["discoveryName"]
     if data.get("clientAliases") is not None:

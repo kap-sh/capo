@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.comparison_operator
@@ -77,14 +76,12 @@ def deserialize_xml(el: Element) -> CloudWatchAlarmConfiguration:
     if child_evaluation_periods is not None:
         out["evaluation_periods"] = int(child_evaluation_periods.text or "")
     else:
-        raise DeserializationError(
-            "CloudWatchAlarmConfiguration.evaluation_periods required"
-        )
+        out["evaluation_periods"] = 0
     child_threshold = el.find("Threshold")
     if child_threshold is not None:
         out["threshold"] = float(child_threshold.text or "")
     else:
-        raise DeserializationError("CloudWatchAlarmConfiguration.threshold required")
+        out["threshold"] = 0.0
     child_comparison_operator = el.find("ComparisonOperator")
     if child_comparison_operator is not None:
         import capo_route_53.types.comparison_operator
@@ -95,24 +92,26 @@ def deserialize_xml(el: Element) -> CloudWatchAlarmConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "CloudWatchAlarmConfiguration.comparison_operator required"
+        import typing
+
+        out["comparison_operator"] = typing.cast(
+            "capo_route_53.types.comparison_operator.ComparisonOperator", ""
         )
     child_period = el.find("Period")
     if child_period is not None:
         out["period"] = int(child_period.text or "")
     else:
-        raise DeserializationError("CloudWatchAlarmConfiguration.period required")
+        out["period"] = 0
     child_metric_name = el.find("MetricName")
     if child_metric_name is not None:
         out["metric_name"] = str(child_metric_name.text or "")
     else:
-        raise DeserializationError("CloudWatchAlarmConfiguration.metric_name required")
+        out["metric_name"] = ""
     child_namespace = el.find("Namespace")
     if child_namespace is not None:
         out["namespace"] = str(child_namespace.text or "")
     else:
-        raise DeserializationError("CloudWatchAlarmConfiguration.namespace required")
+        out["namespace"] = ""
     child_statistic = el.find("Statistic")
     if child_statistic is not None:
         import capo_route_53.types.statistic
@@ -121,7 +120,9 @@ def deserialize_xml(el: Element) -> CloudWatchAlarmConfiguration:
             child_statistic
         )
     else:
-        raise DeserializationError("CloudWatchAlarmConfiguration.statistic required")
+        import typing
+
+        out["statistic"] = typing.cast("capo_route_53.types.statistic.Statistic", "")
     child_dimensions = el.find("Dimensions")
     if child_dimensions is not None:
         import capo_route_53.types.dimension_list

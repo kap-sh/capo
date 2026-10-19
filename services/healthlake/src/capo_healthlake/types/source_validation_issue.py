@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.validation_severity
 
@@ -64,11 +62,15 @@ def deserialize_aws_json_1_0(data: dict) -> SourceValidationIssue:
             )
         )
     else:
-        raise DeserializationError("SourceValidationIssue.severity required")
+        import typing
+
+        out["severity"] = typing.cast(
+            "capo_healthlake.types.validation_severity.ValidationSeverity", ""
+        )
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("SourceValidationIssue.message required")
+        out["message"] = ""
     if data.get("Field") is not None:
         out["field"] = data["Field"]
     if data.get("Code") is not None:

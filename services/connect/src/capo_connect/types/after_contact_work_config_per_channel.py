@@ -55,7 +55,9 @@ def deserialize_json(data: dict) -> AfterContactWorkConfigPerChannel:
 
         out["channel"] = capo_connect.types.channel.deserialize_json(data["Channel"])
     else:
-        raise DeserializationError("AfterContactWorkConfigPerChannel.channel required")
+        import typing
+
+        out["channel"] = typing.cast("capo_connect.types.channel.Channel", "")
     if data.get("AfterContactWorkConfig") is not None:
         import capo_connect.types.after_contact_work_config
 

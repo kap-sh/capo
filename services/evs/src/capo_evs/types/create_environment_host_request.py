@@ -47,9 +47,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateEnvironmentHostRequest:
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError(
-            "CreateEnvironmentHostRequest.environment_id required"
-        )
+        out["environment_id"] = ""
     if data.get("host") is not None:
         import capo_evs.types.host_info_for_create
 

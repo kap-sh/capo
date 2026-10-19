@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.analytics_utterance_filters
     import capo_lex_models_v2.types.id
@@ -79,8 +77,10 @@ def deserialize_json(data: dict) -> ListUtteranceAnalyticsDataRequest:
             data["startDateTime"]
         )
     else:
-        raise DeserializationError(
-            "ListUtteranceAnalyticsDataRequest.start_date_time required"
+        import datetime
+
+        out["start_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("endDateTime") is not None:
         import capo_lex_models_v2.types.timestamp
@@ -89,8 +89,10 @@ def deserialize_json(data: dict) -> ListUtteranceAnalyticsDataRequest:
             data["endDateTime"]
         )
     else:
-        raise DeserializationError(
-            "ListUtteranceAnalyticsDataRequest.end_date_time required"
+        import datetime
+
+        out["end_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("sortBy") is not None:
         import capo_lex_models_v2.types.utterance_data_sort_by

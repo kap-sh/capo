@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.bucket_name
@@ -81,12 +80,12 @@ def deserialize_xml(el: Element) -> S3Location:
     if child_bucket_name is not None:
         out["bucket_name"] = str(child_bucket_name.text or "")
     else:
-        raise DeserializationError("S3Location.bucket_name required")
+        out["bucket_name"] = ""
     child_prefix = el.find("Prefix")
     if child_prefix is not None:
         out["prefix"] = str(child_prefix.text or "")
     else:
-        raise DeserializationError("S3Location.prefix required")
+        out["prefix"] = ""
     child_encryption = el.find("Encryption")
     if child_encryption is not None:
         import capo_s3.types.encryption

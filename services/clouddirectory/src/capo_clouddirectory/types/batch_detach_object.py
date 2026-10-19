@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> BatchDetachObject:
     if data.get("LinkName") is not None:
         out["link_name"] = data["LinkName"]
     else:
-        raise DeserializationError("BatchDetachObject.link_name required")
+        out["link_name"] = ""
     if data.get("BatchReferenceName") is not None:
         out["batch_reference_name"] = data["BatchReferenceName"]
     return out

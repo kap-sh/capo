@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_acm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm.types.acme_endpoint_arn
 
@@ -30,11 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAcmeAccountRequest:
     if data.get("AcmeEndpointArn") is not None:
         out["acme_endpoint_arn"] = data["AcmeEndpointArn"]
     else:
-        raise DeserializationError(
-            "DescribeAcmeAccountRequest.acme_endpoint_arn required"
-        )
+        out["acme_endpoint_arn"] = ""
     if data.get("AccountUrl") is not None:
         out["account_url"] = data["AccountUrl"]
     else:
-        raise DeserializationError("DescribeAcmeAccountRequest.account_url required")
+        out["account_url"] = ""
     return out

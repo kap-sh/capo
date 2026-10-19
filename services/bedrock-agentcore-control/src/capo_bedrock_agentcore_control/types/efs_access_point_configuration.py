@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.efs_access_point_arn
     import capo_bedrock_agentcore_control.types.mount_path
@@ -33,11 +31,9 @@ def deserialize_json(data: dict) -> EfsAccessPointConfiguration:
     if data.get("accessPointArn") is not None:
         out["access_point_arn"] = data["accessPointArn"]
     else:
-        raise DeserializationError(
-            "EfsAccessPointConfiguration.access_point_arn required"
-        )
+        out["access_point_arn"] = ""
     if data.get("mountPath") is not None:
         out["mount_path"] = data["mountPath"]
     else:
-        raise DeserializationError("EfsAccessPointConfiguration.mount_path required")
+        out["mount_path"] = ""
     return out

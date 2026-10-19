@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.boxed_integer
     import capo_ecs.types.created_at
@@ -58,7 +56,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListDaemonDeploymentsRequest:
     if data.get("daemonArn") is not None:
         out["daemon_arn"] = data["daemonArn"]
     else:
-        raise DeserializationError("ListDaemonDeploymentsRequest.daemon_arn required")
+        out["daemon_arn"] = ""
     if data.get("status") is not None:
         import capo_ecs.types.daemon_deployment_status_list
 

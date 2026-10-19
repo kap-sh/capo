@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -51,21 +49,19 @@ def deserialize_json(data: dict) -> IdpAuthConfiguration:
     if data.get("issuerUrl") is not None:
         out["issuer_url"] = data["issuerUrl"]
     else:
-        raise DeserializationError("IdpAuthConfiguration.issuer_url required")
+        out["issuer_url"] = ""
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
     else:
-        raise DeserializationError("IdpAuthConfiguration.client_id required")
+        out["client_id"] = ""
     if data.get("operatorAppRoleArn") is not None:
         out["operator_app_role_arn"] = data["operatorAppRoleArn"]
     else:
-        raise DeserializationError(
-            "IdpAuthConfiguration.operator_app_role_arn required"
-        )
+        out["operator_app_role_arn"] = ""
     if data.get("provider") is not None:
         out["provider"] = data["provider"]
     else:
-        raise DeserializationError("IdpAuthConfiguration.provider required")
+        out["provider"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -73,7 +69,9 @@ def deserialize_json(data: dict) -> IdpAuthConfiguration:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("IdpAuthConfiguration.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import datetime
 

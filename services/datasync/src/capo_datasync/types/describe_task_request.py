@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.task_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeTaskRequest:
     if data.get("TaskArn") is not None:
         out["task_arn"] = data["TaskArn"]
     else:
-        raise DeserializationError("DescribeTaskRequest.task_arn required")
+        out["task_arn"] = ""
     return out

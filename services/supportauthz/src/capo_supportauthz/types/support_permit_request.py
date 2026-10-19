@@ -65,7 +65,7 @@ def deserialize_json(data: dict) -> SupportPermitRequest:
     if data.get("requestArn") is not None:
         out["request_arn"] = data["requestArn"]
     else:
-        raise DeserializationError("SupportPermitRequest.request_arn required")
+        out["request_arn"] = ""
     if data.get("permit") is not None:
         import capo_supportauthz.types.permit
 
@@ -75,9 +75,7 @@ def deserialize_json(data: dict) -> SupportPermitRequest:
     if data.get("supportCaseDisplayId") is not None:
         out["support_case_display_id"] = data["supportCaseDisplayId"]
     else:
-        raise DeserializationError(
-            "SupportPermitRequest.support_case_display_id required"
-        )
+        out["support_case_display_id"] = ""
     if data.get("status") is not None:
         import capo_supportauthz.types.support_permit_request_status
 
@@ -87,7 +85,12 @@ def deserialize_json(data: dict) -> SupportPermitRequest:
             )
         )
     else:
-        raise DeserializationError("SupportPermitRequest.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_supportauthz.types.support_permit_request_status.SupportPermitRequestStatus",
+            "",
+        )
     if data.get("createdAt") is not None:
         import capo_supportauthz.types._prelude.timestamp
 
@@ -95,7 +98,9 @@ def deserialize_json(data: dict) -> SupportPermitRequest:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("SupportPermitRequest.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_supportauthz.types._prelude.timestamp
 
@@ -103,5 +108,7 @@ def deserialize_json(data: dict) -> SupportPermitRequest:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("SupportPermitRequest.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

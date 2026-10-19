@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 
 class DataArtifact(TypedDict, closed=True):
     description: NotRequired["str"]
@@ -37,9 +35,9 @@ def deserialize_json(data: dict) -> DataArtifact:
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError("DataArtifact.resource_type required")
+        out["resource_type"] = ""
     if data.get("dataClassification") is not None:
         out["data_classification"] = data["dataClassification"]
     else:
-        raise DeserializationError("DataArtifact.data_classification required")
+        out["data_classification"] = ""
     return out

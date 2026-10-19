@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.boxed_boolean
     import capo_connect.types.client_token
@@ -138,15 +136,13 @@ def deserialize_json(data: dict) -> UpdateEvaluationFormRequest:
     if data.get("EvaluationFormVersion") is not None:
         out["evaluation_form_version"] = data["EvaluationFormVersion"]
     else:
-        raise DeserializationError(
-            "UpdateEvaluationFormRequest.evaluation_form_version required"
-        )
+        out["evaluation_form_version"] = 0
     if data.get("CreateNewVersion") is not None:
         out["create_new_version"] = data["CreateNewVersion"]
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     else:
-        raise DeserializationError("UpdateEvaluationFormRequest.title required")
+        out["title"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Items") is not None:
@@ -156,7 +152,7 @@ def deserialize_json(data: dict) -> UpdateEvaluationFormRequest:
             data["Items"]
         )
     else:
-        raise DeserializationError("UpdateEvaluationFormRequest.items required")
+        out["items"] = []
     if data.get("ScoringStrategy") is not None:
         import capo_connect.types.evaluation_form_scoring_strategy
 

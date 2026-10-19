@@ -47,5 +47,7 @@ def deserialize_json(data: dict) -> DataSetImportItem:
             data["externalLocation"]
         )
     else:
-        raise DeserializationError("DataSetImportItem.external_location required")
+        import capo_m2.types._unknown
+
+        out["external_location"] = capo_m2.types._unknown.UnknownUnionMember("")
     return out

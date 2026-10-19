@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.artifacts_url
     import capo_amplify.types.context
@@ -86,7 +84,7 @@ def deserialize_json(data: dict) -> Step:
     if data.get("stepName") is not None:
         out["step_name"] = data["stepName"]
     else:
-        raise DeserializationError("Step.step_name required")
+        out["step_name"] = ""
     if data.get("startTime") is not None:
         import capo_amplify.types.start_time
 
@@ -94,19 +92,25 @@ def deserialize_json(data: dict) -> Step:
             data["startTime"]
         )
     else:
-        raise DeserializationError("Step.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         import capo_amplify.types.job_status
 
         out["status"] = capo_amplify.types.job_status.deserialize_json(data["status"])
     else:
-        raise DeserializationError("Step.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_amplify.types.job_status.JobStatus", "")
     if data.get("endTime") is not None:
         import capo_amplify.types.end_time
 
         out["end_time"] = capo_amplify.types.end_time.deserialize_json(data["endTime"])
     else:
-        raise DeserializationError("Step.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("logUrl") is not None:
         out["log_url"] = data["logUrl"]
     if data.get("artifactsUrl") is not None:

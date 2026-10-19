@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_identity.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_identity.types.endpoint_status
     import capo_chime_sdk_identity.types.endpoint_status_reason
@@ -48,7 +46,11 @@ def deserialize_json(data: dict) -> EndpointState:
             data["Status"]
         )
     else:
-        raise DeserializationError("EndpointState.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_chime_sdk_identity.types.endpoint_status.EndpointStatus", ""
+        )
     if data.get("StatusReason") is not None:
         import capo_chime_sdk_identity.types.endpoint_status_reason
 

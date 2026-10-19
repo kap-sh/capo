@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.string
     import capo_athena.types.timestamp
@@ -38,11 +36,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetSessionEndpointResponse:
     if data.get("EndpointUrl") is not None:
         out["endpoint_url"] = data["EndpointUrl"]
     else:
-        raise DeserializationError("GetSessionEndpointResponse.endpoint_url required")
+        out["endpoint_url"] = ""
     if data.get("AuthToken") is not None:
         out["auth_token"] = data["AuthToken"]
     else:
-        raise DeserializationError("GetSessionEndpointResponse.auth_token required")
+        out["auth_token"] = ""
     if data.get("AuthTokenExpirationTime") is not None:
         import capo_athena.types.timestamp
 
@@ -52,7 +50,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetSessionEndpointResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetSessionEndpointResponse.auth_token_expiration_time required"
+        import datetime
+
+        out["auth_token_expiration_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

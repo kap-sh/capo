@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.domain_patterns
     import capo_bedrock_agentcore.types.host_name
@@ -56,11 +54,11 @@ def deserialize_json(data: dict) -> ExternalProxy:
     if data.get("server") is not None:
         out["server"] = data["server"]
     else:
-        raise DeserializationError("ExternalProxy.server required")
+        out["server"] = ""
     if data.get("port") is not None:
         out["port"] = data["port"]
     else:
-        raise DeserializationError("ExternalProxy.port required")
+        out["port"] = 0
     if data.get("domainPatterns") is not None:
         import capo_bedrock_agentcore.types.domain_patterns
 

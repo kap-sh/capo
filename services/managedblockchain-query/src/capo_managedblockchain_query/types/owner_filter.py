@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_managedblockchain_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_managedblockchain_query.types.chain_address
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> OwnerFilter:
     if data.get("address") is not None:
         out["address"] = data["address"]
     else:
-        raise DeserializationError("OwnerFilter.address required")
+        out["address"] = ""
     return out

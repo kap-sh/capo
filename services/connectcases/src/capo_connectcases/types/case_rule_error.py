@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.case_rule_id
 
@@ -34,11 +32,11 @@ def deserialize_json(data: dict) -> CaseRuleError:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CaseRuleError.id required")
+        out["id"] = ""
     if data.get("errorCode") is not None:
         out["error_code"] = data["errorCode"]
     else:
-        raise DeserializationError("CaseRuleError.error_code required")
+        out["error_code"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     return out

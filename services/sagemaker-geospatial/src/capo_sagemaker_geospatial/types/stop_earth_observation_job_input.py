@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.earth_observation_job_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> StopEarthObservationJobInput:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("StopEarthObservationJobInput.arn required")
+        out["arn"] = ""
     return out

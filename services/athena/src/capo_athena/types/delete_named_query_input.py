@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.named_query_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteNamedQueryInput:
     if data.get("NamedQueryId") is not None:
         out["named_query_id"] = data["NamedQueryId"]
     else:
-        raise DeserializationError("DeleteNamedQueryInput.named_query_id required")
+        out["named_query_id"] = ""
     return out

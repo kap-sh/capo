@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -30,7 +29,5 @@ def deserialize_query(el: Element) -> DeleteSAMLProviderRequest:
     if child_saml_provider_arn is not None:
         out["saml_provider_arn"] = str(child_saml_provider_arn.text or "")
     else:
-        raise DeserializationError(
-            "DeleteSAMLProviderRequest.saml_provider_arn required"
-        )
+        out["saml_provider_arn"] = ""
     return out

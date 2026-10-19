@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.access_control_list_configuration
     import capo_kendra.types.data_source_inclusions_exclusions_strings
@@ -89,7 +87,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3DataSourceConfiguration:
     if data.get("BucketName") is not None:
         out["bucket_name"] = data["BucketName"]
     else:
-        raise DeserializationError("S3DataSourceConfiguration.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("InclusionPrefixes") is not None:
         import capo_kendra.types.data_source_inclusions_exclusions_strings
 

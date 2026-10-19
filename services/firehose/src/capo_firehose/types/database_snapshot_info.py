@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.database_table_name
     import capo_firehose.types.failure_description
@@ -69,11 +67,11 @@ def deserialize_aws_json_1_1(data: dict) -> DatabaseSnapshotInfo:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("DatabaseSnapshotInfo.id required")
+        out["id"] = ""
     if data.get("Table") is not None:
         out["table"] = data["Table"]
     else:
-        raise DeserializationError("DatabaseSnapshotInfo.table required")
+        out["table"] = ""
     if data.get("RequestTimestamp") is not None:
         import capo_firehose.types.timestamp
 
@@ -83,7 +81,11 @@ def deserialize_aws_json_1_1(data: dict) -> DatabaseSnapshotInfo:
             )
         )
     else:
-        raise DeserializationError("DatabaseSnapshotInfo.request_timestamp required")
+        import datetime
+
+        out["request_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("RequestedBy") is not None:
         import capo_firehose.types.snapshot_requested_by
 
@@ -93,7 +95,11 @@ def deserialize_aws_json_1_1(data: dict) -> DatabaseSnapshotInfo:
             )
         )
     else:
-        raise DeserializationError("DatabaseSnapshotInfo.requested_by required")
+        import typing
+
+        out["requested_by"] = typing.cast(
+            "capo_firehose.types.snapshot_requested_by.SnapshotRequestedBy", ""
+        )
     if data.get("Status") is not None:
         import capo_firehose.types.snapshot_status
 
@@ -101,7 +107,11 @@ def deserialize_aws_json_1_1(data: dict) -> DatabaseSnapshotInfo:
             data["Status"]
         )
     else:
-        raise DeserializationError("DatabaseSnapshotInfo.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_firehose.types.snapshot_status.SnapshotStatus", ""
+        )
     if data.get("FailureDescription") is not None:
         import capo_firehose.types.failure_description
 

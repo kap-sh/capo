@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 
 class RegisteredAzureDevOpsServiceDetails(TypedDict, closed=True):
     organization_name: "str"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> RegisteredAzureDevOpsServiceDetails:
     if data.get("organizationName") is not None:
         out["organization_name"] = data["organizationName"]
     else:
-        raise DeserializationError(
-            "RegisteredAzureDevOpsServiceDetails.organization_name required"
-        )
+        out["organization_name"] = ""
     return out

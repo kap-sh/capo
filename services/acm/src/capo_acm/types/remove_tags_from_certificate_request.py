@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_acm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm.types.arn
     import capo_acm.types.tag_list
@@ -33,13 +31,11 @@ def deserialize_aws_json_1_1(data: dict) -> RemoveTagsFromCertificateRequest:
     if data.get("CertificateArn") is not None:
         out["certificate_arn"] = data["CertificateArn"]
     else:
-        raise DeserializationError(
-            "RemoveTagsFromCertificateRequest.certificate_arn required"
-        )
+        out["certificate_arn"] = ""
     if data.get("Tags") is not None:
         import capo_acm.types.tag_list
 
         out["tags"] = capo_acm.types.tag_list.deserialize_aws_json_1_1(data["Tags"])
     else:
-        raise DeserializationError("RemoveTagsFromCertificateRequest.tags required")
+        out["tags"] = []
     return out

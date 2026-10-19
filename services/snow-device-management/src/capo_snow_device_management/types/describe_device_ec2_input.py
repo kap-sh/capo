@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_snow_device_management.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_snow_device_management.types.instance_ids_list
     import capo_snow_device_management.types.managed_device_id
@@ -44,5 +42,5 @@ def deserialize_json(data: dict) -> DescribeDeviceEc2Input:
             )
         )
     else:
-        raise DeserializationError("DescribeDeviceEc2Input.instance_ids required")
+        out["instance_ids"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.catalog_identifier
     import capo_partnercentral_selling.types.opportunity_identifier
@@ -48,13 +46,11 @@ def deserialize_aws_json_1_0(data: dict) -> DisassociateOpportunityRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("DisassociateOpportunityRequest.catalog required")
+        out["catalog"] = ""
     if data.get("OpportunityIdentifier") is not None:
         out["opportunity_identifier"] = data["OpportunityIdentifier"]
     else:
-        raise DeserializationError(
-            "DisassociateOpportunityRequest.opportunity_identifier required"
-        )
+        out["opportunity_identifier"] = ""
     if data.get("RelatedEntityType") is not None:
         import capo_partnercentral_selling.types.related_entity_type
 
@@ -64,13 +60,14 @@ def deserialize_aws_json_1_0(data: dict) -> DisassociateOpportunityRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DisassociateOpportunityRequest.related_entity_type required"
+        import typing
+
+        out["related_entity_type"] = typing.cast(
+            "capo_partnercentral_selling.types.related_entity_type.RelatedEntityType",
+            "",
         )
     if data.get("RelatedEntityIdentifier") is not None:
         out["related_entity_identifier"] = data["RelatedEntityIdentifier"]
     else:
-        raise DeserializationError(
-            "DisassociateOpportunityRequest.related_entity_identifier required"
-        )
+        out["related_entity_identifier"] = ""
     return out

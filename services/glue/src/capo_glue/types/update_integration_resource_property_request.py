@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.source_processing_properties
     import capo_glue.types.string512
@@ -53,9 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateIntegrationResourcePropertyReq
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError(
-            "UpdateIntegrationResourcePropertyRequest.resource_arn required"
-        )
+        out["resource_arn"] = ""
     if data.get("SourceProcessingProperties") is not None:
         import capo_glue.types.source_processing_properties
 

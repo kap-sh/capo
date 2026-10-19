@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.connect_instance_arn
@@ -34,10 +33,10 @@ def deserialize_query(el: Element) -> ConnectAction:
     if child_instance_arn is not None:
         out["instance_arn"] = str(child_instance_arn.text or "")
     else:
-        raise DeserializationError("ConnectAction.instance_arn required")
+        out["instance_arn"] = ""
     child_iam_role_arn = el.find("IAMRoleARN")
     if child_iam_role_arn is not None:
         out["iam_role_arn"] = str(child_iam_role_arn.text or "")
     else:
-        raise DeserializationError("ConnectAction.iam_role_arn required")
+        out["iam_role_arn"] = ""
     return out

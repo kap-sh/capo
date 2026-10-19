@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.artifact_name
     import capo_codepipeline.types.file_path_list
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> OutputArtifact:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("OutputArtifact.name required")
+        out["name"] = ""
     if data.get("files") is not None:
         import capo_codepipeline.types.file_path_list
 

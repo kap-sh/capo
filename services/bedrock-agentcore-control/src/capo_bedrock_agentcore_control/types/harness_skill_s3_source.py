@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.harness_skill_s3_uri
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> HarnessSkillS3Source:
     if data.get("uri") is not None:
         out["uri"] = data["uri"]
     else:
-        raise DeserializationError("HarnessSkillS3Source.uri required")
+        out["uri"] = ""
     return out

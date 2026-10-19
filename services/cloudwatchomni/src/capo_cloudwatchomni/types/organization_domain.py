@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -121,17 +119,17 @@ def deserialize_cbor(data: dict) -> OrganizationDomain:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("OrganizationDomain.domain_id required")
+        out["domain_id"] = ""
     if data.get("domainArn") is not None:
         out["domain_arn"] = data["domainArn"]
     else:
-        raise DeserializationError("OrganizationDomain.domain_arn required")
+        out["domain_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("domainEndpointUrl") is not None:
         out["domain_endpoint_url"] = data["domainEndpointUrl"]
     else:
-        raise DeserializationError("OrganizationDomain.domain_endpoint_url required")
+        out["domain_endpoint_url"] = ""
     if data.get("customEndpointUrls") is not None:
         import capo_cloudwatchomni.types.string_list
 
@@ -143,11 +141,11 @@ def deserialize_cbor(data: dict) -> OrganizationDomain:
     if data.get("organizationId") is not None:
         out["organization_id"] = data["organizationId"]
     else:
-        raise DeserializationError("OrganizationDomain.organization_id required")
+        out["organization_id"] = ""
     if data.get("ownerAccountId") is not None:
         out["owner_account_id"] = data["ownerAccountId"]
     else:
-        raise DeserializationError("OrganizationDomain.owner_account_id required")
+        out["owner_account_id"] = ""
     if data.get("identityProviders") is not None:
         import capo_cloudwatchomni.types.identity_provider_list
 
@@ -157,7 +155,7 @@ def deserialize_cbor(data: dict) -> OrganizationDomain:
             )
         )
     else:
-        raise DeserializationError("OrganizationDomain.identity_providers required")
+        out["identity_providers"] = []
     if data.get("identityProviderConfiguration") is not None:
         import capo_cloudwatchomni.types.identity_provider_configuration
 
@@ -171,7 +169,7 @@ def deserialize_cbor(data: dict) -> OrganizationDomain:
     if data.get("region") is not None:
         out["region"] = data["region"]
     else:
-        raise DeserializationError("OrganizationDomain.region required")
+        out["region"] = ""
     if data.get("status") is not None:
         import capo_cloudwatchomni.types.domain_status
 
@@ -179,7 +177,11 @@ def deserialize_cbor(data: dict) -> OrganizationDomain:
             data["status"]
         )
     else:
-        raise DeserializationError("OrganizationDomain.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cloudwatchomni.types.domain_status.DomainStatus", ""
+        )
     if data.get("domainAccessRoleArn") is not None:
         out["domain_access_role_arn"] = data["domainAccessRoleArn"]
     if data.get("createdAt") is not None:
@@ -191,7 +193,9 @@ def deserialize_cbor(data: dict) -> OrganizationDomain:
             )
         )
     else:
-        raise DeserializationError("OrganizationDomain.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_cloudwatchomni.types._prelude.timestamp
 
@@ -201,5 +205,7 @@ def deserialize_cbor(data: dict) -> OrganizationDomain:
             )
         )
     else:
-        raise DeserializationError("OrganizationDomain.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

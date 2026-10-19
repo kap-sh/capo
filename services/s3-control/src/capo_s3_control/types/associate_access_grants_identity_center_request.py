@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.account_id
@@ -33,7 +32,5 @@ def deserialize_xml(el: Element) -> AssociateAccessGrantsIdentityCenterRequest:
     if child_identity_center_arn is not None:
         out["identity_center_arn"] = str(child_identity_center_arn.text or "")
     else:
-        raise DeserializationError(
-            "AssociateAccessGrantsIdentityCenterRequest.identity_center_arn required"
-        )
+        out["identity_center_arn"] = ""
     return out

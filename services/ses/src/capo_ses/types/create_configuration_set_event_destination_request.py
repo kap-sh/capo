@@ -42,9 +42,7 @@ def deserialize_query(el: Element) -> CreateConfigurationSetEventDestinationRequ
     if child_configuration_set_name is not None:
         out["configuration_set_name"] = str(child_configuration_set_name.text or "")
     else:
-        raise DeserializationError(
-            "CreateConfigurationSetEventDestinationRequest.configuration_set_name required"
-        )
+        out["configuration_set_name"] = ""
     child_event_destination = el.find("EventDestination")
     if child_event_destination is not None:
         import capo_ses.types.event_destination

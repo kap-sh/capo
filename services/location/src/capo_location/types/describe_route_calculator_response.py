@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.geo_arn
     import capo_location.types.pricing_plan
@@ -65,23 +63,17 @@ def deserialize_json(data: dict) -> DescribeRouteCalculatorResponse:
     if data.get("CalculatorName") is not None:
         out["calculator_name"] = data["CalculatorName"]
     else:
-        raise DeserializationError(
-            "DescribeRouteCalculatorResponse.calculator_name required"
-        )
+        out["calculator_name"] = ""
     if data.get("CalculatorArn") is not None:
         out["calculator_arn"] = data["CalculatorArn"]
     else:
-        raise DeserializationError(
-            "DescribeRouteCalculatorResponse.calculator_arn required"
-        )
+        out["calculator_arn"] = ""
     if data.get("PricingPlan") is not None:
         out["pricing_plan"] = data["PricingPlan"]
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError(
-            "DescribeRouteCalculatorResponse.description required"
-        )
+        out["description"] = ""
     if data.get("CreateTime") is not None:
         import capo_location.types.timestamp
 
@@ -89,8 +81,10 @@ def deserialize_json(data: dict) -> DescribeRouteCalculatorResponse:
             data["CreateTime"]
         )
     else:
-        raise DeserializationError(
-            "DescribeRouteCalculatorResponse.create_time required"
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("UpdateTime") is not None:
         import capo_location.types.timestamp
@@ -99,15 +93,15 @@ def deserialize_json(data: dict) -> DescribeRouteCalculatorResponse:
             data["UpdateTime"]
         )
     else:
-        raise DeserializationError(
-            "DescribeRouteCalculatorResponse.update_time required"
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("DataSource") is not None:
         out["data_source"] = data["DataSource"]
     else:
-        raise DeserializationError(
-            "DescribeRouteCalculatorResponse.data_source required"
-        )
+        out["data_source"] = ""
     if data.get("Tags") is not None:
         import capo_location.types.tag_map
 

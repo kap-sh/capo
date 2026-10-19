@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.label_schema
     import capo_frauddetector.types.list_of_strings
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> TrainingDataSchema:
             )
         )
     else:
-        raise DeserializationError("TrainingDataSchema.model_variables required")
+        out["model_variables"] = []
     if data.get("labelSchema") is not None:
         import capo_frauddetector.types.label_schema
 

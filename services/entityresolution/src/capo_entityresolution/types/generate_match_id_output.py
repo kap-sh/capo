@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.failed_records_list
     import capo_entityresolution.types.match_groups_list
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> GenerateMatchIdOutput:
             )
         )
     else:
-        raise DeserializationError("GenerateMatchIdOutput.match_groups required")
+        out["match_groups"] = []
     if data.get("failedRecords") is not None:
         import capo_entityresolution.types.failed_records_list
 
@@ -57,5 +55,5 @@ def deserialize_json(data: dict) -> GenerateMatchIdOutput:
             )
         )
     else:
-        raise DeserializationError("GenerateMatchIdOutput.failed_records required")
+        out["failed_records"] = []
     return out

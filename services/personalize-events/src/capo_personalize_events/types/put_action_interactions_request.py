@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_personalize_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize_events.types.action_interactions_list
     import capo_personalize_events.types.string_type
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> PutActionInteractionsRequest:
     if data.get("trackingId") is not None:
         out["tracking_id"] = data["trackingId"]
     else:
-        raise DeserializationError("PutActionInteractionsRequest.tracking_id required")
+        out["tracking_id"] = ""
     if data.get("actionInteractions") is not None:
         import capo_personalize_events.types.action_interactions_list
 
@@ -49,9 +47,7 @@ def deserialize_json(data: dict) -> PutActionInteractionsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "PutActionInteractionsRequest.action_interactions required"
-        )
+        out["action_interactions"] = []
     return out
 
 

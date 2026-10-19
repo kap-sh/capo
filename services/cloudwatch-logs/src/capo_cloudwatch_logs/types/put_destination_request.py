@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.destination_name
     import capo_cloudwatch_logs.types.role_arn
@@ -44,15 +42,15 @@ def deserialize_aws_json_1_1(data: dict) -> PutDestinationRequest:
     if data.get("destinationName") is not None:
         out["destination_name"] = data["destinationName"]
     else:
-        raise DeserializationError("PutDestinationRequest.destination_name required")
+        out["destination_name"] = ""
     if data.get("targetArn") is not None:
         out["target_arn"] = data["targetArn"]
     else:
-        raise DeserializationError("PutDestinationRequest.target_arn required")
+        out["target_arn"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("PutDestinationRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("tags") is not None:
         import capo_cloudwatch_logs.types.tags
 

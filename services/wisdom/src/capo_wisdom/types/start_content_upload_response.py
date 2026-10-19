@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_wisdom.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -44,11 +42,11 @@ def deserialize_json(data: dict) -> StartContentUploadResponse:
     if data.get("uploadId") is not None:
         out["upload_id"] = data["uploadId"]
     else:
-        raise DeserializationError("StartContentUploadResponse.upload_id required")
+        out["upload_id"] = ""
     if data.get("url") is not None:
         out["url"] = data["url"]
     else:
-        raise DeserializationError("StartContentUploadResponse.url required")
+        out["url"] = ""
     if data.get("urlExpiry") is not None:
         import datetime
 
@@ -56,7 +54,9 @@ def deserialize_json(data: dict) -> StartContentUploadResponse:
             float(data["urlExpiry"]), tz=datetime.timezone.utc
         )
     else:
-        raise DeserializationError("StartContentUploadResponse.url_expiry required")
+        import datetime
+
+        out["url_expiry"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("headersToInclude") is not None:
         import capo_wisdom.types.headers
 
@@ -64,9 +64,7 @@ def deserialize_json(data: dict) -> StartContentUploadResponse:
             data["headersToInclude"]
         )
     else:
-        raise DeserializationError(
-            "StartContentUploadResponse.headers_to_include required"
-        )
+        out["headers_to_include"] = {}
     return out
 
 

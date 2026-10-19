@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_elementalinference.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elementalinference.types.dictionary_arn
     import capo_elementalinference.types.dictionary_id
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> DeleteDictionaryResponse:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("DeleteDictionaryResponse.arn required")
+        out["arn"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("DeleteDictionaryResponse.id required")
+        out["id"] = ""
     if data.get("status") is not None:
         import capo_elementalinference.types.dictionary_status
 
@@ -53,5 +51,9 @@ def deserialize_json(data: dict) -> DeleteDictionaryResponse:
             )
         )
     else:
-        raise DeserializationError("DeleteDictionaryResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_elementalinference.types.dictionary_status.DictionaryStatus", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.hex_length_between2_and4
     import capo_payment_cryptography_data.types.hex_length_between2_and8
@@ -37,19 +35,13 @@ def deserialize_json(data: dict) -> CardHolderVerificationValue:
     if data.get("UnpredictableNumber") is not None:
         out["unpredictable_number"] = data["UnpredictableNumber"]
     else:
-        raise DeserializationError(
-            "CardHolderVerificationValue.unpredictable_number required"
-        )
+        out["unpredictable_number"] = ""
     if data.get("PanSequenceNumber") is not None:
         out["pan_sequence_number"] = data["PanSequenceNumber"]
     else:
-        raise DeserializationError(
-            "CardHolderVerificationValue.pan_sequence_number required"
-        )
+        out["pan_sequence_number"] = ""
     if data.get("ApplicationTransactionCounter") is not None:
         out["application_transaction_counter"] = data["ApplicationTransactionCounter"]
     else:
-        raise DeserializationError(
-            "CardHolderVerificationValue.application_transaction_counter required"
-        )
+        out["application_transaction_counter"] = ""
     return out

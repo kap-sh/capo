@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.date_time
     import capo_ssm_contacts.types.ssm_contacts_arn_list
@@ -59,7 +57,7 @@ def deserialize_aws_json_1_1(data: dict) -> RotationOverride:
     if data.get("RotationOverrideId") is not None:
         out["rotation_override_id"] = data["RotationOverrideId"]
     else:
-        raise DeserializationError("RotationOverride.rotation_override_id required")
+        out["rotation_override_id"] = ""
     if data.get("NewContactIds") is not None:
         import capo_ssm_contacts.types.ssm_contacts_arn_list
 
@@ -69,7 +67,7 @@ def deserialize_aws_json_1_1(data: dict) -> RotationOverride:
             )
         )
     else:
-        raise DeserializationError("RotationOverride.new_contact_ids required")
+        out["new_contact_ids"] = []
     if data.get("StartTime") is not None:
         import capo_ssm_contacts.types.date_time
 
@@ -77,7 +75,9 @@ def deserialize_aws_json_1_1(data: dict) -> RotationOverride:
             data["StartTime"]
         )
     else:
-        raise DeserializationError("RotationOverride.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_ssm_contacts.types.date_time
 
@@ -85,7 +85,9 @@ def deserialize_aws_json_1_1(data: dict) -> RotationOverride:
             data["EndTime"]
         )
     else:
-        raise DeserializationError("RotationOverride.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("CreateTime") is not None:
         import capo_ssm_contacts.types.date_time
 
@@ -93,5 +95,9 @@ def deserialize_aws_json_1_1(data: dict) -> RotationOverride:
             data["CreateTime"]
         )
     else:
-        raise DeserializationError("RotationOverride.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

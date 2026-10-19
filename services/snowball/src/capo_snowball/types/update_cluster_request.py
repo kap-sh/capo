@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_snowball.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_snowball.types.address_id
     import capo_snowball.types.cluster_id
@@ -88,7 +86,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateClusterRequest:
     if data.get("ClusterId") is not None:
         out["cluster_id"] = data["ClusterId"]
     else:
-        raise DeserializationError("UpdateClusterRequest.cluster_id required")
+        out["cluster_id"] = ""
     if data.get("RoleARN") is not None:
         out["role_arn"] = data["RoleARN"]
     if data.get("Description") is not None:

@@ -105,7 +105,7 @@ def deserialize_json(data: dict) -> CreateScheduleInput:
     if data.get("ScheduleExpression") is not None:
         out["schedule_expression"] = data["ScheduleExpression"]
     else:
-        raise DeserializationError("CreateScheduleInput.schedule_expression required")
+        out["schedule_expression"] = ""
     if data.get("StartDate") is not None:
         import capo_scheduler.types.start_date
 

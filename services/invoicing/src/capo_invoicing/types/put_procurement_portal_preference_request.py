@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_invoicing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_invoicing.types.basic_string_without_space
     import capo_invoicing.types.contacts
@@ -120,9 +118,7 @@ def deserialize_aws_json_1_0(data: dict) -> PutProcurementPortalPreferenceReques
             "ProcurementPortalPreferenceArn"
         ]
     else:
-        raise DeserializationError(
-            "PutProcurementPortalPreferenceRequest.procurement_portal_preference_arn required"
-        )
+        out["procurement_portal_preference_arn"] = ""
     if data.get("Selector") is not None:
         import capo_invoicing.types.procurement_portal_preference_selector
 
@@ -148,9 +144,7 @@ def deserialize_aws_json_1_0(data: dict) -> PutProcurementPortalPreferenceReques
     if data.get("EinvoiceDeliveryEnabled") is not None:
         out["einvoice_delivery_enabled"] = data["EinvoiceDeliveryEnabled"]
     else:
-        raise DeserializationError(
-            "PutProcurementPortalPreferenceRequest.einvoice_delivery_enabled required"
-        )
+        out["einvoice_delivery_enabled"] = False
     if data.get("EinvoiceDeliveryPreference") is not None:
         import capo_invoicing.types.einvoice_delivery_preference
 
@@ -162,9 +156,7 @@ def deserialize_aws_json_1_0(data: dict) -> PutProcurementPortalPreferenceReques
     if data.get("PurchaseOrderRetrievalEnabled") is not None:
         out["purchase_order_retrieval_enabled"] = data["PurchaseOrderRetrievalEnabled"]
     else:
-        raise DeserializationError(
-            "PutProcurementPortalPreferenceRequest.purchase_order_retrieval_enabled required"
-        )
+        out["purchase_order_retrieval_enabled"] = False
     if data.get("MarketplacePunchOutEnabled") is not None:
         out["marketplace_punch_out_enabled"] = data["MarketplacePunchOutEnabled"]
     if data.get("MarketplacePunchOutPreference") is not None:
@@ -182,9 +174,7 @@ def deserialize_aws_json_1_0(data: dict) -> PutProcurementPortalPreferenceReques
             data["Contacts"]
         )
     else:
-        raise DeserializationError(
-            "PutProcurementPortalPreferenceRequest.contacts required"
-        )
+        out["contacts"] = []
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     return out

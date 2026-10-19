@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.mesh_spec
     import capo_app_mesh.types.resource_name
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> CreateMeshInput:
     if data.get("meshName") is not None:
         out["mesh_name"] = data["meshName"]
     else:
-        raise DeserializationError("CreateMeshInput.mesh_name required")
+        out["mesh_name"] = ""
     if data.get("spec") is not None:
         import capo_app_mesh.types.mesh_spec
 

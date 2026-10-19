@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -135,15 +133,15 @@ def deserialize_aws_json_1_0(data: dict) -> NotifyTemplateInformation:
     if data.get("TemplateId") is not None:
         out["template_id"] = data["TemplateId"]
     else:
-        raise DeserializationError("NotifyTemplateInformation.template_id required")
+        out["template_id"] = ""
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     else:
-        raise DeserializationError("NotifyTemplateInformation.version required")
+        out["version"] = 0
     if data.get("TemplateType") is not None:
         out["template_type"] = data["TemplateType"]
     else:
-        raise DeserializationError("NotifyTemplateInformation.template_type required")
+        out["template_type"] = ""
     if data.get("Channels") is not None:
         import capo_pinpoint_sms_voice_v2.types.number_capability_list
 
@@ -153,7 +151,7 @@ def deserialize_aws_json_1_0(data: dict) -> NotifyTemplateInformation:
             )
         )
     else:
-        raise DeserializationError("NotifyTemplateInformation.channels required")
+        out["channels"] = []
     if data.get("TierAccess") is not None:
         import capo_pinpoint_sms_voice_v2.types.notify_configuration_tier_list
 
@@ -201,7 +199,9 @@ def deserialize_aws_json_1_0(data: dict) -> NotifyTemplateInformation:
             )
         )
     else:
-        raise DeserializationError(
-            "NotifyTemplateInformation.created_timestamp required"
+        import datetime
+
+        out["created_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

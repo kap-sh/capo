@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.project_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteProjectRequest:
     if data.get("ProjectArn") is not None:
         out["project_arn"] = data["ProjectArn"]
     else:
-        raise DeserializationError("DeleteProjectRequest.project_arn required")
+        out["project_arn"] = ""
     return out

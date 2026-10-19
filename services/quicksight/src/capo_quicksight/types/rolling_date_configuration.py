@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.data_set_identifier
     import capo_quicksight.types.expression
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> RollingDateConfiguration:
     if data.get("Expression") is not None:
         out["expression"] = data["Expression"]
     else:
-        raise DeserializationError("RollingDateConfiguration.expression required")
+        out["expression"] = ""
     return out
 
 

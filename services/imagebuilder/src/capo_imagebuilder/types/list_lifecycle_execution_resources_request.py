@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.lifecycle_execution_id
     import capo_imagebuilder.types.non_empty_string
@@ -48,9 +46,7 @@ def deserialize_json(data: dict) -> ListLifecycleExecutionResourcesRequest:
     if data.get("lifecycleExecutionId") is not None:
         out["lifecycle_execution_id"] = data["lifecycleExecutionId"]
     else:
-        raise DeserializationError(
-            "ListLifecycleExecutionResourcesRequest.lifecycle_execution_id required"
-        )
+        out["lifecycle_execution_id"] = ""
     if data.get("parentResourceId") is not None:
         out["parent_resource_id"] = data["parentResourceId"]
     if data.get("maxResults") is not None:

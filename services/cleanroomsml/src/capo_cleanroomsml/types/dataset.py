@@ -41,7 +41,11 @@ def deserialize_json(data: dict) -> Dataset:
             data["type"]
         )
     else:
-        raise DeserializationError("Dataset.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cleanroomsml.types.dataset_type.DatasetType", ""
+        )
     if data.get("inputConfig") is not None:
         import capo_cleanroomsml.types.dataset_input_config
 

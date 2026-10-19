@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.description
     import capo_datazone.types.domain_id
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> CreateAssetTypeInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateAssetTypeInput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("formsInput") is not None:
@@ -57,13 +55,11 @@ def deserialize_json(data: dict) -> CreateAssetTypeInput:
             data["formsInput"]
         )
     else:
-        raise DeserializationError("CreateAssetTypeInput.forms_input required")
+        out["forms_input"] = {}
     if data.get("owningProjectIdentifier") is not None:
         out["owning_project_identifier"] = data["owningProjectIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateAssetTypeInput.owning_project_identifier required"
-        )
+        out["owning_project_identifier"] = ""
     return out
 
 

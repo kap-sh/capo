@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_metering.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_metering.types.product_code
     import capo_marketplace_metering.types.usage_record_list
@@ -46,7 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchMeterUsageRequest:
             )
         )
     else:
-        raise DeserializationError("BatchMeterUsageRequest.usage_records required")
+        out["usage_records"] = []
     if data.get("ProductCode") is not None:
         out["product_code"] = data["ProductCode"]
     return out

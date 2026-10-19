@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.match_type
     import capo_customer_profiles.types.max_size100
@@ -51,13 +49,17 @@ def deserialize_json(data: dict) -> GetSimilarProfilesRequest:
             data["MatchType"]
         )
     else:
-        raise DeserializationError("GetSimilarProfilesRequest.match_type required")
+        import typing
+
+        out["match_type"] = typing.cast(
+            "capo_customer_profiles.types.match_type.MatchType", ""
+        )
     if data.get("SearchKey") is not None:
         out["search_key"] = data["SearchKey"]
     else:
-        raise DeserializationError("GetSimilarProfilesRequest.search_key required")
+        out["search_key"] = ""
     if data.get("SearchValue") is not None:
         out["search_value"] = data["SearchValue"]
     else:
-        raise DeserializationError("GetSimilarProfilesRequest.search_value required")
+        out["search_value"] = ""
     return out

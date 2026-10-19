@@ -78,7 +78,7 @@ def deserialize_json(data: dict) -> StartAssistantContactRequest:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("StartAssistantContactRequest.instance_id required")
+        out["instance_id"] = ""
     if data.get("AiAgent") is not None:
         import capo_connect.types.ai_agent_input
 

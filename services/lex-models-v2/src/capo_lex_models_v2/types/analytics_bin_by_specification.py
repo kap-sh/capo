@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.analytics_bin_by_name
     import capo_lex_models_v2.types.analytics_interval
@@ -54,7 +52,11 @@ def deserialize_json(data: dict) -> AnalyticsBinBySpecification:
             data["name"]
         )
     else:
-        raise DeserializationError("AnalyticsBinBySpecification.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_lex_models_v2.types.analytics_bin_by_name.AnalyticsBinByName", ""
+        )
     if data.get("interval") is not None:
         import capo_lex_models_v2.types.analytics_interval
 
@@ -62,7 +64,11 @@ def deserialize_json(data: dict) -> AnalyticsBinBySpecification:
             data["interval"]
         )
     else:
-        raise DeserializationError("AnalyticsBinBySpecification.interval required")
+        import typing
+
+        out["interval"] = typing.cast(
+            "capo_lex_models_v2.types.analytics_interval.AnalyticsInterval", ""
+        )
     if data.get("order") is not None:
         import capo_lex_models_v2.types.analytics_sort_order
 

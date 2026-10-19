@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.dns_name
@@ -72,17 +71,17 @@ def deserialize_xml(el: Element) -> HostedZone:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("HostedZone.id required")
+        out["id"] = ""
     child_name = el.find("Name")
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("HostedZone.name required")
+        out["name"] = ""
     child_caller_reference = el.find("CallerReference")
     if child_caller_reference is not None:
         out["caller_reference"] = str(child_caller_reference.text or "")
     else:
-        raise DeserializationError("HostedZone.caller_reference required")
+        out["caller_reference"] = ""
     child_config = el.find("Config")
     if child_config is not None:
         import capo_route_53.types.hosted_zone_config

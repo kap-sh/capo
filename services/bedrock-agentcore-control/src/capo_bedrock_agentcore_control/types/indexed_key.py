@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.metadata_key
     import capo_bedrock_agentcore_control.types.metadata_value_type
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> IndexedKey:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("IndexedKey.key required")
+        out["key"] = ""
     if data.get("type") is not None:
         import capo_bedrock_agentcore_control.types.metadata_value_type
 
@@ -47,5 +45,10 @@ def deserialize_json(data: dict) -> IndexedKey:
             )
         )
     else:
-        raise DeserializationError("IndexedKey.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.metadata_value_type.MetadataValueType",
+            "",
+        )
     return out

@@ -94,23 +94,17 @@ def deserialize_aws_json_1_0(data: dict) -> StartDataTransformationJobRequest:
     if data.get("DataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["DataAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "StartDataTransformationJobRequest.data_access_role_arn required"
-        )
+        out["data_access_role_arn"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError(
-            "StartDataTransformationJobRequest.client_token required"
-        )
+        out["client_token"] = ""
     if data.get("JobName") is not None:
         out["job_name"] = data["JobName"]
     if data.get("ProfileId") is not None:
         out["profile_id"] = data["ProfileId"]
     else:
-        raise DeserializationError(
-            "StartDataTransformationJobRequest.profile_id required"
-        )
+        out["profile_id"] = ""
     if data.get("DriftDetectionEnabled") is not None:
         out["drift_detection_enabled"] = data["DriftDetectionEnabled"]
     if data.get("ProvenanceEnabled") is not None:

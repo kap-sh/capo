@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_braket.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_braket.types.cancellation_status
     import capo_braket.types.quantum_task_arn
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> CancelQuantumTaskResponse:
     if data.get("quantumTaskArn") is not None:
         out["quantum_task_arn"] = data["quantumTaskArn"]
     else:
-        raise DeserializationError(
-            "CancelQuantumTaskResponse.quantum_task_arn required"
-        )
+        out["quantum_task_arn"] = ""
     if data.get("cancellationStatus") is not None:
         out["cancellation_status"] = data["cancellationStatus"]
     else:
-        raise DeserializationError(
-            "CancelQuantumTaskResponse.cancellation_status required"
-        )
+        out["cancellation_status"] = ""
     return out

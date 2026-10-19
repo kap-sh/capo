@@ -67,11 +67,11 @@ def deserialize_json(data: dict) -> Destination:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("Destination.id required")
+        out["id"] = ""
     if data.get("state") is not None:
         out["state"] = data["state"]
     else:
-        raise DeserializationError("Destination.state required")
+        out["state"] = ""
     if data.get("startTime") is not None:
         import capo_ivs_realtime.types.time
 

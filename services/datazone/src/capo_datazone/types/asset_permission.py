@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.asset_id
     import capo_datazone.types.permissions
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> AssetPermission:
     if data.get("assetId") is not None:
         out["asset_id"] = data["assetId"]
     else:
-        raise DeserializationError("AssetPermission.asset_id required")
+        out["asset_id"] = ""
     if data.get("permissions") is not None:
         import capo_datazone.types.permissions
 
@@ -43,5 +41,7 @@ def deserialize_json(data: dict) -> AssetPermission:
             data["permissions"]
         )
     else:
-        raise DeserializationError("AssetPermission.permissions required")
+        import capo_datazone.types._unknown
+
+        out["permissions"] = capo_datazone.types._unknown.UnknownUnionMember("")
     return out

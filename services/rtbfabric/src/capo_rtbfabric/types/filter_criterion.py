@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rtbfabric.types.value_list
 
@@ -32,11 +30,11 @@ def deserialize_json(data: dict) -> FilterCriterion:
     if data.get("path") is not None:
         out["path"] = data["path"]
     else:
-        raise DeserializationError("FilterCriterion.path required")
+        out["path"] = ""
     if data.get("values") is not None:
         import capo_rtbfabric.types.value_list
 
         out["values"] = capo_rtbfabric.types.value_list.deserialize_json(data["values"])
     else:
-        raise DeserializationError("FilterCriterion.values required")
+        out["values"] = []
     return out

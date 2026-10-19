@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.membership_identifier
     import capo_cleanrooms.types.protected_job_identifier
@@ -51,5 +49,10 @@ def deserialize_json(data: dict) -> UpdateProtectedJobInput:
             )
         )
     else:
-        raise DeserializationError("UpdateProtectedJobInput.target_status required")
+        import typing
+
+        out["target_status"] = typing.cast(
+            "capo_cleanrooms.types.target_protected_job_status.TargetProtectedJobStatus",
+            "",
+        )
     return out

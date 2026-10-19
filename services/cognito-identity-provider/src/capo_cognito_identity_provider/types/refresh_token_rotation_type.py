@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.feature_type
     import capo_cognito_identity_provider.types.retry_grace_period_seconds_type
@@ -46,7 +44,11 @@ def deserialize_aws_json_1_1(data: dict) -> RefreshTokenRotationType:
             )
         )
     else:
-        raise DeserializationError("RefreshTokenRotationType.feature required")
+        import typing
+
+        out["feature"] = typing.cast(
+            "capo_cognito_identity_provider.types.feature_type.FeatureType", ""
+        )
     if data.get("RetryGracePeriodSeconds") is not None:
         out["retry_grace_period_seconds"] = data["RetryGracePeriodSeconds"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_guru.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_guru.types.timestamp
 
@@ -43,7 +41,9 @@ def deserialize_json(data: dict) -> AnomalyReportedTimeRange:
             data["OpenTime"]
         )
     else:
-        raise DeserializationError("AnomalyReportedTimeRange.open_time required")
+        import datetime
+
+        out["open_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("CloseTime") is not None:
         import capo_devops_guru.types.timestamp
 

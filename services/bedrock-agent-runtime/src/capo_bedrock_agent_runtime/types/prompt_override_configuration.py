@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.lambda_resource_arn
     import capo_bedrock_agent_runtime.types.prompt_configurations
@@ -48,9 +46,7 @@ def deserialize_json(data: dict) -> PromptOverrideConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "PromptOverrideConfiguration.prompt_configurations required"
-        )
+        out["prompt_configurations"] = []
     if data.get("overrideLambda") is not None:
         out["override_lambda"] = data["overrideLambda"]
     return out

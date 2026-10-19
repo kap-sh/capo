@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ivs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs.types.channel_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> StopStreamRequest:
     if data.get("channelArn") is not None:
         out["channel_arn"] = data["channelArn"]
     else:
-        raise DeserializationError("StopStreamRequest.channel_arn required")
+        out["channel_arn"] = ""
     return out

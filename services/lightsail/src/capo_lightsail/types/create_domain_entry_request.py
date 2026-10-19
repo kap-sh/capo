@@ -35,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDomainEntryRequest:
     if data.get("domainName") is not None:
         out["domain_name"] = data["domainName"]
     else:
-        raise DeserializationError("CreateDomainEntryRequest.domain_name required")
+        out["domain_name"] = ""
     if data.get("domainEntry") is not None:
         import capo_lightsail.types.domain_entry
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_outposts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_outposts.types.country_code
     import capo_outposts.types.outpost_identifier
@@ -88,7 +86,7 @@ def deserialize_json(data: dict) -> CreateQuoteInput:
     if data.get("CountryCode") is not None:
         out["country_code"] = data["CountryCode"]
     else:
-        raise DeserializationError("CreateQuoteInput.country_code required")
+        out["country_code"] = ""
     if data.get("RequestedCapacities") is not None:
         import capo_outposts.types.quote_capacity_list
 
@@ -98,7 +96,7 @@ def deserialize_json(data: dict) -> CreateQuoteInput:
             )
         )
     else:
-        raise DeserializationError("CreateQuoteInput.requested_capacities required")
+        out["requested_capacities"] = []
     if data.get("RequestedConstraints") is not None:
         import capo_outposts.types.quote_constraint_list
 

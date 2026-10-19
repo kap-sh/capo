@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_nova_act.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_nova_act.types.client_token
     import capo_nova_act.types.task
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> CreateActRequest:
     if data.get("task") is not None:
         out["task"] = data["task"]
     else:
-        raise DeserializationError("CreateActRequest.task required")
+        out["task"] = ""
     if data.get("toolSpecs") is not None:
         import capo_nova_act.types.tool_specs
 

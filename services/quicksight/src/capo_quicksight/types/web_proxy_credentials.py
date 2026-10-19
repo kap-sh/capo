@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.db_username
     import capo_quicksight.types.password
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> WebProxyCredentials:
     if data.get("WebProxyUsername") is not None:
         out["web_proxy_username"] = data["WebProxyUsername"]
     else:
-        raise DeserializationError("WebProxyCredentials.web_proxy_username required")
+        out["web_proxy_username"] = ""
     if data.get("WebProxyPassword") is not None:
         out["web_proxy_password"] = data["WebProxyPassword"]
     else:
-        raise DeserializationError("WebProxyCredentials.web_proxy_password required")
+        out["web_proxy_password"] = ""
     return out

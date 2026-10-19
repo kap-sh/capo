@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.hash_key
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> HashKeyRange:
     if data.get("StartingHashKey") is not None:
         out["starting_hash_key"] = data["StartingHashKey"]
     else:
-        raise DeserializationError("HashKeyRange.starting_hash_key required")
+        out["starting_hash_key"] = ""
     if data.get("EndingHashKey") is not None:
         out["ending_hash_key"] = data["EndingHashKey"]
     else:
-        raise DeserializationError("HashKeyRange.ending_hash_key required")
+        out["ending_hash_key"] = ""
     return out

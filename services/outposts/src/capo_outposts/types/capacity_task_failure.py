@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_outposts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_outposts.types.capacity_task_failure_type
     import capo_outposts.types.capacity_task_status_reason
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> CapacityTaskFailure:
     if data.get("Reason") is not None:
         out["reason"] = data["Reason"]
     else:
-        raise DeserializationError("CapacityTaskFailure.reason required")
+        out["reason"] = ""
     if data.get("Type") is not None:
         import capo_outposts.types.capacity_task_failure_type
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.attribute_types_selector
     import capo_customer_profiles.types.conflict_resolution
@@ -95,7 +93,7 @@ def deserialize_json(data: dict) -> RuleBasedMatchingRequest:
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
-        raise DeserializationError("RuleBasedMatchingRequest.enabled required")
+        out["enabled"] = False
     if data.get("MatchingRules") is not None:
         import capo_customer_profiles.types.matching_rules
 

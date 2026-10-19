@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.global_cluster_identifier
     import capo_arc_region_switch.types.iam_role_arn
@@ -66,9 +64,7 @@ def deserialize_aws_json_1_0(data: dict) -> AuroraServerlessScalingConfiguration
     if data.get("globalClusterIdentifier") is not None:
         out["global_cluster_identifier"] = data["globalClusterIdentifier"]
     else:
-        raise DeserializationError(
-            "AuroraServerlessScalingConfiguration.global_cluster_identifier required"
-        )
+        out["global_cluster_identifier"] = ""
     if data.get("regionDatabaseClusterArns") is not None:
         import capo_arc_region_switch.types.region_aurora_cluster_map
 
@@ -78,9 +74,7 @@ def deserialize_aws_json_1_0(data: dict) -> AuroraServerlessScalingConfiguration
             )
         )
     else:
-        raise DeserializationError(
-            "AuroraServerlessScalingConfiguration.region_database_cluster_arns required"
-        )
+        out["region_database_cluster_arns"] = {}
     if data.get("targetPercent") is not None:
         out["target_percent"] = data["targetPercent"]
     else:

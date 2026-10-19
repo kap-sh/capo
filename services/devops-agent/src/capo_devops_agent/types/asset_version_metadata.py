@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> AssetVersionMetadata:
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("AssetVersionMetadata.version required")
+        out["version"] = 0
     if data.get("createdAt") is not None:
         import capo_devops_agent.types._prelude.timestamp
 
@@ -49,7 +47,9 @@ def deserialize_json(data: dict) -> AssetVersionMetadata:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("AssetVersionMetadata.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_devops_agent.types._prelude.timestamp
 
@@ -57,5 +57,7 @@ def deserialize_json(data: dict) -> AssetVersionMetadata:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("AssetVersionMetadata.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

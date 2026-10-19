@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_agent_registry.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_agent_registry.types.batch_get_discoverable_registry_record_error_code
     import capo_agent_registry.types.record_identifier
@@ -45,15 +43,11 @@ def deserialize_json(data: dict) -> BatchGetDiscoverableRegistryRecordError:
     if data.get("registryId") is not None:
         out["registry_id"] = data["registryId"]
     else:
-        raise DeserializationError(
-            "BatchGetDiscoverableRegistryRecordError.registry_id required"
-        )
+        out["registry_id"] = ""
     if data.get("recordId") is not None:
         out["record_id"] = data["recordId"]
     else:
-        raise DeserializationError(
-            "BatchGetDiscoverableRegistryRecordError.record_id required"
-        )
+        out["record_id"] = ""
     if data.get("errorCode") is not None:
         import capo_agent_registry.types.batch_get_discoverable_registry_record_error_code
 
@@ -63,8 +57,11 @@ def deserialize_json(data: dict) -> BatchGetDiscoverableRegistryRecordError:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetDiscoverableRegistryRecordError.error_code required"
+        import typing
+
+        out["error_code"] = typing.cast(
+            "capo_agent_registry.types.batch_get_discoverable_registry_record_error_code.BatchGetDiscoverableRegistryRecordErrorCode",
+            "",
         )
     if data.get("message") is not None:
         out["message"] = data["message"]

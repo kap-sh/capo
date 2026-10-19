@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_model_building_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_model_building_service.types.intent_name
     import capo_lex_model_building_service.types.version
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> Intent:
     if data.get("intentName") is not None:
         out["intent_name"] = data["intentName"]
     else:
-        raise DeserializationError("Intent.intent_name required")
+        out["intent_name"] = ""
     if data.get("intentVersion") is not None:
         out["intent_version"] = data["intentVersion"]
     else:
-        raise DeserializationError("Intent.intent_version required")
+        out["intent_version"] = ""
     return out

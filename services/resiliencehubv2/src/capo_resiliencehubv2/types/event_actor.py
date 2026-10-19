@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.actor_type
 
@@ -44,11 +42,13 @@ def deserialize_json(data: dict) -> EventActor:
             data["type"]
         )
     else:
-        raise DeserializationError("EventActor.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_resiliencehubv2.types.actor_type.ActorType", "")
     if data.get("principalId") is not None:
         out["principal_id"] = data["principalId"]
     else:
-        raise DeserializationError("EventActor.principal_id required")
+        out["principal_id"] = ""
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     if data.get("userName") is not None:

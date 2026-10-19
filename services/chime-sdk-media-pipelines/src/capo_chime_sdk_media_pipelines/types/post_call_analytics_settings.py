@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.content_redaction_output
     import capo_chime_sdk_media_pipelines.types.string
@@ -49,13 +47,11 @@ def deserialize_json(data: dict) -> PostCallAnalyticsSettings:
     if data.get("OutputLocation") is not None:
         out["output_location"] = data["OutputLocation"]
     else:
-        raise DeserializationError("PostCallAnalyticsSettings.output_location required")
+        out["output_location"] = ""
     if data.get("DataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["DataAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "PostCallAnalyticsSettings.data_access_role_arn required"
-        )
+        out["data_access_role_arn"] = ""
     if data.get("ContentRedactionOutput") is not None:
         import capo_chime_sdk_media_pipelines.types.content_redaction_output
 

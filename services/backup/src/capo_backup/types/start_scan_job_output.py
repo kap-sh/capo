@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -38,9 +36,13 @@ def deserialize_json(data: dict) -> StartScanJobOutput:
             data["CreationDate"]
         )
     else:
-        raise DeserializationError("StartScanJobOutput.creation_date required")
+        import datetime
+
+        out["creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("ScanJobId") is not None:
         out["scan_job_id"] = data["ScanJobId"]
     else:
-        raise DeserializationError("StartScanJobOutput.scan_job_id required")
+        out["scan_job_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.kms_key_arn
     import capo_lex_models_v2.types.s3_bucket_name
@@ -36,11 +34,11 @@ def deserialize_json(data: dict) -> TestSetStorageLocation:
     if data.get("s3BucketName") is not None:
         out["s3_bucket_name"] = data["s3BucketName"]
     else:
-        raise DeserializationError("TestSetStorageLocation.s3_bucket_name required")
+        out["s3_bucket_name"] = ""
     if data.get("s3Path") is not None:
         out["s3_path"] = data["s3Path"]
     else:
-        raise DeserializationError("TestSetStorageLocation.s3_path required")
+        out["s3_path"] = ""
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     return out

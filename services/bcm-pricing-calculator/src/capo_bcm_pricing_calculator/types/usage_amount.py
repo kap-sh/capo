@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bcm_pricing_calculator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -50,9 +48,11 @@ def deserialize_aws_json_1_0(data: dict) -> UsageAmount:
             )
         )
     else:
-        raise DeserializationError("UsageAmount.start_hour required")
+        import datetime
+
+        out["start_hour"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("amount") is not None:
         out["amount"] = float(data["amount"])
     else:
-        raise DeserializationError("UsageAmount.amount required")
+        out["amount"] = 0.0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.filter_criteria_map
     import capo_accessanalyzer.types.name
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> InlineArchiveRule:
     if data.get("ruleName") is not None:
         out["rule_name"] = data["ruleName"]
     else:
-        raise DeserializationError("InlineArchiveRule.rule_name required")
+        out["rule_name"] = ""
     if data.get("filter") is not None:
         import capo_accessanalyzer.types.filter_criteria_map
 
@@ -43,5 +41,5 @@ def deserialize_json(data: dict) -> InlineArchiveRule:
             data["filter"]
         )
     else:
-        raise DeserializationError("InlineArchiveRule.filter required")
+        out["filter"] = {}
     return out

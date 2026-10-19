@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.batch_create_user_request_items
     import capo_wickr.types.client_token
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> BatchCreateUserRequest:
             )
         )
     else:
-        raise DeserializationError("BatchCreateUserRequest.users required")
+        out["users"] = []
     return out
 
 

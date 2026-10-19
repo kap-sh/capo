@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.artifacts
     import capo_amplify.types.next_token
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> ListArtifactsResult:
             data["artifacts"]
         )
     else:
-        raise DeserializationError("ListArtifactsResult.artifacts required")
+        out["artifacts"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

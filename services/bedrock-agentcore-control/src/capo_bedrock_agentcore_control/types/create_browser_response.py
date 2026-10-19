@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.browser_arn
     import capo_bedrock_agentcore_control.types.browser_id
@@ -49,11 +47,11 @@ def deserialize_json(data: dict) -> CreateBrowserResponse:
     if data.get("browserId") is not None:
         out["browser_id"] = data["browserId"]
     else:
-        raise DeserializationError("CreateBrowserResponse.browser_id required")
+        out["browser_id"] = ""
     if data.get("browserArn") is not None:
         out["browser_arn"] = data["browserArn"]
     else:
-        raise DeserializationError("CreateBrowserResponse.browser_arn required")
+        out["browser_arn"] = ""
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -63,7 +61,9 @@ def deserialize_json(data: dict) -> CreateBrowserResponse:
             )
         )
     else:
-        raise DeserializationError("CreateBrowserResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.browser_status
 
@@ -73,5 +73,9 @@ def deserialize_json(data: dict) -> CreateBrowserResponse:
             )
         )
     else:
-        raise DeserializationError("CreateBrowserResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.browser_status.BrowserStatus", ""
+        )
     return out

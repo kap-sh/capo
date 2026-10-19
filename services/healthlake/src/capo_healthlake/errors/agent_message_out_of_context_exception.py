@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_healthlake.errors import DeserializationError, ServiceError
+from capo_healthlake.errors import ServiceError
 
 
 class AgentMessageOutOfContextException_(TypedDict, closed=True):
@@ -22,9 +22,7 @@ def deserialize_aws_json_1_0(data: dict) -> AgentMessageOutOfContextException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError(
-            "AgentMessageOutOfContextException_.message required"
-        )
+        out["message"] = ""
     return out
 
 

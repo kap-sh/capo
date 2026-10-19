@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.boolean
     import capo_chime_sdk_media_pipelines.types.call_analytics_language_code
@@ -155,8 +153,11 @@ def deserialize_json(data: dict) -> AmazonTranscribeCallAnalyticsProcessorConfig
             )
         )
     else:
-        raise DeserializationError(
-            "AmazonTranscribeCallAnalyticsProcessorConfiguration.language_code required"
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.call_analytics_language_code.CallAnalyticsLanguageCode",
+            "",
         )
     if data.get("VocabularyName") is not None:
         out["vocabulary_name"] = data["VocabularyName"]

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_query.types.amazon_resource_name
     import capo_timestream_query.types.sns_configuration
@@ -47,7 +45,5 @@ def deserialize_aws_json_1_0(data: dict) -> AccountSettingsNotificationConfigura
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError(
-            "AccountSettingsNotificationConfiguration.role_arn required"
-        )
+        out["role_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.domain_status
 
@@ -33,5 +31,9 @@ def deserialize_json(data: dict) -> DeleteDomainOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("DeleteDomainOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_datazone.types.domain_status.DomainStatus", ""
+        )
     return out

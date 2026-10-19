@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.data_transformation_s3_uri
     import capo_healthlake.types.kms_key_id
@@ -31,11 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> DataTransformationS3Configuration:
     if data.get("S3Uri") is not None:
         out["s3_uri"] = data["S3Uri"]
     else:
-        raise DeserializationError("DataTransformationS3Configuration.s3_uri required")
+        out["s3_uri"] = ""
     if data.get("KmsKeyId") is not None:
         out["kms_key_id"] = data["KmsKeyId"]
     else:
-        raise DeserializationError(
-            "DataTransformationS3Configuration.kms_key_id required"
-        )
+        out["kms_key_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_device_farm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_device_farm.types.amazon_resource_name
     import capo_device_farm.types.integer
@@ -47,11 +45,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDevicePoolRequest:
     if data.get("projectArn") is not None:
         out["project_arn"] = data["projectArn"]
     else:
-        raise DeserializationError("CreateDevicePoolRequest.project_arn required")
+        out["project_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateDevicePoolRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("rules") is not None:
@@ -61,7 +59,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDevicePoolRequest:
             data["rules"]
         )
     else:
-        raise DeserializationError("CreateDevicePoolRequest.rules required")
+        out["rules"] = []
     if data.get("maxDevices") is not None:
         out["max_devices"] = data["maxDevices"]
     return out

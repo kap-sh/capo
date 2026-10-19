@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_identity.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_identity.types.non_empty_sensitive_string1600
 
@@ -33,7 +31,7 @@ def deserialize_json(data: dict) -> EndpointAttributes:
     if data.get("DeviceToken") is not None:
         out["device_token"] = data["DeviceToken"]
     else:
-        raise DeserializationError("EndpointAttributes.device_token required")
+        out["device_token"] = ""
     if data.get("VoipDeviceToken") is not None:
         out["voip_device_token"] = data["VoipDeviceToken"]
     return out

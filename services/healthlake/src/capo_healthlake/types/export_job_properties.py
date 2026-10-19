@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.datastore_id
     import capo_healthlake.types.health_lake_timestamp
@@ -86,7 +84,7 @@ def deserialize_aws_json_1_0(data: dict) -> ExportJobProperties:
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError("ExportJobProperties.job_id required")
+        out["job_id"] = ""
     if data.get("JobName") is not None:
         out["job_name"] = data["JobName"]
     if data.get("JobStatus") is not None:
@@ -96,7 +94,11 @@ def deserialize_aws_json_1_0(data: dict) -> ExportJobProperties:
             data["JobStatus"]
         )
     else:
-        raise DeserializationError("ExportJobProperties.job_status required")
+        import typing
+
+        out["job_status"] = typing.cast(
+            "capo_healthlake.types.job_status.JobStatus", ""
+        )
     if data.get("SubmitTime") is not None:
         import capo_healthlake.types.health_lake_timestamp
 
@@ -106,7 +108,11 @@ def deserialize_aws_json_1_0(data: dict) -> ExportJobProperties:
             )
         )
     else:
-        raise DeserializationError("ExportJobProperties.submit_time required")
+        import datetime
+
+        out["submit_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("EndTime") is not None:
         import capo_healthlake.types.health_lake_timestamp
 
@@ -118,7 +124,7 @@ def deserialize_aws_json_1_0(data: dict) -> ExportJobProperties:
     if data.get("DatastoreId") is not None:
         out["datastore_id"] = data["DatastoreId"]
     else:
-        raise DeserializationError("ExportJobProperties.datastore_id required")
+        out["datastore_id"] = ""
     if data.get("OutputDataConfig") is not None:
         import capo_healthlake.types.output_data_config
 
@@ -128,7 +134,11 @@ def deserialize_aws_json_1_0(data: dict) -> ExportJobProperties:
             )
         )
     else:
-        raise DeserializationError("ExportJobProperties.output_data_config required")
+        import capo_healthlake.types._unknown
+
+        out["output_data_config"] = capo_healthlake.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("DataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["DataAccessRoleArn"]
     if data.get("Message") is not None:

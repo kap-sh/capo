@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.connector_id
     import capo_transfer.types.file_path
@@ -39,19 +37,15 @@ def deserialize_aws_json_1_1(data: dict) -> StartDirectoryListingRequest:
     if data.get("ConnectorId") is not None:
         out["connector_id"] = data["ConnectorId"]
     else:
-        raise DeserializationError("StartDirectoryListingRequest.connector_id required")
+        out["connector_id"] = ""
     if data.get("RemoteDirectoryPath") is not None:
         out["remote_directory_path"] = data["RemoteDirectoryPath"]
     else:
-        raise DeserializationError(
-            "StartDirectoryListingRequest.remote_directory_path required"
-        )
+        out["remote_directory_path"] = ""
     if data.get("MaxItems") is not None:
         out["max_items"] = data["MaxItems"]
     if data.get("OutputDirectoryPath") is not None:
         out["output_directory_path"] = data["OutputDirectoryPath"]
     else:
-        raise DeserializationError(
-            "StartDirectoryListingRequest.output_directory_path required"
-        )
+        out["output_directory_path"] = ""
     return out

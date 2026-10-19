@@ -106,5 +106,5 @@ def deserialize_json(data: dict) -> BatchAttachTypedLink:
             )
         )
     else:
-        raise DeserializationError("BatchAttachTypedLink.attributes required")
+        out["attributes"] = []
     return out

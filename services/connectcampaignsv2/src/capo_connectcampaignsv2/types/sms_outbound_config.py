@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.arn
 
@@ -28,11 +26,9 @@ def deserialize_json(data: dict) -> SmsOutboundConfig:
     if data.get("connectSourcePhoneNumberArn") is not None:
         out["connect_source_phone_number_arn"] = data["connectSourcePhoneNumberArn"]
     else:
-        raise DeserializationError(
-            "SmsOutboundConfig.connect_source_phone_number_arn required"
-        )
+        out["connect_source_phone_number_arn"] = ""
     if data.get("wisdomTemplateArn") is not None:
         out["wisdom_template_arn"] = data["wisdomTemplateArn"]
     else:
-        raise DeserializationError("SmsOutboundConfig.wisdom_template_arn required")
+        out["wisdom_template_arn"] = ""
     return out

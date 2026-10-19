@@ -48,5 +48,5 @@ def deserialize_json(data: dict) -> DetachObjectRequest:
     if data.get("LinkName") is not None:
         out["link_name"] = data["LinkName"]
     else:
-        raise DeserializationError("DetachObjectRequest.link_name required")
+        out["link_name"] = ""
     return out

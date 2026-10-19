@@ -42,7 +42,7 @@ def deserialize_xml(el: Element) -> UpdateDomainAssociationRequest:
     if child_domain is not None:
         out["domain"] = str(child_domain.text or "")
     else:
-        raise DeserializationError("UpdateDomainAssociationRequest.domain required")
+        out["domain"] = ""
     child_target_resource = el.find("TargetResource")
     if child_target_resource is not None:
         import capo_cloudfront.types.distribution_resource_id

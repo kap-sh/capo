@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.bot_id
     import capo_wickr.types.generic_string
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> CreateBotResponse:
     if data.get("botId") is not None:
         out["bot_id"] = data["botId"]
     else:
-        raise DeserializationError("CreateBotResponse.bot_id required")
+        out["bot_id"] = ""
     if data.get("networkId") is not None:
         out["network_id"] = data["networkId"]
     if data.get("username") is not None:

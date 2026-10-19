@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.fleet_proxy_rule_effect_type
     import capo_codebuild.types.fleet_proxy_rule_entities
@@ -57,7 +55,11 @@ def deserialize_aws_json_1_1(data: dict) -> FleetProxyRule:
             )
         )
     else:
-        raise DeserializationError("FleetProxyRule.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codebuild.types.fleet_proxy_rule_type.FleetProxyRuleType", ""
+        )
     if data.get("effect") is not None:
         import capo_codebuild.types.fleet_proxy_rule_effect_type
 
@@ -67,7 +69,12 @@ def deserialize_aws_json_1_1(data: dict) -> FleetProxyRule:
             )
         )
     else:
-        raise DeserializationError("FleetProxyRule.effect required")
+        import typing
+
+        out["effect"] = typing.cast(
+            "capo_codebuild.types.fleet_proxy_rule_effect_type.FleetProxyRuleEffectType",
+            "",
+        )
     if data.get("entities") is not None:
         import capo_codebuild.types.fleet_proxy_rule_entities
 
@@ -77,5 +84,5 @@ def deserialize_aws_json_1_1(data: dict) -> FleetProxyRule:
             )
         )
     else:
-        raise DeserializationError("FleetProxyRule.entities required")
+        out["entities"] = []
     return out

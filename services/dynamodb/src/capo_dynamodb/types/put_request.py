@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.put_item_input_attribute_map
 
@@ -39,5 +37,5 @@ def deserialize_aws_json_1_0(data: dict) -> PutRequest:
             )
         )
     else:
-        raise DeserializationError("PutRequest.item required")
+        out["item"] = {}
     return out

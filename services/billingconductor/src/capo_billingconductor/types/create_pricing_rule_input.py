@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billingconductor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billingconductor.types.billing_entity
     import capo_billingconductor.types.client_token
@@ -110,7 +108,7 @@ def deserialize_json(data: dict) -> CreatePricingRuleInput:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreatePricingRuleInput.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Scope") is not None:
@@ -120,7 +118,11 @@ def deserialize_json(data: dict) -> CreatePricingRuleInput:
             data["Scope"]
         )
     else:
-        raise DeserializationError("CreatePricingRuleInput.scope required")
+        import typing
+
+        out["scope"] = typing.cast(
+            "capo_billingconductor.types.pricing_rule_scope.PricingRuleScope", ""
+        )
     if data.get("Type") is not None:
         import capo_billingconductor.types.pricing_rule_type
 
@@ -128,7 +130,11 @@ def deserialize_json(data: dict) -> CreatePricingRuleInput:
             data["Type"]
         )
     else:
-        raise DeserializationError("CreatePricingRuleInput.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_billingconductor.types.pricing_rule_type.PricingRuleType", ""
+        )
     if data.get("ModifierPercentage") is not None:
         out["modifier_percentage"] = float(data["ModifierPercentage"])
     if data.get("Service") is not None:

@@ -57,7 +57,7 @@ def deserialize_aws_json_1_0(data: dict) -> CodeRepository:
     if data.get("RepositoryUrl") is not None:
         out["repository_url"] = data["RepositoryUrl"]
     else:
-        raise DeserializationError("CodeRepository.repository_url required")
+        out["repository_url"] = ""
     if data.get("SourceCodeVersion") is not None:
         import capo_apprunner.types.source_code_version
 

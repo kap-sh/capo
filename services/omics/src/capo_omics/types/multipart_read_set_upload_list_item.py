@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -77,39 +75,31 @@ def deserialize_json(data: dict) -> MultipartReadSetUploadListItem:
     if data.get("sequenceStoreId") is not None:
         out["sequence_store_id"] = data["sequenceStoreId"]
     else:
-        raise DeserializationError(
-            "MultipartReadSetUploadListItem.sequence_store_id required"
-        )
+        out["sequence_store_id"] = ""
     if data.get("uploadId") is not None:
         out["upload_id"] = data["uploadId"]
     else:
-        raise DeserializationError("MultipartReadSetUploadListItem.upload_id required")
+        out["upload_id"] = ""
     if data.get("sourceFileType") is not None:
         out["source_file_type"] = data["sourceFileType"]
     else:
-        raise DeserializationError(
-            "MultipartReadSetUploadListItem.source_file_type required"
-        )
+        out["source_file_type"] = ""
     if data.get("subjectId") is not None:
         out["subject_id"] = data["subjectId"]
     else:
-        raise DeserializationError("MultipartReadSetUploadListItem.subject_id required")
+        out["subject_id"] = ""
     if data.get("sampleId") is not None:
         out["sample_id"] = data["sampleId"]
     else:
-        raise DeserializationError("MultipartReadSetUploadListItem.sample_id required")
+        out["sample_id"] = ""
     if data.get("generatedFrom") is not None:
         out["generated_from"] = data["generatedFrom"]
     else:
-        raise DeserializationError(
-            "MultipartReadSetUploadListItem.generated_from required"
-        )
+        out["generated_from"] = ""
     if data.get("referenceArn") is not None:
         out["reference_arn"] = data["referenceArn"]
     else:
-        raise DeserializationError(
-            "MultipartReadSetUploadListItem.reference_arn required"
-        )
+        out["reference_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("description") is not None:
@@ -125,7 +115,9 @@ def deserialize_json(data: dict) -> MultipartReadSetUploadListItem:
             data["creationTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "MultipartReadSetUploadListItem.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

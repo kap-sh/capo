@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_annotation_list
 
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildWorkflowRepairC
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyBuildWorkflowRepairContent.annotations required"
-        )
+        out["annotations"] = []
     return out
 
 

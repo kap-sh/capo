@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.analyzer_arn
     import capo_accessanalyzer.types.name
@@ -35,11 +33,11 @@ def deserialize_json(data: dict) -> ApplyArchiveRuleRequest:
     if data.get("analyzerArn") is not None:
         out["analyzer_arn"] = data["analyzerArn"]
     else:
-        raise DeserializationError("ApplyArchiveRuleRequest.analyzer_arn required")
+        out["analyzer_arn"] = ""
     if data.get("ruleName") is not None:
         out["rule_name"] = data["ruleName"]
     else:
-        raise DeserializationError("ApplyArchiveRuleRequest.rule_name required")
+        out["rule_name"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

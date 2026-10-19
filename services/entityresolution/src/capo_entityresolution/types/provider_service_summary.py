@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.entity_name
     import capo_entityresolution.types.provider_service_arn
@@ -50,25 +48,19 @@ def deserialize_json(data: dict) -> ProviderServiceSummary:
     if data.get("providerServiceArn") is not None:
         out["provider_service_arn"] = data["providerServiceArn"]
     else:
-        raise DeserializationError(
-            "ProviderServiceSummary.provider_service_arn required"
-        )
+        out["provider_service_arn"] = ""
     if data.get("providerName") is not None:
         out["provider_name"] = data["providerName"]
     else:
-        raise DeserializationError("ProviderServiceSummary.provider_name required")
+        out["provider_name"] = ""
     if data.get("providerServiceDisplayName") is not None:
         out["provider_service_display_name"] = data["providerServiceDisplayName"]
     else:
-        raise DeserializationError(
-            "ProviderServiceSummary.provider_service_display_name required"
-        )
+        out["provider_service_display_name"] = ""
     if data.get("providerServiceName") is not None:
         out["provider_service_name"] = data["providerServiceName"]
     else:
-        raise DeserializationError(
-            "ProviderServiceSummary.provider_service_name required"
-        )
+        out["provider_service_name"] = ""
     if data.get("providerServiceType") is not None:
         import capo_entityresolution.types.service_type
 
@@ -78,7 +70,9 @@ def deserialize_json(data: dict) -> ProviderServiceSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "ProviderServiceSummary.provider_service_type required"
+        import typing
+
+        out["provider_service_type"] = typing.cast(
+            "capo_entityresolution.types.service_type.ServiceType", ""
         )
     return out

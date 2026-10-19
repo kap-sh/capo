@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.devices
     import capo_wickr.types.generic_string
@@ -38,5 +36,5 @@ def deserialize_json(data: dict) -> ListDevicesForUserResponse:
 
         out["devices"] = capo_wickr.types.devices.deserialize_json(data["devices"])
     else:
-        raise DeserializationError("ListDevicesForUserResponse.devices required")
+        out["devices"] = []
     return out

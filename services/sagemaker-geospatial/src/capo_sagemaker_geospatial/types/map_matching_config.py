@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 
 class MapMatchingConfig(TypedDict, closed=True):
     id_attribute_name: "str"
@@ -31,19 +29,17 @@ def deserialize_json(data: dict) -> MapMatchingConfig:
     if data.get("IdAttributeName") is not None:
         out["id_attribute_name"] = data["IdAttributeName"]
     else:
-        raise DeserializationError("MapMatchingConfig.id_attribute_name required")
+        out["id_attribute_name"] = ""
     if data.get("YAttributeName") is not None:
         out["y_attribute_name"] = data["YAttributeName"]
     else:
-        raise DeserializationError("MapMatchingConfig.y_attribute_name required")
+        out["y_attribute_name"] = ""
     if data.get("XAttributeName") is not None:
         out["x_attribute_name"] = data["XAttributeName"]
     else:
-        raise DeserializationError("MapMatchingConfig.x_attribute_name required")
+        out["x_attribute_name"] = ""
     if data.get("TimestampAttributeName") is not None:
         out["timestamp_attribute_name"] = data["TimestampAttributeName"]
     else:
-        raise DeserializationError(
-            "MapMatchingConfig.timestamp_attribute_name required"
-        )
+        out["timestamp_attribute_name"] = ""
     return out

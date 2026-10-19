@@ -81,7 +81,7 @@ def deserialize_json(data: dict) -> TopBottomFilter:
     if data.get("FilterId") is not None:
         out["filter_id"] = data["FilterId"]
     else:
-        raise DeserializationError("TopBottomFilter.filter_id required")
+        out["filter_id"] = ""
     if data.get("Column") is not None:
         import capo_quicksight.types.column_identifier
 
@@ -101,9 +101,7 @@ def deserialize_json(data: dict) -> TopBottomFilter:
             )
         )
     else:
-        raise DeserializationError(
-            "TopBottomFilter.aggregation_sort_configurations required"
-        )
+        out["aggregation_sort_configurations"] = []
     if data.get("TimeGranularity") is not None:
         import capo_quicksight.types.time_granularity
 

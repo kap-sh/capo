@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.command_execution_ids
     import capo_codebuild.types.non_empty_string
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetCommandExecutionsInput:
     if data.get("sandboxId") is not None:
         out["sandbox_id"] = data["sandboxId"]
     else:
-        raise DeserializationError("BatchGetCommandExecutionsInput.sandbox_id required")
+        out["sandbox_id"] = ""
     if data.get("commandExecutionIds") is not None:
         import capo_codebuild.types.command_execution_ids
 
@@ -49,7 +47,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetCommandExecutionsInput:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetCommandExecutionsInput.command_execution_ids required"
-        )
+        out["command_execution_ids"] = []
     return out

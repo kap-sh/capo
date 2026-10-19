@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securitylake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securitylake.types.data_lake_encryption_configuration
     import capo_securitylake.types.data_lake_lifecycle_configuration
@@ -66,7 +64,7 @@ def deserialize_json(data: dict) -> DataLakeConfiguration:
     if data.get("region") is not None:
         out["region"] = data["region"]
     else:
-        raise DeserializationError("DataLakeConfiguration.region required")
+        out["region"] = ""
     if data.get("encryptionConfiguration") is not None:
         import capo_securitylake.types.data_lake_encryption_configuration
 

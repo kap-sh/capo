@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -93,15 +91,15 @@ def deserialize_aws_json_1_0(data: dict) -> AbbreviatedPlan:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("AbbreviatedPlan.arn required")
+        out["arn"] = ""
     if data.get("owner") is not None:
         out["owner"] = data["owner"]
     else:
-        raise DeserializationError("AbbreviatedPlan.owner required")
+        out["owner"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AbbreviatedPlan.name required")
+        out["name"] = ""
     if data.get("regions") is not None:
         import capo_arc_region_switch.types.region_list
 
@@ -111,7 +109,7 @@ def deserialize_aws_json_1_0(data: dict) -> AbbreviatedPlan:
             )
         )
     else:
-        raise DeserializationError("AbbreviatedPlan.regions required")
+        out["regions"] = []
     if data.get("recoveryApproach") is not None:
         import capo_arc_region_switch.types.recovery_approach
 
@@ -121,7 +119,11 @@ def deserialize_aws_json_1_0(data: dict) -> AbbreviatedPlan:
             )
         )
     else:
-        raise DeserializationError("AbbreviatedPlan.recovery_approach required")
+        import typing
+
+        out["recovery_approach"] = typing.cast(
+            "capo_arc_region_switch.types.recovery_approach.RecoveryApproach", ""
+        )
     if data.get("primaryRegion") is not None:
         out["primary_region"] = data["primaryRegion"]
     if data.get("version") is not None:

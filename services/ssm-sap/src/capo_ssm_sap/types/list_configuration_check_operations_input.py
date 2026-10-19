@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_sap.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_sap.types.application_id
     import capo_ssm_sap.types.configuration_check_operation_listing_mode
@@ -57,9 +55,7 @@ def deserialize_json(data: dict) -> ListConfigurationCheckOperationsInput:
     if data.get("ApplicationId") is not None:
         out["application_id"] = data["ApplicationId"]
     else:
-        raise DeserializationError(
-            "ListConfigurationCheckOperationsInput.application_id required"
-        )
+        out["application_id"] = ""
     if data.get("ListMode") is not None:
         import capo_ssm_sap.types.configuration_check_operation_listing_mode
 

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sts._protocol.xml import Element
-from capo_sts.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sts.types.duration_seconds_type
@@ -75,7 +74,7 @@ def deserialize_query(el: Element) -> GetFederationTokenRequest:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("GetFederationTokenRequest.name required")
+        out["name"] = ""
     child_policy = el.find("Policy")
     if child_policy is not None:
         out["policy"] = str(child_policy.text or "")

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.boxed_integer
     import capo_ecs.types.efs_authorization_config
@@ -62,7 +60,7 @@ def deserialize_aws_json_1_1(data: dict) -> EFSVolumeConfiguration:
     if data.get("fileSystemId") is not None:
         out["file_system_id"] = data["fileSystemId"]
     else:
-        raise DeserializationError("EFSVolumeConfiguration.file_system_id required")
+        out["file_system_id"] = ""
     if data.get("rootDirectory") is not None:
         out["root_directory"] = data["rootDirectory"]
     if data.get("transitEncryption") is not None:

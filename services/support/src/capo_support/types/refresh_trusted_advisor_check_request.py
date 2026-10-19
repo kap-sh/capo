@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_support.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support.types.string
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> RefreshTrustedAdvisorCheckRequest:
     if data.get("checkId") is not None:
         out["check_id"] = data["checkId"]
     else:
-        raise DeserializationError(
-            "RefreshTrustedAdvisorCheckRequest.check_id required"
-        )
+        out["check_id"] = ""
     return out

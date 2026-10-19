@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.vpc_configuration_id
     import capo_bedrock_agent.types.vpc_configuration_status
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> CreateVpcConfigurationResponse:
     if data.get("vpcConfigurationId") is not None:
         out["vpc_configuration_id"] = data["vpcConfigurationId"]
     else:
-        raise DeserializationError(
-            "CreateVpcConfigurationResponse.vpc_configuration_id required"
-        )
+        out["vpc_configuration_id"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agent.types.vpc_configuration_status
 
@@ -49,5 +45,10 @@ def deserialize_json(data: dict) -> CreateVpcConfigurationResponse:
             )
         )
     else:
-        raise DeserializationError("CreateVpcConfigurationResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agent.types.vpc_configuration_status.VpcConfigurationStatus",
+            "",
+        )
     return out

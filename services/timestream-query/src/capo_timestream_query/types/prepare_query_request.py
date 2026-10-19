@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_query.types.nullable_boolean
     import capo_timestream_query.types.query_string
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_0(data: dict) -> PrepareQueryRequest:
     if data.get("QueryString") is not None:
         out["query_string"] = data["QueryString"]
     else:
-        raise DeserializationError("PrepareQueryRequest.query_string required")
+        out["query_string"] = ""
     if data.get("ValidateOnly") is not None:
         out["validate_only"] = data["ValidateOnly"]
     return out

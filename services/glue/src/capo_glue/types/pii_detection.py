@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.boxed_double_fraction
     import capo_glue.types.boxed_positive_int
@@ -135,7 +133,7 @@ def deserialize_aws_json_1_1(data: dict) -> PIIDetection:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("PIIDetection.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.one_input
 
@@ -143,7 +141,7 @@ def deserialize_aws_json_1_1(data: dict) -> PIIDetection:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("PIIDetection.inputs required")
+        out["inputs"] = []
     if data.get("PiiType") is not None:
         import capo_glue.types.pii_type
 
@@ -151,7 +149,9 @@ def deserialize_aws_json_1_1(data: dict) -> PIIDetection:
             data["PiiType"]
         )
     else:
-        raise DeserializationError("PIIDetection.pii_type required")
+        import typing
+
+        out["pii_type"] = typing.cast("capo_glue.types.pii_type.PiiType", "")
     if data.get("EntityTypesToDetect") is not None:
         import capo_glue.types.enclosed_in_string_properties
 
@@ -161,7 +161,7 @@ def deserialize_aws_json_1_1(data: dict) -> PIIDetection:
             )
         )
     else:
-        raise DeserializationError("PIIDetection.entity_types_to_detect required")
+        out["entity_types_to_detect"] = []
     if data.get("OutputColumnName") is not None:
         out["output_column_name"] = data["OutputColumnName"]
     if data.get("SampleFraction") is not None:

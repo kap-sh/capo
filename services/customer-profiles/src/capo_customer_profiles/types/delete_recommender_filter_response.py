@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 
 class DeleteRecommenderFilterResponse(TypedDict, closed=True):
     message: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> DeleteRecommenderFilterResponse:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("DeleteRecommenderFilterResponse.message required")
+        out["message"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.arn
     import capo_workspaces_web.types.arn_list
@@ -43,9 +41,7 @@ def deserialize_json(data: dict) -> UserAccessLoggingSettings:
     if data.get("userAccessLoggingSettingsArn") is not None:
         out["user_access_logging_settings_arn"] = data["userAccessLoggingSettingsArn"]
     else:
-        raise DeserializationError(
-            "UserAccessLoggingSettings.user_access_logging_settings_arn required"
-        )
+        out["user_access_logging_settings_arn"] = ""
     if data.get("associatedPortalArns") is not None:
         import capo_workspaces_web.types.arn_list
 

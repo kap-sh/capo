@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_influxdb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -67,17 +65,20 @@ def deserialize_aws_json_1_0(data: dict) -> DbBackupConfigurationOutput:
             )
         )
     else:
-        raise DeserializationError("DbBackupConfigurationOutput.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_timestream_influxdb.types.automated_db_backup_type.AutomatedDbBackupType",
+            "",
+        )
     if data.get("retentionDays") is not None:
         out["retention_days"] = data["retentionDays"]
     else:
-        raise DeserializationError(
-            "DbBackupConfigurationOutput.retention_days required"
-        )
+        out["retention_days"] = 0
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     else:
-        raise DeserializationError("DbBackupConfigurationOutput.enabled required")
+        out["enabled"] = False
     if data.get("customSchedule") is not None:
         out["custom_schedule"] = data["customSchedule"]
     if data.get("nextAutomatedBackupTime") is not None:

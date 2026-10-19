@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_elementalinference.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elementalinference.types.dictionary_entries_payload
     import capo_elementalinference.types.dictionary_language
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> CreateDictionaryRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateDictionaryRequest.name required")
+        out["name"] = ""
     if data.get("language") is not None:
         import capo_elementalinference.types.dictionary_language
 
@@ -61,7 +59,11 @@ def deserialize_json(data: dict) -> CreateDictionaryRequest:
             )
         )
     else:
-        raise DeserializationError("CreateDictionaryRequest.language required")
+        import typing
+
+        out["language"] = typing.cast(
+            "capo_elementalinference.types.dictionary_language.DictionaryLanguage", ""
+        )
     if data.get("entries") is not None:
         out["entries"] = data["entries"]
     if data.get("tags") is not None:

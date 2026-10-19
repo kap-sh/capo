@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_account_access.errors import DeserializationError
-
 
 class CreateEntitlementResponse(TypedDict, closed=True):
     entitlement_id: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> CreateEntitlementResponse:
     if data.get("entitlementId") is not None:
         out["entitlement_id"] = data["entitlementId"]
     else:
-        raise DeserializationError("CreateEntitlementResponse.entitlement_id required")
+        out["entitlement_id"] = ""
     return out

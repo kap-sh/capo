@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 
 class GraphQLRenderConfig(TypedDict, closed=True):
     types_file_path: "str"
@@ -34,23 +32,21 @@ def deserialize_json(data: dict) -> GraphQLRenderConfig:
     if data.get("typesFilePath") is not None:
         out["types_file_path"] = data["typesFilePath"]
     else:
-        raise DeserializationError("GraphQLRenderConfig.types_file_path required")
+        out["types_file_path"] = ""
     if data.get("queriesFilePath") is not None:
         out["queries_file_path"] = data["queriesFilePath"]
     else:
-        raise DeserializationError("GraphQLRenderConfig.queries_file_path required")
+        out["queries_file_path"] = ""
     if data.get("mutationsFilePath") is not None:
         out["mutations_file_path"] = data["mutationsFilePath"]
     else:
-        raise DeserializationError("GraphQLRenderConfig.mutations_file_path required")
+        out["mutations_file_path"] = ""
     if data.get("subscriptionsFilePath") is not None:
         out["subscriptions_file_path"] = data["subscriptionsFilePath"]
     else:
-        raise DeserializationError(
-            "GraphQLRenderConfig.subscriptions_file_path required"
-        )
+        out["subscriptions_file_path"] = ""
     if data.get("fragmentsFilePath") is not None:
         out["fragments_file_path"] = data["fragmentsFilePath"]
     else:
-        raise DeserializationError("GraphQLRenderConfig.fragments_file_path required")
+        out["fragments_file_path"] = ""
     return out

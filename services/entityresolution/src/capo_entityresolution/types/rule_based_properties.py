@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.attribute_matching_model
     import capo_entityresolution.types.match_purpose
@@ -54,7 +52,7 @@ def deserialize_json(data: dict) -> RuleBasedProperties:
             data["rules"]
         )
     else:
-        raise DeserializationError("RuleBasedProperties.rules required")
+        out["rules"] = []
     if data.get("attributeMatchingModel") is not None:
         import capo_entityresolution.types.attribute_matching_model
 
@@ -64,8 +62,11 @@ def deserialize_json(data: dict) -> RuleBasedProperties:
             )
         )
     else:
-        raise DeserializationError(
-            "RuleBasedProperties.attribute_matching_model required"
+        import typing
+
+        out["attribute_matching_model"] = typing.cast(
+            "capo_entityresolution.types.attribute_matching_model.AttributeMatchingModel",
+            "",
         )
     if data.get("matchPurpose") is not None:
         import capo_entityresolution.types.match_purpose

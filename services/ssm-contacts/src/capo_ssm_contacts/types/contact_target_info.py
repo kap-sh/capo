@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.is_essential
     import capo_ssm_contacts.types.ssm_contacts_arn
@@ -34,5 +32,5 @@ def deserialize_aws_json_1_1(data: dict) -> ContactTargetInfo:
     if data.get("IsEssential") is not None:
         out["is_essential"] = data["IsEssential"]
     else:
-        raise DeserializationError("ContactTargetInfo.is_essential required")
+        out["is_essential"] = False
     return out

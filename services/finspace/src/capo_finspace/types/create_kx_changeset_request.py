@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_finspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace.types.change_requests
     import capo_finspace.types.client_token_string
@@ -45,9 +43,9 @@ def deserialize_json(data: dict) -> CreateKxChangesetRequest:
             data["changeRequests"]
         )
     else:
-        raise DeserializationError("CreateKxChangesetRequest.change_requests required")
+        out["change_requests"] = []
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CreateKxChangesetRequest.client_token required")
+        out["client_token"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.client_id
     import capo_devops_agent.types.client_secret
@@ -50,9 +48,7 @@ def deserialize_json(data: dict) -> PagerDutyOAuthClientCredentialsConfig:
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
     else:
-        raise DeserializationError(
-            "PagerDutyOAuthClientCredentialsConfig.client_id required"
-        )
+        out["client_id"] = ""
     if data.get("exchangeParameters") is not None:
         import capo_devops_agent.types.exchange_parameters
 
@@ -64,9 +60,7 @@ def deserialize_json(data: dict) -> PagerDutyOAuthClientCredentialsConfig:
     if data.get("clientSecret") is not None:
         out["client_secret"] = data["clientSecret"]
     else:
-        raise DeserializationError(
-            "PagerDutyOAuthClientCredentialsConfig.client_secret required"
-        )
+        out["client_secret"] = ""
     return out
 
 

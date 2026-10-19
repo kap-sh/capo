@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.inference_profile_arn
     import capo_bedrock.types.inference_profile_description
@@ -87,9 +85,7 @@ def deserialize_json(data: dict) -> GetInferenceProfileResponse:
     if data.get("inferenceProfileName") is not None:
         out["inference_profile_name"] = data["inferenceProfileName"]
     else:
-        raise DeserializationError(
-            "GetInferenceProfileResponse.inference_profile_name required"
-        )
+        out["inference_profile_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("createdAt") is not None:
@@ -107,9 +103,7 @@ def deserialize_json(data: dict) -> GetInferenceProfileResponse:
     if data.get("inferenceProfileArn") is not None:
         out["inference_profile_arn"] = data["inferenceProfileArn"]
     else:
-        raise DeserializationError(
-            "GetInferenceProfileResponse.inference_profile_arn required"
-        )
+        out["inference_profile_arn"] = ""
     if data.get("models") is not None:
         import capo_bedrock.types.inference_profile_models
 
@@ -117,13 +111,11 @@ def deserialize_json(data: dict) -> GetInferenceProfileResponse:
             data["models"]
         )
     else:
-        raise DeserializationError("GetInferenceProfileResponse.models required")
+        out["models"] = []
     if data.get("inferenceProfileId") is not None:
         out["inference_profile_id"] = data["inferenceProfileId"]
     else:
-        raise DeserializationError(
-            "GetInferenceProfileResponse.inference_profile_id required"
-        )
+        out["inference_profile_id"] = ""
     if data.get("status") is not None:
         import capo_bedrock.types.inference_profile_status
 
@@ -131,7 +123,11 @@ def deserialize_json(data: dict) -> GetInferenceProfileResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("GetInferenceProfileResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock.types.inference_profile_status.InferenceProfileStatus", ""
+        )
     if data.get("type") is not None:
         import capo_bedrock.types.inference_profile_type
 
@@ -139,7 +135,11 @@ def deserialize_json(data: dict) -> GetInferenceProfileResponse:
             data["type"]
         )
     else:
-        raise DeserializationError("GetInferenceProfileResponse.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock.types.inference_profile_type.InferenceProfileType", ""
+        )
     return out
 
 

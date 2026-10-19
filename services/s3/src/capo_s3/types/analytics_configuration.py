@@ -43,7 +43,7 @@ def deserialize_xml(el: Element) -> AnalyticsConfiguration:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("AnalyticsConfiguration.id required")
+        out["id"] = ""
     child_filter = el.find("Filter")
     if child_filter is not None:
         import capo_s3.types.analytics_filter

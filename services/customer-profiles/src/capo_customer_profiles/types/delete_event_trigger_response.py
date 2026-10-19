@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.message
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DeleteEventTriggerResponse:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("DeleteEventTriggerResponse.message required")
+        out["message"] = ""
     return out

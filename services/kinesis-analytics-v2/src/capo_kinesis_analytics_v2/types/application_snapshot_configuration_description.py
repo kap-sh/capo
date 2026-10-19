@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.boolean_object
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationSnapshotConfigurationDesc
     if data.get("SnapshotsEnabled") is not None:
         out["snapshots_enabled"] = data["SnapshotsEnabled"]
     else:
-        raise DeserializationError(
-            "ApplicationSnapshotConfigurationDescription.snapshots_enabled required"
-        )
+        out["snapshots_enabled"] = False
     return out

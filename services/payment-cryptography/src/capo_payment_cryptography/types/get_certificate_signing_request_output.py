@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.certificate_signing_request_type
 
@@ -27,9 +25,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetCertificateSigningRequestOutput:
     if data.get("CertificateSigningRequest") is not None:
         out["certificate_signing_request"] = data["CertificateSigningRequest"]
     else:
-        raise DeserializationError(
-            "GetCertificateSigningRequestOutput.certificate_signing_request required"
-        )
+        out["certificate_signing_request"] = ""
     return out
 
 

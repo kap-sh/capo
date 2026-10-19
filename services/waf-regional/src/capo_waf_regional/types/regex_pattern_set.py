@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_waf_regional.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf_regional.types.regex_pattern_strings
     import capo_waf_regional.types.resource_id
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> RegexPatternSet:
     if data.get("RegexPatternSetId") is not None:
         out["regex_pattern_set_id"] = data["RegexPatternSetId"]
     else:
-        raise DeserializationError("RegexPatternSet.regex_pattern_set_id required")
+        out["regex_pattern_set_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("RegexPatternStrings") is not None:
@@ -56,5 +54,5 @@ def deserialize_aws_json_1_1(data: dict) -> RegexPatternSet:
             )
         )
     else:
-        raise DeserializationError("RegexPatternSet.regex_pattern_strings required")
+        out["regex_pattern_strings"] = []
     return out

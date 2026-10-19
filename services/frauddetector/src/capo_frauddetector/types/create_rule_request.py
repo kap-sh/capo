@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.description
     import capo_frauddetector.types.identifier
@@ -66,17 +64,17 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRuleRequest:
     if data.get("ruleId") is not None:
         out["rule_id"] = data["ruleId"]
     else:
-        raise DeserializationError("CreateRuleRequest.rule_id required")
+        out["rule_id"] = ""
     if data.get("detectorId") is not None:
         out["detector_id"] = data["detectorId"]
     else:
-        raise DeserializationError("CreateRuleRequest.detector_id required")
+        out["detector_id"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("expression") is not None:
         out["expression"] = data["expression"]
     else:
-        raise DeserializationError("CreateRuleRequest.expression required")
+        out["expression"] = ""
     if data.get("language") is not None:
         import capo_frauddetector.types.language
 
@@ -84,7 +82,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRuleRequest:
             data["language"]
         )
     else:
-        raise DeserializationError("CreateRuleRequest.language required")
+        import typing
+
+        out["language"] = typing.cast("capo_frauddetector.types.language.Language", "")
     if data.get("outcomes") is not None:
         import capo_frauddetector.types.non_empty_list_of_strings
 
@@ -94,7 +94,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRuleRequest:
             )
         )
     else:
-        raise DeserializationError("CreateRuleRequest.outcomes required")
+        out["outcomes"] = []
     if data.get("tags") is not None:
         import capo_frauddetector.types.tag_list
 

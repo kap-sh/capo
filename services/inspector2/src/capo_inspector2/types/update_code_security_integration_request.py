@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.code_security_integration_arn
     import capo_inspector2.types.update_integration_details
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> UpdateCodeSecurityIntegrationRequest:
     if data.get("integrationArn") is not None:
         out["integration_arn"] = data["integrationArn"]
     else:
-        raise DeserializationError(
-            "UpdateCodeSecurityIntegrationRequest.integration_arn required"
-        )
+        out["integration_arn"] = ""
     if data.get("details") is not None:
         import capo_inspector2.types.update_integration_details
 
@@ -49,9 +45,9 @@ def deserialize_json(data: dict) -> UpdateCodeSecurityIntegrationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateCodeSecurityIntegrationRequest.details required"
-        )
+        import capo_inspector2.types._unknown
+
+        out["details"] = capo_inspector2.types._unknown.UnknownUnionMember("")
     return out
 
 

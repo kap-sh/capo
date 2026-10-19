@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.date
     import capo_partnercentral_selling.types.engagement_customer_business_problem
@@ -44,15 +42,15 @@ def deserialize_aws_json_1_0(data: dict) -> ProjectDetails:
     if data.get("BusinessProblem") is not None:
         out["business_problem"] = data["BusinessProblem"]
     else:
-        raise DeserializationError("ProjectDetails.business_problem required")
+        out["business_problem"] = ""
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     else:
-        raise DeserializationError("ProjectDetails.title required")
+        out["title"] = ""
     if data.get("TargetCompletionDate") is not None:
         out["target_completion_date"] = data["TargetCompletionDate"]
     else:
-        raise DeserializationError("ProjectDetails.target_completion_date required")
+        out["target_completion_date"] = ""
     if data.get("ExpectedCustomerSpend") is not None:
         import capo_partnercentral_selling.types.expected_customer_spend_list
 
@@ -62,7 +60,7 @@ def deserialize_aws_json_1_0(data: dict) -> ProjectDetails:
             )
         )
     else:
-        raise DeserializationError("ProjectDetails.expected_customer_spend required")
+        out["expected_customer_spend"] = []
     return out
 
 

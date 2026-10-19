@@ -53,9 +53,7 @@ def deserialize_json(data: dict) -> CreateInboundExternalLinkRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError(
-            "CreateInboundExternalLinkRequest.client_token required"
-        )
+        out["client_token"] = ""
     if data.get("attributes") is not None:
         import capo_rtbfabric.types.link_attributes
 

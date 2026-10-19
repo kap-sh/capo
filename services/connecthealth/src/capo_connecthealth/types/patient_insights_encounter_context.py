@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_connecthealth.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connecthealth.types.sensitive_non_empty_string
 
@@ -29,9 +27,7 @@ def deserialize_json(data: dict) -> PatientInsightsEncounterContext:
     if data.get("encounterReason") is not None:
         out["encounter_reason"] = data["encounterReason"]
     else:
-        raise DeserializationError(
-            "PatientInsightsEncounterContext.encounter_reason required"
-        )
+        out["encounter_reason"] = ""
     return out
 
 

@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 
 class UpdateSnapshotCopyConfigurationRequest(TypedDict, closed=True):
     snapshot_copy_configuration_id: "str"
@@ -26,9 +24,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateSnapshotCopyConfigurationReque
     if data.get("snapshotCopyConfigurationId") is not None:
         out["snapshot_copy_configuration_id"] = data["snapshotCopyConfigurationId"]
     else:
-        raise DeserializationError(
-            "UpdateSnapshotCopyConfigurationRequest.snapshot_copy_configuration_id required"
-        )
+        out["snapshot_copy_configuration_id"] = ""
     if data.get("snapshotRetentionPeriod") is not None:
         out["snapshot_retention_period"] = data["snapshotRetentionPeriod"]
     return out

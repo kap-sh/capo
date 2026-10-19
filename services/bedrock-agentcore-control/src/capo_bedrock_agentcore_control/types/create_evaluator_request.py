@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.client_token
     import capo_bedrock_agentcore_control.types.custom_evaluator_name
@@ -81,7 +79,7 @@ def deserialize_json(data: dict) -> CreateEvaluatorRequest:
     if data.get("evaluatorName") is not None:
         out["evaluator_name"] = data["evaluatorName"]
     else:
-        raise DeserializationError("CreateEvaluatorRequest.evaluator_name required")
+        out["evaluator_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("evaluatorConfig") is not None:
@@ -93,7 +91,11 @@ def deserialize_json(data: dict) -> CreateEvaluatorRequest:
             )
         )
     else:
-        raise DeserializationError("CreateEvaluatorRequest.evaluator_config required")
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["evaluator_config"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
+        )
     if data.get("level") is not None:
         import capo_bedrock_agentcore_control.types.evaluator_level
 
@@ -103,7 +105,11 @@ def deserialize_json(data: dict) -> CreateEvaluatorRequest:
             )
         )
     else:
-        raise DeserializationError("CreateEvaluatorRequest.level required")
+        import typing
+
+        out["level"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.evaluator_level.EvaluatorLevel", ""
+        )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     if data.get("tags") is not None:

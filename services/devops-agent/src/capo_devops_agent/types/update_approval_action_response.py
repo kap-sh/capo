@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> UpdateApprovalActionResponse:
     if data.get("approvalId") is not None:
         out["approval_id"] = data["approvalId"]
     else:
-        raise DeserializationError("UpdateApprovalActionResponse.approval_id required")
+        out["approval_id"] = ""
     if data.get("status") is not None:
         import capo_devops_agent.types.approval_status
 
@@ -53,7 +51,11 @@ def deserialize_json(data: dict) -> UpdateApprovalActionResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("UpdateApprovalActionResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_devops_agent.types.approval_status.ApprovalStatus", ""
+        )
     if data.get("expiresAt") is not None:
         import capo_devops_agent.types._prelude.timestamp
 

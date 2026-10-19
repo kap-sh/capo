@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_eventbridgev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.string
 
@@ -27,5 +25,5 @@ def deserialize_cbor(data: dict) -> JsonataConfiguration:
     if data.get("Expression") is not None:
         out["expression"] = data["Expression"]
     else:
-        raise DeserializationError("JsonataConfiguration.expression required")
+        out["expression"] = ""
     return out

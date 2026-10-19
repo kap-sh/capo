@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.boolean
     import capo_workmail.types.idempotency_client_token
@@ -52,13 +50,11 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteOrganizationRequest:
     if data.get("OrganizationId") is not None:
         out["organization_id"] = data["OrganizationId"]
     else:
-        raise DeserializationError("DeleteOrganizationRequest.organization_id required")
+        out["organization_id"] = ""
     if data.get("DeleteDirectory") is not None:
         out["delete_directory"] = data["DeleteDirectory"]
     else:
-        raise DeserializationError(
-            "DeleteOrganizationRequest.delete_directory required"
-        )
+        out["delete_directory"] = False
     if data.get("ForceDelete") is not None:
         out["force_delete"] = data["ForceDelete"]
     if data.get("DeleteIdentityCenterApplication") is not None:

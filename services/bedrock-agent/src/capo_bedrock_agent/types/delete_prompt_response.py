@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.numerical_version
     import capo_bedrock_agent.types.prompt_id
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> DeletePromptResponse:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("DeletePromptResponse.id required")
+        out["id"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     return out

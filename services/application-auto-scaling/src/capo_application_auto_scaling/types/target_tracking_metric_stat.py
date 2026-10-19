@@ -54,7 +54,7 @@ def deserialize_aws_json_1_1(data: dict) -> TargetTrackingMetricStat:
     if data.get("Stat") is not None:
         out["stat"] = data["Stat"]
     else:
-        raise DeserializationError("TargetTrackingMetricStat.stat required")
+        out["stat"] = ""
     if data.get("Unit") is not None:
         out["unit"] = data["Unit"]
     return out

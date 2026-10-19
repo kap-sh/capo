@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.autonomous_database_backup_list
 
@@ -47,7 +45,5 @@ def deserialize_aws_json_1_0(data: dict) -> ListAutonomousDatabaseBackupsOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListAutonomousDatabaseBackupsOutput.autonomous_database_backups required"
-        )
+        out["autonomous_database_backups"] = []
     return out

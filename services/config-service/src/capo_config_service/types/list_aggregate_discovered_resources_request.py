@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.configuration_aggregator_name
     import capo_config_service.types.limit
@@ -58,9 +56,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListAggregateDiscoveredResourcesRequ
     if data.get("ConfigurationAggregatorName") is not None:
         out["configuration_aggregator_name"] = data["ConfigurationAggregatorName"]
     else:
-        raise DeserializationError(
-            "ListAggregateDiscoveredResourcesRequest.configuration_aggregator_name required"
-        )
+        out["configuration_aggregator_name"] = ""
     if data.get("ResourceType") is not None:
         import capo_config_service.types.resource_type
 
@@ -70,8 +66,10 @@ def deserialize_aws_json_1_1(data: dict) -> ListAggregateDiscoveredResourcesRequ
             )
         )
     else:
-        raise DeserializationError(
-            "ListAggregateDiscoveredResourcesRequest.resource_type required"
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_config_service.types.resource_type.ResourceType", ""
         )
     if data.get("Filters") is not None:
         import capo_config_service.types.resource_filters

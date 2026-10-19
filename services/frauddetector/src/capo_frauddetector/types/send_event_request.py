@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.event_variable_map
     import capo_frauddetector.types.identifier
@@ -64,15 +62,15 @@ def deserialize_aws_json_1_1(data: dict) -> SendEventRequest:
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError("SendEventRequest.event_id required")
+        out["event_id"] = ""
     if data.get("eventTypeName") is not None:
         out["event_type_name"] = data["eventTypeName"]
     else:
-        raise DeserializationError("SendEventRequest.event_type_name required")
+        out["event_type_name"] = ""
     if data.get("eventTimestamp") is not None:
         out["event_timestamp"] = data["eventTimestamp"]
     else:
-        raise DeserializationError("SendEventRequest.event_timestamp required")
+        out["event_timestamp"] = ""
     if data.get("eventVariables") is not None:
         import capo_frauddetector.types.event_variable_map
 
@@ -82,7 +80,7 @@ def deserialize_aws_json_1_1(data: dict) -> SendEventRequest:
             )
         )
     else:
-        raise DeserializationError("SendEventRequest.event_variables required")
+        out["event_variables"] = {}
     if data.get("assignedLabel") is not None:
         out["assigned_label"] = data["assignedLabel"]
     if data.get("labelTimestamp") is not None:
@@ -96,7 +94,7 @@ def deserialize_aws_json_1_1(data: dict) -> SendEventRequest:
             )
         )
     else:
-        raise DeserializationError("SendEventRequest.entities required")
+        out["entities"] = []
     return out
 
 

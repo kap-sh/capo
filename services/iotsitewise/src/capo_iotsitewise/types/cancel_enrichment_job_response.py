@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.enrichment_job_status
     import capo_iotsitewise.types.id
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> CancelEnrichmentJobResponse:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("CancelEnrichmentJobResponse.job_id required")
+        out["job_id"] = ""
     if data.get("status") is not None:
         import capo_iotsitewise.types.enrichment_job_status
 
@@ -43,5 +41,9 @@ def deserialize_json(data: dict) -> CancelEnrichmentJobResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("CancelEnrichmentJobResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_iotsitewise.types.enrichment_job_status.EnrichmentJobStatus", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.bool
 
@@ -35,9 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> FilterStringConfiguration:
     if data.get("QueryParameterName") is not None:
         out["query_parameter_name"] = data["QueryParameterName"]
     else:
-        raise DeserializationError(
-            "FilterStringConfiguration.query_parameter_name required"
-        )
+        out["query_parameter_name"] = ""
     if data.get("QuoteStringValues") is not None:
         out["quote_string_values"] = data["QuoteStringValues"]
     if data.get("QuoteCharacter") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb_streams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb_streams.types.positive_integer_object
     import capo_dynamodb_streams.types.shard_iterator
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetRecordsInput:
     if data.get("ShardIterator") is not None:
         out["shard_iterator"] = data["ShardIterator"]
     else:
-        raise DeserializationError("GetRecordsInput.shard_iterator required")
+        out["shard_iterator"] = ""
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
     return out

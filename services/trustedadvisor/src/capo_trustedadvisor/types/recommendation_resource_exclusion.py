@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_trustedadvisor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_trustedadvisor.types.recommendation_resource_arn
 
@@ -30,11 +28,9 @@ def deserialize_json(data: dict) -> RecommendationResourceExclusion:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("RecommendationResourceExclusion.arn required")
+        out["arn"] = ""
     if data.get("isExcluded") is not None:
         out["is_excluded"] = data["isExcluded"]
     else:
-        raise DeserializationError(
-            "RecommendationResourceExclusion.is_excluded required"
-        )
+        out["is_excluded"] = False
     return out

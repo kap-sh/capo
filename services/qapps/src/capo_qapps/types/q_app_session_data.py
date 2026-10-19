@@ -50,7 +50,7 @@ def deserialize_json(data: dict) -> QAppSessionData:
     if data.get("cardId") is not None:
         out["card_id"] = data["cardId"]
     else:
-        raise DeserializationError("QAppSessionData.card_id required")
+        out["card_id"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     if data.get("user") is not None:

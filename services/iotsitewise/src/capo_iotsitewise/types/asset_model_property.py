@@ -75,7 +75,7 @@ def deserialize_json(data: dict) -> AssetModelProperty:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("AssetModelProperty.name required")
+        out["name"] = ""
     if data.get("dataType") is not None:
         import capo_iotsitewise.types.property_data_type
 
@@ -83,7 +83,11 @@ def deserialize_json(data: dict) -> AssetModelProperty:
             data["dataType"]
         )
     else:
-        raise DeserializationError("AssetModelProperty.data_type required")
+        import typing
+
+        out["data_type"] = typing.cast(
+            "capo_iotsitewise.types.property_data_type.PropertyDataType", ""
+        )
     if data.get("dataTypeSpec") is not None:
         out["data_type_spec"] = data["dataTypeSpec"]
     if data.get("unit") is not None:

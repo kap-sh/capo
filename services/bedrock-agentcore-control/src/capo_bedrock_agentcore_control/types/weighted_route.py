@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.target_traffic_split_entries
 
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> WeightedRoute:
             )
         )
     else:
-        raise DeserializationError("WeightedRoute.traffic_split required")
+        out["traffic_split"] = []
     return out
 
 

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 
 class GoalContent(TypedDict, closed=True):
     description: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> GoalContent:
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("GoalContent.description required")
+        out["description"] = ""
     if data.get("objectives") is not None:
         out["objectives"] = data["objectives"]
     else:
-        raise DeserializationError("GoalContent.objectives required")
+        out["objectives"] = ""
     return out

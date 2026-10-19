@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_channel.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_channel.types.account_id
     import capo_partnercentral_channel.types.coverage
@@ -47,11 +45,15 @@ def deserialize_aws_json_1_0(data: dict) -> ResoldEnterprise:
             )
         )
     else:
-        raise DeserializationError("ResoldEnterprise.coverage required")
+        import typing
+
+        out["coverage"] = typing.cast(
+            "capo_partnercentral_channel.types.coverage.Coverage", ""
+        )
     if data.get("tamLocation") is not None:
         out["tam_location"] = data["tamLocation"]
     else:
-        raise DeserializationError("ResoldEnterprise.tam_location required")
+        out["tam_location"] = ""
     if data.get("chargeAccountId") is not None:
         out["charge_account_id"] = data["chargeAccountId"]
     return out

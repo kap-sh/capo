@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -130,7 +128,7 @@ def deserialize_aws_json_1_0(data: dict) -> ExecutionEvent:
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError("ExecutionEvent.event_id required")
+        out["event_id"] = ""
     if data.get("previousEventId") is not None:
         out["previous_event_id"] = data["previousEventId"]
     return out

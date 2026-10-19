@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.report_status_counts
     import capo_codebuild.types.wrapper_int
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> TestReportSummary:
     if data.get("total") is not None:
         out["total"] = data["total"]
     else:
-        raise DeserializationError("TestReportSummary.total required")
+        out["total"] = 0
     if data.get("statusCounts") is not None:
         import capo_codebuild.types.report_status_counts
 
@@ -51,11 +49,9 @@ def deserialize_aws_json_1_1(data: dict) -> TestReportSummary:
             )
         )
     else:
-        raise DeserializationError("TestReportSummary.status_counts required")
+        out["status_counts"] = {}
     if data.get("durationInNanoSeconds") is not None:
         out["duration_in_nano_seconds"] = data["durationInNanoSeconds"]
     else:
-        raise DeserializationError(
-            "TestReportSummary.duration_in_nano_seconds required"
-        )
+        out["duration_in_nano_seconds"] = 0
     return out

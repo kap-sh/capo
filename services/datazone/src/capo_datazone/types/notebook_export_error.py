@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 
 class NotebookExportError(TypedDict, closed=True):
     message: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> NotebookExportError:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("NotebookExportError.message required")
+        out["message"] = ""
     return out

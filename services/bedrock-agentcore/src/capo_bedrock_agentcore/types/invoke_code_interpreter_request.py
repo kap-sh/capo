@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.code_interpreter_session_id
     import capo_bedrock_agentcore.types.tool_arguments
@@ -53,7 +51,9 @@ def deserialize_json(data: dict) -> InvokeCodeInterpreterRequest:
             data["name"]
         )
     else:
-        raise DeserializationError("InvokeCodeInterpreterRequest.name required")
+        import typing
+
+        out["name"] = typing.cast("capo_bedrock_agentcore.types.tool_name.ToolName", "")
     if data.get("arguments") is not None:
         import capo_bedrock_agentcore.types.tool_arguments
 

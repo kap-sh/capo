@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_events.types.run_command_target_key
     import capo_cloudwatch_events.types.run_command_target_values
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> RunCommandTarget:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("RunCommandTarget.key required")
+        out["key"] = ""
     if data.get("Values") is not None:
         import capo_cloudwatch_events.types.run_command_target_values
 
@@ -49,5 +47,5 @@ def deserialize_aws_json_1_1(data: dict) -> RunCommandTarget:
             )
         )
     else:
-        raise DeserializationError("RunCommandTarget.values required")
+        out["values"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.timestamp
 
@@ -38,11 +36,15 @@ def deserialize_json(data: dict) -> DateRange:
             data["FromDate"]
         )
     else:
-        raise DeserializationError("DateRange.from_date required")
+        import datetime
+
+        out["from_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("ToDate") is not None:
         import capo_backup.types.timestamp
 
         out["to_date"] = capo_backup.types.timestamp.deserialize_json(data["ToDate"])
     else:
-        raise DeserializationError("DateRange.to_date required")
+        import datetime
+
+        out["to_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

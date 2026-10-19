@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.configuration_job_status
     import capo_supplychain.types.configuration_s3_uri
@@ -46,11 +44,11 @@ def deserialize_json(data: dict) -> BillOfMaterialsImportJob:
     if data.get("instanceId") is not None:
         out["instance_id"] = data["instanceId"]
     else:
-        raise DeserializationError("BillOfMaterialsImportJob.instance_id required")
+        out["instance_id"] = ""
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("BillOfMaterialsImportJob.job_id required")
+        out["job_id"] = ""
     if data.get("status") is not None:
         import capo_supplychain.types.configuration_job_status
 
@@ -60,11 +58,15 @@ def deserialize_json(data: dict) -> BillOfMaterialsImportJob:
             )
         )
     else:
-        raise DeserializationError("BillOfMaterialsImportJob.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_supplychain.types.configuration_job_status.ConfigurationJobStatus", ""
+        )
     if data.get("s3uri") is not None:
         out["s3uri"] = data["s3uri"]
     else:
-        raise DeserializationError("BillOfMaterialsImportJob.s3uri required")
+        out["s3uri"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     return out

@@ -71,7 +71,7 @@ def deserialize_json(data: dict) -> CreateBillingGroupInput:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateBillingGroupInput.name required")
+        out["name"] = ""
     if data.get("AccountGrouping") is not None:
         import capo_billingconductor.types.account_grouping
 

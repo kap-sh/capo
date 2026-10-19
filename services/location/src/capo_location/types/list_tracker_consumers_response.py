@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.arn_list
     import capo_location.types.token
@@ -40,9 +38,7 @@ def deserialize_json(data: dict) -> ListTrackerConsumersResponse:
             data["ConsumerArns"]
         )
     else:
-        raise DeserializationError(
-            "ListTrackerConsumersResponse.consumer_arns required"
-        )
+        out["consumer_arns"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

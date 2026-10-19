@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_secrets_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_secrets_manager.types.secret_id_type
     import capo_secrets_manager.types.secret_version_id_type
@@ -46,13 +44,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateSecretVersionStageRequest:
     if data.get("SecretId") is not None:
         out["secret_id"] = data["SecretId"]
     else:
-        raise DeserializationError("UpdateSecretVersionStageRequest.secret_id required")
+        out["secret_id"] = ""
     if data.get("VersionStage") is not None:
         out["version_stage"] = data["VersionStage"]
     else:
-        raise DeserializationError(
-            "UpdateSecretVersionStageRequest.version_stage required"
-        )
+        out["version_stage"] = ""
     if data.get("RemoveFromVersionId") is not None:
         out["remove_from_version_id"] = data["RemoveFromVersionId"]
     if data.get("MoveToVersionId") is not None:

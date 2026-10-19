@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dsql.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dsql.types.cluster_vpc_endpoint
     import capo_dsql.types.service_name
@@ -34,9 +32,7 @@ def deserialize_json(data: dict) -> GetVpcEndpointServiceNameOutput:
     if data.get("serviceName") is not None:
         out["service_name"] = data["serviceName"]
     else:
-        raise DeserializationError(
-            "GetVpcEndpointServiceNameOutput.service_name required"
-        )
+        out["service_name"] = ""
     if data.get("clusterVpcEndpoint") is not None:
         out["cluster_vpc_endpoint"] = data["clusterVpcEndpoint"]
     return out

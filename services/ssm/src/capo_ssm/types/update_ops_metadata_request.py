@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.metadata_keys_to_delete_list
     import capo_ssm.types.metadata_map
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateOpsMetadataRequest:
     if data.get("OpsMetadataArn") is not None:
         out["ops_metadata_arn"] = data["OpsMetadataArn"]
     else:
-        raise DeserializationError("UpdateOpsMetadataRequest.ops_metadata_arn required")
+        out["ops_metadata_arn"] = ""
     if data.get("MetadataToUpdate") is not None:
         import capo_ssm.types.metadata_map
 

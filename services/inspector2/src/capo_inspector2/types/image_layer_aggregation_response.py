@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.account_id
     import capo_inspector2.types.non_empty_string
@@ -66,19 +64,19 @@ def deserialize_json(data: dict) -> ImageLayerAggregationResponse:
     if data.get("repository") is not None:
         out["repository"] = data["repository"]
     else:
-        raise DeserializationError("ImageLayerAggregationResponse.repository required")
+        out["repository"] = ""
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     else:
-        raise DeserializationError("ImageLayerAggregationResponse.resource_id required")
+        out["resource_id"] = ""
     if data.get("layerHash") is not None:
         out["layer_hash"] = data["layerHash"]
     else:
-        raise DeserializationError("ImageLayerAggregationResponse.layer_hash required")
+        out["layer_hash"] = ""
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("ImageLayerAggregationResponse.account_id required")
+        out["account_id"] = ""
     if data.get("cloudProvider") is not None:
         out["cloud_provider"] = data["cloudProvider"]
     if data.get("cloudAccountId") is not None:

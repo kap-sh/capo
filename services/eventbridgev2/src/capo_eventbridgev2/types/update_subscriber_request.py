@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eventbridgev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.batch_configuration
     import capo_eventbridgev2.types.description
@@ -125,7 +123,7 @@ def deserialize_cbor(data: dict) -> UpdateSubscriberRequest:
     if data.get("SubscriberArn") is not None:
         out["subscriber_arn"] = data["SubscriberArn"]
     else:
-        raise DeserializationError("UpdateSubscriberRequest.subscriber_arn required")
+        out["subscriber_arn"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("State") is not None:

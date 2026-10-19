@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_global_accelerator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_global_accelerator.types.custom_routing_destination_configurations
     import capo_global_accelerator.types.generic_string
@@ -46,15 +44,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCustomRoutingEndpointGroupRequ
     if data.get("ListenerArn") is not None:
         out["listener_arn"] = data["ListenerArn"]
     else:
-        raise DeserializationError(
-            "CreateCustomRoutingEndpointGroupRequest.listener_arn required"
-        )
+        out["listener_arn"] = ""
     if data.get("EndpointGroupRegion") is not None:
         out["endpoint_group_region"] = data["EndpointGroupRegion"]
     else:
-        raise DeserializationError(
-            "CreateCustomRoutingEndpointGroupRequest.endpoint_group_region required"
-        )
+        out["endpoint_group_region"] = ""
     if data.get("DestinationConfigurations") is not None:
         import capo_global_accelerator.types.custom_routing_destination_configurations
 
@@ -64,13 +58,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCustomRoutingEndpointGroupRequ
             )
         )
     else:
-        raise DeserializationError(
-            "CreateCustomRoutingEndpointGroupRequest.destination_configurations required"
-        )
+        out["destination_configurations"] = []
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     else:
-        raise DeserializationError(
-            "CreateCustomRoutingEndpointGroupRequest.idempotency_token required"
-        )
+        out["idempotency_token"] = ""
     return out

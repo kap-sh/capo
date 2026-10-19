@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_quotas.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_quotas.types.max_results
     import capo_service_quotas.types.next_token
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListAWSDefaultServiceQuotasRequest:
     if data.get("ServiceCode") is not None:
         out["service_code"] = data["ServiceCode"]
     else:
-        raise DeserializationError(
-            "ListAWSDefaultServiceQuotasRequest.service_code required"
-        )
+        out["service_code"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

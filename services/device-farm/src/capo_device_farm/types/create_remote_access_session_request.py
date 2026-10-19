@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_device_farm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_device_farm.types.amazon_resource_name
     import capo_device_farm.types.boolean
@@ -78,15 +76,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRemoteAccessSessionRequest:
     if data.get("projectArn") is not None:
         out["project_arn"] = data["projectArn"]
     else:
-        raise DeserializationError(
-            "CreateRemoteAccessSessionRequest.project_arn required"
-        )
+        out["project_arn"] = ""
     if data.get("deviceArn") is not None:
         out["device_arn"] = data["deviceArn"]
     else:
-        raise DeserializationError(
-            "CreateRemoteAccessSessionRequest.device_arn required"
-        )
+        out["device_arn"] = ""
     if data.get("appArn") is not None:
         out["app_arn"] = data["appArn"]
     if data.get("instanceArn") is not None:

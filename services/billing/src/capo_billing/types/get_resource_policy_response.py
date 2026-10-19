@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billing.types.policy_document
     import capo_billing.types.resource_arn
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetResourcePolicyResponse:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("GetResourcePolicyResponse.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("policy") is not None:
         out["policy"] = data["policy"]
     return out

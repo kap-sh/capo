@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_polly.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_polly.types.engine
     import capo_polly.types.language_code
@@ -125,15 +123,15 @@ def deserialize_json(data: dict) -> StartSpeechSynthesisTaskInput:
             data["OutputFormat"]
         )
     else:
-        raise DeserializationError(
-            "StartSpeechSynthesisTaskInput.output_format required"
+        import typing
+
+        out["output_format"] = typing.cast(
+            "capo_polly.types.output_format.OutputFormat", ""
         )
     if data.get("OutputS3BucketName") is not None:
         out["output_s3_bucket_name"] = data["OutputS3BucketName"]
     else:
-        raise DeserializationError(
-            "StartSpeechSynthesisTaskInput.output_s3_bucket_name required"
-        )
+        out["output_s3_bucket_name"] = ""
     if data.get("OutputS3KeyPrefix") is not None:
         out["output_s3_key_prefix"] = data["OutputS3KeyPrefix"]
     if data.get("SampleRate") is not None:
@@ -151,7 +149,7 @@ def deserialize_json(data: dict) -> StartSpeechSynthesisTaskInput:
     if data.get("Text") is not None:
         out["text"] = data["Text"]
     else:
-        raise DeserializationError("StartSpeechSynthesisTaskInput.text required")
+        out["text"] = ""
     if data.get("TextType") is not None:
         import capo_polly.types.text_type
 
@@ -161,5 +159,7 @@ def deserialize_json(data: dict) -> StartSpeechSynthesisTaskInput:
 
         out["voice_id"] = capo_polly.types.voice_id.deserialize_json(data["VoiceId"])
     else:
-        raise DeserializationError("StartSpeechSynthesisTaskInput.voice_id required")
+        import typing
+
+        out["voice_id"] = typing.cast("capo_polly.types.voice_id.VoiceId", "")
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.ends_at
     import capo_deadline.types.starts_at
@@ -39,11 +37,15 @@ def deserialize_json(data: dict) -> FixedBudgetSchedule:
             data["startTime"]
         )
     else:
-        raise DeserializationError("FixedBudgetSchedule.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_deadline.types.ends_at
 
         out["end_time"] = capo_deadline.types.ends_at.deserialize_json(data["endTime"])
     else:
-        raise DeserializationError("FixedBudgetSchedule.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

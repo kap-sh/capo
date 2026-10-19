@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.batch_associate_approval_rule_template_with_repositories_errors_list
     import capo_codecommit.types.repository_name_list
@@ -55,9 +53,7 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "BatchAssociateApprovalRuleTemplateWithRepositoriesOutput.associated_repository_names required"
-        )
+        out["associated_repository_names"] = []
     if data.get("errors") is not None:
         import capo_codecommit.types.batch_associate_approval_rule_template_with_repositories_errors_list
 
@@ -67,7 +63,5 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "BatchAssociateApprovalRuleTemplateWithRepositoriesOutput.errors required"
-        )
+        out["errors"] = []
     return out

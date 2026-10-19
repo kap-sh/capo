@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.data_delay_offset_in_minutes
     import capo_lookoutequipment.types.data_upload_frequency
@@ -78,9 +76,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateInferenceSchedulerRequest:
     if data.get("InferenceSchedulerName") is not None:
         out["inference_scheduler_name"] = data["InferenceSchedulerName"]
     else:
-        raise DeserializationError(
-            "UpdateInferenceSchedulerRequest.inference_scheduler_name required"
-        )
+        out["inference_scheduler_name"] = ""
     if data.get("DataDelayOffsetInMinutes") is not None:
         out["data_delay_offset_in_minutes"] = data["DataDelayOffsetInMinutes"]
     if data.get("DataUploadFrequency") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.product_code_id
     import capo_imagebuilder.types.product_code_type
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> ProductCodeListItem:
     if data.get("productCodeId") is not None:
         out["product_code_id"] = data["productCodeId"]
     else:
-        raise DeserializationError("ProductCodeListItem.product_code_id required")
+        out["product_code_id"] = ""
     if data.get("productCodeType") is not None:
         import capo_imagebuilder.types.product_code_type
 
@@ -45,5 +43,9 @@ def deserialize_json(data: dict) -> ProductCodeListItem:
             )
         )
     else:
-        raise DeserializationError("ProductCodeListItem.product_code_type required")
+        import typing
+
+        out["product_code_type"] = typing.cast(
+            "capo_imagebuilder.types.product_code_type.ProductCodeType", ""
+        )
     return out

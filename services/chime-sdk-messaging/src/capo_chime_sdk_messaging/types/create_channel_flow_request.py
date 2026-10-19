@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_messaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_messaging.types.chime_arn
     import capo_chime_sdk_messaging.types.client_request_token
@@ -54,7 +52,7 @@ def deserialize_json(data: dict) -> CreateChannelFlowRequest:
     if data.get("AppInstanceArn") is not None:
         out["app_instance_arn"] = data["AppInstanceArn"]
     else:
-        raise DeserializationError("CreateChannelFlowRequest.app_instance_arn required")
+        out["app_instance_arn"] = ""
     if data.get("Processors") is not None:
         import capo_chime_sdk_messaging.types.processor_list
 
@@ -64,11 +62,11 @@ def deserialize_json(data: dict) -> CreateChannelFlowRequest:
             )
         )
     else:
-        raise DeserializationError("CreateChannelFlowRequest.processors required")
+        out["processors"] = []
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateChannelFlowRequest.name required")
+        out["name"] = ""
     if data.get("Tags") is not None:
         import capo_chime_sdk_messaging.types.tag_list
 
@@ -78,9 +76,7 @@ def deserialize_json(data: dict) -> CreateChannelFlowRequest:
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     else:
-        raise DeserializationError(
-            "CreateChannelFlowRequest.client_request_token required"
-        )
+        out["client_request_token"] = ""
     return out
 
 

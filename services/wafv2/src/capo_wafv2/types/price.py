@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.crypto_currency
     import capo_wafv2.types.price_amount
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> Price:
     if data.get("Amount") is not None:
         out["amount"] = data["Amount"]
     else:
-        raise DeserializationError("Price.amount required")
+        out["amount"] = ""
     if data.get("Currency") is not None:
         import capo_wafv2.types.crypto_currency
 
@@ -43,5 +41,9 @@ def deserialize_aws_json_1_1(data: dict) -> Price:
             data["Currency"]
         )
     else:
-        raise DeserializationError("Price.currency required")
+        import typing
+
+        out["currency"] = typing.cast(
+            "capo_wafv2.types.crypto_currency.CryptoCurrency", ""
+        )
     return out

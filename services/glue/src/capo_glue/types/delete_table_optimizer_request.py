@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.catalog_id_string
     import capo_glue.types.name_string
@@ -42,15 +40,15 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteTableOptimizerRequest:
     if data.get("CatalogId") is not None:
         out["catalog_id"] = data["CatalogId"]
     else:
-        raise DeserializationError("DeleteTableOptimizerRequest.catalog_id required")
+        out["catalog_id"] = ""
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError("DeleteTableOptimizerRequest.database_name required")
+        out["database_name"] = ""
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("DeleteTableOptimizerRequest.table_name required")
+        out["table_name"] = ""
     if data.get("Type") is not None:
         import capo_glue.types.table_optimizer_type
 
@@ -58,5 +56,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteTableOptimizerRequest:
             data["Type"]
         )
     else:
-        raise DeserializationError("DeleteTableOptimizerRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_glue.types.table_optimizer_type.TableOptimizerType", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.farm_id
     import capo_deadline.types.fleet_id
@@ -54,29 +52,31 @@ def deserialize_json(data: dict) -> VolumeSummary:
     if data.get("volumeId") is not None:
         out["volume_id"] = data["volumeId"]
     else:
-        raise DeserializationError("VolumeSummary.volume_id required")
+        out["volume_id"] = ""
     if data.get("farmId") is not None:
         out["farm_id"] = data["farmId"]
     else:
-        raise DeserializationError("VolumeSummary.farm_id required")
+        out["farm_id"] = ""
     if data.get("fleetId") is not None:
         out["fleet_id"] = data["fleetId"]
     else:
-        raise DeserializationError("VolumeSummary.fleet_id required")
+        out["fleet_id"] = ""
     if data.get("state") is not None:
         import capo_deadline.types.volume_state
 
         out["state"] = capo_deadline.types.volume_state.deserialize_json(data["state"])
     else:
-        raise DeserializationError("VolumeSummary.state required")
+        import typing
+
+        out["state"] = typing.cast("capo_deadline.types.volume_state.VolumeState", "")
     if data.get("sizeGiB") is not None:
         out["size_gi_b"] = data["sizeGiB"]
     else:
-        raise DeserializationError("VolumeSummary.size_gi_b required")
+        out["size_gi_b"] = 0
     if data.get("availabilityZoneId") is not None:
         out["availability_zone_id"] = data["availabilityZoneId"]
     else:
-        raise DeserializationError("VolumeSummary.availability_zone_id required")
+        out["availability_zone_id"] = ""
     if data.get("attachedWorkerId") is not None:
         out["attached_worker_id"] = data["attachedWorkerId"]
     return out

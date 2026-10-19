@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.operation
     import capo_glue.types.parameter_map
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> RecipeAction:
     if data.get("Operation") is not None:
         out["operation"] = data["Operation"]
     else:
-        raise DeserializationError("RecipeAction.operation required")
+        out["operation"] = ""
     if data.get("Parameters") is not None:
         import capo_glue.types.parameter_map
 

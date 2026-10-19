@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.catalog_identifier
     import capo_partnercentral_selling.types.resource_snapshot_job_identifier
@@ -31,11 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteResourceSnapshotJobRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("DeleteResourceSnapshotJobRequest.catalog required")
+        out["catalog"] = ""
     if data.get("ResourceSnapshotJobIdentifier") is not None:
         out["resource_snapshot_job_identifier"] = data["ResourceSnapshotJobIdentifier"]
     else:
-        raise DeserializationError(
-            "DeleteResourceSnapshotJobRequest.resource_snapshot_job_identifier required"
-        )
+        out["resource_snapshot_job_identifier"] = ""
     return out

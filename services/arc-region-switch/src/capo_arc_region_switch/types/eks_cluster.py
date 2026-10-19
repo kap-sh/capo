@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.eks_cluster_arn
     import capo_arc_region_switch.types.iam_role_arn
@@ -42,5 +40,5 @@ def deserialize_aws_json_1_0(data: dict) -> EksCluster:
     if data.get("clusterArn") is not None:
         out["cluster_arn"] = data["clusterArn"]
     else:
-        raise DeserializationError("EksCluster.cluster_arn required")
+        out["cluster_arn"] = ""
     return out

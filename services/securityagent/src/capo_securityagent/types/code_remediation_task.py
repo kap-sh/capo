@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.code_remediation_task_details_list
     import capo_securityagent.types.code_remediation_task_status
@@ -56,7 +54,12 @@ def deserialize_json(data: dict) -> CodeRemediationTask:
             )
         )
     else:
-        raise DeserializationError("CodeRemediationTask.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_securityagent.types.code_remediation_task_status.CodeRemediationTaskStatus",
+            "",
+        )
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
     if data.get("taskDetails") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.channel_name
     import capo_ssm_contacts.types.contact_channel_address
@@ -45,9 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateContactChannelRequest:
     if data.get("ContactChannelId") is not None:
         out["contact_channel_id"] = data["ContactChannelId"]
     else:
-        raise DeserializationError(
-            "UpdateContactChannelRequest.contact_channel_id required"
-        )
+        out["contact_channel_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("DeliveryAddress") is not None:

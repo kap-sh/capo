@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.automatic_fail_configuration
     import capo_connect.types.boolean
@@ -64,15 +62,11 @@ def deserialize_json(data: dict) -> EvaluationFormMultiSelectQuestionOption:
     if data.get("RefId") is not None:
         out["ref_id"] = data["RefId"]
     else:
-        raise DeserializationError(
-            "EvaluationFormMultiSelectQuestionOption.ref_id required"
-        )
+        out["ref_id"] = ""
     if data.get("Text") is not None:
         out["text"] = data["Text"]
     else:
-        raise DeserializationError(
-            "EvaluationFormMultiSelectQuestionOption.text required"
-        )
+        out["text"] = ""
     if data.get("Score") is not None:
         out["score"] = data["Score"]
     else:

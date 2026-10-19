@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.integer
     import capo_database_migration_service.types.redis_auth_type_value
@@ -74,7 +72,7 @@ def deserialize_aws_json_1_1(data: dict) -> RedisSettings:
     if data.get("ServerName") is not None:
         out["server_name"] = data["ServerName"]
     else:
-        raise DeserializationError("RedisSettings.server_name required")
+        out["server_name"] = ""
     if data.get("Port") is not None:
         out["port"] = data["Port"]
     else:

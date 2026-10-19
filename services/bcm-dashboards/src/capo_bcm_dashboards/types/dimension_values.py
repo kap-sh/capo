@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_dashboards.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_dashboards.types.dimension
     import capo_bcm_dashboards.types.match_options
@@ -54,7 +52,9 @@ def deserialize_aws_json_1_0(data: dict) -> DimensionValues:
             data["key"]
         )
     else:
-        raise DeserializationError("DimensionValues.key required")
+        import typing
+
+        out["key"] = typing.cast("capo_bcm_dashboards.types.dimension.Dimension", "")
     if data.get("values") is not None:
         import capo_bcm_dashboards.types.string_list
 
@@ -62,7 +62,7 @@ def deserialize_aws_json_1_0(data: dict) -> DimensionValues:
             data["values"]
         )
     else:
-        raise DeserializationError("DimensionValues.values required")
+        out["values"] = []
     if data.get("matchOptions") is not None:
         import capo_bcm_dashboards.types.match_options
 

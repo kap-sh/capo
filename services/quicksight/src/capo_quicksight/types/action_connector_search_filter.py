@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.action_connector_search_filter_name_enum
     import capo_quicksight.types.filter_operator
@@ -50,7 +48,12 @@ def deserialize_json(data: dict) -> ActionConnectorSearchFilter:
             )
         )
     else:
-        raise DeserializationError("ActionConnectorSearchFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_quicksight.types.action_connector_search_filter_name_enum.ActionConnectorSearchFilterNameEnum",
+            "",
+        )
     if data.get("Operator") is not None:
         import capo_quicksight.types.filter_operator
 
@@ -58,9 +61,13 @@ def deserialize_json(data: dict) -> ActionConnectorSearchFilter:
             data["Operator"]
         )
     else:
-        raise DeserializationError("ActionConnectorSearchFilter.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_quicksight.types.filter_operator.FilterOperator", ""
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("ActionConnectorSearchFilter.value required")
+        out["value"] = ""
     return out

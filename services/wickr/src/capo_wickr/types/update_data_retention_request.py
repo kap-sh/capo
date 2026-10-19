@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.data_retention_action_type
     import capo_wickr.types.network_id
@@ -40,5 +38,9 @@ def deserialize_json(data: dict) -> UpdateDataRetentionRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateDataRetentionRequest.action_type required")
+        import typing
+
+        out["action_type"] = typing.cast(
+            "capo_wickr.types.data_retention_action_type.DataRetentionActionType", ""
+        )
     return out

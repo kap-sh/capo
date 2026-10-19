@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.field_name
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> PineconeFieldMapping:
     if data.get("textField") is not None:
         out["text_field"] = data["textField"]
     else:
-        raise DeserializationError("PineconeFieldMapping.text_field required")
+        out["text_field"] = ""
     if data.get("metadataField") is not None:
         out["metadata_field"] = data["metadataField"]
     else:
-        raise DeserializationError("PineconeFieldMapping.metadata_field required")
+        out["metadata_field"] = ""
     return out

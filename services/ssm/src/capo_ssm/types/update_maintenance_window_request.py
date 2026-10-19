@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.boolean
     import capo_ssm.types.maintenance_window_allow_unassociated_targets
@@ -106,7 +104,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateMaintenanceWindowRequest:
     if data.get("WindowId") is not None:
         out["window_id"] = data["WindowId"]
     else:
-        raise DeserializationError("UpdateMaintenanceWindowRequest.window_id required")
+        out["window_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("Description") is not None:

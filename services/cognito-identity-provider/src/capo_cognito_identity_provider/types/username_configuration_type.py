@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.wrapped_boolean_type
 
@@ -29,5 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> UsernameConfigurationType:
     if data.get("CaseSensitive") is not None:
         out["case_sensitive"] = data["CaseSensitive"]
     else:
-        raise DeserializationError("UsernameConfigurationType.case_sensitive required")
+        out["case_sensitive"] = False
     return out

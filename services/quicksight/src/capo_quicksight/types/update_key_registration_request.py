@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.key_registration
@@ -40,7 +38,5 @@ def deserialize_json(data: dict) -> UpdateKeyRegistrationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateKeyRegistrationRequest.key_registration required"
-        )
+        out["key_registration"] = []
     return out

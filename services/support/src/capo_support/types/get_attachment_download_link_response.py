@@ -35,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetAttachmentDownloadLinkResponse:
     if data.get("fileName") is not None:
         out["file_name"] = data["fileName"]
     else:
-        raise DeserializationError(
-            "GetAttachmentDownloadLinkResponse.file_name required"
-        )
+        out["file_name"] = ""
     if data.get("downloadUrl") is not None:
         import capo_support.types.download_url
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.continuous_backups_status
     import capo_dynamodb.types.point_in_time_recovery_description
@@ -54,8 +52,10 @@ def deserialize_aws_json_1_0(data: dict) -> ContinuousBackupsDescription:
             )
         )
     else:
-        raise DeserializationError(
-            "ContinuousBackupsDescription.continuous_backups_status required"
+        import typing
+
+        out["continuous_backups_status"] = typing.cast(
+            "capo_dynamodb.types.continuous_backups_status.ContinuousBackupsStatus", ""
         )
     if data.get("PointInTimeRecoveryDescription") is not None:
         import capo_dynamodb.types.point_in_time_recovery_description

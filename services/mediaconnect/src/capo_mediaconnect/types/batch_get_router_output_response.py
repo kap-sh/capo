@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.batch_get_router_output_error_list
     import capo_mediaconnect.types.router_output_list
@@ -47,9 +45,7 @@ def deserialize_json(data: dict) -> BatchGetRouterOutputResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetRouterOutputResponse.router_outputs required"
-        )
+        out["router_outputs"] = []
     if data.get("errors") is not None:
         import capo_mediaconnect.types.batch_get_router_output_error_list
 
@@ -59,5 +55,5 @@ def deserialize_json(data: dict) -> BatchGetRouterOutputResponse:
             )
         )
     else:
-        raise DeserializationError("BatchGetRouterOutputResponse.errors required")
+        out["errors"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.direct_connect_gateway_id
     import capo_direct_connect.types.gateway_id_to_associate
@@ -58,9 +56,7 @@ def deserialize_aws_json_1_1(
     if data.get("directConnectGatewayId") is not None:
         out["direct_connect_gateway_id"] = data["directConnectGatewayId"]
     else:
-        raise DeserializationError(
-            "CreateDirectConnectGatewayAssociationRequest.direct_connect_gateway_id required"
-        )
+        out["direct_connect_gateway_id"] = ""
     if data.get("gatewayId") is not None:
         out["gateway_id"] = data["gatewayId"]
     if data.get("addAllowedPrefixesToDirectConnectGateway") is not None:

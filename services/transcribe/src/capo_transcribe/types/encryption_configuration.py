@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transcribe.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe.types.kms_encryption_context_map
     import capo_transcribe.types.kms_key_id
@@ -48,5 +46,5 @@ def deserialize_aws_json_1_1(data: dict) -> EncryptionConfiguration:
     if data.get("KMSKey") is not None:
         out["kms_key"] = data["KMSKey"]
     else:
-        raise DeserializationError("EncryptionConfiguration.kms_key required")
+        out["kms_key"] = ""
     return out

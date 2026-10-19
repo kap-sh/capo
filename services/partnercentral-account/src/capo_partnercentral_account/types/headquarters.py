@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.country_code
     import capo_partnercentral_account.types.subdivision_code
@@ -33,9 +31,9 @@ def deserialize_aws_json_1_0(data: dict) -> Headquarters:
     if data.get("CountryCode") is not None:
         out["country_code"] = data["CountryCode"]
     else:
-        raise DeserializationError("Headquarters.country_code required")
+        out["country_code"] = ""
     if data.get("SubdivisionCode") is not None:
         out["subdivision_code"] = data["SubdivisionCode"]
     else:
-        raise DeserializationError("Headquarters.subdivision_code required")
+        out["subdivision_code"] = ""
     return out

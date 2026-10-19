@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.client_token
     import capo_datazone.types.domain_id
@@ -47,15 +45,11 @@ def deserialize_json(data: dict) -> StartNotebookExportInput:
     if data.get("notebookIdentifier") is not None:
         out["notebook_identifier"] = data["notebookIdentifier"]
     else:
-        raise DeserializationError(
-            "StartNotebookExportInput.notebook_identifier required"
-        )
+        out["notebook_identifier"] = ""
     if data.get("owningProjectIdentifier") is not None:
         out["owning_project_identifier"] = data["owningProjectIdentifier"]
     else:
-        raise DeserializationError(
-            "StartNotebookExportInput.owning_project_identifier required"
-        )
+        out["owning_project_identifier"] = ""
     if data.get("fileFormat") is not None:
         import capo_datazone.types.file_format
 
@@ -63,7 +57,11 @@ def deserialize_json(data: dict) -> StartNotebookExportInput:
             data["fileFormat"]
         )
     else:
-        raise DeserializationError("StartNotebookExportInput.file_format required")
+        import typing
+
+        out["file_format"] = typing.cast(
+            "capo_datazone.types.file_format.FileFormat", ""
+        )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

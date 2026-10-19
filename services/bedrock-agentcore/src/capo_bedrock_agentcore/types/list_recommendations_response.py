@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.next_token
     import capo_bedrock_agentcore.types.recommendation_summary_list
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> ListRecommendationsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListRecommendationsResponse.recommendation_summaries required"
-        )
+        out["recommendation_summaries"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

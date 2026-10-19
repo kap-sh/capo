@@ -82,11 +82,11 @@ def deserialize_json(data: dict) -> GetResponsePlanOutput:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetResponsePlanOutput.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetResponsePlanOutput.name required")
+        out["name"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     if data.get("incidentTemplate") is not None:

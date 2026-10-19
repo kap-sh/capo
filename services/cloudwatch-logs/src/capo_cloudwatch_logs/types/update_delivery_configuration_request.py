@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.delivery_id
     import capo_cloudwatch_logs.types.field_delimiter
@@ -58,7 +56,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDeliveryConfigurationRequest:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("UpdateDeliveryConfigurationRequest.id required")
+        out["id"] = ""
     if data.get("recordFields") is not None:
         import capo_cloudwatch_logs.types.record_fields
 

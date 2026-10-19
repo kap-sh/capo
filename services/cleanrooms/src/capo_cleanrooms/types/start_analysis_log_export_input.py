@@ -52,7 +52,7 @@ def deserialize_json(data: dict) -> StartAnalysisLogExportInput:
     if data.get("analysisId") is not None:
         out["analysis_id"] = data["analysisId"]
     else:
-        raise DeserializationError("StartAnalysisLogExportInput.analysis_id required")
+        out["analysis_id"] = ""
     if data.get("analysisType") is not None:
         import capo_cleanrooms.types.log_export_analysis_type
 
@@ -62,7 +62,11 @@ def deserialize_json(data: dict) -> StartAnalysisLogExportInput:
             )
         )
     else:
-        raise DeserializationError("StartAnalysisLogExportInput.analysis_type required")
+        import typing
+
+        out["analysis_type"] = typing.cast(
+            "capo_cleanrooms.types.log_export_analysis_type.LogExportAnalysisType", ""
+        )
     if data.get("resultConfiguration") is not None:
         import capo_cleanrooms.types.analysis_log_export_result_configuration
 

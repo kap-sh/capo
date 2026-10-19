@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.arn
     import capo_backup.types.backup_vault_name
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> AssociateBackupVaultMpaApprovalTeamInput:
     if data.get("MpaApprovalTeamArn") is not None:
         out["mpa_approval_team_arn"] = data["MpaApprovalTeamArn"]
     else:
-        raise DeserializationError(
-            "AssociateBackupVaultMpaApprovalTeamInput.mpa_approval_team_arn required"
-        )
+        out["mpa_approval_team_arn"] = ""
     if data.get("RequesterComment") is not None:
         out["requester_comment"] = data["RequesterComment"]
     return out

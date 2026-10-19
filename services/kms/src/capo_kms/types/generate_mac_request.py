@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kms.types.grant_token_list
     import capo_kms.types.key_id_type
@@ -61,11 +59,11 @@ def deserialize_aws_json_1_1(data: dict) -> GenerateMacRequest:
             data["Message"]
         )
     else:
-        raise DeserializationError("GenerateMacRequest.message required")
+        out["message"] = b""
     if data.get("KeyId") is not None:
         out["key_id"] = data["KeyId"]
     else:
-        raise DeserializationError("GenerateMacRequest.key_id required")
+        out["key_id"] = ""
     if data.get("MacAlgorithm") is not None:
         import capo_kms.types.mac_algorithm_spec
 
@@ -75,7 +73,11 @@ def deserialize_aws_json_1_1(data: dict) -> GenerateMacRequest:
             )
         )
     else:
-        raise DeserializationError("GenerateMacRequest.mac_algorithm required")
+        import typing
+
+        out["mac_algorithm"] = typing.cast(
+            "capo_kms.types.mac_algorithm_spec.MacAlgorithmSpec", ""
+        )
     if data.get("GrantTokens") is not None:
         import capo_kms.types.grant_token_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_model_building_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_model_building_service.types.synonym_list
     import capo_lex_model_building_service.types.value
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> EnumerationValue:
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("EnumerationValue.value required")
+        out["value"] = ""
     if data.get("synonyms") is not None:
         import capo_lex_model_building_service.types.synonym_list
 

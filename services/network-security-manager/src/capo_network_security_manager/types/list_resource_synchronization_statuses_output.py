@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.next_token
     import capo_network_security_manager.types.resource_synchronization_status_summary_list
@@ -46,7 +44,5 @@ def deserialize_json(data: dict) -> ListResourceSynchronizationStatusesOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListResourceSynchronizationStatusesOutput.resource_synchronization_statuses required"
-        )
+        out["resource_synchronization_statuses"] = []
     return out

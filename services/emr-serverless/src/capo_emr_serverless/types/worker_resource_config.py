@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_serverless.types.cpu_size
     import capo_emr_serverless.types.disk_size
@@ -41,11 +39,11 @@ def deserialize_json(data: dict) -> WorkerResourceConfig:
     if data.get("cpu") is not None:
         out["cpu"] = data["cpu"]
     else:
-        raise DeserializationError("WorkerResourceConfig.cpu required")
+        out["cpu"] = ""
     if data.get("memory") is not None:
         out["memory"] = data["memory"]
     else:
-        raise DeserializationError("WorkerResourceConfig.memory required")
+        out["memory"] = ""
     if data.get("disk") is not None:
         out["disk"] = data["disk"]
     if data.get("diskType") is not None:

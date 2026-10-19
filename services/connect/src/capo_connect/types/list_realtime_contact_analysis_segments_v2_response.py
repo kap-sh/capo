@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.large_next_token
     import capo_connect.types.real_time_contact_analysis_status
@@ -62,8 +60,11 @@ def deserialize_json(data: dict) -> ListRealtimeContactAnalysisSegmentsV2Respons
             )
         )
     else:
-        raise DeserializationError(
-            "ListRealtimeContactAnalysisSegmentsV2Response.channel required"
+        import typing
+
+        out["channel"] = typing.cast(
+            "capo_connect.types.real_time_contact_analysis_supported_channel.RealTimeContactAnalysisSupportedChannel",
+            "",
         )
     if data.get("Status") is not None:
         import capo_connect.types.real_time_contact_analysis_status
@@ -74,8 +75,11 @@ def deserialize_json(data: dict) -> ListRealtimeContactAnalysisSegmentsV2Respons
             )
         )
     else:
-        raise DeserializationError(
-            "ListRealtimeContactAnalysisSegmentsV2Response.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_connect.types.real_time_contact_analysis_status.RealTimeContactAnalysisStatus",
+            "",
         )
     if data.get("Segments") is not None:
         import capo_connect.types.realtime_contact_analysis_segments
@@ -86,9 +90,7 @@ def deserialize_json(data: dict) -> ListRealtimeContactAnalysisSegmentsV2Respons
             )
         )
     else:
-        raise DeserializationError(
-            "ListRealtimeContactAnalysisSegmentsV2Response.segments required"
-        )
+        out["segments"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

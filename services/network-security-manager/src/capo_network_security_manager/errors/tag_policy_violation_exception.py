@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_network_security_manager.errors import DeserializationError, ServiceError
+from capo_network_security_manager.errors import ServiceError
 
 
 class TagPolicyViolationException_(TypedDict, closed=True):
@@ -22,7 +22,7 @@ def deserialize_json(data: dict) -> TagPolicyViolationException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("TagPolicyViolationException_.message required")
+        out["message"] = ""
     return out
 
 

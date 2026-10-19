@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_grafana.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_grafana.types.role
     import capo_grafana.types.update_action
@@ -37,15 +35,15 @@ def deserialize_json(data: dict) -> UpdateInstruction:
     if data.get("action") is not None:
         out["action"] = data["action"]
     else:
-        raise DeserializationError("UpdateInstruction.action required")
+        out["action"] = ""
     if data.get("role") is not None:
         out["role"] = data["role"]
     else:
-        raise DeserializationError("UpdateInstruction.role required")
+        out["role"] = ""
     if data.get("users") is not None:
         import capo_grafana.types.user_list
 
         out["users"] = capo_grafana.types.user_list.deserialize_json(data["users"])
     else:
-        raise DeserializationError("UpdateInstruction.users required")
+        out["users"] = []
     return out

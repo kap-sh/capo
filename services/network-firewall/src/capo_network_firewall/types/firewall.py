@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.availability_zone_mappings
     import capo_network_firewall.types.aws_account_id
@@ -189,11 +187,11 @@ def deserialize_aws_json_1_0(data: dict) -> Firewall:
     if data.get("FirewallPolicyArn") is not None:
         out["firewall_policy_arn"] = data["FirewallPolicyArn"]
     else:
-        raise DeserializationError("Firewall.firewall_policy_arn required")
+        out["firewall_policy_arn"] = ""
     if data.get("VpcId") is not None:
         out["vpc_id"] = data["VpcId"]
     else:
-        raise DeserializationError("Firewall.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("SubnetMappings") is not None:
         import capo_network_firewall.types.subnet_mappings
 
@@ -203,7 +201,7 @@ def deserialize_aws_json_1_0(data: dict) -> Firewall:
             )
         )
     else:
-        raise DeserializationError("Firewall.subnet_mappings required")
+        out["subnet_mappings"] = []
     if data.get("DeleteProtection") is not None:
         out["delete_protection"] = data["DeleteProtection"]
     else:
@@ -223,7 +221,7 @@ def deserialize_aws_json_1_0(data: dict) -> Firewall:
     if data.get("FirewallId") is not None:
         out["firewall_id"] = data["FirewallId"]
     else:
-        raise DeserializationError("Firewall.firewall_id required")
+        out["firewall_id"] = ""
     if data.get("Tags") is not None:
         import capo_network_firewall.types.tag_list
 

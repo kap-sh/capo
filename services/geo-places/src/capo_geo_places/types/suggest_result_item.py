@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_places.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_places.types.sensitive_string
     import capo_geo_places.types.suggest_highlights
@@ -67,7 +65,7 @@ def deserialize_json(data: dict) -> SuggestResultItem:
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     else:
-        raise DeserializationError("SuggestResultItem.title required")
+        out["title"] = ""
     if data.get("SuggestResultItemType") is not None:
         import capo_geo_places.types.suggest_result_item_type
 
@@ -77,8 +75,10 @@ def deserialize_json(data: dict) -> SuggestResultItem:
             )
         )
     else:
-        raise DeserializationError(
-            "SuggestResultItem.suggest_result_item_type required"
+        import typing
+
+        out["suggest_result_item_type"] = typing.cast(
+            "capo_geo_places.types.suggest_result_item_type.SuggestResultItemType", ""
         )
     if data.get("Place") is not None:
         import capo_geo_places.types.suggest_place_result

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_revenue_measurement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -109,15 +107,11 @@ def deserialize_cbor(data: dict) -> GetRevenueAttributionAllocationOutput:
             "RevenueAttributionAllocationId"
         ]
     else:
-        raise DeserializationError(
-            "GetRevenueAttributionAllocationOutput.revenue_attribution_allocation_id required"
-        )
+        out["revenue_attribution_allocation_id"] = ""
     if data.get("RevenueAttributionIdentifier") is not None:
         out["revenue_attribution_identifier"] = data["RevenueAttributionIdentifier"]
     else:
-        raise DeserializationError(
-            "GetRevenueAttributionAllocationOutput.revenue_attribution_identifier required"
-        )
+        out["revenue_attribution_identifier"] = ""
     if data.get("EntityType") is not None:
         import capo_partnercentral_revenue_measurement.types.entity_type
 
@@ -127,41 +121,33 @@ def deserialize_cbor(data: dict) -> GetRevenueAttributionAllocationOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetRevenueAttributionAllocationOutput.entity_type required"
+        import typing
+
+        out["entity_type"] = typing.cast(
+            "capo_partnercentral_revenue_measurement.types.entity_type.EntityType", ""
         )
     if data.get("EntityIdentifier") is not None:
         out["entity_identifier"] = data["EntityIdentifier"]
     else:
-        raise DeserializationError(
-            "GetRevenueAttributionAllocationOutput.entity_identifier required"
-        )
+        out["entity_identifier"] = ""
     if data.get("EntityName") is not None:
         out["entity_name"] = data["EntityName"]
     if data.get("CustomerAwsAccountId") is not None:
         out["customer_aws_account_id"] = data["CustomerAwsAccountId"]
     else:
-        raise DeserializationError(
-            "GetRevenueAttributionAllocationOutput.customer_aws_account_id required"
-        )
+        out["customer_aws_account_id"] = ""
     if data.get("RevenueSharePercent") is not None:
         out["revenue_share_percent"] = data["RevenueSharePercent"]
     else:
-        raise DeserializationError(
-            "GetRevenueAttributionAllocationOutput.revenue_share_percent required"
-        )
+        out["revenue_share_percent"] = ""
     if data.get("EffectiveFrom") is not None:
         out["effective_from"] = data["EffectiveFrom"]
     else:
-        raise DeserializationError(
-            "GetRevenueAttributionAllocationOutput.effective_from required"
-        )
+        out["effective_from"] = ""
     if data.get("EffectiveUntil") is not None:
         out["effective_until"] = data["EffectiveUntil"]
     else:
-        raise DeserializationError(
-            "GetRevenueAttributionAllocationOutput.effective_until required"
-        )
+        out["effective_until"] = ""
     if data.get("Status") is not None:
         import capo_partnercentral_revenue_measurement.types.allocation_status
 
@@ -171,8 +157,11 @@ def deserialize_cbor(data: dict) -> GetRevenueAttributionAllocationOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetRevenueAttributionAllocationOutput.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_partnercentral_revenue_measurement.types.allocation_status.AllocationStatus",
+            "",
         )
     if data.get("CreatedDate") is not None:
         import capo_partnercentral_revenue_measurement.types._prelude.timestamp
@@ -183,8 +172,10 @@ def deserialize_cbor(data: dict) -> GetRevenueAttributionAllocationOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetRevenueAttributionAllocationOutput.created_date required"
+        import datetime
+
+        out["created_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("LastModifiedDate") is not None:
         import capo_partnercentral_revenue_measurement.types._prelude.timestamp
@@ -195,23 +186,21 @@ def deserialize_cbor(data: dict) -> GetRevenueAttributionAllocationOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetRevenueAttributionAllocationOutput.last_modified_date required"
+        import datetime
+
+        out["last_modified_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("RevenueAttributionRevision") is not None:
         out["revenue_attribution_revision"] = data["RevenueAttributionRevision"]
     else:
-        raise DeserializationError(
-            "GetRevenueAttributionAllocationOutput.revenue_attribution_revision required"
-        )
+        out["revenue_attribution_revision"] = ""
     if data.get("RevenueAttributionLatestRevision") is not None:
         out["revenue_attribution_latest_revision"] = data[
             "RevenueAttributionLatestRevision"
         ]
     else:
-        raise DeserializationError(
-            "GetRevenueAttributionAllocationOutput.revenue_attribution_latest_revision required"
-        )
+        out["revenue_attribution_latest_revision"] = ""
     return out
 
 

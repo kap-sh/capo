@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.auto_scaling_settings_description
     import capo_dynamodb.types.billing_mode_summary
@@ -118,7 +116,7 @@ def deserialize_aws_json_1_0(data: dict) -> ReplicaSettingsDescription:
     if data.get("RegionName") is not None:
         out["region_name"] = data["RegionName"]
     else:
-        raise DeserializationError("ReplicaSettingsDescription.region_name required")
+        out["region_name"] = ""
     if data.get("ReplicaStatus") is not None:
         import capo_dynamodb.types.replica_status
 

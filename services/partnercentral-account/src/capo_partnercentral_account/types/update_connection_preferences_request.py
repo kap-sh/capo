@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.access_type
     import capo_partnercentral_account.types.catalog
@@ -54,15 +52,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateConnectionPreferencesRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError(
-            "UpdateConnectionPreferencesRequest.catalog required"
-        )
+        out["catalog"] = ""
     if data.get("Revision") is not None:
         out["revision"] = data["Revision"]
     else:
-        raise DeserializationError(
-            "UpdateConnectionPreferencesRequest.revision required"
-        )
+        out["revision"] = 0
     if data.get("AccessType") is not None:
         import capo_partnercentral_account.types.access_type
 
@@ -72,8 +66,10 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateConnectionPreferencesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateConnectionPreferencesRequest.access_type required"
+        import typing
+
+        out["access_type"] = typing.cast(
+            "capo_partnercentral_account.types.access_type.AccessType", ""
         )
     if data.get("ExcludedParticipantIdentifiers") is not None:
         import capo_partnercentral_account.types.participant_identifier_list

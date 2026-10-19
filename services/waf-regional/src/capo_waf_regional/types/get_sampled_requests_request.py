@@ -42,11 +42,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetSampledRequestsRequest:
     if data.get("WebAclId") is not None:
         out["web_acl_id"] = data["WebAclId"]
     else:
-        raise DeserializationError("GetSampledRequestsRequest.web_acl_id required")
+        out["web_acl_id"] = ""
     if data.get("RuleId") is not None:
         out["rule_id"] = data["RuleId"]
     else:
-        raise DeserializationError("GetSampledRequestsRequest.rule_id required")
+        out["rule_id"] = ""
     if data.get("TimeWindow") is not None:
         import capo_waf_regional.types.time_window
 
@@ -60,5 +60,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetSampledRequestsRequest:
     if data.get("MaxItems") is not None:
         out["max_items"] = data["MaxItems"]
     else:
-        raise DeserializationError("GetSampledRequestsRequest.max_items required")
+        out["max_items"] = 0
     return out

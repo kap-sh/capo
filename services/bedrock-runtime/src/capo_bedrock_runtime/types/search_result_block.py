@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.citations_config
     import capo_bedrock_runtime.types.search_result_content_blocks
@@ -50,11 +48,11 @@ def deserialize_json(data: dict) -> SearchResultBlock:
     if data.get("source") is not None:
         out["source"] = data["source"]
     else:
-        raise DeserializationError("SearchResultBlock.source required")
+        out["source"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("SearchResultBlock.title required")
+        out["title"] = ""
     if data.get("content") is not None:
         import capo_bedrock_runtime.types.search_result_content_blocks
 
@@ -64,7 +62,7 @@ def deserialize_json(data: dict) -> SearchResultBlock:
             )
         )
     else:
-        raise DeserializationError("SearchResultBlock.content required")
+        out["content"] = []
     if data.get("citations") is not None:
         import capo_bedrock_runtime.types.citations_config
 

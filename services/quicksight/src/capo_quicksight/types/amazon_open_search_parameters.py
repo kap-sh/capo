@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.domain
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> AmazonOpenSearchParameters:
     if data.get("Domain") is not None:
         out["domain"] = data["Domain"]
     else:
-        raise DeserializationError("AmazonOpenSearchParameters.domain required")
+        out["domain"] = ""
     return out

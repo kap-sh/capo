@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_resource_explorer_2.errors import DeserializationError
-
 
 class IncludedProperty(TypedDict, closed=True):
     name: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> IncludedProperty:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("IncludedProperty.name required")
+        out["name"] = ""
     return out

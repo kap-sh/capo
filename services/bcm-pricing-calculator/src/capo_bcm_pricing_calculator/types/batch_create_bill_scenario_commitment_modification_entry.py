@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_pricing_calculator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_pricing_calculator.types.account_id
     import capo_bcm_pricing_calculator.types.bill_scenario_commitment_modification_action
@@ -50,17 +48,13 @@ def deserialize_aws_json_1_0(
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError(
-            "BatchCreateBillScenarioCommitmentModificationEntry.key required"
-        )
+        out["key"] = ""
     if data.get("group") is not None:
         out["group"] = data["group"]
     if data.get("usageAccountId") is not None:
         out["usage_account_id"] = data["usageAccountId"]
     else:
-        raise DeserializationError(
-            "BatchCreateBillScenarioCommitmentModificationEntry.usage_account_id required"
-        )
+        out["usage_account_id"] = ""
     if data.get("commitmentAction") is not None:
         import capo_bcm_pricing_calculator.types.bill_scenario_commitment_modification_action
 
@@ -70,7 +64,9 @@ def deserialize_aws_json_1_0(
             )
         )
     else:
-        raise DeserializationError(
-            "BatchCreateBillScenarioCommitmentModificationEntry.commitment_action required"
+        import capo_bcm_pricing_calculator.types._unknown
+
+        out["commitment_action"] = (
+            capo_bcm_pricing_calculator.types._unknown.UnknownUnionMember("")
         )
     return out

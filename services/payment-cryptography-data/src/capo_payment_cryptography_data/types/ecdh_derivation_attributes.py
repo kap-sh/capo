@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.certificate_type
     import capo_payment_cryptography_data.types.key_arn_or_key_alias_type
@@ -73,15 +71,11 @@ def deserialize_json(data: dict) -> EcdhDerivationAttributes:
             "CertificateAuthorityPublicKeyIdentifier"
         ]
     else:
-        raise DeserializationError(
-            "EcdhDerivationAttributes.certificate_authority_public_key_identifier required"
-        )
+        out["certificate_authority_public_key_identifier"] = ""
     if data.get("PublicKeyCertificate") is not None:
         out["public_key_certificate"] = data["PublicKeyCertificate"]
     else:
-        raise DeserializationError(
-            "EcdhDerivationAttributes.public_key_certificate required"
-        )
+        out["public_key_certificate"] = ""
     if data.get("KeyAlgorithm") is not None:
         import capo_payment_cryptography_data.types.symmetric_key_algorithm
 
@@ -91,7 +85,12 @@ def deserialize_json(data: dict) -> EcdhDerivationAttributes:
             )
         )
     else:
-        raise DeserializationError("EcdhDerivationAttributes.key_algorithm required")
+        import typing
+
+        out["key_algorithm"] = typing.cast(
+            "capo_payment_cryptography_data.types.symmetric_key_algorithm.SymmetricKeyAlgorithm",
+            "",
+        )
     if data.get("KeyDerivationFunction") is not None:
         import capo_payment_cryptography_data.types.key_derivation_function
 
@@ -101,8 +100,11 @@ def deserialize_json(data: dict) -> EcdhDerivationAttributes:
             )
         )
     else:
-        raise DeserializationError(
-            "EcdhDerivationAttributes.key_derivation_function required"
+        import typing
+
+        out["key_derivation_function"] = typing.cast(
+            "capo_payment_cryptography_data.types.key_derivation_function.KeyDerivationFunction",
+            "",
         )
     if data.get("KeyDerivationHashAlgorithm") is not None:
         import capo_payment_cryptography_data.types.key_derivation_hash_algorithm
@@ -113,13 +115,14 @@ def deserialize_json(data: dict) -> EcdhDerivationAttributes:
             )
         )
     else:
-        raise DeserializationError(
-            "EcdhDerivationAttributes.key_derivation_hash_algorithm required"
+        import typing
+
+        out["key_derivation_hash_algorithm"] = typing.cast(
+            "capo_payment_cryptography_data.types.key_derivation_hash_algorithm.KeyDerivationHashAlgorithm",
+            "",
         )
     if data.get("SharedInformation") is not None:
         out["shared_information"] = data["SharedInformation"]
     else:
-        raise DeserializationError(
-            "EcdhDerivationAttributes.shared_information required"
-        )
+        out["shared_information"] = ""
     return out

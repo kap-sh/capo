@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.arn
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> CustomerManagedS3Storage:
     if data.get("s3ResourceArn") is not None:
         out["s3_resource_arn"] = data["s3ResourceArn"]
     else:
-        raise DeserializationError("CustomerManagedS3Storage.s3_resource_arn required")
+        out["s3_resource_arn"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CustomerManagedS3Storage.role_arn required")
+        out["role_arn"] = ""
     return out

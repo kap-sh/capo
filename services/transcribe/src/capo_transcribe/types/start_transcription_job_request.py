@@ -206,9 +206,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartTranscriptionJobRequest:
     if data.get("TranscriptionJobName") is not None:
         out["transcription_job_name"] = data["TranscriptionJobName"]
     else:
-        raise DeserializationError(
-            "StartTranscriptionJobRequest.transcription_job_name required"
-        )
+        out["transcription_job_name"] = ""
     if data.get("LanguageCode") is not None:
         import capo_transcribe.types.language_code
 

@@ -77,17 +77,17 @@ def deserialize_json(data: dict) -> DescribePlaceIndexResponse:
     if data.get("IndexName") is not None:
         out["index_name"] = data["IndexName"]
     else:
-        raise DeserializationError("DescribePlaceIndexResponse.index_name required")
+        out["index_name"] = ""
     if data.get("IndexArn") is not None:
         out["index_arn"] = data["IndexArn"]
     else:
-        raise DeserializationError("DescribePlaceIndexResponse.index_arn required")
+        out["index_arn"] = ""
     if data.get("PricingPlan") is not None:
         out["pricing_plan"] = data["PricingPlan"]
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("DescribePlaceIndexResponse.description required")
+        out["description"] = ""
     if data.get("CreateTime") is not None:
         import capo_location.types.timestamp
 
@@ -95,7 +95,11 @@ def deserialize_json(data: dict) -> DescribePlaceIndexResponse:
             data["CreateTime"]
         )
     else:
-        raise DeserializationError("DescribePlaceIndexResponse.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("UpdateTime") is not None:
         import capo_location.types.timestamp
 
@@ -103,11 +107,15 @@ def deserialize_json(data: dict) -> DescribePlaceIndexResponse:
             data["UpdateTime"]
         )
     else:
-        raise DeserializationError("DescribePlaceIndexResponse.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("DataSource") is not None:
         out["data_source"] = data["DataSource"]
     else:
-        raise DeserializationError("DescribePlaceIndexResponse.data_source required")
+        out["data_source"] = ""
     if data.get("DataSourceConfiguration") is not None:
         import capo_location.types.data_source_configuration
 

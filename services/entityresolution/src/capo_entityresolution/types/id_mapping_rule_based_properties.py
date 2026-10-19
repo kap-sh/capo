@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.attribute_matching_model
     import capo_entityresolution.types.id_mapping_workflow_rule_definition_type
@@ -78,8 +76,11 @@ def deserialize_json(data: dict) -> IdMappingRuleBasedProperties:
             )
         )
     else:
-        raise DeserializationError(
-            "IdMappingRuleBasedProperties.rule_definition_type required"
+        import typing
+
+        out["rule_definition_type"] = typing.cast(
+            "capo_entityresolution.types.id_mapping_workflow_rule_definition_type.IdMappingWorkflowRuleDefinitionType",
+            "",
         )
     if data.get("attributeMatchingModel") is not None:
         import capo_entityresolution.types.attribute_matching_model
@@ -90,8 +91,11 @@ def deserialize_json(data: dict) -> IdMappingRuleBasedProperties:
             )
         )
     else:
-        raise DeserializationError(
-            "IdMappingRuleBasedProperties.attribute_matching_model required"
+        import typing
+
+        out["attribute_matching_model"] = typing.cast(
+            "capo_entityresolution.types.attribute_matching_model.AttributeMatchingModel",
+            "",
         )
     if data.get("recordMatchingModel") is not None:
         import capo_entityresolution.types.record_matching_model
@@ -102,7 +106,9 @@ def deserialize_json(data: dict) -> IdMappingRuleBasedProperties:
             )
         )
     else:
-        raise DeserializationError(
-            "IdMappingRuleBasedProperties.record_matching_model required"
+        import typing
+
+        out["record_matching_model"] = typing.cast(
+            "capo_entityresolution.types.record_matching_model.RecordMatchingModel", ""
         )
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.role_description_type
@@ -34,10 +33,10 @@ def deserialize_query(el: Element) -> UpdateRoleDescriptionRequest:
     if child_role_name is not None:
         out["role_name"] = str(child_role_name.text or "")
     else:
-        raise DeserializationError("UpdateRoleDescriptionRequest.role_name required")
+        out["role_name"] = ""
     child_description = el.find("Description")
     if child_description is not None:
         out["description"] = str(child_description.text or "")
     else:
-        raise DeserializationError("UpdateRoleDescriptionRequest.description required")
+        out["description"] = ""
     return out

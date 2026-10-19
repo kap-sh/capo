@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_snow_device_management.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_snow_device_management.types.command
     import capo_snow_device_management.types.idempotency_token
@@ -66,7 +64,7 @@ def deserialize_json(data: dict) -> CreateTaskInput:
             data["targets"]
         )
     else:
-        raise DeserializationError("CreateTaskInput.targets required")
+        out["targets"] = []
     if data.get("command") is not None:
         import capo_snow_device_management.types.command
 
@@ -74,7 +72,11 @@ def deserialize_json(data: dict) -> CreateTaskInput:
             data["command"]
         )
     else:
-        raise DeserializationError("CreateTaskInput.command required")
+        import capo_snow_device_management.types._unknown
+
+        out["command"] = capo_snow_device_management.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("tags") is not None:

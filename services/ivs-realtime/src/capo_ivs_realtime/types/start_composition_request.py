@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs_realtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.composition_client_token
     import capo_ivs_realtime.types.destination_configuration_list
@@ -62,7 +60,7 @@ def deserialize_json(data: dict) -> StartCompositionRequest:
     if data.get("stageArn") is not None:
         out["stage_arn"] = data["stageArn"]
     else:
-        raise DeserializationError("StartCompositionRequest.stage_arn required")
+        out["stage_arn"] = ""
     if data.get("idempotencyToken") is not None:
         out["idempotency_token"] = data["idempotencyToken"]
     if data.get("layout") is not None:
@@ -80,7 +78,7 @@ def deserialize_json(data: dict) -> StartCompositionRequest:
             )
         )
     else:
-        raise DeserializationError("StartCompositionRequest.destinations required")
+        out["destinations"] = []
     if data.get("tags") is not None:
         import capo_ivs_realtime.types.tags
 

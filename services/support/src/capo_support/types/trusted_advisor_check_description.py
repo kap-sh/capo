@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_support.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support.types.string
     import capo_support.types.string_list
@@ -44,21 +42,19 @@ def deserialize_aws_json_1_1(data: dict) -> TrustedAdvisorCheckDescription:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("TrustedAdvisorCheckDescription.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("TrustedAdvisorCheckDescription.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError(
-            "TrustedAdvisorCheckDescription.description required"
-        )
+        out["description"] = ""
     if data.get("category") is not None:
         out["category"] = data["category"]
     else:
-        raise DeserializationError("TrustedAdvisorCheckDescription.category required")
+        out["category"] = ""
     if data.get("metadata") is not None:
         import capo_support.types.string_list
 
@@ -66,5 +62,5 @@ def deserialize_aws_json_1_1(data: dict) -> TrustedAdvisorCheckDescription:
             data["metadata"]
         )
     else:
-        raise DeserializationError("TrustedAdvisorCheckDescription.metadata required")
+        out["metadata"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotthingsgraph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotthingsgraph.types.entity_filters
     import capo_iotthingsgraph.types.entity_types
@@ -63,7 +61,7 @@ def deserialize_aws_json_1_1(data: dict) -> SearchEntitiesRequest:
             )
         )
     else:
-        raise DeserializationError("SearchEntitiesRequest.entity_types required")
+        out["entity_types"] = []
     if data.get("filters") is not None:
         import capo_iotthingsgraph.types.entity_filters
 

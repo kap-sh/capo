@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.sequence_number
     import capo_kinesis.types.shard_iterator_type
@@ -49,7 +47,11 @@ def deserialize_aws_json_1_1(data: dict) -> StartingPosition:
             data["Type"]
         )
     else:
-        raise DeserializationError("StartingPosition.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_kinesis.types.shard_iterator_type.ShardIteratorType", ""
+        )
     if data.get("SequenceNumber") is not None:
         out["sequence_number"] = data["SequenceNumber"]
     if data.get("Timestamp") is not None:

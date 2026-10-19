@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.kms_arn
     import capo_entityresolution.types.role_arn
@@ -36,11 +34,11 @@ def deserialize_json(data: dict) -> JobOutputSource:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("JobOutputSource.role_arn required")
+        out["role_arn"] = ""
     if data.get("outputS3Path") is not None:
         out["output_s3_path"] = data["outputS3Path"]
     else:
-        raise DeserializationError("JobOutputSource.output_s3_path required")
+        out["output_s3_path"] = ""
     if data.get("KMSArn") is not None:
         out["kms_arn"] = data["KMSArn"]
     return out

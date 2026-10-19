@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_analytics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics.types.application_name
     import capo_kinesis_analytics.types.input_configurations
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartApplicationRequest:
     if data.get("ApplicationName") is not None:
         out["application_name"] = data["ApplicationName"]
     else:
-        raise DeserializationError("StartApplicationRequest.application_name required")
+        out["application_name"] = ""
     if data.get("InputConfigurations") is not None:
         import capo_kinesis_analytics.types.input_configurations
 
@@ -49,7 +47,5 @@ def deserialize_aws_json_1_1(data: dict) -> StartApplicationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartApplicationRequest.input_configurations required"
-        )
+        out["input_configurations"] = []
     return out

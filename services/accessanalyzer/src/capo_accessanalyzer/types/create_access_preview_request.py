@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.analyzer_arn
     import capo_accessanalyzer.types.configurations_map
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> CreateAccessPreviewRequest:
     if data.get("analyzerArn") is not None:
         out["analyzer_arn"] = data["analyzerArn"]
     else:
-        raise DeserializationError("CreateAccessPreviewRequest.analyzer_arn required")
+        out["analyzer_arn"] = ""
     if data.get("configurations") is not None:
         import capo_accessanalyzer.types.configurations_map
 
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> CreateAccessPreviewRequest:
             )
         )
     else:
-        raise DeserializationError("CreateAccessPreviewRequest.configurations required")
+        out["configurations"] = {}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

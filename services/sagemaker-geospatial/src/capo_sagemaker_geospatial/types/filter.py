@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 
 class Filter(TypedDict, closed=True):
     name: "str"
@@ -49,11 +47,11 @@ def deserialize_json(data: dict) -> Filter:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Filter.name required")
+        out["name"] = ""
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     else:
-        raise DeserializationError("Filter.type required")
+        out["type"] = ""
     if data.get("Minimum") is not None:
         out["minimum"] = float(data["Minimum"])
     if data.get("Maximum") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.page_token
     import capo_sfn.types.state_machine_alias_list
@@ -46,9 +44,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListStateMachineAliasesOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListStateMachineAliasesOutput.state_machine_aliases required"
-        )
+        out["state_machine_aliases"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

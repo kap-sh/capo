@@ -47,7 +47,7 @@ def deserialize_json(data: dict) -> CopyImageSetResponse:
     if data.get("datastoreId") is not None:
         out["datastore_id"] = data["datastoreId"]
     else:
-        raise DeserializationError("CopyImageSetResponse.datastore_id required")
+        out["datastore_id"] = ""
     if data.get("sourceImageSetProperties") is not None:
         import capo_medical_imaging.types.copy_source_image_set_properties
 

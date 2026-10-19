@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -76,15 +74,17 @@ def deserialize_json(data: dict) -> ChangeEvent:
             )
         )
     else:
-        raise DeserializationError("ChangeEvent.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     else:
-        raise DeserializationError("ChangeEvent.account_id required")
+        out["account_id"] = ""
     if data.get("Region") is not None:
         out["region"] = data["Region"]
     else:
-        raise DeserializationError("ChangeEvent.region required")
+        out["region"] = ""
     if data.get("Entity") is not None:
         import capo_application_signals.types.attributes
 
@@ -92,7 +92,7 @@ def deserialize_json(data: dict) -> ChangeEvent:
             data["Entity"]
         )
     else:
-        raise DeserializationError("ChangeEvent.entity required")
+        out["entity"] = {}
     if data.get("ChangeEventType") is not None:
         import capo_application_signals.types.change_event_type
 
@@ -102,11 +102,15 @@ def deserialize_json(data: dict) -> ChangeEvent:
             )
         )
     else:
-        raise DeserializationError("ChangeEvent.change_event_type required")
+        import typing
+
+        out["change_event_type"] = typing.cast(
+            "capo_application_signals.types.change_event_type.ChangeEventType", ""
+        )
     if data.get("EventId") is not None:
         out["event_id"] = data["EventId"]
     else:
-        raise DeserializationError("ChangeEvent.event_id required")
+        out["event_id"] = ""
     if data.get("UserName") is not None:
         out["user_name"] = data["UserName"]
     if data.get("EventName") is not None:

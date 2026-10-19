@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_auto_scaling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_auto_scaling.types.expression
     import capo_application_auto_scaling.types.id
@@ -57,7 +55,7 @@ def deserialize_aws_json_1_1(data: dict) -> PredictiveScalingMetricDataQuery:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("PredictiveScalingMetricDataQuery.id required")
+        out["id"] = ""
     if data.get("Expression") is not None:
         out["expression"] = data["Expression"]
     if data.get("MetricStat") is not None:

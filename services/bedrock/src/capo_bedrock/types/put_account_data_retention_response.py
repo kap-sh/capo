@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.data_retention_mode
     import capo_bedrock.types.timestamp
@@ -42,7 +40,11 @@ def deserialize_json(data: dict) -> PutAccountDataRetentionResponse:
             data["mode"]
         )
     else:
-        raise DeserializationError("PutAccountDataRetentionResponse.mode required")
+        import typing
+
+        out["mode"] = typing.cast(
+            "capo_bedrock.types.data_retention_mode.DataRetentionMode", ""
+        )
     if data.get("updatedAt") is not None:
         import capo_bedrock.types.timestamp
 

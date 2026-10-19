@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aws_job_abort_criteria_list
 
@@ -41,5 +39,5 @@ def deserialize_json(data: dict) -> AwsJobAbortConfig:
             )
         )
     else:
-        raise DeserializationError("AwsJobAbortConfig.abort_criteria_list required")
+        out["abort_criteria_list"] = []
     return out

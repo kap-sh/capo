@@ -49,7 +49,11 @@ def deserialize_json(data: dict) -> RerankSource:
             )
         )
     else:
-        raise DeserializationError("RerankSource.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.rerank_source_type.RerankSourceType", ""
+        )
     if data.get("inlineDocumentSource") is not None:
         import capo_bedrock_agent_runtime.types.rerank_document
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.json_path
     import capo_glue.types.name_string
@@ -52,7 +50,7 @@ def deserialize_aws_json_1_1(data: dict) -> JsonClassifier:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("JsonClassifier.name required")
+        out["name"] = ""
     if data.get("CreationTime") is not None:
         import capo_glue.types.timestamp
 
@@ -72,5 +70,5 @@ def deserialize_aws_json_1_1(data: dict) -> JsonClassifier:
     if data.get("JsonPath") is not None:
         out["json_path"] = data["JsonPath"]
     else:
-        raise DeserializationError("JsonClassifier.json_path required")
+        out["json_path"] = ""
     return out

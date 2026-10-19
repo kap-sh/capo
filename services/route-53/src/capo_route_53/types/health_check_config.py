@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.alarm_identifier
@@ -161,7 +160,11 @@ def deserialize_xml(el: Element) -> HealthCheckConfig:
 
         out["type"] = capo_route_53.types.health_check_type.deserialize_xml(child_type)
     else:
-        raise DeserializationError("HealthCheckConfig.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_route_53.types.health_check_type.HealthCheckType", ""
+        )
     child_resource_path = el.find("ResourcePath")
     if child_resource_path is not None:
         out["resource_path"] = str(child_resource_path.text or "")

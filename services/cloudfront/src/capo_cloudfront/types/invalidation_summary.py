@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.string
@@ -39,7 +38,7 @@ def deserialize_xml(el: Element) -> InvalidationSummary:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("InvalidationSummary.id required")
+        out["id"] = ""
     child_create_time = el.find("CreateTime")
     if child_create_time is not None:
         import capo_cloudfront.types.timestamp
@@ -48,10 +47,14 @@ def deserialize_xml(el: Element) -> InvalidationSummary:
             child_create_time
         )
     else:
-        raise DeserializationError("InvalidationSummary.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_status = el.find("Status")
     if child_status is not None:
         out["status"] = str(child_status.text or "")
     else:
-        raise DeserializationError("InvalidationSummary.status required")
+        out["status"] = ""
     return out

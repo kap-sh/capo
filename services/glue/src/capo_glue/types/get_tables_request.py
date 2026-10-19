@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.audit_context
     import capo_glue.types.boolean_nullable
@@ -109,7 +107,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetTablesRequest:
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError("GetTablesRequest.database_name required")
+        out["database_name"] = ""
     if data.get("Expression") is not None:
         out["expression"] = data["Expression"]
     if data.get("NextToken") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.configured_audience_model_arn
     import capo_cleanrooms.types.configured_audience_model_association_name
@@ -57,23 +55,17 @@ def deserialize_json(data: dict) -> CreateConfiguredAudienceModelAssociationInpu
     if data.get("configuredAudienceModelArn") is not None:
         out["configured_audience_model_arn"] = data["configuredAudienceModelArn"]
     else:
-        raise DeserializationError(
-            "CreateConfiguredAudienceModelAssociationInput.configured_audience_model_arn required"
-        )
+        out["configured_audience_model_arn"] = ""
     if data.get("configuredAudienceModelAssociationName") is not None:
         out["configured_audience_model_association_name"] = data[
             "configuredAudienceModelAssociationName"
         ]
     else:
-        raise DeserializationError(
-            "CreateConfiguredAudienceModelAssociationInput.configured_audience_model_association_name required"
-        )
+        out["configured_audience_model_association_name"] = ""
     if data.get("manageResourcePolicies") is not None:
         out["manage_resource_policies"] = data["manageResourcePolicies"]
     else:
-        raise DeserializationError(
-            "CreateConfiguredAudienceModelAssociationInput.manage_resource_policies required"
-        )
+        out["manage_resource_policies"] = False
     if data.get("tags") is not None:
         import capo_cleanrooms.types.tag_map
 

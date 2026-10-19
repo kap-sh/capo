@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.iso_date
     import capo_lightsail.types.metric_period
@@ -72,9 +70,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetRelationalDatabaseMetricDataReque
     if data.get("relationalDatabaseName") is not None:
         out["relational_database_name"] = data["relationalDatabaseName"]
     else:
-        raise DeserializationError(
-            "GetRelationalDatabaseMetricDataRequest.relational_database_name required"
-        )
+        out["relational_database_name"] = ""
     if data.get("metricName") is not None:
         import capo_lightsail.types.relational_database_metric_name
 
@@ -84,15 +80,16 @@ def deserialize_aws_json_1_1(data: dict) -> GetRelationalDatabaseMetricDataReque
             )
         )
     else:
-        raise DeserializationError(
-            "GetRelationalDatabaseMetricDataRequest.metric_name required"
+        import typing
+
+        out["metric_name"] = typing.cast(
+            "capo_lightsail.types.relational_database_metric_name.RelationalDatabaseMetricName",
+            "",
         )
     if data.get("period") is not None:
         out["period"] = data["period"]
     else:
-        raise DeserializationError(
-            "GetRelationalDatabaseMetricDataRequest.period required"
-        )
+        out["period"] = 0
     if data.get("startTime") is not None:
         import capo_lightsail.types.iso_date
 
@@ -100,9 +97,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetRelationalDatabaseMetricDataReque
             data["startTime"]
         )
     else:
-        raise DeserializationError(
-            "GetRelationalDatabaseMetricDataRequest.start_time required"
-        )
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_lightsail.types.iso_date
 
@@ -110,9 +107,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetRelationalDatabaseMetricDataReque
             data["endTime"]
         )
     else:
-        raise DeserializationError(
-            "GetRelationalDatabaseMetricDataRequest.end_time required"
-        )
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("unit") is not None:
         import capo_lightsail.types.metric_unit
 
@@ -120,9 +117,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetRelationalDatabaseMetricDataReque
             data["unit"]
         )
     else:
-        raise DeserializationError(
-            "GetRelationalDatabaseMetricDataRequest.unit required"
-        )
+        import typing
+
+        out["unit"] = typing.cast("capo_lightsail.types.metric_unit.MetricUnit", "")
     if data.get("statistics") is not None:
         import capo_lightsail.types.metric_statistic_list
 
@@ -132,7 +129,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetRelationalDatabaseMetricDataReque
             )
         )
     else:
-        raise DeserializationError(
-            "GetRelationalDatabaseMetricDataRequest.statistics required"
-        )
+        out["statistics"] = []
     return out

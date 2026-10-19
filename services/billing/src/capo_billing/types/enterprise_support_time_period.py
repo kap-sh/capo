@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -45,7 +43,9 @@ def deserialize_aws_json_1_0(data: dict) -> EnterpriseSupportTimePeriod:
             )
         )
     else:
-        raise DeserializationError("EnterpriseSupportTimePeriod.begin_date required")
+        import datetime
+
+        out["begin_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endDate") is not None:
         import capo_billing.types._prelude.timestamp
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sustainability.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sustainability.types.emissions_unit
 
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> Emissions:
     if data.get("Value") is not None:
         out["value"] = float(data["Value"])
     else:
-        raise DeserializationError("Emissions.value required")
+        out["value"] = 0.0
     if data.get("Unit") is not None:
         import capo_sustainability.types.emissions_unit
 
@@ -48,5 +46,9 @@ def deserialize_json(data: dict) -> Emissions:
             data["Unit"]
         )
     else:
-        raise DeserializationError("Emissions.unit required")
+        import typing
+
+        out["unit"] = typing.cast(
+            "capo_sustainability.types.emissions_unit.EmissionsUnit", ""
+        )
     return out

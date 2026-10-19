@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.browser_action_status
 
@@ -49,7 +47,11 @@ def deserialize_json(data: dict) -> ScreenshotResult:
             )
         )
     else:
-        raise DeserializationError("ScreenshotResult.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore.types.browser_action_status.BrowserActionStatus", ""
+        )
     if data.get("error") is not None:
         out["error"] = data["error"]
     if data.get("data") is not None:

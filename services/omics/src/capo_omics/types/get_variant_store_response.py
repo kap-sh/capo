@@ -85,7 +85,7 @@ def deserialize_json(data: dict) -> GetVariantStoreResponse:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetVariantStoreResponse.id required")
+        out["id"] = ""
     if data.get("reference") is not None:
         import capo_omics.types.reference_item
 
@@ -93,23 +93,25 @@ def deserialize_json(data: dict) -> GetVariantStoreResponse:
             data["reference"]
         )
     else:
-        raise DeserializationError("GetVariantStoreResponse.reference required")
+        import capo_omics.types._unknown
+
+        out["reference"] = capo_omics.types._unknown.UnknownUnionMember("")
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("GetVariantStoreResponse.status required")
+        out["status"] = ""
     if data.get("storeArn") is not None:
         out["store_arn"] = data["storeArn"]
     else:
-        raise DeserializationError("GetVariantStoreResponse.store_arn required")
+        out["store_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetVariantStoreResponse.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("GetVariantStoreResponse.description required")
+        out["description"] = ""
     if data.get("sseConfig") is not None:
         import capo_omics.types.sse_config
 
@@ -125,7 +127,11 @@ def deserialize_json(data: dict) -> GetVariantStoreResponse:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("GetVariantStoreResponse.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import capo_omics.types.update_time
 
@@ -133,19 +139,23 @@ def deserialize_json(data: dict) -> GetVariantStoreResponse:
             data["updateTime"]
         )
     else:
-        raise DeserializationError("GetVariantStoreResponse.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("tags") is not None:
         import capo_omics.types.tag_map
 
         out["tags"] = capo_omics.types.tag_map.deserialize_json(data["tags"])
     else:
-        raise DeserializationError("GetVariantStoreResponse.tags required")
+        out["tags"] = {}
     if data.get("statusMessage") is not None:
         out["status_message"] = data["statusMessage"]
     else:
-        raise DeserializationError("GetVariantStoreResponse.status_message required")
+        out["status_message"] = ""
     if data.get("storeSizeBytes") is not None:
         out["store_size_bytes"] = data["storeSizeBytes"]
     else:
-        raise DeserializationError("GetVariantStoreResponse.store_size_bytes required")
+        out["store_size_bytes"] = 0
     return out

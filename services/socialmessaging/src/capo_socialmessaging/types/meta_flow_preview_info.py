@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.meta_flow_preview_url
     import capo_socialmessaging.types.meta_flow_timestamp
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> MetaFlowPreviewInfo:
     if data.get("previewUrl") is not None:
         out["preview_url"] = data["previewUrl"]
     else:
-        raise DeserializationError("MetaFlowPreviewInfo.preview_url required")
+        out["preview_url"] = ""
     if data.get("expiresAt") is not None:
         out["expires_at"] = data["expiresAt"]
     else:
-        raise DeserializationError("MetaFlowPreviewInfo.expires_at required")
+        out["expires_at"] = ""
     return out

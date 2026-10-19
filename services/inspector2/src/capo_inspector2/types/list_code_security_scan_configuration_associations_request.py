@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.next_token
     import capo_inspector2.types.scan_configuration_arn
@@ -36,7 +34,5 @@ def deserialize_json(
     if data.get("scanConfigurationArn") is not None:
         out["scan_configuration_arn"] = data["scanConfigurationArn"]
     else:
-        raise DeserializationError(
-            "ListCodeSecurityScanConfigurationAssociationsRequest.scan_configuration_arn required"
-        )
+        out["scan_configuration_arn"] = ""
     return out

@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 
 class RestoreTableFromRecoveryPointRequest(TypedDict, closed=True):
     namespace_name: "str"
@@ -55,35 +53,25 @@ def deserialize_aws_json_1_1(data: dict) -> RestoreTableFromRecoveryPointRequest
     if data.get("namespaceName") is not None:
         out["namespace_name"] = data["namespaceName"]
     else:
-        raise DeserializationError(
-            "RestoreTableFromRecoveryPointRequest.namespace_name required"
-        )
+        out["namespace_name"] = ""
     if data.get("workgroupName") is not None:
         out["workgroup_name"] = data["workgroupName"]
     else:
-        raise DeserializationError(
-            "RestoreTableFromRecoveryPointRequest.workgroup_name required"
-        )
+        out["workgroup_name"] = ""
     if data.get("recoveryPointId") is not None:
         out["recovery_point_id"] = data["recoveryPointId"]
     else:
-        raise DeserializationError(
-            "RestoreTableFromRecoveryPointRequest.recovery_point_id required"
-        )
+        out["recovery_point_id"] = ""
     if data.get("sourceDatabaseName") is not None:
         out["source_database_name"] = data["sourceDatabaseName"]
     else:
-        raise DeserializationError(
-            "RestoreTableFromRecoveryPointRequest.source_database_name required"
-        )
+        out["source_database_name"] = ""
     if data.get("sourceSchemaName") is not None:
         out["source_schema_name"] = data["sourceSchemaName"]
     if data.get("sourceTableName") is not None:
         out["source_table_name"] = data["sourceTableName"]
     else:
-        raise DeserializationError(
-            "RestoreTableFromRecoveryPointRequest.source_table_name required"
-        )
+        out["source_table_name"] = ""
     if data.get("targetDatabaseName") is not None:
         out["target_database_name"] = data["targetDatabaseName"]
     if data.get("targetSchemaName") is not None:
@@ -91,9 +79,7 @@ def deserialize_aws_json_1_1(data: dict) -> RestoreTableFromRecoveryPointRequest
     if data.get("newTableName") is not None:
         out["new_table_name"] = data["newTableName"]
     else:
-        raise DeserializationError(
-            "RestoreTableFromRecoveryPointRequest.new_table_name required"
-        )
+        out["new_table_name"] = ""
     if data.get("activateCaseSensitiveIdentifier") is not None:
         out["activate_case_sensitive_identifier"] = data[
             "activateCaseSensitiveIdentifier"

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_auditmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auditmanager.types.control_set_name
     import capo_auditmanager.types.create_assessment_framework_controls
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> CreateAssessmentFrameworkControlSet:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateAssessmentFrameworkControlSet.name required")
+        out["name"] = ""
     if data.get("controls") is not None:
         import capo_auditmanager.types.create_assessment_framework_controls
 

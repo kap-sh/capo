@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.string
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetEventSelectorsRequest:
     if data.get("TrailName") is not None:
         out["trail_name"] = data["TrailName"]
     else:
-        raise DeserializationError("GetEventSelectorsRequest.trail_name required")
+        out["trail_name"] = ""
     return out

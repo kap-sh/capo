@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_discovery_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_discovery_service.types.application_id
     import capo_application_discovery_service.types.configuration_id_list
@@ -43,9 +41,7 @@ def deserialize_aws_json_1_1(
     if data.get("applicationConfigurationId") is not None:
         out["application_configuration_id"] = data["applicationConfigurationId"]
     else:
-        raise DeserializationError(
-            "AssociateConfigurationItemsToApplicationRequest.application_configuration_id required"
-        )
+        out["application_configuration_id"] = ""
     if data.get("configurationIds") is not None:
         import capo_application_discovery_service.types.configuration_id_list
 
@@ -55,7 +51,5 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "AssociateConfigurationItemsToApplicationRequest.configuration_ids required"
-        )
+        out["configuration_ids"] = []
     return out

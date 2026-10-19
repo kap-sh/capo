@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.count_tokens_input
     import capo_bedrock_runtime.types.foundation_model_version_identifier
@@ -38,7 +36,9 @@ def deserialize_json(data: dict) -> CountTokensRequest:
             data["input"]
         )
     else:
-        raise DeserializationError("CountTokensRequest.input required")
+        import capo_bedrock_runtime.types._unknown
+
+        out["input"] = capo_bedrock_runtime.types._unknown.UnknownUnionMember("")
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_data_pipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_data_pipeline.types.id
     import capo_data_pipeline.types.instance_identity
@@ -45,7 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> PollForTaskInput:
     if data.get("workerGroup") is not None:
         out["worker_group"] = data["workerGroup"]
     else:
-        raise DeserializationError("PollForTaskInput.worker_group required")
+        out["worker_group"] = ""
     if data.get("hostname") is not None:
         out["hostname"] = data["hostname"]
     if data.get("instanceIdentity") is not None:

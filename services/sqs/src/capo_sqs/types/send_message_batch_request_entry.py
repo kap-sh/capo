@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sqs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sqs.types.message_body_attribute_map
     import capo_sqs.types.message_body_system_attribute_map
@@ -69,11 +67,11 @@ def deserialize_aws_json_1_0(data: dict) -> SendMessageBatchRequestEntry:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("SendMessageBatchRequestEntry.id required")
+        out["id"] = ""
     if data.get("MessageBody") is not None:
         out["message_body"] = data["MessageBody"]
     else:
-        raise DeserializationError("SendMessageBatchRequestEntry.message_body required")
+        out["message_body"] = ""
     if data.get("DelaySeconds") is not None:
         out["delay_seconds"] = data["DelaySeconds"]
     if data.get("MessageAttributes") is not None:

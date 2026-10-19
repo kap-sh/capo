@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_health.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_health.types.date_time_range_list
     import capo_health.types.entity_arn_list
@@ -88,7 +86,7 @@ def deserialize_aws_json_1_1(data: dict) -> EntityFilter:
             data["eventArns"]
         )
     else:
-        raise DeserializationError("EntityFilter.event_arns required")
+        out["event_arns"] = []
     if data.get("entityArns") is not None:
         import capo_health.types.entity_arn_list
 

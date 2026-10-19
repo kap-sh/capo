@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.arn
     import capo_backup.types.backup_vault_events
@@ -38,9 +36,7 @@ def deserialize_json(data: dict) -> PutBackupVaultNotificationsInput:
     if data.get("SNSTopicArn") is not None:
         out["sns_topic_arn"] = data["SNSTopicArn"]
     else:
-        raise DeserializationError(
-            "PutBackupVaultNotificationsInput.sns_topic_arn required"
-        )
+        out["sns_topic_arn"] = ""
     if data.get("BackupVaultEvents") is not None:
         import capo_backup.types.backup_vault_events
 
@@ -50,7 +46,5 @@ def deserialize_json(data: dict) -> PutBackupVaultNotificationsInput:
             )
         )
     else:
-        raise DeserializationError(
-            "PutBackupVaultNotificationsInput.backup_vault_events required"
-        )
+        out["backup_vault_events"] = []
     return out

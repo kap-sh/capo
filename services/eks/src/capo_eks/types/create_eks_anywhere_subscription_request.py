@@ -70,7 +70,7 @@ def deserialize_json(data: dict) -> CreateEksAnywhereSubscriptionRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateEksAnywhereSubscriptionRequest.name required")
+        out["name"] = ""
     if data.get("term") is not None:
         import capo_eks.types.eks_anywhere_subscription_term
 

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_odb.errors import DeserializationError
-
 
 class OciEncryptionKeyConfiguration(TypedDict, closed=True):
     kms_key_id: "str"
@@ -25,9 +23,9 @@ def deserialize_aws_json_1_0(data: dict) -> OciEncryptionKeyConfiguration:
     if data.get("kmsKeyId") is not None:
         out["kms_key_id"] = data["kmsKeyId"]
     else:
-        raise DeserializationError("OciEncryptionKeyConfiguration.kms_key_id required")
+        out["kms_key_id"] = ""
     if data.get("vaultId") is not None:
         out["vault_id"] = data["vaultId"]
     else:
-        raise DeserializationError("OciEncryptionKeyConfiguration.vault_id required")
+        out["vault_id"] = ""
     return out

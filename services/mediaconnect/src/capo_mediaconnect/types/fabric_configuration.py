@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.fabric_latency_mode
 
@@ -41,5 +39,9 @@ def deserialize_json(data: dict) -> FabricConfiguration:
             )
         )
     else:
-        raise DeserializationError("FabricConfiguration.recovery_latency_mode required")
+        import typing
+
+        out["recovery_latency_mode"] = typing.cast(
+            "capo_mediaconnect.types.fabric_latency_mode.FabricLatencyMode", ""
+        )
     return out

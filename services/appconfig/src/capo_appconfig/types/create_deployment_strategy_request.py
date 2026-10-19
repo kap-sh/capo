@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appconfig.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appconfig.types.description
     import capo_appconfig.types.growth_factor
@@ -81,23 +79,19 @@ def deserialize_json(data: dict) -> CreateDeploymentStrategyRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateDeploymentStrategyRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("DeploymentDurationInMinutes") is not None:
         out["deployment_duration_in_minutes"] = data["DeploymentDurationInMinutes"]
     else:
-        raise DeserializationError(
-            "CreateDeploymentStrategyRequest.deployment_duration_in_minutes required"
-        )
+        out["deployment_duration_in_minutes"] = 0
     if data.get("FinalBakeTimeInMinutes") is not None:
         out["final_bake_time_in_minutes"] = data["FinalBakeTimeInMinutes"]
     if data.get("GrowthFactor") is not None:
         out["growth_factor"] = float(data["GrowthFactor"])
     else:
-        raise DeserializationError(
-            "CreateDeploymentStrategyRequest.growth_factor required"
-        )
+        out["growth_factor"] = 0.0
     if data.get("GrowthType") is not None:
         import capo_appconfig.types.growth_type
 

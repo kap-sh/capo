@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.existing_customer_web_acl_resolution
     import capo_network_security_manager.types.waf_conflict_resolution_options
@@ -49,8 +47,11 @@ def deserialize_json(data: dict) -> WafConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "WafConfig.existing_customer_web_acl_resolution required"
+        import typing
+
+        out["existing_customer_web_acl_resolution"] = typing.cast(
+            "capo_network_security_manager.types.existing_customer_web_acl_resolution.ExistingCustomerWebACLResolution",
+            "",
         )
     if data.get("conflictResolution") is not None:
         import capo_network_security_manager.types.waf_conflict_resolution_options
@@ -61,5 +62,10 @@ def deserialize_json(data: dict) -> WafConfig:
             )
         )
     else:
-        raise DeserializationError("WafConfig.conflict_resolution required")
+        import typing
+
+        out["conflict_resolution"] = typing.cast(
+            "capo_network_security_manager.types.waf_conflict_resolution_options.WAFConflictResolutionOptions",
+            "",
+        )
     return out

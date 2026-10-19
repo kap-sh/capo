@@ -109,19 +109,19 @@ def deserialize_aws_json_1_1(data: dict) -> RuleGroup:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("RuleGroup.name required")
+        out["name"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("RuleGroup.id required")
+        out["id"] = ""
     if data.get("Capacity") is not None:
         out["capacity"] = data["Capacity"]
     else:
-        raise DeserializationError("RuleGroup.capacity required")
+        out["capacity"] = 0
     if data.get("ARN") is not None:
         out["arn"] = data["ARN"]
     else:
-        raise DeserializationError("RuleGroup.arn required")
+        out["arn"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Rules") is not None:

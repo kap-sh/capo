@@ -49,15 +49,11 @@ def deserialize_json(data: dict) -> CreateTemplateGroupAccessControlEntryRequest
     if data.get("GroupSecurityIdentifier") is not None:
         out["group_security_identifier"] = data["GroupSecurityIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateTemplateGroupAccessControlEntryRequest.group_security_identifier required"
-        )
+        out["group_security_identifier"] = ""
     if data.get("GroupDisplayName") is not None:
         out["group_display_name"] = data["GroupDisplayName"]
     else:
-        raise DeserializationError(
-            "CreateTemplateGroupAccessControlEntryRequest.group_display_name required"
-        )
+        out["group_display_name"] = ""
     if data.get("AccessRights") is not None:
         import capo_pca_connector_ad.types.access_rights
 

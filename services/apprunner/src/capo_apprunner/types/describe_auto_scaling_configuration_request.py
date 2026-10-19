@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_apprunner.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_apprunner.types.app_runner_resource_arn
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeAutoScalingConfigurationRequ
     if data.get("AutoScalingConfigurationArn") is not None:
         out["auto_scaling_configuration_arn"] = data["AutoScalingConfigurationArn"]
     else:
-        raise DeserializationError(
-            "DescribeAutoScalingConfigurationRequest.auto_scaling_configuration_arn required"
-        )
+        out["auto_scaling_configuration_arn"] = ""
     return out

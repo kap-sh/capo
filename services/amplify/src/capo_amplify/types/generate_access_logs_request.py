@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.app_id
     import capo_amplify.types.domain_name
@@ -56,5 +54,5 @@ def deserialize_json(data: dict) -> GenerateAccessLogsRequest:
     if data.get("domainName") is not None:
         out["domain_name"] = data["domainName"]
     else:
-        raise DeserializationError("GenerateAccessLogsRequest.domain_name required")
+        out["domain_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.custom_id
 
@@ -30,11 +28,9 @@ def deserialize_json(data: dict) -> PropertyMapping:
     if data.get("assetModelPropertyId") is not None:
         out["asset_model_property_id"] = data["assetModelPropertyId"]
     else:
-        raise DeserializationError("PropertyMapping.asset_model_property_id required")
+        out["asset_model_property_id"] = ""
     if data.get("interfaceAssetModelPropertyId") is not None:
         out["interface_asset_model_property_id"] = data["interfaceAssetModelPropertyId"]
     else:
-        raise DeserializationError(
-            "PropertyMapping.interface_asset_model_property_id required"
-        )
+        out["interface_asset_model_property_id"] = ""
     return out

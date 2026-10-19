@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.boolean
     import capo_lightsail.types.container_service_name
@@ -78,9 +76,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateContainerServiceRequest:
     if data.get("serviceName") is not None:
         out["service_name"] = data["serviceName"]
     else:
-        raise DeserializationError(
-            "UpdateContainerServiceRequest.service_name required"
-        )
+        out["service_name"] = ""
     if data.get("power") is not None:
         import capo_lightsail.types.container_service_power_name
 

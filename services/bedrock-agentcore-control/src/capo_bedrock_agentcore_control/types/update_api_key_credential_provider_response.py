@@ -101,15 +101,11 @@ def deserialize_json(data: dict) -> UpdateApiKeyCredentialProviderResponse:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "UpdateApiKeyCredentialProviderResponse.name required"
-        )
+        out["name"] = ""
     if data.get("credentialProviderArn") is not None:
         out["credential_provider_arn"] = data["credentialProviderArn"]
     else:
-        raise DeserializationError(
-            "UpdateApiKeyCredentialProviderResponse.credential_provider_arn required"
-        )
+        out["credential_provider_arn"] = ""
     if data.get("createdTime") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
 
@@ -119,8 +115,10 @@ def deserialize_json(data: dict) -> UpdateApiKeyCredentialProviderResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateApiKeyCredentialProviderResponse.created_time required"
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("lastUpdatedTime") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
@@ -131,7 +129,9 @@ def deserialize_json(data: dict) -> UpdateApiKeyCredentialProviderResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateApiKeyCredentialProviderResponse.last_updated_time required"
+        import datetime
+
+        out["last_updated_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

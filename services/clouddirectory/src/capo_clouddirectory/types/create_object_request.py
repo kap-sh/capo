@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_clouddirectory.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_clouddirectory.types.arn
     import capo_clouddirectory.types.attribute_key_and_value_list
@@ -71,7 +69,7 @@ def deserialize_json(data: dict) -> CreateObjectRequest:
             )
         )
     else:
-        raise DeserializationError("CreateObjectRequest.schema_facets required")
+        out["schema_facets"] = []
     if data.get("ObjectAttributeList") is not None:
         import capo_clouddirectory.types.attribute_key_and_value_list
 

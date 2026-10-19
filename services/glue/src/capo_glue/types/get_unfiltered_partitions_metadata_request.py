@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.audit_context
     import capo_glue.types.catalog_id_string
@@ -99,21 +97,15 @@ def deserialize_aws_json_1_1(data: dict) -> GetUnfilteredPartitionsMetadataReque
     if data.get("CatalogId") is not None:
         out["catalog_id"] = data["CatalogId"]
     else:
-        raise DeserializationError(
-            "GetUnfilteredPartitionsMetadataRequest.catalog_id required"
-        )
+        out["catalog_id"] = ""
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError(
-            "GetUnfilteredPartitionsMetadataRequest.database_name required"
-        )
+        out["database_name"] = ""
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError(
-            "GetUnfilteredPartitionsMetadataRequest.table_name required"
-        )
+        out["table_name"] = ""
     if data.get("Expression") is not None:
         out["expression"] = data["Expression"]
     if data.get("AuditContext") is not None:
@@ -131,9 +123,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetUnfilteredPartitionsMetadataReque
             )
         )
     else:
-        raise DeserializationError(
-            "GetUnfilteredPartitionsMetadataRequest.supported_permission_types required"
-        )
+        out["supported_permission_types"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("Segment") is not None:

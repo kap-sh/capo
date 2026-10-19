@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_simpledbv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_simpledbv2.types.aws_account_id
     import capo_simpledbv2.types.domain_name
@@ -118,11 +116,11 @@ def deserialize_json(data: dict) -> GetExportResponse:
     if data.get("exportArn") is not None:
         out["export_arn"] = data["exportArn"]
     else:
-        raise DeserializationError("GetExportResponse.export_arn required")
+        out["export_arn"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("GetExportResponse.client_token required")
+        out["client_token"] = ""
     if data.get("exportStatus") is not None:
         import capo_simpledbv2.types.export_status
 
@@ -130,11 +128,15 @@ def deserialize_json(data: dict) -> GetExportResponse:
             data["exportStatus"]
         )
     else:
-        raise DeserializationError("GetExportResponse.export_status required")
+        import typing
+
+        out["export_status"] = typing.cast(
+            "capo_simpledbv2.types.export_status.ExportStatus", ""
+        )
     if data.get("domainName") is not None:
         out["domain_name"] = data["domainName"]
     else:
-        raise DeserializationError("GetExportResponse.domain_name required")
+        out["domain_name"] = ""
     if data.get("requestedAt") is not None:
         import capo_simpledbv2.types.requested_at
 
@@ -142,11 +144,15 @@ def deserialize_json(data: dict) -> GetExportResponse:
             data["requestedAt"]
         )
     else:
-        raise DeserializationError("GetExportResponse.requested_at required")
+        import datetime
+
+        out["requested_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("s3Bucket") is not None:
         out["s3_bucket"] = data["s3Bucket"]
     else:
-        raise DeserializationError("GetExportResponse.s3_bucket required")
+        out["s3_bucket"] = ""
     if data.get("s3KeyPrefix") is not None:
         out["s3_key_prefix"] = data["s3KeyPrefix"]
     if data.get("s3SseAlgorithm") is not None:

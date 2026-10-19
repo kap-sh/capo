@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_clouddirectory.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_clouddirectory.types.attribute_name
     import capo_clouddirectory.types.bool
@@ -69,7 +67,7 @@ def deserialize_json(data: dict) -> TypedLinkAttributeDefinition:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("TypedLinkAttributeDefinition.name required")
+        out["name"] = ""
     if data.get("Type") is not None:
         import capo_clouddirectory.types.facet_attribute_type
 
@@ -77,7 +75,11 @@ def deserialize_json(data: dict) -> TypedLinkAttributeDefinition:
             data["Type"]
         )
     else:
-        raise DeserializationError("TypedLinkAttributeDefinition.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_clouddirectory.types.facet_attribute_type.FacetAttributeType", ""
+        )
     if data.get("DefaultValue") is not None:
         import capo_clouddirectory.types.typed_attribute_value
 
@@ -105,7 +107,10 @@ def deserialize_json(data: dict) -> TypedLinkAttributeDefinition:
             )
         )
     else:
-        raise DeserializationError(
-            "TypedLinkAttributeDefinition.required_behavior required"
+        import typing
+
+        out["required_behavior"] = typing.cast(
+            "capo_clouddirectory.types.required_attribute_behavior.RequiredAttributeBehavior",
+            "",
         )
     return out

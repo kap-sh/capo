@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.cidr_location_name_default_allowed
@@ -32,10 +31,10 @@ def deserialize_xml(el: Element) -> CidrRoutingConfig:
     if child_collection_id is not None:
         out["collection_id"] = str(child_collection_id.text or "")
     else:
-        raise DeserializationError("CidrRoutingConfig.collection_id required")
+        out["collection_id"] = ""
     child_location_name = el.find("LocationName")
     if child_location_name is not None:
         out["location_name"] = str(child_location_name.text or "")
     else:
-        raise DeserializationError("CidrRoutingConfig.location_name required")
+        out["location_name"] = ""
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.address
@@ -30,7 +29,5 @@ def deserialize_query(el: Element) -> DeleteVerifiedEmailAddressRequest:
     if child_email_address is not None:
         out["email_address"] = str(child_email_address.text or "")
     else:
-        raise DeserializationError(
-            "DeleteVerifiedEmailAddressRequest.email_address required"
-        )
+        out["email_address"] = ""
     return out

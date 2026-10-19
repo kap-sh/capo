@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.custom_suffix_type
@@ -40,9 +39,7 @@ def deserialize_query(el: Element) -> CreateServiceLinkedRoleRequest:
     if child_aws_service_name is not None:
         out["aws_service_name"] = str(child_aws_service_name.text or "")
     else:
-        raise DeserializationError(
-            "CreateServiceLinkedRoleRequest.aws_service_name required"
-        )
+        out["aws_service_name"] = ""
     child_description = el.find("Description")
     if child_description is not None:
         out["description"] = str(child_description.text or "")

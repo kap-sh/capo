@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -86,13 +84,11 @@ def deserialize_json(data: dict) -> CreateAudienceModelRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateAudienceModelRequest.name required")
+        out["name"] = ""
     if data.get("trainingDatasetArn") is not None:
         out["training_dataset_arn"] = data["trainingDatasetArn"]
     else:
-        raise DeserializationError(
-            "CreateAudienceModelRequest.training_dataset_arn required"
-        )
+        out["training_dataset_arn"] = ""
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     if data.get("tags") is not None:

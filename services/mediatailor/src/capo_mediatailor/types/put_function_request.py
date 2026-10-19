@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__map_of__string
     import capo_mediatailor.types.__string
@@ -129,7 +127,11 @@ def deserialize_json(data: dict) -> PutFunctionRequest:
             data["FunctionType"]
         )
     else:
-        raise DeserializationError("PutFunctionRequest.function_type required")
+        import typing
+
+        out["function_type"] = typing.cast(
+            "capo_mediatailor.types.function_type.FunctionType", ""
+        )
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("HttpRequestConfiguration") is not None:

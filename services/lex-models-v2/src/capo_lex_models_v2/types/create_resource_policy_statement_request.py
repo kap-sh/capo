@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.amazon_resource_name
     import capo_lex_models_v2.types.condition_map
@@ -64,17 +62,15 @@ def deserialize_json(data: dict) -> CreateResourcePolicyStatementRequest:
     if data.get("statementId") is not None:
         out["statement_id"] = data["statementId"]
     else:
-        raise DeserializationError(
-            "CreateResourcePolicyStatementRequest.statement_id required"
-        )
+        out["statement_id"] = ""
     if data.get("effect") is not None:
         import capo_lex_models_v2.types.effect
 
         out["effect"] = capo_lex_models_v2.types.effect.deserialize_json(data["effect"])
     else:
-        raise DeserializationError(
-            "CreateResourcePolicyStatementRequest.effect required"
-        )
+        import typing
+
+        out["effect"] = typing.cast("capo_lex_models_v2.types.effect.Effect", "")
     if data.get("principal") is not None:
         import capo_lex_models_v2.types.principal_list
 
@@ -82,9 +78,7 @@ def deserialize_json(data: dict) -> CreateResourcePolicyStatementRequest:
             data["principal"]
         )
     else:
-        raise DeserializationError(
-            "CreateResourcePolicyStatementRequest.principal required"
-        )
+        out["principal"] = []
     if data.get("action") is not None:
         import capo_lex_models_v2.types.operation_list
 
@@ -92,9 +86,7 @@ def deserialize_json(data: dict) -> CreateResourcePolicyStatementRequest:
             data["action"]
         )
     else:
-        raise DeserializationError(
-            "CreateResourcePolicyStatementRequest.action required"
-        )
+        out["action"] = []
     if data.get("condition") is not None:
         import capo_lex_models_v2.types.condition_map
 

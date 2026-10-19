@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptune_graph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_neptune_graph.types.graph_identifier
     import capo_neptune_graph.types.snapshot_name
@@ -38,11 +36,11 @@ def deserialize_json(data: dict) -> CreateGraphSnapshotInput:
     if data.get("graphIdentifier") is not None:
         out["graph_identifier"] = data["graphIdentifier"]
     else:
-        raise DeserializationError("CreateGraphSnapshotInput.graph_identifier required")
+        out["graph_identifier"] = ""
     if data.get("snapshotName") is not None:
         out["snapshot_name"] = data["snapshotName"]
     else:
-        raise DeserializationError("CreateGraphSnapshotInput.snapshot_name required")
+        out["snapshot_name"] = ""
     if data.get("tags") is not None:
         import capo_neptune_graph.types.tag_map
 

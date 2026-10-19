@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.metric_filter_string_condition_comparison
     import capo_connect.types.string_value_list
@@ -45,7 +43,12 @@ def deserialize_json(data: dict) -> MetricFilterStringCondition:
             )
         )
     else:
-        raise DeserializationError("MetricFilterStringCondition.comparison required")
+        import typing
+
+        out["comparison"] = typing.cast(
+            "capo_connect.types.metric_filter_string_condition_comparison.MetricFilterStringConditionComparison",
+            "",
+        )
     if data.get("Values") is not None:
         import capo_connect.types.string_value_list
 
@@ -53,5 +56,5 @@ def deserialize_json(data: dict) -> MetricFilterStringCondition:
             data["Values"]
         )
     else:
-        raise DeserializationError("MetricFilterStringCondition.values required")
+        out["values"] = []
     return out

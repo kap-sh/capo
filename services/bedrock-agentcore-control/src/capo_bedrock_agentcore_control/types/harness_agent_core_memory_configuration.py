@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.harness_agent_core_memory_retrieval_configs
     import capo_bedrock_agentcore_control.types.memory_arn
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> HarnessAgentCoreMemoryConfiguration:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("HarnessAgentCoreMemoryConfiguration.arn required")
+        out["arn"] = ""
     if data.get("actorId") is not None:
         out["actor_id"] = data["actorId"]
     if data.get("messagesCount") is not None:

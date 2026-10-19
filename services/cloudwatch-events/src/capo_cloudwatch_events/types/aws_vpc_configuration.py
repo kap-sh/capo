@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_events.types.assign_public_ip
     import capo_cloudwatch_events.types.string_list
@@ -60,7 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> AwsVpcConfiguration:
             )
         )
     else:
-        raise DeserializationError("AwsVpcConfiguration.subnets required")
+        out["subnets"] = []
     if data.get("SecurityGroups") is not None:
         import capo_cloudwatch_events.types.string_list
 

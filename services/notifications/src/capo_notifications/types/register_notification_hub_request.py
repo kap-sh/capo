@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notifications.types.region
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> RegisterNotificationHubRequest:
     if data.get("notificationHubRegion") is not None:
         out["notification_hub_region"] = data["notificationHubRegion"]
     else:
-        raise DeserializationError(
-            "RegisterNotificationHubRequest.notification_hub_region required"
-        )
+        out["notification_hub_region"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.auto_snapshot_date
     import capo_lightsail.types.resource_name
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteAutoSnapshotRequest:
     if data.get("resourceName") is not None:
         out["resource_name"] = data["resourceName"]
     else:
-        raise DeserializationError("DeleteAutoSnapshotRequest.resource_name required")
+        out["resource_name"] = ""
     if data.get("date") is not None:
         out["date"] = data["date"]
     else:
-        raise DeserializationError("DeleteAutoSnapshotRequest.date required")
+        out["date"] = ""
     return out

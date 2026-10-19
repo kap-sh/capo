@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.continuous_integration_scan_supported_events
 
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> ContinuousIntegrationScanConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ContinuousIntegrationScanConfiguration.supported_events required"
-        )
+        out["supported_events"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -50,9 +48,7 @@ def deserialize_cbor(data: dict) -> PutIntelligenceConfigurationOutput:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError(
-            "PutIntelligenceConfigurationOutput.account_id required"
-        )
+        out["account_id"] = ""
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     if data.get("updatedAt") is not None:
@@ -64,9 +60,9 @@ def deserialize_cbor(data: dict) -> PutIntelligenceConfigurationOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "PutIntelligenceConfigurationOutput.updated_at required"
-        )
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("createdAt") is not None:
         import capo_cloudwatchomni.types._prelude.timestamp
 
@@ -76,7 +72,7 @@ def deserialize_cbor(data: dict) -> PutIntelligenceConfigurationOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "PutIntelligenceConfigurationOutput.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudhsm_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudhsm_v2.types.backup_id
     import capo_cloudhsm_v2.types.region
@@ -40,13 +38,11 @@ def deserialize_aws_json_1_1(data: dict) -> CopyBackupToRegionRequest:
     if data.get("DestinationRegion") is not None:
         out["destination_region"] = data["DestinationRegion"]
     else:
-        raise DeserializationError(
-            "CopyBackupToRegionRequest.destination_region required"
-        )
+        out["destination_region"] = ""
     if data.get("BackupId") is not None:
         out["backup_id"] = data["BackupId"]
     else:
-        raise DeserializationError("CopyBackupToRegionRequest.backup_id required")
+        out["backup_id"] = ""
     if data.get("TagList") is not None:
         import capo_cloudhsm_v2.types.tag_list
 

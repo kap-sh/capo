@@ -87,7 +87,7 @@ def deserialize_json(data: dict) -> RouteTollRate:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("RouteTollRate.id required")
+        out["id"] = ""
     if data.get("LocalPrice") is not None:
         import capo_geo_routes.types.route_toll_price
 
@@ -99,7 +99,7 @@ def deserialize_json(data: dict) -> RouteTollRate:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("RouteTollRate.name required")
+        out["name"] = ""
     if data.get("Pass") is not None:
         import capo_geo_routes.types.route_toll_pass
 
@@ -115,7 +115,7 @@ def deserialize_json(data: dict) -> RouteTollRate:
             )
         )
     else:
-        raise DeserializationError("RouteTollRate.payment_methods required")
+        out["payment_methods"] = []
     if data.get("Transponders") is not None:
         import capo_geo_routes.types.route_transponder_list
 
@@ -125,7 +125,7 @@ def deserialize_json(data: dict) -> RouteTollRate:
             )
         )
     else:
-        raise DeserializationError("RouteTollRate.transponders required")
+        out["transponders"] = []
     return out
 
 

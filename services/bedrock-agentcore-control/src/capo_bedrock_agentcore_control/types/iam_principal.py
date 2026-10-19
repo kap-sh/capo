@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.iam_principal_arn
     import capo_bedrock_agentcore_control.types.principal_match_operator
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> IamPrincipal:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("IamPrincipal.arn required")
+        out["arn"] = ""
     if data.get("operator") is not None:
         import capo_bedrock_agentcore_control.types.principal_match_operator
 

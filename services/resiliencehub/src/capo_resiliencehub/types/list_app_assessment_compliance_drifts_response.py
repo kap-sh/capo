@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.compliance_drift_list
     import capo_resiliencehub.types.next_token
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> ListAppAssessmentComplianceDriftsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListAppAssessmentComplianceDriftsResponse.compliance_drifts required"
-        )
+        out["compliance_drifts"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

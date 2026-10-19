@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.x12_functional_acknowledgment
     import capo_b2bi.types.x12_technical_acknowledgment
@@ -53,8 +51,11 @@ def deserialize_aws_json_1_0(data: dict) -> X12AcknowledgmentOptions:
             )
         )
     else:
-        raise DeserializationError(
-            "X12AcknowledgmentOptions.functional_acknowledgment required"
+        import typing
+
+        out["functional_acknowledgment"] = typing.cast(
+            "capo_b2bi.types.x12_functional_acknowledgment.X12FunctionalAcknowledgment",
+            "",
         )
     if data.get("technicalAcknowledgment") is not None:
         import capo_b2bi.types.x12_technical_acknowledgment
@@ -65,7 +66,10 @@ def deserialize_aws_json_1_0(data: dict) -> X12AcknowledgmentOptions:
             )
         )
     else:
-        raise DeserializationError(
-            "X12AcknowledgmentOptions.technical_acknowledgment required"
+        import typing
+
+        out["technical_acknowledgment"] = typing.cast(
+            "capo_b2bi.types.x12_technical_acknowledgment.X12TechnicalAcknowledgment",
+            "",
         )
     return out

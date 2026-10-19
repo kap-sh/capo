@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.string20_list
 
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> PoAttributes:
     if data.get("format") is not None:
         out["format"] = data["format"]
     else:
-        raise DeserializationError("PoAttributes.format required")
+        out["format"] = ""
     if data.get("encoding") is not None:
         out["encoding"] = data["encoding"]
     if data.get("memberFileExtensions") is not None:
@@ -48,5 +46,5 @@ def deserialize_json(data: dict) -> PoAttributes:
             data["memberFileExtensions"]
         )
     else:
-        raise DeserializationError("PoAttributes.member_file_extensions required")
+        out["member_file_extensions"] = []
     return out

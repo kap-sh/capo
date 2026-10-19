@@ -81,11 +81,11 @@ def deserialize_json(data: dict) -> GetSupportPermitOutput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetSupportPermitOutput.name required")
+        out["name"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetSupportPermitOutput.arn required")
+        out["arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("permit") is not None:
@@ -101,7 +101,11 @@ def deserialize_json(data: dict) -> GetSupportPermitOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("GetSupportPermitOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_supportauthz.types.support_permit_status.SupportPermitStatus", ""
+        )
     if data.get("signingKeyInfo") is not None:
         import capo_supportauthz.types.signing_key_info
 
@@ -111,7 +115,11 @@ def deserialize_json(data: dict) -> GetSupportPermitOutput:
             )
         )
     else:
-        raise DeserializationError("GetSupportPermitOutput.signing_key_info required")
+        import capo_supportauthz.types._unknown
+
+        out["signing_key_info"] = capo_supportauthz.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("createdAt") is not None:
         import capo_supportauthz.types._prelude.timestamp
 
@@ -119,7 +127,9 @@ def deserialize_json(data: dict) -> GetSupportPermitOutput:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("GetSupportPermitOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("supportCaseDisplayId") is not None:
         out["support_case_display_id"] = data["supportCaseDisplayId"]
     if data.get("tags") is not None:

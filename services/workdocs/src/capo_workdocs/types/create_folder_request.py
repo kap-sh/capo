@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workdocs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workdocs.types.authentication_header_type
     import capo_workdocs.types.resource_id_type
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> CreateFolderRequest:
     if data.get("ParentFolderId") is not None:
         out["parent_folder_id"] = data["ParentFolderId"]
     else:
-        raise DeserializationError("CreateFolderRequest.parent_folder_id required")
+        out["parent_folder_id"] = ""
     return out
 
 

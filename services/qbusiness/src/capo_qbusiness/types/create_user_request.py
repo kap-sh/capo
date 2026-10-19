@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.application_id
     import capo_qbusiness.types.client_token
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> CreateUserRequest:
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
     else:
-        raise DeserializationError("CreateUserRequest.user_id required")
+        out["user_id"] = ""
     if data.get("userAliases") is not None:
         import capo_qbusiness.types.user_aliases
 

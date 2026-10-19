@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_clouddirectory.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_clouddirectory.types.arn
 
@@ -29,5 +27,5 @@ def deserialize_json(data: dict) -> ApplySchemaRequest:
     if data.get("PublishedSchemaArn") is not None:
         out["published_schema_arn"] = data["PublishedSchemaArn"]
     else:
-        raise DeserializationError("ApplySchemaRequest.published_schema_arn required")
+        out["published_schema_arn"] = ""
     return out

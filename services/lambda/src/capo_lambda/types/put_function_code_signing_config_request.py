@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.code_signing_config_arn
     import capo_lambda.types.namespaced_function_name
@@ -32,7 +30,5 @@ def deserialize_json(data: dict) -> PutFunctionCodeSigningConfigRequest:
     if data.get("CodeSigningConfigArn") is not None:
         out["code_signing_config_arn"] = data["CodeSigningConfigArn"]
     else:
-        raise DeserializationError(
-            "PutFunctionCodeSigningConfigRequest.code_signing_config_arn required"
-        )
+        out["code_signing_config_arn"] = ""
     return out

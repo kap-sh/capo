@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.security_requirement_name
 
@@ -40,21 +38,19 @@ def deserialize_json(data: dict) -> CreateSecurityRequirementEntry:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateSecurityRequirementEntry.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError(
-            "CreateSecurityRequirementEntry.description required"
-        )
+        out["description"] = ""
     if data.get("domain") is not None:
         out["domain"] = data["domain"]
     else:
-        raise DeserializationError("CreateSecurityRequirementEntry.domain required")
+        out["domain"] = ""
     if data.get("evaluation") is not None:
         out["evaluation"] = data["evaluation"]
     else:
-        raise DeserializationError("CreateSecurityRequirementEntry.evaluation required")
+        out["evaluation"] = ""
     if data.get("remediation") is not None:
         out["remediation"] = data["remediation"]
     return out

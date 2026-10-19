@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_video.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_video.types.channel_name
     import capo_kinesis_video.types.channel_type
@@ -58,7 +56,7 @@ def deserialize_json(data: dict) -> CreateSignalingChannelInput:
     if data.get("ChannelName") is not None:
         out["channel_name"] = data["ChannelName"]
     else:
-        raise DeserializationError("CreateSignalingChannelInput.channel_name required")
+        out["channel_name"] = ""
     if data.get("ChannelType") is not None:
         import capo_kinesis_video.types.channel_type
 

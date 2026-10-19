@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.client_token
     import capo_workspaces.types.link_id
@@ -32,9 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> RejectAccountLinkInvitationRequest:
     if data.get("LinkId") is not None:
         out["link_id"] = data["LinkId"]
     else:
-        raise DeserializationError(
-            "RejectAccountLinkInvitationRequest.link_id required"
-        )
+        out["link_id"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     return out

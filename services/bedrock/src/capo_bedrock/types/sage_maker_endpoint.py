@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.instance_count
     import capo_bedrock.types.instance_type
@@ -47,15 +45,15 @@ def deserialize_json(data: dict) -> SageMakerEndpoint:
     if data.get("initialInstanceCount") is not None:
         out["initial_instance_count"] = data["initialInstanceCount"]
     else:
-        raise DeserializationError("SageMakerEndpoint.initial_instance_count required")
+        out["initial_instance_count"] = 0
     if data.get("instanceType") is not None:
         out["instance_type"] = data["instanceType"]
     else:
-        raise DeserializationError("SageMakerEndpoint.instance_type required")
+        out["instance_type"] = ""
     if data.get("executionRole") is not None:
         out["execution_role"] = data["executionRole"]
     else:
-        raise DeserializationError("SageMakerEndpoint.execution_role required")
+        out["execution_role"] = ""
     if data.get("kmsEncryptionKey") is not None:
         out["kms_encryption_key"] = data["kmsEncryptionKey"]
     if data.get("vpc") is not None:

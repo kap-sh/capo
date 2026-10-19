@@ -64,13 +64,11 @@ def deserialize_json(data: dict) -> StartAudienceGenerationJobRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("StartAudienceGenerationJobRequest.name required")
+        out["name"] = ""
     if data.get("configuredAudienceModelArn") is not None:
         out["configured_audience_model_arn"] = data["configuredAudienceModelArn"]
     else:
-        raise DeserializationError(
-            "StartAudienceGenerationJobRequest.configured_audience_model_arn required"
-        )
+        out["configured_audience_model_arn"] = ""
     if data.get("seedAudience") is not None:
         import capo_cleanroomsml.types.audience_generation_job_data_source
 

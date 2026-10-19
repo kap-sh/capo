@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.metadata_generation_target_type
     import capo_datazone.types.revision
@@ -45,11 +43,16 @@ def deserialize_json(data: dict) -> MetadataGenerationRunTarget:
             )
         )
     else:
-        raise DeserializationError("MetadataGenerationRunTarget.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_datazone.types.metadata_generation_target_type.MetadataGenerationTargetType",
+            "",
+        )
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("MetadataGenerationRunTarget.identifier required")
+        out["identifier"] = ""
     if data.get("revision") is not None:
         out["revision"] = data["revision"]
     return out

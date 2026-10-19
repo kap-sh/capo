@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.app_ids
     import capo_wickr.types.client_token
@@ -40,5 +38,5 @@ def deserialize_json(data: dict) -> BatchResetDevicesForUserRequest:
 
         out["app_ids"] = capo_wickr.types.app_ids.deserialize_json(data["appIds"])
     else:
-        raise DeserializationError("BatchResetDevicesForUserRequest.app_ids required")
+        out["app_ids"] = []
     return out

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_lambda_web.errors import DeserializationError
-
 
 class AccountUsage(TypedDict, closed=True):
     function_count: "int"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> AccountUsage:
     if data.get("functionCount") is not None:
         out["function_count"] = data["functionCount"]
     else:
-        raise DeserializationError("AccountUsage.function_count required")
+        out["function_count"] = 0
     return out

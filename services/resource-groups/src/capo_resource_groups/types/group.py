@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resource_groups.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resource_groups.types.application_tag
     import capo_resource_groups.types.criticality
@@ -64,11 +62,11 @@ def deserialize_json(data: dict) -> Group:
     if data.get("GroupArn") is not None:
         out["group_arn"] = data["GroupArn"]
     else:
-        raise DeserializationError("Group.group_arn required")
+        out["group_arn"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Group.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Criticality") is not None:

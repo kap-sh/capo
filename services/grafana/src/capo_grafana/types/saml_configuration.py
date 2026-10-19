@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_grafana.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_grafana.types.allowed_organizations
     import capo_grafana.types.assertion_attributes
@@ -76,7 +74,9 @@ def deserialize_json(data: dict) -> SamlConfiguration:
             data["idpMetadata"]
         )
     else:
-        raise DeserializationError("SamlConfiguration.idp_metadata required")
+        import capo_grafana.types._unknown
+
+        out["idp_metadata"] = capo_grafana.types._unknown.UnknownUnionMember("")
     if data.get("assertionAttributes") is not None:
         import capo_grafana.types.assertion_attributes
 

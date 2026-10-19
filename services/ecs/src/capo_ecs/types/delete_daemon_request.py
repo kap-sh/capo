@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.string
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteDaemonRequest:
     if data.get("daemonArn") is not None:
         out["daemon_arn"] = data["daemonArn"]
     else:
-        raise DeserializationError("DeleteDaemonRequest.daemon_arn required")
+        out["daemon_arn"] = ""
     return out

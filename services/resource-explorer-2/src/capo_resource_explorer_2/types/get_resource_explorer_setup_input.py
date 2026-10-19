@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resource_explorer_2.errors import DeserializationError
-
 
 class GetResourceExplorerSetupInput(TypedDict, closed=True):
     task_id: "str"
@@ -30,7 +28,7 @@ def deserialize_json(data: dict) -> GetResourceExplorerSetupInput:
     if data.get("TaskId") is not None:
         out["task_id"] = data["TaskId"]
     else:
-        raise DeserializationError("GetResourceExplorerSetupInput.task_id required")
+        out["task_id"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

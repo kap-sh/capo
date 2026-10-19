@@ -39,9 +39,7 @@ def deserialize_json(data: dict) -> UpdateMediaStorageConfigurationInput:
     if data.get("ChannelARN") is not None:
         out["channel_arn"] = data["ChannelARN"]
     else:
-        raise DeserializationError(
-            "UpdateMediaStorageConfigurationInput.channel_arn required"
-        )
+        out["channel_arn"] = ""
     if data.get("MediaStorageConfiguration") is not None:
         import capo_kinesis_video.types.media_storage_configuration
 

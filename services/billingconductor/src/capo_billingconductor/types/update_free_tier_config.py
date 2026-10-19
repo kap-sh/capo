@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_billingconductor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billingconductor.types.tiering_activated
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> UpdateFreeTierConfig:
     if data.get("Activated") is not None:
         out["activated"] = data["Activated"]
     else:
-        raise DeserializationError("UpdateFreeTierConfig.activated required")
+        out["activated"] = False
     return out

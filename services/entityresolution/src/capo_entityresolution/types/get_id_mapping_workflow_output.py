@@ -113,11 +113,11 @@ def deserialize_json(data: dict) -> GetIdMappingWorkflowOutput:
     if data.get("workflowName") is not None:
         out["workflow_name"] = data["workflowName"]
     else:
-        raise DeserializationError("GetIdMappingWorkflowOutput.workflow_name required")
+        out["workflow_name"] = ""
     if data.get("workflowArn") is not None:
         out["workflow_arn"] = data["workflowArn"]
     else:
-        raise DeserializationError("GetIdMappingWorkflowOutput.workflow_arn required")
+        out["workflow_arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("inputSourceConfig") is not None:
@@ -129,9 +129,7 @@ def deserialize_json(data: dict) -> GetIdMappingWorkflowOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetIdMappingWorkflowOutput.input_source_config required"
-        )
+        out["input_source_config"] = []
     if data.get("outputSourceConfig") is not None:
         import capo_entityresolution.types.id_mapping_workflow_output_source_config
 
@@ -161,7 +159,9 @@ def deserialize_json(data: dict) -> GetIdMappingWorkflowOutput:
             )
         )
     else:
-        raise DeserializationError("GetIdMappingWorkflowOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_entityresolution.types._prelude.timestamp
 
@@ -171,7 +171,9 @@ def deserialize_json(data: dict) -> GetIdMappingWorkflowOutput:
             )
         )
     else:
-        raise DeserializationError("GetIdMappingWorkflowOutput.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("incrementalRunConfig") is not None:
         import capo_entityresolution.types.id_mapping_incremental_run_config
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.attachments
     import capo_deadline.types.client_token
@@ -139,7 +137,7 @@ def deserialize_json(data: dict) -> CreateJobRequest:
     if data.get("priority") is not None:
         out["priority"] = data["priority"]
     else:
-        raise DeserializationError("CreateJobRequest.priority required")
+        out["priority"] = 0
     if data.get("parameters") is not None:
         import capo_deadline.types.job_parameters
 

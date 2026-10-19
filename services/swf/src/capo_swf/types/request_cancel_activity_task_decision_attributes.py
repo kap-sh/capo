@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.activity_id
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> RequestCancelActivityTaskDecisionAtt
     if data.get("activityId") is not None:
         out["activity_id"] = data["activityId"]
     else:
-        raise DeserializationError(
-            "RequestCancelActivityTaskDecisionAttributes.activity_id required"
-        )
+        out["activity_id"] = ""
     return out

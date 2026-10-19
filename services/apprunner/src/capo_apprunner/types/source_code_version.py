@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_apprunner.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_apprunner.types.source_code_version_type
     import capo_apprunner.types.string
@@ -41,9 +39,13 @@ def deserialize_aws_json_1_0(data: dict) -> SourceCodeVersion:
             )
         )
     else:
-        raise DeserializationError("SourceCodeVersion.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_apprunner.types.source_code_version_type.SourceCodeVersionType", ""
+        )
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("SourceCodeVersion.value required")
+        out["value"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_service_catalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_catalog.types.accept_language
     import capo_service_catalog.types.constraint_description
@@ -58,23 +56,23 @@ def deserialize_aws_json_1_1(data: dict) -> CreateConstraintInput:
     if data.get("PortfolioId") is not None:
         out["portfolio_id"] = data["PortfolioId"]
     else:
-        raise DeserializationError("CreateConstraintInput.portfolio_id required")
+        out["portfolio_id"] = ""
     if data.get("ProductId") is not None:
         out["product_id"] = data["ProductId"]
     else:
-        raise DeserializationError("CreateConstraintInput.product_id required")
+        out["product_id"] = ""
     if data.get("Parameters") is not None:
         out["parameters"] = data["Parameters"]
     else:
-        raise DeserializationError("CreateConstraintInput.parameters required")
+        out["parameters"] = ""
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     else:
-        raise DeserializationError("CreateConstraintInput.type required")
+        out["type"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     else:
-        raise DeserializationError("CreateConstraintInput.idempotency_token required")
+        out["idempotency_token"] = ""
     return out

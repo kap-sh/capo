@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.capability_list
     import capo_chime_sdk_voice.types.non_empty_string128
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> UpdateProxySessionRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateProxySessionRequest.capabilities required")
+        out["capabilities"] = []
     if data.get("ExpiryMinutes") is not None:
         out["expiry_minutes"] = data["ExpiryMinutes"]
     return out

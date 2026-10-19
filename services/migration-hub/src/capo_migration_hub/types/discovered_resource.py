@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migration_hub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migration_hub.types.configuration_id
     import capo_migration_hub.types.discovered_resource_description
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_1(data: dict) -> DiscoveredResource:
     if data.get("ConfigurationId") is not None:
         out["configuration_id"] = data["ConfigurationId"]
     else:
-        raise DeserializationError("DiscoveredResource.configuration_id required")
+        out["configuration_id"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     return out

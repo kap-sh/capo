@@ -38,7 +38,7 @@ def deserialize_query(el: Element) -> UpdateReceiptRuleRequest:
     if child_rule_set_name is not None:
         out["rule_set_name"] = str(child_rule_set_name.text or "")
     else:
-        raise DeserializationError("UpdateReceiptRuleRequest.rule_set_name required")
+        out["rule_set_name"] = ""
     child_rule = el.find("Rule")
     if child_rule is not None:
         import capo_ses.types.receipt_rule

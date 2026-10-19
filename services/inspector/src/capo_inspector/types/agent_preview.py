@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.agent_health
     import capo_inspector.types.agent_id
@@ -72,7 +70,7 @@ def deserialize_aws_json_1_1(data: dict) -> AgentPreview:
     if data.get("agentId") is not None:
         out["agent_id"] = data["agentId"]
     else:
-        raise DeserializationError("AgentPreview.agent_id required")
+        out["agent_id"] = ""
     if data.get("autoScalingGroup") is not None:
         out["auto_scaling_group"] = data["autoScalingGroup"]
     if data.get("agentHealth") is not None:

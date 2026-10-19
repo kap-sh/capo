@@ -46,7 +46,5 @@ def deserialize_json(data: dict) -> ConfiguredAudienceModelOutputConfig:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError(
-            "ConfiguredAudienceModelOutputConfig.role_arn required"
-        )
+        out["role_arn"] = ""
     return out

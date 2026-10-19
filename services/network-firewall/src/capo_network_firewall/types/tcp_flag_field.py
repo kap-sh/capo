@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.flags
 
@@ -43,7 +41,7 @@ def deserialize_aws_json_1_0(data: dict) -> TCPFlagField:
             data["Flags"]
         )
     else:
-        raise DeserializationError("TCPFlagField.flags required")
+        out["flags"] = []
     if data.get("Masks") is not None:
         import capo_network_firewall.types.flags
 

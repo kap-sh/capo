@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.s3_path
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> IntermediateSourceConfiguration:
     if data.get("intermediateS3Path") is not None:
         out["intermediate_s3_path"] = data["intermediateS3Path"]
     else:
-        raise DeserializationError(
-            "IntermediateSourceConfiguration.intermediate_s3_path required"
-        )
+        out["intermediate_s3_path"] = ""
     return out

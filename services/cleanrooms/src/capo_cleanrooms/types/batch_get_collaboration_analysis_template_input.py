@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.analysis_template_arn_list
     import capo_cleanrooms.types.collaboration_identifier
@@ -46,7 +44,5 @@ def deserialize_json(data: dict) -> BatchGetCollaborationAnalysisTemplateInput:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetCollaborationAnalysisTemplateInput.analysis_template_arns required"
-        )
+        out["analysis_template_arns"] = []
     return out

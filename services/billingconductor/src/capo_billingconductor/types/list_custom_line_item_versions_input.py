@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billingconductor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billingconductor.types.custom_line_item_arn
     import capo_billingconductor.types.list_custom_line_item_versions_filter
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> ListCustomLineItemVersionsInput:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("ListCustomLineItemVersionsInput.arn required")
+        out["arn"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

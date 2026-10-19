@@ -81,7 +81,7 @@ def deserialize_json(data: dict) -> CreateApplicationInput:
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("CreateApplicationInput.description required")
+        out["description"] = ""
     if data.get("RuntimeEnvironment") is not None:
         import capo_gameliftstreams.types.runtime_environment
 
@@ -97,13 +97,11 @@ def deserialize_json(data: dict) -> CreateApplicationInput:
     if data.get("ExecutablePath") is not None:
         out["executable_path"] = data["ExecutablePath"]
     else:
-        raise DeserializationError("CreateApplicationInput.executable_path required")
+        out["executable_path"] = ""
     if data.get("ApplicationSourceUri") is not None:
         out["application_source_uri"] = data["ApplicationSourceUri"]
     else:
-        raise DeserializationError(
-            "CreateApplicationInput.application_source_uri required"
-        )
+        out["application_source_uri"] = ""
     if data.get("ApplicationLogPaths") is not None:
         import capo_gameliftstreams.types.file_paths
 

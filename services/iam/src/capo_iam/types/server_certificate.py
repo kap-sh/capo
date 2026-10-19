@@ -71,7 +71,7 @@ def deserialize_query(el: Element) -> ServerCertificate:
     if child_certificate_body is not None:
         out["certificate_body"] = str(child_certificate_body.text or "")
     else:
-        raise DeserializationError("ServerCertificate.certificate_body required")
+        out["certificate_body"] = ""
     child_certificate_chain = el.find("CertificateChain")
     if child_certificate_chain is not None:
         out["certificate_chain"] = str(child_certificate_chain.text or "")

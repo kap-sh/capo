@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> CreateChatResponse:
     if data.get("executionId") is not None:
         out["execution_id"] = data["executionId"]
     else:
-        raise DeserializationError("CreateChatResponse.execution_id required")
+        out["execution_id"] = ""
     if data.get("createdAt") is not None:
         import capo_devops_agent.types._prelude.timestamp
 
@@ -44,5 +42,7 @@ def deserialize_json(data: dict) -> CreateChatResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("CreateChatResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

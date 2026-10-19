@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.data_summary
     import capo_qconnect.types.document
@@ -58,7 +56,7 @@ def deserialize_json(data: dict) -> ResultData:
     if data.get("resultId") is not None:
         out["result_id"] = data["resultId"]
     else:
-        raise DeserializationError("ResultData.result_id required")
+        out["result_id"] = ""
     if data.get("document") is not None:
         import capo_qconnect.types.document
 

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.boolean_type
@@ -44,9 +43,7 @@ def deserialize_query(el: Element) -> GetDelegationRequestRequest:
     if child_delegation_request_id is not None:
         out["delegation_request_id"] = str(child_delegation_request_id.text or "")
     else:
-        raise DeserializationError(
-            "GetDelegationRequestRequest.delegation_request_id required"
-        )
+        out["delegation_request_id"] = ""
     child_delegation_permission_check = el.find("DelegationPermissionCheck")
     if child_delegation_permission_check is not None:
         out["delegation_permission_check"] = (

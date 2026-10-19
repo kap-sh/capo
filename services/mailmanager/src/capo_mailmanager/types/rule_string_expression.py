@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.rule_string_list
     import capo_mailmanager.types.rule_string_operator
@@ -57,7 +55,9 @@ def deserialize_aws_json_1_0(data: dict) -> RuleStringExpression:
             )
         )
     else:
-        raise DeserializationError("RuleStringExpression.evaluate required")
+        import capo_mailmanager.types._unknown
+
+        out["evaluate"] = capo_mailmanager.types._unknown.UnknownUnionMember("")
     if data.get("Operator") is not None:
         import capo_mailmanager.types.rule_string_operator
 
@@ -67,7 +67,11 @@ def deserialize_aws_json_1_0(data: dict) -> RuleStringExpression:
             )
         )
     else:
-        raise DeserializationError("RuleStringExpression.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_mailmanager.types.rule_string_operator.RuleStringOperator", ""
+        )
     if data.get("Values") is not None:
         import capo_mailmanager.types.rule_string_list
 
@@ -77,7 +81,7 @@ def deserialize_aws_json_1_0(data: dict) -> RuleStringExpression:
             )
         )
     else:
-        raise DeserializationError("RuleStringExpression.values required")
+        out["values"] = []
     return out
 
 

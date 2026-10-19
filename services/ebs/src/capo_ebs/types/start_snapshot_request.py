@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ebs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ebs.types.boolean
     import capo_ebs.types.description
@@ -64,7 +62,7 @@ def deserialize_json(data: dict) -> StartSnapshotRequest:
     if data.get("VolumeSize") is not None:
         out["volume_size"] = data["VolumeSize"]
     else:
-        raise DeserializationError("StartSnapshotRequest.volume_size required")
+        out["volume_size"] = 0
     if data.get("ParentSnapshotId") is not None:
         out["parent_snapshot_id"] = data["ParentSnapshotId"]
     if data.get("Tags") is not None:

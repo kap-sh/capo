@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.key_arn_or_key_alias_type
 
@@ -33,7 +31,7 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteKeyInput:
     if data.get("KeyIdentifier") is not None:
         out["key_identifier"] = data["KeyIdentifier"]
     else:
-        raise DeserializationError("DeleteKeyInput.key_identifier required")
+        out["key_identifier"] = ""
     if data.get("DeleteKeyInDays") is not None:
         out["delete_key_in_days"] = data["DeleteKeyInDays"]
     return out

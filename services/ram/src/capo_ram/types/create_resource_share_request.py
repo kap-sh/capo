@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ram.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ram.types.boolean
     import capo_ram.types.permission_arn_list
@@ -96,7 +94,7 @@ def deserialize_json(data: dict) -> CreateResourceShareRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateResourceShareRequest.name required")
+        out["name"] = ""
     if data.get("resourceArns") is not None:
         import capo_ram.types.resource_arn_list
 

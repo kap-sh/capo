@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.agentic_retrieve_citation_list
 
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> AgenticRetrieveGeneratedResponse:
     if data.get("answer") is not None:
         out["answer"] = data["answer"]
     else:
-        raise DeserializationError("AgenticRetrieveGeneratedResponse.answer required")
+        out["answer"] = ""
     if data.get("citations") is not None:
         import capo_bedrock_agent_runtime.types.agentic_retrieve_citation_list
 

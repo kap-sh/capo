@@ -50,9 +50,7 @@ def deserialize_json(data: dict) -> CreateVirtualServiceInput:
     if data.get("virtualServiceName") is not None:
         out["virtual_service_name"] = data["virtualServiceName"]
     else:
-        raise DeserializationError(
-            "CreateVirtualServiceInput.virtual_service_name required"
-        )
+        out["virtual_service_name"] = ""
     if data.get("spec") is not None:
         import capo_app_mesh.types.virtual_service_spec
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.data_table_name
     import capo_connect.types.primary_values_set
@@ -43,19 +41,13 @@ def deserialize_json(data: dict) -> BatchUpdateDataTableValueFailureResult:
             data["PrimaryValues"]
         )
     else:
-        raise DeserializationError(
-            "BatchUpdateDataTableValueFailureResult.primary_values required"
-        )
+        out["primary_values"] = []
     if data.get("AttributeName") is not None:
         out["attribute_name"] = data["AttributeName"]
     else:
-        raise DeserializationError(
-            "BatchUpdateDataTableValueFailureResult.attribute_name required"
-        )
+        out["attribute_name"] = ""
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError(
-            "BatchUpdateDataTableValueFailureResult.message required"
-        )
+        out["message"] = ""
     return out

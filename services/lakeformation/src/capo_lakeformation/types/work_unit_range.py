@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.work_unit_id_long
     import capo_lakeformation.types.work_unit_token_string
@@ -44,5 +42,5 @@ def deserialize_json(data: dict) -> WorkUnitRange:
     if data.get("WorkUnitToken") is not None:
         out["work_unit_token"] = data["WorkUnitToken"]
     else:
-        raise DeserializationError("WorkUnitRange.work_unit_token required")
+        out["work_unit_token"] = ""
     return out

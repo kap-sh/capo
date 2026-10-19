@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__map_of__string
     import capo_mediatailor.types.__string
@@ -55,9 +53,7 @@ def deserialize_json(data: dict) -> CreateLiveSourceRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateLiveSourceRequest.http_package_configurations required"
-        )
+        out["http_package_configurations"] = []
     if data.get("tags") is not None:
         import capo_mediatailor.types.__map_of__string
 

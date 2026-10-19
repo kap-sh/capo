@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.client_token
     import capo_route53globalresolver.types.resource_description
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> CreateFirewallDomainListInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateFirewallDomainListInput.name required")
+        out["name"] = ""
     if data.get("tags") is not None:
         import capo_route53globalresolver.types.tags
 

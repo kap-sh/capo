@@ -39,7 +39,7 @@ def deserialize_json(data: dict) -> CalculateRouteResponse:
 
         out["legs"] = capo_location.types.leg_list.deserialize_json(data["Legs"])
     else:
-        raise DeserializationError("CalculateRouteResponse.legs required")
+        out["legs"] = []
     if data.get("Summary") is not None:
         import capo_location.types.calculate_route_summary
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.metadata_value_type
     import capo_bedrock_agent.types.number_value
@@ -70,7 +68,11 @@ def deserialize_json(data: dict) -> MetadataAttributeValue:
             data["type"]
         )
     else:
-        raise DeserializationError("MetadataAttributeValue.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent.types.metadata_value_type.MetadataValueType", ""
+        )
     if data.get("numberValue") is not None:
         out["number_value"] = float(data["numberValue"])
     if data.get("booleanValue") is not None:

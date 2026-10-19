@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.field_arn
     import capo_connectcases.types.field_attributes
@@ -52,23 +50,23 @@ def deserialize_json(data: dict) -> FieldSummary:
     if data.get("fieldId") is not None:
         out["field_id"] = data["fieldId"]
     else:
-        raise DeserializationError("FieldSummary.field_id required")
+        out["field_id"] = ""
     if data.get("fieldArn") is not None:
         out["field_arn"] = data["fieldArn"]
     else:
-        raise DeserializationError("FieldSummary.field_arn required")
+        out["field_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("FieldSummary.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("FieldSummary.type required")
+        out["type"] = ""
     if data.get("namespace") is not None:
         out["namespace"] = data["namespace"]
     else:
-        raise DeserializationError("FieldSummary.namespace required")
+        out["namespace"] = ""
     if data.get("attributes") is not None:
         import capo_connectcases.types.field_attributes
 

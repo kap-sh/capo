@@ -54,7 +54,7 @@ def deserialize_json(data: dict) -> RetrieveRequest:
     if data.get("retrievalQuery") is not None:
         out["retrieval_query"] = data["retrievalQuery"]
     else:
-        raise DeserializationError("RetrieveRequest.retrieval_query required")
+        out["retrieval_query"] = ""
     return out
 
 

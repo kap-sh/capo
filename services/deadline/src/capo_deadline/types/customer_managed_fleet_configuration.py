@@ -76,7 +76,11 @@ def deserialize_json(data: dict) -> CustomerManagedFleetConfiguration:
             data["mode"]
         )
     else:
-        raise DeserializationError("CustomerManagedFleetConfiguration.mode required")
+        import typing
+
+        out["mode"] = typing.cast(
+            "capo_deadline.types.auto_scaling_mode.AutoScalingMode", ""
+        )
     if data.get("autoScalingConfiguration") is not None:
         import capo_deadline.types.customer_managed_auto_scaling_configuration
 

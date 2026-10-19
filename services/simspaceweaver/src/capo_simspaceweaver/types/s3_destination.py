@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_simspaceweaver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_simspaceweaver.types.bucket_name
     import capo_simspaceweaver.types.object_key_prefix
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> S3Destination:
     if data.get("BucketName") is not None:
         out["bucket_name"] = data["BucketName"]
     else:
-        raise DeserializationError("S3Destination.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("ObjectKeyPrefix") is not None:
         out["object_key_prefix"] = data["ObjectKeyPrefix"]
     return out

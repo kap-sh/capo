@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.acknowledge_flow_enabled
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> AcknowledgeFlow:
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     else:
-        raise DeserializationError("AcknowledgeFlow.enabled required")
+        out["enabled"] = False
     return out

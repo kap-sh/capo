@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.security_groups
     import capo_bedrock_agentcore_control.types.subnets
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> VpcConfig:
             )
         )
     else:
-        raise DeserializationError("VpcConfig.security_groups required")
+        out["security_groups"] = []
     if data.get("subnets") is not None:
         import capo_bedrock_agentcore_control.types.subnets
 
@@ -61,7 +59,7 @@ def deserialize_json(data: dict) -> VpcConfig:
             data["subnets"]
         )
     else:
-        raise DeserializationError("VpcConfig.subnets required")
+        out["subnets"] = []
     if data.get("requireServiceS3Endpoint") is not None:
         out["require_service_s3_endpoint"] = data["requireServiceS3Endpoint"]
     return out

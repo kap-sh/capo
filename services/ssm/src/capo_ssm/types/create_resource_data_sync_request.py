@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.resource_data_sync_name
     import capo_ssm.types.resource_data_sync_s3_destination
@@ -60,7 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateResourceDataSyncRequest:
     if data.get("SyncName") is not None:
         out["sync_name"] = data["SyncName"]
     else:
-        raise DeserializationError("CreateResourceDataSyncRequest.sync_name required")
+        out["sync_name"] = ""
     if data.get("S3Destination") is not None:
         import capo_ssm.types.resource_data_sync_s3_destination
 

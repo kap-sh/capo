@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError, ServiceError
+from capo_odb.errors import ServiceError
 
 
 class InternalServerException_(TypedDict, closed=True):
@@ -26,7 +26,7 @@ def deserialize_aws_json_1_0(data: dict) -> InternalServerException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("InternalServerException_.message required")
+        out["message"] = ""
     if data.get("retryAfterSeconds") is not None:
         out["retry_after_seconds"] = data["retryAfterSeconds"]
     return out

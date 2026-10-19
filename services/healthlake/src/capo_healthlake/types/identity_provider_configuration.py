@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.authorization_strategy
     import capo_healthlake.types.configuration_metadata
@@ -61,8 +59,10 @@ def deserialize_aws_json_1_0(data: dict) -> IdentityProviderConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "IdentityProviderConfiguration.authorization_strategy required"
+        import typing
+
+        out["authorization_strategy"] = typing.cast(
+            "capo_healthlake.types.authorization_strategy.AuthorizationStrategy", ""
         )
     if data.get("FineGrainedAuthorizationEnabled") is not None:
         out["fine_grained_authorization_enabled"] = data[

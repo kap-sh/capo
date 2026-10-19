@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -55,13 +53,11 @@ def deserialize_json(data: dict) -> MessageTemplateAttachment:
     if data.get("contentDisposition") is not None:
         out["content_disposition"] = data["contentDisposition"]
     else:
-        raise DeserializationError(
-            "MessageTemplateAttachment.content_disposition required"
-        )
+        out["content_disposition"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("MessageTemplateAttachment.name required")
+        out["name"] = ""
     if data.get("uploadedTime") is not None:
         import datetime
 
@@ -69,11 +65,15 @@ def deserialize_json(data: dict) -> MessageTemplateAttachment:
             data["uploadedTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("MessageTemplateAttachment.uploaded_time required")
+        import datetime
+
+        out["uploaded_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("url") is not None:
         out["url"] = data["url"]
     else:
-        raise DeserializationError("MessageTemplateAttachment.url required")
+        out["url"] = ""
     if data.get("urlExpiry") is not None:
         import datetime
 
@@ -81,11 +81,13 @@ def deserialize_json(data: dict) -> MessageTemplateAttachment:
             data["urlExpiry"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("MessageTemplateAttachment.url_expiry required")
+        import datetime
+
+        out["url_expiry"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("attachmentId") is not None:
         out["attachment_id"] = data["attachmentId"]
     else:
-        raise DeserializationError("MessageTemplateAttachment.attachment_id required")
+        out["attachment_id"] = ""
     return out
 
 

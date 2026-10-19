@@ -59,9 +59,7 @@ def deserialize_aws_json_1_0(data: dict) -> DataPartitionStorageOptions:
     if data.get("storageLocation") is not None:
         out["storage_location"] = data["storageLocation"]
     else:
-        raise DeserializationError(
-            "DataPartitionStorageOptions.storage_location required"
-        )
+        out["storage_location"] = ""
     if data.get("minimumTimeToLive") is not None:
         import capo_iotfleetwise.types.storage_minimum_time_to_live
 

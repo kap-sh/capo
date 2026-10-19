@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.callback_options
     import capo_lambda.types.chained_invoke_options
@@ -112,7 +110,7 @@ def deserialize_json(data: dict) -> OperationUpdate:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("OperationUpdate.id required")
+        out["id"] = ""
     if data.get("ParentId") is not None:
         out["parent_id"] = data["ParentId"]
     if data.get("Name") is not None:
@@ -122,7 +120,9 @@ def deserialize_json(data: dict) -> OperationUpdate:
 
         out["type"] = capo_lambda.types.operation_type.deserialize_json(data["Type"])
     else:
-        raise DeserializationError("OperationUpdate.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_lambda.types.operation_type.OperationType", "")
     if data.get("SubType") is not None:
         out["sub_type"] = data["SubType"]
     if data.get("Action") is not None:
@@ -132,7 +132,11 @@ def deserialize_json(data: dict) -> OperationUpdate:
             data["Action"]
         )
     else:
-        raise DeserializationError("OperationUpdate.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_lambda.types.operation_action.OperationAction", ""
+        )
     if data.get("Payload") is not None:
         out["payload"] = data["Payload"]
     if data.get("Error") is not None:

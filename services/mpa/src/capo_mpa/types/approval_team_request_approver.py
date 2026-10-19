@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mpa.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mpa.types.identity_id
     import capo_mpa.types.string
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> ApprovalTeamRequestApprover:
     if data.get("PrimaryIdentityId") is not None:
         out["primary_identity_id"] = data["PrimaryIdentityId"]
     else:
-        raise DeserializationError(
-            "ApprovalTeamRequestApprover.primary_identity_id required"
-        )
+        out["primary_identity_id"] = ""
     if data.get("PrimaryIdentitySourceArn") is not None:
         out["primary_identity_source_arn"] = data["PrimaryIdentitySourceArn"]
     else:
-        raise DeserializationError(
-            "ApprovalTeamRequestApprover.primary_identity_source_arn required"
-        )
+        out["primary_identity_source_arn"] = ""
     return out

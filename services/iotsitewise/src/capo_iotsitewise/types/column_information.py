@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.column_data_type
     import capo_iotsitewise.types.column_label
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> ColumnInformation:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ColumnInformation.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("ColumnInformation.type required")
+        out["type"] = ""
     return out

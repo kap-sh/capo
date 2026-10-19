@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_efs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_efs.types.resource_id_type
 
@@ -35,7 +33,9 @@ def deserialize_json(data: dict) -> PutAccountPreferencesRequest:
             data["ResourceIdType"]
         )
     else:
-        raise DeserializationError(
-            "PutAccountPreferencesRequest.resource_id_type required"
+        import typing
+
+        out["resource_id_type"] = typing.cast(
+            "capo_efs.types.resource_id_type.ResourceIdType", ""
         )
     return out

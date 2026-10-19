@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 
 class FormInputValuePropertyBindingProperties(TypedDict, closed=True):
     property: "str"
@@ -26,9 +24,7 @@ def deserialize_json(data: dict) -> FormInputValuePropertyBindingProperties:
     if data.get("property") is not None:
         out["property"] = data["property"]
     else:
-        raise DeserializationError(
-            "FormInputValuePropertyBindingProperties.property required"
-        )
+        out["property"] = ""
     if data.get("field") is not None:
         out["field"] = data["field"]
     return out

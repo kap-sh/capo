@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.catalog_identifier
     import capo_partnercentral_selling.types.customer_summary
@@ -118,7 +116,7 @@ def deserialize_aws_json_1_0(data: dict) -> OpportunitySummary:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("OpportunitySummary.catalog required")
+        out["catalog"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     if data.get("Arn") is not None:

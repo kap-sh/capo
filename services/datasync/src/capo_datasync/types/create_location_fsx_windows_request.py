@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.cmk_secret_config
     import capo_datasync.types.custom_secret_config
@@ -97,9 +95,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationFsxWindowsRequest:
     if data.get("FsxFilesystemArn") is not None:
         out["fsx_filesystem_arn"] = data["FsxFilesystemArn"]
     else:
-        raise DeserializationError(
-            "CreateLocationFsxWindowsRequest.fsx_filesystem_arn required"
-        )
+        out["fsx_filesystem_arn"] = ""
     if data.get("SecurityGroupArns") is not None:
         import capo_datasync.types.ec2_security_group_arn_list
 
@@ -109,9 +105,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationFsxWindowsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateLocationFsxWindowsRequest.security_group_arns required"
-        )
+        out["security_group_arns"] = []
     if data.get("Tags") is not None:
         import capo_datasync.types.input_tag_list
 
@@ -121,7 +115,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationFsxWindowsRequest:
     if data.get("User") is not None:
         out["user"] = data["User"]
     else:
-        raise DeserializationError("CreateLocationFsxWindowsRequest.user required")
+        out["user"] = ""
     if data.get("Domain") is not None:
         out["domain"] = data["Domain"]
     if data.get("Password") is not None:

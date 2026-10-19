@@ -128,17 +128,13 @@ def deserialize_aws_json_1_1(
     if data.get("RoleARN") is not None:
         out["role_arn"] = data["RoleARN"]
     else:
-        raise DeserializationError(
-            "AmazonOpenSearchServerlessDestinationConfiguration.role_arn required"
-        )
+        out["role_arn"] = ""
     if data.get("CollectionEndpoint") is not None:
         out["collection_endpoint"] = data["CollectionEndpoint"]
     if data.get("IndexName") is not None:
         out["index_name"] = data["IndexName"]
     else:
-        raise DeserializationError(
-            "AmazonOpenSearchServerlessDestinationConfiguration.index_name required"
-        )
+        out["index_name"] = ""
     if data.get("BufferingHints") is not None:
         import capo_firehose.types.amazon_open_search_serverless_buffering_hints
 

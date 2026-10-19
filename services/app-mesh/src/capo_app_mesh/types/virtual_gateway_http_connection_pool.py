@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.max_connections
     import capo_app_mesh.types.max_pending_requests
@@ -34,9 +32,7 @@ def deserialize_json(data: dict) -> VirtualGatewayHttpConnectionPool:
     if data.get("maxConnections") is not None:
         out["max_connections"] = data["maxConnections"]
     else:
-        raise DeserializationError(
-            "VirtualGatewayHttpConnectionPool.max_connections required"
-        )
+        out["max_connections"] = 0
     if data.get("maxPendingRequests") is not None:
         out["max_pending_requests"] = data["maxPendingRequests"]
     return out

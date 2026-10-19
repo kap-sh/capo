@@ -61,7 +61,7 @@ def deserialize_json(data: dict) -> Change:
     if data.get("ChangeType") is not None:
         out["change_type"] = data["ChangeType"]
     else:
-        raise DeserializationError("Change.change_type required")
+        out["change_type"] = ""
     if data.get("Entity") is not None:
         import capo_marketplace_catalog.types.entity
 

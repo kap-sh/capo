@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.resource_arn
     import capo_lightsail.types.resource_name
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_1(data: dict) -> TagResourceRequest:
     if data.get("resourceName") is not None:
         out["resource_name"] = data["resourceName"]
     else:
-        raise DeserializationError("TagResourceRequest.resource_name required")
+        out["resource_name"] = ""
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     if data.get("tags") is not None:
@@ -48,5 +46,5 @@ def deserialize_aws_json_1_1(data: dict) -> TagResourceRequest:
             data["tags"]
         )
     else:
-        raise DeserializationError("TagResourceRequest.tags required")
+        out["tags"] = []
     return out

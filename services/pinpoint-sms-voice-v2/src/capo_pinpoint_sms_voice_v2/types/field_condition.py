@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.condition_operator
     import capo_pinpoint_sms_voice_v2.types.condition_value_list
@@ -44,11 +42,11 @@ def deserialize_aws_json_1_0(data: dict) -> FieldCondition:
     if data.get("DependsOnFieldPath") is not None:
         out["depends_on_field_path"] = data["DependsOnFieldPath"]
     else:
-        raise DeserializationError("FieldCondition.depends_on_field_path required")
+        out["depends_on_field_path"] = ""
     if data.get("Operator") is not None:
         out["operator"] = data["Operator"]
     else:
-        raise DeserializationError("FieldCondition.operator required")
+        out["operator"] = ""
     if data.get("Values") is not None:
         import capo_pinpoint_sms_voice_v2.types.condition_value_list
 

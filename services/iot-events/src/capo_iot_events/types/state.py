@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.on_enter_lifecycle
     import capo_iot_events.types.on_exit_lifecycle
@@ -54,7 +52,7 @@ def deserialize_json(data: dict) -> State:
     if data.get("stateName") is not None:
         out["state_name"] = data["stateName"]
     else:
-        raise DeserializationError("State.state_name required")
+        out["state_name"] = ""
     if data.get("onInput") is not None:
         import capo_iot_events.types.on_input_lifecycle
 

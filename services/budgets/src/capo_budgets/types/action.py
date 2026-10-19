@@ -90,11 +90,11 @@ def deserialize_aws_json_1_1(data: dict) -> Action:
     if data.get("ActionId") is not None:
         out["action_id"] = data["ActionId"]
     else:
-        raise DeserializationError("Action.action_id required")
+        out["action_id"] = ""
     if data.get("BudgetName") is not None:
         out["budget_name"] = data["BudgetName"]
     else:
-        raise DeserializationError("Action.budget_name required")
+        out["budget_name"] = ""
     if data.get("NotificationType") is not None:
         import capo_budgets.types.notification_type
 
@@ -104,7 +104,11 @@ def deserialize_aws_json_1_1(data: dict) -> Action:
             )
         )
     else:
-        raise DeserializationError("Action.notification_type required")
+        import typing
+
+        out["notification_type"] = typing.cast(
+            "capo_budgets.types.notification_type.NotificationType", ""
+        )
     if data.get("ActionType") is not None:
         import capo_budgets.types.action_type
 
@@ -112,7 +116,11 @@ def deserialize_aws_json_1_1(data: dict) -> Action:
             data["ActionType"]
         )
     else:
-        raise DeserializationError("Action.action_type required")
+        import typing
+
+        out["action_type"] = typing.cast(
+            "capo_budgets.types.action_type.ActionType", ""
+        )
     if data.get("ActionThreshold") is not None:
         import capo_budgets.types.action_threshold
 
@@ -134,7 +142,7 @@ def deserialize_aws_json_1_1(data: dict) -> Action:
     if data.get("ExecutionRoleArn") is not None:
         out["execution_role_arn"] = data["ExecutionRoleArn"]
     else:
-        raise DeserializationError("Action.execution_role_arn required")
+        out["execution_role_arn"] = ""
     if data.get("ApprovalModel") is not None:
         import capo_budgets.types.approval_model
 
@@ -144,7 +152,11 @@ def deserialize_aws_json_1_1(data: dict) -> Action:
             )
         )
     else:
-        raise DeserializationError("Action.approval_model required")
+        import typing
+
+        out["approval_model"] = typing.cast(
+            "capo_budgets.types.approval_model.ApprovalModel", ""
+        )
     if data.get("Status") is not None:
         import capo_budgets.types.action_status
 
@@ -152,7 +164,9 @@ def deserialize_aws_json_1_1(data: dict) -> Action:
             data["Status"]
         )
     else:
-        raise DeserializationError("Action.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_budgets.types.action_status.ActionStatus", "")
     if data.get("Subscribers") is not None:
         import capo_budgets.types.subscribers
 
@@ -160,7 +174,7 @@ def deserialize_aws_json_1_1(data: dict) -> Action:
             data["Subscribers"]
         )
     else:
-        raise DeserializationError("Action.subscribers required")
+        out["subscribers"] = []
     return out
 
 

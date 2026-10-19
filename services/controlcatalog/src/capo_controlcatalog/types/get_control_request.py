@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_controlcatalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_controlcatalog.types.control_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> GetControlRequest:
     if data.get("ControlArn") is not None:
         out["control_arn"] = data["ControlArn"]
     else:
-        raise DeserializationError("GetControlRequest.control_arn required")
+        out["control_arn"] = ""
     return out

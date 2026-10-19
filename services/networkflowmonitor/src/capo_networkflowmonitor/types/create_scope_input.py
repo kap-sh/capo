@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkflowmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkflowmonitor.types.tag_map
     import capo_networkflowmonitor.types.target_resource_list
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> CreateScopeInput:
             )
         )
     else:
-        raise DeserializationError("CreateScopeInput.targets required")
+        out["targets"] = []
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

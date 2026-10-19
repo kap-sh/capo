@@ -64,7 +64,7 @@ def deserialize_json(data: dict) -> AccessPolicySummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("AccessPolicySummary.id required")
+        out["id"] = ""
     if data.get("identity") is not None:
         import capo_iotsitewise.types.identity
 
@@ -88,7 +88,11 @@ def deserialize_json(data: dict) -> AccessPolicySummary:
             data["permission"]
         )
     else:
-        raise DeserializationError("AccessPolicySummary.permission required")
+        import typing
+
+        out["permission"] = typing.cast(
+            "capo_iotsitewise.types.permission.Permission", ""
+        )
     if data.get("creationDate") is not None:
         import capo_iotsitewise.types.timestamp
 

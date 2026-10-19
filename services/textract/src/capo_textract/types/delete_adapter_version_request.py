@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_textract.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_textract.types.adapter_id
     import capo_textract.types.adapter_version
@@ -31,11 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteAdapterVersionRequest:
     if data.get("AdapterId") is not None:
         out["adapter_id"] = data["AdapterId"]
     else:
-        raise DeserializationError("DeleteAdapterVersionRequest.adapter_id required")
+        out["adapter_id"] = ""
     if data.get("AdapterVersion") is not None:
         out["adapter_version"] = data["AdapterVersion"]
     else:
-        raise DeserializationError(
-            "DeleteAdapterVersionRequest.adapter_version required"
-        )
+        out["adapter_version"] = ""
     return out

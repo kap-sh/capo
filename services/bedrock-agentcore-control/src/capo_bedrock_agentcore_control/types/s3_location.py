@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 
 class S3Location(TypedDict, closed=True):
     bucket: "str"
@@ -29,11 +27,11 @@ def deserialize_json(data: dict) -> S3Location:
     if data.get("bucket") is not None:
         out["bucket"] = data["bucket"]
     else:
-        raise DeserializationError("S3Location.bucket required")
+        out["bucket"] = ""
     if data.get("prefix") is not None:
         out["prefix"] = data["prefix"]
     else:
-        raise DeserializationError("S3Location.prefix required")
+        out["prefix"] = ""
     if data.get("versionId") is not None:
         out["version_id"] = data["versionId"]
     return out

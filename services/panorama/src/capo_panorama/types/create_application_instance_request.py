@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.application_instance_id
     import capo_panorama.types.application_instance_name
@@ -91,9 +89,9 @@ def deserialize_json(data: dict) -> CreateApplicationInstanceRequest:
             data["ManifestPayload"]
         )
     else:
-        raise DeserializationError(
-            "CreateApplicationInstanceRequest.manifest_payload required"
-        )
+        import capo_panorama.types._unknown
+
+        out["manifest_payload"] = capo_panorama.types._unknown.UnknownUnionMember("")
     if data.get("ManifestOverridesPayload") is not None:
         import capo_panorama.types.manifest_overrides_payload
 
@@ -111,9 +109,7 @@ def deserialize_json(data: dict) -> CreateApplicationInstanceRequest:
     if data.get("DefaultRuntimeContextDevice") is not None:
         out["default_runtime_context_device"] = data["DefaultRuntimeContextDevice"]
     else:
-        raise DeserializationError(
-            "CreateApplicationInstanceRequest.default_runtime_context_device required"
-        )
+        out["default_runtime_context_device"] = ""
     if data.get("Tags") is not None:
         import capo_panorama.types.tag_map
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.date_timestamp
     import capo_bedrock_agent.types.description
@@ -82,15 +80,15 @@ def deserialize_json(data: dict) -> IngestionJobSummary:
     if data.get("knowledgeBaseId") is not None:
         out["knowledge_base_id"] = data["knowledgeBaseId"]
     else:
-        raise DeserializationError("IngestionJobSummary.knowledge_base_id required")
+        out["knowledge_base_id"] = ""
     if data.get("dataSourceId") is not None:
         out["data_source_id"] = data["dataSourceId"]
     else:
-        raise DeserializationError("IngestionJobSummary.data_source_id required")
+        out["data_source_id"] = ""
     if data.get("ingestionJobId") is not None:
         out["ingestion_job_id"] = data["ingestionJobId"]
     else:
-        raise DeserializationError("IngestionJobSummary.ingestion_job_id required")
+        out["ingestion_job_id"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("status") is not None:
@@ -100,7 +98,11 @@ def deserialize_json(data: dict) -> IngestionJobSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("IngestionJobSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agent.types.ingestion_job_status.IngestionJobStatus", ""
+        )
     if data.get("startedAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -108,7 +110,9 @@ def deserialize_json(data: dict) -> IngestionJobSummary:
             data["startedAt"]
         )
     else:
-        raise DeserializationError("IngestionJobSummary.started_at required")
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -116,7 +120,9 @@ def deserialize_json(data: dict) -> IngestionJobSummary:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("IngestionJobSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("textReadyAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 

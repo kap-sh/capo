@@ -101,21 +101,21 @@ def deserialize_json(data: dict) -> KnowledgeBase:
     if data.get("knowledgeBaseId") is not None:
         out["knowledge_base_id"] = data["knowledgeBaseId"]
     else:
-        raise DeserializationError("KnowledgeBase.knowledge_base_id required")
+        out["knowledge_base_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("KnowledgeBase.name required")
+        out["name"] = ""
     if data.get("knowledgeBaseArn") is not None:
         out["knowledge_base_arn"] = data["knowledgeBaseArn"]
     else:
-        raise DeserializationError("KnowledgeBase.knowledge_base_arn required")
+        out["knowledge_base_arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("KnowledgeBase.role_arn required")
+        out["role_arn"] = ""
     if data.get("knowledgeBaseConfiguration") is not None:
         import capo_bedrock_agent.types.knowledge_base_configuration
 
@@ -143,7 +143,11 @@ def deserialize_json(data: dict) -> KnowledgeBase:
             data["status"]
         )
     else:
-        raise DeserializationError("KnowledgeBase.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agent.types.knowledge_base_status.KnowledgeBaseStatus", ""
+        )
     if data.get("createdAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -151,7 +155,9 @@ def deserialize_json(data: dict) -> KnowledgeBase:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("KnowledgeBase.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -159,7 +165,9 @@ def deserialize_json(data: dict) -> KnowledgeBase:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("KnowledgeBase.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("failureReasons") is not None:
         import capo_bedrock_agent.types.failure_reasons
 

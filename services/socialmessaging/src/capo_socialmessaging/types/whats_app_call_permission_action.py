@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.whats_app_call_permission_action_name
     import capo_socialmessaging.types.whats_app_call_permission_limit_list
@@ -40,13 +38,11 @@ def deserialize_json(data: dict) -> WhatsAppCallPermissionAction:
     if data.get("actionName") is not None:
         out["action_name"] = data["actionName"]
     else:
-        raise DeserializationError("WhatsAppCallPermissionAction.action_name required")
+        out["action_name"] = ""
     if data.get("canPerformAction") is not None:
         out["can_perform_action"] = data["canPerformAction"]
     else:
-        raise DeserializationError(
-            "WhatsAppCallPermissionAction.can_perform_action required"
-        )
+        out["can_perform_action"] = False
     if data.get("limits") is not None:
         import capo_socialmessaging.types.whats_app_call_permission_limit_list
 
@@ -56,5 +52,5 @@ def deserialize_json(data: dict) -> WhatsAppCallPermissionAction:
             )
         )
     else:
-        raise DeserializationError("WhatsAppCallPermissionAction.limits required")
+        out["limits"] = []
     return out

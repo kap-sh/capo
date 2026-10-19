@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rum.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rum.types.deobfuscation_s3_uri
     import capo_rum.types.deobfuscation_status
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> JavaScriptSourceMaps:
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("JavaScriptSourceMaps.status required")
+        out["status"] = ""
     if data.get("S3Uri") is not None:
         out["s3_uri"] = data["S3Uri"]
     return out

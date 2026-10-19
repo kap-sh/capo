@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.authorization_endpoint_type
     import capo_bedrock_agentcore_control.types.issuer_url_type
@@ -63,19 +61,15 @@ def deserialize_json(data: dict) -> Oauth2AuthorizationServerMetadata:
     if data.get("issuer") is not None:
         out["issuer"] = data["issuer"]
     else:
-        raise DeserializationError("Oauth2AuthorizationServerMetadata.issuer required")
+        out["issuer"] = ""
     if data.get("authorizationEndpoint") is not None:
         out["authorization_endpoint"] = data["authorizationEndpoint"]
     else:
-        raise DeserializationError(
-            "Oauth2AuthorizationServerMetadata.authorization_endpoint required"
-        )
+        out["authorization_endpoint"] = ""
     if data.get("tokenEndpoint") is not None:
         out["token_endpoint"] = data["tokenEndpoint"]
     else:
-        raise DeserializationError(
-            "Oauth2AuthorizationServerMetadata.token_endpoint required"
-        )
+        out["token_endpoint"] = ""
     if data.get("responseTypes") is not None:
         import capo_bedrock_agentcore_control.types.response_list_type
 

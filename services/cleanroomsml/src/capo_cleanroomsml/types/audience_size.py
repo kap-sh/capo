@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.audience_size_type
     import capo_cleanroomsml.types.audience_size_value
@@ -39,9 +37,13 @@ def deserialize_json(data: dict) -> AudienceSize:
             data["type"]
         )
     else:
-        raise DeserializationError("AudienceSize.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cleanroomsml.types.audience_size_type.AudienceSizeType", ""
+        )
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("AudienceSize.value required")
+        out["value"] = 0
     return out

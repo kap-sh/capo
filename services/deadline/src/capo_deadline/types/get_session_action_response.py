@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.acquired_limits
     import capo_deadline.types.ended_at
@@ -123,9 +121,7 @@ def deserialize_json(data: dict) -> GetSessionActionResponse:
     if data.get("sessionActionId") is not None:
         out["session_action_id"] = data["sessionActionId"]
     else:
-        raise DeserializationError(
-            "GetSessionActionResponse.session_action_id required"
-        )
+        out["session_action_id"] = ""
     if data.get("status") is not None:
         import capo_deadline.types.session_action_status
 
@@ -133,7 +129,11 @@ def deserialize_json(data: dict) -> GetSessionActionResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("GetSessionActionResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_deadline.types.session_action_status.SessionActionStatus", ""
+        )
     if data.get("startedAt") is not None:
         import capo_deadline.types.started_at
 
@@ -163,7 +163,7 @@ def deserialize_json(data: dict) -> GetSessionActionResponse:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("GetSessionActionResponse.session_id required")
+        out["session_id"] = ""
     if data.get("processExitCode") is not None:
         out["process_exit_code"] = data["processExitCode"]
     if data.get("progressMessage") is not None:
@@ -183,7 +183,9 @@ def deserialize_json(data: dict) -> GetSessionActionResponse:
             )
         )
     else:
-        raise DeserializationError("GetSessionActionResponse.definition required")
+        import capo_deadline.types._unknown
+
+        out["definition"] = capo_deadline.types._unknown.UnknownUnionMember("")
     return out
 
 

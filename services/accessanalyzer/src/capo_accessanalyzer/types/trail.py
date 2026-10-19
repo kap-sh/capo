@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.cloud_trail_arn
     import capo_accessanalyzer.types.region_list
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> Trail:
     if data.get("cloudTrailArn") is not None:
         out["cloud_trail_arn"] = data["cloudTrailArn"]
     else:
-        raise DeserializationError("Trail.cloud_trail_arn required")
+        out["cloud_trail_arn"] = ""
     if data.get("regions") is not None:
         import capo_accessanalyzer.types.region_list
 

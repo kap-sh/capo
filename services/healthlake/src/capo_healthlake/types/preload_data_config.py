@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.preload_data_type
 
@@ -39,5 +37,9 @@ def deserialize_aws_json_1_0(data: dict) -> PreloadDataConfig:
             )
         )
     else:
-        raise DeserializationError("PreloadDataConfig.preload_data_type required")
+        import typing
+
+        out["preload_data_type"] = typing.cast(
+            "capo_healthlake.types.preload_data_type.PreloadDataType", ""
+        )
     return out

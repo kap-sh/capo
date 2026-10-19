@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.access_request_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetAccessTokenRequest:
     if data.get("AccessRequestId") is not None:
         out["access_request_id"] = data["AccessRequestId"]
     else:
-        raise DeserializationError("GetAccessTokenRequest.access_request_id required")
+        out["access_request_id"] = ""
     return out

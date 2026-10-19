@@ -158,7 +158,7 @@ def deserialize_json(data: dict) -> CreateCanaryRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateCanaryRequest.name required")
+        out["name"] = ""
     if data.get("Code") is not None:
         import capo_synthetics.types.canary_code_input
 
@@ -170,11 +170,11 @@ def deserialize_json(data: dict) -> CreateCanaryRequest:
     if data.get("ArtifactS3Location") is not None:
         out["artifact_s3_location"] = data["ArtifactS3Location"]
     else:
-        raise DeserializationError("CreateCanaryRequest.artifact_s3_location required")
+        out["artifact_s3_location"] = ""
     if data.get("ExecutionRoleArn") is not None:
         out["execution_role_arn"] = data["ExecutionRoleArn"]
     else:
-        raise DeserializationError("CreateCanaryRequest.execution_role_arn required")
+        out["execution_role_arn"] = ""
     if data.get("Schedule") is not None:
         import capo_synthetics.types.canary_schedule_input
 
@@ -198,7 +198,7 @@ def deserialize_json(data: dict) -> CreateCanaryRequest:
     if data.get("RuntimeVersion") is not None:
         out["runtime_version"] = data["RuntimeVersion"]
     else:
-        raise DeserializationError("CreateCanaryRequest.runtime_version required")
+        out["runtime_version"] = ""
     if data.get("VpcConfig") is not None:
         import capo_synthetics.types.vpc_config_input
 

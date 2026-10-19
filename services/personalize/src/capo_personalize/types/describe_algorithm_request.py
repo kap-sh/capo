@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAlgorithmRequest:
     if data.get("algorithmArn") is not None:
         out["algorithm_arn"] = data["algorithmArn"]
     else:
-        raise DeserializationError("DescribeAlgorithmRequest.algorithm_arn required")
+        out["algorithm_arn"] = ""
     return out

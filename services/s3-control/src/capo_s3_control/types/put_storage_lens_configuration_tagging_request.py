@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.account_id
@@ -42,7 +41,5 @@ def deserialize_xml(el: Element) -> PutStorageLensConfigurationTaggingRequest:
             child_tags
         )
     else:
-        raise DeserializationError(
-            "PutStorageLensConfigurationTaggingRequest.tags required"
-        )
+        out["tags"] = []
     return out

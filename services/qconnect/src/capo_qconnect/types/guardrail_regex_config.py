@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.guardrail_regex_description
     import capo_qconnect.types.guardrail_regex_name
@@ -42,17 +40,17 @@ def deserialize_json(data: dict) -> GuardrailRegexConfig:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GuardrailRegexConfig.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("pattern") is not None:
         out["pattern"] = data["pattern"]
     else:
-        raise DeserializationError("GuardrailRegexConfig.pattern required")
+        out["pattern"] = ""
     if data.get("action") is not None:
         out["action"] = data["action"]
     else:
-        raise DeserializationError("GuardrailRegexConfig.action required")
+        out["action"] = ""
     return out
 
 

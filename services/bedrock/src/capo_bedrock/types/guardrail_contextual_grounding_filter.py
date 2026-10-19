@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.guardrail_contextual_grounding_action
     import capo_bedrock.types.guardrail_contextual_grounding_filter_type
@@ -67,13 +65,16 @@ def deserialize_json(data: dict) -> GuardrailContextualGroundingFilter:
             )
         )
     else:
-        raise DeserializationError("GuardrailContextualGroundingFilter.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock.types.guardrail_contextual_grounding_filter_type.GuardrailContextualGroundingFilterType",
+            "",
+        )
     if data.get("threshold") is not None:
         out["threshold"] = float(data["threshold"])
     else:
-        raise DeserializationError(
-            "GuardrailContextualGroundingFilter.threshold required"
-        )
+        out["threshold"] = 0.0
     if data.get("action") is not None:
         import capo_bedrock.types.guardrail_contextual_grounding_action
 

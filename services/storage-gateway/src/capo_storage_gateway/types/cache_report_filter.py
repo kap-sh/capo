@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.cache_report_filter_name
     import capo_storage_gateway.types.cache_report_filter_values
@@ -51,7 +49,12 @@ def deserialize_aws_json_1_1(data: dict) -> CacheReportFilter:
             )
         )
     else:
-        raise DeserializationError("CacheReportFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_storage_gateway.types.cache_report_filter_name.CacheReportFilterName",
+            "",
+        )
     if data.get("Values") is not None:
         import capo_storage_gateway.types.cache_report_filter_values
 
@@ -61,5 +64,5 @@ def deserialize_aws_json_1_1(data: dict) -> CacheReportFilter:
             )
         )
     else:
-        raise DeserializationError("CacheReportFilter.values required")
+        out["values"] = []
     return out

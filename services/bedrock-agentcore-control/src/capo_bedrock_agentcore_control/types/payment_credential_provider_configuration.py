@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.payment_credential_provider_arn
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> PaymentCredentialProviderConfiguration:
     if data.get("credentialProviderArn") is not None:
         out["credential_provider_arn"] = data["credentialProviderArn"]
     else:
-        raise DeserializationError(
-            "PaymentCredentialProviderConfiguration.credential_provider_arn required"
-        )
+        out["credential_provider_arn"] = ""
     return out

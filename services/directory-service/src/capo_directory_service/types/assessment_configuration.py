@@ -79,11 +79,11 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentConfiguration:
             )
         )
     else:
-        raise DeserializationError("AssessmentConfiguration.customer_dns_ips required")
+        out["customer_dns_ips"] = []
     if data.get("DnsName") is not None:
         out["dns_name"] = data["DnsName"]
     else:
-        raise DeserializationError("AssessmentConfiguration.dns_name required")
+        out["dns_name"] = ""
     if data.get("VpcSettings") is not None:
         import capo_directory_service.types.directory_vpc_settings
 
@@ -103,7 +103,7 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentConfiguration:
             )
         )
     else:
-        raise DeserializationError("AssessmentConfiguration.instance_ids required")
+        out["instance_ids"] = []
     if data.get("SecurityGroupIds") is not None:
         import capo_directory_service.types.security_group_ids
 

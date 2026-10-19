@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.search_term
     import capo_deadline.types.search_term_matching_type
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> SearchTermFilterExpression:
     if data.get("searchTerm") is not None:
         out["search_term"] = data["searchTerm"]
     else:
-        raise DeserializationError("SearchTermFilterExpression.search_term required")
+        out["search_term"] = ""
     if data.get("matchType") is not None:
         import capo_deadline.types.search_term_matching_type
 

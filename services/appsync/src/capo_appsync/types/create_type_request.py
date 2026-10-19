@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.string
     import capo_appsync.types.type_definition_format
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> CreateTypeRequest:
     if data.get("definition") is not None:
         out["definition"] = data["definition"]
     else:
-        raise DeserializationError("CreateTypeRequest.definition required")
+        out["definition"] = ""
     if data.get("format") is not None:
         import capo_appsync.types.type_definition_format
 
@@ -45,5 +43,9 @@ def deserialize_json(data: dict) -> CreateTypeRequest:
             data["format"]
         )
     else:
-        raise DeserializationError("CreateTypeRequest.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_appsync.types.type_definition_format.TypeDefinitionFormat", ""
+        )
     return out

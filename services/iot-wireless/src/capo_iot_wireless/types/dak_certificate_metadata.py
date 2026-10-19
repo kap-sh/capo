@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.ap_id
     import capo_iot_wireless.types.dak_certificate_id
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> DakCertificateMetadata:
     if data.get("CertificateId") is not None:
         out["certificate_id"] = data["CertificateId"]
     else:
-        raise DeserializationError("DakCertificateMetadata.certificate_id required")
+        out["certificate_id"] = ""
     if data.get("MaxAllowedSignature") is not None:
         out["max_allowed_signature"] = data["MaxAllowedSignature"]
     if data.get("FactorySupport") is not None:

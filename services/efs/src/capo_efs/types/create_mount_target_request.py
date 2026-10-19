@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_efs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_efs.types.file_system_id
     import capo_efs.types.ip_address
@@ -59,11 +57,11 @@ def deserialize_json(data: dict) -> CreateMountTargetRequest:
     if data.get("FileSystemId") is not None:
         out["file_system_id"] = data["FileSystemId"]
     else:
-        raise DeserializationError("CreateMountTargetRequest.file_system_id required")
+        out["file_system_id"] = ""
     if data.get("SubnetId") is not None:
         out["subnet_id"] = data["SubnetId"]
     else:
-        raise DeserializationError("CreateMountTargetRequest.subnet_id required")
+        out["subnet_id"] = ""
     if data.get("IpAddress") is not None:
         out["ip_address"] = data["IpAddress"]
     if data.get("Ipv6Address") is not None:

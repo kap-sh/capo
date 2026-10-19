@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 
 class SendWhatsAppCallEventOutput(TypedDict, closed=True):
     call_id: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> SendWhatsAppCallEventOutput:
     if data.get("callId") is not None:
         out["call_id"] = data["callId"]
     else:
-        raise DeserializationError("SendWhatsAppCallEventOutput.call_id required")
+        out["call_id"] = ""
     return out

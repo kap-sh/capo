@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.reference_name
     import capo_codecommit.types.repository_name
@@ -37,11 +35,11 @@ def deserialize_aws_json_1_1(data: dict) -> Target:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError("Target.repository_name required")
+        out["repository_name"] = ""
     if data.get("sourceReference") is not None:
         out["source_reference"] = data["sourceReference"]
     else:
-        raise DeserializationError("Target.source_reference required")
+        out["source_reference"] = ""
     if data.get("destinationReference") is not None:
         out["destination_reference"] = data["destinationReference"]
     return out

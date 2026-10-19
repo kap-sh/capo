@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.__double
     import capo_dataexchange.types.__string
@@ -70,7 +68,7 @@ def deserialize_json(data: dict) -> JobError:
     if data.get("Code") is not None:
         out["code"] = data["Code"]
     else:
-        raise DeserializationError("JobError.code required")
+        out["code"] = ""
     if data.get("Details") is not None:
         import capo_dataexchange.types.details
 
@@ -86,7 +84,7 @@ def deserialize_json(data: dict) -> JobError:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("JobError.message required")
+        out["message"] = ""
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     if data.get("ResourceType") is not None:

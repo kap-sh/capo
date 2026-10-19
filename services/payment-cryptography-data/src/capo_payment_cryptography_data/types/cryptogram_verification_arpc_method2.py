@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.hex_length_equals8
     import capo_payment_cryptography_data.types.proprietary_authentication_data_type
@@ -36,9 +34,7 @@ def deserialize_json(data: dict) -> CryptogramVerificationArpcMethod2:
     if data.get("CardStatusUpdate") is not None:
         out["card_status_update"] = data["CardStatusUpdate"]
     else:
-        raise DeserializationError(
-            "CryptogramVerificationArpcMethod2.card_status_update required"
-        )
+        out["card_status_update"] = ""
     if data.get("ProprietaryAuthenticationData") is not None:
         out["proprietary_authentication_data"] = data["ProprietaryAuthenticationData"]
     return out

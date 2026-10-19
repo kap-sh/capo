@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.bucket_name
     import capo_appflow.types.bucket_prefix
@@ -49,13 +47,11 @@ def deserialize_json(data: dict) -> SnowflakeDestinationProperties:
     if data.get("object") is not None:
         out["object"] = data["object"]
     else:
-        raise DeserializationError("SnowflakeDestinationProperties.object required")
+        out["object"] = ""
     if data.get("intermediateBucketName") is not None:
         out["intermediate_bucket_name"] = data["intermediateBucketName"]
     else:
-        raise DeserializationError(
-            "SnowflakeDestinationProperties.intermediate_bucket_name required"
-        )
+        out["intermediate_bucket_name"] = ""
     if data.get("bucketPrefix") is not None:
         out["bucket_prefix"] = data["bucketPrefix"]
     if data.get("errorHandlingConfig") is not None:

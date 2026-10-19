@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.tool_description_list
 
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> ToolDescriptionTextInput:
             )
         )
     else:
-        raise DeserializationError("ToolDescriptionTextInput.tools required")
+        out["tools"] = []
     return out
 
 

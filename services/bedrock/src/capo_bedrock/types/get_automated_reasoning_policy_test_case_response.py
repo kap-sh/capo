@@ -39,9 +39,7 @@ def deserialize_json(data: dict) -> GetAutomatedReasoningPolicyTestCaseResponse:
     if data.get("policyArn") is not None:
         out["policy_arn"] = data["policyArn"]
     else:
-        raise DeserializationError(
-            "GetAutomatedReasoningPolicyTestCaseResponse.policy_arn required"
-        )
+        out["policy_arn"] = ""
     if data.get("testCase") is not None:
         import capo_bedrock.types.automated_reasoning_policy_test_case
 

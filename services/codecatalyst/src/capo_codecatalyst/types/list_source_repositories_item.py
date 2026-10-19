@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecatalyst.types.source_repository_description_string
     import capo_codecatalyst.types.source_repository_id_string
@@ -53,11 +51,11 @@ def deserialize_json(data: dict) -> ListSourceRepositoriesItem:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ListSourceRepositoriesItem.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ListSourceRepositoriesItem.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("lastUpdatedTime") is not None:
@@ -67,8 +65,10 @@ def deserialize_json(data: dict) -> ListSourceRepositoriesItem:
             data["lastUpdatedTime"]
         )
     else:
-        raise DeserializationError(
-            "ListSourceRepositoriesItem.last_updated_time required"
+        import datetime
+
+        out["last_updated_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("createdTime") is not None:
         import capo_codecatalyst.types.timestamp
@@ -77,5 +77,9 @@ def deserialize_json(data: dict) -> ListSourceRepositoriesItem:
             data["createdTime"]
         )
     else:
-        raise DeserializationError("ListSourceRepositoriesItem.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

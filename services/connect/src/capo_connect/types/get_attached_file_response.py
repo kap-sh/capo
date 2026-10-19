@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.created_by_info
@@ -114,9 +112,7 @@ def deserialize_json(data: dict) -> GetAttachedFileResponse:
     if data.get("FileSizeInBytes") is not None:
         out["file_size_in_bytes"] = data["FileSizeInBytes"]
     else:
-        raise DeserializationError(
-            "GetAttachedFileResponse.file_size_in_bytes required"
-        )
+        out["file_size_in_bytes"] = 0
     if data.get("AssociatedResourceArn") is not None:
         out["associated_resource_arn"] = data["AssociatedResourceArn"]
     if data.get("FileUseCaseType") is not None:

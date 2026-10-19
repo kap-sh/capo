@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError, ServiceError
+from capo_ssm_contacts.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.retry_after_seconds
@@ -39,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> ThrottlingException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("ThrottlingException_.message required")
+        out["message"] = ""
     if data.get("QuotaCode") is not None:
         out["quota_code"] = data["QuotaCode"]
     if data.get("ServiceCode") is not None:

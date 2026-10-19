@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_s3files.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3files.types.import_trigger
 
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> ImportDataRule:
     if data.get("prefix") is not None:
         out["prefix"] = data["prefix"]
     else:
-        raise DeserializationError("ImportDataRule.prefix required")
+        out["prefix"] = ""
     if data.get("trigger") is not None:
         import capo_s3files.types.import_trigger
 
@@ -43,9 +41,13 @@ def deserialize_json(data: dict) -> ImportDataRule:
             data["trigger"]
         )
     else:
-        raise DeserializationError("ImportDataRule.trigger required")
+        import typing
+
+        out["trigger"] = typing.cast(
+            "capo_s3files.types.import_trigger.ImportTrigger", ""
+        )
     if data.get("sizeLessThan") is not None:
         out["size_less_than"] = data["sizeLessThan"]
     else:
-        raise DeserializationError("ImportDataRule.size_less_than required")
+        out["size_less_than"] = 0
     return out

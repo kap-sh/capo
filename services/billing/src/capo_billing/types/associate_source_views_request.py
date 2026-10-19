@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billing.types.billing_view_arn
     import capo_billing.types.billing_view_source_views_list
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_0(data: dict) -> AssociateSourceViewsRequest:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("AssociateSourceViewsRequest.arn required")
+        out["arn"] = ""
     if data.get("sourceViews") is not None:
         import capo_billing.types.billing_view_source_views_list
 
@@ -49,5 +47,5 @@ def deserialize_aws_json_1_0(data: dict) -> AssociateSourceViewsRequest:
             )
         )
     else:
-        raise DeserializationError("AssociateSourceViewsRequest.source_views required")
+        out["source_views"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.burn_rate_configurations
     import capo_application_signals.types.goal
@@ -97,7 +95,7 @@ def deserialize_json(data: dict) -> CreateServiceLevelObjectiveInput:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateServiceLevelObjectiveInput.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("SliConfig") is not None:

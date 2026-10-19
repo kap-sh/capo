@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.string20
     import capo_m2.types.string200
@@ -61,7 +59,7 @@ def deserialize_json(data: dict) -> DataSetSummary:
     if data.get("dataSetName") is not None:
         out["data_set_name"] = data["dataSetName"]
     else:
-        raise DeserializationError("DataSetSummary.data_set_name required")
+        out["data_set_name"] = ""
     if data.get("dataSetOrg") is not None:
         out["data_set_org"] = data["dataSetOrg"]
     if data.get("format") is not None:

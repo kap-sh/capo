@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.customer_input_string_list
     import capo_comprehend.types.syntax_language_code
@@ -51,7 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDetectSyntaxRequest:
             )
         )
     else:
-        raise DeserializationError("BatchDetectSyntaxRequest.text_list required")
+        out["text_list"] = []
     if data.get("LanguageCode") is not None:
         import capo_comprehend.types.syntax_language_code
 
@@ -61,7 +59,11 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDetectSyntaxRequest:
             )
         )
     else:
-        raise DeserializationError("BatchDetectSyntaxRequest.language_code required")
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_comprehend.types.syntax_language_code.SyntaxLanguageCode", ""
+        )
     return out
 
 

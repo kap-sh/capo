@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.action_failure_policy
     import capo_mailmanager.types.iam_role_arn
@@ -62,11 +60,11 @@ def deserialize_aws_json_1_0(data: dict) -> S3Action:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("S3Action.role_arn required")
+        out["role_arn"] = ""
     if data.get("S3Bucket") is not None:
         out["s3_bucket"] = data["S3Bucket"]
     else:
-        raise DeserializationError("S3Action.s3_bucket required")
+        out["s3_bucket"] = ""
     if data.get("S3Prefix") is not None:
         out["s3_prefix"] = data["S3Prefix"]
     if data.get("S3SseKmsKeyId") is not None:

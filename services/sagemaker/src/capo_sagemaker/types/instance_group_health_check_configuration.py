@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker.types.cluster_instance_group_name
     import capo_sagemaker.types.deep_health_checks
@@ -48,9 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> InstanceGroupHealthCheckConfiguratio
     if data.get("InstanceGroupName") is not None:
         out["instance_group_name"] = data["InstanceGroupName"]
     else:
-        raise DeserializationError(
-            "InstanceGroupHealthCheckConfiguration.instance_group_name required"
-        )
+        out["instance_group_name"] = ""
     if data.get("InstanceIds") is not None:
         import capo_sagemaker.types.instance_ids
 
@@ -68,7 +64,5 @@ def deserialize_aws_json_1_1(data: dict) -> InstanceGroupHealthCheckConfiguratio
             )
         )
     else:
-        raise DeserializationError(
-            "InstanceGroupHealthCheckConfiguration.deep_health_checks required"
-        )
+        out["deep_health_checks"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.blocker_name
     import capo_codepipeline.types.blocker_type
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> BlockerDeclaration:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("BlockerDeclaration.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         import capo_codepipeline.types.blocker_type
 
@@ -43,5 +41,9 @@ def deserialize_aws_json_1_1(data: dict) -> BlockerDeclaration:
             data["type"]
         )
     else:
-        raise DeserializationError("BlockerDeclaration.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codepipeline.types.blocker_type.BlockerType", ""
+        )
     return out

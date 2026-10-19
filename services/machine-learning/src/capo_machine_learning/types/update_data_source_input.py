@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_machine_learning.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_machine_learning.types.entity_id
     import capo_machine_learning.types.entity_name
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDataSourceInput:
     if data.get("DataSourceId") is not None:
         out["data_source_id"] = data["DataSourceId"]
     else:
-        raise DeserializationError("UpdateDataSourceInput.data_source_id required")
+        out["data_source_id"] = ""
     if data.get("DataSourceName") is not None:
         out["data_source_name"] = data["DataSourceName"]
     else:
-        raise DeserializationError("UpdateDataSourceInput.data_source_name required")
+        out["data_source_name"] = ""
     return out

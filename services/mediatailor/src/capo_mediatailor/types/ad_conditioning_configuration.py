@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.streaming_media_file_conditioning
 
@@ -39,7 +37,10 @@ def deserialize_json(data: dict) -> AdConditioningConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "AdConditioningConfiguration.streaming_media_file_conditioning required"
+        import typing
+
+        out["streaming_media_file_conditioning"] = typing.cast(
+            "capo_mediatailor.types.streaming_media_file_conditioning.StreamingMediaFileConditioning",
+            "",
         )
     return out

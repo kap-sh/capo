@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.distance_unit
 
@@ -36,17 +34,17 @@ def deserialize_json(data: dict) -> CalculateRouteMatrixSummary:
     if data.get("DataSource") is not None:
         out["data_source"] = data["DataSource"]
     else:
-        raise DeserializationError("CalculateRouteMatrixSummary.data_source required")
+        out["data_source"] = ""
     if data.get("RouteCount") is not None:
         out["route_count"] = data["RouteCount"]
     else:
-        raise DeserializationError("CalculateRouteMatrixSummary.route_count required")
+        out["route_count"] = 0
     if data.get("ErrorCount") is not None:
         out["error_count"] = data["ErrorCount"]
     else:
-        raise DeserializationError("CalculateRouteMatrixSummary.error_count required")
+        out["error_count"] = 0
     if data.get("DistanceUnit") is not None:
         out["distance_unit"] = data["DistanceUnit"]
     else:
-        raise DeserializationError("CalculateRouteMatrixSummary.distance_unit required")
+        out["distance_unit"] = ""
     return out

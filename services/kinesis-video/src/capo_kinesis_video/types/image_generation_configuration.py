@@ -86,7 +86,11 @@ def deserialize_json(data: dict) -> ImageGenerationConfiguration:
             data["Status"]
         )
     else:
-        raise DeserializationError("ImageGenerationConfiguration.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_kinesis_video.types.configuration_status.ConfigurationStatus", ""
+        )
     if data.get("ImageSelectorType") is not None:
         import capo_kinesis_video.types.image_selector_type
 
@@ -96,8 +100,10 @@ def deserialize_json(data: dict) -> ImageGenerationConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ImageGenerationConfiguration.image_selector_type required"
+        import typing
+
+        out["image_selector_type"] = typing.cast(
+            "capo_kinesis_video.types.image_selector_type.ImageSelectorType", ""
         )
     if data.get("DestinationConfig") is not None:
         import capo_kinesis_video.types.image_generation_destination_config
@@ -114,15 +120,15 @@ def deserialize_json(data: dict) -> ImageGenerationConfiguration:
     if data.get("SamplingInterval") is not None:
         out["sampling_interval"] = data["SamplingInterval"]
     else:
-        raise DeserializationError(
-            "ImageGenerationConfiguration.sampling_interval required"
-        )
+        out["sampling_interval"] = 0
     if data.get("Format") is not None:
         import capo_kinesis_video.types.format
 
         out["format"] = capo_kinesis_video.types.format.deserialize_json(data["Format"])
     else:
-        raise DeserializationError("ImageGenerationConfiguration.format required")
+        import typing
+
+        out["format"] = typing.cast("capo_kinesis_video.types.format.Format", "")
     if data.get("FormatConfig") is not None:
         import capo_kinesis_video.types.format_config
 

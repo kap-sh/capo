@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.filter_expressions
     import capo_glue.types.filter_logical_operator
@@ -51,7 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> Filter:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Filter.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.one_input
 
@@ -59,7 +57,7 @@ def deserialize_aws_json_1_1(data: dict) -> Filter:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("Filter.inputs required")
+        out["inputs"] = []
     if data.get("LogicalOperator") is not None:
         import capo_glue.types.filter_logical_operator
 
@@ -69,7 +67,11 @@ def deserialize_aws_json_1_1(data: dict) -> Filter:
             )
         )
     else:
-        raise DeserializationError("Filter.logical_operator required")
+        import typing
+
+        out["logical_operator"] = typing.cast(
+            "capo_glue.types.filter_logical_operator.FilterLogicalOperator", ""
+        )
     if data.get("Filters") is not None:
         import capo_glue.types.filter_expressions
 
@@ -77,5 +79,5 @@ def deserialize_aws_json_1_1(data: dict) -> Filter:
             data["Filters"]
         )
     else:
-        raise DeserializationError("Filter.filters required")
+        out["filters"] = []
     return out

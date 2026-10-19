@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.iam_role_arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> S3Config:
     if data.get("BucketAccessRoleArn") is not None:
         out["bucket_access_role_arn"] = data["BucketAccessRoleArn"]
     else:
-        raise DeserializationError("S3Config.bucket_access_role_arn required")
+        out["bucket_access_role_arn"] = ""
     return out

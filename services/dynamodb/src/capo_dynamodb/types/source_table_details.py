@@ -99,11 +99,11 @@ def deserialize_aws_json_1_0(data: dict) -> SourceTableDetails:
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("SourceTableDetails.table_name required")
+        out["table_name"] = ""
     if data.get("TableId") is not None:
         out["table_id"] = data["TableId"]
     else:
-        raise DeserializationError("SourceTableDetails.table_id required")
+        out["table_id"] = ""
     if data.get("TableArn") is not None:
         out["table_arn"] = data["TableArn"]
     if data.get("TableSizeBytes") is not None:
@@ -115,7 +115,7 @@ def deserialize_aws_json_1_0(data: dict) -> SourceTableDetails:
             data["KeySchema"]
         )
     else:
-        raise DeserializationError("SourceTableDetails.key_schema required")
+        out["key_schema"] = []
     if data.get("TableCreationDateTime") is not None:
         import capo_dynamodb.types.table_creation_date_time
 
@@ -125,8 +125,10 @@ def deserialize_aws_json_1_0(data: dict) -> SourceTableDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "SourceTableDetails.table_creation_date_time required"
+        import datetime
+
+        out["table_creation_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("ProvisionedThroughput") is not None:
         import capo_dynamodb.types.provisioned_throughput

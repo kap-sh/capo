@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wellarchitected.types.aggregation_configurations
     import capo_wellarchitected.types.pillars
@@ -80,7 +78,7 @@ def deserialize_json(data: dict) -> CreateAgentProfileRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateAgentProfileRequest.name required")
+        out["name"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     if data.get("description") is not None:
@@ -94,15 +92,13 @@ def deserialize_json(data: dict) -> CreateAgentProfileRequest:
             data["pillars"]
         )
     else:
-        raise DeserializationError("CreateAgentProfileRequest.pillars required")
+        out["pillars"] = []
     if data.get("deletionProtection") is not None:
         out["deletion_protection"] = data["deletionProtection"]
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:
-        raise DeserializationError(
-            "CreateAgentProfileRequest.execution_role_arn required"
-        )
+        out["execution_role_arn"] = ""
     if data.get("aggregationConfiguration") is not None:
         import capo_wellarchitected.types.aggregation_configurations
 
@@ -112,9 +108,7 @@ def deserialize_json(data: dict) -> CreateAgentProfileRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAgentProfileRequest.aggregation_configuration required"
-        )
+        out["aggregation_configuration"] = []
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("tags") is not None:

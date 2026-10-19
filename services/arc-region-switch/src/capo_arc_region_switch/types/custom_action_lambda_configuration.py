@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.lambda_list
     import capo_arc_region_switch.types.lambda_ungraceful
@@ -78,13 +76,11 @@ def deserialize_aws_json_1_0(data: dict) -> CustomActionLambdaConfiguration:
             )
         )
     else:
-        raise DeserializationError("CustomActionLambdaConfiguration.lambdas required")
+        out["lambdas"] = []
     if data.get("retryIntervalMinutes") is not None:
         out["retry_interval_minutes"] = float(data["retryIntervalMinutes"])
     else:
-        raise DeserializationError(
-            "CustomActionLambdaConfiguration.retry_interval_minutes required"
-        )
+        out["retry_interval_minutes"] = 0.0
     if data.get("regionToRun") is not None:
         import capo_arc_region_switch.types.region_to_run_in
 
@@ -94,8 +90,10 @@ def deserialize_aws_json_1_0(data: dict) -> CustomActionLambdaConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "CustomActionLambdaConfiguration.region_to_run required"
+        import typing
+
+        out["region_to_run"] = typing.cast(
+            "capo_arc_region_switch.types.region_to_run_in.RegionToRunIn", ""
         )
     if data.get("ungraceful") is not None:
         import capo_arc_region_switch.types.lambda_ungraceful

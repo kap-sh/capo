@@ -36,7 +36,7 @@ def deserialize_query(el: Element) -> DefineSuggesterRequest:
     if child_domain_name is not None:
         out["domain_name"] = str(child_domain_name.text or "")
     else:
-        raise DeserializationError("DefineSuggesterRequest.domain_name required")
+        out["domain_name"] = ""
     child_suggester = el.find("Suggester")
     if child_suggester is not None:
         import capo_cloudsearch.types.suggester

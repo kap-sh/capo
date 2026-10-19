@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.availability_zone_mappings
     import capo_network_firewall.types.boolean
@@ -175,11 +173,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateFirewallRequest:
     if data.get("FirewallName") is not None:
         out["firewall_name"] = data["FirewallName"]
     else:
-        raise DeserializationError("CreateFirewallRequest.firewall_name required")
+        out["firewall_name"] = ""
     if data.get("FirewallPolicyArn") is not None:
         out["firewall_policy_arn"] = data["FirewallPolicyArn"]
     else:
-        raise DeserializationError("CreateFirewallRequest.firewall_policy_arn required")
+        out["firewall_policy_arn"] = ""
     if data.get("VpcId") is not None:
         out["vpc_id"] = data["VpcId"]
     if data.get("SubnetMappings") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.double
     import capo_iotfleetwise.types.max_string_size
@@ -69,8 +67,10 @@ def deserialize_aws_json_1_0(data: dict) -> ROS2PrimitiveMessageDefinition:
             )
         )
     else:
-        raise DeserializationError(
-            "ROS2PrimitiveMessageDefinition.primitive_type required"
+        import typing
+
+        out["primitive_type"] = typing.cast(
+            "capo_iotfleetwise.types.ros2_primitive_type.ROS2PrimitiveType", ""
         )
     if data.get("offset") is not None:
         out["offset"] = float(data["offset"])

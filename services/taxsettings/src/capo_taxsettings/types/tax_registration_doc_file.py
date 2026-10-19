@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_taxsettings.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_taxsettings.types.file_blob
     import capo_taxsettings.types.tax_document_name
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> TaxRegistrationDocFile:
     if data.get("fileName") is not None:
         out["file_name"] = data["fileName"]
     else:
-        raise DeserializationError("TaxRegistrationDocFile.file_name required")
+        out["file_name"] = ""
     if data.get("fileContent") is not None:
         import capo_taxsettings.types.file_blob
 
@@ -43,5 +41,5 @@ def deserialize_json(data: dict) -> TaxRegistrationDocFile:
             data["fileContent"]
         )
     else:
-        raise DeserializationError("TaxRegistrationDocFile.file_content required")
+        out["file_content"] = b""
     return out

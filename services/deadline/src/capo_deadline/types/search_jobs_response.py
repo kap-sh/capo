@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.job_search_summaries
     import capo_deadline.types.next_item_offset
@@ -42,13 +40,13 @@ def deserialize_json(data: dict) -> SearchJobsResponse:
             data["jobs"]
         )
     else:
-        raise DeserializationError("SearchJobsResponse.jobs required")
+        out["jobs"] = []
     if data.get("nextItemOffset") is not None:
         out["next_item_offset"] = data["nextItemOffset"]
     if data.get("totalResults") is not None:
         out["total_results"] = data["totalResults"]
     else:
-        raise DeserializationError("SearchJobsResponse.total_results required")
+        out["total_results"] = 0
     return out
 
 

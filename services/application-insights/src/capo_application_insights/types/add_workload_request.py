@@ -45,11 +45,11 @@ def deserialize_aws_json_1_1(data: dict) -> AddWorkloadRequest:
     if data.get("ResourceGroupName") is not None:
         out["resource_group_name"] = data["ResourceGroupName"]
     else:
-        raise DeserializationError("AddWorkloadRequest.resource_group_name required")
+        out["resource_group_name"] = ""
     if data.get("ComponentName") is not None:
         out["component_name"] = data["ComponentName"]
     else:
-        raise DeserializationError("AddWorkloadRequest.component_name required")
+        out["component_name"] = ""
     if data.get("WorkloadConfiguration") is not None:
         import capo_application_insights.types.workload_configuration
 

@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_braket.errors import DeserializationError
-
 
 class ActionMetadata(TypedDict, closed=True):
     action_type: "str"
@@ -30,7 +28,7 @@ def deserialize_json(data: dict) -> ActionMetadata:
     if data.get("actionType") is not None:
         out["action_type"] = data["actionType"]
     else:
-        raise DeserializationError("ActionMetadata.action_type required")
+        out["action_type"] = ""
     if data.get("programCount") is not None:
         out["program_count"] = data["programCount"]
     if data.get("executableCount") is not None:

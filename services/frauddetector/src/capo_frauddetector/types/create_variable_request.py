@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.data_source
     import capo_frauddetector.types.data_type
@@ -63,7 +61,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateVariableRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateVariableRequest.name required")
+        out["name"] = ""
     if data.get("dataType") is not None:
         import capo_frauddetector.types.data_type
 
@@ -71,7 +69,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateVariableRequest:
             data["dataType"]
         )
     else:
-        raise DeserializationError("CreateVariableRequest.data_type required")
+        import typing
+
+        out["data_type"] = typing.cast(
+            "capo_frauddetector.types.data_type.DataType", ""
+        )
     if data.get("dataSource") is not None:
         import capo_frauddetector.types.data_source
 
@@ -81,11 +83,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateVariableRequest:
             )
         )
     else:
-        raise DeserializationError("CreateVariableRequest.data_source required")
+        import typing
+
+        out["data_source"] = typing.cast(
+            "capo_frauddetector.types.data_source.DataSource", ""
+        )
     if data.get("defaultValue") is not None:
         out["default_value"] = data["defaultValue"]
     else:
-        raise DeserializationError("CreateVariableRequest.default_value required")
+        out["default_value"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("variableType") is not None:

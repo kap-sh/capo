@@ -81,13 +81,9 @@ def deserialize_json(data: dict) -> CreateApiKeyCredentialProviderResponse:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "CreateApiKeyCredentialProviderResponse.name required"
-        )
+        out["name"] = ""
     if data.get("credentialProviderArn") is not None:
         out["credential_provider_arn"] = data["credentialProviderArn"]
     else:
-        raise DeserializationError(
-            "CreateApiKeyCredentialProviderResponse.credential_provider_arn required"
-        )
+        out["credential_provider_arn"] = ""
     return out

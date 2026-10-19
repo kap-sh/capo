@@ -51,7 +51,7 @@ def deserialize_json(data: dict) -> ConditionalSpecification:
     if data.get("active") is not None:
         out["active"] = data["active"]
     else:
-        raise DeserializationError("ConditionalSpecification.active required")
+        out["active"] = False
     if data.get("conditionalBranches") is not None:
         import capo_lex_models_v2.types.conditional_branches
 
@@ -61,9 +61,7 @@ def deserialize_json(data: dict) -> ConditionalSpecification:
             )
         )
     else:
-        raise DeserializationError(
-            "ConditionalSpecification.conditional_branches required"
-        )
+        out["conditional_branches"] = []
     if data.get("defaultBranch") is not None:
         import capo_lex_models_v2.types.default_conditional_branch
 

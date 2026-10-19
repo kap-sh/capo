@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.color_fill_type
     import capo_quicksight.types.color_scale_color_list
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> ColorScale:
             data["Colors"]
         )
     else:
-        raise DeserializationError("ColorScale.colors required")
+        out["colors"] = []
     if data.get("ColorFillType") is not None:
         import capo_quicksight.types.color_fill_type
 
@@ -60,7 +58,11 @@ def deserialize_json(data: dict) -> ColorScale:
             data["ColorFillType"]
         )
     else:
-        raise DeserializationError("ColorScale.color_fill_type required")
+        import typing
+
+        out["color_fill_type"] = typing.cast(
+            "capo_quicksight.types.color_fill_type.ColorFillType", ""
+        )
     if data.get("NullValueColor") is not None:
         import capo_quicksight.types.data_color
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connecthealth.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connecthealth.types.managed_note_template
 
@@ -37,5 +35,9 @@ def deserialize_json(data: dict) -> ManagedTemplate:
             )
         )
     else:
-        raise DeserializationError("ManagedTemplate.template_type required")
+        import typing
+
+        out["template_type"] = typing.cast(
+            "capo_connecthealth.types.managed_note_template.ManagedNoteTemplate", ""
+        )
     return out

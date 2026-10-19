@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.evaluation_dataset_metric_configs
     import capo_bedrock.types.human_evaluation_custom_metrics
@@ -81,9 +79,7 @@ def deserialize_json(data: dict) -> HumanEvaluationConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "HumanEvaluationConfig.dataset_metric_configs required"
-        )
+        out["dataset_metric_configs"] = []
     return out
 
 

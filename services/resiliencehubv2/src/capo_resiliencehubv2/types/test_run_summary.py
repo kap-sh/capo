@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -78,7 +76,7 @@ def deserialize_json(data: dict) -> TestRunSummary:
     if data.get("testRunId") is not None:
         out["test_run_id"] = data["testRunId"]
     else:
-        raise DeserializationError("TestRunSummary.test_run_id required")
+        out["test_run_id"] = ""
     if data.get("status") is not None:
         import capo_resiliencehubv2.types.test_run_status
 
@@ -86,7 +84,11 @@ def deserialize_json(data: dict) -> TestRunSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("TestRunSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_resiliencehubv2.types.test_run_status.TestRunStatus", ""
+        )
     if data.get("startedAt") is not None:
         import capo_resiliencehubv2.types._prelude.timestamp
 
@@ -96,7 +98,9 @@ def deserialize_json(data: dict) -> TestRunSummary:
             )
         )
     else:
-        raise DeserializationError("TestRunSummary.started_at required")
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endedAt") is not None:
         import capo_resiliencehubv2.types._prelude.timestamp
 
@@ -108,7 +112,7 @@ def deserialize_json(data: dict) -> TestRunSummary:
     if data.get("testTemplateArn") is not None:
         out["test_template_arn"] = data["testTemplateArn"]
     else:
-        raise DeserializationError("TestRunSummary.test_template_arn required")
+        out["test_template_arn"] = ""
     if data.get("serviceArn") is not None:
         out["service_arn"] = data["serviceArn"]
     if data.get("errorMessage") is not None:

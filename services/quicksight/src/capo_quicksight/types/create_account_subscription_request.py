@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.account_name
     import capo_quicksight.types.authentication_method_option
@@ -144,21 +142,20 @@ def deserialize_json(data: dict) -> CreateAccountSubscriptionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateAccountSubscriptionRequest.authentication_method required"
+        import typing
+
+        out["authentication_method"] = typing.cast(
+            "capo_quicksight.types.authentication_method_option.AuthenticationMethodOption",
+            "",
         )
     if data.get("AccountName") is not None:
         out["account_name"] = data["AccountName"]
     else:
-        raise DeserializationError(
-            "CreateAccountSubscriptionRequest.account_name required"
-        )
+        out["account_name"] = ""
     if data.get("NotificationEmail") is not None:
         out["notification_email"] = data["NotificationEmail"]
     else:
-        raise DeserializationError(
-            "CreateAccountSubscriptionRequest.notification_email required"
-        )
+        out["notification_email"] = ""
     if data.get("ActiveDirectoryName") is not None:
         out["active_directory_name"] = data["ActiveDirectoryName"]
     if data.get("Realm") is not None:

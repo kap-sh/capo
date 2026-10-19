@@ -59,7 +59,5 @@ def deserialize_json(data: dict) -> BatchUpdateObjectAttributes:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchUpdateObjectAttributes.attribute_updates required"
-        )
+        out["attribute_updates"] = []
     return out

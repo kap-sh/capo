@@ -40,9 +40,7 @@ def deserialize_json(data: dict) -> CreateMultiRegionEndpointRequest:
     if data.get("EndpointName") is not None:
         out["endpoint_name"] = data["EndpointName"]
     else:
-        raise DeserializationError(
-            "CreateMultiRegionEndpointRequest.endpoint_name required"
-        )
+        out["endpoint_name"] = ""
     if data.get("Details") is not None:
         import capo_sesv2.types.details
 

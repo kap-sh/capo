@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.state_name
     import capo_iot_events.types.states
@@ -35,11 +33,9 @@ def deserialize_json(data: dict) -> DetectorModelDefinition:
 
         out["states"] = capo_iot_events.types.states.deserialize_json(data["states"])
     else:
-        raise DeserializationError("DetectorModelDefinition.states required")
+        out["states"] = []
     if data.get("initialStateName") is not None:
         out["initial_state_name"] = data["initialStateName"]
     else:
-        raise DeserializationError(
-            "DetectorModelDefinition.initial_state_name required"
-        )
+        out["initial_state_name"] = ""
     return out

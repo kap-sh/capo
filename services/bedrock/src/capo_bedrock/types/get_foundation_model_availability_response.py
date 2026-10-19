@@ -67,9 +67,7 @@ def deserialize_json(data: dict) -> GetFoundationModelAvailabilityResponse:
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:
-        raise DeserializationError(
-            "GetFoundationModelAvailabilityResponse.model_id required"
-        )
+        out["model_id"] = ""
     if data.get("agreementAvailability") is not None:
         import capo_bedrock.types.agreement_availability
 
@@ -91,8 +89,10 @@ def deserialize_json(data: dict) -> GetFoundationModelAvailabilityResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetFoundationModelAvailabilityResponse.authorization_status required"
+        import typing
+
+        out["authorization_status"] = typing.cast(
+            "capo_bedrock.types.authorization_status.AuthorizationStatus", ""
         )
     if data.get("entitlementAvailability") is not None:
         import capo_bedrock.types.entitlement_availability
@@ -103,8 +103,10 @@ def deserialize_json(data: dict) -> GetFoundationModelAvailabilityResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetFoundationModelAvailabilityResponse.entitlement_availability required"
+        import typing
+
+        out["entitlement_availability"] = typing.cast(
+            "capo_bedrock.types.entitlement_availability.EntitlementAvailability", ""
         )
     if data.get("regionAvailability") is not None:
         import capo_bedrock.types.region_availability
@@ -115,7 +117,9 @@ def deserialize_json(data: dict) -> GetFoundationModelAvailabilityResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetFoundationModelAvailabilityResponse.region_availability required"
+        import typing
+
+        out["region_availability"] = typing.cast(
+            "capo_bedrock.types.region_availability.RegionAvailability", ""
         )
     return out

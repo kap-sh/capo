@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.entity_name
     import capo_wafv2.types.excluded_rules
@@ -80,11 +78,11 @@ def deserialize_aws_json_1_1(data: dict) -> ManagedRuleGroupStatement:
     if data.get("VendorName") is not None:
         out["vendor_name"] = data["VendorName"]
     else:
-        raise DeserializationError("ManagedRuleGroupStatement.vendor_name required")
+        out["vendor_name"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ManagedRuleGroupStatement.name required")
+        out["name"] = ""
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     if data.get("ExcludedRules") is not None:

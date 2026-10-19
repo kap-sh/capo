@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.language_tag
     import capo_location.types.place_index_search_result_limit
@@ -48,17 +46,13 @@ def deserialize_json(data: dict) -> SearchPlaceIndexForPositionSummary:
             data["Position"]
         )
     else:
-        raise DeserializationError(
-            "SearchPlaceIndexForPositionSummary.position required"
-        )
+        out["position"] = []
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("DataSource") is not None:
         out["data_source"] = data["DataSource"]
     else:
-        raise DeserializationError(
-            "SearchPlaceIndexForPositionSummary.data_source required"
-        )
+        out["data_source"] = ""
     if data.get("Language") is not None:
         out["language"] = data["Language"]
     return out

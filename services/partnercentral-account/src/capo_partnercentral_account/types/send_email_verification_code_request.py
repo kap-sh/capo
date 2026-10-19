@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.catalog
     import capo_partnercentral_account.types.email
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> SendEmailVerificationCodeRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("SendEmailVerificationCodeRequest.catalog required")
+        out["catalog"] = ""
     if data.get("Email") is not None:
         out["email"] = data["Email"]
     else:
-        raise DeserializationError("SendEmailVerificationCodeRequest.email required")
+        out["email"] = ""
     return out

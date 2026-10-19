@@ -93,7 +93,10 @@ def handle_response(
     }  # type: ignore[reportAssignmentType]
     if "Content-Type" in response.headers:
         out["content_type"] = response.headers["Content-Type"]
-    out["request_characters"] = int(response.headers["x-amzn-RequestCharacters"])
+    if "x-amzn-RequestCharacters" in response.headers:
+        out["request_characters"] = int(response.headers["x-amzn-RequestCharacters"])
+    else:
+        out["request_characters"] = 0
     return out
 
 
@@ -106,7 +109,10 @@ async def async_handle_response(
     }  # type: ignore[reportAssignmentType]
     if "Content-Type" in response.headers:
         out["content_type"] = response.headers["Content-Type"]
-    out["request_characters"] = int(response.headers["x-amzn-RequestCharacters"])
+    if "x-amzn-RequestCharacters" in response.headers:
+        out["request_characters"] = int(response.headers["x-amzn-RequestCharacters"])
+    else:
+        out["request_characters"] = 0
     return out
 
 

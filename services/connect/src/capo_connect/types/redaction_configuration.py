@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.behavior
     import capo_connect.types.entities
@@ -53,13 +51,17 @@ def deserialize_json(data: dict) -> RedactionConfiguration:
 
         out["behavior"] = capo_connect.types.behavior.deserialize_json(data["Behavior"])
     else:
-        raise DeserializationError("RedactionConfiguration.behavior required")
+        import typing
+
+        out["behavior"] = typing.cast("capo_connect.types.behavior.Behavior", "")
     if data.get("Policy") is not None:
         import capo_connect.types.policy
 
         out["policy"] = capo_connect.types.policy.deserialize_json(data["Policy"])
     else:
-        raise DeserializationError("RedactionConfiguration.policy required")
+        import typing
+
+        out["policy"] = typing.cast("capo_connect.types.policy.Policy", "")
     if data.get("Entities") is not None:
         import capo_connect.types.entities
 

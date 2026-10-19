@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.product_code_id
     import capo_license_manager.types.product_code_type
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> ProductCodeListItem:
     if data.get("ProductCodeId") is not None:
         out["product_code_id"] = data["ProductCodeId"]
     else:
-        raise DeserializationError("ProductCodeListItem.product_code_id required")
+        out["product_code_id"] = ""
     if data.get("ProductCodeType") is not None:
         import capo_license_manager.types.product_code_type
 
@@ -47,5 +45,9 @@ def deserialize_aws_json_1_1(data: dict) -> ProductCodeListItem:
             )
         )
     else:
-        raise DeserializationError("ProductCodeListItem.product_code_type required")
+        import typing
+
+        out["product_code_type"] = typing.cast(
+            "capo_license_manager.types.product_code_type.ProductCodeType", ""
+        )
     return out

@@ -53,7 +53,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateProvisionedLimitRequest:
     if data.get("RequestedLimitValue") is not None:
         out["requested_limit_value"] = data["RequestedLimitValue"]
     else:
-        raise DeserializationError(
-            "UpdateProvisionedLimitRequest.requested_limit_value required"
-        )
+        out["requested_limit_value"] = 0
     return out

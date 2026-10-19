@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fms.types.pagination_token
     import capo_fms.types.resource_list
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListResourceSetResourcesResponse:
             data["Items"]
         )
     else:
-        raise DeserializationError("ListResourceSetResourcesResponse.items required")
+        out["items"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

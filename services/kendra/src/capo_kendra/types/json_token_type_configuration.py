@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.string
 
@@ -30,13 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> JsonTokenTypeConfiguration:
     if data.get("UserNameAttributeField") is not None:
         out["user_name_attribute_field"] = data["UserNameAttributeField"]
     else:
-        raise DeserializationError(
-            "JsonTokenTypeConfiguration.user_name_attribute_field required"
-        )
+        out["user_name_attribute_field"] = ""
     if data.get("GroupAttributeField") is not None:
         out["group_attribute_field"] = data["GroupAttributeField"]
     else:
-        raise DeserializationError(
-            "JsonTokenTypeConfiguration.group_attribute_field required"
-        )
+        out["group_attribute_field"] = ""
     return out

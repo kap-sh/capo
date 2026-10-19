@@ -96,9 +96,7 @@ def deserialize_json(data: dict) -> ListFilteredTransactionEventsInput:
     if data.get("network") is not None:
         out["network"] = data["network"]
     else:
-        raise DeserializationError(
-            "ListFilteredTransactionEventsInput.network required"
-        )
+        out["network"] = ""
     if data.get("addressIdentifierFilter") is not None:
         import capo_managedblockchain_query.types.address_identifier_filter
 

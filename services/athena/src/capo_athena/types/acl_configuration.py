@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.s3_acl_option
 
@@ -35,5 +33,9 @@ def deserialize_aws_json_1_1(data: dict) -> AclConfiguration:
             data["S3AclOption"]
         )
     else:
-        raise DeserializationError("AclConfiguration.s3_acl_option required")
+        import typing
+
+        out["s3_acl_option"] = typing.cast(
+            "capo_athena.types.s3_acl_option.S3AclOption", ""
+        )
     return out

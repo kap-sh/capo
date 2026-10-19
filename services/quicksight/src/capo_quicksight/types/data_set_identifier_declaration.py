@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.arn
     import capo_quicksight.types.data_set_identifier
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> DataSetIdentifierDeclaration:
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("DataSetIdentifierDeclaration.identifier required")
+        out["identifier"] = ""
     if data.get("DataSetArn") is not None:
         out["data_set_arn"] = data["DataSetArn"]
     else:
-        raise DeserializationError("DataSetIdentifierDeclaration.data_set_arn required")
+        out["data_set_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.integer
     import capo_ecs.types.string
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> Tmpfs:
     if data.get("containerPath") is not None:
         out["container_path"] = data["containerPath"]
     else:
-        raise DeserializationError("Tmpfs.container_path required")
+        out["container_path"] = ""
     if data.get("size") is not None:
         out["size"] = data["size"]
     else:

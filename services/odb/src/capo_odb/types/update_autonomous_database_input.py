@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -375,9 +373,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateAutonomousDatabaseInput:
     if data.get("autonomousDatabaseId") is not None:
         out["autonomous_database_id"] = data["autonomousDatabaseId"]
     else:
-        raise DeserializationError(
-            "UpdateAutonomousDatabaseInput.autonomous_database_id required"
-        )
+        out["autonomous_database_id"] = ""
     if data.get("adminPassword") is not None:
         out["admin_password"] = data["adminPassword"]
     if data.get("computeCount") is not None:

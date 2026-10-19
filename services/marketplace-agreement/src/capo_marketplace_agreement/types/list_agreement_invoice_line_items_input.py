@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_agreement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.invoice_billing_period
     import capo_marketplace_agreement.types.invoice_type
@@ -102,9 +100,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListAgreementInvoiceLineItemsInput:
     if data.get("agreementId") is not None:
         out["agreement_id"] = data["agreementId"]
     else:
-        raise DeserializationError(
-            "ListAgreementInvoiceLineItemsInput.agreement_id required"
-        )
+        out["agreement_id"] = ""
     if data.get("groupBy") is not None:
         import capo_marketplace_agreement.types.line_item_group_by
 
@@ -114,8 +110,10 @@ def deserialize_aws_json_1_0(data: dict) -> ListAgreementInvoiceLineItemsInput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListAgreementInvoiceLineItemsInput.group_by required"
+        import typing
+
+        out["group_by"] = typing.cast(
+            "capo_marketplace_agreement.types.line_item_group_by.LineItemGroupBy", ""
         )
     if data.get("invoiceId") is not None:
         out["invoice_id"] = data["invoiceId"]

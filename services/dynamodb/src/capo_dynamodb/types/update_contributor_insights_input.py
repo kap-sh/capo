@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.contributor_insights_action
     import capo_dynamodb.types.contributor_insights_mode
@@ -57,7 +55,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateContributorInsightsInput:
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("UpdateContributorInsightsInput.table_name required")
+        out["table_name"] = ""
     if data.get("IndexName") is not None:
         out["index_name"] = data["IndexName"]
     if data.get("ContributorInsightsAction") is not None:
@@ -69,8 +67,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateContributorInsightsInput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateContributorInsightsInput.contributor_insights_action required"
+        import typing
+
+        out["contributor_insights_action"] = typing.cast(
+            "capo_dynamodb.types.contributor_insights_action.ContributorInsightsAction",
+            "",
         )
     if data.get("ContributorInsightsMode") is not None:
         import capo_dynamodb.types.contributor_insights_mode

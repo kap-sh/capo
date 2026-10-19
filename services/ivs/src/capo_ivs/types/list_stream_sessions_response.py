@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs.types.pagination_token
     import capo_ivs.types.stream_session_list
@@ -40,9 +38,7 @@ def deserialize_json(data: dict) -> ListStreamSessionsResponse:
             data["streamSessions"]
         )
     else:
-        raise DeserializationError(
-            "ListStreamSessionsResponse.stream_sessions required"
-        )
+        out["stream_sessions"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_organizations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_organizations.types.effective_policy_type
     import capo_organizations.types.max_results
@@ -53,8 +51,10 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "ListAccountsWithInvalidEffectivePolicyRequest.policy_type required"
+        import typing
+
+        out["policy_type"] = typing.cast(
+            "capo_organizations.types.effective_policy_type.EffectivePolicyType", ""
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]

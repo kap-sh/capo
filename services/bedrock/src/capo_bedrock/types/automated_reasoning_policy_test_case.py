@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_check_result
     import capo_bedrock.types.automated_reasoning_check_translation_confidence
@@ -77,15 +75,11 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyTestCase:
     if data.get("testCaseId") is not None:
         out["test_case_id"] = data["testCaseId"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyTestCase.test_case_id required"
-        )
+        out["test_case_id"] = ""
     if data.get("guardContent") is not None:
         out["guard_content"] = data["guardContent"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyTestCase.guard_content required"
-        )
+        out["guard_content"] = ""
     if data.get("queryContent") is not None:
         out["query_content"] = data["queryContent"]
     if data.get("expectedAggregatedFindingsResult") is not None:
@@ -103,9 +97,9 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyTestCase:
             data["createdAt"]
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyTestCase.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock.types.timestamp
 
@@ -113,9 +107,9 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyTestCase:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyTestCase.updated_at required"
-        )
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("confidenceThreshold") is not None:
         out["confidence_threshold"] = float(data["confidenceThreshold"])
     return out

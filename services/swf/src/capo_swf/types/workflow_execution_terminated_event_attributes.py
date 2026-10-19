@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.child_policy
     import capo_swf.types.data
@@ -62,9 +60,9 @@ def deserialize_aws_json_1_0(data: dict) -> WorkflowExecutionTerminatedEventAttr
             data["childPolicy"]
         )
     else:
-        raise DeserializationError(
-            "WorkflowExecutionTerminatedEventAttributes.child_policy required"
-        )
+        import typing
+
+        out["child_policy"] = typing.cast("capo_swf.types.child_policy.ChildPolicy", "")
     if data.get("cause") is not None:
         import capo_swf.types.workflow_execution_terminated_cause
 

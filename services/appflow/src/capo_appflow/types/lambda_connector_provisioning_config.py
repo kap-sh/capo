@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.arn
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> LambdaConnectorProvisioningConfig:
     if data.get("lambdaArn") is not None:
         out["lambda_arn"] = data["lambdaArn"]
     else:
-        raise DeserializationError(
-            "LambdaConnectorProvisioningConfig.lambda_arn required"
-        )
+        out["lambda_arn"] = ""
     return out

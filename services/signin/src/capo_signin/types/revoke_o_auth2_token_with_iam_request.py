@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_signin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_signin.types.revocation_token
 
@@ -27,7 +25,7 @@ def deserialize_json(data: dict) -> RevokeOAuth2TokenWithIAMRequest:
     if data.get("token") is not None:
         out["token"] = data["token"]
     else:
-        raise DeserializationError("RevokeOAuth2TokenWithIAMRequest.token required")
+        out["token"] = ""
     return out
 
 

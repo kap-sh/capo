@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.command_id
     import capo_ssm.types.instance_id_list
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> CancelCommandRequest:
     if data.get("CommandId") is not None:
         out["command_id"] = data["CommandId"]
     else:
-        raise DeserializationError("CancelCommandRequest.command_id required")
+        out["command_id"] = ""
     if data.get("InstanceIds") is not None:
         import capo_ssm.types.instance_id_list
 

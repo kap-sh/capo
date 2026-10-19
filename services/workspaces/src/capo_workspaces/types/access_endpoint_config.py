@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.access_endpoint_list
     import capo_workspaces.types.internet_fallback_protocol_list
@@ -52,7 +50,7 @@ def deserialize_aws_json_1_1(data: dict) -> AccessEndpointConfig:
             )
         )
     else:
-        raise DeserializationError("AccessEndpointConfig.access_endpoints required")
+        out["access_endpoints"] = []
     if data.get("InternetFallbackProtocols") is not None:
         import capo_workspaces.types.internet_fallback_protocol_list
 

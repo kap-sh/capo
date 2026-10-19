@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.created_at
     import capo_datazone.types.created_by
@@ -94,19 +92,19 @@ def deserialize_json(data: dict) -> DataProductResultItem:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("DataProductResultItem.domain_id required")
+        out["domain_id"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("DataProductResultItem.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DataProductResultItem.name required")
+        out["name"] = ""
     if data.get("owningProjectId") is not None:
         out["owning_project_id"] = data["owningProjectId"]
     else:
-        raise DeserializationError("DataProductResultItem.owning_project_id required")
+        out["owning_project_id"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("glossaryTerms") is not None:

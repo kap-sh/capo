@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eventbridgev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.aws_service_source
     import capo_eventbridgev2.types.event_pattern
@@ -44,9 +42,7 @@ def deserialize_cbor(data: dict) -> AwsServiceEventsSourceConfiguration:
     if data.get("AwsService") is not None:
         out["aws_service"] = data["AwsService"]
     else:
-        raise DeserializationError(
-            "AwsServiceEventsSourceConfiguration.aws_service required"
-        )
+        out["aws_service"] = ""
     if data.get("Pattern") is not None:
         out["pattern"] = data["Pattern"]
     if data.get("OnFailureConfiguration") is not None:

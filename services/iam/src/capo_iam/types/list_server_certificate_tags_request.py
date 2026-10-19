@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.marker_type
@@ -44,9 +43,7 @@ def deserialize_query(el: Element) -> ListServerCertificateTagsRequest:
     if child_server_certificate_name is not None:
         out["server_certificate_name"] = str(child_server_certificate_name.text or "")
     else:
-        raise DeserializationError(
-            "ListServerCertificateTagsRequest.server_certificate_name required"
-        )
+        out["server_certificate_name"] = ""
     child_marker = el.find("Marker")
     if child_marker is not None:
         out["marker"] = str(child_marker.text or "")

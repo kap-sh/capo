@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_proton.errors import DeserializationError
-
 
 class UpdateServiceSyncBlockerInput(TypedDict, closed=True):
     id: "str"
@@ -25,11 +23,9 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateServiceSyncBlockerInput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("UpdateServiceSyncBlockerInput.id required")
+        out["id"] = ""
     if data.get("resolvedReason") is not None:
         out["resolved_reason"] = data["resolvedReason"]
     else:
-        raise DeserializationError(
-            "UpdateServiceSyncBlockerInput.resolved_reason required"
-        )
+        out["resolved_reason"] = ""
     return out

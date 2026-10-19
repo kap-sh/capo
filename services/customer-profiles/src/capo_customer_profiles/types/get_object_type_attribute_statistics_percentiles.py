@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.double
 
@@ -79,31 +77,21 @@ def deserialize_json(data: dict) -> GetObjectTypeAttributeStatisticsPercentiles:
     if data.get("P5") is not None:
         out["p5"] = float(data["P5"])
     else:
-        raise DeserializationError(
-            "GetObjectTypeAttributeStatisticsPercentiles.p5 required"
-        )
+        out["p5"] = 0.0
     if data.get("P25") is not None:
         out["p25"] = float(data["P25"])
     else:
-        raise DeserializationError(
-            "GetObjectTypeAttributeStatisticsPercentiles.p25 required"
-        )
+        out["p25"] = 0.0
     if data.get("P50") is not None:
         out["p50"] = float(data["P50"])
     else:
-        raise DeserializationError(
-            "GetObjectTypeAttributeStatisticsPercentiles.p50 required"
-        )
+        out["p50"] = 0.0
     if data.get("P75") is not None:
         out["p75"] = float(data["P75"])
     else:
-        raise DeserializationError(
-            "GetObjectTypeAttributeStatisticsPercentiles.p75 required"
-        )
+        out["p75"] = 0.0
     if data.get("P95") is not None:
         out["p95"] = float(data["P95"])
     else:
-        raise DeserializationError(
-            "GetObjectTypeAttributeStatisticsPercentiles.p95 required"
-        )
+        out["p95"] = 0.0
     return out

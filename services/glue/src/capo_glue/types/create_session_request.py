@@ -134,13 +134,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSessionRequest:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("CreateSessionRequest.id required")
+        out["id"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Role") is not None:
         out["role"] = data["Role"]
     else:
-        raise DeserializationError("CreateSessionRequest.role required")
+        out["role"] = ""
     if data.get("Command") is not None:
         import capo_glue.types.session_command
 

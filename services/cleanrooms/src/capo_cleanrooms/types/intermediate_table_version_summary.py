@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -77,13 +75,11 @@ def deserialize_json(data: dict) -> IntermediateTableVersionSummary:
     if data.get("versionId") is not None:
         out["version_id"] = data["versionId"]
     else:
-        raise DeserializationError(
-            "IntermediateTableVersionSummary.version_id required"
-        )
+        out["version_id"] = ""
     if data.get("tableId") is not None:
         out["table_id"] = data["tableId"]
     else:
-        raise DeserializationError("IntermediateTableVersionSummary.table_id required")
+        out["table_id"] = ""
     if data.get("createTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -91,15 +87,15 @@ def deserialize_json(data: dict) -> IntermediateTableVersionSummary:
             data["createTime"]
         )
     else:
-        raise DeserializationError(
-            "IntermediateTableVersionSummary.create_time required"
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("analysisId") is not None:
         out["analysis_id"] = data["analysisId"]
     else:
-        raise DeserializationError(
-            "IntermediateTableVersionSummary.analysis_id required"
-        )
+        out["analysis_id"] = ""
     if data.get("status") is not None:
         import capo_cleanrooms.types.intermediate_table_version_status
 
@@ -109,7 +105,12 @@ def deserialize_json(data: dict) -> IntermediateTableVersionSummary:
             )
         )
     else:
-        raise DeserializationError("IntermediateTableVersionSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cleanrooms.types.intermediate_table_version_status.IntermediateTableVersionStatus",
+            "",
+        )
     if data.get("analysisType") is not None:
         import capo_cleanrooms.types.populate_intermediate_table_analysis_type
 
@@ -119,8 +120,11 @@ def deserialize_json(data: dict) -> IntermediateTableVersionSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "IntermediateTableVersionSummary.analysis_type required"
+        import typing
+
+        out["analysis_type"] = typing.cast(
+            "capo_cleanrooms.types.populate_intermediate_table_analysis_type.PopulateIntermediateTableAnalysisType",
+            "",
         )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]

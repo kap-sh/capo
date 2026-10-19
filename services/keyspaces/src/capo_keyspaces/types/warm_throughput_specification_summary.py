@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_keyspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_keyspaces.types.warm_throughput_status
 
@@ -33,17 +31,13 @@ def deserialize_aws_json_1_0(data: dict) -> WarmThroughputSpecificationSummary:
     if data.get("readUnitsPerSecond") is not None:
         out["read_units_per_second"] = data["readUnitsPerSecond"]
     else:
-        raise DeserializationError(
-            "WarmThroughputSpecificationSummary.read_units_per_second required"
-        )
+        out["read_units_per_second"] = 0
     if data.get("writeUnitsPerSecond") is not None:
         out["write_units_per_second"] = data["writeUnitsPerSecond"]
     else:
-        raise DeserializationError(
-            "WarmThroughputSpecificationSummary.write_units_per_second required"
-        )
+        out["write_units_per_second"] = 0
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("WarmThroughputSpecificationSummary.status required")
+        out["status"] = ""
     return out

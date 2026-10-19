@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_clouddirectory.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_clouddirectory.types.arn
     import capo_clouddirectory.types.attribute_key_list
@@ -66,13 +64,11 @@ def deserialize_json(data: dict) -> CreateIndexRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateIndexRequest.ordered_indexed_attribute_list required"
-        )
+        out["ordered_indexed_attribute_list"] = []
     if data.get("IsUnique") is not None:
         out["is_unique"] = data["IsUnique"]
     else:
-        raise DeserializationError("CreateIndexRequest.is_unique required")
+        out["is_unique"] = False
     if data.get("ParentReference") is not None:
         import capo_clouddirectory.types.object_reference
 

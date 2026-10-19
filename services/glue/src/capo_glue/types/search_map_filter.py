@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.search_attribute
     import capo_glue.types.search_map_filter_value
@@ -39,11 +37,11 @@ def deserialize_aws_json_1_1(data: dict) -> SearchMapFilter:
     if data.get("Attribute") is not None:
         out["attribute"] = data["Attribute"]
     else:
-        raise DeserializationError("SearchMapFilter.attribute required")
+        out["attribute"] = ""
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("SearchMapFilter.key required")
+        out["key"] = ""
     if data.get("Value") is not None:
         import capo_glue.types.search_map_filter_value
 
@@ -51,5 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> SearchMapFilter:
             data["Value"]
         )
     else:
-        raise DeserializationError("SearchMapFilter.value required")
+        import capo_glue.types._unknown
+
+        out["value"] = capo_glue.types._unknown.UnknownUnionMember("")
     return out

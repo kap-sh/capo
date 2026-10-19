@@ -44,7 +44,7 @@ def deserialize_json(data: dict) -> CreateTelemetryRuleInput:
     if data.get("RuleName") is not None:
         out["rule_name"] = data["RuleName"]
     else:
-        raise DeserializationError("CreateTelemetryRuleInput.rule_name required")
+        out["rule_name"] = ""
     if data.get("Rule") is not None:
         import capo_observabilityadmin.types.telemetry_rule
 

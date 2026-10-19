@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pi.types.context_type
     import capo_pi.types.data_list
@@ -108,7 +106,7 @@ def deserialize_aws_json_1_1(data: dict) -> Insight:
     if data.get("InsightId") is not None:
         out["insight_id"] = data["InsightId"]
     else:
-        raise DeserializationError("Insight.insight_id required")
+        out["insight_id"] = ""
     if data.get("InsightType") is not None:
         out["insight_type"] = data["InsightType"]
     if data.get("Context") is not None:

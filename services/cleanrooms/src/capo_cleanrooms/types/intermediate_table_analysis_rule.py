@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -69,15 +67,11 @@ def deserialize_json(data: dict) -> IntermediateTableAnalysisRule:
     if data.get("intermediateTableIdentifier") is not None:
         out["intermediate_table_identifier"] = data["intermediateTableIdentifier"]
     else:
-        raise DeserializationError(
-            "IntermediateTableAnalysisRule.intermediate_table_identifier required"
-        )
+        out["intermediate_table_identifier"] = ""
     if data.get("intermediateTableArn") is not None:
         out["intermediate_table_arn"] = data["intermediateTableArn"]
     else:
-        raise DeserializationError(
-            "IntermediateTableAnalysisRule.intermediate_table_arn required"
-        )
+        out["intermediate_table_arn"] = ""
     if data.get("analysisRulePolicy") is not None:
         import capo_cleanrooms.types.intermediate_table_analysis_rule_policy
 
@@ -87,8 +81,10 @@ def deserialize_json(data: dict) -> IntermediateTableAnalysisRule:
             )
         )
     else:
-        raise DeserializationError(
-            "IntermediateTableAnalysisRule.analysis_rule_policy required"
+        import capo_cleanrooms.types._unknown
+
+        out["analysis_rule_policy"] = capo_cleanrooms.types._unknown.UnknownUnionMember(
+            ""
         )
     if data.get("analysisRuleType") is not None:
         import capo_cleanrooms.types.intermediate_table_analysis_rule_type
@@ -99,8 +95,11 @@ def deserialize_json(data: dict) -> IntermediateTableAnalysisRule:
             )
         )
     else:
-        raise DeserializationError(
-            "IntermediateTableAnalysisRule.analysis_rule_type required"
+        import typing
+
+        out["analysis_rule_type"] = typing.cast(
+            "capo_cleanrooms.types.intermediate_table_analysis_rule_type.IntermediateTableAnalysisRuleType",
+            "",
         )
     if data.get("createTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
@@ -109,7 +108,11 @@ def deserialize_json(data: dict) -> IntermediateTableAnalysisRule:
             data["createTime"]
         )
     else:
-        raise DeserializationError("IntermediateTableAnalysisRule.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
 
@@ -117,5 +120,9 @@ def deserialize_json(data: dict) -> IntermediateTableAnalysisRule:
             data["updateTime"]
         )
     else:
-        raise DeserializationError("IntermediateTableAnalysisRule.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

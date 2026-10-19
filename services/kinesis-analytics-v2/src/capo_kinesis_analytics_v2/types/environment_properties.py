@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.property_groups
 
@@ -39,5 +37,5 @@ def deserialize_aws_json_1_1(data: dict) -> EnvironmentProperties:
             )
         )
     else:
-        raise DeserializationError("EnvironmentProperties.property_groups required")
+        out["property_groups"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.role_arn
 
@@ -31,7 +29,5 @@ def deserialize_json(data: dict) -> CapacityProviderPermissionsConfig:
             "CapacityProviderOperatorRoleArn"
         ]
     else:
-        raise DeserializationError(
-            "CapacityProviderPermissionsConfig.capacity_provider_operator_role_arn required"
-        )
+        out["capacity_provider_operator_role_arn"] = ""
     return out

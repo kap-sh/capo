@@ -93,7 +93,7 @@ def deserialize_json(data: dict) -> HierarchyFilter:
     if data.get("FilterId") is not None:
         out["filter_id"] = data["FilterId"]
     else:
-        raise DeserializationError("HierarchyFilter.filter_id required")
+        out["filter_id"] = ""
     if data.get("Column") is not None:
         import capo_quicksight.types.column_identifier
 
@@ -111,7 +111,7 @@ def deserialize_json(data: dict) -> HierarchyFilter:
             )
         )
     else:
-        raise DeserializationError("HierarchyFilter.hierarchy_levels required")
+        out["hierarchy_levels"] = []
     if data.get("HierarchyTree") is not None:
         import capo_quicksight.types.hierarchy_filter_node
 
@@ -127,7 +127,11 @@ def deserialize_json(data: dict) -> HierarchyFilter:
             data["NullOption"]
         )
     else:
-        raise DeserializationError("HierarchyFilter.null_option required")
+        import typing
+
+        out["null_option"] = typing.cast(
+            "capo_quicksight.types.filter_null_option.FilterNullOption", ""
+        )
     if data.get("MatchOperator") is not None:
         import capo_quicksight.types.hierarchy_filter_match_operator
 
@@ -137,7 +141,12 @@ def deserialize_json(data: dict) -> HierarchyFilter:
             )
         )
     else:
-        raise DeserializationError("HierarchyFilter.match_operator required")
+        import typing
+
+        out["match_operator"] = typing.cast(
+            "capo_quicksight.types.hierarchy_filter_match_operator.HierarchyFilterMatchOperator",
+            "",
+        )
     if data.get("DefaultFilterControlConfiguration") is not None:
         import capo_quicksight.types.default_filter_control_configuration
 

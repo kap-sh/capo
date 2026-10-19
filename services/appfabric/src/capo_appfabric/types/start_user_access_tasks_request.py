@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_appfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appfabric.types.email
     import capo_appfabric.types.identifier
@@ -31,13 +29,11 @@ def deserialize_json(data: dict) -> StartUserAccessTasksRequest:
     if data.get("appBundleIdentifier") is not None:
         out["app_bundle_identifier"] = data["appBundleIdentifier"]
     else:
-        raise DeserializationError(
-            "StartUserAccessTasksRequest.app_bundle_identifier required"
-        )
+        out["app_bundle_identifier"] = ""
     if data.get("email") is not None:
         out["email"] = data["email"]
     else:
-        raise DeserializationError("StartUserAccessTasksRequest.email required")
+        out["email"] = ""
     return out
 
 

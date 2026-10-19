@@ -75,9 +75,7 @@ def deserialize_json(data: dict) -> GenerateEmbedUrlForAnonymousUserRequest:
     if data.get("Namespace") is not None:
         out["namespace"] = data["Namespace"]
     else:
-        raise DeserializationError(
-            "GenerateEmbedUrlForAnonymousUserRequest.namespace required"
-        )
+        out["namespace"] = ""
     if data.get("SessionTags") is not None:
         import capo_quicksight.types.session_tag_list
 
@@ -93,9 +91,7 @@ def deserialize_json(data: dict) -> GenerateEmbedUrlForAnonymousUserRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GenerateEmbedUrlForAnonymousUserRequest.authorized_resource_arns required"
-        )
+        out["authorized_resource_arns"] = []
     if data.get("ExperienceConfiguration") is not None:
         import capo_quicksight.types.anonymous_user_embedding_experience_configuration
 

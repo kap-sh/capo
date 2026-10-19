@@ -44,11 +44,11 @@ def deserialize_json(data: dict) -> CreateScraperResponse:
     if data.get("scraperId") is not None:
         out["scraper_id"] = data["scraperId"]
     else:
-        raise DeserializationError("CreateScraperResponse.scraper_id required")
+        out["scraper_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CreateScraperResponse.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_amp.types.scraper_status
 

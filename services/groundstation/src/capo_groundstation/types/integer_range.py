@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 
 class IntegerRange(TypedDict, closed=True):
     minimum: "int"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> IntegerRange:
     if data.get("minimum") is not None:
         out["minimum"] = data["minimum"]
     else:
-        raise DeserializationError("IntegerRange.minimum required")
+        out["minimum"] = 0
     if data.get("maximum") is not None:
         out["maximum"] = data["maximum"]
     else:
-        raise DeserializationError("IntegerRange.maximum required")
+        out["maximum"] = 0
     return out

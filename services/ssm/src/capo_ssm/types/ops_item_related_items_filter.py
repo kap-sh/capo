@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.ops_item_related_items_filter_key
     import capo_ssm.types.ops_item_related_items_filter_operator
@@ -59,7 +57,12 @@ def deserialize_aws_json_1_1(data: dict) -> OpsItemRelatedItemsFilter:
             )
         )
     else:
-        raise DeserializationError("OpsItemRelatedItemsFilter.key required")
+        import typing
+
+        out["key"] = typing.cast(
+            "capo_ssm.types.ops_item_related_items_filter_key.OpsItemRelatedItemsFilterKey",
+            "",
+        )
     if data.get("Values") is not None:
         import capo_ssm.types.ops_item_related_items_filter_values
 
@@ -69,7 +72,7 @@ def deserialize_aws_json_1_1(data: dict) -> OpsItemRelatedItemsFilter:
             )
         )
     else:
-        raise DeserializationError("OpsItemRelatedItemsFilter.values required")
+        out["values"] = []
     if data.get("Operator") is not None:
         import capo_ssm.types.ops_item_related_items_filter_operator
 
@@ -79,5 +82,10 @@ def deserialize_aws_json_1_1(data: dict) -> OpsItemRelatedItemsFilter:
             )
         )
     else:
-        raise DeserializationError("OpsItemRelatedItemsFilter.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_ssm.types.ops_item_related_items_filter_operator.OpsItemRelatedItemsFilterOperator",
+            "",
+        )
     return out

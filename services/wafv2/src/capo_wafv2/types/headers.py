@@ -61,7 +61,11 @@ def deserialize_aws_json_1_1(data: dict) -> Headers:
             data["MatchScope"]
         )
     else:
-        raise DeserializationError("Headers.match_scope required")
+        import typing
+
+        out["match_scope"] = typing.cast(
+            "capo_wafv2.types.map_match_scope.MapMatchScope", ""
+        )
     if data.get("OversizeHandling") is not None:
         import capo_wafv2.types.oversize_handling
 
@@ -71,5 +75,9 @@ def deserialize_aws_json_1_1(data: dict) -> Headers:
             )
         )
     else:
-        raise DeserializationError("Headers.oversize_handling required")
+        import typing
+
+        out["oversize_handling"] = typing.cast(
+            "capo_wafv2.types.oversize_handling.OversizeHandling", ""
+        )
     return out

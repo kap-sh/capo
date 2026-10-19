@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workdocs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workdocs.types.authentication_header_type
     import capo_workdocs.types.email_address_type
@@ -71,21 +69,21 @@ def deserialize_json(data: dict) -> CreateUserRequest:
     if data.get("Username") is not None:
         out["username"] = data["Username"]
     else:
-        raise DeserializationError("CreateUserRequest.username required")
+        out["username"] = ""
     if data.get("EmailAddress") is not None:
         out["email_address"] = data["EmailAddress"]
     if data.get("GivenName") is not None:
         out["given_name"] = data["GivenName"]
     else:
-        raise DeserializationError("CreateUserRequest.given_name required")
+        out["given_name"] = ""
     if data.get("Surname") is not None:
         out["surname"] = data["Surname"]
     else:
-        raise DeserializationError("CreateUserRequest.surname required")
+        out["surname"] = ""
     if data.get("Password") is not None:
         out["password"] = data["Password"]
     else:
-        raise DeserializationError("CreateUserRequest.password required")
+        out["password"] = ""
     if data.get("TimeZoneId") is not None:
         out["time_zone_id"] = data["TimeZoneId"]
     if data.get("StorageRule") is not None:

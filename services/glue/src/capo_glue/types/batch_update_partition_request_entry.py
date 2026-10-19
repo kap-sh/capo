@@ -49,9 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchUpdatePartitionRequestEntry:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchUpdatePartitionRequestEntry.partition_value_list required"
-        )
+        out["partition_value_list"] = []
     if data.get("PartitionInput") is not None:
         import capo_glue.types.partition_input
 

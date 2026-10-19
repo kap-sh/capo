@@ -73,15 +73,15 @@ def deserialize_json(data: dict) -> Composition:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("Composition.arn required")
+        out["arn"] = ""
     if data.get("stageArn") is not None:
         out["stage_arn"] = data["stageArn"]
     else:
-        raise DeserializationError("Composition.stage_arn required")
+        out["stage_arn"] = ""
     if data.get("state") is not None:
         out["state"] = data["state"]
     else:
-        raise DeserializationError("Composition.state required")
+        out["state"] = ""
     if data.get("layout") is not None:
         import capo_ivs_realtime.types.layout_configuration
 
@@ -97,7 +97,7 @@ def deserialize_json(data: dict) -> Composition:
             data["destinations"]
         )
     else:
-        raise DeserializationError("Composition.destinations required")
+        out["destinations"] = []
     if data.get("tags") is not None:
         import capo_ivs_realtime.types.tags
 

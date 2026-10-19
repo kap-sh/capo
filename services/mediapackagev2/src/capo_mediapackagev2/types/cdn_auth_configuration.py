@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediapackagev2.types.cdn_identifier_secret_arns
 
@@ -44,11 +42,9 @@ def deserialize_json(data: dict) -> CdnAuthConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "CdnAuthConfiguration.cdn_identifier_secret_arns required"
-        )
+        out["cdn_identifier_secret_arns"] = []
     if data.get("SecretsRoleArn") is not None:
         out["secrets_role_arn"] = data["SecretsRoleArn"]
     else:
-        raise DeserializationError("CdnAuthConfiguration.secrets_role_arn required")
+        out["secrets_role_arn"] = ""
     return out

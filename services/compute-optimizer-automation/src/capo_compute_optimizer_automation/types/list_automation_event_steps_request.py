@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_compute_optimizer_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_compute_optimizer_automation.types.event_id
     import capo_compute_optimizer_automation.types.next_token
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListAutomationEventStepsRequest:
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError("ListAutomationEventStepsRequest.event_id required")
+        out["event_id"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

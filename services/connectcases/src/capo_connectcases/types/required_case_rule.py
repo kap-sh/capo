@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.boolean_condition_list
 
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> RequiredCaseRule:
     if data.get("defaultValue") is not None:
         out["default_value"] = data["defaultValue"]
     else:
-        raise DeserializationError("RequiredCaseRule.default_value required")
+        out["default_value"] = False
     if data.get("conditions") is not None:
         import capo_connectcases.types.boolean_condition_list
 
@@ -44,5 +42,5 @@ def deserialize_json(data: dict) -> RequiredCaseRule:
             )
         )
     else:
-        raise DeserializationError("RequiredCaseRule.conditions required")
+        out["conditions"] = []
     return out

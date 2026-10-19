@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.idempotence_token
     import capo_lookoutequipment.types.policy
@@ -42,15 +40,15 @@ def deserialize_aws_json_1_0(data: dict) -> PutResourcePolicyRequest:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("PutResourcePolicyRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("ResourcePolicy") is not None:
         out["resource_policy"] = data["ResourcePolicy"]
     else:
-        raise DeserializationError("PutResourcePolicyRequest.resource_policy required")
+        out["resource_policy"] = ""
     if data.get("PolicyRevisionId") is not None:
         out["policy_revision_id"] = data["PolicyRevisionId"]
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("PutResourcePolicyRequest.client_token required")
+        out["client_token"] = ""
     return out

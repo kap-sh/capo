@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.account_id
     import capo_config_service.types.aws_region
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeletePendingAggregationRequestReque
     if data.get("RequesterAccountId") is not None:
         out["requester_account_id"] = data["RequesterAccountId"]
     else:
-        raise DeserializationError(
-            "DeletePendingAggregationRequestRequest.requester_account_id required"
-        )
+        out["requester_account_id"] = ""
     if data.get("RequesterAwsRegion") is not None:
         out["requester_aws_region"] = data["RequesterAwsRegion"]
     else:
-        raise DeserializationError(
-            "DeletePendingAggregationRequestRequest.requester_aws_region required"
-        )
+        out["requester_aws_region"] = ""
     return out

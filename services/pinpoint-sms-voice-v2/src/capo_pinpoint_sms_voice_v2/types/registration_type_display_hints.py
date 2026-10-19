@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 
 class RegistrationTypeDisplayHints(TypedDict, closed=True):
     title: "str"
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_0(data: dict) -> RegistrationTypeDisplayHints:
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     else:
-        raise DeserializationError("RegistrationTypeDisplayHints.title required")
+        out["title"] = ""
     if data.get("ShortDescription") is not None:
         out["short_description"] = data["ShortDescription"]
     if data.get("LongDescription") is not None:

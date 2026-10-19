@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.custom_model_data_source
     import capo_bedrock.types.custom_model_name
@@ -77,7 +75,7 @@ def deserialize_json(data: dict) -> CreateCustomModelRequest:
     if data.get("modelName") is not None:
         out["model_name"] = data["modelName"]
     else:
-        raise DeserializationError("CreateCustomModelRequest.model_name required")
+        out["model_name"] = ""
     if data.get("modelSourceConfig") is not None:
         import capo_bedrock.types.model_data_source
 

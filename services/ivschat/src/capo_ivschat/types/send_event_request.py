@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivschat.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivschat.types.event_attributes
     import capo_ivschat.types.event_name
@@ -40,11 +38,11 @@ def deserialize_json(data: dict) -> SendEventRequest:
     if data.get("roomIdentifier") is not None:
         out["room_identifier"] = data["roomIdentifier"]
     else:
-        raise DeserializationError("SendEventRequest.room_identifier required")
+        out["room_identifier"] = ""
     if data.get("eventName") is not None:
         out["event_name"] = data["eventName"]
     else:
-        raise DeserializationError("SendEventRequest.event_name required")
+        out["event_name"] = ""
     if data.get("attributes") is not None:
         import capo_ivschat.types.event_attributes
 

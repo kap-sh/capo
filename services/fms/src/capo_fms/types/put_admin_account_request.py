@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fms.types.admin_scope
     import capo_fms.types.aws_account_id
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutAdminAccountRequest:
     if data.get("AdminAccount") is not None:
         out["admin_account"] = data["AdminAccount"]
     else:
-        raise DeserializationError("PutAdminAccountRequest.admin_account required")
+        out["admin_account"] = ""
     if data.get("AdminScope") is not None:
         import capo_fms.types.admin_scope
 

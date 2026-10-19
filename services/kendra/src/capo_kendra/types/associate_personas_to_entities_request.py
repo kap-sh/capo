@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.entity_persona_configuration_list
     import capo_kendra.types.experience_id
@@ -41,13 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> AssociatePersonasToEntitiesRequest:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("AssociatePersonasToEntitiesRequest.id required")
+        out["id"] = ""
     if data.get("IndexId") is not None:
         out["index_id"] = data["IndexId"]
     else:
-        raise DeserializationError(
-            "AssociatePersonasToEntitiesRequest.index_id required"
-        )
+        out["index_id"] = ""
     if data.get("Personas") is not None:
         import capo_kendra.types.entity_persona_configuration_list
 
@@ -57,7 +53,5 @@ def deserialize_aws_json_1_1(data: dict) -> AssociatePersonasToEntitiesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "AssociatePersonasToEntitiesRequest.personas required"
-        )
+        out["personas"] = []
     return out

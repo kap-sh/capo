@@ -59,15 +59,11 @@ def deserialize_json(data: dict) -> RestoreTestingPlanForCreate:
     if data.get("RestoreTestingPlanName") is not None:
         out["restore_testing_plan_name"] = data["RestoreTestingPlanName"]
     else:
-        raise DeserializationError(
-            "RestoreTestingPlanForCreate.restore_testing_plan_name required"
-        )
+        out["restore_testing_plan_name"] = ""
     if data.get("ScheduleExpression") is not None:
         out["schedule_expression"] = data["ScheduleExpression"]
     else:
-        raise DeserializationError(
-            "RestoreTestingPlanForCreate.schedule_expression required"
-        )
+        out["schedule_expression"] = ""
     if data.get("ScheduleExpressionTimezone") is not None:
         out["schedule_expression_timezone"] = data["ScheduleExpressionTimezone"]
     if data.get("StartWindowHours") is not None:

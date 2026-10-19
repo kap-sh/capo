@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_web.types.date_time
     import capo_lambda_web.types.function_arn
@@ -55,11 +53,11 @@ def deserialize_json(data: dict) -> FunctionSummary:
     if data.get("functionName") is not None:
         out["function_name"] = data["functionName"]
     else:
-        raise DeserializationError("FunctionSummary.function_name required")
+        out["function_name"] = ""
     if data.get("functionArn") is not None:
         out["function_arn"] = data["functionArn"]
     else:
-        raise DeserializationError("FunctionSummary.function_arn required")
+        out["function_arn"] = ""
     if data.get("state") is not None:
         import capo_lambda_web.types.function_state
 
@@ -67,11 +65,15 @@ def deserialize_json(data: dict) -> FunctionSummary:
             data["state"]
         )
     else:
-        raise DeserializationError("FunctionSummary.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_lambda_web.types.function_state.FunctionState", ""
+        )
     if data.get("stateReason") is not None:
         out["state_reason"] = data["stateReason"]
     else:
-        raise DeserializationError("FunctionSummary.state_reason required")
+        out["state_reason"] = ""
     if data.get("createdAt") is not None:
         import capo_lambda_web.types.date_time
 
@@ -79,7 +81,9 @@ def deserialize_json(data: dict) -> FunctionSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("FunctionSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_lambda_web.types.date_time
 
@@ -87,5 +91,7 @@ def deserialize_json(data: dict) -> FunctionSummary:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("FunctionSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_incidents.types.arn
     import capo_ssm_incidents.types.client_token
@@ -35,13 +33,11 @@ def deserialize_json(data: dict) -> UpdateDeletionProtectionInput:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("UpdateDeletionProtectionInput.arn required")
+        out["arn"] = ""
     if data.get("deletionProtected") is not None:
         out["deletion_protected"] = data["deletionProtected"]
     else:
-        raise DeserializationError(
-            "UpdateDeletionProtectionInput.deletion_protected required"
-        )
+        out["deletion_protected"] = False
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

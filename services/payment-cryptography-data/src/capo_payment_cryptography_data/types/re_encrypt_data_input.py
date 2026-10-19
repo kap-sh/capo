@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.cipher_text_type
     import capo_payment_cryptography_data.types.key_arn_or_key_alias_type
@@ -77,13 +75,11 @@ def deserialize_json(data: dict) -> ReEncryptDataInput:
     if data.get("OutgoingKeyIdentifier") is not None:
         out["outgoing_key_identifier"] = data["OutgoingKeyIdentifier"]
     else:
-        raise DeserializationError(
-            "ReEncryptDataInput.outgoing_key_identifier required"
-        )
+        out["outgoing_key_identifier"] = ""
     if data.get("CipherText") is not None:
         out["cipher_text"] = data["CipherText"]
     else:
-        raise DeserializationError("ReEncryptDataInput.cipher_text required")
+        out["cipher_text"] = ""
     if data.get("IncomingEncryptionAttributes") is not None:
         import capo_payment_cryptography_data.types.re_encryption_attributes
 
@@ -93,8 +89,10 @@ def deserialize_json(data: dict) -> ReEncryptDataInput:
             )
         )
     else:
-        raise DeserializationError(
-            "ReEncryptDataInput.incoming_encryption_attributes required"
+        import capo_payment_cryptography_data.types._unknown
+
+        out["incoming_encryption_attributes"] = (
+            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
         )
     if data.get("OutgoingEncryptionAttributes") is not None:
         import capo_payment_cryptography_data.types.re_encryption_attributes
@@ -105,8 +103,10 @@ def deserialize_json(data: dict) -> ReEncryptDataInput:
             )
         )
     else:
-        raise DeserializationError(
-            "ReEncryptDataInput.outgoing_encryption_attributes required"
+        import capo_payment_cryptography_data.types._unknown
+
+        out["outgoing_encryption_attributes"] = (
+            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
         )
     if data.get("IncomingWrappedKey") is not None:
         import capo_payment_cryptography_data.types.wrapped_key

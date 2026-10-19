@@ -132,7 +132,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateWorkflowRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateWorkflowRequest.name required")
+        out["name"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("DefinitionS3Location") is not None:
@@ -156,7 +156,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateWorkflowRequest:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("CreateWorkflowRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("EncryptionConfiguration") is not None:

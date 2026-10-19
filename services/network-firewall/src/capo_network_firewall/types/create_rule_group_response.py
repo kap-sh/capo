@@ -39,7 +39,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRuleGroupResponse:
     if data.get("UpdateToken") is not None:
         out["update_token"] = data["UpdateToken"]
     else:
-        raise DeserializationError("CreateRuleGroupResponse.update_token required")
+        out["update_token"] = ""
     if data.get("RuleGroupResponse") is not None:
         import capo_network_firewall.types.rule_group_response
 

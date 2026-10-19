@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.iam_role_arn
     import capo_lookoutequipment.types.labels_input_configuration
@@ -57,7 +55,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateModelRequest:
     if data.get("ModelName") is not None:
         out["model_name"] = data["ModelName"]
     else:
-        raise DeserializationError("UpdateModelRequest.model_name required")
+        out["model_name"] = ""
     if data.get("LabelsInputConfiguration") is not None:
         import capo_lookoutequipment.types.labels_input_configuration
 

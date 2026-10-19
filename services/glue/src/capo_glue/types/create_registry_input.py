@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.description_string
     import capo_glue.types.schema_registry_name_string
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateRegistryInput:
     if data.get("RegistryName") is not None:
         out["registry_name"] = data["RegistryName"]
     else:
-        raise DeserializationError("CreateRegistryInput.registry_name required")
+        out["registry_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Tags") is not None:

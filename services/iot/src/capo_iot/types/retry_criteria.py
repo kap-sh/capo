@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.number_of_retries
     import capo_iot.types.retryable_failure_type
@@ -39,9 +37,13 @@ def deserialize_json(data: dict) -> RetryCriteria:
             data["failureType"]
         )
     else:
-        raise DeserializationError("RetryCriteria.failure_type required")
+        import typing
+
+        out["failure_type"] = typing.cast(
+            "capo_iot.types.retryable_failure_type.RetryableFailureType", ""
+        )
     if data.get("numberOfRetries") is not None:
         out["number_of_retries"] = data["numberOfRetries"]
     else:
-        raise DeserializationError("RetryCriteria.number_of_retries required")
+        out["number_of_retries"] = 0
     return out

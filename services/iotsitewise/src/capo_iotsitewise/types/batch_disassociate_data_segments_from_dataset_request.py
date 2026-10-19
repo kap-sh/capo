@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.client_token
     import capo_iotsitewise.types.disassociate_data_segment_entries
@@ -45,9 +43,7 @@ def deserialize_json(data: dict) -> BatchDisassociateDataSegmentsFromDatasetRequ
     if data.get("workspaceName") is not None:
         out["workspace_name"] = data["workspaceName"]
     else:
-        raise DeserializationError(
-            "BatchDisassociateDataSegmentsFromDatasetRequest.workspace_name required"
-        )
+        out["workspace_name"] = ""
     if data.get("disassociateDataSegmentEntries") is not None:
         import capo_iotsitewise.types.disassociate_data_segment_entries
 
@@ -57,9 +53,7 @@ def deserialize_json(data: dict) -> BatchDisassociateDataSegmentsFromDatasetRequ
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDisassociateDataSegmentsFromDatasetRequest.disassociate_data_segment_entries required"
-        )
+        out["disassociate_data_segment_entries"] = []
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

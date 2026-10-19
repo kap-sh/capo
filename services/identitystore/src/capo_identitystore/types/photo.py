@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_identitystore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_identitystore.types.boolean_type
     import capo_identitystore.types.sensitive_string_type
@@ -43,7 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> Photo:
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("Photo.value required")
+        out["value"] = ""
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     if data.get("Display") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.creator_request_id
     import capo_route53resolver.types.instance_count
@@ -57,25 +55,21 @@ def deserialize_aws_json_1_1(data: dict) -> CreateOutpostResolverRequest:
     if data.get("CreatorRequestId") is not None:
         out["creator_request_id"] = data["CreatorRequestId"]
     else:
-        raise DeserializationError(
-            "CreateOutpostResolverRequest.creator_request_id required"
-        )
+        out["creator_request_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateOutpostResolverRequest.name required")
+        out["name"] = ""
     if data.get("InstanceCount") is not None:
         out["instance_count"] = data["InstanceCount"]
     if data.get("PreferredInstanceType") is not None:
         out["preferred_instance_type"] = data["PreferredInstanceType"]
     else:
-        raise DeserializationError(
-            "CreateOutpostResolverRequest.preferred_instance_type required"
-        )
+        out["preferred_instance_type"] = ""
     if data.get("OutpostArn") is not None:
         out["outpost_arn"] = data["OutpostArn"]
     else:
-        raise DeserializationError("CreateOutpostResolverRequest.outpost_arn required")
+        out["outpost_arn"] = ""
     if data.get("Tags") is not None:
         import capo_route53resolver.types.tag_list
 

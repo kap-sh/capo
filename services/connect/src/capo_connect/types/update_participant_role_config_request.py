@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.contact_id
     import capo_connect.types.instance_id
@@ -45,7 +43,9 @@ def deserialize_json(data: dict) -> UpdateParticipantRoleConfigRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateParticipantRoleConfigRequest.channel_configuration required"
+        import capo_connect.types._unknown
+
+        out["channel_configuration"] = capo_connect.types._unknown.UnknownUnionMember(
+            ""
         )
     return out

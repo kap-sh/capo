@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.antenna_name
     import capo_groundstation.types.aws_region
@@ -37,13 +35,13 @@ def deserialize_json(data: dict) -> AntennaListItem:
     if data.get("groundStationName") is not None:
         out["ground_station_name"] = data["groundStationName"]
     else:
-        raise DeserializationError("AntennaListItem.ground_station_name required")
+        out["ground_station_name"] = ""
     if data.get("antennaName") is not None:
         out["antenna_name"] = data["antennaName"]
     else:
-        raise DeserializationError("AntennaListItem.antenna_name required")
+        out["antenna_name"] = ""
     if data.get("region") is not None:
         out["region"] = data["region"]
     else:
-        raise DeserializationError("AntennaListItem.region required")
+        out["region"] = ""
     return out

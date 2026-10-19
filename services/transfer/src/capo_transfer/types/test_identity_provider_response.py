@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.message
     import capo_transfer.types.response
@@ -49,5 +47,5 @@ def deserialize_aws_json_1_1(data: dict) -> TestIdentityProviderResponse:
     if data.get("Url") is not None:
         out["url"] = data["Url"]
     else:
-        raise DeserializationError("TestIdentityProviderResponse.url required")
+        out["url"] = ""
     return out

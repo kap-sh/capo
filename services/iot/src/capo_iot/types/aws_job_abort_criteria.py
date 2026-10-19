@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aws_job_abort_criteria_abort_action
     import capo_iot.types.aws_job_abort_criteria_abort_threshold_percentage
@@ -63,7 +61,12 @@ def deserialize_json(data: dict) -> AwsJobAbortCriteria:
             )
         )
     else:
-        raise DeserializationError("AwsJobAbortCriteria.failure_type required")
+        import typing
+
+        out["failure_type"] = typing.cast(
+            "capo_iot.types.aws_job_abort_criteria_failure_type.AwsJobAbortCriteriaFailureType",
+            "",
+        )
     if data.get("action") is not None:
         import capo_iot.types.aws_job_abort_criteria_abort_action
 
@@ -73,15 +76,18 @@ def deserialize_json(data: dict) -> AwsJobAbortCriteria:
             )
         )
     else:
-        raise DeserializationError("AwsJobAbortCriteria.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_iot.types.aws_job_abort_criteria_abort_action.AwsJobAbortCriteriaAbortAction",
+            "",
+        )
     if data.get("thresholdPercentage") is not None:
         out["threshold_percentage"] = float(data["thresholdPercentage"])
     else:
-        raise DeserializationError("AwsJobAbortCriteria.threshold_percentage required")
+        out["threshold_percentage"] = 0.0
     if data.get("minNumberOfExecutedThings") is not None:
         out["min_number_of_executed_things"] = data["minNumberOfExecutedThings"]
     else:
-        raise DeserializationError(
-            "AwsJobAbortCriteria.min_number_of_executed_things required"
-        )
+        out["min_number_of_executed_things"] = 0
     return out

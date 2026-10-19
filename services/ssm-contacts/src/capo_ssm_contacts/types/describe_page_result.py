@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.content
     import capo_ssm_contacts.types.date_time
@@ -85,27 +83,27 @@ def deserialize_aws_json_1_1(data: dict) -> DescribePageResult:
     if data.get("PageArn") is not None:
         out["page_arn"] = data["PageArn"]
     else:
-        raise DeserializationError("DescribePageResult.page_arn required")
+        out["page_arn"] = ""
     if data.get("EngagementArn") is not None:
         out["engagement_arn"] = data["EngagementArn"]
     else:
-        raise DeserializationError("DescribePageResult.engagement_arn required")
+        out["engagement_arn"] = ""
     if data.get("ContactArn") is not None:
         out["contact_arn"] = data["ContactArn"]
     else:
-        raise DeserializationError("DescribePageResult.contact_arn required")
+        out["contact_arn"] = ""
     if data.get("Sender") is not None:
         out["sender"] = data["Sender"]
     else:
-        raise DeserializationError("DescribePageResult.sender required")
+        out["sender"] = ""
     if data.get("Subject") is not None:
         out["subject"] = data["Subject"]
     else:
-        raise DeserializationError("DescribePageResult.subject required")
+        out["subject"] = ""
     if data.get("Content") is not None:
         out["content"] = data["Content"]
     else:
-        raise DeserializationError("DescribePageResult.content required")
+        out["content"] = ""
     if data.get("PublicSubject") is not None:
         out["public_subject"] = data["PublicSubject"]
     if data.get("PublicContent") is not None:

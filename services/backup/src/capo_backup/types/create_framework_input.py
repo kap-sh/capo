@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.framework_controls
     import capo_backup.types.framework_description
@@ -56,7 +54,7 @@ def deserialize_json(data: dict) -> CreateFrameworkInput:
     if data.get("FrameworkName") is not None:
         out["framework_name"] = data["FrameworkName"]
     else:
-        raise DeserializationError("CreateFrameworkInput.framework_name required")
+        out["framework_name"] = ""
     if data.get("FrameworkDescription") is not None:
         out["framework_description"] = data["FrameworkDescription"]
     if data.get("FrameworkControls") is not None:
@@ -68,7 +66,7 @@ def deserialize_json(data: dict) -> CreateFrameworkInput:
             )
         )
     else:
-        raise DeserializationError("CreateFrameworkInput.framework_controls required")
+        out["framework_controls"] = []
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     if data.get("FrameworkTags") is not None:

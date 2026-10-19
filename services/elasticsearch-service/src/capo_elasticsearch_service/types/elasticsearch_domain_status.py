@@ -336,15 +336,15 @@ def deserialize_json(data: dict) -> ElasticsearchDomainStatus:
     if data.get("DomainId") is not None:
         out["domain_id"] = data["DomainId"]
     else:
-        raise DeserializationError("ElasticsearchDomainStatus.domain_id required")
+        out["domain_id"] = ""
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("ElasticsearchDomainStatus.domain_name required")
+        out["domain_name"] = ""
     if data.get("ARN") is not None:
         out["arn"] = data["ARN"]
     else:
-        raise DeserializationError("ElasticsearchDomainStatus.arn required")
+        out["arn"] = ""
     if data.get("Created") is not None:
         out["created"] = data["Created"]
     if data.get("Deleted") is not None:

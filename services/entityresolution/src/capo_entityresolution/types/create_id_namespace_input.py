@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.description
     import capo_entityresolution.types.entity_name
@@ -78,7 +76,7 @@ def deserialize_json(data: dict) -> CreateIdNamespaceInput:
     if data.get("idNamespaceName") is not None:
         out["id_namespace_name"] = data["idNamespaceName"]
     else:
-        raise DeserializationError("CreateIdNamespaceInput.id_namespace_name required")
+        out["id_namespace_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("inputSourceConfig") is not None:
@@ -104,7 +102,11 @@ def deserialize_json(data: dict) -> CreateIdNamespaceInput:
             data["type"]
         )
     else:
-        raise DeserializationError("CreateIdNamespaceInput.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_entityresolution.types.id_namespace_type.IdNamespaceType", ""
+        )
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     if data.get("tags") is not None:

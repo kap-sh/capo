@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.s3_bucket_name
     import capo_deadline.types.s3_prefix
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> JobDetailsJobAttachmentSettings:
     if data.get("s3BucketName") is not None:
         out["s3_bucket_name"] = data["s3BucketName"]
     else:
-        raise DeserializationError(
-            "JobDetailsJobAttachmentSettings.s3_bucket_name required"
-        )
+        out["s3_bucket_name"] = ""
     if data.get("rootPrefix") is not None:
         out["root_prefix"] = data["rootPrefix"]
     else:
-        raise DeserializationError(
-            "JobDetailsJobAttachmentSettings.root_prefix required"
-        )
+        out["root_prefix"] = ""
     return out

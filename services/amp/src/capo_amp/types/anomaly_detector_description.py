@@ -110,17 +110,15 @@ def deserialize_json(data: dict) -> AnomalyDetectorDescription:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("AnomalyDetectorDescription.arn required")
+        out["arn"] = ""
     if data.get("anomalyDetectorId") is not None:
         out["anomaly_detector_id"] = data["anomalyDetectorId"]
     else:
-        raise DeserializationError(
-            "AnomalyDetectorDescription.anomaly_detector_id required"
-        )
+        out["anomaly_detector_id"] = ""
     if data.get("alias") is not None:
         out["alias"] = data["alias"]
     else:
-        raise DeserializationError("AnomalyDetectorDescription.alias required")
+        out["alias"] = ""
     if data.get("evaluationIntervalInSeconds") is not None:
         out["evaluation_interval_in_seconds"] = data["evaluationIntervalInSeconds"]
     if data.get("missingDataAction") is not None:
@@ -160,7 +158,9 @@ def deserialize_json(data: dict) -> AnomalyDetectorDescription:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("AnomalyDetectorDescription.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("modifiedAt") is not None:
         import capo_amp.types._prelude.timestamp
 
@@ -168,7 +168,11 @@ def deserialize_json(data: dict) -> AnomalyDetectorDescription:
             data["modifiedAt"]
         )
     else:
-        raise DeserializationError("AnomalyDetectorDescription.modified_at required")
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("tags") is not None:
         import capo_amp.types.tag_map
 

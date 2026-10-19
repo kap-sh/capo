@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.entity_type_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> EntityTypesListItem:
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     else:
-        raise DeserializationError("EntityTypesListItem.type required")
+        out["type"] = ""
     return out

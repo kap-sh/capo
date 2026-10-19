@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.url_operation_template
     import capo_quicksight.types.url_target_configuration
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> CustomActionURLOperation:
     if data.get("URLTemplate") is not None:
         out["url_template"] = data["URLTemplate"]
     else:
-        raise DeserializationError("CustomActionURLOperation.url_template required")
+        out["url_template"] = ""
     if data.get("URLTarget") is not None:
         import capo_quicksight.types.url_target_configuration
 
@@ -45,5 +43,9 @@ def deserialize_json(data: dict) -> CustomActionURLOperation:
             )
         )
     else:
-        raise DeserializationError("CustomActionURLOperation.url_target required")
+        import typing
+
+        out["url_target"] = typing.cast(
+            "capo_quicksight.types.url_target_configuration.URLTargetConfiguration", ""
+        )
     return out

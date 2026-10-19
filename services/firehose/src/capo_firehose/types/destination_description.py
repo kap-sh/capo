@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.amazon_open_search_serverless_destination_description
     import capo_firehose.types.amazonopensearchservice_destination_description
@@ -157,7 +155,7 @@ def deserialize_aws_json_1_1(data: dict) -> DestinationDescription:
     if data.get("DestinationId") is not None:
         out["destination_id"] = data["DestinationId"]
     else:
-        raise DeserializationError("DestinationDescription.destination_id required")
+        out["destination_id"] = ""
     if data.get("S3DestinationDescription") is not None:
         import capo_firehose.types.s3_destination_description
 

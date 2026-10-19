@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.participant_timer_type
     import capo_connect.types.participant_timer_value
@@ -55,8 +53,11 @@ def deserialize_json(data: dict) -> ParticipantTimerConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ParticipantTimerConfiguration.participant_role required"
+        import typing
+
+        out["participant_role"] = typing.cast(
+            "capo_connect.types.timer_eligible_participant_roles.TimerEligibleParticipantRoles",
+            "",
         )
     if data.get("TimerType") is not None:
         import capo_connect.types.participant_timer_type
@@ -65,7 +66,11 @@ def deserialize_json(data: dict) -> ParticipantTimerConfiguration:
             data["TimerType"]
         )
     else:
-        raise DeserializationError("ParticipantTimerConfiguration.timer_type required")
+        import typing
+
+        out["timer_type"] = typing.cast(
+            "capo_connect.types.participant_timer_type.ParticipantTimerType", ""
+        )
     if data.get("TimerValue") is not None:
         import capo_connect.types.participant_timer_value
 
@@ -75,5 +80,7 @@ def deserialize_json(data: dict) -> ParticipantTimerConfiguration:
             )
         )
     else:
-        raise DeserializationError("ParticipantTimerConfiguration.timer_value required")
+        import capo_connect.types._unknown
+
+        out["timer_value"] = capo_connect.types._unknown.UnknownUnionMember("")
     return out

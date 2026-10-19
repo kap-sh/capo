@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.data_source_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDataSourceResponse:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("CreateDataSourceResponse.id required")
+        out["id"] = ""
     return out

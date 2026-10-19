@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.boolean
@@ -38,9 +37,7 @@ def deserialize_xml(el: Element) -> ResponseHeadersPolicyReferrerPolicy:
     if child_override is not None:
         out["override"] = (child_override.text or "").lower() == "true"
     else:
-        raise DeserializationError(
-            "ResponseHeadersPolicyReferrerPolicy.override required"
-        )
+        out["override"] = False
     child_referrer_policy = el.find("ReferrerPolicy")
     if child_referrer_policy is not None:
         import capo_cloudfront.types.referrer_policy_list
@@ -51,7 +48,9 @@ def deserialize_xml(el: Element) -> ResponseHeadersPolicyReferrerPolicy:
             )
         )
     else:
-        raise DeserializationError(
-            "ResponseHeadersPolicyReferrerPolicy.referrer_policy required"
+        import typing
+
+        out["referrer_policy"] = typing.cast(
+            "capo_cloudfront.types.referrer_policy_list.ReferrerPolicyList", ""
         )
     return out

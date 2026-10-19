@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -77,11 +75,11 @@ def deserialize_json(data: dict) -> CreateTargetDomainOutput:
     if data.get("targetDomainId") is not None:
         out["target_domain_id"] = data["targetDomainId"]
     else:
-        raise DeserializationError("CreateTargetDomainOutput.target_domain_id required")
+        out["target_domain_id"] = ""
     if data.get("domainName") is not None:
         out["domain_name"] = data["domainName"]
     else:
-        raise DeserializationError("CreateTargetDomainOutput.domain_name required")
+        out["domain_name"] = ""
     if data.get("verificationStatus") is not None:
         import capo_securityagent.types.target_domain_status
 
@@ -91,8 +89,10 @@ def deserialize_json(data: dict) -> CreateTargetDomainOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateTargetDomainOutput.verification_status required"
+        import typing
+
+        out["verification_status"] = typing.cast(
+            "capo_securityagent.types.target_domain_status.TargetDomainStatus", ""
         )
     if data.get("verificationStatusReason") is not None:
         out["verification_status_reason"] = data["verificationStatusReason"]

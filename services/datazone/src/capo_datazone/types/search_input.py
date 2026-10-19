@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.domain_id
     import capo_datazone.types.filter_clause
@@ -104,7 +102,11 @@ def deserialize_json(data: dict) -> SearchInput:
             )
         )
     else:
-        raise DeserializationError("SearchInput.search_scope required")
+        import typing
+
+        out["search_scope"] = typing.cast(
+            "capo_datazone.types.inventory_search_scope.InventorySearchScope", ""
+        )
     if data.get("searchText") is not None:
         out["search_text"] = data["searchText"]
     if data.get("searchIn") is not None:

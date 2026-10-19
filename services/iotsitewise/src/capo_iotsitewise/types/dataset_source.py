@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.dataset_source_format
     import capo_iotsitewise.types.dataset_source_type
@@ -54,7 +52,11 @@ def deserialize_json(data: dict) -> DatasetSource:
             )
         )
     else:
-        raise DeserializationError("DatasetSource.source_type required")
+        import typing
+
+        out["source_type"] = typing.cast(
+            "capo_iotsitewise.types.dataset_source_type.DatasetSourceType", ""
+        )
     if data.get("sourceFormat") is not None:
         import capo_iotsitewise.types.dataset_source_format
 
@@ -64,7 +66,11 @@ def deserialize_json(data: dict) -> DatasetSource:
             )
         )
     else:
-        raise DeserializationError("DatasetSource.source_format required")
+        import typing
+
+        out["source_format"] = typing.cast(
+            "capo_iotsitewise.types.dataset_source_format.DatasetSourceFormat", ""
+        )
     if data.get("sourceDetail") is not None:
         import capo_iotsitewise.types.source_detail
 

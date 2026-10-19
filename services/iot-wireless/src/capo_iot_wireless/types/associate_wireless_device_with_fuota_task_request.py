@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.fuota_task_id
     import capo_iot_wireless.types.wireless_device_id
@@ -28,7 +26,5 @@ def deserialize_json(data: dict) -> AssociateWirelessDeviceWithFuotaTaskRequest:
     if data.get("WirelessDeviceId") is not None:
         out["wireless_device_id"] = data["WirelessDeviceId"]
     else:
-        raise DeserializationError(
-            "AssociateWirelessDeviceWithFuotaTaskRequest.wireless_device_id required"
-        )
+        out["wireless_device_id"] = ""
     return out

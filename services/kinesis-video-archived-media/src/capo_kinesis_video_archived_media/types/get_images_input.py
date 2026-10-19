@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_video_archived_media.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_video_archived_media.types.format
     import capo_kinesis_video_archived_media.types.format_config
@@ -134,7 +132,12 @@ def deserialize_json(data: dict) -> GetImagesInput:
             )
         )
     else:
-        raise DeserializationError("GetImagesInput.image_selector_type required")
+        import typing
+
+        out["image_selector_type"] = typing.cast(
+            "capo_kinesis_video_archived_media.types.image_selector_type.ImageSelectorType",
+            "",
+        )
     if data.get("StartTimestamp") is not None:
         import capo_kinesis_video_archived_media.types.timestamp
 
@@ -144,7 +147,11 @@ def deserialize_json(data: dict) -> GetImagesInput:
             )
         )
     else:
-        raise DeserializationError("GetImagesInput.start_timestamp required")
+        import datetime
+
+        out["start_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("EndTimestamp") is not None:
         import capo_kinesis_video_archived_media.types.timestamp
 
@@ -154,7 +161,11 @@ def deserialize_json(data: dict) -> GetImagesInput:
             )
         )
     else:
-        raise DeserializationError("GetImagesInput.end_timestamp required")
+        import datetime
+
+        out["end_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("SamplingInterval") is not None:
         out["sampling_interval"] = data["SamplingInterval"]
     if data.get("Format") is not None:
@@ -164,7 +175,11 @@ def deserialize_json(data: dict) -> GetImagesInput:
             data["Format"]
         )
     else:
-        raise DeserializationError("GetImagesInput.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_kinesis_video_archived_media.types.format.Format", ""
+        )
     if data.get("FormatConfig") is not None:
         import capo_kinesis_video_archived_media.types.format_config
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_organizations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_organizations.types.responsibility_transfer_id
     import capo_organizations.types.responsibility_transfer_name
@@ -31,11 +29,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateResponsibilityTransferRequest:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("UpdateResponsibilityTransferRequest.id required")
+        out["id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateResponsibilityTransferRequest.name required")
+        out["name"] = ""
     return out
 
 

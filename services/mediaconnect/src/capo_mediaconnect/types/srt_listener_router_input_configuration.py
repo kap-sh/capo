@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.srt_decryption_configuration
 
@@ -42,13 +40,11 @@ def deserialize_json(data: dict) -> SrtListenerRouterInputConfiguration:
     if data.get("port") is not None:
         out["port"] = data["port"]
     else:
-        raise DeserializationError("SrtListenerRouterInputConfiguration.port required")
+        out["port"] = 0
     if data.get("minimumLatencyMilliseconds") is not None:
         out["minimum_latency_milliseconds"] = data["minimumLatencyMilliseconds"]
     else:
-        raise DeserializationError(
-            "SrtListenerRouterInputConfiguration.minimum_latency_milliseconds required"
-        )
+        out["minimum_latency_milliseconds"] = 0
     if data.get("decryptionConfiguration") is not None:
         import capo_mediaconnect.types.srt_decryption_configuration
 

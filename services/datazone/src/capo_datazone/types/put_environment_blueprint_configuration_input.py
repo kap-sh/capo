@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.domain_id
     import capo_datazone.types.enabled_region_list
@@ -129,9 +127,7 @@ def deserialize_json(data: dict) -> PutEnvironmentBlueprintConfigurationInput:
             )
         )
     else:
-        raise DeserializationError(
-            "PutEnvironmentBlueprintConfigurationInput.enabled_regions required"
-        )
+        out["enabled_regions"] = []
     if data.get("regionalParameters") is not None:
         import capo_datazone.types.regional_parameter_map
 

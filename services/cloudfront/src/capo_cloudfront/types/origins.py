@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.integer
@@ -34,14 +33,14 @@ def deserialize_xml(el: Element) -> Origins:
     if child_quantity is not None:
         out["quantity"] = int(child_quantity.text or "")
     else:
-        raise DeserializationError("Origins.quantity required")
+        out["quantity"] = 0
     child_items = el.find("Items")
     if child_items is not None:
         import capo_cloudfront.types.origin_list
 
         out["items"] = capo_cloudfront.types.origin_list.deserialize_xml(child_items)
     else:
-        raise DeserializationError("Origins.items required")
+        out["items"] = []
     return out
 
 

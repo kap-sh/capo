@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.sensitive_url
 
@@ -27,7 +25,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetDashboardUrlResponse:
     if data.get("Url") is not None:
         out["url"] = data["Url"]
     else:
-        raise DeserializationError("GetDashboardUrlResponse.url required")
+        out["url"] = ""
     return out
 
 

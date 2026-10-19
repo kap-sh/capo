@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.boxed_boolean
     import capo_glue.types.boxed_non_negative_int
@@ -111,7 +109,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3ParquetSource:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("S3ParquetSource.name required")
+        out["name"] = ""
     if data.get("Paths") is not None:
         import capo_glue.types.enclosed_in_string_properties
 
@@ -121,7 +119,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3ParquetSource:
             )
         )
     else:
-        raise DeserializationError("S3ParquetSource.paths required")
+        out["paths"] = []
     if data.get("CompressionType") is not None:
         import capo_glue.types.parquet_compression_type
 

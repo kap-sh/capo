@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.cell_signals
     import capo_location.types.id
@@ -75,7 +73,7 @@ def deserialize_json(data: dict) -> DeviceState:
     if data.get("DeviceId") is not None:
         out["device_id"] = data["DeviceId"]
     else:
-        raise DeserializationError("DeviceState.device_id required")
+        out["device_id"] = ""
     if data.get("SampleTime") is not None:
         import capo_location.types.timestamp
 
@@ -83,7 +81,11 @@ def deserialize_json(data: dict) -> DeviceState:
             data["SampleTime"]
         )
     else:
-        raise DeserializationError("DeviceState.sample_time required")
+        import datetime
+
+        out["sample_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("Position") is not None:
         import capo_location.types.position
 
@@ -91,7 +93,7 @@ def deserialize_json(data: dict) -> DeviceState:
             data["Position"]
         )
     else:
-        raise DeserializationError("DeviceState.position required")
+        out["position"] = []
     if data.get("Accuracy") is not None:
         import capo_location.types.positional_accuracy
 

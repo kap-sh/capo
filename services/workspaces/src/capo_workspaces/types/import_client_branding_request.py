@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.default_import_client_branding_attributes
     import capo_workspaces.types.directory_id
@@ -101,7 +99,7 @@ def deserialize_aws_json_1_1(data: dict) -> ImportClientBrandingRequest:
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("ImportClientBrandingRequest.resource_id required")
+        out["resource_id"] = ""
     if data.get("DeviceTypeWindows") is not None:
         import capo_workspaces.types.default_import_client_branding_attributes
 

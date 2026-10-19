@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.access_key_id
     import capo_codepipeline.types.secret_access_key
@@ -35,13 +33,13 @@ def deserialize_aws_json_1_1(data: dict) -> AWSSessionCredentials:
     if data.get("accessKeyId") is not None:
         out["access_key_id"] = data["accessKeyId"]
     else:
-        raise DeserializationError("AWSSessionCredentials.access_key_id required")
+        out["access_key_id"] = ""
     if data.get("secretAccessKey") is not None:
         out["secret_access_key"] = data["secretAccessKey"]
     else:
-        raise DeserializationError("AWSSessionCredentials.secret_access_key required")
+        out["secret_access_key"] = ""
     if data.get("sessionToken") is not None:
         out["session_token"] = data["sessionToken"]
     else:
-        raise DeserializationError("AWSSessionCredentials.session_token required")
+        out["session_token"] = ""
     return out

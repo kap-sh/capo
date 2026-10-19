@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_amp.errors import DeserializationError
-
 
 class GetDefaultScraperConfigurationResponse(TypedDict, closed=True):
     configuration: "bytes"
@@ -30,7 +28,5 @@ def deserialize_json(data: dict) -> GetDefaultScraperConfigurationResponse:
             data["configuration"]
         )
     else:
-        raise DeserializationError(
-            "GetDefaultScraperConfigurationResponse.configuration required"
-        )
+        out["configuration"] = b""
     return out

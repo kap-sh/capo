@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_places.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_places.types.access_point_list
     import capo_geo_places.types.access_restriction_list
@@ -198,7 +196,7 @@ def deserialize_json(data: dict) -> SearchNearbyResultItem:
     if data.get("PlaceId") is not None:
         out["place_id"] = data["PlaceId"]
     else:
-        raise DeserializationError("SearchNearbyResultItem.place_id required")
+        out["place_id"] = ""
     if data.get("PlaceType") is not None:
         import capo_geo_places.types.place_type
 
@@ -206,11 +204,15 @@ def deserialize_json(data: dict) -> SearchNearbyResultItem:
             data["PlaceType"]
         )
     else:
-        raise DeserializationError("SearchNearbyResultItem.place_type required")
+        import typing
+
+        out["place_type"] = typing.cast(
+            "capo_geo_places.types.place_type.PlaceType", ""
+        )
     if data.get("Title") is not None:
         out["title"] = data["Title"]
     else:
-        raise DeserializationError("SearchNearbyResultItem.title required")
+        out["title"] = ""
     if data.get("Address") is not None:
         import capo_geo_places.types.address
 

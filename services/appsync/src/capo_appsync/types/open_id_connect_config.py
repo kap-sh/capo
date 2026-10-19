@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.long
     import capo_appsync.types.string
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> OpenIDConnectConfig:
     if data.get("issuer") is not None:
         out["issuer"] = data["issuer"]
     else:
-        raise DeserializationError("OpenIDConnectConfig.issuer required")
+        out["issuer"] = ""
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
     if data.get("iatTTL") is not None:

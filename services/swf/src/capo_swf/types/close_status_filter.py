@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_swf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_swf.types.close_status
 
@@ -33,5 +31,7 @@ def deserialize_aws_json_1_0(data: dict) -> CloseStatusFilter:
             data["status"]
         )
     else:
-        raise DeserializationError("CloseStatusFilter.status required")
+        import typing
+
+        out["status"] = typing.cast("capo_swf.types.close_status.CloseStatus", "")
     return out

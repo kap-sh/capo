@@ -75,11 +75,11 @@ def deserialize_json(data: dict) -> BotImportSpecification:
     if data.get("botName") is not None:
         out["bot_name"] = data["botName"]
     else:
-        raise DeserializationError("BotImportSpecification.bot_name required")
+        out["bot_name"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("BotImportSpecification.role_arn required")
+        out["role_arn"] = ""
     if data.get("dataPrivacy") is not None:
         import capo_lex_models_v2.types.data_privacy
 

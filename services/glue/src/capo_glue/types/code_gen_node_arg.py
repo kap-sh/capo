@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.boolean
     import capo_glue.types.code_gen_arg_name
@@ -35,11 +33,11 @@ def deserialize_aws_json_1_1(data: dict) -> CodeGenNodeArg:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CodeGenNodeArg.name required")
+        out["name"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("CodeGenNodeArg.value required")
+        out["value"] = ""
     if data.get("Param") is not None:
         out["param"] = data["Param"]
     else:

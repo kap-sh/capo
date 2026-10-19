@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_serverless.types.application_id
     import capo_emr_serverless.types.date
@@ -169,37 +167,37 @@ def deserialize_json(data: dict) -> Session:
     if data.get("applicationId") is not None:
         out["application_id"] = data["applicationId"]
     else:
-        raise DeserializationError("Session.application_id required")
+        out["application_id"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("Session.session_id required")
+        out["session_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("Session.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("state") is not None:
         out["state"] = data["state"]
     else:
-        raise DeserializationError("Session.state required")
+        out["state"] = ""
     if data.get("stateDetails") is not None:
         out["state_details"] = data["stateDetails"]
     else:
-        raise DeserializationError("Session.state_details required")
+        out["state_details"] = ""
     if data.get("releaseLabel") is not None:
         out["release_label"] = data["releaseLabel"]
     else:
-        raise DeserializationError("Session.release_label required")
+        out["release_label"] = ""
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:
-        raise DeserializationError("Session.execution_role_arn required")
+        out["execution_role_arn"] = ""
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("Session.created_by required")
+        out["created_by"] = ""
     if data.get("createdAt") is not None:
         import capo_emr_serverless.types.date
 
@@ -207,7 +205,9 @@ def deserialize_json(data: dict) -> Session:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("Session.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_emr_serverless.types.date
 
@@ -215,7 +215,9 @@ def deserialize_json(data: dict) -> Session:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("Session.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("startedAt") is not None:
         import capo_emr_serverless.types.date
 

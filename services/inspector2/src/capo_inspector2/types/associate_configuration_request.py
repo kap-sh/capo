@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.code_security_resource
     import capo_inspector2.types.scan_configuration_arn
@@ -36,9 +34,7 @@ def deserialize_json(data: dict) -> AssociateConfigurationRequest:
     if data.get("scanConfigurationArn") is not None:
         out["scan_configuration_arn"] = data["scanConfigurationArn"]
     else:
-        raise DeserializationError(
-            "AssociateConfigurationRequest.scan_configuration_arn required"
-        )
+        out["scan_configuration_arn"] = ""
     if data.get("resource") is not None:
         import capo_inspector2.types.code_security_resource
 
@@ -46,5 +42,7 @@ def deserialize_json(data: dict) -> AssociateConfigurationRequest:
             data["resource"]
         )
     else:
-        raise DeserializationError("AssociateConfigurationRequest.resource required")
+        import capo_inspector2.types._unknown
+
+        out["resource"] = capo_inspector2.types._unknown.UnknownUnionMember("")
     return out

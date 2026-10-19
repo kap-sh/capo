@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.organization_id
     import capo_workmail.types.short_string
@@ -31,11 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteRetentionPolicyRequest:
     if data.get("OrganizationId") is not None:
         out["organization_id"] = data["OrganizationId"]
     else:
-        raise DeserializationError(
-            "DeleteRetentionPolicyRequest.organization_id required"
-        )
+        out["organization_id"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("DeleteRetentionPolicyRequest.id required")
+        out["id"] = ""
     return out

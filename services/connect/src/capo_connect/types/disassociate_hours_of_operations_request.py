@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.hours_of_operation_id
     import capo_connect.types.instance_id
@@ -45,7 +43,5 @@ def deserialize_json(data: dict) -> DisassociateHoursOfOperationsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DisassociateHoursOfOperationsRequest.parent_hours_of_operation_ids required"
-        )
+        out["parent_hours_of_operation_ids"] = []
     return out

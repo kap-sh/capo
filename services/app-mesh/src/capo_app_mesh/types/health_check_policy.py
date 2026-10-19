@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.health_check_interval_millis
     import capo_app_mesh.types.health_check_threshold
@@ -57,15 +55,15 @@ def deserialize_json(data: dict) -> HealthCheckPolicy:
     if data.get("timeoutMillis") is not None:
         out["timeout_millis"] = data["timeoutMillis"]
     else:
-        raise DeserializationError("HealthCheckPolicy.timeout_millis required")
+        out["timeout_millis"] = 0
     if data.get("intervalMillis") is not None:
         out["interval_millis"] = data["intervalMillis"]
     else:
-        raise DeserializationError("HealthCheckPolicy.interval_millis required")
+        out["interval_millis"] = 0
     if data.get("protocol") is not None:
         out["protocol"] = data["protocol"]
     else:
-        raise DeserializationError("HealthCheckPolicy.protocol required")
+        out["protocol"] = ""
     if data.get("port") is not None:
         out["port"] = data["port"]
     if data.get("path") is not None:
@@ -73,9 +71,9 @@ def deserialize_json(data: dict) -> HealthCheckPolicy:
     if data.get("healthyThreshold") is not None:
         out["healthy_threshold"] = data["healthyThreshold"]
     else:
-        raise DeserializationError("HealthCheckPolicy.healthy_threshold required")
+        out["healthy_threshold"] = 0
     if data.get("unhealthyThreshold") is not None:
         out["unhealthy_threshold"] = data["unhealthyThreshold"]
     else:
-        raise DeserializationError("HealthCheckPolicy.unhealthy_threshold required")
+        out["unhealthy_threshold"] = 0
     return out

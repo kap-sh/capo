@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.bedrock_model_arn
     import capo_bedrock.types.external_sources
@@ -48,9 +46,7 @@ def deserialize_json(data: dict) -> ExternalSourcesRetrieveAndGenerateConfigurat
     if data.get("modelArn") is not None:
         out["model_arn"] = data["modelArn"]
     else:
-        raise DeserializationError(
-            "ExternalSourcesRetrieveAndGenerateConfiguration.model_arn required"
-        )
+        out["model_arn"] = ""
     if data.get("sources") is not None:
         import capo_bedrock.types.external_sources
 
@@ -58,9 +54,7 @@ def deserialize_json(data: dict) -> ExternalSourcesRetrieveAndGenerateConfigurat
             data["sources"]
         )
     else:
-        raise DeserializationError(
-            "ExternalSourcesRetrieveAndGenerateConfiguration.sources required"
-        )
+        out["sources"] = []
     if data.get("generationConfiguration") is not None:
         import capo_bedrock.types.external_sources_generation_configuration
 

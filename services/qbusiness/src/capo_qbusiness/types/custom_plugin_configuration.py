@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.api_schema
     import capo_qbusiness.types.api_schema_type
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> CustomPluginConfiguration:
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("CustomPluginConfiguration.description required")
+        out["description"] = ""
     if data.get("apiSchemaType") is not None:
         import capo_qbusiness.types.api_schema_type
 
@@ -52,7 +50,11 @@ def deserialize_json(data: dict) -> CustomPluginConfiguration:
             data["apiSchemaType"]
         )
     else:
-        raise DeserializationError("CustomPluginConfiguration.api_schema_type required")
+        import typing
+
+        out["api_schema_type"] = typing.cast(
+            "capo_qbusiness.types.api_schema_type.APISchemaType", ""
+        )
     if data.get("apiSchema") is not None:
         import capo_qbusiness.types.api_schema
 

@@ -39,9 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyWorkspaceAccessPropertiesReque
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError(
-            "ModifyWorkspaceAccessPropertiesRequest.resource_id required"
-        )
+        out["resource_id"] = ""
     if data.get("WorkspaceAccessProperties") is not None:
         import capo_workspaces.types.workspace_access_properties
 

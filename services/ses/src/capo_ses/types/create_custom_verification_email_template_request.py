@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.failure_redirection_url
@@ -60,42 +59,30 @@ def deserialize_query(el: Element) -> CreateCustomVerificationEmailTemplateReque
     if child_template_name is not None:
         out["template_name"] = str(child_template_name.text or "")
     else:
-        raise DeserializationError(
-            "CreateCustomVerificationEmailTemplateRequest.template_name required"
-        )
+        out["template_name"] = ""
     child_from_email_address = el.find("FromEmailAddress")
     if child_from_email_address is not None:
         out["from_email_address"] = str(child_from_email_address.text or "")
     else:
-        raise DeserializationError(
-            "CreateCustomVerificationEmailTemplateRequest.from_email_address required"
-        )
+        out["from_email_address"] = ""
     child_template_subject = el.find("TemplateSubject")
     if child_template_subject is not None:
         out["template_subject"] = str(child_template_subject.text or "")
     else:
-        raise DeserializationError(
-            "CreateCustomVerificationEmailTemplateRequest.template_subject required"
-        )
+        out["template_subject"] = ""
     child_template_content = el.find("TemplateContent")
     if child_template_content is not None:
         out["template_content"] = str(child_template_content.text or "")
     else:
-        raise DeserializationError(
-            "CreateCustomVerificationEmailTemplateRequest.template_content required"
-        )
+        out["template_content"] = ""
     child_success_redirection_url = el.find("SuccessRedirectionURL")
     if child_success_redirection_url is not None:
         out["success_redirection_url"] = str(child_success_redirection_url.text or "")
     else:
-        raise DeserializationError(
-            "CreateCustomVerificationEmailTemplateRequest.success_redirection_url required"
-        )
+        out["success_redirection_url"] = ""
     child_failure_redirection_url = el.find("FailureRedirectionURL")
     if child_failure_redirection_url is not None:
         out["failure_redirection_url"] = str(child_failure_redirection_url.text or "")
     else:
-        raise DeserializationError(
-            "CreateCustomVerificationEmailTemplateRequest.failure_redirection_url required"
-        )
+        out["failure_redirection_url"] = ""
     return out

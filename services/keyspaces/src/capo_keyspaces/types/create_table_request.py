@@ -179,11 +179,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateTableRequest:
     if data.get("keyspaceName") is not None:
         out["keyspace_name"] = data["keyspaceName"]
     else:
-        raise DeserializationError("CreateTableRequest.keyspace_name required")
+        out["keyspace_name"] = ""
     if data.get("tableName") is not None:
         out["table_name"] = data["tableName"]
     else:
-        raise DeserializationError("CreateTableRequest.table_name required")
+        out["table_name"] = ""
     if data.get("schemaDefinition") is not None:
         import capo_keyspaces.types.schema_definition
 

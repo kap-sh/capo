@@ -54,7 +54,7 @@ def deserialize_xml(el: Element) -> ForwardedValues:
     if child_query_string is not None:
         out["query_string"] = (child_query_string.text or "").lower() == "true"
     else:
-        raise DeserializationError("ForwardedValues.query_string required")
+        out["query_string"] = False
     child_cookies = el.find("Cookies")
     if child_cookies is not None:
         import capo_cloudfront.types.cookie_preference

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.resource_identifier
     import capo_iotfleetwise.types.state_template_update_strategy
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_0(data: dict) -> StateTemplateAssociation:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("StateTemplateAssociation.identifier required")
+        out["identifier"] = ""
     if data.get("stateTemplateUpdateStrategy") is not None:
         import capo_iotfleetwise.types.state_template_update_strategy
 
@@ -46,7 +44,9 @@ def deserialize_aws_json_1_0(data: dict) -> StateTemplateAssociation:
             )
         )
     else:
-        raise DeserializationError(
-            "StateTemplateAssociation.state_template_update_strategy required"
+        import capo_iotfleetwise.types._unknown
+
+        out["state_template_update_strategy"] = (
+            capo_iotfleetwise.types._unknown.UnknownUnionMember("")
         )
     return out

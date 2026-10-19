@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.string_parameter_value
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> CommandParameterValueNumberRange:
     if data.get("min") is not None:
         out["min"] = data["min"]
     else:
-        raise DeserializationError("CommandParameterValueNumberRange.min required")
+        out["min"] = ""
     if data.get("max") is not None:
         out["max"] = data["max"]
     else:
-        raise DeserializationError("CommandParameterValueNumberRange.max required")
+        out["max"] = ""
     return out

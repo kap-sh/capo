@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> WhatsAppCallPermission:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("WhatsAppCallPermission.status required")
+        out["status"] = ""
     if data.get("expirationTime") is not None:
         import capo_socialmessaging.types._prelude.timestamp
 

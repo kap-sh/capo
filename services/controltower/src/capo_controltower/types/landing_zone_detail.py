@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_controltower.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_controltower.types.arn
     import capo_controltower.types.landing_zone_drift_status_summary
@@ -77,7 +75,7 @@ def deserialize_json(data: dict) -> LandingZoneDetail:
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("LandingZoneDetail.version required")
+        out["version"] = ""
     if data.get("remediationTypes") is not None:
         import capo_controltower.types.remediation_types
 
@@ -107,5 +105,5 @@ def deserialize_json(data: dict) -> LandingZoneDetail:
     if data.get("manifest") is not None:
         out["manifest"] = data["manifest"]
     else:
-        raise DeserializationError("LandingZoneDetail.manifest required")
+        out["manifest"] = None
     return out

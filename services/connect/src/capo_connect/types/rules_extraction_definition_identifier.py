@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.rules_extraction_definition_id
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> RulesExtractionDefinitionIdentifier:
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError(
-            "RulesExtractionDefinitionIdentifier.identifier required"
-        )
+        out["identifier"] = ""
     return out

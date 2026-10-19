@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.boolean
     import capo_connect.types.data_table_attribute_value_type
@@ -62,7 +60,7 @@ def deserialize_json(data: dict) -> DataTableEvaluatedValue:
     if data.get("RecordId") is not None:
         out["record_id"] = data["RecordId"]
     else:
-        raise DeserializationError("DataTableEvaluatedValue.record_id required")
+        out["record_id"] = ""
     if data.get("PrimaryValues") is not None:
         import capo_connect.types.primary_values_set
 
@@ -70,11 +68,11 @@ def deserialize_json(data: dict) -> DataTableEvaluatedValue:
             data["PrimaryValues"]
         )
     else:
-        raise DeserializationError("DataTableEvaluatedValue.primary_values required")
+        out["primary_values"] = []
     if data.get("AttributeName") is not None:
         out["attribute_name"] = data["AttributeName"]
     else:
-        raise DeserializationError("DataTableEvaluatedValue.attribute_name required")
+        out["attribute_name"] = ""
     if data.get("ValueType") is not None:
         import capo_connect.types.data_table_attribute_value_type
 
@@ -84,7 +82,12 @@ def deserialize_json(data: dict) -> DataTableEvaluatedValue:
             )
         )
     else:
-        raise DeserializationError("DataTableEvaluatedValue.value_type required")
+        import typing
+
+        out["value_type"] = typing.cast(
+            "capo_connect.types.data_table_attribute_value_type.DataTableAttributeValueType",
+            "",
+        )
     if data.get("Found") is not None:
         out["found"] = data["Found"]
     else:
@@ -96,5 +99,5 @@ def deserialize_json(data: dict) -> DataTableEvaluatedValue:
     if data.get("EvaluatedValue") is not None:
         out["evaluated_value"] = data["EvaluatedValue"]
     else:
-        raise DeserializationError("DataTableEvaluatedValue.evaluated_value required")
+        out["evaluated_value"] = ""
     return out

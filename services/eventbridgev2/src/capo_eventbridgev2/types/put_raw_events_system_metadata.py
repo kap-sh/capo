@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eventbridgev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.content_type
     import capo_eventbridgev2.types.event_deduplication_id
@@ -39,7 +37,7 @@ def deserialize_cbor(data: dict) -> PutRawEventsSystemMetadata:
     if data.get("ContentType") is not None:
         out["content_type"] = data["ContentType"]
     else:
-        raise DeserializationError("PutRawEventsSystemMetadata.content_type required")
+        out["content_type"] = ""
     if data.get("DeduplicationId") is not None:
         out["deduplication_id"] = data["DeduplicationId"]
     if data.get("EventGroupId") is not None:

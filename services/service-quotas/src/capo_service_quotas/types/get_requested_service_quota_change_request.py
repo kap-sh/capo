@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_service_quotas.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_service_quotas.types.request_id
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetRequestedServiceQuotaChangeReques
     if data.get("RequestId") is not None:
         out["request_id"] = data["RequestId"]
     else:
-        raise DeserializationError(
-            "GetRequestedServiceQuotaChangeRequest.request_id required"
-        )
+        out["request_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_tnb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_tnb.types.nsd_info_id
     import capo_tnb.types.package_content_type
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> PutSolNetworkPackageContentInput:
 
         out["file"] = capo_tnb.types.sensitive_blob.deserialize_json(data["file"])
     else:
-        raise DeserializationError("PutSolNetworkPackageContentInput.file required")
+        out["file"] = b""
     return out
 
 

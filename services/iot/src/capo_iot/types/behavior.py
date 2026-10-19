@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.behavior_criteria
     import capo_iot.types.behavior_metric
@@ -60,7 +58,7 @@ def deserialize_json(data: dict) -> Behavior:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Behavior.name required")
+        out["name"] = ""
     if data.get("metric") is not None:
         out["metric"] = data["metric"]
     if data.get("metricDimension") is not None:

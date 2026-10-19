@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.account_id
     import capo_quicksight.types.flow_max_results
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> SearchFlowsInput:
             )
         )
     else:
-        raise DeserializationError("SearchFlowsInput.filters required")
+        out["filters"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.is_move
     import capo_codecommit.types.path
@@ -31,7 +29,7 @@ def deserialize_aws_json_1_1(data: dict) -> SourceFileSpecifier:
     if data.get("filePath") is not None:
         out["file_path"] = data["filePath"]
     else:
-        raise DeserializationError("SourceFileSpecifier.file_path required")
+        out["file_path"] = ""
     if data.get("isMove") is not None:
         out["is_move"] = data["isMove"]
     else:

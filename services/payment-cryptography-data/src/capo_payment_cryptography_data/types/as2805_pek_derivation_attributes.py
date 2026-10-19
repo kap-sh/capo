@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.system_trace_audit_number_type
     import capo_payment_cryptography_data.types.transaction_amount_type
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> As2805PekDerivationAttributes:
     if data.get("SystemTraceAuditNumber") is not None:
         out["system_trace_audit_number"] = data["SystemTraceAuditNumber"]
     else:
-        raise DeserializationError(
-            "As2805PekDerivationAttributes.system_trace_audit_number required"
-        )
+        out["system_trace_audit_number"] = ""
     if data.get("TransactionAmount") is not None:
         out["transaction_amount"] = data["TransactionAmount"]
     else:
-        raise DeserializationError(
-            "As2805PekDerivationAttributes.transaction_amount required"
-        )
+        out["transaction_amount"] = ""
     return out

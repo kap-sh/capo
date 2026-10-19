@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_s3vectors.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3vectors.types.get_vectors_output_list
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> GetVectorsOutput:
             data["vectors"]
         )
     else:
-        raise DeserializationError("GetVectorsOutput.vectors required")
+        out["vectors"] = []
     return out

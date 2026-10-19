@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_elastic_beanstalk._protocol.xml import Element
-from capo_elastic_beanstalk.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_elastic_beanstalk.types.application_name
@@ -46,16 +45,12 @@ def deserialize_query(el: Element) -> DeleteApplicationVersionMessage:
     if child_application_name is not None:
         out["application_name"] = str(child_application_name.text or "")
     else:
-        raise DeserializationError(
-            "DeleteApplicationVersionMessage.application_name required"
-        )
+        out["application_name"] = ""
     child_version_label = el.find("VersionLabel")
     if child_version_label is not None:
         out["version_label"] = str(child_version_label.text or "")
     else:
-        raise DeserializationError(
-            "DeleteApplicationVersionMessage.version_label required"
-        )
+        out["version_label"] = ""
     child_delete_source_bundle = el.find("DeleteSourceBundle")
     if child_delete_source_bundle is not None:
         out["delete_source_bundle"] = (

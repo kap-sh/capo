@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.include_generated_answer
@@ -63,7 +61,7 @@ def deserialize_json(data: dict) -> PredictQAResultsRequest:
     if data.get("QueryText") is not None:
         out["query_text"] = data["QueryText"]
     else:
-        raise DeserializationError("PredictQAResultsRequest.query_text required")
+        out["query_text"] = ""
     if data.get("IncludeQuickSightQIndex") is not None:
         import capo_quicksight.types.include_quick_sight_q_index
 

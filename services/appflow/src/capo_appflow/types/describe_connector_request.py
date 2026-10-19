@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.connector_label
     import capo_appflow.types.connector_type
@@ -40,7 +38,11 @@ def deserialize_json(data: dict) -> DescribeConnectorRequest:
             data["connectorType"]
         )
     else:
-        raise DeserializationError("DescribeConnectorRequest.connector_type required")
+        import typing
+
+        out["connector_type"] = typing.cast(
+            "capo_appflow.types.connector_type.ConnectorType", ""
+        )
     if data.get("connectorLabel") is not None:
         out["connector_label"] = data["connectorLabel"]
     return out

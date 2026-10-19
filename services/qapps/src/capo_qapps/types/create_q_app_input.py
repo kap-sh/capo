@@ -50,7 +50,7 @@ def deserialize_json(data: dict) -> CreateQAppInput:
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("CreateQAppInput.title required")
+        out["title"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("appDefinition") is not None:

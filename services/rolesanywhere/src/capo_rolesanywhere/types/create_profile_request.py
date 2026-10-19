@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rolesanywhere.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rolesanywhere.types.managed_policy_list
     import capo_rolesanywhere.types.resource_name
@@ -75,7 +73,7 @@ def deserialize_json(data: dict) -> CreateProfileRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateProfileRequest.name required")
+        out["name"] = ""
     if data.get("requireInstanceProperties") is not None:
         out["require_instance_properties"] = data["requireInstanceProperties"]
     if data.get("sessionPolicy") is not None:
@@ -87,7 +85,7 @@ def deserialize_json(data: dict) -> CreateProfileRequest:
             data["roleArns"]
         )
     else:
-        raise DeserializationError("CreateProfileRequest.role_arns required")
+        out["role_arns"] = []
     if data.get("managedPolicyArns") is not None:
         import capo_rolesanywhere.types.managed_policy_list
 

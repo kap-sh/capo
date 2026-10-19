@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_write.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_write.types.dimension_value_type
     import capo_timestream_write.types.schema_name
@@ -44,11 +42,11 @@ def deserialize_aws_json_1_0(data: dict) -> Dimension:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Dimension.name required")
+        out["name"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("Dimension.value required")
+        out["value"] = ""
     if data.get("DimensionValueType") is not None:
         import capo_timestream_write.types.dimension_value_type
 

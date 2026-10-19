@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.date_time
     import capo_partnercentral_selling.types.engagement_prospecting_result_list
@@ -67,21 +65,15 @@ def deserialize_aws_json_1_0(data: dict) -> GetProspectingFromEngagementTaskResp
     if data.get("TaskId") is not None:
         out["task_id"] = data["TaskId"]
     else:
-        raise DeserializationError(
-            "GetProspectingFromEngagementTaskResponse.task_id required"
-        )
+        out["task_id"] = ""
     if data.get("TaskArn") is not None:
         out["task_arn"] = data["TaskArn"]
     else:
-        raise DeserializationError(
-            "GetProspectingFromEngagementTaskResponse.task_arn required"
-        )
+        out["task_arn"] = ""
     if data.get("TaskName") is not None:
         out["task_name"] = data["TaskName"]
     else:
-        raise DeserializationError(
-            "GetProspectingFromEngagementTaskResponse.task_name required"
-        )
+        out["task_name"] = ""
     if data.get("StartTime") is not None:
         import capo_partnercentral_selling.types.date_time
 
@@ -91,9 +83,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetProspectingFromEngagementTaskResp
             )
         )
     else:
-        raise DeserializationError(
-            "GetProspectingFromEngagementTaskResponse.start_time required"
-        )
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_partnercentral_selling.types.date_time
 
@@ -111,7 +103,5 @@ def deserialize_aws_json_1_0(data: dict) -> GetProspectingFromEngagementTaskResp
             )
         )
     else:
-        raise DeserializationError(
-            "GetProspectingFromEngagementTaskResponse.engagements required"
-        )
+        out["engagements"] = []
     return out

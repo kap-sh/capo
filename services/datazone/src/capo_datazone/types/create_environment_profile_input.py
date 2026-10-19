@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.aws_account_id
     import capo_datazone.types.aws_region
@@ -68,21 +66,17 @@ def deserialize_json(data: dict) -> CreateEnvironmentProfileInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateEnvironmentProfileInput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("environmentBlueprintIdentifier") is not None:
         out["environment_blueprint_identifier"] = data["environmentBlueprintIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateEnvironmentProfileInput.environment_blueprint_identifier required"
-        )
+        out["environment_blueprint_identifier"] = ""
     if data.get("projectIdentifier") is not None:
         out["project_identifier"] = data["projectIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateEnvironmentProfileInput.project_identifier required"
-        )
+        out["project_identifier"] = ""
     if data.get("userParameters") is not None:
         import capo_datazone.types.environment_parameters_list
 

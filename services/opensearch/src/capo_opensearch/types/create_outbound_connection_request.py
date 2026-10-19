@@ -96,9 +96,7 @@ def deserialize_json(data: dict) -> CreateOutboundConnectionRequest:
     if data.get("ConnectionAlias") is not None:
         out["connection_alias"] = data["ConnectionAlias"]
     else:
-        raise DeserializationError(
-            "CreateOutboundConnectionRequest.connection_alias required"
-        )
+        out["connection_alias"] = ""
     if data.get("ConnectionMode") is not None:
         import capo_opensearch.types.connection_mode
 

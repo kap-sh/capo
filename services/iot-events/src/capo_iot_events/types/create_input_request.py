@@ -49,7 +49,7 @@ def deserialize_json(data: dict) -> CreateInputRequest:
     if data.get("inputName") is not None:
         out["input_name"] = data["inputName"]
     else:
-        raise DeserializationError("CreateInputRequest.input_name required")
+        out["input_name"] = ""
     if data.get("inputDescription") is not None:
         out["input_description"] = data["inputDescription"]
     if data.get("inputDefinition") is not None:

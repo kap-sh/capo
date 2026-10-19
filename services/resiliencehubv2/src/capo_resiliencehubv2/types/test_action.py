@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 
 class TestAction(TypedDict, closed=True):
     action_id: "str"
@@ -29,11 +27,11 @@ def deserialize_json(data: dict) -> TestAction:
     if data.get("actionId") is not None:
         out["action_id"] = data["actionId"]
     else:
-        raise DeserializationError("TestAction.action_id required")
+        out["action_id"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError("TestAction.resource_type required")
+        out["resource_type"] = ""
     return out

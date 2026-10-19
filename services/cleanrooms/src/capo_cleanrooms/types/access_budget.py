@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.access_budget_details_list
     import capo_cleanrooms.types.budgeted_resource_arn
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> AccessBudget:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("AccessBudget.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("details") is not None:
         import capo_cleanrooms.types.access_budget_details_list
 
@@ -49,9 +47,9 @@ def deserialize_json(data: dict) -> AccessBudget:
             )
         )
     else:
-        raise DeserializationError("AccessBudget.details required")
+        out["details"] = []
     if data.get("aggregateRemainingBudget") is not None:
         out["aggregate_remaining_budget"] = data["aggregateRemainingBudget"]
     else:
-        raise DeserializationError("AccessBudget.aggregate_remaining_budget required")
+        out["aggregate_remaining_budget"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -58,8 +56,10 @@ def deserialize_json(data: dict) -> ConfiguredModelAlgorithmSummary:
             data["createTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "ConfiguredModelAlgorithmSummary.create_time required"
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("updateTime") is not None:
         import datetime
@@ -68,19 +68,19 @@ def deserialize_json(data: dict) -> ConfiguredModelAlgorithmSummary:
             data["updateTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "ConfiguredModelAlgorithmSummary.update_time required"
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("configuredModelAlgorithmArn") is not None:
         out["configured_model_algorithm_arn"] = data["configuredModelAlgorithmArn"]
     else:
-        raise DeserializationError(
-            "ConfiguredModelAlgorithmSummary.configured_model_algorithm_arn required"
-        )
+        out["configured_model_algorithm_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ConfiguredModelAlgorithmSummary.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

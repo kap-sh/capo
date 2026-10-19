@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.idempotency_token
     import capo_bedrock.types.inference_profile_description
@@ -62,9 +60,7 @@ def deserialize_json(data: dict) -> CreateInferenceProfileRequest:
     if data.get("inferenceProfileName") is not None:
         out["inference_profile_name"] = data["inferenceProfileName"]
     else:
-        raise DeserializationError(
-            "CreateInferenceProfileRequest.inference_profile_name required"
-        )
+        out["inference_profile_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("clientRequestToken") is not None:
@@ -78,9 +74,9 @@ def deserialize_json(data: dict) -> CreateInferenceProfileRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateInferenceProfileRequest.model_source required"
-        )
+        import capo_bedrock.types._unknown
+
+        out["model_source"] = capo_bedrock.types._unknown.UnknownUnionMember("")
     if data.get("tags") is not None:
         import capo_bedrock.types.tag_list
 

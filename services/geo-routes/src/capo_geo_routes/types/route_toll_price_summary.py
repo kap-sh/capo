@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.currency_code
     import capo_geo_routes.types.route_toll_price_value_range
@@ -59,15 +57,15 @@ def deserialize_json(data: dict) -> RouteTollPriceSummary:
     if data.get("Currency") is not None:
         out["currency"] = data["Currency"]
     else:
-        raise DeserializationError("RouteTollPriceSummary.currency required")
+        out["currency"] = ""
     if data.get("Estimate") is not None:
         out["estimate"] = data["Estimate"]
     else:
-        raise DeserializationError("RouteTollPriceSummary.estimate required")
+        out["estimate"] = False
     if data.get("Range") is not None:
         out["range"] = data["Range"]
     else:
-        raise DeserializationError("RouteTollPriceSummary.range required")
+        out["range"] = False
     if data.get("RangeValue") is not None:
         import capo_geo_routes.types.route_toll_price_value_range
 
@@ -79,7 +77,7 @@ def deserialize_json(data: dict) -> RouteTollPriceSummary:
     if data.get("Value") is not None:
         out["value"] = float(data["Value"])
     else:
-        raise DeserializationError("RouteTollPriceSummary.value required")
+        out["value"] = 0.0
     return out
 
 

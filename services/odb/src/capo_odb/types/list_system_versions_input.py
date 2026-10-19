@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 
 class ListSystemVersionsInput(TypedDict, closed=True):
     max_results: NotRequired["int"]
@@ -37,9 +35,9 @@ def deserialize_aws_json_1_0(data: dict) -> ListSystemVersionsInput:
     if data.get("giVersion") is not None:
         out["gi_version"] = data["giVersion"]
     else:
-        raise DeserializationError("ListSystemVersionsInput.gi_version required")
+        out["gi_version"] = ""
     if data.get("shape") is not None:
         out["shape"] = data["shape"]
     else:
-        raise DeserializationError("ListSystemVersionsInput.shape required")
+        out["shape"] = ""
     return out

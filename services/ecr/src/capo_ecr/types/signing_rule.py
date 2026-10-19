@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr.types.signing_profile_arn
     import capo_ecr.types.signing_repository_filter_list
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> SigningRule:
     if data.get("signingProfileArn") is not None:
         out["signing_profile_arn"] = data["signingProfileArn"]
     else:
-        raise DeserializationError("SigningRule.signing_profile_arn required")
+        out["signing_profile_arn"] = ""
     if data.get("repositoryFilters") is not None:
         import capo_ecr.types.signing_repository_filter_list
 

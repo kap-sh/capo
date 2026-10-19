@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.next_token
     import capo_quicksight.types.public_space_arn
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> SearchSpacesResponse:
     if data.get("spaceId") is not None:
         out["space_id"] = data["spaceId"]
     else:
-        raise DeserializationError("SearchSpacesResponse.space_id required")
+        out["space_id"] = ""
     if data.get("spaceArn") is not None:
         out["space_arn"] = data["spaceArn"]
     if data.get("SpaceSummaries") is not None:
@@ -59,7 +57,7 @@ def deserialize_json(data: dict) -> SearchSpacesResponse:
             data["SpaceSummaries"]
         )
     else:
-        raise DeserializationError("SearchSpacesResponse.space_summaries required")
+        out["space_summaries"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("RequestId") is not None:

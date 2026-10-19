@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.client_token
     import capo_bedrock_agentcore_control.types.harness_endpoint_description
@@ -62,9 +60,7 @@ def deserialize_json(data: dict) -> CreateHarnessEndpointRequest:
     if data.get("endpointName") is not None:
         out["endpoint_name"] = data["endpointName"]
     else:
-        raise DeserializationError(
-            "CreateHarnessEndpointRequest.endpoint_name required"
-        )
+        out["endpoint_name"] = ""
     if data.get("targetVersion") is not None:
         out["target_version"] = data["targetVersion"]
     if data.get("description") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.ecr_pull_date_rescan_duration
     import capo_inspector2.types.ecr_pull_date_rescan_mode
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> EcrConfiguration:
     if data.get("rescanDuration") is not None:
         out["rescan_duration"] = data["rescanDuration"]
     else:
-        raise DeserializationError("EcrConfiguration.rescan_duration required")
+        out["rescan_duration"] = ""
     if data.get("pullDateRescanDuration") is not None:
         out["pull_date_rescan_duration"] = data["pullDateRescanDuration"]
     if data.get("pullDateRescanMode") is not None:

@@ -90,7 +90,7 @@ def deserialize_json(data: dict) -> ListAggregatedUtterancesRequest:
     if data.get("localeId") is not None:
         out["locale_id"] = data["localeId"]
     else:
-        raise DeserializationError("ListAggregatedUtterancesRequest.locale_id required")
+        out["locale_id"] = ""
     if data.get("aggregationDuration") is not None:
         import capo_lex_models_v2.types.utterance_aggregation_duration
 

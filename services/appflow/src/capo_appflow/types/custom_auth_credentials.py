@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.credentials_map
     import capo_appflow.types.custom_authentication_type
@@ -38,9 +36,7 @@ def deserialize_json(data: dict) -> CustomAuthCredentials:
     if data.get("customAuthenticationType") is not None:
         out["custom_authentication_type"] = data["customAuthenticationType"]
     else:
-        raise DeserializationError(
-            "CustomAuthCredentials.custom_authentication_type required"
-        )
+        out["custom_authentication_type"] = ""
     if data.get("credentialsMap") is not None:
         import capo_appflow.types.credentials_map
 

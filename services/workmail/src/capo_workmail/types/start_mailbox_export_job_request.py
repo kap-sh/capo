@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.description
     import capo_workmail.types.entity_identifier
@@ -56,35 +54,31 @@ def deserialize_aws_json_1_1(data: dict) -> StartMailboxExportJobRequest:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("StartMailboxExportJobRequest.client_token required")
+        out["client_token"] = ""
     if data.get("OrganizationId") is not None:
         out["organization_id"] = data["OrganizationId"]
     else:
-        raise DeserializationError(
-            "StartMailboxExportJobRequest.organization_id required"
-        )
+        out["organization_id"] = ""
     if data.get("EntityId") is not None:
         out["entity_id"] = data["EntityId"]
     else:
-        raise DeserializationError("StartMailboxExportJobRequest.entity_id required")
+        out["entity_id"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("StartMailboxExportJobRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("KmsKeyArn") is not None:
         out["kms_key_arn"] = data["KmsKeyArn"]
     else:
-        raise DeserializationError("StartMailboxExportJobRequest.kms_key_arn required")
+        out["kms_key_arn"] = ""
     if data.get("S3BucketName") is not None:
         out["s3_bucket_name"] = data["S3BucketName"]
     else:
-        raise DeserializationError(
-            "StartMailboxExportJobRequest.s3_bucket_name required"
-        )
+        out["s3_bucket_name"] = ""
     if data.get("S3Prefix") is not None:
         out["s3_prefix"] = data["S3Prefix"]
     else:
-        raise DeserializationError("StartMailboxExportJobRequest.s3_prefix required")
+        out["s3_prefix"] = ""
     return out

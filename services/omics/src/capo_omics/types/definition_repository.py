@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.connection_arn
     import capo_omics.types.exclude_file_pattern_list
@@ -53,11 +51,11 @@ def deserialize_json(data: dict) -> DefinitionRepository:
     if data.get("connectionArn") is not None:
         out["connection_arn"] = data["connectionArn"]
     else:
-        raise DeserializationError("DefinitionRepository.connection_arn required")
+        out["connection_arn"] = ""
     if data.get("fullRepositoryId") is not None:
         out["full_repository_id"] = data["fullRepositoryId"]
     else:
-        raise DeserializationError("DefinitionRepository.full_repository_id required")
+        out["full_repository_id"] = ""
     if data.get("sourceReference") is not None:
         import capo_omics.types.source_reference
 

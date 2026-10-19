@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_codeguruprofiler.errors import DeserializationError
-
 
 class AgentOrchestrationConfig(TypedDict, closed=True):
     profiling_enabled: "bool"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> AgentOrchestrationConfig:
     if data.get("profilingEnabled") is not None:
         out["profiling_enabled"] = data["profilingEnabled"]
     else:
-        raise DeserializationError(
-            "AgentOrchestrationConfig.profiling_enabled required"
-        )
+        out["profiling_enabled"] = False
     return out

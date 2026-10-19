@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.day_of_week
     import capo_geo_routes.types.time_of_day
@@ -39,15 +37,15 @@ def deserialize_json(data: dict) -> WaypointOptimizationAccessHoursEntry:
             data["DayOfWeek"]
         )
     else:
-        raise DeserializationError(
-            "WaypointOptimizationAccessHoursEntry.day_of_week required"
+        import typing
+
+        out["day_of_week"] = typing.cast(
+            "capo_geo_routes.types.day_of_week.DayOfWeek", ""
         )
     if data.get("TimeOfDay") is not None:
         out["time_of_day"] = data["TimeOfDay"]
     else:
-        raise DeserializationError(
-            "WaypointOptimizationAccessHoursEntry.time_of_day required"
-        )
+        out["time_of_day"] = ""
     return out
 
 

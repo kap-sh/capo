@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.display_name
     import capo_devops_agent.types.network_access_configuration
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> ReleaseManagementConfiguration:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ReleaseManagementConfiguration.name required")
+        out["name"] = ""
     if data.get("networkAccess") is not None:
         import capo_devops_agent.types.network_access_configuration
 
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> ReleaseManagementConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ReleaseManagementConfiguration.network_access required"
-        )
+        import capo_devops_agent.types._unknown
+
+        out["network_access"] = capo_devops_agent.types._unknown.UnknownUnionMember("")
     return out

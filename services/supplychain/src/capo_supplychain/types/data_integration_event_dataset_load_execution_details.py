@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.data_integration_event_dataset_load_status
 
@@ -43,8 +41,11 @@ def deserialize_json(data: dict) -> DataIntegrationEventDatasetLoadExecutionDeta
             )
         )
     else:
-        raise DeserializationError(
-            "DataIntegrationEventDatasetLoadExecutionDetails.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_supplychain.types.data_integration_event_dataset_load_status.DataIntegrationEventDatasetLoadStatus",
+            "",
         )
     if data.get("message") is not None:
         out["message"] = data["message"]

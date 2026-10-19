@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.field_position
 
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> SectionalElement:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("SectionalElement.type required")
+        out["type"] = ""
     if data.get("position") is not None:
         import capo_amplifyuibuilder.types.field_position
 

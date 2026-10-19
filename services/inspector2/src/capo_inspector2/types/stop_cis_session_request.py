@@ -38,11 +38,11 @@ def deserialize_json(data: dict) -> StopCisSessionRequest:
     if data.get("scanJobId") is not None:
         out["scan_job_id"] = data["scanJobId"]
     else:
-        raise DeserializationError("StopCisSessionRequest.scan_job_id required")
+        out["scan_job_id"] = ""
     if data.get("sessionToken") is not None:
         out["session_token"] = data["sessionToken"]
     else:
-        raise DeserializationError("StopCisSessionRequest.session_token required")
+        out["session_token"] = ""
     if data.get("message") is not None:
         import capo_inspector2.types.stop_cis_session_message
 

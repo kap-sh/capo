@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.kms_key
     import capo_sagemaker_geospatial.types.s3_uri
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> ExportS3DataInput:
     if data.get("S3Uri") is not None:
         out["s3_uri"] = data["S3Uri"]
     else:
-        raise DeserializationError("ExportS3DataInput.s3_uri required")
+        out["s3_uri"] = ""
     if data.get("KmsKeyId") is not None:
         out["kms_key_id"] = data["KmsKeyId"]
     return out

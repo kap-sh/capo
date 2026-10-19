@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.boolean
     import capo_panorama.types.node_package_arn
@@ -79,27 +77,21 @@ def deserialize_json(data: dict) -> DescribePackageVersionResponse:
     if data.get("PackageId") is not None:
         out["package_id"] = data["PackageId"]
     else:
-        raise DeserializationError("DescribePackageVersionResponse.package_id required")
+        out["package_id"] = ""
     if data.get("PackageArn") is not None:
         out["package_arn"] = data["PackageArn"]
     if data.get("PackageName") is not None:
         out["package_name"] = data["PackageName"]
     else:
-        raise DeserializationError(
-            "DescribePackageVersionResponse.package_name required"
-        )
+        out["package_name"] = ""
     if data.get("PackageVersion") is not None:
         out["package_version"] = data["PackageVersion"]
     else:
-        raise DeserializationError(
-            "DescribePackageVersionResponse.package_version required"
-        )
+        out["package_version"] = ""
     if data.get("PatchVersion") is not None:
         out["patch_version"] = data["PatchVersion"]
     else:
-        raise DeserializationError(
-            "DescribePackageVersionResponse.patch_version required"
-        )
+        out["patch_version"] = ""
     if data.get("IsLatestPatch") is not None:
         out["is_latest_patch"] = data["IsLatestPatch"]
     else:
@@ -107,7 +99,7 @@ def deserialize_json(data: dict) -> DescribePackageVersionResponse:
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("DescribePackageVersionResponse.status required")
+        out["status"] = ""
     if data.get("StatusDescription") is not None:
         out["status_description"] = data["StatusDescription"]
     if data.get("RegisteredTime") is not None:

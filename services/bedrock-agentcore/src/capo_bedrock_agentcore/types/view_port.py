@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.view_port_height
     import capo_bedrock_agentcore.types.view_port_width
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> ViewPort:
     if data.get("width") is not None:
         out["width"] = data["width"]
     else:
-        raise DeserializationError("ViewPort.width required")
+        out["width"] = 0
     if data.get("height") is not None:
         out["height"] = data["height"]
     else:
-        raise DeserializationError("ViewPort.height required")
+        out["height"] = 0
     return out

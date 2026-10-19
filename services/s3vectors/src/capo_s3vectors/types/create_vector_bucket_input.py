@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3vectors.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3vectors.types.encryption_configuration
     import capo_s3vectors.types.tags_map
@@ -47,9 +45,7 @@ def deserialize_json(data: dict) -> CreateVectorBucketInput:
     if data.get("vectorBucketName") is not None:
         out["vector_bucket_name"] = data["vectorBucketName"]
     else:
-        raise DeserializationError(
-            "CreateVectorBucketInput.vector_bucket_name required"
-        )
+        out["vector_bucket_name"] = ""
     if data.get("encryptionConfiguration") is not None:
         import capo_s3vectors.types.encryption_configuration
 

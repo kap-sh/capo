@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_forecast.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_forecast.types.name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> MonitorConfig:
     if data.get("MonitorName") is not None:
         out["monitor_name"] = data["MonitorName"]
     else:
-        raise DeserializationError("MonitorConfig.monitor_name required")
+        out["monitor_name"] = ""
     return out

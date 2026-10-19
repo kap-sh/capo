@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.enclosed_in_string_property
     import capo_glue.types.glue_schemas
@@ -74,11 +72,11 @@ def deserialize_aws_json_1_1(data: dict) -> DynamicTransform:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DynamicTransform.name required")
+        out["name"] = ""
     if data.get("TransformName") is not None:
         out["transform_name"] = data["TransformName"]
     else:
-        raise DeserializationError("DynamicTransform.transform_name required")
+        out["transform_name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.one_input
 
@@ -86,7 +84,7 @@ def deserialize_aws_json_1_1(data: dict) -> DynamicTransform:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("DynamicTransform.inputs required")
+        out["inputs"] = []
     if data.get("Parameters") is not None:
         import capo_glue.types.transform_config_parameter_list
 
@@ -98,11 +96,11 @@ def deserialize_aws_json_1_1(data: dict) -> DynamicTransform:
     if data.get("FunctionName") is not None:
         out["function_name"] = data["FunctionName"]
     else:
-        raise DeserializationError("DynamicTransform.function_name required")
+        out["function_name"] = ""
     if data.get("Path") is not None:
         out["path"] = data["Path"]
     else:
-        raise DeserializationError("DynamicTransform.path required")
+        out["path"] = ""
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     if data.get("OutputSchemas") is not None:

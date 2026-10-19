@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_write.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_write.types.boolean
     import capo_timestream_write.types.magnetic_store_rejected_data_location
@@ -40,9 +38,7 @@ def deserialize_aws_json_1_0(data: dict) -> MagneticStoreWriteProperties:
     if data.get("EnableMagneticStoreWrites") is not None:
         out["enable_magnetic_store_writes"] = data["EnableMagneticStoreWrites"]
     else:
-        raise DeserializationError(
-            "MagneticStoreWriteProperties.enable_magnetic_store_writes required"
-        )
+        out["enable_magnetic_store_writes"] = False
     if data.get("MagneticStoreRejectedDataLocation") is not None:
         import capo_timestream_write.types.magnetic_store_rejected_data_location
 

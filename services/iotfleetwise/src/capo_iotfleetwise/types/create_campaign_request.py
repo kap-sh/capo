@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.arn
     import capo_iotfleetwise.types.campaign_name
@@ -185,17 +183,17 @@ def deserialize_aws_json_1_0(data: dict) -> CreateCampaignRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateCampaignRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("signalCatalogArn") is not None:
         out["signal_catalog_arn"] = data["signalCatalogArn"]
     else:
-        raise DeserializationError("CreateCampaignRequest.signal_catalog_arn required")
+        out["signal_catalog_arn"] = ""
     if data.get("targetArn") is not None:
         out["target_arn"] = data["targetArn"]
     else:
-        raise DeserializationError("CreateCampaignRequest.target_arn required")
+        out["target_arn"] = ""
     if data.get("startTime") is not None:
         import capo_iotfleetwise.types.timestamp
 
@@ -253,7 +251,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateCampaignRequest:
             )
         )
     else:
-        raise DeserializationError("CreateCampaignRequest.collection_scheme required")
+        import capo_iotfleetwise.types._unknown
+
+        out["collection_scheme"] = capo_iotfleetwise.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("dataExtraDimensions") is not None:
         import capo_iotfleetwise.types.data_extra_dimension_node_path_list
 

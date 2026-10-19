@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.index_id
     import capo_kendra.types.max_results_integer_for_list_access_control_configurations_request
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListAccessControlConfigurationsReque
     if data.get("IndexId") is not None:
         out["index_id"] = data["IndexId"]
     else:
-        raise DeserializationError(
-            "ListAccessControlConfigurationsRequest.index_id required"
-        )
+        out["index_id"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

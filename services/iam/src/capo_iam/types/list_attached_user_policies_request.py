@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.marker_type
@@ -45,7 +44,7 @@ def deserialize_query(el: Element) -> ListAttachedUserPoliciesRequest:
     if child_user_name is not None:
         out["user_name"] = str(child_user_name.text or "")
     else:
-        raise DeserializationError("ListAttachedUserPoliciesRequest.user_name required")
+        out["user_name"] = ""
     child_path_prefix = el.find("PathPrefix")
     if child_path_prefix is not None:
         out["path_prefix"] = str(child_path_prefix.text or "")

@@ -48,9 +48,7 @@ def deserialize_json(data: dict) -> HeaderFooterSectionConfiguration:
     if data.get("SectionId") is not None:
         out["section_id"] = data["SectionId"]
     else:
-        raise DeserializationError(
-            "HeaderFooterSectionConfiguration.section_id required"
-        )
+        out["section_id"] = ""
     if data.get("Layout") is not None:
         import capo_quicksight.types.section_layout_configuration
 

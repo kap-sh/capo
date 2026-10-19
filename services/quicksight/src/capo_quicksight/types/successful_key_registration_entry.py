@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.status_code
     import capo_quicksight.types.string
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> SuccessfulKeyRegistrationEntry:
     if data.get("KeyArn") is not None:
         out["key_arn"] = data["KeyArn"]
     else:
-        raise DeserializationError("SuccessfulKeyRegistrationEntry.key_arn required")
+        out["key_arn"] = ""
     if data.get("StatusCode") is not None:
         out["status_code"] = data["StatusCode"]
     else:

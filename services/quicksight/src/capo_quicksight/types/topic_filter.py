@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.description_sensitive_string
     import capo_quicksight.types.filter_class
@@ -146,7 +144,7 @@ def deserialize_json(data: dict) -> TopicFilter:
     if data.get("FilterName") is not None:
         out["filter_name"] = data["FilterName"]
     else:
-        raise DeserializationError("TopicFilter.filter_name required")
+        out["filter_name"] = ""
     if data.get("FilterSynonyms") is not None:
         import capo_quicksight.types.synonyms
 
@@ -156,7 +154,7 @@ def deserialize_json(data: dict) -> TopicFilter:
     if data.get("OperandFieldName") is not None:
         out["operand_field_name"] = data["OperandFieldName"]
     else:
-        raise DeserializationError("TopicFilter.operand_field_name required")
+        out["operand_field_name"] = ""
     if data.get("FilterType") is not None:
         import capo_quicksight.types.named_filter_type
 

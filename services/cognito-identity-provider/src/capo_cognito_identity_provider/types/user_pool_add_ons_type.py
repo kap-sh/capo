@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.advanced_security_additional_flows_type
     import capo_cognito_identity_provider.types.advanced_security_mode_type
@@ -52,7 +50,12 @@ def deserialize_aws_json_1_1(data: dict) -> UserPoolAddOnsType:
             )
         )
     else:
-        raise DeserializationError("UserPoolAddOnsType.advanced_security_mode required")
+        import typing
+
+        out["advanced_security_mode"] = typing.cast(
+            "capo_cognito_identity_provider.types.advanced_security_mode_type.AdvancedSecurityModeType",
+            "",
+        )
     if data.get("AdvancedSecurityAdditionalFlows") is not None:
         import capo_cognito_identity_provider.types.advanced_security_additional_flows_type
 

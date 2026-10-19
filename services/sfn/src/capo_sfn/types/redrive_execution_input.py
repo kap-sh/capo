@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.arn
     import capo_sfn.types.client_token
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_0(data: dict) -> RedriveExecutionInput:
     if data.get("executionArn") is not None:
         out["execution_arn"] = data["executionArn"]
     else:
-        raise DeserializationError("RedriveExecutionInput.execution_arn required")
+        out["execution_arn"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

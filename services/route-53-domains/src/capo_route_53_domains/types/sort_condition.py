@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route_53_domains.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route_53_domains.types.list_domains_attribute_name
     import capo_route_53_domains.types.sort_order
@@ -47,7 +45,12 @@ def deserialize_aws_json_1_1(data: dict) -> SortCondition:
             )
         )
     else:
-        raise DeserializationError("SortCondition.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_route_53_domains.types.list_domains_attribute_name.ListDomainsAttributeName",
+            "",
+        )
     if data.get("SortOrder") is not None:
         import capo_route_53_domains.types.sort_order
 
@@ -57,5 +60,9 @@ def deserialize_aws_json_1_1(data: dict) -> SortCondition:
             )
         )
     else:
-        raise DeserializationError("SortCondition.sort_order required")
+        import typing
+
+        out["sort_order"] = typing.cast(
+            "capo_route_53_domains.types.sort_order.SortOrder", ""
+        )
     return out

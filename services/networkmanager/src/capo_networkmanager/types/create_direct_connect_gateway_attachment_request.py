@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmanager.types.client_token
     import capo_networkmanager.types.constrained_string
@@ -64,15 +62,11 @@ def deserialize_json(data: dict) -> CreateDirectConnectGatewayAttachmentRequest:
     if data.get("CoreNetworkId") is not None:
         out["core_network_id"] = data["CoreNetworkId"]
     else:
-        raise DeserializationError(
-            "CreateDirectConnectGatewayAttachmentRequest.core_network_id required"
-        )
+        out["core_network_id"] = ""
     if data.get("DirectConnectGatewayArn") is not None:
         out["direct_connect_gateway_arn"] = data["DirectConnectGatewayArn"]
     else:
-        raise DeserializationError(
-            "CreateDirectConnectGatewayAttachmentRequest.direct_connect_gateway_arn required"
-        )
+        out["direct_connect_gateway_arn"] = ""
     if data.get("RoutingPolicyLabel") is not None:
         out["routing_policy_label"] = data["RoutingPolicyLabel"]
     if data.get("EdgeLocations") is not None:
@@ -84,9 +78,7 @@ def deserialize_json(data: dict) -> CreateDirectConnectGatewayAttachmentRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDirectConnectGatewayAttachmentRequest.edge_locations required"
-        )
+        out["edge_locations"] = []
     if data.get("Tags") is not None:
         import capo_networkmanager.types.tag_list
 

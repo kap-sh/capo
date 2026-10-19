@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.application_list
     import capo_workspaces.types.ec2_image_id
@@ -67,7 +65,7 @@ def deserialize_aws_json_1_1(data: dict) -> ImportWorkspaceImageRequest:
     if data.get("Ec2ImageId") is not None:
         out["ec2_image_id"] = data["Ec2ImageId"]
     else:
-        raise DeserializationError("ImportWorkspaceImageRequest.ec2_image_id required")
+        out["ec2_image_id"] = ""
     if data.get("IngestionProcess") is not None:
         import capo_workspaces.types.workspace_image_ingestion_process
 
@@ -77,19 +75,20 @@ def deserialize_aws_json_1_1(data: dict) -> ImportWorkspaceImageRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ImportWorkspaceImageRequest.ingestion_process required"
+        import typing
+
+        out["ingestion_process"] = typing.cast(
+            "capo_workspaces.types.workspace_image_ingestion_process.WorkspaceImageIngestionProcess",
+            "",
         )
     if data.get("ImageName") is not None:
         out["image_name"] = data["ImageName"]
     else:
-        raise DeserializationError("ImportWorkspaceImageRequest.image_name required")
+        out["image_name"] = ""
     if data.get("ImageDescription") is not None:
         out["image_description"] = data["ImageDescription"]
     else:
-        raise DeserializationError(
-            "ImportWorkspaceImageRequest.image_description required"
-        )
+        out["image_description"] = ""
     if data.get("Tags") is not None:
         import capo_workspaces.types.tag_list
 

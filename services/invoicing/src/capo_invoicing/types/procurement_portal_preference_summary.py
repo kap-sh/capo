@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_invoicing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -155,17 +153,13 @@ def deserialize_aws_json_1_0(data: dict) -> ProcurementPortalPreferenceSummary:
     if data.get("AwsAccountId") is not None:
         out["aws_account_id"] = data["AwsAccountId"]
     else:
-        raise DeserializationError(
-            "ProcurementPortalPreferenceSummary.aws_account_id required"
-        )
+        out["aws_account_id"] = ""
     if data.get("ProcurementPortalPreferenceArn") is not None:
         out["procurement_portal_preference_arn"] = data[
             "ProcurementPortalPreferenceArn"
         ]
     else:
-        raise DeserializationError(
-            "ProcurementPortalPreferenceSummary.procurement_portal_preference_arn required"
-        )
+        out["procurement_portal_preference_arn"] = ""
     if data.get("ProcurementPortalName") is not None:
         import capo_invoicing.types.procurement_portal_name
 
@@ -175,8 +169,10 @@ def deserialize_aws_json_1_0(data: dict) -> ProcurementPortalPreferenceSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "ProcurementPortalPreferenceSummary.procurement_portal_name required"
+        import typing
+
+        out["procurement_portal_name"] = typing.cast(
+            "capo_invoicing.types.procurement_portal_name.ProcurementPortalName", ""
         )
     if data.get("BuyerDomain") is not None:
         import capo_invoicing.types.buyer_domain
@@ -187,15 +183,15 @@ def deserialize_aws_json_1_0(data: dict) -> ProcurementPortalPreferenceSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "ProcurementPortalPreferenceSummary.buyer_domain required"
+        import typing
+
+        out["buyer_domain"] = typing.cast(
+            "capo_invoicing.types.buyer_domain.BuyerDomain", ""
         )
     if data.get("BuyerIdentifier") is not None:
         out["buyer_identifier"] = data["BuyerIdentifier"]
     else:
-        raise DeserializationError(
-            "ProcurementPortalPreferenceSummary.buyer_identifier required"
-        )
+        out["buyer_identifier"] = ""
     if data.get("SupplierDomain") is not None:
         import capo_invoicing.types.supplier_domain
 
@@ -205,15 +201,15 @@ def deserialize_aws_json_1_0(data: dict) -> ProcurementPortalPreferenceSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "ProcurementPortalPreferenceSummary.supplier_domain required"
+        import typing
+
+        out["supplier_domain"] = typing.cast(
+            "capo_invoicing.types.supplier_domain.SupplierDomain", ""
         )
     if data.get("SupplierIdentifier") is not None:
         out["supplier_identifier"] = data["SupplierIdentifier"]
     else:
-        raise DeserializationError(
-            "ProcurementPortalPreferenceSummary.supplier_identifier required"
-        )
+        out["supplier_identifier"] = ""
     if data.get("Selector") is not None:
         import capo_invoicing.types.procurement_portal_preference_selector
 
@@ -225,15 +221,11 @@ def deserialize_aws_json_1_0(data: dict) -> ProcurementPortalPreferenceSummary:
     if data.get("EinvoiceDeliveryEnabled") is not None:
         out["einvoice_delivery_enabled"] = data["EinvoiceDeliveryEnabled"]
     else:
-        raise DeserializationError(
-            "ProcurementPortalPreferenceSummary.einvoice_delivery_enabled required"
-        )
+        out["einvoice_delivery_enabled"] = False
     if data.get("PurchaseOrderRetrievalEnabled") is not None:
         out["purchase_order_retrieval_enabled"] = data["PurchaseOrderRetrievalEnabled"]
     else:
-        raise DeserializationError(
-            "ProcurementPortalPreferenceSummary.purchase_order_retrieval_enabled required"
-        )
+        out["purchase_order_retrieval_enabled"] = False
     if data.get("MarketplacePunchOutEnabled") is not None:
         out["marketplace_punch_out_enabled"] = data["MarketplacePunchOutEnabled"]
     if data.get("EinvoiceDeliveryPreferenceStatus") is not None:
@@ -263,9 +255,7 @@ def deserialize_aws_json_1_0(data: dict) -> ProcurementPortalPreferenceSummary:
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     else:
-        raise DeserializationError(
-            "ProcurementPortalPreferenceSummary.version required"
-        )
+        out["version"] = 0
     if data.get("CreateDate") is not None:
         import capo_invoicing.types._prelude.timestamp
 
@@ -275,8 +265,10 @@ def deserialize_aws_json_1_0(data: dict) -> ProcurementPortalPreferenceSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "ProcurementPortalPreferenceSummary.create_date required"
+        import datetime
+
+        out["create_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("LastUpdateDate") is not None:
         import capo_invoicing.types._prelude.timestamp
@@ -287,7 +279,9 @@ def deserialize_aws_json_1_0(data: dict) -> ProcurementPortalPreferenceSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "ProcurementPortalPreferenceSummary.last_update_date required"
+        import datetime
+
+        out["last_update_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

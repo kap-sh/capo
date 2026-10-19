@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.inference_scheduler_identifier
     import capo_lookoutequipment.types.max_results
@@ -60,9 +58,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListInferenceEventsRequest:
     if data.get("InferenceSchedulerName") is not None:
         out["inference_scheduler_name"] = data["InferenceSchedulerName"]
     else:
-        raise DeserializationError(
-            "ListInferenceEventsRequest.inference_scheduler_name required"
-        )
+        out["inference_scheduler_name"] = ""
     if data.get("IntervalStartTime") is not None:
         import capo_lookoutequipment.types.timestamp
 
@@ -72,8 +68,10 @@ def deserialize_aws_json_1_0(data: dict) -> ListInferenceEventsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ListInferenceEventsRequest.interval_start_time required"
+        import datetime
+
+        out["interval_start_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("IntervalEndTime") is not None:
         import capo_lookoutequipment.types.timestamp
@@ -84,7 +82,9 @@ def deserialize_aws_json_1_0(data: dict) -> ListInferenceEventsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ListInferenceEventsRequest.interval_end_time required"
+        import datetime
+
+        out["interval_end_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_observabilityadmin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_observabilityadmin.types.resource_arn
     import capo_observabilityadmin.types.tag_map_input
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> CreateDatasetIntegrationInput:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("CreateDatasetIntegrationInput.role_arn required")
+        out["role_arn"] = ""
     if data.get("Tags") is not None:
         import capo_observabilityadmin.types.tag_map_input
 

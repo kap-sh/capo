@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.unprocessed_status_event_list
 
@@ -39,15 +37,11 @@ def deserialize_json(data: dict) -> ReportInstrumentationConfigurationStatusResp
     if data.get("Service") is not None:
         out["service"] = data["Service"]
     else:
-        raise DeserializationError(
-            "ReportInstrumentationConfigurationStatusResponse.service required"
-        )
+        out["service"] = ""
     if data.get("Environment") is not None:
         out["environment"] = data["Environment"]
     else:
-        raise DeserializationError(
-            "ReportInstrumentationConfigurationStatusResponse.environment required"
-        )
+        out["environment"] = ""
     if data.get("UnprocessedStatusEvents") is not None:
         import capo_application_signals.types.unprocessed_status_event_list
 
@@ -57,7 +51,5 @@ def deserialize_json(data: dict) -> ReportInstrumentationConfigurationStatusResp
             )
         )
     else:
-        raise DeserializationError(
-            "ReportInstrumentationConfigurationStatusResponse.unprocessed_status_events required"
-        )
+        out["unprocessed_status_events"] = []
     return out

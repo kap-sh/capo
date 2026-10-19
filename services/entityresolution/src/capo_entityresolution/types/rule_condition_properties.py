@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.matching_config
     import capo_entityresolution.types.rule_condition_list
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> RuleConditionProperties:
             data["rules"]
         )
     else:
-        raise DeserializationError("RuleConditionProperties.rules required")
+        out["rules"] = []
     if data.get("matchingConfig") is not None:
         import capo_entityresolution.types.matching_config
 

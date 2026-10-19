@@ -37,9 +37,7 @@ def deserialize_json(data: dict) -> GetPaymentInstrumentBalanceResponse:
     if data.get("paymentInstrumentId") is not None:
         out["payment_instrument_id"] = data["paymentInstrumentId"]
     else:
-        raise DeserializationError(
-            "GetPaymentInstrumentBalanceResponse.payment_instrument_id required"
-        )
+        out["payment_instrument_id"] = ""
     if data.get("tokenBalance") is not None:
         import capo_bedrock_agentcore.types.token_balance
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eks.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eks.types.control_plane_placement_request
     import capo_eks.types.etcd_placement_request
@@ -67,13 +65,11 @@ def deserialize_json(data: dict) -> OutpostConfigRequest:
             data["outpostArns"]
         )
     else:
-        raise DeserializationError("OutpostConfigRequest.outpost_arns required")
+        out["outpost_arns"] = []
     if data.get("controlPlaneInstanceType") is not None:
         out["control_plane_instance_type"] = data["controlPlaneInstanceType"]
     else:
-        raise DeserializationError(
-            "OutpostConfigRequest.control_plane_instance_type required"
-        )
+        out["control_plane_instance_type"] = ""
     if data.get("controlPlanePlacement") is not None:
         import capo_eks.types.control_plane_placement_request
 

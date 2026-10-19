@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 
 class AmazonQPropertiesPatch(TypedDict, closed=True):
     is_enabled: "bool"
@@ -30,7 +28,7 @@ def deserialize_json(data: dict) -> AmazonQPropertiesPatch:
     if data.get("isEnabled") is not None:
         out["is_enabled"] = data["isEnabled"]
     else:
-        raise DeserializationError("AmazonQPropertiesPatch.is_enabled required")
+        out["is_enabled"] = False
     if data.get("profileArn") is not None:
         out["profile_arn"] = data["profileArn"]
     if data.get("authMode") is not None:

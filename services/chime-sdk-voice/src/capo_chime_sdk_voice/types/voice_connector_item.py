@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.voice_connector_id
     import capo_chime_sdk_voice.types.voice_connector_item_priority
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> VoiceConnectorItem:
     if data.get("VoiceConnectorId") is not None:
         out["voice_connector_id"] = data["VoiceConnectorId"]
     else:
-        raise DeserializationError("VoiceConnectorItem.voice_connector_id required")
+        out["voice_connector_id"] = ""
     if data.get("Priority") is not None:
         out["priority"] = data["Priority"]
     else:

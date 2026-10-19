@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.evaluation_score_percentage
     import capo_connect.types.performance_category_name
@@ -68,8 +66,10 @@ def deserialize_json(data: dict) -> EvaluationFormScoreThreshold:
             )
         )
     else:
-        raise DeserializationError(
-            "EvaluationFormScoreThreshold.performance_category required"
+        import typing
+
+        out["performance_category"] = typing.cast(
+            "capo_connect.types.performance_category_name.PerformanceCategoryName", ""
         )
     if data.get("MinScorePercentage") is not None:
         out["min_score_percentage"] = float(data["MinScorePercentage"])

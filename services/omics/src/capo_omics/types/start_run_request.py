@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.cache_behavior
     import capo_omics.types.configuration_name
@@ -152,7 +150,7 @@ def deserialize_json(data: dict) -> StartRunRequest:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("StartRunRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("cacheId") is not None:
@@ -170,7 +168,7 @@ def deserialize_json(data: dict) -> StartRunRequest:
     if data.get("outputUri") is not None:
         out["output_uri"] = data["outputUri"]
     else:
-        raise DeserializationError("StartRunRequest.output_uri required")
+        out["output_uri"] = ""
     if data.get("logLevel") is not None:
         out["log_level"] = data["logLevel"]
     if data.get("tags") is not None:
@@ -180,7 +178,7 @@ def deserialize_json(data: dict) -> StartRunRequest:
     if data.get("requestId") is not None:
         out["request_id"] = data["requestId"]
     else:
-        raise DeserializationError("StartRunRequest.request_id required")
+        out["request_id"] = ""
     if data.get("retentionMode") is not None:
         out["retention_mode"] = data["retentionMode"]
     if data.get("storageType") is not None:

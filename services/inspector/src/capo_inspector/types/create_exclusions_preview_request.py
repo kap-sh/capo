@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> CreateExclusionsPreviewRequest:
     if data.get("assessmentTemplateArn") is not None:
         out["assessment_template_arn"] = data["assessmentTemplateArn"]
     else:
-        raise DeserializationError(
-            "CreateExclusionsPreviewRequest.assessment_template_arn required"
-        )
+        out["assessment_template_arn"] = ""
     return out

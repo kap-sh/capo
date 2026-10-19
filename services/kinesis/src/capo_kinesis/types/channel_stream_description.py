@@ -47,7 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> ChannelStreamDescription:
     if data.get("StreamARN") is not None:
         out["stream_arn"] = data["StreamARN"]
     else:
-        raise DeserializationError("ChannelStreamDescription.stream_arn required")
+        out["stream_arn"] = ""
     if data.get("StreamCreationTimestamp") is not None:
         import capo_kinesis.types.timestamp
 
@@ -57,8 +57,10 @@ def deserialize_aws_json_1_1(data: dict) -> ChannelStreamDescription:
             )
         )
     else:
-        raise DeserializationError(
-            "ChannelStreamDescription.stream_creation_timestamp required"
+        import datetime
+
+        out["stream_creation_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("RecordConfiguration") is not None:
         import capo_kinesis.types.record_configuration

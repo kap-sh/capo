@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.arn
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> KendraSourceDetail:
     if data.get("knowledgeBaseArn") is not None:
         out["knowledge_base_arn"] = data["knowledgeBaseArn"]
     else:
-        raise DeserializationError("KendraSourceDetail.knowledge_base_arn required")
+        out["knowledge_base_arn"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("KendraSourceDetail.role_arn required")
+        out["role_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amp.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amp.types.alert_manager_definition_data
     import capo_amp.types.idempotency_token
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> CreateAlertManagerDefinitionRequest:
             data["data"]
         )
     else:
-        raise DeserializationError("CreateAlertManagerDefinitionRequest.data required")
+        out["data"] = b""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_gameliftstreams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_gameliftstreams.types.identifier
     import capo_gameliftstreams.types.location_states
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> AddStreamGroupLocationsOutput:
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("AddStreamGroupLocationsOutput.identifier required")
+        out["identifier"] = ""
     if data.get("Locations") is not None:
         import capo_gameliftstreams.types.location_states
 
@@ -43,5 +41,5 @@ def deserialize_json(data: dict) -> AddStreamGroupLocationsOutput:
             data["Locations"]
         )
     else:
-        raise DeserializationError("AddStreamGroupLocationsOutput.locations required")
+        out["locations"] = []
     return out

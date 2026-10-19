@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ram.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ram.types.string
     import capo_ram.types.tag_key_list
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> UntagResourceRequest:
 
         out["tag_keys"] = capo_ram.types.tag_key_list.deserialize_json(data["tagKeys"])
     else:
-        raise DeserializationError("UntagResourceRequest.tag_keys required")
+        out["tag_keys"] = []
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     return out

@@ -52,15 +52,11 @@ def deserialize_json(data: dict) -> CreateWorkspaceServiceAccountTokenResponse:
     if data.get("serviceAccountId") is not None:
         out["service_account_id"] = data["serviceAccountId"]
     else:
-        raise DeserializationError(
-            "CreateWorkspaceServiceAccountTokenResponse.service_account_id required"
-        )
+        out["service_account_id"] = ""
     if data.get("workspaceId") is not None:
         out["workspace_id"] = data["workspaceId"]
     else:
-        raise DeserializationError(
-            "CreateWorkspaceServiceAccountTokenResponse.workspace_id required"
-        )
+        out["workspace_id"] = ""
     return out
 
 

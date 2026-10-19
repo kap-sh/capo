@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iam_toolbox.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iam_toolbox.types.authorization_context
     import capo_iam_toolbox.types.evaluated_effect
@@ -64,11 +62,11 @@ def deserialize_json(data: dict) -> Evaluation:
     if data.get("action") is not None:
         out["action"] = data["action"]
     else:
-        raise DeserializationError("Evaluation.action required")
+        out["action"] = ""
     if data.get("resource") is not None:
         out["resource"] = data["resource"]
     else:
-        raise DeserializationError("Evaluation.resource required")
+        out["resource"] = ""
     if data.get("context") is not None:
         import capo_iam_toolbox.types.authorization_context
 

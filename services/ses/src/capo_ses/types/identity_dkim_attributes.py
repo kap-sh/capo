@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.enabled
@@ -65,8 +64,10 @@ def deserialize_query(el: Element) -> IdentityDkimAttributes:
             )
         )
     else:
-        raise DeserializationError(
-            "IdentityDkimAttributes.dkim_verification_status required"
+        import typing
+
+        out["dkim_verification_status"] = typing.cast(
+            "capo_ses.types.verification_status.VerificationStatus", ""
         )
     child_dkim_tokens = el.find("DkimTokens")
     if child_dkim_tokens is not None:

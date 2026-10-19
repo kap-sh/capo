@@ -34,7 +34,7 @@ def deserialize_json(data: dict) -> BatchExportFindingResult:
     if data.get("findingId") is not None:
         out["finding_id"] = data["findingId"]
     else:
-        raise DeserializationError("BatchExportFindingResult.finding_id required")
+        out["finding_id"] = ""
     if data.get("linkedIssue") is not None:
         import capo_securityagent.types.linked_issue
 

@@ -51,9 +51,7 @@ def deserialize_json(data: dict) -> UpdateStreamStorageConfigurationInput:
     if data.get("CurrentVersion") is not None:
         out["current_version"] = data["CurrentVersion"]
     else:
-        raise DeserializationError(
-            "UpdateStreamStorageConfigurationInput.current_version required"
-        )
+        out["current_version"] = ""
     if data.get("StreamStorageConfiguration") is not None:
         import capo_kinesis_video.types.stream_storage_configuration
 

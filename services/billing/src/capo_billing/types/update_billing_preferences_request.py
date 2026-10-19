@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billing.types.billing_feature
     import capo_billing.types.billing_preferences_per_key
@@ -47,7 +45,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateBillingPreferencesRequest:
             data["feature"]
         )
     else:
-        raise DeserializationError("UpdateBillingPreferencesRequest.feature required")
+        import typing
+
+        out["feature"] = typing.cast(
+            "capo_billing.types.billing_feature.BillingFeature", ""
+        )
     if data.get("billingPreferencesPerKey") is not None:
         import capo_billing.types.billing_preferences_per_key
 
@@ -57,7 +59,5 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateBillingPreferencesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateBillingPreferencesRequest.billing_preferences_per_key required"
-        )
+        out["billing_preferences_per_key"] = []
     return out

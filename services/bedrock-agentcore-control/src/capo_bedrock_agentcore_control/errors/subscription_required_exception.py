@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError, ServiceError
+from capo_bedrock_agentcore_control.errors import ServiceError
 
 
 class SubscriptionRequiredException_(TypedDict, closed=True):
@@ -30,7 +30,7 @@ def deserialize_json(data: dict) -> SubscriptionRequiredException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("SubscriptionRequiredException_.message required")
+        out["message"] = ""
     if data.get("subscriptionUrl") is not None:
         out["subscription_url"] = data["subscriptionUrl"]
     if data.get("productName") is not None:

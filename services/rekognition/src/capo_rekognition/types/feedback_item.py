@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.feedback_code
     import capo_rekognition.types.feedback_message
@@ -39,9 +37,13 @@ def deserialize_aws_json_1_1(data: dict) -> FeedbackItem:
             data["Code"]
         )
     else:
-        raise DeserializationError("FeedbackItem.code required")
+        import typing
+
+        out["code"] = typing.cast(
+            "capo_rekognition.types.feedback_code.FeedbackCode", ""
+        )
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("FeedbackItem.message required")
+        out["message"] = ""
     return out

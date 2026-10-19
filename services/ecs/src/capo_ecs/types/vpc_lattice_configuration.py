@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.iam_role_arn
     import capo_ecs.types.string
@@ -46,15 +44,15 @@ def deserialize_aws_json_1_1(data: dict) -> VpcLatticeConfiguration:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("VpcLatticeConfiguration.role_arn required")
+        out["role_arn"] = ""
     if data.get("targetGroupArn") is not None:
         out["target_group_arn"] = data["targetGroupArn"]
     else:
-        raise DeserializationError("VpcLatticeConfiguration.target_group_arn required")
+        out["target_group_arn"] = ""
     if data.get("portName") is not None:
         out["port_name"] = data["portName"]
     else:
-        raise DeserializationError("VpcLatticeConfiguration.port_name required")
+        out["port_name"] = ""
     if data.get("advancedConfiguration") is not None:
         import capo_ecs.types.vpc_lattice_advanced_configuration
 

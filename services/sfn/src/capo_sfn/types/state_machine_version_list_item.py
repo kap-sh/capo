@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sfn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sfn.types.long_arn
     import capo_sfn.types.timestamp
@@ -35,9 +33,7 @@ def deserialize_aws_json_1_0(data: dict) -> StateMachineVersionListItem:
     if data.get("stateMachineVersionArn") is not None:
         out["state_machine_version_arn"] = data["stateMachineVersionArn"]
     else:
-        raise DeserializationError(
-            "StateMachineVersionListItem.state_machine_version_arn required"
-        )
+        out["state_machine_version_arn"] = ""
     if data.get("creationDate") is not None:
         import capo_sfn.types.timestamp
 
@@ -45,5 +41,9 @@ def deserialize_aws_json_1_0(data: dict) -> StateMachineVersionListItem:
             data["creationDate"]
         )
     else:
-        raise DeserializationError("StateMachineVersionListItem.creation_date required")
+        import datetime
+
+        out["creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

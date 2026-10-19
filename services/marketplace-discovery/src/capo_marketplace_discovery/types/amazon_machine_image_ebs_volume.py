@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.amazon_machine_image_ebs_volume_type_list
 
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> AmazonMachineImageEbsVolume:
             )
         )
     else:
-        raise DeserializationError("AmazonMachineImageEbsVolume.volume_types required")
+        out["volume_types"] = []
     if data.get("iops") is not None:
         out["iops"] = data["iops"]
     return out

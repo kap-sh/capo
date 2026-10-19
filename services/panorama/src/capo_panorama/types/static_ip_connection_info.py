@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.default_gateway
     import capo_panorama.types.dns_list
@@ -41,19 +39,19 @@ def deserialize_json(data: dict) -> StaticIpConnectionInfo:
     if data.get("IpAddress") is not None:
         out["ip_address"] = data["IpAddress"]
     else:
-        raise DeserializationError("StaticIpConnectionInfo.ip_address required")
+        out["ip_address"] = ""
     if data.get("Mask") is not None:
         out["mask"] = data["Mask"]
     else:
-        raise DeserializationError("StaticIpConnectionInfo.mask required")
+        out["mask"] = ""
     if data.get("Dns") is not None:
         import capo_panorama.types.dns_list
 
         out["dns"] = capo_panorama.types.dns_list.deserialize_json(data["Dns"])
     else:
-        raise DeserializationError("StaticIpConnectionInfo.dns required")
+        out["dns"] = []
     if data.get("DefaultGateway") is not None:
         out["default_gateway"] = data["DefaultGateway"]
     else:
-        raise DeserializationError("StaticIpConnectionInfo.default_gateway required")
+        out["default_gateway"] = ""
     return out

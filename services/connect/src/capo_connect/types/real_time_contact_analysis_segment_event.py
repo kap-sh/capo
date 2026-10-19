@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.display_name
     import capo_connect.types.participant_id
@@ -60,7 +58,7 @@ def deserialize_json(data: dict) -> RealTimeContactAnalysisSegmentEvent:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("RealTimeContactAnalysisSegmentEvent.id required")
+        out["id"] = ""
     if data.get("ParticipantId") is not None:
         out["participant_id"] = data["ParticipantId"]
     if data.get("ParticipantRole") is not None:
@@ -74,9 +72,7 @@ def deserialize_json(data: dict) -> RealTimeContactAnalysisSegmentEvent:
     if data.get("EventType") is not None:
         out["event_type"] = data["EventType"]
     else:
-        raise DeserializationError(
-            "RealTimeContactAnalysisSegmentEvent.event_type required"
-        )
+        out["event_type"] = ""
     if data.get("Time") is not None:
         import capo_connect.types.real_time_contact_analysis_time_data
 
@@ -86,5 +82,7 @@ def deserialize_json(data: dict) -> RealTimeContactAnalysisSegmentEvent:
             )
         )
     else:
-        raise DeserializationError("RealTimeContactAnalysisSegmentEvent.time required")
+        import capo_connect.types._unknown
+
+        out["time"] = capo_connect.types._unknown.UnknownUnionMember("")
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.evaluation_bedrock_model_identifier
     import capo_bedrock.types.evaluation_model_inference_params
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> EvaluationBedrockModel:
     if data.get("modelIdentifier") is not None:
         out["model_identifier"] = data["modelIdentifier"]
     else:
-        raise DeserializationError("EvaluationBedrockModel.model_identifier required")
+        out["model_identifier"] = ""
     if data.get("inferenceParams") is not None:
         out["inference_params"] = data["inferenceParams"]
     else:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.non_empty_string
     import capo_codebuild.types.page_size
@@ -46,9 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListCommandExecutionsForSandboxInput
     if data.get("sandboxId") is not None:
         out["sandbox_id"] = data["sandboxId"]
     else:
-        raise DeserializationError(
-            "ListCommandExecutionsForSandboxInput.sandbox_id required"
-        )
+        out["sandbox_id"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("sortOrder") is not None:

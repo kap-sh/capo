@@ -48,11 +48,11 @@ def deserialize_json(data: dict) -> UpdateDetectorRequest:
     if data.get("messageId") is not None:
         out["message_id"] = data["messageId"]
     else:
-        raise DeserializationError("UpdateDetectorRequest.message_id required")
+        out["message_id"] = ""
     if data.get("detectorModelName") is not None:
         out["detector_model_name"] = data["detectorModelName"]
     else:
-        raise DeserializationError("UpdateDetectorRequest.detector_model_name required")
+        out["detector_model_name"] = ""
     if data.get("keyValue") is not None:
         out["key_value"] = data["keyValue"]
     if data.get("state") is not None:

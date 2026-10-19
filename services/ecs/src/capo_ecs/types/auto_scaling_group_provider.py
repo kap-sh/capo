@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.managed_draining
     import capo_ecs.types.managed_scaling
@@ -58,9 +56,7 @@ def deserialize_aws_json_1_1(data: dict) -> AutoScalingGroupProvider:
     if data.get("autoScalingGroupArn") is not None:
         out["auto_scaling_group_arn"] = data["autoScalingGroupArn"]
     else:
-        raise DeserializationError(
-            "AutoScalingGroupProvider.auto_scaling_group_arn required"
-        )
+        out["auto_scaling_group_arn"] = ""
     if data.get("managedScaling") is not None:
         import capo_ecs.types.managed_scaling
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.amazon_resource_name
     import capo_iot_events.types.payload
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> SNSTopicPublishAction:
     if data.get("targetArn") is not None:
         out["target_arn"] = data["targetArn"]
     else:
-        raise DeserializationError("SNSTopicPublishAction.target_arn required")
+        out["target_arn"] = ""
     if data.get("payload") is not None:
         import capo_iot_events.types.payload
 

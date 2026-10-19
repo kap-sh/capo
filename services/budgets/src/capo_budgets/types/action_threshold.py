@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_budgets.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_budgets.types.notification_threshold
     import capo_budgets.types.threshold_type
@@ -56,5 +54,9 @@ def deserialize_aws_json_1_1(data: dict) -> ActionThreshold:
             )
         )
     else:
-        raise DeserializationError("ActionThreshold.action_threshold_type required")
+        import typing
+
+        out["action_threshold_type"] = typing.cast(
+            "capo_budgets.types.threshold_type.ThresholdType", ""
+        )
     return out

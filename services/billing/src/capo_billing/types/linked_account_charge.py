@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billing.types.account_id
     import capo_billing.types.service_level_account_usage_list
@@ -98,35 +96,31 @@ def deserialize_aws_json_1_0(data: dict) -> LinkedAccountCharge:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("LinkedAccountCharge.account_id required")
+        out["account_id"] = ""
     if data.get("payerAccountId") is not None:
         out["payer_account_id"] = data["payerAccountId"]
     else:
-        raise DeserializationError("LinkedAccountCharge.payer_account_id required")
+        out["payer_account_id"] = ""
     if data.get("accountType") is not None:
         out["account_type"] = data["accountType"]
     if data.get("billableSeconds") is not None:
         out["billable_seconds"] = data["billableSeconds"]
     else:
-        raise DeserializationError("LinkedAccountCharge.billable_seconds required")
+        out["billable_seconds"] = 0
     if data.get("totalSeconds") is not None:
         out["total_seconds"] = data["totalSeconds"]
     else:
-        raise DeserializationError("LinkedAccountCharge.total_seconds required")
+        out["total_seconds"] = 0
     if data.get("totalSupportEligibleSpend") is not None:
         out["total_support_eligible_spend"] = data["totalSupportEligibleSpend"]
     else:
-        raise DeserializationError(
-            "LinkedAccountCharge.total_support_eligible_spend required"
-        )
+        out["total_support_eligible_spend"] = ""
     if data.get("proratedTotalSupportEligibleSpend") is not None:
         out["prorated_total_support_eligible_spend"] = data[
             "proratedTotalSupportEligibleSpend"
         ]
     else:
-        raise DeserializationError(
-            "LinkedAccountCharge.prorated_total_support_eligible_spend required"
-        )
+        out["prorated_total_support_eligible_spend"] = ""
     if data.get("linkedTimePeriods") is not None:
         import capo_billing.types.time_period_list
 

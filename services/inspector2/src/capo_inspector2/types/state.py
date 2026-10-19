@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.error_code
     import capo_inspector2.types.non_empty_string
@@ -35,13 +33,13 @@ def deserialize_json(data: dict) -> State:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("State.status required")
+        out["status"] = ""
     if data.get("errorCode") is not None:
         out["error_code"] = data["errorCode"]
     else:
-        raise DeserializationError("State.error_code required")
+        out["error_code"] = ""
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     else:
-        raise DeserializationError("State.error_message required")
+        out["error_message"] = ""
     return out

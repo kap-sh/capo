@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.create_limits_profile_request_client_token_string
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> CreateLimitsProfileRequest:
     if data.get("profileName") is not None:
         out["profile_name"] = data["profileName"]
     else:
-        raise DeserializationError("CreateLimitsProfileRequest.profile_name required")
+        out["profile_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("resourceLimits") is not None:
@@ -63,11 +61,9 @@ def deserialize_json(data: dict) -> CreateLimitsProfileRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateLimitsProfileRequest.resource_limits required"
-        )
+        out["resource_limits"] = {}
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("CreateLimitsProfileRequest.client_token required")
+        out["client_token"] = ""
     return out

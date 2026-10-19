@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.alarm_name
     import capo_ssm.types.external_alarm_state
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> AlarmStateInformation:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("AlarmStateInformation.name required")
+        out["name"] = ""
     if data.get("State") is not None:
         import capo_ssm.types.external_alarm_state
 
@@ -43,5 +41,9 @@ def deserialize_aws_json_1_1(data: dict) -> AlarmStateInformation:
             data["State"]
         )
     else:
-        raise DeserializationError("AlarmStateInformation.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_ssm.types.external_alarm_state.ExternalAlarmState", ""
+        )
     return out

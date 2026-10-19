@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.row_scope_operator
     import capo_cloudwatchomni.types.row_scope_value_list
@@ -42,7 +40,7 @@ def deserialize_cbor(data: dict) -> RowScope:
     if data.get("field") is not None:
         out["field"] = data["field"]
     else:
-        raise DeserializationError("RowScope.field required")
+        out["field"] = ""
     if data.get("operator") is not None:
         import capo_cloudwatchomni.types.row_scope_operator
 
@@ -50,7 +48,11 @@ def deserialize_cbor(data: dict) -> RowScope:
             data["operator"]
         )
     else:
-        raise DeserializationError("RowScope.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_cloudwatchomni.types.row_scope_operator.RowScopeOperator", ""
+        )
     if data.get("values") is not None:
         import capo_cloudwatchomni.types.row_scope_value_list
 
@@ -58,5 +60,5 @@ def deserialize_cbor(data: dict) -> RowScope:
             data["values"]
         )
     else:
-        raise DeserializationError("RowScope.values required")
+        out["values"] = []
     return out

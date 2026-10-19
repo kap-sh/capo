@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.name_string
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeConnectionTypeRequest:
     if data.get("ConnectionType") is not None:
         out["connection_type"] = data["ConnectionType"]
     else:
-        raise DeserializationError(
-            "DescribeConnectionTypeRequest.connection_type required"
-        )
+        out["connection_type"] = ""
     return out

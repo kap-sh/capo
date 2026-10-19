@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.parsing_prompt_text
 
@@ -29,5 +27,5 @@ def deserialize_json(data: dict) -> ParsingPrompt:
     if data.get("parsingPromptText") is not None:
         out["parsing_prompt_text"] = data["parsingPromptText"]
     else:
-        raise DeserializationError("ParsingPrompt.parsing_prompt_text required")
+        out["parsing_prompt_text"] = ""
     return out

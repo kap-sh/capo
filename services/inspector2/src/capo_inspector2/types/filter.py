@@ -81,15 +81,15 @@ def deserialize_json(data: dict) -> Filter:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("Filter.arn required")
+        out["arn"] = ""
     if data.get("ownerId") is not None:
         out["owner_id"] = data["ownerId"]
     else:
-        raise DeserializationError("Filter.owner_id required")
+        out["owner_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Filter.name required")
+        out["name"] = ""
     if data.get("criteria") is not None:
         import capo_inspector2.types.filter_criteria
 
@@ -101,7 +101,7 @@ def deserialize_json(data: dict) -> Filter:
     if data.get("action") is not None:
         out["action"] = data["action"]
     else:
-        raise DeserializationError("Filter.action required")
+        out["action"] = ""
     if data.get("createdAt") is not None:
         import capo_inspector2.types.date_time_timestamp
 
@@ -109,7 +109,9 @@ def deserialize_json(data: dict) -> Filter:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("Filter.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_inspector2.types.date_time_timestamp
 
@@ -117,7 +119,9 @@ def deserialize_json(data: dict) -> Filter:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("Filter.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("reason") is not None:

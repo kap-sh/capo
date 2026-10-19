@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.max_results
     import capo_ssm_contacts.types.pagination_token
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListPagesByEngagementRequest:
     if data.get("EngagementId") is not None:
         out["engagement_id"] = data["EngagementId"]
     else:
-        raise DeserializationError(
-            "ListPagesByEngagementRequest.engagement_id required"
-        )
+        out["engagement_id"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

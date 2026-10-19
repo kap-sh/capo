@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.rule_set_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRuleSetResponse:
     if data.get("RuleSetId") is not None:
         out["rule_set_id"] = data["RuleSetId"]
     else:
-        raise DeserializationError("CreateRuleSetResponse.rule_set_id required")
+        out["rule_set_id"] = ""
     return out

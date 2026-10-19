@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_agent_registry_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_agent_registry_control.types.creator_account_id
     import capo_agent_registry_control.types.custom_metadata_schema_compliance_status
@@ -131,19 +129,19 @@ def deserialize_json(data: dict) -> RegistryRecordSummary:
     if data.get("registryArn") is not None:
         out["registry_arn"] = data["registryArn"]
     else:
-        raise DeserializationError("RegistryRecordSummary.registry_arn required")
+        out["registry_arn"] = ""
     if data.get("recordArn") is not None:
         out["record_arn"] = data["recordArn"]
     else:
-        raise DeserializationError("RegistryRecordSummary.record_arn required")
+        out["record_arn"] = ""
     if data.get("recordId") is not None:
         out["record_id"] = data["recordId"]
     else:
-        raise DeserializationError("RegistryRecordSummary.record_id required")
+        out["record_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("RegistryRecordSummary.name required")
+        out["name"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     if data.get("description") is not None:
@@ -157,11 +155,15 @@ def deserialize_json(data: dict) -> RegistryRecordSummary:
             )
         )
     else:
-        raise DeserializationError("RegistryRecordSummary.record_type required")
+        import typing
+
+        out["record_type"] = typing.cast(
+            "capo_agent_registry_control.types.record_type.RecordType", ""
+        )
     if data.get("recordVersion") is not None:
         out["record_version"] = data["recordVersion"]
     else:
-        raise DeserializationError("RegistryRecordSummary.record_version required")
+        out["record_version"] = ""
     if data.get("status") is not None:
         import capo_agent_registry_control.types.registry_record_status
 
@@ -171,7 +173,12 @@ def deserialize_json(data: dict) -> RegistryRecordSummary:
             )
         )
     else:
-        raise DeserializationError("RegistryRecordSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_agent_registry_control.types.registry_record_status.RegistryRecordStatus",
+            "",
+        )
     if data.get("createdAt") is not None:
         import capo_agent_registry_control.types.date_timestamp
 
@@ -181,7 +188,9 @@ def deserialize_json(data: dict) -> RegistryRecordSummary:
             )
         )
     else:
-        raise DeserializationError("RegistryRecordSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_agent_registry_control.types.date_timestamp
 
@@ -191,7 +200,9 @@ def deserialize_json(data: dict) -> RegistryRecordSummary:
             )
         )
     else:
-        raise DeserializationError("RegistryRecordSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("createdByAutoDetection") is not None:
         out["created_by_auto_detection"] = data["createdByAutoDetection"]
     if data.get("createdBy") is not None:

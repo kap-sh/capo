@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.insights_category
 
@@ -38,9 +36,13 @@ def deserialize_json(data: dict) -> DependencyInsight:
             data["category"]
         )
     else:
-        raise DeserializationError("DependencyInsight.category required")
+        import typing
+
+        out["category"] = typing.cast(
+            "capo_resiliencehubv2.types.insights_category.InsightsCategory", ""
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("DependencyInsight.description required")
+        out["description"] = ""
     return out

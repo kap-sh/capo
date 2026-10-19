@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -48,9 +46,9 @@ def deserialize_json(data: dict) -> BatchGetServiceLevelObjectiveBudgetReportInp
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetServiceLevelObjectiveBudgetReportInput.timestamp required"
-        )
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("SloIds") is not None:
         import capo_application_signals.types.service_level_objective_ids
 
@@ -60,7 +58,5 @@ def deserialize_json(data: dict) -> BatchGetServiceLevelObjectiveBudgetReportInp
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetServiceLevelObjectiveBudgetReportInput.slo_ids required"
-        )
+        out["slo_ids"] = []
     return out

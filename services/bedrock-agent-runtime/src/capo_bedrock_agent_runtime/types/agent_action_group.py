@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.action_group_executor
     import capo_bedrock_agent_runtime.types.action_group_signature
@@ -95,7 +93,7 @@ def deserialize_json(data: dict) -> AgentActionGroup:
     if data.get("actionGroupName") is not None:
         out["action_group_name"] = data["actionGroupName"]
     else:
-        raise DeserializationError("AgentActionGroup.action_group_name required")
+        out["action_group_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("parentActionGroupSignature") is not None:

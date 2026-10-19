@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.role_name_type
@@ -38,12 +37,12 @@ def deserialize_query(el: Element) -> TagRoleRequest:
     if child_role_name is not None:
         out["role_name"] = str(child_role_name.text or "")
     else:
-        raise DeserializationError("TagRoleRequest.role_name required")
+        out["role_name"] = ""
     child_tags = el.find("Tags")
     if child_tags is not None:
         import capo_iam.types.tag_list_type
 
         out["tags"] = capo_iam.types.tag_list_type.deserialize_query(child_tags)
     else:
-        raise DeserializationError("TagRoleRequest.tags required")
+        out["tags"] = []
     return out

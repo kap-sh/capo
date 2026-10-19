@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.behavior_metric
     import capo_iot.types.export_metric
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> MetricToRetain:
     if data.get("metric") is not None:
         out["metric"] = data["metric"]
     else:
-        raise DeserializationError("MetricToRetain.metric required")
+        out["metric"] = ""
     if data.get("metricDimension") is not None:
         import capo_iot.types.metric_dimension
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.client_token
     import capo_imagebuilder.types.image_pipeline_arn
@@ -38,15 +36,11 @@ def deserialize_json(data: dict) -> StartImagePipelineExecutionRequest:
     if data.get("imagePipelineArn") is not None:
         out["image_pipeline_arn"] = data["imagePipelineArn"]
     else:
-        raise DeserializationError(
-            "StartImagePipelineExecutionRequest.image_pipeline_arn required"
-        )
+        out["image_pipeline_arn"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError(
-            "StartImagePipelineExecutionRequest.client_token required"
-        )
+        out["client_token"] = ""
     if data.get("tags") is not None:
         import capo_imagebuilder.types.tag_map
 

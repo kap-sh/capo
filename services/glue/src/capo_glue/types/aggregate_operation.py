@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.agg_function
     import capo_glue.types.enclosed_in_string_properties
@@ -47,7 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> AggregateOperation:
             )
         )
     else:
-        raise DeserializationError("AggregateOperation.column required")
+        out["column"] = []
     if data.get("AggFunc") is not None:
         import capo_glue.types.agg_function
 
@@ -55,5 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> AggregateOperation:
             data["AggFunc"]
         )
     else:
-        raise DeserializationError("AggregateOperation.agg_func required")
+        import typing
+
+        out["agg_func"] = typing.cast("capo_glue.types.agg_function.AggFunction", "")
     return out

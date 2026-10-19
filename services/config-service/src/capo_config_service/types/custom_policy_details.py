@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.boolean
     import capo_config_service.types.policy_runtime
@@ -35,11 +33,11 @@ def deserialize_aws_json_1_1(data: dict) -> CustomPolicyDetails:
     if data.get("PolicyRuntime") is not None:
         out["policy_runtime"] = data["PolicyRuntime"]
     else:
-        raise DeserializationError("CustomPolicyDetails.policy_runtime required")
+        out["policy_runtime"] = ""
     if data.get("PolicyText") is not None:
         out["policy_text"] = data["PolicyText"]
     else:
-        raise DeserializationError("CustomPolicyDetails.policy_text required")
+        out["policy_text"] = ""
     if data.get("EnableDebugLogDelivery") is not None:
         out["enable_debug_log_delivery"] = data["EnableDebugLogDelivery"]
     else:

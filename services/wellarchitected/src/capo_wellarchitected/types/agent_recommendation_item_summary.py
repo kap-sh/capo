@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -67,13 +65,11 @@ def deserialize_json(data: dict) -> AgentRecommendationItemSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("AgentRecommendationItemSummary.id required")
+        out["id"] = ""
     if data.get("recommendationArn") is not None:
         out["recommendation_arn"] = data["recommendationArn"]
     else:
-        raise DeserializationError(
-            "AgentRecommendationItemSummary.recommendation_arn required"
-        )
+        out["recommendation_arn"] = ""
     if data.get("type") is not None:
         import capo_wellarchitected.types.recommendation_item_type
 
@@ -83,15 +79,20 @@ def deserialize_json(data: dict) -> AgentRecommendationItemSummary:
             )
         )
     else:
-        raise DeserializationError("AgentRecommendationItemSummary.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_wellarchitected.types.recommendation_item_type.RecommendationItemType",
+            "",
+        )
     if data.get("metadata") is not None:
         out["metadata"] = data["metadata"]
     else:
-        raise DeserializationError("AgentRecommendationItemSummary.metadata required")
+        out["metadata"] = None
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("AgentRecommendationItemSummary.created_by required")
+        out["created_by"] = ""
     if data.get("createdAt") is not None:
         import datetime
 
@@ -99,7 +100,9 @@ def deserialize_json(data: dict) -> AgentRecommendationItemSummary:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("AgentRecommendationItemSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastModifiedBy") is not None:
         out["last_modified_by"] = data["lastModifiedBy"]
     if data.get("lastModifiedAt") is not None:

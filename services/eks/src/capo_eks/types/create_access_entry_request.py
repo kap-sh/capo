@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eks.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eks.types.string
     import capo_eks.types.string_list
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> CreateAccessEntryRequest:
     if data.get("principalArn") is not None:
         out["principal_arn"] = data["principalArn"]
     else:
-        raise DeserializationError("CreateAccessEntryRequest.principal_arn required")
+        out["principal_arn"] = ""
     if data.get("kubernetesGroups") is not None:
         import capo_eks.types.string_list
 

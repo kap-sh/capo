@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.direct_connect_gateway_id
     import capo_direct_connect.types.virtual_interface_id
@@ -35,13 +33,9 @@ def deserialize_aws_json_1_1(data: dict) -> ConfirmTransitVirtualInterfaceReques
     if data.get("virtualInterfaceId") is not None:
         out["virtual_interface_id"] = data["virtualInterfaceId"]
     else:
-        raise DeserializationError(
-            "ConfirmTransitVirtualInterfaceRequest.virtual_interface_id required"
-        )
+        out["virtual_interface_id"] = ""
     if data.get("directConnectGatewayId") is not None:
         out["direct_connect_gateway_id"] = data["directConnectGatewayId"]
     else:
-        raise DeserializationError(
-            "ConfirmTransitVirtualInterfaceRequest.direct_connect_gateway_id required"
-        )
+        out["direct_connect_gateway_id"] = ""
     return out

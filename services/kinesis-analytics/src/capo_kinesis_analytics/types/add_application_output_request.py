@@ -41,15 +41,11 @@ def deserialize_aws_json_1_1(data: dict) -> AddApplicationOutputRequest:
     if data.get("ApplicationName") is not None:
         out["application_name"] = data["ApplicationName"]
     else:
-        raise DeserializationError(
-            "AddApplicationOutputRequest.application_name required"
-        )
+        out["application_name"] = ""
     if data.get("CurrentApplicationVersionId") is not None:
         out["current_application_version_id"] = data["CurrentApplicationVersionId"]
     else:
-        raise DeserializationError(
-            "AddApplicationOutputRequest.current_application_version_id required"
-        )
+        out["current_application_version_id"] = 0
     if data.get("Output") is not None:
         import capo_kinesis_analytics.types.output
 

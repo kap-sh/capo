@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_repostspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -76,15 +74,15 @@ def deserialize_json(data: dict) -> GetChannelOutput:
     if data.get("spaceId") is not None:
         out["space_id"] = data["spaceId"]
     else:
-        raise DeserializationError("GetChannelOutput.space_id required")
+        out["space_id"] = ""
     if data.get("channelId") is not None:
         out["channel_id"] = data["channelId"]
     else:
-        raise DeserializationError("GetChannelOutput.channel_id required")
+        out["channel_id"] = ""
     if data.get("channelName") is not None:
         out["channel_name"] = data["channelName"]
     else:
-        raise DeserializationError("GetChannelOutput.channel_name required")
+        out["channel_name"] = ""
     if data.get("channelDescription") is not None:
         out["channel_description"] = data["channelDescription"]
     if data.get("createDateTime") is not None:
@@ -94,7 +92,11 @@ def deserialize_json(data: dict) -> GetChannelOutput:
             data["createDateTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetChannelOutput.create_date_time required")
+        import datetime
+
+        out["create_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("deleteDateTime") is not None:
         import datetime
 
@@ -114,7 +116,11 @@ def deserialize_json(data: dict) -> GetChannelOutput:
             data["channelStatus"]
         )
     else:
-        raise DeserializationError("GetChannelOutput.channel_status required")
+        import typing
+
+        out["channel_status"] = typing.cast(
+            "capo_repostspace.types.channel_status.ChannelStatus", ""
+        )
     return out
 
 

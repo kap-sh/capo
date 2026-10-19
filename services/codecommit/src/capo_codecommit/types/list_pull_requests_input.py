@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.arn
     import capo_codecommit.types.max_results
@@ -55,7 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListPullRequestsInput:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError("ListPullRequestsInput.repository_name required")
+        out["repository_name"] = ""
     if data.get("authorArn") is not None:
         out["author_arn"] = data["authorArn"]
     if data.get("pullRequestStatus") is not None:

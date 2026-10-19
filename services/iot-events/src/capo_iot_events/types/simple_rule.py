@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.comparison_operator
     import capo_iot_events.types.input_property
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> SimpleRule:
     if data.get("inputProperty") is not None:
         out["input_property"] = data["inputProperty"]
     else:
-        raise DeserializationError("SimpleRule.input_property required")
+        out["input_property"] = ""
     if data.get("comparisonOperator") is not None:
         import capo_iot_events.types.comparison_operator
 
@@ -51,9 +49,13 @@ def deserialize_json(data: dict) -> SimpleRule:
             )
         )
     else:
-        raise DeserializationError("SimpleRule.comparison_operator required")
+        import typing
+
+        out["comparison_operator"] = typing.cast(
+            "capo_iot_events.types.comparison_operator.ComparisonOperator", ""
+        )
     if data.get("threshold") is not None:
         out["threshold"] = data["threshold"]
     else:
-        raise DeserializationError("SimpleRule.threshold required")
+        out["threshold"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.data_format
     import capo_customer_profiles.types.encryption_key
@@ -69,7 +67,7 @@ def deserialize_json(data: dict) -> GetSegmentSnapshotResponse:
     if data.get("SnapshotId") is not None:
         out["snapshot_id"] = data["SnapshotId"]
     else:
-        raise DeserializationError("GetSegmentSnapshotResponse.snapshot_id required")
+        out["snapshot_id"] = ""
     if data.get("Status") is not None:
         import capo_customer_profiles.types.segment_snapshot_status
 
@@ -79,7 +77,12 @@ def deserialize_json(data: dict) -> GetSegmentSnapshotResponse:
             )
         )
     else:
-        raise DeserializationError("GetSegmentSnapshotResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_customer_profiles.types.segment_snapshot_status.SegmentSnapshotStatus",
+            "",
+        )
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
     if data.get("DataFormat") is not None:
@@ -89,7 +92,11 @@ def deserialize_json(data: dict) -> GetSegmentSnapshotResponse:
             data["DataFormat"]
         )
     else:
-        raise DeserializationError("GetSegmentSnapshotResponse.data_format required")
+        import typing
+
+        out["data_format"] = typing.cast(
+            "capo_customer_profiles.types.data_format.DataFormat", ""
+        )
     if data.get("EncryptionKey") is not None:
         out["encryption_key"] = data["EncryptionKey"]
     if data.get("RoleArn") is not None:

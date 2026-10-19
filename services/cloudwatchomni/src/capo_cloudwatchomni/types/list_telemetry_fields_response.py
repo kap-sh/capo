@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.field_list
 
@@ -37,7 +35,7 @@ def deserialize_cbor(data: dict) -> ListTelemetryFieldsResponse:
             data["fields"]
         )
     else:
-        raise DeserializationError("ListTelemetryFieldsResponse.fields required")
+        out["fields"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

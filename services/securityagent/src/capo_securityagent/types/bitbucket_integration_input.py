@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.auth_code
     import capo_securityagent.types.bitbucket_installation_id
@@ -41,17 +39,17 @@ def deserialize_json(data: dict) -> BitbucketIntegrationInput:
     if data.get("installationId") is not None:
         out["installation_id"] = data["installationId"]
     else:
-        raise DeserializationError("BitbucketIntegrationInput.installation_id required")
+        out["installation_id"] = ""
     if data.get("workspace") is not None:
         out["workspace"] = data["workspace"]
     else:
-        raise DeserializationError("BitbucketIntegrationInput.workspace required")
+        out["workspace"] = ""
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("BitbucketIntegrationInput.code required")
+        out["code"] = ""
     if data.get("state") is not None:
         out["state"] = data["state"]
     else:
-        raise DeserializationError("BitbucketIntegrationInput.state required")
+        out["state"] = ""
     return out

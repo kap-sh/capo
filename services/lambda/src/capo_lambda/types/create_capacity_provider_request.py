@@ -111,9 +111,7 @@ def deserialize_json(data: dict) -> CreateCapacityProviderRequest:
     if data.get("CapacityProviderName") is not None:
         out["capacity_provider_name"] = data["CapacityProviderName"]
     else:
-        raise DeserializationError(
-            "CreateCapacityProviderRequest.capacity_provider_name required"
-        )
+        out["capacity_provider_name"] = ""
     if data.get("VpcConfig") is not None:
         import capo_lambda.types.capacity_provider_vpc_config
 

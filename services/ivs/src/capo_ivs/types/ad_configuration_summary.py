@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs.types.ad_configuration_arn
     import capo_ivs.types.ad_configuration_name
@@ -62,7 +60,7 @@ def deserialize_json(data: dict) -> AdConfigurationSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("AdConfigurationSummary.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("mediaTailorPlaybackConfigurations") is not None:
@@ -74,9 +72,7 @@ def deserialize_json(data: dict) -> AdConfigurationSummary:
             )
         )
     else:
-        raise DeserializationError(
-            "AdConfigurationSummary.media_tailor_playback_configurations required"
-        )
+        out["media_tailor_playback_configurations"] = []
     if data.get("postRollConfiguration") is not None:
         import capo_ivs.types.post_roll_configuration
 

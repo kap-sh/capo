@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.analytics_metadata_type
     import capo_cognito_identity_provider.types.client_id_type
@@ -85,23 +83,21 @@ def deserialize_aws_json_1_1(data: dict) -> ConfirmForgotPasswordRequest:
     if data.get("ClientId") is not None:
         out["client_id"] = data["ClientId"]
     else:
-        raise DeserializationError("ConfirmForgotPasswordRequest.client_id required")
+        out["client_id"] = ""
     if data.get("SecretHash") is not None:
         out["secret_hash"] = data["SecretHash"]
     if data.get("Username") is not None:
         out["username"] = data["Username"]
     else:
-        raise DeserializationError("ConfirmForgotPasswordRequest.username required")
+        out["username"] = ""
     if data.get("ConfirmationCode") is not None:
         out["confirmation_code"] = data["ConfirmationCode"]
     else:
-        raise DeserializationError(
-            "ConfirmForgotPasswordRequest.confirmation_code required"
-        )
+        out["confirmation_code"] = ""
     if data.get("Password") is not None:
         out["password"] = data["Password"]
     else:
-        raise DeserializationError("ConfirmForgotPasswordRequest.password required")
+        out["password"] = ""
     if data.get("AnalyticsMetadata") is not None:
         import capo_cognito_identity_provider.types.analytics_metadata_type
 

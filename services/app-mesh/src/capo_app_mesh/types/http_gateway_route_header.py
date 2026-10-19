@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.header_match_method
     import capo_app_mesh.types.header_name
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> HttpGatewayRouteHeader:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("HttpGatewayRouteHeader.name required")
+        out["name"] = ""
     if data.get("invert") is not None:
         out["invert"] = data["invert"]
     if data.get("match") is not None:

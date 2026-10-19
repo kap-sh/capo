@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codedeploy.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codedeploy.types.deployment_id
     import capo_codedeploy.types.instance_status_list
@@ -58,9 +56,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListDeploymentInstancesInput:
     if data.get("deploymentId") is not None:
         out["deployment_id"] = data["deploymentId"]
     else:
-        raise DeserializationError(
-            "ListDeploymentInstancesInput.deployment_id required"
-        )
+        out["deployment_id"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("instanceStatusFilter") is not None:

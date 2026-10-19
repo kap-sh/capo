@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.coverage_map_comparison
     import capo_inspector2.types.non_empty_string
@@ -35,11 +33,11 @@ def deserialize_json(data: dict) -> CoverageMapFilter:
     if data.get("comparison") is not None:
         out["comparison"] = data["comparison"]
     else:
-        raise DeserializationError("CoverageMapFilter.comparison required")
+        out["comparison"] = ""
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("CoverageMapFilter.key required")
+        out["key"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     return out

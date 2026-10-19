@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.assessment_compliance
     import capo_resiliencehub.types.config_recommendation_optimization_type
@@ -138,11 +136,16 @@ def deserialize_json(data: dict) -> ConfigRecommendation:
             )
         )
     else:
-        raise DeserializationError("ConfigRecommendation.optimization_type required")
+        import typing
+
+        out["optimization_type"] = typing.cast(
+            "capo_resiliencehub.types.config_recommendation_optimization_type.ConfigRecommendationOptimizationType",
+            "",
+        )
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ConfigRecommendation.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("suggestedChanges") is not None:
@@ -164,5 +167,5 @@ def deserialize_json(data: dict) -> ConfigRecommendation:
     if data.get("referenceId") is not None:
         out["reference_id"] = data["referenceId"]
     else:
-        raise DeserializationError("ConfigRecommendation.reference_id required")
+        out["reference_id"] = ""
     return out

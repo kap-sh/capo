@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.source_api_association_config
     import capo_appsync.types.string
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> AssociateMergedGraphqlApiRequest:
     if data.get("mergedApiIdentifier") is not None:
         out["merged_api_identifier"] = data["mergedApiIdentifier"]
     else:
-        raise DeserializationError(
-            "AssociateMergedGraphqlApiRequest.merged_api_identifier required"
-        )
+        out["merged_api_identifier"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("sourceApiAssociationConfig") is not None:

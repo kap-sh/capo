@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.apply_on_transformed_logs
     import capo_cloudwatch_logs.types.emit_system_fields
@@ -74,15 +72,15 @@ def deserialize_aws_json_1_1(data: dict) -> PutMetricFilterRequest:
     if data.get("logGroupName") is not None:
         out["log_group_name"] = data["logGroupName"]
     else:
-        raise DeserializationError("PutMetricFilterRequest.log_group_name required")
+        out["log_group_name"] = ""
     if data.get("filterName") is not None:
         out["filter_name"] = data["filterName"]
     else:
-        raise DeserializationError("PutMetricFilterRequest.filter_name required")
+        out["filter_name"] = ""
     if data.get("filterPattern") is not None:
         out["filter_pattern"] = data["filterPattern"]
     else:
-        raise DeserializationError("PutMetricFilterRequest.filter_pattern required")
+        out["filter_pattern"] = ""
     if data.get("metricTransformations") is not None:
         import capo_cloudwatch_logs.types.metric_transformations
 
@@ -92,9 +90,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutMetricFilterRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "PutMetricFilterRequest.metric_transformations required"
-        )
+        out["metric_transformations"] = []
     if data.get("applyOnTransformedLogs") is not None:
         out["apply_on_transformed_logs"] = data["applyOnTransformedLogs"]
     if data.get("fieldSelectionCriteria") is not None:

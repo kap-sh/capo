@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.non_empty_string
     import capo_marketplace_discovery.types.pricing_unit_type
@@ -45,9 +43,13 @@ def deserialize_json(data: dict) -> PricingUnit:
             )
         )
     else:
-        raise DeserializationError("PricingUnit.pricing_unit_type required")
+        import typing
+
+        out["pricing_unit_type"] = typing.cast(
+            "capo_marketplace_discovery.types.pricing_unit_type.PricingUnitType", ""
+        )
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("PricingUnit.display_name required")
+        out["display_name"] = ""
     return out

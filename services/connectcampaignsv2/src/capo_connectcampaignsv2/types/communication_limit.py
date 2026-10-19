@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.communication_limit_time_unit
 
@@ -32,15 +30,13 @@ def deserialize_json(data: dict) -> CommunicationLimit:
     if data.get("maxCountPerRecipient") is not None:
         out["max_count_per_recipient"] = data["maxCountPerRecipient"]
     else:
-        raise DeserializationError(
-            "CommunicationLimit.max_count_per_recipient required"
-        )
+        out["max_count_per_recipient"] = 0
     if data.get("frequency") is not None:
         out["frequency"] = data["frequency"]
     else:
-        raise DeserializationError("CommunicationLimit.frequency required")
+        out["frequency"] = 0
     if data.get("unit") is not None:
         out["unit"] = data["unit"]
     else:
-        raise DeserializationError("CommunicationLimit.unit required")
+        out["unit"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.batch_get_collaboration_analysis_template_error_list
     import capo_cleanrooms.types.collaboration_analysis_template_list
@@ -49,9 +47,7 @@ def deserialize_json(data: dict) -> BatchGetCollaborationAnalysisTemplateOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetCollaborationAnalysisTemplateOutput.collaboration_analysis_templates required"
-        )
+        out["collaboration_analysis_templates"] = []
     if data.get("errors") is not None:
         import capo_cleanrooms.types.batch_get_collaboration_analysis_template_error_list
 
@@ -61,9 +57,7 @@ def deserialize_json(data: dict) -> BatchGetCollaborationAnalysisTemplateOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetCollaborationAnalysisTemplateOutput.errors required"
-        )
+        out["errors"] = []
     return out
 
 

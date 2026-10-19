@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.group_name_type
@@ -39,7 +38,7 @@ def deserialize_query(el: Element) -> UpdateGroupRequest:
     if child_group_name is not None:
         out["group_name"] = str(child_group_name.text or "")
     else:
-        raise DeserializationError("UpdateGroupRequest.group_name required")
+        out["group_name"] = ""
     child_new_path = el.find("NewPath")
     if child_new_path is not None:
         out["new_path"] = str(child_new_path.text or "")

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_pricing_calculator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_pricing_calculator.types.list_bill_estimates_filter_name
     import capo_bcm_pricing_calculator.types.list_bill_estimates_filter_values
@@ -62,7 +60,12 @@ def deserialize_aws_json_1_0(data: dict) -> ListBillEstimatesFilter:
             )
         )
     else:
-        raise DeserializationError("ListBillEstimatesFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_bcm_pricing_calculator.types.list_bill_estimates_filter_name.ListBillEstimatesFilterName",
+            "",
+        )
     if data.get("values") is not None:
         import capo_bcm_pricing_calculator.types.list_bill_estimates_filter_values
 
@@ -72,7 +75,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListBillEstimatesFilter:
             )
         )
     else:
-        raise DeserializationError("ListBillEstimatesFilter.values required")
+        out["values"] = []
     if data.get("matchOption") is not None:
         import capo_bcm_pricing_calculator.types.match_option
 

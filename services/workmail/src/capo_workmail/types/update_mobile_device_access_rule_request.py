@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.device_model_list
     import capo_workmail.types.device_operating_system_list
@@ -150,19 +148,15 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateMobileDeviceAccessRuleRequest:
     if data.get("OrganizationId") is not None:
         out["organization_id"] = data["OrganizationId"]
     else:
-        raise DeserializationError(
-            "UpdateMobileDeviceAccessRuleRequest.organization_id required"
-        )
+        out["organization_id"] = ""
     if data.get("MobileDeviceAccessRuleId") is not None:
         out["mobile_device_access_rule_id"] = data["MobileDeviceAccessRuleId"]
     else:
-        raise DeserializationError(
-            "UpdateMobileDeviceAccessRuleRequest.mobile_device_access_rule_id required"
-        )
+        out["mobile_device_access_rule_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateMobileDeviceAccessRuleRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Effect") is not None:
@@ -174,8 +168,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateMobileDeviceAccessRuleRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateMobileDeviceAccessRuleRequest.effect required"
+        import typing
+
+        out["effect"] = typing.cast(
+            "capo_workmail.types.mobile_device_access_rule_effect.MobileDeviceAccessRuleEffect",
+            "",
         )
     if data.get("DeviceTypes") is not None:
         import capo_workmail.types.device_type_list

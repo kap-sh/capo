@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wisdom.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wisdom.types.arn
     import capo_wisdom.types.content_metadata
@@ -72,39 +70,39 @@ def deserialize_json(data: dict) -> ContentSummary:
     if data.get("contentArn") is not None:
         out["content_arn"] = data["contentArn"]
     else:
-        raise DeserializationError("ContentSummary.content_arn required")
+        out["content_arn"] = ""
     if data.get("contentId") is not None:
         out["content_id"] = data["contentId"]
     else:
-        raise DeserializationError("ContentSummary.content_id required")
+        out["content_id"] = ""
     if data.get("knowledgeBaseArn") is not None:
         out["knowledge_base_arn"] = data["knowledgeBaseArn"]
     else:
-        raise DeserializationError("ContentSummary.knowledge_base_arn required")
+        out["knowledge_base_arn"] = ""
     if data.get("knowledgeBaseId") is not None:
         out["knowledge_base_id"] = data["knowledgeBaseId"]
     else:
-        raise DeserializationError("ContentSummary.knowledge_base_id required")
+        out["knowledge_base_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ContentSummary.name required")
+        out["name"] = ""
     if data.get("revisionId") is not None:
         out["revision_id"] = data["revisionId"]
     else:
-        raise DeserializationError("ContentSummary.revision_id required")
+        out["revision_id"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("ContentSummary.title required")
+        out["title"] = ""
     if data.get("contentType") is not None:
         out["content_type"] = data["contentType"]
     else:
-        raise DeserializationError("ContentSummary.content_type required")
+        out["content_type"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("ContentSummary.status required")
+        out["status"] = ""
     if data.get("metadata") is not None:
         import capo_wisdom.types.content_metadata
 
@@ -112,7 +110,7 @@ def deserialize_json(data: dict) -> ContentSummary:
             data["metadata"]
         )
     else:
-        raise DeserializationError("ContentSummary.metadata required")
+        out["metadata"] = {}
     if data.get("tags") is not None:
         import capo_wisdom.types.tags
 

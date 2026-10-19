@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.launch_configuration_template_id
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> DeleteLaunchConfigurationTemplateRequest:
     if data.get("launchConfigurationTemplateID") is not None:
         out["launch_configuration_template_id"] = data["launchConfigurationTemplateID"]
     else:
-        raise DeserializationError(
-            "DeleteLaunchConfigurationTemplateRequest.launch_configuration_template_id required"
-        )
+        out["launch_configuration_template_id"] = ""
     return out

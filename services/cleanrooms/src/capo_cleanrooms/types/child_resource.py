@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.account_id
     import capo_cleanrooms.types.child_resource_type
@@ -61,15 +59,19 @@ def deserialize_json(data: dict) -> ChildResource:
             )
         )
     else:
-        raise DeserializationError("ChildResource.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_cleanrooms.types.child_resource_type.ChildResourceType", ""
+        )
     if data.get("resourceName") is not None:
         out["resource_name"] = data["resourceName"]
     else:
-        raise DeserializationError("ChildResource.resource_name required")
+        out["resource_name"] = ""
     if data.get("ownerAccountId") is not None:
         out["owner_account_id"] = data["ownerAccountId"]
     else:
-        raise DeserializationError("ChildResource.owner_account_id required")
+        out["owner_account_id"] = ""
     if data.get("resourceStatus") is not None:
         import capo_cleanrooms.types.resource_status
 

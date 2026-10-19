@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.custom_attributes_list_type
     import capo_cognito_identity_provider.types.user_pool_id_type
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> AddCustomAttributesRequest:
     if data.get("UserPoolId") is not None:
         out["user_pool_id"] = data["UserPoolId"]
     else:
-        raise DeserializationError("AddCustomAttributesRequest.user_pool_id required")
+        out["user_pool_id"] = ""
     if data.get("CustomAttributes") is not None:
         import capo_cognito_identity_provider.types.custom_attributes_list_type
 
@@ -49,7 +47,5 @@ def deserialize_aws_json_1_1(data: dict) -> AddCustomAttributesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "AddCustomAttributesRequest.custom_attributes required"
-        )
+        out["custom_attributes"] = []
     return out

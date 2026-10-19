@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.target_workspace_state
     import capo_workspaces.types.workspace_id
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyWorkspaceStateRequest:
     if data.get("WorkspaceId") is not None:
         out["workspace_id"] = data["WorkspaceId"]
     else:
-        raise DeserializationError("ModifyWorkspaceStateRequest.workspace_id required")
+        out["workspace_id"] = ""
     if data.get("WorkspaceState") is not None:
         import capo_workspaces.types.target_workspace_state
 
@@ -47,7 +45,9 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyWorkspaceStateRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ModifyWorkspaceStateRequest.workspace_state required"
+        import typing
+
+        out["workspace_state"] = typing.cast(
+            "capo_workspaces.types.target_workspace_state.TargetWorkspaceState", ""
         )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.id
     import capo_dataexchange.types.list_of_asset_source_entry
@@ -48,19 +46,13 @@ def deserialize_json(data: dict) -> ImportAssetsFromS3RequestDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "ImportAssetsFromS3RequestDetails.asset_sources required"
-        )
+        out["asset_sources"] = []
     if data.get("DataSetId") is not None:
         out["data_set_id"] = data["DataSetId"]
     else:
-        raise DeserializationError(
-            "ImportAssetsFromS3RequestDetails.data_set_id required"
-        )
+        out["data_set_id"] = ""
     if data.get("RevisionId") is not None:
         out["revision_id"] = data["RevisionId"]
     else:
-        raise DeserializationError(
-            "ImportAssetsFromS3RequestDetails.revision_id required"
-        )
+        out["revision_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_nova_act.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_nova_act.types.call_results
     import capo_nova_act.types.uuid_string
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> InvokeActStepRequest:
             data["callResults"]
         )
     else:
-        raise DeserializationError("InvokeActStepRequest.call_results required")
+        out["call_results"] = []
     if data.get("previousStepId") is not None:
         out["previous_step_id"] = data["previousStepId"]
     return out

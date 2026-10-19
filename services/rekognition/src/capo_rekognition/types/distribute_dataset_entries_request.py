@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.distribute_dataset_metadata_list
 
@@ -39,5 +37,5 @@ def deserialize_aws_json_1_1(data: dict) -> DistributeDatasetEntriesRequest:
             )
         )
     else:
-        raise DeserializationError("DistributeDatasetEntriesRequest.datasets required")
+        out["datasets"] = []
     return out

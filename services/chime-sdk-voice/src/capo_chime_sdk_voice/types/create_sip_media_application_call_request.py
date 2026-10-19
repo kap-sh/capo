@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.e164_phone_number
     import capo_chime_sdk_voice.types.non_empty_string
@@ -57,15 +55,11 @@ def deserialize_json(data: dict) -> CreateSipMediaApplicationCallRequest:
     if data.get("FromPhoneNumber") is not None:
         out["from_phone_number"] = data["FromPhoneNumber"]
     else:
-        raise DeserializationError(
-            "CreateSipMediaApplicationCallRequest.from_phone_number required"
-        )
+        out["from_phone_number"] = ""
     if data.get("ToPhoneNumber") is not None:
         out["to_phone_number"] = data["ToPhoneNumber"]
     else:
-        raise DeserializationError(
-            "CreateSipMediaApplicationCallRequest.to_phone_number required"
-        )
+        out["to_phone_number"] = ""
     if data.get("SipHeaders") is not None:
         import capo_chime_sdk_voice.types.sip_headers_map
 

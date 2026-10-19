@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_api_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_api_gateway.types.access_association_source_type
     import capo_api_gateway.types.map_of_string_to_string
@@ -51,9 +49,7 @@ def deserialize_json(data: dict) -> CreateDomainNameAccessAssociationRequest:
     if data.get("domainNameArn") is not None:
         out["domain_name_arn"] = data["domainNameArn"]
     else:
-        raise DeserializationError(
-            "CreateDomainNameAccessAssociationRequest.domain_name_arn required"
-        )
+        out["domain_name_arn"] = ""
     if data.get("accessAssociationSourceType") is not None:
         import capo_api_gateway.types.access_association_source_type
 
@@ -63,15 +59,16 @@ def deserialize_json(data: dict) -> CreateDomainNameAccessAssociationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDomainNameAccessAssociationRequest.access_association_source_type required"
+        import typing
+
+        out["access_association_source_type"] = typing.cast(
+            "capo_api_gateway.types.access_association_source_type.AccessAssociationSourceType",
+            "",
         )
     if data.get("accessAssociationSource") is not None:
         out["access_association_source"] = data["accessAssociationSource"]
     else:
-        raise DeserializationError(
-            "CreateDomainNameAccessAssociationRequest.access_association_source required"
-        )
+        out["access_association_source"] = ""
     if data.get("tags") is not None:
         import capo_api_gateway.types.map_of_string_to_string
 

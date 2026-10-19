@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.asset_bundle_resource_permissions
     import capo_quicksight.types.asset_bundle_restrictive_resource_id_list
@@ -51,9 +49,7 @@ def deserialize_json(data: dict) -> AssetBundleImportJobFolderOverridePermission
             )
         )
     else:
-        raise DeserializationError(
-            "AssetBundleImportJobFolderOverridePermissions.folder_ids required"
-        )
+        out["folder_ids"] = []
     if data.get("Permissions") is not None:
         import capo_quicksight.types.asset_bundle_resource_permissions
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_synthetics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_synthetics.types.dependency_type
     import capo_synthetics.types.string
@@ -42,5 +40,5 @@ def deserialize_json(data: dict) -> Dependency:
     if data.get("Reference") is not None:
         out["reference"] = data["Reference"]
     else:
-        raise DeserializationError("Dependency.reference required")
+        out["reference"] = ""
     return out

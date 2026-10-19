@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.timestream_dimension_name
     import capo_iot.types.timestream_dimension_value
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> TimestreamDimension:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("TimestreamDimension.name required")
+        out["name"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("TimestreamDimension.value required")
+        out["value"] = ""
     return out

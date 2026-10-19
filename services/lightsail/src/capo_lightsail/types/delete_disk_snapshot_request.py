@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.resource_name
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteDiskSnapshotRequest:
     if data.get("diskSnapshotName") is not None:
         out["disk_snapshot_name"] = data["diskSnapshotName"]
     else:
-        raise DeserializationError(
-            "DeleteDiskSnapshotRequest.disk_snapshot_name required"
-        )
+        out["disk_snapshot_name"] = ""
     return out

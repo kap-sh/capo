@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.crawls_filter_list
     import capo_glue.types.name_string
@@ -46,7 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListCrawlsRequest:
     if data.get("CrawlerName") is not None:
         out["crawler_name"] = data["CrawlerName"]
     else:
-        raise DeserializationError("ListCrawlsRequest.crawler_name required")
+        out["crawler_name"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("Filters") is not None:

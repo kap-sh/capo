@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -37,9 +35,7 @@ def deserialize_json(data: dict) -> GetPrimaryEmailUpdateStatusResponse:
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError(
-            "GetPrimaryEmailUpdateStatusResponse.status required"
-        )
+        out["status"] = ""
     if data.get("UpdatedAt") is not None:
         import capo_account.types._prelude.timestamp
 

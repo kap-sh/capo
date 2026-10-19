@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.bucket
     import capo_panorama.types.object
@@ -40,21 +38,21 @@ def deserialize_json(data: dict) -> StorageLocation:
     if data.get("Bucket") is not None:
         out["bucket"] = data["Bucket"]
     else:
-        raise DeserializationError("StorageLocation.bucket required")
+        out["bucket"] = ""
     if data.get("RepoPrefixLocation") is not None:
         out["repo_prefix_location"] = data["RepoPrefixLocation"]
     else:
-        raise DeserializationError("StorageLocation.repo_prefix_location required")
+        out["repo_prefix_location"] = ""
     if data.get("GeneratedPrefixLocation") is not None:
         out["generated_prefix_location"] = data["GeneratedPrefixLocation"]
     else:
-        raise DeserializationError("StorageLocation.generated_prefix_location required")
+        out["generated_prefix_location"] = ""
     if data.get("BinaryPrefixLocation") is not None:
         out["binary_prefix_location"] = data["BinaryPrefixLocation"]
     else:
-        raise DeserializationError("StorageLocation.binary_prefix_location required")
+        out["binary_prefix_location"] = ""
     if data.get("ManifestPrefixLocation") is not None:
         out["manifest_prefix_location"] = data["ManifestPrefixLocation"]
     else:
-        raise DeserializationError("StorageLocation.manifest_prefix_location required")
+        out["manifest_prefix_location"] = ""
     return out

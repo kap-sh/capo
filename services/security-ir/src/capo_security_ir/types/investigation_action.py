@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_security_ir.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -71,7 +69,7 @@ def deserialize_json(data: dict) -> InvestigationAction:
     if data.get("investigationId") is not None:
         out["investigation_id"] = data["investigationId"]
     else:
-        raise DeserializationError("InvestigationAction.investigation_id required")
+        out["investigation_id"] = ""
     if data.get("actionType") is not None:
         import capo_security_ir.types.action_type
 
@@ -79,15 +77,19 @@ def deserialize_json(data: dict) -> InvestigationAction:
             data["actionType"]
         )
     else:
-        raise DeserializationError("InvestigationAction.action_type required")
+        import typing
+
+        out["action_type"] = typing.cast(
+            "capo_security_ir.types.action_type.ActionType", ""
+        )
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("InvestigationAction.title required")
+        out["title"] = ""
     if data.get("content") is not None:
         out["content"] = data["content"]
     else:
-        raise DeserializationError("InvestigationAction.content required")
+        out["content"] = ""
     if data.get("status") is not None:
         import capo_security_ir.types.execution_status
 
@@ -95,7 +97,11 @@ def deserialize_json(data: dict) -> InvestigationAction:
             data["status"]
         )
     else:
-        raise DeserializationError("InvestigationAction.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_security_ir.types.execution_status.ExecutionStatus", ""
+        )
     if data.get("lastUpdated") is not None:
         import capo_security_ir.types._prelude.timestamp
 
@@ -105,7 +111,11 @@ def deserialize_json(data: dict) -> InvestigationAction:
             )
         )
     else:
-        raise DeserializationError("InvestigationAction.last_updated required")
+        import datetime
+
+        out["last_updated"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("feedback") is not None:
         import capo_security_ir.types.investigation_feedback
 

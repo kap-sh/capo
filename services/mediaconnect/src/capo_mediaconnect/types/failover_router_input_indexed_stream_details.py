@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 
 class FailoverRouterInputIndexedStreamDetails(TypedDict, closed=True):
     source_index: "int"
@@ -26,9 +24,7 @@ def deserialize_json(data: dict) -> FailoverRouterInputIndexedStreamDetails:
     if data.get("sourceIndex") is not None:
         out["source_index"] = data["sourceIndex"]
     else:
-        raise DeserializationError(
-            "FailoverRouterInputIndexedStreamDetails.source_index required"
-        )
+        out["source_index"] = 0
     if data.get("sourceIpAddress") is not None:
         out["source_ip_address"] = data["sourceIpAddress"]
     return out

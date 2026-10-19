@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kendra_ranking.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra_ranking.types.document_list
     import capo_kendra_ranking.types.rescore_execution_plan_id
@@ -41,11 +39,11 @@ def deserialize_aws_json_1_0(data: dict) -> RescoreRequest:
     if data.get("RescoreExecutionPlanId") is not None:
         out["rescore_execution_plan_id"] = data["RescoreExecutionPlanId"]
     else:
-        raise DeserializationError("RescoreRequest.rescore_execution_plan_id required")
+        out["rescore_execution_plan_id"] = ""
     if data.get("SearchQuery") is not None:
         out["search_query"] = data["SearchQuery"]
     else:
-        raise DeserializationError("RescoreRequest.search_query required")
+        out["search_query"] = ""
     if data.get("Documents") is not None:
         import capo_kendra_ranking.types.document_list
 
@@ -55,5 +53,5 @@ def deserialize_aws_json_1_0(data: dict) -> RescoreRequest:
             )
         )
     else:
-        raise DeserializationError("RescoreRequest.documents required")
+        out["documents"] = []
     return out

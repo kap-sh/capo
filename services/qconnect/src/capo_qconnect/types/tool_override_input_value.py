@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.non_empty_string
     import capo_qconnect.types.tool_override_input_value_configuration
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> ToolOverrideInputValue:
     if data.get("jsonPath") is not None:
         out["json_path"] = data["jsonPath"]
     else:
-        raise DeserializationError("ToolOverrideInputValue.json_path required")
+        out["json_path"] = ""
     if data.get("value") is not None:
         import capo_qconnect.types.tool_override_input_value_configuration
 
@@ -47,7 +45,9 @@ def deserialize_json(data: dict) -> ToolOverrideInputValue:
             )
         )
     else:
-        raise DeserializationError("ToolOverrideInputValue.value required")
+        import capo_qconnect.types._unknown
+
+        out["value"] = capo_qconnect.types._unknown.UnknownUnionMember("")
     return out
 
 

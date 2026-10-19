@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_evs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_evs.types.environment_id
 
@@ -31,7 +29,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetDepotUrlRequest:
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError("GetDepotUrlRequest.environment_id required")
+        out["environment_id"] = ""
     if data.get("rotate") is not None:
         out["rotate"] = data["rotate"]
     return out

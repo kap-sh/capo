@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.import_job_properties_list
     import capo_healthlake.types.next_token
@@ -46,9 +44,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListFHIRImportJobsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListFHIRImportJobsResponse.import_job_properties_list required"
-        )
+        out["import_job_properties_list"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

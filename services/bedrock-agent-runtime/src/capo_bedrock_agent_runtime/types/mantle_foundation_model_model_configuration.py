@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.bedrock_model_arn
     import capo_bedrock_agent_runtime.types.mantle_project_id
@@ -34,9 +32,7 @@ def deserialize_json(data: dict) -> MantleFoundationModelModelConfiguration:
     if data.get("modelArn") is not None:
         out["model_arn"] = data["modelArn"]
     else:
-        raise DeserializationError(
-            "MantleFoundationModelModelConfiguration.model_arn required"
-        )
+        out["model_arn"] = ""
     if data.get("projectId") is not None:
         out["project_id"] = data["projectId"]
     return out

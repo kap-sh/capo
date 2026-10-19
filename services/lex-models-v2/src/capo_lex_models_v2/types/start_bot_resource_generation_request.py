@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.bot_version
     import capo_lex_models_v2.types.generation_input
@@ -36,7 +34,5 @@ def deserialize_json(data: dict) -> StartBotResourceGenerationRequest:
     if data.get("generationInputPrompt") is not None:
         out["generation_input_prompt"] = data["generationInputPrompt"]
     else:
-        raise DeserializationError(
-            "StartBotResourceGenerationRequest.generation_input_prompt required"
-        )
+        out["generation_input_prompt"] = ""
     return out

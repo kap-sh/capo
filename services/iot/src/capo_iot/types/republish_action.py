@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aws_arn
     import capo_iot.types.mqtt_headers
@@ -43,11 +41,11 @@ def deserialize_json(data: dict) -> RepublishAction:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("RepublishAction.role_arn required")
+        out["role_arn"] = ""
     if data.get("topic") is not None:
         out["topic"] = data["topic"]
     else:
-        raise DeserializationError("RepublishAction.topic required")
+        out["topic"] = ""
     if data.get("qos") is not None:
         out["qos"] = data["qos"]
     if data.get("headers") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.agent_space_id
     import capo_devops_agent.types.iam_auth_configuration
@@ -64,7 +62,7 @@ def deserialize_json(data: dict) -> EnableOperatorAppOutput:
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError("EnableOperatorAppOutput.agent_space_id required")
+        out["agent_space_id"] = ""
     if data.get("operatorAppUrl") is not None:
         out["operator_app_url"] = data["operatorAppUrl"]
     if data.get("iam") is not None:

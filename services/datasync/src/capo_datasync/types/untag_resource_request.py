@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.tag_key_list
     import capo_datasync.types.taggable_resource_arn
@@ -33,7 +31,7 @@ def deserialize_aws_json_1_1(data: dict) -> UntagResourceRequest:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("UntagResourceRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("Keys") is not None:
         import capo_datasync.types.tag_key_list
 
@@ -41,5 +39,5 @@ def deserialize_aws_json_1_1(data: dict) -> UntagResourceRequest:
             data["Keys"]
         )
     else:
-        raise DeserializationError("UntagResourceRequest.keys required")
+        out["keys"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.data_set_region
     import capo_quicksight.types.project_id
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> BigQueryParameters:
     if data.get("ProjectId") is not None:
         out["project_id"] = data["ProjectId"]
     else:
-        raise DeserializationError("BigQueryParameters.project_id required")
+        out["project_id"] = ""
     if data.get("DataSetRegion") is not None:
         out["data_set_region"] = data["DataSetRegion"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.awskms_key_arn_for_sse
     import capo_firehose.types.key_type
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeliveryStreamEncryptionConfiguratio
             data["KeyType"]
         )
     else:
-        raise DeserializationError(
-            "DeliveryStreamEncryptionConfigurationInput.key_type required"
-        )
+        import typing
+
+        out["key_type"] = typing.cast("capo_firehose.types.key_type.KeyType", "")
     return out

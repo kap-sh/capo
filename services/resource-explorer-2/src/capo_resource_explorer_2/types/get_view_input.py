@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_resource_explorer_2.errors import DeserializationError
-
 
 class GetViewInput(TypedDict, closed=True):
     view_arn: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> GetViewInput:
     if data.get("ViewArn") is not None:
         out["view_arn"] = data["ViewArn"]
     else:
-        raise DeserializationError("GetViewInput.view_arn required")
+        out["view_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.iso_date
     import capo_lightsail.types.resource_name
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetCostEstimateRequest:
     if data.get("resourceName") is not None:
         out["resource_name"] = data["resourceName"]
     else:
-        raise DeserializationError("GetCostEstimateRequest.resource_name required")
+        out["resource_name"] = ""
     if data.get("startTime") is not None:
         import capo_lightsail.types.iso_date
 
@@ -50,7 +48,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetCostEstimateRequest:
             data["startTime"]
         )
     else:
-        raise DeserializationError("GetCostEstimateRequest.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_lightsail.types.iso_date
 
@@ -58,5 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetCostEstimateRequest:
             data["endTime"]
         )
     else:
-        raise DeserializationError("GetCostEstimateRequest.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.server_certificate_name_type
@@ -42,9 +41,7 @@ def deserialize_query(el: Element) -> UntagServerCertificateRequest:
     if child_server_certificate_name is not None:
         out["server_certificate_name"] = str(child_server_certificate_name.text or "")
     else:
-        raise DeserializationError(
-            "UntagServerCertificateRequest.server_certificate_name required"
-        )
+        out["server_certificate_name"] = ""
     child_tag_keys = el.find("TagKeys")
     if child_tag_keys is not None:
         import capo_iam.types.tag_key_list_type
@@ -53,5 +50,5 @@ def deserialize_query(el: Element) -> UntagServerCertificateRequest:
             child_tag_keys
         )
     else:
-        raise DeserializationError("UntagServerCertificateRequest.tag_keys required")
+        out["tag_keys"] = []
     return out

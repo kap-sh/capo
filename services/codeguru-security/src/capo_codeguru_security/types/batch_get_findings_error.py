@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codeguru_security.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguru_security.types.error_code
     import capo_codeguru_security.types.scan_name
@@ -41,11 +39,11 @@ def deserialize_json(data: dict) -> BatchGetFindingsError:
     if data.get("scanName") is not None:
         out["scan_name"] = data["scanName"]
     else:
-        raise DeserializationError("BatchGetFindingsError.scan_name required")
+        out["scan_name"] = ""
     if data.get("findingId") is not None:
         out["finding_id"] = data["findingId"]
     else:
-        raise DeserializationError("BatchGetFindingsError.finding_id required")
+        out["finding_id"] = ""
     if data.get("errorCode") is not None:
         import capo_codeguru_security.types.error_code
 
@@ -53,9 +51,13 @@ def deserialize_json(data: dict) -> BatchGetFindingsError:
             data["errorCode"]
         )
     else:
-        raise DeserializationError("BatchGetFindingsError.error_code required")
+        import typing
+
+        out["error_code"] = typing.cast(
+            "capo_codeguru_security.types.error_code.ErrorCode", ""
+        )
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("BatchGetFindingsError.message required")
+        out["message"] = ""
     return out

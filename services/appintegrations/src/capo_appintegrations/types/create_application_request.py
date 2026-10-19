@@ -155,11 +155,11 @@ def deserialize_json(data: dict) -> CreateApplicationRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateApplicationRequest.name required")
+        out["name"] = ""
     if data.get("Namespace") is not None:
         out["namespace"] = data["Namespace"]
     else:
-        raise DeserializationError("CreateApplicationRequest.namespace required")
+        out["namespace"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("ApplicationSourceConfig") is not None:

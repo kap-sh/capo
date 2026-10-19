@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.document_scope
     import capo_qapps.types.filename
@@ -50,25 +48,27 @@ def deserialize_json(data: dict) -> ImportDocumentInput:
     if data.get("cardId") is not None:
         out["card_id"] = data["cardId"]
     else:
-        raise DeserializationError("ImportDocumentInput.card_id required")
+        out["card_id"] = ""
     if data.get("appId") is not None:
         out["app_id"] = data["appId"]
     else:
-        raise DeserializationError("ImportDocumentInput.app_id required")
+        out["app_id"] = ""
     if data.get("fileContentsBase64") is not None:
         out["file_contents_base64"] = data["fileContentsBase64"]
     else:
-        raise DeserializationError("ImportDocumentInput.file_contents_base64 required")
+        out["file_contents_base64"] = ""
     if data.get("fileName") is not None:
         out["file_name"] = data["fileName"]
     else:
-        raise DeserializationError("ImportDocumentInput.file_name required")
+        out["file_name"] = ""
     if data.get("scope") is not None:
         import capo_qapps.types.document_scope
 
         out["scope"] = capo_qapps.types.document_scope.deserialize_json(data["scope"])
     else:
-        raise DeserializationError("ImportDocumentInput.scope required")
+        import typing
+
+        out["scope"] = typing.cast("capo_qapps.types.document_scope.DocumentScope", "")
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     return out

@@ -53,13 +53,11 @@ def deserialize_json(data: dict) -> CreateConnectorRequest:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError("CreateConnectorRequest.directory_id required")
+        out["directory_id"] = ""
     if data.get("CertificateAuthorityArn") is not None:
         out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
     else:
-        raise DeserializationError(
-            "CreateConnectorRequest.certificate_authority_arn required"
-        )
+        out["certificate_authority_arn"] = ""
     if data.get("VpcInformation") is not None:
         import capo_pca_connector_ad.types.vpc_information
 

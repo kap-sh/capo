@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.string
     import capo_ecs.types.task_definition_field_list
@@ -40,9 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeTaskDefinitionRequest:
     if data.get("taskDefinition") is not None:
         out["task_definition"] = data["taskDefinition"]
     else:
-        raise DeserializationError(
-            "DescribeTaskDefinitionRequest.task_definition required"
-        )
+        out["task_definition"] = ""
     if data.get("include") is not None:
         import capo_ecs.types.task_definition_field_list
 

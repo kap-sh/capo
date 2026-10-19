@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.analysis_defaults
     import capo_quicksight.types.asset_options
@@ -170,9 +168,7 @@ def deserialize_json(data: dict) -> TemplateVersionDefinition:
             )
         )
     else:
-        raise DeserializationError(
-            "TemplateVersionDefinition.data_set_configurations required"
-        )
+        out["data_set_configurations"] = []
     if data.get("TopicConfigurations") is not None:
         import capo_quicksight.types.topic_configuration_list
 

@@ -80,25 +80,19 @@ def deserialize_json(data: dict) -> CreateExperimentDefinitionRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateExperimentDefinitionRequest.name required")
+        out["name"] = ""
     if data.get("ConfigurationProfileIdentifier") is not None:
         out["configuration_profile_identifier"] = data["ConfigurationProfileIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateExperimentDefinitionRequest.configuration_profile_identifier required"
-        )
+        out["configuration_profile_identifier"] = ""
     if data.get("EnvironmentIdentifier") is not None:
         out["environment_identifier"] = data["EnvironmentIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateExperimentDefinitionRequest.environment_identifier required"
-        )
+        out["environment_identifier"] = ""
     if data.get("FlagKey") is not None:
         out["flag_key"] = data["FlagKey"]
     else:
-        raise DeserializationError(
-            "CreateExperimentDefinitionRequest.flag_key required"
-        )
+        out["flag_key"] = ""
     if data.get("Treatments") is not None:
         import capo_appconfig.types.treatment_input_list
 
@@ -106,9 +100,7 @@ def deserialize_json(data: dict) -> CreateExperimentDefinitionRequest:
             data["Treatments"]
         )
     else:
-        raise DeserializationError(
-            "CreateExperimentDefinitionRequest.treatments required"
-        )
+        out["treatments"] = []
     if data.get("Control") is not None:
         import capo_appconfig.types.treatment_input
 
@@ -120,9 +112,7 @@ def deserialize_json(data: dict) -> CreateExperimentDefinitionRequest:
     if data.get("AudienceRule") is not None:
         out["audience_rule"] = data["AudienceRule"]
     else:
-        raise DeserializationError(
-            "CreateExperimentDefinitionRequest.audience_rule required"
-        )
+        out["audience_rule"] = ""
     if data.get("Hypothesis") is not None:
         out["hypothesis"] = data["Hypothesis"]
     if data.get("AudienceDescription") is not None:

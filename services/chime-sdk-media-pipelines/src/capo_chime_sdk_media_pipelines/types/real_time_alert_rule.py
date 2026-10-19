@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.issue_detection_configuration
     import capo_chime_sdk_media_pipelines.types.keyword_match_configuration
@@ -78,7 +76,12 @@ def deserialize_json(data: dict) -> RealTimeAlertRule:
             )
         )
     else:
-        raise DeserializationError("RealTimeAlertRule.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.real_time_alert_rule_type.RealTimeAlertRuleType",
+            "",
+        )
     if data.get("KeywordMatchConfiguration") is not None:
         import capo_chime_sdk_media_pipelines.types.keyword_match_configuration
 

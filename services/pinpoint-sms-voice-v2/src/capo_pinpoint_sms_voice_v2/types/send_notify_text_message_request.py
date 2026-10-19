@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.configuration_set_name_or_arn
     import capo_pinpoint_sms_voice_v2.types.context_map
@@ -83,15 +81,11 @@ def deserialize_aws_json_1_0(data: dict) -> SendNotifyTextMessageRequest:
     if data.get("NotifyConfigurationId") is not None:
         out["notify_configuration_id"] = data["NotifyConfigurationId"]
     else:
-        raise DeserializationError(
-            "SendNotifyTextMessageRequest.notify_configuration_id required"
-        )
+        out["notify_configuration_id"] = ""
     if data.get("DestinationPhoneNumber") is not None:
         out["destination_phone_number"] = data["DestinationPhoneNumber"]
     else:
-        raise DeserializationError(
-            "SendNotifyTextMessageRequest.destination_phone_number required"
-        )
+        out["destination_phone_number"] = ""
     if data.get("TemplateId") is not None:
         out["template_id"] = data["TemplateId"]
     if data.get("TemplateVariables") is not None:
@@ -103,9 +97,7 @@ def deserialize_aws_json_1_0(data: dict) -> SendNotifyTextMessageRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "SendNotifyTextMessageRequest.template_variables required"
-        )
+        out["template_variables"] = {}
     if data.get("TimeToLive") is not None:
         out["time_to_live"] = data["TimeToLive"]
     if data.get("Context") is not None:

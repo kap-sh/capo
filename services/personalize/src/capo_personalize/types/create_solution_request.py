@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.arn
     import capo_personalize.types.boolean
@@ -84,7 +82,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSolutionRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateSolutionRequest.name required")
+        out["name"] = ""
     if data.get("performHPO") is not None:
         out["perform_hpo"] = data["performHPO"]
     if data.get("performAutoML") is not None:
@@ -98,7 +96,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSolutionRequest:
     if data.get("datasetGroupArn") is not None:
         out["dataset_group_arn"] = data["datasetGroupArn"]
     else:
-        raise DeserializationError("CreateSolutionRequest.dataset_group_arn required")
+        out["dataset_group_arn"] = ""
     if data.get("eventType") is not None:
         out["event_type"] = data["eventType"]
     if data.get("solutionConfig") is not None:

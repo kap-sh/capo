@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.tls_encryption_configuration
     import capo_mediaconnect.types.tls_encryption_type
@@ -60,5 +58,9 @@ def deserialize_json(data: dict) -> TlsEncryption:
             )
         )
     else:
-        raise DeserializationError("TlsEncryption.encryption_configuration required")
+        import capo_mediaconnect.types._unknown
+
+        out["encryption_configuration"] = (
+            capo_mediaconnect.types._unknown.UnknownUnionMember("")
+        )
     return out

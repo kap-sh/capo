@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.description
     import capo_frauddetector.types.model_identifier
@@ -53,7 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateModelRequest:
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:
-        raise DeserializationError("CreateModelRequest.model_id required")
+        out["model_id"] = ""
     if data.get("modelType") is not None:
         import capo_frauddetector.types.model_type_enum
 
@@ -63,13 +61,17 @@ def deserialize_aws_json_1_1(data: dict) -> CreateModelRequest:
             )
         )
     else:
-        raise DeserializationError("CreateModelRequest.model_type required")
+        import typing
+
+        out["model_type"] = typing.cast(
+            "capo_frauddetector.types.model_type_enum.ModelTypeEnum", ""
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("eventTypeName") is not None:
         out["event_type_name"] = data["eventTypeName"]
     else:
-        raise DeserializationError("CreateModelRequest.event_type_name required")
+        out["event_type_name"] = ""
     if data.get("tags") is not None:
         import capo_frauddetector.types.tag_list
 

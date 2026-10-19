@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.statistic_list
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> AllowedStatistics:
             data["Statistics"]
         )
     else:
-        raise DeserializationError("AllowedStatistics.statistics required")
+        out["statistics"] = []
     return out

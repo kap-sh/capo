@@ -35,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAccessResponse:
     if data.get("ServerId") is not None:
         out["server_id"] = data["ServerId"]
     else:
-        raise DeserializationError("DescribeAccessResponse.server_id required")
+        out["server_id"] = ""
     if data.get("Access") is not None:
         import capo_transfer.types.described_access
 

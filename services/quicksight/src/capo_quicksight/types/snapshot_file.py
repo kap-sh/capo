@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.snapshot_file_format_type
     import capo_quicksight.types.snapshot_file_sheet_selection_list
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> SnapshotFile:
             )
         )
     else:
-        raise DeserializationError("SnapshotFile.sheet_selections required")
+        out["sheet_selections"] = []
     if data.get("FormatType") is not None:
         import capo_quicksight.types.snapshot_file_format_type
 
@@ -59,5 +57,9 @@ def deserialize_json(data: dict) -> SnapshotFile:
             )
         )
     else:
-        raise DeserializationError("SnapshotFile.format_type required")
+        import typing
+
+        out["format_type"] = typing.cast(
+            "capo_quicksight.types.snapshot_file_format_type.SnapshotFileFormatType", ""
+        )
     return out

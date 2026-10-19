@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.element_id
 
@@ -33,13 +31,13 @@ def deserialize_aws_json_1_0(data: dict) -> X12ElementLengthValidationRule:
     if data.get("elementId") is not None:
         out["element_id"] = data["elementId"]
     else:
-        raise DeserializationError("X12ElementLengthValidationRule.element_id required")
+        out["element_id"] = ""
     if data.get("maxLength") is not None:
         out["max_length"] = data["maxLength"]
     else:
-        raise DeserializationError("X12ElementLengthValidationRule.max_length required")
+        out["max_length"] = 0
     if data.get("minLength") is not None:
         out["min_length"] = data["minLength"]
     else:
-        raise DeserializationError("X12ElementLengthValidationRule.min_length required")
+        out["min_length"] = 0
     return out

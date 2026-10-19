@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_managedblockchain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_managedblockchain.types.resource_id_string
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> RemoveAction:
     if data.get("MemberId") is not None:
         out["member_id"] = data["MemberId"]
     else:
-        raise DeserializationError("RemoveAction.member_id required")
+        out["member_id"] = ""
     return out

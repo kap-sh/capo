@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.context_key_names_result_list_type
@@ -86,7 +85,7 @@ def deserialize_query(el: Element) -> ResourceSpecificResult:
     if child_eval_resource_name is not None:
         out["eval_resource_name"] = str(child_eval_resource_name.text or "")
     else:
-        raise DeserializationError("ResourceSpecificResult.eval_resource_name required")
+        out["eval_resource_name"] = ""
     child_eval_resource_decision = el.find("EvalResourceDecision")
     if child_eval_resource_decision is not None:
         import capo_iam.types.policy_evaluation_decision_type
@@ -97,8 +96,11 @@ def deserialize_query(el: Element) -> ResourceSpecificResult:
             )
         )
     else:
-        raise DeserializationError(
-            "ResourceSpecificResult.eval_resource_decision required"
+        import typing
+
+        out["eval_resource_decision"] = typing.cast(
+            "capo_iam.types.policy_evaluation_decision_type.PolicyEvaluationDecisionType",
+            "",
         )
     child_matched_statements = el.find("MatchedStatements")
     if child_matched_statements is not None:

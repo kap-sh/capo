@@ -83,7 +83,5 @@ def deserialize_json(data: dict) -> GetObjectAttributesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "GetObjectAttributesRequest.attribute_names required"
-        )
+        out["attribute_names"] = []
     return out

@@ -63,13 +63,13 @@ def deserialize_json(data: dict) -> WorkspaceSummary:
     if data.get("workspaceId") is not None:
         out["workspace_id"] = data["workspaceId"]
     else:
-        raise DeserializationError("WorkspaceSummary.workspace_id required")
+        out["workspace_id"] = ""
     if data.get("alias") is not None:
         out["alias"] = data["alias"]
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("WorkspaceSummary.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_amp.types.workspace_status
 
@@ -83,7 +83,9 @@ def deserialize_json(data: dict) -> WorkspaceSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("WorkspaceSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("tags") is not None:
         import capo_amp.types.tag_map
 

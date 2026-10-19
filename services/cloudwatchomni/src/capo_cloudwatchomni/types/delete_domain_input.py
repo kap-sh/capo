@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.domain_id
 
@@ -27,5 +25,5 @@ def deserialize_cbor(data: dict) -> DeleteDomainInput:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("DeleteDomainInput.domain_id required")
+        out["domain_id"] = ""
     return out

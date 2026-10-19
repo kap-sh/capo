@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transcribe.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transcribe.types.medical_scribe_channel_id
     import capo_transcribe.types.medical_scribe_participant_role
@@ -47,7 +45,10 @@ def deserialize_aws_json_1_1(data: dict) -> MedicalScribeChannelDefinition:
             )
         )
     else:
-        raise DeserializationError(
-            "MedicalScribeChannelDefinition.participant_role required"
+        import typing
+
+        out["participant_role"] = typing.cast(
+            "capo_transcribe.types.medical_scribe_participant_role.MedicalScribeParticipantRole",
+            "",
         )
     return out

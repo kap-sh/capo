@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.describe_index_policies_log_group_identifiers
     import capo_cloudwatch_logs.types.next_token
@@ -43,9 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeIndexPoliciesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeIndexPoliciesRequest.log_group_identifiers required"
-        )
+        out["log_group_identifiers"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_auto_scaling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_auto_scaling.types.predictive_scaling_metric_dimension_name
     import capo_application_auto_scaling.types.predictive_scaling_metric_dimension_value
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> PredictiveScalingMetricDimension:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("PredictiveScalingMetricDimension.name required")
+        out["name"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("PredictiveScalingMetricDimension.value required")
+        out["value"] = ""
     return out

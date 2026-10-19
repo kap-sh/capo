@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chatbot.types.chat_configuration_arn
     import capo_chatbot.types.resource_identifier
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> DisassociateFromConfigurationRequest:
     if data.get("Resource") is not None:
         out["resource"] = data["Resource"]
     else:
-        raise DeserializationError(
-            "DisassociateFromConfigurationRequest.resource required"
-        )
+        out["resource"] = ""
     if data.get("ChatConfiguration") is not None:
         out["chat_configuration"] = data["ChatConfiguration"]
     else:
-        raise DeserializationError(
-            "DisassociateFromConfigurationRequest.chat_configuration required"
-        )
+        out["chat_configuration"] = ""
     return out

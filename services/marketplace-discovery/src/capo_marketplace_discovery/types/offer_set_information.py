@@ -39,7 +39,7 @@ def deserialize_json(data: dict) -> OfferSetInformation:
     if data.get("offerSetId") is not None:
         out["offer_set_id"] = data["offerSetId"]
     else:
-        raise DeserializationError("OfferSetInformation.offer_set_id required")
+        out["offer_set_id"] = ""
     if data.get("sellerOfRecord") is not None:
         import capo_marketplace_discovery.types.seller_information
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sqs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sqs.types.string
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_0(data: dict) -> RemovePermissionRequest:
     if data.get("QueueUrl") is not None:
         out["queue_url"] = data["QueueUrl"]
     else:
-        raise DeserializationError("RemovePermissionRequest.queue_url required")
+        out["queue_url"] = ""
     if data.get("Label") is not None:
         out["label"] = data["Label"]
     else:
-        raise DeserializationError("RemovePermissionRequest.label required")
+        out["label"] = ""
     return out

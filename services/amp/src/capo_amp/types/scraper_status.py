@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_amp.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amp.types.scraper_status_code
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> ScraperStatus:
     if data.get("statusCode") is not None:
         out["status_code"] = data["statusCode"]
     else:
-        raise DeserializationError("ScraperStatus.status_code required")
+        out["status_code"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.bandwidth_download_rate_limit
     import capo_storage_gateway.types.bandwidth_upload_rate_limit
@@ -63,27 +61,19 @@ def deserialize_aws_json_1_1(data: dict) -> BandwidthRateLimitInterval:
     if data.get("StartHourOfDay") is not None:
         out["start_hour_of_day"] = data["StartHourOfDay"]
     else:
-        raise DeserializationError(
-            "BandwidthRateLimitInterval.start_hour_of_day required"
-        )
+        out["start_hour_of_day"] = 0
     if data.get("StartMinuteOfHour") is not None:
         out["start_minute_of_hour"] = data["StartMinuteOfHour"]
     else:
-        raise DeserializationError(
-            "BandwidthRateLimitInterval.start_minute_of_hour required"
-        )
+        out["start_minute_of_hour"] = 0
     if data.get("EndHourOfDay") is not None:
         out["end_hour_of_day"] = data["EndHourOfDay"]
     else:
-        raise DeserializationError(
-            "BandwidthRateLimitInterval.end_hour_of_day required"
-        )
+        out["end_hour_of_day"] = 0
     if data.get("EndMinuteOfHour") is not None:
         out["end_minute_of_hour"] = data["EndMinuteOfHour"]
     else:
-        raise DeserializationError(
-            "BandwidthRateLimitInterval.end_minute_of_hour required"
-        )
+        out["end_minute_of_hour"] = 0
     if data.get("DaysOfWeek") is not None:
         import capo_storage_gateway.types.days_of_week
 
@@ -93,7 +83,7 @@ def deserialize_aws_json_1_1(data: dict) -> BandwidthRateLimitInterval:
             )
         )
     else:
-        raise DeserializationError("BandwidthRateLimitInterval.days_of_week required")
+        out["days_of_week"] = []
     if data.get("AverageUploadRateLimitInBitsPerSec") is not None:
         out["average_upload_rate_limit_in_bits_per_sec"] = data[
             "AverageUploadRateLimitInBitsPerSec"

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.custom_instructions_string
 
@@ -29,9 +27,7 @@ def deserialize_json(data: dict) -> CustomInstructions:
     if data.get("CustomInstructionsString") is not None:
         out["custom_instructions_string"] = data["CustomInstructionsString"]
     else:
-        raise DeserializationError(
-            "CustomInstructions.custom_instructions_string required"
-        )
+        out["custom_instructions_string"] = ""
     return out
 
 

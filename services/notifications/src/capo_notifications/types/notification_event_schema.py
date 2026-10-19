@@ -138,11 +138,11 @@ def deserialize_json(data: dict) -> NotificationEventSchema:
     if data.get("schemaVersion") is not None:
         out["schema_version"] = data["schemaVersion"]
     else:
-        raise DeserializationError("NotificationEventSchema.schema_version required")
+        out["schema_version"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("NotificationEventSchema.id required")
+        out["id"] = ""
     if data.get("sourceEventMetadata") is not None:
         import capo_notifications.types.source_event_metadata
 
@@ -176,7 +176,7 @@ def deserialize_json(data: dict) -> NotificationEventSchema:
     if data.get("notificationType") is not None:
         out["notification_type"] = data["notificationType"]
     else:
-        raise DeserializationError("NotificationEventSchema.notification_type required")
+        out["notification_type"] = ""
     if data.get("eventStatus") is not None:
         out["event_status"] = data["eventStatus"]
     if data.get("aggregationEventType") is not None:
@@ -210,13 +210,13 @@ def deserialize_json(data: dict) -> NotificationEventSchema:
             data["textParts"]
         )
     else:
-        raise DeserializationError("NotificationEventSchema.text_parts required")
+        out["text_parts"] = {}
     if data.get("media") is not None:
         import capo_notifications.types.media
 
         out["media"] = capo_notifications.types.media.deserialize_json(data["media"])
     else:
-        raise DeserializationError("NotificationEventSchema.media required")
+        out["media"] = []
     if data.get("organizationalUnitId") is not None:
         out["organizational_unit_id"] = data["organizationalUnitId"]
     return out

@@ -41,5 +41,5 @@ def deserialize_xml(el: Element) -> InvalidationBatch:
     if child_caller_reference is not None:
         out["caller_reference"] = str(child_caller_reference.text or "")
     else:
-        raise DeserializationError("InvalidationBatch.caller_reference required")
+        out["caller_reference"] = ""
     return out

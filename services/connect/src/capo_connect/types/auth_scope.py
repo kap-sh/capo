@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.auth_code_entity_type
     import capo_connect.types.customer_profiles_domain_name
@@ -68,7 +66,11 @@ def deserialize_json(data: dict) -> AuthScope:
             data["EntityType"]
         )
     else:
-        raise DeserializationError("AuthScope.entity_type required")
+        import typing
+
+        out["entity_type"] = typing.cast(
+            "capo_connect.types.auth_code_entity_type.AuthCodeEntityType", ""
+        )
     if data.get("EntityId") is not None:
         out["entity_id"] = data["EntityId"]
     if data.get("DomainName") is not None:

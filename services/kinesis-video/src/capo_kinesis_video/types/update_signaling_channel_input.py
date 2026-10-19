@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_video.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_video.types.resource_arn
     import capo_kinesis_video.types.single_master_configuration
@@ -44,13 +42,11 @@ def deserialize_json(data: dict) -> UpdateSignalingChannelInput:
     if data.get("ChannelARN") is not None:
         out["channel_arn"] = data["ChannelARN"]
     else:
-        raise DeserializationError("UpdateSignalingChannelInput.channel_arn required")
+        out["channel_arn"] = ""
     if data.get("CurrentVersion") is not None:
         out["current_version"] = data["CurrentVersion"]
     else:
-        raise DeserializationError(
-            "UpdateSignalingChannelInput.current_version required"
-        )
+        out["current_version"] = ""
     if data.get("SingleMasterConfiguration") is not None:
         import capo_kinesis_video.types.single_master_configuration
 

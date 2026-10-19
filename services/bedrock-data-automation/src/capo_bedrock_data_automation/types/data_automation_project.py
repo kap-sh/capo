@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.custom_output_configuration
     import capo_bedrock_data_automation.types.data_automation_library_configuration
@@ -151,7 +149,7 @@ def deserialize_json(data: dict) -> DataAutomationProject:
     if data.get("projectArn") is not None:
         out["project_arn"] = data["projectArn"]
     else:
-        raise DeserializationError("DataAutomationProject.project_arn required")
+        out["project_arn"] = ""
     if data.get("creationTime") is not None:
         import capo_bedrock_data_automation.types.date_timestamp
 
@@ -161,7 +159,11 @@ def deserialize_json(data: dict) -> DataAutomationProject:
             )
         )
     else:
-        raise DeserializationError("DataAutomationProject.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastModifiedTime") is not None:
         import capo_bedrock_data_automation.types.date_timestamp
 
@@ -171,11 +173,15 @@ def deserialize_json(data: dict) -> DataAutomationProject:
             )
         )
     else:
-        raise DeserializationError("DataAutomationProject.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("projectName") is not None:
         out["project_name"] = data["projectName"]
     else:
-        raise DeserializationError("DataAutomationProject.project_name required")
+        out["project_name"] = ""
     if data.get("projectStage") is not None:
         import capo_bedrock_data_automation.types.data_automation_project_stage
 
@@ -235,7 +241,12 @@ def deserialize_json(data: dict) -> DataAutomationProject:
             )
         )
     else:
-        raise DeserializationError("DataAutomationProject.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_data_automation.types.data_automation_project_status.DataAutomationProjectStatus",
+            "",
+        )
     if data.get("kmsKeyId") is not None:
         out["kms_key_id"] = data["kmsKeyId"]
     if data.get("kmsEncryptionContext") is not None:

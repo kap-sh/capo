@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.certificate_authority_arns
 
@@ -41,7 +39,5 @@ def deserialize_json(data: dict) -> TlsValidationContextAcmTrust:
             )
         )
     else:
-        raise DeserializationError(
-            "TlsValidationContextAcmTrust.certificate_authority_arns required"
-        )
+        out["certificate_authority_arns"] = []
     return out

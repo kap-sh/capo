@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.image_extraction_category_types
     import capo_bedrock_data_automation.types.state
@@ -46,7 +44,9 @@ def deserialize_json(data: dict) -> ImageExtractionCategory:
             data["state"]
         )
     else:
-        raise DeserializationError("ImageExtractionCategory.state required")
+        import typing
+
+        out["state"] = typing.cast("capo_bedrock_data_automation.types.state.State", "")
     if data.get("types") is not None:
         import capo_bedrock_data_automation.types.image_extraction_category_types
 

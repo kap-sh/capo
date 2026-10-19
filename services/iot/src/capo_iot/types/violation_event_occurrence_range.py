@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.timestamp
 
@@ -36,11 +34,15 @@ def deserialize_json(data: dict) -> ViolationEventOccurrenceRange:
 
         out["start_time"] = capo_iot.types.timestamp.deserialize_json(data["startTime"])
     else:
-        raise DeserializationError("ViolationEventOccurrenceRange.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_iot.types.timestamp
 
         out["end_time"] = capo_iot.types.timestamp.deserialize_json(data["endTime"])
     else:
-        raise DeserializationError("ViolationEventOccurrenceRange.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

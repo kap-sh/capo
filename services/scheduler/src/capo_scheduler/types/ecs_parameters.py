@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_scheduler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_scheduler.types.capacity_provider_strategy
     import capo_scheduler.types.enable_ecs_managed_tags
@@ -132,7 +130,7 @@ def deserialize_json(data: dict) -> EcsParameters:
     if data.get("TaskDefinitionArn") is not None:
         out["task_definition_arn"] = data["TaskDefinitionArn"]
     else:
-        raise DeserializationError("EcsParameters.task_definition_arn required")
+        out["task_definition_arn"] = ""
     if data.get("TaskCount") is not None:
         out["task_count"] = data["TaskCount"]
     if data.get("LaunchType") is not None:

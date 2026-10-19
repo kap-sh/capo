@@ -32,7 +32,7 @@ def deserialize_aws_json_1_0(data: dict) -> ParameterMapping:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ParameterMapping.name required")
+        out["name"] = ""
     if data.get("Type") is not None:
         import capo_timestream_query.types.type
 

@@ -90,7 +90,7 @@ def deserialize_aws_json_1_0(data: dict) -> LeadContext:
             )
         )
     else:
-        raise DeserializationError("LeadContext.interactions required")
+        out["interactions"] = []
     return out
 
 

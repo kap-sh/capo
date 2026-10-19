@@ -73,19 +73,19 @@ def deserialize_json(data: dict) -> WorkflowSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("WorkflowSummary.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("WorkflowSummary.name required")
+        out["name"] = ""
     if data.get("sourceRepositoryName") is not None:
         out["source_repository_name"] = data["sourceRepositoryName"]
     else:
-        raise DeserializationError("WorkflowSummary.source_repository_name required")
+        out["source_repository_name"] = ""
     if data.get("sourceBranchName") is not None:
         out["source_branch_name"] = data["sourceBranchName"]
     else:
-        raise DeserializationError("WorkflowSummary.source_branch_name required")
+        out["source_branch_name"] = ""
     if data.get("definition") is not None:
         import capo_codecatalyst.types.workflow_definition_summary
 
@@ -103,7 +103,11 @@ def deserialize_json(data: dict) -> WorkflowSummary:
             data["createdTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("WorkflowSummary.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastUpdatedTime") is not None:
         import datetime
 
@@ -111,13 +115,17 @@ def deserialize_json(data: dict) -> WorkflowSummary:
             data["lastUpdatedTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("WorkflowSummary.last_updated_time required")
+        import datetime
+
+        out["last_updated_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("runMode") is not None:
         out["run_mode"] = data["runMode"]
     else:
-        raise DeserializationError("WorkflowSummary.run_mode required")
+        out["run_mode"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("WorkflowSummary.status required")
+        out["status"] = ""
     return out

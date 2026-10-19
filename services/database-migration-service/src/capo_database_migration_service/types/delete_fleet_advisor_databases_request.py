@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.string_list
 
@@ -39,7 +37,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteFleetAdvisorDatabasesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DeleteFleetAdvisorDatabasesRequest.database_ids required"
-        )
+        out["database_ids"] = []
     return out

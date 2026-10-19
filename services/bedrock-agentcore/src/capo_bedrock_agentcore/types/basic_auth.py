@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.secret_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> BasicAuth:
     if data.get("secretArn") is not None:
         out["secret_arn"] = data["secretArn"]
     else:
-        raise DeserializationError("BasicAuth.secret_arn required")
+        out["secret_arn"] = ""
     return out

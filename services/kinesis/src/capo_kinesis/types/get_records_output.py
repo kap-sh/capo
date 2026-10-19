@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.child_shard_list
     import capo_kinesis.types.millis_behind_latest
@@ -56,7 +54,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetRecordsOutput:
             data["Records"]
         )
     else:
-        raise DeserializationError("GetRecordsOutput.records required")
+        out["records"] = []
     if data.get("NextShardIterator") is not None:
         out["next_shard_iterator"] = data["NextShardIterator"]
     if data.get("MillisBehindLatest") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.built_in_or_custom_slot_type_id
     import capo_lex_models_v2.types.name
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> SubSlotTypeComposition:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("SubSlotTypeComposition.name required")
+        out["name"] = ""
     if data.get("slotTypeId") is not None:
         out["slot_type_id"] = data["slotTypeId"]
     else:
-        raise DeserializationError("SubSlotTypeComposition.slot_type_id required")
+        out["slot_type_id"] = ""
     return out

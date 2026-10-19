@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.browser_id
     import capo_bedrock_agentcore_control.types.browser_profile_arn
@@ -101,15 +99,15 @@ def deserialize_json(data: dict) -> GetBrowserProfileResponse:
     if data.get("profileId") is not None:
         out["profile_id"] = data["profileId"]
     else:
-        raise DeserializationError("GetBrowserProfileResponse.profile_id required")
+        out["profile_id"] = ""
     if data.get("profileArn") is not None:
         out["profile_arn"] = data["profileArn"]
     else:
-        raise DeserializationError("GetBrowserProfileResponse.profile_arn required")
+        out["profile_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetBrowserProfileResponse.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("status") is not None:
@@ -121,7 +119,12 @@ def deserialize_json(data: dict) -> GetBrowserProfileResponse:
             )
         )
     else:
-        raise DeserializationError("GetBrowserProfileResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.browser_profile_status.BrowserProfileStatus",
+            "",
+        )
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -131,7 +134,9 @@ def deserialize_json(data: dict) -> GetBrowserProfileResponse:
             )
         )
     else:
-        raise DeserializationError("GetBrowserProfileResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastUpdatedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -141,7 +146,11 @@ def deserialize_json(data: dict) -> GetBrowserProfileResponse:
             )
         )
     else:
-        raise DeserializationError("GetBrowserProfileResponse.last_updated_at required")
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastSavedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 

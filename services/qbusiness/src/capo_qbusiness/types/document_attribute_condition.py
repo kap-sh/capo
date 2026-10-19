@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.document_attribute_key
     import capo_qbusiness.types.document_attribute_value
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> DocumentAttributeCondition:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("DocumentAttributeCondition.key required")
+        out["key"] = ""
     if data.get("operator") is not None:
         import capo_qbusiness.types.document_enrichment_condition_operator
 
@@ -57,7 +55,12 @@ def deserialize_json(data: dict) -> DocumentAttributeCondition:
             )
         )
     else:
-        raise DeserializationError("DocumentAttributeCondition.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_qbusiness.types.document_enrichment_condition_operator.DocumentEnrichmentConditionOperator",
+            "",
+        )
     if data.get("value") is not None:
         import capo_qbusiness.types.document_attribute_value
 

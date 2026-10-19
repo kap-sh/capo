@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.boolean_object
     import capo_firehose.types.delivery_stream_arn
@@ -127,15 +125,11 @@ def deserialize_aws_json_1_1(data: dict) -> DeliveryStreamDescription:
     if data.get("DeliveryStreamName") is not None:
         out["delivery_stream_name"] = data["DeliveryStreamName"]
     else:
-        raise DeserializationError(
-            "DeliveryStreamDescription.delivery_stream_name required"
-        )
+        out["delivery_stream_name"] = ""
     if data.get("DeliveryStreamARN") is not None:
         out["delivery_stream_arn"] = data["DeliveryStreamARN"]
     else:
-        raise DeserializationError(
-            "DeliveryStreamDescription.delivery_stream_arn required"
-        )
+        out["delivery_stream_arn"] = ""
     if data.get("DeliveryStreamStatus") is not None:
         import capo_firehose.types.delivery_stream_status
 
@@ -145,8 +139,10 @@ def deserialize_aws_json_1_1(data: dict) -> DeliveryStreamDescription:
             )
         )
     else:
-        raise DeserializationError(
-            "DeliveryStreamDescription.delivery_stream_status required"
+        import typing
+
+        out["delivery_stream_status"] = typing.cast(
+            "capo_firehose.types.delivery_stream_status.DeliveryStreamStatus", ""
         )
     if data.get("FailureDescription") is not None:
         import capo_firehose.types.failure_description
@@ -173,13 +169,15 @@ def deserialize_aws_json_1_1(data: dict) -> DeliveryStreamDescription:
             )
         )
     else:
-        raise DeserializationError(
-            "DeliveryStreamDescription.delivery_stream_type required"
+        import typing
+
+        out["delivery_stream_type"] = typing.cast(
+            "capo_firehose.types.delivery_stream_type.DeliveryStreamType", ""
         )
     if data.get("VersionId") is not None:
         out["version_id"] = data["VersionId"]
     else:
-        raise DeserializationError("DeliveryStreamDescription.version_id required")
+        out["version_id"] = ""
     if data.get("CreateTimestamp") is not None:
         import capo_firehose.types.timestamp
 
@@ -211,13 +209,11 @@ def deserialize_aws_json_1_1(data: dict) -> DeliveryStreamDescription:
             )
         )
     else:
-        raise DeserializationError("DeliveryStreamDescription.destinations required")
+        out["destinations"] = []
     if data.get("HasMoreDestinations") is not None:
         out["has_more_destinations"] = data["HasMoreDestinations"]
     else:
-        raise DeserializationError(
-            "DeliveryStreamDescription.has_more_destinations required"
-        )
+        out["has_more_destinations"] = False
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.arn
     import capo_personalize.types.dataset_type
@@ -45,19 +43,19 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDatasetRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateDatasetRequest.name required")
+        out["name"] = ""
     if data.get("schemaArn") is not None:
         out["schema_arn"] = data["schemaArn"]
     else:
-        raise DeserializationError("CreateDatasetRequest.schema_arn required")
+        out["schema_arn"] = ""
     if data.get("datasetGroupArn") is not None:
         out["dataset_group_arn"] = data["datasetGroupArn"]
     else:
-        raise DeserializationError("CreateDatasetRequest.dataset_group_arn required")
+        out["dataset_group_arn"] = ""
     if data.get("datasetType") is not None:
         out["dataset_type"] = data["datasetType"]
     else:
-        raise DeserializationError("CreateDatasetRequest.dataset_type required")
+        out["dataset_type"] = ""
     if data.get("tags") is not None:
         import capo_personalize.types.tags
 

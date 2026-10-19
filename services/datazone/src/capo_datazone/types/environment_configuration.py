@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.account_pool_list
     import capo_datazone.types.aws_account
@@ -101,15 +99,13 @@ def deserialize_json(data: dict) -> EnvironmentConfiguration:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("EnvironmentConfiguration.name required")
+        out["name"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     if data.get("environmentBlueprintId") is not None:
         out["environment_blueprint_id"] = data["environmentBlueprintId"]
     else:
-        raise DeserializationError(
-            "EnvironmentConfiguration.environment_blueprint_id required"
-        )
+        out["environment_blueprint_id"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("deploymentMode") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_outposts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_outposts.types.address_line1
     import capo_outposts.types.address_line2
@@ -73,15 +71,15 @@ def deserialize_json(data: dict) -> Address:
     if data.get("ContactName") is not None:
         out["contact_name"] = data["ContactName"]
     else:
-        raise DeserializationError("Address.contact_name required")
+        out["contact_name"] = ""
     if data.get("ContactPhoneNumber") is not None:
         out["contact_phone_number"] = data["ContactPhoneNumber"]
     else:
-        raise DeserializationError("Address.contact_phone_number required")
+        out["contact_phone_number"] = ""
     if data.get("AddressLine1") is not None:
         out["address_line1"] = data["AddressLine1"]
     else:
-        raise DeserializationError("Address.address_line1 required")
+        out["address_line1"] = ""
     if data.get("AddressLine2") is not None:
         out["address_line2"] = data["AddressLine2"]
     if data.get("AddressLine3") is not None:
@@ -89,21 +87,21 @@ def deserialize_json(data: dict) -> Address:
     if data.get("City") is not None:
         out["city"] = data["City"]
     else:
-        raise DeserializationError("Address.city required")
+        out["city"] = ""
     if data.get("StateOrRegion") is not None:
         out["state_or_region"] = data["StateOrRegion"]
     else:
-        raise DeserializationError("Address.state_or_region required")
+        out["state_or_region"] = ""
     if data.get("DistrictOrCounty") is not None:
         out["district_or_county"] = data["DistrictOrCounty"]
     if data.get("PostalCode") is not None:
         out["postal_code"] = data["PostalCode"]
     else:
-        raise DeserializationError("Address.postal_code required")
+        out["postal_code"] = ""
     if data.get("CountryCode") is not None:
         out["country_code"] = data["CountryCode"]
     else:
-        raise DeserializationError("Address.country_code required")
+        out["country_code"] = ""
     if data.get("Municipality") is not None:
         out["municipality"] = data["Municipality"]
     return out

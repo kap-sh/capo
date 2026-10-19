@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.string
@@ -40,17 +39,17 @@ def deserialize_xml(el: Element) -> CaCertificatesBundleS3Location:
     if child_bucket is not None:
         out["bucket"] = str(child_bucket.text or "")
     else:
-        raise DeserializationError("CaCertificatesBundleS3Location.bucket required")
+        out["bucket"] = ""
     child_key = el.find("Key")
     if child_key is not None:
         out["key"] = str(child_key.text or "")
     else:
-        raise DeserializationError("CaCertificatesBundleS3Location.key required")
+        out["key"] = ""
     child_region = el.find("Region")
     if child_region is not None:
         out["region"] = str(child_region.text or "")
     else:
-        raise DeserializationError("CaCertificatesBundleS3Location.region required")
+        out["region"] = ""
     child_version = el.find("Version")
     if child_version is not None:
         out["version"] = str(child_version.text or "")

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chatbot.types.arn
     import capo_chatbot.types.chat_configuration_arn
@@ -78,19 +76,15 @@ def deserialize_json(data: dict) -> ChimeWebhookConfiguration:
     if data.get("WebhookDescription") is not None:
         out["webhook_description"] = data["WebhookDescription"]
     else:
-        raise DeserializationError(
-            "ChimeWebhookConfiguration.webhook_description required"
-        )
+        out["webhook_description"] = ""
     if data.get("ChatConfigurationArn") is not None:
         out["chat_configuration_arn"] = data["ChatConfigurationArn"]
     else:
-        raise DeserializationError(
-            "ChimeWebhookConfiguration.chat_configuration_arn required"
-        )
+        out["chat_configuration_arn"] = ""
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     else:
-        raise DeserializationError("ChimeWebhookConfiguration.iam_role_arn required")
+        out["iam_role_arn"] = ""
     if data.get("SnsTopicArns") is not None:
         import capo_chatbot.types.sns_topic_arn_list
 
@@ -98,7 +92,7 @@ def deserialize_json(data: dict) -> ChimeWebhookConfiguration:
             data["SnsTopicArns"]
         )
     else:
-        raise DeserializationError("ChimeWebhookConfiguration.sns_topic_arns required")
+        out["sns_topic_arns"] = []
     if data.get("ConfigurationName") is not None:
         out["configuration_name"] = data["ConfigurationName"]
     if data.get("LoggingLevel") is not None:

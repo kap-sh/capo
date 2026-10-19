@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.created_time
     import capo_connectcases.types.deleted
@@ -76,15 +74,15 @@ def deserialize_json(data: dict) -> GetLayoutResponse:
     if data.get("layoutId") is not None:
         out["layout_id"] = data["layoutId"]
     else:
-        raise DeserializationError("GetLayoutResponse.layout_id required")
+        out["layout_id"] = ""
     if data.get("layoutArn") is not None:
         out["layout_arn"] = data["layoutArn"]
     else:
-        raise DeserializationError("GetLayoutResponse.layout_arn required")
+        out["layout_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetLayoutResponse.name required")
+        out["name"] = ""
     if data.get("content") is not None:
         import capo_connectcases.types.layout_content
 
@@ -92,7 +90,9 @@ def deserialize_json(data: dict) -> GetLayoutResponse:
             data["content"]
         )
     else:
-        raise DeserializationError("GetLayoutResponse.content required")
+        import capo_connectcases.types._unknown
+
+        out["content"] = capo_connectcases.types._unknown.UnknownUnionMember("")
     if data.get("tags") is not None:
         import capo_connectcases.types.tags
 

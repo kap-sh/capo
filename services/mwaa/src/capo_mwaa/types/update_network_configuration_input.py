@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mwaa.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mwaa.types.security_group_list
 
@@ -37,7 +35,5 @@ def deserialize_json(data: dict) -> UpdateNetworkConfigurationInput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateNetworkConfigurationInput.security_group_ids required"
-        )
+        out["security_group_ids"] = []
     return out

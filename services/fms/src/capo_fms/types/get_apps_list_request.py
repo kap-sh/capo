@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fms.types.boolean
     import capo_fms.types.list_id
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetAppsListRequest:
     if data.get("ListId") is not None:
         out["list_id"] = data["ListId"]
     else:
-        raise DeserializationError("GetAppsListRequest.list_id required")
+        out["list_id"] = ""
     if data.get("DefaultList") is not None:
         out["default_list"] = data["DefaultList"]
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.alias_target
@@ -148,14 +147,16 @@ def deserialize_xml(el: Element) -> ResourceRecordSet:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("ResourceRecordSet.name required")
+        out["name"] = ""
     child_type = el.find("Type")
     if child_type is not None:
         import capo_route_53.types.rr_type
 
         out["type"] = capo_route_53.types.rr_type.deserialize_xml(child_type)
     else:
-        raise DeserializationError("ResourceRecordSet.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_route_53.types.rr_type.RRType", "")
     child_set_identifier = el.find("SetIdentifier")
     if child_set_identifier is not None:
         out["set_identifier"] = str(child_set_identifier.text or "")

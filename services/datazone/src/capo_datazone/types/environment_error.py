@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 
 class EnvironmentError(TypedDict, closed=True):
     code: NotRequired["str"]
@@ -28,5 +26,5 @@ def deserialize_json(data: dict) -> EnvironmentError:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("EnvironmentError.message required")
+        out["message"] = ""
     return out

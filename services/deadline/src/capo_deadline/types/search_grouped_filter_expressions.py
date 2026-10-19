@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.logical_operator
     import capo_deadline.types.search_filter_expressions
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> SearchGroupedFilterExpressions:
             data["filters"]
         )
     else:
-        raise DeserializationError("SearchGroupedFilterExpressions.filters required")
+        out["filters"] = []
     if data.get("operator") is not None:
         import capo_deadline.types.logical_operator
 
@@ -51,5 +49,9 @@ def deserialize_json(data: dict) -> SearchGroupedFilterExpressions:
             data["operator"]
         )
     else:
-        raise DeserializationError("SearchGroupedFilterExpressions.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_deadline.types.logical_operator.LogicalOperator", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.byte_content_blob
     import capo_bedrock_agent_runtime.types.input_image_format
@@ -47,7 +45,11 @@ def deserialize_json(data: dict) -> InputImage:
             )
         )
     else:
-        raise DeserializationError("InputImage.format required")
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_bedrock_agent_runtime.types.input_image_format.InputImageFormat", ""
+        )
     if data.get("inlineContent") is not None:
         import capo_bedrock_agent_runtime.types.byte_content_blob
 
@@ -57,7 +59,7 @@ def deserialize_json(data: dict) -> InputImage:
             )
         )
     else:
-        raise DeserializationError("InputImage.inline_content required")
+        out["inline_content"] = b""
     return out
 
 

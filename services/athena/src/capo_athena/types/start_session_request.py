@@ -93,7 +93,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartSessionRequest:
     if data.get("WorkGroup") is not None:
         out["work_group"] = data["WorkGroup"]
     else:
-        raise DeserializationError("StartSessionRequest.work_group required")
+        out["work_group"] = ""
     if data.get("EngineConfiguration") is not None:
         import capo_athena.types.engine_configuration
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -73,21 +71,15 @@ def deserialize_aws_json_1_0(
     if data.get("ProtectConfigurationArn") is not None:
         out["protect_configuration_arn"] = data["ProtectConfigurationArn"]
     else:
-        raise DeserializationError(
-            "PutProtectConfigurationRuleSetNumberOverrideResult.protect_configuration_arn required"
-        )
+        out["protect_configuration_arn"] = ""
     if data.get("ProtectConfigurationId") is not None:
         out["protect_configuration_id"] = data["ProtectConfigurationId"]
     else:
-        raise DeserializationError(
-            "PutProtectConfigurationRuleSetNumberOverrideResult.protect_configuration_id required"
-        )
+        out["protect_configuration_id"] = ""
     if data.get("DestinationPhoneNumber") is not None:
         out["destination_phone_number"] = data["DestinationPhoneNumber"]
     else:
-        raise DeserializationError(
-            "PutProtectConfigurationRuleSetNumberOverrideResult.destination_phone_number required"
-        )
+        out["destination_phone_number"] = ""
     if data.get("CreatedTimestamp") is not None:
         import capo_pinpoint_sms_voice_v2.types._prelude.timestamp
 
@@ -97,15 +89,15 @@ def deserialize_aws_json_1_0(
             )
         )
     else:
-        raise DeserializationError(
-            "PutProtectConfigurationRuleSetNumberOverrideResult.created_timestamp required"
+        import datetime
+
+        out["created_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("Action") is not None:
         out["action"] = data["Action"]
     else:
-        raise DeserializationError(
-            "PutProtectConfigurationRuleSetNumberOverrideResult.action required"
-        )
+        out["action"] = ""
     if data.get("IsoCountryCode") is not None:
         out["iso_country_code"] = data["IsoCountryCode"]
     if data.get("ExpirationTimestamp") is not None:

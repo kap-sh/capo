@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.name_spaced_function_arn
     import capo_lambda.types.state
@@ -33,15 +31,13 @@ def deserialize_json(data: dict) -> FunctionVersionsByCapacityProviderListItem:
     if data.get("FunctionArn") is not None:
         out["function_arn"] = data["FunctionArn"]
     else:
-        raise DeserializationError(
-            "FunctionVersionsByCapacityProviderListItem.function_arn required"
-        )
+        out["function_arn"] = ""
     if data.get("State") is not None:
         import capo_lambda.types.state
 
         out["state"] = capo_lambda.types.state.deserialize_json(data["State"])
     else:
-        raise DeserializationError(
-            "FunctionVersionsByCapacityProviderListItem.state required"
-        )
+        import typing
+
+        out["state"] = typing.cast("capo_lambda.types.state.State", "")
     return out

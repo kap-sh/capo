@@ -41,9 +41,7 @@ def deserialize_json(data: dict) -> UpdateConnectorScanConfigurationRequest:
     if data.get("awsConfigConnectorArn") is not None:
         out["aws_config_connector_arn"] = data["awsConfigConnectorArn"]
     else:
-        raise DeserializationError(
-            "UpdateConnectorScanConfigurationRequest.aws_config_connector_arn required"
-        )
+        out["aws_config_connector_arn"] = ""
     if data.get("scanConfiguration") is not None:
         import capo_inspector2.types.connector_scan_configuration
 

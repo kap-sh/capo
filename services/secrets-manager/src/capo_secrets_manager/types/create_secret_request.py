@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_secrets_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_secrets_manager.types.add_replica_region_list_type
     import capo_secrets_manager.types.boolean_type
@@ -100,7 +98,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSecretRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateSecretRequest.name required")
+        out["name"] = ""
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     if data.get("Description") is not None:

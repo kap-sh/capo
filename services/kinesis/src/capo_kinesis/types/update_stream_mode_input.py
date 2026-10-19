@@ -49,7 +49,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateStreamModeInput:
     if data.get("StreamARN") is not None:
         out["stream_arn"] = data["StreamARN"]
     else:
-        raise DeserializationError("UpdateStreamModeInput.stream_arn required")
+        out["stream_arn"] = ""
     if data.get("StreamId") is not None:
         out["stream_id"] = data["StreamId"]
     if data.get("StreamModeDetails") is not None:

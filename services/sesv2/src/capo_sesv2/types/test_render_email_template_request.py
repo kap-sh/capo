@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.email_template_data
     import capo_sesv2.types.email_template_name
@@ -30,7 +28,5 @@ def deserialize_json(data: dict) -> TestRenderEmailTemplateRequest:
     if data.get("TemplateData") is not None:
         out["template_data"] = data["TemplateData"]
     else:
-        raise DeserializationError(
-            "TestRenderEmailTemplateRequest.template_data required"
-        )
+        out["template_data"] = ""
     return out

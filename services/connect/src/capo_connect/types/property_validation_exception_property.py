@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.message
     import capo_connect.types.property_validation_exception_reason
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> PropertyValidationExceptionProperty:
     if data.get("PropertyPath") is not None:
         out["property_path"] = data["PropertyPath"]
     else:
-        raise DeserializationError(
-            "PropertyValidationExceptionProperty.property_path required"
-        )
+        out["property_path"] = ""
     if data.get("Reason") is not None:
         import capo_connect.types.property_validation_exception_reason
 
@@ -53,13 +49,14 @@ def deserialize_json(data: dict) -> PropertyValidationExceptionProperty:
             )
         )
     else:
-        raise DeserializationError(
-            "PropertyValidationExceptionProperty.reason required"
+        import typing
+
+        out["reason"] = typing.cast(
+            "capo_connect.types.property_validation_exception_reason.PropertyValidationExceptionReason",
+            "",
         )
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError(
-            "PropertyValidationExceptionProperty.message required"
-        )
+        out["message"] = ""
     return out

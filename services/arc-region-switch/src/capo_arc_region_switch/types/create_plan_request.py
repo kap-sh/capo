@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.associated_alarm_map
     import capo_arc_region_switch.types.iam_role_arn
@@ -129,11 +127,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreatePlanRequest:
             )
         )
     else:
-        raise DeserializationError("CreatePlanRequest.workflows required")
+        out["workflows"] = []
     if data.get("executionRole") is not None:
         out["execution_role"] = data["executionRole"]
     else:
-        raise DeserializationError("CreatePlanRequest.execution_role required")
+        out["execution_role"] = ""
     if data.get("recoveryTimeObjectiveMinutes") is not None:
         out["recovery_time_objective_minutes"] = data["recoveryTimeObjectiveMinutes"]
     if data.get("associatedAlarms") is not None:
@@ -165,7 +163,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreatePlanRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreatePlanRequest.name required")
+        out["name"] = ""
     if data.get("regions") is not None:
         import capo_arc_region_switch.types.region_list
 
@@ -175,7 +173,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreatePlanRequest:
             )
         )
     else:
-        raise DeserializationError("CreatePlanRequest.regions required")
+        out["regions"] = []
     if data.get("recoveryApproach") is not None:
         import capo_arc_region_switch.types.recovery_approach
 
@@ -185,7 +183,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreatePlanRequest:
             )
         )
     else:
-        raise DeserializationError("CreatePlanRequest.recovery_approach required")
+        import typing
+
+        out["recovery_approach"] = typing.cast(
+            "capo_arc_region_switch.types.recovery_approach.RecoveryApproach", ""
+        )
     if data.get("primaryRegion") is not None:
         out["primary_region"] = data["primaryRegion"]
     if data.get("tags") is not None:

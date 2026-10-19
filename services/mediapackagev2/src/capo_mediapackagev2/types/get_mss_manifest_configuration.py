@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediapackagev2.types.filter_configuration
     import capo_mediapackagev2.types.manifest_name
@@ -59,11 +57,11 @@ def deserialize_json(data: dict) -> GetMssManifestConfiguration:
     if data.get("ManifestName") is not None:
         out["manifest_name"] = data["ManifestName"]
     else:
-        raise DeserializationError("GetMssManifestConfiguration.manifest_name required")
+        out["manifest_name"] = ""
     if data.get("Url") is not None:
         out["url"] = data["Url"]
     else:
-        raise DeserializationError("GetMssManifestConfiguration.url required")
+        out["url"] = ""
     if data.get("FilterConfiguration") is not None:
         import capo_mediapackagev2.types.filter_configuration
 

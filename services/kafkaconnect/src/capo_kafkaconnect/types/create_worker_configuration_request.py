@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kafkaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kafkaconnect.types.__sensitive_string
     import capo_kafkaconnect.types.__string_max1024
@@ -47,13 +45,11 @@ def deserialize_json(data: dict) -> CreateWorkerConfigurationRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateWorkerConfigurationRequest.name required")
+        out["name"] = ""
     if data.get("propertiesFileContent") is not None:
         out["properties_file_content"] = data["propertiesFileContent"]
     else:
-        raise DeserializationError(
-            "CreateWorkerConfigurationRequest.properties_file_content required"
-        )
+        out["properties_file_content"] = ""
     if data.get("tags") is not None:
         import capo_kafkaconnect.types.tags
 

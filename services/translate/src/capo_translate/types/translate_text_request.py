@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_translate.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_translate.types.bounded_length_string
     import capo_translate.types.language_code_string
@@ -60,7 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> TranslateTextRequest:
     if data.get("Text") is not None:
         out["text"] = data["Text"]
     else:
-        raise DeserializationError("TranslateTextRequest.text required")
+        out["text"] = ""
     if data.get("TerminologyNames") is not None:
         import capo_translate.types.resource_name_list
 
@@ -72,11 +70,11 @@ def deserialize_aws_json_1_1(data: dict) -> TranslateTextRequest:
     if data.get("SourceLanguageCode") is not None:
         out["source_language_code"] = data["SourceLanguageCode"]
     else:
-        raise DeserializationError("TranslateTextRequest.source_language_code required")
+        out["source_language_code"] = ""
     if data.get("TargetLanguageCode") is not None:
         out["target_language_code"] = data["TargetLanguageCode"]
     else:
-        raise DeserializationError("TranslateTextRequest.target_language_code required")
+        out["target_language_code"] = ""
     if data.get("Settings") is not None:
         import capo_translate.types.translation_settings
 

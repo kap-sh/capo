@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.data_source_name
     import capo_cloudwatch_logs.types.data_source_type
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> DataSource:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DataSource.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     return out

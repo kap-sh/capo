@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.abort_incomplete_multipart_upload
@@ -122,7 +121,11 @@ def deserialize_xml(el: Element) -> LifecycleRule:
             child_status
         )
     else:
-        raise DeserializationError("LifecycleRule.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_s3_control.types.expiration_status.ExpirationStatus", ""
+        )
     child_transitions = el.find("Transitions")
     if child_transitions is not None:
         import capo_s3_control.types.transition_list

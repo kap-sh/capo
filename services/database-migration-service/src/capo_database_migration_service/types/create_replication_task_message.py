@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.migration_type_value
     import capo_database_migration_service.types.string
@@ -101,27 +99,19 @@ def deserialize_aws_json_1_1(data: dict) -> CreateReplicationTaskMessage:
     if data.get("ReplicationTaskIdentifier") is not None:
         out["replication_task_identifier"] = data["ReplicationTaskIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateReplicationTaskMessage.replication_task_identifier required"
-        )
+        out["replication_task_identifier"] = ""
     if data.get("SourceEndpointArn") is not None:
         out["source_endpoint_arn"] = data["SourceEndpointArn"]
     else:
-        raise DeserializationError(
-            "CreateReplicationTaskMessage.source_endpoint_arn required"
-        )
+        out["source_endpoint_arn"] = ""
     if data.get("TargetEndpointArn") is not None:
         out["target_endpoint_arn"] = data["TargetEndpointArn"]
     else:
-        raise DeserializationError(
-            "CreateReplicationTaskMessage.target_endpoint_arn required"
-        )
+        out["target_endpoint_arn"] = ""
     if data.get("ReplicationInstanceArn") is not None:
         out["replication_instance_arn"] = data["ReplicationInstanceArn"]
     else:
-        raise DeserializationError(
-            "CreateReplicationTaskMessage.replication_instance_arn required"
-        )
+        out["replication_instance_arn"] = ""
     if data.get("MigrationType") is not None:
         import capo_database_migration_service.types.migration_type_value
 
@@ -131,15 +121,16 @@ def deserialize_aws_json_1_1(data: dict) -> CreateReplicationTaskMessage:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateReplicationTaskMessage.migration_type required"
+        import typing
+
+        out["migration_type"] = typing.cast(
+            "capo_database_migration_service.types.migration_type_value.MigrationTypeValue",
+            "",
         )
     if data.get("TableMappings") is not None:
         out["table_mappings"] = data["TableMappings"]
     else:
-        raise DeserializationError(
-            "CreateReplicationTaskMessage.table_mappings required"
-        )
+        out["table_mappings"] = ""
     if data.get("ReplicationTaskSettings") is not None:
         out["replication_task_settings"] = data["ReplicationTaskSettings"]
     if data.get("CdcStartTime") is not None:

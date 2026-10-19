@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bcm_dashboards.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_dashboards.types.date_time_type
     import capo_bcm_dashboards.types.generic_string
@@ -39,9 +37,13 @@ def deserialize_aws_json_1_0(data: dict) -> DateTimeValue:
             data["type"]
         )
     else:
-        raise DeserializationError("DateTimeValue.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bcm_dashboards.types.date_time_type.DateTimeType", ""
+        )
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("DateTimeValue.value required")
+        out["value"] = ""
     return out

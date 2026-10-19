@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chatbot.types.arn
     import capo_chatbot.types.boolean_account_preference
@@ -81,15 +79,11 @@ def deserialize_json(data: dict) -> UpdateSlackChannelConfigurationRequest:
     if data.get("ChatConfigurationArn") is not None:
         out["chat_configuration_arn"] = data["ChatConfigurationArn"]
     else:
-        raise DeserializationError(
-            "UpdateSlackChannelConfigurationRequest.chat_configuration_arn required"
-        )
+        out["chat_configuration_arn"] = ""
     if data.get("SlackChannelId") is not None:
         out["slack_channel_id"] = data["SlackChannelId"]
     else:
-        raise DeserializationError(
-            "UpdateSlackChannelConfigurationRequest.slack_channel_id required"
-        )
+        out["slack_channel_id"] = ""
     if data.get("SlackChannelName") is not None:
         out["slack_channel_name"] = data["SlackChannelName"]
     if data.get("SnsTopicArns") is not None:

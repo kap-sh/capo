@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -137,27 +135,19 @@ def deserialize_json(data: dict) -> GetCollaborationMLInputChannelResponse:
     if data.get("membershipIdentifier") is not None:
         out["membership_identifier"] = data["membershipIdentifier"]
     else:
-        raise DeserializationError(
-            "GetCollaborationMLInputChannelResponse.membership_identifier required"
-        )
+        out["membership_identifier"] = ""
     if data.get("collaborationIdentifier") is not None:
         out["collaboration_identifier"] = data["collaborationIdentifier"]
     else:
-        raise DeserializationError(
-            "GetCollaborationMLInputChannelResponse.collaboration_identifier required"
-        )
+        out["collaboration_identifier"] = ""
     if data.get("mlInputChannelArn") is not None:
         out["ml_input_channel_arn"] = data["mlInputChannelArn"]
     else:
-        raise DeserializationError(
-            "GetCollaborationMLInputChannelResponse.ml_input_channel_arn required"
-        )
+        out["ml_input_channel_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "GetCollaborationMLInputChannelResponse.name required"
-        )
+        out["name"] = ""
     if data.get("configuredModelAlgorithmAssociations") is not None:
         import capo_cleanroomsml.types.configured_model_algorithm_association_arn_list
 
@@ -167,9 +157,7 @@ def deserialize_json(data: dict) -> GetCollaborationMLInputChannelResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetCollaborationMLInputChannelResponse.configured_model_algorithm_associations required"
-        )
+        out["configured_model_algorithm_associations"] = []
     if data.get("status") is not None:
         import capo_cleanroomsml.types.ml_input_channel_status
 
@@ -179,8 +167,10 @@ def deserialize_json(data: dict) -> GetCollaborationMLInputChannelResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetCollaborationMLInputChannelResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cleanroomsml.types.ml_input_channel_status.MLInputChannelStatus", ""
         )
     if data.get("statusDetails") is not None:
         import capo_cleanroomsml.types.status_details
@@ -191,9 +181,7 @@ def deserialize_json(data: dict) -> GetCollaborationMLInputChannelResponse:
     if data.get("retentionInDays") is not None:
         out["retention_in_days"] = data["retentionInDays"]
     else:
-        raise DeserializationError(
-            "GetCollaborationMLInputChannelResponse.retention_in_days required"
-        )
+        out["retention_in_days"] = 0
     if data.get("numberOfRecords") is not None:
         out["number_of_records"] = data["numberOfRecords"]
     if data.get("privacyBudgets") is not None:
@@ -229,8 +217,10 @@ def deserialize_json(data: dict) -> GetCollaborationMLInputChannelResponse:
             data["createTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "GetCollaborationMLInputChannelResponse.create_time required"
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("updateTime") is not None:
         import datetime
@@ -239,13 +229,13 @@ def deserialize_json(data: dict) -> GetCollaborationMLInputChannelResponse:
             data["updateTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "GetCollaborationMLInputChannelResponse.update_time required"
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("creatorAccountId") is not None:
         out["creator_account_id"] = data["creatorAccountId"]
     else:
-        raise DeserializationError(
-            "GetCollaborationMLInputChannelResponse.creator_account_id required"
-        )
+        out["creator_account_id"] = ""
     return out

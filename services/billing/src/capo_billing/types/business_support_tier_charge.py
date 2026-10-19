@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -56,21 +54,19 @@ def deserialize_aws_json_1_0(data: dict) -> BusinessSupportTierCharge:
     if data.get("tierDescription") is not None:
         out["tier_description"] = data["tierDescription"]
     else:
-        raise DeserializationError(
-            "BusinessSupportTierCharge.tier_description required"
-        )
+        out["tier_description"] = ""
     if data.get("tierRate") is not None:
         out["tier_rate"] = data["tierRate"]
     else:
-        raise DeserializationError("BusinessSupportTierCharge.tier_rate required")
+        out["tier_rate"] = ""
     if data.get("usageSlice") is not None:
         out["usage_slice"] = data["usageSlice"]
     else:
-        raise DeserializationError("BusinessSupportTierCharge.usage_slice required")
+        out["usage_slice"] = ""
     if data.get("tierCharge") is not None:
         out["tier_charge"] = data["tierCharge"]
     else:
-        raise DeserializationError("BusinessSupportTierCharge.tier_charge required")
+        out["tier_charge"] = ""
     if data.get("chargePeriodStartDate") is not None:
         import capo_billing.types._prelude.timestamp
 

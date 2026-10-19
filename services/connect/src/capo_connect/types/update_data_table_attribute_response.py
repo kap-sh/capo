@@ -35,7 +35,7 @@ def deserialize_json(data: dict) -> UpdateDataTableAttributeResponse:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateDataTableAttributeResponse.name required")
+        out["name"] = ""
     if data.get("LockVersion") is not None:
         import capo_connect.types.data_table_lock_version
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -73,11 +71,11 @@ def deserialize_json(data: dict) -> IdNamespaceSummary:
     if data.get("idNamespaceName") is not None:
         out["id_namespace_name"] = data["idNamespaceName"]
     else:
-        raise DeserializationError("IdNamespaceSummary.id_namespace_name required")
+        out["id_namespace_name"] = ""
     if data.get("idNamespaceArn") is not None:
         out["id_namespace_arn"] = data["idNamespaceArn"]
     else:
-        raise DeserializationError("IdNamespaceSummary.id_namespace_arn required")
+        out["id_namespace_arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("idMappingWorkflowProperties") is not None:
@@ -95,7 +93,11 @@ def deserialize_json(data: dict) -> IdNamespaceSummary:
             data["type"]
         )
     else:
-        raise DeserializationError("IdNamespaceSummary.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_entityresolution.types.id_namespace_type.IdNamespaceType", ""
+        )
     if data.get("createdAt") is not None:
         import capo_entityresolution.types._prelude.timestamp
 
@@ -105,7 +107,9 @@ def deserialize_json(data: dict) -> IdNamespaceSummary:
             )
         )
     else:
-        raise DeserializationError("IdNamespaceSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_entityresolution.types._prelude.timestamp
 
@@ -115,5 +119,7 @@ def deserialize_json(data: dict) -> IdNamespaceSummary:
             )
         )
     else:
-        raise DeserializationError("IdNamespaceSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

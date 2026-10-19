@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -158,7 +156,7 @@ def deserialize_aws_json_1_0(data: dict) -> OdbNetwork:
     if data.get("odbNetworkId") is not None:
         out["odb_network_id"] = data["odbNetworkId"]
     else:
-        raise DeserializationError("OdbNetwork.odb_network_id required")
+        out["odb_network_id"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     if data.get("status") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_compute_optimizer_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_compute_optimizer_automation.types.client_token
     import capo_compute_optimizer_automation.types.criteria
@@ -124,11 +122,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateAutomationRuleRequest:
     if data.get("ruleArn") is not None:
         out["rule_arn"] = data["ruleArn"]
     else:
-        raise DeserializationError("UpdateAutomationRuleRequest.rule_arn required")
+        out["rule_arn"] = ""
     if data.get("ruleRevision") is not None:
         out["rule_revision"] = data["ruleRevision"]
     else:
-        raise DeserializationError("UpdateAutomationRuleRequest.rule_revision required")
+        out["rule_revision"] = 0
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("description") is not None:

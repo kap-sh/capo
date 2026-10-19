@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_messaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_messaging.types.allow_notifications
     import capo_chime_sdk_messaging.types.filter_rule
@@ -46,8 +44,10 @@ def deserialize_json(data: dict) -> PushNotificationPreferences:
             )
         )
     else:
-        raise DeserializationError(
-            "PushNotificationPreferences.allow_notifications required"
+        import typing
+
+        out["allow_notifications"] = typing.cast(
+            "capo_chime_sdk_messaging.types.allow_notifications.AllowNotifications", ""
         )
     if data.get("FilterRule") is not None:
         out["filter_rule"] = data["FilterRule"]

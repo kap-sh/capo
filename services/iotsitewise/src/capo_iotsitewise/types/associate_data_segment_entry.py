@@ -46,13 +46,11 @@ def deserialize_json(data: dict) -> AssociateDataSegmentEntry:
     if data.get("sourceDatasetId") is not None:
         out["source_dataset_id"] = data["sourceDatasetId"]
     else:
-        raise DeserializationError(
-            "AssociateDataSegmentEntry.source_dataset_id required"
-        )
+        out["source_dataset_id"] = ""
     if data.get("timeSeriesId") is not None:
         out["time_series_id"] = data["timeSeriesId"]
     else:
-        raise DeserializationError("AssociateDataSegmentEntry.time_series_id required")
+        out["time_series_id"] = ""
     if data.get("startTimestamp") is not None:
         import capo_iotsitewise.types.time_in_nanos
 

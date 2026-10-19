@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.impersonation_role_description
     import capo_workmail.types.impersonation_role_id
@@ -60,19 +58,15 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateImpersonationRoleRequest:
     if data.get("OrganizationId") is not None:
         out["organization_id"] = data["OrganizationId"]
     else:
-        raise DeserializationError(
-            "UpdateImpersonationRoleRequest.organization_id required"
-        )
+        out["organization_id"] = ""
     if data.get("ImpersonationRoleId") is not None:
         out["impersonation_role_id"] = data["ImpersonationRoleId"]
     else:
-        raise DeserializationError(
-            "UpdateImpersonationRoleRequest.impersonation_role_id required"
-        )
+        out["impersonation_role_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateImpersonationRoleRequest.name required")
+        out["name"] = ""
     if data.get("Type") is not None:
         import capo_workmail.types.impersonation_role_type
 
@@ -82,7 +76,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateImpersonationRoleRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateImpersonationRoleRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_workmail.types.impersonation_role_type.ImpersonationRoleType", ""
+        )
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Rules") is not None:
@@ -94,5 +92,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateImpersonationRoleRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateImpersonationRoleRequest.rules required")
+        out["rules"] = []
     return out

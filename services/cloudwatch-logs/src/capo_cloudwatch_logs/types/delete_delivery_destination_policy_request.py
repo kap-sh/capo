@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.delivery_destination_name
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteDeliveryDestinationPolicyReque
     if data.get("deliveryDestinationName") is not None:
         out["delivery_destination_name"] = data["deliveryDestinationName"]
     else:
-        raise DeserializationError(
-            "DeleteDeliveryDestinationPolicyRequest.delivery_destination_name required"
-        )
+        out["delivery_destination_name"] = ""
     return out

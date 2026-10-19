@@ -69,7 +69,7 @@ def deserialize_json(data: dict) -> AlertManagerDefinitionDescription:
             data["data"]
         )
     else:
-        raise DeserializationError("AlertManagerDefinitionDescription.data required")
+        out["data"] = b""
     if data.get("createdAt") is not None:
         import capo_amp.types._prelude.timestamp
 
@@ -77,9 +77,9 @@ def deserialize_json(data: dict) -> AlertManagerDefinitionDescription:
             data["createdAt"]
         )
     else:
-        raise DeserializationError(
-            "AlertManagerDefinitionDescription.created_at required"
-        )
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("modifiedAt") is not None:
         import capo_amp.types._prelude.timestamp
 
@@ -87,7 +87,9 @@ def deserialize_json(data: dict) -> AlertManagerDefinitionDescription:
             data["modifiedAt"]
         )
     else:
-        raise DeserializationError(
-            "AlertManagerDefinitionDescription.modified_at required"
+        import datetime
+
+        out["modified_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

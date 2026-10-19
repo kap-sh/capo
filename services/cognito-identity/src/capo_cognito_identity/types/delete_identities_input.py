@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity.types.identity_id_list
 
@@ -41,7 +39,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteIdentitiesInput:
             )
         )
     else:
-        raise DeserializationError(
-            "DeleteIdentitiesInput.identity_ids_to_delete required"
-        )
+        out["identity_ids_to_delete"] = []
     return out

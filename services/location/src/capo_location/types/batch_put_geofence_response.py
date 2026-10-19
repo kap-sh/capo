@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.batch_put_geofence_error_list
     import capo_location.types.batch_put_geofence_success_list
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> BatchPutGeofenceResponse:
             )
         )
     else:
-        raise DeserializationError("BatchPutGeofenceResponse.successes required")
+        out["successes"] = []
     if data.get("Errors") is not None:
         import capo_location.types.batch_put_geofence_error_list
 
@@ -59,7 +57,7 @@ def deserialize_json(data: dict) -> BatchPutGeofenceResponse:
             )
         )
     else:
-        raise DeserializationError("BatchPutGeofenceResponse.errors required")
+        out["errors"] = []
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_translate.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_translate.types.string
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> ParallelDataDataLocation:
     if data.get("RepositoryType") is not None:
         out["repository_type"] = data["RepositoryType"]
     else:
-        raise DeserializationError("ParallelDataDataLocation.repository_type required")
+        out["repository_type"] = ""
     if data.get("Location") is not None:
         out["location"] = data["Location"]
     else:
-        raise DeserializationError("ParallelDataDataLocation.location required")
+        out["location"] = ""
     return out

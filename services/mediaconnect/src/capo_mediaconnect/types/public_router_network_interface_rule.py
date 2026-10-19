@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 
 class PublicRouterNetworkInterfaceRule(TypedDict, closed=True):
     cidr: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> PublicRouterNetworkInterfaceRule:
     if data.get("cidr") is not None:
         out["cidr"] = data["cidr"]
     else:
-        raise DeserializationError("PublicRouterNetworkInterfaceRule.cidr required")
+        out["cidr"] = ""
     return out

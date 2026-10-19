@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_supportauthz.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supportauthz.types.request_arn
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> RejectSupportPermitRequestOutput:
     if data.get("requestArn") is not None:
         out["request_arn"] = data["requestArn"]
     else:
-        raise DeserializationError(
-            "RejectSupportPermitRequestOutput.request_arn required"
-        )
+        out["request_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.payment_document
 
@@ -30,11 +28,11 @@ def deserialize_json(data: dict) -> CryptoX402PaymentOutput:
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("CryptoX402PaymentOutput.version required")
+        out["version"] = ""
     if data.get("payload") is not None:
         out["payload"] = data["payload"]
     else:
-        raise DeserializationError("CryptoX402PaymentOutput.payload required")
+        out["payload"] = None
     return out
 
 

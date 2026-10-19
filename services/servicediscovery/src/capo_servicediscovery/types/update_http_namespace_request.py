@@ -44,7 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateHttpNamespaceRequest:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("UpdateHttpNamespaceRequest.id required")
+        out["id"] = ""
     if data.get("UpdaterRequestId") is not None:
         out["updater_request_id"] = data["UpdaterRequestId"]
     if data.get("Namespace") is not None:

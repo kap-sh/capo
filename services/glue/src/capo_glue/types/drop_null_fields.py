@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.node_name
     import capo_glue.types.null_check_box_list
@@ -55,7 +53,7 @@ def deserialize_aws_json_1_1(data: dict) -> DropNullFields:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DropNullFields.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.one_input
 
@@ -63,7 +61,7 @@ def deserialize_aws_json_1_1(data: dict) -> DropNullFields:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("DropNullFields.inputs required")
+        out["inputs"] = []
     if data.get("NullCheckBoxList") is not None:
         import capo_glue.types.null_check_box_list
 

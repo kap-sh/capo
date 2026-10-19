@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.filter_values
     import capo_datasync.types.operator
@@ -51,7 +49,11 @@ def deserialize_aws_json_1_1(data: dict) -> TaskFilter:
             data["Name"]
         )
     else:
-        raise DeserializationError("TaskFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_datasync.types.task_filter_name.TaskFilterName", ""
+        )
     if data.get("Values") is not None:
         import capo_datasync.types.filter_values
 
@@ -59,7 +61,7 @@ def deserialize_aws_json_1_1(data: dict) -> TaskFilter:
             data["Values"]
         )
     else:
-        raise DeserializationError("TaskFilter.values required")
+        out["values"] = []
     if data.get("Operator") is not None:
         import capo_datasync.types.operator
 
@@ -67,5 +69,7 @@ def deserialize_aws_json_1_1(data: dict) -> TaskFilter:
             data["Operator"]
         )
     else:
-        raise DeserializationError("TaskFilter.operator required")
+        import typing
+
+        out["operator"] = typing.cast("capo_datasync.types.operator.Operator", "")
     return out

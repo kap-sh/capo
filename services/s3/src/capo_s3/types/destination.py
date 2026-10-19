@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.access_control_translation
@@ -80,7 +79,7 @@ def deserialize_xml(el: Element) -> Destination:
     if child_bucket is not None:
         out["bucket"] = str(child_bucket.text or "")
     else:
-        raise DeserializationError("Destination.bucket required")
+        out["bucket"] = ""
     child_account = el.find("Account")
     if child_account is not None:
         out["account"] = str(child_account.text or "")

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.certificate_list
     import capo_workspaces_web.types.client_token
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> CreateTrustStoreRequest:
             )
         )
     else:
-        raise DeserializationError("CreateTrustStoreRequest.certificate_list required")
+        out["certificate_list"] = []
     if data.get("tags") is not None:
         import capo_workspaces_web.types.tag_list
 

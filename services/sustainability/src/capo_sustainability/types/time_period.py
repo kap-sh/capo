@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sustainability.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sustainability.types.timestamp
 
@@ -38,11 +36,15 @@ def deserialize_json(data: dict) -> TimePeriod:
             data["Start"]
         )
     else:
-        raise DeserializationError("TimePeriod.start required")
+        import datetime
+
+        out["start"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("End") is not None:
         import capo_sustainability.types.timestamp
 
         out["end"] = capo_sustainability.types.timestamp.deserialize_json(data["End"])
     else:
-        raise DeserializationError("TimePeriod.end required")
+        import datetime
+
+        out["end"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

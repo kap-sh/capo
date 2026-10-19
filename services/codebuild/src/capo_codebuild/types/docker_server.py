@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.compute_type
     import capo_codebuild.types.docker_server_status
@@ -61,7 +59,11 @@ def deserialize_aws_json_1_1(data: dict) -> DockerServer:
             )
         )
     else:
-        raise DeserializationError("DockerServer.compute_type required")
+        import typing
+
+        out["compute_type"] = typing.cast(
+            "capo_codebuild.types.compute_type.ComputeType", ""
+        )
     if data.get("securityGroupIds") is not None:
         import capo_codebuild.types.security_group_ids
 

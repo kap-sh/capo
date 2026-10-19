@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_endusermessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_endusermessaging.types.brand_profile_name
     import capo_endusermessaging.types.client_token
@@ -45,9 +43,7 @@ def deserialize_json(data: dict) -> CreateBrandProfileInput:
     if data.get("brandProfileName") is not None:
         out["brand_profile_name"] = data["brandProfileName"]
     else:
-        raise DeserializationError(
-            "CreateBrandProfileInput.brand_profile_name required"
-        )
+        out["brand_profile_name"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("deletionProtectionEnabled") is not None:

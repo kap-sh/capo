@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.uuid
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> AzElEphemerisFilter:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("AzElEphemerisFilter.id required")
+        out["id"] = ""
     return out

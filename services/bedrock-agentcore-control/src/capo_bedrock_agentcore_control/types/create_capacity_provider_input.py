@@ -70,7 +70,7 @@ def deserialize_json(data: dict) -> CreateCapacityProviderInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateCapacityProviderInput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("permissionsConfiguration") is not None:
@@ -102,8 +102,10 @@ def deserialize_json(data: dict) -> CreateCapacityProviderInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateCapacityProviderInput.compute_configuration required"
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["compute_configuration"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
         )
     return out
 

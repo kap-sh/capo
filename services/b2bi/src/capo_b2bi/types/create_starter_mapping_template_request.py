@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_b2bi.types.mapping_type
     import capo_b2bi.types.s3_location
@@ -62,8 +60,10 @@ def deserialize_aws_json_1_0(data: dict) -> CreateStarterMappingTemplateRequest:
             data["mappingType"]
         )
     else:
-        raise DeserializationError(
-            "CreateStarterMappingTemplateRequest.mapping_type required"
+        import typing
+
+        out["mapping_type"] = typing.cast(
+            "capo_b2bi.types.mapping_type.MappingType", ""
         )
     if data.get("templateDetails") is not None:
         import capo_b2bi.types.template_details
@@ -74,7 +74,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateStarterMappingTemplateRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateStarterMappingTemplateRequest.template_details required"
-        )
+        import capo_b2bi.types._unknown
+
+        out["template_details"] = capo_b2bi.types._unknown.UnknownUnionMember("")
     return out

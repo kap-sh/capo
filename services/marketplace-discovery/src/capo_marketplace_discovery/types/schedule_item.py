@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -44,9 +42,13 @@ def deserialize_json(data: dict) -> ScheduleItem:
             )
         )
     else:
-        raise DeserializationError("ScheduleItem.charge_date required")
+        import datetime
+
+        out["charge_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("chargeAmount") is not None:
         out["charge_amount"] = data["chargeAmount"]
     else:
-        raise DeserializationError("ScheduleItem.charge_amount required")
+        out["charge_amount"] = ""
     return out

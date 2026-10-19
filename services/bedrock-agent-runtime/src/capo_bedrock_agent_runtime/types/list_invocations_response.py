@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.invocation_summaries
     import capo_bedrock_agent_runtime.types.next_token
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> ListInvocationsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListInvocationsResponse.invocation_summaries required"
-        )
+        out["invocation_summaries"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

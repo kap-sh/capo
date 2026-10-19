@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.domain
@@ -30,5 +29,5 @@ def deserialize_query(el: Element) -> VerifyDomainIdentityRequest:
     if child_domain is not None:
         out["domain"] = str(child_domain.text or "")
     else:
-        raise DeserializationError("VerifyDomainIdentityRequest.domain required")
+        out["domain"] = ""
     return out

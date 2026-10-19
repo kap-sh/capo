@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectparticipant.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectparticipant.types.attachment_name
     import capo_connectparticipant.types.attachment_size_in_bytes
@@ -46,21 +44,17 @@ def deserialize_json(data: dict) -> StartAttachmentUploadRequest:
     if data.get("ContentType") is not None:
         out["content_type"] = data["ContentType"]
     else:
-        raise DeserializationError("StartAttachmentUploadRequest.content_type required")
+        out["content_type"] = ""
     if data.get("AttachmentSizeInBytes") is not None:
         out["attachment_size_in_bytes"] = data["AttachmentSizeInBytes"]
     else:
-        raise DeserializationError(
-            "StartAttachmentUploadRequest.attachment_size_in_bytes required"
-        )
+        out["attachment_size_in_bytes"] = 0
     if data.get("AttachmentName") is not None:
         out["attachment_name"] = data["AttachmentName"]
     else:
-        raise DeserializationError(
-            "StartAttachmentUploadRequest.attachment_name required"
-        )
+        out["attachment_name"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("StartAttachmentUploadRequest.client_token required")
+        out["client_token"] = ""
     return out

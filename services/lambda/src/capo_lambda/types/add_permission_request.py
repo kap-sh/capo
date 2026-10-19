@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.action
     import capo_lambda.types.arn
@@ -90,15 +88,15 @@ def deserialize_json(data: dict) -> AddPermissionRequest:
     if data.get("StatementId") is not None:
         out["statement_id"] = data["StatementId"]
     else:
-        raise DeserializationError("AddPermissionRequest.statement_id required")
+        out["statement_id"] = ""
     if data.get("Action") is not None:
         out["action"] = data["Action"]
     else:
-        raise DeserializationError("AddPermissionRequest.action required")
+        out["action"] = ""
     if data.get("Principal") is not None:
         out["principal"] = data["Principal"]
     else:
-        raise DeserializationError("AddPermissionRequest.principal required")
+        out["principal"] = ""
     if data.get("SourceArn") is not None:
         out["source_arn"] = data["SourceArn"]
     if data.get("FunctionUrlAuthType") is not None:

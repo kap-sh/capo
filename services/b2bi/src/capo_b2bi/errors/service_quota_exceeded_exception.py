@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_b2bi.errors import DeserializationError, ServiceError
+from capo_b2bi.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_b2bi.types.error_message
@@ -39,29 +39,23 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceQuotaExceededException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ServiceQuotaExceededException_.message required")
+        out["message"] = ""
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     else:
-        raise DeserializationError(
-            "ServiceQuotaExceededException_.resource_id required"
-        )
+        out["resource_id"] = ""
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError(
-            "ServiceQuotaExceededException_.resource_type required"
-        )
+        out["resource_type"] = ""
     if data.get("serviceCode") is not None:
         out["service_code"] = data["serviceCode"]
     else:
-        raise DeserializationError(
-            "ServiceQuotaExceededException_.service_code required"
-        )
+        out["service_code"] = ""
     if data.get("quotaCode") is not None:
         out["quota_code"] = data["quotaCode"]
     else:
-        raise DeserializationError("ServiceQuotaExceededException_.quota_code required")
+        out["quota_code"] = ""
     return out
 
 

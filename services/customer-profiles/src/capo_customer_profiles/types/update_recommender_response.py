@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.name
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> UpdateRecommenderResponse:
     if data.get("RecommenderName") is not None:
         out["recommender_name"] = data["RecommenderName"]
     else:
-        raise DeserializationError(
-            "UpdateRecommenderResponse.recommender_name required"
-        )
+        out["recommender_name"] = ""
     return out

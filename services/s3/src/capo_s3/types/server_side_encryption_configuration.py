@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.server_side_encryption_rules
@@ -37,7 +36,7 @@ def deserialize_xml(el: Element) -> ServerSideEncryptionConfiguration:
             el, "Rule"
         )
     else:
-        raise DeserializationError("ServerSideEncryptionConfiguration.rules required")
+        out["rules"] = []
     return out
 
 

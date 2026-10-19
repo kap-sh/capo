@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sso_admin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_admin.types.application_arn
     import capo_sso_admin.types.authentication_method_type
@@ -41,9 +39,7 @@ def deserialize_aws_json_1_1(
     if data.get("ApplicationArn") is not None:
         out["application_arn"] = data["ApplicationArn"]
     else:
-        raise DeserializationError(
-            "DeleteApplicationAuthenticationMethodRequest.application_arn required"
-        )
+        out["application_arn"] = ""
     if data.get("AuthenticationMethodType") is not None:
         import capo_sso_admin.types.authentication_method_type
 
@@ -53,7 +49,10 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "DeleteApplicationAuthenticationMethodRequest.authentication_method_type required"
+        import typing
+
+        out["authentication_method_type"] = typing.cast(
+            "capo_sso_admin.types.authentication_method_type.AuthenticationMethodType",
+            "",
         )
     return out

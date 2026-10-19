@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_waf_regional.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf_regional.types.resource_id
     import capo_waf_regional.types.resource_name
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> RegexMatchSetSummary:
     if data.get("RegexMatchSetId") is not None:
         out["regex_match_set_id"] = data["RegexMatchSetId"]
     else:
-        raise DeserializationError("RegexMatchSetSummary.regex_match_set_id required")
+        out["regex_match_set_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("RegexMatchSetSummary.name required")
+        out["name"] = ""
     return out

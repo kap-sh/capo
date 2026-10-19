@@ -136,7 +136,7 @@ def deserialize_json(data: dict) -> RoutePedestrianLegDetails:
             )
         )
     else:
-        raise DeserializationError("RoutePedestrianLegDetails.notices required")
+        out["notices"] = []
     if data.get("PassThroughWaypoints") is not None:
         import capo_geo_routes.types.route_pass_through_waypoint_list
 
@@ -146,9 +146,7 @@ def deserialize_json(data: dict) -> RoutePedestrianLegDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "RoutePedestrianLegDetails.pass_through_waypoints required"
-        )
+        out["pass_through_waypoints"] = []
     if data.get("Spans") is not None:
         import capo_geo_routes.types.route_pedestrian_span_list
 
@@ -158,7 +156,7 @@ def deserialize_json(data: dict) -> RoutePedestrianLegDetails:
             )
         )
     else:
-        raise DeserializationError("RoutePedestrianLegDetails.spans required")
+        out["spans"] = []
     if data.get("Summary") is not None:
         import capo_geo_routes.types.route_pedestrian_summary
 
@@ -176,7 +174,7 @@ def deserialize_json(data: dict) -> RoutePedestrianLegDetails:
             )
         )
     else:
-        raise DeserializationError("RoutePedestrianLegDetails.travel_steps required")
+        out["travel_steps"] = []
     return out
 
 

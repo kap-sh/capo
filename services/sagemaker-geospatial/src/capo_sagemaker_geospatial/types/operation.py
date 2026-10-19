@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.output_type
 
@@ -34,11 +32,11 @@ def deserialize_json(data: dict) -> Operation:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Operation.name required")
+        out["name"] = ""
     if data.get("Equation") is not None:
         out["equation"] = data["Equation"]
     else:
-        raise DeserializationError("Operation.equation required")
+        out["equation"] = ""
     if data.get("OutputType") is not None:
         out["output_type"] = data["OutputType"]
     return out

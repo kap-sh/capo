@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.conditional_field_behavior
     import capo_pinpoint_sms_voice_v2.types.conditional_rule_list
@@ -43,9 +41,9 @@ def deserialize_aws_json_1_0(data: dict) -> ConditionalBehavior:
             )
         )
     else:
-        raise DeserializationError("ConditionalBehavior.rules required")
+        out["rules"] = []
     if data.get("DefaultBehavior") is not None:
         out["default_behavior"] = data["DefaultBehavior"]
     else:
-        raise DeserializationError("ConditionalBehavior.default_behavior required")
+        out["default_behavior"] = ""
     return out

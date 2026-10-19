@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.before_waypoints_list
     import capo_geo_routes.types.duration_seconds
@@ -120,7 +118,7 @@ def deserialize_json(data: dict) -> WaypointOptimizationWaypoint:
             data["Position"]
         )
     else:
-        raise DeserializationError("WaypointOptimizationWaypoint.position required")
+        out["position"] = []
     if data.get("ServiceDuration") is not None:
         out["service_duration"] = data["ServiceDuration"]
     else:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.attribute_identifier
     import capo_datazone.types.form_input_list
@@ -33,7 +31,7 @@ def deserialize_json(data: dict) -> AttributeInput:
     if data.get("attributeIdentifier") is not None:
         out["attribute_identifier"] = data["attributeIdentifier"]
     else:
-        raise DeserializationError("AttributeInput.attribute_identifier required")
+        out["attribute_identifier"] = ""
     if data.get("forms") is not None:
         import capo_datazone.types.form_input_list
 
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> AttributeInput:
             data["forms"]
         )
     else:
-        raise DeserializationError("AttributeInput.forms required")
+        out["forms"] = []
     return out
 
 

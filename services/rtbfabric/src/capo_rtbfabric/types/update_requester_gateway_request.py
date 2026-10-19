@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rtbfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rtbfabric.types.gateway_id
 
@@ -33,9 +31,7 @@ def deserialize_json(data: dict) -> UpdateRequesterGatewayRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError(
-            "UpdateRequesterGatewayRequest.client_token required"
-        )
+        out["client_token"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

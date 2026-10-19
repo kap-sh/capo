@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.dynamic_instrumentation_signal_type
     import capo_application_signals.types.instrumentation_configuration_status
@@ -72,15 +70,11 @@ def deserialize_json(data: dict) -> GetInstrumentationConfigurationStatusRespons
     if data.get("Service") is not None:
         out["service"] = data["Service"]
     else:
-        raise DeserializationError(
-            "GetInstrumentationConfigurationStatusResponse.service required"
-        )
+        out["service"] = ""
     if data.get("Environment") is not None:
         out["environment"] = data["Environment"]
     else:
-        raise DeserializationError(
-            "GetInstrumentationConfigurationStatusResponse.environment required"
-        )
+        out["environment"] = ""
     if data.get("SignalType") is not None:
         import capo_application_signals.types.dynamic_instrumentation_signal_type
 
@@ -90,8 +84,11 @@ def deserialize_json(data: dict) -> GetInstrumentationConfigurationStatusRespons
             )
         )
     else:
-        raise DeserializationError(
-            "GetInstrumentationConfigurationStatusResponse.signal_type required"
+        import typing
+
+        out["signal_type"] = typing.cast(
+            "capo_application_signals.types.dynamic_instrumentation_signal_type.DynamicInstrumentationSignalType",
+            "",
         )
     if data.get("Location") is not None:
         import capo_application_signals.types.location
@@ -100,9 +97,9 @@ def deserialize_json(data: dict) -> GetInstrumentationConfigurationStatusRespons
             data["Location"]
         )
     else:
-        raise DeserializationError(
-            "GetInstrumentationConfigurationStatusResponse.location required"
-        )
+        import capo_application_signals.types._unknown
+
+        out["location"] = capo_application_signals.types._unknown.UnknownUnionMember("")
     if data.get("Status") is not None:
         import capo_application_signals.types.instrumentation_configuration_status
 
@@ -112,8 +109,11 @@ def deserialize_json(data: dict) -> GetInstrumentationConfigurationStatusRespons
             )
         )
     else:
-        raise DeserializationError(
-            "GetInstrumentationConfigurationStatusResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_application_signals.types.instrumentation_configuration_status.InstrumentationConfigurationStatus",
+            "",
         )
     if data.get("Events") is not None:
         import capo_application_signals.types.instrumentation_status_event_list
@@ -124,9 +124,7 @@ def deserialize_json(data: dict) -> GetInstrumentationConfigurationStatusRespons
             )
         )
     else:
-        raise DeserializationError(
-            "GetInstrumentationConfigurationStatusResponse.events required"
-        )
+        out["events"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

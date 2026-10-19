@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_secrets_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_secrets_manager.types.boolean_type
     import capo_secrets_manager.types.recovery_window_in_days_type
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteSecretRequest:
     if data.get("SecretId") is not None:
         out["secret_id"] = data["SecretId"]
     else:
-        raise DeserializationError("DeleteSecretRequest.secret_id required")
+        out["secret_id"] = ""
     if data.get("RecoveryWindowInDays") is not None:
         out["recovery_window_in_days"] = data["RecoveryWindowInDays"]
     if data.get("ForceDeleteWithoutRecovery") is not None:

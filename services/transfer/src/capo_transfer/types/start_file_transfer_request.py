@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.connector_id
     import capo_transfer.types.custom_http_headers
@@ -68,7 +66,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartFileTransferRequest:
     if data.get("ConnectorId") is not None:
         out["connector_id"] = data["ConnectorId"]
     else:
-        raise DeserializationError("StartFileTransferRequest.connector_id required")
+        out["connector_id"] = ""
     if data.get("SendFilePaths") is not None:
         import capo_transfer.types.file_paths
 

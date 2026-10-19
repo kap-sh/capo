@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_synthetics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_synthetics.types.max_retries
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> RetryConfigInput:
     if data.get("MaxRetries") is not None:
         out["max_retries"] = data["MaxRetries"]
     else:
-        raise DeserializationError("RetryConfigInput.max_retries required")
+        out["max_retries"] = 0
     return out

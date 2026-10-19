@@ -36,9 +36,7 @@ def deserialize_query(el: Element) -> UpdateScalingParametersRequest:
     if child_domain_name is not None:
         out["domain_name"] = str(child_domain_name.text or "")
     else:
-        raise DeserializationError(
-            "UpdateScalingParametersRequest.domain_name required"
-        )
+        out["domain_name"] = ""
     child_scaling_parameters = el.find("ScalingParameters")
     if child_scaling_parameters is not None:
         import capo_cloudsearch.types.scaling_parameters

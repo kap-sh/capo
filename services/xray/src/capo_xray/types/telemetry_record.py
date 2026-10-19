@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_xray.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_xray.types.backend_connection_errors
     import capo_xray.types.nullable_integer
@@ -67,7 +65,9 @@ def deserialize_json(data: dict) -> TelemetryRecord:
 
         out["timestamp"] = capo_xray.types.timestamp.deserialize_json(data["Timestamp"])
     else:
-        raise DeserializationError("TelemetryRecord.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("SegmentsReceivedCount") is not None:
         out["segments_received_count"] = data["SegmentsReceivedCount"]
     if data.get("SegmentsSentCount") is not None:

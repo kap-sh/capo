@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.boolean
@@ -68,7 +66,7 @@ def deserialize_json(data: dict) -> CreateDlpSettingRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateDlpSettingRequest.name required")
+        out["name"] = ""
     if data.get("ProviderType") is not None:
         import capo_quicksight.types.dlp_provider_type
 
@@ -76,7 +74,11 @@ def deserialize_json(data: dict) -> CreateDlpSettingRequest:
             data["ProviderType"]
         )
     else:
-        raise DeserializationError("CreateDlpSettingRequest.provider_type required")
+        import typing
+
+        out["provider_type"] = typing.cast(
+            "capo_quicksight.types.dlp_provider_type.DlpProviderType", ""
+        )
     if data.get("ProviderConfig") is not None:
         import capo_quicksight.types.provider_config
 
@@ -84,7 +86,9 @@ def deserialize_json(data: dict) -> CreateDlpSettingRequest:
             data["ProviderConfig"]
         )
     else:
-        raise DeserializationError("CreateDlpSettingRequest.provider_config required")
+        import capo_quicksight.types._unknown
+
+        out["provider_config"] = capo_quicksight.types._unknown.UnknownUnionMember("")
     if data.get("ProviderOutageAction") is not None:
         import capo_quicksight.types.dlp_action
 
@@ -94,13 +98,15 @@ def deserialize_json(data: dict) -> CreateDlpSettingRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDlpSettingRequest.provider_outage_action required"
+        import typing
+
+        out["provider_outage_action"] = typing.cast(
+            "capo_quicksight.types.dlp_action.DlpAction", ""
         )
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     else:
-        raise DeserializationError("CreateDlpSettingRequest.enabled required")
+        out["enabled"] = False
     if data.get("Tags") is not None:
         import capo_quicksight.types.tag_list
 

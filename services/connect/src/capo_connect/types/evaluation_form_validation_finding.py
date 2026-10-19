@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.evaluation_form_validation_finding_description
     import capo_connect.types.evaluation_form_validation_finding_item_list
@@ -61,9 +59,7 @@ def deserialize_json(data: dict) -> EvaluationFormValidationFinding:
     if data.get("IssueCode") is not None:
         out["issue_code"] = data["IssueCode"]
     else:
-        raise DeserializationError(
-            "EvaluationFormValidationFinding.issue_code required"
-        )
+        out["issue_code"] = ""
     if data.get("Items") is not None:
         import capo_connect.types.evaluation_form_validation_finding_item_list
 
@@ -75,9 +71,7 @@ def deserialize_json(data: dict) -> EvaluationFormValidationFinding:
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError(
-            "EvaluationFormValidationFinding.description required"
-        )
+        out["description"] = ""
     if data.get("Suggestion") is not None:
         out["suggestion"] = data["Suggestion"]
     if data.get("Severity") is not None:
@@ -89,5 +83,10 @@ def deserialize_json(data: dict) -> EvaluationFormValidationFinding:
             )
         )
     else:
-        raise DeserializationError("EvaluationFormValidationFinding.severity required")
+        import typing
+
+        out["severity"] = typing.cast(
+            "capo_connect.types.evaluation_form_validation_finding_severity.EvaluationFormValidationFindingSeverity",
+            "",
+        )
     return out

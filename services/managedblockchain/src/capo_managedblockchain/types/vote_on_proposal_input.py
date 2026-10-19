@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_managedblockchain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_managedblockchain.types.resource_id_string
     import capo_managedblockchain.types.vote_value
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> VoteOnProposalInput:
     if data.get("VoterMemberId") is not None:
         out["voter_member_id"] = data["VoterMemberId"]
     else:
-        raise DeserializationError("VoteOnProposalInput.voter_member_id required")
+        out["voter_member_id"] = ""
     if data.get("Vote") is not None:
         import capo_managedblockchain.types.vote_value
 
@@ -45,5 +43,9 @@ def deserialize_json(data: dict) -> VoteOnProposalInput:
             data["Vote"]
         )
     else:
-        raise DeserializationError("VoteOnProposalInput.vote required")
+        import typing
+
+        out["vote"] = typing.cast(
+            "capo_managedblockchain.types.vote_value.VoteValue", ""
+        )
     return out

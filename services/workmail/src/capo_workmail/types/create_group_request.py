@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.boolean
     import capo_workmail.types.group_name
@@ -36,11 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateGroupRequest:
     if data.get("OrganizationId") is not None:
         out["organization_id"] = data["OrganizationId"]
     else:
-        raise DeserializationError("CreateGroupRequest.organization_id required")
+        out["organization_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateGroupRequest.name required")
+        out["name"] = ""
     if data.get("HiddenFromGlobalAddressList") is not None:
         out["hidden_from_global_address_list"] = data["HiddenFromGlobalAddressList"]
     return out

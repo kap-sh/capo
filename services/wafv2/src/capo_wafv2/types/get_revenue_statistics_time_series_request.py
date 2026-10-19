@@ -103,8 +103,10 @@ def deserialize_aws_json_1_1(data: dict) -> GetRevenueStatisticsTimeSeriesReques
             )
         )
     else:
-        raise DeserializationError(
-            "GetRevenueStatisticsTimeSeriesRequest.statistic_type required"
+        import typing
+
+        out["statistic_type"] = typing.cast(
+            "capo_wafv2.types.time_series_statistic_type.TimeSeriesStatisticType", ""
         )
     if data.get("TimeWindow") is not None:
         import capo_wafv2.types.time_window
@@ -121,9 +123,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetRevenueStatisticsTimeSeriesReques
 
         out["scope"] = capo_wafv2.types.scope.deserialize_aws_json_1_1(data["Scope"])
     else:
-        raise DeserializationError(
-            "GetRevenueStatisticsTimeSeriesRequest.scope required"
-        )
+        import typing
+
+        out["scope"] = typing.cast("capo_wafv2.types.scope.Scope", "")
     if data.get("Interval") is not None:
         import capo_wafv2.types.interval_type
 
@@ -131,9 +133,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetRevenueStatisticsTimeSeriesReques
             data["Interval"]
         )
     else:
-        raise DeserializationError(
-            "GetRevenueStatisticsTimeSeriesRequest.interval required"
-        )
+        import typing
+
+        out["interval"] = typing.cast("capo_wafv2.types.interval_type.IntervalType", "")
     if data.get("Currency") is not None:
         import capo_wafv2.types.currency
 
@@ -141,9 +143,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetRevenueStatisticsTimeSeriesReques
             data["Currency"]
         )
     else:
-        raise DeserializationError(
-            "GetRevenueStatisticsTimeSeriesRequest.currency required"
-        )
+        import typing
+
+        out["currency"] = typing.cast("capo_wafv2.types.currency.Currency", "")
     if data.get("GroupBy") is not None:
         import capo_wafv2.types.group_by_type
 

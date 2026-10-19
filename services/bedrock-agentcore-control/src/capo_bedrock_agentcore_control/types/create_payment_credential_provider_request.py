@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.credential_provider_name
     import capo_bedrock_agentcore_control.types.payment_credential_provider_vendor_type
@@ -56,9 +54,7 @@ def deserialize_json(data: dict) -> CreatePaymentCredentialProviderRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "CreatePaymentCredentialProviderRequest.name required"
-        )
+        out["name"] = ""
     if data.get("credentialProviderVendor") is not None:
         import capo_bedrock_agentcore_control.types.payment_credential_provider_vendor_type
 
@@ -68,8 +64,11 @@ def deserialize_json(data: dict) -> CreatePaymentCredentialProviderRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreatePaymentCredentialProviderRequest.credential_provider_vendor required"
+        import typing
+
+        out["credential_provider_vendor"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.payment_credential_provider_vendor_type.PaymentCredentialProviderVendorType",
+            "",
         )
     if data.get("providerConfigurationInput") is not None:
         import capo_bedrock_agentcore_control.types.payment_provider_configuration_input
@@ -80,8 +79,10 @@ def deserialize_json(data: dict) -> CreatePaymentCredentialProviderRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreatePaymentCredentialProviderRequest.provider_configuration_input required"
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["provider_configuration_input"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
         )
     if data.get("tags") is not None:
         import capo_bedrock_agentcore_control.types.tags_map

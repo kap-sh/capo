@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.next_token
     import capo_verifiedpermissions.types.policy_list
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListPoliciesOutput:
             )
         )
     else:
-        raise DeserializationError("ListPoliciesOutput.policies required")
+        out["policies"] = []
     return out
 
 

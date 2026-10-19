@@ -121,23 +121,32 @@ def handle_response(
                 response.headers["x-amzn-transcribe-vocabulary-filter-method"]
             )
         )
-    out["show_speaker_label"] = (
-        response.headers["x-amzn-transcribe-show-speaker-label"].lower() == "true"
-    )
-    out["enable_channel_identification"] = (
-        response.headers["x-amzn-transcribe-enable-channel-identification"].lower()
-        == "true"
-    )
+    if "x-amzn-transcribe-show-speaker-label" in response.headers:
+        out["show_speaker_label"] = (
+            response.headers["x-amzn-transcribe-show-speaker-label"].lower() == "true"
+        )
+    else:
+        out["show_speaker_label"] = False
+    if "x-amzn-transcribe-enable-channel-identification" in response.headers:
+        out["enable_channel_identification"] = (
+            response.headers["x-amzn-transcribe-enable-channel-identification"].lower()
+            == "true"
+        )
+    else:
+        out["enable_channel_identification"] = False
     if "x-amzn-transcribe-number-of-channels" in response.headers:
         out["number_of_channels"] = int(
             response.headers["x-amzn-transcribe-number-of-channels"]
         )
-    out["enable_partial_results_stabilization"] = (
-        response.headers[
-            "x-amzn-transcribe-enable-partial-results-stabilization"
-        ].lower()
-        == "true"
-    )
+    if "x-amzn-transcribe-enable-partial-results-stabilization" in response.headers:
+        out["enable_partial_results_stabilization"] = (
+            response.headers[
+                "x-amzn-transcribe-enable-partial-results-stabilization"
+            ].lower()
+            == "true"
+        )
+    else:
+        out["enable_partial_results_stabilization"] = False
     if "x-amzn-transcribe-partial-results-stability" in response.headers:
         out["partial_results_stability"] = (
             capo_transcribe_streaming.types.partial_results_stability.deserialize_json(
@@ -162,9 +171,12 @@ def handle_response(
         out["language_model_name"] = response.headers[
             "x-amzn-transcribe-language-model-name"
         ]
-    out["identify_language"] = (
-        response.headers["x-amzn-transcribe-identify-language"].lower() == "true"
-    )
+    if "x-amzn-transcribe-identify-language" in response.headers:
+        out["identify_language"] = (
+            response.headers["x-amzn-transcribe-identify-language"].lower() == "true"
+        )
+    else:
+        out["identify_language"] = False
     if "x-amzn-transcribe-language-options" in response.headers:
         out["language_options"] = response.headers["x-amzn-transcribe-language-options"]
     if "x-amzn-transcribe-preferred-language" in response.headers:
@@ -173,10 +185,13 @@ def handle_response(
                 response.headers["x-amzn-transcribe-preferred-language"]
             )
         )
-    out["identify_multiple_languages"] = (
-        response.headers["x-amzn-transcribe-identify-multiple-languages"].lower()
-        == "true"
-    )
+    if "x-amzn-transcribe-identify-multiple-languages" in response.headers:
+        out["identify_multiple_languages"] = (
+            response.headers["x-amzn-transcribe-identify-multiple-languages"].lower()
+            == "true"
+        )
+    else:
+        out["identify_multiple_languages"] = False
     if "x-amzn-transcribe-vocabulary-names" in response.headers:
         out["vocabulary_names"] = response.headers["x-amzn-transcribe-vocabulary-names"]
     if "x-amzn-transcribe-vocabulary-filter-names" in response.headers:
@@ -242,23 +257,32 @@ async def async_handle_response(
                 response.headers["x-amzn-transcribe-vocabulary-filter-method"]
             )
         )
-    out["show_speaker_label"] = (
-        response.headers["x-amzn-transcribe-show-speaker-label"].lower() == "true"
-    )
-    out["enable_channel_identification"] = (
-        response.headers["x-amzn-transcribe-enable-channel-identification"].lower()
-        == "true"
-    )
+    if "x-amzn-transcribe-show-speaker-label" in response.headers:
+        out["show_speaker_label"] = (
+            response.headers["x-amzn-transcribe-show-speaker-label"].lower() == "true"
+        )
+    else:
+        out["show_speaker_label"] = False
+    if "x-amzn-transcribe-enable-channel-identification" in response.headers:
+        out["enable_channel_identification"] = (
+            response.headers["x-amzn-transcribe-enable-channel-identification"].lower()
+            == "true"
+        )
+    else:
+        out["enable_channel_identification"] = False
     if "x-amzn-transcribe-number-of-channels" in response.headers:
         out["number_of_channels"] = int(
             response.headers["x-amzn-transcribe-number-of-channels"]
         )
-    out["enable_partial_results_stabilization"] = (
-        response.headers[
-            "x-amzn-transcribe-enable-partial-results-stabilization"
-        ].lower()
-        == "true"
-    )
+    if "x-amzn-transcribe-enable-partial-results-stabilization" in response.headers:
+        out["enable_partial_results_stabilization"] = (
+            response.headers[
+                "x-amzn-transcribe-enable-partial-results-stabilization"
+            ].lower()
+            == "true"
+        )
+    else:
+        out["enable_partial_results_stabilization"] = False
     if "x-amzn-transcribe-partial-results-stability" in response.headers:
         out["partial_results_stability"] = (
             capo_transcribe_streaming.types.partial_results_stability.deserialize_json(
@@ -283,9 +307,12 @@ async def async_handle_response(
         out["language_model_name"] = response.headers[
             "x-amzn-transcribe-language-model-name"
         ]
-    out["identify_language"] = (
-        response.headers["x-amzn-transcribe-identify-language"].lower() == "true"
-    )
+    if "x-amzn-transcribe-identify-language" in response.headers:
+        out["identify_language"] = (
+            response.headers["x-amzn-transcribe-identify-language"].lower() == "true"
+        )
+    else:
+        out["identify_language"] = False
     if "x-amzn-transcribe-language-options" in response.headers:
         out["language_options"] = response.headers["x-amzn-transcribe-language-options"]
     if "x-amzn-transcribe-preferred-language" in response.headers:
@@ -294,10 +321,13 @@ async def async_handle_response(
                 response.headers["x-amzn-transcribe-preferred-language"]
             )
         )
-    out["identify_multiple_languages"] = (
-        response.headers["x-amzn-transcribe-identify-multiple-languages"].lower()
-        == "true"
-    )
+    if "x-amzn-transcribe-identify-multiple-languages" in response.headers:
+        out["identify_multiple_languages"] = (
+            response.headers["x-amzn-transcribe-identify-multiple-languages"].lower()
+            == "true"
+        )
+    else:
+        out["identify_multiple_languages"] = False
     if "x-amzn-transcribe-vocabulary-names" in response.headers:
         out["vocabulary_names"] = response.headers["x-amzn-transcribe-vocabulary-names"]
     if "x-amzn-transcribe-vocabulary-filter-names" in response.headers:

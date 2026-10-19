@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.decision
     import capo_verifiedpermissions.types.determining_policy_list
@@ -59,7 +57,11 @@ def deserialize_aws_json_1_0(data: dict) -> IsAuthorizedOutput:
             )
         )
     else:
-        raise DeserializationError("IsAuthorizedOutput.decision required")
+        import typing
+
+        out["decision"] = typing.cast(
+            "capo_verifiedpermissions.types.decision.Decision", ""
+        )
     if data.get("determiningPolicies") is not None:
         import capo_verifiedpermissions.types.determining_policy_list
 
@@ -69,7 +71,7 @@ def deserialize_aws_json_1_0(data: dict) -> IsAuthorizedOutput:
             )
         )
     else:
-        raise DeserializationError("IsAuthorizedOutput.determining_policies required")
+        out["determining_policies"] = []
     if data.get("errors") is not None:
         import capo_verifiedpermissions.types.evaluation_error_list
 
@@ -79,7 +81,7 @@ def deserialize_aws_json_1_0(data: dict) -> IsAuthorizedOutput:
             )
         )
     else:
-        raise DeserializationError("IsAuthorizedOutput.errors required")
+        out["errors"] = []
     return out
 
 

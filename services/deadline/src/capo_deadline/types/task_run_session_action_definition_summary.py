@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.step_id
     import capo_deadline.types.task_id
@@ -43,9 +41,7 @@ def deserialize_json(data: dict) -> TaskRunSessionActionDefinitionSummary:
     if data.get("stepId") is not None:
         out["step_id"] = data["stepId"]
     else:
-        raise DeserializationError(
-            "TaskRunSessionActionDefinitionSummary.step_id required"
-        )
+        out["step_id"] = ""
     if data.get("parameters") is not None:
         import capo_deadline.types.task_parameters
 

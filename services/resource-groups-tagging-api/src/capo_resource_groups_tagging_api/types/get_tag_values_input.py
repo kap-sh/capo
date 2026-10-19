@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resource_groups_tagging_api.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resource_groups_tagging_api.types.pagination_token
     import capo_resource_groups_tagging_api.types.tag_key
@@ -36,5 +34,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetTagValuesInput:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("GetTagValuesInput.key required")
+        out["key"] = ""
     return out

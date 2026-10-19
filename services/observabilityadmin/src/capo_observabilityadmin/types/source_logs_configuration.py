@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_observabilityadmin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_observabilityadmin.types.data_source_filter_string
     import capo_observabilityadmin.types.encrypted_log_group_strategy
@@ -58,7 +56,10 @@ def deserialize_json(data: dict) -> SourceLogsConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "SourceLogsConfiguration.encrypted_log_group_strategy required"
+        import typing
+
+        out["encrypted_log_group_strategy"] = typing.cast(
+            "capo_observabilityadmin.types.encrypted_log_group_strategy.EncryptedLogGroupStrategy",
+            "",
         )
     return out

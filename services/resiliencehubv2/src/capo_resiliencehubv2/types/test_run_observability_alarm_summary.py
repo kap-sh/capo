@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.cloud_watch_alarm_arn
 
@@ -36,23 +34,17 @@ def deserialize_json(data: dict) -> TestRunObservabilityAlarmSummary:
     if data.get("alarmArn") is not None:
         out["alarm_arn"] = data["alarmArn"]
     else:
-        raise DeserializationError(
-            "TestRunObservabilityAlarmSummary.alarm_arn required"
-        )
+        out["alarm_arn"] = ""
     if data.get("alarmName") is not None:
         out["alarm_name"] = data["alarmName"]
     else:
-        raise DeserializationError(
-            "TestRunObservabilityAlarmSummary.alarm_name required"
-        )
+        out["alarm_name"] = ""
     if data.get("region") is not None:
         out["region"] = data["region"]
     else:
-        raise DeserializationError("TestRunObservabilityAlarmSummary.region required")
+        out["region"] = ""
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError(
-            "TestRunObservabilityAlarmSummary.account_id required"
-        )
+        out["account_id"] = ""
     return out

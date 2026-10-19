@@ -84,7 +84,7 @@ def deserialize_json(data: dict) -> JobEntry:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("JobEntry.arn required")
+        out["arn"] = ""
     if data.get("AssetConfiguration") is not None:
         import capo_dataexchange.types.asset_configuration
 
@@ -100,7 +100,9 @@ def deserialize_json(data: dict) -> JobEntry:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("JobEntry.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Details") is not None:
         import capo_dataexchange.types.response_details
 
@@ -118,15 +120,15 @@ def deserialize_json(data: dict) -> JobEntry:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("JobEntry.id required")
+        out["id"] = ""
     if data.get("State") is not None:
         out["state"] = data["State"]
     else:
-        raise DeserializationError("JobEntry.state required")
+        out["state"] = ""
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     else:
-        raise DeserializationError("JobEntry.type required")
+        out["type"] = ""
     if data.get("UpdatedAt") is not None:
         import capo_dataexchange.types.timestamp
 
@@ -134,5 +136,7 @@ def deserialize_json(data: dict) -> JobEntry:
             data["UpdatedAt"]
         )
     else:
-        raise DeserializationError("JobEntry.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

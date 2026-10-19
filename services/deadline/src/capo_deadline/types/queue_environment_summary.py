@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.environment_name
     import capo_deadline.types.priority
@@ -35,15 +33,13 @@ def deserialize_json(data: dict) -> QueueEnvironmentSummary:
     if data.get("queueEnvironmentId") is not None:
         out["queue_environment_id"] = data["queueEnvironmentId"]
     else:
-        raise DeserializationError(
-            "QueueEnvironmentSummary.queue_environment_id required"
-        )
+        out["queue_environment_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("QueueEnvironmentSummary.name required")
+        out["name"] = ""
     if data.get("priority") is not None:
         out["priority"] = data["priority"]
     else:
-        raise DeserializationError("QueueEnvironmentSummary.priority required")
+        out["priority"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.boolean_optional
     import capo_database_migration_service.types.migration_project_identifier
@@ -38,15 +36,11 @@ def deserialize_aws_json_1_1(data: dict) -> StartMetadataModelExportToTargetMess
     if data.get("MigrationProjectIdentifier") is not None:
         out["migration_project_identifier"] = data["MigrationProjectIdentifier"]
     else:
-        raise DeserializationError(
-            "StartMetadataModelExportToTargetMessage.migration_project_identifier required"
-        )
+        out["migration_project_identifier"] = ""
     if data.get("SelectionRules") is not None:
         out["selection_rules"] = data["SelectionRules"]
     else:
-        raise DeserializationError(
-            "StartMetadataModelExportToTargetMessage.selection_rules required"
-        )
+        out["selection_rules"] = ""
     if data.get("OverwriteExtensionPack") is not None:
         out["overwrite_extension_pack"] = data["OverwriteExtensionPack"]
     return out

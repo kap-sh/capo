@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda_microvms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -170,11 +168,11 @@ def deserialize_json(data: dict) -> UpdateMicrovmImageResponse:
     if data.get("imageArn") is not None:
         out["image_arn"] = data["imageArn"]
     else:
-        raise DeserializationError("UpdateMicrovmImageResponse.image_arn required")
+        out["image_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("UpdateMicrovmImageResponse.name required")
+        out["name"] = ""
     if data.get("state") is not None:
         import capo_lambda_microvms.types.microvm_image_state
 
@@ -182,7 +180,11 @@ def deserialize_json(data: dict) -> UpdateMicrovmImageResponse:
             data["state"]
         )
     else:
-        raise DeserializationError("UpdateMicrovmImageResponse.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_lambda_microvms.types.microvm_image_state.MicrovmImageState", ""
+        )
     if data.get("latestActiveImageVersion") is not None:
         out["latest_active_image_version"] = data["latestActiveImageVersion"]
     if data.get("latestFailedImageVersion") is not None:
@@ -196,17 +198,19 @@ def deserialize_json(data: dict) -> UpdateMicrovmImageResponse:
             )
         )
     else:
-        raise DeserializationError("UpdateMicrovmImageResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("baseImageArn") is not None:
         out["base_image_arn"] = data["baseImageArn"]
     else:
-        raise DeserializationError("UpdateMicrovmImageResponse.base_image_arn required")
+        out["base_image_arn"] = ""
     if data.get("baseImageVersion") is not None:
         out["base_image_version"] = data["baseImageVersion"]
     if data.get("buildRoleArn") is not None:
         out["build_role_arn"] = data["buildRoleArn"]
     else:
-        raise DeserializationError("UpdateMicrovmImageResponse.build_role_arn required")
+        out["build_role_arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("codeArtifact") is not None:
@@ -218,7 +222,11 @@ def deserialize_json(data: dict) -> UpdateMicrovmImageResponse:
             )
         )
     else:
-        raise DeserializationError("UpdateMicrovmImageResponse.code_artifact required")
+        import capo_lambda_microvms.types._unknown
+
+        out["code_artifact"] = capo_lambda_microvms.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("logging") is not None:
         import capo_lambda_microvms.types.logging
 
@@ -276,11 +284,13 @@ def deserialize_json(data: dict) -> UpdateMicrovmImageResponse:
             )
         )
     else:
-        raise DeserializationError("UpdateMicrovmImageResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("imageVersion") is not None:
         out["image_version"] = data["imageVersion"]
     else:
-        raise DeserializationError("UpdateMicrovmImageResponse.image_version required")
+        out["image_version"] = ""
     return out
 
 

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.metrics_status
@@ -45,7 +44,11 @@ def deserialize_xml(el: Element) -> Metrics:
             child_status
         )
     else:
-        raise DeserializationError("Metrics.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_s3_control.types.metrics_status.MetricsStatus", ""
+        )
     child_event_threshold = el.find("EventThreshold")
     if child_event_threshold is not None:
         import capo_s3_control.types.replication_time_value

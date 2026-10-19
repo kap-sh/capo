@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_clouddirectory.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_clouddirectory.types.arn
     import capo_clouddirectory.types.attribute_name_list
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> UpdateTypedLinkFacetRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateTypedLinkFacetRequest.name required")
+        out["name"] = ""
     if data.get("AttributeUpdates") is not None:
         import capo_clouddirectory.types.typed_link_facet_attribute_update_list
 
@@ -62,9 +60,7 @@ def deserialize_json(data: dict) -> UpdateTypedLinkFacetRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateTypedLinkFacetRequest.attribute_updates required"
-        )
+        out["attribute_updates"] = []
     if data.get("IdentityAttributeOrder") is not None:
         import capo_clouddirectory.types.attribute_name_list
 
@@ -74,7 +70,5 @@ def deserialize_json(data: dict) -> UpdateTypedLinkFacetRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateTypedLinkFacetRequest.identity_attribute_order required"
-        )
+        out["identity_attribute_order"] = []
     return out

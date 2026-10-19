@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_waf_regional.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf_regional.types.ip_set_descriptors
     import capo_waf_regional.types.resource_id
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> IPSet:
     if data.get("IPSetId") is not None:
         out["ip_set_id"] = data["IPSetId"]
     else:
-        raise DeserializationError("IPSet.ip_set_id required")
+        out["ip_set_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("IPSetDescriptors") is not None:
@@ -54,5 +52,5 @@ def deserialize_aws_json_1_1(data: dict) -> IPSet:
             )
         )
     else:
-        raise DeserializationError("IPSet.ip_set_descriptors required")
+        out["ip_set_descriptors"] = []
     return out

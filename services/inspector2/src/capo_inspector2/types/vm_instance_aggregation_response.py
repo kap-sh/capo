@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.non_empty_string
     import capo_inspector2.types.provider
@@ -99,7 +97,7 @@ def deserialize_json(data: dict) -> VmInstanceAggregationResponse:
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     else:
-        raise DeserializationError("VmInstanceAggregationResponse.resource_id required")
+        out["resource_id"] = ""
     if data.get("cloudProvider") is not None:
         out["cloud_provider"] = data["cloudProvider"]
     if data.get("cloudAccountId") is not None:

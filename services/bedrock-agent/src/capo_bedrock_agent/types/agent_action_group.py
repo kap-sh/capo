@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.action_group_executor
     import capo_bedrock_agent.types.action_group_signature
@@ -132,19 +130,19 @@ def deserialize_json(data: dict) -> AgentActionGroup:
     if data.get("agentId") is not None:
         out["agent_id"] = data["agentId"]
     else:
-        raise DeserializationError("AgentActionGroup.agent_id required")
+        out["agent_id"] = ""
     if data.get("agentVersion") is not None:
         out["agent_version"] = data["agentVersion"]
     else:
-        raise DeserializationError("AgentActionGroup.agent_version required")
+        out["agent_version"] = ""
     if data.get("actionGroupId") is not None:
         out["action_group_id"] = data["actionGroupId"]
     else:
-        raise DeserializationError("AgentActionGroup.action_group_id required")
+        out["action_group_id"] = ""
     if data.get("actionGroupName") is not None:
         out["action_group_name"] = data["actionGroupName"]
     else:
-        raise DeserializationError("AgentActionGroup.action_group_name required")
+        out["action_group_name"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("description") is not None:
@@ -156,7 +154,9 @@ def deserialize_json(data: dict) -> AgentActionGroup:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("AgentActionGroup.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_bedrock_agent.types.date_timestamp
 
@@ -164,7 +164,9 @@ def deserialize_json(data: dict) -> AgentActionGroup:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("AgentActionGroup.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("parentActionSignature") is not None:
         import capo_bedrock_agent.types.action_group_signature
 
@@ -212,7 +214,11 @@ def deserialize_json(data: dict) -> AgentActionGroup:
             )
         )
     else:
-        raise DeserializationError("AgentActionGroup.action_group_state required")
+        import typing
+
+        out["action_group_state"] = typing.cast(
+            "capo_bedrock_agent.types.action_group_state.ActionGroupState", ""
+        )
     return out
 
 

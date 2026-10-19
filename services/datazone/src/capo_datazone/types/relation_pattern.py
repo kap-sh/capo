@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.relation_direction
     import capo_datazone.types.relation_type
@@ -47,7 +45,11 @@ def deserialize_json(data: dict) -> RelationPattern:
             data["relationType"]
         )
     else:
-        raise DeserializationError("RelationPattern.relation_type required")
+        import typing
+
+        out["relation_type"] = typing.cast(
+            "capo_datazone.types.relation_type.RelationType", ""
+        )
     if data.get("relationDirection") is not None:
         import capo_datazone.types.relation_direction
 
@@ -57,7 +59,11 @@ def deserialize_json(data: dict) -> RelationPattern:
             )
         )
     else:
-        raise DeserializationError("RelationPattern.relation_direction required")
+        import typing
+
+        out["relation_direction"] = typing.cast(
+            "capo_datazone.types.relation_direction.RelationDirection", ""
+        )
     if data.get("maxPathLength") is not None:
         out["max_path_length"] = data["maxPathLength"]
     return out

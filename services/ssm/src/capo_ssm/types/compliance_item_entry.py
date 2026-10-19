@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.compliance_item_details
     import capo_ssm.types.compliance_item_id
@@ -66,7 +64,11 @@ def deserialize_aws_json_1_1(data: dict) -> ComplianceItemEntry:
             data["Severity"]
         )
     else:
-        raise DeserializationError("ComplianceItemEntry.severity required")
+        import typing
+
+        out["severity"] = typing.cast(
+            "capo_ssm.types.compliance_severity.ComplianceSeverity", ""
+        )
     if data.get("Status") is not None:
         import capo_ssm.types.compliance_status
 
@@ -74,7 +76,11 @@ def deserialize_aws_json_1_1(data: dict) -> ComplianceItemEntry:
             data["Status"]
         )
     else:
-        raise DeserializationError("ComplianceItemEntry.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_ssm.types.compliance_status.ComplianceStatus", ""
+        )
     if data.get("Details") is not None:
         import capo_ssm.types.compliance_item_details
 

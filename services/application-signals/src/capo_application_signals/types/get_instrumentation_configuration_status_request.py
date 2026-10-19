@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -113,21 +111,20 @@ def deserialize_json(data: dict) -> GetInstrumentationConfigurationStatusRequest
             )
         )
     else:
-        raise DeserializationError(
-            "GetInstrumentationConfigurationStatusRequest.instrumentation_type required"
+        import typing
+
+        out["instrumentation_type"] = typing.cast(
+            "capo_application_signals.types.instrumentation_type.InstrumentationType",
+            "",
         )
     if data.get("Service") is not None:
         out["service"] = data["Service"]
     else:
-        raise DeserializationError(
-            "GetInstrumentationConfigurationStatusRequest.service required"
-        )
+        out["service"] = ""
     if data.get("Environment") is not None:
         out["environment"] = data["Environment"]
     else:
-        raise DeserializationError(
-            "GetInstrumentationConfigurationStatusRequest.environment required"
-        )
+        out["environment"] = ""
     if data.get("SignalType") is not None:
         import capo_application_signals.types.dynamic_instrumentation_signal_type
 
@@ -137,8 +134,11 @@ def deserialize_json(data: dict) -> GetInstrumentationConfigurationStatusRequest
             )
         )
     else:
-        raise DeserializationError(
-            "GetInstrumentationConfigurationStatusRequest.signal_type required"
+        import typing
+
+        out["signal_type"] = typing.cast(
+            "capo_application_signals.types.dynamic_instrumentation_signal_type.DynamicInstrumentationSignalType",
+            "",
         )
     if data.get("LocationIdentifier") is not None:
         import capo_application_signals.types.location_identifier
@@ -149,8 +149,10 @@ def deserialize_json(data: dict) -> GetInstrumentationConfigurationStatusRequest
             )
         )
     else:
-        raise DeserializationError(
-            "GetInstrumentationConfigurationStatusRequest.location_identifier required"
+        import capo_application_signals.types._unknown
+
+        out["location_identifier"] = (
+            capo_application_signals.types._unknown.UnknownUnionMember("")
         )
     if data.get("Status") is not None:
         import capo_application_signals.types.instrumentation_configuration_status

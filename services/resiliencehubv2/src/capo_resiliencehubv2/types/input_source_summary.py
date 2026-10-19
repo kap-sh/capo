@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -77,7 +75,7 @@ def deserialize_json(data: dict) -> InputSourceSummary:
     if data.get("inputSourceId") is not None:
         out["input_source_id"] = data["inputSourceId"]
     else:
-        raise DeserializationError("InputSourceSummary.input_source_id required")
+        out["input_source_id"] = ""
     if data.get("type") is not None:
         import capo_resiliencehubv2.types.input_source_type
 

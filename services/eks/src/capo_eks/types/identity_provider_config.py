@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_eks.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eks.types.string
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> IdentityProviderConfig:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("IdentityProviderConfig.type required")
+        out["type"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("IdentityProviderConfig.name required")
+        out["name"] = ""
     return out

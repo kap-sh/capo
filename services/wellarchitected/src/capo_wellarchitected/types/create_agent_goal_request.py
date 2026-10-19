@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wellarchitected.types.agent_profile_arn
     import capo_wellarchitected.types.pillars
@@ -52,11 +50,11 @@ def deserialize_json(data: dict) -> CreateAgentGoalRequest:
             data["pillars"]
         )
     else:
-        raise DeserializationError("CreateAgentGoalRequest.pillars required")
+        out["pillars"] = []
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("CreateAgentGoalRequest.title required")
+        out["title"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

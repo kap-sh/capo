@@ -67,9 +67,7 @@ def deserialize_json(data: dict) -> StartSingleWirelessDeviceImportTaskRequest:
     if data.get("DestinationName") is not None:
         out["destination_name"] = data["DestinationName"]
     else:
-        raise DeserializationError(
-            "StartSingleWirelessDeviceImportTaskRequest.destination_name required"
-        )
+        out["destination_name"] = ""
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     if data.get("DeviceName") is not None:

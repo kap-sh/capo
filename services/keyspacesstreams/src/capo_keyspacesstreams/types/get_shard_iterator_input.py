@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_keyspacesstreams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_keyspacesstreams.types.sequence_number
     import capo_keyspacesstreams.types.shard_id
@@ -50,11 +48,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetShardIteratorInput:
     if data.get("streamArn") is not None:
         out["stream_arn"] = data["streamArn"]
     else:
-        raise DeserializationError("GetShardIteratorInput.stream_arn required")
+        out["stream_arn"] = ""
     if data.get("shardId") is not None:
         out["shard_id"] = data["shardId"]
     else:
-        raise DeserializationError("GetShardIteratorInput.shard_id required")
+        out["shard_id"] = ""
     if data.get("shardIteratorType") is not None:
         import capo_keyspacesstreams.types.shard_iterator_type
 
@@ -64,7 +62,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetShardIteratorInput:
             )
         )
     else:
-        raise DeserializationError("GetShardIteratorInput.shard_iterator_type required")
+        import typing
+
+        out["shard_iterator_type"] = typing.cast(
+            "capo_keyspacesstreams.types.shard_iterator_type.ShardIteratorType", ""
+        )
     if data.get("sequenceNumber") is not None:
         out["sequence_number"] = data["sequenceNumber"]
     return out

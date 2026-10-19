@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.card_model_list
 
@@ -36,13 +34,13 @@ def deserialize_json(data: dict) -> AppDefinition:
     if data.get("appDefinitionVersion") is not None:
         out["app_definition_version"] = data["appDefinitionVersion"]
     else:
-        raise DeserializationError("AppDefinition.app_definition_version required")
+        out["app_definition_version"] = ""
     if data.get("cards") is not None:
         import capo_qapps.types.card_model_list
 
         out["cards"] = capo_qapps.types.card_model_list.deserialize_json(data["cards"])
     else:
-        raise DeserializationError("AppDefinition.cards required")
+        out["cards"] = []
     if data.get("canEdit") is not None:
         out["can_edit"] = data["canEdit"]
     return out

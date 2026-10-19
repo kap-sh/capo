@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.private_connection_name
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> DescribePrivateConnectionInput:
     if data.get("privateConnectionName") is not None:
         out["private_connection_name"] = data["privateConnectionName"]
     else:
-        raise DeserializationError(
-            "DescribePrivateConnectionInput.private_connection_name required"
-        )
+        out["private_connection_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.journal_timestamp
     import capo_devops_agent.types.user_reference
@@ -55,19 +53,19 @@ def deserialize_json(data: dict) -> JournalRecord:
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError("JournalRecord.agent_space_id required")
+        out["agent_space_id"] = ""
     if data.get("executionId") is not None:
         out["execution_id"] = data["executionId"]
     else:
-        raise DeserializationError("JournalRecord.execution_id required")
+        out["execution_id"] = ""
     if data.get("recordId") is not None:
         out["record_id"] = data["recordId"]
     else:
-        raise DeserializationError("JournalRecord.record_id required")
+        out["record_id"] = ""
     if data.get("content") is not None:
         out["content"] = data["content"]
     else:
-        raise DeserializationError("JournalRecord.content required")
+        out["content"] = None
     if data.get("createdAt") is not None:
         import capo_devops_agent.types.journal_timestamp
 
@@ -75,11 +73,13 @@ def deserialize_json(data: dict) -> JournalRecord:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("JournalRecord.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("recordType") is not None:
         out["record_type"] = data["recordType"]
     else:
-        raise DeserializationError("JournalRecord.record_type required")
+        out["record_type"] = ""
     if data.get("userReference") is not None:
         import capo_devops_agent.types.user_reference
 

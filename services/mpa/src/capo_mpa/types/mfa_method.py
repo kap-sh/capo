@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mpa.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mpa.types.mfa_sync_status
     import capo_mpa.types.mfa_type
@@ -39,7 +37,9 @@ def deserialize_json(data: dict) -> MfaMethod:
 
         out["type"] = capo_mpa.types.mfa_type.deserialize_json(data["Type"])
     else:
-        raise DeserializationError("MfaMethod.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_mpa.types.mfa_type.MfaType", "")
     if data.get("SyncStatus") is not None:
         import capo_mpa.types.mfa_sync_status
 
@@ -47,5 +47,9 @@ def deserialize_json(data: dict) -> MfaMethod:
             data["SyncStatus"]
         )
     else:
-        raise DeserializationError("MfaMethod.sync_status required")
+        import typing
+
+        out["sync_status"] = typing.cast(
+            "capo_mpa.types.mfa_sync_status.MfaSyncStatus", ""
+        )
     return out

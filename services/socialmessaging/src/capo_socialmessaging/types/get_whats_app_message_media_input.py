@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.s3_file
     import capo_socialmessaging.types.s3_presigned_url
@@ -59,13 +57,11 @@ def deserialize_json(data: dict) -> GetWhatsAppMessageMediaInput:
     if data.get("mediaId") is not None:
         out["media_id"] = data["mediaId"]
     else:
-        raise DeserializationError("GetWhatsAppMessageMediaInput.media_id required")
+        out["media_id"] = ""
     if data.get("originationPhoneNumberId") is not None:
         out["origination_phone_number_id"] = data["originationPhoneNumberId"]
     else:
-        raise DeserializationError(
-            "GetWhatsAppMessageMediaInput.origination_phone_number_id required"
-        )
+        out["origination_phone_number_id"] = ""
     if data.get("metadataOnly") is not None:
         out["metadata_only"] = data["metadataOnly"]
     if data.get("destinationS3PresignedUrl") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -34,9 +32,7 @@ def deserialize_aws_json_1_0(data: dict) -> RestoreAutonomousDatabaseInput:
     if data.get("autonomousDatabaseId") is not None:
         out["autonomous_database_id"] = data["autonomousDatabaseId"]
     else:
-        raise DeserializationError(
-            "RestoreAutonomousDatabaseInput.autonomous_database_id required"
-        )
+        out["autonomous_database_id"] = ""
     if data.get("timestamp") is not None:
         import datetime
 
@@ -44,5 +40,7 @@ def deserialize_aws_json_1_0(data: dict) -> RestoreAutonomousDatabaseInput:
             data["timestamp"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("RestoreAutonomousDatabaseInput.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

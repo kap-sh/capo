@@ -52,7 +52,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateReportGroupInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateReportGroupInput.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         import capo_codebuild.types.report_type
 
@@ -60,7 +60,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateReportGroupInput:
             data["type"]
         )
     else:
-        raise DeserializationError("CreateReportGroupInput.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_codebuild.types.report_type.ReportType", "")
     if data.get("exportConfig") is not None:
         import capo_codebuild.types.report_export_config
 

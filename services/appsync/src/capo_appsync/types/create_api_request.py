@@ -46,7 +46,7 @@ def deserialize_json(data: dict) -> CreateApiRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateApiRequest.name required")
+        out["name"] = ""
     if data.get("ownerContact") is not None:
         out["owner_contact"] = data["ownerContact"]
     if data.get("tags") is not None:

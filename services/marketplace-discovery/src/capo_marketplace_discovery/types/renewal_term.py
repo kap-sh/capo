@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.bounded_string
     import capo_marketplace_discovery.types.price_increase
@@ -78,7 +76,7 @@ def deserialize_json(data: dict) -> RenewalTerm:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("RenewalTerm.id required")
+        out["id"] = ""
     if data.get("type") is not None:
         import capo_marketplace_discovery.types.term_type
 
@@ -86,7 +84,11 @@ def deserialize_json(data: dict) -> RenewalTerm:
             data["type"]
         )
     else:
-        raise DeserializationError("RenewalTerm.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_marketplace_discovery.types.term_type.TermType", ""
+        )
     if data.get("maxRenewals") is not None:
         out["max_renewals"] = data["maxRenewals"]
     if data.get("lockoutPeriod") is not None:

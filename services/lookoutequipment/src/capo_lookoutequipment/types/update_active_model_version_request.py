@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.model_name
     import capo_lookoutequipment.types.model_version
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateActiveModelVersionRequest:
     if data.get("ModelName") is not None:
         out["model_name"] = data["ModelName"]
     else:
-        raise DeserializationError(
-            "UpdateActiveModelVersionRequest.model_name required"
-        )
+        out["model_name"] = ""
     if data.get("ModelVersion") is not None:
         out["model_version"] = data["ModelVersion"]
     else:
-        raise DeserializationError(
-            "UpdateActiveModelVersionRequest.model_version required"
-        )
+        out["model_version"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.android_app_list
     import capo_location.types.api_key_action_list
@@ -74,7 +72,7 @@ def deserialize_json(data: dict) -> ApiKeyRestrictions:
             data["AllowActions"]
         )
     else:
-        raise DeserializationError("ApiKeyRestrictions.allow_actions required")
+        out["allow_actions"] = []
     if data.get("AllowResources") is not None:
         import capo_location.types.geo_arn_list
 
@@ -82,7 +80,7 @@ def deserialize_json(data: dict) -> ApiKeyRestrictions:
             data["AllowResources"]
         )
     else:
-        raise DeserializationError("ApiKeyRestrictions.allow_resources required")
+        out["allow_resources"] = []
     if data.get("AllowReferers") is not None:
         import capo_location.types.referer_pattern_list
 

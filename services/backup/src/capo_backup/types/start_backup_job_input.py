@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.arn
     import capo_backup.types.backup_options
@@ -91,7 +89,7 @@ def deserialize_json(data: dict) -> StartBackupJobInput:
     if data.get("BackupVaultName") is not None:
         out["backup_vault_name"] = data["BackupVaultName"]
     else:
-        raise DeserializationError("StartBackupJobInput.backup_vault_name required")
+        out["backup_vault_name"] = ""
     if data.get("LogicallyAirGappedBackupVaultArn") is not None:
         out["logically_air_gapped_backup_vault_arn"] = data[
             "LogicallyAirGappedBackupVaultArn"
@@ -99,11 +97,11 @@ def deserialize_json(data: dict) -> StartBackupJobInput:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("StartBackupJobInput.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     else:
-        raise DeserializationError("StartBackupJobInput.iam_role_arn required")
+        out["iam_role_arn"] = ""
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     if data.get("StartWindowMinutes") is not None:

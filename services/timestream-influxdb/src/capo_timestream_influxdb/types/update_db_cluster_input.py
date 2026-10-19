@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_influxdb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_influxdb.types.db_backup_configuration_input_list
     import capo_timestream_influxdb.types.db_cluster_id
@@ -104,7 +102,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateDbClusterInput:
     if data.get("dbClusterId") is not None:
         out["db_cluster_id"] = data["dbClusterId"]
     else:
-        raise DeserializationError("UpdateDbClusterInput.db_cluster_id required")
+        out["db_cluster_id"] = ""
     if data.get("logDeliveryConfiguration") is not None:
         import capo_timestream_influxdb.types.log_delivery_configuration
 

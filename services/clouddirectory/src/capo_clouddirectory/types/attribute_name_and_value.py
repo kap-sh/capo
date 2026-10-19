@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_clouddirectory.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_clouddirectory.types.attribute_name
     import capo_clouddirectory.types.typed_attribute_value
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> AttributeNameAndValue:
     if data.get("AttributeName") is not None:
         out["attribute_name"] = data["AttributeName"]
     else:
-        raise DeserializationError("AttributeNameAndValue.attribute_name required")
+        out["attribute_name"] = ""
     if data.get("Value") is not None:
         import capo_clouddirectory.types.typed_attribute_value
 
@@ -43,5 +41,7 @@ def deserialize_json(data: dict) -> AttributeNameAndValue:
             data["Value"]
         )
     else:
-        raise DeserializationError("AttributeNameAndValue.value required")
+        import capo_clouddirectory.types._unknown
+
+        out["value"] = capo_clouddirectory.types._unknown.UnknownUnionMember("")
     return out

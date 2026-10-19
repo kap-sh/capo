@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.case_sla_configuration
     import capo_connect.types.sla_assignment_type
@@ -50,8 +48,10 @@ def deserialize_json(data: dict) -> AssignSlaActionDefinition:
             )
         )
     else:
-        raise DeserializationError(
-            "AssignSlaActionDefinition.sla_assignment_type required"
+        import typing
+
+        out["sla_assignment_type"] = typing.cast(
+            "capo_connect.types.sla_assignment_type.SlaAssignmentType", ""
         )
     if data.get("CaseSlaConfiguration") is not None:
         import capo_connect.types.case_sla_configuration

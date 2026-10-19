@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.access_log_destination_arn
     import capo_vpc_lattice.types.access_log_subscription_arn
@@ -45,27 +43,21 @@ def deserialize_json(data: dict) -> UpdateAccessLogSubscriptionResponse:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("UpdateAccessLogSubscriptionResponse.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("UpdateAccessLogSubscriptionResponse.arn required")
+        out["arn"] = ""
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     else:
-        raise DeserializationError(
-            "UpdateAccessLogSubscriptionResponse.resource_id required"
-        )
+        out["resource_id"] = ""
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError(
-            "UpdateAccessLogSubscriptionResponse.resource_arn required"
-        )
+        out["resource_arn"] = ""
     if data.get("destinationArn") is not None:
         out["destination_arn"] = data["destinationArn"]
     else:
-        raise DeserializationError(
-            "UpdateAccessLogSubscriptionResponse.destination_arn required"
-        )
+        out["destination_arn"] = ""
     return out

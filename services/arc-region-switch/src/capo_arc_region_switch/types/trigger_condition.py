@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.alarm_condition
 
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_0(data: dict) -> TriggerCondition:
     if data.get("associatedAlarmName") is not None:
         out["associated_alarm_name"] = data["associatedAlarmName"]
     else:
-        raise DeserializationError("TriggerCondition.associated_alarm_name required")
+        out["associated_alarm_name"] = ""
     if data.get("condition") is not None:
         import capo_arc_region_switch.types.alarm_condition
 
@@ -46,5 +44,9 @@ def deserialize_aws_json_1_0(data: dict) -> TriggerCondition:
             )
         )
     else:
-        raise DeserializationError("TriggerCondition.condition required")
+        import typing
+
+        out["condition"] = typing.cast(
+            "capo_arc_region_switch.types.alarm_condition.AlarmCondition", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_eventbridge.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridge.types.target_partition_key_path
 
@@ -29,5 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> KinesisParameters:
     if data.get("PartitionKeyPath") is not None:
         out["partition_key_path"] = data["PartitionKeyPath"]
     else:
-        raise DeserializationError("KinesisParameters.partition_key_path required")
+        out["partition_key_path"] = ""
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.event_type
@@ -34,7 +33,7 @@ def deserialize_xml(el: Element) -> FunctionAssociation:
     if child_function_arn is not None:
         out["function_arn"] = str(child_function_arn.text or "")
     else:
-        raise DeserializationError("FunctionAssociation.function_arn required")
+        out["function_arn"] = ""
     child_event_type = el.find("EventType")
     if child_event_type is not None:
         import capo_cloudfront.types.event_type
@@ -43,5 +42,9 @@ def deserialize_xml(el: Element) -> FunctionAssociation:
             child_event_type
         )
     else:
-        raise DeserializationError("FunctionAssociation.event_type required")
+        import typing
+
+        out["event_type"] = typing.cast(
+            "capo_cloudfront.types.event_type.EventType", ""
+        )
     return out

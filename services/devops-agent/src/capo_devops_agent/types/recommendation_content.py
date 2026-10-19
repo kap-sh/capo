@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 
 class RecommendationContent(TypedDict, closed=True):
     summary: "str"
@@ -26,7 +24,7 @@ def deserialize_json(data: dict) -> RecommendationContent:
     if data.get("summary") is not None:
         out["summary"] = data["summary"]
     else:
-        raise DeserializationError("RecommendationContent.summary required")
+        out["summary"] = ""
     if data.get("spec") is not None:
         out["spec"] = data["spec"]
     return out

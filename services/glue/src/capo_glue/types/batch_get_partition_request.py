@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.audit_context
     import capo_glue.types.batch_get_partition_value_list
@@ -69,11 +67,11 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetPartitionRequest:
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError("BatchGetPartitionRequest.database_name required")
+        out["database_name"] = ""
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("BatchGetPartitionRequest.table_name required")
+        out["table_name"] = ""
     if data.get("PartitionsToGet") is not None:
         import capo_glue.types.batch_get_partition_value_list
 
@@ -83,9 +81,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetPartitionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetPartitionRequest.partitions_to_get required"
-        )
+        out["partitions_to_get"] = []
     if data.get("AuditContext") is not None:
         import capo_glue.types.audit_context
 

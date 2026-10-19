@@ -124,7 +124,7 @@ def deserialize_json(data: dict) -> GetBudgetResponse:
     if data.get("budgetId") is not None:
         out["budget_id"] = data["budgetId"]
     else:
-        raise DeserializationError("GetBudgetResponse.budget_id required")
+        out["budget_id"] = ""
     if data.get("usageTrackingResource") is not None:
         import capo_deadline.types.usage_tracking_resource
 
@@ -134,7 +134,11 @@ def deserialize_json(data: dict) -> GetBudgetResponse:
             )
         )
     else:
-        raise DeserializationError("GetBudgetResponse.usage_tracking_resource required")
+        import capo_deadline.types._unknown
+
+        out["usage_tracking_resource"] = (
+            capo_deadline.types._unknown.UnknownUnionMember("")
+        )
     if data.get("status") is not None:
         import capo_deadline.types.budget_status
 
@@ -142,17 +146,19 @@ def deserialize_json(data: dict) -> GetBudgetResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("GetBudgetResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_deadline.types.budget_status.BudgetStatus", ""
+        )
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("GetBudgetResponse.display_name required")
+        out["display_name"] = ""
     if data.get("approximateDollarLimit") is not None:
         out["approximate_dollar_limit"] = float(data["approximateDollarLimit"])
     else:
-        raise DeserializationError(
-            "GetBudgetResponse.approximate_dollar_limit required"
-        )
+        out["approximate_dollar_limit"] = 0.0
     if data.get("usages") is not None:
         import capo_deadline.types.consumed_usages
 
@@ -164,7 +170,7 @@ def deserialize_json(data: dict) -> GetBudgetResponse:
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("GetBudgetResponse.created_by required")
+        out["created_by"] = ""
     if data.get("createdAt") is not None:
         import capo_deadline.types.created_at
 
@@ -172,7 +178,9 @@ def deserialize_json(data: dict) -> GetBudgetResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("GetBudgetResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedBy") is not None:
         out["updated_by"] = data["updatedBy"]
     if data.get("updatedAt") is not None:
@@ -192,7 +200,7 @@ def deserialize_json(data: dict) -> GetBudgetResponse:
             )
         )
     else:
-        raise DeserializationError("GetBudgetResponse.actions required")
+        out["actions"] = []
     if data.get("schedule") is not None:
         import capo_deadline.types.budget_schedule
 
@@ -200,7 +208,9 @@ def deserialize_json(data: dict) -> GetBudgetResponse:
             data["schedule"]
         )
     else:
-        raise DeserializationError("GetBudgetResponse.schedule required")
+        import capo_deadline.types._unknown
+
+        out["schedule"] = capo_deadline.types._unknown.UnknownUnionMember("")
     if data.get("queueStoppedAt") is not None:
         import capo_deadline.types.updated_at
 

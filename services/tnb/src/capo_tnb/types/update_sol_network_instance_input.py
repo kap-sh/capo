@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_tnb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_tnb.types.ns_instance_id
     import capo_tnb.types.tag_map
@@ -69,7 +67,11 @@ def deserialize_json(data: dict) -> UpdateSolNetworkInstanceInput:
             data["updateType"]
         )
     else:
-        raise DeserializationError("UpdateSolNetworkInstanceInput.update_type required")
+        import typing
+
+        out["update_type"] = typing.cast(
+            "capo_tnb.types.update_sol_network_type.UpdateSolNetworkType", ""
+        )
     if data.get("modifyVnfInfoData") is not None:
         import capo_tnb.types.update_sol_network_modify
 

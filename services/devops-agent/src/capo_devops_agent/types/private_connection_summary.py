@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -101,7 +99,7 @@ def deserialize_json(data: dict) -> PrivateConnectionSummary:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("PrivateConnectionSummary.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         import capo_devops_agent.types.private_connection_type
 
@@ -109,7 +107,11 @@ def deserialize_json(data: dict) -> PrivateConnectionSummary:
             data["type"]
         )
     else:
-        raise DeserializationError("PrivateConnectionSummary.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_devops_agent.types.private_connection_type.PrivateConnectionType", ""
+        )
     if data.get("resourceGatewayId") is not None:
         out["resource_gateway_id"] = data["resourceGatewayId"]
     if data.get("hostAddress") is not None:
@@ -127,7 +129,12 @@ def deserialize_json(data: dict) -> PrivateConnectionSummary:
             )
         )
     else:
-        raise DeserializationError("PrivateConnectionSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_devops_agent.types.private_connection_status.PrivateConnectionStatus",
+            "",
+        )
     if data.get("certificateExpiryTime") is not None:
         import datetime
 

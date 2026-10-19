@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_revenue_measurement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_revenue_measurement.types.allocation_effective_date_string
     import capo_partnercentral_revenue_measurement.types.catalog_name
@@ -64,29 +62,25 @@ def deserialize_cbor(data: dict) -> CreateMarketplaceRevenueShareAllocationInput
             )
         )
     else:
-        raise DeserializationError(
-            "CreateMarketplaceRevenueShareAllocationInput.catalog required"
+        import typing
+
+        out["catalog"] = typing.cast(
+            "capo_partnercentral_revenue_measurement.types.catalog_name.CatalogName", ""
         )
     if data.get("ProductId") is not None:
         out["product_id"] = data["ProductId"]
     else:
-        raise DeserializationError(
-            "CreateMarketplaceRevenueShareAllocationInput.product_id required"
-        )
+        out["product_id"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("EffectiveFrom") is not None:
         out["effective_from"] = data["EffectiveFrom"]
     else:
-        raise DeserializationError(
-            "CreateMarketplaceRevenueShareAllocationInput.effective_from required"
-        )
+        out["effective_from"] = ""
     if data.get("EffectiveUntil") is not None:
         out["effective_until"] = data["EffectiveUntil"]
     if data.get("RevenueSharePercent") is not None:
         out["revenue_share_percent"] = data["RevenueSharePercent"]
     else:
-        raise DeserializationError(
-            "CreateMarketplaceRevenueShareAllocationInput.revenue_share_percent required"
-        )
+        out["revenue_share_percent"] = ""
     return out

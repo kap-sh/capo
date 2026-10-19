@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fms.types.pagination_max_results
     import capo_fms.types.pagination_token
@@ -52,15 +50,15 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "ListThirdPartyFirewallFirewallPoliciesRequest.third_party_firewall required"
+        import typing
+
+        out["third_party_firewall"] = typing.cast(
+            "capo_fms.types.third_party_firewall.ThirdPartyFirewall", ""
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     else:
-        raise DeserializationError(
-            "ListThirdPartyFirewallFirewallPoliciesRequest.max_results required"
-        )
+        out["max_results"] = 0
     return out

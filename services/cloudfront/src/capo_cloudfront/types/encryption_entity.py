@@ -39,12 +39,12 @@ def deserialize_xml(el: Element) -> EncryptionEntity:
     if child_public_key_id is not None:
         out["public_key_id"] = str(child_public_key_id.text or "")
     else:
-        raise DeserializationError("EncryptionEntity.public_key_id required")
+        out["public_key_id"] = ""
     child_provider_id = el.find("ProviderId")
     if child_provider_id is not None:
         out["provider_id"] = str(child_provider_id.text or "")
     else:
-        raise DeserializationError("EncryptionEntity.provider_id required")
+        out["provider_id"] = ""
     child_field_patterns = el.find("FieldPatterns")
     if child_field_patterns is not None:
         import capo_cloudfront.types.field_patterns

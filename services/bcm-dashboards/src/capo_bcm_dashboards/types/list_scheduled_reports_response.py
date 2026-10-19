@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_dashboards.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_dashboards.types.next_page_token
     import capo_bcm_dashboards.types.scheduled_report_summary_list
@@ -44,9 +42,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListScheduledReportsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListScheduledReportsResponse.scheduled_reports required"
-        )
+        out["scheduled_reports"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

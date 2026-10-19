@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.configuration_recorder_summaries
     import capo_config_service.types.next_token
@@ -44,9 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListConfigurationRecordersResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListConfigurationRecordersResponse.configuration_recorder_summaries required"
-        )
+        out["configuration_recorder_summaries"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

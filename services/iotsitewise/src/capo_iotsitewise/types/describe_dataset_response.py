@@ -122,21 +122,19 @@ def deserialize_json(data: dict) -> DescribeDatasetResponse:
     if data.get("datasetId") is not None:
         out["dataset_id"] = data["datasetId"]
     else:
-        raise DeserializationError("DescribeDatasetResponse.dataset_id required")
+        out["dataset_id"] = ""
     if data.get("datasetArn") is not None:
         out["dataset_arn"] = data["datasetArn"]
     else:
-        raise DeserializationError("DescribeDatasetResponse.dataset_arn required")
+        out["dataset_arn"] = ""
     if data.get("datasetName") is not None:
         out["dataset_name"] = data["datasetName"]
     else:
-        raise DeserializationError("DescribeDatasetResponse.dataset_name required")
+        out["dataset_name"] = ""
     if data.get("datasetDescription") is not None:
         out["dataset_description"] = data["datasetDescription"]
     else:
-        raise DeserializationError(
-            "DescribeDatasetResponse.dataset_description required"
-        )
+        out["dataset_description"] = ""
     if data.get("datasetType") is not None:
         import capo_iotsitewise.types.dataset_type_enum
 
@@ -182,8 +180,10 @@ def deserialize_json(data: dict) -> DescribeDatasetResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeDatasetResponse.dataset_creation_date required"
+        import datetime
+
+        out["dataset_creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("datasetLastUpdateDate") is not None:
         import capo_iotsitewise.types.timestamp
@@ -194,8 +194,10 @@ def deserialize_json(data: dict) -> DescribeDatasetResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeDatasetResponse.dataset_last_update_date required"
+        import datetime
+
+        out["dataset_last_update_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("datasetVersion") is not None:
         out["dataset_version"] = data["datasetVersion"]

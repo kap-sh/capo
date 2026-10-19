@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.meta_flow_waba_currency
     import capo_socialmessaging.types.meta_flow_waba_template_namespace
@@ -52,11 +50,11 @@ def deserialize_json(data: dict) -> MetaFlowWhatsAppBusinessAccountInfo:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("MetaFlowWhatsAppBusinessAccountInfo.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("MetaFlowWhatsAppBusinessAccountInfo.name required")
+        out["name"] = ""
     if data.get("currency") is not None:
         out["currency"] = data["currency"]
     if data.get("timezoneId") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kendra_ranking.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra_ranking.types.rescore_execution_plan_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteRescoreExecutionPlanRequest:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("DeleteRescoreExecutionPlanRequest.id required")
+        out["id"] = ""
     return out

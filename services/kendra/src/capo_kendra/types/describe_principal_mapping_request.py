@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.data_source_id
     import capo_kendra.types.group_id
@@ -36,11 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> DescribePrincipalMappingRequest:
     if data.get("IndexId") is not None:
         out["index_id"] = data["IndexId"]
     else:
-        raise DeserializationError("DescribePrincipalMappingRequest.index_id required")
+        out["index_id"] = ""
     if data.get("DataSourceId") is not None:
         out["data_source_id"] = data["DataSourceId"]
     if data.get("GroupId") is not None:
         out["group_id"] = data["GroupId"]
     else:
-        raise DeserializationError("DescribePrincipalMappingRequest.group_id required")
+        out["group_id"] = ""
     return out

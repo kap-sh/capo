@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.arn
     import capo_inspector.types.list_max_results
@@ -50,13 +48,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetExclusionsPreviewRequest:
     if data.get("assessmentTemplateArn") is not None:
         out["assessment_template_arn"] = data["assessmentTemplateArn"]
     else:
-        raise DeserializationError(
-            "GetExclusionsPreviewRequest.assessment_template_arn required"
-        )
+        out["assessment_template_arn"] = ""
     if data.get("previewToken") is not None:
         out["preview_token"] = data["previewToken"]
     else:
-        raise DeserializationError("GetExclusionsPreviewRequest.preview_token required")
+        out["preview_token"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

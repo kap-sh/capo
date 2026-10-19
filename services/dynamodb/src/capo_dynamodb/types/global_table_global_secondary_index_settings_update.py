@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.auto_scaling_settings_update
     import capo_dynamodb.types.index_name
@@ -51,9 +49,7 @@ def deserialize_aws_json_1_0(
     if data.get("IndexName") is not None:
         out["index_name"] = data["IndexName"]
     else:
-        raise DeserializationError(
-            "GlobalTableGlobalSecondaryIndexSettingsUpdate.index_name required"
-        )
+        out["index_name"] = ""
     if data.get("ProvisionedWriteCapacityUnits") is not None:
         out["provisioned_write_capacity_units"] = data["ProvisionedWriteCapacityUnits"]
     if data.get("ProvisionedWriteCapacityAutoScalingSettingsUpdate") is not None:

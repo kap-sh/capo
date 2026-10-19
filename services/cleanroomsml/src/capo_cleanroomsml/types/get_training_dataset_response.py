@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -87,7 +85,11 @@ def deserialize_json(data: dict) -> GetTrainingDatasetResponse:
             data["createTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetTrainingDatasetResponse.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import datetime
 
@@ -95,17 +97,19 @@ def deserialize_json(data: dict) -> GetTrainingDatasetResponse:
             data["updateTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetTrainingDatasetResponse.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("trainingDatasetArn") is not None:
         out["training_dataset_arn"] = data["trainingDatasetArn"]
     else:
-        raise DeserializationError(
-            "GetTrainingDatasetResponse.training_dataset_arn required"
-        )
+        out["training_dataset_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetTrainingDatasetResponse.name required")
+        out["name"] = ""
     if data.get("trainingData") is not None:
         import capo_cleanroomsml.types.dataset_list
 
@@ -113,7 +117,7 @@ def deserialize_json(data: dict) -> GetTrainingDatasetResponse:
             data["trainingData"]
         )
     else:
-        raise DeserializationError("GetTrainingDatasetResponse.training_data required")
+        out["training_data"] = []
     if data.get("status") is not None:
         import capo_cleanroomsml.types.training_dataset_status
 
@@ -123,11 +127,15 @@ def deserialize_json(data: dict) -> GetTrainingDatasetResponse:
             )
         )
     else:
-        raise DeserializationError("GetTrainingDatasetResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cleanroomsml.types.training_dataset_status.TrainingDatasetStatus", ""
+        )
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("GetTrainingDatasetResponse.role_arn required")
+        out["role_arn"] = ""
     if data.get("tags") is not None:
         import capo_cleanroomsml.types.tag_map
 

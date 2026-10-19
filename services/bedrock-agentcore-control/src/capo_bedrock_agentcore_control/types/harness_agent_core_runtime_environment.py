@@ -64,21 +64,15 @@ def deserialize_json(data: dict) -> HarnessAgentCoreRuntimeEnvironment:
     if data.get("agentRuntimeArn") is not None:
         out["agent_runtime_arn"] = data["agentRuntimeArn"]
     else:
-        raise DeserializationError(
-            "HarnessAgentCoreRuntimeEnvironment.agent_runtime_arn required"
-        )
+        out["agent_runtime_arn"] = ""
     if data.get("agentRuntimeName") is not None:
         out["agent_runtime_name"] = data["agentRuntimeName"]
     else:
-        raise DeserializationError(
-            "HarnessAgentCoreRuntimeEnvironment.agent_runtime_name required"
-        )
+        out["agent_runtime_name"] = ""
     if data.get("agentRuntimeId") is not None:
         out["agent_runtime_id"] = data["agentRuntimeId"]
     else:
-        raise DeserializationError(
-            "HarnessAgentCoreRuntimeEnvironment.agent_runtime_id required"
-        )
+        out["agent_runtime_id"] = ""
     if data.get("lifecycleConfiguration") is not None:
         import capo_bedrock_agentcore_control.types.lifecycle_configuration
 

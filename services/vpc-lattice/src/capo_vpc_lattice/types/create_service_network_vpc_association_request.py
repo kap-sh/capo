@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.boolean
     import capo_vpc_lattice.types.client_token
@@ -72,15 +70,11 @@ def deserialize_json(data: dict) -> CreateServiceNetworkVpcAssociationRequest:
     if data.get("serviceNetworkIdentifier") is not None:
         out["service_network_identifier"] = data["serviceNetworkIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateServiceNetworkVpcAssociationRequest.service_network_identifier required"
-        )
+        out["service_network_identifier"] = ""
     if data.get("vpcIdentifier") is not None:
         out["vpc_identifier"] = data["vpcIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateServiceNetworkVpcAssociationRequest.vpc_identifier required"
-        )
+        out["vpc_identifier"] = ""
     if data.get("privateDnsEnabled") is not None:
         out["private_dns_enabled"] = data["privateDnsEnabled"]
     if data.get("securityGroupIds") is not None:

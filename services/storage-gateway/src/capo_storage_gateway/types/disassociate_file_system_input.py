@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.boolean2
     import capo_storage_gateway.types.file_system_association_arn
@@ -32,9 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> DisassociateFileSystemInput:
     if data.get("FileSystemAssociationARN") is not None:
         out["file_system_association_arn"] = data["FileSystemAssociationARN"]
     else:
-        raise DeserializationError(
-            "DisassociateFileSystemInput.file_system_association_arn required"
-        )
+        out["file_system_association_arn"] = ""
     if data.get("ForceDelete") is not None:
         out["force_delete"] = data["ForceDelete"]
     return out

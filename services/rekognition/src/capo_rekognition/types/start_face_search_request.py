@@ -83,7 +83,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartFaceSearchRequest:
     if data.get("CollectionId") is not None:
         out["collection_id"] = data["CollectionId"]
     else:
-        raise DeserializationError("StartFaceSearchRequest.collection_id required")
+        out["collection_id"] = ""
     if data.get("NotificationChannel") is not None:
         import capo_rekognition.types.notification_channel
 

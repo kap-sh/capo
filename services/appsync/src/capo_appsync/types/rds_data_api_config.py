@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.rds_data_api_config_database_name
     import capo_appsync.types.rds_data_api_config_resource_arn
@@ -37,13 +35,13 @@ def deserialize_json(data: dict) -> RdsDataApiConfig:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("RdsDataApiConfig.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("secretArn") is not None:
         out["secret_arn"] = data["secretArn"]
     else:
-        raise DeserializationError("RdsDataApiConfig.secret_arn required")
+        out["secret_arn"] = ""
     if data.get("databaseName") is not None:
         out["database_name"] = data["databaseName"]
     else:
-        raise DeserializationError("RdsDataApiConfig.database_name required")
+        out["database_name"] = ""
     return out

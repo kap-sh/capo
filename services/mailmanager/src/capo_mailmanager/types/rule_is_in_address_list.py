@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.rule_address_list_arn_list
     import capo_mailmanager.types.rule_address_list_email_attribute
@@ -51,7 +49,12 @@ def deserialize_aws_json_1_0(data: dict) -> RuleIsInAddressList:
             )
         )
     else:
-        raise DeserializationError("RuleIsInAddressList.attribute required")
+        import typing
+
+        out["attribute"] = typing.cast(
+            "capo_mailmanager.types.rule_address_list_email_attribute.RuleAddressListEmailAttribute",
+            "",
+        )
     if data.get("AddressLists") is not None:
         import capo_mailmanager.types.rule_address_list_arn_list
 
@@ -61,5 +64,5 @@ def deserialize_aws_json_1_0(data: dict) -> RuleIsInAddressList:
             )
         )
     else:
-        raise DeserializationError("RuleIsInAddressList.address_lists required")
+        out["address_lists"] = []
     return out

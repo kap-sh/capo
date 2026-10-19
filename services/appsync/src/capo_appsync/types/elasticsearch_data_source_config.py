@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appsync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appsync.types.string
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> ElasticsearchDataSourceConfig:
     if data.get("endpoint") is not None:
         out["endpoint"] = data["endpoint"]
     else:
-        raise DeserializationError("ElasticsearchDataSourceConfig.endpoint required")
+        out["endpoint"] = ""
     if data.get("awsRegion") is not None:
         out["aws_region"] = data["awsRegion"]
     else:
-        raise DeserializationError("ElasticsearchDataSourceConfig.aws_region required")
+        out["aws_region"] = ""
     return out

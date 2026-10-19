@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.collaboration_identifier
     import capo_cleanrooms.types.table_alias_list
@@ -38,5 +36,5 @@ def deserialize_json(data: dict) -> BatchGetSchemaInput:
             data["names"]
         )
     else:
-        raise DeserializationError("BatchGetSchemaInput.names required")
+        out["names"] = []
     return out

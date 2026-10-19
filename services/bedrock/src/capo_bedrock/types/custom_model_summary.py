@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.account_id
     import capo_bedrock.types.custom_model_arn
@@ -72,11 +70,11 @@ def deserialize_json(data: dict) -> CustomModelSummary:
     if data.get("modelArn") is not None:
         out["model_arn"] = data["modelArn"]
     else:
-        raise DeserializationError("CustomModelSummary.model_arn required")
+        out["model_arn"] = ""
     if data.get("modelName") is not None:
         out["model_name"] = data["modelName"]
     else:
-        raise DeserializationError("CustomModelSummary.model_name required")
+        out["model_name"] = ""
     if data.get("creationTime") is not None:
         import capo_bedrock.types.timestamp
 
@@ -84,15 +82,19 @@ def deserialize_json(data: dict) -> CustomModelSummary:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("CustomModelSummary.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("baseModelArn") is not None:
         out["base_model_arn"] = data["baseModelArn"]
     else:
-        raise DeserializationError("CustomModelSummary.base_model_arn required")
+        out["base_model_arn"] = ""
     if data.get("baseModelName") is not None:
         out["base_model_name"] = data["baseModelName"]
     else:
-        raise DeserializationError("CustomModelSummary.base_model_name required")
+        out["base_model_name"] = ""
     if data.get("customizationType") is not None:
         import capo_bedrock.types.customization_type
 

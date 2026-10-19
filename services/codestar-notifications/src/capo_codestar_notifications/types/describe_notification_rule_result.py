@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codestar_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codestar_notifications.types.created_timestamp
     import capo_codestar_notifications.types.detail_type
@@ -129,7 +127,7 @@ def deserialize_json(data: dict) -> DescribeNotificationRuleResult:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("DescribeNotificationRuleResult.arn required")
+        out["arn"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("EventTypes") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.filter_behavior
     import capo_wafv2.types.filters
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> LoggingFilter:
             data["Filters"]
         )
     else:
-        raise DeserializationError("LoggingFilter.filters required")
+        out["filters"] = []
     if data.get("DefaultBehavior") is not None:
         import capo_wafv2.types.filter_behavior
 
@@ -51,5 +49,9 @@ def deserialize_aws_json_1_1(data: dict) -> LoggingFilter:
             )
         )
     else:
-        raise DeserializationError("LoggingFilter.default_behavior required")
+        import typing
+
+        out["default_behavior"] = typing.cast(
+            "capo_wafv2.types.filter_behavior.FilterBehavior", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.express_cpu_architecture
     import capo_ecs.types.express_gateway_container
@@ -120,9 +118,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateExpressGatewayServiceRequest:
     if data.get("infrastructureRoleArn") is not None:
         out["infrastructure_role_arn"] = data["infrastructureRoleArn"]
     else:
-        raise DeserializationError(
-            "CreateExpressGatewayServiceRequest.infrastructure_role_arn required"
-        )
+        out["infrastructure_role_arn"] = ""
     if data.get("serviceName") is not None:
         out["service_name"] = data["serviceName"]
     if data.get("cluster") is not None:

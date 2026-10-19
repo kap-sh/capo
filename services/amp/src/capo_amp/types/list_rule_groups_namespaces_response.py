@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amp.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amp.types.pagination_token
     import capo_amp.types.rule_groups_namespace_summary_list
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> ListRuleGroupsNamespacesResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListRuleGroupsNamespacesResponse.rule_groups_namespaces required"
-        )
+        out["rule_groups_namespaces"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

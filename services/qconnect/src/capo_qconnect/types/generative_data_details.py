@@ -43,7 +43,7 @@ def deserialize_json(data: dict) -> GenerativeDataDetails:
     if data.get("completion") is not None:
         out["completion"] = data["completion"]
     else:
-        raise DeserializationError("GenerativeDataDetails.completion required")
+        out["completion"] = ""
     if data.get("references") is not None:
         import capo_qconnect.types.data_summary_list
 
@@ -51,7 +51,7 @@ def deserialize_json(data: dict) -> GenerativeDataDetails:
             data["references"]
         )
     else:
-        raise DeserializationError("GenerativeDataDetails.references required")
+        out["references"] = []
     if data.get("rankingData") is not None:
         import capo_qconnect.types.ranking_data
 

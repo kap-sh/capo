@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.card_verification_attributes
     import capo_payment_cryptography_data.types.key_arn_or_key_alias_type
@@ -47,15 +45,11 @@ def deserialize_json(data: dict) -> VerifyCardValidationDataInput:
     if data.get("KeyIdentifier") is not None:
         out["key_identifier"] = data["KeyIdentifier"]
     else:
-        raise DeserializationError(
-            "VerifyCardValidationDataInput.key_identifier required"
-        )
+        out["key_identifier"] = ""
     if data.get("PrimaryAccountNumber") is not None:
         out["primary_account_number"] = data["PrimaryAccountNumber"]
     else:
-        raise DeserializationError(
-            "VerifyCardValidationDataInput.primary_account_number required"
-        )
+        out["primary_account_number"] = ""
     if data.get("VerificationAttributes") is not None:
         import capo_payment_cryptography_data.types.card_verification_attributes
 
@@ -65,15 +59,15 @@ def deserialize_json(data: dict) -> VerifyCardValidationDataInput:
             )
         )
     else:
-        raise DeserializationError(
-            "VerifyCardValidationDataInput.verification_attributes required"
+        import capo_payment_cryptography_data.types._unknown
+
+        out["verification_attributes"] = (
+            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
         )
     if data.get("ValidationData") is not None:
         out["validation_data"] = data["ValidationData"]
     else:
-        raise DeserializationError(
-            "VerifyCardValidationDataInput.validation_data required"
-        )
+        out["validation_data"] = ""
     return out
 
 

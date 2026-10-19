@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.email_address
     import capo_sesv2.types.email_template_name
@@ -50,31 +48,21 @@ def deserialize_json(data: dict) -> UpdateCustomVerificationEmailTemplateRequest
     if data.get("FromEmailAddress") is not None:
         out["from_email_address"] = data["FromEmailAddress"]
     else:
-        raise DeserializationError(
-            "UpdateCustomVerificationEmailTemplateRequest.from_email_address required"
-        )
+        out["from_email_address"] = ""
     if data.get("TemplateSubject") is not None:
         out["template_subject"] = data["TemplateSubject"]
     else:
-        raise DeserializationError(
-            "UpdateCustomVerificationEmailTemplateRequest.template_subject required"
-        )
+        out["template_subject"] = ""
     if data.get("TemplateContent") is not None:
         out["template_content"] = data["TemplateContent"]
     else:
-        raise DeserializationError(
-            "UpdateCustomVerificationEmailTemplateRequest.template_content required"
-        )
+        out["template_content"] = ""
     if data.get("SuccessRedirectionURL") is not None:
         out["success_redirection_url"] = data["SuccessRedirectionURL"]
     else:
-        raise DeserializationError(
-            "UpdateCustomVerificationEmailTemplateRequest.success_redirection_url required"
-        )
+        out["success_redirection_url"] = ""
     if data.get("FailureRedirectionURL") is not None:
         out["failure_redirection_url"] = data["FailureRedirectionURL"]
     else:
-        raise DeserializationError(
-            "UpdateCustomVerificationEmailTemplateRequest.failure_redirection_url required"
-        )
+        out["failure_redirection_url"] = ""
     return out

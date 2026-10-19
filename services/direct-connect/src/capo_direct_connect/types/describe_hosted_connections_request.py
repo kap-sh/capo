@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.connection_id
     import capo_direct_connect.types.max_result_set_size
@@ -41,9 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeHostedConnectionsRequest:
     if data.get("connectionId") is not None:
         out["connection_id"] = data["connectionId"]
     else:
-        raise DeserializationError(
-            "DescribeHostedConnectionsRequest.connection_id required"
-        )
+        out["connection_id"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

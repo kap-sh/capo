@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.arn
     import capo_cloudwatch_logs.types.delivery_destination_configuration
@@ -78,7 +76,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutDeliveryDestinationRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("PutDeliveryDestinationRequest.name required")
+        out["name"] = ""
     if data.get("outputFormat") is not None:
         import capo_cloudwatch_logs.types.output_format
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.stream_enabled
     import capo_dynamodb.types.stream_view_type
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_0(data: dict) -> StreamSpecification:
     if data.get("StreamEnabled") is not None:
         out["stream_enabled"] = data["StreamEnabled"]
     else:
-        raise DeserializationError("StreamSpecification.stream_enabled required")
+        out["stream_enabled"] = False
     if data.get("StreamViewType") is not None:
         import capo_dynamodb.types.stream_view_type
 

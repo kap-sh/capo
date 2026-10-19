@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 
 class Position(TypedDict, closed=True):
     line: "int"
@@ -28,13 +26,13 @@ def deserialize_json(data: dict) -> Position:
     if data.get("line") is not None:
         out["line"] = data["line"]
     else:
-        raise DeserializationError("Position.line required")
+        out["line"] = 0
     if data.get("column") is not None:
         out["column"] = data["column"]
     else:
-        raise DeserializationError("Position.column required")
+        out["column"] = 0
     if data.get("offset") is not None:
         out["offset"] = data["offset"]
     else:
-        raise DeserializationError("Position.offset required")
+        out["offset"] = 0
     return out

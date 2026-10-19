@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.transaction_id_string
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CancelTransactionRequest:
     if data.get("TransactionId") is not None:
         out["transaction_id"] = data["TransactionId"]
     else:
-        raise DeserializationError("CancelTransactionRequest.transaction_id required")
+        out["transaction_id"] = ""
     return out

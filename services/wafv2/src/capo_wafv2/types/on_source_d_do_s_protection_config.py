@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.low_reputation_mode
 
@@ -39,7 +37,9 @@ def deserialize_aws_json_1_1(data: dict) -> OnSourceDDoSProtectionConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "OnSourceDDoSProtectionConfig.alb_low_reputation_mode required"
+        import typing
+
+        out["alb_low_reputation_mode"] = typing.cast(
+            "capo_wafv2.types.low_reputation_mode.LowReputationMode", ""
         )
     return out

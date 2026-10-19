@@ -132,11 +132,11 @@ def deserialize_json(data: dict) -> ServiceLevelObjective:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("ServiceLevelObjective.arn required")
+        out["arn"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ServiceLevelObjective.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("CreatedTime") is not None:
@@ -148,7 +148,11 @@ def deserialize_json(data: dict) -> ServiceLevelObjective:
             )
         )
     else:
-        raise DeserializationError("ServiceLevelObjective.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("LastUpdatedTime") is not None:
         import capo_application_signals.types._prelude.timestamp
 
@@ -158,7 +162,11 @@ def deserialize_json(data: dict) -> ServiceLevelObjective:
             )
         )
     else:
-        raise DeserializationError("ServiceLevelObjective.last_updated_time required")
+        import datetime
+
+        out["last_updated_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("Sli") is not None:
         import capo_application_signals.types.service_level_indicator
 

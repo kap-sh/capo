@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.kendra_knowledge_base_configuration
     import capo_bedrock_agent.types.knowledge_base_type
@@ -87,7 +85,11 @@ def deserialize_json(data: dict) -> KnowledgeBaseConfiguration:
             data["type"]
         )
     else:
-        raise DeserializationError("KnowledgeBaseConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent.types.knowledge_base_type.KnowledgeBaseType", ""
+        )
     if data.get("vectorKnowledgeBaseConfiguration") is not None:
         import capo_bedrock_agent.types.vector_knowledge_base_configuration
 

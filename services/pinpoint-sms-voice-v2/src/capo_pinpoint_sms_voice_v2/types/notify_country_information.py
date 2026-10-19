@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.iso_country_code
     import capo_pinpoint_sms_voice_v2.types.notify_enabled_channels_list
@@ -67,11 +65,11 @@ def deserialize_aws_json_1_0(data: dict) -> NotifyCountryInformation:
     if data.get("IsoCountryCode") is not None:
         out["iso_country_code"] = data["IsoCountryCode"]
     else:
-        raise DeserializationError("NotifyCountryInformation.iso_country_code required")
+        out["iso_country_code"] = ""
     if data.get("CountryName") is not None:
         out["country_name"] = data["CountryName"]
     else:
-        raise DeserializationError("NotifyCountryInformation.country_name required")
+        out["country_name"] = ""
     if data.get("SupportedChannels") is not None:
         import capo_pinpoint_sms_voice_v2.types.notify_enabled_channels_list
 
@@ -81,9 +79,7 @@ def deserialize_aws_json_1_0(data: dict) -> NotifyCountryInformation:
             )
         )
     else:
-        raise DeserializationError(
-            "NotifyCountryInformation.supported_channels required"
-        )
+        out["supported_channels"] = []
     if data.get("SupportedUseCases") is not None:
         import capo_pinpoint_sms_voice_v2.types.notify_use_case_list
 
@@ -93,9 +89,7 @@ def deserialize_aws_json_1_0(data: dict) -> NotifyCountryInformation:
             )
         )
     else:
-        raise DeserializationError(
-            "NotifyCountryInformation.supported_use_cases required"
-        )
+        out["supported_use_cases"] = []
     if data.get("SupportedTiers") is not None:
         import capo_pinpoint_sms_voice_v2.types.notify_tier_list
 
@@ -105,7 +99,7 @@ def deserialize_aws_json_1_0(data: dict) -> NotifyCountryInformation:
             )
         )
     else:
-        raise DeserializationError("NotifyCountryInformation.supported_tiers required")
+        out["supported_tiers"] = []
     if data.get("CustomerOwnedIdentityRequired") is not None:
         out["customer_owned_identity_required"] = data["CustomerOwnedIdentityRequired"]
     else:

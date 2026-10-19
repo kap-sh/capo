@@ -56,7 +56,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDomainRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateDomainRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("ServerSideEncryptionConfiguration") is not None:

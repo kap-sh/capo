@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_observabilityadmin.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_observabilityadmin.types.account_identifier
     import capo_observabilityadmin.types.destination_logs_configuration
@@ -60,7 +58,7 @@ def deserialize_json(data: dict) -> CentralizationRuleDestination:
     if data.get("Region") is not None:
         out["region"] = data["Region"]
     else:
-        raise DeserializationError("CentralizationRuleDestination.region required")
+        out["region"] = ""
     if data.get("Account") is not None:
         out["account"] = data["Account"]
     if data.get("DestinationLogsConfiguration") is not None:

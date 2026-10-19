@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.s3_location
     import capo_bedrock_agent.types.supplemental_data_storage_location_type
@@ -48,7 +46,12 @@ def deserialize_json(data: dict) -> SupplementalDataStorageLocation:
             )
         )
     else:
-        raise DeserializationError("SupplementalDataStorageLocation.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent.types.supplemental_data_storage_location_type.SupplementalDataStorageLocationType",
+            "",
+        )
     if data.get("s3Location") is not None:
         import capo_bedrock_agent.types.s3_location
 

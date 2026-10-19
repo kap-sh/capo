@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.client_ids
     import capo_verifiedpermissions.types.cognito_group_configuration_item
@@ -52,9 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> CognitoUserPoolConfigurationItem:
     if data.get("userPoolArn") is not None:
         out["user_pool_arn"] = data["userPoolArn"]
     else:
-        raise DeserializationError(
-            "CognitoUserPoolConfigurationItem.user_pool_arn required"
-        )
+        out["user_pool_arn"] = ""
     if data.get("clientIds") is not None:
         import capo_verifiedpermissions.types.client_ids
 
@@ -64,13 +60,11 @@ def deserialize_aws_json_1_0(data: dict) -> CognitoUserPoolConfigurationItem:
             )
         )
     else:
-        raise DeserializationError(
-            "CognitoUserPoolConfigurationItem.client_ids required"
-        )
+        out["client_ids"] = []
     if data.get("issuer") is not None:
         out["issuer"] = data["issuer"]
     else:
-        raise DeserializationError("CognitoUserPoolConfigurationItem.issuer required")
+        out["issuer"] = ""
     if data.get("groupConfiguration") is not None:
         import capo_verifiedpermissions.types.cognito_group_configuration_item
 

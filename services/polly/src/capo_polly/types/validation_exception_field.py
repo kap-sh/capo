@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_polly.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_polly.types.validation_exception_field_message
     import capo_polly.types.validation_exception_field_name
@@ -33,9 +31,9 @@ def deserialize_json(data: dict) -> ValidationExceptionField:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ValidationExceptionField.name required")
+        out["name"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ValidationExceptionField.message required")
+        out["message"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.boolean_object
     import capo_kinesis.types.tag_list
@@ -35,9 +33,9 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsForStreamOutput:
 
         out["tags"] = capo_kinesis.types.tag_list.deserialize_aws_json_1_1(data["Tags"])
     else:
-        raise DeserializationError("ListTagsForStreamOutput.tags required")
+        out["tags"] = []
     if data.get("HasMoreTags") is not None:
         out["has_more_tags"] = data["HasMoreTags"]
     else:
-        raise DeserializationError("ListTagsForStreamOutput.has_more_tags required")
+        out["has_more_tags"] = False
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.case_id
     import capo_connectcases.types.field_value_list
@@ -46,11 +44,11 @@ def deserialize_json(data: dict) -> SearchCasesResponseItem:
     if data.get("caseId") is not None:
         out["case_id"] = data["caseId"]
     else:
-        raise DeserializationError("SearchCasesResponseItem.case_id required")
+        out["case_id"] = ""
     if data.get("templateId") is not None:
         out["template_id"] = data["templateId"]
     else:
-        raise DeserializationError("SearchCasesResponseItem.template_id required")
+        out["template_id"] = ""
     if data.get("fields") is not None:
         import capo_connectcases.types.field_value_list
 
@@ -58,7 +56,7 @@ def deserialize_json(data: dict) -> SearchCasesResponseItem:
             data["fields"]
         )
     else:
-        raise DeserializationError("SearchCasesResponseItem.fields required")
+        out["fields"] = []
     if data.get("tags") is not None:
         import capo_connectcases.types.tags
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eventbridge.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridge.types.dead_letter_config
     import capo_eventbridge.types.event_bus_description
@@ -78,7 +76,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEventBusRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateEventBusRequest.name required")
+        out["name"] = ""
     if data.get("EventSourceName") is not None:
         out["event_source_name"] = data["EventSourceName"]
     if data.get("Description") is not None:

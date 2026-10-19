@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_license_manager_user_subscriptions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager_user_subscriptions.types.credentials_provider
 
@@ -39,7 +37,11 @@ def deserialize_json(data: dict) -> RdsSalSettings:
             )
         )
     else:
-        raise DeserializationError(
-            "RdsSalSettings.rds_sal_credentials_provider required"
+        import capo_license_manager_user_subscriptions.types._unknown
+
+        out["rds_sal_credentials_provider"] = (
+            capo_license_manager_user_subscriptions.types._unknown.UnknownUnionMember(
+                ""
+            )
         )
     return out

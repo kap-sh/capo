@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_security_ir.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_security_ir.types.aws_account_ids
     import capo_security_ir.types.membership_id
@@ -38,7 +36,5 @@ def deserialize_json(data: dict) -> BatchGetMemberAccountDetailsRequest:
             data["accountIds"]
         )
     else:
-        raise DeserializationError(
-            "BatchGetMemberAccountDetailsRequest.account_ids required"
-        )
+        out["account_ids"] = []
     return out

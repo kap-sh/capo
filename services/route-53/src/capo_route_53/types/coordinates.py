@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.latitude
@@ -32,10 +31,10 @@ def deserialize_xml(el: Element) -> Coordinates:
     if child_latitude is not None:
         out["latitude"] = str(child_latitude.text or "")
     else:
-        raise DeserializationError("Coordinates.latitude required")
+        out["latitude"] = ""
     child_longitude = el.find("Longitude")
     if child_longitude is not None:
         out["longitude"] = str(child_longitude.text or "")
     else:
-        raise DeserializationError("Coordinates.longitude required")
+        out["longitude"] = ""
     return out

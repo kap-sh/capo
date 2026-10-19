@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_controlcatalog.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -49,15 +47,15 @@ def deserialize_json(data: dict) -> DomainSummary:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("DomainSummary.arn required")
+        out["arn"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DomainSummary.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("DomainSummary.description required")
+        out["description"] = ""
     if data.get("CreateTime") is not None:
         import capo_controlcatalog.types._prelude.timestamp
 
@@ -67,7 +65,11 @@ def deserialize_json(data: dict) -> DomainSummary:
             )
         )
     else:
-        raise DeserializationError("DomainSummary.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("LastUpdateTime") is not None:
         import capo_controlcatalog.types._prelude.timestamp
 
@@ -77,5 +79,9 @@ def deserialize_json(data: dict) -> DomainSummary:
             )
         )
     else:
-        raise DeserializationError("DomainSummary.last_update_time required")
+        import datetime
+
+        out["last_update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

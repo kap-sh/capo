@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.resource_arn
     import capo_payment_cryptography.types.tags
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_0(data: dict) -> TagResourceInput:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("TagResourceInput.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("Tags") is not None:
         import capo_payment_cryptography.types.tags
 
@@ -43,5 +41,5 @@ def deserialize_aws_json_1_0(data: dict) -> TagResourceInput:
             data["Tags"]
         )
     else:
-        raise DeserializationError("TagResourceInput.tags required")
+        out["tags"] = []
     return out

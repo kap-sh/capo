@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_agreement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.agreement_cancellation_request_id
     import capo_marketplace_agreement.types.agreement_cancellation_request_rejection_reason
@@ -35,23 +33,17 @@ def deserialize_aws_json_1_0(data: dict) -> RejectAgreementCancellationRequestIn
     if data.get("agreementId") is not None:
         out["agreement_id"] = data["agreementId"]
     else:
-        raise DeserializationError(
-            "RejectAgreementCancellationRequestInput.agreement_id required"
-        )
+        out["agreement_id"] = ""
     if data.get("agreementCancellationRequestId") is not None:
         out["agreement_cancellation_request_id"] = data[
             "agreementCancellationRequestId"
         ]
     else:
-        raise DeserializationError(
-            "RejectAgreementCancellationRequestInput.agreement_cancellation_request_id required"
-        )
+        out["agreement_cancellation_request_id"] = ""
     if data.get("rejectionReason") is not None:
         out["rejection_reason"] = data["rejectionReason"]
     else:
-        raise DeserializationError(
-            "RejectAgreementCancellationRequestInput.rejection_reason required"
-        )
+        out["rejection_reason"] = ""
     return out
 
 

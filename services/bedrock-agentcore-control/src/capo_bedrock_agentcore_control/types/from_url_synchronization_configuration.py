@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.mcp_server_url
     import capo_bedrock_agentcore_control.types.registry_record_credential_provider_configuration_list
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> FromUrlSynchronizationConfiguration:
     if data.get("url") is not None:
         out["url"] = data["url"]
     else:
-        raise DeserializationError("FromUrlSynchronizationConfiguration.url required")
+        out["url"] = ""
     if data.get("credentialProviderConfigurations") is not None:
         import capo_bedrock_agentcore_control.types.registry_record_credential_provider_configuration_list
 

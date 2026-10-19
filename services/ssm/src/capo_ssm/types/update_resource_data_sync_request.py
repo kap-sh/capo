@@ -39,11 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateResourceDataSyncRequest:
     if data.get("SyncName") is not None:
         out["sync_name"] = data["SyncName"]
     else:
-        raise DeserializationError("UpdateResourceDataSyncRequest.sync_name required")
+        out["sync_name"] = ""
     if data.get("SyncType") is not None:
         out["sync_type"] = data["SyncType"]
     else:
-        raise DeserializationError("UpdateResourceDataSyncRequest.sync_type required")
+        out["sync_type"] = ""
     if data.get("SyncSource") is not None:
         import capo_ssm.types.resource_data_sync_source
 

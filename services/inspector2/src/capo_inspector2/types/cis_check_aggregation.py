@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.account_id
     import capo_inspector2.types.cis_scan_arn
@@ -66,7 +64,7 @@ def deserialize_json(data: dict) -> CisCheckAggregation:
     if data.get("scanArn") is not None:
         out["scan_arn"] = data["scanArn"]
     else:
-        raise DeserializationError("CisCheckAggregation.scan_arn required")
+        out["scan_arn"] = ""
     if data.get("checkId") is not None:
         out["check_id"] = data["checkId"]
     if data.get("title") is not None:

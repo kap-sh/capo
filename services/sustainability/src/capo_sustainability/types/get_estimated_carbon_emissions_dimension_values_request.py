@@ -63,9 +63,7 @@ def deserialize_json(data: dict) -> GetEstimatedCarbonEmissionsDimensionValuesRe
             data["Dimensions"]
         )
     else:
-        raise DeserializationError(
-            "GetEstimatedCarbonEmissionsDimensionValuesRequest.dimensions required"
-        )
+        out["dimensions"] = []
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

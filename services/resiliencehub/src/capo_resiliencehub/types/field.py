@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehub.types.field_aggregation_type
     import capo_resiliencehub.types.string255
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> Field:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Field.name required")
+        out["name"] = ""
     if data.get("aggregation") is not None:
         import capo_resiliencehub.types.field_aggregation_type
 

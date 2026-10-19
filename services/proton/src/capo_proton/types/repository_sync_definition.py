@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.git_branch_name
 
@@ -36,17 +34,17 @@ def deserialize_aws_json_1_0(data: dict) -> RepositorySyncDefinition:
     if data.get("target") is not None:
         out["target"] = data["target"]
     else:
-        raise DeserializationError("RepositorySyncDefinition.target required")
+        out["target"] = ""
     if data.get("parent") is not None:
         out["parent"] = data["parent"]
     else:
-        raise DeserializationError("RepositorySyncDefinition.parent required")
+        out["parent"] = ""
     if data.get("branch") is not None:
         out["branch"] = data["branch"]
     else:
-        raise DeserializationError("RepositorySyncDefinition.branch required")
+        out["branch"] = ""
     if data.get("directory") is not None:
         out["directory"] = data["directory"]
     else:
-        raise DeserializationError("RepositorySyncDefinition.directory required")
+        out["directory"] = ""
     return out

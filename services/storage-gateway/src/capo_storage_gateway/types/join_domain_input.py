@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.domain_name
     import capo_storage_gateway.types.domain_user_name
@@ -64,11 +62,11 @@ def deserialize_aws_json_1_1(data: dict) -> JoinDomainInput:
     if data.get("GatewayARN") is not None:
         out["gateway_arn"] = data["GatewayARN"]
     else:
-        raise DeserializationError("JoinDomainInput.gateway_arn required")
+        out["gateway_arn"] = ""
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("JoinDomainInput.domain_name required")
+        out["domain_name"] = ""
     if data.get("OrganizationalUnit") is not None:
         out["organizational_unit"] = data["OrganizationalUnit"]
     if data.get("DomainControllers") is not None:
@@ -84,11 +82,11 @@ def deserialize_aws_json_1_1(data: dict) -> JoinDomainInput:
     if data.get("UserName") is not None:
         out["user_name"] = data["UserName"]
     else:
-        raise DeserializationError("JoinDomainInput.user_name required")
+        out["user_name"] = ""
     if data.get("Password") is not None:
         out["password"] = data["Password"]
     else:
-        raise DeserializationError("JoinDomainInput.password required")
+        out["password"] = ""
     return out
 
 

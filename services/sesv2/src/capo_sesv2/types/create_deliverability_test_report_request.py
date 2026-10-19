@@ -47,9 +47,7 @@ def deserialize_json(data: dict) -> CreateDeliverabilityTestReportRequest:
     if data.get("FromEmailAddress") is not None:
         out["from_email_address"] = data["FromEmailAddress"]
     else:
-        raise DeserializationError(
-            "CreateDeliverabilityTestReportRequest.from_email_address required"
-        )
+        out["from_email_address"] = ""
     if data.get("Content") is not None:
         import capo_sesv2.types.email_content
 

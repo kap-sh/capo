@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.http_endpoint_attribute_name
     import capo_firehose.types.http_endpoint_attribute_value
@@ -35,15 +33,11 @@ def deserialize_aws_json_1_1(data: dict) -> HttpEndpointCommonAttribute:
     if data.get("AttributeName") is not None:
         out["attribute_name"] = data["AttributeName"]
     else:
-        raise DeserializationError(
-            "HttpEndpointCommonAttribute.attribute_name required"
-        )
+        out["attribute_name"] = ""
     if data.get("AttributeValue") is not None:
         out["attribute_value"] = data["AttributeValue"]
     else:
-        raise DeserializationError(
-            "HttpEndpointCommonAttribute.attribute_value required"
-        )
+        out["attribute_value"] = ""
     return out
 
 

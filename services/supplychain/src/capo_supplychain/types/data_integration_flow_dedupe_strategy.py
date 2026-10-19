@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.data_integration_flow_dedupe_strategy_type
     import capo_supplychain.types.data_integration_flow_field_priority_dedupe_strategy_configuration
@@ -52,7 +50,12 @@ def deserialize_json(data: dict) -> DataIntegrationFlowDedupeStrategy:
             )
         )
     else:
-        raise DeserializationError("DataIntegrationFlowDedupeStrategy.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_supplychain.types.data_integration_flow_dedupe_strategy_type.DataIntegrationFlowDedupeStrategyType",
+            "",
+        )
     if data.get("fieldPriority") is not None:
         import capo_supplychain.types.data_integration_flow_field_priority_dedupe_strategy_configuration
 

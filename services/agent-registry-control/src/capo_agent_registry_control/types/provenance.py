@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_agent_registry_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_agent_registry_control.types.provenance_relation
     import capo_agent_registry_control.types.source_details
@@ -67,11 +65,16 @@ def deserialize_json(data: dict) -> Provenance:
             )
         )
     else:
-        raise DeserializationError("Provenance.relation required")
+        import typing
+
+        out["relation"] = typing.cast(
+            "capo_agent_registry_control.types.provenance_relation.ProvenanceRelation",
+            "",
+        )
     if data.get("sourceId") is not None:
         out["source_id"] = data["sourceId"]
     else:
-        raise DeserializationError("Provenance.source_id required")
+        out["source_id"] = ""
     if data.get("sourceType") is not None:
         import capo_agent_registry_control.types.source_type
 

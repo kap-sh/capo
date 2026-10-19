@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.description
     import capo_iotfleetwise.types.resource_identifier
@@ -83,7 +81,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateStateTemplateRequest:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("UpdateStateTemplateRequest.identifier required")
+        out["identifier"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("stateTemplatePropertiesToAdd") is not None:

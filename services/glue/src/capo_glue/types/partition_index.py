@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.key_list
     import capo_glue.types.name_string
@@ -35,9 +33,9 @@ def deserialize_aws_json_1_1(data: dict) -> PartitionIndex:
 
         out["keys"] = capo_glue.types.key_list.deserialize_aws_json_1_1(data["Keys"])
     else:
-        raise DeserializationError("PartitionIndex.keys required")
+        out["keys"] = []
     if data.get("IndexName") is not None:
         out["index_name"] = data["IndexName"]
     else:
-        raise DeserializationError("PartitionIndex.index_name required")
+        out["index_name"] = ""
     return out

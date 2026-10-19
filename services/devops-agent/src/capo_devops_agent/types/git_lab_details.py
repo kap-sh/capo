@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.git_lab_token_type
     import capo_devops_agent.types.git_lab_token_value
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> GitLabDetails:
     if data.get("targetUrl") is not None:
         out["target_url"] = data["targetUrl"]
     else:
-        raise DeserializationError("GitLabDetails.target_url required")
+        out["target_url"] = ""
     if data.get("tokenType") is not None:
         import capo_devops_agent.types.git_lab_token_type
 
@@ -50,11 +48,15 @@ def deserialize_json(data: dict) -> GitLabDetails:
             data["tokenType"]
         )
     else:
-        raise DeserializationError("GitLabDetails.token_type required")
+        import typing
+
+        out["token_type"] = typing.cast(
+            "capo_devops_agent.types.git_lab_token_type.GitLabTokenType", ""
+        )
     if data.get("tokenValue") is not None:
         out["token_value"] = data["tokenValue"]
     else:
-        raise DeserializationError("GitLabDetails.token_value required")
+        out["token_value"] = ""
     if data.get("groupId") is not None:
         out["group_id"] = data["groupId"]
     return out

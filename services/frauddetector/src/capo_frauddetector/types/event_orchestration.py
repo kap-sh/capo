@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.boolean
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> EventOrchestration:
     if data.get("eventBridgeEnabled") is not None:
         out["event_bridge_enabled"] = data["eventBridgeEnabled"]
     else:
-        raise DeserializationError("EventOrchestration.event_bridge_enabled required")
+        out["event_bridge_enabled"] = False
     return out

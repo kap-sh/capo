@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_chime_sdk_media_pipelines.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.arn
     import capo_chime_sdk_media_pipelines.types.recording_file_format
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> S3RecordingSinkRuntimeConfiguration:
     if data.get("Destination") is not None:
         out["destination"] = data["Destination"]
     else:
-        raise DeserializationError(
-            "S3RecordingSinkRuntimeConfiguration.destination required"
-        )
+        out["destination"] = ""
     if data.get("RecordingFileFormat") is not None:
         import capo_chime_sdk_media_pipelines.types.recording_file_format
 
@@ -51,8 +47,11 @@ def deserialize_json(data: dict) -> S3RecordingSinkRuntimeConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "S3RecordingSinkRuntimeConfiguration.recording_file_format required"
+        import typing
+
+        out["recording_file_format"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.recording_file_format.RecordingFileFormat",
+            "",
         )
     return out
 

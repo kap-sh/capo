@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 
 class SlackChannel(TypedDict, closed=True):
     channel_name: NotRequired["str"]
@@ -28,5 +26,5 @@ def deserialize_json(data: dict) -> SlackChannel:
     if data.get("channelId") is not None:
         out["channel_id"] = data["channelId"]
     else:
-        raise DeserializationError("SlackChannel.channel_id required")
+        out["channel_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wellarchitected.types.item_ids
     import capo_wellarchitected.types.pillar
@@ -39,11 +37,13 @@ def deserialize_json(data: dict) -> PillarItem:
             data["pillar"]
         )
     else:
-        raise DeserializationError("PillarItem.pillar required")
+        import typing
+
+        out["pillar"] = typing.cast("capo_wellarchitected.types.pillar.Pillar", "")
     if data.get("ids") is not None:
         import capo_wellarchitected.types.item_ids
 
         out["ids"] = capo_wellarchitected.types.item_ids.deserialize_json(data["ids"])
     else:
-        raise DeserializationError("PillarItem.ids required")
+        out["ids"] = []
     return out

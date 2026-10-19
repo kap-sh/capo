@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ivs_realtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.public_key_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> GetPublicKeyRequest:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetPublicKeyRequest.arn required")
+        out["arn"] = ""
     return out

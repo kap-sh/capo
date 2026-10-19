@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_video.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_video.types.default_storage_tier
 
@@ -41,7 +39,9 @@ def deserialize_json(data: dict) -> StreamStorageConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "StreamStorageConfiguration.default_storage_tier required"
+        import typing
+
+        out["default_storage_tier"] = typing.cast(
+            "capo_kinesis_video.types.default_storage_tier.DefaultStorageTier", ""
         )
     return out

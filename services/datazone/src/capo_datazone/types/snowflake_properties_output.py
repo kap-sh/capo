@@ -55,7 +55,7 @@ def deserialize_json(data: dict) -> SnowflakePropertiesOutput:
     if data.get("snowflakeRole") is not None:
         out["snowflake_role"] = data["snowflakeRole"]
     else:
-        raise DeserializationError("SnowflakePropertiesOutput.snowflake_role required")
+        out["snowflake_role"] = ""
     if data.get("identityMapping") is not None:
         import capo_datazone.types.identity_mapping
 
@@ -81,7 +81,11 @@ def deserialize_json(data: dict) -> SnowflakePropertiesOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("SnowflakePropertiesOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_datazone.types.connection_status.ConnectionStatus", ""
+        )
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     return out

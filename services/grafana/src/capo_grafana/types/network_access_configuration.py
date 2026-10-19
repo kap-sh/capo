@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_grafana.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_grafana.types.prefix_list_ids
     import capo_grafana.types.vpce_ids
@@ -41,13 +39,11 @@ def deserialize_json(data: dict) -> NetworkAccessConfiguration:
             data["prefixListIds"]
         )
     else:
-        raise DeserializationError(
-            "NetworkAccessConfiguration.prefix_list_ids required"
-        )
+        out["prefix_list_ids"] = []
     if data.get("vpceIds") is not None:
         import capo_grafana.types.vpce_ids
 
         out["vpce_ids"] = capo_grafana.types.vpce_ids.deserialize_json(data["vpceIds"])
     else:
-        raise DeserializationError("NetworkAccessConfiguration.vpce_ids required")
+        out["vpce_ids"] = []
     return out

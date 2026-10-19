@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_api_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_api_gateway.types.blob
     import capo_api_gateway.types.boolean
@@ -40,5 +38,5 @@ def deserialize_json(data: dict) -> ImportDocumentationPartsRequest:
 
         out["body"] = capo_api_gateway.types.blob.deserialize_json(data["body"])
     else:
-        raise DeserializationError("ImportDocumentationPartsRequest.body required")
+        out["body"] = b""
     return out

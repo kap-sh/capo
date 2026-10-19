@@ -62,9 +62,12 @@ def handle_response(
         out["next_poll_configuration_token"] = response.headers[
             "Next-Poll-Configuration-Token"
         ]
-    out["next_poll_interval_in_seconds"] = int(
-        response.headers["Next-Poll-Interval-In-Seconds"]
-    )
+    if "Next-Poll-Interval-In-Seconds" in response.headers:
+        out["next_poll_interval_in_seconds"] = int(
+            response.headers["Next-Poll-Interval-In-Seconds"]
+        )
+    else:
+        out["next_poll_interval_in_seconds"] = 0
     if "Content-Type" in response.headers:
         out["content_type"] = response.headers["Content-Type"]
     if "Version-Label" in response.headers:
@@ -82,9 +85,12 @@ async def async_handle_response(
         out["next_poll_configuration_token"] = response.headers[
             "Next-Poll-Configuration-Token"
         ]
-    out["next_poll_interval_in_seconds"] = int(
-        response.headers["Next-Poll-Interval-In-Seconds"]
-    )
+    if "Next-Poll-Interval-In-Seconds" in response.headers:
+        out["next_poll_interval_in_seconds"] = int(
+            response.headers["Next-Poll-Interval-In-Seconds"]
+        )
+    else:
+        out["next_poll_interval_in_seconds"] = 0
     if "Content-Type" in response.headers:
         out["content_type"] = response.headers["Content-Type"]
     if "Version-Label" in response.headers:

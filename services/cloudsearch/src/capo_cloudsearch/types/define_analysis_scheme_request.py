@@ -36,7 +36,7 @@ def deserialize_query(el: Element) -> DefineAnalysisSchemeRequest:
     if child_domain_name is not None:
         out["domain_name"] = str(child_domain_name.text or "")
     else:
-        raise DeserializationError("DefineAnalysisSchemeRequest.domain_name required")
+        out["domain_name"] = ""
     child_analysis_scheme = el.find("AnalysisScheme")
     if child_analysis_scheme is not None:
         import capo_cloudsearch.types.analysis_scheme

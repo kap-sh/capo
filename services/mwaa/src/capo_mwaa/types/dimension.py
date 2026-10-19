@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_mwaa.errors import DeserializationError
-
 
 class Dimension(TypedDict, closed=True):
     name: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> Dimension:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Dimension.name required")
+        out["name"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("Dimension.value required")
+        out["value"] = ""
     return out

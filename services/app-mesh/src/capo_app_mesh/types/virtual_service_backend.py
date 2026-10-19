@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.client_policy
     import capo_app_mesh.types.service_name
@@ -36,9 +34,7 @@ def deserialize_json(data: dict) -> VirtualServiceBackend:
     if data.get("virtualServiceName") is not None:
         out["virtual_service_name"] = data["virtualServiceName"]
     else:
-        raise DeserializationError(
-            "VirtualServiceBackend.virtual_service_name required"
-        )
+        out["virtual_service_name"] = ""
     if data.get("clientPolicy") is not None:
         import capo_app_mesh.types.client_policy
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.time_in_milli_seconds
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> AudioSpecification:
     if data.get("maxLengthMs") is not None:
         out["max_length_ms"] = data["maxLengthMs"]
     else:
-        raise DeserializationError("AudioSpecification.max_length_ms required")
+        out["max_length_ms"] = 0
     if data.get("endTimeoutMs") is not None:
         out["end_timeout_ms"] = data["endTimeoutMs"]
     else:
-        raise DeserializationError("AudioSpecification.end_timeout_ms required")
+        out["end_timeout_ms"] = 0
     return out

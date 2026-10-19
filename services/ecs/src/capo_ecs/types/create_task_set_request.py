@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.capacity_provider_strategy
     import capo_ecs.types.launch_type
@@ -116,17 +114,17 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTaskSetRequest:
     if data.get("service") is not None:
         out["service"] = data["service"]
     else:
-        raise DeserializationError("CreateTaskSetRequest.service required")
+        out["service"] = ""
     if data.get("cluster") is not None:
         out["cluster"] = data["cluster"]
     else:
-        raise DeserializationError("CreateTaskSetRequest.cluster required")
+        out["cluster"] = ""
     if data.get("externalId") is not None:
         out["external_id"] = data["externalId"]
     if data.get("taskDefinition") is not None:
         out["task_definition"] = data["taskDefinition"]
     else:
-        raise DeserializationError("CreateTaskSetRequest.task_definition required")
+        out["task_definition"] = ""
     if data.get("networkConfiguration") is not None:
         import capo_ecs.types.network_configuration
 

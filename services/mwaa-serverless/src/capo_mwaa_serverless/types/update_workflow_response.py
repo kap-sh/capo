@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mwaa_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mwaa_serverless.types.timestamp_value
     import capo_mwaa_serverless.types.warning_messages
@@ -58,7 +56,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateWorkflowResponse:
     if data.get("WorkflowArn") is not None:
         out["workflow_arn"] = data["WorkflowArn"]
     else:
-        raise DeserializationError("UpdateWorkflowResponse.workflow_arn required")
+        out["workflow_arn"] = ""
     if data.get("ModifiedAt") is not None:
         import capo_mwaa_serverless.types.timestamp_value
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_support.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_support.types.completed_upload_list
     import capo_support.types.nullable_boolean_type
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> CompleteAttachmentUploadRequest:
     if data.get("uploadId") is not None:
         out["upload_id"] = data["uploadId"]
     else:
-        raise DeserializationError("CompleteAttachmentUploadRequest.upload_id required")
+        out["upload_id"] = ""
     if data.get("completedUploads") is not None:
         import capo_support.types.completed_upload_list
 
@@ -52,9 +50,7 @@ def deserialize_aws_json_1_1(data: dict) -> CompleteAttachmentUploadRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CompleteAttachmentUploadRequest.completed_uploads required"
-        )
+        out["completed_uploads"] = []
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
     return out

@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptunedata.errors import DeserializationError
-
 
 class ExecuteGremlinProfileQueryInput(TypedDict, closed=True):
     gremlin_query: "str"
@@ -38,9 +36,7 @@ def deserialize_json(data: dict) -> ExecuteGremlinProfileQueryInput:
     if data.get("gremlin") is not None:
         out["gremlin_query"] = data["gremlin"]
     else:
-        raise DeserializationError(
-            "ExecuteGremlinProfileQueryInput.gremlin_query required"
-        )
+        out["gremlin_query"] = ""
     if data.get("profile.results") is not None:
         out["results"] = data["profile.results"]
     if data.get("profile.chop") is not None:

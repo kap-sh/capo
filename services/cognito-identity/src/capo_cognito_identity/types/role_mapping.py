@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity.types.ambiguous_role_resolution_type
     import capo_cognito_identity.types.role_mapping_type
@@ -63,7 +61,11 @@ def deserialize_aws_json_1_1(data: dict) -> RoleMapping:
             )
         )
     else:
-        raise DeserializationError("RoleMapping.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cognito_identity.types.role_mapping_type.RoleMappingType", ""
+        )
     if data.get("AmbiguousRoleResolution") is not None:
         import capo_cognito_identity.types.ambiguous_role_resolution_type
 

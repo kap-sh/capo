@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lookoutequipment.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lookoutequipment.types.dataset_name
     import capo_lookoutequipment.types.ingestion_job_id
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListSensorStatisticsRequest:
     if data.get("DatasetName") is not None:
         out["dataset_name"] = data["DatasetName"]
     else:
-        raise DeserializationError("ListSensorStatisticsRequest.dataset_name required")
+        out["dataset_name"] = ""
     if data.get("IngestionJobId") is not None:
         out["ingestion_job_id"] = data["IngestionJobId"]
     if data.get("MaxResults") is not None:

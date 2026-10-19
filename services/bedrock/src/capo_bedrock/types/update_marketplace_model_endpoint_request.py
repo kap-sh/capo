@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.arn
     import capo_bedrock.types.endpoint_config
@@ -45,9 +43,9 @@ def deserialize_json(data: dict) -> UpdateMarketplaceModelEndpointRequest:
             data["endpointConfig"]
         )
     else:
-        raise DeserializationError(
-            "UpdateMarketplaceModelEndpointRequest.endpoint_config required"
-        )
+        import capo_bedrock.types._unknown
+
+        out["endpoint_config"] = capo_bedrock.types._unknown.UnknownUnionMember("")
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     return out

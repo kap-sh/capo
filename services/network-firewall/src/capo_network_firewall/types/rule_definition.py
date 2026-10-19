@@ -59,5 +59,5 @@ def deserialize_aws_json_1_0(data: dict) -> RuleDefinition:
             )
         )
     else:
-        raise DeserializationError("RuleDefinition.actions required")
+        out["actions"] = []
     return out

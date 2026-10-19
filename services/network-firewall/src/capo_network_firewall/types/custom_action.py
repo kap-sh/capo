@@ -37,7 +37,7 @@ def deserialize_aws_json_1_0(data: dict) -> CustomAction:
     if data.get("ActionName") is not None:
         out["action_name"] = data["ActionName"]
     else:
-        raise DeserializationError("CustomAction.action_name required")
+        out["action_name"] = ""
     if data.get("ActionDefinition") is not None:
         import capo_network_firewall.types.action_definition
 

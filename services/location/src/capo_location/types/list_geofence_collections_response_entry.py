@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.pricing_plan
     import capo_location.types.resource_description
@@ -55,15 +53,11 @@ def deserialize_json(data: dict) -> ListGeofenceCollectionsResponseEntry:
     if data.get("CollectionName") is not None:
         out["collection_name"] = data["CollectionName"]
     else:
-        raise DeserializationError(
-            "ListGeofenceCollectionsResponseEntry.collection_name required"
-        )
+        out["collection_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError(
-            "ListGeofenceCollectionsResponseEntry.description required"
-        )
+        out["description"] = ""
     if data.get("PricingPlan") is not None:
         out["pricing_plan"] = data["PricingPlan"]
     if data.get("PricingPlanDataSource") is not None:
@@ -75,8 +69,10 @@ def deserialize_json(data: dict) -> ListGeofenceCollectionsResponseEntry:
             data["CreateTime"]
         )
     else:
-        raise DeserializationError(
-            "ListGeofenceCollectionsResponseEntry.create_time required"
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("UpdateTime") is not None:
         import capo_location.types.timestamp
@@ -85,8 +81,10 @@ def deserialize_json(data: dict) -> ListGeofenceCollectionsResponseEntry:
             data["UpdateTime"]
         )
     else:
-        raise DeserializationError(
-            "ListGeofenceCollectionsResponseEntry.update_time required"
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out
 

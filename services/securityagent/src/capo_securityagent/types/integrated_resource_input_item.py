@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.integrated_resource
     import capo_securityagent.types.provider_resource_capabilities
@@ -48,7 +46,9 @@ def deserialize_json(data: dict) -> IntegratedResourceInputItem:
             data["resource"]
         )
     else:
-        raise DeserializationError("IntegratedResourceInputItem.resource required")
+        import capo_securityagent.types._unknown
+
+        out["resource"] = capo_securityagent.types._unknown.UnknownUnionMember("")
     if data.get("capabilities") is not None:
         import capo_securityagent.types.provider_resource_capabilities
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -78,15 +76,15 @@ def deserialize_aws_json_1_0(data: dict) -> GetArchiveResponse:
     if data.get("ArchiveId") is not None:
         out["archive_id"] = data["ArchiveId"]
     else:
-        raise DeserializationError("GetArchiveResponse.archive_id required")
+        out["archive_id"] = ""
     if data.get("ArchiveName") is not None:
         out["archive_name"] = data["ArchiveName"]
     else:
-        raise DeserializationError("GetArchiveResponse.archive_name required")
+        out["archive_name"] = ""
     if data.get("ArchiveArn") is not None:
         out["archive_arn"] = data["ArchiveArn"]
     else:
-        raise DeserializationError("GetArchiveResponse.archive_arn required")
+        out["archive_arn"] = ""
     if data.get("ArchiveState") is not None:
         import capo_mailmanager.types.archive_state
 
@@ -96,7 +94,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetArchiveResponse:
             )
         )
     else:
-        raise DeserializationError("GetArchiveResponse.archive_state required")
+        import typing
+
+        out["archive_state"] = typing.cast(
+            "capo_mailmanager.types.archive_state.ArchiveState", ""
+        )
     if data.get("Retention") is not None:
         import capo_mailmanager.types.archive_retention
 
@@ -106,7 +108,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetArchiveResponse:
             )
         )
     else:
-        raise DeserializationError("GetArchiveResponse.retention required")
+        import capo_mailmanager.types._unknown
+
+        out["retention"] = capo_mailmanager.types._unknown.UnknownUnionMember("")
     if data.get("CreatedTimestamp") is not None:
         import capo_mailmanager.types._prelude.timestamp
 

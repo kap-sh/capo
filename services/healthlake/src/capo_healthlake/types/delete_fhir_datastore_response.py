@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.bounded_length_string
     import capo_healthlake.types.datastore_arn
@@ -47,11 +45,11 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteFHIRDatastoreResponse:
     if data.get("DatastoreId") is not None:
         out["datastore_id"] = data["DatastoreId"]
     else:
-        raise DeserializationError("DeleteFHIRDatastoreResponse.datastore_id required")
+        out["datastore_id"] = ""
     if data.get("DatastoreArn") is not None:
         out["datastore_arn"] = data["DatastoreArn"]
     else:
-        raise DeserializationError("DeleteFHIRDatastoreResponse.datastore_arn required")
+        out["datastore_arn"] = ""
     if data.get("DatastoreStatus") is not None:
         import capo_healthlake.types.datastore_status
 
@@ -61,13 +59,13 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteFHIRDatastoreResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DeleteFHIRDatastoreResponse.datastore_status required"
+        import typing
+
+        out["datastore_status"] = typing.cast(
+            "capo_healthlake.types.datastore_status.DatastoreStatus", ""
         )
     if data.get("DatastoreEndpoint") is not None:
         out["datastore_endpoint"] = data["DatastoreEndpoint"]
     else:
-        raise DeserializationError(
-            "DeleteFHIRDatastoreResponse.datastore_endpoint required"
-        )
+        out["datastore_endpoint"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> KinesisStreamConfig:
     if data.get("StreamArn") is not None:
         out["stream_arn"] = data["StreamArn"]
     else:
-        raise DeserializationError("KinesisStreamConfig.stream_arn required")
+        out["stream_arn"] = ""
     return out

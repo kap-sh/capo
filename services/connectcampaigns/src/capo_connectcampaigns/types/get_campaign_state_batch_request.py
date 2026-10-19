@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcampaigns.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaigns.types.campaign_id_list
 
@@ -36,5 +34,5 @@ def deserialize_json(data: dict) -> GetCampaignStateBatchRequest:
             )
         )
     else:
-        raise DeserializationError("GetCampaignStateBatchRequest.campaign_ids required")
+        out["campaign_ids"] = []
     return out

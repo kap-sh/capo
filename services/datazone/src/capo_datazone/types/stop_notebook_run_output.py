@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.domain_id
     import capo_datazone.types.notebook_run_id
@@ -43,15 +41,15 @@ def deserialize_json(data: dict) -> StopNotebookRunOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("StopNotebookRunOutput.id required")
+        out["id"] = ""
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("StopNotebookRunOutput.domain_id required")
+        out["domain_id"] = ""
     if data.get("owningProjectId") is not None:
         out["owning_project_id"] = data["owningProjectId"]
     else:
-        raise DeserializationError("StopNotebookRunOutput.owning_project_id required")
+        out["owning_project_id"] = ""
     if data.get("status") is not None:
         import capo_datazone.types.notebook_run_status
 
@@ -59,5 +57,9 @@ def deserialize_json(data: dict) -> StopNotebookRunOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("StopNotebookRunOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_datazone.types.notebook_run_status.NotebookRunStatus", ""
+        )
     return out

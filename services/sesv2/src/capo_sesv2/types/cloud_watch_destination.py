@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.cloud_watch_dimension_configurations
 
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> CloudWatchDestination:
             )
         )
     else:
-        raise DeserializationError(
-            "CloudWatchDestination.dimension_configurations required"
-        )
+        out["dimension_configurations"] = []
     return out

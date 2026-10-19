@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_datasync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datasync.types.azure_blob_sas_token
 
@@ -27,7 +25,7 @@ def deserialize_aws_json_1_1(data: dict) -> AzureBlobSasConfiguration:
     if data.get("Token") is not None:
         out["token"] = data["Token"]
     else:
-        raise DeserializationError("AzureBlobSasConfiguration.token required")
+        out["token"] = ""
     return out
 
 

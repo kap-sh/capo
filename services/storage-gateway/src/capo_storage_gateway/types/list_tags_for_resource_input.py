@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.marker
     import capo_storage_gateway.types.positive_int_object
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsForResourceInput:
     if data.get("ResourceARN") is not None:
         out["resource_arn"] = data["ResourceARN"]
     else:
-        raise DeserializationError("ListTagsForResourceInput.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("Marker") is not None:
         out["marker"] = data["Marker"]
     if data.get("Limit") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_zonal_shift.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_zonal_shift.types.applied_weights
     import capo_arc_zonal_shift.types.autoshifts_in_resource
@@ -119,7 +117,7 @@ def deserialize_json(data: dict) -> ManagedResourceSummary:
             )
         )
     else:
-        raise DeserializationError("ManagedResourceSummary.availability_zones required")
+        out["availability_zones"] = []
     if data.get("appliedWeights") is not None:
         import capo_arc_zonal_shift.types.applied_weights
 

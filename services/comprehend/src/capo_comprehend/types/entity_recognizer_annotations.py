@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_comprehend.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_comprehend.types.s3_uri
 
@@ -31,7 +29,7 @@ def deserialize_aws_json_1_1(data: dict) -> EntityRecognizerAnnotations:
     if data.get("S3Uri") is not None:
         out["s3_uri"] = data["S3Uri"]
     else:
-        raise DeserializationError("EntityRecognizerAnnotations.s3_uri required")
+        out["s3_uri"] = ""
     if data.get("TestS3Uri") is not None:
         out["test_s3_uri"] = data["TestS3Uri"]
     return out

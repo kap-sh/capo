@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_finspace.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_finspace.types.boolean_value
     import capo_finspace.types.kx_volume_name
@@ -47,13 +45,11 @@ def deserialize_json(data: dict) -> KxDataviewSegmentConfiguration:
             )
         )
     else:
-        raise DeserializationError("KxDataviewSegmentConfiguration.db_paths required")
+        out["db_paths"] = []
     if data.get("volumeName") is not None:
         out["volume_name"] = data["volumeName"]
     else:
-        raise DeserializationError(
-            "KxDataviewSegmentConfiguration.volume_name required"
-        )
+        out["volume_name"] = ""
     if data.get("onDemand") is not None:
         out["on_demand"] = data["onDemand"]
     else:

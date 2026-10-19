@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.event_trigger_names
     import capo_customer_profiles.types.name
@@ -107,11 +105,11 @@ def deserialize_json(data: dict) -> ListIntegrationItem:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("ListIntegrationItem.domain_name required")
+        out["domain_name"] = ""
     if data.get("Uri") is not None:
         out["uri"] = data["Uri"]
     else:
-        raise DeserializationError("ListIntegrationItem.uri required")
+        out["uri"] = ""
     if data.get("ObjectTypeName") is not None:
         out["object_type_name"] = data["ObjectTypeName"]
     if data.get("CreatedAt") is not None:
@@ -121,7 +119,9 @@ def deserialize_json(data: dict) -> ListIntegrationItem:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("ListIntegrationItem.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("LastUpdatedAt") is not None:
         import capo_customer_profiles.types.timestamp
 
@@ -131,7 +131,11 @@ def deserialize_json(data: dict) -> ListIntegrationItem:
             )
         )
     else:
-        raise DeserializationError("ListIntegrationItem.last_updated_at required")
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("Tags") is not None:
         import capo_customer_profiles.types.tag_map
 

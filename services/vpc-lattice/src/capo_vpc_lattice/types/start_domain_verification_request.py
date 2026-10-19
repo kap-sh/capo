@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.client_token
     import capo_vpc_lattice.types.domain_name
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> StartDomainVerificationRequest:
     if data.get("domainName") is not None:
         out["domain_name"] = data["domainName"]
     else:
-        raise DeserializationError(
-            "StartDomainVerificationRequest.domain_name required"
-        )
+        out["domain_name"] = ""
     if data.get("tags") is not None:
         import capo_vpc_lattice.types.tag_map
 

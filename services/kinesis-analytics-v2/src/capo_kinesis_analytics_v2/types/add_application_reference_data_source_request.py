@@ -45,15 +45,11 @@ def deserialize_aws_json_1_1(data: dict) -> AddApplicationReferenceDataSourceReq
     if data.get("ApplicationName") is not None:
         out["application_name"] = data["ApplicationName"]
     else:
-        raise DeserializationError(
-            "AddApplicationReferenceDataSourceRequest.application_name required"
-        )
+        out["application_name"] = ""
     if data.get("CurrentApplicationVersionId") is not None:
         out["current_application_version_id"] = data["CurrentApplicationVersionId"]
     else:
-        raise DeserializationError(
-            "AddApplicationReferenceDataSourceRequest.current_application_version_id required"
-        )
+        out["current_application_version_id"] = 0
     if data.get("ReferenceDataSource") is not None:
         import capo_kinesis_analytics_v2.types.reference_data_source
 

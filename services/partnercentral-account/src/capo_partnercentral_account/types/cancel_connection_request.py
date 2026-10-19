@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.catalog
     import capo_partnercentral_account.types.client_token
@@ -48,11 +46,11 @@ def deserialize_aws_json_1_0(data: dict) -> CancelConnectionRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("CancelConnectionRequest.catalog required")
+        out["catalog"] = ""
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("CancelConnectionRequest.identifier required")
+        out["identifier"] = ""
     if data.get("ConnectionType") is not None:
         import capo_partnercentral_account.types.connection_type
 
@@ -62,13 +60,17 @@ def deserialize_aws_json_1_0(data: dict) -> CancelConnectionRequest:
             )
         )
     else:
-        raise DeserializationError("CancelConnectionRequest.connection_type required")
+        import typing
+
+        out["connection_type"] = typing.cast(
+            "capo_partnercentral_account.types.connection_type.ConnectionType", ""
+        )
     if data.get("Reason") is not None:
         out["reason"] = data["Reason"]
     else:
-        raise DeserializationError("CancelConnectionRequest.reason required")
+        out["reason"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("CancelConnectionRequest.client_token required")
+        out["client_token"] = ""
     return out

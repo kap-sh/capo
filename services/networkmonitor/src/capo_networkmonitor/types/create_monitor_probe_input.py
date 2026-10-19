@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmonitor.types.arn
     import capo_networkmonitor.types.destination
@@ -58,11 +56,11 @@ def deserialize_json(data: dict) -> CreateMonitorProbeInput:
     if data.get("sourceArn") is not None:
         out["source_arn"] = data["sourceArn"]
     else:
-        raise DeserializationError("CreateMonitorProbeInput.source_arn required")
+        out["source_arn"] = ""
     if data.get("destination") is not None:
         out["destination"] = data["destination"]
     else:
-        raise DeserializationError("CreateMonitorProbeInput.destination required")
+        out["destination"] = ""
     if data.get("destinationPort") is not None:
         out["destination_port"] = data["destinationPort"]
     if data.get("protocol") is not None:
@@ -72,7 +70,9 @@ def deserialize_json(data: dict) -> CreateMonitorProbeInput:
             data["protocol"]
         )
     else:
-        raise DeserializationError("CreateMonitorProbeInput.protocol required")
+        import typing
+
+        out["protocol"] = typing.cast("capo_networkmonitor.types.protocol.Protocol", "")
     if data.get("packetSize") is not None:
         out["packet_size"] = data["packetSize"]
     if data.get("probeTags") is not None:

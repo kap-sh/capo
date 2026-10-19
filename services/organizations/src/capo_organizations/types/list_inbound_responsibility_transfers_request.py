@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_organizations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_organizations.types.max_results
     import capo_organizations.types.next_token
@@ -56,8 +54,11 @@ def deserialize_aws_json_1_1(data: dict) -> ListInboundResponsibilityTransfersRe
             )
         )
     else:
-        raise DeserializationError(
-            "ListInboundResponsibilityTransfersRequest.type required"
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_organizations.types.responsibility_transfer_type.ResponsibilityTransferType",
+            "",
         )
     if data.get("Id") is not None:
         out["id"] = data["Id"]

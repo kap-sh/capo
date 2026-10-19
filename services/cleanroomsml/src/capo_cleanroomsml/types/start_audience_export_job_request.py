@@ -47,13 +47,11 @@ def deserialize_json(data: dict) -> StartAudienceExportJobRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("StartAudienceExportJobRequest.name required")
+        out["name"] = ""
     if data.get("audienceGenerationJobArn") is not None:
         out["audience_generation_job_arn"] = data["audienceGenerationJobArn"]
     else:
-        raise DeserializationError(
-            "StartAudienceExportJobRequest.audience_generation_job_arn required"
-        )
+        out["audience_generation_job_arn"] = ""
     if data.get("audienceSize") is not None:
         import capo_cleanroomsml.types.audience_size
 

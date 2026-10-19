@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.json_document
     import capo_qconnect.types.non_empty_string
@@ -38,15 +36,15 @@ def deserialize_json(data: dict) -> ToolUseResultData:
     if data.get("toolUseId") is not None:
         out["tool_use_id"] = data["toolUseId"]
     else:
-        raise DeserializationError("ToolUseResultData.tool_use_id required")
+        out["tool_use_id"] = ""
     if data.get("toolName") is not None:
         out["tool_name"] = data["toolName"]
     else:
-        raise DeserializationError("ToolUseResultData.tool_name required")
+        out["tool_name"] = ""
     if data.get("toolResult") is not None:
         out["tool_result"] = data["toolResult"]
     else:
-        raise DeserializationError("ToolUseResultData.tool_result required")
+        out["tool_result"] = None
     if data.get("inputSchema") is not None:
         out["input_schema"] = data["inputSchema"]
     return out

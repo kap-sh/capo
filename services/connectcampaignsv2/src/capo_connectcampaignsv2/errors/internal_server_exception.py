@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError, ServiceError
+from capo_connectcampaignsv2.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.x_amazon_error_type
@@ -30,7 +30,7 @@ def deserialize_json(data: dict) -> InternalServerException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("InternalServerException_.message required")
+        out["message"] = ""
     return out
 
 

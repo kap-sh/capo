@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_waf_regional.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf_regional.types.change_token
     import capo_waf_regional.types.geo_match_set_updates
@@ -41,11 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateGeoMatchSetRequest:
     if data.get("GeoMatchSetId") is not None:
         out["geo_match_set_id"] = data["GeoMatchSetId"]
     else:
-        raise DeserializationError("UpdateGeoMatchSetRequest.geo_match_set_id required")
+        out["geo_match_set_id"] = ""
     if data.get("ChangeToken") is not None:
         out["change_token"] = data["ChangeToken"]
     else:
-        raise DeserializationError("UpdateGeoMatchSetRequest.change_token required")
+        out["change_token"] = ""
     if data.get("Updates") is not None:
         import capo_waf_regional.types.geo_match_set_updates
 
@@ -55,5 +53,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateGeoMatchSetRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateGeoMatchSetRequest.updates required")
+        out["updates"] = []
     return out

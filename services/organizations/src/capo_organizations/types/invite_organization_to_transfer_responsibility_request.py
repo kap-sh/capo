@@ -77,8 +77,11 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "InviteOrganizationToTransferResponsibilityRequest.type required"
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_organizations.types.responsibility_transfer_type.ResponsibilityTransferType",
+            "",
         )
     if data.get("Target") is not None:
         import capo_organizations.types.handshake_party
@@ -103,15 +106,15 @@ def deserialize_aws_json_1_1(
             )
         )
     else:
-        raise DeserializationError(
-            "InviteOrganizationToTransferResponsibilityRequest.start_timestamp required"
+        import datetime
+
+        out["start_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("SourceName") is not None:
         out["source_name"] = data["SourceName"]
     else:
-        raise DeserializationError(
-            "InviteOrganizationToTransferResponsibilityRequest.source_name required"
-        )
+        out["source_name"] = ""
     if data.get("Tags") is not None:
         import capo_organizations.types.tags
 

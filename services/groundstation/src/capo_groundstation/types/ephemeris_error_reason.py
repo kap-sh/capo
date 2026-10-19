@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_groundstation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_groundstation.types.ephemeris_error_code
     import capo_groundstation.types.error_string
@@ -41,9 +39,13 @@ def deserialize_json(data: dict) -> EphemerisErrorReason:
             )
         )
     else:
-        raise DeserializationError("EphemerisErrorReason.error_code required")
+        import typing
+
+        out["error_code"] = typing.cast(
+            "capo_groundstation.types.ephemeris_error_code.EphemerisErrorCode", ""
+        )
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     else:
-        raise DeserializationError("EphemerisErrorReason.error_message required")
+        out["error_message"] = ""
     return out

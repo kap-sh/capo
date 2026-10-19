@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_channel.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_channel.types.account_id_list
     import capo_partnercentral_channel.types.catalog
@@ -99,9 +97,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListProgramManagementAccountsRequest
     if data.get("catalog") is not None:
         out["catalog"] = data["catalog"]
     else:
-        raise DeserializationError(
-            "ListProgramManagementAccountsRequest.catalog required"
-        )
+        out["catalog"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("displayNames") is not None:

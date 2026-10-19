@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.get_ops_metadata_max_results
     import capo_ssm.types.next_token
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetOpsMetadataRequest:
     if data.get("OpsMetadataArn") is not None:
         out["ops_metadata_arn"] = data["OpsMetadataArn"]
     else:
-        raise DeserializationError("GetOpsMetadataRequest.ops_metadata_arn required")
+        out["ops_metadata_arn"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

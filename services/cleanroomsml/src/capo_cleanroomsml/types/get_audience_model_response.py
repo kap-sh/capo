@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -113,7 +111,11 @@ def deserialize_json(data: dict) -> GetAudienceModelResponse:
             data["createTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetAudienceModelResponse.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import datetime
 
@@ -121,7 +123,11 @@ def deserialize_json(data: dict) -> GetAudienceModelResponse:
             data["updateTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("GetAudienceModelResponse.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("trainingDataStartTime") is not None:
         import datetime
 
@@ -137,19 +143,15 @@ def deserialize_json(data: dict) -> GetAudienceModelResponse:
     if data.get("audienceModelArn") is not None:
         out["audience_model_arn"] = data["audienceModelArn"]
     else:
-        raise DeserializationError(
-            "GetAudienceModelResponse.audience_model_arn required"
-        )
+        out["audience_model_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetAudienceModelResponse.name required")
+        out["name"] = ""
     if data.get("trainingDatasetArn") is not None:
         out["training_dataset_arn"] = data["trainingDatasetArn"]
     else:
-        raise DeserializationError(
-            "GetAudienceModelResponse.training_dataset_arn required"
-        )
+        out["training_dataset_arn"] = ""
     if data.get("status") is not None:
         import capo_cleanroomsml.types.audience_model_status
 
@@ -157,7 +159,11 @@ def deserialize_json(data: dict) -> GetAudienceModelResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("GetAudienceModelResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cleanroomsml.types.audience_model_status.AudienceModelStatus", ""
+        )
     if data.get("statusDetails") is not None:
         import capo_cleanroomsml.types.status_details
 

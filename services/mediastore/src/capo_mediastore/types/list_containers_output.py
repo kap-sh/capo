@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediastore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediastore.types.container_list
     import capo_mediastore.types.pagination_token
@@ -42,7 +40,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListContainersOutput:
             )
         )
     else:
-        raise DeserializationError("ListContainersOutput.containers required")
+        out["containers"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

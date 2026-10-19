@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.access_effect
     import capo_workmail.types.impersonation_rule_description
@@ -68,7 +66,7 @@ def deserialize_aws_json_1_1(data: dict) -> ImpersonationRule:
     if data.get("ImpersonationRuleId") is not None:
         out["impersonation_rule_id"] = data["ImpersonationRuleId"]
     else:
-        raise DeserializationError("ImpersonationRule.impersonation_rule_id required")
+        out["impersonation_rule_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("Description") is not None:
@@ -80,7 +78,11 @@ def deserialize_aws_json_1_1(data: dict) -> ImpersonationRule:
             data["Effect"]
         )
     else:
-        raise DeserializationError("ImpersonationRule.effect required")
+        import typing
+
+        out["effect"] = typing.cast(
+            "capo_workmail.types.access_effect.AccessEffect", ""
+        )
     if data.get("TargetUsers") is not None:
         import capo_workmail.types.target_users
 

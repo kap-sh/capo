@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notifications.types.managed_notification_configuration_description
     import capo_notifications.types.managed_notification_configuration_name
@@ -41,31 +39,21 @@ def deserialize_json(data: dict) -> GetManagedNotificationConfigurationResponse:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError(
-            "GetManagedNotificationConfigurationResponse.arn required"
-        )
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "GetManagedNotificationConfigurationResponse.name required"
-        )
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError(
-            "GetManagedNotificationConfigurationResponse.description required"
-        )
+        out["description"] = ""
     if data.get("category") is not None:
         out["category"] = data["category"]
     else:
-        raise DeserializationError(
-            "GetManagedNotificationConfigurationResponse.category required"
-        )
+        out["category"] = ""
     if data.get("subCategory") is not None:
         out["sub_category"] = data["subCategory"]
     else:
-        raise DeserializationError(
-            "GetManagedNotificationConfigurationResponse.sub_category required"
-        )
+        out["sub_category"] = ""
     return out

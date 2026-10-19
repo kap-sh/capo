@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.arn
     import capo_m2.types.identifier
@@ -35,15 +33,13 @@ def deserialize_json(data: dict) -> CreateApplicationResponse:
     if data.get("applicationArn") is not None:
         out["application_arn"] = data["applicationArn"]
     else:
-        raise DeserializationError("CreateApplicationResponse.application_arn required")
+        out["application_arn"] = ""
     if data.get("applicationId") is not None:
         out["application_id"] = data["applicationId"]
     else:
-        raise DeserializationError("CreateApplicationResponse.application_id required")
+        out["application_id"] = ""
     if data.get("applicationVersion") is not None:
         out["application_version"] = data["applicationVersion"]
     else:
-        raise DeserializationError(
-            "CreateApplicationResponse.application_version required"
-        )
+        out["application_version"] = 0
     return out

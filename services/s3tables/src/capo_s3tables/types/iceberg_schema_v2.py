@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3tables.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3tables.types.integer_list
     import capo_s3tables.types.schema_v2_field_list
@@ -54,7 +52,11 @@ def deserialize_json(data: dict) -> IcebergSchemaV2:
             data["type"]
         )
     else:
-        raise DeserializationError("IcebergSchemaV2.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_s3tables.types.schema_v2_field_type.SchemaV2FieldType", ""
+        )
     if data.get("fields") is not None:
         import capo_s3tables.types.schema_v2_field_list
 
@@ -62,7 +64,7 @@ def deserialize_json(data: dict) -> IcebergSchemaV2:
             data["fields"]
         )
     else:
-        raise DeserializationError("IcebergSchemaV2.fields required")
+        out["fields"] = []
     if data.get("schema-id") is not None:
         out["schema_id"] = data["schema-id"]
     if data.get("identifier-field-ids") is not None:

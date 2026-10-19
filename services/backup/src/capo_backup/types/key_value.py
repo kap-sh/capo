@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_backup.errors import DeserializationError
-
 
 class KeyValue(TypedDict, closed=True):
     key: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> KeyValue:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("KeyValue.key required")
+        out["key"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("KeyValue.value required")
+        out["value"] = ""
     return out

@@ -98,7 +98,10 @@ def handle_response(
     out: capo_route_53.types.create_key_signing_key_response.CreateKeySigningKeyResponse = capo_route_53.types.create_key_signing_key_response.deserialize_xml(
         fromstring(response.read())
     )
-    out["location"] = response.headers["Location"]
+    if "Location" in response.headers:
+        out["location"] = response.headers["Location"]
+    else:
+        out["location"] = ""
     return out
 
 
@@ -108,7 +111,10 @@ async def async_handle_response(
     out: capo_route_53.types.create_key_signing_key_response.CreateKeySigningKeyResponse = capo_route_53.types.create_key_signing_key_response.deserialize_xml(
         fromstring(await response.aread())
     )
-    out["location"] = response.headers["Location"]
+    if "Location" in response.headers:
+        out["location"] = response.headers["Location"]
+    else:
+        out["location"] = ""
     return out
 
 

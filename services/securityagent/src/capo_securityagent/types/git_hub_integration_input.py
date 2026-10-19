@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.auth_code
     import capo_securityagent.types.csrf_state
@@ -44,11 +42,11 @@ def deserialize_json(data: dict) -> GitHubIntegrationInput:
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("GitHubIntegrationInput.code required")
+        out["code"] = ""
     if data.get("state") is not None:
         out["state"] = data["state"]
     else:
-        raise DeserializationError("GitHubIntegrationInput.state required")
+        out["state"] = ""
     if data.get("organizationName") is not None:
         out["organization_name"] = data["organizationName"]
     if data.get("targetUrl") is not None:

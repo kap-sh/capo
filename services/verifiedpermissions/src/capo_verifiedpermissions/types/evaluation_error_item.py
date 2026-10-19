@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 
 class EvaluationErrorItem(TypedDict, closed=True):
     error_description: "str"
@@ -22,5 +20,5 @@ def deserialize_aws_json_1_0(data: dict) -> EvaluationErrorItem:
     if data.get("errorDescription") is not None:
         out["error_description"] = data["errorDescription"]
     else:
-        raise DeserializationError("EvaluationErrorItem.error_description required")
+        out["error_description"] = ""
     return out

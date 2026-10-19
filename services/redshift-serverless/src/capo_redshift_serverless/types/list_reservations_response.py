@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_serverless.types.pagination_token
     import capo_redshift_serverless.types.reservations_list
@@ -48,9 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListReservationsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListReservationsResponse.reservations_list required"
-        )
+        out["reservations_list"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

@@ -62,9 +62,7 @@ def deserialize_json(data: dict) -> RedshiftConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "RedshiftConfiguration.storage_configurations required"
-        )
+        out["storage_configurations"] = []
     if data.get("queryEngineConfiguration") is not None:
         import capo_bedrock_agent.types.redshift_query_engine_configuration
 

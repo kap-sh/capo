@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_events.types.api_destination_description
     import capo_cloudwatch_events.types.api_destination_http_method
@@ -59,21 +57,17 @@ def deserialize_aws_json_1_1(data: dict) -> CreateApiDestinationRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateApiDestinationRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("ConnectionArn") is not None:
         out["connection_arn"] = data["ConnectionArn"]
     else:
-        raise DeserializationError(
-            "CreateApiDestinationRequest.connection_arn required"
-        )
+        out["connection_arn"] = ""
     if data.get("InvocationEndpoint") is not None:
         out["invocation_endpoint"] = data["InvocationEndpoint"]
     else:
-        raise DeserializationError(
-            "CreateApiDestinationRequest.invocation_endpoint required"
-        )
+        out["invocation_endpoint"] = ""
     if data.get("HttpMethod") is not None:
         import capo_cloudwatch_events.types.api_destination_http_method
 
@@ -83,7 +77,12 @@ def deserialize_aws_json_1_1(data: dict) -> CreateApiDestinationRequest:
             )
         )
     else:
-        raise DeserializationError("CreateApiDestinationRequest.http_method required")
+        import typing
+
+        out["http_method"] = typing.cast(
+            "capo_cloudwatch_events.types.api_destination_http_method.ApiDestinationHttpMethod",
+            "",
+        )
     if data.get("InvocationRateLimitPerSecond") is not None:
         out["invocation_rate_limit_per_second"] = data["InvocationRateLimitPerSecond"]
     return out

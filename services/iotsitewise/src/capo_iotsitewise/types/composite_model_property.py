@@ -47,11 +47,11 @@ def deserialize_json(data: dict) -> CompositeModelProperty:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CompositeModelProperty.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("CompositeModelProperty.type required")
+        out["type"] = ""
     if data.get("assetProperty") is not None:
         import capo_iotsitewise.types.property
 

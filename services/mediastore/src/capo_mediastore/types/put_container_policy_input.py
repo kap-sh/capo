@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediastore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediastore.types.container_name
     import capo_mediastore.types.container_policy
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> PutContainerPolicyInput:
     if data.get("ContainerName") is not None:
         out["container_name"] = data["ContainerName"]
     else:
-        raise DeserializationError("PutContainerPolicyInput.container_name required")
+        out["container_name"] = ""
     if data.get("Policy") is not None:
         out["policy"] = data["Policy"]
     else:
-        raise DeserializationError("PutContainerPolicyInput.policy required")
+        out["policy"] = ""
     return out

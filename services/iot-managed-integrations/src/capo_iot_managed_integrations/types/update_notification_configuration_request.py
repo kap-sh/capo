@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.destination_name
     import capo_iot_managed_integrations.types.event_type
@@ -32,7 +30,5 @@ def deserialize_json(data: dict) -> UpdateNotificationConfigurationRequest:
     if data.get("DestinationName") is not None:
         out["destination_name"] = data["DestinationName"]
     else:
-        raise DeserializationError(
-            "UpdateNotificationConfigurationRequest.destination_name required"
-        )
+        out["destination_name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.association_execution_filter_list
     import capo_ssm.types.association_id
@@ -50,9 +48,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAssociationExecutionsRequest
     if data.get("AssociationId") is not None:
         out["association_id"] = data["AssociationId"]
     else:
-        raise DeserializationError(
-            "DescribeAssociationExecutionsRequest.association_id required"
-        )
+        out["association_id"] = ""
     if data.get("Filters") is not None:
         import capo_ssm.types.association_execution_filter_list
 

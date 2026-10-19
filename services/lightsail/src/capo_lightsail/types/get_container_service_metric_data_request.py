@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.container_service_metric_name
     import capo_lightsail.types.container_service_name
@@ -68,9 +66,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetContainerServiceMetricDataRequest
     if data.get("serviceName") is not None:
         out["service_name"] = data["serviceName"]
     else:
-        raise DeserializationError(
-            "GetContainerServiceMetricDataRequest.service_name required"
-        )
+        out["service_name"] = ""
     if data.get("metricName") is not None:
         import capo_lightsail.types.container_service_metric_name
 
@@ -80,8 +76,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetContainerServiceMetricDataRequest
             )
         )
     else:
-        raise DeserializationError(
-            "GetContainerServiceMetricDataRequest.metric_name required"
+        import typing
+
+        out["metric_name"] = typing.cast(
+            "capo_lightsail.types.container_service_metric_name.ContainerServiceMetricName",
+            "",
         )
     if data.get("startTime") is not None:
         import capo_lightsail.types.iso_date
@@ -90,9 +89,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetContainerServiceMetricDataRequest
             data["startTime"]
         )
     else:
-        raise DeserializationError(
-            "GetContainerServiceMetricDataRequest.start_time required"
-        )
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_lightsail.types.iso_date
 
@@ -100,15 +99,13 @@ def deserialize_aws_json_1_1(data: dict) -> GetContainerServiceMetricDataRequest
             data["endTime"]
         )
     else:
-        raise DeserializationError(
-            "GetContainerServiceMetricDataRequest.end_time required"
-        )
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("period") is not None:
         out["period"] = data["period"]
     else:
-        raise DeserializationError(
-            "GetContainerServiceMetricDataRequest.period required"
-        )
+        out["period"] = 0
     if data.get("statistics") is not None:
         import capo_lightsail.types.metric_statistic_list
 
@@ -118,7 +115,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetContainerServiceMetricDataRequest
             )
         )
     else:
-        raise DeserializationError(
-            "GetContainerServiceMetricDataRequest.statistics required"
-        )
+        out["statistics"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.description
     import capo_frauddetector.types.identifier
@@ -82,13 +80,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDetectorVersionRequest:
     if data.get("detectorId") is not None:
         out["detector_id"] = data["detectorId"]
     else:
-        raise DeserializationError("UpdateDetectorVersionRequest.detector_id required")
+        out["detector_id"] = ""
     if data.get("detectorVersionId") is not None:
         out["detector_version_id"] = data["detectorVersionId"]
     else:
-        raise DeserializationError(
-            "UpdateDetectorVersionRequest.detector_version_id required"
-        )
+        out["detector_version_id"] = ""
     if data.get("externalModelEndpoints") is not None:
         import capo_frauddetector.types.list_of_strings
 
@@ -98,9 +94,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDetectorVersionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateDetectorVersionRequest.external_model_endpoints required"
-        )
+        out["external_model_endpoints"] = []
     if data.get("rules") is not None:
         import capo_frauddetector.types.rule_list
 
@@ -108,7 +102,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDetectorVersionRequest:
             data["rules"]
         )
     else:
-        raise DeserializationError("UpdateDetectorVersionRequest.rules required")
+        out["rules"] = []
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("modelVersions") is not None:

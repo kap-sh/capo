@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_launch_wizard.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_launch_wizard.types.deployment_pattern_name
     import capo_launch_wizard.types.workload_name
@@ -33,13 +31,9 @@ def deserialize_json(data: dict) -> GetWorkloadDeploymentPatternInput:
     if data.get("workloadName") is not None:
         out["workload_name"] = data["workloadName"]
     else:
-        raise DeserializationError(
-            "GetWorkloadDeploymentPatternInput.workload_name required"
-        )
+        out["workload_name"] = ""
     if data.get("deploymentPatternName") is not None:
         out["deployment_pattern_name"] = data["deploymentPatternName"]
     else:
-        raise DeserializationError(
-            "GetWorkloadDeploymentPatternInput.deployment_pattern_name required"
-        )
+        out["deployment_pattern_name"] = ""
     return out

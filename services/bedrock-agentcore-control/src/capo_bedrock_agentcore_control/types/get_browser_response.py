@@ -153,15 +153,15 @@ def deserialize_json(data: dict) -> GetBrowserResponse:
     if data.get("browserId") is not None:
         out["browser_id"] = data["browserId"]
     else:
-        raise DeserializationError("GetBrowserResponse.browser_id required")
+        out["browser_id"] = ""
     if data.get("browserArn") is not None:
         out["browser_arn"] = data["browserArn"]
     else:
-        raise DeserializationError("GetBrowserResponse.browser_arn required")
+        out["browser_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetBrowserResponse.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("executionRoleArn") is not None:
@@ -225,7 +225,11 @@ def deserialize_json(data: dict) -> GetBrowserResponse:
             )
         )
     else:
-        raise DeserializationError("GetBrowserResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.browser_status.BrowserStatus", ""
+        )
     if data.get("failureReason") is not None:
         out["failure_reason"] = data["failureReason"]
     if data.get("createdAt") is not None:
@@ -237,7 +241,9 @@ def deserialize_json(data: dict) -> GetBrowserResponse:
             )
         )
     else:
-        raise DeserializationError("GetBrowserResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastUpdatedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -247,7 +253,11 @@ def deserialize_json(data: dict) -> GetBrowserResponse:
             )
         )
     else:
-        raise DeserializationError("GetBrowserResponse.last_updated_at required")
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out
 
 

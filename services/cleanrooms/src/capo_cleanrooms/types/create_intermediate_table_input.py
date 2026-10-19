@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.display_name
     import capo_cleanrooms.types.kms_key_arn
@@ -65,7 +63,7 @@ def deserialize_json(data: dict) -> CreateIntermediateTableInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateIntermediateTableInput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("populationAnalysisConfiguration") is not None:
@@ -77,8 +75,10 @@ def deserialize_json(data: dict) -> CreateIntermediateTableInput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateIntermediateTableInput.population_analysis_configuration required"
+        import capo_cleanrooms.types._unknown
+
+        out["population_analysis_configuration"] = (
+            capo_cleanrooms.types._unknown.UnknownUnionMember("")
         )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]

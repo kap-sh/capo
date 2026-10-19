@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudsearch._protocol.xml import Element
-from capo_cloudsearch.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudsearch.types.expression_status_list
@@ -40,5 +39,5 @@ def deserialize_query(el: Element) -> DescribeExpressionsResponse:
             )
         )
     else:
-        raise DeserializationError("DescribeExpressionsResponse.expressions required")
+        out["expressions"] = []
     return out

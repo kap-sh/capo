@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -133,7 +131,7 @@ def deserialize_json(data: dict) -> Connector:
     if data.get("connectorArn") is not None:
         out["connector_arn"] = data["connectorArn"]
     else:
-        raise DeserializationError("Connector.connector_arn required")
+        out["connector_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("description") is not None:
@@ -147,7 +145,11 @@ def deserialize_json(data: dict) -> Connector:
             )
         )
     else:
-        raise DeserializationError("Connector.provider required")
+        import typing
+
+        out["provider"] = typing.cast(
+            "capo_inspector2.types.connector_cloud_provider.ConnectorCloudProvider", ""
+        )
     if data.get("enablementStatus") is not None:
         import capo_inspector2.types.enablement_status
 
@@ -171,7 +173,9 @@ def deserialize_json(data: dict) -> Connector:
             data["createdAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("Connector.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import datetime
 
@@ -179,7 +183,9 @@ def deserialize_json(data: dict) -> Connector:
             data["updatedAt"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("Connector.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("azureRegions") is not None:
         import capo_inspector2.types.azure_region_list
 

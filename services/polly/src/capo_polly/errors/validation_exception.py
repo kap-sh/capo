@@ -7,7 +7,7 @@ import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_polly._protocol.eventstream import HeaderValue, Message
-from capo_polly.errors import DeserializationError, ServiceError
+from capo_polly.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_polly.types.error_message
@@ -48,7 +48,7 @@ def deserialize_json(data: dict) -> ValidationException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ValidationException_.message required")
+        out["message"] = ""
     if data.get("reason") is not None:
         import capo_polly.types.validation_exception_reason
 
@@ -56,7 +56,11 @@ def deserialize_json(data: dict) -> ValidationException_:
             data["reason"]
         )
     else:
-        raise DeserializationError("ValidationException_.reason required")
+        import typing
+
+        out["reason"] = typing.cast(
+            "capo_polly.types.validation_exception_reason.ValidationExceptionReason", ""
+        )
     if data.get("fields") is not None:
         import capo_polly.types.validation_exception_field_list
 

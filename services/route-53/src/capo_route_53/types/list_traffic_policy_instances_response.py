@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.dns_name
@@ -78,9 +77,7 @@ def deserialize_xml(el: Element) -> ListTrafficPolicyInstancesResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListTrafficPolicyInstancesResponse.traffic_policy_instances required"
-        )
+        out["traffic_policy_instances"] = []
     child_hosted_zone_id_marker = el.find("HostedZoneIdMarker")
     if child_hosted_zone_id_marker is not None:
         out["hosted_zone_id_marker"] = str(child_hosted_zone_id_marker.text or "")
@@ -111,7 +108,5 @@ def deserialize_xml(el: Element) -> ListTrafficPolicyInstancesResponse:
     if child_max_items is not None:
         out["max_items"] = int(child_max_items.text or "")
     else:
-        raise DeserializationError(
-            "ListTrafficPolicyInstancesResponse.max_items required"
-        )
+        out["max_items"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_budgets.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_budgets.types.auto_adjust_type
     import capo_budgets.types.generic_timestamp
@@ -63,7 +61,11 @@ def deserialize_aws_json_1_1(data: dict) -> AutoAdjustData:
             )
         )
     else:
-        raise DeserializationError("AutoAdjustData.auto_adjust_type required")
+        import typing
+
+        out["auto_adjust_type"] = typing.cast(
+            "capo_budgets.types.auto_adjust_type.AutoAdjustType", ""
+        )
     if data.get("HistoricalOptions") is not None:
         import capo_budgets.types.historical_options
 

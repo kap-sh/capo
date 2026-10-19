@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.group_by
     import capo_sagemaker_geospatial.types.string_list_input
@@ -59,7 +57,7 @@ def deserialize_json(data: dict) -> TemporalStatisticsConfigInput:
             )
         )
     else:
-        raise DeserializationError("TemporalStatisticsConfigInput.statistics required")
+        out["statistics"] = []
     if data.get("TargetBands") is not None:
         import capo_sagemaker_geospatial.types.string_list_input
 

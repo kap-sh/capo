@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.name
     import capo_customer_profiles.types.recommender_config
@@ -135,7 +133,7 @@ def deserialize_json(data: dict) -> GetRecommenderResponse:
     if data.get("RecommenderName") is not None:
         out["recommender_name"] = data["RecommenderName"]
     else:
-        raise DeserializationError("GetRecommenderResponse.recommender_name required")
+        out["recommender_name"] = ""
     if data.get("RecommenderRecipeName") is not None:
         import capo_customer_profiles.types.recommender_recipe_name
 
@@ -145,8 +143,11 @@ def deserialize_json(data: dict) -> GetRecommenderResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetRecommenderResponse.recommender_recipe_name required"
+        import typing
+
+        out["recommender_recipe_name"] = typing.cast(
+            "capo_customer_profiles.types.recommender_recipe_name.RecommenderRecipeName",
+            "",
         )
     if data.get("RecommenderSchemaName") is not None:
         out["recommender_schema_name"] = data["RecommenderSchemaName"]

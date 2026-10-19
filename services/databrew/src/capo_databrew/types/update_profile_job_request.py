@@ -154,7 +154,7 @@ def deserialize_json(data: dict) -> UpdateProfileJobRequest:
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     else:
-        raise DeserializationError("UpdateProfileJobRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("Timeout") is not None:
         out["timeout"] = data["Timeout"]
     if data.get("JobSample") is not None:

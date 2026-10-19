@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.update_web_app_endpoint_details
     import capo_transfer.types.update_web_app_identity_provider_details
@@ -69,7 +67,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateWebAppRequest:
     if data.get("WebAppId") is not None:
         out["web_app_id"] = data["WebAppId"]
     else:
-        raise DeserializationError("UpdateWebAppRequest.web_app_id required")
+        out["web_app_id"] = ""
     if data.get("IdentityProviderDetails") is not None:
         import capo_transfer.types.update_web_app_identity_provider_details
 

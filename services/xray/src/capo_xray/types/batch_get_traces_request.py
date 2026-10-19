@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_xray.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_xray.types.string
     import capo_xray.types.trace_id_list
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> BatchGetTracesRequest:
             data["TraceIds"]
         )
     else:
-        raise DeserializationError("BatchGetTracesRequest.trace_ids required")
+        out["trace_ids"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

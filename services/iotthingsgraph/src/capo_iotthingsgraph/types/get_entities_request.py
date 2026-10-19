@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotthingsgraph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotthingsgraph.types.urns
     import capo_iotthingsgraph.types.version
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetEntitiesRequest:
             data["ids"]
         )
     else:
-        raise DeserializationError("GetEntitiesRequest.ids required")
+        out["ids"] = []
     if data.get("namespaceVersion") is not None:
         out["namespace_version"] = data["namespaceVersion"]
     return out

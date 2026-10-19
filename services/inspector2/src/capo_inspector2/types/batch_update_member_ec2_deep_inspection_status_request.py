@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.member_account_ec2_deep_inspection_status_list
 
@@ -39,7 +37,5 @@ def deserialize_json(data: dict) -> BatchUpdateMemberEc2DeepInspectionStatusRequ
             )
         )
     else:
-        raise DeserializationError(
-            "BatchUpdateMemberEc2DeepInspectionStatusRequest.account_ids required"
-        )
+        out["account_ids"] = []
     return out

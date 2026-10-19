@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_athena.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_athena.types.date
     import capo_athena.types.identity_center_application_arn
@@ -72,7 +70,7 @@ def deserialize_aws_json_1_1(data: dict) -> WorkGroup:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("WorkGroup.name required")
+        out["name"] = ""
     if data.get("State") is not None:
         import capo_athena.types.work_group_state
 

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 
 class StartQAppSessionOutput(TypedDict, closed=True):
     session_id: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> StartQAppSessionOutput:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("StartQAppSessionOutput.session_id required")
+        out["session_id"] = ""
     if data.get("sessionArn") is not None:
         out["session_arn"] = data["sessionArn"]
     else:
-        raise DeserializationError("StartQAppSessionOutput.session_arn required")
+        out["session_arn"] = ""
     return out

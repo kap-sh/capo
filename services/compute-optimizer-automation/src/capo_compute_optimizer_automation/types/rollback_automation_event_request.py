@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_compute_optimizer_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_compute_optimizer_automation.types.client_token
     import capo_compute_optimizer_automation.types.event_id
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_0(data: dict) -> RollbackAutomationEventRequest:
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError("RollbackAutomationEventRequest.event_id required")
+        out["event_id"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

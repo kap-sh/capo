@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migration_hub_refactor_spaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migration_hub_refactor_spaces.types.boolean
     import capo_migration_hub_refactor_spaces.types.http_methods
@@ -57,11 +55,11 @@ def deserialize_json(data: dict) -> UriPathRouteInput:
     if data.get("SourcePath") is not None:
         out["source_path"] = data["SourcePath"]
     else:
-        raise DeserializationError("UriPathRouteInput.source_path required")
+        out["source_path"] = ""
     if data.get("ActivationState") is not None:
         out["activation_state"] = data["ActivationState"]
     else:
-        raise DeserializationError("UriPathRouteInput.activation_state required")
+        out["activation_state"] = ""
     if data.get("Methods") is not None:
         import capo_migration_hub_refactor_spaces.types.http_methods
 

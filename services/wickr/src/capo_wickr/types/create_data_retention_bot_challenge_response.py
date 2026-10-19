@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.sensitive_string
 
@@ -27,9 +25,7 @@ def deserialize_json(data: dict) -> CreateDataRetentionBotChallengeResponse:
     if data.get("challenge") is not None:
         out["challenge"] = data["challenge"]
     else:
-        raise DeserializationError(
-            "CreateDataRetentionBotChallengeResponse.challenge required"
-        )
+        out["challenge"] = ""
     return out
 
 

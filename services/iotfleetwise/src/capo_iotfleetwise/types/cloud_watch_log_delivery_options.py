@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.cloud_watch_log_group_name
     import capo_iotfleetwise.types.log_type
@@ -42,7 +40,9 @@ def deserialize_aws_json_1_0(data: dict) -> CloudWatchLogDeliveryOptions:
             data["logType"]
         )
     else:
-        raise DeserializationError("CloudWatchLogDeliveryOptions.log_type required")
+        import typing
+
+        out["log_type"] = typing.cast("capo_iotfleetwise.types.log_type.LogType", "")
     if data.get("logGroupName") is not None:
         out["log_group_name"] = data["logGroupName"]
     return out

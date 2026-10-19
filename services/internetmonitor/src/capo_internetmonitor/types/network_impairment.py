@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_internetmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_internetmonitor.types.network_list
     import capo_internetmonitor.types.triangulation_event_type
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> NetworkImpairment:
             data["Networks"]
         )
     else:
-        raise DeserializationError("NetworkImpairment.networks required")
+        out["networks"] = []
     if data.get("AsPath") is not None:
         import capo_internetmonitor.types.network_list
 
@@ -56,9 +54,9 @@ def deserialize_json(data: dict) -> NetworkImpairment:
             data["AsPath"]
         )
     else:
-        raise DeserializationError("NetworkImpairment.as_path required")
+        out["as_path"] = []
     if data.get("NetworkEventType") is not None:
         out["network_event_type"] = data["NetworkEventType"]
     else:
-        raise DeserializationError("NetworkImpairment.network_event_type required")
+        out["network_event_type"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.bandwidth_rate_limit_intervals
     import capo_storage_gateway.types.gateway_arn
@@ -36,9 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateBandwidthRateLimitScheduleInpu
     if data.get("GatewayARN") is not None:
         out["gateway_arn"] = data["GatewayARN"]
     else:
-        raise DeserializationError(
-            "UpdateBandwidthRateLimitScheduleInput.gateway_arn required"
-        )
+        out["gateway_arn"] = ""
     if data.get("BandwidthRateLimitIntervals") is not None:
         import capo_storage_gateway.types.bandwidth_rate_limit_intervals
 
@@ -48,7 +44,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateBandwidthRateLimitScheduleInpu
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateBandwidthRateLimitScheduleInput.bandwidth_rate_limit_intervals required"
-        )
+        out["bandwidth_rate_limit_intervals"] = []
     return out

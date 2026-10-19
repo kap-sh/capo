@@ -41,13 +41,11 @@ def deserialize_aws_json_1_1(data: dict) -> PutThirdPartyJobFailureResultInput:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("PutThirdPartyJobFailureResultInput.job_id required")
+        out["job_id"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError(
-            "PutThirdPartyJobFailureResultInput.client_token required"
-        )
+        out["client_token"] = ""
     if data.get("failureDetails") is not None:
         import capo_codepipeline.types.failure_details
 

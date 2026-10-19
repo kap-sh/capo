@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.integration_id
     import capo_securityagent.types.webhook_action
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> UpdateIntegrationInput:
     if data.get("integrationId") is not None:
         out["integration_id"] = data["integrationId"]
     else:
-        raise DeserializationError("UpdateIntegrationInput.integration_id required")
+        out["integration_id"] = ""
     if data.get("webhookAction") is not None:
         import capo_securityagent.types.webhook_action
 
@@ -45,5 +43,9 @@ def deserialize_json(data: dict) -> UpdateIntegrationInput:
             )
         )
     else:
-        raise DeserializationError("UpdateIntegrationInput.webhook_action required")
+        import typing
+
+        out["webhook_action"] = typing.cast(
+            "capo_securityagent.types.webhook_action.WebhookAction", ""
+        )
     return out

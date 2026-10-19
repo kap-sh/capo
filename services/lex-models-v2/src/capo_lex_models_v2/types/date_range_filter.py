@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.timestamp
 
@@ -42,7 +40,11 @@ def deserialize_json(data: dict) -> DateRangeFilter:
             data["startDateTime"]
         )
     else:
-        raise DeserializationError("DateRangeFilter.start_date_time required")
+        import datetime
+
+        out["start_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("endDateTime") is not None:
         import capo_lex_models_v2.types.timestamp
 
@@ -50,5 +52,9 @@ def deserialize_json(data: dict) -> DateRangeFilter:
             data["endDateTime"]
         )
     else:
-        raise DeserializationError("DateRangeFilter.end_date_time required")
+        import datetime
+
+        out["end_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

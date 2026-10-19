@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotsitewise.types.arn
     import capo_iotsitewise.types.dashboard_definition
@@ -64,27 +62,25 @@ def deserialize_json(data: dict) -> DescribeDashboardResponse:
     if data.get("dashboardId") is not None:
         out["dashboard_id"] = data["dashboardId"]
     else:
-        raise DeserializationError("DescribeDashboardResponse.dashboard_id required")
+        out["dashboard_id"] = ""
     if data.get("dashboardArn") is not None:
         out["dashboard_arn"] = data["dashboardArn"]
     else:
-        raise DeserializationError("DescribeDashboardResponse.dashboard_arn required")
+        out["dashboard_arn"] = ""
     if data.get("dashboardName") is not None:
         out["dashboard_name"] = data["dashboardName"]
     else:
-        raise DeserializationError("DescribeDashboardResponse.dashboard_name required")
+        out["dashboard_name"] = ""
     if data.get("projectId") is not None:
         out["project_id"] = data["projectId"]
     else:
-        raise DeserializationError("DescribeDashboardResponse.project_id required")
+        out["project_id"] = ""
     if data.get("dashboardDescription") is not None:
         out["dashboard_description"] = data["dashboardDescription"]
     if data.get("dashboardDefinition") is not None:
         out["dashboard_definition"] = data["dashboardDefinition"]
     else:
-        raise DeserializationError(
-            "DescribeDashboardResponse.dashboard_definition required"
-        )
+        out["dashboard_definition"] = ""
     if data.get("dashboardCreationDate") is not None:
         import capo_iotsitewise.types.timestamp
 
@@ -94,8 +90,10 @@ def deserialize_json(data: dict) -> DescribeDashboardResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeDashboardResponse.dashboard_creation_date required"
+        import datetime
+
+        out["dashboard_creation_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("dashboardLastUpdateDate") is not None:
         import capo_iotsitewise.types.timestamp
@@ -106,7 +104,9 @@ def deserialize_json(data: dict) -> DescribeDashboardResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeDashboardResponse.dashboard_last_update_date required"
+        import datetime
+
+        out["dashboard_last_update_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

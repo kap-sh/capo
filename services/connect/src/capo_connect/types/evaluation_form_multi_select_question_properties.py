@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.evaluation_form_multi_select_question_automation
     import capo_connect.types.evaluation_form_multi_select_question_display_mode
@@ -65,9 +63,7 @@ def deserialize_json(data: dict) -> EvaluationFormMultiSelectQuestionProperties:
             )
         )
     else:
-        raise DeserializationError(
-            "EvaluationFormMultiSelectQuestionProperties.options required"
-        )
+        out["options"] = []
     if data.get("DisplayAs") is not None:
         import capo_connect.types.evaluation_form_multi_select_question_display_mode
 

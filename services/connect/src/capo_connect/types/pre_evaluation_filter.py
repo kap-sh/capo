@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.pre_evaluation_filter_operator
     import capo_connect.types.pre_evaluation_filter_resource_type
@@ -64,7 +62,12 @@ def deserialize_json(data: dict) -> PreEvaluationFilter:
             )
         )
     else:
-        raise DeserializationError("PreEvaluationFilter.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_connect.types.pre_evaluation_filter_resource_type.PreEvaluationFilterResourceType",
+            "",
+        )
     if data.get("FilterType") is not None:
         import capo_connect.types.pre_evaluation_filter_type
 
@@ -74,15 +77,19 @@ def deserialize_json(data: dict) -> PreEvaluationFilter:
             )
         )
     else:
-        raise DeserializationError("PreEvaluationFilter.filter_type required")
+        import typing
+
+        out["filter_type"] = typing.cast(
+            "capo_connect.types.pre_evaluation_filter_type.PreEvaluationFilterType", ""
+        )
     if data.get("FilterKey") is not None:
         out["filter_key"] = data["FilterKey"]
     else:
-        raise DeserializationError("PreEvaluationFilter.filter_key required")
+        out["filter_key"] = ""
     if data.get("FilterValue") is not None:
         out["filter_value"] = data["FilterValue"]
     else:
-        raise DeserializationError("PreEvaluationFilter.filter_value required")
+        out["filter_value"] = ""
     if data.get("Operator") is not None:
         import capo_connect.types.pre_evaluation_filter_operator
 
@@ -92,5 +99,10 @@ def deserialize_json(data: dict) -> PreEvaluationFilter:
             )
         )
     else:
-        raise DeserializationError("PreEvaluationFilter.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_connect.types.pre_evaluation_filter_operator.PreEvaluationFilterOperator",
+            "",
+        )
     return out

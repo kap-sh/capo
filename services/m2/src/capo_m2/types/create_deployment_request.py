@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.client_token
     import capo_m2.types.identifier
@@ -38,13 +36,11 @@ def deserialize_json(data: dict) -> CreateDeploymentRequest:
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError("CreateDeploymentRequest.environment_id required")
+        out["environment_id"] = ""
     if data.get("applicationVersion") is not None:
         out["application_version"] = data["applicationVersion"]
     else:
-        raise DeserializationError(
-            "CreateDeploymentRequest.application_version required"
-        )
+        out["application_version"] = 0
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.index_name
     import capo_dynamodb.types.table_arn
@@ -32,9 +30,7 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeContributorInsightsInput:
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError(
-            "DescribeContributorInsightsInput.table_name required"
-        )
+        out["table_name"] = ""
     if data.get("IndexName") is not None:
         out["index_name"] = data["IndexName"]
     return out

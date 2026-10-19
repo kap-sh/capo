@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_braket.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_braket.types.s3_path
     import capo_braket.types.string2048
@@ -34,5 +32,5 @@ def deserialize_json(data: dict) -> JobOutputDataConfig:
     if data.get("s3Path") is not None:
         out["s3_path"] = data["s3Path"]
     else:
-        raise DeserializationError("JobOutputDataConfig.s3_path required")
+        out["s3_path"] = ""
     return out

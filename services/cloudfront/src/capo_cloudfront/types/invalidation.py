@@ -47,12 +47,12 @@ def deserialize_xml(el: Element) -> Invalidation:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("Invalidation.id required")
+        out["id"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         out["status"] = str(child_status.text or "")
     else:
-        raise DeserializationError("Invalidation.status required")
+        out["status"] = ""
     child_create_time = el.find("CreateTime")
     if child_create_time is not None:
         import capo_cloudfront.types.timestamp
@@ -61,7 +61,11 @@ def deserialize_xml(el: Element) -> Invalidation:
             child_create_time
         )
     else:
-        raise DeserializationError("Invalidation.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_invalidation_batch = el.find("InvalidationBatch")
     if child_invalidation_batch is not None:
         import capo_cloudfront.types.invalidation_batch

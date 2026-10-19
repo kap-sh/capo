@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.step_parameter_chunks
     import capo_deadline.types.step_parameter_name
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> StepParameter:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("StepParameter.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         import capo_deadline.types.step_parameter_type
 
@@ -50,7 +48,11 @@ def deserialize_json(data: dict) -> StepParameter:
             data["type"]
         )
     else:
-        raise DeserializationError("StepParameter.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_deadline.types.step_parameter_type.StepParameterType", ""
+        )
     if data.get("chunks") is not None:
         import capo_deadline.types.step_parameter_chunks
 

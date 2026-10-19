@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.carrier_status
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_0(data: dict) -> CarrierStatusInformation:
     if data.get("CarrierName") is not None:
         out["carrier_name"] = data["CarrierName"]
     else:
-        raise DeserializationError("CarrierStatusInformation.carrier_name required")
+        out["carrier_name"] = ""
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("CarrierStatusInformation.status required")
+        out["status"] = ""
     return out

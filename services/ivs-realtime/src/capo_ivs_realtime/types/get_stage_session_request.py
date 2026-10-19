@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ivs_realtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.stage_arn
     import capo_ivs_realtime.types.stage_session_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> GetStageSessionRequest:
     if data.get("stageArn") is not None:
         out["stage_arn"] = data["stageArn"]
     else:
-        raise DeserializationError("GetStageSessionRequest.stage_arn required")
+        out["stage_arn"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("GetStageSessionRequest.session_id required")
+        out["session_id"] = ""
     return out

@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError, ServiceError
+from capo_connectcampaignsv2.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.campaign_state
@@ -33,11 +33,11 @@ def deserialize_json(data: dict) -> InvalidCampaignStateException_:
     if data.get("state") is not None:
         out["state"] = data["state"]
     else:
-        raise DeserializationError("InvalidCampaignStateException_.state required")
+        out["state"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("InvalidCampaignStateException_.message required")
+        out["message"] = ""
     return out
 
 

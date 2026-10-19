@@ -121,19 +121,15 @@ def deserialize_json(data: dict) -> GetCodeInterpreterResponse:
     if data.get("codeInterpreterId") is not None:
         out["code_interpreter_id"] = data["codeInterpreterId"]
     else:
-        raise DeserializationError(
-            "GetCodeInterpreterResponse.code_interpreter_id required"
-        )
+        out["code_interpreter_id"] = ""
     if data.get("codeInterpreterArn") is not None:
         out["code_interpreter_arn"] = data["codeInterpreterArn"]
     else:
-        raise DeserializationError(
-            "GetCodeInterpreterResponse.code_interpreter_arn required"
-        )
+        out["code_interpreter_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetCodeInterpreterResponse.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("executionRoleArn") is not None:
@@ -159,7 +155,12 @@ def deserialize_json(data: dict) -> GetCodeInterpreterResponse:
             )
         )
     else:
-        raise DeserializationError("GetCodeInterpreterResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.code_interpreter_status.CodeInterpreterStatus",
+            "",
+        )
     if data.get("certificates") is not None:
         import capo_bedrock_agentcore_control.types.certificates
 
@@ -187,7 +188,9 @@ def deserialize_json(data: dict) -> GetCodeInterpreterResponse:
             )
         )
     else:
-        raise DeserializationError("GetCodeInterpreterResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastUpdatedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -197,8 +200,10 @@ def deserialize_json(data: dict) -> GetCodeInterpreterResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetCodeInterpreterResponse.last_updated_at required"
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out
 

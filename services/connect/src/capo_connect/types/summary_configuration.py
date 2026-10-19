@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.summary_modes
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> SummaryConfiguration:
             data["SummaryModes"]
         )
     else:
-        raise DeserializationError("SummaryConfiguration.summary_modes required")
+        out["summary_modes"] = []
     return out

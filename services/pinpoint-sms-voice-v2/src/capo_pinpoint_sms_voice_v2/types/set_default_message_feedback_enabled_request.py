@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.configuration_set_name_or_arn
 
@@ -30,13 +28,9 @@ def deserialize_aws_json_1_0(data: dict) -> SetDefaultMessageFeedbackEnabledRequ
     if data.get("ConfigurationSetName") is not None:
         out["configuration_set_name"] = data["ConfigurationSetName"]
     else:
-        raise DeserializationError(
-            "SetDefaultMessageFeedbackEnabledRequest.configuration_set_name required"
-        )
+        out["configuration_set_name"] = ""
     if data.get("MessageFeedbackEnabled") is not None:
         out["message_feedback_enabled"] = data["MessageFeedbackEnabled"]
     else:
-        raise DeserializationError(
-            "SetDefaultMessageFeedbackEnabledRequest.message_feedback_enabled required"
-        )
+        out["message_feedback_enabled"] = False
     return out

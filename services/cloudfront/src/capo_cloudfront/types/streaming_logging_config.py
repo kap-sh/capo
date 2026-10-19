@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.boolean
@@ -35,15 +34,15 @@ def deserialize_xml(el: Element) -> StreamingLoggingConfig:
     if child_enabled is not None:
         out["enabled"] = (child_enabled.text or "").lower() == "true"
     else:
-        raise DeserializationError("StreamingLoggingConfig.enabled required")
+        out["enabled"] = False
     child_bucket = el.find("Bucket")
     if child_bucket is not None:
         out["bucket"] = str(child_bucket.text or "")
     else:
-        raise DeserializationError("StreamingLoggingConfig.bucket required")
+        out["bucket"] = ""
     child_prefix = el.find("Prefix")
     if child_prefix is not None:
         out["prefix"] = str(child_prefix.text or "")
     else:
-        raise DeserializationError("StreamingLoggingConfig.prefix required")
+        out["prefix"] = ""
     return out

@@ -37,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> InputConfiguration:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("InputConfiguration.id required")
+        out["id"] = ""
     if data.get("InputStartingPositionConfiguration") is not None:
         import capo_kinesis_analytics.types.input_starting_position_configuration
 

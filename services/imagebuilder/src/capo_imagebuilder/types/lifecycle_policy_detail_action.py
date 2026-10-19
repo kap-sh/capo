@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.lifecycle_policy_detail_action_include_resources
     import capo_imagebuilder.types.lifecycle_policy_detail_action_type
@@ -52,7 +50,12 @@ def deserialize_json(data: dict) -> LifecyclePolicyDetailAction:
             )
         )
     else:
-        raise DeserializationError("LifecyclePolicyDetailAction.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_imagebuilder.types.lifecycle_policy_detail_action_type.LifecyclePolicyDetailActionType",
+            "",
+        )
     if data.get("includeResources") is not None:
         import capo_imagebuilder.types.lifecycle_policy_detail_action_include_resources
 

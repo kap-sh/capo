@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.resiliency_group_id
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetResiliencyGroupRequest:
     if data.get("resiliencyGroupId") is not None:
         out["resiliency_group_id"] = data["resiliencyGroupId"]
     else:
-        raise DeserializationError(
-            "GetResiliencyGroupRequest.resiliency_group_id required"
-        )
+        out["resiliency_group_id"] = ""
     return out

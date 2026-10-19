@@ -40,11 +40,11 @@ def deserialize_json(data: dict) -> GetRouterInputThumbnailResponse:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetRouterInputThumbnailResponse.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetRouterInputThumbnailResponse.name required")
+        out["name"] = ""
     if data.get("thumbnailDetails") is not None:
         import capo_mediaconnect.types.router_input_thumbnail_details
 

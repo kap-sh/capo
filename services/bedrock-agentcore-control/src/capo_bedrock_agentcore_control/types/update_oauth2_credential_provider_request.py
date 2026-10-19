@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.credential_provider_name
     import capo_bedrock_agentcore_control.types.credential_provider_vendor_type
@@ -47,9 +45,7 @@ def deserialize_json(data: dict) -> UpdateOauth2CredentialProviderRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "UpdateOauth2CredentialProviderRequest.name required"
-        )
+        out["name"] = ""
     if data.get("credentialProviderVendor") is not None:
         import capo_bedrock_agentcore_control.types.credential_provider_vendor_type
 
@@ -59,8 +55,11 @@ def deserialize_json(data: dict) -> UpdateOauth2CredentialProviderRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateOauth2CredentialProviderRequest.credential_provider_vendor required"
+        import typing
+
+        out["credential_provider_vendor"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.credential_provider_vendor_type.CredentialProviderVendorType",
+            "",
         )
     if data.get("oauth2ProviderConfigInput") is not None:
         import capo_bedrock_agentcore_control.types.oauth2_provider_config_input
@@ -71,8 +70,10 @@ def deserialize_json(data: dict) -> UpdateOauth2CredentialProviderRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateOauth2CredentialProviderRequest.oauth2_provider_config_input required"
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["oauth2_provider_config_input"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
         )
     return out
 

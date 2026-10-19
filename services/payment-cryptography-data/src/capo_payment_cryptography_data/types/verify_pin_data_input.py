@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.dukpt_attributes
     import capo_payment_cryptography_data.types.encrypted_pin_block_type
@@ -93,15 +91,11 @@ def deserialize_json(data: dict) -> VerifyPinDataInput:
     if data.get("VerificationKeyIdentifier") is not None:
         out["verification_key_identifier"] = data["VerificationKeyIdentifier"]
     else:
-        raise DeserializationError(
-            "VerifyPinDataInput.verification_key_identifier required"
-        )
+        out["verification_key_identifier"] = ""
     if data.get("EncryptionKeyIdentifier") is not None:
         out["encryption_key_identifier"] = data["EncryptionKeyIdentifier"]
     else:
-        raise DeserializationError(
-            "VerifyPinDataInput.encryption_key_identifier required"
-        )
+        out["encryption_key_identifier"] = ""
     if data.get("VerificationAttributes") is not None:
         import capo_payment_cryptography_data.types.pin_verification_attributes
 
@@ -111,13 +105,15 @@ def deserialize_json(data: dict) -> VerifyPinDataInput:
             )
         )
     else:
-        raise DeserializationError(
-            "VerifyPinDataInput.verification_attributes required"
+        import capo_payment_cryptography_data.types._unknown
+
+        out["verification_attributes"] = (
+            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
         )
     if data.get("EncryptedPinBlock") is not None:
         out["encrypted_pin_block"] = data["EncryptedPinBlock"]
     else:
-        raise DeserializationError("VerifyPinDataInput.encrypted_pin_block required")
+        out["encrypted_pin_block"] = ""
     if data.get("PrimaryAccountNumber") is not None:
         out["primary_account_number"] = data["PrimaryAccountNumber"]
     if data.get("PinBlockFormat") is not None:
@@ -129,7 +125,12 @@ def deserialize_json(data: dict) -> VerifyPinDataInput:
             )
         )
     else:
-        raise DeserializationError("VerifyPinDataInput.pin_block_format required")
+        import typing
+
+        out["pin_block_format"] = typing.cast(
+            "capo_payment_cryptography_data.types.pin_block_format_for_pin_data.PinBlockFormatForPinData",
+            "",
+        )
     if data.get("PinDataLength") is not None:
         out["pin_data_length"] = data["PinDataLength"]
     if data.get("DukptAttributes") is not None:

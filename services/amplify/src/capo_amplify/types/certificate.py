@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplify.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplify.types.certificate_arn
     import capo_amplify.types.certificate_type
@@ -47,7 +45,11 @@ def deserialize_json(data: dict) -> Certificate:
 
         out["type"] = capo_amplify.types.certificate_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("Certificate.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_amplify.types.certificate_type.CertificateType", ""
+        )
     if data.get("customCertificateArn") is not None:
         out["custom_certificate_arn"] = data["customCertificateArn"]
     if data.get("certificateVerificationDNSRecord") is not None:

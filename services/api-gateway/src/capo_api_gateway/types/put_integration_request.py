@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_api_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_api_gateway.types.connection_type
     import capo_api_gateway.types.content_handling_strategy
@@ -158,7 +156,11 @@ def deserialize_json(data: dict) -> PutIntegrationRequest:
             data["type"]
         )
     else:
-        raise DeserializationError("PutIntegrationRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_api_gateway.types.integration_type.IntegrationType", ""
+        )
     if data.get("httpMethod") is not None:
         out["integration_http_method"] = data["httpMethod"]
     if data.get("uri") is not None:

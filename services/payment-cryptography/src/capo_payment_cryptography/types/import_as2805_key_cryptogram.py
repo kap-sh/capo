@@ -68,8 +68,10 @@ def deserialize_aws_json_1_0(data: dict) -> ImportAs2805KeyCryptogram:
             )
         )
     else:
-        raise DeserializationError(
-            "ImportAs2805KeyCryptogram.as2805_key_variant required"
+        import typing
+
+        out["as2805_key_variant"] = typing.cast(
+            "capo_payment_cryptography.types.as2805_key_variant.As2805KeyVariant", ""
         )
     if data.get("KeyModesOfUse") is not None:
         import capo_payment_cryptography.types.key_modes_of_use
@@ -86,23 +88,19 @@ def deserialize_aws_json_1_0(data: dict) -> ImportAs2805KeyCryptogram:
     if data.get("KeyAlgorithm") is not None:
         out["key_algorithm"] = data["KeyAlgorithm"]
     else:
-        raise DeserializationError("ImportAs2805KeyCryptogram.key_algorithm required")
+        out["key_algorithm"] = ""
     if data.get("Exportable") is not None:
         out["exportable"] = data["Exportable"]
     else:
-        raise DeserializationError("ImportAs2805KeyCryptogram.exportable required")
+        out["exportable"] = False
     if data.get("WrappingKeyIdentifier") is not None:
         out["wrapping_key_identifier"] = data["WrappingKeyIdentifier"]
     else:
-        raise DeserializationError(
-            "ImportAs2805KeyCryptogram.wrapping_key_identifier required"
-        )
+        out["wrapping_key_identifier"] = ""
     if data.get("WrappedKeyCryptogram") is not None:
         out["wrapped_key_cryptogram"] = data["WrappedKeyCryptogram"]
     else:
-        raise DeserializationError(
-            "ImportAs2805KeyCryptogram.wrapped_key_cryptogram required"
-        )
+        out["wrapped_key_cryptogram"] = ""
     return out
 
 

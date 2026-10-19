@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 
 class MergeRouterInputIndexedStreamDetails(TypedDict, closed=True):
     source_index: "int"
@@ -26,9 +24,7 @@ def deserialize_json(data: dict) -> MergeRouterInputIndexedStreamDetails:
     if data.get("sourceIndex") is not None:
         out["source_index"] = data["sourceIndex"]
     else:
-        raise DeserializationError(
-            "MergeRouterInputIndexedStreamDetails.source_index required"
-        )
+        out["source_index"] = 0
     if data.get("sourceIpAddress") is not None:
         out["source_ip_address"] = data["sourceIpAddress"]
     return out

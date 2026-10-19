@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.event_data_store_list
     import capo_cloudtrail.types.prompt
@@ -43,9 +41,9 @@ def deserialize_aws_json_1_1(data: dict) -> GenerateQueryRequest:
             )
         )
     else:
-        raise DeserializationError("GenerateQueryRequest.event_data_stores required")
+        out["event_data_stores"] = []
     if data.get("Prompt") is not None:
         out["prompt"] = data["Prompt"]
     else:
-        raise DeserializationError("GenerateQueryRequest.prompt required")
+        out["prompt"] = ""
     return out

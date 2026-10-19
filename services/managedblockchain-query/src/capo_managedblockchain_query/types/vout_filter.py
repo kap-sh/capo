@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_managedblockchain_query.errors import DeserializationError
-
 
 class VoutFilter(TypedDict, closed=True):
     vout_spent: "bool"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> VoutFilter:
     if data.get("voutSpent") is not None:
         out["vout_spent"] = data["voutSpent"]
     else:
-        raise DeserializationError("VoutFilter.vout_spent required")
+        out["vout_spent"] = False
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_memorydb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_memorydb.types.string
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteACLRequest:
     if data.get("ACLName") is not None:
         out["acl_name"] = data["ACLName"]
     else:
-        raise DeserializationError("DeleteACLRequest.acl_name required")
+        out["acl_name"] = ""
     return out

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 
 class GetSourceRepositoryCloneUrlsResponse(TypedDict, closed=True):
     https: "str"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> GetSourceRepositoryCloneUrlsResponse:
     if data.get("https") is not None:
         out["https"] = data["https"]
     else:
-        raise DeserializationError(
-            "GetSourceRepositoryCloneUrlsResponse.https required"
-        )
+        out["https"] = ""
     return out

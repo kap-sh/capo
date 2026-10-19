@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_data_pipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_data_pipeline.types.error_message
     import capo_data_pipeline.types.string
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> SetTaskStatusInput:
     if data.get("taskId") is not None:
         out["task_id"] = data["taskId"]
     else:
-        raise DeserializationError("SetTaskStatusInput.task_id required")
+        out["task_id"] = ""
     if data.get("taskStatus") is not None:
         import capo_data_pipeline.types.task_status
 
@@ -59,7 +57,11 @@ def deserialize_aws_json_1_1(data: dict) -> SetTaskStatusInput:
             )
         )
     else:
-        raise DeserializationError("SetTaskStatusInput.task_status required")
+        import typing
+
+        out["task_status"] = typing.cast(
+            "capo_data_pipeline.types.task_status.TaskStatus", ""
+        )
     if data.get("errorId") is not None:
         out["error_id"] = data["errorId"]
     if data.get("errorMessage") is not None:

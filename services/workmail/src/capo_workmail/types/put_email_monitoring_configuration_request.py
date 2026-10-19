@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workmail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmail.types.log_group_arn
     import capo_workmail.types.organization_id
@@ -36,15 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> PutEmailMonitoringConfigurationReque
     if data.get("OrganizationId") is not None:
         out["organization_id"] = data["OrganizationId"]
     else:
-        raise DeserializationError(
-            "PutEmailMonitoringConfigurationRequest.organization_id required"
-        )
+        out["organization_id"] = ""
     if data.get("RoleArn") is not None:
         out["role_arn"] = data["RoleArn"]
     if data.get("LogGroupArn") is not None:
         out["log_group_arn"] = data["LogGroupArn"]
     else:
-        raise DeserializationError(
-            "PutEmailMonitoringConfigurationRequest.log_group_arn required"
-        )
+        out["log_group_arn"] = ""
     return out

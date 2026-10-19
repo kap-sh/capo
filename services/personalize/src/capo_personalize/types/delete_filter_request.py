@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_personalize.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_personalize.types.arn
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteFilterRequest:
     if data.get("filterArn") is not None:
         out["filter_arn"] = data["filterArn"]
     else:
-        raise DeserializationError("DeleteFilterRequest.filter_arn required")
+        out["filter_arn"] = ""
     return out

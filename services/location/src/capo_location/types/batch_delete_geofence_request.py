@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.id_list
     import capo_location.types.resource_name
@@ -38,5 +36,5 @@ def deserialize_json(data: dict) -> BatchDeleteGeofenceRequest:
             data["GeofenceIds"]
         )
     else:
-        raise DeserializationError("BatchDeleteGeofenceRequest.geofence_ids required")
+        out["geofence_ids"] = []
     return out

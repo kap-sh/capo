@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_redshift_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_redshift_data.types.cluster_identifier_string
     import capo_redshift_data.types.page_size
@@ -73,7 +71,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListSchemasRequest:
     if data.get("Database") is not None:
         out["database"] = data["Database"]
     else:
-        raise DeserializationError("ListSchemasRequest.database required")
+        out["database"] = ""
     if data.get("ConnectedDatabase") is not None:
         out["connected_database"] = data["ConnectedDatabase"]
     if data.get("SchemaPattern") is not None:

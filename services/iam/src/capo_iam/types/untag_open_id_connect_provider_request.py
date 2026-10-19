@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -45,9 +44,7 @@ def deserialize_query(el: Element) -> UntagOpenIDConnectProviderRequest:
             child_open_id_connect_provider_arn.text or ""
         )
     else:
-        raise DeserializationError(
-            "UntagOpenIDConnectProviderRequest.open_id_connect_provider_arn required"
-        )
+        out["open_id_connect_provider_arn"] = ""
     child_tag_keys = el.find("TagKeys")
     if child_tag_keys is not None:
         import capo_iam.types.tag_key_list_type
@@ -56,7 +53,5 @@ def deserialize_query(el: Element) -> UntagOpenIDConnectProviderRequest:
             child_tag_keys
         )
     else:
-        raise DeserializationError(
-            "UntagOpenIDConnectProviderRequest.tag_keys required"
-        )
+        out["tag_keys"] = []
     return out

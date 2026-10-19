@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.key_type
     import capo_bedrock_agentcore_control.types.kms_key_arn
@@ -44,7 +42,11 @@ def deserialize_json(data: dict) -> KmsConfiguration:
             )
         )
     else:
-        raise DeserializationError("KmsConfiguration.key_type required")
+        import typing
+
+        out["key_type"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.key_type.KeyType", ""
+        )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     return out

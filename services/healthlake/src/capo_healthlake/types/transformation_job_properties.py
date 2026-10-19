@@ -128,7 +128,7 @@ def deserialize_aws_json_1_0(data: dict) -> TransformationJobProperties:
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError("TransformationJobProperties.job_id required")
+        out["job_id"] = ""
     if data.get("JobStatus") is not None:
         import capo_healthlake.types.transformation_job_status
 
@@ -138,7 +138,12 @@ def deserialize_aws_json_1_0(data: dict) -> TransformationJobProperties:
             )
         )
     else:
-        raise DeserializationError("TransformationJobProperties.job_status required")
+        import typing
+
+        out["job_status"] = typing.cast(
+            "capo_healthlake.types.transformation_job_status.TransformationJobStatus",
+            "",
+        )
     if data.get("InputDataConfig") is not None:
         import capo_healthlake.types.transformation_input_data_config
 
@@ -166,9 +171,7 @@ def deserialize_aws_json_1_0(data: dict) -> TransformationJobProperties:
     if data.get("DataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["DataAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "TransformationJobProperties.data_access_role_arn required"
-        )
+        out["data_access_role_arn"] = ""
     if data.get("SubmitTime") is not None:
         import capo_healthlake.types.date_time
 
@@ -176,7 +179,11 @@ def deserialize_aws_json_1_0(data: dict) -> TransformationJobProperties:
             data["SubmitTime"]
         )
     else:
-        raise DeserializationError("TransformationJobProperties.submit_time required")
+        import datetime
+
+        out["submit_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("JobName") is not None:
         out["job_name"] = data["JobName"]
     if data.get("ProfileId") is not None:

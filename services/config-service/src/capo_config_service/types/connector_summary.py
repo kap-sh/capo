@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.amazon_resource_name
     import capo_config_service.types.azure_tenant_identifier
@@ -53,11 +51,11 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectorSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ConnectorSummary.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ConnectorSummary.name required")
+        out["name"] = ""
     if data.get("provider") is not None:
         import capo_config_service.types.provider
 
@@ -65,11 +63,13 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectorSummary:
             data["provider"]
         )
     else:
-        raise DeserializationError("ConnectorSummary.provider required")
+        import typing
+
+        out["provider"] = typing.cast("capo_config_service.types.provider.Provider", "")
     if data.get("tenantIdentifier") is not None:
         out["tenant_identifier"] = data["tenantIdentifier"]
     else:
-        raise DeserializationError("ConnectorSummary.tenant_identifier required")
+        out["tenant_identifier"] = ""
     if data.get("createdTime") is not None:
         import capo_config_service.types.date
 
@@ -77,5 +77,9 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectorSummary:
             data["createdTime"]
         )
     else:
-        raise DeserializationError("ConnectorSummary.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

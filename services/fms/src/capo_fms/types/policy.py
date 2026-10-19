@@ -158,7 +158,7 @@ def deserialize_aws_json_1_1(data: dict) -> Policy:
     if data.get("PolicyName") is not None:
         out["policy_name"] = data["PolicyName"]
     else:
-        raise DeserializationError("Policy.policy_name required")
+        out["policy_name"] = ""
     if data.get("PolicyUpdateToken") is not None:
         out["policy_update_token"] = data["PolicyUpdateToken"]
     if data.get("SecurityServicePolicyData") is not None:
@@ -174,7 +174,7 @@ def deserialize_aws_json_1_1(data: dict) -> Policy:
     if data.get("ResourceType") is not None:
         out["resource_type"] = data["ResourceType"]
     else:
-        raise DeserializationError("Policy.resource_type required")
+        out["resource_type"] = ""
     if data.get("ResourceTypeList") is not None:
         import capo_fms.types.resource_type_list
 

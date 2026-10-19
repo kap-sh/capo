@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_lambda_web.errors import DeserializationError
-
 
 class RevisionError(TypedDict, closed=True):
     attribute: "str"
@@ -28,13 +26,13 @@ def deserialize_json(data: dict) -> RevisionError:
     if data.get("attribute") is not None:
         out["attribute"] = data["attribute"]
     else:
-        raise DeserializationError("RevisionError.attribute required")
+        out["attribute"] = ""
     if data.get("errorCode") is not None:
         out["error_code"] = data["errorCode"]
     else:
-        raise DeserializationError("RevisionError.error_code required")
+        out["error_code"] = ""
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     else:
-        raise DeserializationError("RevisionError.error_message required")
+        out["error_message"] = ""
     return out

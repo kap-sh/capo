@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_translate.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_translate.types.content_type
     import capo_translate.types.document_content
@@ -39,11 +37,11 @@ def deserialize_aws_json_1_1(data: dict) -> Document:
             data["Content"]
         )
     else:
-        raise DeserializationError("Document.content required")
+        out["content"] = b""
     if data.get("ContentType") is not None:
         out["content_type"] = data["ContentType"]
     else:
-        raise DeserializationError("Document.content_type required")
+        out["content_type"] = ""
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.data_source_id
     import capo_kendra.types.group_id
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> MemberGroup:
     if data.get("GroupId") is not None:
         out["group_id"] = data["GroupId"]
     else:
-        raise DeserializationError("MemberGroup.group_id required")
+        out["group_id"] = ""
     if data.get("DataSourceId") is not None:
         out["data_source_id"] = data["DataSourceId"]
     return out

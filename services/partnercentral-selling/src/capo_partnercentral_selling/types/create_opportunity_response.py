@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.date_time
     import capo_partnercentral_selling.types.opportunity_identifier
@@ -44,7 +42,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateOpportunityResponse:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("CreateOpportunityResponse.id required")
+        out["id"] = ""
     if data.get("PartnerOpportunityIdentifier") is not None:
         out["partner_opportunity_identifier"] = data["PartnerOpportunityIdentifier"]
     if data.get("LastModifiedDate") is not None:

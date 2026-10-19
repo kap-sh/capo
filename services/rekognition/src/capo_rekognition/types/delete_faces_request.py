@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.collection_id
     import capo_rekognition.types.face_id_list
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteFacesRequest:
     if data.get("CollectionId") is not None:
         out["collection_id"] = data["CollectionId"]
     else:
-        raise DeserializationError("DeleteFacesRequest.collection_id required")
+        out["collection_id"] = ""
     if data.get("FaceIds") is not None:
         import capo_rekognition.types.face_id_list
 
@@ -43,5 +41,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteFacesRequest:
             data["FaceIds"]
         )
     else:
-        raise DeserializationError("DeleteFacesRequest.face_ids required")
+        out["face_ids"] = []
     return out

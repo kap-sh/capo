@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_auditmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auditmanager.types.assessment_status
     import capo_auditmanager.types.uuid
@@ -38,5 +36,9 @@ def deserialize_json(data: dict) -> UpdateAssessmentStatusRequest:
             data["status"]
         )
     else:
-        raise DeserializationError("UpdateAssessmentStatusRequest.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_auditmanager.types.assessment_status.AssessmentStatus", ""
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.cloud_trail_properties
     import capo_accessanalyzer.types.principal_arn
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> GeneratedPolicyProperties:
     if data.get("principalArn") is not None:
         out["principal_arn"] = data["principalArn"]
     else:
-        raise DeserializationError("GeneratedPolicyProperties.principal_arn required")
+        out["principal_arn"] = ""
     if data.get("cloudTrailProperties") is not None:
         import capo_accessanalyzer.types.cloud_trail_properties
 

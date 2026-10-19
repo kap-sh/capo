@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.order
     import capo_iottwinmaker.types.string
@@ -34,5 +32,5 @@ def deserialize_json(data: dict) -> OrderBy:
     if data.get("propertyName") is not None:
         out["property_name"] = data["propertyName"]
     else:
-        raise DeserializationError("OrderBy.property_name required")
+        out["property_name"] = ""
     return out

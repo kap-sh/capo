@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.guid
     import capo_devops_agent.types.role_arn
@@ -44,17 +42,15 @@ def deserialize_json(data: dict) -> RegisteredAzureIdentityDetails:
     if data.get("tenantId") is not None:
         out["tenant_id"] = data["tenantId"]
     else:
-        raise DeserializationError("RegisteredAzureIdentityDetails.tenant_id required")
+        out["tenant_id"] = ""
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
     else:
-        raise DeserializationError("RegisteredAzureIdentityDetails.client_id required")
+        out["client_id"] = ""
     if data.get("webIdentityRoleArn") is not None:
         out["web_identity_role_arn"] = data["webIdentityRoleArn"]
     else:
-        raise DeserializationError(
-            "RegisteredAzureIdentityDetails.web_identity_role_arn required"
-        )
+        out["web_identity_role_arn"] = ""
     if data.get("webIdentityTokenAudiences") is not None:
         import capo_devops_agent.types.web_identity_token_audience_list
 
@@ -64,7 +60,5 @@ def deserialize_json(data: dict) -> RegisteredAzureIdentityDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "RegisteredAzureIdentityDetails.web_identity_token_audiences required"
-        )
+        out["web_identity_token_audiences"] = []
     return out

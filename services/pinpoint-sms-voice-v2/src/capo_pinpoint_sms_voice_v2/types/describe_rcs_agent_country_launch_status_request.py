@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.country_launch_status_filter_list
     import capo_pinpoint_sms_voice_v2.types.iso_country_code_list
@@ -63,9 +61,7 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeRcsAgentCountryLaunchStatusR
     if data.get("RcsAgentId") is not None:
         out["rcs_agent_id"] = data["RcsAgentId"]
     else:
-        raise DeserializationError(
-            "DescribeRcsAgentCountryLaunchStatusRequest.rcs_agent_id required"
-        )
+        out["rcs_agent_id"] = ""
     if data.get("IsoCountryCodes") is not None:
         import capo_pinpoint_sms_voice_v2.types.iso_country_code_list
 

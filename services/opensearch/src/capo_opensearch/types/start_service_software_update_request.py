@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.domain_name
     import capo_opensearch.types.long
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> StartServiceSoftwareUpdateRequest:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError(
-            "StartServiceSoftwareUpdateRequest.domain_name required"
-        )
+        out["domain_name"] = ""
     if data.get("ScheduleAt") is not None:
         import capo_opensearch.types.schedule_at
 

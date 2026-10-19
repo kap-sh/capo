@@ -42,7 +42,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCatalogRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateCatalogRequest.name required")
+        out["name"] = ""
     if data.get("CatalogInput") is not None:
         import capo_glue.types.catalog_input
 

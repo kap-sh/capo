@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_emr_containers.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_containers.types.rsi_arn
     import capo_emr_containers.types.tag_map
@@ -34,5 +32,5 @@ def deserialize_json(data: dict) -> TagResourceRequest:
 
         out["tags"] = capo_emr_containers.types.tag_map.deserialize_json(data["tags"])
     else:
-        raise DeserializationError("TagResourceRequest.tags required")
+        out["tags"] = {}
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.log_group_identifier
     import capo_cloudwatch_logs.types.processors
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutTransformerRequest:
     if data.get("logGroupIdentifier") is not None:
         out["log_group_identifier"] = data["logGroupIdentifier"]
     else:
-        raise DeserializationError(
-            "PutTransformerRequest.log_group_identifier required"
-        )
+        out["log_group_identifier"] = ""
     if data.get("transformerConfig") is not None:
         import capo_cloudwatch_logs.types.processors
 
@@ -51,5 +47,5 @@ def deserialize_aws_json_1_1(data: dict) -> PutTransformerRequest:
             )
         )
     else:
-        raise DeserializationError("PutTransformerRequest.transformer_config required")
+        out["transformer_config"] = []
     return out

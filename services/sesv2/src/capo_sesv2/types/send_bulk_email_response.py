@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.bulk_email_entry_result_list
 
@@ -41,7 +39,5 @@ def deserialize_json(data: dict) -> SendBulkEmailResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "SendBulkEmailResponse.bulk_email_entry_results required"
-        )
+        out["bulk_email_entry_results"] = []
     return out

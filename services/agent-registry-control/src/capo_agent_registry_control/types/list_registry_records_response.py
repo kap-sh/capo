@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_agent_registry_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_agent_registry_control.types.next_token
     import capo_agent_registry_control.types.registry_record_summary_list
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> ListRegistryRecordsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListRegistryRecordsResponse.registry_records required"
-        )
+        out["registry_records"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

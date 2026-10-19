@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.image_build_version_arn
     import capo_imagebuilder.types.pagination_token
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> ListImagePackagesRequest:
     if data.get("imageBuildVersionArn") is not None:
         out["image_build_version_arn"] = data["imageBuildVersionArn"]
     else:
-        raise DeserializationError(
-            "ListImagePackagesRequest.image_build_version_arn required"
-        )
+        out["image_build_version_arn"] = ""
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     if data.get("nextToken") is not None:

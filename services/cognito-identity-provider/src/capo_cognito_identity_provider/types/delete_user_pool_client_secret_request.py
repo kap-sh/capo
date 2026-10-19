@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.client_id_type
     import capo_cognito_identity_provider.types.client_secret_id_type
@@ -39,21 +37,15 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteUserPoolClientSecretRequest:
     if data.get("UserPoolId") is not None:
         out["user_pool_id"] = data["UserPoolId"]
     else:
-        raise DeserializationError(
-            "DeleteUserPoolClientSecretRequest.user_pool_id required"
-        )
+        out["user_pool_id"] = ""
     if data.get("ClientId") is not None:
         out["client_id"] = data["ClientId"]
     else:
-        raise DeserializationError(
-            "DeleteUserPoolClientSecretRequest.client_id required"
-        )
+        out["client_id"] = ""
     if data.get("ClientSecretId") is not None:
         out["client_secret_id"] = data["ClientSecretId"]
     else:
-        raise DeserializationError(
-            "DeleteUserPoolClientSecretRequest.client_secret_id required"
-        )
+        out["client_secret_id"] = ""
     return out
 
 

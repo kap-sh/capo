@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.account_id
@@ -66,7 +65,9 @@ def deserialize_xml(el: Element) -> S3BucketDestination:
 
         out["format"] = capo_s3_control.types.format.deserialize_xml(child_format)
     else:
-        raise DeserializationError("S3BucketDestination.format required")
+        import typing
+
+        out["format"] = typing.cast("capo_s3_control.types.format.Format", "")
     child_output_schema_version = el.find("OutputSchemaVersion")
     if child_output_schema_version is not None:
         import capo_s3_control.types.output_schema_version
@@ -77,17 +78,21 @@ def deserialize_xml(el: Element) -> S3BucketDestination:
             )
         )
     else:
-        raise DeserializationError("S3BucketDestination.output_schema_version required")
+        import typing
+
+        out["output_schema_version"] = typing.cast(
+            "capo_s3_control.types.output_schema_version.OutputSchemaVersion", ""
+        )
     child_account_id = el.find("AccountId")
     if child_account_id is not None:
         out["account_id"] = str(child_account_id.text or "")
     else:
-        raise DeserializationError("S3BucketDestination.account_id required")
+        out["account_id"] = ""
     child_arn = el.find("Arn")
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("S3BucketDestination.arn required")
+        out["arn"] = ""
     child_prefix = el.find("Prefix")
     if child_prefix is not None:
         out["prefix"] = str(child_prefix.text or "")

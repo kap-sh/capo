@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.mutable_tags
     import capo_connectcases.types.tag_propagation_resource_type
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> TagPropagationConfiguration:
     if data.get("resourceType") is not None:
         out["resource_type"] = data["resourceType"]
     else:
-        raise DeserializationError("TagPropagationConfiguration.resource_type required")
+        out["resource_type"] = ""
     if data.get("tagMap") is not None:
         import capo_connectcases.types.mutable_tags
 
@@ -43,5 +41,5 @@ def deserialize_json(data: dict) -> TagPropagationConfiguration:
             data["tagMap"]
         )
     else:
-        raise DeserializationError("TagPropagationConfiguration.tag_map required")
+        out["tag_map"] = {}
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.date_timestamp
     import capo_network_security_manager.types.entity_status
@@ -88,15 +86,15 @@ def deserialize_json(data: dict) -> TemplateSummary:
     if data.get("templateId") is not None:
         out["template_id"] = data["templateId"]
     else:
-        raise DeserializationError("TemplateSummary.template_id required")
+        out["template_id"] = ""
     if data.get("templateArn") is not None:
         out["template_arn"] = data["templateArn"]
     else:
-        raise DeserializationError("TemplateSummary.template_arn required")
+        out["template_arn"] = ""
     if data.get("templateName") is not None:
         out["template_name"] = data["templateName"]
     else:
-        raise DeserializationError("TemplateSummary.template_name required")
+        out["template_name"] = ""
     if data.get("status") is not None:
         import capo_network_security_manager.types.entity_status
 

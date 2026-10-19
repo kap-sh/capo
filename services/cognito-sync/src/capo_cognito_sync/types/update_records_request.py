@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_sync.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_sync.types.client_context
     import capo_cognito_sync.types.dataset_name
@@ -65,5 +63,5 @@ def deserialize_json(data: dict) -> UpdateRecordsRequest:
     if data.get("SyncSessionToken") is not None:
         out["sync_session_token"] = data["SyncSessionToken"]
     else:
-        raise DeserializationError("UpdateRecordsRequest.sync_session_token required")
+        out["sync_session_token"] = ""
     return out

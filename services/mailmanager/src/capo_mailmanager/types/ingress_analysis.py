@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.analyzer_arn
     import capo_mailmanager.types.result_field
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> IngressAnalysis:
     if data.get("Analyzer") is not None:
         out["analyzer"] = data["Analyzer"]
     else:
-        raise DeserializationError("IngressAnalysis.analyzer required")
+        out["analyzer"] = ""
     if data.get("ResultField") is not None:
         out["result_field"] = data["ResultField"]
     else:
-        raise DeserializationError("IngressAnalysis.result_field required")
+        out["result_field"] = ""
     return out

@@ -72,9 +72,7 @@ def deserialize_json(data: dict) -> CreateConnectorProfileRequest:
     if data.get("connectorProfileName") is not None:
         out["connector_profile_name"] = data["connectorProfileName"]
     else:
-        raise DeserializationError(
-            "CreateConnectorProfileRequest.connector_profile_name required"
-        )
+        out["connector_profile_name"] = ""
     if data.get("kmsArn") is not None:
         out["kms_arn"] = data["kmsArn"]
     if data.get("connectorType") is not None:
@@ -84,8 +82,10 @@ def deserialize_json(data: dict) -> CreateConnectorProfileRequest:
             data["connectorType"]
         )
     else:
-        raise DeserializationError(
-            "CreateConnectorProfileRequest.connector_type required"
+        import typing
+
+        out["connector_type"] = typing.cast(
+            "capo_appflow.types.connector_type.ConnectorType", ""
         )
     if data.get("connectorLabel") is not None:
         out["connector_label"] = data["connectorLabel"]
@@ -96,8 +96,10 @@ def deserialize_json(data: dict) -> CreateConnectorProfileRequest:
             data["connectionMode"]
         )
     else:
-        raise DeserializationError(
-            "CreateConnectorProfileRequest.connection_mode required"
+        import typing
+
+        out["connection_mode"] = typing.cast(
+            "capo_appflow.types.connection_mode.ConnectionMode", ""
         )
     if data.get("connectorProfileConfig") is not None:
         import capo_appflow.types.connector_profile_config

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_app_mesh.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_app_mesh.types.file_path
 
@@ -30,13 +28,9 @@ def deserialize_json(data: dict) -> VirtualGatewayListenerTlsFileCertificate:
     if data.get("certificateChain") is not None:
         out["certificate_chain"] = data["certificateChain"]
     else:
-        raise DeserializationError(
-            "VirtualGatewayListenerTlsFileCertificate.certificate_chain required"
-        )
+        out["certificate_chain"] = ""
     if data.get("privateKey") is not None:
         out["private_key"] = data["privateKey"]
     else:
-        raise DeserializationError(
-            "VirtualGatewayListenerTlsFileCertificate.private_key required"
-        )
+        out["private_key"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route_53_domains.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route_53_domains.types.glue_ip_list
     import capo_route_53_domains.types.host_name
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_1(data: dict) -> Nameserver:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Nameserver.name required")
+        out["name"] = ""
     if data.get("GlueIps") is not None:
         import capo_route_53_domains.types.glue_ip_list
 

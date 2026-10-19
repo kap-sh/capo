@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 
 class CitationsConfig(TypedDict, closed=True):
     enabled: "bool"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> CitationsConfig:
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     else:
-        raise DeserializationError("CitationsConfig.enabled required")
+        out["enabled"] = False
     return out

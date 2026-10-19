@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -61,7 +59,7 @@ def deserialize_json(data: dict) -> Oauth2CredentialProviderItem:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("Oauth2CredentialProviderItem.name required")
+        out["name"] = ""
     if data.get("credentialProviderVendor") is not None:
         import capo_bedrock_agentcore_control.types.credential_provider_vendor_type
 
@@ -71,15 +69,16 @@ def deserialize_json(data: dict) -> Oauth2CredentialProviderItem:
             )
         )
     else:
-        raise DeserializationError(
-            "Oauth2CredentialProviderItem.credential_provider_vendor required"
+        import typing
+
+        out["credential_provider_vendor"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.credential_provider_vendor_type.CredentialProviderVendorType",
+            "",
         )
     if data.get("credentialProviderArn") is not None:
         out["credential_provider_arn"] = data["credentialProviderArn"]
     else:
-        raise DeserializationError(
-            "Oauth2CredentialProviderItem.credential_provider_arn required"
-        )
+        out["credential_provider_arn"] = ""
     if data.get("createdTime") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
 
@@ -89,7 +88,11 @@ def deserialize_json(data: dict) -> Oauth2CredentialProviderItem:
             )
         )
     else:
-        raise DeserializationError("Oauth2CredentialProviderItem.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastUpdatedTime") is not None:
         import capo_bedrock_agentcore_control.types._prelude.timestamp
 
@@ -99,7 +102,9 @@ def deserialize_json(data: dict) -> Oauth2CredentialProviderItem:
             )
         )
     else:
-        raise DeserializationError(
-            "Oauth2CredentialProviderItem.last_updated_time required"
+        import datetime
+
+        out["last_updated_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

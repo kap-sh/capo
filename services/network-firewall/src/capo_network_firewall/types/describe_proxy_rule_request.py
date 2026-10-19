@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.resource_arn
     import capo_network_firewall.types.resource_name
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeProxyRuleRequest:
     if data.get("ProxyRuleName") is not None:
         out["proxy_rule_name"] = data["ProxyRuleName"]
     else:
-        raise DeserializationError("DescribeProxyRuleRequest.proxy_rule_name required")
+        out["proxy_rule_name"] = ""
     if data.get("ProxyRuleGroupName") is not None:
         out["proxy_rule_group_name"] = data["ProxyRuleGroupName"]
     if data.get("ProxyRuleGroupArn") is not None:

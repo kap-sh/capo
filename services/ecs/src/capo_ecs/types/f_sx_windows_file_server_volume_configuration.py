@@ -40,15 +40,11 @@ def deserialize_aws_json_1_1(data: dict) -> FSxWindowsFileServerVolumeConfigurat
     if data.get("fileSystemId") is not None:
         out["file_system_id"] = data["fileSystemId"]
     else:
-        raise DeserializationError(
-            "FSxWindowsFileServerVolumeConfiguration.file_system_id required"
-        )
+        out["file_system_id"] = ""
     if data.get("rootDirectory") is not None:
         out["root_directory"] = data["rootDirectory"]
     else:
-        raise DeserializationError(
-            "FSxWindowsFileServerVolumeConfiguration.root_directory required"
-        )
+        out["root_directory"] = ""
     if data.get("authorizationConfig") is not None:
         import capo_ecs.types.f_sx_windows_file_server_authorization_config
 

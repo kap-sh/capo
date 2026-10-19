@@ -35,7 +35,7 @@ def deserialize_json(data: dict) -> DestinationTable:
     if data.get("Alias") is not None:
         out["alias"] = data["Alias"]
     else:
-        raise DeserializationError("DestinationTable.alias required")
+        out["alias"] = ""
     if data.get("Source") is not None:
         import capo_quicksight.types.destination_table_source
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.arn
     import capo_odb.types.role_arn
@@ -41,9 +39,7 @@ def deserialize_aws_json_1_0(data: dict) -> AssociateIamRoleToResourceInput:
     if data.get("iamRoleArn") is not None:
         out["iam_role_arn"] = data["iamRoleArn"]
     else:
-        raise DeserializationError(
-            "AssociateIamRoleToResourceInput.iam_role_arn required"
-        )
+        out["iam_role_arn"] = ""
     if data.get("awsIntegration") is not None:
         import capo_odb.types.supported_aws_integration
 
@@ -53,13 +49,13 @@ def deserialize_aws_json_1_0(data: dict) -> AssociateIamRoleToResourceInput:
             )
         )
     else:
-        raise DeserializationError(
-            "AssociateIamRoleToResourceInput.aws_integration required"
+        import typing
+
+        out["aws_integration"] = typing.cast(
+            "capo_odb.types.supported_aws_integration.SupportedAwsIntegration", ""
         )
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError(
-            "AssociateIamRoleToResourceInput.resource_arn required"
-        )
+        out["resource_arn"] = ""
     return out

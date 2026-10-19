@@ -71,15 +71,11 @@ def deserialize_json(data: dict) -> SendOutboundWebNotificationRequest:
     if data.get("BrowserId") is not None:
         out["browser_id"] = data["BrowserId"]
     else:
-        raise DeserializationError(
-            "SendOutboundWebNotificationRequest.browser_id required"
-        )
+        out["browser_id"] = ""
     if data.get("SessionId") is not None:
         out["session_id"] = data["SessionId"]
     else:
-        raise DeserializationError(
-            "SendOutboundWebNotificationRequest.session_id required"
-        )
+        out["session_id"] = ""
     if data.get("ExpiresAt") is not None:
         import capo_connect.types.timestamp
 
@@ -87,9 +83,9 @@ def deserialize_json(data: dict) -> SendOutboundWebNotificationRequest:
             data["ExpiresAt"]
         )
     else:
-        raise DeserializationError(
-            "SendOutboundWebNotificationRequest.expires_at required"
-        )
+        import datetime
+
+        out["expires_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Source") is not None:
         import capo_connect.types.web_notification_source
 

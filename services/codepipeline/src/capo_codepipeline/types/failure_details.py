@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.execution_id
     import capo_codepipeline.types.failure_type
@@ -46,11 +44,15 @@ def deserialize_aws_json_1_1(data: dict) -> FailureDetails:
             data["type"]
         )
     else:
-        raise DeserializationError("FailureDetails.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codepipeline.types.failure_type.FailureType", ""
+        )
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("FailureDetails.message required")
+        out["message"] = ""
     if data.get("externalExecutionId") is not None:
         out["external_execution_id"] = data["externalExecutionId"]
     return out

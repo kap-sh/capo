@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.blob
     import capo_glue.types.integer
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> DecimalNumber:
             data["UnscaledValue"]
         )
     else:
-        raise DeserializationError("DecimalNumber.unscaled_value required")
+        out["unscaled_value"] = b""
     if data.get("Scale") is not None:
         out["scale"] = data["Scale"]
     else:

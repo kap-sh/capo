@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.sip_media_application_endpoint_list
     import capo_chime_sdk_voice.types.sip_media_application_name
@@ -50,13 +48,11 @@ def deserialize_json(data: dict) -> CreateSipMediaApplicationRequest:
     if data.get("AwsRegion") is not None:
         out["aws_region"] = data["AwsRegion"]
     else:
-        raise DeserializationError(
-            "CreateSipMediaApplicationRequest.aws_region required"
-        )
+        out["aws_region"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateSipMediaApplicationRequest.name required")
+        out["name"] = ""
     if data.get("Endpoints") is not None:
         import capo_chime_sdk_voice.types.sip_media_application_endpoint_list
 
@@ -66,9 +62,7 @@ def deserialize_json(data: dict) -> CreateSipMediaApplicationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateSipMediaApplicationRequest.endpoints required"
-        )
+        out["endpoints"] = []
     if data.get("Tags") is not None:
         import capo_chime_sdk_voice.types.tag_list
 

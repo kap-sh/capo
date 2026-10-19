@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.enclosed_in_string_property
     import capo_glue.types.node_name
@@ -65,7 +63,7 @@ def deserialize_aws_json_1_1(data: dict) -> RedshiftTarget:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("RedshiftTarget.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.one_input
 
@@ -73,15 +71,15 @@ def deserialize_aws_json_1_1(data: dict) -> RedshiftTarget:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("RedshiftTarget.inputs required")
+        out["inputs"] = []
     if data.get("Database") is not None:
         out["database"] = data["Database"]
     else:
-        raise DeserializationError("RedshiftTarget.database required")
+        out["database"] = ""
     if data.get("Table") is not None:
         out["table"] = data["Table"]
     else:
-        raise DeserializationError("RedshiftTarget.table required")
+        out["table"] = ""
     if data.get("RedshiftTmpDir") is not None:
         out["redshift_tmp_dir"] = data["RedshiftTmpDir"]
     if data.get("TmpDirIAMRole") is not None:

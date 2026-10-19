@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migration_hub_refactor_spaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migration_hub_refactor_spaces.types.api_gateway_proxy_input
     import capo_migration_hub_refactor_spaces.types.application_name
@@ -69,15 +67,15 @@ def deserialize_json(data: dict) -> CreateApplicationRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateApplicationRequest.name required")
+        out["name"] = ""
     if data.get("VpcId") is not None:
         out["vpc_id"] = data["VpcId"]
     else:
-        raise DeserializationError("CreateApplicationRequest.vpc_id required")
+        out["vpc_id"] = ""
     if data.get("ProxyType") is not None:
         out["proxy_type"] = data["ProxyType"]
     else:
-        raise DeserializationError("CreateApplicationRequest.proxy_type required")
+        out["proxy_type"] = ""
     if data.get("ApiGatewayProxy") is not None:
         import capo_migration_hub_refactor_spaces.types.api_gateway_proxy_input
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.configuration_set_name_or_arn
     import capo_pinpoint_sms_voice_v2.types.context_map
@@ -80,15 +78,11 @@ def deserialize_aws_json_1_0(
     if data.get("VerifiedDestinationNumberId") is not None:
         out["verified_destination_number_id"] = data["VerifiedDestinationNumberId"]
     else:
-        raise DeserializationError(
-            "SendDestinationNumberVerificationCodeRequest.verified_destination_number_id required"
-        )
+        out["verified_destination_number_id"] = ""
     if data.get("VerificationChannel") is not None:
         out["verification_channel"] = data["VerificationChannel"]
     else:
-        raise DeserializationError(
-            "SendDestinationNumberVerificationCodeRequest.verification_channel required"
-        )
+        out["verification_channel"] = ""
     if data.get("LanguageCode") is not None:
         out["language_code"] = data["LanguageCode"]
     if data.get("OriginationIdentity") is not None:

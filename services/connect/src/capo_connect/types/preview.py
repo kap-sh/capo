@@ -59,5 +59,5 @@ def deserialize_json(data: dict) -> Preview:
             )
         )
     else:
-        raise DeserializationError("Preview.allowed_user_actions required")
+        out["allowed_user_actions"] = []
     return out

@@ -51,7 +51,7 @@ def deserialize_json(data: dict) -> StartQueryPlanningRequest:
     if data.get("QueryString") is not None:
         out["query_string"] = data["QueryString"]
     else:
-        raise DeserializationError("StartQueryPlanningRequest.query_string required")
+        out["query_string"] = ""
     return out
 
 

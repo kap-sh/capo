@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_frauddetector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_frauddetector.types.description
     import capo_frauddetector.types.identifier
@@ -88,7 +86,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDetectorVersionRequest:
     if data.get("detectorId") is not None:
         out["detector_id"] = data["detectorId"]
     else:
-        raise DeserializationError("CreateDetectorVersionRequest.detector_id required")
+        out["detector_id"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("externalModelEndpoints") is not None:
@@ -106,7 +104,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDetectorVersionRequest:
             data["rules"]
         )
     else:
-        raise DeserializationError("CreateDetectorVersionRequest.rules required")
+        out["rules"] = []
     if data.get("modelVersions") is not None:
         import capo_frauddetector.types.list_of_model_versions
 

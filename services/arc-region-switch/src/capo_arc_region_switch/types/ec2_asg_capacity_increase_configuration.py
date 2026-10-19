@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.asg_list
     import capo_arc_region_switch.types.ec2_asg_capacity_monitoring_approach
@@ -79,7 +77,7 @@ def deserialize_aws_json_1_0(data: dict) -> Ec2AsgCapacityIncreaseConfiguration:
             data["asgs"]
         )
     else:
-        raise DeserializationError("Ec2AsgCapacityIncreaseConfiguration.asgs required")
+        out["asgs"] = []
     if data.get("ungraceful") is not None:
         import capo_arc_region_switch.types.ec2_ungraceful
 

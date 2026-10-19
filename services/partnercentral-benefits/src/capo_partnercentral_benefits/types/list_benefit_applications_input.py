@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_benefits.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_benefits.types.arns
     import capo_partnercentral_benefits.types.associated_resources
@@ -120,7 +118,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListBenefitApplicationsInput:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("ListBenefitApplicationsInput.catalog required")
+        out["catalog"] = ""
     if data.get("Programs") is not None:
         import capo_partnercentral_benefits.types.programs
 

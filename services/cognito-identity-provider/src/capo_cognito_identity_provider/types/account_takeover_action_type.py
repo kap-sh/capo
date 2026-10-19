@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.account_takeover_action_notify_type
     import capo_cognito_identity_provider.types.account_takeover_event_action_type
@@ -47,5 +45,10 @@ def deserialize_aws_json_1_1(data: dict) -> AccountTakeoverActionType:
             )
         )
     else:
-        raise DeserializationError("AccountTakeoverActionType.event_action required")
+        import typing
+
+        out["event_action"] = typing.cast(
+            "capo_cognito_identity_provider.types.account_takeover_event_action_type.AccountTakeoverEventActionType",
+            "",
+        )
     return out

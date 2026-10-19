@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_model_building_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_model_building_service.types.slot_default_value_string
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> SlotDefaultValue:
     if data.get("defaultValue") is not None:
         out["default_value"] = data["defaultValue"]
     else:
-        raise DeserializationError("SlotDefaultValue.default_value required")
+        out["default_value"] = ""
     return out

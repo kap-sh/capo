@@ -43,5 +43,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetResourceSetResponse:
     if data.get("ResourceSetArn") is not None:
         out["resource_set_arn"] = data["ResourceSetArn"]
     else:
-        raise DeserializationError("GetResourceSetResponse.resource_set_arn required")
+        out["resource_set_arn"] = ""
     return out

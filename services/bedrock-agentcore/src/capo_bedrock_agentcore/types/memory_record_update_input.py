@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -88,7 +86,7 @@ def deserialize_json(data: dict) -> MemoryRecordUpdateInput:
     if data.get("memoryRecordId") is not None:
         out["memory_record_id"] = data["memoryRecordId"]
     else:
-        raise DeserializationError("MemoryRecordUpdateInput.memory_record_id required")
+        out["memory_record_id"] = ""
     if data.get("timestamp") is not None:
         import capo_bedrock_agentcore.types._prelude.timestamp
 
@@ -98,7 +96,9 @@ def deserialize_json(data: dict) -> MemoryRecordUpdateInput:
             )
         )
     else:
-        raise DeserializationError("MemoryRecordUpdateInput.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("content") is not None:
         import capo_bedrock_agentcore.types.memory_content
 

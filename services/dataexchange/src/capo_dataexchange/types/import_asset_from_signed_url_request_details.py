@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.__string_min24_max24_pattern_a_za_z094_a_za_z092_a_za_z093
     import capo_dataexchange.types.asset_name
@@ -38,25 +36,17 @@ def deserialize_json(data: dict) -> ImportAssetFromSignedUrlRequestDetails:
     if data.get("AssetName") is not None:
         out["asset_name"] = data["AssetName"]
     else:
-        raise DeserializationError(
-            "ImportAssetFromSignedUrlRequestDetails.asset_name required"
-        )
+        out["asset_name"] = ""
     if data.get("DataSetId") is not None:
         out["data_set_id"] = data["DataSetId"]
     else:
-        raise DeserializationError(
-            "ImportAssetFromSignedUrlRequestDetails.data_set_id required"
-        )
+        out["data_set_id"] = ""
     if data.get("Md5Hash") is not None:
         out["md5_hash"] = data["Md5Hash"]
     else:
-        raise DeserializationError(
-            "ImportAssetFromSignedUrlRequestDetails.md5_hash required"
-        )
+        out["md5_hash"] = ""
     if data.get("RevisionId") is not None:
         out["revision_id"] = data["RevisionId"]
     else:
-        raise DeserializationError(
-            "ImportAssetFromSignedUrlRequestDetails.revision_id required"
-        )
+        out["revision_id"] = ""
     return out

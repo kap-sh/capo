@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kms.types.custom_key_store_id_type
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DisconnectCustomKeyStoreRequest:
     if data.get("CustomKeyStoreId") is not None:
         out["custom_key_store_id"] = data["CustomKeyStoreId"]
     else:
-        raise DeserializationError(
-            "DisconnectCustomKeyStoreRequest.custom_key_store_id required"
-        )
+        out["custom_key_store_id"] = ""
     return out

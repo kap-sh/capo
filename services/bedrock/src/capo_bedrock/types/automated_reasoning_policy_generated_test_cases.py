@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_generated_test_case_list
 
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyGeneratedTestCases:
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyGeneratedTestCases.generated_test_cases required"
-        )
+        out["generated_test_cases"] = []
     return out
 
 

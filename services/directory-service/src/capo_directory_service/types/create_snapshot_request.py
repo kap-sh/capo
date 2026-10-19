@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.directory_id
     import capo_directory_service.types.snapshot_name
@@ -32,7 +30,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSnapshotRequest:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError("CreateSnapshotRequest.directory_id required")
+        out["directory_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     return out

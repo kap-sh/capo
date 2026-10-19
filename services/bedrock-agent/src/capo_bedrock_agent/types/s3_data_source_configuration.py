@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.bucket_owner_account_id
     import capo_bedrock_agent.types.s3_bucket_arn
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> S3DataSourceConfiguration:
     if data.get("bucketArn") is not None:
         out["bucket_arn"] = data["bucketArn"]
     else:
-        raise DeserializationError("S3DataSourceConfiguration.bucket_arn required")
+        out["bucket_arn"] = ""
     if data.get("inclusionPrefixes") is not None:
         import capo_bedrock_agent.types.s3_prefixes
 

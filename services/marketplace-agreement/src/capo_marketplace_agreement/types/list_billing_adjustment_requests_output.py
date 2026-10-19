@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_agreement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_agreement.types.billing_adjustment_summary_list
     import capo_marketplace_agreement.types.next_token
@@ -46,5 +44,5 @@ def deserialize_aws_json_1_0(data: dict) -> ListBillingAdjustmentRequestsOutput:
             )
         )
     else:
-        raise DeserializationError("ListBillingAdjustmentRequestsOutput.items required")
+        out["items"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.assessment_run_state
     import capo_inspector.types.timestamp
@@ -45,7 +43,11 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentRunStateChange:
             )
         )
     else:
-        raise DeserializationError("AssessmentRunStateChange.state_changed_at required")
+        import datetime
+
+        out["state_changed_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("state") is not None:
         import capo_inspector.types.assessment_run_state
 
@@ -55,5 +57,9 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentRunStateChange:
             )
         )
     else:
-        raise DeserializationError("AssessmentRunStateChange.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_inspector.types.assessment_run_state.AssessmentRunState", ""
+        )
     return out

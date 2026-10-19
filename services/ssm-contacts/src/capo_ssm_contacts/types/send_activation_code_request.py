@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_contacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_contacts.types.ssm_contacts_arn
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> SendActivationCodeRequest:
     if data.get("ContactChannelId") is not None:
         out["contact_channel_id"] = data["ContactChannelId"]
     else:
-        raise DeserializationError(
-            "SendActivationCodeRequest.contact_channel_id required"
-        )
+        out["contact_channel_id"] = ""
     return out

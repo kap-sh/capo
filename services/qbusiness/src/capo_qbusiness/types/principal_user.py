@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.membership_type
     import capo_qbusiness.types.read_access_type
@@ -51,7 +49,11 @@ def deserialize_json(data: dict) -> PrincipalUser:
             data["access"]
         )
     else:
-        raise DeserializationError("PrincipalUser.access required")
+        import typing
+
+        out["access"] = typing.cast(
+            "capo_qbusiness.types.read_access_type.ReadAccessType", ""
+        )
     if data.get("membershipType") is not None:
         import capo_qbusiness.types.membership_type
 

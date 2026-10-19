@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.form_input_binding_properties
     import capo_amplifyuibuilder.types.value_mapping_list
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> ValueMappings:
             data["values"]
         )
     else:
-        raise DeserializationError("ValueMappings.values required")
+        out["values"] = []
     if data.get("bindingProperties") is not None:
         import capo_amplifyuibuilder.types.form_input_binding_properties
 

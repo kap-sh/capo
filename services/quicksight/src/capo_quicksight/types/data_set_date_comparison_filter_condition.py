@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.data_set_date_comparison_filter_operator
     import capo_quicksight.types.data_set_date_filter_value
@@ -50,8 +48,11 @@ def deserialize_json(data: dict) -> DataSetDateComparisonFilterCondition:
             )
         )
     else:
-        raise DeserializationError(
-            "DataSetDateComparisonFilterCondition.operator required"
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_quicksight.types.data_set_date_comparison_filter_operator.DataSetDateComparisonFilterOperator",
+            "",
         )
     if data.get("Value") is not None:
         import capo_quicksight.types.data_set_date_filter_value

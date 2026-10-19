@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.integer_range_between4_and12
     import capo_payment_cryptography_data.types.key_arn_or_key_alias_type
@@ -76,15 +74,11 @@ def deserialize_json(data: dict) -> GeneratePinDataInput:
     if data.get("GenerationKeyIdentifier") is not None:
         out["generation_key_identifier"] = data["GenerationKeyIdentifier"]
     else:
-        raise DeserializationError(
-            "GeneratePinDataInput.generation_key_identifier required"
-        )
+        out["generation_key_identifier"] = ""
     if data.get("EncryptionKeyIdentifier") is not None:
         out["encryption_key_identifier"] = data["EncryptionKeyIdentifier"]
     else:
-        raise DeserializationError(
-            "GeneratePinDataInput.encryption_key_identifier required"
-        )
+        out["encryption_key_identifier"] = ""
     if data.get("GenerationAttributes") is not None:
         import capo_payment_cryptography_data.types.pin_generation_attributes
 
@@ -94,8 +88,10 @@ def deserialize_json(data: dict) -> GeneratePinDataInput:
             )
         )
     else:
-        raise DeserializationError(
-            "GeneratePinDataInput.generation_attributes required"
+        import capo_payment_cryptography_data.types._unknown
+
+        out["generation_attributes"] = (
+            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
         )
     if data.get("PinDataLength") is not None:
         out["pin_data_length"] = data["PinDataLength"]
@@ -110,7 +106,12 @@ def deserialize_json(data: dict) -> GeneratePinDataInput:
             )
         )
     else:
-        raise DeserializationError("GeneratePinDataInput.pin_block_format required")
+        import typing
+
+        out["pin_block_format"] = typing.cast(
+            "capo_payment_cryptography_data.types.pin_block_format_for_pin_data.PinBlockFormatForPinData",
+            "",
+        )
     if data.get("EncryptionWrappedKey") is not None:
         import capo_payment_cryptography_data.types.wrapped_key
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.instance_id
     import capo_ssm.types.inventory_item_list
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutInventoryRequest:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("PutInventoryRequest.instance_id required")
+        out["instance_id"] = ""
     if data.get("Items") is not None:
         import capo_ssm.types.inventory_item_list
 
@@ -43,5 +41,5 @@ def deserialize_aws_json_1_1(data: dict) -> PutInventoryRequest:
             data["Items"]
         )
     else:
-        raise DeserializationError("PutInventoryRequest.items required")
+        out["items"] = []
     return out

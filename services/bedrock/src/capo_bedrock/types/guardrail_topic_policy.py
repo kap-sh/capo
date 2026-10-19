@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.guardrail_topics
     import capo_bedrock.types.guardrail_topics_tier
@@ -42,7 +40,7 @@ def deserialize_json(data: dict) -> GuardrailTopicPolicy:
             data["topics"]
         )
     else:
-        raise DeserializationError("GuardrailTopicPolicy.topics required")
+        out["topics"] = []
     if data.get("tier") is not None:
         import capo_bedrock.types.guardrail_topics_tier
 

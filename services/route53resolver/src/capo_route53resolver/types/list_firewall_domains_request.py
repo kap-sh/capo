@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.list_domain_max_results
     import capo_route53resolver.types.next_token
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListFirewallDomainsRequest:
     if data.get("FirewallDomainListId") is not None:
         out["firewall_domain_list_id"] = data["FirewallDomainListId"]
     else:
-        raise DeserializationError(
-            "ListFirewallDomainsRequest.firewall_domain_list_id required"
-        )
+        out["firewall_domain_list_id"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

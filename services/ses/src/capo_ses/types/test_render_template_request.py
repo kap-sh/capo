@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.template_data
@@ -34,10 +33,10 @@ def deserialize_query(el: Element) -> TestRenderTemplateRequest:
     if child_template_name is not None:
         out["template_name"] = str(child_template_name.text or "")
     else:
-        raise DeserializationError("TestRenderTemplateRequest.template_name required")
+        out["template_name"] = ""
     child_template_data = el.find("TemplateData")
     if child_template_data is not None:
         out["template_data"] = str(child_template_data.text or "")
     else:
-        raise DeserializationError("TestRenderTemplateRequest.template_data required")
+        out["template_data"] = ""
     return out

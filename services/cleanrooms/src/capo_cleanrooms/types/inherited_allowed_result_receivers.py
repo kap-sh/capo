@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.account_id_list
     import capo_cleanrooms.types.inherited_allowed_result_receivers_source_list
@@ -43,7 +41,7 @@ def deserialize_json(data: dict) -> InheritedAllowedResultReceivers:
             data["value"]
         )
     else:
-        raise DeserializationError("InheritedAllowedResultReceivers.value required")
+        out["value"] = []
     if data.get("sources") is not None:
         import capo_cleanrooms.types.inherited_allowed_result_receivers_source_list
 
@@ -53,5 +51,5 @@ def deserialize_json(data: dict) -> InheritedAllowedResultReceivers:
             )
         )
     else:
-        raise DeserializationError("InheritedAllowedResultReceivers.sources required")
+        out["sources"] = []
     return out

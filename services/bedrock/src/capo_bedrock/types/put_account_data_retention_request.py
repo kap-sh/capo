@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.data_retention_mode
 
@@ -33,5 +31,9 @@ def deserialize_json(data: dict) -> PutAccountDataRetentionRequest:
             data["mode"]
         )
     else:
-        raise DeserializationError("PutAccountDataRetentionRequest.mode required")
+        import typing
+
+        out["mode"] = typing.cast(
+            "capo_bedrock.types.data_retention_mode.DataRetentionMode", ""
+        )
     return out

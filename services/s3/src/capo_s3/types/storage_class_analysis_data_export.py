@@ -48,8 +48,11 @@ def deserialize_xml(el: Element) -> StorageClassAnalysisDataExport:
             )
         )
     else:
-        raise DeserializationError(
-            "StorageClassAnalysisDataExport.output_schema_version required"
+        import typing
+
+        out["output_schema_version"] = typing.cast(
+            "capo_s3.types.storage_class_analysis_schema_version.StorageClassAnalysisSchemaVersion",
+            "",
         )
     child_destination = el.find("Destination")
     if child_destination is not None:

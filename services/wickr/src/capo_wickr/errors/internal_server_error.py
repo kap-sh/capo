@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import TypedDict
 
-from capo_wickr.errors import DeserializationError, ServiceError
+from capo_wickr.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_wickr.types.generic_string
@@ -28,7 +28,7 @@ def deserialize_json(data: dict) -> InternalServerError_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("InternalServerError_.message required")
+        out["message"] = ""
     return out
 
 

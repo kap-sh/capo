@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.csrf_state
     import capo_securityagent.types.location
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> InitiateProviderRegistrationOutput:
     if data.get("redirectTo") is not None:
         out["redirect_to"] = data["redirectTo"]
     else:
-        raise DeserializationError(
-            "InitiateProviderRegistrationOutput.redirect_to required"
-        )
+        out["redirect_to"] = ""
     if data.get("csrfState") is not None:
         out["csrf_state"] = data["csrfState"]
     else:
-        raise DeserializationError(
-            "InitiateProviderRegistrationOutput.csrf_state required"
-        )
+        out["csrf_state"] = ""
     return out

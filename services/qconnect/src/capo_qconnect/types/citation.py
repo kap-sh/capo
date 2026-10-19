@@ -68,7 +68,7 @@ def deserialize_json(data: dict) -> Citation:
     if data.get("referenceType") is not None:
         out["reference_type"] = data["referenceType"]
     else:
-        raise DeserializationError("Citation.reference_type required")
+        out["reference_type"] = ""
     return out
 
 

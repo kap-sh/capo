@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eks.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eks.types.boolean
     import capo_eks.types.string
@@ -34,9 +32,7 @@ def deserialize_json(data: dict) -> UpdateEksAnywhereSubscriptionRequest:
     if data.get("autoRenew") is not None:
         out["auto_renew"] = data["autoRenew"]
     else:
-        raise DeserializationError(
-            "UpdateEksAnywhereSubscriptionRequest.auto_renew required"
-        )
+        out["auto_renew"] = False
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     return out

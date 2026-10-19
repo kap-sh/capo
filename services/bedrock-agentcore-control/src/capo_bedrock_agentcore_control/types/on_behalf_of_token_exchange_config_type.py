@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.on_behalf_of_token_exchange_grant_type_type
     import capo_bedrock_agentcore_control.types.token_exchange_grant_type_config_type
@@ -52,8 +50,11 @@ def deserialize_json(data: dict) -> OnBehalfOfTokenExchangeConfigType:
             )
         )
     else:
-        raise DeserializationError(
-            "OnBehalfOfTokenExchangeConfigType.grant_type required"
+        import typing
+
+        out["grant_type"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.on_behalf_of_token_exchange_grant_type_type.OnBehalfOfTokenExchangeGrantTypeType",
+            "",
         )
     if data.get("tokenExchangeGrantTypeConfig") is not None:
         import capo_bedrock_agentcore_control.types.token_exchange_grant_type_config_type

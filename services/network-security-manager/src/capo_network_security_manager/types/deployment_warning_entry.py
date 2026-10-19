@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.policy_arn
 
@@ -33,13 +31,13 @@ def deserialize_json(data: dict) -> DeploymentWarningEntry:
     if data.get("code") is not None:
         out["code"] = data["code"]
     else:
-        raise DeserializationError("DeploymentWarningEntry.code required")
+        out["code"] = ""
     if data.get("policyArn") is not None:
         out["policy_arn"] = data["policyArn"]
     else:
-        raise DeserializationError("DeploymentWarningEntry.policy_arn required")
+        out["policy_arn"] = ""
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("DeploymentWarningEntry.message required")
+        out["message"] = ""
     return out

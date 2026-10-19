@@ -70,11 +70,11 @@ def deserialize_json(data: dict) -> CreateApprovalPolicyRequest:
     if data.get("PolicyId") is not None:
         out["policy_id"] = data["PolicyId"]
     else:
-        raise DeserializationError("CreateApprovalPolicyRequest.policy_id required")
+        out["policy_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateApprovalPolicyRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Actions") is not None:
@@ -84,7 +84,7 @@ def deserialize_json(data: dict) -> CreateApprovalPolicyRequest:
             data["Actions"]
         )
     else:
-        raise DeserializationError("CreateApprovalPolicyRequest.actions required")
+        out["actions"] = []
     if data.get("AssetTypes") is not None:
         import capo_quicksight.types.asset_type_list
 
@@ -92,7 +92,7 @@ def deserialize_json(data: dict) -> CreateApprovalPolicyRequest:
             data["AssetTypes"]
         )
     else:
-        raise DeserializationError("CreateApprovalPolicyRequest.asset_types required")
+        out["asset_types"] = []
     if data.get("ApplicableTo") is not None:
         import capo_quicksight.types.applicable_to
 
@@ -110,7 +110,5 @@ def deserialize_json(data: dict) -> CreateApprovalPolicyRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateApprovalPolicyRequest.approval_groups required"
-        )
+        out["approval_groups"] = []
     return out

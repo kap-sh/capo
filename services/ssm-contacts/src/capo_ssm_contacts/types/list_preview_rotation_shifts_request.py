@@ -112,7 +112,9 @@ def deserialize_aws_json_1_1(data: dict) -> ListPreviewRotationShiftsRequest:
             data["EndTime"]
         )
     else:
-        raise DeserializationError("ListPreviewRotationShiftsRequest.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Members") is not None:
         import capo_ssm_contacts.types.rotation_preview_member_list
 
@@ -122,13 +124,11 @@ def deserialize_aws_json_1_1(data: dict) -> ListPreviewRotationShiftsRequest:
             )
         )
     else:
-        raise DeserializationError("ListPreviewRotationShiftsRequest.members required")
+        out["members"] = []
     if data.get("TimeZoneId") is not None:
         out["time_zone_id"] = data["TimeZoneId"]
     else:
-        raise DeserializationError(
-            "ListPreviewRotationShiftsRequest.time_zone_id required"
-        )
+        out["time_zone_id"] = ""
     if data.get("Recurrence") is not None:
         import capo_ssm_contacts.types.recurrence_settings
 

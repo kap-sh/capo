@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 
 class IamCredentialProvider(TypedDict, closed=True):
     service: "str"
@@ -26,7 +24,7 @@ def deserialize_json(data: dict) -> IamCredentialProvider:
     if data.get("service") is not None:
         out["service"] = data["service"]
     else:
-        raise DeserializationError("IamCredentialProvider.service required")
+        out["service"] = ""
     if data.get("region") is not None:
         out["region"] = data["region"]
     return out

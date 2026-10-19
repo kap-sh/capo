@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.routing_control_arn
     import capo_arc_region_switch.types.routing_control_state_change
@@ -39,9 +37,7 @@ def deserialize_aws_json_1_0(data: dict) -> ArcRoutingControlState:
     if data.get("routingControlArn") is not None:
         out["routing_control_arn"] = data["routingControlArn"]
     else:
-        raise DeserializationError(
-            "ArcRoutingControlState.routing_control_arn required"
-        )
+        out["routing_control_arn"] = ""
     if data.get("state") is not None:
         import capo_arc_region_switch.types.routing_control_state_change
 
@@ -51,5 +47,10 @@ def deserialize_aws_json_1_0(data: dict) -> ArcRoutingControlState:
             )
         )
     else:
-        raise DeserializationError("ArcRoutingControlState.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_arc_region_switch.types.routing_control_state_change.RoutingControlStateChange",
+            "",
+        )
     return out

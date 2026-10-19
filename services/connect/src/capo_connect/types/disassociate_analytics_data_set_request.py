@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.aws_account_id
     import capo_connect.types.data_set_id
@@ -35,9 +33,7 @@ def deserialize_json(data: dict) -> DisassociateAnalyticsDataSetRequest:
     if data.get("DataSetId") is not None:
         out["data_set_id"] = data["DataSetId"]
     else:
-        raise DeserializationError(
-            "DisassociateAnalyticsDataSetRequest.data_set_id required"
-        )
+        out["data_set_id"] = ""
     if data.get("TargetAccountId") is not None:
         out["target_account_id"] = data["TargetAccountId"]
     return out

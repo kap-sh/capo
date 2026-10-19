@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_codecatalyst.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecatalyst.types.access_token_id
     import capo_codecatalyst.types.access_token_name
@@ -43,11 +41,11 @@ def deserialize_json(data: dict) -> CreateAccessTokenResponse:
     if data.get("secret") is not None:
         out["secret"] = data["secret"]
     else:
-        raise DeserializationError("CreateAccessTokenResponse.secret required")
+        out["secret"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateAccessTokenResponse.name required")
+        out["name"] = ""
     if data.get("expiresTime") is not None:
         import datetime
 
@@ -55,11 +53,15 @@ def deserialize_json(data: dict) -> CreateAccessTokenResponse:
             data["expiresTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("CreateAccessTokenResponse.expires_time required")
+        import datetime
+
+        out["expires_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("accessTokenId") is not None:
         out["access_token_id"] = data["accessTokenId"]
     else:
-        raise DeserializationError("CreateAccessTokenResponse.access_token_id required")
+        out["access_token_id"] = ""
     return out
 
 

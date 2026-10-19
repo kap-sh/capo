@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.guardrail_checks_content_block_list
     import capo_bedrock_runtime.types.guardrail_checks_role
@@ -45,7 +43,11 @@ def deserialize_json(data: dict) -> GuardrailChecksMessage:
             data["role"]
         )
     else:
-        raise DeserializationError("GuardrailChecksMessage.role required")
+        import typing
+
+        out["role"] = typing.cast(
+            "capo_bedrock_runtime.types.guardrail_checks_role.GuardrailChecksRole", ""
+        )
     if data.get("content") is not None:
         import capo_bedrock_runtime.types.guardrail_checks_content_block_list
 
@@ -55,7 +57,7 @@ def deserialize_json(data: dict) -> GuardrailChecksMessage:
             )
         )
     else:
-        raise DeserializationError("GuardrailChecksMessage.content required")
+        out["content"] = []
     return out
 
 

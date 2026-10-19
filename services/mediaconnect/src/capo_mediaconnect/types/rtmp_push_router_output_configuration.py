@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.tls_encryption
 
@@ -44,27 +42,19 @@ def deserialize_json(data: dict) -> RtmpPushRouterOutputConfiguration:
     if data.get("destinationAddress") is not None:
         out["destination_address"] = data["destinationAddress"]
     else:
-        raise DeserializationError(
-            "RtmpPushRouterOutputConfiguration.destination_address required"
-        )
+        out["destination_address"] = ""
     if data.get("destinationPort") is not None:
         out["destination_port"] = data["destinationPort"]
     else:
-        raise DeserializationError(
-            "RtmpPushRouterOutputConfiguration.destination_port required"
-        )
+        out["destination_port"] = 0
     if data.get("applicationName") is not None:
         out["application_name"] = data["applicationName"]
     else:
-        raise DeserializationError(
-            "RtmpPushRouterOutputConfiguration.application_name required"
-        )
+        out["application_name"] = ""
     if data.get("streamName") is not None:
         out["stream_name"] = data["streamName"]
     else:
-        raise DeserializationError(
-            "RtmpPushRouterOutputConfiguration.stream_name required"
-        )
+        out["stream_name"] = ""
     if data.get("tlsEncryption") is not None:
         import capo_mediaconnect.types.tls_encryption
 

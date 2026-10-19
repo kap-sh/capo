@@ -119,9 +119,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartDocumentAnalysisRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartDocumentAnalysisRequest.feature_types required"
-        )
+        out["feature_types"] = []
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     if data.get("JobTag") is not None:

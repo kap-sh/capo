@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migration_hub_refactor_spaces.errors import DeserializationError, ServiceError
+from capo_migration_hub_refactor_spaces.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_migration_hub_refactor_spaces.types.retry_after_seconds
@@ -40,7 +40,7 @@ def deserialize_json(data: dict) -> ThrottlingException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("ThrottlingException_.message required")
+        out["message"] = ""
     if data.get("QuotaCode") is not None:
         out["quota_code"] = data["QuotaCode"]
     if data.get("ServiceCode") is not None:

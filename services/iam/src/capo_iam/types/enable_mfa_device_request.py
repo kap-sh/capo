@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.authentication_code_type
@@ -49,24 +48,20 @@ def deserialize_query(el: Element) -> EnableMFADeviceRequest:
     if child_user_name is not None:
         out["user_name"] = str(child_user_name.text or "")
     else:
-        raise DeserializationError("EnableMFADeviceRequest.user_name required")
+        out["user_name"] = ""
     child_serial_number = el.find("SerialNumber")
     if child_serial_number is not None:
         out["serial_number"] = str(child_serial_number.text or "")
     else:
-        raise DeserializationError("EnableMFADeviceRequest.serial_number required")
+        out["serial_number"] = ""
     child_authentication_code1 = el.find("AuthenticationCode1")
     if child_authentication_code1 is not None:
         out["authentication_code1"] = str(child_authentication_code1.text or "")
     else:
-        raise DeserializationError(
-            "EnableMFADeviceRequest.authentication_code1 required"
-        )
+        out["authentication_code1"] = ""
     child_authentication_code2 = el.find("AuthenticationCode2")
     if child_authentication_code2 is not None:
         out["authentication_code2"] = str(child_authentication_code2.text or "")
     else:
-        raise DeserializationError(
-            "EnableMFADeviceRequest.authentication_code2 required"
-        )
+        out["authentication_code2"] = ""
     return out

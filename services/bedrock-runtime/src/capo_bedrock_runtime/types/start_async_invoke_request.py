@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.async_invoke_idempotency_token
     import capo_bedrock_runtime.types.async_invoke_identifier
@@ -57,11 +55,11 @@ def deserialize_json(data: dict) -> StartAsyncInvokeRequest:
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:
-        raise DeserializationError("StartAsyncInvokeRequest.model_id required")
+        out["model_id"] = ""
     if data.get("modelInput") is not None:
         out["model_input"] = data["modelInput"]
     else:
-        raise DeserializationError("StartAsyncInvokeRequest.model_input required")
+        out["model_input"] = None
     if data.get("outputDataConfig") is not None:
         import capo_bedrock_runtime.types.async_invoke_output_data_config
 
@@ -71,8 +69,10 @@ def deserialize_json(data: dict) -> StartAsyncInvokeRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartAsyncInvokeRequest.output_data_config required"
+        import capo_bedrock_runtime.types._unknown
+
+        out["output_data_config"] = (
+            capo_bedrock_runtime.types._unknown.UnknownUnionMember("")
         )
     if data.get("tags") is not None:
         import capo_bedrock_runtime.types.tag_list

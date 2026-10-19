@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.lookback_window_size_unit
     import capo_quicksight.types.positive_long
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> LookbackWindow:
     if data.get("ColumnName") is not None:
         out["column_name"] = data["ColumnName"]
     else:
-        raise DeserializationError("LookbackWindow.column_name required")
+        out["column_name"] = ""
     if data.get("Size") is not None:
         out["size"] = data["Size"]
     else:
-        raise DeserializationError("LookbackWindow.size required")
+        out["size"] = 0
     if data.get("SizeUnit") is not None:
         import capo_quicksight.types.lookback_window_size_unit
 
@@ -53,5 +51,9 @@ def deserialize_json(data: dict) -> LookbackWindow:
             )
         )
     else:
-        raise DeserializationError("LookbackWindow.size_unit required")
+        import typing
+
+        out["size_unit"] = typing.cast(
+            "capo_quicksight.types.lookback_window_size_unit.LookbackWindowSizeUnit", ""
+        )
     return out

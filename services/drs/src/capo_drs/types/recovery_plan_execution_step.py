@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.error_detail
     import capo_drs.types.iso8601_datetime_string
@@ -66,21 +64,19 @@ def deserialize_json(data: dict) -> RecoveryPlanExecutionStep:
     if data.get("recoveryPlanExecutionStepArn") is not None:
         out["recovery_plan_execution_step_arn"] = data["recoveryPlanExecutionStepArn"]
     else:
-        raise DeserializationError(
-            "RecoveryPlanExecutionStep.recovery_plan_execution_step_arn required"
-        )
+        out["recovery_plan_execution_step_arn"] = ""
     if data.get("stepIndex") is not None:
         out["step_index"] = data["stepIndex"]
     else:
-        raise DeserializationError("RecoveryPlanExecutionStep.step_index required")
+        out["step_index"] = 0
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("RecoveryPlanExecutionStep.status required")
+        out["status"] = ""
     if data.get("stepName") is not None:
         out["step_name"] = data["stepName"]
     else:
-        raise DeserializationError("RecoveryPlanExecutionStep.step_name required")
+        out["step_name"] = ""
     if data.get("configuration") is not None:
         import capo_drs.types.recovery_plan_execution_step_configuration
 
@@ -90,7 +86,9 @@ def deserialize_json(data: dict) -> RecoveryPlanExecutionStep:
             )
         )
     else:
-        raise DeserializationError("RecoveryPlanExecutionStep.configuration required")
+        import capo_drs.types._unknown
+
+        out["configuration"] = capo_drs.types._unknown.UnknownUnionMember("")
     if data.get("errorDetail") is not None:
         import capo_drs.types.error_detail
 
@@ -100,13 +98,13 @@ def deserialize_json(data: dict) -> RecoveryPlanExecutionStep:
     if data.get("attempt") is not None:
         out["attempt"] = data["attempt"]
     else:
-        raise DeserializationError("RecoveryPlanExecutionStep.attempt required")
+        out["attempt"] = 0
     if data.get("createdAt") is not None:
         out["created_at"] = data["createdAt"]
     else:
-        raise DeserializationError("RecoveryPlanExecutionStep.created_at required")
+        out["created_at"] = ""
     if data.get("updatedAt") is not None:
         out["updated_at"] = data["updatedAt"]
     else:
-        raise DeserializationError("RecoveryPlanExecutionStep.updated_at required")
+        out["updated_at"] = ""
     return out

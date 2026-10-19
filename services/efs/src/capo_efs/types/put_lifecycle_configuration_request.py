@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_efs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_efs.types.file_system_id
     import capo_efs.types.lifecycle_policies
@@ -38,7 +36,5 @@ def deserialize_json(data: dict) -> PutLifecycleConfigurationRequest:
             data["LifecyclePolicies"]
         )
     else:
-        raise DeserializationError(
-            "PutLifecycleConfigurationRequest.lifecycle_policies required"
-        )
+        out["lifecycle_policies"] = []
     return out

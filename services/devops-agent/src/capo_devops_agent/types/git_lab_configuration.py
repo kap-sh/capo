@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.association_id
     import capo_devops_agent.types.role_arn
@@ -47,11 +45,11 @@ def deserialize_json(data: dict) -> GitLabConfiguration:
     if data.get("projectId") is not None:
         out["project_id"] = data["projectId"]
     else:
-        raise DeserializationError("GitLabConfiguration.project_id required")
+        out["project_id"] = ""
     if data.get("projectPath") is not None:
         out["project_path"] = data["projectPath"]
     else:
-        raise DeserializationError("GitLabConfiguration.project_path required")
+        out["project_path"] = ""
     if data.get("instanceIdentifier") is not None:
         out["instance_identifier"] = data["instanceIdentifier"]
     if data.get("runtimeRoleArn") is not None:

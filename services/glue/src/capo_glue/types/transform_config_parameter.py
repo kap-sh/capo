@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.boxed_boolean
     import capo_glue.types.enclosed_in_string_properties
@@ -71,13 +69,15 @@ def deserialize_aws_json_1_1(data: dict) -> TransformConfigParameter:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("TransformConfigParameter.name required")
+        out["name"] = ""
     if data.get("Type") is not None:
         import capo_glue.types.param_type
 
         out["type"] = capo_glue.types.param_type.deserialize_aws_json_1_1(data["Type"])
     else:
-        raise DeserializationError("TransformConfigParameter.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_glue.types.param_type.ParamType", "")
     if data.get("ValidationRule") is not None:
         out["validation_rule"] = data["ValidationRule"]
     if data.get("ValidationMessage") is not None:

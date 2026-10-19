@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_application_insights.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_insights.types.attach_missing_permission
     import capo_application_insights.types.auto_config_enabled
@@ -78,9 +76,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateApplicationRequest:
     if data.get("ResourceGroupName") is not None:
         out["resource_group_name"] = data["ResourceGroupName"]
     else:
-        raise DeserializationError(
-            "UpdateApplicationRequest.resource_group_name required"
-        )
+        out["resource_group_name"] = ""
     if data.get("OpsCenterEnabled") is not None:
         out["ops_center_enabled"] = data["OpsCenterEnabled"]
     if data.get("CWEMonitorEnabled") is not None:

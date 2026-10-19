@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mwaa_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mwaa_serverless.types.generic_map
     import capo_mwaa_serverless.types.generic_string
@@ -123,15 +121,15 @@ def deserialize_aws_json_1_0(data: dict) -> GetTaskInstanceResponse:
     if data.get("WorkflowArn") is not None:
         out["workflow_arn"] = data["WorkflowArn"]
     else:
-        raise DeserializationError("GetTaskInstanceResponse.workflow_arn required")
+        out["workflow_arn"] = ""
     if data.get("RunId") is not None:
         out["run_id"] = data["RunId"]
     else:
-        raise DeserializationError("GetTaskInstanceResponse.run_id required")
+        out["run_id"] = ""
     if data.get("TaskInstanceId") is not None:
         out["task_instance_id"] = data["TaskInstanceId"]
     else:
-        raise DeserializationError("GetTaskInstanceResponse.task_instance_id required")
+        out["task_instance_id"] = ""
     if data.get("WorkflowVersion") is not None:
         out["workflow_version"] = data["WorkflowVersion"]
     if data.get("Status") is not None:

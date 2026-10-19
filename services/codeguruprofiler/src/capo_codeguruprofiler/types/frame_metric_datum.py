@@ -52,5 +52,5 @@ def deserialize_json(data: dict) -> FrameMetricDatum:
             )
         )
     else:
-        raise DeserializationError("FrameMetricDatum.values required")
+        out["values"] = []
     return out

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 
 class AgenticRetrieveBedrockGuardrailConfiguration(TypedDict, closed=True):
     guardrail_id: "str"
@@ -25,13 +23,9 @@ def deserialize_json(data: dict) -> AgenticRetrieveBedrockGuardrailConfiguration
     if data.get("guardrailId") is not None:
         out["guardrail_id"] = data["guardrailId"]
     else:
-        raise DeserializationError(
-            "AgenticRetrieveBedrockGuardrailConfiguration.guardrail_id required"
-        )
+        out["guardrail_id"] = ""
     if data.get("guardrailVersion") is not None:
         out["guardrail_version"] = data["guardrailVersion"]
     else:
-        raise DeserializationError(
-            "AgenticRetrieveBedrockGuardrailConfiguration.guardrail_version required"
-        )
+        out["guardrail_version"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -48,15 +46,17 @@ def deserialize_json(data: dict) -> MessageOutput:
 
         out["value"] = capo_qconnect.types.message_data.deserialize_json(data["value"])
     else:
-        raise DeserializationError("MessageOutput.value required")
+        import capo_qconnect.types._unknown
+
+        out["value"] = capo_qconnect.types._unknown.UnknownUnionMember("")
     if data.get("messageId") is not None:
         out["message_id"] = data["messageId"]
     else:
-        raise DeserializationError("MessageOutput.message_id required")
+        out["message_id"] = ""
     if data.get("participant") is not None:
         out["participant"] = data["participant"]
     else:
-        raise DeserializationError("MessageOutput.participant required")
+        out["participant"] = ""
     if data.get("timestamp") is not None:
         import capo_qconnect.types._prelude.timestamp
 
@@ -64,7 +64,9 @@ def deserialize_json(data: dict) -> MessageOutput:
             data["timestamp"]
         )
     else:
-        raise DeserializationError("MessageOutput.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

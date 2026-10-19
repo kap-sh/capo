@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.integer
@@ -41,7 +40,7 @@ def deserialize_xml(el: Element) -> StagingDistributionDnsNames:
     if child_quantity is not None:
         out["quantity"] = int(child_quantity.text or "")
     else:
-        raise DeserializationError("StagingDistributionDnsNames.quantity required")
+        out["quantity"] = 0
     child_items = el.find("Items")
     if child_items is not None:
         import capo_cloudfront.types.staging_distribution_dns_name_list

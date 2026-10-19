@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.service_principal
     import capo_config_service.types.tags_list
@@ -38,9 +36,7 @@ def deserialize_aws_json_1_1(
     if data.get("ServicePrincipal") is not None:
         out["service_principal"] = data["ServicePrincipal"]
     else:
-        raise DeserializationError(
-            "PutServiceLinkedConfigurationRecorderRequest.service_principal required"
-        )
+        out["service_principal"] = ""
     if data.get("Tags") is not None:
         import capo_config_service.types.tags_list
 

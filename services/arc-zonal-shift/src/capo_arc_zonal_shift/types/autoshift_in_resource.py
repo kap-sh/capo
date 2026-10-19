@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_arc_zonal_shift.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_zonal_shift.types.autoshift_applied_status
     import capo_arc_zonal_shift.types.availability_zone
@@ -53,11 +51,16 @@ def deserialize_json(data: dict) -> AutoshiftInResource:
             )
         )
     else:
-        raise DeserializationError("AutoshiftInResource.applied_status required")
+        import typing
+
+        out["applied_status"] = typing.cast(
+            "capo_arc_zonal_shift.types.autoshift_applied_status.AutoshiftAppliedStatus",
+            "",
+        )
     if data.get("awayFrom") is not None:
         out["away_from"] = data["awayFrom"]
     else:
-        raise DeserializationError("AutoshiftInResource.away_from required")
+        out["away_from"] = ""
     if data.get("startTime") is not None:
         import capo_arc_zonal_shift.types.start_time
 
@@ -65,5 +68,7 @@ def deserialize_json(data: dict) -> AutoshiftInResource:
             data["startTime"]
         )
     else:
-        raise DeserializationError("AutoshiftInResource.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

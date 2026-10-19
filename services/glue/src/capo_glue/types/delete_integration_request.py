@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.string128
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteIntegrationRequest:
     if data.get("IntegrationIdentifier") is not None:
         out["integration_identifier"] = data["IntegrationIdentifier"]
     else:
-        raise DeserializationError(
-            "DeleteIntegrationRequest.integration_identifier required"
-        )
+        out["integration_identifier"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_places.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_places.types.api_key
     import capo_geo_places.types.autocomplete_additional_feature_list
@@ -99,7 +97,7 @@ def deserialize_json(data: dict) -> AutocompleteRequest:
     if data.get("QueryText") is not None:
         out["query_text"] = data["QueryText"]
     else:
-        raise DeserializationError("AutocompleteRequest.query_text required")
+        out["query_text"] = ""
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("BiasPosition") is not None:

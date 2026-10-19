@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__map_of__string
     import capo_mediatailor.types.__timestamp_unix
@@ -103,7 +101,9 @@ def deserialize_json(data: dict) -> PrefetchRetrieval:
             data["EndTime"]
         )
     else:
-        raise DeserializationError("PrefetchRetrieval.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("StartTime") is not None:
         import capo_mediatailor.types.__timestamp_unix
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.client_token
     import capo_qconnect.types.content_association_contents
@@ -60,9 +58,7 @@ def deserialize_json(data: dict) -> CreateContentAssociationRequest:
     if data.get("associationType") is not None:
         out["association_type"] = data["associationType"]
     else:
-        raise DeserializationError(
-            "CreateContentAssociationRequest.association_type required"
-        )
+        out["association_type"] = ""
     if data.get("association") is not None:
         import capo_qconnect.types.content_association_contents
 
@@ -72,9 +68,9 @@ def deserialize_json(data: dict) -> CreateContentAssociationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateContentAssociationRequest.association required"
-        )
+        import capo_qconnect.types._unknown
+
+        out["association"] = capo_qconnect.types._unknown.UnknownUnionMember("")
     if data.get("tags") is not None:
         import capo_qconnect.types.tags
 

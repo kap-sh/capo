@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.generic_string
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> GuestUserHistoryCount:
     if data.get("month") is not None:
         out["month"] = data["month"]
     else:
-        raise DeserializationError("GuestUserHistoryCount.month required")
+        out["month"] = ""
     if data.get("count") is not None:
         out["count"] = data["count"]
     else:
-        raise DeserializationError("GuestUserHistoryCount.count required")
+        out["count"] = ""
     return out

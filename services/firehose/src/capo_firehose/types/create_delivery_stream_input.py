@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_firehose.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_firehose.types.amazon_open_search_serverless_destination_configuration
     import capo_firehose.types.amazonopensearchservice_destination_configuration
@@ -247,9 +245,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDeliveryStreamInput:
     if data.get("DeliveryStreamName") is not None:
         out["delivery_stream_name"] = data["DeliveryStreamName"]
     else:
-        raise DeserializationError(
-            "CreateDeliveryStreamInput.delivery_stream_name required"
-        )
+        out["delivery_stream_name"] = ""
     if data.get("DeliveryStreamType") is not None:
         import capo_firehose.types.delivery_stream_type
 

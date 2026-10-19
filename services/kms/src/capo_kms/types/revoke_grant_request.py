@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kms.types.grant_id_type
     import capo_kms.types.key_id_type
@@ -36,11 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> RevokeGrantRequest:
     if data.get("KeyId") is not None:
         out["key_id"] = data["KeyId"]
     else:
-        raise DeserializationError("RevokeGrantRequest.key_id required")
+        out["key_id"] = ""
     if data.get("GrantId") is not None:
         out["grant_id"] = data["GrantId"]
     else:
-        raise DeserializationError("RevokeGrantRequest.grant_id required")
+        out["grant_id"] = ""
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
     return out

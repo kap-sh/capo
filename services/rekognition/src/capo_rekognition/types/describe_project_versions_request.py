@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.extended_pagination_token
     import capo_rekognition.types.project_arn
@@ -52,9 +50,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeProjectVersionsRequest:
     if data.get("ProjectArn") is not None:
         out["project_arn"] = data["ProjectArn"]
     else:
-        raise DeserializationError(
-            "DescribeProjectVersionsRequest.project_arn required"
-        )
+        out["project_arn"] = ""
     if data.get("VersionNames") is not None:
         import capo_rekognition.types.version_names
 

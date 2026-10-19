@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.application_host_url
     import capo_appflow.types.application_service_path
@@ -68,27 +66,19 @@ def deserialize_json(data: dict) -> SAPODataConnectorProfileProperties:
     if data.get("applicationHostUrl") is not None:
         out["application_host_url"] = data["applicationHostUrl"]
     else:
-        raise DeserializationError(
-            "SAPODataConnectorProfileProperties.application_host_url required"
-        )
+        out["application_host_url"] = ""
     if data.get("applicationServicePath") is not None:
         out["application_service_path"] = data["applicationServicePath"]
     else:
-        raise DeserializationError(
-            "SAPODataConnectorProfileProperties.application_service_path required"
-        )
+        out["application_service_path"] = ""
     if data.get("portNumber") is not None:
         out["port_number"] = data["portNumber"]
     else:
-        raise DeserializationError(
-            "SAPODataConnectorProfileProperties.port_number required"
-        )
+        out["port_number"] = 0
     if data.get("clientNumber") is not None:
         out["client_number"] = data["clientNumber"]
     else:
-        raise DeserializationError(
-            "SAPODataConnectorProfileProperties.client_number required"
-        )
+        out["client_number"] = ""
     if data.get("logonLanguage") is not None:
         out["logon_language"] = data["logonLanguage"]
     if data.get("privateLinkServiceName") is not None:

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 
 class CheckIngestedDocumentAclResponse(TypedDict, closed=True):
     has_access: "bool"
@@ -22,7 +20,5 @@ def deserialize_json(data: dict) -> CheckIngestedDocumentAclResponse:
     if data.get("hasAccess") is not None:
         out["has_access"] = data["hasAccess"]
     else:
-        raise DeserializationError(
-            "CheckIngestedDocumentAclResponse.has_access required"
-        )
+        out["has_access"] = False
     return out

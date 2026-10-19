@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_global_accelerator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_global_accelerator.types.generic_string
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> WithdrawByoipCidrRequest:
     if data.get("Cidr") is not None:
         out["cidr"] = data["Cidr"]
     else:
-        raise DeserializationError("WithdrawByoipCidrRequest.cidr required")
+        out["cidr"] = ""
     return out

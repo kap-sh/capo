@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.batch_evaluation_description
     import capo_bedrock_agentcore.types.batch_evaluation_name
@@ -108,9 +106,7 @@ def deserialize_json(data: dict) -> StartBatchEvaluationRequest:
     if data.get("batchEvaluationName") is not None:
         out["batch_evaluation_name"] = data["batchEvaluationName"]
     else:
-        raise DeserializationError(
-            "StartBatchEvaluationRequest.batch_evaluation_name required"
-        )
+        out["batch_evaluation_name"] = ""
     if data.get("evaluators") is not None:
         import capo_bedrock_agentcore.types.evaluator_list
 
@@ -134,8 +130,10 @@ def deserialize_json(data: dict) -> StartBatchEvaluationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartBatchEvaluationRequest.data_source_config required"
+        import capo_bedrock_agentcore.types._unknown
+
+        out["data_source_config"] = (
+            capo_bedrock_agentcore.types._unknown.UnknownUnionMember("")
         )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]

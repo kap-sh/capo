@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.expression
     import capo_databrew.types.values_map
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> FilterExpression:
     if data.get("Expression") is not None:
         out["expression"] = data["Expression"]
     else:
-        raise DeserializationError("FilterExpression.expression required")
+        out["expression"] = ""
     if data.get("ValuesMap") is not None:
         import capo_databrew.types.values_map
 
@@ -43,5 +41,5 @@ def deserialize_json(data: dict) -> FilterExpression:
             data["ValuesMap"]
         )
     else:
-        raise DeserializationError("FilterExpression.values_map required")
+        out["values_map"] = {}
     return out

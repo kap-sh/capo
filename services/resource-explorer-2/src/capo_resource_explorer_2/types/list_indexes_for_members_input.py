@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resource_explorer_2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resource_explorer_2.types.account_id_list
 
@@ -47,9 +45,7 @@ def deserialize_json(data: dict) -> ListIndexesForMembersInput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListIndexesForMembersInput.account_id_list required"
-        )
+        out["account_id_list"] = []
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     if data.get("NextToken") is not None:

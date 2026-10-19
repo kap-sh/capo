@@ -56,11 +56,11 @@ def deserialize_aws_json_1_1(data: dict) -> MSKSourceConfiguration:
     if data.get("MSKClusterARN") is not None:
         out["msk_cluster_arn"] = data["MSKClusterARN"]
     else:
-        raise DeserializationError("MSKSourceConfiguration.msk_cluster_arn required")
+        out["msk_cluster_arn"] = ""
     if data.get("TopicName") is not None:
         out["topic_name"] = data["TopicName"]
     else:
-        raise DeserializationError("MSKSourceConfiguration.topic_name required")
+        out["topic_name"] = ""
     if data.get("AuthenticationConfiguration") is not None:
         import capo_firehose.types.authentication_configuration
 

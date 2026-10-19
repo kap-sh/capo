@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.channel_subtype
     import capo_qconnect.types.client_token
@@ -120,9 +118,7 @@ def deserialize_json(data: dict) -> CreateMessageTemplateRequest:
     if data.get("channelSubtype") is not None:
         out["channel_subtype"] = data["channelSubtype"]
     else:
-        raise DeserializationError(
-            "CreateMessageTemplateRequest.channel_subtype required"
-        )
+        out["channel_subtype"] = ""
     if data.get("language") is not None:
         out["language"] = data["language"]
     if data.get("sourceConfiguration") is not None:

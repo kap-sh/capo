@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_rolesanywhere.errors import DeserializationError
-
 
 class MappingRule(TypedDict, closed=True):
     specifier: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> MappingRule:
     if data.get("specifier") is not None:
         out["specifier"] = data["specifier"]
     else:
-        raise DeserializationError("MappingRule.specifier required")
+        out["specifier"] = ""
     return out

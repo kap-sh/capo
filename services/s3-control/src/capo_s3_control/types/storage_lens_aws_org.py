@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.aws_org_arn
@@ -28,5 +27,5 @@ def deserialize_xml(el: Element) -> StorageLensAwsOrg:
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("StorageLensAwsOrg.arn required")
+        out["arn"] = ""
     return out

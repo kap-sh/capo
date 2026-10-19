@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.channel
     import capo_connectcases.types.connected_to_system_time
@@ -43,11 +41,11 @@ def deserialize_json(data: dict) -> ContactContent:
     if data.get("contactArn") is not None:
         out["contact_arn"] = data["contactArn"]
     else:
-        raise DeserializationError("ContactContent.contact_arn required")
+        out["contact_arn"] = ""
     if data.get("channel") is not None:
         out["channel"] = data["channel"]
     else:
-        raise DeserializationError("ContactContent.channel required")
+        out["channel"] = ""
     if data.get("connectedToSystemTime") is not None:
         import capo_connectcases.types.connected_to_system_time
 
@@ -57,5 +55,9 @@ def deserialize_json(data: dict) -> ContactContent:
             )
         )
     else:
-        raise DeserializationError("ContactContent.connected_to_system_time required")
+        import datetime
+
+        out["connected_to_system_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_backup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_backup.types.scan_result_status
 
@@ -37,5 +35,9 @@ def deserialize_json(data: dict) -> ScanResultInfo:
             )
         )
     else:
-        raise DeserializationError("ScanResultInfo.scan_result_status required")
+        import typing
+
+        out["scan_result_status"] = typing.cast(
+            "capo_backup.types.scan_result_status.ScanResultStatus", ""
+        )
     return out

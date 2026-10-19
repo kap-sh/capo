@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.max_results
     import capo_pinpoint_sms_voice_v2.types.next_token
@@ -50,9 +48,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListPoolOriginationIdentitiesRequest
     if data.get("PoolId") is not None:
         out["pool_id"] = data["PoolId"]
     else:
-        raise DeserializationError(
-            "ListPoolOriginationIdentitiesRequest.pool_id required"
-        )
+        out["pool_id"] = ""
     if data.get("Filters") is not None:
         import capo_pinpoint_sms_voice_v2.types.pool_origination_identities_filter_list
 

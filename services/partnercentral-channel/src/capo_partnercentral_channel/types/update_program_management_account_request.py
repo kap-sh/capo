@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_channel.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_channel.types.catalog
     import capo_partnercentral_channel.types.program_management_account_display_name
@@ -43,15 +41,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateProgramManagementAccountReques
     if data.get("catalog") is not None:
         out["catalog"] = data["catalog"]
     else:
-        raise DeserializationError(
-            "UpdateProgramManagementAccountRequest.catalog required"
-        )
+        out["catalog"] = ""
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError(
-            "UpdateProgramManagementAccountRequest.identifier required"
-        )
+        out["identifier"] = ""
     if data.get("revision") is not None:
         out["revision"] = data["revision"]
     if data.get("displayName") is not None:

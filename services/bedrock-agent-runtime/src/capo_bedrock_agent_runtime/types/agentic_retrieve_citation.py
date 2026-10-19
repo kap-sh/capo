@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.agentic_retrieve_citation_reference_list
 
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> AgenticRetrieveCitation:
     if data.get("startIndex") is not None:
         out["start_index"] = data["startIndex"]
     else:
-        raise DeserializationError("AgenticRetrieveCitation.start_index required")
+        out["start_index"] = 0
     if data.get("endIndex") is not None:
         out["end_index"] = data["endIndex"]
     else:
-        raise DeserializationError("AgenticRetrieveCitation.end_index required")
+        out["end_index"] = 0
     if data.get("references") is not None:
         import capo_bedrock_agent_runtime.types.agentic_retrieve_citation_reference_list
 
@@ -53,5 +51,5 @@ def deserialize_json(data: dict) -> AgenticRetrieveCitation:
             )
         )
     else:
-        raise DeserializationError("AgenticRetrieveCitation.references required")
+        out["references"] = []
     return out

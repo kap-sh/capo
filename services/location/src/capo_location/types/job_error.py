@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.job_error_code
     import capo_location.types.job_error_messages_list
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> JobError:
     if data.get("Code") is not None:
         out["code"] = data["Code"]
     else:
-        raise DeserializationError("JobError.code required")
+        out["code"] = ""
     if data.get("Messages") is not None:
         import capo_location.types.job_error_messages_list
 

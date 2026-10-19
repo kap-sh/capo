@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.platform_device_type
     import capo_ecs.types.string
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> PlatformDevice:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("PlatformDevice.id required")
+        out["id"] = ""
     if data.get("type") is not None:
         import capo_ecs.types.platform_device_type
 
@@ -43,5 +41,9 @@ def deserialize_aws_json_1_1(data: dict) -> PlatformDevice:
             data["type"]
         )
     else:
-        raise DeserializationError("PlatformDevice.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_ecs.types.platform_device_type.PlatformDeviceType", ""
+        )
     return out

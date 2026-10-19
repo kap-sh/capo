@@ -83,7 +83,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLanguageModelRequest:
             )
         )
     else:
-        raise DeserializationError("CreateLanguageModelRequest.language_code required")
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_transcribe.types.clm_language_code.CLMLanguageCode", ""
+        )
     if data.get("BaseModelName") is not None:
         import capo_transcribe.types.base_model_name
 
@@ -93,13 +97,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLanguageModelRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateLanguageModelRequest.base_model_name required"
+        import typing
+
+        out["base_model_name"] = typing.cast(
+            "capo_transcribe.types.base_model_name.BaseModelName", ""
         )
     if data.get("ModelName") is not None:
         out["model_name"] = data["ModelName"]
     else:
-        raise DeserializationError("CreateLanguageModelRequest.model_name required")
+        out["model_name"] = ""
     if data.get("InputDataConfig") is not None:
         import capo_transcribe.types.input_data_config
 

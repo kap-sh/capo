@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.allowed_methods
@@ -160,7 +159,7 @@ def deserialize_xml(el: Element) -> DefaultCacheBehavior:
     if child_target_origin_id is not None:
         out["target_origin_id"] = str(child_target_origin_id.text or "")
     else:
-        raise DeserializationError("DefaultCacheBehavior.target_origin_id required")
+        out["target_origin_id"] = ""
     child_trusted_signers = el.find("TrustedSigners")
     if child_trusted_signers is not None:
         import capo_cloudfront.types.trusted_signers
@@ -187,8 +186,10 @@ def deserialize_xml(el: Element) -> DefaultCacheBehavior:
             )
         )
     else:
-        raise DeserializationError(
-            "DefaultCacheBehavior.viewer_protocol_policy required"
+        import typing
+
+        out["viewer_protocol_policy"] = typing.cast(
+            "capo_cloudfront.types.viewer_protocol_policy.ViewerProtocolPolicy", ""
         )
     child_allowed_methods = el.find("AllowedMethods")
     if child_allowed_methods is not None:

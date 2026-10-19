@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.agent_arn
     import capo_quicksight.types.agent_id
@@ -92,11 +90,11 @@ def deserialize_json(data: dict) -> UpdateAgentResponse:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("UpdateAgentResponse.arn required")
+        out["arn"] = ""
     if data.get("AgentId") is not None:
         out["agent_id"] = data["AgentId"]
     else:
-        raise DeserializationError("UpdateAgentResponse.agent_id required")
+        out["agent_id"] = ""
     if data.get("AgentStatus") is not None:
         import capo_quicksight.types.agent_status
 
@@ -104,7 +102,11 @@ def deserialize_json(data: dict) -> UpdateAgentResponse:
             data["AgentStatus"]
         )
     else:
-        raise DeserializationError("UpdateAgentResponse.agent_status required")
+        import typing
+
+        out["agent_status"] = typing.cast(
+            "capo_quicksight.types.agent_status.AgentStatus", ""
+        )
     if data.get("FailedToAddSpaces") is not None:
         import capo_quicksight.types.failed_to_update_association_list
 

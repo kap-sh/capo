@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.error_code
 
@@ -35,19 +33,17 @@ def deserialize_json(data: dict) -> BatchDisassociateFindingIssueError:
     if data.get("findingId") is not None:
         out["finding_id"] = data["findingId"]
     else:
-        raise DeserializationError(
-            "BatchDisassociateFindingIssueError.finding_id required"
-        )
+        out["finding_id"] = ""
     if data.get("code") is not None:
         import capo_securityagent.types.error_code
 
         out["code"] = capo_securityagent.types.error_code.deserialize_json(data["code"])
     else:
-        raise DeserializationError("BatchDisassociateFindingIssueError.code required")
+        import typing
+
+        out["code"] = typing.cast("capo_securityagent.types.error_code.ErrorCode", "")
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError(
-            "BatchDisassociateFindingIssueError.message required"
-        )
+        out["message"] = ""
     return out

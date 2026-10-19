@@ -135,13 +135,11 @@ def deserialize_json(data: dict) -> StartTrainedModelInferenceJobRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("StartTrainedModelInferenceJobRequest.name required")
+        out["name"] = ""
     if data.get("trainedModelArn") is not None:
         out["trained_model_arn"] = data["trainedModelArn"]
     else:
-        raise DeserializationError(
-            "StartTrainedModelInferenceJobRequest.trained_model_arn required"
-        )
+        out["trained_model_arn"] = ""
     if data.get("trainedModelVersionIdentifier") is not None:
         out["trained_model_version_identifier"] = data["trainedModelVersionIdentifier"]
     if data.get("configuredModelAlgorithmAssociationArn") is not None:

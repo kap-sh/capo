@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.purchase_mode
@@ -38,7 +36,9 @@ def deserialize_json(data: dict) -> UpdateSPICECapacityConfigurationRequest:
             data["PurchaseMode"]
         )
     else:
-        raise DeserializationError(
-            "UpdateSPICECapacityConfigurationRequest.purchase_mode required"
+        import typing
+
+        out["purchase_mode"] = typing.cast(
+            "capo_quicksight.types.purchase_mode.PurchaseMode", ""
         )
     return out

@@ -171,8 +171,11 @@ def deserialize_json(data: dict) -> ServiceManagedEc2InstanceCapabilities:
             )
         )
     else:
-        raise DeserializationError(
-            "ServiceManagedEc2InstanceCapabilities.os_family required"
+        import typing
+
+        out["os_family"] = typing.cast(
+            "capo_deadline.types.service_managed_fleet_operating_system_family.ServiceManagedFleetOperatingSystemFamily",
+            "",
         )
     if data.get("cpuArchitectureType") is not None:
         import capo_deadline.types.cpu_architecture_type
@@ -183,8 +186,10 @@ def deserialize_json(data: dict) -> ServiceManagedEc2InstanceCapabilities:
             )
         )
     else:
-        raise DeserializationError(
-            "ServiceManagedEc2InstanceCapabilities.cpu_architecture_type required"
+        import typing
+
+        out["cpu_architecture_type"] = typing.cast(
+            "capo_deadline.types.cpu_architecture_type.CpuArchitectureType", ""
         )
     if data.get("rootEbsVolume") is not None:
         import capo_deadline.types.ec2_ebs_volume

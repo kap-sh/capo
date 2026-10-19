@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.integer_range_between4_and32
     import capo_payment_cryptography_data.types.key_arn_or_key_alias_type
@@ -56,15 +54,15 @@ def deserialize_json(data: dict) -> VerifyMacInput:
     if data.get("KeyIdentifier") is not None:
         out["key_identifier"] = data["KeyIdentifier"]
     else:
-        raise DeserializationError("VerifyMacInput.key_identifier required")
+        out["key_identifier"] = ""
     if data.get("MessageData") is not None:
         out["message_data"] = data["MessageData"]
     else:
-        raise DeserializationError("VerifyMacInput.message_data required")
+        out["message_data"] = ""
     if data.get("Mac") is not None:
         out["mac"] = data["Mac"]
     else:
-        raise DeserializationError("VerifyMacInput.mac required")
+        out["mac"] = ""
     if data.get("VerificationAttributes") is not None:
         import capo_payment_cryptography_data.types.mac_attributes
 
@@ -74,7 +72,11 @@ def deserialize_json(data: dict) -> VerifyMacInput:
             )
         )
     else:
-        raise DeserializationError("VerifyMacInput.verification_attributes required")
+        import capo_payment_cryptography_data.types._unknown
+
+        out["verification_attributes"] = (
+            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
+        )
     if data.get("MacLength") is not None:
         out["mac_length"] = data["MacLength"]
     return out

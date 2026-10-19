@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.string
 
@@ -33,19 +31,13 @@ def deserialize_aws_json_1_1(data: dict) -> ApplyPendingMaintenanceActionMessage
     if data.get("ReplicationInstanceArn") is not None:
         out["replication_instance_arn"] = data["ReplicationInstanceArn"]
     else:
-        raise DeserializationError(
-            "ApplyPendingMaintenanceActionMessage.replication_instance_arn required"
-        )
+        out["replication_instance_arn"] = ""
     if data.get("ApplyAction") is not None:
         out["apply_action"] = data["ApplyAction"]
     else:
-        raise DeserializationError(
-            "ApplyPendingMaintenanceActionMessage.apply_action required"
-        )
+        out["apply_action"] = ""
     if data.get("OptInType") is not None:
         out["opt_in_type"] = data["OptInType"]
     else:
-        raise DeserializationError(
-            "ApplyPendingMaintenanceActionMessage.opt_in_type required"
-        )
+        out["opt_in_type"] = ""
     return out

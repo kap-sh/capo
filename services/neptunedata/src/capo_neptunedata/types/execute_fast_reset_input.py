@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptunedata.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_neptunedata.types.action
 
@@ -35,7 +33,9 @@ def deserialize_json(data: dict) -> ExecuteFastResetInput:
 
         out["action"] = capo_neptunedata.types.action.deserialize_json(data["action"])
     else:
-        raise DeserializationError("ExecuteFastResetInput.action required")
+        import typing
+
+        out["action"] = typing.cast("capo_neptunedata.types.action.Action", "")
     if data.get("token") is not None:
         out["token"] = data["token"]
     return out

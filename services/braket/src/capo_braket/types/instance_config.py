@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_braket.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_braket.types.instance_type
 
@@ -34,11 +32,11 @@ def deserialize_json(data: dict) -> InstanceConfig:
     if data.get("instanceType") is not None:
         out["instance_type"] = data["instanceType"]
     else:
-        raise DeserializationError("InstanceConfig.instance_type required")
+        out["instance_type"] = ""
     if data.get("volumeSizeInGb") is not None:
         out["volume_size_in_gb"] = data["volumeSizeInGb"]
     else:
-        raise DeserializationError("InstanceConfig.volume_size_in_gb required")
+        out["volume_size_in_gb"] = 0
     if data.get("instanceCount") is not None:
         out["instance_count"] = data["instanceCount"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.analysis_template_arn
     import capo_cleanrooms.types.job_parameter_map
@@ -38,9 +36,7 @@ def deserialize_json(data: dict) -> ProtectedJobParameters:
     if data.get("analysisTemplateArn") is not None:
         out["analysis_template_arn"] = data["analysisTemplateArn"]
     else:
-        raise DeserializationError(
-            "ProtectedJobParameters.analysis_template_arn required"
-        )
+        out["analysis_template_arn"] = ""
     if data.get("parameters") is not None:
         import capo_cleanrooms.types.job_parameter_map
 

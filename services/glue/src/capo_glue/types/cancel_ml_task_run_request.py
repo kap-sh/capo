@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.hash_string
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> CancelMLTaskRunRequest:
     if data.get("TransformId") is not None:
         out["transform_id"] = data["TransformId"]
     else:
-        raise DeserializationError("CancelMLTaskRunRequest.transform_id required")
+        out["transform_id"] = ""
     if data.get("TaskRunId") is not None:
         out["task_run_id"] = data["TaskRunId"]
     else:
-        raise DeserializationError("CancelMLTaskRunRequest.task_run_id required")
+        out["task_run_id"] = ""
     return out

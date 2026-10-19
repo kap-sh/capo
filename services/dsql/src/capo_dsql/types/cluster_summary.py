@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dsql.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dsql.types.cluster_arn
     import capo_dsql.types.cluster_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> ClusterSummary:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     else:
-        raise DeserializationError("ClusterSummary.identifier required")
+        out["identifier"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ClusterSummary.arn required")
+        out["arn"] = ""
     return out

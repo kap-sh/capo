@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.long
@@ -60,7 +59,7 @@ def deserialize_xml(el: Element) -> CachePolicyConfig:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("CachePolicyConfig.name required")
+        out["name"] = ""
     child_default_ttl = el.find("DefaultTTL")
     if child_default_ttl is not None:
         out["default_ttl"] = int(child_default_ttl.text or "")
@@ -71,7 +70,7 @@ def deserialize_xml(el: Element) -> CachePolicyConfig:
     if child_min_ttl is not None:
         out["min_ttl"] = int(child_min_ttl.text or "")
     else:
-        raise DeserializationError("CachePolicyConfig.min_ttl required")
+        out["min_ttl"] = 0
     child_parameters_in_cache_key_and_forwarded_to_origin = el.find(
         "ParametersInCacheKeyAndForwardedToOrigin"
     )

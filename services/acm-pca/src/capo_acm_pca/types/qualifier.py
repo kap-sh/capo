@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_acm_pca.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm_pca.types.string256
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> Qualifier:
     if data.get("CpsUri") is not None:
         out["cps_uri"] = data["CpsUri"]
     else:
-        raise DeserializationError("Qualifier.cps_uri required")
+        out["cps_uri"] = ""
     return out

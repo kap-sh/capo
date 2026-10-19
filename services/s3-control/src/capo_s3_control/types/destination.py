@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.access_control_translation
@@ -87,7 +86,7 @@ def deserialize_xml(el: Element) -> Destination:
     if child_bucket is not None:
         out["bucket"] = str(child_bucket.text or "")
     else:
-        raise DeserializationError("Destination.bucket required")
+        out["bucket"] = ""
     child_replication_time = el.find("ReplicationTime")
     if child_replication_time is not None:
         import capo_s3_control.types.replication_time

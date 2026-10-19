@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.dukpt_derivation_type
     import capo_payment_cryptography_data.types.dukpt_encryption_mode
@@ -73,9 +71,7 @@ def deserialize_json(data: dict) -> DukptEncryptionAttributes:
     if data.get("KeySerialNumber") is not None:
         out["key_serial_number"] = data["KeySerialNumber"]
     else:
-        raise DeserializationError(
-            "DukptEncryptionAttributes.key_serial_number required"
-        )
+        out["key_serial_number"] = ""
     if data.get("Mode") is not None:
         import capo_payment_cryptography_data.types.dukpt_encryption_mode
 

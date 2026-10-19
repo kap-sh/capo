@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wafv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wafv2.types.time_window_second
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> ImmunityTimeProperty:
     if data.get("ImmunityTime") is not None:
         out["immunity_time"] = data["ImmunityTime"]
     else:
-        raise DeserializationError("ImmunityTimeProperty.immunity_time required")
+        out["immunity_time"] = 0
     return out

@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_b2bi.errors import DeserializationError
-
 
 class CreateStarterMappingTemplateResponse(TypedDict, closed=True):
     mapping_template: "str"
@@ -22,7 +20,5 @@ def deserialize_aws_json_1_0(data: dict) -> CreateStarterMappingTemplateResponse
     if data.get("mappingTemplate") is not None:
         out["mapping_template"] = data["mappingTemplate"]
     else:
-        raise DeserializationError(
-            "CreateStarterMappingTemplateResponse.mapping_template required"
-        )
+        out["mapping_template"] = ""
     return out

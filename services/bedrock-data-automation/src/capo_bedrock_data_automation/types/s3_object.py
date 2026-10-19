@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_data_automation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.s3_object_version
     import capo_bedrock_data_automation.types.s3_uri
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> S3Object:
     if data.get("s3Uri") is not None:
         out["s3_uri"] = data["s3Uri"]
     else:
-        raise DeserializationError("S3Object.s3_uri required")
+        out["s3_uri"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     return out

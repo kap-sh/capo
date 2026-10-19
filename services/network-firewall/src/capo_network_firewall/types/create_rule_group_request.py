@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.boolean
     import capo_network_firewall.types.description
@@ -117,7 +115,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRuleGroupRequest:
     if data.get("RuleGroupName") is not None:
         out["rule_group_name"] = data["RuleGroupName"]
     else:
-        raise DeserializationError("CreateRuleGroupRequest.rule_group_name required")
+        out["rule_group_name"] = ""
     if data.get("RuleGroup") is not None:
         import capo_network_firewall.types.rule_group
 
@@ -137,13 +135,17 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRuleGroupRequest:
             )
         )
     else:
-        raise DeserializationError("CreateRuleGroupRequest.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_network_firewall.types.rule_group_type.RuleGroupType", ""
+        )
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Capacity") is not None:
         out["capacity"] = data["Capacity"]
     else:
-        raise DeserializationError("CreateRuleGroupRequest.capacity required")
+        out["capacity"] = 0
     if data.get("Tags") is not None:
         import capo_network_firewall.types.tag_list
 

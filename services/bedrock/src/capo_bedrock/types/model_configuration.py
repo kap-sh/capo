@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.additional_model_request_fields
     import capo_bedrock.types.advanced_prompt_optimization_model_identifier
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> ModelConfiguration:
     if data.get("modelId") is not None:
         out["model_id"] = data["modelId"]
     else:
-        raise DeserializationError("ModelConfiguration.model_id required")
+        out["model_id"] = ""
     if data.get("inferenceConfig") is not None:
         import capo_bedrock.types.inference_configuration
 

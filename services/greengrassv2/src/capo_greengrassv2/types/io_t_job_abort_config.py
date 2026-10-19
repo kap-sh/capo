@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_greengrassv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_greengrassv2.types.io_t_job_abort_criteria_list
 
@@ -41,5 +39,5 @@ def deserialize_json(data: dict) -> IoTJobAbortConfig:
             )
         )
     else:
-        raise DeserializationError("IoTJobAbortConfig.criteria_list required")
+        out["criteria_list"] = []
     return out

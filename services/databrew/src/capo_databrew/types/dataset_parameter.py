@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.create_column
     import capo_databrew.types.datetime_options
@@ -57,13 +55,17 @@ def deserialize_json(data: dict) -> DatasetParameter:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("DatasetParameter.name required")
+        out["name"] = ""
     if data.get("Type") is not None:
         import capo_databrew.types.parameter_type
 
         out["type"] = capo_databrew.types.parameter_type.deserialize_json(data["Type"])
     else:
-        raise DeserializationError("DatasetParameter.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_databrew.types.parameter_type.ParameterType", ""
+        )
     if data.get("DatetimeOptions") is not None:
         import capo_databrew.types.datetime_options
 

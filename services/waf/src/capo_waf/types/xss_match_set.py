@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_waf.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_waf.types.resource_id
     import capo_waf.types.resource_name
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> XssMatchSet:
     if data.get("XssMatchSetId") is not None:
         out["xss_match_set_id"] = data["XssMatchSetId"]
     else:
-        raise DeserializationError("XssMatchSet.xss_match_set_id required")
+        out["xss_match_set_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("XssMatchTuples") is not None:
@@ -52,5 +50,5 @@ def deserialize_aws_json_1_1(data: dict) -> XssMatchSet:
             )
         )
     else:
-        raise DeserializationError("XssMatchSet.xss_match_tuples required")
+        out["xss_match_tuples"] = []
     return out

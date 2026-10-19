@@ -37,7 +37,7 @@ def deserialize_json(data: dict) -> Specifications:
     if data.get("slotTypeId") is not None:
         out["slot_type_id"] = data["slotTypeId"]
     else:
-        raise DeserializationError("Specifications.slot_type_id required")
+        out["slot_type_id"] = ""
     if data.get("valueElicitationSetting") is not None:
         import capo_lex_models_v2.types.sub_slot_value_elicitation_setting
 

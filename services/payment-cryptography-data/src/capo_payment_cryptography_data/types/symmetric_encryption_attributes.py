@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.encryption_mode
     import capo_payment_cryptography_data.types.initialization_vector_type
@@ -57,7 +55,11 @@ def deserialize_json(data: dict) -> SymmetricEncryptionAttributes:
             )
         )
     else:
-        raise DeserializationError("SymmetricEncryptionAttributes.mode required")
+        import typing
+
+        out["mode"] = typing.cast(
+            "capo_payment_cryptography_data.types.encryption_mode.EncryptionMode", ""
+        )
     if data.get("InitializationVector") is not None:
         out["initialization_vector"] = data["InitializationVector"]
     if data.get("PaddingType") is not None:

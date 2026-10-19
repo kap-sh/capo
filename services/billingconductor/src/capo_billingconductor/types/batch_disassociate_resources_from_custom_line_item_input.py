@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billingconductor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billingconductor.types.custom_line_item_arn
     import capo_billingconductor.types.custom_line_item_batch_disassociations_list
@@ -49,9 +47,7 @@ def deserialize_json(data: dict) -> BatchDisassociateResourcesFromCustomLineItem
     if data.get("TargetArn") is not None:
         out["target_arn"] = data["TargetArn"]
     else:
-        raise DeserializationError(
-            "BatchDisassociateResourcesFromCustomLineItemInput.target_arn required"
-        )
+        out["target_arn"] = ""
     if data.get("ResourceArns") is not None:
         import capo_billingconductor.types.custom_line_item_batch_disassociations_list
 
@@ -61,9 +57,7 @@ def deserialize_json(data: dict) -> BatchDisassociateResourcesFromCustomLineItem
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDisassociateResourcesFromCustomLineItemInput.resource_arns required"
-        )
+        out["resource_arns"] = []
     if data.get("BillingPeriodRange") is not None:
         import capo_billingconductor.types.custom_line_item_billing_period_range
 

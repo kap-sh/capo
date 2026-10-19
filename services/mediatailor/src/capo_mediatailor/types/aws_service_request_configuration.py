@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediatailor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediatailor.types.__integer
     import capo_mediatailor.types.__map_of__string
@@ -92,7 +90,11 @@ def deserialize_json(data: dict) -> AwsServiceRequestConfiguration:
             data["Runtime"]
         )
     else:
-        raise DeserializationError("AwsServiceRequestConfiguration.runtime required")
+        import typing
+
+        out["runtime"] = typing.cast(
+            "capo_mediatailor.types.runtime_type.RuntimeType", ""
+        )
     if data.get("Output") is not None:
         import capo_mediatailor.types.__map_of__string
 
@@ -106,19 +108,19 @@ def deserialize_json(data: dict) -> AwsServiceRequestConfiguration:
             data["MethodType"]
         )
     else:
-        raise DeserializationError(
-            "AwsServiceRequestConfiguration.method_type required"
+        import typing
+
+        out["method_type"] = typing.cast(
+            "capo_mediatailor.types.method_type.MethodType", ""
         )
     if data.get("RequestTimeoutMilliseconds") is not None:
         out["request_timeout_milliseconds"] = data["RequestTimeoutMilliseconds"]
     else:
-        raise DeserializationError(
-            "AwsServiceRequestConfiguration.request_timeout_milliseconds required"
-        )
+        out["request_timeout_milliseconds"] = 0
     if data.get("Url") is not None:
         out["url"] = data["Url"]
     else:
-        raise DeserializationError("AwsServiceRequestConfiguration.url required")
+        out["url"] = ""
     if data.get("Body") is not None:
         out["body"] = data["Body"]
     if data.get("Headers") is not None:
@@ -138,13 +140,9 @@ def deserialize_json(data: dict) -> AwsServiceRequestConfiguration:
     if data.get("TargetService") is not None:
         out["target_service"] = data["TargetService"]
     else:
-        raise DeserializationError(
-            "AwsServiceRequestConfiguration.target_service required"
-        )
+        out["target_service"] = ""
     if data.get("TargetRegion") is not None:
         out["target_region"] = data["TargetRegion"]
     else:
-        raise DeserializationError(
-            "AwsServiceRequestConfiguration.target_region required"
-        )
+        out["target_region"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.sensitive_string
 
@@ -30,11 +28,11 @@ def deserialize_json(data: dict) -> RefreshTokenResponse:
     if data.get("accessToken") is not None:
         out["access_token"] = data["accessToken"]
     else:
-        raise DeserializationError("RefreshTokenResponse.access_token required")
+        out["access_token"] = ""
     if data.get("expiresIn") is not None:
         out["expires_in"] = data["expiresIn"]
     else:
-        raise DeserializationError("RefreshTokenResponse.expires_in required")
+        out["expires_in"] = 0
     return out
 
 

@@ -55,7 +55,5 @@ def deserialize_json(data: dict) -> CreateAuthCodeRequest:
             "SessionInactivityDurationMinutes"
         ]
     else:
-        raise DeserializationError(
-            "CreateAuthCodeRequest.session_inactivity_duration_minutes required"
-        )
+        out["session_inactivity_duration_minutes"] = 0
     return out

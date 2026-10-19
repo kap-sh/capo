@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.kms_arn
     import capo_entityresolution.types.s3_path
@@ -34,7 +32,5 @@ def deserialize_json(data: dict) -> IdMappingWorkflowOutputSource:
     if data.get("outputS3Path") is not None:
         out["output_s3_path"] = data["outputS3Path"]
     else:
-        raise DeserializationError(
-            "IdMappingWorkflowOutputSource.output_s3_path required"
-        )
+        out["output_s3_path"] = ""
     return out

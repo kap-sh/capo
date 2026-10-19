@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_textract.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_textract.types.normalized_value
     import capo_textract.types.percent
@@ -53,7 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> AnalyzeIDDetections:
     if data.get("Text") is not None:
         out["text"] = data["Text"]
     else:
-        raise DeserializationError("AnalyzeIDDetections.text required")
+        out["text"] = ""
     if data.get("NormalizedValue") is not None:
         import capo_textract.types.normalized_value
 

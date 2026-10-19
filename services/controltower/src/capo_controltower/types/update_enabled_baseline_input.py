@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_controltower.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_controltower.types.arn
     import capo_controltower.types.baseline_version
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> UpdateEnabledBaselineInput:
     if data.get("baselineVersion") is not None:
         out["baseline_version"] = data["baselineVersion"]
     else:
-        raise DeserializationError(
-            "UpdateEnabledBaselineInput.baseline_version required"
-        )
+        out["baseline_version"] = ""
     if data.get("parameters") is not None:
         import capo_controltower.types.enabled_baseline_parameters
 
@@ -58,7 +54,5 @@ def deserialize_json(data: dict) -> UpdateEnabledBaselineInput:
     if data.get("enabledBaselineIdentifier") is not None:
         out["enabled_baseline_identifier"] = data["enabledBaselineIdentifier"]
     else:
-        raise DeserializationError(
-            "UpdateEnabledBaselineInput.enabled_baseline_identifier required"
-        )
+        out["enabled_baseline_identifier"] = ""
     return out

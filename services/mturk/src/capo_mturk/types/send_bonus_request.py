@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mturk.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mturk.types.currency_amount
     import capo_mturk.types.customer_id
@@ -46,19 +44,19 @@ def deserialize_aws_json_1_1(data: dict) -> SendBonusRequest:
     if data.get("WorkerId") is not None:
         out["worker_id"] = data["WorkerId"]
     else:
-        raise DeserializationError("SendBonusRequest.worker_id required")
+        out["worker_id"] = ""
     if data.get("BonusAmount") is not None:
         out["bonus_amount"] = data["BonusAmount"]
     else:
-        raise DeserializationError("SendBonusRequest.bonus_amount required")
+        out["bonus_amount"] = ""
     if data.get("AssignmentId") is not None:
         out["assignment_id"] = data["AssignmentId"]
     else:
-        raise DeserializationError("SendBonusRequest.assignment_id required")
+        out["assignment_id"] = ""
     if data.get("Reason") is not None:
         out["reason"] = data["Reason"]
     else:
-        raise DeserializationError("SendBonusRequest.reason required")
+        out["reason"] = ""
     if data.get("UniqueRequestToken") is not None:
         out["unique_request_token"] = data["UniqueRequestToken"]
     return out

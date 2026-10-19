@@ -33,7 +33,7 @@ def deserialize_json(data: dict) -> BatchGetDevicePositionError:
     if data.get("DeviceId") is not None:
         out["device_id"] = data["DeviceId"]
     else:
-        raise DeserializationError("BatchGetDevicePositionError.device_id required")
+        out["device_id"] = ""
     if data.get("Error") is not None:
         import capo_location.types.batch_item_error
 

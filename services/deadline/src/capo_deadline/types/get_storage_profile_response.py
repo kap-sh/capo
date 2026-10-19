@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.created_at
     import capo_deadline.types.created_by
@@ -80,13 +78,11 @@ def deserialize_json(data: dict) -> GetStorageProfileResponse:
     if data.get("storageProfileId") is not None:
         out["storage_profile_id"] = data["storageProfileId"]
     else:
-        raise DeserializationError(
-            "GetStorageProfileResponse.storage_profile_id required"
-        )
+        out["storage_profile_id"] = ""
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("GetStorageProfileResponse.display_name required")
+        out["display_name"] = ""
     if data.get("osFamily") is not None:
         import capo_deadline.types.storage_profile_operating_system_family
 
@@ -96,7 +92,12 @@ def deserialize_json(data: dict) -> GetStorageProfileResponse:
             )
         )
     else:
-        raise DeserializationError("GetStorageProfileResponse.os_family required")
+        import typing
+
+        out["os_family"] = typing.cast(
+            "capo_deadline.types.storage_profile_operating_system_family.StorageProfileOperatingSystemFamily",
+            "",
+        )
     if data.get("createdAt") is not None:
         import capo_deadline.types.created_at
 
@@ -104,11 +105,13 @@ def deserialize_json(data: dict) -> GetStorageProfileResponse:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("GetStorageProfileResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
     else:
-        raise DeserializationError("GetStorageProfileResponse.created_by required")
+        out["created_by"] = ""
     if data.get("updatedAt") is not None:
         import capo_deadline.types.updated_at
 

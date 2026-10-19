@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.can_signal_name
     import capo_iotfleetwise.types.double
@@ -96,11 +94,11 @@ def deserialize_aws_json_1_0(data: dict) -> CanSignal:
     if data.get("offset") is not None:
         out["offset"] = float(data["offset"])
     else:
-        raise DeserializationError("CanSignal.offset required")
+        out["offset"] = 0.0
     if data.get("factor") is not None:
         out["factor"] = float(data["factor"])
     else:
-        raise DeserializationError("CanSignal.factor required")
+        out["factor"] = 0.0
     if data.get("length") is not None:
         out["length"] = data["length"]
     else:

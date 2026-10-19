@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.account_id
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterOrganizationDelegatedAdminRe
     if data.get("MemberAccountId") is not None:
         out["member_account_id"] = data["MemberAccountId"]
     else:
-        raise DeserializationError(
-            "RegisterOrganizationDelegatedAdminRequest.member_account_id required"
-        )
+        out["member_account_id"] = ""
     return out

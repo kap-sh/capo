@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.flow_node_input_expression
     import capo_bedrock_agent_runtime.types.flow_node_output_name
@@ -37,15 +35,15 @@ def deserialize_json(data: dict) -> NodeInputSource:
     if data.get("nodeName") is not None:
         out["node_name"] = data["nodeName"]
     else:
-        raise DeserializationError("NodeInputSource.node_name required")
+        out["node_name"] = ""
     if data.get("outputFieldName") is not None:
         out["output_field_name"] = data["outputFieldName"]
     else:
-        raise DeserializationError("NodeInputSource.output_field_name required")
+        out["output_field_name"] = ""
     if data.get("expression") is not None:
         out["expression"] = data["expression"]
     else:
-        raise DeserializationError("NodeInputSource.expression required")
+        out["expression"] = ""
     return out
 
 

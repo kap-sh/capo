@@ -78,19 +78,17 @@ def deserialize_aws_json_1_0(data: dict) -> ScheduledReportInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ScheduledReportInput.name required")
+        out["name"] = ""
     if data.get("dashboardArn") is not None:
         out["dashboard_arn"] = data["dashboardArn"]
     else:
-        raise DeserializationError("ScheduledReportInput.dashboard_arn required")
+        out["dashboard_arn"] = ""
     if data.get("scheduledReportExecutionRoleArn") is not None:
         out["scheduled_report_execution_role_arn"] = data[
             "scheduledReportExecutionRoleArn"
         ]
     else:
-        raise DeserializationError(
-            "ScheduledReportInput.scheduled_report_execution_role_arn required"
-        )
+        out["scheduled_report_execution_role_arn"] = ""
     if data.get("scheduleConfig") is not None:
         import capo_bcm_dashboards.types.schedule_config
 

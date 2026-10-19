@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_billing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_billing.types.business_support_account_charge_list
     import capo_billing.types.business_support_billing_month
@@ -56,33 +54,23 @@ def deserialize_aws_json_1_0(data: dict) -> ListBusinessSupportAccountChargesRes
     if data.get("billingMonth") is not None:
         out["billing_month"] = data["billingMonth"]
     else:
-        raise DeserializationError(
-            "ListBusinessSupportAccountChargesResponse.billing_month required"
-        )
+        out["billing_month"] = ""
     if data.get("isEstimated") is not None:
         out["is_estimated"] = data["isEstimated"]
     else:
-        raise DeserializationError(
-            "ListBusinessSupportAccountChargesResponse.is_estimated required"
-        )
+        out["is_estimated"] = False
     if data.get("totalSupportCharge") is not None:
         out["total_support_charge"] = data["totalSupportCharge"]
     else:
-        raise DeserializationError(
-            "ListBusinessSupportAccountChargesResponse.total_support_charge required"
-        )
+        out["total_support_charge"] = ""
     if data.get("totalSupportEligibleSpend") is not None:
         out["total_support_eligible_spend"] = data["totalSupportEligibleSpend"]
     else:
-        raise DeserializationError(
-            "ListBusinessSupportAccountChargesResponse.total_support_eligible_spend required"
-        )
+        out["total_support_eligible_spend"] = ""
     if data.get("accountCount") is not None:
         out["account_count"] = data["accountCount"]
     else:
-        raise DeserializationError(
-            "ListBusinessSupportAccountChargesResponse.account_count required"
-        )
+        out["account_count"] = 0
     if data.get("accountCharges") is not None:
         import capo_billing.types.business_support_account_charge_list
 
@@ -92,9 +80,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListBusinessSupportAccountChargesRes
             )
         )
     else:
-        raise DeserializationError(
-            "ListBusinessSupportAccountChargesResponse.account_charges required"
-        )
+        out["account_charges"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

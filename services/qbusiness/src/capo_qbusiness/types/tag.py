@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.tag_key
     import capo_qbusiness.types.tag_value
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> Tag:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("Tag.key required")
+        out["key"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("Tag.value required")
+        out["value"] = ""
     return out

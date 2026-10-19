@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_pricing_calculator.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_pricing_calculator.types.list_usage_filters
     import capo_bcm_pricing_calculator.types.next_page_token
@@ -54,9 +52,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListWorkloadEstimateUsageRequest:
     if data.get("workloadEstimateId") is not None:
         out["workload_estimate_id"] = data["workloadEstimateId"]
     else:
-        raise DeserializationError(
-            "ListWorkloadEstimateUsageRequest.workload_estimate_id required"
-        )
+        out["workload_estimate_id"] = ""
     if data.get("filters") is not None:
         import capo_bcm_pricing_calculator.types.list_usage_filters
 

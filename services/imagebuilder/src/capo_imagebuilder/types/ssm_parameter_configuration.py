@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.account_id
     import capo_imagebuilder.types.ssm_parameter_data_type
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> SsmParameterConfiguration:
     if data.get("parameterName") is not None:
         out["parameter_name"] = data["parameterName"]
     else:
-        raise DeserializationError("SsmParameterConfiguration.parameter_name required")
+        out["parameter_name"] = ""
     if data.get("dataType") is not None:
         import capo_imagebuilder.types.ssm_parameter_data_type
 

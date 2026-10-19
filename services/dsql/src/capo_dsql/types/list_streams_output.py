@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dsql.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dsql.types.next_token
     import capo_dsql.types.stream_list
@@ -38,5 +36,5 @@ def deserialize_json(data: dict) -> ListStreamsOutput:
 
         out["streams"] = capo_dsql.types.stream_list.deserialize_json(data["streams"])
     else:
-        raise DeserializationError("ListStreamsOutput.streams required")
+        out["streams"] = []
     return out

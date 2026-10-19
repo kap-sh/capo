@@ -73,7 +73,11 @@ def deserialize_json(data: dict) -> SourceFlowConfig:
             )
         )
     else:
-        raise DeserializationError("SourceFlowConfig.connector_type required")
+        import typing
+
+        out["connector_type"] = typing.cast(
+            "capo_customer_profiles.types.source_connector_type.SourceConnectorType", ""
+        )
     if data.get("IncrementalPullConfig") is not None:
         import capo_customer_profiles.types.incremental_pull_config
 

@@ -66,7 +66,11 @@ def deserialize_json(data: dict) -> TimeRangeDrillDownFilter:
             data["RangeMinimum"]
         )
     else:
-        raise DeserializationError("TimeRangeDrillDownFilter.range_minimum required")
+        import datetime
+
+        out["range_minimum"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("RangeMaximum") is not None:
         import capo_quicksight.types.timestamp
 
@@ -74,7 +78,11 @@ def deserialize_json(data: dict) -> TimeRangeDrillDownFilter:
             data["RangeMaximum"]
         )
     else:
-        raise DeserializationError("TimeRangeDrillDownFilter.range_maximum required")
+        import datetime
+
+        out["range_maximum"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("TimeGranularity") is not None:
         import capo_quicksight.types.time_granularity
 
@@ -84,5 +92,9 @@ def deserialize_json(data: dict) -> TimeRangeDrillDownFilter:
             )
         )
     else:
-        raise DeserializationError("TimeRangeDrillDownFilter.time_granularity required")
+        import typing
+
+        out["time_granularity"] = typing.cast(
+            "capo_quicksight.types.time_granularity.TimeGranularity", ""
+        )
     return out

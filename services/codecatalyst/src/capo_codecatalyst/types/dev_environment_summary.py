@@ -105,7 +105,7 @@ def deserialize_json(data: dict) -> DevEnvironmentSummary:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("DevEnvironmentSummary.id required")
+        out["id"] = ""
     if data.get("lastUpdatedTime") is not None:
         import datetime
 
@@ -113,15 +113,19 @@ def deserialize_json(data: dict) -> DevEnvironmentSummary:
             data["lastUpdatedTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("DevEnvironmentSummary.last_updated_time required")
+        import datetime
+
+        out["last_updated_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("creatorId") is not None:
         out["creator_id"] = data["creatorId"]
     else:
-        raise DeserializationError("DevEnvironmentSummary.creator_id required")
+        out["creator_id"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("DevEnvironmentSummary.status required")
+        out["status"] = ""
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
     if data.get("repositories") is not None:
@@ -133,7 +137,7 @@ def deserialize_json(data: dict) -> DevEnvironmentSummary:
             )
         )
     else:
-        raise DeserializationError("DevEnvironmentSummary.repositories required")
+        out["repositories"] = []
     if data.get("alias") is not None:
         out["alias"] = data["alias"]
     if data.get("ides") is not None:
@@ -143,7 +147,7 @@ def deserialize_json(data: dict) -> DevEnvironmentSummary:
     if data.get("instanceType") is not None:
         out["instance_type"] = data["instanceType"]
     else:
-        raise DeserializationError("DevEnvironmentSummary.instance_type required")
+        out["instance_type"] = ""
     if data.get("inactivityTimeoutMinutes") is not None:
         out["inactivity_timeout_minutes"] = data["inactivityTimeoutMinutes"]
     else:

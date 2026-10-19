@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.free_form_layout_canvas_size_options
     import capo_quicksight.types.free_from_layout_element_list
@@ -64,7 +62,7 @@ def deserialize_json(data: dict) -> FreeFormLayoutConfiguration:
             )
         )
     else:
-        raise DeserializationError("FreeFormLayoutConfiguration.elements required")
+        out["elements"] = []
     if data.get("CanvasSizeOptions") is not None:
         import capo_quicksight.types.free_form_layout_canvas_size_options
 

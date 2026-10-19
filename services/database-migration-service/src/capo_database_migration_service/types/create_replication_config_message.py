@@ -87,21 +87,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateReplicationConfigMessage:
     if data.get("ReplicationConfigIdentifier") is not None:
         out["replication_config_identifier"] = data["ReplicationConfigIdentifier"]
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigMessage.replication_config_identifier required"
-        )
+        out["replication_config_identifier"] = ""
     if data.get("SourceEndpointArn") is not None:
         out["source_endpoint_arn"] = data["SourceEndpointArn"]
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigMessage.source_endpoint_arn required"
-        )
+        out["source_endpoint_arn"] = ""
     if data.get("TargetEndpointArn") is not None:
         out["target_endpoint_arn"] = data["TargetEndpointArn"]
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigMessage.target_endpoint_arn required"
-        )
+        out["target_endpoint_arn"] = ""
     if data.get("ComputeConfig") is not None:
         import capo_database_migration_service.types.compute_config
 
@@ -123,15 +117,16 @@ def deserialize_aws_json_1_1(data: dict) -> CreateReplicationConfigMessage:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigMessage.replication_type required"
+        import typing
+
+        out["replication_type"] = typing.cast(
+            "capo_database_migration_service.types.migration_type_value.MigrationTypeValue",
+            "",
         )
     if data.get("TableMappings") is not None:
         out["table_mappings"] = data["TableMappings"]
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigMessage.table_mappings required"
-        )
+        out["table_mappings"] = ""
     if data.get("ReplicationSettings") is not None:
         out["replication_settings"] = data["ReplicationSettings"]
     if data.get("SupplementalSettings") is not None:

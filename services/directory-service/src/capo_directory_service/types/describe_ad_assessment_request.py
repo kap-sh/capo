@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.assessment_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeADAssessmentRequest:
     if data.get("AssessmentId") is not None:
         out["assessment_id"] = data["AssessmentId"]
     else:
-        raise DeserializationError("DescribeADAssessmentRequest.assessment_id required")
+        out["assessment_id"] = ""
     return out

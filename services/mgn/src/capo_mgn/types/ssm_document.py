@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.bounded_string
     import capo_mgn.types.ssm_document_external_parameters
@@ -66,11 +64,11 @@ def deserialize_json(data: dict) -> SsmDocument:
     if data.get("actionName") is not None:
         out["action_name"] = data["actionName"]
     else:
-        raise DeserializationError("SsmDocument.action_name required")
+        out["action_name"] = ""
     if data.get("ssmDocumentName") is not None:
         out["ssm_document_name"] = data["ssmDocumentName"]
     else:
-        raise DeserializationError("SsmDocument.ssm_document_name required")
+        out["ssm_document_name"] = ""
     if data.get("timeoutSeconds") is not None:
         out["timeout_seconds"] = data["timeoutSeconds"]
     if data.get("mustSucceedForCutover") is not None:

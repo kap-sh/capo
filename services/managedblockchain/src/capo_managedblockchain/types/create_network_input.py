@@ -94,11 +94,11 @@ def deserialize_json(data: dict) -> CreateNetworkInput:
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     else:
-        raise DeserializationError("CreateNetworkInput.client_request_token required")
+        out["client_request_token"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateNetworkInput.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Framework") is not None:
@@ -108,11 +108,15 @@ def deserialize_json(data: dict) -> CreateNetworkInput:
             data["Framework"]
         )
     else:
-        raise DeserializationError("CreateNetworkInput.framework required")
+        import typing
+
+        out["framework"] = typing.cast(
+            "capo_managedblockchain.types.framework.Framework", ""
+        )
     if data.get("FrameworkVersion") is not None:
         out["framework_version"] = data["FrameworkVersion"]
     else:
-        raise DeserializationError("CreateNetworkInput.framework_version required")
+        out["framework_version"] = ""
     if data.get("FrameworkConfiguration") is not None:
         import capo_managedblockchain.types.network_framework_configuration
 

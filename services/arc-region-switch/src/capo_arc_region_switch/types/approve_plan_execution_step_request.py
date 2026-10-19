@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.approval
     import capo_arc_region_switch.types.execution_comment
@@ -50,17 +48,15 @@ def deserialize_aws_json_1_0(data: dict) -> ApprovePlanExecutionStepRequest:
     if data.get("planArn") is not None:
         out["plan_arn"] = data["planArn"]
     else:
-        raise DeserializationError("ApprovePlanExecutionStepRequest.plan_arn required")
+        out["plan_arn"] = ""
     if data.get("executionId") is not None:
         out["execution_id"] = data["executionId"]
     else:
-        raise DeserializationError(
-            "ApprovePlanExecutionStepRequest.execution_id required"
-        )
+        out["execution_id"] = ""
     if data.get("stepName") is not None:
         out["step_name"] = data["stepName"]
     else:
-        raise DeserializationError("ApprovePlanExecutionStepRequest.step_name required")
+        out["step_name"] = ""
     if data.get("approval") is not None:
         import capo_arc_region_switch.types.approval
 
@@ -70,7 +66,11 @@ def deserialize_aws_json_1_0(data: dict) -> ApprovePlanExecutionStepRequest:
             )
         )
     else:
-        raise DeserializationError("ApprovePlanExecutionStepRequest.approval required")
+        import typing
+
+        out["approval"] = typing.cast(
+            "capo_arc_region_switch.types.approval.Approval", ""
+        )
     if data.get("comment") is not None:
         out["comment"] = data["comment"]
     return out

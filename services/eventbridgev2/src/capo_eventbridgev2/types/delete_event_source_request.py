@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_eventbridgev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.event_source_arn
 
@@ -26,5 +24,5 @@ def deserialize_cbor(data: dict) -> DeleteEventSourceRequest:
     if data.get("EventSourceArn") is not None:
         out["event_source_arn"] = data["EventSourceArn"]
     else:
-        raise DeserializationError("DeleteEventSourceRequest.event_source_arn required")
+        out["event_source_arn"] = ""
     return out

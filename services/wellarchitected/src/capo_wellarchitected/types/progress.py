@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 
 class Progress(TypedDict, closed=True):
     steps_completed: "int"
@@ -36,13 +34,13 @@ def deserialize_json(data: dict) -> Progress:
     if data.get("stepsCompleted") is not None:
         out["steps_completed"] = data["stepsCompleted"]
     else:
-        raise DeserializationError("Progress.steps_completed required")
+        out["steps_completed"] = 0
     if data.get("totalSteps") is not None:
         out["total_steps"] = data["totalSteps"]
     else:
-        raise DeserializationError("Progress.total_steps required")
+        out["total_steps"] = 0
     if data.get("completionPercentage") is not None:
         out["completion_percentage"] = float(data["completionPercentage"])
     else:
-        raise DeserializationError("Progress.completion_percentage required")
+        out["completion_percentage"] = 0.0
     return out

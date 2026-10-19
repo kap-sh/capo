@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_signer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_signer.types.profile_name
     import capo_signer.types.profile_version
@@ -47,15 +45,15 @@ def deserialize_json(data: dict) -> AddProfilePermissionRequest:
     if data.get("action") is not None:
         out["action"] = data["action"]
     else:
-        raise DeserializationError("AddProfilePermissionRequest.action required")
+        out["action"] = ""
     if data.get("principal") is not None:
         out["principal"] = data["principal"]
     else:
-        raise DeserializationError("AddProfilePermissionRequest.principal required")
+        out["principal"] = ""
     if data.get("revisionId") is not None:
         out["revision_id"] = data["revisionId"]
     if data.get("statementId") is not None:
         out["statement_id"] = data["statementId"]
     else:
-        raise DeserializationError("AddProfilePermissionRequest.statement_id required")
+        out["statement_id"] = ""
     return out

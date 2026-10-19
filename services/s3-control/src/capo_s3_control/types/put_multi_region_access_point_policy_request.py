@@ -41,9 +41,7 @@ def deserialize_xml(el: Element) -> PutMultiRegionAccessPointPolicyRequest:
     if child_client_token is not None:
         out["client_token"] = str(child_client_token.text or "")
     else:
-        raise DeserializationError(
-            "PutMultiRegionAccessPointPolicyRequest.client_token required"
-        )
+        out["client_token"] = ""
     child_details = el.find("Details")
     if child_details is not None:
         import capo_s3_control.types.put_multi_region_access_point_policy_input

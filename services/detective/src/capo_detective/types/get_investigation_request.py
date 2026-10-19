@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_detective.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_detective.types.graph_arn
     import capo_detective.types.investigation_id
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> GetInvestigationRequest:
     if data.get("GraphArn") is not None:
         out["graph_arn"] = data["GraphArn"]
     else:
-        raise DeserializationError("GetInvestigationRequest.graph_arn required")
+        out["graph_arn"] = ""
     if data.get("InvestigationId") is not None:
         out["investigation_id"] = data["InvestigationId"]
     else:
-        raise DeserializationError("GetInvestigationRequest.investigation_id required")
+        out["investigation_id"] = ""
     return out

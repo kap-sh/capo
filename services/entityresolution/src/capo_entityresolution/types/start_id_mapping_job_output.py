@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.id_mapping_job_output_source_config
     import capo_entityresolution.types.job_id
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> StartIdMappingJobOutput:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("StartIdMappingJobOutput.job_id required")
+        out["job_id"] = ""
     if data.get("outputSourceConfig") is not None:
         import capo_entityresolution.types.id_mapping_job_output_source_config
 

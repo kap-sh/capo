@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route_53_domains.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route_53_domains.types.consent_price
     import capo_route_53_domains.types.currency
@@ -43,5 +41,5 @@ def deserialize_aws_json_1_1(data: dict) -> Consent:
     if data.get("Currency") is not None:
         out["currency"] = data["Currency"]
     else:
-        raise DeserializationError("Consent.currency required")
+        out["currency"] = ""
     return out

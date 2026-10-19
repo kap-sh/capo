@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.approval_state
     import capo_codecommit.types.pull_request_id
@@ -39,15 +37,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdatePullRequestApprovalStateInput:
     if data.get("pullRequestId") is not None:
         out["pull_request_id"] = data["pullRequestId"]
     else:
-        raise DeserializationError(
-            "UpdatePullRequestApprovalStateInput.pull_request_id required"
-        )
+        out["pull_request_id"] = ""
     if data.get("revisionId") is not None:
         out["revision_id"] = data["revisionId"]
     else:
-        raise DeserializationError(
-            "UpdatePullRequestApprovalStateInput.revision_id required"
-        )
+        out["revision_id"] = ""
     if data.get("approvalState") is not None:
         import capo_codecommit.types.approval_state
 
@@ -57,7 +51,9 @@ def deserialize_aws_json_1_1(data: dict) -> UpdatePullRequestApprovalStateInput:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdatePullRequestApprovalStateInput.approval_state required"
+        import typing
+
+        out["approval_state"] = typing.cast(
+            "capo_codecommit.types.approval_state.ApprovalState", ""
         )
     return out

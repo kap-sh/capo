@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.browser_extension_list
 
@@ -41,7 +39,5 @@ def deserialize_json(data: dict) -> BrowserExtensionConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "BrowserExtensionConfiguration.enabled_browser_extensions required"
-        )
+        out["enabled_browser_extensions"] = []
     return out

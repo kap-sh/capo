@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.node_id
     import capo_panorama.types.node_instance_id
@@ -60,7 +58,7 @@ def deserialize_json(data: dict) -> NodeInstance:
     if data.get("NodeInstanceId") is not None:
         out["node_instance_id"] = data["NodeInstanceId"]
     else:
-        raise DeserializationError("NodeInstance.node_instance_id required")
+        out["node_instance_id"] = ""
     if data.get("NodeId") is not None:
         out["node_id"] = data["NodeId"]
     if data.get("PackageName") is not None:
@@ -74,5 +72,5 @@ def deserialize_json(data: dict) -> NodeInstance:
     if data.get("CurrentStatus") is not None:
         out["current_status"] = data["CurrentStatus"]
     else:
-        raise DeserializationError("NodeInstance.current_status required")
+        out["current_status"] = ""
     return out

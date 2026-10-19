@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.ami_id
     import capo_inspector2.types.non_empty_string
@@ -62,9 +60,7 @@ def deserialize_json(data: dict) -> Ec2InstanceAggregationResponse:
     if data.get("instanceId") is not None:
         out["instance_id"] = data["instanceId"]
     else:
-        raise DeserializationError(
-            "Ec2InstanceAggregationResponse.instance_id required"
-        )
+        out["instance_id"] = ""
     if data.get("ami") is not None:
         out["ami"] = data["ami"]
     if data.get("operatingSystem") is not None:

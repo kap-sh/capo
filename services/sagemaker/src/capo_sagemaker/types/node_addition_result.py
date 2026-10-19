@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker.types.cluster_availability_zones
     import capo_sagemaker.types.cluster_instance_group_name
@@ -67,11 +65,11 @@ def deserialize_aws_json_1_1(data: dict) -> NodeAdditionResult:
     if data.get("NodeLogicalId") is not None:
         out["node_logical_id"] = data["NodeLogicalId"]
     else:
-        raise DeserializationError("NodeAdditionResult.node_logical_id required")
+        out["node_logical_id"] = ""
     if data.get("InstanceGroupName") is not None:
         out["instance_group_name"] = data["InstanceGroupName"]
     else:
-        raise DeserializationError("NodeAdditionResult.instance_group_name required")
+        out["instance_group_name"] = ""
     if data.get("Status") is not None:
         import capo_sagemaker.types.cluster_instance_status
 
@@ -81,7 +79,11 @@ def deserialize_aws_json_1_1(data: dict) -> NodeAdditionResult:
             )
         )
     else:
-        raise DeserializationError("NodeAdditionResult.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_sagemaker.types.cluster_instance_status.ClusterInstanceStatus", ""
+        )
     if data.get("AvailabilityZones") is not None:
         import capo_sagemaker.types.cluster_availability_zones
 

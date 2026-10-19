@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.cluster_name
     import capo_odb.types.data_collection_options
@@ -132,39 +130,35 @@ def deserialize_aws_json_1_0(data: dict) -> CreateExadbVmClusterInput:
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("CreateExadbVmClusterInput.display_name required")
+        out["display_name"] = ""
     if data.get("enabledEcpuCount") is not None:
         out["enabled_ecpu_count"] = data["enabledEcpuCount"]
     else:
-        raise DeserializationError(
-            "CreateExadbVmClusterInput.enabled_ecpu_count required"
-        )
+        out["enabled_ecpu_count"] = 0
     if data.get("exascaleDbStorageVaultId") is not None:
         out["exascale_db_storage_vault_id"] = data["exascaleDbStorageVaultId"]
     else:
-        raise DeserializationError(
-            "CreateExadbVmClusterInput.exascale_db_storage_vault_id required"
-        )
+        out["exascale_db_storage_vault_id"] = ""
     if data.get("gridImageId") is not None:
         out["grid_image_id"] = data["gridImageId"]
     else:
-        raise DeserializationError("CreateExadbVmClusterInput.grid_image_id required")
+        out["grid_image_id"] = ""
     if data.get("hostname") is not None:
         out["hostname"] = data["hostname"]
     else:
-        raise DeserializationError("CreateExadbVmClusterInput.hostname required")
+        out["hostname"] = ""
     if data.get("nodeCount") is not None:
         out["node_count"] = data["nodeCount"]
     else:
-        raise DeserializationError("CreateExadbVmClusterInput.node_count required")
+        out["node_count"] = 0
     if data.get("odbNetworkId") is not None:
         out["odb_network_id"] = data["odbNetworkId"]
     else:
-        raise DeserializationError("CreateExadbVmClusterInput.odb_network_id required")
+        out["odb_network_id"] = ""
     if data.get("shape") is not None:
         out["shape"] = data["shape"]
     else:
-        raise DeserializationError("CreateExadbVmClusterInput.shape required")
+        out["shape"] = ""
     if data.get("sshPublicKeys") is not None:
         import capo_odb.types.string_list
 
@@ -172,21 +166,17 @@ def deserialize_aws_json_1_0(data: dict) -> CreateExadbVmClusterInput:
             data["sshPublicKeys"]
         )
     else:
-        raise DeserializationError("CreateExadbVmClusterInput.ssh_public_keys required")
+        out["ssh_public_keys"] = []
     if data.get("totalEcpuCount") is not None:
         out["total_ecpu_count"] = data["totalEcpuCount"]
     else:
-        raise DeserializationError(
-            "CreateExadbVmClusterInput.total_ecpu_count required"
-        )
+        out["total_ecpu_count"] = 0
     if data.get("vmFileSystemStorageTotalSizeInGBs") is not None:
         out["vm_file_system_storage_total_size_in_g_bs"] = data[
             "vmFileSystemStorageTotalSizeInGBs"
         ]
     else:
-        raise DeserializationError(
-            "CreateExadbVmClusterInput.vm_file_system_storage_total_size_in_g_bs required"
-        )
+        out["vm_file_system_storage_total_size_in_g_bs"] = 0
     if data.get("clusterName") is not None:
         out["cluster_name"] = data["clusterName"]
     if data.get("dataCollectionOptions") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.catalog_identifier
     import capo_partnercentral_selling.types.customer
@@ -143,7 +141,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateOpportunityRequest:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("UpdateOpportunityRequest.catalog required")
+        out["catalog"] = ""
     if data.get("PrimaryNeedsFromAws") is not None:
         import capo_partnercentral_selling.types.primary_needs_from_aws
 
@@ -211,13 +209,15 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateOpportunityRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateOpportunityRequest.last_modified_date required"
+        import datetime
+
+        out["last_modified_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("UpdateOpportunityRequest.identifier required")
+        out["identifier"] = ""
     if data.get("LifeCycle") is not None:
         import capo_partnercentral_selling.types.life_cycle
 

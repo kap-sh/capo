@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eventbridgev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.point_type
     import capo_eventbridgev2.types.timestamp
@@ -52,7 +50,11 @@ def deserialize_cbor(data: dict) -> PointInTimeConfiguration:
             data["PointType"]
         )
     else:
-        raise DeserializationError("PointInTimeConfiguration.point_type required")
+        import typing
+
+        out["point_type"] = typing.cast(
+            "capo_eventbridgev2.types.point_type.PointType", ""
+        )
     if data.get("StartingPoint") is not None:
         import capo_eventbridgev2.types.timestamp
 

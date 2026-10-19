@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.security_policy_name
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeSecurityPolicyRequest:
     if data.get("SecurityPolicyName") is not None:
         out["security_policy_name"] = data["SecurityPolicyName"]
     else:
-        raise DeserializationError(
-            "DescribeSecurityPolicyRequest.security_policy_name required"
-        )
+        out["security_policy_name"] = ""
     return out

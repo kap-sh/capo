@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_marketplace_discovery.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_discovery.types.amazon_machine_image_cidr_ip_address_list
 
@@ -42,15 +40,15 @@ def deserialize_json(data: dict) -> AmazonMachineImageSecurityGroup:
     if data.get("protocol") is not None:
         out["protocol"] = data["protocol"]
     else:
-        raise DeserializationError("AmazonMachineImageSecurityGroup.protocol required")
+        out["protocol"] = ""
     if data.get("fromPort") is not None:
         out["from_port"] = data["fromPort"]
     else:
-        raise DeserializationError("AmazonMachineImageSecurityGroup.from_port required")
+        out["from_port"] = 0
     if data.get("toPort") is not None:
         out["to_port"] = data["toPort"]
     else:
-        raise DeserializationError("AmazonMachineImageSecurityGroup.to_port required")
+        out["to_port"] = 0
     if data.get("cidrIpAddresses") is not None:
         import capo_marketplace_discovery.types.amazon_machine_image_cidr_ip_address_list
 
@@ -60,7 +58,5 @@ def deserialize_json(data: dict) -> AmazonMachineImageSecurityGroup:
             )
         )
     else:
-        raise DeserializationError(
-            "AmazonMachineImageSecurityGroup.cidr_ip_addresses required"
-        )
+        out["cidr_ip_addresses"] = []
     return out

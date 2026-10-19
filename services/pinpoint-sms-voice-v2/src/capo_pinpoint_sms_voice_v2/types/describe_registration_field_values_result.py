@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.next_token
     import capo_pinpoint_sms_voice_v2.types.registration_field_value_information_list
@@ -48,21 +46,15 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeRegistrationFieldValuesResul
     if data.get("RegistrationArn") is not None:
         out["registration_arn"] = data["RegistrationArn"]
     else:
-        raise DeserializationError(
-            "DescribeRegistrationFieldValuesResult.registration_arn required"
-        )
+        out["registration_arn"] = ""
     if data.get("RegistrationId") is not None:
         out["registration_id"] = data["RegistrationId"]
     else:
-        raise DeserializationError(
-            "DescribeRegistrationFieldValuesResult.registration_id required"
-        )
+        out["registration_id"] = ""
     if data.get("VersionNumber") is not None:
         out["version_number"] = data["VersionNumber"]
     else:
-        raise DeserializationError(
-            "DescribeRegistrationFieldValuesResult.version_number required"
-        )
+        out["version_number"] = 0
     if data.get("RegistrationFieldValues") is not None:
         import capo_pinpoint_sms_voice_v2.types.registration_field_value_information_list
 
@@ -72,9 +64,7 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeRegistrationFieldValuesResul
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeRegistrationFieldValuesResult.registration_field_values required"
-        )
+        out["registration_field_values"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

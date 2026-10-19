@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migration_hub.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migration_hub.types.application_id
     import capo_migration_hub.types.application_status
@@ -53,9 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> NotifyApplicationStateRequest:
     if data.get("ApplicationId") is not None:
         out["application_id"] = data["ApplicationId"]
     else:
-        raise DeserializationError(
-            "NotifyApplicationStateRequest.application_id required"
-        )
+        out["application_id"] = ""
     if data.get("Status") is not None:
         import capo_migration_hub.types.application_status
 
@@ -65,7 +61,11 @@ def deserialize_aws_json_1_1(data: dict) -> NotifyApplicationStateRequest:
             )
         )
     else:
-        raise DeserializationError("NotifyApplicationStateRequest.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_migration_hub.types.application_status.ApplicationStatus", ""
+        )
     if data.get("UpdateDateTime") is not None:
         import capo_migration_hub.types.update_date_time
 

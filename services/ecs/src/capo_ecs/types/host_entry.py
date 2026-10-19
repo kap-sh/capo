@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.string
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> HostEntry:
     if data.get("hostname") is not None:
         out["hostname"] = data["hostname"]
     else:
-        raise DeserializationError("HostEntry.hostname required")
+        out["hostname"] = ""
     if data.get("ipAddress") is not None:
         out["ip_address"] = data["ipAddress"]
     else:
-        raise DeserializationError("HostEntry.ip_address required")
+        out["ip_address"] = ""
     return out

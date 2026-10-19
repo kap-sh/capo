@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.account_alias_type
@@ -30,5 +29,5 @@ def deserialize_query(el: Element) -> CreateAccountAliasRequest:
     if child_account_alias is not None:
         out["account_alias"] = str(child_account_alias.text or "")
     else:
-        raise DeserializationError("CreateAccountAliasRequest.account_alias required")
+        out["account_alias"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migrationhubstrategy.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migrationhubstrategy.types.app_type
     import capo_migrationhubstrategy.types.application_component_id
@@ -77,9 +75,7 @@ def deserialize_json(data: dict) -> UpdateApplicationComponentConfigRequest:
     if data.get("applicationComponentId") is not None:
         out["application_component_id"] = data["applicationComponentId"]
     else:
-        raise DeserializationError(
-            "UpdateApplicationComponentConfigRequest.application_component_id required"
-        )
+        out["application_component_id"] = ""
     if data.get("inclusionStatus") is not None:
         out["inclusion_status"] = data["inclusionStatus"]
     if data.get("strategyOption") is not None:

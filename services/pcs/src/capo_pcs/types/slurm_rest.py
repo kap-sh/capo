@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pcs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pcs.types.slurm_rest_mode
 
@@ -33,5 +31,7 @@ def deserialize_aws_json_1_0(data: dict) -> SlurmRest:
             data["mode"]
         )
     else:
-        raise DeserializationError("SlurmRest.mode required")
+        import typing
+
+        out["mode"] = typing.cast("capo_pcs.types.slurm_rest_mode.SlurmRestMode", "")
     return out

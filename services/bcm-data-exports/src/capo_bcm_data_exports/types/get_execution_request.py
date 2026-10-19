@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bcm_data_exports.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_data_exports.types.arn
     import capo_bcm_data_exports.types.generic_string
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetExecutionRequest:
     if data.get("ExportArn") is not None:
         out["export_arn"] = data["ExportArn"]
     else:
-        raise DeserializationError("GetExecutionRequest.export_arn required")
+        out["export_arn"] = ""
     if data.get("ExecutionId") is not None:
         out["execution_id"] = data["ExecutionId"]
     else:
-        raise DeserializationError("GetExecutionRequest.execution_id required")
+        out["execution_id"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eks.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eks.types.capability_configuration_request
     import capo_eks.types.capability_delete_propagation_policy
@@ -71,7 +69,7 @@ def deserialize_json(data: dict) -> CreateCapabilityRequest:
     if data.get("capabilityName") is not None:
         out["capability_name"] = data["capabilityName"]
     else:
-        raise DeserializationError("CreateCapabilityRequest.capability_name required")
+        out["capability_name"] = ""
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     if data.get("type") is not None:
@@ -79,11 +77,13 @@ def deserialize_json(data: dict) -> CreateCapabilityRequest:
 
         out["type"] = capo_eks.types.capability_type.deserialize_json(data["type"])
     else:
-        raise DeserializationError("CreateCapabilityRequest.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_eks.types.capability_type.CapabilityType", "")
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateCapabilityRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("configuration") is not None:
         import capo_eks.types.capability_configuration_request
 
@@ -105,7 +105,10 @@ def deserialize_json(data: dict) -> CreateCapabilityRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateCapabilityRequest.delete_propagation_policy required"
+        import typing
+
+        out["delete_propagation_policy"] = typing.cast(
+            "capo_eks.types.capability_delete_propagation_policy.CapabilityDeletePropagationPolicy",
+            "",
         )
     return out

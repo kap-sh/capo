@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 
 class ProviderMarketplaceConfiguration(TypedDict, closed=True):
     data_set_id: "str"
@@ -31,23 +29,17 @@ def deserialize_json(data: dict) -> ProviderMarketplaceConfiguration:
     if data.get("dataSetId") is not None:
         out["data_set_id"] = data["dataSetId"]
     else:
-        raise DeserializationError(
-            "ProviderMarketplaceConfiguration.data_set_id required"
-        )
+        out["data_set_id"] = ""
     if data.get("revisionId") is not None:
         out["revision_id"] = data["revisionId"]
     else:
-        raise DeserializationError(
-            "ProviderMarketplaceConfiguration.revision_id required"
-        )
+        out["revision_id"] = ""
     if data.get("assetId") is not None:
         out["asset_id"] = data["assetId"]
     else:
-        raise DeserializationError("ProviderMarketplaceConfiguration.asset_id required")
+        out["asset_id"] = ""
     if data.get("listingId") is not None:
         out["listing_id"] = data["listingId"]
     else:
-        raise DeserializationError(
-            "ProviderMarketplaceConfiguration.listing_id required"
-        )
+        out["listing_id"] = ""
     return out

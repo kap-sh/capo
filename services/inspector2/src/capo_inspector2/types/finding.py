@@ -189,19 +189,19 @@ def deserialize_json(data: dict) -> Finding:
     if data.get("findingArn") is not None:
         out["finding_arn"] = data["findingArn"]
     else:
-        raise DeserializationError("Finding.finding_arn required")
+        out["finding_arn"] = ""
     if data.get("awsAccountId") is not None:
         out["aws_account_id"] = data["awsAccountId"]
     else:
-        raise DeserializationError("Finding.aws_account_id required")
+        out["aws_account_id"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("Finding.type required")
+        out["type"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     else:
-        raise DeserializationError("Finding.description required")
+        out["description"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     if data.get("remediation") is not None:
@@ -215,7 +215,7 @@ def deserialize_json(data: dict) -> Finding:
     if data.get("severity") is not None:
         out["severity"] = data["severity"]
     else:
-        raise DeserializationError("Finding.severity required")
+        out["severity"] = ""
     if data.get("firstObservedAt") is not None:
         import capo_inspector2.types.date_time_timestamp
 
@@ -225,7 +225,11 @@ def deserialize_json(data: dict) -> Finding:
             )
         )
     else:
-        raise DeserializationError("Finding.first_observed_at required")
+        import datetime
+
+        out["first_observed_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastObservedAt") is not None:
         import capo_inspector2.types.date_time_timestamp
 
@@ -235,7 +239,11 @@ def deserialize_json(data: dict) -> Finding:
             )
         )
     else:
-        raise DeserializationError("Finding.last_observed_at required")
+        import datetime
+
+        out["last_observed_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updatedAt") is not None:
         import capo_inspector2.types.date_time_timestamp
 
@@ -245,7 +253,7 @@ def deserialize_json(data: dict) -> Finding:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("Finding.status required")
+        out["status"] = ""
     if data.get("resources") is not None:
         import capo_inspector2.types.resource_list
 
@@ -253,7 +261,7 @@ def deserialize_json(data: dict) -> Finding:
             data["resources"]
         )
     else:
-        raise DeserializationError("Finding.resources required")
+        out["resources"] = []
     if data.get("inspectorScore") is not None:
         out["inspector_score"] = float(data["inspectorScore"])
     if data.get("inspectorScoreDetails") is not None:

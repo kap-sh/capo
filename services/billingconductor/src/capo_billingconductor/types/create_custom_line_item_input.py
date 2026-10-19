@@ -99,17 +99,15 @@ def deserialize_json(data: dict) -> CreateCustomLineItemInput:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateCustomLineItemInput.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("CreateCustomLineItemInput.description required")
+        out["description"] = ""
     if data.get("BillingGroupArn") is not None:
         out["billing_group_arn"] = data["BillingGroupArn"]
     else:
-        raise DeserializationError(
-            "CreateCustomLineItemInput.billing_group_arn required"
-        )
+        out["billing_group_arn"] = ""
     if data.get("BillingPeriodRange") is not None:
         import capo_billingconductor.types.custom_line_item_billing_period_range
 

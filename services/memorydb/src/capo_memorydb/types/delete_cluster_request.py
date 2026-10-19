@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_memorydb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_memorydb.types.string
 
@@ -35,7 +33,7 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteClusterRequest:
     if data.get("ClusterName") is not None:
         out["cluster_name"] = data["ClusterName"]
     else:
-        raise DeserializationError("DeleteClusterRequest.cluster_name required")
+        out["cluster_name"] = ""
     if data.get("MultiRegionClusterName") is not None:
         out["multi_region_cluster_name"] = data["MultiRegionClusterName"]
     if data.get("FinalSnapshotName") is not None:

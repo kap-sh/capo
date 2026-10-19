@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_route53globalresolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53globalresolver.types.access_token_value
     import capo_route53globalresolver.types.client_token
@@ -91,11 +89,11 @@ def deserialize_json(data: dict) -> GetAccessTokenOutput:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("GetAccessTokenOutput.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("GetAccessTokenOutput.arn required")
+        out["arn"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("createdAt") is not None:
@@ -107,11 +105,13 @@ def deserialize_json(data: dict) -> GetAccessTokenOutput:
             )
         )
     else:
-        raise DeserializationError("GetAccessTokenOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("dnsViewId") is not None:
         out["dns_view_id"] = data["dnsViewId"]
     else:
-        raise DeserializationError("GetAccessTokenOutput.dns_view_id required")
+        out["dns_view_id"] = ""
     if data.get("expiresAt") is not None:
         import capo_route53globalresolver.types.iso8601_time_string
 
@@ -121,11 +121,13 @@ def deserialize_json(data: dict) -> GetAccessTokenOutput:
             )
         )
     else:
-        raise DeserializationError("GetAccessTokenOutput.expires_at required")
+        import datetime
+
+        out["expires_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("globalResolverId") is not None:
         out["global_resolver_id"] = data["globalResolverId"]
     else:
-        raise DeserializationError("GetAccessTokenOutput.global_resolver_id required")
+        out["global_resolver_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("status") is not None:
@@ -135,7 +137,11 @@ def deserialize_json(data: dict) -> GetAccessTokenOutput:
             data["status"]
         )
     else:
-        raise DeserializationError("GetAccessTokenOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_route53globalresolver.types.token_status.TokenStatus", ""
+        )
     if data.get("updatedAt") is not None:
         import capo_route53globalresolver.types.iso8601_time_string
 
@@ -145,11 +151,13 @@ def deserialize_json(data: dict) -> GetAccessTokenOutput:
             )
         )
     else:
-        raise DeserializationError("GetAccessTokenOutput.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("GetAccessTokenOutput.value required")
+        out["value"] = ""
     return out
 
 

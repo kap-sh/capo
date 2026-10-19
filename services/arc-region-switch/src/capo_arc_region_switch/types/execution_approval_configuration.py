@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.role_arn
 
@@ -34,7 +32,5 @@ def deserialize_aws_json_1_0(data: dict) -> ExecutionApprovalConfiguration:
     if data.get("approvalRole") is not None:
         out["approval_role"] = data["approvalRole"]
     else:
-        raise DeserializationError(
-            "ExecutionApprovalConfiguration.approval_role required"
-        )
+        out["approval_role"] = ""
     return out

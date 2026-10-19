@@ -52,11 +52,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateWebACLRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateWebACLRequest.name required")
+        out["name"] = ""
     if data.get("MetricName") is not None:
         out["metric_name"] = data["MetricName"]
     else:
-        raise DeserializationError("CreateWebACLRequest.metric_name required")
+        out["metric_name"] = ""
     if data.get("DefaultAction") is not None:
         import capo_waf_regional.types.waf_action
 
@@ -70,7 +70,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateWebACLRequest:
     if data.get("ChangeToken") is not None:
         out["change_token"] = data["ChangeToken"]
     else:
-        raise DeserializationError("CreateWebACLRequest.change_token required")
+        out["change_token"] = ""
     if data.get("Tags") is not None:
         import capo_waf_regional.types.tag_list
 

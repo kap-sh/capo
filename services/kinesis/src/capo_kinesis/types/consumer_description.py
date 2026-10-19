@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.consumer_arn
     import capo_kinesis.types.consumer_name
@@ -53,11 +51,11 @@ def deserialize_aws_json_1_1(data: dict) -> ConsumerDescription:
     if data.get("ConsumerName") is not None:
         out["consumer_name"] = data["ConsumerName"]
     else:
-        raise DeserializationError("ConsumerDescription.consumer_name required")
+        out["consumer_name"] = ""
     if data.get("ConsumerARN") is not None:
         out["consumer_arn"] = data["ConsumerARN"]
     else:
-        raise DeserializationError("ConsumerDescription.consumer_arn required")
+        out["consumer_arn"] = ""
     if data.get("ConsumerStatus") is not None:
         import capo_kinesis.types.consumer_status
 
@@ -67,7 +65,11 @@ def deserialize_aws_json_1_1(data: dict) -> ConsumerDescription:
             )
         )
     else:
-        raise DeserializationError("ConsumerDescription.consumer_status required")
+        import typing
+
+        out["consumer_status"] = typing.cast(
+            "capo_kinesis.types.consumer_status.ConsumerStatus", ""
+        )
     if data.get("ConsumerCreationTimestamp") is not None:
         import capo_kinesis.types.timestamp
 
@@ -77,11 +79,13 @@ def deserialize_aws_json_1_1(data: dict) -> ConsumerDescription:
             )
         )
     else:
-        raise DeserializationError(
-            "ConsumerDescription.consumer_creation_timestamp required"
+        import datetime
+
+        out["consumer_creation_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("StreamARN") is not None:
         out["stream_arn"] = data["StreamARN"]
     else:
-        raise DeserializationError("ConsumerDescription.stream_arn required")
+        out["stream_arn"] = ""
     return out

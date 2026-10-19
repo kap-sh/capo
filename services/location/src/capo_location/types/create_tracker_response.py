@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_location.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_location.types.arn
     import capo_location.types.resource_name
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> CreateTrackerResponse:
     if data.get("TrackerName") is not None:
         out["tracker_name"] = data["TrackerName"]
     else:
-        raise DeserializationError("CreateTrackerResponse.tracker_name required")
+        out["tracker_name"] = ""
     if data.get("TrackerArn") is not None:
         out["tracker_arn"] = data["TrackerArn"]
     else:
-        raise DeserializationError("CreateTrackerResponse.tracker_arn required")
+        out["tracker_arn"] = ""
     if data.get("CreateTime") is not None:
         import capo_location.types.timestamp
 
@@ -51,7 +49,11 @@ def deserialize_json(data: dict) -> CreateTrackerResponse:
             data["CreateTime"]
         )
     else:
-        raise DeserializationError("CreateTrackerResponse.create_time required")
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out
 
 

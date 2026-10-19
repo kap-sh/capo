@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.bucket_name
     import capo_bedrock.types.key_prefix
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> S3Config:
     if data.get("bucketName") is not None:
         out["bucket_name"] = data["bucketName"]
     else:
-        raise DeserializationError("S3Config.bucket_name required")
+        out["bucket_name"] = ""
     if data.get("keyPrefix") is not None:
         out["key_prefix"] = data["keyPrefix"]
     return out

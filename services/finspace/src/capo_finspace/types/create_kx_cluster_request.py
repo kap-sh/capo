@@ -211,7 +211,7 @@ def deserialize_json(data: dict) -> CreateKxClusterRequest:
     if data.get("clusterName") is not None:
         out["cluster_name"] = data["clusterName"]
     else:
-        raise DeserializationError("CreateKxClusterRequest.cluster_name required")
+        out["cluster_name"] = ""
     if data.get("clusterType") is not None:
         import capo_finspace.types.kx_cluster_type
 
@@ -219,7 +219,11 @@ def deserialize_json(data: dict) -> CreateKxClusterRequest:
             data["clusterType"]
         )
     else:
-        raise DeserializationError("CreateKxClusterRequest.cluster_type required")
+        import typing
+
+        out["cluster_type"] = typing.cast(
+            "capo_finspace.types.kx_cluster_type.KxClusterType", ""
+        )
     if data.get("tickerplantLogConfiguration") is not None:
         import capo_finspace.types.tickerplant_log_configuration
 
@@ -265,7 +269,7 @@ def deserialize_json(data: dict) -> CreateKxClusterRequest:
     if data.get("releaseLabel") is not None:
         out["release_label"] = data["releaseLabel"]
     else:
-        raise DeserializationError("CreateKxClusterRequest.release_label required")
+        out["release_label"] = ""
     if data.get("vpcConfiguration") is not None:
         import capo_finspace.types.vpc_configuration
 
@@ -307,7 +311,9 @@ def deserialize_json(data: dict) -> CreateKxClusterRequest:
 
         out["az_mode"] = capo_finspace.types.kx_az_mode.deserialize_json(data["azMode"])
     else:
-        raise DeserializationError("CreateKxClusterRequest.az_mode required")
+        import typing
+
+        out["az_mode"] = typing.cast("capo_finspace.types.kx_az_mode.KxAzMode", "")
     if data.get("availabilityZoneId") is not None:
         out["availability_zone_id"] = data["availabilityZoneId"]
     if data.get("tags") is not None:

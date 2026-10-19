@@ -93,7 +93,7 @@ def deserialize_json(data: dict) -> CreateDatasetRequest:
     if data.get("datasetName") is not None:
         out["dataset_name"] = data["datasetName"]
     else:
-        raise DeserializationError("CreateDatasetRequest.dataset_name required")
+        out["dataset_name"] = ""
     if data.get("datasetDescription") is not None:
         out["dataset_description"] = data["datasetDescription"]
     if data.get("datasetType") is not None:

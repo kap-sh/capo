@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces_instances.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_instances.types.billing_mode
     import capo_workspaces_instances.types.instance_configuration_tenancy_enum
@@ -59,7 +57,11 @@ def deserialize_aws_json_1_0(data: dict) -> InstanceConfigurationFilter:
             )
         )
     else:
-        raise DeserializationError("InstanceConfigurationFilter.billing_mode required")
+        import typing
+
+        out["billing_mode"] = typing.cast(
+            "capo_workspaces_instances.types.billing_mode.BillingMode", ""
+        )
     if data.get("PlatformType") is not None:
         import capo_workspaces_instances.types.platform_type_enum
 
@@ -69,7 +71,11 @@ def deserialize_aws_json_1_0(data: dict) -> InstanceConfigurationFilter:
             )
         )
     else:
-        raise DeserializationError("InstanceConfigurationFilter.platform_type required")
+        import typing
+
+        out["platform_type"] = typing.cast(
+            "capo_workspaces_instances.types.platform_type_enum.PlatformTypeEnum", ""
+        )
     if data.get("Tenancy") is not None:
         import capo_workspaces_instances.types.instance_configuration_tenancy_enum
 
@@ -79,5 +85,10 @@ def deserialize_aws_json_1_0(data: dict) -> InstanceConfigurationFilter:
             )
         )
     else:
-        raise DeserializationError("InstanceConfigurationFilter.tenancy required")
+        import typing
+
+        out["tenancy"] = typing.cast(
+            "capo_workspaces_instances.types.instance_configuration_tenancy_enum.InstanceConfigurationTenancyEnum",
+            "",
+        )
     return out

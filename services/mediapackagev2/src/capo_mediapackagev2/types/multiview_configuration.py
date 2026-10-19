@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediapackagev2.types.multiview_layout_list
     import capo_mediapackagev2.types.multiview_source_list
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> MultiviewConfiguration:
             )
         )
     else:
-        raise DeserializationError("MultiviewConfiguration.available_sources required")
+        out["available_sources"] = []
     if data.get("AvailableLayouts") is not None:
         import capo_mediapackagev2.types.multiview_layout_list
 
@@ -63,5 +61,5 @@ def deserialize_json(data: dict) -> MultiviewConfiguration:
             )
         )
     else:
-        raise DeserializationError("MultiviewConfiguration.available_layouts required")
+        out["available_layouts"] = []
     return out

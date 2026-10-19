@@ -40,9 +40,7 @@ def deserialize_query(el: Element) -> ConfigureHealthCheckInput:
     if child_load_balancer_name is not None:
         out["load_balancer_name"] = str(child_load_balancer_name.text or "")
     else:
-        raise DeserializationError(
-            "ConfigureHealthCheckInput.load_balancer_name required"
-        )
+        out["load_balancer_name"] = ""
     child_health_check = el.find("HealthCheck")
     if child_health_check is not None:
         import capo_elastic_load_balancing.types.health_check

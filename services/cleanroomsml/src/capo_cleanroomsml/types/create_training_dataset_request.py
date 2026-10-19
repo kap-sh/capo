@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.dataset_list
     import capo_cleanroomsml.types.iam_role_arn
@@ -53,11 +51,11 @@ def deserialize_json(data: dict) -> CreateTrainingDatasetRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateTrainingDatasetRequest.name required")
+        out["name"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateTrainingDatasetRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("trainingData") is not None:
         import capo_cleanroomsml.types.dataset_list
 
@@ -65,9 +63,7 @@ def deserialize_json(data: dict) -> CreateTrainingDatasetRequest:
             data["trainingData"]
         )
     else:
-        raise DeserializationError(
-            "CreateTrainingDatasetRequest.training_data required"
-        )
+        out["training_data"] = []
     if data.get("tags") is not None:
         import capo_cleanroomsml.types.tag_map
 

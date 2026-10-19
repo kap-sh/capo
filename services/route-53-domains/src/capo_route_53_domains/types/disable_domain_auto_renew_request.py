@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route_53_domains.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route_53_domains.types.domain_name
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DisableDomainAutoRenewRequest:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("DisableDomainAutoRenewRequest.domain_name required")
+        out["domain_name"] = ""
     return out

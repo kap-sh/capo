@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_budgets.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_budgets.types.action_sub_type
     import capo_budgets.types.instance_ids
@@ -49,11 +47,15 @@ def deserialize_aws_json_1_1(data: dict) -> SsmActionDefinition:
             )
         )
     else:
-        raise DeserializationError("SsmActionDefinition.action_sub_type required")
+        import typing
+
+        out["action_sub_type"] = typing.cast(
+            "capo_budgets.types.action_sub_type.ActionSubType", ""
+        )
     if data.get("Region") is not None:
         out["region"] = data["Region"]
     else:
-        raise DeserializationError("SsmActionDefinition.region required")
+        out["region"] = ""
     if data.get("InstanceIds") is not None:
         import capo_budgets.types.instance_ids
 
@@ -61,5 +63,5 @@ def deserialize_aws_json_1_1(data: dict) -> SsmActionDefinition:
             data["InstanceIds"]
         )
     else:
-        raise DeserializationError("SsmActionDefinition.instance_ids required")
+        out["instance_ids"] = []
     return out

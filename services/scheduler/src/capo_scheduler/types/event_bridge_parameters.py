@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_scheduler.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_scheduler.types.detail_type
     import capo_scheduler.types.source
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> EventBridgeParameters:
     if data.get("DetailType") is not None:
         out["detail_type"] = data["DetailType"]
     else:
-        raise DeserializationError("EventBridgeParameters.detail_type required")
+        out["detail_type"] = ""
     if data.get("Source") is not None:
         out["source"] = data["Source"]
     else:
-        raise DeserializationError("EventBridgeParameters.source required")
+        out["source"] = ""
     return out

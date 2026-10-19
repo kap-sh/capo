@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.free_from_layout_element_list
 
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> FreeFormSectionLayoutConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "FreeFormSectionLayoutConfiguration.elements required"
-        )
+        out["elements"] = []
     return out
 
 

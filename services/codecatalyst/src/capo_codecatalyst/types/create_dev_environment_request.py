@@ -102,7 +102,7 @@ def deserialize_json(data: dict) -> CreateDevEnvironmentRequest:
     if data.get("instanceType") is not None:
         out["instance_type"] = data["instanceType"]
     else:
-        raise DeserializationError("CreateDevEnvironmentRequest.instance_type required")
+        out["instance_type"] = ""
     if data.get("inactivityTimeoutMinutes") is not None:
         out["inactivity_timeout_minutes"] = data["inactivityTimeoutMinutes"]
     if data.get("persistentStorage") is not None:

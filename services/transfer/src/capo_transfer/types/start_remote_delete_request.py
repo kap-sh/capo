@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.connector_id
     import capo_transfer.types.file_path
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> StartRemoteDeleteRequest:
     if data.get("ConnectorId") is not None:
         out["connector_id"] = data["ConnectorId"]
     else:
-        raise DeserializationError("StartRemoteDeleteRequest.connector_id required")
+        out["connector_id"] = ""
     if data.get("DeletePath") is not None:
         out["delete_path"] = data["DeletePath"]
     else:
-        raise DeserializationError("StartRemoteDeleteRequest.delete_path required")
+        out["delete_path"] = ""
     return out

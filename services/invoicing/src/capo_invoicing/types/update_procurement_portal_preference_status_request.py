@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_invoicing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_invoicing.types.basic_string
     import capo_invoicing.types.basic_string_without_space
@@ -82,9 +80,7 @@ def deserialize_aws_json_1_0(
             "ProcurementPortalPreferenceArn"
         ]
     else:
-        raise DeserializationError(
-            "UpdateProcurementPortalPreferenceStatusRequest.procurement_portal_preference_arn required"
-        )
+        out["procurement_portal_preference_arn"] = ""
     if data.get("EinvoiceDeliveryPreferenceStatus") is not None:
         import capo_invoicing.types.procurement_portal_preference_status
 

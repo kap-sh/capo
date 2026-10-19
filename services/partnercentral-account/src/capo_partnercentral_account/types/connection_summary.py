@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.aws_account_id
     import capo_partnercentral_account.types.catalog
@@ -61,21 +59,19 @@ def deserialize_aws_json_1_0(data: dict) -> ConnectionSummary:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("ConnectionSummary.catalog required")
+        out["catalog"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("ConnectionSummary.id required")
+        out["id"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("ConnectionSummary.arn required")
+        out["arn"] = ""
     if data.get("OtherParticipantAccountId") is not None:
         out["other_participant_account_id"] = data["OtherParticipantAccountId"]
     else:
-        raise DeserializationError(
-            "ConnectionSummary.other_participant_account_id required"
-        )
+        out["other_participant_account_id"] = ""
     if data.get("UpdatedAt") is not None:
         import capo_partnercentral_account.types.date_time
 
@@ -85,7 +81,9 @@ def deserialize_aws_json_1_0(data: dict) -> ConnectionSummary:
             )
         )
     else:
-        raise DeserializationError("ConnectionSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("ConnectionTypes") is not None:
         import capo_partnercentral_account.types.connection_type_summary_map
 
@@ -95,5 +93,5 @@ def deserialize_aws_json_1_0(data: dict) -> ConnectionSummary:
             )
         )
     else:
-        raise DeserializationError("ConnectionSummary.connection_types required")
+        out["connection_types"] = {}
     return out

@@ -63,7 +63,11 @@ def deserialize_json(data: dict) -> SmsChannelSubtypeConfig:
             )
         )
     else:
-        raise DeserializationError("SmsChannelSubtypeConfig.outbound_mode required")
+        import capo_connectcampaignsv2.types._unknown
+
+        out["outbound_mode"] = (
+            capo_connectcampaignsv2.types._unknown.UnknownUnionMember("")
+        )
     if data.get("defaultOutboundConfig") is not None:
         import capo_connectcampaignsv2.types.sms_outbound_config
 

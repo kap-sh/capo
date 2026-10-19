@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mgn.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mgn.types.connector_id
     import capo_mgn.types.connector_name
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> UpdateConnectorRequest:
     if data.get("connectorID") is not None:
         out["connector_id"] = data["connectorID"]
     else:
-        raise DeserializationError("UpdateConnectorRequest.connector_id required")
+        out["connector_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("ssmCommandConfig") is not None:

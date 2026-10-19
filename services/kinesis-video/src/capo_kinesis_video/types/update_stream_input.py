@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis_video.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_video.types.device_name
     import capo_kinesis_video.types.media_type
@@ -51,7 +49,7 @@ def deserialize_json(data: dict) -> UpdateStreamInput:
     if data.get("CurrentVersion") is not None:
         out["current_version"] = data["CurrentVersion"]
     else:
-        raise DeserializationError("UpdateStreamInput.current_version required")
+        out["current_version"] = ""
     if data.get("DeviceName") is not None:
         out["device_name"] = data["DeviceName"]
     if data.get("MediaType") is not None:

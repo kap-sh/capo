@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bcm_data_exports.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bcm_data_exports.types.table_name
     import capo_bcm_data_exports.types.table_properties
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetTableRequest:
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("GetTableRequest.table_name required")
+        out["table_name"] = ""
     if data.get("TableProperties") is not None:
         import capo_bcm_data_exports.types.table_properties
 

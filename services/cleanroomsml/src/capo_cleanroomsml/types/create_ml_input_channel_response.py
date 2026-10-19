@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.ml_input_channel_arn
 
@@ -29,7 +27,5 @@ def deserialize_json(data: dict) -> CreateMLInputChannelResponse:
     if data.get("mlInputChannelArn") is not None:
         out["ml_input_channel_arn"] = data["mlInputChannelArn"]
     else:
-        raise DeserializationError(
-            "CreateMLInputChannelResponse.ml_input_channel_arn required"
-        )
+        out["ml_input_channel_arn"] = ""
     return out

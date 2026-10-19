@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.guardrail_word_action
 
@@ -55,7 +53,7 @@ def deserialize_json(data: dict) -> GuardrailWord:
     if data.get("text") is not None:
         out["text"] = data["text"]
     else:
-        raise DeserializationError("GuardrailWord.text required")
+        out["text"] = ""
     if data.get("inputAction") is not None:
         import capo_bedrock.types.guardrail_word_action
 

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.s3_object_lock_legal_hold_status
@@ -38,5 +37,10 @@ def deserialize_xml(el: Element) -> S3ObjectLockLegalHold:
             )
         )
     else:
-        raise DeserializationError("S3ObjectLockLegalHold.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_s3_control.types.s3_object_lock_legal_hold_status.S3ObjectLockLegalHoldStatus",
+            "",
+        )
     return out

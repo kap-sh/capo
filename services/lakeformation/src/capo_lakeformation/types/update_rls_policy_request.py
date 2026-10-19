@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.name_string
     import capo_lakeformation.types.predicate_string
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> UpdateRLSPolicyRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateRLSPolicyRequest.name required")
+        out["name"] = ""
     if data.get("FilterExpression") is not None:
         out["filter_expression"] = data["FilterExpression"]
     return out

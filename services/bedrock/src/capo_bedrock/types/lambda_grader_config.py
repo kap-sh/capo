@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.lambda_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> LambdaGraderConfig:
     if data.get("lambdaArn") is not None:
         out["lambda_arn"] = data["lambdaArn"]
     else:
-        raise DeserializationError("LambdaGraderConfig.lambda_arn required")
+        out["lambda_arn"] = ""
     return out

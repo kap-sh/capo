@@ -106,9 +106,7 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyTestResult:
     if data.get("policyArn") is not None:
         out["policy_arn"] = data["policyArn"]
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyTestResult.policy_arn required"
-        )
+        out["policy_arn"] = ""
     if data.get("testRunStatus") is not None:
         import capo_bedrock.types.automated_reasoning_policy_test_run_status
 
@@ -118,8 +116,11 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyTestResult:
             )
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyTestResult.test_run_status required"
+        import typing
+
+        out["test_run_status"] = typing.cast(
+            "capo_bedrock.types.automated_reasoning_policy_test_run_status.AutomatedReasoningPolicyTestRunStatus",
+            "",
         )
     if data.get("testFindings") is not None:
         import capo_bedrock.types.automated_reasoning_check_finding_list
@@ -152,9 +153,9 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyTestResult:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError(
-            "AutomatedReasoningPolicyTestResult.updated_at required"
-        )
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
 
 

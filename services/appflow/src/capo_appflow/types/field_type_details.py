@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.field_type
     import capo_appflow.types.filter_operator_list
@@ -72,7 +70,7 @@ def deserialize_json(data: dict) -> FieldTypeDetails:
     if data.get("fieldType") is not None:
         out["field_type"] = data["fieldType"]
     else:
-        raise DeserializationError("FieldTypeDetails.field_type required")
+        out["field_type"] = ""
     if data.get("filterOperators") is not None:
         import capo_appflow.types.filter_operator_list
 
@@ -82,7 +80,7 @@ def deserialize_json(data: dict) -> FieldTypeDetails:
             )
         )
     else:
-        raise DeserializationError("FieldTypeDetails.filter_operators required")
+        out["filter_operators"] = []
     if data.get("supportedValues") is not None:
         import capo_appflow.types.supported_value_list
 

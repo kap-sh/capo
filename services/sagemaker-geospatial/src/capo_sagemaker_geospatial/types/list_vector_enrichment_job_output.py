@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.next_token
     import capo_sagemaker_geospatial.types.vector_enrichment_job_list
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> ListVectorEnrichmentJobOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListVectorEnrichmentJobOutput.vector_enrichment_job_summaries required"
-        )
+        out["vector_enrichment_job_summaries"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

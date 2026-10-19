@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_analytics_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics_v2.types.application_name
     import capo_kinesis_analytics_v2.types.snapshot_name
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeApplicationSnapshotRequest:
     if data.get("ApplicationName") is not None:
         out["application_name"] = data["ApplicationName"]
     else:
-        raise DeserializationError(
-            "DescribeApplicationSnapshotRequest.application_name required"
-        )
+        out["application_name"] = ""
     if data.get("SnapshotName") is not None:
         out["snapshot_name"] = data["SnapshotName"]
     else:
-        raise DeserializationError(
-            "DescribeApplicationSnapshotRequest.snapshot_name required"
-        )
+        out["snapshot_name"] = ""
     return out

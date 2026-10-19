@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import TypedDict
 
 from capo_sns._protocol.xml import Element
-from capo_sns.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_sns.types.otp_code
@@ -34,16 +33,12 @@ def deserialize_query(el: Element) -> VerifySMSSandboxPhoneNumberInput:
     if child_phone_number is not None:
         out["phone_number"] = str(child_phone_number.text or "")
     else:
-        raise DeserializationError(
-            "VerifySMSSandboxPhoneNumberInput.phone_number required"
-        )
+        out["phone_number"] = ""
     child_one_time_password = el.find("OneTimePassword")
     if child_one_time_password is not None:
         out["one_time_password"] = str(child_one_time_password.text or "")
     else:
-        raise DeserializationError(
-            "VerifySMSSandboxPhoneNumberInput.one_time_password required"
-        )
+        out["one_time_password"] = ""
     return out
 
 

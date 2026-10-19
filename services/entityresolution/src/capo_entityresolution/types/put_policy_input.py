@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.policy_document
     import capo_entityresolution.types.policy_token
@@ -37,5 +35,5 @@ def deserialize_json(data: dict) -> PutPolicyInput:
     if data.get("policy") is not None:
         out["policy"] = data["policy"]
     else:
-        raise DeserializationError("PutPolicyInput.policy required")
+        out["policy"] = ""
     return out

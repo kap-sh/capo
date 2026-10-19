@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.arn
     import capo_opensearch.types.id
@@ -29,5 +27,5 @@ def deserialize_json(data: dict) -> DetachDataSourceRequest:
     if data.get("dataSourceArn") is not None:
         out["data_source_arn"] = data["dataSourceArn"]
     else:
-        raise DeserializationError("DetachDataSourceRequest.data_source_arn required")
+        out["data_source_arn"] = ""
     return out

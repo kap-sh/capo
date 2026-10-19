@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_license_manager_user_subscriptions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager_user_subscriptions.types.subnets
 
@@ -39,5 +37,5 @@ def deserialize_json(data: dict) -> DomainNetworkSettings:
             )
         )
     else:
-        raise DeserializationError("DomainNetworkSettings.subnets required")
+        out["subnets"] = []
     return out

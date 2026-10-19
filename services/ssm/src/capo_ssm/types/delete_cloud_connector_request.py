@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.cloud_connector_id
 
@@ -27,7 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteCloudConnectorRequest:
     if data.get("CloudConnectorId") is not None:
         out["cloud_connector_id"] = data["CloudConnectorId"]
     else:
-        raise DeserializationError(
-            "DeleteCloudConnectorRequest.cloud_connector_id required"
-        )
+        out["cloud_connector_id"] = ""
     return out

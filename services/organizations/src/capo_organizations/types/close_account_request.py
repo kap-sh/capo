@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_organizations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_organizations.types.account_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> CloseAccountRequest:
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     else:
-        raise DeserializationError("CloseAccountRequest.account_id required")
+        out["account_id"] = ""
     return out

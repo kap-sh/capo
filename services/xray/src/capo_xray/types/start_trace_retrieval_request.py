@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_xray.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_xray.types.timestamp
     import capo_xray.types.trace_id_list_for_retrieval
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> StartTraceRetrievalRequest:
             data["TraceIds"]
         )
     else:
-        raise DeserializationError("StartTraceRetrievalRequest.trace_ids required")
+        out["trace_ids"] = []
     if data.get("StartTime") is not None:
         import capo_xray.types.timestamp
 
@@ -54,11 +52,15 @@ def deserialize_json(data: dict) -> StartTraceRetrievalRequest:
             data["StartTime"]
         )
     else:
-        raise DeserializationError("StartTraceRetrievalRequest.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndTime") is not None:
         import capo_xray.types.timestamp
 
         out["end_time"] = capo_xray.types.timestamp.deserialize_json(data["EndTime"])
     else:
-        raise DeserializationError("StartTraceRetrievalRequest.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

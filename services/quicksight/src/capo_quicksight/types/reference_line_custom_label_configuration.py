@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.non_empty_string
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> ReferenceLineCustomLabelConfiguration:
     if data.get("CustomLabel") is not None:
         out["custom_label"] = data["CustomLabel"]
     else:
-        raise DeserializationError(
-            "ReferenceLineCustomLabelConfiguration.custom_label required"
-        )
+        out["custom_label"] = ""
     return out

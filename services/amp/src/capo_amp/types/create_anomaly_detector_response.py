@@ -46,13 +46,11 @@ def deserialize_json(data: dict) -> CreateAnomalyDetectorResponse:
     if data.get("anomalyDetectorId") is not None:
         out["anomaly_detector_id"] = data["anomalyDetectorId"]
     else:
-        raise DeserializationError(
-            "CreateAnomalyDetectorResponse.anomaly_detector_id required"
-        )
+        out["anomaly_detector_id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CreateAnomalyDetectorResponse.arn required")
+        out["arn"] = ""
     if data.get("status") is not None:
         import capo_amp.types.anomaly_detector_status
 

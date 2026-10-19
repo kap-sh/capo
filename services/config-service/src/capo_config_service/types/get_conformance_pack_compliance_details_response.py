@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.conformance_pack_name
     import capo_config_service.types.conformance_pack_rule_evaluation_results_list
@@ -47,9 +45,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetConformancePackComplianceDetailsR
     if data.get("ConformancePackName") is not None:
         out["conformance_pack_name"] = data["ConformancePackName"]
     else:
-        raise DeserializationError(
-            "GetConformancePackComplianceDetailsResponse.conformance_pack_name required"
-        )
+        out["conformance_pack_name"] = ""
     if data.get("ConformancePackRuleEvaluationResults") is not None:
         import capo_config_service.types.conformance_pack_rule_evaluation_results_list
 

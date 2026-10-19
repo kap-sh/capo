@@ -77,15 +77,11 @@ def deserialize_aws_json_1_1(data: dict) -> TranslateDocumentResponse:
     if data.get("SourceLanguageCode") is not None:
         out["source_language_code"] = data["SourceLanguageCode"]
     else:
-        raise DeserializationError(
-            "TranslateDocumentResponse.source_language_code required"
-        )
+        out["source_language_code"] = ""
     if data.get("TargetLanguageCode") is not None:
         out["target_language_code"] = data["TargetLanguageCode"]
     else:
-        raise DeserializationError(
-            "TranslateDocumentResponse.target_language_code required"
-        )
+        out["target_language_code"] = ""
     if data.get("AppliedTerminologies") is not None:
         import capo_translate.types.applied_terminology_list
 

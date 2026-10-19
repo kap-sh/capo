@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_auditmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_auditmanager.types.account_id
 
@@ -27,7 +25,5 @@ def deserialize_json(data: dict) -> RegisterOrganizationAdminAccountRequest:
     if data.get("adminAccountId") is not None:
         out["admin_account_id"] = data["adminAccountId"]
     else:
-        raise DeserializationError(
-            "RegisterOrganizationAdminAccountRequest.admin_account_id required"
-        )
+        out["admin_account_id"] = ""
     return out

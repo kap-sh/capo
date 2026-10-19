@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_instances.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_instances.types.client_token
     import capo_workspaces_instances.types.kms_key_id
@@ -93,7 +91,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateVolumeRequest:
     if data.get("AvailabilityZone") is not None:
         out["availability_zone"] = data["AvailabilityZone"]
     else:
-        raise DeserializationError("CreateVolumeRequest.availability_zone required")
+        out["availability_zone"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("Encrypted") is not None:

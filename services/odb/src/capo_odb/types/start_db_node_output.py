@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_odb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_odb.types.db_node_resource_status
 
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_0(data: dict) -> StartDbNodeOutput:
     if data.get("dbNodeId") is not None:
         out["db_node_id"] = data["dbNodeId"]
     else:
-        raise DeserializationError("StartDbNodeOutput.db_node_id required")
+        out["db_node_id"] = ""
     if data.get("status") is not None:
         import capo_odb.types.db_node_resource_status
 

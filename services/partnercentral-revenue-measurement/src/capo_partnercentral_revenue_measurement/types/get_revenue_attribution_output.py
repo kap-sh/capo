@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_revenue_measurement.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -138,11 +136,11 @@ def deserialize_cbor(data: dict) -> GetRevenueAttributionOutput:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("GetRevenueAttributionOutput.arn required")
+        out["arn"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("GetRevenueAttributionOutput.id required")
+        out["id"] = ""
     if data.get("Catalog") is not None:
         import capo_partnercentral_revenue_measurement.types.catalog_name
 
@@ -152,7 +150,11 @@ def deserialize_cbor(data: dict) -> GetRevenueAttributionOutput:
             )
         )
     else:
-        raise DeserializationError("GetRevenueAttributionOutput.catalog required")
+        import typing
+
+        out["catalog"] = typing.cast(
+            "capo_partnercentral_revenue_measurement.types.catalog_name.CatalogName", ""
+        )
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("Description") is not None:
@@ -166,7 +168,12 @@ def deserialize_cbor(data: dict) -> GetRevenueAttributionOutput:
             )
         )
     else:
-        raise DeserializationError("GetRevenueAttributionOutput.tenancy_model required")
+        import typing
+
+        out["tenancy_model"] = typing.cast(
+            "capo_partnercentral_revenue_measurement.types.tenancy_model.TenancyModel",
+            "",
+        )
     if data.get("MarketplaceProduct") is not None:
         import capo_partnercentral_revenue_measurement.types.marketplace_product_summary
 

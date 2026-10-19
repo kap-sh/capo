@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.client_token
     import capo_deadline.types.iam_role_arn
@@ -56,23 +54,21 @@ def deserialize_json(data: dict) -> CreateMonitorRequest:
     if data.get("displayName") is not None:
         out["display_name"] = data["displayName"]
     else:
-        raise DeserializationError("CreateMonitorRequest.display_name required")
+        out["display_name"] = ""
     if data.get("identityCenterInstanceArn") is not None:
         out["identity_center_instance_arn"] = data["identityCenterInstanceArn"]
     else:
-        raise DeserializationError(
-            "CreateMonitorRequest.identity_center_instance_arn required"
-        )
+        out["identity_center_instance_arn"] = ""
     if data.get("identityCenterRegion") is not None:
         out["identity_center_region"] = data["identityCenterRegion"]
     if data.get("subdomain") is not None:
         out["subdomain"] = data["subdomain"]
     else:
-        raise DeserializationError("CreateMonitorRequest.subdomain required")
+        out["subdomain"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateMonitorRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("tags") is not None:
         import capo_deadline.types.tags
 

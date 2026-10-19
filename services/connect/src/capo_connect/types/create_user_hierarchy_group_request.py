@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.hierarchy_group_id
     import capo_connect.types.hierarchy_group_name
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> CreateUserHierarchyGroupRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateUserHierarchyGroupRequest.name required")
+        out["name"] = ""
     if data.get("ParentGroupId") is not None:
         out["parent_group_id"] = data["ParentGroupId"]
     if data.get("Tags") is not None:

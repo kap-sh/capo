@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.redshift_provisioned_auth_type
     import capo_bedrock_agent.types.secret_arn
@@ -50,7 +48,12 @@ def deserialize_json(data: dict) -> RedshiftProvisionedAuthConfiguration:
             )
         )
     else:
-        raise DeserializationError("RedshiftProvisionedAuthConfiguration.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_bedrock_agent.types.redshift_provisioned_auth_type.RedshiftProvisionedAuthType",
+            "",
+        )
     if data.get("databaseUser") is not None:
         out["database_user"] = data["databaseUser"]
     if data.get("usernamePasswordSecretArn") is not None:

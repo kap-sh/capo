@@ -129,7 +129,7 @@ def deserialize_json(data: dict) -> GetEvaluationJobResponse:
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError("GetEvaluationJobResponse.job_name required")
+        out["job_name"] = ""
     if data.get("status") is not None:
         import capo_bedrock.types.evaluation_job_status
 
@@ -137,17 +137,21 @@ def deserialize_json(data: dict) -> GetEvaluationJobResponse:
             data["status"]
         )
     else:
-        raise DeserializationError("GetEvaluationJobResponse.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock.types.evaluation_job_status.EvaluationJobStatus", ""
+        )
     if data.get("jobArn") is not None:
         out["job_arn"] = data["jobArn"]
     else:
-        raise DeserializationError("GetEvaluationJobResponse.job_arn required")
+        out["job_arn"] = ""
     if data.get("jobDescription") is not None:
         out["job_description"] = data["jobDescription"]
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("GetEvaluationJobResponse.role_arn required")
+        out["role_arn"] = ""
     if data.get("customerEncryptionKeyId") is not None:
         out["customer_encryption_key_id"] = data["customerEncryptionKeyId"]
     if data.get("jobType") is not None:
@@ -157,7 +161,11 @@ def deserialize_json(data: dict) -> GetEvaluationJobResponse:
             data["jobType"]
         )
     else:
-        raise DeserializationError("GetEvaluationJobResponse.job_type required")
+        import typing
+
+        out["job_type"] = typing.cast(
+            "capo_bedrock.types.evaluation_job_type.EvaluationJobType", ""
+        )
     if data.get("applicationType") is not None:
         import capo_bedrock.types.application_type
 
@@ -173,9 +181,9 @@ def deserialize_json(data: dict) -> GetEvaluationJobResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetEvaluationJobResponse.evaluation_config required"
-        )
+        import capo_bedrock.types._unknown
+
+        out["evaluation_config"] = capo_bedrock.types._unknown.UnknownUnionMember("")
     if data.get("inferenceConfig") is not None:
         import capo_bedrock.types.evaluation_inference_config
 
@@ -185,7 +193,9 @@ def deserialize_json(data: dict) -> GetEvaluationJobResponse:
             )
         )
     else:
-        raise DeserializationError("GetEvaluationJobResponse.inference_config required")
+        import capo_bedrock.types._unknown
+
+        out["inference_config"] = capo_bedrock.types._unknown.UnknownUnionMember("")
     if data.get("outputDataConfig") is not None:
         import capo_bedrock.types.evaluation_output_data_config
 
@@ -205,7 +215,11 @@ def deserialize_json(data: dict) -> GetEvaluationJobResponse:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("GetEvaluationJobResponse.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastModifiedTime") is not None:
         import capo_bedrock.types.timestamp
 

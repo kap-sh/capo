@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_containers.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_containers.types.log_group_name
     import capo_emr_containers.types.string256
@@ -32,9 +30,7 @@ def deserialize_json(data: dict) -> CloudWatchMonitoringConfiguration:
     if data.get("logGroupName") is not None:
         out["log_group_name"] = data["logGroupName"]
     else:
-        raise DeserializationError(
-            "CloudWatchMonitoringConfiguration.log_group_name required"
-        )
+        out["log_group_name"] = ""
     if data.get("logStreamNamePrefix") is not None:
         out["log_stream_name_prefix"] = data["logStreamNamePrefix"]
     return out

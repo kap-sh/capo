@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_selling.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_selling.types.catalog_identifier
     import capo_partnercentral_selling.types.prospecting_task_identifier
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetProspectingFromEngagementTaskRequ
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError(
-            "GetProspectingFromEngagementTaskRequest.catalog required"
-        )
+        out["catalog"] = ""
     if data.get("TaskIdentifier") is not None:
         out["task_identifier"] = data["TaskIdentifier"]
     else:
-        raise DeserializationError(
-            "GetProspectingFromEngagementTaskRequest.task_identifier required"
-        )
+        out["task_identifier"] = ""
     return out

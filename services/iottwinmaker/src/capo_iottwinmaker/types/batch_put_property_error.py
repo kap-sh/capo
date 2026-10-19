@@ -38,11 +38,11 @@ def deserialize_json(data: dict) -> BatchPutPropertyError:
     if data.get("errorCode") is not None:
         out["error_code"] = data["errorCode"]
     else:
-        raise DeserializationError("BatchPutPropertyError.error_code required")
+        out["error_code"] = ""
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     else:
-        raise DeserializationError("BatchPutPropertyError.error_message required")
+        out["error_message"] = ""
     if data.get("entry") is not None:
         import capo_iottwinmaker.types.property_value_entry
 

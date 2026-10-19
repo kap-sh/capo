@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.accelerator_count_range
     import capo_deadline.types.accelerator_selections
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> AcceleratorCapabilities:
             data["selections"]
         )
     else:
-        raise DeserializationError("AcceleratorCapabilities.selections required")
+        out["selections"] = []
     if data.get("count") is not None:
         import capo_deadline.types.accelerator_count_range
 

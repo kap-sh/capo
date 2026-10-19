@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 
 class TxtMethodConfig(TypedDict, closed=True):
     value: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> TxtMethodConfig:
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("TxtMethodConfig.value required")
+        out["value"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("TxtMethodConfig.name required")
+        out["name"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.mqtt_topic
     import capo_iot.types.role_arn
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> MetricsExportConfig:
     if data.get("mqttTopic") is not None:
         out["mqtt_topic"] = data["mqttTopic"]
     else:
-        raise DeserializationError("MetricsExportConfig.mqtt_topic required")
+        out["mqtt_topic"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("MetricsExportConfig.role_arn required")
+        out["role_arn"] = ""
     return out

@@ -75,7 +75,10 @@ def handle_response(
             json.loads(response.read())
         )
     )
-    out["session_id"] = response.headers["x-amzn-browser-session-id"]
+    if "x-amzn-browser-session-id" in response.headers:
+        out["session_id"] = response.headers["x-amzn-browser-session-id"]
+    else:
+        out["session_id"] = ""
     return out
 
 
@@ -87,7 +90,10 @@ async def async_handle_response(
             json.loads(await response.aread())
         )
     )
-    out["session_id"] = response.headers["x-amzn-browser-session-id"]
+    if "x-amzn-browser-session-id" in response.headers:
+        out["session_id"] = response.headers["x-amzn-browser-session-id"]
+    else:
+        out["session_id"] = ""
     return out
 
 

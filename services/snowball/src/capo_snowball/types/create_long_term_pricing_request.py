@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_snowball.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_snowball.types.java_boolean
     import capo_snowball.types.long_term_pricing_type
@@ -56,8 +54,10 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLongTermPricingRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateLongTermPricingRequest.long_term_pricing_type required"
+        import typing
+
+        out["long_term_pricing_type"] = typing.cast(
+            "capo_snowball.types.long_term_pricing_type.LongTermPricingType", ""
         )
     if data.get("IsLongTermPricingAutoRenew") is not None:
         out["is_long_term_pricing_auto_renew"] = data["IsLongTermPricingAutoRenew"]
@@ -70,7 +70,9 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLongTermPricingRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateLongTermPricingRequest.snowball_type required"
+        import typing
+
+        out["snowball_type"] = typing.cast(
+            "capo_snowball.types.snowball_type.SnowballType", ""
         )
     return out

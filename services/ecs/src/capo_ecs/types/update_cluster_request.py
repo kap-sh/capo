@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.cluster_configuration
     import capo_ecs.types.cluster_service_connect_defaults_request
@@ -62,7 +60,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateClusterRequest:
     if data.get("cluster") is not None:
         out["cluster"] = data["cluster"]
     else:
-        raise DeserializationError("UpdateClusterRequest.cluster required")
+        out["cluster"] = ""
     if data.get("settings") is not None:
         import capo_ecs.types.cluster_settings
 

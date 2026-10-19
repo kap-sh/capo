@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.extraction_config
     import capo_bedrock_agentcore_control.types.extraction_type
@@ -66,7 +64,7 @@ def deserialize_json(data: dict) -> MetadataSchemaEntry:
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("MetadataSchemaEntry.key required")
+        out["key"] = ""
     if data.get("type") is not None:
         import capo_bedrock_agentcore_control.types.metadata_value_type
 

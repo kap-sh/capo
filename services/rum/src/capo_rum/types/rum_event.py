@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rum.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -46,7 +44,7 @@ def deserialize_json(data: dict) -> RumEvent:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("RumEvent.id required")
+        out["id"] = ""
     if data.get("timestamp") is not None:
         import capo_rum.types._prelude.timestamp
 
@@ -54,15 +52,17 @@ def deserialize_json(data: dict) -> RumEvent:
             data["timestamp"]
         )
     else:
-        raise DeserializationError("RumEvent.timestamp required")
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("RumEvent.type required")
+        out["type"] = ""
     if data.get("metadata") is not None:
         out["metadata"] = data["metadata"]
     if data.get("details") is not None:
         out["details"] = data["details"]
     else:
-        raise DeserializationError("RumEvent.details required")
+        out["details"] = ""
     return out

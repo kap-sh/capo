@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediapackagev2.types.preset_speke20_audio
     import capo_mediapackagev2.types.preset_speke20_video
@@ -53,8 +51,10 @@ def deserialize_json(data: dict) -> EncryptionContractConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "EncryptionContractConfiguration.preset_speke20_audio required"
+        import typing
+
+        out["preset_speke20_audio"] = typing.cast(
+            "capo_mediapackagev2.types.preset_speke20_audio.PresetSpeke20Audio", ""
         )
     if data.get("PresetSpeke20Video") is not None:
         import capo_mediapackagev2.types.preset_speke20_video
@@ -65,7 +65,9 @@ def deserialize_json(data: dict) -> EncryptionContractConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "EncryptionContractConfiguration.preset_speke20_video required"
+        import typing
+
+        out["preset_speke20_video"] = typing.cast(
+            "capo_mediapackagev2.types.preset_speke20_video.PresetSpeke20Video", ""
         )
     return out

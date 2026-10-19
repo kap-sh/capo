@@ -103,21 +103,21 @@ def deserialize_json(data: dict) -> Recommendation:
     if data.get("agentSpaceArn") is not None:
         out["agent_space_arn"] = data["agentSpaceArn"]
     else:
-        raise DeserializationError("Recommendation.agent_space_arn required")
+        out["agent_space_arn"] = ""
     if data.get("recommendationId") is not None:
         out["recommendation_id"] = data["recommendationId"]
     else:
-        raise DeserializationError("Recommendation.recommendation_id required")
+        out["recommendation_id"] = ""
     if data.get("taskId") is not None:
         out["task_id"] = data["taskId"]
     else:
-        raise DeserializationError("Recommendation.task_id required")
+        out["task_id"] = ""
     if data.get("goalId") is not None:
         out["goal_id"] = data["goalId"]
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("Recommendation.title required")
+        out["title"] = ""
     if data.get("content") is not None:
         import capo_devops_agent.types.recommendation_content
 
@@ -135,7 +135,11 @@ def deserialize_json(data: dict) -> Recommendation:
             data["status"]
         )
     else:
-        raise DeserializationError("Recommendation.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_devops_agent.types.recommendation_status.RecommendationStatus", ""
+        )
     if data.get("priority") is not None:
         import capo_devops_agent.types.recommendation_priority
 
@@ -145,7 +149,11 @@ def deserialize_json(data: dict) -> Recommendation:
             )
         )
     else:
-        raise DeserializationError("Recommendation.priority required")
+        import typing
+
+        out["priority"] = typing.cast(
+            "capo_devops_agent.types.recommendation_priority.RecommendationPriority", ""
+        )
     if data.get("goalVersion") is not None:
         out["goal_version"] = data["goalVersion"]
     if data.get("additionalContext") is not None:
@@ -165,7 +173,9 @@ def deserialize_json(data: dict) -> Recommendation:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("Recommendation.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_devops_agent.types.back_log_timestamp
 
@@ -173,9 +183,11 @@ def deserialize_json(data: dict) -> Recommendation:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("Recommendation.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("Recommendation.version required")
+        out["version"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_vpc_lattice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_vpc_lattice.types.client_token
     import capo_vpc_lattice.types.tag_map
@@ -52,11 +50,11 @@ def deserialize_json(data: dict) -> CreateTargetGroupRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateTargetGroupRequest.name required")
+        out["name"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("CreateTargetGroupRequest.type required")
+        out["type"] = ""
     if data.get("config") is not None:
         import capo_vpc_lattice.types.target_group_config
 

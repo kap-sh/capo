@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.hosted_zone_limit_type
@@ -38,10 +37,14 @@ def deserialize_xml(el: Element) -> HostedZoneLimit:
             child_type
         )
     else:
-        raise DeserializationError("HostedZoneLimit.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_route_53.types.hosted_zone_limit_type.HostedZoneLimitType", ""
+        )
     child_value = el.find("Value")
     if child_value is not None:
         out["value"] = int(child_value.text or "")
     else:
-        raise DeserializationError("HostedZoneLimit.value required")
+        out["value"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_entityresolution.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_entityresolution.types.delete_unique_id_errors_list
     import capo_entityresolution.types.delete_unique_id_status
@@ -65,7 +63,12 @@ def deserialize_json(data: dict) -> BatchDeleteUniqueIdOutput:
             )
         )
     else:
-        raise DeserializationError("BatchDeleteUniqueIdOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_entityresolution.types.delete_unique_id_status.DeleteUniqueIdStatus",
+            "",
+        )
     if data.get("errors") is not None:
         import capo_entityresolution.types.delete_unique_id_errors_list
 
@@ -75,7 +78,7 @@ def deserialize_json(data: dict) -> BatchDeleteUniqueIdOutput:
             )
         )
     else:
-        raise DeserializationError("BatchDeleteUniqueIdOutput.errors required")
+        out["errors"] = []
     if data.get("deleted") is not None:
         import capo_entityresolution.types.deleted_unique_id_list
 
@@ -85,7 +88,7 @@ def deserialize_json(data: dict) -> BatchDeleteUniqueIdOutput:
             )
         )
     else:
-        raise DeserializationError("BatchDeleteUniqueIdOutput.deleted required")
+        out["deleted"] = []
     if data.get("disconnectedUniqueIds") is not None:
         import capo_entityresolution.types.disconnected_unique_ids_list
 
@@ -95,7 +98,5 @@ def deserialize_json(data: dict) -> BatchDeleteUniqueIdOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDeleteUniqueIdOutput.disconnected_unique_ids required"
-        )
+        out["disconnected_unique_ids"] = []
     return out

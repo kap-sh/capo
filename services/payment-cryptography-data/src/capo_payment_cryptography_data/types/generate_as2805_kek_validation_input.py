@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.as2805_kek_validation_type
     import capo_payment_cryptography_data.types.key_arn_or_key_alias_type
@@ -47,9 +45,7 @@ def deserialize_json(data: dict) -> GenerateAs2805KekValidationInput:
     if data.get("KeyIdentifier") is not None:
         out["key_identifier"] = data["KeyIdentifier"]
     else:
-        raise DeserializationError(
-            "GenerateAs2805KekValidationInput.key_identifier required"
-        )
+        out["key_identifier"] = ""
     if data.get("KekValidationType") is not None:
         import capo_payment_cryptography_data.types.as2805_kek_validation_type
 
@@ -59,8 +55,10 @@ def deserialize_json(data: dict) -> GenerateAs2805KekValidationInput:
             )
         )
     else:
-        raise DeserializationError(
-            "GenerateAs2805KekValidationInput.kek_validation_type required"
+        import capo_payment_cryptography_data.types._unknown
+
+        out["kek_validation_type"] = (
+            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
         )
     if data.get("RandomKeySendVariantMask") is not None:
         import capo_payment_cryptography_data.types.random_key_send_variant_mask
@@ -71,8 +69,11 @@ def deserialize_json(data: dict) -> GenerateAs2805KekValidationInput:
             )
         )
     else:
-        raise DeserializationError(
-            "GenerateAs2805KekValidationInput.random_key_send_variant_mask required"
+        import typing
+
+        out["random_key_send_variant_mask"] = typing.cast(
+            "capo_payment_cryptography_data.types.random_key_send_variant_mask.RandomKeySendVariantMask",
+            "",
         )
     return out
 

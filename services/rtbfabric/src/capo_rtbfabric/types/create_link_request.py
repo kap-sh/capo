@@ -64,7 +64,7 @@ def deserialize_json(data: dict) -> CreateLinkRequest:
     if data.get("peerGatewayId") is not None:
         out["peer_gateway_id"] = data["peerGatewayId"]
     else:
-        raise DeserializationError("CreateLinkRequest.peer_gateway_id required")
+        out["peer_gateway_id"] = ""
     if data.get("attributes") is not None:
         import capo_rtbfabric.types.link_attributes
 

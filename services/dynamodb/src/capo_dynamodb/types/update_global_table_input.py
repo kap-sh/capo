@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.replica_update_list
     import capo_dynamodb.types.table_name
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateGlobalTableInput:
     if data.get("GlobalTableName") is not None:
         out["global_table_name"] = data["GlobalTableName"]
     else:
-        raise DeserializationError("UpdateGlobalTableInput.global_table_name required")
+        out["global_table_name"] = ""
     if data.get("ReplicaUpdates") is not None:
         import capo_dynamodb.types.replica_update_list
 
@@ -47,5 +45,5 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateGlobalTableInput:
             )
         )
     else:
-        raise DeserializationError("UpdateGlobalTableInput.replica_updates required")
+        out["replica_updates"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.boolean
     import capo_imagebuilder.types.client_token
@@ -161,9 +159,7 @@ def deserialize_json(data: dict) -> CreateInfrastructureConfigurationRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "CreateInfrastructureConfigurationRequest.name required"
-        )
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("instanceTypes") is not None:
@@ -177,9 +173,7 @@ def deserialize_json(data: dict) -> CreateInfrastructureConfigurationRequest:
     if data.get("instanceProfileName") is not None:
         out["instance_profile_name"] = data["instanceProfileName"]
     else:
-        raise DeserializationError(
-            "CreateInfrastructureConfigurationRequest.instance_profile_name required"
-        )
+        out["instance_profile_name"] = ""
     if data.get("securityGroupIds") is not None:
         import capo_imagebuilder.types.security_group_ids
 
@@ -241,9 +235,7 @@ def deserialize_json(data: dict) -> CreateInfrastructureConfigurationRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError(
-            "CreateInfrastructureConfigurationRequest.client_token required"
-        )
+        out["client_token"] = ""
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
     return out

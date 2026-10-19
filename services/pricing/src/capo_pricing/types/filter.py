@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_pricing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pricing.types.field
     import capo_pricing.types.filter_type
@@ -41,13 +39,15 @@ def deserialize_aws_json_1_1(data: dict) -> Filter:
             data["Type"]
         )
     else:
-        raise DeserializationError("Filter.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_pricing.types.filter_type.FilterType", "")
     if data.get("Field") is not None:
         out["field"] = data["Field"]
     else:
-        raise DeserializationError("Filter.field required")
+        out["field"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("Filter.value required")
+        out["value"] = ""
     return out

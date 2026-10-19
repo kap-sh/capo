@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -125,15 +123,11 @@ def deserialize_json(data: dict) -> EnvironmentBlueprintConfigurationItem:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError(
-            "EnvironmentBlueprintConfigurationItem.domain_id required"
-        )
+        out["domain_id"] = ""
     if data.get("environmentBlueprintId") is not None:
         out["environment_blueprint_id"] = data["environmentBlueprintId"]
     else:
-        raise DeserializationError(
-            "EnvironmentBlueprintConfigurationItem.environment_blueprint_id required"
-        )
+        out["environment_blueprint_id"] = ""
     if data.get("provisioningRoleArn") is not None:
         out["provisioning_role_arn"] = data["provisioningRoleArn"]
     if data.get("environmentRolePermissionBoundary") is not None:

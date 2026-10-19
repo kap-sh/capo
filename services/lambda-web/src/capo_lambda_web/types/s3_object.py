@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda_web.errors import DeserializationError
-
 
 class S3Object(TypedDict, closed=True):
     bucket: "str"
@@ -29,11 +27,11 @@ def deserialize_json(data: dict) -> S3Object:
     if data.get("bucket") is not None:
         out["bucket"] = data["bucket"]
     else:
-        raise DeserializationError("S3Object.bucket required")
+        out["bucket"] = ""
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("S3Object.key required")
+        out["key"] = ""
     if data.get("versionId") is not None:
         out["version_id"] = data["versionId"]
     return out

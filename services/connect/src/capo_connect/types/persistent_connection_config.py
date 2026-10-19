@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.channel
     import capo_connect.types.persistent_connection
@@ -37,11 +35,11 @@ def deserialize_json(data: dict) -> PersistentConnectionConfig:
 
         out["channel"] = capo_connect.types.channel.deserialize_json(data["Channel"])
     else:
-        raise DeserializationError("PersistentConnectionConfig.channel required")
+        import typing
+
+        out["channel"] = typing.cast("capo_connect.types.channel.Channel", "")
     if data.get("PersistentConnection") is not None:
         out["persistent_connection"] = data["PersistentConnection"]
     else:
-        raise DeserializationError(
-            "PersistentConnectionConfig.persistent_connection required"
-        )
+        out["persistent_connection"] = False
     return out

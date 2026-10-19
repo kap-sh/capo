@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.differential_privacy_aggregation_type
 
@@ -42,13 +40,14 @@ def deserialize_json(data: dict) -> DifferentialPrivacyPreviewAggregation:
             )
         )
     else:
-        raise DeserializationError(
-            "DifferentialPrivacyPreviewAggregation.type required"
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cleanrooms.types.differential_privacy_aggregation_type.DifferentialPrivacyAggregationType",
+            "",
         )
     if data.get("maxCount") is not None:
         out["max_count"] = data["maxCount"]
     else:
-        raise DeserializationError(
-            "DifferentialPrivacyPreviewAggregation.max_count required"
-        )
+        out["max_count"] = 0
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudhsm_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudhsm_v2.types.cert
     import capo_cloudhsm_v2.types.cluster_id
@@ -34,13 +32,13 @@ def deserialize_aws_json_1_1(data: dict) -> InitializeClusterRequest:
     if data.get("ClusterId") is not None:
         out["cluster_id"] = data["ClusterId"]
     else:
-        raise DeserializationError("InitializeClusterRequest.cluster_id required")
+        out["cluster_id"] = ""
     if data.get("SignedCert") is not None:
         out["signed_cert"] = data["SignedCert"]
     else:
-        raise DeserializationError("InitializeClusterRequest.signed_cert required")
+        out["signed_cert"] = ""
     if data.get("TrustAnchor") is not None:
         out["trust_anchor"] = data["TrustAnchor"]
     else:
-        raise DeserializationError("InitializeClusterRequest.trust_anchor required")
+        out["trust_anchor"] = ""
     return out

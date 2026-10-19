@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ses._protocol.xml import Element
-from capo_ses.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_ses.types.behavior_on_mx_failure
@@ -48,7 +47,7 @@ def deserialize_query(el: Element) -> SetIdentityMailFromDomainRequest:
     if child_identity is not None:
         out["identity"] = str(child_identity.text or "")
     else:
-        raise DeserializationError("SetIdentityMailFromDomainRequest.identity required")
+        out["identity"] = ""
     child_mail_from_domain = el.find("MailFromDomain")
     if child_mail_from_domain is not None:
         out["mail_from_domain"] = str(child_mail_from_domain.text or "")

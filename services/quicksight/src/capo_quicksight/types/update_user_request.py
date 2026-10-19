@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.boolean
@@ -68,13 +66,15 @@ def deserialize_json(data: dict) -> UpdateUserRequest:
     if data.get("Email") is not None:
         out["email"] = data["Email"]
     else:
-        raise DeserializationError("UpdateUserRequest.email required")
+        out["email"] = ""
     if data.get("Role") is not None:
         import capo_quicksight.types.user_role
 
         out["role"] = capo_quicksight.types.user_role.deserialize_json(data["Role"])
     else:
-        raise DeserializationError("UpdateUserRequest.role required")
+        import typing
+
+        out["role"] = typing.cast("capo_quicksight.types.user_role.UserRole", "")
     if data.get("CustomPermissionsName") is not None:
         out["custom_permissions_name"] = data["CustomPermissionsName"]
     if data.get("UnapplyCustomPermissions") is not None:

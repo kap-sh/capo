@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pipes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pipes.types.kafka_bootstrap_servers
     import capo_pipes.types.kafka_topic_name
@@ -99,9 +97,7 @@ def deserialize_json(data: dict) -> PipeSourceSelfManagedKafkaParameters:
     if data.get("TopicName") is not None:
         out["topic_name"] = data["TopicName"]
     else:
-        raise DeserializationError(
-            "PipeSourceSelfManagedKafkaParameters.topic_name required"
-        )
+        out["topic_name"] = ""
     if data.get("StartingPosition") is not None:
         out["starting_position"] = data["StartingPosition"]
     if data.get("AdditionalBootstrapServers") is not None:

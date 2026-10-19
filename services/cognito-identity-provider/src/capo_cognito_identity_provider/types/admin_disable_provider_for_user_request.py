@@ -37,9 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> AdminDisableProviderForUserRequest:
     if data.get("UserPoolId") is not None:
         out["user_pool_id"] = data["UserPoolId"]
     else:
-        raise DeserializationError(
-            "AdminDisableProviderForUserRequest.user_pool_id required"
-        )
+        out["user_pool_id"] = ""
     if data.get("User") is not None:
         import capo_cognito_identity_provider.types.provider_user_identifier_type
 

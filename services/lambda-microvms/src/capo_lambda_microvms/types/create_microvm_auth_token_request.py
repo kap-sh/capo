@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda_microvms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_microvms.types.list_of_port_specification
     import capo_lambda_microvms.types.microvm_identifier
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> CreateMicrovmAuthTokenRequest:
     if data.get("expirationInMinutes") is not None:
         out["expiration_in_minutes"] = data["expirationInMinutes"]
     else:
-        raise DeserializationError(
-            "CreateMicrovmAuthTokenRequest.expiration_in_minutes required"
-        )
+        out["expiration_in_minutes"] = 0
     if data.get("allowedPorts") is not None:
         import capo_lambda_microvms.types.list_of_port_specification
 
@@ -56,7 +52,5 @@ def deserialize_json(data: dict) -> CreateMicrovmAuthTokenRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateMicrovmAuthTokenRequest.allowed_ports required"
-        )
+        out["allowed_ports"] = []
     return out

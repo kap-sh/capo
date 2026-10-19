@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_serverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_serverless.types.job_run_attempts
     import capo_emr_serverless.types.next_token
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> ListJobRunAttemptsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListJobRunAttemptsResponse.job_run_attempts required"
-        )
+        out["job_run_attempts"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

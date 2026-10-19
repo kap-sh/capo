@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.payload_version
     import capo_iot.types.target_arn
@@ -34,5 +32,5 @@ def deserialize_json(data: dict) -> ProvisioningHook:
     if data.get("targetArn") is not None:
         out["target_arn"] = data["targetArn"]
     else:
-        raise DeserializationError("ProvisioningHook.target_arn required")
+        out["target_arn"] = ""
     return out

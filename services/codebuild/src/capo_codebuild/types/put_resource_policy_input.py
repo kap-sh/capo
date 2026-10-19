@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codebuild.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codebuild.types.non_empty_string
 
@@ -30,9 +28,9 @@ def deserialize_aws_json_1_1(data: dict) -> PutResourcePolicyInput:
     if data.get("policy") is not None:
         out["policy"] = data["policy"]
     else:
-        raise DeserializationError("PutResourcePolicyInput.policy required")
+        out["policy"] = ""
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("PutResourcePolicyInput.resource_arn required")
+        out["resource_arn"] = ""
     return out

@@ -41,7 +41,9 @@ def deserialize_aws_json_1_1(data: dict) -> IPSetUpdate:
             data["Action"]
         )
     else:
-        raise DeserializationError("IPSetUpdate.action required")
+        import typing
+
+        out["action"] = typing.cast("capo_waf.types.change_action.ChangeAction", "")
     if data.get("IPSetDescriptor") is not None:
         import capo_waf.types.ip_set_descriptor
 

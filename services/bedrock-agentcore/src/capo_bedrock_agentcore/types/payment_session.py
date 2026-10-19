@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.available_limits
     import capo_bedrock_agentcore.types.date_timestamp
@@ -79,11 +77,11 @@ def deserialize_json(data: dict) -> PaymentSession:
     if data.get("paymentSessionId") is not None:
         out["payment_session_id"] = data["paymentSessionId"]
     else:
-        raise DeserializationError("PaymentSession.payment_session_id required")
+        out["payment_session_id"] = ""
     if data.get("paymentManagerArn") is not None:
         out["payment_manager_arn"] = data["paymentManagerArn"]
     else:
-        raise DeserializationError("PaymentSession.payment_manager_arn required")
+        out["payment_manager_arn"] = ""
     if data.get("limits") is not None:
         import capo_bedrock_agentcore.types.session_limits
 
@@ -93,11 +91,11 @@ def deserialize_json(data: dict) -> PaymentSession:
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
     else:
-        raise DeserializationError("PaymentSession.user_id required")
+        out["user_id"] = ""
     if data.get("expiryTimeInMinutes") is not None:
         out["expiry_time_in_minutes"] = data["expiryTimeInMinutes"]
     else:
-        raise DeserializationError("PaymentSession.expiry_time_in_minutes required")
+        out["expiry_time_in_minutes"] = 0
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore.types.date_timestamp
 
@@ -107,7 +105,9 @@ def deserialize_json(data: dict) -> PaymentSession:
             )
         )
     else:
-        raise DeserializationError("PaymentSession.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("availableLimits") is not None:
         import capo_bedrock_agentcore.types.available_limits
 
@@ -125,5 +125,7 @@ def deserialize_json(data: dict) -> PaymentSession:
             )
         )
     else:
-        raise DeserializationError("PaymentSession.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

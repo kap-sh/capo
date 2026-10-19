@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.ebs_snapshot_id
     import capo_bedrock_agentcore_control.types.ebs_volume_type
@@ -69,11 +67,11 @@ def deserialize_json(data: dict) -> EbsVolumeConfiguration:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("EbsVolumeConfiguration.name required")
+        out["name"] = ""
     if data.get("sizeGiB") is not None:
         out["size_gi_b"] = data["sizeGiB"]
     else:
-        raise DeserializationError("EbsVolumeConfiguration.size_gi_b required")
+        out["size_gi_b"] = 0
     if data.get("volumeType") is not None:
         import capo_bedrock_agentcore_control.types.ebs_volume_type
 

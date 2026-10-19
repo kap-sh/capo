@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.message_insights_export_max_results
     import capo_sesv2.types.message_insights_filters
@@ -66,13 +64,17 @@ def deserialize_json(data: dict) -> MessageInsightsDataSource:
             data["StartDate"]
         )
     else:
-        raise DeserializationError("MessageInsightsDataSource.start_date required")
+        import datetime
+
+        out["start_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndDate") is not None:
         import capo_sesv2.types.timestamp
 
         out["end_date"] = capo_sesv2.types.timestamp.deserialize_json(data["EndDate"])
     else:
-        raise DeserializationError("MessageInsightsDataSource.end_date required")
+        import datetime
+
+        out["end_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Include") is not None:
         import capo_sesv2.types.message_insights_filters
 

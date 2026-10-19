@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_api_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_api_gateway.types.string
 
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> CreateModelRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateModelRequest.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("schema") is not None:
@@ -48,5 +46,5 @@ def deserialize_json(data: dict) -> CreateModelRequest:
     if data.get("contentType") is not None:
         out["content_type"] = data["contentType"]
     else:
-        raise DeserializationError("CreateModelRequest.content_type required")
+        out["content_type"] = ""
     return out

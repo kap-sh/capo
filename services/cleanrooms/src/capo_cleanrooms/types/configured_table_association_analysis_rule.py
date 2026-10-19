@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -73,21 +71,15 @@ def deserialize_json(data: dict) -> ConfiguredTableAssociationAnalysisRule:
     if data.get("membershipIdentifier") is not None:
         out["membership_identifier"] = data["membershipIdentifier"]
     else:
-        raise DeserializationError(
-            "ConfiguredTableAssociationAnalysisRule.membership_identifier required"
-        )
+        out["membership_identifier"] = ""
     if data.get("configuredTableAssociationId") is not None:
         out["configured_table_association_id"] = data["configuredTableAssociationId"]
     else:
-        raise DeserializationError(
-            "ConfiguredTableAssociationAnalysisRule.configured_table_association_id required"
-        )
+        out["configured_table_association_id"] = ""
     if data.get("configuredTableAssociationArn") is not None:
         out["configured_table_association_arn"] = data["configuredTableAssociationArn"]
     else:
-        raise DeserializationError(
-            "ConfiguredTableAssociationAnalysisRule.configured_table_association_arn required"
-        )
+        out["configured_table_association_arn"] = ""
     if data.get("policy") is not None:
         import capo_cleanrooms.types.configured_table_association_analysis_rule_policy
 
@@ -97,9 +89,9 @@ def deserialize_json(data: dict) -> ConfiguredTableAssociationAnalysisRule:
             )
         )
     else:
-        raise DeserializationError(
-            "ConfiguredTableAssociationAnalysisRule.policy required"
-        )
+        import capo_cleanrooms.types._unknown
+
+        out["policy"] = capo_cleanrooms.types._unknown.UnknownUnionMember("")
     if data.get("type") is not None:
         import capo_cleanrooms.types.configured_table_association_analysis_rule_type
 
@@ -109,8 +101,11 @@ def deserialize_json(data: dict) -> ConfiguredTableAssociationAnalysisRule:
             )
         )
     else:
-        raise DeserializationError(
-            "ConfiguredTableAssociationAnalysisRule.type required"
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cleanrooms.types.configured_table_association_analysis_rule_type.ConfiguredTableAssociationAnalysisRuleType",
+            "",
         )
     if data.get("createTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
@@ -119,8 +114,10 @@ def deserialize_json(data: dict) -> ConfiguredTableAssociationAnalysisRule:
             data["createTime"]
         )
     else:
-        raise DeserializationError(
-            "ConfiguredTableAssociationAnalysisRule.create_time required"
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("updateTime") is not None:
         import capo_cleanrooms.types._prelude.timestamp
@@ -129,7 +126,9 @@ def deserialize_json(data: dict) -> ConfiguredTableAssociationAnalysisRule:
             data["updateTime"]
         )
     else:
-        raise DeserializationError(
-            "ConfiguredTableAssociationAnalysisRule.update_time required"
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

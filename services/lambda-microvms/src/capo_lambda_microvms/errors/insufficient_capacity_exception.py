@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_lambda_microvms.errors import DeserializationError, ServiceError
+from capo_lambda_microvms.errors import ServiceError
 
 
 class InsufficientCapacityException_(TypedDict, closed=True):
@@ -22,7 +22,7 @@ def deserialize_json(data: dict) -> InsufficientCapacityException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("InsufficientCapacityException_.message required")
+        out["message"] = ""
     return out
 
 

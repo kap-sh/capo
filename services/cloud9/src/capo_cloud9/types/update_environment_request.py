@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloud9.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloud9.types.environment_description
     import capo_cloud9.types.environment_id
@@ -52,7 +50,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateEnvironmentRequest:
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError("UpdateEnvironmentRequest.environment_id required")
+        out["environment_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("description") is not None:

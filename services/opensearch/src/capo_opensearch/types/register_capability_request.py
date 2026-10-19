@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.application_id
     import capo_opensearch.types.capability_base_request_config
@@ -40,7 +38,7 @@ def deserialize_json(data: dict) -> RegisterCapabilityRequest:
     if data.get("capabilityName") is not None:
         out["capability_name"] = data["capabilityName"]
     else:
-        raise DeserializationError("RegisterCapabilityRequest.capability_name required")
+        out["capability_name"] = ""
     if data.get("capabilityConfig") is not None:
         import capo_opensearch.types.capability_base_request_config
 
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> RegisterCapabilityRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "RegisterCapabilityRequest.capability_config required"
-        )
+        import capo_opensearch.types._unknown
+
+        out["capability_config"] = capo_opensearch.types._unknown.UnknownUnionMember("")
     return out

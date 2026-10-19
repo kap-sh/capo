@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_arc_zonal_shift.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_zonal_shift.types.resource_arn
     import capo_arc_zonal_shift.types.resource_name
@@ -43,15 +41,11 @@ def deserialize_json(data: dict) -> DeletePracticeRunConfigurationResponse:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError(
-            "DeletePracticeRunConfigurationResponse.arn required"
-        )
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError(
-            "DeletePracticeRunConfigurationResponse.name required"
-        )
+        out["name"] = ""
     if data.get("zonalAutoshiftStatus") is not None:
         import capo_arc_zonal_shift.types.zonal_autoshift_status
 
@@ -61,7 +55,9 @@ def deserialize_json(data: dict) -> DeletePracticeRunConfigurationResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "DeletePracticeRunConfigurationResponse.zonal_autoshift_status required"
+        import typing
+
+        out["zonal_autoshift_status"] = typing.cast(
+            "capo_arc_zonal_shift.types.zonal_autoshift_status.ZonalAutoshiftStatus", ""
         )
     return out

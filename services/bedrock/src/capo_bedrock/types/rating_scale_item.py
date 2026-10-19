@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.rating_scale_item_definition
     import capo_bedrock.types.rating_scale_item_value
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> RatingScaleItem:
     if data.get("definition") is not None:
         out["definition"] = data["definition"]
     else:
-        raise DeserializationError("RatingScaleItem.definition required")
+        out["definition"] = ""
     if data.get("value") is not None:
         import capo_bedrock.types.rating_scale_item_value
 
@@ -45,5 +43,7 @@ def deserialize_json(data: dict) -> RatingScaleItem:
             data["value"]
         )
     else:
-        raise DeserializationError("RatingScaleItem.value required")
+        import capo_bedrock.types._unknown
+
+        out["value"] = capo_bedrock.types._unknown.UnknownUnionMember("")
     return out

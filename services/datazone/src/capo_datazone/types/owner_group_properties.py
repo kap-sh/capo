@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.group_identifier
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> OwnerGroupProperties:
     if data.get("groupIdentifier") is not None:
         out["group_identifier"] = data["groupIdentifier"]
     else:
-        raise DeserializationError("OwnerGroupProperties.group_identifier required")
+        out["group_identifier"] = ""
     return out

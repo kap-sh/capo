@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.notify_on_states
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> NotificationConfig:
             data["notifyOn"]
         )
     else:
-        raise DeserializationError("NotificationConfig.notify_on required")
+        out["notify_on"] = []
     return out

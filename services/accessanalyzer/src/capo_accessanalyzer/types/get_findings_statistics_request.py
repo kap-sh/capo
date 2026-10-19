@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.analyzer_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> GetFindingsStatisticsRequest:
     if data.get("analyzerArn") is not None:
         out["analyzer_arn"] = data["analyzerArn"]
     else:
-        raise DeserializationError("GetFindingsStatisticsRequest.analyzer_arn required")
+        out["analyzer_arn"] = ""
     return out

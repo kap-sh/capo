@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.account_id
@@ -38,5 +37,5 @@ def deserialize_xml(el: Element) -> TagResourceRequest:
 
         out["tags"] = capo_s3_control.types.tag_list.deserialize_xml(child_tags)
     else:
-        raise DeserializationError("TagResourceRequest.tags required")
+        out["tags"] = []
     return out

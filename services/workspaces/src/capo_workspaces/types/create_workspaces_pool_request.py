@@ -95,19 +95,19 @@ def deserialize_aws_json_1_1(data: dict) -> CreateWorkspacesPoolRequest:
     if data.get("PoolName") is not None:
         out["pool_name"] = data["PoolName"]
     else:
-        raise DeserializationError("CreateWorkspacesPoolRequest.pool_name required")
+        out["pool_name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError("CreateWorkspacesPoolRequest.description required")
+        out["description"] = ""
     if data.get("BundleId") is not None:
         out["bundle_id"] = data["BundleId"]
     else:
-        raise DeserializationError("CreateWorkspacesPoolRequest.bundle_id required")
+        out["bundle_id"] = ""
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError("CreateWorkspacesPoolRequest.directory_id required")
+        out["directory_id"] = ""
     if data.get("Capacity") is not None:
         import capo_workspaces.types.capacity
 

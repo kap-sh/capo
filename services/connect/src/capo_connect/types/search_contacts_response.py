@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.contacts
     import capo_connect.types.large_next_token
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> SearchContactsResponse:
 
         out["contacts"] = capo_connect.types.contacts.deserialize_json(data["Contacts"])
     else:
-        raise DeserializationError("SearchContactsResponse.contacts required")
+        out["contacts"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("TotalCount") is not None:

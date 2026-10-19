@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 
 class FlowTraceCondition(TypedDict, closed=True):
     condition_name: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> FlowTraceCondition:
     if data.get("conditionName") is not None:
         out["condition_name"] = data["conditionName"]
     else:
-        raise DeserializationError("FlowTraceCondition.condition_name required")
+        out["condition_name"] = ""
     return out

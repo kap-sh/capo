@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediastore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediastore.types.lifecycle_policy
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetLifecyclePolicyOutput:
     if data.get("LifecyclePolicy") is not None:
         out["lifecycle_policy"] = data["LifecyclePolicy"]
     else:
-        raise DeserializationError("GetLifecyclePolicyOutput.lifecycle_policy required")
+        out["lifecycle_policy"] = ""
     return out

@@ -83,7 +83,7 @@ def deserialize_aws_json_1_1(data: dict) -> ByteMatchTuple:
             )
         )
     else:
-        raise DeserializationError("ByteMatchTuple.target_string required")
+        out["target_string"] = b""
     if data.get("TextTransformation") is not None:
         import capo_waf_regional.types.text_transformation
 
@@ -93,7 +93,11 @@ def deserialize_aws_json_1_1(data: dict) -> ByteMatchTuple:
             )
         )
     else:
-        raise DeserializationError("ByteMatchTuple.text_transformation required")
+        import typing
+
+        out["text_transformation"] = typing.cast(
+            "capo_waf_regional.types.text_transformation.TextTransformation", ""
+        )
     if data.get("PositionalConstraint") is not None:
         import capo_waf_regional.types.positional_constraint
 
@@ -103,5 +107,9 @@ def deserialize_aws_json_1_1(data: dict) -> ByteMatchTuple:
             )
         )
     else:
-        raise DeserializationError("ByteMatchTuple.positional_constraint required")
+        import typing
+
+        out["positional_constraint"] = typing.cast(
+            "capo_waf_regional.types.positional_constraint.PositionalConstraint", ""
+        )
     return out

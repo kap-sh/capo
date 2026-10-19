@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_appfabric.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appfabric.types.destination_configuration
     import capo_appfabric.types.identifier
@@ -48,7 +46,9 @@ def deserialize_json(data: dict) -> UpdateIngestionDestinationRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateIngestionDestinationRequest.destination_configuration required"
+        import capo_appfabric.types._unknown
+
+        out["destination_configuration"] = (
+            capo_appfabric.types._unknown.UnknownUnionMember("")
         )
     return out

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_cloudsearch._protocol.xml import Element
-from capo_cloudsearch.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudsearch.types.domain_name
@@ -33,10 +32,10 @@ def deserialize_query(el: Element) -> DeleteIndexFieldRequest:
     if child_domain_name is not None:
         out["domain_name"] = str(child_domain_name.text or "")
     else:
-        raise DeserializationError("DeleteIndexFieldRequest.domain_name required")
+        out["domain_name"] = ""
     child_index_field_name = el.find("IndexFieldName")
     if child_index_field_name is not None:
         out["index_field_name"] = str(child_index_field_name.text or "")
     else:
-        raise DeserializationError("DeleteIndexFieldRequest.index_field_name required")
+        out["index_field_name"] = ""
     return out

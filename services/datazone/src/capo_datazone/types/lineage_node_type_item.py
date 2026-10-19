@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.created_at
     import capo_datazone.types.created_by
@@ -75,7 +73,7 @@ def deserialize_json(data: dict) -> LineageNodeTypeItem:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("LineageNodeTypeItem.domain_id required")
+        out["domain_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("description") is not None:
@@ -99,7 +97,7 @@ def deserialize_json(data: dict) -> LineageNodeTypeItem:
     if data.get("revision") is not None:
         out["revision"] = data["revision"]
     else:
-        raise DeserializationError("LineageNodeTypeItem.revision required")
+        out["revision"] = ""
     if data.get("formsOutput") is not None:
         import capo_datazone.types.forms_output_map
 
@@ -107,7 +105,7 @@ def deserialize_json(data: dict) -> LineageNodeTypeItem:
             data["formsOutput"]
         )
     else:
-        raise DeserializationError("LineageNodeTypeItem.forms_output required")
+        out["forms_output"] = {}
     return out
 
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.extended_pagination_token
     import capo_rekognition.types.list_project_policies_page_size
@@ -41,7 +39,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListProjectPoliciesRequest:
     if data.get("ProjectArn") is not None:
         out["project_arn"] = data["ProjectArn"]
     else:
-        raise DeserializationError("ListProjectPoliciesRequest.project_arn required")
+        out["project_arn"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

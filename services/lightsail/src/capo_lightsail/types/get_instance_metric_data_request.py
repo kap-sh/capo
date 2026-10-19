@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lightsail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lightsail.types.instance_metric_name
     import capo_lightsail.types.metric_period
@@ -72,9 +70,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetInstanceMetricDataRequest:
     if data.get("instanceName") is not None:
         out["instance_name"] = data["instanceName"]
     else:
-        raise DeserializationError(
-            "GetInstanceMetricDataRequest.instance_name required"
-        )
+        out["instance_name"] = ""
     if data.get("metricName") is not None:
         import capo_lightsail.types.instance_metric_name
 
@@ -84,11 +80,15 @@ def deserialize_aws_json_1_1(data: dict) -> GetInstanceMetricDataRequest:
             )
         )
     else:
-        raise DeserializationError("GetInstanceMetricDataRequest.metric_name required")
+        import typing
+
+        out["metric_name"] = typing.cast(
+            "capo_lightsail.types.instance_metric_name.InstanceMetricName", ""
+        )
     if data.get("period") is not None:
         out["period"] = data["period"]
     else:
-        raise DeserializationError("GetInstanceMetricDataRequest.period required")
+        out["period"] = 0
     if data.get("startTime") is not None:
         import capo_lightsail.types.timestamp
 
@@ -96,7 +96,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetInstanceMetricDataRequest:
             data["startTime"]
         )
     else:
-        raise DeserializationError("GetInstanceMetricDataRequest.start_time required")
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("endTime") is not None:
         import capo_lightsail.types.timestamp
 
@@ -104,7 +106,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetInstanceMetricDataRequest:
             data["endTime"]
         )
     else:
-        raise DeserializationError("GetInstanceMetricDataRequest.end_time required")
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("unit") is not None:
         import capo_lightsail.types.metric_unit
 
@@ -112,7 +116,9 @@ def deserialize_aws_json_1_1(data: dict) -> GetInstanceMetricDataRequest:
             data["unit"]
         )
     else:
-        raise DeserializationError("GetInstanceMetricDataRequest.unit required")
+        import typing
+
+        out["unit"] = typing.cast("capo_lightsail.types.metric_unit.MetricUnit", "")
     if data.get("statistics") is not None:
         import capo_lightsail.types.metric_statistic_list
 
@@ -122,5 +128,5 @@ def deserialize_aws_json_1_1(data: dict) -> GetInstanceMetricDataRequest:
             )
         )
     else:
-        raise DeserializationError("GetInstanceMetricDataRequest.statistics required")
+        out["statistics"] = []
     return out

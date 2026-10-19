@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.endpoint_ip_address_type
     import capo_bedrock_agentcore_control.types.routing_domain
@@ -74,7 +72,7 @@ def deserialize_json(data: dict) -> ManagedVpcResource:
     if data.get("vpcIdentifier") is not None:
         out["vpc_identifier"] = data["vpcIdentifier"]
     else:
-        raise DeserializationError("ManagedVpcResource.vpc_identifier required")
+        out["vpc_identifier"] = ""
     if data.get("subnetIds") is not None:
         import capo_bedrock_agentcore_control.types.subnet_ids
 
@@ -84,7 +82,7 @@ def deserialize_json(data: dict) -> ManagedVpcResource:
             )
         )
     else:
-        raise DeserializationError("ManagedVpcResource.subnet_ids required")
+        out["subnet_ids"] = []
     if data.get("endpointIpAddressType") is not None:
         import capo_bedrock_agentcore_control.types.endpoint_ip_address_type
 
@@ -94,8 +92,11 @@ def deserialize_json(data: dict) -> ManagedVpcResource:
             )
         )
     else:
-        raise DeserializationError(
-            "ManagedVpcResource.endpoint_ip_address_type required"
+        import typing
+
+        out["endpoint_ip_address_type"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.endpoint_ip_address_type.EndpointIpAddressType",
+            "",
         )
     if data.get("securityGroupIds") is not None:
         import capo_bedrock_agentcore_control.types.security_group_ids

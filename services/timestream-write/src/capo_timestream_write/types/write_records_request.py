@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_write.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_write.types.record
     import capo_timestream_write.types.records
@@ -49,11 +47,11 @@ def deserialize_aws_json_1_0(data: dict) -> WriteRecordsRequest:
     if data.get("DatabaseName") is not None:
         out["database_name"] = data["DatabaseName"]
     else:
-        raise DeserializationError("WriteRecordsRequest.database_name required")
+        out["database_name"] = ""
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("WriteRecordsRequest.table_name required")
+        out["table_name"] = ""
     if data.get("CommonAttributes") is not None:
         import capo_timestream_write.types.record
 
@@ -69,5 +67,5 @@ def deserialize_aws_json_1_0(data: dict) -> WriteRecordsRequest:
             data["Records"]
         )
     else:
-        raise DeserializationError("WriteRecordsRequest.records required")
+        out["records"] = []
     return out

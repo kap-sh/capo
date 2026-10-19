@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_drs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_drs.types.source_server_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> StartReplicationRequest:
     if data.get("sourceServerID") is not None:
         out["source_server_id"] = data["sourceServerID"]
     else:
-        raise DeserializationError("StartReplicationRequest.source_server_id required")
+        out["source_server_id"] = ""
     return out

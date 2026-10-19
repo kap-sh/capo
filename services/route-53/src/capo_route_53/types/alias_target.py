@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.alias_health_enabled
@@ -40,12 +39,12 @@ def deserialize_xml(el: Element) -> AliasTarget:
     if child_hosted_zone_id is not None:
         out["hosted_zone_id"] = str(child_hosted_zone_id.text or "")
     else:
-        raise DeserializationError("AliasTarget.hosted_zone_id required")
+        out["hosted_zone_id"] = ""
     child_dns_name = el.find("DNSName")
     if child_dns_name is not None:
         out["dns_name"] = str(child_dns_name.text or "")
     else:
-        raise DeserializationError("AliasTarget.dns_name required")
+        out["dns_name"] = ""
     child_evaluate_target_health = el.find("EvaluateTargetHealth")
     if child_evaluate_target_health is not None:
         out["evaluate_target_health"] = (

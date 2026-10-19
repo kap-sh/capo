@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecr.types.replication_destination_list
     import capo_ecr.types.repository_filter_list
@@ -54,7 +52,7 @@ def deserialize_aws_json_1_1(data: dict) -> ReplicationRule:
             )
         )
     else:
-        raise DeserializationError("ReplicationRule.destinations required")
+        out["destinations"] = []
     if data.get("repositoryFilters") is not None:
         import capo_ecr.types.repository_filter_list
 

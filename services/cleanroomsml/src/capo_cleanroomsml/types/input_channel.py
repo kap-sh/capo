@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.iam_role_arn
     import capo_cleanroomsml.types.input_channel_data_source
@@ -45,11 +43,13 @@ def deserialize_json(data: dict) -> InputChannel:
             )
         )
     else:
-        raise DeserializationError("InputChannel.data_source required")
+        import capo_cleanroomsml.types._unknown
+
+        out["data_source"] = capo_cleanroomsml.types._unknown.UnknownUnionMember("")
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("InputChannel.role_arn required")
+        out["role_arn"] = ""
     return out
 
 

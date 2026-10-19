@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_neptune_graph.errors import DeserializationError
-
 
 class NeptuneImportOptions(TypedDict, closed=True):
     s3_export_path: "str"
@@ -33,11 +31,11 @@ def deserialize_json(data: dict) -> NeptuneImportOptions:
     if data.get("s3ExportPath") is not None:
         out["s3_export_path"] = data["s3ExportPath"]
     else:
-        raise DeserializationError("NeptuneImportOptions.s3_export_path required")
+        out["s3_export_path"] = ""
     if data.get("s3ExportKmsKeyId") is not None:
         out["s3_export_kms_key_id"] = data["s3ExportKmsKeyId"]
     else:
-        raise DeserializationError("NeptuneImportOptions.s3_export_kms_key_id required")
+        out["s3_export_kms_key_id"] = ""
     if data.get("preserveDefaultVertexLabels") is not None:
         out["preserve_default_vertex_labels"] = data["preserveDefaultVertexLabels"]
     if data.get("preserveEdgeIds") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.data_table_evaluated_value_list
     import capo_connect.types.next_token
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> EvaluateDataTableValuesResponse:
             )
         )
     else:
-        raise DeserializationError("EvaluateDataTableValuesResponse.values required")
+        out["values"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

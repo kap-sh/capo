@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_xray.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_xray.types.filter_expression
     import capo_xray.types.group_name
@@ -52,7 +50,7 @@ def deserialize_json(data: dict) -> CreateGroupRequest:
     if data.get("GroupName") is not None:
         out["group_name"] = data["GroupName"]
     else:
-        raise DeserializationError("CreateGroupRequest.group_name required")
+        out["group_name"] = ""
     if data.get("FilterExpression") is not None:
         out["filter_expression"] = data["FilterExpression"]
     if data.get("InsightsConfiguration") is not None:

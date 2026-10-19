@@ -63,17 +63,17 @@ def deserialize_json(data: dict) -> TaskSummary:
     if data.get("taskName") is not None:
         out["task_name"] = data["taskName"]
     else:
-        raise DeserializationError("TaskSummary.task_name required")
+        out["task_name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("taskArn") is not None:
         out["task_arn"] = data["taskArn"]
     else:
-        raise DeserializationError("TaskSummary.task_arn required")
+        out["task_arn"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("TaskSummary.version required")
+        out["version"] = ""
     if data.get("status") is not None:
         import capo_iotsitewise.types.resource_status
 
@@ -89,7 +89,9 @@ def deserialize_json(data: dict) -> TaskSummary:
             data["createdAt"]
         )
     else:
-        raise DeserializationError("TaskSummary.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("updatedAt") is not None:
         import capo_iotsitewise.types.timestamp
 
@@ -97,5 +99,7 @@ def deserialize_json(data: dict) -> TaskSummary:
             data["updatedAt"]
         )
     else:
-        raise DeserializationError("TaskSummary.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

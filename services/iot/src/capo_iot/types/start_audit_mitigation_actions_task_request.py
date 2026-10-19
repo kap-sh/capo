@@ -68,13 +68,9 @@ def deserialize_json(data: dict) -> StartAuditMitigationActionsTaskRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartAuditMitigationActionsTaskRequest.audit_check_to_actions_mapping required"
-        )
+        out["audit_check_to_actions_mapping"] = {}
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
     else:
-        raise DeserializationError(
-            "StartAuditMitigationActionsTaskRequest.client_request_token required"
-        )
+        out["client_request_token"] = ""
     return out

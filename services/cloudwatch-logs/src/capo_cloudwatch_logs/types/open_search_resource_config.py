@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.arn
     import capo_cloudwatch_logs.types.collection_retention_days
@@ -53,9 +51,7 @@ def deserialize_aws_json_1_1(data: dict) -> OpenSearchResourceConfig:
     if data.get("dataSourceRoleArn") is not None:
         out["data_source_role_arn"] = data["dataSourceRoleArn"]
     else:
-        raise DeserializationError(
-            "OpenSearchResourceConfig.data_source_role_arn required"
-        )
+        out["data_source_role_arn"] = ""
     if data.get("dashboardViewerPrincipals") is not None:
         import capo_cloudwatch_logs.types.dashboard_viewer_principals
 
@@ -65,13 +61,11 @@ def deserialize_aws_json_1_1(data: dict) -> OpenSearchResourceConfig:
             )
         )
     else:
-        raise DeserializationError(
-            "OpenSearchResourceConfig.dashboard_viewer_principals required"
-        )
+        out["dashboard_viewer_principals"] = []
     if data.get("applicationArn") is not None:
         out["application_arn"] = data["applicationArn"]
     if data.get("retentionDays") is not None:
         out["retention_days"] = data["retentionDays"]
     else:
-        raise DeserializationError("OpenSearchResourceConfig.retention_days required")
+        out["retention_days"] = 0
     return out

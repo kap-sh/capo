@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_agent_registry.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_agent_registry.types.registry_records_entry_list
 
@@ -41,7 +39,5 @@ def deserialize_json(data: dict) -> BatchGetDiscoverableRegistryRecordRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetDiscoverableRegistryRecordRequest.entries required"
-        )
+        out["entries"] = []
     return out

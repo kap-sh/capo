@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.join_columns
     import capo_glue.types.join_type
@@ -49,7 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> Join:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Join.name required")
+        out["name"] = ""
     if data.get("Inputs") is not None:
         import capo_glue.types.two_inputs
 
@@ -57,7 +55,7 @@ def deserialize_aws_json_1_1(data: dict) -> Join:
             data["Inputs"]
         )
     else:
-        raise DeserializationError("Join.inputs required")
+        out["inputs"] = []
     if data.get("JoinType") is not None:
         import capo_glue.types.join_type
 
@@ -65,7 +63,9 @@ def deserialize_aws_json_1_1(data: dict) -> Join:
             data["JoinType"]
         )
     else:
-        raise DeserializationError("Join.join_type required")
+        import typing
+
+        out["join_type"] = typing.cast("capo_glue.types.join_type.JoinType", "")
     if data.get("Columns") is not None:
         import capo_glue.types.join_columns
 
@@ -73,5 +73,5 @@ def deserialize_aws_json_1_1(data: dict) -> Join:
             data["Columns"]
         )
     else:
-        raise DeserializationError("Join.columns required")
+        out["columns"] = []
     return out

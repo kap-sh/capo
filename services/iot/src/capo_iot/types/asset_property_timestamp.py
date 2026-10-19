@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.asset_property_offset_in_nanos
     import capo_iot.types.asset_property_time_in_seconds
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> AssetPropertyTimestamp:
     if data.get("timeInSeconds") is not None:
         out["time_in_seconds"] = data["timeInSeconds"]
     else:
-        raise DeserializationError("AssetPropertyTimestamp.time_in_seconds required")
+        out["time_in_seconds"] = ""
     if data.get("offsetInNanos") is not None:
         out["offset_in_nanos"] = data["offsetInNanos"]
     return out

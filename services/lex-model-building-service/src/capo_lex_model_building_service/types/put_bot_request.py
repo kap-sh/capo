@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_model_building_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_model_building_service.types.boolean
     import capo_lex_model_building_service.types.bot_name
@@ -202,11 +200,15 @@ def deserialize_json(data: dict) -> PutBotRequest:
             data["locale"]
         )
     else:
-        raise DeserializationError("PutBotRequest.locale required")
+        import typing
+
+        out["locale"] = typing.cast(
+            "capo_lex_model_building_service.types.locale.Locale", ""
+        )
     if data.get("childDirected") is not None:
         out["child_directed"] = data["childDirected"]
     else:
-        raise DeserializationError("PutBotRequest.child_directed required")
+        out["child_directed"] = False
     if data.get("detectSentiment") is not None:
         out["detect_sentiment"] = data["detectSentiment"]
     if data.get("createVersion") is not None:

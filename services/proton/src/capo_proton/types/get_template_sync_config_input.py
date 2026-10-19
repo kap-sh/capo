@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.resource_name
     import capo_proton.types.template_type
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetTemplateSyncConfigInput:
     if data.get("templateName") is not None:
         out["template_name"] = data["templateName"]
     else:
-        raise DeserializationError("GetTemplateSyncConfigInput.template_name required")
+        out["template_name"] = ""
     if data.get("templateType") is not None:
         out["template_type"] = data["templateType"]
     else:
-        raise DeserializationError("GetTemplateSyncConfigInput.template_type required")
+        out["template_type"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_invoicing.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_invoicing.types.as_of_timestamp
     import capo_invoicing.types.invoice_unit_arn_string
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetInvoiceUnitRequest:
     if data.get("InvoiceUnitArn") is not None:
         out["invoice_unit_arn"] = data["InvoiceUnitArn"]
     else:
-        raise DeserializationError("GetInvoiceUnitRequest.invoice_unit_arn required")
+        out["invoice_unit_arn"] = ""
     if data.get("AsOf") is not None:
         import capo_invoicing.types.as_of_timestamp
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.field_id
     import capo_quicksight.types.sort_direction
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> FieldSort:
     if data.get("FieldId") is not None:
         out["field_id"] = data["FieldId"]
     else:
-        raise DeserializationError("FieldSort.field_id required")
+        out["field_id"] = ""
     if data.get("Direction") is not None:
         import capo_quicksight.types.sort_direction
 
@@ -43,5 +41,9 @@ def deserialize_json(data: dict) -> FieldSort:
             data["Direction"]
         )
     else:
-        raise DeserializationError("FieldSort.direction required")
+        import typing
+
+        out["direction"] = typing.cast(
+            "capo_quicksight.types.sort_direction.SortDirection", ""
+        )
     return out

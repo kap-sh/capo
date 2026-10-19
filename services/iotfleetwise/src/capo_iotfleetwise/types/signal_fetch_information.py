@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.event_expression_list
     import capo_iotfleetwise.types.language_version
@@ -54,9 +52,7 @@ def deserialize_aws_json_1_0(data: dict) -> SignalFetchInformation:
     if data.get("fullyQualifiedName") is not None:
         out["fully_qualified_name"] = data["fullyQualifiedName"]
     else:
-        raise DeserializationError(
-            "SignalFetchInformation.fully_qualified_name required"
-        )
+        out["fully_qualified_name"] = ""
     if data.get("signalFetchConfig") is not None:
         import capo_iotfleetwise.types.signal_fetch_config
 
@@ -66,8 +62,10 @@ def deserialize_aws_json_1_0(data: dict) -> SignalFetchInformation:
             )
         )
     else:
-        raise DeserializationError(
-            "SignalFetchInformation.signal_fetch_config required"
+        import capo_iotfleetwise.types._unknown
+
+        out["signal_fetch_config"] = (
+            capo_iotfleetwise.types._unknown.UnknownUnionMember("")
         )
     if data.get("conditionLanguageVersion") is not None:
         out["condition_language_version"] = data["conditionLanguageVersion"]
@@ -80,7 +78,7 @@ def deserialize_aws_json_1_0(data: dict) -> SignalFetchInformation:
             )
         )
     else:
-        raise DeserializationError("SignalFetchInformation.actions required")
+        out["actions"] = []
     return out
 
 

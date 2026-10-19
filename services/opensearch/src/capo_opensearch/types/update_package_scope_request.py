@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.package_id
     import capo_opensearch.types.package_scope_operation_enum
@@ -47,7 +45,7 @@ def deserialize_json(data: dict) -> UpdatePackageScopeRequest:
     if data.get("PackageID") is not None:
         out["package_id"] = data["PackageID"]
     else:
-        raise DeserializationError("UpdatePackageScopeRequest.package_id required")
+        out["package_id"] = ""
     if data.get("Operation") is not None:
         import capo_opensearch.types.package_scope_operation_enum
 
@@ -57,7 +55,12 @@ def deserialize_json(data: dict) -> UpdatePackageScopeRequest:
             )
         )
     else:
-        raise DeserializationError("UpdatePackageScopeRequest.operation required")
+        import typing
+
+        out["operation"] = typing.cast(
+            "capo_opensearch.types.package_scope_operation_enum.PackageScopeOperationEnum",
+            "",
+        )
     if data.get("PackageUserList") is not None:
         import capo_opensearch.types.package_user_list
 
@@ -67,7 +70,5 @@ def deserialize_json(data: dict) -> UpdatePackageScopeRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdatePackageScopeRequest.package_user_list required"
-        )
+        out["package_user_list"] = []
     return out

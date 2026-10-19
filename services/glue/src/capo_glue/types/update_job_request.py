@@ -35,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateJobRequest:
     if data.get("JobName") is not None:
         out["job_name"] = data["JobName"]
     else:
-        raise DeserializationError("UpdateJobRequest.job_name required")
+        out["job_name"] = ""
     if data.get("JobUpdate") is not None:
         import capo_glue.types.job_update
 

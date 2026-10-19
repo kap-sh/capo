@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_internetmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_internetmonitor.types.query_data
     import capo_internetmonitor.types.query_fields
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> GetQueryResultsOutput:
             data["Fields"]
         )
     else:
-        raise DeserializationError("GetQueryResultsOutput.fields required")
+        out["fields"] = []
     if data.get("Data") is not None:
         import capo_internetmonitor.types.query_data
 
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> GetQueryResultsOutput:
             data["Data"]
         )
     else:
-        raise DeserializationError("GetQueryResultsOutput.data required")
+        out["data"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

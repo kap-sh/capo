@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_savingsplans.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_savingsplans.types.savings_plan_arn
     import capo_savingsplans.types.tag_map
@@ -33,11 +31,11 @@ def deserialize_json(data: dict) -> TagResourceRequest:
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("TagResourceRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("tags") is not None:
         import capo_savingsplans.types.tag_map
 
         out["tags"] = capo_savingsplans.types.tag_map.deserialize_json(data["tags"])
     else:
-        raise DeserializationError("TagResourceRequest.tags required")
+        out["tags"] = {}
     return out

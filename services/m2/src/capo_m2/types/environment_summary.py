@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_m2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_m2.types.arn
     import capo_m2.types.engine_type
@@ -62,31 +60,31 @@ def deserialize_json(data: dict) -> EnvironmentSummary:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("EnvironmentSummary.name required")
+        out["name"] = ""
     if data.get("environmentArn") is not None:
         out["environment_arn"] = data["environmentArn"]
     else:
-        raise DeserializationError("EnvironmentSummary.environment_arn required")
+        out["environment_arn"] = ""
     if data.get("environmentId") is not None:
         out["environment_id"] = data["environmentId"]
     else:
-        raise DeserializationError("EnvironmentSummary.environment_id required")
+        out["environment_id"] = ""
     if data.get("instanceType") is not None:
         out["instance_type"] = data["instanceType"]
     else:
-        raise DeserializationError("EnvironmentSummary.instance_type required")
+        out["instance_type"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("EnvironmentSummary.status required")
+        out["status"] = ""
     if data.get("engineType") is not None:
         out["engine_type"] = data["engineType"]
     else:
-        raise DeserializationError("EnvironmentSummary.engine_type required")
+        out["engine_type"] = ""
     if data.get("engineVersion") is not None:
         out["engine_version"] = data["engineVersion"]
     else:
-        raise DeserializationError("EnvironmentSummary.engine_version required")
+        out["engine_version"] = ""
     if data.get("creationTime") is not None:
         import capo_m2.types.timestamp
 
@@ -94,7 +92,11 @@ def deserialize_json(data: dict) -> EnvironmentSummary:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("EnvironmentSummary.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("networkType") is not None:
         out["network_type"] = data["networkType"]
     return out

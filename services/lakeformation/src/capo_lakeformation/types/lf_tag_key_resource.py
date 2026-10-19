@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lakeformation.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lakeformation.types.catalog_id_string
     import capo_lakeformation.types.name_string
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> LFTagKeyResource:
     if data.get("TagKey") is not None:
         out["tag_key"] = data["TagKey"]
     else:
-        raise DeserializationError("LFTagKeyResource.tag_key required")
+        out["tag_key"] = ""
     if data.get("TagValues") is not None:
         import capo_lakeformation.types.tag_value_list
 
@@ -52,5 +50,5 @@ def deserialize_json(data: dict) -> LFTagKeyResource:
             data["TagValues"]
         )
     else:
-        raise DeserializationError("LFTagKeyResource.tag_values required")
+        out["tag_values"] = []
     return out

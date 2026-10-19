@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.waypoint_optimization_clustering_algorithm
     import capo_geo_routes.types.waypoint_optimization_driving_distance_options
@@ -52,8 +50,11 @@ def deserialize_json(data: dict) -> WaypointOptimizationClusteringOptions:
             )
         )
     else:
-        raise DeserializationError(
-            "WaypointOptimizationClusteringOptions.algorithm required"
+        import typing
+
+        out["algorithm"] = typing.cast(
+            "capo_geo_routes.types.waypoint_optimization_clustering_algorithm.WaypointOptimizationClusteringAlgorithm",
+            "",
         )
     if data.get("DrivingDistanceOptions") is not None:
         import capo_geo_routes.types.waypoint_optimization_driving_distance_options

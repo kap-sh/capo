@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.transit_gateway_attachment_id
 
@@ -31,7 +29,5 @@ def deserialize_aws_json_1_0(
     if data.get("TransitGatewayAttachmentId") is not None:
         out["transit_gateway_attachment_id"] = data["TransitGatewayAttachmentId"]
     else:
-        raise DeserializationError(
-            "RejectNetworkFirewallTransitGatewayAttachmentRequest.transit_gateway_attachment_id required"
-        )
+        out["transit_gateway_attachment_id"] = ""
     return out

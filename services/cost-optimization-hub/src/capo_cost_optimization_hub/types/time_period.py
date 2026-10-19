@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_cost_optimization_hub.errors import DeserializationError
-
 
 class TimePeriod(TypedDict, closed=True):
     start: "str"
@@ -25,9 +23,9 @@ def deserialize_aws_json_1_0(data: dict) -> TimePeriod:
     if data.get("start") is not None:
         out["start"] = data["start"]
     else:
-        raise DeserializationError("TimePeriod.start required")
+        out["start"] = ""
     if data.get("end") is not None:
         out["end"] = data["end"]
     else:
-        raise DeserializationError("TimePeriod.end required")
+        out["end"] = ""
     return out

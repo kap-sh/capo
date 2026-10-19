@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_benefits.errors import DeserializationError
-
 
 class Amendment(TypedDict, closed=True):
     field_path: "str"
@@ -25,9 +23,9 @@ def deserialize_aws_json_1_0(data: dict) -> Amendment:
     if data.get("FieldPath") is not None:
         out["field_path"] = data["FieldPath"]
     else:
-        raise DeserializationError("Amendment.field_path required")
+        out["field_path"] = ""
     if data.get("NewValue") is not None:
         out["new_value"] = data["NewValue"]
     else:
-        raise DeserializationError("Amendment.new_value required")
+        out["new_value"] = ""
     return out

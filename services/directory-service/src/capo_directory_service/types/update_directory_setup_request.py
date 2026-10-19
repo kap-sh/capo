@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.create_snapshot_before_update
     import capo_directory_service.types.directory_id
@@ -81,7 +79,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDirectorySetupRequest:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     else:
-        raise DeserializationError("UpdateDirectorySetupRequest.directory_id required")
+        out["directory_id"] = ""
     if data.get("UpdateType") is not None:
         import capo_directory_service.types.update_type
 
@@ -91,7 +89,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDirectorySetupRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateDirectorySetupRequest.update_type required")
+        import typing
+
+        out["update_type"] = typing.cast(
+            "capo_directory_service.types.update_type.UpdateType", ""
+        )
     if data.get("OSUpdateSettings") is not None:
         import capo_directory_service.types.os_update_settings
 

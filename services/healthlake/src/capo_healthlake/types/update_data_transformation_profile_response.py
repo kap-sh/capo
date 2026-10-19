@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.date_time
     import capo_healthlake.types.profile_id_string
@@ -58,9 +56,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateDataTransformationProfileRespo
     if data.get("ProfileId") is not None:
         out["profile_id"] = data["ProfileId"]
     else:
-        raise DeserializationError(
-            "UpdateDataTransformationProfileResponse.profile_id required"
-        )
+        out["profile_id"] = ""
     if data.get("SourceFormat") is not None:
         import capo_healthlake.types.source_format
 
@@ -70,8 +66,10 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateDataTransformationProfileRespo
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateDataTransformationProfileResponse.source_format required"
+        import typing
+
+        out["source_format"] = typing.cast(
+            "capo_healthlake.types.source_format.SourceFormat", ""
         )
     if data.get("TargetFormat") is not None:
         import capo_healthlake.types.target_format
@@ -82,8 +80,10 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateDataTransformationProfileRespo
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateDataTransformationProfileResponse.target_format required"
+        import typing
+
+        out["target_format"] = typing.cast(
+            "capo_healthlake.types.target_format.TargetFormat", ""
         )
     if data.get("ProfileName") is not None:
         out["profile_name"] = data["ProfileName"]
@@ -96,7 +96,9 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateDataTransformationProfileRespo
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateDataTransformationProfileResponse.last_updated_at required"
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

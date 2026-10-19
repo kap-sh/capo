@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -91,11 +89,11 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceQuotaWarningSummary:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     else:
-        raise DeserializationError("ServiceQuotaWarningSummary.account_id required")
+        out["account_id"] = ""
     if data.get("quotaRegion") is not None:
         out["quota_region"] = data["quotaRegion"]
     else:
-        raise DeserializationError("ServiceQuotaWarningSummary.quota_region required")
+        out["quota_region"] = ""
     if data.get("serviceCode") is not None:
         out["service_code"] = data["serviceCode"]
     if data.get("quotaCode") is not None:
@@ -111,11 +109,16 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceQuotaWarningSummary:
             )
         )
     else:
-        raise DeserializationError("ServiceQuotaWarningSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_arc_region_switch.types.service_quota_warning_status.ServiceQuotaWarningStatus",
+            "",
+        )
     if data.get("planArn") is not None:
         out["plan_arn"] = data["planArn"]
     else:
-        raise DeserializationError("ServiceQuotaWarningSummary.plan_arn required")
+        out["plan_arn"] = ""
     if data.get("requestId") is not None:
         out["request_id"] = data["requestId"]
     if data.get("caseId") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.domain_name
     import capo_opensearch.types.index_name
@@ -33,9 +31,9 @@ def deserialize_json(data: dict) -> CreateIndexRequest:
     if data.get("IndexName") is not None:
         out["index_name"] = data["IndexName"]
     else:
-        raise DeserializationError("CreateIndexRequest.index_name required")
+        out["index_name"] = ""
     if data.get("IndexSchema") is not None:
         out["index_schema"] = data["IndexSchema"]
     else:
-        raise DeserializationError("CreateIndexRequest.index_schema required")
+        out["index_schema"] = None
     return out

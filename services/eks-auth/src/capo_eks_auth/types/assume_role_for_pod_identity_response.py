@@ -66,7 +66,7 @@ def deserialize_json(data: dict) -> AssumeRoleForPodIdentityResponse:
     if data.get("audience") is not None:
         out["audience"] = data["audience"]
     else:
-        raise DeserializationError("AssumeRoleForPodIdentityResponse.audience required")
+        out["audience"] = ""
     if data.get("podIdentityAssociation") is not None:
         import capo_eks_auth.types.pod_identity_association
 

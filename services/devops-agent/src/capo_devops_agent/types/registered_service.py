@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -96,7 +94,7 @@ def deserialize_json(data: dict) -> RegisteredService:
     if data.get("serviceId") is not None:
         out["service_id"] = data["serviceId"]
     else:
-        raise DeserializationError("RegisteredService.service_id required")
+        out["service_id"] = ""
     if data.get("serviceType") is not None:
         import capo_devops_agent.types.service
 
@@ -104,7 +102,9 @@ def deserialize_json(data: dict) -> RegisteredService:
             data["serviceType"]
         )
     else:
-        raise DeserializationError("RegisteredService.service_type required")
+        import typing
+
+        out["service_type"] = typing.cast("capo_devops_agent.types.service.Service", "")
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("accessibleResources") is not None:

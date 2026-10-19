@@ -44,7 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateFlowTemplateRequest:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("UpdateFlowTemplateRequest.id required")
+        out["id"] = ""
     if data.get("definition") is not None:
         import capo_iotthingsgraph.types.definition_document
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.arn
     import capo_resiliencehubv2.types.finding_status
@@ -42,9 +40,7 @@ def deserialize_json(data: dict) -> UpdateFailureModeFindingRequest:
     if data.get("findingId") is not None:
         out["finding_id"] = data["findingId"]
     else:
-        raise DeserializationError(
-            "UpdateFailureModeFindingRequest.finding_id required"
-        )
+        out["finding_id"] = ""
     if data.get("status") is not None:
         import capo_resiliencehubv2.types.finding_status
 
@@ -52,13 +48,15 @@ def deserialize_json(data: dict) -> UpdateFailureModeFindingRequest:
             data["status"]
         )
     else:
-        raise DeserializationError("UpdateFailureModeFindingRequest.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_resiliencehubv2.types.finding_status.FindingStatus", ""
+        )
     if data.get("serviceArn") is not None:
         out["service_arn"] = data["serviceArn"]
     else:
-        raise DeserializationError(
-            "UpdateFailureModeFindingRequest.service_arn required"
-        )
+        out["service_arn"] = ""
     if data.get("comment") is not None:
         out["comment"] = data["comment"]
     return out

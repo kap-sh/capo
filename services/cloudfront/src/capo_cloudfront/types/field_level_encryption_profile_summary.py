@@ -53,7 +53,7 @@ def deserialize_xml(el: Element) -> FieldLevelEncryptionProfileSummary:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("FieldLevelEncryptionProfileSummary.id required")
+        out["id"] = ""
     child_last_modified_time = el.find("LastModifiedTime")
     if child_last_modified_time is not None:
         import capo_cloudfront.types.timestamp
@@ -62,14 +62,16 @@ def deserialize_xml(el: Element) -> FieldLevelEncryptionProfileSummary:
             child_last_modified_time
         )
     else:
-        raise DeserializationError(
-            "FieldLevelEncryptionProfileSummary.last_modified_time required"
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     child_name = el.find("Name")
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("FieldLevelEncryptionProfileSummary.name required")
+        out["name"] = ""
     child_encryption_entities = el.find("EncryptionEntities")
     if child_encryption_entities is not None:
         import capo_cloudfront.types.encryption_entities

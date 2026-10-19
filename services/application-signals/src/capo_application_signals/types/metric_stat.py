@@ -56,11 +56,11 @@ def deserialize_json(data: dict) -> MetricStat:
     if data.get("Period") is not None:
         out["period"] = data["Period"]
     else:
-        raise DeserializationError("MetricStat.period required")
+        out["period"] = 0
     if data.get("Stat") is not None:
         out["stat"] = data["Stat"]
     else:
-        raise DeserializationError("MetricStat.stat required")
+        out["stat"] = ""
     if data.get("Unit") is not None:
         import capo_application_signals.types.standard_unit
 

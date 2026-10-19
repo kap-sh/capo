@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_verifiedpermissions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.identity_source_filters
     import capo_verifiedpermissions.types.list_identity_sources_max_results
@@ -52,7 +50,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListIdentitySourcesInput:
     if data.get("policyStoreId") is not None:
         out["policy_store_id"] = data["policyStoreId"]
     else:
-        raise DeserializationError("ListIdentitySourcesInput.policy_store_id required")
+        out["policy_store_id"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("maxResults") is not None:

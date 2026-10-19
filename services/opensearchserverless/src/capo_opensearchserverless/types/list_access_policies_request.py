@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearchserverless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearchserverless.types.access_policy_type
     import capo_opensearchserverless.types.resource_filter
@@ -48,7 +46,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListAccessPoliciesRequest:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("ListAccessPoliciesRequest.type required")
+        out["type"] = ""
     if data.get("resource") is not None:
         import capo_opensearchserverless.types.resource_filter
 

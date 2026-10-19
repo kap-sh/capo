@@ -50,7 +50,12 @@ def deserialize_xml(el: Element) -> ResponseHeadersPolicySummary:
             )
         )
     else:
-        raise DeserializationError("ResponseHeadersPolicySummary.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_cloudfront.types.response_headers_policy_type.ResponseHeadersPolicyType",
+            "",
+        )
     child_response_headers_policy = el.find("ResponseHeadersPolicy")
     if child_response_headers_policy is not None:
         import capo_cloudfront.types.response_headers_policy

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_direct_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_direct_connect.types.connection_id
     import capo_direct_connect.types.loa_content_type
@@ -45,7 +43,7 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLoaRequest:
     if data.get("connectionId") is not None:
         out["connection_id"] = data["connectionId"]
     else:
-        raise DeserializationError("DescribeLoaRequest.connection_id required")
+        out["connection_id"] = ""
     if data.get("providerName") is not None:
         out["provider_name"] = data["providerName"]
     if data.get("loaContentType") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.filter_list
     import capo_imagebuilder.types.image_pipeline_arn
@@ -48,9 +46,7 @@ def deserialize_json(data: dict) -> ListImagePipelineImagesRequest:
     if data.get("imagePipelineArn") is not None:
         out["image_pipeline_arn"] = data["imagePipelineArn"]
     else:
-        raise DeserializationError(
-            "ListImagePipelineImagesRequest.image_pipeline_arn required"
-        )
+        out["image_pipeline_arn"] = ""
     if data.get("filters") is not None:
         import capo_imagebuilder.types.filter_list
 

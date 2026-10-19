@@ -197,12 +197,12 @@ def deserialize_xml(el: Element) -> DistributionSummary:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("DistributionSummary.id required")
+        out["id"] = ""
     child_arn = el.find("ARN")
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("DistributionSummary.arn required")
+        out["arn"] = ""
     child_e_tag = el.find("ETag")
     if child_e_tag is not None:
         out["e_tag"] = str(child_e_tag.text or "")
@@ -210,7 +210,7 @@ def deserialize_xml(el: Element) -> DistributionSummary:
     if child_status is not None:
         out["status"] = str(child_status.text or "")
     else:
-        raise DeserializationError("DistributionSummary.status required")
+        out["status"] = ""
     child_last_modified_time = el.find("LastModifiedTime")
     if child_last_modified_time is not None:
         import capo_cloudfront.types.timestamp
@@ -219,12 +219,16 @@ def deserialize_xml(el: Element) -> DistributionSummary:
             child_last_modified_time
         )
     else:
-        raise DeserializationError("DistributionSummary.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_domain_name = el.find("DomainName")
     if child_domain_name is not None:
         out["domain_name"] = str(child_domain_name.text or "")
     else:
-        raise DeserializationError("DistributionSummary.domain_name required")
+        out["domain_name"] = ""
     child_aliases = el.find("Aliases")
     if child_aliases is not None:
         import capo_cloudfront.types.aliases
@@ -285,7 +289,7 @@ def deserialize_xml(el: Element) -> DistributionSummary:
     if child_comment is not None:
         out["comment"] = str(child_comment.text or "")
     else:
-        raise DeserializationError("DistributionSummary.comment required")
+        out["comment"] = ""
     child_price_class = el.find("PriceClass")
     if child_price_class is not None:
         import capo_cloudfront.types.price_class
@@ -294,12 +298,16 @@ def deserialize_xml(el: Element) -> DistributionSummary:
             child_price_class
         )
     else:
-        raise DeserializationError("DistributionSummary.price_class required")
+        import typing
+
+        out["price_class"] = typing.cast(
+            "capo_cloudfront.types.price_class.PriceClass", ""
+        )
     child_enabled = el.find("Enabled")
     if child_enabled is not None:
         out["enabled"] = (child_enabled.text or "").lower() == "true"
     else:
-        raise DeserializationError("DistributionSummary.enabled required")
+        out["enabled"] = False
     child_viewer_certificate = el.find("ViewerCertificate")
     if child_viewer_certificate is not None:
         import capo_cloudfront.types.viewer_certificate
@@ -324,7 +332,7 @@ def deserialize_xml(el: Element) -> DistributionSummary:
     if child_web_acl_id is not None:
         out["web_acl_id"] = str(child_web_acl_id.text or "")
     else:
-        raise DeserializationError("DistributionSummary.web_acl_id required")
+        out["web_acl_id"] = ""
     child_http_version = el.find("HttpVersion")
     if child_http_version is not None:
         import capo_cloudfront.types.http_version
@@ -333,12 +341,16 @@ def deserialize_xml(el: Element) -> DistributionSummary:
             child_http_version
         )
     else:
-        raise DeserializationError("DistributionSummary.http_version required")
+        import typing
+
+        out["http_version"] = typing.cast(
+            "capo_cloudfront.types.http_version.HttpVersion", ""
+        )
     child_is_ipv6_enabled = el.find("IsIPV6Enabled")
     if child_is_ipv6_enabled is not None:
         out["is_ipv6_enabled"] = (child_is_ipv6_enabled.text or "").lower() == "true"
     else:
-        raise DeserializationError("DistributionSummary.is_ipv6_enabled required")
+        out["is_ipv6_enabled"] = False
     child_alias_icp_recordals = el.find("AliasICPRecordals")
     if child_alias_icp_recordals is not None:
         import capo_cloudfront.types.alias_icp_recordals
@@ -352,7 +364,7 @@ def deserialize_xml(el: Element) -> DistributionSummary:
     if child_staging is not None:
         out["staging"] = (child_staging.text or "").lower() == "true"
     else:
-        raise DeserializationError("DistributionSummary.staging required")
+        out["staging"] = False
     child_connection_mode = el.find("ConnectionMode")
     if child_connection_mode is not None:
         import capo_cloudfront.types.connection_mode

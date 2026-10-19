@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -72,19 +70,19 @@ def deserialize_json(data: dict) -> ReferenceListItem:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("ReferenceListItem.id required")
+        out["id"] = ""
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ReferenceListItem.arn required")
+        out["arn"] = ""
     if data.get("referenceStoreId") is not None:
         out["reference_store_id"] = data["referenceStoreId"]
     else:
-        raise DeserializationError("ReferenceListItem.reference_store_id required")
+        out["reference_store_id"] = ""
     if data.get("md5") is not None:
         out["md5"] = data["md5"]
     else:
-        raise DeserializationError("ReferenceListItem.md5 required")
+        out["md5"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     if data.get("name") is not None:
@@ -98,7 +96,11 @@ def deserialize_json(data: dict) -> ReferenceListItem:
             data["creationTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("ReferenceListItem.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateTime") is not None:
         import datetime
 
@@ -106,5 +108,9 @@ def deserialize_json(data: dict) -> ReferenceListItem:
             data["updateTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError("ReferenceListItem.update_time required")
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.business_public_key_pem
     import capo_socialmessaging.types.kms_key_arn
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> PutWhatsAppBusinessPublicKeyInput:
     if data.get("originationPhoneNumberId") is not None:
         out["origination_phone_number_id"] = data["originationPhoneNumberId"]
     else:
-        raise DeserializationError(
-            "PutWhatsAppBusinessPublicKeyInput.origination_phone_number_id required"
-        )
+        out["origination_phone_number_id"] = ""
     if data.get("businessPublicKey") is not None:
         out["business_public_key"] = data["businessPublicKey"]
     if data.get("kmsKeyArn") is not None:

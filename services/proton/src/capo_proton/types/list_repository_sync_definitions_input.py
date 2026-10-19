@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_proton.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_proton.types.empty_next_token
     import capo_proton.types.repository_name
@@ -40,21 +38,15 @@ def deserialize_aws_json_1_0(data: dict) -> ListRepositorySyncDefinitionsInput:
     if data.get("repositoryName") is not None:
         out["repository_name"] = data["repositoryName"]
     else:
-        raise DeserializationError(
-            "ListRepositorySyncDefinitionsInput.repository_name required"
-        )
+        out["repository_name"] = ""
     if data.get("repositoryProvider") is not None:
         out["repository_provider"] = data["repositoryProvider"]
     else:
-        raise DeserializationError(
-            "ListRepositorySyncDefinitionsInput.repository_provider required"
-        )
+        out["repository_provider"] = ""
     if data.get("syncType") is not None:
         out["sync_type"] = data["syncType"]
     else:
-        raise DeserializationError(
-            "ListRepositorySyncDefinitionsInput.sync_type required"
-        )
+        out["sync_type"] = ""
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_appflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_appflow.types.domain_name
     import capo_appflow.types.object_type_name
@@ -32,9 +30,7 @@ def deserialize_json(data: dict) -> CustomerProfilesDestinationProperties:
     if data.get("domainName") is not None:
         out["domain_name"] = data["domainName"]
     else:
-        raise DeserializationError(
-            "CustomerProfilesDestinationProperties.domain_name required"
-        )
+        out["domain_name"] = ""
     if data.get("objectTypeName") is not None:
         out["object_type_name"] = data["objectTypeName"]
     return out

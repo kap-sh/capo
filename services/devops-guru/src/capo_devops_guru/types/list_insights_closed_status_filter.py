@@ -39,7 +39,9 @@ def deserialize_json(data: dict) -> ListInsightsClosedStatusFilter:
 
         out["type"] = capo_devops_guru.types.insight_type.deserialize_json(data["Type"])
     else:
-        raise DeserializationError("ListInsightsClosedStatusFilter.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_devops_guru.types.insight_type.InsightType", "")
     if data.get("EndTimeRange") is not None:
         import capo_devops_guru.types.end_time_range
 

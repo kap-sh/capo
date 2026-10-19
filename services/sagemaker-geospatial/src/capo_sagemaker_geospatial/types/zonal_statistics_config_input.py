@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemaker_geospatial.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemaker_geospatial.types.kms_key
     import capo_sagemaker_geospatial.types.s3_uri
@@ -57,7 +55,7 @@ def deserialize_json(data: dict) -> ZonalStatisticsConfigInput:
     if data.get("ZoneS3Path") is not None:
         out["zone_s3_path"] = data["ZoneS3Path"]
     else:
-        raise DeserializationError("ZonalStatisticsConfigInput.zone_s3_path required")
+        out["zone_s3_path"] = ""
     if data.get("Statistics") is not None:
         import capo_sagemaker_geospatial.types.zonal_statistics_list_input
 
@@ -67,7 +65,7 @@ def deserialize_json(data: dict) -> ZonalStatisticsConfigInput:
             )
         )
     else:
-        raise DeserializationError("ZonalStatisticsConfigInput.statistics required")
+        out["statistics"] = []
     if data.get("TargetBands") is not None:
         import capo_sagemaker_geospatial.types.string_list_input
 

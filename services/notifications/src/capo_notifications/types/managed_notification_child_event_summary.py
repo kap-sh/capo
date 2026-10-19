@@ -66,9 +66,7 @@ def deserialize_json(data: dict) -> ManagedNotificationChildEventSummary:
     if data.get("schemaVersion") is not None:
         out["schema_version"] = data["schemaVersion"]
     else:
-        raise DeserializationError(
-            "ManagedNotificationChildEventSummary.schema_version required"
-        )
+        out["schema_version"] = ""
     if data.get("sourceEventMetadata") is not None:
         import capo_notifications.types.managed_source_event_metadata_summary
 
@@ -108,13 +106,9 @@ def deserialize_json(data: dict) -> ManagedNotificationChildEventSummary:
     if data.get("eventStatus") is not None:
         out["event_status"] = data["eventStatus"]
     else:
-        raise DeserializationError(
-            "ManagedNotificationChildEventSummary.event_status required"
-        )
+        out["event_status"] = ""
     if data.get("notificationType") is not None:
         out["notification_type"] = data["notificationType"]
     else:
-        raise DeserializationError(
-            "ManagedNotificationChildEventSummary.notification_type required"
-        )
+        out["notification_type"] = ""
     return out

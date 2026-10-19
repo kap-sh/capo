@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_lambda_microvms.errors import DeserializationError
-
 
 class Resources(TypedDict, closed=True):
     minimum_memory_in_mi_b: "int"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> Resources:
     if data.get("minimumMemoryInMiB") is not None:
         out["minimum_memory_in_mi_b"] = data["minimumMemoryInMiB"]
     else:
-        raise DeserializationError("Resources.minimum_memory_in_mi_b required")
+        out["minimum_memory_in_mi_b"] = 0
     return out

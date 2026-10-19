@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.datetime_format
     import capo_databrew.types.locale_code
@@ -37,7 +35,7 @@ def deserialize_json(data: dict) -> DatetimeOptions:
     if data.get("Format") is not None:
         out["format"] = data["Format"]
     else:
-        raise DeserializationError("DatetimeOptions.format required")
+        out["format"] = ""
     if data.get("TimezoneOffset") is not None:
         out["timezone_offset"] = data["TimezoneOffset"]
     if data.get("LocaleCode") is not None:

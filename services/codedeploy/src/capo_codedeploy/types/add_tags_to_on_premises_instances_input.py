@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_codedeploy.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codedeploy.types.instance_name_list
     import capo_codedeploy.types.tag_list
@@ -43,7 +41,7 @@ def deserialize_aws_json_1_1(data: dict) -> AddTagsToOnPremisesInstancesInput:
             data["tags"]
         )
     else:
-        raise DeserializationError("AddTagsToOnPremisesInstancesInput.tags required")
+        out["tags"] = []
     if data.get("instanceNames") is not None:
         import capo_codedeploy.types.instance_name_list
 
@@ -53,7 +51,5 @@ def deserialize_aws_json_1_1(data: dict) -> AddTagsToOnPremisesInstancesInput:
             )
         )
     else:
-        raise DeserializationError(
-            "AddTagsToOnPremisesInstancesInput.instance_names required"
-        )
+        out["instance_names"] = []
     return out

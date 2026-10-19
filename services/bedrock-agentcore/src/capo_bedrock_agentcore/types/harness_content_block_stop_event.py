@@ -5,7 +5,6 @@ import json
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore._protocol.eventstream import HeaderValue, Message
-from capo_bedrock_agentcore.errors import DeserializationError
 
 
 class HarnessContentBlockStopEvent(TypedDict, closed=True):
@@ -25,9 +24,7 @@ def deserialize_json(data: dict) -> HarnessContentBlockStopEvent:
     if data.get("contentBlockIndex") is not None:
         out["content_block_index"] = data["contentBlockIndex"]
     else:
-        raise DeserializationError(
-            "HarnessContentBlockStopEvent.content_block_index required"
-        )
+        out["content_block_index"] = 0
     return out
 
 

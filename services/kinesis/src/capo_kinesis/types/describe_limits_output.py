@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.channel_count_object
     import capo_kinesis.types.on_demand_stream_count_limit_object
@@ -53,23 +51,19 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLimitsOutput:
     if data.get("ShardLimit") is not None:
         out["shard_limit"] = data["ShardLimit"]
     else:
-        raise DeserializationError("DescribeLimitsOutput.shard_limit required")
+        out["shard_limit"] = 0
     if data.get("OpenShardCount") is not None:
         out["open_shard_count"] = data["OpenShardCount"]
     else:
-        raise DeserializationError("DescribeLimitsOutput.open_shard_count required")
+        out["open_shard_count"] = 0
     if data.get("OnDemandStreamCount") is not None:
         out["on_demand_stream_count"] = data["OnDemandStreamCount"]
     else:
-        raise DeserializationError(
-            "DescribeLimitsOutput.on_demand_stream_count required"
-        )
+        out["on_demand_stream_count"] = 0
     if data.get("OnDemandStreamCountLimit") is not None:
         out["on_demand_stream_count_limit"] = data["OnDemandStreamCountLimit"]
     else:
-        raise DeserializationError(
-            "DescribeLimitsOutput.on_demand_stream_count_limit required"
-        )
+        out["on_demand_stream_count_limit"] = 0
     if data.get("ChannelCount") is not None:
         out["channel_count"] = data["ChannelCount"]
     if data.get("ChannelCountLimit") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager_user_subscriptions.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager_user_subscriptions.types.identity_provider
     import capo_license_manager_user_subscriptions.types.tags
@@ -52,11 +50,11 @@ def deserialize_json(data: dict) -> AssociateUserRequest:
     if data.get("Username") is not None:
         out["username"] = data["Username"]
     else:
-        raise DeserializationError("AssociateUserRequest.username required")
+        out["username"] = ""
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     else:
-        raise DeserializationError("AssociateUserRequest.instance_id required")
+        out["instance_id"] = ""
     if data.get("IdentityProvider") is not None:
         import capo_license_manager_user_subscriptions.types.identity_provider
 
@@ -66,7 +64,13 @@ def deserialize_json(data: dict) -> AssociateUserRequest:
             )
         )
     else:
-        raise DeserializationError("AssociateUserRequest.identity_provider required")
+        import capo_license_manager_user_subscriptions.types._unknown
+
+        out["identity_provider"] = (
+            capo_license_manager_user_subscriptions.types._unknown.UnknownUnionMember(
+                ""
+            )
+        )
     if data.get("Domain") is not None:
         out["domain"] = data["Domain"]
     if data.get("Tags") is not None:

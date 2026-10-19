@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.partition_spec
     import capo_kinesis.types.s3_tables_compression_type
@@ -56,15 +54,15 @@ def deserialize_aws_json_1_1(data: dict) -> S3TablesConfiguration:
     if data.get("TableBucketARN") is not None:
         out["table_bucket_arn"] = data["TableBucketARN"]
     else:
-        raise DeserializationError("S3TablesConfiguration.table_bucket_arn required")
+        out["table_bucket_arn"] = ""
     if data.get("Namespace") is not None:
         out["namespace"] = data["Namespace"]
     else:
-        raise DeserializationError("S3TablesConfiguration.namespace required")
+        out["namespace"] = ""
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("S3TablesConfiguration.table_name required")
+        out["table_name"] = ""
     if data.get("CompressionType") is not None:
         import capo_kinesis.types.s3_tables_compression_type
 
@@ -74,7 +72,11 @@ def deserialize_aws_json_1_1(data: dict) -> S3TablesConfiguration:
             )
         )
     else:
-        raise DeserializationError("S3TablesConfiguration.compression_type required")
+        import typing
+
+        out["compression_type"] = typing.cast(
+            "capo_kinesis.types.s3_tables_compression_type.S3TablesCompressionType", ""
+        )
     if data.get("PartitionSpec") is not None:
         import capo_kinesis.types.partition_spec
 

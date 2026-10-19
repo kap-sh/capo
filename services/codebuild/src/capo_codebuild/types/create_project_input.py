@@ -198,7 +198,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProjectInput:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateProjectInput.name required")
+        out["name"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("source") is not None:
@@ -264,7 +264,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProjectInput:
     if data.get("serviceRole") is not None:
         out["service_role"] = data["serviceRole"]
     else:
-        raise DeserializationError("CreateProjectInput.service_role required")
+        out["service_role"] = ""
     if data.get("timeoutInMinutes") is not None:
         out["timeout_in_minutes"] = data["timeoutInMinutes"]
     if data.get("queuedTimeoutInMinutes") is not None:

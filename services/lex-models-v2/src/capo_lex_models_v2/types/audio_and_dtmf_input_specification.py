@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.audio_specification
     import capo_lex_models_v2.types.dtmf_specification
@@ -55,9 +53,7 @@ def deserialize_json(data: dict) -> AudioAndDTMFInputSpecification:
     if data.get("startTimeoutMs") is not None:
         out["start_timeout_ms"] = data["startTimeoutMs"]
     else:
-        raise DeserializationError(
-            "AudioAndDTMFInputSpecification.start_timeout_ms required"
-        )
+        out["start_timeout_ms"] = 0
     if data.get("audioSpecification") is not None:
         import capo_lex_models_v2.types.audio_specification
 

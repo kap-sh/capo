@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.folder_structure
     import capo_workspaces_web.types.log_file_format
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> S3LogConfiguration:
     if data.get("bucket") is not None:
         out["bucket"] = data["bucket"]
     else:
-        raise DeserializationError("S3LogConfiguration.bucket required")
+        out["bucket"] = ""
     if data.get("keyPrefix") is not None:
         out["key_prefix"] = data["keyPrefix"]
     if data.get("bucketOwner") is not None:
@@ -67,7 +65,11 @@ def deserialize_json(data: dict) -> S3LogConfiguration:
             )
         )
     else:
-        raise DeserializationError("S3LogConfiguration.log_file_format required")
+        import typing
+
+        out["log_file_format"] = typing.cast(
+            "capo_workspaces_web.types.log_file_format.LogFileFormat", ""
+        )
     if data.get("folderStructure") is not None:
         import capo_workspaces_web.types.folder_structure
 
@@ -77,7 +79,11 @@ def deserialize_json(data: dict) -> S3LogConfiguration:
             )
         )
     else:
-        raise DeserializationError("S3LogConfiguration.folder_structure required")
+        import typing
+
+        out["folder_structure"] = typing.cast(
+            "capo_workspaces_web.types.folder_structure.FolderStructure", ""
+        )
     return out
 
 

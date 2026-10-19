@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.ai_guardrail_summaries_list
     import capo_qconnect.types.next_token
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> ListAIGuardrailsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListAIGuardrailsResponse.ai_guardrail_summaries required"
-        )
+        out["ai_guardrail_summaries"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

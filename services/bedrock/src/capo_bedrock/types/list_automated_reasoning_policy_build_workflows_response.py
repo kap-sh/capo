@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_build_workflow_summaries
     import capo_bedrock.types.pagination_token
@@ -44,9 +42,7 @@ def deserialize_json(data: dict) -> ListAutomatedReasoningPolicyBuildWorkflowsRe
             )
         )
     else:
-        raise DeserializationError(
-            "ListAutomatedReasoningPolicyBuildWorkflowsResponse.automated_reasoning_policy_build_workflow_summaries required"
-        )
+        out["automated_reasoning_policy_build_workflow_summaries"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

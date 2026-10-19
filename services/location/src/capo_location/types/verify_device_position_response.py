@@ -64,7 +64,7 @@ def deserialize_json(data: dict) -> VerifyDevicePositionResponse:
     if data.get("DeviceId") is not None:
         out["device_id"] = data["DeviceId"]
     else:
-        raise DeserializationError("VerifyDevicePositionResponse.device_id required")
+        out["device_id"] = ""
     if data.get("SampleTime") is not None:
         import capo_location.types.timestamp
 
@@ -72,7 +72,11 @@ def deserialize_json(data: dict) -> VerifyDevicePositionResponse:
             data["SampleTime"]
         )
     else:
-        raise DeserializationError("VerifyDevicePositionResponse.sample_time required")
+        import datetime
+
+        out["sample_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("ReceivedTime") is not None:
         import capo_location.types.timestamp
 
@@ -80,15 +84,15 @@ def deserialize_json(data: dict) -> VerifyDevicePositionResponse:
             data["ReceivedTime"]
         )
     else:
-        raise DeserializationError(
-            "VerifyDevicePositionResponse.received_time required"
+        import datetime
+
+        out["received_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("DistanceUnit") is not None:
         out["distance_unit"] = data["DistanceUnit"]
     else:
-        raise DeserializationError(
-            "VerifyDevicePositionResponse.distance_unit required"
-        )
+        out["distance_unit"] = ""
     return out
 
 

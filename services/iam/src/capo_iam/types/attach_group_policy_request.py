@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.arn_type
@@ -34,10 +33,10 @@ def deserialize_query(el: Element) -> AttachGroupPolicyRequest:
     if child_group_name is not None:
         out["group_name"] = str(child_group_name.text or "")
     else:
-        raise DeserializationError("AttachGroupPolicyRequest.group_name required")
+        out["group_name"] = ""
     child_policy_arn = el.find("PolicyArn")
     if child_policy_arn is not None:
         out["policy_arn"] = str(child_policy_arn.text or "")
     else:
-        raise DeserializationError("AttachGroupPolicyRequest.policy_arn required")
+        out["policy_arn"] = ""
     return out

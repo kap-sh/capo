@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.asset_bundle_cloud_formation_override_property_configuration
     import capo_quicksight.types.asset_bundle_export_format
@@ -112,9 +110,7 @@ def deserialize_json(data: dict) -> StartAssetBundleExportJobRequest:
     if data.get("AssetBundleExportJobId") is not None:
         out["asset_bundle_export_job_id"] = data["AssetBundleExportJobId"]
     else:
-        raise DeserializationError(
-            "StartAssetBundleExportJobRequest.asset_bundle_export_job_id required"
-        )
+        out["asset_bundle_export_job_id"] = ""
     if data.get("ResourceArns") is not None:
         import capo_quicksight.types.asset_bundle_resource_arns
 
@@ -124,9 +120,7 @@ def deserialize_json(data: dict) -> StartAssetBundleExportJobRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartAssetBundleExportJobRequest.resource_arns required"
-        )
+        out["resource_arns"] = []
     if data.get("IncludeAllDependencies") is not None:
         out["include_all_dependencies"] = data["IncludeAllDependencies"]
     if data.get("ExportFormat") is not None:
@@ -138,8 +132,11 @@ def deserialize_json(data: dict) -> StartAssetBundleExportJobRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartAssetBundleExportJobRequest.export_format required"
+        import typing
+
+        out["export_format"] = typing.cast(
+            "capo_quicksight.types.asset_bundle_export_format.AssetBundleExportFormat",
+            "",
         )
     if data.get("CloudFormationOverridePropertyConfiguration") is not None:
         import capo_quicksight.types.asset_bundle_cloud_formation_override_property_configuration

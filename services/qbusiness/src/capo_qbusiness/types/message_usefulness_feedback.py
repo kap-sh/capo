@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qbusiness.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qbusiness.types.message_usefulness
     import capo_qbusiness.types.message_usefulness_comment
@@ -61,7 +59,11 @@ def deserialize_json(data: dict) -> MessageUsefulnessFeedback:
             data["usefulness"]
         )
     else:
-        raise DeserializationError("MessageUsefulnessFeedback.usefulness required")
+        import typing
+
+        out["usefulness"] = typing.cast(
+            "capo_qbusiness.types.message_usefulness.MessageUsefulness", ""
+        )
     if data.get("reason") is not None:
         import capo_qbusiness.types.message_usefulness_reason
 
@@ -77,5 +79,9 @@ def deserialize_json(data: dict) -> MessageUsefulnessFeedback:
             data["submittedAt"]
         )
     else:
-        raise DeserializationError("MessageUsefulnessFeedback.submitted_at required")
+        import datetime
+
+        out["submitted_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

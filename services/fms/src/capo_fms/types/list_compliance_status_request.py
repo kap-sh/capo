@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_fms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_fms.types.pagination_max_results
     import capo_fms.types.pagination_token
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListComplianceStatusRequest:
     if data.get("PolicyId") is not None:
         out["policy_id"] = data["PolicyId"]
     else:
-        raise DeserializationError("ListComplianceStatusRequest.policy_id required")
+        out["policy_id"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

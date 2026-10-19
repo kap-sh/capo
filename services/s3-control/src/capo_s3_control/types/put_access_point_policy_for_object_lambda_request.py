@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.account_id
@@ -36,7 +35,5 @@ def deserialize_xml(el: Element) -> PutAccessPointPolicyForObjectLambdaRequest:
     if child_policy is not None:
         out["policy"] = str(child_policy.text or "")
     else:
-        raise DeserializationError(
-            "PutAccessPointPolicyForObjectLambdaRequest.policy required"
-        )
+        out["policy"] = ""
     return out

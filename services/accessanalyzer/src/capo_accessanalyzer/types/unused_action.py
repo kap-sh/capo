@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_accessanalyzer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_accessanalyzer.types.timestamp
 
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> UnusedAction:
     if data.get("action") is not None:
         out["action"] = data["action"]
     else:
-        raise DeserializationError("UnusedAction.action required")
+        out["action"] = ""
     if data.get("lastAccessed") is not None:
         import capo_accessanalyzer.types.timestamp
 

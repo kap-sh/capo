@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.trigger_filter_match_mode
     import capo_securityagent.types.trigger_filter_type
@@ -60,7 +58,11 @@ def deserialize_json(data: dict) -> TriggerFilter:
             data["type"]
         )
     else:
-        raise DeserializationError("TriggerFilter.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_securityagent.types.trigger_filter_type.TriggerFilterType", ""
+        )
     if data.get("patterns") is not None:
         import capo_securityagent.types.trigger_regex_pattern_list
 
@@ -70,7 +72,7 @@ def deserialize_json(data: dict) -> TriggerFilter:
             )
         )
     else:
-        raise DeserializationError("TriggerFilter.patterns required")
+        out["patterns"] = []
     if data.get("matchMode") is not None:
         import capo_securityagent.types.trigger_filter_match_mode
 

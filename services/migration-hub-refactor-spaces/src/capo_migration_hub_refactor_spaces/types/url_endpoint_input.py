@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_migration_hub_refactor_spaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_migration_hub_refactor_spaces.types.uri
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> UrlEndpointInput:
     if data.get("Url") is not None:
         out["url"] = data["Url"]
     else:
-        raise DeserializationError("UrlEndpointInput.url required")
+        out["url"] = ""
     if data.get("HealthUrl") is not None:
         out["health_url"] = data["HealthUrl"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm_incidents.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> RegionInfo:
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("RegionInfo.status required")
+        out["status"] = ""
     if data.get("statusMessage") is not None:
         out["status_message"] = data["statusMessage"]
     if data.get("statusUpdateDateTime") is not None:
@@ -61,5 +59,9 @@ def deserialize_json(data: dict) -> RegionInfo:
             )
         )
     else:
-        raise DeserializationError("RegionInfo.status_update_date_time required")
+        import datetime
+
+        out["status_update_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

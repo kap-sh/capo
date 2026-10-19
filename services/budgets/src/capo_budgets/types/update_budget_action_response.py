@@ -44,11 +44,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateBudgetActionResponse:
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     else:
-        raise DeserializationError("UpdateBudgetActionResponse.account_id required")
+        out["account_id"] = ""
     if data.get("BudgetName") is not None:
         out["budget_name"] = data["BudgetName"]
     else:
-        raise DeserializationError("UpdateBudgetActionResponse.budget_name required")
+        out["budget_name"] = ""
     if data.get("OldAction") is not None:
         import capo_budgets.types.action
 

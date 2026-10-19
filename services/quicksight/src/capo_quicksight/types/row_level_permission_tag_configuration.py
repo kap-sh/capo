@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.row_level_permission_tag_rule_configuration_list
     import capo_quicksight.types.row_level_permission_tag_rule_list
@@ -63,9 +61,7 @@ def deserialize_json(data: dict) -> RowLevelPermissionTagConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "RowLevelPermissionTagConfiguration.tag_rules required"
-        )
+        out["tag_rules"] = []
     if data.get("TagRuleConfigurations") is not None:
         import capo_quicksight.types.row_level_permission_tag_rule_configuration_list
 

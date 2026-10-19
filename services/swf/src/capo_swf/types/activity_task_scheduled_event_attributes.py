@@ -98,9 +98,7 @@ def deserialize_aws_json_1_0(data: dict) -> ActivityTaskScheduledEventAttributes
     if data.get("activityId") is not None:
         out["activity_id"] = data["activityId"]
     else:
-        raise DeserializationError(
-            "ActivityTaskScheduledEventAttributes.activity_id required"
-        )
+        out["activity_id"] = ""
     if data.get("input") is not None:
         out["input"] = data["input"]
     if data.get("control") is not None:

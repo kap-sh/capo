@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_resiliencehubv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_resiliencehubv2.types.test_run_source_event_error_code
 
@@ -42,9 +40,14 @@ def deserialize_json(data: dict) -> TestRunSourceEventError:
             )
         )
     else:
-        raise DeserializationError("TestRunSourceEventError.error_code required")
+        import typing
+
+        out["error_code"] = typing.cast(
+            "capo_resiliencehubv2.types.test_run_source_event_error_code.TestRunSourceEventErrorCode",
+            "",
+        )
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     else:
-        raise DeserializationError("TestRunSourceEventError.error_message required")
+        out["error_message"] = ""
     return out

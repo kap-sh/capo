@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.application_instance_id
     import capo_panorama.types.node_signal_list
@@ -40,7 +38,5 @@ def deserialize_json(data: dict) -> SignalApplicationInstanceNodeInstancesReques
             data["NodeSignals"]
         )
     else:
-        raise DeserializationError(
-            "SignalApplicationInstanceNodeInstancesRequest.node_signals required"
-        )
+        out["node_signals"] = []
     return out

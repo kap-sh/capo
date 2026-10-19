@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mturk.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mturk.types.boolean
     import capo_mturk.types.integer
@@ -73,15 +71,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateQualificationTypeRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateQualificationTypeRequest.name required")
+        out["name"] = ""
     if data.get("Keywords") is not None:
         out["keywords"] = data["Keywords"]
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     else:
-        raise DeserializationError(
-            "CreateQualificationTypeRequest.description required"
-        )
+        out["description"] = ""
     if data.get("QualificationTypeStatus") is not None:
         import capo_mturk.types.qualification_type_status
 
@@ -91,8 +87,10 @@ def deserialize_aws_json_1_1(data: dict) -> CreateQualificationTypeRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateQualificationTypeRequest.qualification_type_status required"
+        import typing
+
+        out["qualification_type_status"] = typing.cast(
+            "capo_mturk.types.qualification_type_status.QualificationTypeStatus", ""
         )
     if data.get("RetryDelayInSeconds") is not None:
         out["retry_delay_in_seconds"] = data["RetryDelayInSeconds"]

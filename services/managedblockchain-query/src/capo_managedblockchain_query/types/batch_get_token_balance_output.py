@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_managedblockchain_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_managedblockchain_query.types.batch_get_token_balance_errors
     import capo_managedblockchain_query.types.batch_get_token_balance_output_list
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> BatchGetTokenBalanceOutput:
             )
         )
     else:
-        raise DeserializationError("BatchGetTokenBalanceOutput.token_balances required")
+        out["token_balances"] = []
     if data.get("errors") is not None:
         import capo_managedblockchain_query.types.batch_get_token_balance_errors
 
@@ -59,5 +57,5 @@ def deserialize_json(data: dict) -> BatchGetTokenBalanceOutput:
             )
         )
     else:
-        raise DeserializationError("BatchGetTokenBalanceOutput.errors required")
+        out["errors"] = []
     return out

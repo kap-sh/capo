@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.ingress_point_a_record
     import capo_mailmanager.types.ingress_point_id
@@ -54,11 +52,11 @@ def deserialize_aws_json_1_0(data: dict) -> IngressPoint:
     if data.get("IngressPointName") is not None:
         out["ingress_point_name"] = data["IngressPointName"]
     else:
-        raise DeserializationError("IngressPoint.ingress_point_name required")
+        out["ingress_point_name"] = ""
     if data.get("IngressPointId") is not None:
         out["ingress_point_id"] = data["IngressPointId"]
     else:
-        raise DeserializationError("IngressPoint.ingress_point_id required")
+        out["ingress_point_id"] = ""
     if data.get("Status") is not None:
         import capo_mailmanager.types.ingress_point_status
 
@@ -68,7 +66,11 @@ def deserialize_aws_json_1_0(data: dict) -> IngressPoint:
             )
         )
     else:
-        raise DeserializationError("IngressPoint.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_mailmanager.types.ingress_point_status.IngressPointStatus", ""
+        )
     if data.get("Type") is not None:
         import capo_mailmanager.types.ingress_point_type
 
@@ -78,7 +80,11 @@ def deserialize_aws_json_1_0(data: dict) -> IngressPoint:
             )
         )
     else:
-        raise DeserializationError("IngressPoint.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_mailmanager.types.ingress_point_type.IngressPointType", ""
+        )
     if data.get("ARecord") is not None:
         out["a_record"] = data["ARecord"]
     return out

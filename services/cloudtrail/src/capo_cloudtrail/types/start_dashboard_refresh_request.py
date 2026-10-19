@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.dashboard_arn
     import capo_cloudtrail.types.query_parameter_values
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartDashboardRefreshRequest:
     if data.get("DashboardId") is not None:
         out["dashboard_id"] = data["DashboardId"]
     else:
-        raise DeserializationError("StartDashboardRefreshRequest.dashboard_id required")
+        out["dashboard_id"] = ""
     if data.get("QueryParameterValues") is not None:
         import capo_cloudtrail.types.query_parameter_values
 

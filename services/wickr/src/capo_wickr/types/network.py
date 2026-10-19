@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.access_level
     import capo_wickr.types.generic_string
@@ -61,11 +59,11 @@ def deserialize_json(data: dict) -> Network:
     if data.get("networkId") is not None:
         out["network_id"] = data["networkId"]
     else:
-        raise DeserializationError("Network.network_id required")
+        out["network_id"] = ""
     if data.get("networkName") is not None:
         out["network_name"] = data["networkName"]
     else:
-        raise DeserializationError("Network.network_name required")
+        out["network_name"] = ""
     if data.get("accessLevel") is not None:
         import capo_wickr.types.access_level
 
@@ -73,15 +71,19 @@ def deserialize_json(data: dict) -> Network:
             data["accessLevel"]
         )
     else:
-        raise DeserializationError("Network.access_level required")
+        import typing
+
+        out["access_level"] = typing.cast(
+            "capo_wickr.types.access_level.AccessLevel", ""
+        )
     if data.get("awsAccountId") is not None:
         out["aws_account_id"] = data["awsAccountId"]
     else:
-        raise DeserializationError("Network.aws_account_id required")
+        out["aws_account_id"] = ""
     if data.get("networkArn") is not None:
         out["network_arn"] = data["networkArn"]
     else:
-        raise DeserializationError("Network.network_arn required")
+        out["network_arn"] = ""
     if data.get("standing") is not None:
         out["standing"] = data["standing"]
     if data.get("freeTrialExpiration") is not None:

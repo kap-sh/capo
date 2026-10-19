@@ -42,7 +42,7 @@ def deserialize_json(data: dict) -> CreateEmailTemplateRequest:
     if data.get("TemplateName") is not None:
         out["template_name"] = data["TemplateName"]
     else:
-        raise DeserializationError("CreateEmailTemplateRequest.template_name required")
+        out["template_name"] = ""
     if data.get("TemplateContent") is not None:
         import capo_sesv2.types.email_template_content
 

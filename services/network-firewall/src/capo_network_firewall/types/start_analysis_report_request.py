@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_firewall.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_firewall.types.enabled_analysis_type
     import capo_network_firewall.types.resource_arn
@@ -55,5 +53,9 @@ def deserialize_aws_json_1_0(data: dict) -> StartAnalysisReportRequest:
             )
         )
     else:
-        raise DeserializationError("StartAnalysisReportRequest.analysis_type required")
+        import typing
+
+        out["analysis_type"] = typing.cast(
+            "capo_network_firewall.types.enabled_analysis_type.EnabledAnalysisType", ""
+        )
     return out

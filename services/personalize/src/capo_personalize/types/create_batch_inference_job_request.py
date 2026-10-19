@@ -112,13 +112,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateBatchInferenceJobRequest:
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     else:
-        raise DeserializationError("CreateBatchInferenceJobRequest.job_name required")
+        out["job_name"] = ""
     if data.get("solutionVersionArn") is not None:
         out["solution_version_arn"] = data["solutionVersionArn"]
     else:
-        raise DeserializationError(
-            "CreateBatchInferenceJobRequest.solution_version_arn required"
-        )
+        out["solution_version_arn"] = ""
     if data.get("filterArn") is not None:
         out["filter_arn"] = data["filterArn"]
     if data.get("numResults") is not None:
@@ -146,7 +144,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateBatchInferenceJobRequest:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("CreateBatchInferenceJobRequest.role_arn required")
+        out["role_arn"] = ""
     if data.get("batchInferenceJobConfig") is not None:
         import capo_personalize.types.batch_inference_job_config
 

@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmanager.errors import DeserializationError, ServiceError
+from capo_networkmanager.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_networkmanager.types.server_side_string
@@ -53,7 +53,7 @@ def deserialize_json(data: dict) -> ValidationException_:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     else:
-        raise DeserializationError("ValidationException_.message required")
+        out["message"] = ""
     if data.get("Reason") is not None:
         import capo_networkmanager.types.validation_exception_reason
 

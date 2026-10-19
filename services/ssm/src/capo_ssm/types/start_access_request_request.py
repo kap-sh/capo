@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.string1to256
     import capo_ssm.types.tag_list
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartAccessRequestRequest:
     if data.get("Reason") is not None:
         out["reason"] = data["Reason"]
     else:
-        raise DeserializationError("StartAccessRequestRequest.reason required")
+        out["reason"] = ""
     if data.get("Targets") is not None:
         import capo_ssm.types.targets
 
@@ -48,7 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartAccessRequestRequest:
             data["Targets"]
         )
     else:
-        raise DeserializationError("StartAccessRequestRequest.targets required")
+        out["targets"] = []
     if data.get("Tags") is not None:
         import capo_ssm.types.tag_list
 

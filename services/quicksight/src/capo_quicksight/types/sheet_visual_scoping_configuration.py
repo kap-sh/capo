@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.filter_visual_scope
     import capo_quicksight.types.filtered_visuals_list
@@ -48,7 +46,7 @@ def deserialize_json(data: dict) -> SheetVisualScopingConfiguration:
     if data.get("SheetId") is not None:
         out["sheet_id"] = data["SheetId"]
     else:
-        raise DeserializationError("SheetVisualScopingConfiguration.sheet_id required")
+        out["sheet_id"] = ""
     if data.get("Scope") is not None:
         import capo_quicksight.types.filter_visual_scope
 
@@ -56,7 +54,11 @@ def deserialize_json(data: dict) -> SheetVisualScopingConfiguration:
             data["Scope"]
         )
     else:
-        raise DeserializationError("SheetVisualScopingConfiguration.scope required")
+        import typing
+
+        out["scope"] = typing.cast(
+            "capo_quicksight.types.filter_visual_scope.FilterVisualScope", ""
+        )
     if data.get("VisualIds") is not None:
         import capo_quicksight.types.filtered_visuals_list
 

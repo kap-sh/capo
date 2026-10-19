@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.limited_string
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> Identifier:
     if data.get("Identity") is not None:
         out["identity"] = data["Identity"]
     else:
-        raise DeserializationError("Identifier.identity required")
+        out["identity"] = ""
     return out

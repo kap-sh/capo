@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.batch_delete_deletion_target
 
@@ -39,7 +37,9 @@ def deserialize_json(data: dict) -> BatchDeleteInstrumentationConfigurationsRequ
             )
         )
     else:
-        raise DeserializationError(
-            "BatchDeleteInstrumentationConfigurationsRequest.deletion_target required"
+        import capo_application_signals.types._unknown
+
+        out["deletion_target"] = (
+            capo_application_signals.types._unknown.UnknownUnionMember("")
         )
     return out

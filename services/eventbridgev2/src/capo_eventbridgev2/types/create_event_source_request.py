@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_eventbridgev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.client_token
     import capo_eventbridgev2.types.description
@@ -54,11 +52,11 @@ def deserialize_cbor(data: dict) -> CreateEventSourceRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("CreateEventSourceRequest.name required")
+        out["name"] = ""
     if data.get("EventBusArn") is not None:
         out["event_bus_arn"] = data["EventBusArn"]
     else:
-        raise DeserializationError("CreateEventSourceRequest.event_bus_arn required")
+        out["event_bus_arn"] = ""
     if data.get("Configuration") is not None:
         import capo_eventbridgev2.types.event_source_configuration
 
@@ -68,7 +66,9 @@ def deserialize_cbor(data: dict) -> CreateEventSourceRequest:
             )
         )
     else:
-        raise DeserializationError("CreateEventSourceRequest.configuration required")
+        import capo_eventbridgev2.types._unknown
+
+        out["configuration"] = capo_eventbridgev2.types._unknown.UnknownUnionMember("")
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("Tags") is not None:

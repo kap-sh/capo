@@ -79,15 +79,15 @@ def deserialize_cbor(data: dict) -> CreateAccessGrantInput:
     if data.get("domainId") is not None:
         out["domain_id"] = data["domainId"]
     else:
-        raise DeserializationError("CreateAccessGrantInput.domain_id required")
+        out["domain_id"] = ""
     if data.get("spaceId") is not None:
         out["space_id"] = data["spaceId"]
     else:
-        raise DeserializationError("CreateAccessGrantInput.space_id required")
+        out["space_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateAccessGrantInput.name required")
+        out["name"] = ""
     if data.get("principal") is not None:
         import capo_cloudwatchomni.types.access_grant_principal
 
@@ -107,7 +107,12 @@ def deserialize_cbor(data: dict) -> CreateAccessGrantInput:
             )
         )
     else:
-        raise DeserializationError("CreateAccessGrantInput.permission required")
+        import typing
+
+        out["permission"] = typing.cast(
+            "capo_cloudwatchomni.types.access_grant_permission.AccessGrantPermission",
+            "",
+        )
     if data.get("scopedActions") is not None:
         import capo_cloudwatchomni.types.scoped_actions_list
 

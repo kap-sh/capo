@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.asset_id
 
@@ -30,9 +28,9 @@ def deserialize_json(data: dict) -> AssetTargetNameMap:
     if data.get("assetId") is not None:
         out["asset_id"] = data["assetId"]
     else:
-        raise DeserializationError("AssetTargetNameMap.asset_id required")
+        out["asset_id"] = ""
     if data.get("targetName") is not None:
         out["target_name"] = data["targetName"]
     else:
-        raise DeserializationError("AssetTargetNameMap.target_name required")
+        out["target_name"] = ""
     return out

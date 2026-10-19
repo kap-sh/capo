@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_evs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_evs.types.solution_key
     import capo_evs.types.v_san_license_key
@@ -31,11 +29,11 @@ def deserialize_aws_json_1_0(data: dict) -> LicenseInfo:
     if data.get("solutionKey") is not None:
         out["solution_key"] = data["solutionKey"]
     else:
-        raise DeserializationError("LicenseInfo.solution_key required")
+        out["solution_key"] = ""
     if data.get("vsanKey") is not None:
         out["vsan_key"] = data["vsanKey"]
     else:
-        raise DeserializationError("LicenseInfo.vsan_key required")
+        out["vsan_key"] = ""
     return out
 
 

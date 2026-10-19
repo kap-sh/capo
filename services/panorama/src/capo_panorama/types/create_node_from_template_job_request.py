@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_panorama.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_panorama.types.description
     import capo_panorama.types.job_tags_list
@@ -67,27 +65,19 @@ def deserialize_json(data: dict) -> CreateNodeFromTemplateJobRequest:
     if data.get("TemplateType") is not None:
         out["template_type"] = data["TemplateType"]
     else:
-        raise DeserializationError(
-            "CreateNodeFromTemplateJobRequest.template_type required"
-        )
+        out["template_type"] = ""
     if data.get("OutputPackageName") is not None:
         out["output_package_name"] = data["OutputPackageName"]
     else:
-        raise DeserializationError(
-            "CreateNodeFromTemplateJobRequest.output_package_name required"
-        )
+        out["output_package_name"] = ""
     if data.get("OutputPackageVersion") is not None:
         out["output_package_version"] = data["OutputPackageVersion"]
     else:
-        raise DeserializationError(
-            "CreateNodeFromTemplateJobRequest.output_package_version required"
-        )
+        out["output_package_version"] = ""
     if data.get("NodeName") is not None:
         out["node_name"] = data["NodeName"]
     else:
-        raise DeserializationError(
-            "CreateNodeFromTemplateJobRequest.node_name required"
-        )
+        out["node_name"] = ""
     if data.get("NodeDescription") is not None:
         out["node_description"] = data["NodeDescription"]
     if data.get("TemplateParameters") is not None:
@@ -99,9 +89,7 @@ def deserialize_json(data: dict) -> CreateNodeFromTemplateJobRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateNodeFromTemplateJobRequest.template_parameters required"
-        )
+        out["template_parameters"] = {}
     if data.get("JobTags") is not None:
         import capo_panorama.types.job_tags_list
 

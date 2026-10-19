@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.route_toll_pass_validity_period_type
     import capo_geo_routes.types.sensitive_integer
@@ -46,7 +44,12 @@ def deserialize_json(data: dict) -> RouteTollPassValidityPeriod:
             )
         )
     else:
-        raise DeserializationError("RouteTollPassValidityPeriod.period required")
+        import typing
+
+        out["period"] = typing.cast(
+            "capo_geo_routes.types.route_toll_pass_validity_period_type.RouteTollPassValidityPeriodType",
+            "",
+        )
     if data.get("PeriodCount") is not None:
         out["period_count"] = data["PeriodCount"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_license_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_license_manager.types.max_size3_string_list
     import capo_license_manager.types.token_string
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> GetAccessTokenRequest:
     if data.get("Token") is not None:
         out["token"] = data["Token"]
     else:
-        raise DeserializationError("GetAccessTokenRequest.token required")
+        out["token"] = ""
     if data.get("TokenProperties") is not None:
         import capo_license_manager.types.max_size3_string_list
 

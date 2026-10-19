@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_metering.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_metering.types.nonce
     import capo_marketplace_metering.types.product_code
@@ -36,11 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterUsageRequest:
     if data.get("ProductCode") is not None:
         out["product_code"] = data["ProductCode"]
     else:
-        raise DeserializationError("RegisterUsageRequest.product_code required")
+        out["product_code"] = ""
     if data.get("PublicKeyVersion") is not None:
         out["public_key_version"] = data["PublicKeyVersion"]
     else:
-        raise DeserializationError("RegisterUsageRequest.public_key_version required")
+        out["public_key_version"] = 0
     if data.get("Nonce") is not None:
         out["nonce"] = data["Nonce"]
     return out

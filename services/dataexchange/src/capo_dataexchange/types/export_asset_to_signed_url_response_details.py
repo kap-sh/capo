@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dataexchange.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dataexchange.types.__string
     import capo_dataexchange.types.id
@@ -47,21 +45,15 @@ def deserialize_json(data: dict) -> ExportAssetToSignedUrlResponseDetails:
     if data.get("AssetId") is not None:
         out["asset_id"] = data["AssetId"]
     else:
-        raise DeserializationError(
-            "ExportAssetToSignedUrlResponseDetails.asset_id required"
-        )
+        out["asset_id"] = ""
     if data.get("DataSetId") is not None:
         out["data_set_id"] = data["DataSetId"]
     else:
-        raise DeserializationError(
-            "ExportAssetToSignedUrlResponseDetails.data_set_id required"
-        )
+        out["data_set_id"] = ""
     if data.get("RevisionId") is not None:
         out["revision_id"] = data["RevisionId"]
     else:
-        raise DeserializationError(
-            "ExportAssetToSignedUrlResponseDetails.revision_id required"
-        )
+        out["revision_id"] = ""
     if data.get("SignedUrl") is not None:
         out["signed_url"] = data["SignedUrl"]
     if data.get("SignedUrlExpiresAt") is not None:

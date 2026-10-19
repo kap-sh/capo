@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.arn
 
@@ -30,11 +28,9 @@ def deserialize_json(data: dict) -> InvocationConfiguration:
     if data.get("topicArn") is not None:
         out["topic_arn"] = data["topicArn"]
     else:
-        raise DeserializationError("InvocationConfiguration.topic_arn required")
+        out["topic_arn"] = ""
     if data.get("payloadDeliveryBucketName") is not None:
         out["payload_delivery_bucket_name"] = data["payloadDeliveryBucketName"]
     else:
-        raise DeserializationError(
-            "InvocationConfiguration.payload_delivery_bucket_name required"
-        )
+        out["payload_delivery_bucket_name"] = ""
     return out

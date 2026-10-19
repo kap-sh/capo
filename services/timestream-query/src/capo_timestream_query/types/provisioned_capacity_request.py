@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_timestream_query.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_timestream_query.types.account_settings_notification_configuration
     import capo_timestream_query.types.query_tcu
@@ -40,9 +38,7 @@ def deserialize_aws_json_1_0(data: dict) -> ProvisionedCapacityRequest:
     if data.get("TargetQueryTCU") is not None:
         out["target_query_tcu"] = data["TargetQueryTCU"]
     else:
-        raise DeserializationError(
-            "ProvisionedCapacityRequest.target_query_tcu required"
-        )
+        out["target_query_tcu"] = 0
     if data.get("NotificationConfiguration") is not None:
         import capo_timestream_query.types.account_settings_notification_configuration
 

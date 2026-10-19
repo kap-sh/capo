@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_identitystore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_identitystore.types.date_type
     import capo_identitystore.types.external_ids
@@ -90,19 +88,19 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeGroupResponse:
     if data.get("IdentityStoreId") is not None:
         out["identity_store_id"] = data["IdentityStoreId"]
     else:
-        raise DeserializationError("DescribeGroupResponse.identity_store_id required")
+        out["identity_store_id"] = ""
     if data.get("GroupId") is not None:
         out["group_id"] = data["GroupId"]
     else:
-        raise DeserializationError("DescribeGroupResponse.group_id required")
+        out["group_id"] = ""
     if data.get("GroupArn") is not None:
         out["group_arn"] = data["GroupArn"]
     else:
-        raise DeserializationError("DescribeGroupResponse.group_arn required")
+        out["group_arn"] = ""
     if data.get("Revision") is not None:
         out["revision"] = data["Revision"]
     else:
-        raise DeserializationError("DescribeGroupResponse.revision required")
+        out["revision"] = ""
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
     if data.get("ExternalIds") is not None:

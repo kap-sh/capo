@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.available_filter_list
@@ -218,15 +216,15 @@ def deserialize_json(data: dict) -> MetricDefinition:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("MetricDefinition.arn required")
+        out["arn"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("MetricDefinition.id required")
+        out["id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("MetricDefinition.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("MetricCalculation") is not None:
@@ -256,13 +254,17 @@ def deserialize_json(data: dict) -> MetricDefinition:
 
         out["type"] = capo_connect.types.metric_type.deserialize_json(data["Type"])
     else:
-        raise DeserializationError("MetricDefinition.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_connect.types.metric_type.MetricType", "")
     if data.get("Unit") is not None:
         import capo_connect.types.metric_unit
 
         out["unit"] = capo_connect.types.metric_unit.deserialize_json(data["Unit"])
     else:
-        raise DeserializationError("MetricDefinition.unit required")
+        import typing
+
+        out["unit"] = typing.cast("capo_connect.types.metric_unit.MetricUnit", "")
     if data.get("PositiveTrendIndicator") is not None:
         import capo_connect.types.trend_indicator
 
@@ -278,7 +280,7 @@ def deserialize_json(data: dict) -> MetricDefinition:
             data["Groupings"]
         )
     else:
-        raise DeserializationError("MetricDefinition.groupings required")
+        out["groupings"] = []
     if data.get("Filters") is not None:
         import capo_connect.types.available_filter_list
 
@@ -286,7 +288,7 @@ def deserialize_json(data: dict) -> MetricDefinition:
             data["Filters"]
         )
     else:
-        raise DeserializationError("MetricDefinition.filters required")
+        out["filters"] = []
     if data.get("EffectiveTime") is not None:
         import capo_connect.types.timestamp
 
@@ -300,7 +302,7 @@ def deserialize_json(data: dict) -> MetricDefinition:
     if data.get("Category") is not None:
         out["category"] = data["Category"]
     else:
-        raise DeserializationError("MetricDefinition.category required")
+        out["category"] = ""
     if data.get("SupportedStats") is not None:
         import capo_connect.types.supported_stats_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_medical_imaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_medical_imaging.types.image_set_external_version_id
     import capo_medical_imaging.types.metadata_copies
@@ -38,9 +36,7 @@ def deserialize_json(data: dict) -> CopySourceImageSetInformation:
     if data.get("latestVersionId") is not None:
         out["latest_version_id"] = data["latestVersionId"]
     else:
-        raise DeserializationError(
-            "CopySourceImageSetInformation.latest_version_id required"
-        )
+        out["latest_version_id"] = ""
     if data.get("DICOMCopies") is not None:
         import capo_medical_imaging.types.metadata_copies
 

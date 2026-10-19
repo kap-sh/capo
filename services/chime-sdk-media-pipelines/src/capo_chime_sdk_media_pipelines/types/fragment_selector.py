@@ -51,7 +51,12 @@ def deserialize_json(data: dict) -> FragmentSelector:
             )
         )
     else:
-        raise DeserializationError("FragmentSelector.fragment_selector_type required")
+        import typing
+
+        out["fragment_selector_type"] = typing.cast(
+            "capo_chime_sdk_media_pipelines.types.fragment_selector_type.FragmentSelectorType",
+            "",
+        )
     if data.get("TimestampRange") is not None:
         import capo_chime_sdk_media_pipelines.types.timestamp_range
 

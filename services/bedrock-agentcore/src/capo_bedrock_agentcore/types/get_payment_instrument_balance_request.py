@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.blockchain_chain_id
     import capo_bedrock_agentcore.types.instrument_balance_token
@@ -67,21 +65,15 @@ def deserialize_json(data: dict) -> GetPaymentInstrumentBalanceRequest:
     if data.get("paymentManagerArn") is not None:
         out["payment_manager_arn"] = data["paymentManagerArn"]
     else:
-        raise DeserializationError(
-            "GetPaymentInstrumentBalanceRequest.payment_manager_arn required"
-        )
+        out["payment_manager_arn"] = ""
     if data.get("paymentConnectorId") is not None:
         out["payment_connector_id"] = data["paymentConnectorId"]
     else:
-        raise DeserializationError(
-            "GetPaymentInstrumentBalanceRequest.payment_connector_id required"
-        )
+        out["payment_connector_id"] = ""
     if data.get("paymentInstrumentId") is not None:
         out["payment_instrument_id"] = data["paymentInstrumentId"]
     else:
-        raise DeserializationError(
-            "GetPaymentInstrumentBalanceRequest.payment_instrument_id required"
-        )
+        out["payment_instrument_id"] = ""
     if data.get("chain") is not None:
         import capo_bedrock_agentcore.types.blockchain_chain_id
 
@@ -91,7 +83,11 @@ def deserialize_json(data: dict) -> GetPaymentInstrumentBalanceRequest:
             )
         )
     else:
-        raise DeserializationError("GetPaymentInstrumentBalanceRequest.chain required")
+        import typing
+
+        out["chain"] = typing.cast(
+            "capo_bedrock_agentcore.types.blockchain_chain_id.BlockchainChainId", ""
+        )
     if data.get("token") is not None:
         import capo_bedrock_agentcore.types.instrument_balance_token
 
@@ -101,5 +97,10 @@ def deserialize_json(data: dict) -> GetPaymentInstrumentBalanceRequest:
             )
         )
     else:
-        raise DeserializationError("GetPaymentInstrumentBalanceRequest.token required")
+        import typing
+
+        out["token"] = typing.cast(
+            "capo_bedrock_agentcore.types.instrument_balance_token.InstrumentBalanceToken",
+            "",
+        )
     return out

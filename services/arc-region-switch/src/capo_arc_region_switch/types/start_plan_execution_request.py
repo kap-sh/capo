@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_arc_region_switch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.execution_action
     import capo_arc_region_switch.types.execution_comment
@@ -73,11 +71,11 @@ def deserialize_aws_json_1_0(data: dict) -> StartPlanExecutionRequest:
     if data.get("planArn") is not None:
         out["plan_arn"] = data["planArn"]
     else:
-        raise DeserializationError("StartPlanExecutionRequest.plan_arn required")
+        out["plan_arn"] = ""
     if data.get("targetRegion") is not None:
         out["target_region"] = data["targetRegion"]
     else:
-        raise DeserializationError("StartPlanExecutionRequest.target_region required")
+        out["target_region"] = ""
     if data.get("action") is not None:
         import capo_arc_region_switch.types.execution_action
 
@@ -87,7 +85,11 @@ def deserialize_aws_json_1_0(data: dict) -> StartPlanExecutionRequest:
             )
         )
     else:
-        raise DeserializationError("StartPlanExecutionRequest.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_arc_region_switch.types.execution_action.ExecutionAction", ""
+        )
     if data.get("mode") is not None:
         import capo_arc_region_switch.types.execution_mode
 

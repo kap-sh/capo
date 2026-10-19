@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_location.errors import DeserializationError
-
 
 class WiFiAccessPoint(TypedDict, closed=True):
     mac_address: "str"
@@ -25,9 +23,9 @@ def deserialize_json(data: dict) -> WiFiAccessPoint:
     if data.get("MacAddress") is not None:
         out["mac_address"] = data["MacAddress"]
     else:
-        raise DeserializationError("WiFiAccessPoint.mac_address required")
+        out["mac_address"] = ""
     if data.get("Rss") is not None:
         out["rss"] = data["Rss"]
     else:
-        raise DeserializationError("WiFiAccessPoint.rss required")
+        out["rss"] = 0
     return out

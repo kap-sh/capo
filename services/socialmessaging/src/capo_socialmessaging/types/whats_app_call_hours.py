@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.iana_timezone
     import capo_socialmessaging.types.whats_app_holiday_schedule_list
@@ -53,11 +51,11 @@ def deserialize_json(data: dict) -> WhatsAppCallHours:
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
     else:
-        raise DeserializationError("WhatsAppCallHours.enabled required")
+        out["enabled"] = False
     if data.get("timezone") is not None:
         out["timezone"] = data["timezone"]
     else:
-        raise DeserializationError("WhatsAppCallHours.timezone required")
+        out["timezone"] = ""
     if data.get("weeklyOperatingHours") is not None:
         import capo_socialmessaging.types.whats_app_weekly_operating_hours_list
 
@@ -67,7 +65,7 @@ def deserialize_json(data: dict) -> WhatsAppCallHours:
             )
         )
     else:
-        raise DeserializationError("WhatsAppCallHours.weekly_operating_hours required")
+        out["weekly_operating_hours"] = []
     if data.get("holidaySchedule") is not None:
         import capo_socialmessaging.types.whats_app_holiday_schedule_list
 

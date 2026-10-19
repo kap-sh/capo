@@ -106,7 +106,7 @@ def deserialize_json(data: dict) -> GetJobResponse:
     if data.get("Action") is not None:
         out["action"] = data["Action"]
     else:
-        raise DeserializationError("GetJobResponse.action required")
+        out["action"] = ""
     if data.get("ActionOptions") is not None:
         import capo_location.types.job_action_options
 
@@ -120,7 +120,9 @@ def deserialize_json(data: dict) -> GetJobResponse:
             data["CreatedAt"]
         )
     else:
-        raise DeserializationError("GetJobResponse.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndedAt") is not None:
         import capo_location.types.timestamp
 
@@ -134,7 +136,7 @@ def deserialize_json(data: dict) -> GetJobResponse:
     if data.get("ExecutionRoleArn") is not None:
         out["execution_role_arn"] = data["ExecutionRoleArn"]
     else:
-        raise DeserializationError("GetJobResponse.execution_role_arn required")
+        out["execution_role_arn"] = ""
     if data.get("InputOptions") is not None:
         import capo_location.types.job_input_options
 
@@ -146,11 +148,11 @@ def deserialize_json(data: dict) -> GetJobResponse:
     if data.get("JobArn") is not None:
         out["job_arn"] = data["JobArn"]
     else:
-        raise DeserializationError("GetJobResponse.job_arn required")
+        out["job_arn"] = ""
     if data.get("JobId") is not None:
         out["job_id"] = data["JobId"]
     else:
-        raise DeserializationError("GetJobResponse.job_id required")
+        out["job_id"] = ""
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("OutputOptions") is not None:
@@ -164,7 +166,7 @@ def deserialize_json(data: dict) -> GetJobResponse:
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("GetJobResponse.status required")
+        out["status"] = ""
     if data.get("UpdatedAt") is not None:
         import capo_location.types.timestamp
 
@@ -172,7 +174,9 @@ def deserialize_json(data: dict) -> GetJobResponse:
             data["UpdatedAt"]
         )
     else:
-        raise DeserializationError("GetJobResponse.updated_at required")
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("Tags") is not None:
         import capo_location.types.tag_map
 

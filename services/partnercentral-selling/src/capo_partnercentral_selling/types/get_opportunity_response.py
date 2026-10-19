@@ -178,7 +178,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetOpportunityResponse:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("GetOpportunityResponse.catalog required")
+        out["catalog"] = ""
     if data.get("PrimaryNeedsFromAws") is not None:
         import capo_partnercentral_selling.types.primary_needs_from_aws
 
@@ -240,7 +240,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetOpportunityResponse:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("GetOpportunityResponse.id required")
+        out["id"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     if data.get("LastModifiedDate") is not None:
@@ -252,7 +252,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetOpportunityResponse:
             )
         )
     else:
-        raise DeserializationError("GetOpportunityResponse.last_modified_date required")
+        import datetime
+
+        out["last_modified_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("CreatedDate") is not None:
         import capo_partnercentral_selling.types.date_time
 
@@ -262,7 +266,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetOpportunityResponse:
             )
         )
     else:
-        raise DeserializationError("GetOpportunityResponse.created_date required")
+        import datetime
+
+        out["created_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("RelatedEntityIdentifiers") is not None:
         import capo_partnercentral_selling.types.related_entity_identifiers
 

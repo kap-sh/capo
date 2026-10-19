@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wisdom.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wisdom.types.generic_arn
     import capo_wisdom.types.object_fields_list
@@ -36,9 +34,7 @@ def deserialize_json(data: dict) -> AppIntegrationsConfiguration:
     if data.get("appIntegrationArn") is not None:
         out["app_integration_arn"] = data["appIntegrationArn"]
     else:
-        raise DeserializationError(
-            "AppIntegrationsConfiguration.app_integration_arn required"
-        )
+        out["app_integration_arn"] = ""
     if data.get("objectFields") is not None:
         import capo_wisdom.types.object_fields_list
 

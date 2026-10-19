@@ -70,19 +70,19 @@ def deserialize_json(data: dict) -> IncidentRecordSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("IncidentRecordSummary.arn required")
+        out["arn"] = ""
     if data.get("title") is not None:
         out["title"] = data["title"]
     else:
-        raise DeserializationError("IncidentRecordSummary.title required")
+        out["title"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("IncidentRecordSummary.status required")
+        out["status"] = ""
     if data.get("impact") is not None:
         out["impact"] = data["impact"]
     else:
-        raise DeserializationError("IncidentRecordSummary.impact required")
+        out["impact"] = 0
     if data.get("creationTime") is not None:
         import capo_ssm_incidents.types._prelude.timestamp
 
@@ -92,7 +92,11 @@ def deserialize_json(data: dict) -> IncidentRecordSummary:
             )
         )
     else:
-        raise DeserializationError("IncidentRecordSummary.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("resolvedTime") is not None:
         import capo_ssm_incidents.types._prelude.timestamp
 

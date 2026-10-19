@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.associated_policy_list
     import capo_network_security_manager.types.associated_scope_list
@@ -125,21 +123,15 @@ def deserialize_json(data: dict) -> CreateDeploymentSnapshotOutput:
     if data.get("deploymentId") is not None:
         out["deployment_id"] = data["deploymentId"]
     else:
-        raise DeserializationError(
-            "CreateDeploymentSnapshotOutput.deployment_id required"
-        )
+        out["deployment_id"] = ""
     if data.get("deploymentArn") is not None:
         out["deployment_arn"] = data["deploymentArn"]
     else:
-        raise DeserializationError(
-            "CreateDeploymentSnapshotOutput.deployment_arn required"
-        )
+        out["deployment_arn"] = ""
     if data.get("deploymentName") is not None:
         out["deployment_name"] = data["deploymentName"]
     else:
-        raise DeserializationError(
-            "CreateDeploymentSnapshotOutput.deployment_name required"
-        )
+        out["deployment_name"] = ""
     if data.get("deploymentDescription") is not None:
         out["deployment_description"] = data["deploymentDescription"]
     if data.get("status") is not None:
@@ -151,7 +143,11 @@ def deserialize_json(data: dict) -> CreateDeploymentSnapshotOutput:
             )
         )
     else:
-        raise DeserializationError("CreateDeploymentSnapshotOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_network_security_manager.types.entity_status.EntityStatus", ""
+        )
     if data.get("deploymentConfiguration") is not None:
         import capo_network_security_manager.types.deployment_configuration
 
@@ -169,9 +165,7 @@ def deserialize_json(data: dict) -> CreateDeploymentSnapshotOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDeploymentSnapshotOutput.associated_policy_list required"
-        )
+        out["associated_policy_list"] = []
     if data.get("associatedScopeList") is not None:
         import capo_network_security_manager.types.associated_scope_list
 
@@ -181,13 +175,11 @@ def deserialize_json(data: dict) -> CreateDeploymentSnapshotOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDeploymentSnapshotOutput.associated_scope_list required"
-        )
+        out["associated_scope_list"] = []
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("CreateDeploymentSnapshotOutput.version required")
+        out["version"] = ""
     if data.get("updateToken") is not None:
         out["update_token"] = data["updateToken"]
     if data.get("isSnapshot") is not None:

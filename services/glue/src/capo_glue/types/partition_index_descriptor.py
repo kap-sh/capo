@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.backfill_errors
     import capo_glue.types.key_schema_element_list
@@ -52,7 +50,7 @@ def deserialize_aws_json_1_1(data: dict) -> PartitionIndexDescriptor:
     if data.get("IndexName") is not None:
         out["index_name"] = data["IndexName"]
     else:
-        raise DeserializationError("PartitionIndexDescriptor.index_name required")
+        out["index_name"] = ""
     if data.get("Keys") is not None:
         import capo_glue.types.key_schema_element_list
 
@@ -60,7 +58,7 @@ def deserialize_aws_json_1_1(data: dict) -> PartitionIndexDescriptor:
             data["Keys"]
         )
     else:
-        raise DeserializationError("PartitionIndexDescriptor.keys required")
+        out["keys"] = []
     if data.get("IndexStatus") is not None:
         import capo_glue.types.partition_index_status
 
@@ -70,7 +68,11 @@ def deserialize_aws_json_1_1(data: dict) -> PartitionIndexDescriptor:
             )
         )
     else:
-        raise DeserializationError("PartitionIndexDescriptor.index_status required")
+        import typing
+
+        out["index_status"] = typing.cast(
+            "capo_glue.types.partition_index_status.PartitionIndexStatus", ""
+        )
     if data.get("BackfillErrors") is not None:
         import capo_glue.types.backfill_errors
 

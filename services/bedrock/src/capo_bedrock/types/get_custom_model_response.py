@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.custom_model_name
     import capo_bedrock.types.customization_config
@@ -168,11 +166,11 @@ def deserialize_json(data: dict) -> GetCustomModelResponse:
     if data.get("modelArn") is not None:
         out["model_arn"] = data["modelArn"]
     else:
-        raise DeserializationError("GetCustomModelResponse.model_arn required")
+        out["model_arn"] = ""
     if data.get("modelName") is not None:
         out["model_name"] = data["modelName"]
     else:
-        raise DeserializationError("GetCustomModelResponse.model_name required")
+        out["model_name"] = ""
     if data.get("jobName") is not None:
         out["job_name"] = data["jobName"]
     if data.get("jobArn") is not None:
@@ -242,7 +240,11 @@ def deserialize_json(data: dict) -> GetCustomModelResponse:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("GetCustomModelResponse.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("customizationConfig") is not None:
         import capo_bedrock.types.customization_config
 

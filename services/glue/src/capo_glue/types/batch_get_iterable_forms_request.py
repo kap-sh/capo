@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.asset_id
     import capo_glue.types.item_identifier_list
@@ -41,15 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetIterableFormsRequest:
     if data.get("AssetIdentifier") is not None:
         out["asset_identifier"] = data["AssetIdentifier"]
     else:
-        raise DeserializationError(
-            "BatchGetIterableFormsRequest.asset_identifier required"
-        )
+        out["asset_identifier"] = ""
     if data.get("IterableFormName") is not None:
         out["iterable_form_name"] = data["IterableFormName"]
     else:
-        raise DeserializationError(
-            "BatchGetIterableFormsRequest.iterable_form_name required"
-        )
+        out["iterable_form_name"] = ""
     if data.get("ItemIdentifiers") is not None:
         import capo_glue.types.item_identifier_list
 
@@ -59,7 +53,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetIterableFormsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetIterableFormsRequest.item_identifiers required"
-        )
+        out["item_identifiers"] = []
     return out

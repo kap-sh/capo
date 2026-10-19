@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lex_models_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_models_v2.types.time_in_milli_seconds
 
@@ -29,5 +27,5 @@ def deserialize_json(data: dict) -> TextInputSpecification:
     if data.get("startTimeoutMs") is not None:
         out["start_timeout_ms"] = data["startTimeoutMs"]
     else:
-        raise DeserializationError("TextInputSpecification.start_timeout_ms required")
+        out["start_timeout_ms"] = 0
     return out

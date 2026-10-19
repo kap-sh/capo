@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.data_source_id
     import capo_kendra.types.principal_name
@@ -46,7 +44,7 @@ def deserialize_aws_json_1_1(data: dict) -> Principal:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("Principal.name required")
+        out["name"] = ""
     if data.get("Type") is not None:
         import capo_kendra.types.principal_type
 
@@ -54,7 +52,9 @@ def deserialize_aws_json_1_1(data: dict) -> Principal:
             data["Type"]
         )
     else:
-        raise DeserializationError("Principal.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_kendra.types.principal_type.PrincipalType", "")
     if data.get("Access") is not None:
         import capo_kendra.types.read_access_type
 
@@ -62,7 +62,11 @@ def deserialize_aws_json_1_1(data: dict) -> Principal:
             data["Access"]
         )
     else:
-        raise DeserializationError("Principal.access required")
+        import typing
+
+        out["access"] = typing.cast(
+            "capo_kendra.types.read_access_type.ReadAccessType", ""
+        )
     if data.get("DataSourceId") is not None:
         out["data_source_id"] = data["DataSourceId"]
     return out

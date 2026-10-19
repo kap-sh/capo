@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.additional_contact_email_addresses
     import capo_sesv2.types.contact_language
@@ -71,11 +69,13 @@ def deserialize_json(data: dict) -> PutAccountDetailsRequest:
 
         out["mail_type"] = capo_sesv2.types.mail_type.deserialize_json(data["MailType"])
     else:
-        raise DeserializationError("PutAccountDetailsRequest.mail_type required")
+        import typing
+
+        out["mail_type"] = typing.cast("capo_sesv2.types.mail_type.MailType", "")
     if data.get("WebsiteURL") is not None:
         out["website_url"] = data["WebsiteURL"]
     else:
-        raise DeserializationError("PutAccountDetailsRequest.website_url required")
+        out["website_url"] = ""
     if data.get("ContactLanguage") is not None:
         import capo_sesv2.types.contact_language
 

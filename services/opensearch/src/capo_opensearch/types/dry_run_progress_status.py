@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_opensearch.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_opensearch.types.accepted_warnings_list
     import capo_opensearch.types.guid
@@ -63,19 +61,19 @@ def deserialize_json(data: dict) -> DryRunProgressStatus:
     if data.get("DryRunId") is not None:
         out["dry_run_id"] = data["DryRunId"]
     else:
-        raise DeserializationError("DryRunProgressStatus.dry_run_id required")
+        out["dry_run_id"] = ""
     if data.get("DryRunStatus") is not None:
         out["dry_run_status"] = data["DryRunStatus"]
     else:
-        raise DeserializationError("DryRunProgressStatus.dry_run_status required")
+        out["dry_run_status"] = ""
     if data.get("CreationDate") is not None:
         out["creation_date"] = data["CreationDate"]
     else:
-        raise DeserializationError("DryRunProgressStatus.creation_date required")
+        out["creation_date"] = ""
     if data.get("UpdateDate") is not None:
         out["update_date"] = data["UpdateDate"]
     else:
-        raise DeserializationError("DryRunProgressStatus.update_date required")
+        out["update_date"] = ""
     if data.get("ValidationFailures") is not None:
         import capo_opensearch.types.validation_failures
 

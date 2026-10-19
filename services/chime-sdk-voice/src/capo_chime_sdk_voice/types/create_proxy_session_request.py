@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chime_sdk_voice.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.capability_list
     import capo_chime_sdk_voice.types.geo_match_level
@@ -103,9 +101,7 @@ def deserialize_json(data: dict) -> CreateProxySessionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateProxySessionRequest.participant_phone_numbers required"
-        )
+        out["participant_phone_numbers"] = []
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     if data.get("ExpiryMinutes") is not None:
@@ -119,7 +115,7 @@ def deserialize_json(data: dict) -> CreateProxySessionRequest:
             )
         )
     else:
-        raise DeserializationError("CreateProxySessionRequest.capabilities required")
+        out["capabilities"] = []
     if data.get("NumberSelectionBehavior") is not None:
         import capo_chime_sdk_voice.types.number_selection_behavior
 

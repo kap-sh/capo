@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.function_name
     import capo_lambda.types.reserved_concurrent_executions
@@ -32,7 +30,5 @@ def deserialize_json(data: dict) -> PutFunctionConcurrencyRequest:
     if data.get("ReservedConcurrentExecutions") is not None:
         out["reserved_concurrent_executions"] = data["ReservedConcurrentExecutions"]
     else:
-        raise DeserializationError(
-            "PutFunctionConcurrencyRequest.reserved_concurrent_executions required"
-        )
+        out["reserved_concurrent_executions"] = 0
     return out

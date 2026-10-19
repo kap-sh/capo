@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_rekognition.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rekognition.types.extended_pagination_token
     import capo_rekognition.types.media_analysis_job_descriptions
@@ -48,7 +46,5 @@ def deserialize_aws_json_1_1(data: dict) -> ListMediaAnalysisJobsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListMediaAnalysisJobsResponse.media_analysis_jobs required"
-        )
+        out["media_analysis_jobs"] = []
     return out

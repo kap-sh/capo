@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_lambda_microvms.errors import DeserializationError
-
 
 class IdlePolicy(TypedDict, closed=True):
     max_idle_duration_seconds: "int"
@@ -28,13 +26,13 @@ def deserialize_json(data: dict) -> IdlePolicy:
     if data.get("maxIdleDurationSeconds") is not None:
         out["max_idle_duration_seconds"] = data["maxIdleDurationSeconds"]
     else:
-        raise DeserializationError("IdlePolicy.max_idle_duration_seconds required")
+        out["max_idle_duration_seconds"] = 0
     if data.get("suspendedDurationSeconds") is not None:
         out["suspended_duration_seconds"] = data["suspendedDurationSeconds"]
     else:
-        raise DeserializationError("IdlePolicy.suspended_duration_seconds required")
+        out["suspended_duration_seconds"] = 0
     if data.get("autoResumeEnabled") is not None:
         out["auto_resume_enabled"] = data["autoResumeEnabled"]
     else:
-        raise DeserializationError("IdlePolicy.auto_resume_enabled required")
+        out["auto_resume_enabled"] = False
     return out

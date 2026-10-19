@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ram.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ram.types.string
 
@@ -31,9 +29,7 @@ def deserialize_json(data: dict) -> RejectResourceShareInvitationRequest:
     if data.get("resourceShareInvitationArn") is not None:
         out["resource_share_invitation_arn"] = data["resourceShareInvitationArn"]
     else:
-        raise DeserializationError(
-            "RejectResourceShareInvitationRequest.resource_share_invitation_arn required"
-        )
+        out["resource_share_invitation_arn"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out

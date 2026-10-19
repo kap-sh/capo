@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.message_template_query_operator
     import capo_qconnect.types.message_template_query_value_list
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> MessageTemplateQueryField:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("MessageTemplateQueryField.name required")
+        out["name"] = ""
     if data.get("values") is not None:
         import capo_qconnect.types.message_template_query_value_list
 
@@ -60,11 +58,11 @@ def deserialize_json(data: dict) -> MessageTemplateQueryField:
             )
         )
     else:
-        raise DeserializationError("MessageTemplateQueryField.values required")
+        out["values"] = []
     if data.get("operator") is not None:
         out["operator"] = data["operator"]
     else:
-        raise DeserializationError("MessageTemplateQueryField.operator required")
+        out["operator"] = ""
     if data.get("allowFuzziness") is not None:
         out["allow_fuzziness"] = data["allowFuzziness"]
     if data.get("priority") is not None:

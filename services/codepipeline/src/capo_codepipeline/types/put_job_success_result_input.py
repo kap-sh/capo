@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codepipeline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codepipeline.types.continuation_token
     import capo_codepipeline.types.current_revision
@@ -73,7 +71,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutJobSuccessResultInput:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     else:
-        raise DeserializationError("PutJobSuccessResultInput.job_id required")
+        out["job_id"] = ""
     if data.get("currentRevision") is not None:
         import capo_codepipeline.types.current_revision
 

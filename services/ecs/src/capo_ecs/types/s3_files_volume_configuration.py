@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.boxed_integer
     import capo_ecs.types.string
@@ -40,9 +38,7 @@ def deserialize_aws_json_1_1(data: dict) -> S3FilesVolumeConfiguration:
     if data.get("fileSystemArn") is not None:
         out["file_system_arn"] = data["fileSystemArn"]
     else:
-        raise DeserializationError(
-            "S3FilesVolumeConfiguration.file_system_arn required"
-        )
+        out["file_system_arn"] = ""
     if data.get("rootDirectory") is not None:
         out["root_directory"] = data["rootDirectory"]
     if data.get("transitEncryptionPort") is not None:

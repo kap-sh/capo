@@ -50,7 +50,7 @@ def deserialize_aws_json_1_1(data: dict) -> ReferenceDataSource:
     if data.get("TableName") is not None:
         out["table_name"] = data["TableName"]
     else:
-        raise DeserializationError("ReferenceDataSource.table_name required")
+        out["table_name"] = ""
     if data.get("S3ReferenceDataSource") is not None:
         import capo_kinesis_analytics.types.s3_reference_data_source
 

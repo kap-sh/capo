@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.traffic_policy_id
@@ -43,19 +42,15 @@ def deserialize_xml(el: Element) -> UpdateTrafficPolicyInstanceRequest:
     if child_ttl is not None:
         out["ttl"] = int(child_ttl.text or "")
     else:
-        raise DeserializationError("UpdateTrafficPolicyInstanceRequest.ttl required")
+        out["ttl"] = 0
     child_traffic_policy_id = el.find("TrafficPolicyId")
     if child_traffic_policy_id is not None:
         out["traffic_policy_id"] = str(child_traffic_policy_id.text or "")
     else:
-        raise DeserializationError(
-            "UpdateTrafficPolicyInstanceRequest.traffic_policy_id required"
-        )
+        out["traffic_policy_id"] = ""
     child_traffic_policy_version = el.find("TrafficPolicyVersion")
     if child_traffic_policy_version is not None:
         out["traffic_policy_version"] = int(child_traffic_policy_version.text or "")
     else:
-        raise DeserializationError(
-            "UpdateTrafficPolicyInstanceRequest.traffic_policy_version required"
-        )
+        out["traffic_policy_version"] = 0
     return out

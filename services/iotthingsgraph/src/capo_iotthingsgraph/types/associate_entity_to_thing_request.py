@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotthingsgraph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotthingsgraph.types.thing_name
     import capo_iotthingsgraph.types.urn
@@ -36,11 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateEntityToThingRequest:
     if data.get("thingName") is not None:
         out["thing_name"] = data["thingName"]
     else:
-        raise DeserializationError("AssociateEntityToThingRequest.thing_name required")
+        out["thing_name"] = ""
     if data.get("entityId") is not None:
         out["entity_id"] = data["entityId"]
     else:
-        raise DeserializationError("AssociateEntityToThingRequest.entity_id required")
+        out["entity_id"] = ""
     if data.get("namespaceVersion") is not None:
         out["namespace_version"] = data["namespaceVersion"]
     return out

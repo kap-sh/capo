@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.aws_arn
     import capo_iot.types.message_format
@@ -39,11 +37,11 @@ def deserialize_json(data: dict) -> SnsAction:
     if data.get("targetArn") is not None:
         out["target_arn"] = data["targetArn"]
     else:
-        raise DeserializationError("SnsAction.target_arn required")
+        out["target_arn"] = ""
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("SnsAction.role_arn required")
+        out["role_arn"] = ""
     if data.get("messageFormat") is not None:
         import capo_iot.types.message_format
 

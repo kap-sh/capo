@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.client_token
     import capo_connect.types.configurable_notification_priority
@@ -92,7 +90,7 @@ def deserialize_json(data: dict) -> CreateNotificationRequest:
             data["Recipients"]
         )
     else:
-        raise DeserializationError("CreateNotificationRequest.recipients required")
+        out["recipients"] = []
     if data.get("Priority") is not None:
         import capo_connect.types.configurable_notification_priority
 
@@ -108,7 +106,7 @@ def deserialize_json(data: dict) -> CreateNotificationRequest:
             data["Content"]
         )
     else:
-        raise DeserializationError("CreateNotificationRequest.content required")
+        out["content"] = {}
     if data.get("Tags") is not None:
         import capo_connect.types.tag_map
 

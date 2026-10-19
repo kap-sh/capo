@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_wireless.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_wireless.types.payload_data
     import capo_iot_wireless.types.transmit_mode
@@ -46,15 +44,11 @@ def deserialize_json(data: dict) -> SendDataToWirelessDeviceRequest:
     if data.get("TransmitMode") is not None:
         out["transmit_mode"] = data["TransmitMode"]
     else:
-        raise DeserializationError(
-            "SendDataToWirelessDeviceRequest.transmit_mode required"
-        )
+        out["transmit_mode"] = 0
     if data.get("PayloadData") is not None:
         out["payload_data"] = data["PayloadData"]
     else:
-        raise DeserializationError(
-            "SendDataToWirelessDeviceRequest.payload_data required"
-        )
+        out["payload_data"] = ""
     if data.get("WirelessMetadata") is not None:
         import capo_iot_wireless.types.wireless_metadata
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_payment_cryptography.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography.types.certificate_type
     import capo_payment_cryptography.types.diffie_hellman_derivation_data
@@ -92,23 +90,17 @@ def deserialize_aws_json_1_0(data: dict) -> ImportDiffieHellmanTr31KeyBlock:
     if data.get("PrivateKeyIdentifier") is not None:
         out["private_key_identifier"] = data["PrivateKeyIdentifier"]
     else:
-        raise DeserializationError(
-            "ImportDiffieHellmanTr31KeyBlock.private_key_identifier required"
-        )
+        out["private_key_identifier"] = ""
     if data.get("CertificateAuthorityPublicKeyIdentifier") is not None:
         out["certificate_authority_public_key_identifier"] = data[
             "CertificateAuthorityPublicKeyIdentifier"
         ]
     else:
-        raise DeserializationError(
-            "ImportDiffieHellmanTr31KeyBlock.certificate_authority_public_key_identifier required"
-        )
+        out["certificate_authority_public_key_identifier"] = ""
     if data.get("PublicKeyCertificate") is not None:
         out["public_key_certificate"] = data["PublicKeyCertificate"]
     else:
-        raise DeserializationError(
-            "ImportDiffieHellmanTr31KeyBlock.public_key_certificate required"
-        )
+        out["public_key_certificate"] = ""
     if data.get("DeriveKeyAlgorithm") is not None:
         import capo_payment_cryptography.types.symmetric_key_algorithm
 
@@ -118,8 +110,11 @@ def deserialize_aws_json_1_0(data: dict) -> ImportDiffieHellmanTr31KeyBlock:
             )
         )
     else:
-        raise DeserializationError(
-            "ImportDiffieHellmanTr31KeyBlock.derive_key_algorithm required"
+        import typing
+
+        out["derive_key_algorithm"] = typing.cast(
+            "capo_payment_cryptography.types.symmetric_key_algorithm.SymmetricKeyAlgorithm",
+            "",
         )
     if data.get("KeyDerivationFunction") is not None:
         import capo_payment_cryptography.types.key_derivation_function
@@ -130,8 +125,11 @@ def deserialize_aws_json_1_0(data: dict) -> ImportDiffieHellmanTr31KeyBlock:
             )
         )
     else:
-        raise DeserializationError(
-            "ImportDiffieHellmanTr31KeyBlock.key_derivation_function required"
+        import typing
+
+        out["key_derivation_function"] = typing.cast(
+            "capo_payment_cryptography.types.key_derivation_function.KeyDerivationFunction",
+            "",
         )
     if data.get("KeyDerivationHashAlgorithm") is not None:
         import capo_payment_cryptography.types.key_derivation_hash_algorithm
@@ -142,8 +140,11 @@ def deserialize_aws_json_1_0(data: dict) -> ImportDiffieHellmanTr31KeyBlock:
             )
         )
     else:
-        raise DeserializationError(
-            "ImportDiffieHellmanTr31KeyBlock.key_derivation_hash_algorithm required"
+        import typing
+
+        out["key_derivation_hash_algorithm"] = typing.cast(
+            "capo_payment_cryptography.types.key_derivation_hash_algorithm.KeyDerivationHashAlgorithm",
+            "",
         )
     if data.get("DerivationData") is not None:
         import capo_payment_cryptography.types.diffie_hellman_derivation_data
@@ -154,15 +155,15 @@ def deserialize_aws_json_1_0(data: dict) -> ImportDiffieHellmanTr31KeyBlock:
             )
         )
     else:
-        raise DeserializationError(
-            "ImportDiffieHellmanTr31KeyBlock.derivation_data required"
+        import capo_payment_cryptography.types._unknown
+
+        out["derivation_data"] = (
+            capo_payment_cryptography.types._unknown.UnknownUnionMember("")
         )
     if data.get("WrappedKeyBlock") is not None:
         out["wrapped_key_block"] = data["WrappedKeyBlock"]
     else:
-        raise DeserializationError(
-            "ImportDiffieHellmanTr31KeyBlock.wrapped_key_block required"
-        )
+        out["wrapped_key_block"] = ""
     return out
 
 

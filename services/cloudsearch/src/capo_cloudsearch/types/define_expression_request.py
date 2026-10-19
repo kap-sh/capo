@@ -36,7 +36,7 @@ def deserialize_query(el: Element) -> DefineExpressionRequest:
     if child_domain_name is not None:
         out["domain_name"] = str(child_domain_name.text or "")
     else:
-        raise DeserializationError("DefineExpressionRequest.domain_name required")
+        out["domain_name"] = ""
     child_expression = el.find("Expression")
     if child_expression is not None:
         import capo_cloudsearch.types.expression

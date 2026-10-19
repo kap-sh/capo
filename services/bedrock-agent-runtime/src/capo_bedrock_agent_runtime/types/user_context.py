@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent_runtime.errors import DeserializationError
-
 
 class UserContext(TypedDict, closed=True):
     user_id: "str"
@@ -22,5 +20,5 @@ def deserialize_json(data: dict) -> UserContext:
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
     else:
-        raise DeserializationError("UserContext.user_id required")
+        out["user_id"] = ""
     return out

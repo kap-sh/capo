@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.amazon_resource_name
     import capo_sesv2.types.tenant_name
@@ -31,13 +29,9 @@ def deserialize_json(data: dict) -> CreateTenantResourceAssociationRequest:
     if data.get("TenantName") is not None:
         out["tenant_name"] = data["TenantName"]
     else:
-        raise DeserializationError(
-            "CreateTenantResourceAssociationRequest.tenant_name required"
-        )
+        out["tenant_name"] = ""
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError(
-            "CreateTenantResourceAssociationRequest.resource_arn required"
-        )
+        out["resource_arn"] = ""
     return out

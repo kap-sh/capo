@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_efs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_efs.types.destinations_to_create
     import capo_efs.types.file_system_id
@@ -38,7 +36,5 @@ def deserialize_json(data: dict) -> CreateReplicationConfigurationRequest:
             data["Destinations"]
         )
     else:
-        raise DeserializationError(
-            "CreateReplicationConfigurationRequest.destinations required"
-        )
+        out["destinations"] = []
     return out

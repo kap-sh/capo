@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_wellarchitected.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wellarchitected.types.agent_recommendation_arn
     import capo_wellarchitected.types.recommendation_status
@@ -49,8 +47,10 @@ def deserialize_json(data: dict) -> UpdateAgentRecommendationStatusRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateAgentRecommendationStatusRequest.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_wellarchitected.types.recommendation_status.RecommendationStatus", ""
         )
     if data.get("updateReason") is not None:
         out["update_reason"] = data["updateReason"]

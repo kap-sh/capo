@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotfleetwise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.interface_id
     import capo_iotfleetwise.types.model_signals_map
@@ -50,7 +48,7 @@ def deserialize_aws_json_1_0(data: dict) -> CanDbcDefinition:
     if data.get("networkInterface") is not None:
         out["network_interface"] = data["networkInterface"]
     else:
-        raise DeserializationError("CanDbcDefinition.network_interface required")
+        out["network_interface"] = ""
     if data.get("canDbcFiles") is not None:
         import capo_iotfleetwise.types.network_files_list
 
@@ -60,7 +58,7 @@ def deserialize_aws_json_1_0(data: dict) -> CanDbcDefinition:
             )
         )
     else:
-        raise DeserializationError("CanDbcDefinition.can_dbc_files required")
+        out["can_dbc_files"] = []
     if data.get("signalsMap") is not None:
         import capo_iotfleetwise.types.model_signals_map
 

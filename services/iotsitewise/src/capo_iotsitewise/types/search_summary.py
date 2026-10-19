@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iotsitewise.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -70,11 +68,11 @@ def deserialize_json(data: dict) -> SearchSummary:
     if data.get("searchId") is not None:
         out["search_id"] = data["searchId"]
     else:
-        raise DeserializationError("SearchSummary.search_id required")
+        out["search_id"] = ""
     if data.get("workspaceName") is not None:
         out["workspace_name"] = data["workspaceName"]
     else:
-        raise DeserializationError("SearchSummary.workspace_name required")
+        out["workspace_name"] = ""
     if data.get("status") is not None:
         import capo_iotsitewise.types.search_status
 
@@ -82,11 +80,15 @@ def deserialize_json(data: dict) -> SearchSummary:
             data["status"]
         )
     else:
-        raise DeserializationError("SearchSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_iotsitewise.types.search_status.SearchStatus", ""
+        )
     if data.get("queryStatement") is not None:
         out["query_statement"] = data["queryStatement"]
     else:
-        raise DeserializationError("SearchSummary.query_statement required")
+        out["query_statement"] = ""
     if data.get("searchType") is not None:
         import capo_iotsitewise.types.search_type
 
@@ -94,7 +96,11 @@ def deserialize_json(data: dict) -> SearchSummary:
             data["searchType"]
         )
     else:
-        raise DeserializationError("SearchSummary.search_type required")
+        import typing
+
+        out["search_type"] = typing.cast(
+            "capo_iotsitewise.types.search_type.SearchType", ""
+        )
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
     if data.get("startedAt") is not None:

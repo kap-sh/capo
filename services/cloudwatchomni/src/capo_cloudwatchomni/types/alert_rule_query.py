@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatchomni.types.query_language
 
@@ -38,9 +36,13 @@ def deserialize_cbor(data: dict) -> AlertRuleQuery:
             data["language"]
         )
     else:
-        raise DeserializationError("AlertRuleQuery.language required")
+        import typing
+
+        out["language"] = typing.cast(
+            "capo_cloudwatchomni.types.query_language.QueryLanguage", ""
+        )
     if data.get("expression") is not None:
         out["expression"] = data["expression"]
     else:
-        raise DeserializationError("AlertRuleQuery.expression required")
+        out["expression"] = ""
     return out

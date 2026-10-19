@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.arn
     import capo_route53resolver.types.resolver_query_log_config_policy
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> PutResolverQueryLogConfigPolicyReque
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError(
-            "PutResolverQueryLogConfigPolicyRequest.arn required"
-        )
+        out["arn"] = ""
     if data.get("ResolverQueryLogConfigPolicy") is not None:
         out["resolver_query_log_config_policy"] = data["ResolverQueryLogConfigPolicy"]
     else:
-        raise DeserializationError(
-            "PutResolverQueryLogConfigPolicyRequest.resolver_query_log_config_policy required"
-        )
+        out["resolver_query_log_config_policy"] = ""
     return out

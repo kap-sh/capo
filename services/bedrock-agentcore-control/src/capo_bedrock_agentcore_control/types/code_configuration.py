@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore_control.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.agent_managed_runtime_type
     import capo_bedrock_agentcore_control.types.code
@@ -55,7 +53,11 @@ def deserialize_json(data: dict) -> CodeConfiguration:
             data["code"]
         )
     else:
-        raise DeserializationError("CodeConfiguration.code required")
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["code"] = capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("runtime") is not None:
         import capo_bedrock_agentcore_control.types.agent_managed_runtime_type
 
@@ -65,7 +67,12 @@ def deserialize_json(data: dict) -> CodeConfiguration:
             )
         )
     else:
-        raise DeserializationError("CodeConfiguration.runtime required")
+        import typing
+
+        out["runtime"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.agent_managed_runtime_type.AgentManagedRuntimeType",
+            "",
+        )
     if data.get("entryPoint") is not None:
         import capo_bedrock_agentcore_control.types.entry_points
 
@@ -75,5 +82,5 @@ def deserialize_json(data: dict) -> CodeConfiguration:
             )
         )
     else:
-        raise DeserializationError("CodeConfiguration.entry_point required")
+        out["entry_point"] = []
     return out

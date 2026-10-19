@@ -59,9 +59,7 @@ def deserialize_json(data: dict) -> AgenticRetrieveActionDetails:
             )
         )
     else:
-        raise DeserializationError(
-            "AgenticRetrieveActionDetails.source_retrievers required"
-        )
+        out["source_retrievers"] = []
     return out
 
 

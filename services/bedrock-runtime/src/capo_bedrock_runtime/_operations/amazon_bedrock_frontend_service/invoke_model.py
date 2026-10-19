@@ -92,7 +92,10 @@ def handle_response(
     out: capo_bedrock_runtime.types.invoke_model_response.InvokeModelResponse = {
         "body": b"".join(response.iter_raw())
     }  # type: ignore[typeddict-item]
-    out["content_type"] = response.headers["Content-Type"]
+    if "Content-Type" in response.headers:
+        out["content_type"] = response.headers["Content-Type"]
+    else:
+        out["content_type"] = ""
     if "X-Amzn-Bedrock-PerformanceConfig-Latency" in response.headers:
         out["performance_config_latency"] = (
             capo_bedrock_runtime.types.performance_config_latency.deserialize_json(
@@ -114,7 +117,10 @@ async def async_handle_response(
     out: capo_bedrock_runtime.types.invoke_model_response.InvokeModelResponse = {
         "body": b"".join([chunk async for chunk in response.async_iter_raw()])
     }  # type: ignore[typeddict-item]
-    out["content_type"] = response.headers["Content-Type"]
+    if "Content-Type" in response.headers:
+        out["content_type"] = response.headers["Content-Type"]
+    else:
+        out["content_type"] = ""
     if "X-Amzn-Bedrock-PerformanceConfig-Latency" in response.headers:
         out["performance_config_latency"] = (
             capo_bedrock_runtime.types.performance_config_latency.deserialize_json(

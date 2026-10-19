@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.null_string
 
@@ -27,7 +25,7 @@ def deserialize_json(data: dict) -> NullValueFormatConfiguration:
     if data.get("NullString") is not None:
         out["null_string"] = data["NullString"]
     else:
-        raise DeserializationError("NullValueFormatConfiguration.null_string required")
+        out["null_string"] = ""
     return out
 
 

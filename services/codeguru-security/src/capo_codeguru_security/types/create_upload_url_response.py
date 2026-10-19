@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_codeguru_security.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeguru_security.types.request_header_map
     import capo_codeguru_security.types.s3_url
@@ -41,7 +39,7 @@ def deserialize_json(data: dict) -> CreateUploadUrlResponse:
     if data.get("s3Url") is not None:
         out["s3_url"] = data["s3Url"]
     else:
-        raise DeserializationError("CreateUploadUrlResponse.s3_url required")
+        out["s3_url"] = ""
     if data.get("requestHeaders") is not None:
         import capo_codeguru_security.types.request_header_map
 
@@ -51,11 +49,11 @@ def deserialize_json(data: dict) -> CreateUploadUrlResponse:
             )
         )
     else:
-        raise DeserializationError("CreateUploadUrlResponse.request_headers required")
+        out["request_headers"] = {}
     if data.get("codeArtifactId") is not None:
         out["code_artifact_id"] = data["codeArtifactId"]
     else:
-        raise DeserializationError("CreateUploadUrlResponse.code_artifact_id required")
+        out["code_artifact_id"] = ""
     return out
 
 

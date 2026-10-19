@@ -40,7 +40,11 @@ def deserialize_xml(el: Element) -> Change:
 
         out["action"] = capo_route_53.types.change_action.deserialize_xml(child_action)
     else:
-        raise DeserializationError("Change.action required")
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_route_53.types.change_action.ChangeAction", ""
+        )
     child_resource_record_set = el.find("ResourceRecordSet")
     if child_resource_record_set is not None:
         import capo_route_53.types.resource_record_set

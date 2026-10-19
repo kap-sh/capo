@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_security_ir.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_security_ir.types.opt_in_feature_name
 
@@ -40,9 +38,13 @@ def deserialize_json(data: dict) -> OptInFeature:
             )
         )
     else:
-        raise DeserializationError("OptInFeature.feature_name required")
+        import typing
+
+        out["feature_name"] = typing.cast(
+            "capo_security_ir.types.opt_in_feature_name.OptInFeatureName", ""
+        )
     if data.get("isEnabled") is not None:
         out["is_enabled"] = data["isEnabled"]
     else:
-        raise DeserializationError("OptInFeature.is_enabled required")
+        out["is_enabled"] = False
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_qconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qconnect.types.guardrail_pii_entity_type
     import capo_qconnect.types.guardrail_sensitive_information_action
@@ -31,11 +29,11 @@ def deserialize_json(data: dict) -> GuardrailPiiEntityConfig:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("GuardrailPiiEntityConfig.type required")
+        out["type"] = ""
     if data.get("action") is not None:
         out["action"] = data["action"]
     else:
-        raise DeserializationError("GuardrailPiiEntityConfig.action required")
+        out["action"] = ""
     return out
 
 

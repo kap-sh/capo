@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_endusermessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_endusermessaging.types.job_results
 
@@ -35,7 +33,5 @@ def deserialize_json(data: dict) -> CreateBrandProfileFromRegistrationOutput:
             data["results"]
         )
     else:
-        raise DeserializationError(
-            "CreateBrandProfileFromRegistrationOutput.results required"
-        )
+        out["results"] = []
     return out

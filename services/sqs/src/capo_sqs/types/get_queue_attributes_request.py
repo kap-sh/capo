@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sqs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sqs.types.attribute_name_list
     import capo_sqs.types.string
@@ -38,7 +36,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetQueueAttributesRequest:
     if data.get("QueueUrl") is not None:
         out["queue_url"] = data["QueueUrl"]
     else:
-        raise DeserializationError("GetQueueAttributesRequest.queue_url required")
+        out["queue_url"] = ""
     if data.get("AttributeNames") is not None:
         import capo_sqs.types.attribute_name_list
 

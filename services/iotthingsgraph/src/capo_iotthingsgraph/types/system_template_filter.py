@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iotthingsgraph.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iotthingsgraph.types.system_template_filter_name
     import capo_iotthingsgraph.types.system_template_filter_values
@@ -51,7 +49,12 @@ def deserialize_aws_json_1_1(data: dict) -> SystemTemplateFilter:
             )
         )
     else:
-        raise DeserializationError("SystemTemplateFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_iotthingsgraph.types.system_template_filter_name.SystemTemplateFilterName",
+            "",
+        )
     if data.get("value") is not None:
         import capo_iotthingsgraph.types.system_template_filter_values
 
@@ -61,5 +64,5 @@ def deserialize_aws_json_1_1(data: dict) -> SystemTemplateFilter:
             )
         )
     else:
-        raise DeserializationError("SystemTemplateFilter.value required")
+        out["value"] = []
     return out

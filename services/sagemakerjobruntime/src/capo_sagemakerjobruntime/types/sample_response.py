@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sagemakerjobruntime.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sagemakerjobruntime.types.inference_response_body
 
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> SampleResponse:
             )
         )
     else:
-        raise DeserializationError("SampleResponse.body required")
+        out["body"] = b""
     return out
 
 

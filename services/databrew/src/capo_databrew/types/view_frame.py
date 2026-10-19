@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_databrew.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_databrew.types.analytics_mode
     import capo_databrew.types.column_range
@@ -62,7 +60,7 @@ def deserialize_json(data: dict) -> ViewFrame:
     if data.get("StartColumnIndex") is not None:
         out["start_column_index"] = data["StartColumnIndex"]
     else:
-        raise DeserializationError("ViewFrame.start_column_index required")
+        out["start_column_index"] = 0
     if data.get("ColumnRange") is not None:
         out["column_range"] = data["ColumnRange"]
     if data.get("HiddenColumns") is not None:

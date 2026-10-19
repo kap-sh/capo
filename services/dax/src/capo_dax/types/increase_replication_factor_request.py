@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dax.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dax.types.availability_zone_list
     import capo_dax.types.integer
@@ -44,15 +42,11 @@ def deserialize_aws_json_1_1(data: dict) -> IncreaseReplicationFactorRequest:
     if data.get("ClusterName") is not None:
         out["cluster_name"] = data["ClusterName"]
     else:
-        raise DeserializationError(
-            "IncreaseReplicationFactorRequest.cluster_name required"
-        )
+        out["cluster_name"] = ""
     if data.get("NewReplicationFactor") is not None:
         out["new_replication_factor"] = data["NewReplicationFactor"]
     else:
-        raise DeserializationError(
-            "IncreaseReplicationFactorRequest.new_replication_factor required"
-        )
+        out["new_replication_factor"] = 0
     if data.get("AvailabilityZones") is not None:
         import capo_dax.types.availability_zone_list
 

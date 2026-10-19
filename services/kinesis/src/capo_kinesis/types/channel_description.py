@@ -125,15 +125,15 @@ def deserialize_aws_json_1_1(data: dict) -> ChannelDescription:
     if data.get("ChannelName") is not None:
         out["channel_name"] = data["ChannelName"]
     else:
-        raise DeserializationError("ChannelDescription.channel_name required")
+        out["channel_name"] = ""
     if data.get("ChannelARN") is not None:
         out["channel_arn"] = data["ChannelARN"]
     else:
-        raise DeserializationError("ChannelDescription.channel_arn required")
+        out["channel_arn"] = ""
     if data.get("ChannelId") is not None:
         out["channel_id"] = data["ChannelId"]
     else:
-        raise DeserializationError("ChannelDescription.channel_id required")
+        out["channel_id"] = ""
     if data.get("ChannelStatus") is not None:
         import capo_kinesis.types.channel_status
 
@@ -143,7 +143,11 @@ def deserialize_aws_json_1_1(data: dict) -> ChannelDescription:
             )
         )
     else:
-        raise DeserializationError("ChannelDescription.channel_status required")
+        import typing
+
+        out["channel_status"] = typing.cast(
+            "capo_kinesis.types.channel_status.ChannelStatus", ""
+        )
     if data.get("ChannelStatusReason") is not None:
         out["channel_status_reason"] = data["ChannelStatusReason"]
     if data.get("ChannelCreationTimestamp") is not None:
@@ -155,15 +159,15 @@ def deserialize_aws_json_1_1(data: dict) -> ChannelDescription:
             )
         )
     else:
-        raise DeserializationError(
-            "ChannelDescription.channel_creation_timestamp required"
+        import datetime
+
+        out["channel_creation_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("ServiceExecutionRoleARN") is not None:
         out["service_execution_role_arn"] = data["ServiceExecutionRoleARN"]
     else:
-        raise DeserializationError(
-            "ChannelDescription.service_execution_role_arn required"
-        )
+        out["service_execution_role_arn"] = ""
     if data.get("StreamConfigurationList") is not None:
         import capo_kinesis.types.channel_stream_description_list
 
@@ -173,9 +177,7 @@ def deserialize_aws_json_1_1(data: dict) -> ChannelDescription:
             )
         )
     else:
-        raise DeserializationError(
-            "ChannelDescription.stream_configuration_list required"
-        )
+        out["stream_configuration_list"] = []
     if data.get("S3DestinationConfiguration") is not None:
         import capo_kinesis.types.s3_destination_description
 

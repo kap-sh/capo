@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
-from capo_s3_control.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3_control.types.account_id
@@ -64,7 +63,7 @@ def deserialize_xml(el: Element) -> S3JobManifestGenerator:
     if child_source_bucket is not None:
         out["source_bucket"] = str(child_source_bucket.text or "")
     else:
-        raise DeserializationError("S3JobManifestGenerator.source_bucket required")
+        out["source_bucket"] = ""
     child_manifest_output_location = el.find("ManifestOutputLocation")
     if child_manifest_output_location is not None:
         import capo_s3_control.types.s3_manifest_output_location

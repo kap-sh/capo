@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.component_type_id
     import capo_iottwinmaker.types.component_type_name
@@ -65,11 +63,11 @@ def deserialize_json(data: dict) -> ComponentTypeSummary:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ComponentTypeSummary.arn required")
+        out["arn"] = ""
     if data.get("componentTypeId") is not None:
         out["component_type_id"] = data["componentTypeId"]
     else:
-        raise DeserializationError("ComponentTypeSummary.component_type_id required")
+        out["component_type_id"] = ""
     if data.get("creationDateTime") is not None:
         import capo_iottwinmaker.types.timestamp
 
@@ -77,7 +75,11 @@ def deserialize_json(data: dict) -> ComponentTypeSummary:
             data["creationDateTime"]
         )
     else:
-        raise DeserializationError("ComponentTypeSummary.creation_date_time required")
+        import datetime
+
+        out["creation_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("updateDateTime") is not None:
         import capo_iottwinmaker.types.timestamp
 
@@ -85,7 +87,11 @@ def deserialize_json(data: dict) -> ComponentTypeSummary:
             data["updateDateTime"]
         )
     else:
-        raise DeserializationError("ComponentTypeSummary.update_date_time required")
+        import datetime
+
+        out["update_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("status") is not None:

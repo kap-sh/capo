@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.relational_filter_configurations
 
@@ -53,9 +51,7 @@ def deserialize_json(data: dict) -> GlueRunConfigurationInput:
             )
         )
     else:
-        raise DeserializationError(
-            "GlueRunConfigurationInput.relational_filter_configurations required"
-        )
+        out["relational_filter_configurations"] = []
     if data.get("autoImportDataQualityResult") is not None:
         out["auto_import_data_quality_result"] = data["autoImportDataQualityResult"]
     if data.get("catalogName") is not None:

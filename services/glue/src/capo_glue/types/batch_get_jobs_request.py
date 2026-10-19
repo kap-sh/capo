@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.job_name_list
 
@@ -35,5 +33,5 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetJobsRequest:
             data["JobNames"]
         )
     else:
-        raise DeserializationError("BatchGetJobsRequest.job_names required")
+        out["job_names"] = []
     return out

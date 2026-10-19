@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ivs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ivs.types.playback_key_pair_name
     import capo_ivs.types.playback_public_key_material
@@ -41,9 +39,7 @@ def deserialize_json(data: dict) -> ImportPlaybackKeyPairRequest:
     if data.get("publicKeyMaterial") is not None:
         out["public_key_material"] = data["publicKeyMaterial"]
     else:
-        raise DeserializationError(
-            "ImportPlaybackKeyPairRequest.public_key_material required"
-        )
+        out["public_key_material"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     if data.get("tags") is not None:

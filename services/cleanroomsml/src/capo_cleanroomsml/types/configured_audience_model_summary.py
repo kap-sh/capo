@@ -82,8 +82,10 @@ def deserialize_json(data: dict) -> ConfiguredAudienceModelSummary:
             data["createTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "ConfiguredAudienceModelSummary.create_time required"
+        import datetime
+
+        out["create_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("updateTime") is not None:
         import datetime
@@ -92,19 +94,19 @@ def deserialize_json(data: dict) -> ConfiguredAudienceModelSummary:
             data["updateTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "ConfiguredAudienceModelSummary.update_time required"
+        import datetime
+
+        out["update_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("ConfiguredAudienceModelSummary.name required")
+        out["name"] = ""
     if data.get("audienceModelArn") is not None:
         out["audience_model_arn"] = data["audienceModelArn"]
     else:
-        raise DeserializationError(
-            "ConfiguredAudienceModelSummary.audience_model_arn required"
-        )
+        out["audience_model_arn"] = ""
     if data.get("outputConfig") is not None:
         import capo_cleanroomsml.types.configured_audience_model_output_config
 
@@ -122,9 +124,7 @@ def deserialize_json(data: dict) -> ConfiguredAudienceModelSummary:
     if data.get("configuredAudienceModelArn") is not None:
         out["configured_audience_model_arn"] = data["configuredAudienceModelArn"]
     else:
-        raise DeserializationError(
-            "ConfiguredAudienceModelSummary.configured_audience_model_arn required"
-        )
+        out["configured_audience_model_arn"] = ""
     if data.get("status") is not None:
         import capo_cleanroomsml.types.configured_audience_model_status
 
@@ -134,5 +134,10 @@ def deserialize_json(data: dict) -> ConfiguredAudienceModelSummary:
             )
         )
     else:
-        raise DeserializationError("ConfiguredAudienceModelSummary.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cleanroomsml.types.configured_audience_model_status.ConfiguredAudienceModelStatus",
+            "",
+        )
     return out

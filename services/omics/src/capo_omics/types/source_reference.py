@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_omics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_omics.types.source_reference_type
     import capo_omics.types.source_reference_value
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> SourceReference:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("SourceReference.type required")
+        out["type"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("SourceReference.value required")
+        out["value"] = ""
     return out

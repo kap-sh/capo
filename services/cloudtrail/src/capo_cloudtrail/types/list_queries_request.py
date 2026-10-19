@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudtrail.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudtrail.types.date
     import capo_cloudtrail.types.event_data_store_arn
@@ -65,7 +63,7 @@ def deserialize_aws_json_1_1(data: dict) -> ListQueriesRequest:
     if data.get("EventDataStore") is not None:
         out["event_data_store"] = data["EventDataStore"]
     else:
-        raise DeserializationError("ListQueriesRequest.event_data_store required")
+        out["event_data_store"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("MaxResults") is not None:

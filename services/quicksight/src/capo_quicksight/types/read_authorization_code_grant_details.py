@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.client_id
     import capo_quicksight.types.endpoint
@@ -34,19 +32,13 @@ def deserialize_json(data: dict) -> ReadAuthorizationCodeGrantDetails:
     if data.get("ClientId") is not None:
         out["client_id"] = data["ClientId"]
     else:
-        raise DeserializationError(
-            "ReadAuthorizationCodeGrantDetails.client_id required"
-        )
+        out["client_id"] = ""
     if data.get("TokenEndpoint") is not None:
         out["token_endpoint"] = data["TokenEndpoint"]
     else:
-        raise DeserializationError(
-            "ReadAuthorizationCodeGrantDetails.token_endpoint required"
-        )
+        out["token_endpoint"] = ""
     if data.get("AuthorizationEndpoint") is not None:
         out["authorization_endpoint"] = data["AuthorizationEndpoint"]
     else:
-        raise DeserializationError(
-            "ReadAuthorizationCodeGrantDetails.authorization_endpoint required"
-        )
+        out["authorization_endpoint"] = ""
     return out

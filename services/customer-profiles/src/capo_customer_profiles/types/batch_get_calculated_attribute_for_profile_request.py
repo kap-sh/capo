@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.batch_get_calculated_attribute_for_profile_id_list
     import capo_customer_profiles.types.condition_overrides
@@ -58,9 +56,7 @@ def deserialize_json(data: dict) -> BatchGetCalculatedAttributeForProfileRequest
             )
         )
     else:
-        raise DeserializationError(
-            "BatchGetCalculatedAttributeForProfileRequest.profile_ids required"
-        )
+        out["profile_ids"] = []
     if data.get("ConditionOverrides") is not None:
         import capo_customer_profiles.types.condition_overrides
 

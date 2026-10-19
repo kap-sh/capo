@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_wickr.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_wickr.types.generic_string
 
@@ -33,13 +31,13 @@ def deserialize_json(data: dict) -> Setting:
     if data.get("optionName") is not None:
         out["option_name"] = data["optionName"]
     else:
-        raise DeserializationError("Setting.option_name required")
+        out["option_name"] = ""
     if data.get("value") is not None:
         out["value"] = data["value"]
     else:
-        raise DeserializationError("Setting.value required")
+        out["value"] = ""
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("Setting.type required")
+        out["type"] = ""
     return out

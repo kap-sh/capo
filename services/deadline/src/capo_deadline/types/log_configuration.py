@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_deadline.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_deadline.types.log_driver
     import capo_deadline.types.log_error
@@ -50,7 +48,7 @@ def deserialize_json(data: dict) -> LogConfiguration:
     if data.get("logDriver") is not None:
         out["log_driver"] = data["logDriver"]
     else:
-        raise DeserializationError("LogConfiguration.log_driver required")
+        out["log_driver"] = ""
     if data.get("options") is not None:
         import capo_deadline.types.log_options
 

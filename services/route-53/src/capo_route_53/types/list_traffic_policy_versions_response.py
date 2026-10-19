@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.page_truncated
@@ -55,9 +54,7 @@ def deserialize_xml(el: Element) -> ListTrafficPolicyVersionsResponse:
             child_traffic_policies
         )
     else:
-        raise DeserializationError(
-            "ListTrafficPolicyVersionsResponse.traffic_policies required"
-        )
+        out["traffic_policies"] = []
     child_is_truncated = el.find("IsTruncated")
     if child_is_truncated is not None:
         out["is_truncated"] = (child_is_truncated.text or "").lower() == "true"
@@ -69,14 +66,10 @@ def deserialize_xml(el: Element) -> ListTrafficPolicyVersionsResponse:
             child_traffic_policy_version_marker.text or ""
         )
     else:
-        raise DeserializationError(
-            "ListTrafficPolicyVersionsResponse.traffic_policy_version_marker required"
-        )
+        out["traffic_policy_version_marker"] = ""
     child_max_items = el.find("MaxItems")
     if child_max_items is not None:
         out["max_items"] = int(child_max_items.text or "")
     else:
-        raise DeserializationError(
-            "ListTrafficPolicyVersionsResponse.max_items required"
-        )
+        out["max_items"] = 0
     return out

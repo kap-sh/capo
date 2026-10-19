@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_application_signals.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_application_signals.types.batch_update_exclusion_windows_errors
     import capo_application_signals.types.service_level_objective_ids
@@ -49,7 +47,7 @@ def deserialize_json(data: dict) -> BatchUpdateExclusionWindowsOutput:
             )
         )
     else:
-        raise DeserializationError("BatchUpdateExclusionWindowsOutput.slo_ids required")
+        out["slo_ids"] = []
     if data.get("Errors") is not None:
         import capo_application_signals.types.batch_update_exclusion_windows_errors
 
@@ -59,5 +57,5 @@ def deserialize_json(data: dict) -> BatchUpdateExclusionWindowsOutput:
             )
         )
     else:
-        raise DeserializationError("BatchUpdateExclusionWindowsOutput.errors required")
+        out["errors"] = []
     return out

@@ -35,7 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeWorkflowExecutionInput:
     if data.get("domain") is not None:
         out["domain"] = data["domain"]
     else:
-        raise DeserializationError("DescribeWorkflowExecutionInput.domain required")
+        out["domain"] = ""
     if data.get("execution") is not None:
         import capo_swf.types.workflow_execution
 

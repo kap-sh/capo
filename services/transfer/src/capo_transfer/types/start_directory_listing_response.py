@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_transfer.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_transfer.types.listing_id
     import capo_transfer.types.output_file_name
@@ -31,11 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> StartDirectoryListingResponse:
     if data.get("ListingId") is not None:
         out["listing_id"] = data["ListingId"]
     else:
-        raise DeserializationError("StartDirectoryListingResponse.listing_id required")
+        out["listing_id"] = ""
     if data.get("OutputFileName") is not None:
         out["output_file_name"] = data["OutputFileName"]
     else:
-        raise DeserializationError(
-            "StartDirectoryListingResponse.output_file_name required"
-        )
+        out["output_file_name"] = ""
     return out

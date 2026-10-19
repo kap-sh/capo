@@ -113,9 +113,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartTopicsDetectionJobRequest:
     if data.get("DataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["DataAccessRoleArn"]
     else:
-        raise DeserializationError(
-            "StartTopicsDetectionJobRequest.data_access_role_arn required"
-        )
+        out["data_access_role_arn"] = ""
     if data.get("JobName") is not None:
         out["job_name"] = data["JobName"]
     if data.get("NumberOfTopics") is not None:

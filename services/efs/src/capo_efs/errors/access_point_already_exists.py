@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import zapros
 from typing_extensions import NotRequired, TypedDict
 
-from capo_efs.errors import DeserializationError, ServiceError
+from capo_efs.errors import ServiceError
 
 if TYPE_CHECKING:
     import capo_efs.types.access_point_id
@@ -34,13 +34,13 @@ def deserialize_json(data: dict) -> AccessPointAlreadyExists_:
     if data.get("ErrorCode") is not None:
         out["error_code"] = data["ErrorCode"]
     else:
-        raise DeserializationError("AccessPointAlreadyExists_.error_code required")
+        out["error_code"] = ""
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     if data.get("AccessPointId") is not None:
         out["access_point_id"] = data["AccessPointId"]
     else:
-        raise DeserializationError("AccessPointAlreadyExists_.access_point_id required")
+        out["access_point_id"] = ""
     return out
 
 

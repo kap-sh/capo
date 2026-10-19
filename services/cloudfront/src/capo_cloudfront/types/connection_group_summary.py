@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.boolean
@@ -72,22 +71,22 @@ def deserialize_xml(el: Element) -> ConnectionGroupSummary:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     else:
-        raise DeserializationError("ConnectionGroupSummary.id required")
+        out["id"] = ""
     child_name = el.find("Name")
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     else:
-        raise DeserializationError("ConnectionGroupSummary.name required")
+        out["name"] = ""
     child_arn = el.find("Arn")
     if child_arn is not None:
         out["arn"] = str(child_arn.text or "")
     else:
-        raise DeserializationError("ConnectionGroupSummary.arn required")
+        out["arn"] = ""
     child_routing_endpoint = el.find("RoutingEndpoint")
     if child_routing_endpoint is not None:
         out["routing_endpoint"] = str(child_routing_endpoint.text or "")
     else:
-        raise DeserializationError("ConnectionGroupSummary.routing_endpoint required")
+        out["routing_endpoint"] = ""
     child_created_time = el.find("CreatedTime")
     if child_created_time is not None:
         import capo_cloudfront.types.timestamp
@@ -96,7 +95,11 @@ def deserialize_xml(el: Element) -> ConnectionGroupSummary:
             child_created_time
         )
     else:
-        raise DeserializationError("ConnectionGroupSummary.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_last_modified_time = el.find("LastModifiedTime")
     if child_last_modified_time is not None:
         import capo_cloudfront.types.timestamp
@@ -105,12 +108,16 @@ def deserialize_xml(el: Element) -> ConnectionGroupSummary:
             child_last_modified_time
         )
     else:
-        raise DeserializationError("ConnectionGroupSummary.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     child_e_tag = el.find("ETag")
     if child_e_tag is not None:
         out["e_tag"] = str(child_e_tag.text or "")
     else:
-        raise DeserializationError("ConnectionGroupSummary.e_tag required")
+        out["e_tag"] = ""
     child_anycast_ip_list_id = el.find("AnycastIpListId")
     if child_anycast_ip_list_id is not None:
         out["anycast_ip_list_id"] = str(child_anycast_ip_list_id.text or "")

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.client_token
     import capo_ssm.types.maintenance_window_description
@@ -67,9 +65,7 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterTargetWithMaintenanceWindowR
     if data.get("WindowId") is not None:
         out["window_id"] = data["WindowId"]
     else:
-        raise DeserializationError(
-            "RegisterTargetWithMaintenanceWindowRequest.window_id required"
-        )
+        out["window_id"] = ""
     if data.get("ResourceType") is not None:
         import capo_ssm.types.maintenance_window_resource_type
 
@@ -79,8 +75,11 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterTargetWithMaintenanceWindowR
             )
         )
     else:
-        raise DeserializationError(
-            "RegisterTargetWithMaintenanceWindowRequest.resource_type required"
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_ssm.types.maintenance_window_resource_type.MaintenanceWindowResourceType",
+            "",
         )
     if data.get("Targets") is not None:
         import capo_ssm.types.targets
@@ -89,9 +88,7 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterTargetWithMaintenanceWindowR
             data["Targets"]
         )
     else:
-        raise DeserializationError(
-            "RegisterTargetWithMaintenanceWindowRequest.targets required"
-        )
+        out["targets"] = []
     if data.get("OwnerInformation") is not None:
         out["owner_information"] = data["OwnerInformation"]
     if data.get("Name") is not None:

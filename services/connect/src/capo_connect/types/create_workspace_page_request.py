@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.input_data
@@ -47,11 +45,11 @@ def deserialize_json(data: dict) -> CreateWorkspacePageRequest:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("CreateWorkspacePageRequest.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("Page") is not None:
         out["page"] = data["Page"]
     else:
-        raise DeserializationError("CreateWorkspacePageRequest.page required")
+        out["page"] = ""
     if data.get("Slug") is not None:
         out["slug"] = data["Slug"]
     if data.get("InputData") is not None:

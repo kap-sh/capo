@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediastore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediastore.types.allowed_headers
     import capo_mediastore.types.allowed_methods
@@ -75,7 +73,7 @@ def deserialize_aws_json_1_1(data: dict) -> CorsRule:
             )
         )
     else:
-        raise DeserializationError("CorsRule.allowed_origins required")
+        out["allowed_origins"] = []
     if data.get("AllowedMethods") is not None:
         import capo_mediastore.types.allowed_methods
 
@@ -93,7 +91,7 @@ def deserialize_aws_json_1_1(data: dict) -> CorsRule:
             )
         )
     else:
-        raise DeserializationError("CorsRule.allowed_headers required")
+        out["allowed_headers"] = []
     if data.get("MaxAgeSeconds") is not None:
         out["max_age_seconds"] = data["MaxAgeSeconds"]
     else:

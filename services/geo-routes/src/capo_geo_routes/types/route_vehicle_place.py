@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.position23
     import capo_geo_routes.types.route_access_point_details
@@ -109,7 +107,7 @@ def deserialize_json(data: dict) -> RouteVehiclePlace:
             data["Position"]
         )
     else:
-        raise DeserializationError("RouteVehiclePlace.position required")
+        out["position"] = []
     if data.get("SideOfStreet") is not None:
         import capo_geo_routes.types.route_side_of_street
 

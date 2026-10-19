@@ -47,9 +47,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDataSourceFromS3Input:
     if data.get("DataSourceId") is not None:
         out["data_source_id"] = data["DataSourceId"]
     else:
-        raise DeserializationError(
-            "CreateDataSourceFromS3Input.data_source_id required"
-        )
+        out["data_source_id"] = ""
     if data.get("DataSourceName") is not None:
         out["data_source_name"] = data["DataSourceName"]
     if data.get("DataSpec") is not None:

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.api_key
     import capo_geo_routes.types.position
@@ -248,7 +246,7 @@ def deserialize_json(data: dict) -> OptimizeWaypointsRequest:
 
         out["origin"] = capo_geo_routes.types.position.deserialize_json(data["Origin"])
     else:
-        raise DeserializationError("OptimizeWaypointsRequest.origin required")
+        out["origin"] = []
     if data.get("OriginOptions") is not None:
         import capo_geo_routes.types.waypoint_optimization_origin_options
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amp.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amp.types.destination
     import capo_amp.types.exporter_list
@@ -88,13 +86,17 @@ def deserialize_json(data: dict) -> CreateScraperRequest:
             )
         )
     else:
-        raise DeserializationError("CreateScraperRequest.scrape_configuration required")
+        import capo_amp.types._unknown
+
+        out["scrape_configuration"] = capo_amp.types._unknown.UnknownUnionMember("")
     if data.get("source") is not None:
         import capo_amp.types.source
 
         out["source"] = capo_amp.types.source.deserialize_json(data["source"])
     else:
-        raise DeserializationError("CreateScraperRequest.source required")
+        import capo_amp.types._unknown
+
+        out["source"] = capo_amp.types._unknown.UnknownUnionMember("")
     if data.get("destination") is not None:
         import capo_amp.types.destination
 
@@ -102,7 +104,9 @@ def deserialize_json(data: dict) -> CreateScraperRequest:
             data["destination"]
         )
     else:
-        raise DeserializationError("CreateScraperRequest.destination required")
+        import capo_amp.types._unknown
+
+        out["destination"] = capo_amp.types._unknown.UnknownUnionMember("")
     if data.get("roleConfiguration") is not None:
         import capo_amp.types.role_configuration
 

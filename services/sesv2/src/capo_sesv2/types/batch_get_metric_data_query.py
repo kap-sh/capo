@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.dimensions
     import capo_sesv2.types.metric
@@ -61,7 +59,7 @@ def deserialize_json(data: dict) -> BatchGetMetricDataQuery:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("BatchGetMetricDataQuery.id required")
+        out["id"] = ""
     if data.get("Namespace") is not None:
         import capo_sesv2.types.metric_namespace
 
@@ -69,13 +67,19 @@ def deserialize_json(data: dict) -> BatchGetMetricDataQuery:
             data["Namespace"]
         )
     else:
-        raise DeserializationError("BatchGetMetricDataQuery.namespace required")
+        import typing
+
+        out["namespace"] = typing.cast(
+            "capo_sesv2.types.metric_namespace.MetricNamespace", ""
+        )
     if data.get("Metric") is not None:
         import capo_sesv2.types.metric
 
         out["metric"] = capo_sesv2.types.metric.deserialize_json(data["Metric"])
     else:
-        raise DeserializationError("BatchGetMetricDataQuery.metric required")
+        import typing
+
+        out["metric"] = typing.cast("capo_sesv2.types.metric.Metric", "")
     if data.get("Dimensions") is not None:
         import capo_sesv2.types.dimensions
 
@@ -89,11 +93,15 @@ def deserialize_json(data: dict) -> BatchGetMetricDataQuery:
             data["StartDate"]
         )
     else:
-        raise DeserializationError("BatchGetMetricDataQuery.start_date required")
+        import datetime
+
+        out["start_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("EndDate") is not None:
         import capo_sesv2.types.timestamp
 
         out["end_date"] = capo_sesv2.types.timestamp.deserialize_json(data["EndDate"])
     else:
-        raise DeserializationError("BatchGetMetricDataQuery.end_date required")
+        import datetime
+
+        out["end_date"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out

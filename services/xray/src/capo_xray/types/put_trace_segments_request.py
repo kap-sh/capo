@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_xray.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_xray.types.trace_segment_document_list
 
@@ -41,7 +39,5 @@ def deserialize_json(data: dict) -> PutTraceSegmentsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "PutTraceSegmentsRequest.trace_segment_documents required"
-        )
+        out["trace_segment_documents"] = []
     return out

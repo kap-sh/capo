@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.auth_material_string
     import capo_iot_managed_integrations.types.auth_material_type
@@ -163,7 +161,9 @@ def deserialize_json(data: dict) -> CreateManagedThingRequest:
             data["Role"]
         )
     else:
-        raise DeserializationError("CreateManagedThingRequest.role required")
+        import typing
+
+        out["role"] = typing.cast("capo_iot_managed_integrations.types.role.Role", "")
     if data.get("Owner") is not None:
         out["owner"] = data["Owner"]
     if data.get("CredentialLockerId") is not None:
@@ -171,9 +171,7 @@ def deserialize_json(data: dict) -> CreateManagedThingRequest:
     if data.get("AuthenticationMaterial") is not None:
         out["authentication_material"] = data["AuthenticationMaterial"]
     else:
-        raise DeserializationError(
-            "CreateManagedThingRequest.authentication_material required"
-        )
+        out["authentication_material"] = ""
     if data.get("AuthenticationMaterialType") is not None:
         import capo_iot_managed_integrations.types.auth_material_type
 
@@ -183,8 +181,11 @@ def deserialize_json(data: dict) -> CreateManagedThingRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateManagedThingRequest.authentication_material_type required"
+        import typing
+
+        out["authentication_material_type"] = typing.cast(
+            "capo_iot_managed_integrations.types.auth_material_type.AuthMaterialType",
+            "",
         )
     if data.get("WiFiSimpleSetupConfiguration") is not None:
         import capo_iot_managed_integrations.types.wi_fi_simple_setup_configuration

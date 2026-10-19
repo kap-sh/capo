@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.retry_criteria_list
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> JobExecutionsRetryConfig:
             data["criteriaList"]
         )
     else:
-        raise DeserializationError("JobExecutionsRetryConfig.criteria_list required")
+        out["criteria_list"] = []
     return out

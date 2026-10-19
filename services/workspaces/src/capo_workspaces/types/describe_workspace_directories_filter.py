@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces.types.describe_workspace_directories_filter_name
     import capo_workspaces.types.describe_workspace_directories_filter_values
@@ -49,7 +47,12 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeWorkspaceDirectoriesFilter:
             )
         )
     else:
-        raise DeserializationError("DescribeWorkspaceDirectoriesFilter.name required")
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_workspaces.types.describe_workspace_directories_filter_name.DescribeWorkspaceDirectoriesFilterName",
+            "",
+        )
     if data.get("Values") is not None:
         import capo_workspaces.types.describe_workspace_directories_filter_values
 
@@ -59,5 +62,5 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeWorkspaceDirectoriesFilter:
             )
         )
     else:
-        raise DeserializationError("DescribeWorkspaceDirectoriesFilter.values required")
+        out["values"] = []
     return out

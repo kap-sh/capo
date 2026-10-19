@@ -46,7 +46,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateParallelDataRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("UpdateParallelDataRequest.name required")
+        out["name"] = ""
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     if data.get("ParallelDataConfig") is not None:
@@ -64,5 +64,5 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateParallelDataRequest:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("UpdateParallelDataRequest.client_token required")
+        out["client_token"] = ""
     return out

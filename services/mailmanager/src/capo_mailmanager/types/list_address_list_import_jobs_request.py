@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.address_list_id
     import capo_mailmanager.types.page_size
@@ -37,9 +35,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListAddressListImportJobsRequest:
     if data.get("AddressListId") is not None:
         out["address_list_id"] = data["AddressListId"]
     else:
-        raise DeserializationError(
-            "ListAddressListImportJobsRequest.address_list_id required"
-        )
+        out["address_list_id"] = ""
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     if data.get("PageSize") is not None:

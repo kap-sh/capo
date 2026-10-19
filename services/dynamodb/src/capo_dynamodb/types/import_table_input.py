@@ -98,7 +98,11 @@ def deserialize_aws_json_1_0(data: dict) -> ImportTableInput:
             data["InputFormat"]
         )
     else:
-        raise DeserializationError("ImportTableInput.input_format required")
+        import typing
+
+        out["input_format"] = typing.cast(
+            "capo_dynamodb.types.input_format.InputFormat", ""
+        )
     if data.get("InputFormatOptions") is not None:
         import capo_dynamodb.types.input_format_options
 

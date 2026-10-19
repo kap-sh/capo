@@ -102,7 +102,11 @@ def deserialize_json(data: dict) -> CreateRuleRequest:
             data["ResourceType"]
         )
     else:
-        raise DeserializationError("CreateRuleRequest.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_rbin.types.resource_type.ResourceType", ""
+        )
     if data.get("ResourceTags") is not None:
         import capo_rbin.types.resource_tags
 

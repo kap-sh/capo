@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.checker_ip_ranges
@@ -38,7 +37,5 @@ def deserialize_xml(el: Element) -> GetCheckerIpRangesResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetCheckerIpRangesResponse.checker_ip_ranges required"
-        )
+        out["checker_ip_ranges"] = []
     return out

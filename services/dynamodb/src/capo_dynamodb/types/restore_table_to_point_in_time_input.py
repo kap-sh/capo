@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.billing_mode
     import capo_dynamodb.types.boolean_object
@@ -144,9 +142,7 @@ def deserialize_aws_json_1_0(data: dict) -> RestoreTableToPointInTimeInput:
     if data.get("TargetTableName") is not None:
         out["target_table_name"] = data["TargetTableName"]
     else:
-        raise DeserializationError(
-            "RestoreTableToPointInTimeInput.target_table_name required"
-        )
+        out["target_table_name"] = ""
     if data.get("UseLatestRestorableTime") is not None:
         out["use_latest_restorable_time"] = data["UseLatestRestorableTime"]
     if data.get("RestoreDateTime") is not None:

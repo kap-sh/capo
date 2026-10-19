@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudhsm_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudhsm_v2.types.backup_arn
     import capo_cloudhsm_v2.types.backup_id
@@ -116,7 +114,7 @@ def deserialize_aws_json_1_1(data: dict) -> Backup:
     if data.get("BackupId") is not None:
         out["backup_id"] = data["BackupId"]
     else:
-        raise DeserializationError("Backup.backup_id required")
+        out["backup_id"] = ""
     if data.get("BackupArn") is not None:
         out["backup_arn"] = data["BackupArn"]
     if data.get("BackupState") is not None:

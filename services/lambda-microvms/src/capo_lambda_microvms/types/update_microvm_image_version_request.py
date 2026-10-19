@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_lambda_microvms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda_microvms.types.microvm_image_identifier
     import capo_lambda_microvms.types.microvm_image_version_status
@@ -47,5 +45,10 @@ def deserialize_json(data: dict) -> UpdateMicrovmImageVersionRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateMicrovmImageVersionRequest.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_lambda_microvms.types.microvm_image_version_status.MicrovmImageVersionStatus",
+            "",
+        )
     return out

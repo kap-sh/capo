@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_socialmessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_socialmessaging.types.whats_app_phone_number_id
 
@@ -31,7 +29,5 @@ def deserialize_json(
     if data.get("phoneNumberId") is not None:
         out["phone_number_id"] = data["phoneNumberId"]
     else:
-        raise DeserializationError(
-            "UpdateLinkedWhatsAppBusinessAccountPhoneNumberOutput.phone_number_id required"
-        )
+        out["phone_number_id"] = ""
     return out

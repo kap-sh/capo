@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.capital_boolean
     import capo_codecommit.types.diff_hunk_list
@@ -51,11 +49,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetBlobDifferencesOutput:
             data["hunks"]
         )
     else:
-        raise DeserializationError("GetBlobDifferencesOutput.hunks required")
+        out["hunks"] = []
     if data.get("isBinary") is not None:
         out["is_binary"] = data["isBinary"]
     else:
-        raise DeserializationError("GetBlobDifferencesOutput.is_binary required")
+        out["is_binary"] = False
     if data.get("beforeBlobSize") is not None:
         out["before_blob_size"] = data["beforeBlobSize"]
     else:

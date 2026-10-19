@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lambda.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lambda.types.layer_name
     import capo_lambda.types.layer_permission_allowed_action
@@ -51,19 +49,15 @@ def deserialize_json(data: dict) -> AddLayerVersionPermissionRequest:
     if data.get("StatementId") is not None:
         out["statement_id"] = data["StatementId"]
     else:
-        raise DeserializationError(
-            "AddLayerVersionPermissionRequest.statement_id required"
-        )
+        out["statement_id"] = ""
     if data.get("Action") is not None:
         out["action"] = data["Action"]
     else:
-        raise DeserializationError("AddLayerVersionPermissionRequest.action required")
+        out["action"] = ""
     if data.get("Principal") is not None:
         out["principal"] = data["Principal"]
     else:
-        raise DeserializationError(
-            "AddLayerVersionPermissionRequest.principal required"
-        )
+        out["principal"] = ""
     if data.get("OrganizationId") is not None:
         out["organization_id"] = data["OrganizationId"]
     return out

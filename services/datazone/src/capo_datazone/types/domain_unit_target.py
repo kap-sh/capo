@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.domain_unit_id
 
@@ -31,7 +29,7 @@ def deserialize_json(data: dict) -> DomainUnitTarget:
     if data.get("domainUnitId") is not None:
         out["domain_unit_id"] = data["domainUnitId"]
     else:
-        raise DeserializationError("DomainUnitTarget.domain_unit_id required")
+        out["domain_unit_id"] = ""
     if data.get("includeChildDomainUnits") is not None:
         out["include_child_domain_units"] = data["includeChildDomainUnits"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_config_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_config_service.types.parameter_name
     import capo_config_service.types.parameter_value
@@ -31,13 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> ConformancePackInputParameter:
     if data.get("ParameterName") is not None:
         out["parameter_name"] = data["ParameterName"]
     else:
-        raise DeserializationError(
-            "ConformancePackInputParameter.parameter_name required"
-        )
+        out["parameter_name"] = ""
     if data.get("ParameterValue") is not None:
         out["parameter_value"] = data["ParameterValue"]
     else:
-        raise DeserializationError(
-            "ConformancePackInputParameter.parameter_value required"
-        )
+        out["parameter_value"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_network_security_manager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_network_security_manager.types.deployment_policy_arn_list
     import capo_network_security_manager.types.deployment_resource_type_list
@@ -61,7 +59,12 @@ def deserialize_json(data: dict) -> DeploymentCoverageEntry:
             )
         )
     else:
-        raise DeserializationError("DeploymentCoverageEntry.firewall_type required")
+        import typing
+
+        out["firewall_type"] = typing.cast(
+            "capo_network_security_manager.types.policy_firewall_type.PolicyFirewallType",
+            "",
+        )
     if data.get("policyArns") is not None:
         import capo_network_security_manager.types.deployment_policy_arn_list
 
@@ -71,7 +74,7 @@ def deserialize_json(data: dict) -> DeploymentCoverageEntry:
             )
         )
     else:
-        raise DeserializationError("DeploymentCoverageEntry.policy_arns required")
+        out["policy_arns"] = []
     if data.get("inScopeResourceTypes") is not None:
         import capo_network_security_manager.types.deployment_resource_type_list
 
@@ -81,7 +84,5 @@ def deserialize_json(data: dict) -> DeploymentCoverageEntry:
             )
         )
     else:
-        raise DeserializationError(
-            "DeploymentCoverageEntry.in_scope_resource_types required"
-        )
+        out["in_scope_resource_types"] = []
     return out

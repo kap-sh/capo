@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.boolean
     import capo_kendra.types.highlight_type
@@ -43,11 +41,11 @@ def deserialize_aws_json_1_1(data: dict) -> Highlight:
     if data.get("BeginOffset") is not None:
         out["begin_offset"] = data["BeginOffset"]
     else:
-        raise DeserializationError("Highlight.begin_offset required")
+        out["begin_offset"] = 0
     if data.get("EndOffset") is not None:
         out["end_offset"] = data["EndOffset"]
     else:
-        raise DeserializationError("Highlight.end_offset required")
+        out["end_offset"] = 0
     if data.get("TopAnswer") is not None:
         out["top_answer"] = data["TopAnswer"]
     else:

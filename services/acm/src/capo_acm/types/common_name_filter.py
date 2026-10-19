@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_acm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_acm.types.comparison_operator
     import capo_acm.types.filter_string
@@ -37,7 +35,7 @@ def deserialize_aws_json_1_1(data: dict) -> CommonNameFilter:
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     else:
-        raise DeserializationError("CommonNameFilter.value required")
+        out["value"] = ""
     if data.get("ComparisonOperator") is not None:
         import capo_acm.types.comparison_operator
 
@@ -47,5 +45,9 @@ def deserialize_aws_json_1_1(data: dict) -> CommonNameFilter:
             )
         )
     else:
-        raise DeserializationError("CommonNameFilter.comparison_operator required")
+        import typing
+
+        out["comparison_operator"] = typing.cast(
+            "capo_acm.types.comparison_operator.ComparisonOperator", ""
+        )
     return out

@@ -66,7 +66,7 @@ def deserialize_json(data: dict) -> StartEarthObservationJobInput:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("StartEarthObservationJobInput.name required")
+        out["name"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("KmsKeyId") is not None:
@@ -92,13 +92,15 @@ def deserialize_json(data: dict) -> StartEarthObservationJobInput:
             )
         )
     else:
-        raise DeserializationError("StartEarthObservationJobInput.job_config required")
+        import capo_sagemaker_geospatial.types._unknown
+
+        out["job_config"] = capo_sagemaker_geospatial.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("ExecutionRoleArn") is not None:
         out["execution_role_arn"] = data["ExecutionRoleArn"]
     else:
-        raise DeserializationError(
-            "StartEarthObservationJobInput.execution_role_arn required"
-        )
+        out["execution_role_arn"] = ""
     if data.get("Tags") is not None:
         import capo_sagemaker_geospatial.types.tags
 

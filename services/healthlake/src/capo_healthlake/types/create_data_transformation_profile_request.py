@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_healthlake.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_healthlake.types.client_token
     import capo_healthlake.types.create_data_transformation_profile_source
@@ -77,8 +75,10 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDataTransformationProfileReque
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDataTransformationProfileRequest.source_format required"
+        import typing
+
+        out["source_format"] = typing.cast(
+            "capo_healthlake.types.source_format.SourceFormat", ""
         )
     if data.get("Source") is not None:
         import capo_healthlake.types.create_data_transformation_profile_source
@@ -89,9 +89,9 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDataTransformationProfileReque
             )
         )
     else:
-        raise DeserializationError(
-            "CreateDataTransformationProfileRequest.source required"
-        )
+        import capo_healthlake.types._unknown
+
+        out["source"] = capo_healthlake.types._unknown.UnknownUnionMember("")
     if data.get("KmsKeyId") is not None:
         out["kms_key_id"] = data["KmsKeyId"]
     if data.get("ProfileDescription") is not None:
@@ -99,9 +99,7 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDataTransformationProfileReque
     if data.get("ProfileName") is not None:
         out["profile_name"] = data["ProfileName"]
     else:
-        raise DeserializationError(
-            "CreateDataTransformationProfileRequest.profile_name required"
-        )
+        out["profile_name"] = ""
     if data.get("Tags") is not None:
         import capo_healthlake.types.tag_map
 

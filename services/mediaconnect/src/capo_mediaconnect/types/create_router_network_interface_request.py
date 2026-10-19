@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.__map_of_string
     import capo_mediaconnect.types.client_token
@@ -54,7 +52,7 @@ def deserialize_json(data: dict) -> CreateRouterNetworkInterfaceRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateRouterNetworkInterfaceRequest.name required")
+        out["name"] = ""
     if data.get("configuration") is not None:
         import capo_mediaconnect.types.router_network_interface_configuration
 
@@ -64,9 +62,9 @@ def deserialize_json(data: dict) -> CreateRouterNetworkInterfaceRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "CreateRouterNetworkInterfaceRequest.configuration required"
-        )
+        import capo_mediaconnect.types._unknown
+
+        out["configuration"] = capo_mediaconnect.types._unknown.UnknownUnionMember("")
     if data.get("regionName") is not None:
         out["region_name"] = data["regionName"]
     if data.get("tags") is not None:

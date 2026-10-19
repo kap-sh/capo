@@ -42,9 +42,7 @@ def deserialize_query(el: Element) -> UpdateApplicationResourceLifecycleMessage:
     if child_application_name is not None:
         out["application_name"] = str(child_application_name.text or "")
     else:
-        raise DeserializationError(
-            "UpdateApplicationResourceLifecycleMessage.application_name required"
-        )
+        out["application_name"] = ""
     child_resource_lifecycle_config = el.find("ResourceLifecycleConfig")
     if child_resource_lifecycle_config is not None:
         import capo_elastic_beanstalk.types.application_resource_lifecycle_config

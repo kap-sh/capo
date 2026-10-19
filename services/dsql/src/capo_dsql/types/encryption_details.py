@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dsql.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dsql.types.encryption_status
     import capo_dsql.types.encryption_type
@@ -48,7 +46,11 @@ def deserialize_json(data: dict) -> EncryptionDetails:
             data["encryptionType"]
         )
     else:
-        raise DeserializationError("EncryptionDetails.encryption_type required")
+        import typing
+
+        out["encryption_type"] = typing.cast(
+            "capo_dsql.types.encryption_type.EncryptionType", ""
+        )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
     if data.get("encryptionStatus") is not None:
@@ -58,5 +60,9 @@ def deserialize_json(data: dict) -> EncryptionDetails:
             data["encryptionStatus"]
         )
     else:
-        raise DeserializationError("EncryptionDetails.encryption_status required")
+        import typing
+
+        out["encryption_status"] = typing.cast(
+            "capo_dsql.types.encryption_status.EncryptionStatus", ""
+        )
     return out

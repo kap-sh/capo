@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.asset_bytes_type
     import capo_cognito_identity_provider.types.asset_category_type
@@ -83,7 +81,12 @@ def deserialize_aws_json_1_1(data: dict) -> AssetType:
             )
         )
     else:
-        raise DeserializationError("AssetType.category required")
+        import typing
+
+        out["category"] = typing.cast(
+            "capo_cognito_identity_provider.types.asset_category_type.AssetCategoryType",
+            "",
+        )
     if data.get("ColorMode") is not None:
         import capo_cognito_identity_provider.types.color_scheme_mode_type
 
@@ -93,7 +96,12 @@ def deserialize_aws_json_1_1(data: dict) -> AssetType:
             )
         )
     else:
-        raise DeserializationError("AssetType.color_mode required")
+        import typing
+
+        out["color_mode"] = typing.cast(
+            "capo_cognito_identity_provider.types.color_scheme_mode_type.ColorSchemeModeType",
+            "",
+        )
     if data.get("Extension") is not None:
         import capo_cognito_identity_provider.types.asset_extension_type
 
@@ -103,7 +111,12 @@ def deserialize_aws_json_1_1(data: dict) -> AssetType:
             )
         )
     else:
-        raise DeserializationError("AssetType.extension required")
+        import typing
+
+        out["extension"] = typing.cast(
+            "capo_cognito_identity_provider.types.asset_extension_type.AssetExtensionType",
+            "",
+        )
     if data.get("Bytes") is not None:
         import capo_cognito_identity_provider.types.asset_bytes_type
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_kinesis_analytics.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis_analytics.types.application_summaries
     import capo_kinesis_analytics.types.boolean_object
@@ -45,13 +43,9 @@ def deserialize_aws_json_1_1(data: dict) -> ListApplicationsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListApplicationsResponse.application_summaries required"
-        )
+        out["application_summaries"] = []
     if data.get("HasMoreApplications") is not None:
         out["has_more_applications"] = data["HasMoreApplications"]
     else:
-        raise DeserializationError(
-            "ListApplicationsResponse.has_more_applications required"
-        )
+        out["has_more_applications"] = False
     return out

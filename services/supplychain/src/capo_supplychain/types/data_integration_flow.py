@@ -77,11 +77,11 @@ def deserialize_json(data: dict) -> DataIntegrationFlow:
     if data.get("instanceId") is not None:
         out["instance_id"] = data["instanceId"]
     else:
-        raise DeserializationError("DataIntegrationFlow.instance_id required")
+        out["instance_id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("DataIntegrationFlow.name required")
+        out["name"] = ""
     if data.get("sources") is not None:
         import capo_supplychain.types.data_integration_flow_source_list
 
@@ -91,7 +91,7 @@ def deserialize_json(data: dict) -> DataIntegrationFlow:
             )
         )
     else:
-        raise DeserializationError("DataIntegrationFlow.sources required")
+        out["sources"] = []
     if data.get("transformation") is not None:
         import capo_supplychain.types.data_integration_flow_transformation
 
@@ -121,7 +121,11 @@ def deserialize_json(data: dict) -> DataIntegrationFlow:
             )
         )
     else:
-        raise DeserializationError("DataIntegrationFlow.created_time required")
+        import datetime
+
+        out["created_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastModifiedTime") is not None:
         import capo_supplychain.types._prelude.timestamp
 
@@ -131,7 +135,11 @@ def deserialize_json(data: dict) -> DataIntegrationFlow:
             )
         )
     else:
-        raise DeserializationError("DataIntegrationFlow.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out
 
 

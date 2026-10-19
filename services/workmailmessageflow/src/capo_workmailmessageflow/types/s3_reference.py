@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workmailmessageflow.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workmailmessageflow.types.s3_bucket_id_type
     import capo_workmailmessageflow.types.s3_key_id_type
@@ -38,11 +36,11 @@ def deserialize_json(data: dict) -> S3Reference:
     if data.get("bucket") is not None:
         out["bucket"] = data["bucket"]
     else:
-        raise DeserializationError("S3Reference.bucket required")
+        out["bucket"] = ""
     if data.get("key") is not None:
         out["key"] = data["key"]
     else:
-        raise DeserializationError("S3Reference.key required")
+        out["key"] = ""
     if data.get("objectVersion") is not None:
         out["object_version"] = data["objectVersion"]
     return out

@@ -51,7 +51,11 @@ def deserialize_aws_json_1_1(data: dict) -> RequestInspection:
             data["PayloadType"]
         )
     else:
-        raise DeserializationError("RequestInspection.payload_type required")
+        import typing
+
+        out["payload_type"] = typing.cast(
+            "capo_wafv2.types.payload_type.PayloadType", ""
+        )
     if data.get("UsernameField") is not None:
         import capo_wafv2.types.username_field
 

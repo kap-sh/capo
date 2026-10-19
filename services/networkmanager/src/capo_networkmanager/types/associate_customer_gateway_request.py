@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkmanager.types.customer_gateway_arn
     import capo_networkmanager.types.device_id
@@ -41,13 +39,11 @@ def deserialize_json(data: dict) -> AssociateCustomerGatewayRequest:
     if data.get("CustomerGatewayArn") is not None:
         out["customer_gateway_arn"] = data["CustomerGatewayArn"]
     else:
-        raise DeserializationError(
-            "AssociateCustomerGatewayRequest.customer_gateway_arn required"
-        )
+        out["customer_gateway_arn"] = ""
     if data.get("DeviceId") is not None:
         out["device_id"] = data["DeviceId"]
     else:
-        raise DeserializationError("AssociateCustomerGatewayRequest.device_id required")
+        out["device_id"] = ""
     if data.get("LinkId") is not None:
         out["link_id"] = data["LinkId"]
     return out

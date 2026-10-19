@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_pcs.errors import DeserializationError
-
 
 class JwtKey(TypedDict, closed=True):
     secret_arn: "str"
@@ -25,9 +23,9 @@ def deserialize_aws_json_1_0(data: dict) -> JwtKey:
     if data.get("secretArn") is not None:
         out["secret_arn"] = data["secretArn"]
     else:
-        raise DeserializationError("JwtKey.secret_arn required")
+        out["secret_arn"] = ""
     if data.get("secretVersion") is not None:
         out["secret_version"] = data["secretVersion"]
     else:
-        raise DeserializationError("JwtKey.secret_version required")
+        out["secret_version"] = ""
     return out

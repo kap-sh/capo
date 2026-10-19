@@ -50,7 +50,7 @@ def deserialize_json(data: dict) -> CreateFindingsReportRequest:
     if data.get("reportFormat") is not None:
         out["report_format"] = data["reportFormat"]
     else:
-        raise DeserializationError("CreateFindingsReportRequest.report_format required")
+        out["report_format"] = ""
     if data.get("s3Destination") is not None:
         import capo_inspector2.types.destination
 

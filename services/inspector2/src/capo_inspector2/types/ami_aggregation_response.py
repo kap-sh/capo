@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.account_id
     import capo_inspector2.types.ami_id
@@ -74,7 +72,7 @@ def deserialize_json(data: dict) -> AmiAggregationResponse:
     if data.get("ami") is not None:
         out["ami"] = data["ami"]
     else:
-        raise DeserializationError("AmiAggregationResponse.ami required")
+        out["ami"] = ""
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     if data.get("cloudProvider") is not None:

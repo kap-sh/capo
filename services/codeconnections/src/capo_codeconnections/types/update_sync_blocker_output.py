@@ -41,7 +41,7 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateSyncBlockerOutput:
     if data.get("ResourceName") is not None:
         out["resource_name"] = data["ResourceName"]
     else:
-        raise DeserializationError("UpdateSyncBlockerOutput.resource_name required")
+        out["resource_name"] = ""
     if data.get("ParentResourceName") is not None:
         out["parent_resource_name"] = data["ParentResourceName"]
     if data.get("SyncBlocker") is not None:

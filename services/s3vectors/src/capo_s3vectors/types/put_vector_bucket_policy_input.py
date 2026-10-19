@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3vectors.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3vectors.types.vector_bucket_arn
     import capo_s3vectors.types.vector_bucket_name
@@ -45,5 +43,5 @@ def deserialize_json(data: dict) -> PutVectorBucketPolicyInput:
     if data.get("policy") is not None:
         out["policy"] = data["policy"]
     else:
-        raise DeserializationError("PutVectorBucketPolicyInput.policy required")
+        out["policy"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_events.types.seconds
     import capo_iot_events.types.timer_name
@@ -39,7 +37,7 @@ def deserialize_json(data: dict) -> SetTimerAction:
     if data.get("timerName") is not None:
         out["timer_name"] = data["timerName"]
     else:
-        raise DeserializationError("SetTimerAction.timer_name required")
+        out["timer_name"] = ""
     if data.get("seconds") is not None:
         out["seconds"] = data["seconds"]
     if data.get("durationExpression") is not None:

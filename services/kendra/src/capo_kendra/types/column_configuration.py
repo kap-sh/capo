@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kendra.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kendra.types.change_detecting_columns
     import capo_kendra.types.column_name
@@ -59,15 +57,11 @@ def deserialize_aws_json_1_1(data: dict) -> ColumnConfiguration:
     if data.get("DocumentIdColumnName") is not None:
         out["document_id_column_name"] = data["DocumentIdColumnName"]
     else:
-        raise DeserializationError(
-            "ColumnConfiguration.document_id_column_name required"
-        )
+        out["document_id_column_name"] = ""
     if data.get("DocumentDataColumnName") is not None:
         out["document_data_column_name"] = data["DocumentDataColumnName"]
     else:
-        raise DeserializationError(
-            "ColumnConfiguration.document_data_column_name required"
-        )
+        out["document_data_column_name"] = ""
     if data.get("DocumentTitleColumnName") is not None:
         out["document_title_column_name"] = data["DocumentTitleColumnName"]
     if data.get("FieldMappings") is not None:
@@ -87,7 +81,5 @@ def deserialize_aws_json_1_1(data: dict) -> ColumnConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "ColumnConfiguration.change_detecting_columns required"
-        )
+        out["change_detecting_columns"] = []
     return out

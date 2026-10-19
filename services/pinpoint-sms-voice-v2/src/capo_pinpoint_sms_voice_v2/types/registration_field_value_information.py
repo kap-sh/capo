@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.field_path
     import capo_pinpoint_sms_voice_v2.types.registration_attachment_id_or_arn
@@ -60,9 +58,7 @@ def deserialize_aws_json_1_0(data: dict) -> RegistrationFieldValueInformation:
     if data.get("FieldPath") is not None:
         out["field_path"] = data["FieldPath"]
     else:
-        raise DeserializationError(
-            "RegistrationFieldValueInformation.field_path required"
-        )
+        out["field_path"] = ""
     if data.get("SelectChoices") is not None:
         import capo_pinpoint_sms_voice_v2.types.select_choice_list
 

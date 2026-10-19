@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.aws_account_id
     import capo_quicksight.types.link_entity_arn_list
@@ -45,5 +43,5 @@ def deserialize_json(data: dict) -> UpdateDashboardLinksRequest:
             )
         )
     else:
-        raise DeserializationError("UpdateDashboardLinksRequest.link_entities required")
+        out["link_entities"] = []
     return out

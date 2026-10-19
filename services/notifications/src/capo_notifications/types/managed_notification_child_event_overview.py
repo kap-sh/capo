@@ -67,21 +67,17 @@ def deserialize_json(data: dict) -> ManagedNotificationChildEventOverview:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("ManagedNotificationChildEventOverview.arn required")
+        out["arn"] = ""
     if data.get("managedNotificationConfigurationArn") is not None:
         out["managed_notification_configuration_arn"] = data[
             "managedNotificationConfigurationArn"
         ]
     else:
-        raise DeserializationError(
-            "ManagedNotificationChildEventOverview.managed_notification_configuration_arn required"
-        )
+        out["managed_notification_configuration_arn"] = ""
     if data.get("relatedAccount") is not None:
         out["related_account"] = data["relatedAccount"]
     else:
-        raise DeserializationError(
-            "ManagedNotificationChildEventOverview.related_account required"
-        )
+        out["related_account"] = ""
     if data.get("creationTime") is not None:
         import capo_notifications.types.creation_time
 
@@ -89,8 +85,10 @@ def deserialize_json(data: dict) -> ManagedNotificationChildEventOverview:
             data["creationTime"]
         )
     else:
-        raise DeserializationError(
-            "ManagedNotificationChildEventOverview.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("childEvent") is not None:
         import capo_notifications.types.managed_notification_child_event_summary
@@ -109,9 +107,7 @@ def deserialize_json(data: dict) -> ManagedNotificationChildEventOverview:
             "aggregateManagedNotificationEventArn"
         ]
     else:
-        raise DeserializationError(
-            "ManagedNotificationChildEventOverview.aggregate_managed_notification_event_arn required"
-        )
+        out["aggregate_managed_notification_event_arn"] = ""
     if data.get("organizationalUnitId") is not None:
         out["organizational_unit_id"] = data["organizationalUnitId"]
     return out

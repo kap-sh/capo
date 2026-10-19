@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.encryption_type
     import capo_kinesis.types.sequence_number
@@ -42,11 +40,11 @@ def deserialize_aws_json_1_1(data: dict) -> PutRecordOutput:
     if data.get("ShardId") is not None:
         out["shard_id"] = data["ShardId"]
     else:
-        raise DeserializationError("PutRecordOutput.shard_id required")
+        out["shard_id"] = ""
     if data.get("SequenceNumber") is not None:
         out["sequence_number"] = data["SequenceNumber"]
     else:
-        raise DeserializationError("PutRecordOutput.sequence_number required")
+        out["sequence_number"] = ""
     if data.get("EncryptionType") is not None:
         import capo_kinesis.types.encryption_type
 

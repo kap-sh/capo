@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.filter_pattern
     import capo_cloudwatch_logs.types.input_log_stream_names
@@ -71,9 +69,7 @@ def deserialize_aws_json_1_1(data: dict) -> StartLiveTailRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "StartLiveTailRequest.log_group_identifiers required"
-        )
+        out["log_group_identifiers"] = []
     if data.get("logStreamNames") is not None:
         import capo_cloudwatch_logs.types.input_log_stream_names
 

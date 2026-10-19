@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.channel_arn
     import capo_kinesis.types.channel_logging_update_input
@@ -66,7 +64,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateChannelInput:
     if data.get("ChannelARN") is not None:
         out["channel_arn"] = data["ChannelARN"]
     else:
-        raise DeserializationError("UpdateChannelInput.channel_arn required")
+        out["channel_arn"] = ""
     if data.get("S3DestinationConfiguration") is not None:
         import capo_kinesis.types.s3_destination_update_input
 

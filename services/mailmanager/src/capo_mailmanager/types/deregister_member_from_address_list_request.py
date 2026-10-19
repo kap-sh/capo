@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.address
     import capo_mailmanager.types.address_list_id
@@ -31,15 +29,11 @@ def deserialize_aws_json_1_0(data: dict) -> DeregisterMemberFromAddressListReque
     if data.get("AddressListId") is not None:
         out["address_list_id"] = data["AddressListId"]
     else:
-        raise DeserializationError(
-            "DeregisterMemberFromAddressListRequest.address_list_id required"
-        )
+        out["address_list_id"] = ""
     if data.get("Address") is not None:
         out["address"] = data["Address"]
     else:
-        raise DeserializationError(
-            "DeregisterMemberFromAddressListRequest.address required"
-        )
+        out["address"] = ""
     return out
 
 

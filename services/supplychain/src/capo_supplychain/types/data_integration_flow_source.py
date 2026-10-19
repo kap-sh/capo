@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_supplychain.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_supplychain.types.data_integration_flow_dataset_source_configuration
     import capo_supplychain.types.data_integration_flow_s3_source_configuration
@@ -69,11 +67,16 @@ def deserialize_json(data: dict) -> DataIntegrationFlowSource:
             )
         )
     else:
-        raise DeserializationError("DataIntegrationFlowSource.source_type required")
+        import typing
+
+        out["source_type"] = typing.cast(
+            "capo_supplychain.types.data_integration_flow_source_type.DataIntegrationFlowSourceType",
+            "",
+        )
     if data.get("sourceName") is not None:
         out["source_name"] = data["sourceName"]
     else:
-        raise DeserializationError("DataIntegrationFlowSource.source_name required")
+        out["source_name"] = ""
     if data.get("s3Source") is not None:
         import capo_supplychain.types.data_integration_flow_s3_source_configuration
 

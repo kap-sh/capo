@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ssm.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm.types.account_id_list
     import capo_ssm.types.document_name
@@ -63,7 +61,7 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyDocumentPermissionRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("ModifyDocumentPermissionRequest.name required")
+        out["name"] = ""
     if data.get("PermissionType") is not None:
         import capo_ssm.types.document_permission_type
 
@@ -73,8 +71,10 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyDocumentPermissionRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ModifyDocumentPermissionRequest.permission_type required"
+        import typing
+
+        out["permission_type"] = typing.cast(
+            "capo_ssm.types.document_permission_type.DocumentPermissionType", ""
         )
     if data.get("AccountIdsToAdd") is not None:
         import capo_ssm.types.account_id_list

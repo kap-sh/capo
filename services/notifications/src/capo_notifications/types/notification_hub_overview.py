@@ -58,9 +58,7 @@ def deserialize_json(data: dict) -> NotificationHubOverview:
     if data.get("notificationHubRegion") is not None:
         out["notification_hub_region"] = data["notificationHubRegion"]
     else:
-        raise DeserializationError(
-            "NotificationHubOverview.notification_hub_region required"
-        )
+        out["notification_hub_region"] = ""
     if data.get("statusSummary") is not None:
         import capo_notifications.types.notification_hub_status_summary
 
@@ -78,7 +76,11 @@ def deserialize_json(data: dict) -> NotificationHubOverview:
             data["creationTime"]
         )
     else:
-        raise DeserializationError("NotificationHubOverview.creation_time required")
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("lastActivationTime") is not None:
         import capo_notifications.types.last_activation_time
 

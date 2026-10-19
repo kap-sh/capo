@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_benefits.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_benefits.types.benefit_application_identifier
     import capo_partnercentral_benefits.types.catalog_name
@@ -38,15 +36,15 @@ def deserialize_aws_json_1_0(data: dict) -> RecallBenefitApplicationInput:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("RecallBenefitApplicationInput.catalog required")
+        out["catalog"] = ""
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     else:
-        raise DeserializationError("RecallBenefitApplicationInput.identifier required")
+        out["identifier"] = ""
     if data.get("Reason") is not None:
         out["reason"] = data["Reason"]
     else:
-        raise DeserializationError("RecallBenefitApplicationInput.reason required")
+        out["reason"] = ""
     return out

@@ -3,7 +3,7 @@
 import zapros
 from typing_extensions import TypedDict
 
-from capo_marketplace_deployment.errors import DeserializationError, ServiceError
+from capo_marketplace_deployment.errors import ServiceError
 
 
 class ValidationException_(TypedDict, closed=True):
@@ -25,11 +25,11 @@ def deserialize_json(data: dict) -> ValidationException_:
     if data.get("message") is not None:
         out["message"] = data["message"]
     else:
-        raise DeserializationError("ValidationException_.message required")
+        out["message"] = ""
     if data.get("fieldName") is not None:
         out["field_name"] = data["fieldName"]
     else:
-        raise DeserializationError("ValidationException_.field_name required")
+        out["field_name"] = ""
     return out
 
 

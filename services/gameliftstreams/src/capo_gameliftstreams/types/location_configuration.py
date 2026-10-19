@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_gameliftstreams.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_gameliftstreams.types.always_on_capacity
     import capo_gameliftstreams.types.location_name
@@ -68,7 +66,7 @@ def deserialize_json(data: dict) -> LocationConfiguration:
     if data.get("LocationName") is not None:
         out["location_name"] = data["LocationName"]
     else:
-        raise DeserializationError("LocationConfiguration.location_name required")
+        out["location_name"] = ""
     if data.get("AlwaysOnCapacity") is not None:
         out["always_on_capacity"] = data["AlwaysOnCapacity"]
     if data.get("OnDemandCapacity") is not None:

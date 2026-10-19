@@ -45,15 +45,15 @@ def deserialize_json(data: dict) -> ConversationLogsDataSource:
     if data.get("botId") is not None:
         out["bot_id"] = data["botId"]
     else:
-        raise DeserializationError("ConversationLogsDataSource.bot_id required")
+        out["bot_id"] = ""
     if data.get("botAliasId") is not None:
         out["bot_alias_id"] = data["botAliasId"]
     else:
-        raise DeserializationError("ConversationLogsDataSource.bot_alias_id required")
+        out["bot_alias_id"] = ""
     if data.get("localeId") is not None:
         out["locale_id"] = data["localeId"]
     else:
-        raise DeserializationError("ConversationLogsDataSource.locale_id required")
+        out["locale_id"] = ""
     if data.get("filter") is not None:
         import capo_lex_models_v2.types.conversation_logs_data_source_filter_by
 

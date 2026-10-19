@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_sms_voice_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_sms_voice_v2.types.next_token
     import capo_pinpoint_sms_voice_v2.types.registration_field_definition_list
@@ -44,9 +42,7 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeRegistrationFieldDefinitions
     if data.get("RegistrationType") is not None:
         out["registration_type"] = data["RegistrationType"]
     else:
-        raise DeserializationError(
-            "DescribeRegistrationFieldDefinitionsResult.registration_type required"
-        )
+        out["registration_type"] = ""
     if data.get("RegistrationFieldDefinitions") is not None:
         import capo_pinpoint_sms_voice_v2.types.registration_field_definition_list
 
@@ -56,9 +52,7 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeRegistrationFieldDefinitions
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeRegistrationFieldDefinitionsResult.registration_field_definitions required"
-        )
+        out["registration_field_definitions"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.arn
     import capo_connect.types.vocabulary_failure_reason
@@ -68,15 +66,15 @@ def deserialize_json(data: dict) -> VocabularySummary:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("VocabularySummary.name required")
+        out["name"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("VocabularySummary.id required")
+        out["id"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("VocabularySummary.arn required")
+        out["arn"] = ""
     if data.get("LanguageCode") is not None:
         import capo_connect.types.vocabulary_language_code
 
@@ -86,7 +84,11 @@ def deserialize_json(data: dict) -> VocabularySummary:
             )
         )
     else:
-        raise DeserializationError("VocabularySummary.language_code required")
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_connect.types.vocabulary_language_code.VocabularyLanguageCode", ""
+        )
     if data.get("State") is not None:
         import capo_connect.types.vocabulary_state
 
@@ -94,7 +96,11 @@ def deserialize_json(data: dict) -> VocabularySummary:
             data["State"]
         )
     else:
-        raise DeserializationError("VocabularySummary.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_connect.types.vocabulary_state.VocabularyState", ""
+        )
     if data.get("LastModifiedTime") is not None:
         import capo_connect.types.vocabulary_last_modified_time
 
@@ -104,7 +110,11 @@ def deserialize_json(data: dict) -> VocabularySummary:
             )
         )
     else:
-        raise DeserializationError("VocabularySummary.last_modified_time required")
+        import datetime
+
+        out["last_modified_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     if data.get("FailureReason") is not None:
         out["failure_reason"] = data["FailureReason"]
     return out

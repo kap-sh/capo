@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediapackagev2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import datetime
 
@@ -156,25 +154,19 @@ def deserialize_json(data: dict) -> OriginEndpointListConfiguration:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("OriginEndpointListConfiguration.arn required")
+        out["arn"] = ""
     if data.get("ChannelGroupName") is not None:
         out["channel_group_name"] = data["ChannelGroupName"]
     else:
-        raise DeserializationError(
-            "OriginEndpointListConfiguration.channel_group_name required"
-        )
+        out["channel_group_name"] = ""
     if data.get("ChannelName") is not None:
         out["channel_name"] = data["ChannelName"]
     else:
-        raise DeserializationError(
-            "OriginEndpointListConfiguration.channel_name required"
-        )
+        out["channel_name"] = ""
     if data.get("OriginEndpointName") is not None:
         out["origin_endpoint_name"] = data["OriginEndpointName"]
     else:
-        raise DeserializationError(
-            "OriginEndpointListConfiguration.origin_endpoint_name required"
-        )
+        out["origin_endpoint_name"] = ""
     if data.get("ContainerType") is not None:
         import capo_mediapackagev2.types.container_type
 
@@ -184,8 +176,10 @@ def deserialize_json(data: dict) -> OriginEndpointListConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "OriginEndpointListConfiguration.container_type required"
+        import typing
+
+        out["container_type"] = typing.cast(
+            "capo_mediapackagev2.types.container_type.ContainerType", ""
         )
     if data.get("Description") is not None:
         out["description"] = data["Description"]

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_workspaces_instances.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_instances.types.billing_mode
 
@@ -39,5 +37,9 @@ def deserialize_aws_json_1_0(data: dict) -> BillingConfiguration:
             )
         )
     else:
-        raise DeserializationError("BillingConfiguration.billing_mode required")
+        import typing
+
+        out["billing_mode"] = typing.cast(
+            "capo_workspaces_instances.types.billing_mode.BillingMode", ""
+        )
     return out

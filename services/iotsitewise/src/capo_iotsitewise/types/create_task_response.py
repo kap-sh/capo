@@ -43,15 +43,15 @@ def deserialize_json(data: dict) -> CreateTaskResponse:
     if data.get("taskName") is not None:
         out["task_name"] = data["taskName"]
     else:
-        raise DeserializationError("CreateTaskResponse.task_name required")
+        out["task_name"] = ""
     if data.get("taskArn") is not None:
         out["task_arn"] = data["taskArn"]
     else:
-        raise DeserializationError("CreateTaskResponse.task_arn required")
+        out["task_arn"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("CreateTaskResponse.version required")
+        out["version"] = ""
     if data.get("status") is not None:
         import capo_iotsitewise.types.resource_status
 

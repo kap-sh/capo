@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_imagebuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_imagebuilder.types.client_token
     import capo_imagebuilder.types.container_recipe_arn
@@ -154,9 +152,7 @@ def deserialize_json(data: dict) -> UpdateImagePipelineRequest:
     if data.get("imagePipelineArn") is not None:
         out["image_pipeline_arn"] = data["imagePipelineArn"]
     else:
-        raise DeserializationError(
-            "UpdateImagePipelineRequest.image_pipeline_arn required"
-        )
+        out["image_pipeline_arn"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("imageRecipeArn") is not None:
@@ -166,9 +162,7 @@ def deserialize_json(data: dict) -> UpdateImagePipelineRequest:
     if data.get("infrastructureConfigurationArn") is not None:
         out["infrastructure_configuration_arn"] = data["infrastructureConfigurationArn"]
     else:
-        raise DeserializationError(
-            "UpdateImagePipelineRequest.infrastructure_configuration_arn required"
-        )
+        out["infrastructure_configuration_arn"] = ""
     if data.get("distributionConfigurationArn") is not None:
         out["distribution_configuration_arn"] = data["distributionConfigurationArn"]
     if data.get("imageTestsConfiguration") is not None:
@@ -196,7 +190,7 @@ def deserialize_json(data: dict) -> UpdateImagePipelineRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     else:
-        raise DeserializationError("UpdateImagePipelineRequest.client_token required")
+        out["client_token"] = ""
     if data.get("imageScanningConfiguration") is not None:
         import capo_imagebuilder.types.image_scanning_configuration
 

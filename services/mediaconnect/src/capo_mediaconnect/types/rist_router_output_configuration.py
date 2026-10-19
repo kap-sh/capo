@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 
 class RistRouterOutputConfiguration(TypedDict, closed=True):
     destination_address: "str"
@@ -25,13 +23,9 @@ def deserialize_json(data: dict) -> RistRouterOutputConfiguration:
     if data.get("destinationAddress") is not None:
         out["destination_address"] = data["destinationAddress"]
     else:
-        raise DeserializationError(
-            "RistRouterOutputConfiguration.destination_address required"
-        )
+        out["destination_address"] = ""
     if data.get("destinationPort") is not None:
         out["destination_port"] = data["destinationPort"]
     else:
-        raise DeserializationError(
-            "RistRouterOutputConfiguration.destination_port required"
-        )
+        out["destination_port"] = 0
     return out

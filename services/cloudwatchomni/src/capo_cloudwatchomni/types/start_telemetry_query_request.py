@@ -2,8 +2,6 @@
 
 from typing_extensions import TypedDict
 
-from capo_cloudwatchomni.errors import DeserializationError
-
 
 class StartTelemetryQueryRequest(TypedDict, closed=True):
     query_string: "str"
@@ -25,9 +23,9 @@ def deserialize_cbor(data: dict) -> StartTelemetryQueryRequest:
     if data.get("queryString") is not None:
         out["query_string"] = data["queryString"]
     else:
-        raise DeserializationError("StartTelemetryQueryRequest.query_string required")
+        out["query_string"] = ""
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("StartTelemetryQueryRequest.session_id required")
+        out["session_id"] = ""
     return out

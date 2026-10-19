@@ -65,7 +65,7 @@ def deserialize_json(data: dict) -> ServiceLevelIndicator:
     if data.get("MetricThreshold") is not None:
         out["metric_threshold"] = float(data["MetricThreshold"])
     else:
-        raise DeserializationError("ServiceLevelIndicator.metric_threshold required")
+        out["metric_threshold"] = 0.0
     if data.get("ComparisonOperator") is not None:
         import capo_application_signals.types.service_level_indicator_comparison_operator
 
@@ -75,5 +75,10 @@ def deserialize_json(data: dict) -> ServiceLevelIndicator:
             )
         )
     else:
-        raise DeserializationError("ServiceLevelIndicator.comparison_operator required")
+        import typing
+
+        out["comparison_operator"] = typing.cast(
+            "capo_application_signals.types.service_level_indicator_comparison_operator.ServiceLevelIndicatorComparisonOperator",
+            "",
+        )
     return out

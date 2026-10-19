@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.field_name
 
@@ -33,19 +31,13 @@ def deserialize_json(data: dict) -> RedisEnterpriseCloudFieldMapping:
     if data.get("vectorField") is not None:
         out["vector_field"] = data["vectorField"]
     else:
-        raise DeserializationError(
-            "RedisEnterpriseCloudFieldMapping.vector_field required"
-        )
+        out["vector_field"] = ""
     if data.get("textField") is not None:
         out["text_field"] = data["textField"]
     else:
-        raise DeserializationError(
-            "RedisEnterpriseCloudFieldMapping.text_field required"
-        )
+        out["text_field"] = ""
     if data.get("metadataField") is not None:
         out["metadata_field"] = data["metadataField"]
     else:
-        raise DeserializationError(
-            "RedisEnterpriseCloudFieldMapping.metadata_field required"
-        )
+        out["metadata_field"] = ""
     return out

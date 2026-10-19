@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_elasticsearch_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_elasticsearch_service.types.vpc_endpoint_id_list
 
@@ -41,7 +39,5 @@ def deserialize_json(data: dict) -> DescribeVpcEndpointsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeVpcEndpointsRequest.vpc_endpoint_ids required"
-        )
+        out["vpc_endpoint_ids"] = []
     return out

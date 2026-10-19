@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dsql.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dsql.types.policy_document
     import capo_dsql.types.policy_version
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> GetClusterPolicyOutput:
     if data.get("policy") is not None:
         out["policy"] = data["policy"]
     else:
-        raise DeserializationError("GetClusterPolicyOutput.policy required")
+        out["policy"] = ""
     if data.get("policyVersion") is not None:
         out["policy_version"] = data["policyVersion"]
     else:
-        raise DeserializationError("GetClusterPolicyOutput.policy_version required")
+        out["policy_version"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_emr_containers.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_emr_containers.types.configuration_list
     import capo_emr_containers.types.sensitive_properties_map
@@ -53,7 +51,7 @@ def deserialize_json(data: dict) -> Configuration:
     if data.get("classification") is not None:
         out["classification"] = data["classification"]
     else:
-        raise DeserializationError("Configuration.classification required")
+        out["classification"] = ""
     if data.get("properties") is not None:
         import capo_emr_containers.types.sensitive_properties_map
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iottwinmaker.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iottwinmaker.types.timestamp
     import capo_iottwinmaker.types.twin_maker_arn
@@ -35,7 +33,7 @@ def deserialize_json(data: dict) -> CreateSceneResponse:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("CreateSceneResponse.arn required")
+        out["arn"] = ""
     if data.get("creationDateTime") is not None:
         import capo_iottwinmaker.types.timestamp
 
@@ -43,5 +41,9 @@ def deserialize_json(data: dict) -> CreateSceneResponse:
             data["creationDateTime"]
         )
     else:
-        raise DeserializationError("CreateSceneResponse.creation_date_time required")
+        import datetime
+
+        out["creation_date_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

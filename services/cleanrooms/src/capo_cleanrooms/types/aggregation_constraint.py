@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanrooms.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanrooms.types.aggregation_type
     import capo_cleanrooms.types.analysis_rule_column_name
@@ -36,13 +34,13 @@ def deserialize_json(data: dict) -> AggregationConstraint:
     if data.get("columnName") is not None:
         out["column_name"] = data["columnName"]
     else:
-        raise DeserializationError("AggregationConstraint.column_name required")
+        out["column_name"] = ""
     if data.get("minimum") is not None:
         out["minimum"] = data["minimum"]
     else:
-        raise DeserializationError("AggregationConstraint.minimum required")
+        out["minimum"] = 0
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("AggregationConstraint.type required")
+        out["type"] = ""
     return out

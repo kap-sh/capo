@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amp.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amp.types.idempotency_token
     import capo_amp.types.workspace_id
@@ -38,7 +36,7 @@ def deserialize_json(data: dict) -> PutResourcePolicyRequest:
     if data.get("policyDocument") is not None:
         out["policy_document"] = data["policyDocument"]
     else:
-        raise DeserializationError("PutResourcePolicyRequest.policy_document required")
+        out["policy_document"] = ""
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     if data.get("revisionId") is not None:

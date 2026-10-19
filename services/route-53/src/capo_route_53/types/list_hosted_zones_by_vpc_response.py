@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
-from capo_route_53.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53.types.hosted_zone_summaries
@@ -50,14 +49,12 @@ def deserialize_xml(el: Element) -> ListHostedZonesByVPCResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "ListHostedZonesByVPCResponse.hosted_zone_summaries required"
-        )
+        out["hosted_zone_summaries"] = []
     child_max_items = el.find("MaxItems")
     if child_max_items is not None:
         out["max_items"] = int(child_max_items.text or "")
     else:
-        raise DeserializationError("ListHostedZonesByVPCResponse.max_items required")
+        out["max_items"] = 0
     child_next_token = el.find("NextToken")
     if child_next_token is not None:
         out["next_token"] = str(child_next_token.text or "")

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_eventbridge.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_eventbridge.types.resource_configuration_arn
 
@@ -29,7 +27,5 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectivityResourceConfigurationArn
     if data.get("ResourceConfigurationArn") is not None:
         out["resource_configuration_arn"] = data["ResourceConfigurationArn"]
     else:
-        raise DeserializationError(
-            "ConnectivityResourceConfigurationArn.resource_configuration_arn required"
-        )
+        out["resource_configuration_arn"] = ""
     return out

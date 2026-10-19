@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_inspector2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector2.types.non_empty_string
     import capo_inspector2.types.provider
@@ -72,11 +70,11 @@ def deserialize_json(data: dict) -> Resource:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("Resource.type required")
+        out["type"] = ""
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("Resource.id required")
+        out["id"] = ""
     if data.get("partition") is not None:
         out["partition"] = data["partition"]
     if data.get("region") is not None:

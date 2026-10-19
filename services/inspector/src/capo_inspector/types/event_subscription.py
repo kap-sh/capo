@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_inspector.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_inspector.types.inspector_event
     import capo_inspector.types.timestamp
@@ -43,7 +41,11 @@ def deserialize_aws_json_1_1(data: dict) -> EventSubscription:
             data["event"]
         )
     else:
-        raise DeserializationError("EventSubscription.event required")
+        import typing
+
+        out["event"] = typing.cast(
+            "capo_inspector.types.inspector_event.InspectorEvent", ""
+        )
     if data.get("subscribedAt") is not None:
         import capo_inspector.types.timestamp
 
@@ -51,5 +53,9 @@ def deserialize_aws_json_1_1(data: dict) -> EventSubscription:
             data["subscribedAt"]
         )
     else:
-        raise DeserializationError("EventSubscription.subscribed_at required")
+        import datetime
+
+        out["subscribed_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out

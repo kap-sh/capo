@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_pinpoint_email.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_pinpoint_email.types.domain_deliverability_tracking_options
     import capo_pinpoint_email.types.enabled
@@ -40,9 +38,7 @@ def deserialize_json(data: dict) -> PutDeliverabilityDashboardOptionRequest:
     if data.get("DashboardEnabled") is not None:
         out["dashboard_enabled"] = data["DashboardEnabled"]
     else:
-        raise DeserializationError(
-            "PutDeliverabilityDashboardOptionRequest.dashboard_enabled required"
-        )
+        out["dashboard_enabled"] = False
     if data.get("SubscribedDomains") is not None:
         import capo_pinpoint_email.types.domain_deliverability_tracking_options
 

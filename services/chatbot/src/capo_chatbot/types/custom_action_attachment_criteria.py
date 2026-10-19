@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_chatbot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_chatbot.types.custom_action_attachment_criteria_operator
 
@@ -46,13 +44,16 @@ def deserialize_json(data: dict) -> CustomActionAttachmentCriteria:
             )
         )
     else:
-        raise DeserializationError("CustomActionAttachmentCriteria.operator required")
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_chatbot.types.custom_action_attachment_criteria_operator.CustomActionAttachmentCriteriaOperator",
+            "",
+        )
     if data.get("VariableName") is not None:
         out["variable_name"] = data["VariableName"]
     else:
-        raise DeserializationError(
-            "CustomActionAttachmentCriteria.variable_name required"
-        )
+        out["variable_name"] = ""
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     return out

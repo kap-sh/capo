@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.scheduler_state
 
@@ -35,5 +33,9 @@ def deserialize_json(data: dict) -> GoalScheduleInput:
             data["state"]
         )
     else:
-        raise DeserializationError("GoalScheduleInput.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_devops_agent.types.scheduler_state.SchedulerState", ""
+        )
     return out

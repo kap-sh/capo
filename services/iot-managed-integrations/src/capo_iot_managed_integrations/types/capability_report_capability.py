@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_iot_managed_integrations.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.capability_name
     import capo_iot_managed_integrations.types.capability_report_actions
@@ -65,15 +63,15 @@ def deserialize_json(data: dict) -> CapabilityReportCapability:
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("CapabilityReportCapability.id required")
+        out["id"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CapabilityReportCapability.name required")
+        out["name"] = ""
     if data.get("version") is not None:
         out["version"] = data["version"]
     else:
-        raise DeserializationError("CapabilityReportCapability.version required")
+        out["version"] = ""
     if data.get("properties") is not None:
         import capo_iot_managed_integrations.types.capability_report_properties
 
@@ -83,7 +81,7 @@ def deserialize_json(data: dict) -> CapabilityReportCapability:
             )
         )
     else:
-        raise DeserializationError("CapabilityReportCapability.properties required")
+        out["properties"] = []
     if data.get("actions") is not None:
         import capo_iot_managed_integrations.types.capability_report_actions
 
@@ -93,7 +91,7 @@ def deserialize_json(data: dict) -> CapabilityReportCapability:
             )
         )
     else:
-        raise DeserializationError("CapabilityReportCapability.actions required")
+        out["actions"] = []
     if data.get("events") is not None:
         import capo_iot_managed_integrations.types.capability_report_events
 
@@ -103,5 +101,5 @@ def deserialize_json(data: dict) -> CapabilityReportCapability:
             )
         )
     else:
-        raise DeserializationError("CapabilityReportCapability.events required")
+        out["events"] = []
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_geo_routes.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_geo_routes.types.duration_seconds
     import capo_geo_routes.types.route_ferry_before_travel_step_type
@@ -54,7 +52,12 @@ def deserialize_json(data: dict) -> RouteFerryBeforeTravelStep:
             )
         )
     else:
-        raise DeserializationError("RouteFerryBeforeTravelStep.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_geo_routes.types.route_ferry_before_travel_step_type.RouteFerryBeforeTravelStepType",
+            "",
+        )
     return out
 
 

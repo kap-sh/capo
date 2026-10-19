@@ -94,21 +94,21 @@ def deserialize_json(data: dict) -> ImportReadSetSourceItem:
     if data.get("sourceFileType") is not None:
         out["source_file_type"] = data["sourceFileType"]
     else:
-        raise DeserializationError("ImportReadSetSourceItem.source_file_type required")
+        out["source_file_type"] = ""
     if data.get("status") is not None:
         out["status"] = data["status"]
     else:
-        raise DeserializationError("ImportReadSetSourceItem.status required")
+        out["status"] = ""
     if data.get("statusMessage") is not None:
         out["status_message"] = data["statusMessage"]
     if data.get("subjectId") is not None:
         out["subject_id"] = data["subjectId"]
     else:
-        raise DeserializationError("ImportReadSetSourceItem.subject_id required")
+        out["subject_id"] = ""
     if data.get("sampleId") is not None:
         out["sample_id"] = data["sampleId"]
     else:
-        raise DeserializationError("ImportReadSetSourceItem.sample_id required")
+        out["sample_id"] = ""
     if data.get("generatedFrom") is not None:
         out["generated_from"] = data["generatedFrom"]
     if data.get("referenceArn") is not None:

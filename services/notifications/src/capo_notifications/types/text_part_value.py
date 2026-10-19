@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notifications.types.text_by_locale
     import capo_notifications.types.text_part_type
@@ -45,7 +43,7 @@ def deserialize_json(data: dict) -> TextPartValue:
     if data.get("type") is not None:
         out["type"] = data["type"]
     else:
-        raise DeserializationError("TextPartValue.type required")
+        out["type"] = ""
     if data.get("displayText") is not None:
         out["display_text"] = data["displayText"]
     if data.get("textByLocale") is not None:

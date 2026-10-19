@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_connectcampaignsv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcampaignsv2.types.arn
 
@@ -26,7 +24,5 @@ def deserialize_json(data: dict) -> QConnectIntegrationIdentifier:
     if data.get("knowledgeBaseArn") is not None:
         out["knowledge_base_arn"] = data["knowledgeBaseArn"]
     else:
-        raise DeserializationError(
-            "QConnectIntegrationIdentifier.knowledge_base_arn required"
-        )
+        out["knowledge_base_arn"] = ""
     return out

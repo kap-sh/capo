@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_events.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_events.types.arn
     import capo_cloudwatch_events.types.boolean
@@ -138,7 +136,7 @@ def deserialize_aws_json_1_1(data: dict) -> EcsParameters:
     if data.get("TaskDefinitionArn") is not None:
         out["task_definition_arn"] = data["TaskDefinitionArn"]
     else:
-        raise DeserializationError("EcsParameters.task_definition_arn required")
+        out["task_definition_arn"] = ""
     if data.get("TaskCount") is not None:
         out["task_count"] = data["TaskCount"]
     if data.get("LaunchType") is not None:

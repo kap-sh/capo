@@ -34,9 +34,7 @@ def deserialize_json(data: dict) -> UpdateOperatorAppIdpConfigOutput:
     if data.get("agentSpaceId") is not None:
         out["agent_space_id"] = data["agentSpaceId"]
     else:
-        raise DeserializationError(
-            "UpdateOperatorAppIdpConfigOutput.agent_space_id required"
-        )
+        out["agent_space_id"] = ""
     if data.get("idp") is not None:
         import capo_devops_agent.types.idp_auth_configuration
 

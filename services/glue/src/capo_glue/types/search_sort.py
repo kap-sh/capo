@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_glue.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_glue.types.search_attribute
     import capo_glue.types.search_sort_order
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> SearchSort:
     if data.get("Attribute") is not None:
         out["attribute"] = data["Attribute"]
     else:
-        raise DeserializationError("SearchSort.attribute required")
+        out["attribute"] = ""
     if data.get("Order") is not None:
         import capo_glue.types.search_sort_order
 

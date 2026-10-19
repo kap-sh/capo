@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.geospatial_data_source_item
     import capo_quicksight.types.geospatial_layer_definition
@@ -109,7 +107,7 @@ def deserialize_json(data: dict) -> GeospatialLayerItem:
     if data.get("LayerId") is not None:
         out["layer_id"] = data["LayerId"]
     else:
-        raise DeserializationError("GeospatialLayerItem.layer_id required")
+        out["layer_id"] = ""
     if data.get("LayerType") is not None:
         import capo_quicksight.types.geospatial_layer_type
 

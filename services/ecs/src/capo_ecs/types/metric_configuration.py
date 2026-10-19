@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ecs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ecs.types.metric_names_list
     import capo_ecs.types.metric_resolution_seconds
@@ -41,9 +39,9 @@ def deserialize_aws_json_1_1(data: dict) -> MetricConfiguration:
             data["metricNames"]
         )
     else:
-        raise DeserializationError("MetricConfiguration.metric_names required")
+        out["metric_names"] = []
     if data.get("resolutionSeconds") is not None:
         out["resolution_seconds"] = data["resolutionSeconds"]
     else:
-        raise DeserializationError("MetricConfiguration.resolution_seconds required")
+        out["resolution_seconds"] = 0
     return out

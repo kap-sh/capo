@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.associated_partner_list
     import capo_partnercentral_account.types.catalog
@@ -82,21 +80,15 @@ def deserialize_aws_json_1_0(data: dict) -> GetQualificationsAssociationDetailsR
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError(
-            "GetQualificationsAssociationDetailsResponse.catalog required"
-        )
+        out["catalog"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError(
-            "GetQualificationsAssociationDetailsResponse.arn required"
-        )
+        out["arn"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError(
-            "GetQualificationsAssociationDetailsResponse.id required"
-        )
+        out["id"] = ""
     if data.get("Status") is not None:
         import capo_partnercentral_account.types.qualifications_association_status
 
@@ -106,8 +98,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetQualificationsAssociationDetailsR
             )
         )
     else:
-        raise DeserializationError(
-            "GetQualificationsAssociationDetailsResponse.status required"
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_partnercentral_account.types.qualifications_association_status.QualificationsAssociationStatus",
+            "",
         )
     if data.get("PrimaryPartner") is not None:
         import capo_partnercentral_account.types.qualifications_association_partner

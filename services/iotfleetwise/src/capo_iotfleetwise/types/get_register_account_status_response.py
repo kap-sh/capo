@@ -79,9 +79,7 @@ def deserialize_aws_json_1_0(data: dict) -> GetRegisterAccountStatusResponse:
     if data.get("customerAccountId") is not None:
         out["customer_account_id"] = data["customerAccountId"]
     else:
-        raise DeserializationError(
-            "GetRegisterAccountStatusResponse.customer_account_id required"
-        )
+        out["customer_account_id"] = ""
     if data.get("accountStatus") is not None:
         import capo_iotfleetwise.types.registration_status
 
@@ -91,8 +89,10 @@ def deserialize_aws_json_1_0(data: dict) -> GetRegisterAccountStatusResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetRegisterAccountStatusResponse.account_status required"
+        import typing
+
+        out["account_status"] = typing.cast(
+            "capo_iotfleetwise.types.registration_status.RegistrationStatus", ""
         )
     if data.get("timestreamRegistrationResponse") is not None:
         import capo_iotfleetwise.types.timestream_registration_response
@@ -123,8 +123,10 @@ def deserialize_aws_json_1_0(data: dict) -> GetRegisterAccountStatusResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetRegisterAccountStatusResponse.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("lastModificationTime") is not None:
         import capo_iotfleetwise.types.timestamp
@@ -135,7 +137,9 @@ def deserialize_aws_json_1_0(data: dict) -> GetRegisterAccountStatusResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "GetRegisterAccountStatusResponse.last_modification_time required"
+        import datetime
+
+        out["last_modification_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

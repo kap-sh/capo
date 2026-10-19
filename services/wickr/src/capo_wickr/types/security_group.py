@@ -58,29 +58,29 @@ def deserialize_json(data: dict) -> SecurityGroup:
     if data.get("activeMembers") is not None:
         out["active_members"] = data["activeMembers"]
     else:
-        raise DeserializationError("SecurityGroup.active_members required")
+        out["active_members"] = 0
     if data.get("botMembers") is not None:
         out["bot_members"] = data["botMembers"]
     else:
-        raise DeserializationError("SecurityGroup.bot_members required")
+        out["bot_members"] = 0
     if data.get("activeDirectoryGuid") is not None:
         out["active_directory_guid"] = data["activeDirectoryGuid"]
     if data.get("id") is not None:
         out["id"] = data["id"]
     else:
-        raise DeserializationError("SecurityGroup.id required")
+        out["id"] = ""
     if data.get("isDefault") is not None:
         out["is_default"] = data["isDefault"]
     else:
-        raise DeserializationError("SecurityGroup.is_default required")
+        out["is_default"] = False
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("SecurityGroup.name required")
+        out["name"] = ""
     if data.get("modified") is not None:
         out["modified"] = data["modified"]
     else:
-        raise DeserializationError("SecurityGroup.modified required")
+        out["modified"] = 0
     if data.get("securityGroupSettings") is not None:
         import capo_wickr.types.security_group_settings
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_storage_gateway.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_storage_gateway.types.boolean2
     import capo_storage_gateway.types.minimum_num_tapes
@@ -45,25 +43,19 @@ def deserialize_aws_json_1_1(data: dict) -> AutomaticTapeCreationRule:
     if data.get("TapeBarcodePrefix") is not None:
         out["tape_barcode_prefix"] = data["TapeBarcodePrefix"]
     else:
-        raise DeserializationError(
-            "AutomaticTapeCreationRule.tape_barcode_prefix required"
-        )
+        out["tape_barcode_prefix"] = ""
     if data.get("PoolId") is not None:
         out["pool_id"] = data["PoolId"]
     else:
-        raise DeserializationError("AutomaticTapeCreationRule.pool_id required")
+        out["pool_id"] = ""
     if data.get("TapeSizeInBytes") is not None:
         out["tape_size_in_bytes"] = data["TapeSizeInBytes"]
     else:
-        raise DeserializationError(
-            "AutomaticTapeCreationRule.tape_size_in_bytes required"
-        )
+        out["tape_size_in_bytes"] = 0
     if data.get("MinimumNumTapes") is not None:
         out["minimum_num_tapes"] = data["MinimumNumTapes"]
     else:
-        raise DeserializationError(
-            "AutomaticTapeCreationRule.minimum_num_tapes required"
-        )
+        out["minimum_num_tapes"] = 0
     if data.get("Worm") is not None:
         out["worm"] = data["Worm"]
     else:

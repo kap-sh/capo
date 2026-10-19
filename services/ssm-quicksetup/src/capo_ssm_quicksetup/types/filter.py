@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_ssm_quicksetup.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ssm_quicksetup.types.filter_values
 
@@ -34,7 +32,7 @@ def deserialize_json(data: dict) -> Filter:
     if data.get("Key") is not None:
         out["key"] = data["Key"]
     else:
-        raise DeserializationError("Filter.key required")
+        out["key"] = ""
     if data.get("Values") is not None:
         import capo_ssm_quicksetup.types.filter_values
 
@@ -42,5 +40,5 @@ def deserialize_json(data: dict) -> Filter:
             data["Values"]
         )
     else:
-        raise DeserializationError("Filter.values required")
+        out["values"] = []
     return out

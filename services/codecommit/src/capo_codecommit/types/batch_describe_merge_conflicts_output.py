@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codecommit.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codecommit.types.batch_describe_merge_conflicts_errors
     import capo_codecommit.types.conflicts
@@ -64,9 +62,7 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDescribeMergeConflictsOutput:
             data["conflicts"]
         )
     else:
-        raise DeserializationError(
-            "BatchDescribeMergeConflictsOutput.conflicts required"
-        )
+        out["conflicts"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     if data.get("errors") is not None:
@@ -80,15 +76,11 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDescribeMergeConflictsOutput:
     if data.get("destinationCommitId") is not None:
         out["destination_commit_id"] = data["destinationCommitId"]
     else:
-        raise DeserializationError(
-            "BatchDescribeMergeConflictsOutput.destination_commit_id required"
-        )
+        out["destination_commit_id"] = ""
     if data.get("sourceCommitId") is not None:
         out["source_commit_id"] = data["sourceCommitId"]
     else:
-        raise DeserializationError(
-            "BatchDescribeMergeConflictsOutput.source_commit_id required"
-        )
+        out["source_commit_id"] = ""
     if data.get("baseCommitId") is not None:
         out["base_commit_id"] = data["baseCommitId"]
     return out

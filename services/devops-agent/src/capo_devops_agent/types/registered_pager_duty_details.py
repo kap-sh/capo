@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_devops_agent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_devops_agent.types.pager_duty_scopes_list
 
@@ -35,5 +33,5 @@ def deserialize_json(data: dict) -> RegisteredPagerDutyDetails:
             data["scopes"]
         )
     else:
-        raise DeserializationError("RegisteredPagerDutyDetails.scopes required")
+        out["scopes"] = []
     return out

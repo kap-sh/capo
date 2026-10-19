@@ -41,7 +41,7 @@ def deserialize_json(data: dict) -> Location:
             data["path"]
         )
     else:
-        raise DeserializationError("Location.path required")
+        out["path"] = []
     if data.get("span") is not None:
         import capo_accessanalyzer.types.span
 

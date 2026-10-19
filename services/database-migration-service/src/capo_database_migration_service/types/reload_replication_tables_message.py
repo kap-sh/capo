@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_database_migration_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_database_migration_service.types.reload_option_value
     import capo_database_migration_service.types.string
@@ -52,9 +50,7 @@ def deserialize_aws_json_1_1(data: dict) -> ReloadReplicationTablesMessage:
     if data.get("ReplicationConfigArn") is not None:
         out["replication_config_arn"] = data["ReplicationConfigArn"]
     else:
-        raise DeserializationError(
-            "ReloadReplicationTablesMessage.replication_config_arn required"
-        )
+        out["replication_config_arn"] = ""
     if data.get("TablesToReload") is not None:
         import capo_database_migration_service.types.table_list_to_reload
 
@@ -64,9 +60,7 @@ def deserialize_aws_json_1_1(data: dict) -> ReloadReplicationTablesMessage:
             )
         )
     else:
-        raise DeserializationError(
-            "ReloadReplicationTablesMessage.tables_to_reload required"
-        )
+        out["tables_to_reload"] = []
     if data.get("ReloadOption") is not None:
         import capo_database_migration_service.types.reload_option_value
 

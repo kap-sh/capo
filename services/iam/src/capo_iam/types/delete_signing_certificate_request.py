@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
-from capo_iam.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_iam.types.certificate_id_type
@@ -40,7 +39,5 @@ def deserialize_query(el: Element) -> DeleteSigningCertificateRequest:
     if child_certificate_id is not None:
         out["certificate_id"] = str(child_certificate_id.text or "")
     else:
-        raise DeserializationError(
-            "DeleteSigningCertificateRequest.certificate_id required"
-        )
+        out["certificate_id"] = ""
     return out

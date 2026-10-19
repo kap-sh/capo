@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mailmanager.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mailmanager.types.pagination_token
     import capo_mailmanager.types.relays
@@ -40,7 +38,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListRelaysResponse:
             data["Relays"]
         )
     else:
-        raise DeserializationError("ListRelaysResponse.relays required")
+        out["relays"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

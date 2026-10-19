@@ -112,19 +112,15 @@ def deserialize_json(data: dict) -> GetCapacityProviderOutput:
     if data.get("capacityProviderId") is not None:
         out["capacity_provider_id"] = data["capacityProviderId"]
     else:
-        raise DeserializationError(
-            "GetCapacityProviderOutput.capacity_provider_id required"
-        )
+        out["capacity_provider_id"] = ""
     if data.get("capacityProviderArn") is not None:
         out["capacity_provider_arn"] = data["capacityProviderArn"]
     else:
-        raise DeserializationError(
-            "GetCapacityProviderOutput.capacity_provider_arn required"
-        )
+        out["capacity_provider_arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("GetCapacityProviderOutput.name required")
+        out["name"] = ""
     if data.get("status") is not None:
         import capo_bedrock_agentcore_control.types.capacity_provider_status
 
@@ -134,7 +130,12 @@ def deserialize_json(data: dict) -> GetCapacityProviderOutput:
             )
         )
     else:
-        raise DeserializationError("GetCapacityProviderOutput.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_bedrock_agentcore_control.types.capacity_provider_status.CapacityProviderStatus",
+            "",
+        )
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("statusCode") is not None:
@@ -168,8 +169,10 @@ def deserialize_json(data: dict) -> GetCapacityProviderOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "GetCapacityProviderOutput.compute_configuration required"
+        import capo_bedrock_agentcore_control.types._unknown
+
+        out["compute_configuration"] = (
+            capo_bedrock_agentcore_control.types._unknown.UnknownUnionMember("")
         )
     if data.get("createdAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
@@ -180,7 +183,9 @@ def deserialize_json(data: dict) -> GetCapacityProviderOutput:
             )
         )
     else:
-        raise DeserializationError("GetCapacityProviderOutput.created_at required")
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     if data.get("lastUpdatedAt") is not None:
         import capo_bedrock_agentcore_control.types.date_timestamp
 
@@ -190,7 +195,11 @@ def deserialize_json(data: dict) -> GetCapacityProviderOutput:
             )
         )
     else:
-        raise DeserializationError("GetCapacityProviderOutput.last_updated_at required")
+        import datetime
+
+        out["last_updated_at"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
     return out
 
 

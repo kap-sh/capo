@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_marketplace_metering.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_marketplace_metering.types.allocated_usage_quantity
     import capo_marketplace_metering.types.tag_list
@@ -36,7 +34,7 @@ def deserialize_aws_json_1_1(data: dict) -> UsageAllocation:
     if data.get("AllocatedUsageQuantity") is not None:
         out["allocated_usage_quantity"] = data["AllocatedUsageQuantity"]
     else:
-        raise DeserializationError("UsageAllocation.allocated_usage_quantity required")
+        out["allocated_usage_quantity"] = 0
     if data.get("Tags") is not None:
         import capo_marketplace_metering.types.tag_list
 

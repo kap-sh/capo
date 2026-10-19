@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.positive_long_object
 
@@ -30,11 +28,9 @@ def deserialize_aws_json_1_0(data: dict) -> ProvisionedThroughput:
     if data.get("ReadCapacityUnits") is not None:
         out["read_capacity_units"] = data["ReadCapacityUnits"]
     else:
-        raise DeserializationError("ProvisionedThroughput.read_capacity_units required")
+        out["read_capacity_units"] = 0
     if data.get("WriteCapacityUnits") is not None:
         out["write_capacity_units"] = data["WriteCapacityUnits"]
     else:
-        raise DeserializationError(
-            "ProvisionedThroughput.write_capacity_units required"
-        )
+        out["write_capacity_units"] = 0
     return out

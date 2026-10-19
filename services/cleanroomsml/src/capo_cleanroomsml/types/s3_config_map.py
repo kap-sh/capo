@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.s3_path
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> S3ConfigMap:
     if data.get("s3Uri") is not None:
         out["s3_uri"] = data["s3Uri"]
     else:
-        raise DeserializationError("S3ConfigMap.s3_uri required")
+        out["s3_uri"] = ""
     return out

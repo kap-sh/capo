@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codestar_connections.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codestar_connections.types.repository_sync_definition_list
     import capo_codestar_connections.types.sharp_next_token
@@ -46,9 +44,7 @@ def deserialize_aws_json_1_0(data: dict) -> ListRepositorySyncDefinitionsOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "ListRepositorySyncDefinitionsOutput.repository_sync_definitions required"
-        )
+        out["repository_sync_definitions"] = []
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out

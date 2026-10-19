@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_qapps.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_qapps.types.presigned_url_fields
     import capo_qapps.types.q_apps_timestamp
@@ -45,11 +43,11 @@ def deserialize_json(data: dict) -> CreatePresignedUrlOutput:
     if data.get("fileId") is not None:
         out["file_id"] = data["fileId"]
     else:
-        raise DeserializationError("CreatePresignedUrlOutput.file_id required")
+        out["file_id"] = ""
     if data.get("presignedUrl") is not None:
         out["presigned_url"] = data["presignedUrl"]
     else:
-        raise DeserializationError("CreatePresignedUrlOutput.presigned_url required")
+        out["presigned_url"] = ""
     if data.get("presignedUrlFields") is not None:
         import capo_qapps.types.presigned_url_fields
 
@@ -59,9 +57,7 @@ def deserialize_json(data: dict) -> CreatePresignedUrlOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreatePresignedUrlOutput.presigned_url_fields required"
-        )
+        out["presigned_url_fields"] = {}
     if data.get("presignedUrlExpiration") is not None:
         import capo_qapps.types.q_apps_timestamp
 
@@ -71,7 +67,9 @@ def deserialize_json(data: dict) -> CreatePresignedUrlOutput:
             )
         )
     else:
-        raise DeserializationError(
-            "CreatePresignedUrlOutput.presigned_url_expiration required"
+        import datetime
+
+        out["presigned_url_expiration"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     return out

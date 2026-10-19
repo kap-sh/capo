@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock.types.model_arn
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> CreateCustomModelResponse:
     if data.get("modelArn") is not None:
         out["model_arn"] = data["modelArn"]
     else:
-        raise DeserializationError("CreateCustomModelResponse.model_arn required")
+        out["model_arn"] = ""
     return out

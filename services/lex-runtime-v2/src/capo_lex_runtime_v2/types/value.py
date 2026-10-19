@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_lex_runtime_v2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_lex_runtime_v2.types.non_empty_string
     import capo_lex_runtime_v2.types.string_list
@@ -44,7 +42,7 @@ def deserialize_json(data: dict) -> Value:
     if data.get("interpretedValue") is not None:
         out["interpreted_value"] = data["interpretedValue"]
     else:
-        raise DeserializationError("Value.interpreted_value required")
+        out["interpreted_value"] = ""
     if data.get("resolvedValues") is not None:
         import capo_lex_runtime_v2.types.string_list
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.inference_instance_type
 
@@ -44,7 +42,11 @@ def deserialize_json(data: dict) -> InferenceResourceConfig:
             )
         )
     else:
-        raise DeserializationError("InferenceResourceConfig.instance_type required")
+        import typing
+
+        out["instance_type"] = typing.cast(
+            "capo_cleanroomsml.types.inference_instance_type.InferenceInstanceType", ""
+        )
     if data.get("instanceCount") is not None:
         out["instance_count"] = data["instanceCount"]
     else:

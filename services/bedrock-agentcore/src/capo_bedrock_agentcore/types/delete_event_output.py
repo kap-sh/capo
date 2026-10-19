@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.event_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DeleteEventOutput:
     if data.get("eventId") is not None:
         out["event_id"] = data["eventId"]
     else:
-        raise DeserializationError("DeleteEventOutput.event_id required")
+        out["event_id"] = ""
     return out

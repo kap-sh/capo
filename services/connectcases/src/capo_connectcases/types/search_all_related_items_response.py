@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connectcases.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connectcases.types.next_token
     import capo_connectcases.types.search_all_related_items_response_item_list
@@ -46,9 +44,7 @@ def deserialize_json(data: dict) -> SearchAllRelatedItemsResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "SearchAllRelatedItemsResponse.related_items required"
-        )
+        out["related_items"] = []
     return out
 
 

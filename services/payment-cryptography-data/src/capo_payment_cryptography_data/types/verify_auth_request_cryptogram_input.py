@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_payment_cryptography_data.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_payment_cryptography_data.types.auth_request_cryptogram_type
     import capo_payment_cryptography_data.types.cryptogram_auth_response
@@ -70,21 +68,15 @@ def deserialize_json(data: dict) -> VerifyAuthRequestCryptogramInput:
     if data.get("KeyIdentifier") is not None:
         out["key_identifier"] = data["KeyIdentifier"]
     else:
-        raise DeserializationError(
-            "VerifyAuthRequestCryptogramInput.key_identifier required"
-        )
+        out["key_identifier"] = ""
     if data.get("TransactionData") is not None:
         out["transaction_data"] = data["TransactionData"]
     else:
-        raise DeserializationError(
-            "VerifyAuthRequestCryptogramInput.transaction_data required"
-        )
+        out["transaction_data"] = ""
     if data.get("AuthRequestCryptogram") is not None:
         out["auth_request_cryptogram"] = data["AuthRequestCryptogram"]
     else:
-        raise DeserializationError(
-            "VerifyAuthRequestCryptogramInput.auth_request_cryptogram required"
-        )
+        out["auth_request_cryptogram"] = ""
     if data.get("MajorKeyDerivationMode") is not None:
         import capo_payment_cryptography_data.types.major_key_derivation_mode
 
@@ -94,8 +86,11 @@ def deserialize_json(data: dict) -> VerifyAuthRequestCryptogramInput:
             )
         )
     else:
-        raise DeserializationError(
-            "VerifyAuthRequestCryptogramInput.major_key_derivation_mode required"
+        import typing
+
+        out["major_key_derivation_mode"] = typing.cast(
+            "capo_payment_cryptography_data.types.major_key_derivation_mode.MajorKeyDerivationMode",
+            "",
         )
     if data.get("SessionKeyDerivationAttributes") is not None:
         import capo_payment_cryptography_data.types.session_key_derivation
@@ -106,8 +101,10 @@ def deserialize_json(data: dict) -> VerifyAuthRequestCryptogramInput:
             )
         )
     else:
-        raise DeserializationError(
-            "VerifyAuthRequestCryptogramInput.session_key_derivation_attributes required"
+        import capo_payment_cryptography_data.types._unknown
+
+        out["session_key_derivation_attributes"] = (
+            capo_payment_cryptography_data.types._unknown.UnknownUnionMember("")
         )
     if data.get("AuthResponseAttributes") is not None:
         import capo_payment_cryptography_data.types.cryptogram_auth_response

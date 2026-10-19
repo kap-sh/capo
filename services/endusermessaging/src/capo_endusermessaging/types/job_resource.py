@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_endusermessaging.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_endusermessaging.types.amazon_resource_name
     import capo_endusermessaging.types.job_resource_id
@@ -45,13 +43,17 @@ def deserialize_json(data: dict) -> JobResource:
             )
         )
     else:
-        raise DeserializationError("JobResource.resource_type required")
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_endusermessaging.types.job_resource_type.JobResourceType", ""
+        )
     if data.get("resourceId") is not None:
         out["resource_id"] = data["resourceId"]
     else:
-        raise DeserializationError("JobResource.resource_id required")
+        out["resource_id"] = ""
     if data.get("resourceArn") is not None:
         out["resource_arn"] = data["resourceArn"]
     else:
-        raise DeserializationError("JobResource.resource_arn required")
+        out["resource_arn"] = ""
     return out

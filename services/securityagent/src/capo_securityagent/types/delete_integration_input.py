@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_securityagent.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_securityagent.types.integration_id
 
@@ -27,5 +25,5 @@ def deserialize_json(data: dict) -> DeleteIntegrationInput:
     if data.get("integrationId") is not None:
         out["integration_id"] = data["integrationId"]
     else:
-        raise DeserializationError("DeleteIntegrationInput.integration_id required")
+        out["integration_id"] = ""
     return out

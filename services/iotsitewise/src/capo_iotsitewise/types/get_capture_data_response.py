@@ -61,7 +61,7 @@ def deserialize_json(data: dict) -> GetCaptureDataResponse:
 
         out["data"] = capo_iotsitewise.types.capture_blob.deserialize_json(data["data"])
     else:
-        raise DeserializationError("GetCaptureDataResponse.data required")
+        out["data"] = b""
     if data.get("startTime") is not None:
         import capo_iotsitewise.types.time_in_nanos
 
@@ -85,7 +85,11 @@ def deserialize_json(data: dict) -> GetCaptureDataResponse:
             data["dataType"]
         )
     else:
-        raise DeserializationError("GetCaptureDataResponse.data_type required")
+        import typing
+
+        out["data_type"] = typing.cast(
+            "capo_iotsitewise.types.video_data_type.VideoDataType", ""
+        )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

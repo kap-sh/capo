@@ -68,17 +68,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateWorkspaceBundleRequest:
     if data.get("BundleName") is not None:
         out["bundle_name"] = data["BundleName"]
     else:
-        raise DeserializationError("CreateWorkspaceBundleRequest.bundle_name required")
+        out["bundle_name"] = ""
     if data.get("BundleDescription") is not None:
         out["bundle_description"] = data["BundleDescription"]
     else:
-        raise DeserializationError(
-            "CreateWorkspaceBundleRequest.bundle_description required"
-        )
+        out["bundle_description"] = ""
     if data.get("ImageId") is not None:
         out["image_id"] = data["ImageId"]
     else:
-        raise DeserializationError("CreateWorkspaceBundleRequest.image_id required")
+        out["image_id"] = ""
     if data.get("ComputeType") is not None:
         import capo_workspaces.types.compute_type
 

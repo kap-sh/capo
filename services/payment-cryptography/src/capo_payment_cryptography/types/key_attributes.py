@@ -45,15 +45,15 @@ def deserialize_aws_json_1_0(data: dict) -> KeyAttributes:
     if data.get("KeyUsage") is not None:
         out["key_usage"] = data["KeyUsage"]
     else:
-        raise DeserializationError("KeyAttributes.key_usage required")
+        out["key_usage"] = ""
     if data.get("KeyClass") is not None:
         out["key_class"] = data["KeyClass"]
     else:
-        raise DeserializationError("KeyAttributes.key_class required")
+        out["key_class"] = ""
     if data.get("KeyAlgorithm") is not None:
         out["key_algorithm"] = data["KeyAlgorithm"]
     else:
-        raise DeserializationError("KeyAttributes.key_algorithm required")
+        out["key_algorithm"] = ""
     if data.get("KeyModesOfUse") is not None:
         import capo_payment_cryptography.types.key_modes_of_use
 

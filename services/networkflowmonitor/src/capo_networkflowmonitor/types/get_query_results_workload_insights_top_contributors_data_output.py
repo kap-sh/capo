@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_networkflowmonitor.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_networkflowmonitor.types.metric_unit
     import capo_networkflowmonitor.types.workload_insights_top_contributors_data_points
@@ -53,8 +51,10 @@ def deserialize_json(
             data["unit"]
         )
     else:
-        raise DeserializationError(
-            "GetQueryResultsWorkloadInsightsTopContributorsDataOutput.unit required"
+        import typing
+
+        out["unit"] = typing.cast(
+            "capo_networkflowmonitor.types.metric_unit.MetricUnit", ""
         )
     if data.get("datapoints") is not None:
         import capo_networkflowmonitor.types.workload_insights_top_contributors_data_points
@@ -65,9 +65,7 @@ def deserialize_json(
             )
         )
     else:
-        raise DeserializationError(
-            "GetQueryResultsWorkloadInsightsTopContributorsDataOutput.datapoints required"
-        )
+        out["datapoints"] = []
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out

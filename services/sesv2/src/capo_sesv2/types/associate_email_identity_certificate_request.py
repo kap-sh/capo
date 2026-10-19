@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sesv2.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sesv2.types.certificate_arn
     import capo_sesv2.types.email_address
@@ -36,15 +34,11 @@ def deserialize_json(data: dict) -> AssociateEmailIdentityCertificateRequest:
     if data.get("EmailIdentity") is not None:
         out["email_identity"] = data["EmailIdentity"]
     else:
-        raise DeserializationError(
-            "AssociateEmailIdentityCertificateRequest.email_identity required"
-        )
+        out["email_identity"] = ""
     if data.get("FromAddress") is not None:
         out["from_address"] = data["FromAddress"]
     if data.get("CertificateArn") is not None:
         out["certificate_arn"] = data["CertificateArn"]
     else:
-        raise DeserializationError(
-            "AssociateEmailIdentityCertificateRequest.certificate_arn required"
-        )
+        out["certificate_arn"] = ""
     return out

@@ -47,7 +47,7 @@ def deserialize_json(data: dict) -> UpdateQAppSessionMetadataInput:
     if data.get("sessionId") is not None:
         out["session_id"] = data["sessionId"]
     else:
-        raise DeserializationError("UpdateQAppSessionMetadataInput.session_id required")
+        out["session_id"] = ""
     if data.get("sessionName") is not None:
         out["session_name"] = data["sessionName"]
     if data.get("sharingConfiguration") is not None:

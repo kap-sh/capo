@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_customer_profiles.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_customer_profiles.types.value_range_end
     import capo_customer_profiles.types.value_range_start
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> ValueRange:
     if data.get("Start") is not None:
         out["start"] = data["Start"]
     else:
-        raise DeserializationError("ValueRange.start required")
+        out["start"] = 0
     if data.get("End") is not None:
         out["end"] = data["End"]
     else:
-        raise DeserializationError("ValueRange.end required")
+        out["end"] = 0
     return out

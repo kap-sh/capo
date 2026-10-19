@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
-from capo_s3.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_s3.types.display_name
@@ -64,5 +63,7 @@ def deserialize_xml(el: Element) -> Grantee:
 
         out["type"] = capo_s3.types.type.from_xml_text(attr_type)
     else:
-        raise DeserializationError("Grantee.type required")
+        import typing
+
+        out["type"] = typing.cast("capo_s3.types.type.Type", "")
     return out

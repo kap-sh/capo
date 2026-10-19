@@ -45,5 +45,7 @@ def deserialize_json(data: dict) -> MonthlySchedule:
 
         out["day"] = capo_inspector2.types.day.deserialize_json(data["day"])
     else:
-        raise DeserializationError("MonthlySchedule.day required")
+        import typing
+
+        out["day"] = typing.cast("capo_inspector2.types.day.Day", "")
     return out

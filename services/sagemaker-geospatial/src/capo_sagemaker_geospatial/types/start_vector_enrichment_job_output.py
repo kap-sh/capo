@@ -88,15 +88,15 @@ def deserialize_json(data: dict) -> StartVectorEnrichmentJobOutput:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     else:
-        raise DeserializationError("StartVectorEnrichmentJobOutput.name required")
+        out["name"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("StartVectorEnrichmentJobOutput.arn required")
+        out["arn"] = ""
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     else:
-        raise DeserializationError("StartVectorEnrichmentJobOutput.type required")
+        out["type"] = ""
     if data.get("CreationTime") is not None:
         import datetime
 
@@ -104,19 +104,19 @@ def deserialize_json(data: dict) -> StartVectorEnrichmentJobOutput:
             data["CreationTime"].replace("Z", "+00:00")
         )
     else:
-        raise DeserializationError(
-            "StartVectorEnrichmentJobOutput.creation_time required"
+        import datetime
+
+        out["creation_time"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
         )
     if data.get("DurationInSeconds") is not None:
         out["duration_in_seconds"] = data["DurationInSeconds"]
     else:
-        raise DeserializationError(
-            "StartVectorEnrichmentJobOutput.duration_in_seconds required"
-        )
+        out["duration_in_seconds"] = 0
     if data.get("Status") is not None:
         out["status"] = data["Status"]
     else:
-        raise DeserializationError("StartVectorEnrichmentJobOutput.status required")
+        out["status"] = ""
     if data.get("KmsKeyId") is not None:
         out["kms_key_id"] = data["KmsKeyId"]
     if data.get("InputConfig") is not None:
@@ -140,13 +140,15 @@ def deserialize_json(data: dict) -> StartVectorEnrichmentJobOutput:
             )
         )
     else:
-        raise DeserializationError("StartVectorEnrichmentJobOutput.job_config required")
+        import capo_sagemaker_geospatial.types._unknown
+
+        out["job_config"] = capo_sagemaker_geospatial.types._unknown.UnknownUnionMember(
+            ""
+        )
     if data.get("ExecutionRoleArn") is not None:
         out["execution_role_arn"] = data["ExecutionRoleArn"]
     else:
-        raise DeserializationError(
-            "StartVectorEnrichmentJobOutput.execution_role_arn required"
-        )
+        out["execution_role_arn"] = ""
     if data.get("Tags") is not None:
         import capo_sagemaker_geospatial.types.tags
 

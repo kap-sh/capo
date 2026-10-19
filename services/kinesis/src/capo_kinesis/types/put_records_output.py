@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_kinesis.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_kinesis.types.encryption_type
     import capo_kinesis.types.positive_integer_object
@@ -61,7 +59,7 @@ def deserialize_aws_json_1_1(data: dict) -> PutRecordsOutput:
             )
         )
     else:
-        raise DeserializationError("PutRecordsOutput.records required")
+        out["records"] = []
     if data.get("EncryptionType") is not None:
         import capo_kinesis.types.encryption_type
 

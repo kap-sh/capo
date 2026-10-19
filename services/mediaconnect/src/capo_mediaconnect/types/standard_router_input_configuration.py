@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.router_input_protocol
     import capo_mediaconnect.types.router_input_protocol_configuration
@@ -50,9 +48,7 @@ def deserialize_json(data: dict) -> StandardRouterInputConfiguration:
     if data.get("networkInterfaceArn") is not None:
         out["network_interface_arn"] = data["networkInterfaceArn"]
     else:
-        raise DeserializationError(
-            "StandardRouterInputConfiguration.network_interface_arn required"
-        )
+        out["network_interface_arn"] = ""
     if data.get("protocolConfiguration") is not None:
         import capo_mediaconnect.types.router_input_protocol_configuration
 
@@ -62,8 +58,10 @@ def deserialize_json(data: dict) -> StandardRouterInputConfiguration:
             )
         )
     else:
-        raise DeserializationError(
-            "StandardRouterInputConfiguration.protocol_configuration required"
+        import capo_mediaconnect.types._unknown
+
+        out["protocol_configuration"] = (
+            capo_mediaconnect.types._unknown.UnknownUnionMember("")
         )
     if data.get("protocol") is not None:
         import capo_mediaconnect.types.router_input_protocol

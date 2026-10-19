@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_ram.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_ram.types.integer
     import capo_ram.types.string
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> GetPermissionRequest:
     if data.get("permissionArn") is not None:
         out["permission_arn"] = data["permissionArn"]
     else:
-        raise DeserializationError("GetPermissionRequest.permission_arn required")
+        out["permission_arn"] = ""
     if data.get("permissionVersion") is not None:
         out["permission_version"] = data["permissionVersion"]
     return out

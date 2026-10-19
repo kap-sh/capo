@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_rolesanywhere.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_rolesanywhere.types.notification_setting_keys
     import capo_rolesanywhere.types.uuid
@@ -39,9 +37,7 @@ def deserialize_json(data: dict) -> ResetNotificationSettingsRequest:
     if data.get("trustAnchorId") is not None:
         out["trust_anchor_id"] = data["trustAnchorId"]
     else:
-        raise DeserializationError(
-            "ResetNotificationSettingsRequest.trust_anchor_id required"
-        )
+        out["trust_anchor_id"] = ""
     if data.get("notificationSettingKeys") is not None:
         import capo_rolesanywhere.types.notification_setting_keys
 
@@ -51,7 +47,5 @@ def deserialize_json(data: dict) -> ResetNotificationSettingsRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "ResetNotificationSettingsRequest.notification_setting_keys required"
-        )
+        out["notification_setting_keys"] = []
     return out

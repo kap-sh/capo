@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_quicksight.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_quicksight.types.long
     import capo_quicksight.types.page_number
@@ -31,9 +29,9 @@ def deserialize_json(data: dict) -> PaginationConfiguration:
     if data.get("PageSize") is not None:
         out["page_size"] = data["PageSize"]
     else:
-        raise DeserializationError("PaginationConfiguration.page_size required")
+        out["page_size"] = 0
     if data.get("PageNumber") is not None:
         out["page_number"] = data["PageNumber"]
     else:
-        raise DeserializationError("PaginationConfiguration.page_number required")
+        out["page_number"] = 0
     return out

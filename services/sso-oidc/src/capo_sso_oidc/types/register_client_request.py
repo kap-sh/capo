@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_sso_oidc.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_sso_oidc.types.arn_type
     import capo_sso_oidc.types.client_name
@@ -66,11 +64,11 @@ def deserialize_json(data: dict) -> RegisterClientRequest:
     if data.get("clientName") is not None:
         out["client_name"] = data["clientName"]
     else:
-        raise DeserializationError("RegisterClientRequest.client_name required")
+        out["client_name"] = ""
     if data.get("clientType") is not None:
         out["client_type"] = data["clientType"]
     else:
-        raise DeserializationError("RegisterClientRequest.client_type required")
+        out["client_type"] = ""
     if data.get("scopes") is not None:
         import capo_sso_oidc.types.scopes
 

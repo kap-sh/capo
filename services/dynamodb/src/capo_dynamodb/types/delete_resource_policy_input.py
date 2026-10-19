@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_dynamodb.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_dynamodb.types.policy_revision_id
     import capo_dynamodb.types.resource_arn_string
@@ -34,7 +32,7 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteResourcePolicyInput:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     else:
-        raise DeserializationError("DeleteResourcePolicyInput.resource_arn required")
+        out["resource_arn"] = ""
     if data.get("ExpectedRevisionId") is not None:
         out["expected_revision_id"] = data["ExpectedRevisionId"]
     return out

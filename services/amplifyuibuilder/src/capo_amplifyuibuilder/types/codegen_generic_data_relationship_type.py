@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_amplifyuibuilder.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_amplifyuibuilder.types.associated_fields_list
     import capo_amplifyuibuilder.types.generic_data_relationship_type
@@ -88,13 +86,16 @@ def deserialize_json(data: dict) -> CodegenGenericDataRelationshipType:
             )
         )
     else:
-        raise DeserializationError("CodegenGenericDataRelationshipType.type required")
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_amplifyuibuilder.types.generic_data_relationship_type.GenericDataRelationshipType",
+            "",
+        )
     if data.get("relatedModelName") is not None:
         out["related_model_name"] = data["relatedModelName"]
     else:
-        raise DeserializationError(
-            "CodegenGenericDataRelationshipType.related_model_name required"
-        )
+        out["related_model_name"] = ""
     if data.get("relatedModelFields") is not None:
         import capo_amplifyuibuilder.types.related_model_fields_list
 

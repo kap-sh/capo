@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_connect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_connect.types.auto_evaluation_configuration
     import capo_connect.types.client_token
@@ -59,13 +57,11 @@ def deserialize_json(data: dict) -> StartContactEvaluationRequest:
     if data.get("ContactId") is not None:
         out["contact_id"] = data["ContactId"]
     else:
-        raise DeserializationError("StartContactEvaluationRequest.contact_id required")
+        out["contact_id"] = ""
     if data.get("EvaluationFormId") is not None:
         out["evaluation_form_id"] = data["EvaluationFormId"]
     else:
-        raise DeserializationError(
-            "StartContactEvaluationRequest.evaluation_form_id required"
-        )
+        out["evaluation_form_id"] = ""
     if data.get("AutoEvaluationConfiguration") is not None:
         import capo_connect.types.auto_evaluation_configuration
 

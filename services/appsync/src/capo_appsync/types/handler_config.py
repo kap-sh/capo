@@ -43,7 +43,11 @@ def deserialize_json(data: dict) -> HandlerConfig:
             data["behavior"]
         )
     else:
-        raise DeserializationError("HandlerConfig.behavior required")
+        import typing
+
+        out["behavior"] = typing.cast(
+            "capo_appsync.types.handler_behavior.HandlerBehavior", ""
+        )
     if data.get("integration") is not None:
         import capo_appsync.types.integration
 

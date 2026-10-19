@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_bedrock_agentcore.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.payment_manager_arn
     import capo_bedrock_agentcore.types.payment_session_id
@@ -38,13 +36,9 @@ def deserialize_json(data: dict) -> DeletePaymentSessionRequest:
     if data.get("paymentManagerArn") is not None:
         out["payment_manager_arn"] = data["paymentManagerArn"]
     else:
-        raise DeserializationError(
-            "DeletePaymentSessionRequest.payment_manager_arn required"
-        )
+        out["payment_manager_arn"] = ""
     if data.get("paymentSessionId") is not None:
         out["payment_session_id"] = data["paymentSessionId"]
     else:
-        raise DeserializationError(
-            "DeletePaymentSessionRequest.payment_session_id required"
-        )
+        out["payment_session_id"] = ""
     return out

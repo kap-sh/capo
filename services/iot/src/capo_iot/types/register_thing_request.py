@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_iot.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_iot.types.parameters
     import capo_iot.types.template_body
@@ -36,7 +34,7 @@ def deserialize_json(data: dict) -> RegisterThingRequest:
     if data.get("templateBody") is not None:
         out["template_body"] = data["templateBody"]
     else:
-        raise DeserializationError("RegisterThingRequest.template_body required")
+        out["template_body"] = ""
     if data.get("parameters") is not None:
         import capo_iot.types.parameters
 

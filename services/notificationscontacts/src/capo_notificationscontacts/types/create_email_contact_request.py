@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_notificationscontacts.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notificationscontacts.types.email_contact_address
     import capo_notificationscontacts.types.email_contact_name
@@ -42,11 +40,11 @@ def deserialize_json(data: dict) -> CreateEmailContactRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateEmailContactRequest.name required")
+        out["name"] = ""
     if data.get("emailAddress") is not None:
         out["email_address"] = data["emailAddress"]
     else:
-        raise DeserializationError("CreateEmailContactRequest.email_address required")
+        out["email_address"] = ""
     if data.get("tags") is not None:
         import capo_notificationscontacts.types.tag_map
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_s3vectors.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_s3vectors.types.index_arn
     import capo_s3vectors.types.index_mode
@@ -86,7 +84,7 @@ def deserialize_json(data: dict) -> QueryVectorsInput:
     if data.get("topK") is not None:
         out["top_k"] = data["topK"]
     else:
-        raise DeserializationError("QueryVectorsInput.top_k required")
+        out["top_k"] = 0
     if data.get("queryVector") is not None:
         import capo_s3vectors.types.vector_data
 
@@ -94,7 +92,9 @@ def deserialize_json(data: dict) -> QueryVectorsInput:
             data["queryVector"]
         )
     else:
-        raise DeserializationError("QueryVectorsInput.query_vector required")
+        import capo_s3vectors.types._unknown
+
+        out["query_vector"] = capo_s3vectors.types._unknown.UnknownUnionMember("")
     if data.get("filter") is not None:
         out["filter"] = data["filter"]
     if data.get("queryMode") is not None:

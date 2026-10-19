@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
-from capo_cloudfront.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_cloudfront.types.dns_configuration_status
@@ -40,7 +39,7 @@ def deserialize_xml(el: Element) -> DnsConfiguration:
     if child_domain is not None:
         out["domain"] = str(child_domain.text or "")
     else:
-        raise DeserializationError("DnsConfiguration.domain required")
+        out["domain"] = ""
     child_status = el.find("Status")
     if child_status is not None:
         import capo_cloudfront.types.dns_configuration_status
@@ -49,7 +48,11 @@ def deserialize_xml(el: Element) -> DnsConfiguration:
             child_status
         )
     else:
-        raise DeserializationError("DnsConfiguration.status required")
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_cloudfront.types.dns_configuration_status.DnsConfigurationStatus", ""
+        )
     child_reason = el.find("Reason")
     if child_reason is not None:
         out["reason"] = str(child_reason.text or "")

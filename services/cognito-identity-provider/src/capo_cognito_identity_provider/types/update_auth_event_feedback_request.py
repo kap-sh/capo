@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
-from capo_cognito_identity_provider.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.event_id_type
     import capo_cognito_identity_provider.types.feedback_value_type
@@ -55,23 +53,19 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateAuthEventFeedbackRequest:
     if data.get("UserPoolId") is not None:
         out["user_pool_id"] = data["UserPoolId"]
     else:
-        raise DeserializationError(
-            "UpdateAuthEventFeedbackRequest.user_pool_id required"
-        )
+        out["user_pool_id"] = ""
     if data.get("Username") is not None:
         out["username"] = data["Username"]
     else:
-        raise DeserializationError("UpdateAuthEventFeedbackRequest.username required")
+        out["username"] = ""
     if data.get("EventId") is not None:
         out["event_id"] = data["EventId"]
     else:
-        raise DeserializationError("UpdateAuthEventFeedbackRequest.event_id required")
+        out["event_id"] = ""
     if data.get("FeedbackToken") is not None:
         out["feedback_token"] = data["FeedbackToken"]
     else:
-        raise DeserializationError(
-            "UpdateAuthEventFeedbackRequest.feedback_token required"
-        )
+        out["feedback_token"] = ""
     if data.get("FeedbackValue") is not None:
         import capo_cognito_identity_provider.types.feedback_value_type
 
@@ -81,8 +75,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateAuthEventFeedbackRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateAuthEventFeedbackRequest.feedback_value required"
+        import typing
+
+        out["feedback_value"] = typing.cast(
+            "capo_cognito_identity_provider.types.feedback_value_type.FeedbackValueType",
+            "",
         )
     return out
 

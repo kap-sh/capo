@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route53resolver.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route53resolver.types.firewall_fail_open_status
     import capo_route53resolver.types.resource_id
@@ -39,7 +37,7 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateFirewallConfigRequest:
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     else:
-        raise DeserializationError("UpdateFirewallConfigRequest.resource_id required")
+        out["resource_id"] = ""
     if data.get("FirewallFailOpen") is not None:
         import capo_route53resolver.types.firewall_fail_open_status
 
@@ -49,7 +47,10 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateFirewallConfigRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "UpdateFirewallConfigRequest.firewall_fail_open required"
+        import typing
+
+        out["firewall_fail_open"] = typing.cast(
+            "capo_route53resolver.types.firewall_fail_open_status.FirewallFailOpenStatus",
+            "",
         )
     return out

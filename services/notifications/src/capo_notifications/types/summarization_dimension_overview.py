@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_notifications.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_notifications.types.sample_aggregation_dimension_values
 
@@ -42,11 +40,11 @@ def deserialize_json(data: dict) -> SummarizationDimensionOverview:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("SummarizationDimensionOverview.name required")
+        out["name"] = ""
     if data.get("count") is not None:
         out["count"] = data["count"]
     else:
-        raise DeserializationError("SummarizationDimensionOverview.count required")
+        out["count"] = 0
     if data.get("sampleValues") is not None:
         import capo_notifications.types.sample_aggregation_dimension_values
 

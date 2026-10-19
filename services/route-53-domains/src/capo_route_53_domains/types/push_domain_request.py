@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_route_53_domains.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_route_53_domains.types.domain_name
     import capo_route_53_domains.types.label
@@ -31,9 +29,9 @@ def deserialize_aws_json_1_1(data: dict) -> PushDomainRequest:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     else:
-        raise DeserializationError("PushDomainRequest.domain_name required")
+        out["domain_name"] = ""
     if data.get("Target") is not None:
         out["target"] = data["Target"]
     else:
-        raise DeserializationError("PushDomainRequest.target required")
+        out["target"] = ""
     return out

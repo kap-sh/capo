@@ -103,15 +103,15 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLicenseRequest:
     if data.get("LicenseName") is not None:
         out["license_name"] = data["LicenseName"]
     else:
-        raise DeserializationError("CreateLicenseRequest.license_name required")
+        out["license_name"] = ""
     if data.get("ProductName") is not None:
         out["product_name"] = data["ProductName"]
     else:
-        raise DeserializationError("CreateLicenseRequest.product_name required")
+        out["product_name"] = ""
     if data.get("ProductSKU") is not None:
         out["product_sku"] = data["ProductSKU"]
     else:
-        raise DeserializationError("CreateLicenseRequest.product_sku required")
+        out["product_sku"] = ""
     if data.get("Issuer") is not None:
         import capo_license_manager.types.issuer
 
@@ -123,7 +123,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLicenseRequest:
     if data.get("HomeRegion") is not None:
         out["home_region"] = data["HomeRegion"]
     else:
-        raise DeserializationError("CreateLicenseRequest.home_region required")
+        out["home_region"] = ""
     if data.get("Validity") is not None:
         import capo_license_manager.types.datetime_range
 
@@ -143,11 +143,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLicenseRequest:
             )
         )
     else:
-        raise DeserializationError("CreateLicenseRequest.entitlements required")
+        out["entitlements"] = []
     if data.get("Beneficiary") is not None:
         out["beneficiary"] = data["Beneficiary"]
     else:
-        raise DeserializationError("CreateLicenseRequest.beneficiary required")
+        out["beneficiary"] = ""
     if data.get("ConsumptionConfiguration") is not None:
         import capo_license_manager.types.consumption_configuration
 
@@ -171,7 +171,7 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLicenseRequest:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     else:
-        raise DeserializationError("CreateLicenseRequest.client_token required")
+        out["client_token"] = ""
     if data.get("Tags") is not None:
         import capo_license_manager.types.tag_list
 

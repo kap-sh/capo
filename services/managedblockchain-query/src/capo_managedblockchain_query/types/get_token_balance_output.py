@@ -88,7 +88,7 @@ def deserialize_json(data: dict) -> GetTokenBalanceOutput:
     if data.get("balance") is not None:
         out["balance"] = data["balance"]
     else:
-        raise DeserializationError("GetTokenBalanceOutput.balance required")
+        out["balance"] = ""
     if data.get("atBlockchainInstant") is not None:
         import capo_managedblockchain_query.types.blockchain_instant
 

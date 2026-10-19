@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_partnercentral_account.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_partnercentral_account.types.catalog
     import capo_partnercentral_account.types.partner_arn
@@ -49,15 +47,15 @@ def deserialize_aws_json_1_0(data: dict) -> PutProfileVisibilityResponse:
     if data.get("Catalog") is not None:
         out["catalog"] = data["Catalog"]
     else:
-        raise DeserializationError("PutProfileVisibilityResponse.catalog required")
+        out["catalog"] = ""
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     else:
-        raise DeserializationError("PutProfileVisibilityResponse.arn required")
+        out["arn"] = ""
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     else:
-        raise DeserializationError("PutProfileVisibilityResponse.id required")
+        out["id"] = ""
     if data.get("Visibility") is not None:
         import capo_partnercentral_account.types.profile_visibility
 
@@ -67,9 +65,13 @@ def deserialize_aws_json_1_0(data: dict) -> PutProfileVisibilityResponse:
             )
         )
     else:
-        raise DeserializationError("PutProfileVisibilityResponse.visibility required")
+        import typing
+
+        out["visibility"] = typing.cast(
+            "capo_partnercentral_account.types.profile_visibility.ProfileVisibility", ""
+        )
     if data.get("ProfileId") is not None:
         out["profile_id"] = data["ProfileId"]
     else:
-        raise DeserializationError("PutProfileVisibilityResponse.profile_id required")
+        out["profile_id"] = ""
     return out

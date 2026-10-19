@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_datazone.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_datazone.types.client_token
     import capo_datazone.types.description
@@ -67,9 +65,7 @@ def deserialize_json(data: dict) -> StartNotebookSyncInput:
     if data.get("owningProjectIdentifier") is not None:
         out["owning_project_identifier"] = data["owningProjectIdentifier"]
     else:
-        raise DeserializationError(
-            "StartNotebookSyncInput.owning_project_identifier required"
-        )
+        out["owning_project_identifier"] = ""
     if data.get("sourceLocation") is not None:
         import capo_datazone.types.source_location
 
@@ -77,7 +73,9 @@ def deserialize_json(data: dict) -> StartNotebookSyncInput:
             data["sourceLocation"]
         )
     else:
-        raise DeserializationError("StartNotebookSyncInput.source_location required")
+        import capo_datazone.types._unknown
+
+        out["source_location"] = capo_datazone.types._unknown.UnknownUnionMember("")
     if data.get("gitMetadata") is not None:
         import capo_datazone.types.git_metadata
 

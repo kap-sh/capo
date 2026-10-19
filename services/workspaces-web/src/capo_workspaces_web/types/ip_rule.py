@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_workspaces_web.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_workspaces_web.types.description
     import capo_workspaces_web.types.ip_range
@@ -32,7 +30,7 @@ def deserialize_json(data: dict) -> IpRule:
     if data.get("ipRange") is not None:
         out["ip_range"] = data["ipRange"]
     else:
-        raise DeserializationError("IpRule.ip_range required")
+        out["ip_range"] = ""
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out

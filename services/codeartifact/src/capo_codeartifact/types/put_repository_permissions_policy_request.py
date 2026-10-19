@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_codeartifact.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_codeartifact.types.account_id
     import capo_codeartifact.types.domain_name
@@ -45,7 +43,5 @@ def deserialize_json(data: dict) -> PutRepositoryPermissionsPolicyRequest:
     if data.get("policyDocument") is not None:
         out["policy_document"] = data["policyDocument"]
     else:
-        raise DeserializationError(
-            "PutRepositoryPermissionsPolicyRequest.policy_document required"
-        )
+        out["policy_document"] = ""
     return out

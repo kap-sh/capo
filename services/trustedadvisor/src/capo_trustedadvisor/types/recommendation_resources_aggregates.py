@@ -2,8 +2,6 @@
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_trustedadvisor.errors import DeserializationError
-
 
 class RecommendationResourcesAggregates(TypedDict, closed=True):
     ok_count: "int"
@@ -32,21 +30,15 @@ def deserialize_json(data: dict) -> RecommendationResourcesAggregates:
     if data.get("okCount") is not None:
         out["ok_count"] = data["okCount"]
     else:
-        raise DeserializationError(
-            "RecommendationResourcesAggregates.ok_count required"
-        )
+        out["ok_count"] = 0
     if data.get("warningCount") is not None:
         out["warning_count"] = data["warningCount"]
     else:
-        raise DeserializationError(
-            "RecommendationResourcesAggregates.warning_count required"
-        )
+        out["warning_count"] = 0
     if data.get("errorCount") is not None:
         out["error_count"] = data["errorCount"]
     else:
-        raise DeserializationError(
-            "RecommendationResourcesAggregates.error_count required"
-        )
+        out["error_count"] = 0
     if data.get("excludedCount") is not None:
         out["excluded_count"] = data["excludedCount"]
     return out

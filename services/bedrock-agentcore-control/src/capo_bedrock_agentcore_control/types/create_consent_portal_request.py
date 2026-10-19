@@ -67,9 +67,7 @@ def deserialize_json(data: dict) -> CreateConsentPortalRequest:
     if data.get("executionRoleArn") is not None:
         out["execution_role_arn"] = data["executionRoleArn"]
     else:
-        raise DeserializationError(
-            "CreateConsentPortalRequest.execution_role_arn required"
-        )
+        out["execution_role_arn"] = ""
     if data.get("idpConfig") is not None:
         import capo_bedrock_agentcore_control.types.consent_portal_idp_config
 
@@ -83,7 +81,7 @@ def deserialize_json(data: dict) -> CreateConsentPortalRequest:
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("CreateConsentPortalRequest.name required")
+        out["name"] = ""
     if data.get("sources") is not None:
         import capo_bedrock_agentcore_control.types.consent_portal_sources
 
@@ -93,7 +91,7 @@ def deserialize_json(data: dict) -> CreateConsentPortalRequest:
             )
         )
     else:
-        raise DeserializationError("CreateConsentPortalRequest.sources required")
+        out["sources"] = []
     if data.get("description") is not None:
         out["description"] = data["description"]
     if data.get("tags") is not None:

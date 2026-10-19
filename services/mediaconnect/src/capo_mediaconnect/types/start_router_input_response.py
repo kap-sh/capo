@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_mediaconnect.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_mediaconnect.types.maintenance_schedule
     import capo_mediaconnect.types.maintenance_schedule_type
@@ -62,11 +60,11 @@ def deserialize_json(data: dict) -> StartRouterInputResponse:
     if data.get("arn") is not None:
         out["arn"] = data["arn"]
     else:
-        raise DeserializationError("StartRouterInputResponse.arn required")
+        out["arn"] = ""
     if data.get("name") is not None:
         out["name"] = data["name"]
     else:
-        raise DeserializationError("StartRouterInputResponse.name required")
+        out["name"] = ""
     if data.get("state") is not None:
         import capo_mediaconnect.types.router_input_state
 
@@ -74,7 +72,11 @@ def deserialize_json(data: dict) -> StartRouterInputResponse:
             data["state"]
         )
     else:
-        raise DeserializationError("StartRouterInputResponse.state required")
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_mediaconnect.types.router_input_state.RouterInputState", ""
+        )
     if data.get("maintenanceScheduleType") is not None:
         import capo_mediaconnect.types.maintenance_schedule_type
 
@@ -84,8 +86,11 @@ def deserialize_json(data: dict) -> StartRouterInputResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "StartRouterInputResponse.maintenance_schedule_type required"
+        import typing
+
+        out["maintenance_schedule_type"] = typing.cast(
+            "capo_mediaconnect.types.maintenance_schedule_type.MaintenanceScheduleType",
+            "",
         )
     if data.get("maintenanceSchedule") is not None:
         import capo_mediaconnect.types.maintenance_schedule
@@ -96,7 +101,9 @@ def deserialize_json(data: dict) -> StartRouterInputResponse:
             )
         )
     else:
-        raise DeserializationError(
-            "StartRouterInputResponse.maintenance_schedule required"
+        import capo_mediaconnect.types._unknown
+
+        out["maintenance_schedule"] = (
+            capo_mediaconnect.types._unknown.UnknownUnionMember("")
         )
     return out

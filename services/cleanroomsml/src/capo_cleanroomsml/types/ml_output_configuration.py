@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cleanroomsml.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cleanroomsml.types.destination
     import capo_cleanroomsml.types.iam_role_arn
@@ -42,5 +40,5 @@ def deserialize_json(data: dict) -> MLOutputConfiguration:
     if data.get("roleArn") is not None:
         out["role_arn"] = data["roleArn"]
     else:
-        raise DeserializationError("MLOutputConfiguration.role_arn required")
+        out["role_arn"] = ""
     return out

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import TypedDict
 
-from capo_directory_service.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_directory_service.types.trust_id
 
@@ -27,5 +25,5 @@ def deserialize_aws_json_1_1(data: dict) -> VerifyTrustRequest:
     if data.get("TrustId") is not None:
         out["trust_id"] = data["TrustId"]
     else:
-        raise DeserializationError("VerifyTrustRequest.trust_id required")
+        out["trust_id"] = ""
     return out

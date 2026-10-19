@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
-from capo_cloudwatch_logs.errors import DeserializationError
-
 if TYPE_CHECKING:
     import capo_cloudwatch_logs.types.account_ids
     import capo_cloudwatch_logs.types.next_token
@@ -60,8 +58,10 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAccountPoliciesRequest:
             )
         )
     else:
-        raise DeserializationError(
-            "DescribeAccountPoliciesRequest.policy_type required"
+        import typing
+
+        out["policy_type"] = typing.cast(
+            "capo_cloudwatch_logs.types.policy_type.PolicyType", ""
         )
     if data.get("policyName") is not None:
         out["policy_name"] = data["policyName"]
